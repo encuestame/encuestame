@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.business.mail.MailServiceImpl;
 import org.encuestame.business.service.imp.ISurveyService;
+import org.encuestame.business.service.imp.MailServiceOperations;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -53,7 +53,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     private ISurveyService surveyService;
 
     @Autowired
-    private MailServiceImpl mailServiceImpl;
+    private org.encuestame.business.service.imp.MailServiceOperations mailService;
 
     /** {@link Question} */
     private Question question;
@@ -249,8 +249,8 @@ public class TestSurveyService  extends AbstractServiceBase{
     /**
      * @param mailServiceImpl the mailServiceImpl to set
      */
-    public void setMailServiceImpl(final MailServiceImpl mailServiceImpl) {
-        this.mailServiceImpl = mailServiceImpl;
+    public void setMailServiceImpl(final MailServiceOperations mailServiceImpl) {
+        this.mailService = mailServiceImpl;
     }
 
 }

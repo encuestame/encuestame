@@ -5,8 +5,11 @@ dojo.require("dijit.Dialog");
 dojo.declare(
     "encuestame.org.core.commons.dialog.Dialog",
     [dijit.Dialog],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dialog", "templates/dialog.html"),
-
-        draggable : false
+        //disable drag support.
+        draggable : false,
+        //post create
+        postCreate : function(){
+            console.debug(this.templatePath);
+        }
 });
 

@@ -24,10 +24,9 @@ import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -153,7 +152,7 @@ public class SecurityUtils {
         if(authentication != null){
             session = authentication.isAuthenticated();
             for (GrantedAuthority authority : authentication.getAuthorities()) {
-                GrantedAuthorityImpl auth = (GrantedAuthorityImpl) authority;
+                SimpleGrantedAuthority auth = (SimpleGrantedAuthority) authority;
                 if(auth.getAuthority().toString() == EnMePermission.ENCUESTAME_USER.toString()){
                     session = false;
                     break;

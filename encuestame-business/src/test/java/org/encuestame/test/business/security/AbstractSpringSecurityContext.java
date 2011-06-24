@@ -15,14 +15,14 @@ package org.encuestame.test.business.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.junit.Before;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -83,8 +83,8 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
     public void setAuthentication(final String username, final String password){
         final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         //Add permissions.
-        authorities.add(new GrantedAuthorityImpl(EnMePermission.ENCUESTAME_USER.name()));
-        authorities.add(new GrantedAuthorityImpl(EnMePermission.ENCUESTAME_ADMIN.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_USER.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_ADMIN.name()));
         TestingAuthenticationToken token = new TestingAuthenticationToken(username, password, authorities);
         token.setAuthenticated(true);
         SecurityContextHolder.getContext().setAuthentication(token);

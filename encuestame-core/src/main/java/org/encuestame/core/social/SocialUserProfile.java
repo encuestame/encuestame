@@ -515,4 +515,11 @@ public class SocialUserProfile {
     public void setUsername(final String username) {
         this.username = username;
     }
+
+    public String getRealName(){
+        StringBuffer buffer = new StringBuffer(getFirstName() == null ? "" : getFirstName());
+        buffer.append(" ");
+        buffer.append(getLastName() == null ? "" : getLastName());
+        return buffer.toString();
+    }
 }

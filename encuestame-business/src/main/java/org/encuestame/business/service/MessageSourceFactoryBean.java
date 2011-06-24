@@ -10,24 +10,33 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.util;
+package org.encuestame.business.service;
 
 import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.stereotype.Service;
 /**
  * Message Source Factory Bean.
  * @author Picado, Juan juan@encuestame.org
  * @since 12/05/2009 9:17:43
  * @version $Id$
  */
+@Service
 public class MessageSourceFactoryBean implements MessageSource {
 
+    /**
+     *
+     */
     private MessageSource messagesource;
 
-    public void setMessagesource(MessageSource messagesource) {
+    /**
+     *
+     * @param messagesource
+     */
+    public void setMessagesource(final MessageSource messagesource) {
         this.messagesource = messagesource;
     }
 

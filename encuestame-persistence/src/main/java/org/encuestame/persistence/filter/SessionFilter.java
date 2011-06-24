@@ -13,6 +13,8 @@
 
 package org.encuestame.persistence.filter;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
@@ -28,7 +30,7 @@ import org.springframework.orm.hibernate3.support.OpenSessionInViewFilter;
  */
 public class SessionFilter extends OpenSessionInViewFilter {
 
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /*
      * The default mode is FlushMode.NEVER

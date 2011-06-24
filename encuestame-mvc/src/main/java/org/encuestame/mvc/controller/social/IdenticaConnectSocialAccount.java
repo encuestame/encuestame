@@ -4,8 +4,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -55,7 +57,31 @@ public class IdenticaConnectSocialAccount extends AbstractAccountConnect {
     public String connectIdenticaSocialAccount(@RequestParam(required = false) String scope,
             WebRequest request,
             HttpServletRequest httpRequest) {
-        return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
+        try {
+            return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
+        } catch (EnMeOAuthSecurityException e) {
+            e.printStackTrace();
+            log.error(e);
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param error
+     * @param httpRequest
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/social/back/identica", method = RequestMethod.GET, params = "oauth_problem")
+    public String oauth1Callback(
+            @RequestParam("oauth_problem") String error,
+            HttpServletRequest httpRequest,
+            WebRequest request) throws Exception {
+        log.fatal("OAuth Error:{"+error);
+        RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+        return "redirect:/settings/social";
     }
 
     /**

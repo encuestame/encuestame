@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.social.oauth.AbstractOAuthSupport;
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +30,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.util.UriTemplate;
 
 /**
@@ -83,7 +85,7 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
      * (non-Javadoc)
      * @see org.encuestame.core.social.oauth1.OAuth1RestOperations#fetchNewRequestToken(java.lang.String)
      */
-    public OAuth1Token fetchNewRequestToken(String callbackUrl) {
+    public OAuth1Token fetchNewRequestToken(String callbackUrl) throws EnMeOAuthSecurityException {
         Map<String, String> requestTokenParameters = new HashMap<String, String>();
         if (oauth10a) {
             requestTokenParameters.put("oauth_callback", callbackUrl);
@@ -107,7 +109,7 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
      * (non-Javadoc)
      * @see org.encuestame.core.social.oauth1.OAuth1RestOperations#exchangeForAccessToken(org.encuestame.core.social.oauth1.AuthorizedRequestToken)
      */
-    public OAuth1Token exchangeForAccessToken(AuthorizedRequestToken requestToken) {
+    public OAuth1Token exchangeForAccessToken(AuthorizedRequestToken requestToken) throws EnMeOAuthSecurityException {
         Map<String, String> accessTokenParameters = new HashMap<String, String>();
         accessTokenParameters.put("oauth_token", requestToken.getValue());
         if (oauth10a) {
@@ -118,7 +120,7 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
 
     // internal helpers
 
-    protected OAuth1Token getTokenFromProvider(String tokenUrl, Map<String, String> tokenRequestParameters, Map<String, String> additionalParameters, String tokenSecret) {
+    protected OAuth1Token getTokenFromProvider(String tokenUrl, Map<String, String> tokenRequestParameters, Map<String, String> additionalParameters, String tokenSecret) throws EnMeOAuthSecurityException {
         log.debug("getTokenFromProvider TOKEN "+tokenUrl);
         log.debug("getTokenFromProvider TOKEN "+tokenRequestParameters);
         log.debug("getTokenFromProvider TOKEN "+additionalParameters);
@@ -127,8 +129,18 @@ public class OAuth1Support extends AbstractOAuthSupport implements OAuth1RestOpe
         MultiValueMap<String, String> bodyParameters = new LinkedMultiValueMap<String, String>();
         bodyParameters.setAll(additionalParameters);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(bodyParameters, headers);
-        ResponseEntity<String> response = getRestTemplate().exchange(tokenUrl, HttpMethod.POST, request, String.class);
-        Map<String, String> responseMap = parseResponse(response.getBody());
+        Map<String, String> responseMap = null;
+        /*
+         * org.springframework.web.client.HttpServerErrorException: 503 Service Unavailable
+         * Sometimes, api service are unavailable, like the famous twitter over capacity
+         */
+        try {
+            ResponseEntity<String> response = getRestTemplate().exchange(tokenUrl, HttpMethod.POST, request, String.class);
+            responseMap = parseResponse(response.getBody());
+        } catch (HttpServerErrorException e) {
+            throw new EnMeOAuthSecurityException(e);
+        }
+
         return new OAuth1Token(responseMap.get("oauth_token"), responseMap.get("oauth_token_secret"));
     }
 

@@ -26,7 +26,12 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.springframework.util.Assert;
 //import org.json.simple.JSONObject;
 //import org.json.simple.JSONValue;
 
@@ -47,7 +52,9 @@ public class SocialUtils {
 
     public final static String bitLyUrlApi = "http://api.bit.ly/shorten";
 
-    public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location";
+    public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
+
+    public final static Integer TWITTER_LIMIT = 140;
 
     /**
      * Get Google Stats from google short url.
@@ -168,11 +175,12 @@ public class SocialUtils {
             //"results": {"http://www.encuestame.org": {"userHash": "gmks0X", "shortKeywordUrl": "", "hash": "hMMQuX",
            // "shortCNAMEUrl": "http://bit.ly/gmks0X", "shortUrl": "http://bit.ly/gmks0X"}},
             //"statusCode": "OK"}
-     //       final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
-  //          final JSONObject o = (JSONObject) jsonObject;
-    //        final JSONObject results = (JSONObject) o.get("results");
-   //         final JSONObject url = (JSONObject) results.get(urlPath);
-     //       responseXml = (String) url.get("shortUrl");
+            final Object jsonObject = JSONValue.parse(method.getResponseBodyAsString());
+            log.debug("getBitLy: "+jsonObject.toString());
+            final JSONObject o = (JSONObject) jsonObject;
+            final JSONObject results = (JSONObject) o.get("results");
+            final JSONObject url = (JSONObject) results.get(urlPath);
+             responseXml = (String) url.get("shortUrl");
         } catch (HttpException e1) {
             log.error(e1);
             responseXml = urlPath;
@@ -184,5 +192,42 @@ public class SocialUtils {
             responseXml = urlPath;
         }
         return responseXml;
+    }
+
+    /**
+     * Build the original  url to tweet in the social network.
+     * @param id id
+     * @param username username (only for twitter)
+     * @return the url.
+     */
+    public static String getSocialTweetPublishedUrl(
+            final String id,
+            final String username,
+            final SocialProvider provider) {
+        Assert.notNull(id);
+        final StringBuilder builder = new StringBuilder();
+        if(SocialProvider.TWITTER.equals(provider)){
+            String twitterUrl = EnMePlaceHolderConfigurer.getProperty("social.twitter");
+            twitterUrl = twitterUrl.replace("{username}", username);
+            twitterUrl = twitterUrl.replace("{id}", id);
+            builder.append(twitterUrl);
+        } else if(SocialProvider.FACEBOOK.equals(provider)){
+            String facebookUrl = EnMePlaceHolderConfigurer.getProperty("social.facebook");
+            String[] array = id.split("_");
+            log.debug("Facebook Id array:{"+array.length);
+            if (array.length >= 2) {
+                facebookUrl = facebookUrl.replace("{B}", array[0]);
+                facebookUrl = facebookUrl.replace("{A}", array[1]);
+                builder.append(facebookUrl);
+            }
+        } else if(SocialProvider.LINKEDIN.equals(provider)){
+            builder.append(EnMePlaceHolderConfigurer.getProperty("social.linkedin"));
+        } else if(SocialProvider.IDENTICA.equals(provider)){
+             String identicaUrl = EnMePlaceHolderConfigurer.getProperty("social.identica");
+             identicaUrl = identicaUrl.replace("{id}", id);
+             builder.append(identicaUrl);
+        }
+        log.debug("getSocialTweetPublishedUrl "+builder.toString());
+        return builder.toString();
     }
 }

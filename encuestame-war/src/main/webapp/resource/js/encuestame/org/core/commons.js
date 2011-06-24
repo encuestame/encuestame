@@ -260,6 +260,16 @@ encuestame.session.getSession = function(){
     }
 };
 
+encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
+
+encuestame.social = {};
+
+encuestame.social.shortPicture = function(provider){
+     var url = encuestame.contextDefault + "/resources/images/social/"+provider.toLowerCase()
+               +"/enme_icon_"+provider.toLowerCase()+".png";
+     return url;
+};
+
 encuestame.session.activity = {};
 
 encuestame.session.activity.name = "enme-ac";
@@ -303,6 +313,16 @@ encuestame.session.update = function(name, data){
 };
 
 
+encuestame.date = {};
+encuestame.date.timeFormat = "hh:mm:ss";
+encuestame.date.dateFormat = "M/d/yy";
+encuestame.date.getFormatTime = function(date, fmt){
+    return dojo.date.locale.format(date, {
+        selector: "date",
+        datePattern: fmt
+    });
+}
+
 /**
  * Json Get Call.
  */
@@ -338,6 +358,34 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
         var deferred = dojo.xhrPost(xhrArgs);
     }
 };
+
+encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
+    //validate form param.
+    formEnabled = formEnabled == null ? true : formEnabled;
+    //default error.
+    var defaultError = function(error, ioargs){
+        console.error("default error ", error);
+    };
+    if(error == null){
+      error = defaultError;
+    }
+    console.debug("Form POST ", form);
+    if(load == null || url == null || form == null){
+        console.error("error params required.");
+    } else {
+        var xhrArgs = {
+            url: url,
+            postData: dojo.objectToQuery(form),
+            handleAs: "text",
+            //headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            load: load,
+            preventCache: true,
+            error: error
+        };
+        var deferred = dojo.xhrPost(xhrArgs);
+    }
+};
+
 
 /*
  * get context widget.

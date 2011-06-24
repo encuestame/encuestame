@@ -8,6 +8,11 @@
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}home.jsp" />
     </definition>
 
+    <definition name="menu" extends="page">
+        <put-attribute name="title" value="Home | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+    </definition>
+
     <definition name="search" extends="page">
         <put-attribute name="title" value="Search | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}search.jsp" />
@@ -21,11 +26,6 @@
     <definition name="tag/detail" extends="page">
         <put-attribute name="title" value="HashTag Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}hashtag.jsp" />
-    </definition>
-
-     <definition name="pageNotFound" extends="page">
-        <put-attribute name="title" value="Page Not Found" />
-        <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}404.jsp" />
     </definition>
 
 </tiles-definitions>

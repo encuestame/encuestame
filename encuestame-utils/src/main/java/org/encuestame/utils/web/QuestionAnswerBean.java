@@ -174,8 +174,7 @@ public class QuestionAnswerBean implements Serializable{
     public String toString() {
         return "QuestionAnswerBean [answerId=" + answerId + ", answers="
                 + answers + ", answerHash=" + answerHash + ", url=" + url
-                + ", shortUrl=" + shortUrl + ", questionId=" + questionId + "]";
+                + ", shortUrl=" + shortUrl + ", questionId=" + questionId
+                + ", shortUrlType=" + shortUrlType + "]";
     }
-
-
 }

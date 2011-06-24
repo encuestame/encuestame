@@ -1,8 +1,3 @@
-.login{
-    background-color: #F0F2F5;
-    font: 0.75em 'Lucida Grande',sans-serif;
-}
-
 #loginWrapper{
     margin: 5em 20em;
     float: left
@@ -168,10 +163,6 @@ div.formWrapper a.button:active {
 div.formWrapper a.button:active span {
     background-position: bottom left;
     padding: 6px 0 4px 18px; /* push text down 1px */
-}
-
-#loginWrapper .error{
-    color: #DC2929;
 }
 
 .shiny_box {

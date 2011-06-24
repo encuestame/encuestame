@@ -159,11 +159,11 @@ import org.junit.Test;
         tweetPoll.setScheduleDate(new Date());
         tweetPoll.setCompleted(true);
         tweetPoll.setTweetUrl("http://www.encuestame.org");
-        tweetPoll.setTwitterUserAccount("@encuestame");
+      //  tweetPoll.setTwitterUserAccount("@encuestame");
         assertNotNull(tweetPoll.getCompleted());
-        assertNotNull(tweetPoll.getTwitterUserAcoount());
-        assertNotNull(tweetPoll.getTweetUrl());
-        assertNotNull(tweetPoll.getTweetUrl());
+    //    assertNotNull(tweetPoll.getTwitterUserAcoount());
+    //    assertNotNull(tweetPoll.getTweetUrl());
+    //    assertNotNull(tweetPoll.getTweetUrl());
         assertNotNull(tweetPoll.getScheduleDate());
         assertNotNull(tweetPoll.getId());
         assertNotNull(tweetPoll.getAllowLiveResults());
@@ -536,20 +536,7 @@ import org.junit.Test;
         final SocialAccountBean accountBean = new SocialAccountBean();
         accountBean.setAccount("account");
         accountBean.setAccountId(1L);
-        accountBean.setKey("key");
-        accountBean.setSecret("secret");
-        accountBean.setPin("123456");
-        accountBean.setToken("token");
-        accountBean.setSecretToken("token");
         accountBean.setType("type");
-        assertNotNull(accountBean.getAccount());
-        assertNotNull(accountBean.getAccountId());
-        assertNotNull(accountBean.getKey());
-        assertNotNull(accountBean.getPin());
-        assertNotNull(accountBean.getSecret());
-        assertNotNull(accountBean.getSecretToken());
-        assertNotNull(accountBean.getToken());
-        assertNotNull(accountBean.getType());
     }
 
     /**

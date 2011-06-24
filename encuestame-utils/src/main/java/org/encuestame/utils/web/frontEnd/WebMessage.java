@@ -6,25 +6,55 @@ public final class WebMessage {
 
     private final String message;
 
+    private String description = "";
+
     public WebMessage(WebInfoType type, String text) {
         this.infoType = type;
         this.message = text;
     }
 
-    public WebInfoType getType() {
+    /**
+     * @param infoType
+     * @param message
+     * @param description
+     */
+    public WebMessage(WebInfoType infoType, String message, String description) {
+        super();
+        this.infoType = infoType;
+        this.message = message;
+        this.description = description;
+    }
+
+
+
+    /**
+     * @return the infoType
+     */
+    public WebInfoType getInfoType() {
         return infoType;
     }
 
     /**
-     * The info text.
+     * @return the message
      */
-    public String getText() {
+    public String getMessage() {
         return message;
     }
 
     public String toString() {
         return infoType + ": " + message;
     }
+
+
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+
 
     public enum WebInfoType {
         WARNING, ERROR, INFO, SUCCESS;

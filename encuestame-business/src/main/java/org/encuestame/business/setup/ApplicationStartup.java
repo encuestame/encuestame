@@ -13,10 +13,10 @@
 package org.encuestame.business.setup;
 
 import org.apache.log4j.Logger;
+import org.encuestame.business.service.imp.MailServiceOperations;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.TypeDatabase;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.mail.MailService;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -47,7 +47,7 @@ public class ApplicationStartup implements StartupProcess {
      * Mail service provider.
      */
     @Autowired
-    private MailService mailService;
+    private MailServiceOperations mailService;
 
     /**
      * Constructor.
@@ -149,7 +149,7 @@ public class ApplicationStartup implements StartupProcess {
      * @param mailService
      *            the mailService to set
      */
-    public void setMailService(MailService mailService) {
+    public void setMailService(MailServiceOperations mailService) {
         this.mailService = mailService;
     }
 }

@@ -27,6 +27,7 @@ import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -76,8 +77,8 @@ public class TweetPollController extends AbstractBaseOperations {
             final TweetPollSwitch tweetPoll = getTweetPollService()
                     .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
             model.addAttribute("switch", tweetPoll);
-            if (tweetPoll == null
-                    || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
+            //NOTE: tweetpoll should be published to able to vote !!
+            if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                 log.debug("tweetpoll answer not found");
                 model.put("message", "Tweet Not Valid.");
             } else {
@@ -241,6 +242,10 @@ public class TweetPollController extends AbstractBaseOperations {
             log.error(e);
             e.printStackTrace();
             return "404";
+        } catch (EnMeNoResultsFoundException e) {
+             log.error(e);
+             e.printStackTrace();
+             return "404";
         }
     }
 }
