@@ -12,10 +12,6 @@
  */
 package org.encuestame.test.persistence.domain;
 
-import static org.junit.Assert.*;
-
-import javax.persistence.AccessType;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
