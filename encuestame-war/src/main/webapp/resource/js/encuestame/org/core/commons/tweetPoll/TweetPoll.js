@@ -666,7 +666,8 @@ dojo.declare(
                 var button = dijit.byId(this._close);
                     button.onClick = dojo.hitch(this, function(event){
                           this.tweetPollWidget.dialogWidget.hide();
-                          location.href = encuestame.contextDefault+"/user/tweetpoll/list";
+                          console.debug(encuestame.contextDefault+"/user/tweetpoll/list");
+                          document.location.href = encuestame.contextDefault+"/user/tweetpoll/list";
                 });
             },
 

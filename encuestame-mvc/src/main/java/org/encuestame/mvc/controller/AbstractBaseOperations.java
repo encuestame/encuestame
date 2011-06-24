@@ -314,8 +314,17 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
-    public String getMessage(final String message, final HttpServletRequest request, Object[] args){
-        return getServiceManager().getMessageSource().getMessage(message, args, getLocale(request));
+    //TODO: ENCUESTAME-223
+    public String getMessage(final String message,
+            final HttpServletRequest request, Object[] args) {
+        String stringValue = "";
+        try {
+            stringValue = getServiceManager().getMessageSource().getMessage(
+                    message, args, getLocale(request));
+        } catch (Exception e) {
+            log.error(e);
+        }
+        return stringValue;
     }
 
     /**

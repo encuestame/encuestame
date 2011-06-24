@@ -268,6 +268,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                                 tweetPoll, tweetText);
                 tweetPoll.setCompleted(Boolean.TRUE);
                 tweetPoll.setPublishTweetPoll(Boolean.TRUE);
+                getTweetPollService().saveOrUpdateTweetPoll(tweetPoll);
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                 jsonResponse.put("socialPublish", ConvertDomainToJson.convertTweetPollStatusToJson(results));
                 setItemResponse(jsonResponse);
