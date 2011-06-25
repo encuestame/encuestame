@@ -44,24 +44,19 @@ public class TwitterIntegrationTestCase {
         //System.out.println(this.twitterTemplate.search("nicaragua").getTweets().size());
         //System.out.println(this.twitterTemplate.getDirectMessages().size());
         for (Tweet tweet : this.twitterTemplate.search("nicaragua").getTweets()) {
-            System.out.println(tweet.getFromUser());
-            System.out.println(tweet.getText());
+            //System.out.println(tweet.getFromUser());
+            //System.out.println(tweet.getText());
         }
     }
 
     @Test
     public void testTwitterChannel(){
-        System.out.println("testTwitterChannel");
+        //System.out.println("testTwitterChannel");
         MessageChannel twitterOutChannel = this.twitterTransformedChannel;
         Message<String> twitterUpdate = new GenericMessage<String>("Testing new Twitter " +
                 "http://www.google.es samples for #springintegration "+RandomStringUtils.random(4));
-        System.out.println("twitterOutChannel message "+twitterUpdate.getPayload());
+        //System.out.println("twitterOutChannel message "+twitterUpdate.getPayload());
         twitterOutChannel.send(twitterUpdate);
-        System.out.println("twitterOutChannel");
-    }
-
-    @Test
-    public void test(){
-        System.out.println(this.errorChannel.getQueueSize());
+        //System.out.println("twitterOutChannel");
     }
 }

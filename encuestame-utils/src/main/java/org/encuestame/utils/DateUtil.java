@@ -170,7 +170,6 @@ public class DateUtil {
         DateTime end = new DateTime(); //Devuelve la fecha actual al estilo Date
         //Buscar la diferencia
         int days = Days.daysBetween(start, end).getDays();
-        System.out.println("days = " + days);
      */
 
     /**
@@ -186,11 +185,8 @@ public class DateUtil {
         int MONTH = 30 * DAY;
         final HashMap<Integer, RelativeTimeEnum> numbers = new HashMap<Integer, RelativeTimeEnum>();
         final Integer seconds = DateUtil.getSecondsBetweenDates(startDate);
-        //System.out.println("seconds ago  "+seconds);
         final Integer minutes = DateUtil.getMinutesBetweenDates(startDate);
-        //System.out.println("minutes ago  "+minutes);
         final Integer hour = DateUtil.getHoursBetweenDates(startDate);
-        //System.out.println("hour ago  "+hour);
         final Integer days = DateUtil.getDaysBetweenDates(startDate);
         if (seconds < 0) {
             numbers.put(seconds, RelativeTimeEnum.RIGTH_NOW);

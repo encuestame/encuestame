@@ -553,7 +553,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public UserAccount createUserAccount(
             final String name,
             final Account secUser){
-        return createUserAccount(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
+        return createUserAccount(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
     }
 
 
@@ -561,7 +561,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String name,
             final Account secUser,
             final Group group){
-        return createSecondaryUserGroup(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
+        return createSecondaryUserGroup(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
     }
 
 
@@ -581,7 +581,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
-        user.setUserEmail(email);
+        user.setUserEmail(email.trim());
         user.setEnjoyDate(new Date());
         user.setInviteCode("xxxxxxx");
         user.setAccount(secUser);

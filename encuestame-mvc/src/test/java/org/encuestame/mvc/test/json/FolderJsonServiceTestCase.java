@@ -101,12 +101,12 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      * @throws IOException
      */
     public String createJsonPollFolder(final String actionType, final String folderName) throws ServletException, IOException{
-        System.out.println("FolderName ---->"+ folderName);
-        System.out.println("Action Type ---->"+ actionType);
+        //System.out.println("FolderName ---->"+ folderName);
+        //System.out.println("Action Type ---->"+ actionType);
         initService("/api/survey/folder/"+actionType+"/create.json", MethodJson.GET);
         setParameter("n", folderName);
         final JSONObject response = callJsonService();
-        System.out.println("RESPONSE----------->"+response);
+        //System.out.println("RESPONSE----------->"+response);
         //"error":{},"success":{"folder":{"id":87,"createAt":1303337873233,"folderName":"Education"}}}
         final JSONObject success = getSucess(response);
         final JSONObject folder = (JSONObject) success.get("folder");
@@ -139,13 +139,13 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      */
     public Long updateJsonFolder(final String actionType, final String folderName, final Long folderId) throws ServletException, IOException{
-        System.out.println("FolderName UPDATE---->"+ folderName);
-        System.out.println("Action Type UPDATE---->"+ actionType);
+        //System.out.println("FolderName UPDATE---->"+ folderName);
+        //System.out.println("Action Type UPDATE---->"+ actionType);
         initService("/api/survey/folder/"+actionType+"/update.json", MethodJson.GET);
         setParameter("folderName", folderName);
         setParameter("folderId", folderId.toString());
         final JSONObject response = callJsonService();
-        System.out.println("RESPONSE Update----------->"+response);
+        //System.out.println("RESPONSE Update----------->"+response);
         final JSONObject success = getSucess(response);
         final JSONObject folder = (JSONObject) success.get("folder");
         return  (Long) folder.get("id")  ;
@@ -173,7 +173,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         initService("/api/survey/folder/"+actionType+"/remove.json", MethodJson.GET);
         setParameter("folderId", folderId.toString());
         final JSONObject response = callJsonService();
-        System.out.println("RESPONSE REMOVE----------->"+response);
+        //System.out.println("RESPONSE REMOVE----------->"+response);
         return response;
     }
 
@@ -233,7 +233,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         initService("/api/survey/folder/"+actionType+"/list.json", MethodJson.GET);
         setParameter("folderId", folderId.toString());
         final JSONObject response = callJsonService();
-        System.out.println("RESPONSE Retrieve----------->"+response);
+       // System.out.println("RESPONSE Retrieve----------->"+response);
         final JSONObject success = getSucess(response);
         final JSONArray polls = (JSONArray) success.get("polls");
         return polls.size();

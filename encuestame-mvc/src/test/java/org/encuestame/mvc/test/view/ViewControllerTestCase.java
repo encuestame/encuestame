@@ -49,7 +49,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class ViewControllerTestCase extends AbstractMvcUnitBeans{
 
         @Autowired
-        private TweetPollController pollController;
+        private TweetPollController tweetPollController;
+
+        @Autowired
+        private PollController pollController2;
 
         @Before
         public void initMVc() {
@@ -146,12 +149,11 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         @Test
         public void testPollController() throws Exception {
             final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"), createAccount(), true, true);
-            final PollController controller = new PollController();
             //"/user/signin
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/poll/"+poll.getPollId());
             final ModelAndView mav = handlerAdapter.handle(request, response,
-                controller);
-            assertViewName(mav, "poll");
+                pollController2);
+            assertViewName(mav, "poll/detail");
         }
 
         /**
@@ -165,7 +167,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/survey");
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
-            assertViewName(mav, "survey");
+            assertViewName(mav, "user/survey");
         }
 
         /**
@@ -176,49 +178,44 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         public void testTweetPollController() throws Exception {
             final UserAccount userAccount = createUserAccount("jota", createAccount());
             createFakesTweetPoll(userAccount);
-            System.out.println(getHibernateTemplate().find("from TweetPoll").size());
             final TweetPoll tp1 = (TweetPoll) getHibernateTemplate().find("from TweetPoll").get(0);
             final Question q1 = tp1.getQuestion();
             final QuestionAnswer a1 = createQuestionAnswer("yes", q1, "12345");
             final QuestionAnswer a2 = createQuestionAnswer("no", q1, "12346");
             final TweetPollSwitch tps1 = createTweetPollSwitch(a1, tp1);
             final TweetPollSwitch tps2 = createTweetPollSwitch(a2, tp1);
-            Assert.assertNotNull(pollController);
+            Assert.assertNotNull(this.tweetPollController);
 
             //bad vote view.
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/1");
             final ModelAndView mav = handlerAdapter.handle(request, response,
-                    pollController);
-            System.out.println(mav);
+                    tweetPollController);
+            //System.out.println(mav);
             assertViewName(mav, "badTweetVote");
 
             //vote view.
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/"+tps1.getCodeTweet());
             final ModelAndView mavVote = handlerAdapter.handle(request, response,
-                    pollController);
-            System.out.println(mavVote);
+                    tweetPollController);
             assertViewName(mavVote, "tweetVoted");
 
             //repeated vote view.
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/"+tps1.getCodeTweet());
             final ModelAndView mavVote1 = handlerAdapter.handle(request, response,
-                    pollController);
-            System.out.println(mavVote1);
+                    tweetPollController);
             assertViewName(mavVote1, "repeatedTweetVote");
 
 
             ///user/tweetpoll/list
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/list");
             final ModelAndView mav2 = handlerAdapter.handle(request, response,
-                    pollController);
-            System.out.println(mav2);
+                    tweetPollController);
             assertViewName(mav2, "tweetpoll");
 
             ///user/tweetpoll/list
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/new");
             final ModelAndView mav3 = handlerAdapter.handle(request, response,
-                    pollController);
-            System.out.println(mav3);
+                    tweetPollController);
             assertViewName(mav3, "tweetpoll/new");
 
         }
@@ -227,7 +224,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          * @param pollController the pollController to set
          */
         public void setPollController(TweetPollController pollController) {
-            this.pollController = pollController;
+            this.tweetPollController = pollController;
         }
 
 

@@ -368,7 +368,6 @@ public class TestHibernateDomains extends AbstractBase{
          //questionCategory.setQuestionCategoryId(1L);
          questionCategory.setCategory("Education");
          getQuestionDaoImp().saveOrUpdate(questionCategory);
-         //System.out.println(questionCategory.getQuestionCategoryId());
          assertNotNull(questionCategory.getQuestionCategoryId());
      }
 
