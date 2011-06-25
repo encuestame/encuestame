@@ -88,7 +88,6 @@ public class TestPollDao extends AbstractBase {
     @Test
     public void testFindAllPollByUserId(){
         this.secUserSecondary = createUserAccount("diana1", this.user);
-        System.out.println("UID-->"+this.secUserSecondary.getUid());
         final List<Poll> pollList = getiPoll().findAllPollByUserId(this.user.getUid(),5,0);
         assertEquals("Should be equals", 1, pollList.size());
     }
@@ -194,7 +193,6 @@ public class TestPollDao extends AbstractBase {
         final Poll poll2 = createPoll(yesterdayDate, this.question, "FDK135", this.user, Boolean.TRUE, Boolean.TRUE);
         final Poll poll3 = createPoll(todayDate, this.question, "FDK456", this.user, Boolean.TRUE, Boolean.TRUE);
         final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.user.getUid(), 10,0);
-        //System.out.println("POLL LIST SIZE ------------>"+pollList.size());
         //assertEquals("Should be equals", 2, pollList.size());
     }
 

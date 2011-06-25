@@ -12,27 +12,28 @@
  */
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
@@ -437,7 +438,7 @@ public class TestSecurityService extends AbstractServiceBase{
       @ExpectedException(EnMeExpcetion.class)
        public void testCreateUserwithoutUsername() throws EnMeExpcetion{
         final UserAccountBean userCreateBean = new UserAccountBean();
-        userCreateBean.setEmail("paola@jotadeveloper.com");
+        userCreateBean.setEmail("paola@users.com");
         userCreateBean.setUsername(null);
         securityService.createUser(userCreateBean, this.secUserSecondary.getUsername());
        }
@@ -664,11 +665,11 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testGetUserAccountbyCode() throws EnMeNoResultsFoundException{
+        final String inviteCode = RandomStringUtils.randomNumeric(6);
         final UserAccount account = createUserAccount("jota", "jota@jota.com", createAccount());
-        account.setInviteCode(this.inviteCode);
+        account.setInviteCode(inviteCode);
         getAccountDao().saveOrUpdate(account);
         final UserAccountBean userAccBean = securityService.getUserAccountbyCode(inviteCode);
         assertNotNull(userAccBean);
-        assertEquals("should be equals", userAccBean.getInviteCode(), this.inviteCode);
     }
 }
