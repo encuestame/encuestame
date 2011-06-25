@@ -17,6 +17,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.MailServiceOperations;
@@ -62,7 +64,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      *  {@link MailService}.
      */
-    private MailServiceOperations mailServiceOperations;
+    @Resource()
+    private MailServiceOperations mailService;
 
     /**
      * Constructor.
@@ -145,7 +148,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 subscribe.setList(emailList);
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
-                getMailServiceOperations().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
                 //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {
@@ -315,14 +318,14 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return the mailServiceOperations
      */
     @Autowired
-    public MailServiceOperations getMailServiceOperations() {
-        return mailServiceOperations;
+    public MailServiceOperations getMailService() {
+        return mailService;
     }
 
     /**
      * @param mailServiceOperations the mailServiceOperations to set
      */
-    public void setMailServiceOperations(final MailServiceOperations mailServiceOperations) {
-        this.mailServiceOperations = mailServiceOperations;
+    public void setMailService(final MailServiceOperations mailServiceOperations) {
+        this.mailService = mailServiceOperations;
     }
 }

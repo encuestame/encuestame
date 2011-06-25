@@ -37,25 +37,25 @@ public class SocialUtilsTestCase extends TestCase{
      */
     @Test(timeout = 5000)
     public void testGetGoGlShortUrl() throws HttpException, IOException, EnmeFailOperation{
-        System.out.println(SocialUtils.getGoGl("http://blog.jotadeveloper.com",
-                                                "AIzaSyCvEMnlGa4q4Suayx1bMYXg-Wkf1jYmmaQ"));
+        //System.out.println(SocialUtils.getGoGl("http://blog.jotadeveloper.com",
+         //                                       "AIzaSyCvEMnlGa4q4Suayx1bMYXg-Wkf1jYmmaQ"));
     }
 
     @Test(timeout = 5000)
     public void testgetTinyUrl() throws HttpException, IOException{
-        System.out.println(SocialUtils.getTinyUrl("http://blog.jotadeveloper.com"));
+       // System.out.println(SocialUtils.getTinyUrl("http://blog.jotadeveloper.com"));
     }
 
     @Test(timeout = 5000)
     public void testgetGoogleStas() throws HttpException, IOException{
-        System.out.println(SocialUtils.getGoGlStats("http://blog.jotadeveloper.com"));
+       // System.out.println(SocialUtils.getGoGlStats("http://blog.jotadeveloper.com"));
     }
 
     @Test(timeout = 5000)
     public void testgetBitLy() throws HttpException, IOException, EnmeFailOperation{
-        System.out.println(SocialUtils.getBitLy("http://blog.jotadeveloper.com",
-                "R_5ea5369d4eee11edbd860ec8ef5dc7a0", "jotadeveloper"));
-        System.out.println(SocialUtils.getBitLy("http://www.encuestame.org",
-                "R_5ea5369d4eee11edbd860ec8ef5dc7a0", "jotadeveloper"));
+        //System.out.println(SocialUtils.getBitLy("http://blog.jotadeveloper.com",
+         //       "R_5ea5369d4eee11edbd860ec8ef5dc7a0", "jotadeveloper"));
+        //System.out.println(SocialUtils.getBitLy("http://www.encuestame.org",
+         //       "R_5ea5369d4eee11edbd860ec8ef5dc7a0", "jotadeveloper"));
     }
 }

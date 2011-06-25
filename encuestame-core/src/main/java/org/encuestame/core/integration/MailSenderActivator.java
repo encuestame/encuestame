@@ -21,7 +21,7 @@ public class MailSenderActivator {
     }
 
     public void sendMessage(final Message<?> message) {
-        System.out.println("Message is:"+message.getPayload());
+        //System.out.println("Message is:"+message.getPayload());
         final MessageHeaders messageHeaders = message.getHeaders();
         messageHeaders.get(MailHeaders.TO);
         final String content = message.getPayload().toString();

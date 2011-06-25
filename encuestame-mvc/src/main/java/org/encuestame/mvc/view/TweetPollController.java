@@ -209,7 +209,7 @@ public class TweetPollController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @PreAuthorize("hasRole('ENCUESTAME_EDITOR')")
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
         log.debug("tweetpoll new");

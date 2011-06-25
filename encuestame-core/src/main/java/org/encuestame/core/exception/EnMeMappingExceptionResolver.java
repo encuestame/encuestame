@@ -53,7 +53,7 @@ public class EnMeMappingExceptionResolver extends SimpleMappingExceptionResolver
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         ex.printStackTrace(pw);
-        System.out.println(sw.toString());
+        //System.out.println(sw.toString());
         RequestSessionMap.setErrorMessage(ex.getMessage(), sw.toString());
         return modelAndView;
     }

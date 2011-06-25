@@ -85,7 +85,7 @@ public class YahooConnectSocialAccount extends AbstractAccountConnect {
         OAuth1Token accessToken;
         try {
             accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-            System.out.println("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
+            //System.out.println("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
             return "connect/account";
         } catch (EnMeOAuthSecurityException e) {
               e.printStackTrace();
