@@ -54,7 +54,6 @@ public class SocialAPITestCase extends TestCase {
     public void testFacebook(){
         final String key = "102345790957|2.Zum2qrFYX25vEcK0VPCGXg__.3600.1303513200.1-100002344241319|-K3LZVuOz3trNGOExskllhzHDeo";
         FacebookAPITemplate fb = new FacebookAPITemplate(key);
-        System.out.println(fb.getUserProfile().toString());
         fb.updateStatus("@encuestame primer mensajeeeeeeeee");
     }
 
@@ -67,8 +66,6 @@ public class SocialAPITestCase extends TestCase {
          String tokenSecret = "884d825bb5fe5f8c6bcadbe413d1b99d";
          IdenticaAPITemplate ca = new IdenticaAPITemplate(apiKey, apiSecret, token, tokenSecret);
          ca.updateStatus("@encuestame testing..."+RandomStringUtils.randomAlphabetic(10));
-         System.out.println("&&&"+ca.getProfileId());
-         System.out.println("&&&"+ca.getUserProfile(423318L));
     }
 
     //@Test
@@ -82,14 +79,12 @@ public class SocialAPITestCase extends TestCase {
 
         LinkedInAPITemplate tp = new LinkedInAPITemplate(apiKey, apiSecret, token, tokenSecret);
         LinkedInProfile p =  tp.getUserProfile();
-        System.out.println("&&&&&&&&&&&&&&&&&&&&& "+p.getFirstName());
-        System.out.println("&&&&&&&&&&&&&&&&&&&&& "+p.getLastName());
         tp.updateStatus("Probando LinkedIn API desde @encuestame, twitter activado", true);
         final List<LinkedInProfile> list = tp.getConnections();
         for (LinkedInProfile linkedInProfile : list) {
-            System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getFirstName());
-            System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getHeadline());
-            System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getPublicProfileUrl());
+            //System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getFirstName());
+            //System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getHeadline());
+            //System.out.println("&&&&&&&&&&&&&&&&&&&&& "+linkedInProfile.getPublicProfileUrl());
         }
     }
 
@@ -114,7 +109,6 @@ public class SocialAPITestCase extends TestCase {
         // try{
         // System.out.println(apiTemplate.getActivities());
         // apiTemplate.likeActivity("tag:google.com,2010:buzz-feed:public:posted:110583664879406693886");
-        System.out.println(apiTemplate.updateStatus("holaaaaaaaaaa333333333"));
         // } catch (HttpClientErrorException e) {
         // // System.out.println("errorr 401 "+e);
         // OAuth2Operations tm = new OAuth2Template(clientId, clientSecret,

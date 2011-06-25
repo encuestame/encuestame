@@ -263,7 +263,6 @@ public class SearchUtils {
                 SearchUtils.LUCENE_VERSION), true,
                 IndexWriter.MaxFieldLength.UNLIMITED);
         Assert.notNull(indexWriter);
-        System.out.println(indexWriter);
         return indexWriter;
     }
 

@@ -36,7 +36,6 @@ public class SocialTestCase extends TestCase{
               request.setUrl("https://www.googleapis.com/bigquery/v1/query");
               request.url.put(
                   "q", "select count(*) from [bigquery/samples/shakespeare];");
-              System.out.println(request.execute().parseAsString());
             } catch (HttpResponseException e) {
               System.err.println(e.response.parseAsString());
               throw e;
@@ -68,11 +67,9 @@ public class SocialTestCase extends TestCase{
         try {
           BuzzActivity postedActivity =
               request.execute().parseAs(BuzzActivity.class);
-          System.out.println(postedActivity.object.content);
-          System.out.println("Published: " + postedActivity.published.toStringRfc3339());
         } catch (HttpResponseException e) {
-          System.err.println(e.getMessage());
-          System.err.println(e.response.parseAsString());
+          //System.err.println(e.getMessage());
+          //System.err.println(e.response.parseAsString());
         }
 
     }

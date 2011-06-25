@@ -19,7 +19,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.apache.xerces.impl.xpath.regex.REUtil;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.test.config.AbstractBase;
@@ -83,8 +82,6 @@ public class TestHashTagDao  extends AbstractBase{
         final HashTag expHas2 = results.get(1);
         final HashTag expHas3 = results.get(2);
         final HashTag expHas4 = results.get(3);
-        System.out.println("Hash 1 --->"+ hashTag1.getHashTag() + "-- EXP---" + expHas1.getHashTag());
-        System.out.println("HASH 2 --->"+ hashTag2.getHashTag() + " --EXP---" + expHas2.getHashTag());
 
         assertEquals("Should be equals", hashTag1.getHashTag(), expHas1.getHashTag());
         assertEquals("Should be equals", hashTag2.getHashTag(), expHas2.getHashTag());
