@@ -198,11 +198,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException{
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
-                //if (getSuspendedNotification()) {
-                    log.info("notify delete account");
-                    getMailServiceOperations().sendDeleteNotification(userBean.getEmail(),
-                            getMessageProperties("MessageDeleteNotification"));
-                //}
+                log.info("notify delete account");
+                getMailService().sendDeleteNotification(userBean.getEmail().trim(),
+                        getMessageProperties("userMessageDeleteNotification"));
                 log.info("deleting user");
                 getAccountDao().delete(userDomain);
                 log.info("user deleted");
@@ -225,7 +223,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             userBean.setPassword(newPassword);
             //if notification is suspended we need retrieve password
             //if (getSuspendedNotification()) {
-                getMailServiceOperations().sendRenewPasswordEmail(userBean);
+                getMailService().sendRenewPasswordEmail(userBean);
             //} else {
                 log.warn("Notifications Email are suspendend");
             //}
@@ -626,9 +624,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
         //send new password
-        getMailServiceOperations().sendPasswordConfirmationEmail(singUpBean);
+        getMailService().sendPasswordConfirmationEmail(singUpBean);
         //send confirmation account
-        getMailServiceOperations().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+        getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
         if (log.isDebugEnabled()) {
             log.debug("new user "+userAccount.getUsername());
             log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
@@ -708,7 +706,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @throws Exception excepcion
      */
     public void inviteUser(String email, String code){
-        getMailServiceOperations().sendInvitation(email, code);
+        getMailService().sendInvitation(email, code);
     }
 
     /**
@@ -749,7 +747,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public void sendUserPassword(final String email,
             final String password)
             throws MailSendException {
-        getMailServiceOperations().send(email, getMessageProperties("NewPassWordMail"),
+        getMailService().send(email, getMessageProperties("NewPassWordMail"),
                 password);
     }
 
@@ -1109,7 +1107,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException{
         final UserAccount userAcc;
         SignUpBean singUp = new SignUpBean();
-        if(inviteCode == null) {
+        if (inviteCode == null) {
             throw new EnMeNoResultsFoundException("confirmation code is missing");
         } else {
             userAcc = getAccountDao().getUserAccountbyInvitationCode(inviteCode);
@@ -1122,7 +1120,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             }
         }
         singUp = ConvertDomainBean.convertBasicSecondaryUserToSignUpBean(userAcc);
-        getMailServiceOperations().sendNotificationStatusAccount(singUp, "User status");
+        getMailService().sendNotificationStatusAccount(singUp, "User status");
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
 
@@ -1138,7 +1136,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         singUp.setPassword(userAccBean.getPassword());
         singUp.setUsername(userAccBean.getUsername());
         getAccountDao().saveOrUpdate(singUp);
-        getMailServiceOperations().sendNotificationStatusAccount(singUp, "Change user status");
+        getMailService().sendNotificationStatusAccount(singUp, "Change user status");
     }
 
    /**

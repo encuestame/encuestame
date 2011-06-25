@@ -5,12 +5,14 @@ import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.junit.Before;
+import org.junit.Ignore;
 
 /**
  * Social Account Json Service Test Cases.
  * @author Picado, Juan juanATencuestame.org
  * @since  Feb 19, 2011 13:20:58 AM
  */
+@Ignore
 public class SocialAccountsJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 
     /** {@link Account}. **/

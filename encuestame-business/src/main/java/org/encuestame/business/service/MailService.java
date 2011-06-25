@@ -43,7 +43,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  */
 
 @SuppressWarnings("unchecked")
-@Service
+@Service(value = "mailService")
 public class MailService extends AbstractBaseService implements MailServiceOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
@@ -97,8 +97,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
             final String to,
             final String subject,
             final String text)
-            throws MailSendException
-    {
+            throws MailSendException {
         SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
         msg.setFrom(getNoEmailResponse());
         msg.setTo(to);
@@ -117,8 +116,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      */
     public void sendInvitation(
             final String to,
-            final String code) throws MailSendException
-    {
+            final String code) throws MailSendException {
         final SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
         msg.setFrom(getNoEmailResponse());
         msg.setTo(to);
@@ -127,7 +125,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
                         +" this invitation <a>http://www.encuesta.me/cod/"
                         + code + "</a>");
         msg.setSubject(buildSubject("test"));
-        try{
+        try {
             //log.info("Sending email");
             //log.debug("Sending host "+mailSender.getHost());
             //log.debug("Sending password "+mailSender.getPassword());
@@ -140,8 +138,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
             //log.debug("Sending port required "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.required"));
             mailSender.send(msg);
             //log.info("Sended email");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Error on send email "+e.getMessage());
         }
     }
