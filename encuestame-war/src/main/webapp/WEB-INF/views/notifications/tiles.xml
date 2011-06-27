@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition name="user/notifications" extends="page">
+        <put-attribute name="title" value="Notifications | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/notifications/${currentDevice.mobile ? 'mobile/' : 'web/'}notifications.jsp" />
+    </definition>
+
+    <definition name="user/notification/id" extends="page">
+        <put-attribute name="title" value="Notification Detail | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/notifications/${currentDevice.mobile ? 'mobile/' : 'web/'}notification.jsp" />
+    </definition>
+
+
+</tiles-definitions>

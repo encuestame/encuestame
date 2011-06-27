@@ -24,11 +24,13 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
+import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.web.UserAccountBean;
+import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.ModelMap;
@@ -83,15 +85,6 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
          response.put("success", this.sucess);
          response.put("error", this.error);
          return this.jsonMap.addAllAttributes(response);
-    }
-
-    /**
-     * Relative Time.
-     * @param date
-     * @return
-     */
-    protected  HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date date){
-         return DateUtil.getRelativeTime(date);
     }
 
     /**
@@ -190,93 +183,6 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
       response.put("anonymousUser", SecurityUtils.checkIsSessionIsAnonymousUser(getSecCtx().getAuthentication()));
       mav.addObject("error",  response);
       return mav;
-    }
-
-    /**
-     * Convert Notification Message.
-     * @param notificationEnum
-     * @param request
-     * @param objects
-     * @return
-     */
-    public String convertNotificationMessage(final NotificationEnum notificationEnum,
-            final HttpServletRequest request, final Object[] objects){
-           String message = null;
-           if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
-               message = getMessage("notification.tweetpoll.created", request, null);
-           } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
-               message = getMessage("notification.tweetpoll.removed", request, objects);
-           } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
-               message = getMessage("notification.tweetpoll.publish", request, null);
-           }
-           return message;
-    }
-
-    /**
-     * Convert Relative Time Message.
-     * @param relativeTimeEnum
-     * @param number
-     * @param request
-     * @param objects
-     * @return
-     */
-    public String convertRelativeTimeMessage(final RelativeTimeEnum relativeTimeEnum, final Integer number,
-            final HttpServletRequest request){
-        final StringBuilder builder = new StringBuilder();
-        //builder.append(number);
-        //builder.append(" ");
-        log.debug("Convert Message Relative Time");
-        log.debug(relativeTimeEnum);
-        log.debug(number);
-        String str[] = {number.toString()};
-        if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_SECOND_AGO)){
-            builder.append(getMessage("relative.time.one.second.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.SECONDS_AGO)) {
-            builder.append(getMessage("relative.time.one.seconds.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.A_MINUTE_AGO)) {
-            builder.append(getMessage("relative.time.one.minute.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MINUTES_AGO)){
-            builder.append(getMessage("relative.time.one.minutes.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.AN_HOUR_AGO)){
-            builder.append(getMessage("relative.time.one.hour.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.HOURS_AGO)){
-            builder.append(getMessage("relative.time.one.hours.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MONTHS_AGO)){
-            builder.append(getMessage("relative.time.one.months.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_MONTH_AGO)){
-            builder.append(getMessage("relative.time.one.month.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_YEAR_AGO)){
-            builder.append(getMessage("relative.time.one.year.ago", request, str));
-        } else if(relativeTimeEnum.equals(RelativeTimeEnum.YEARS_AGO)){
-            builder.append(getMessage("relative.time.one.years.ago", request, str));
-        }
-        return builder.toString();
-    }
-
-    /**
-     * Convert Notification Icon Message.
-     * @param notificationEnum
-     * @return
-     */
-    public String convertNotificationIconMessage(final NotificationEnum notificationEnum){
-            String icon = null;
-            /*
-             * Help: helpImage
-             * Error Network: netWorkErrorImage
-             * Like: likeImage
-             * Warning: warningImage
-             * Unlike: unLikeImage
-             * Twitter: twitterImage
-             * Poll: pollImage
-             */
-            if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
-                icon = "twitterImage";
-            } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
-                icon = "warningImage";
-            } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
-                icon = "twitterImage";
-            }
-            return icon;
     }
 
     /**
