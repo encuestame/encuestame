@@ -28,10 +28,6 @@ dojo.declare(
         _required : 1,
 
         postCreate : function(){
-            console.log("*******************************************************************************************");
-            console.log("*******************************************************************************************");
-            console.log("*******************************************************************************************");
-            console.log("*******************************************************************************************");
             dojo.subscribe("/encuestame/social/picker/accounts/reload", this, "showListAccounts");
             this._loadSocialConfirmedAccounts();
             dojo.connect(this._all, "onclick", this, this._selectAll);
