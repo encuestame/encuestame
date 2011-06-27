@@ -219,4 +219,7 @@ public interface ITweetPoll extends IBaseDao{
      * @return
      */
     List<TweetPollSwitch> getAnswerTweetSwitch(final QuestionAnswer questionAnswer);
+
+    List getTweetpollByHashTagId(final Long hashTag);
+
 }

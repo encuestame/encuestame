@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import junit.framework.Assert;
 import net.tanesha.recaptcha.ReCaptcha;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.security.AbstractSecurityContext;
@@ -57,6 +58,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.security.ProfileUserAccount;
@@ -626,9 +628,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    }
 
    /**
-    *
-    * @param notifications
-    * @param request
+    * Convert a List of {@link Notification} on a List of {@link UtilNotification}.
+    * @param notifications List of {@link Notification}.
+    * @param request {@link HttpServletRequest}
     * @return
     */
     public List<UtilNotification> convertNotificationList(
@@ -642,6 +644,33 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         return utilNotifications;
     }
 
+    /**
+     * Classify notifications by {@link DateClasificatedEnum}.
+     */
+    @SuppressWarnings("unchecked")
+    public HashMap<DateClasificatedEnum, List<UtilNotification>> classifyNotificationList(
+            final List<UtilNotification> utilNotifications) {
+        final HashMap<DateClasificatedEnum, List<UtilNotification>> response = new HashMap<DateClasificatedEnum, List<UtilNotification>>();
+        for (UtilNotification utilNotification : utilNotifications) {
+            //TODO: ENCUESTAME-233
+            log.debug(utilNotification.toString());
+        }
+        //TODO: by default awaiting ENCUESTAME-233.
+        response.put(DateClasificatedEnum.TODAY, utilNotifications);
+        response.put(DateClasificatedEnum.LAST_MONTH, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.FEW_MONTHS_AGO, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.LAST_YEAR, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.LONG_TIME_AGO, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.THIS_MONTH, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.THIS_WEEK, ListUtils.EMPTY_LIST);
+        return response;
+    }
+
+    /**
+     * Convert {@link Notification} icon message.
+     * @param notificationEnum
+     * @return
+     */
    public String convertNotificationIconMessage(final NotificationEnum notificationEnum){
        String icon = null;
        /*
