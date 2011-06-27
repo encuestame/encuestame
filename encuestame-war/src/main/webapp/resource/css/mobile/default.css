@@ -274,6 +274,7 @@ div.mobile-footer div.mobile-HashTags span.mobile-optionTag a:link {
     color: #022994;
 }
 
+
 div.mobile-subMenuFooter{
     text-align: left;
     padding-top: 2px;
@@ -290,6 +291,10 @@ div.mobile-footer div.mobile-subMenuFooter div.mobile-footerText{
 div.home-mobile div.mobile-HashTags{
     text-align: left;
     padding-left: 6px;
+}
+
+div.mobile-hashTag-cloud {
+    margin-top:4px;
 }
 /*** SEARCH ***/
 

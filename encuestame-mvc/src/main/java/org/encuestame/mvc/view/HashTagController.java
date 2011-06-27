@@ -51,7 +51,7 @@ public class HashTagController extends AbstractBaseOperations{
     public String hashTagController(ModelMap model, HttpServletRequest request,
                   HttpServletResponse response) {
         final IFrontEndService service = getFrontService();
-        final List<HashTagBean> hashTagList = service.getHashTags(20, 0);
+        final List<HashTagBean> hashTagList = service.getHashTags(20, 0); //TODO: Add to file properties number 20
         log.debug("Tag list size ---> "+ hashTagList.size());
         model.addAttribute("hashtags", hashTagList);
         return "cloud";
