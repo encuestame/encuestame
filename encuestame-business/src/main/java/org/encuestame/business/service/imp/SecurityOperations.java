@@ -22,6 +22,7 @@ import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -453,5 +454,12 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param limit
+     * @return
+     */
+    List<Notification> loadNotificationByUserAndLimit(final Integer limit);
 
 }

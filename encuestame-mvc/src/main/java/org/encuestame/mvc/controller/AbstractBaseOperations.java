@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import junit.framework.Assert;
 import net.tanesha.recaptcha.ReCaptcha;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.security.AbstractSecurityContext;
@@ -49,17 +51,22 @@ import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.domain.notifications.Notification;
+import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -299,6 +306,57 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().getAuthorities());
     }
 
+    /**
+     * Relative Time.
+     * @param date
+     * @return
+     */
+    protected  HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date date){
+         return DateUtil.getRelativeTime(date);
+    }
+
+   /**
+    * Convert Relative Time Message.
+    * @param relativeTimeEnum
+    * @param number
+    * @param request
+    * @param objects
+    * @return
+    */
+   public String convertRelativeTimeMessage(final RelativeTimeEnum relativeTimeEnum, final Integer number,
+           final HttpServletRequest request){
+       final StringBuilder builder = new StringBuilder();
+       //builder.append(number);
+       //builder.append(" ");
+       log.debug("Convert Message Relative Time");
+       log.debug(relativeTimeEnum);
+       log.debug(number);
+       String str[] = {number.toString()};
+       if (relativeTimeEnum.equals(RelativeTimeEnum.ONE_SECOND_AGO)) {
+           builder.append(getMessage("relative.time.one.second.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.SECONDS_AGO)) {
+           builder.append(getMessage("relative.time.one.seconds.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.A_MINUTE_AGO)) {
+           builder.append(getMessage("relative.time.one.minute.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.MINUTES_AGO)) {
+           builder.append(getMessage("relative.time.one.minutes.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.AN_HOUR_AGO)) {
+           builder.append(getMessage("relative.time.one.hour.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.HOURS_AGO)) {
+           builder.append(getMessage("relative.time.one.hours.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.MONTHS_AGO)) {
+           builder.append(getMessage("relative.time.one.months.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_MONTH_AGO)) {
+           builder.append(getMessage("relative.time.one.month.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_YEAR_AGO)) {
+           builder.append(getMessage("relative.time.one.year.ago", request, str));
+       } else if(relativeTimeEnum.equals(RelativeTimeEnum.YEARS_AGO)) {
+           builder.append(getMessage("relative.time.one.years.ago", request, str));
+       }
+       return builder.toString();
+   }
+
+
 
     /**
      * Get Message with Locale.
@@ -307,7 +365,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
-    //TODO: ENCUESTAME-223
     public String getMessage(final String message,
             final HttpServletRequest request, Object[] args) {
         String stringValue = "";
@@ -316,6 +373,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
                     message, args, getLocale(request));
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace(); //TODO: ENCUESTAME-223 - OPEN
         }
         return stringValue;
     }
@@ -528,4 +586,109 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         }
         return hashtagsList;
     }
+
+
+    /**
+     * Convert Notification Message.
+     * @param notificationEnum
+     * @param request
+     * @param objects
+     * @return
+     */
+    public String convertNotificationMessage(final NotificationEnum notificationEnum,
+            final HttpServletRequest request, final Object[] objects){
+           String message = null;
+           if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
+               message = getMessage("notification.tweetpoll.created", request, null);
+           } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
+               message = getMessage("notification.tweetpoll.removed", request, objects);
+           } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
+               message = getMessage("notification.tweetpoll.publish", request, null);
+           }
+           return message;
+    }
+
+    /**
+    *
+    * @param notification
+    * @param request
+    * @return
+    */
+   public UtilNotification convertNotificationToBean(
+           final Notification notification, final HttpServletRequest request) {
+        final UtilNotification utilNotification = new UtilNotification();
+        utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT.format(notification.getCreated()));
+        utilNotification.setDescription(convertNotificationMessage(notification.getDescription(), request, null));
+        utilNotification.setId(notification.getNotificationId());
+        utilNotification.setHour(DateUtil.SIMPLE_TIME_FORMAT.format(notification.getCreated()));
+        utilNotification.setIcon(convertNotificationIconMessage(notification.getDescription()));
+        utilNotification.setType(notification.getDescription().name());
+        utilNotification.setAdditionalDescription(notification.getAdditionalDescription());
+        return utilNotification;
+   }
+
+   /**
+    * Convert a List of {@link Notification} on a List of {@link UtilNotification}.
+    * @param notifications List of {@link Notification}.
+    * @param request {@link HttpServletRequest}
+    * @return
+    */
+    public List<UtilNotification> convertNotificationList(
+            final List<Notification> notifications,
+            final HttpServletRequest request) {
+        final List<UtilNotification> utilNotifications = new ArrayList<UtilNotification>();
+        for (Notification notification : notifications) {
+            utilNotifications.add(convertNotificationToBean(notification,
+                    request));
+        }
+        return utilNotifications;
+    }
+
+    /**
+     * Classify notifications by {@link DateClasificatedEnum}.
+     */
+    @SuppressWarnings("unchecked")
+    public HashMap<DateClasificatedEnum, List<UtilNotification>> classifyNotificationList(
+            final List<UtilNotification> utilNotifications) {
+        final HashMap<DateClasificatedEnum, List<UtilNotification>> response = new HashMap<DateClasificatedEnum, List<UtilNotification>>();
+        for (UtilNotification utilNotification : utilNotifications) {
+            //TODO: ENCUESTAME-233
+            log.debug(utilNotification.toString());
+        }
+        //TODO: by default awaiting ENCUESTAME-233.
+        response.put(DateClasificatedEnum.TODAY, utilNotifications);
+        response.put(DateClasificatedEnum.LAST_MONTH, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.FEW_MONTHS_AGO, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.LAST_YEAR, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.LONG_TIME_AGO, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.THIS_MONTH, ListUtils.EMPTY_LIST);
+        response.put(DateClasificatedEnum.THIS_WEEK, ListUtils.EMPTY_LIST);
+        return response;
+    }
+
+    /**
+     * Convert {@link Notification} icon message.
+     * @param notificationEnum
+     * @return
+     */
+   public String convertNotificationIconMessage(final NotificationEnum notificationEnum){
+       String icon = null;
+       /*
+        * Help: helpImage
+        * Error Network: netWorkErrorImage
+        * Like: likeImage
+        * Warning: warningImage
+        * Unlike: unLikeImage
+        * Twitter: twitterImage
+        * Poll: pollImage
+        */
+       if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
+           icon = "twitterImage";
+       } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
+           icon = "warningImage";
+       } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
+           icon = "twitterImage";
+       }
+       return icon;
+}
 }

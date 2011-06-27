@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -61,7 +62,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /** {@link TweetPollFolder}. **/
     private TweetPollFolder tweetPollFolder;
 
-
+    private HashTag hashTag1;
     /**
      * Before.
      */
@@ -72,6 +73,11 @@ public class TestTweetPollDao  extends AbstractBase{
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
       this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
+      this.hashTag1 = createHashTag("hash1");
+      final HashTag hashTag2 = createHashTag("hash2");
+      this.tweetPoll.getHashTags().add(hashTag1);
+      this.tweetPoll.getHashTags().add(hashTag2);
+      getTweetPoll().saveOrUpdate(this.tweetPoll);
       this.pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
       this.pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
       createTweetPollResult(pollSwitch1, "192.168.0.1");
@@ -79,7 +85,6 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
       this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getAccount());
-
     }
 
     /**
@@ -234,6 +239,9 @@ public class TestTweetPollDao  extends AbstractBase{
         assertEquals("Should be equals", 1, favouritesTweets.size());
     }
 
+    /**
+     *
+     */
     @Test
     public void testRetrieveScheduledTweetPoll(){
         assertNotNull(this.secondary);
@@ -241,5 +249,32 @@ public class TestTweetPollDao  extends AbstractBase{
         final Long userId = this.secondary.getAccount().getUid();
         final List<TweetPoll> scheduledTweets = getTweetPoll().retrieveScheduledTweetPoll(userId, 5, 0);
         assertEquals("Should be equals", 1, scheduledTweets.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testgetTweetpollByHashTagName(){
+        assertNotNull(this.tweetPoll);
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId());
+        assertEquals("Should be equals", 1, tweetPolls.size());
+        final HashTag hashtag2 = createHashTag("paola");
+        final HashTag hashtag3 = createHashTag("juan");
+        this.tweetPoll.getHashTags().add(hashtag2);
+        this.tweetPoll.getHashTags().add(hashtag3);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+        final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+                secondary.getAccount(),
+                createQuestion("question1", secondary.getAccount()));
+        tweetPoll1.getHashTags().add(this.hashTag1);
+        final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+                secondary.getAccount(),
+                createQuestion("question1", secondary.getAccount()));
+        tweetPoll2.getHashTags().add(this.hashTag1);
+        getTweetPoll().saveOrUpdate(tweetPoll1);
+        getTweetPoll().saveOrUpdate(tweetPoll2);
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId());
+        assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 }

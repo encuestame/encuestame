@@ -21,17 +21,21 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -383,5 +387,22 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
          criteria.add(Restrictions.eq("tweetOwner.uid", userId));
          criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
          return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetpollByHashTagName(java.lang.String)
+     */
+    public List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId){
+         final DetachedCriteria detached = DetachedCriteria.forClass(TweetPoll.class)
+        .createAlias("hashTags", "hashTags")
+        .setProjection(Projections.id())
+        .add(Subqueries.propertyIn("hashTags.hashTagId",
+        DetachedCriteria.forClass(HashTag.class, "hash")
+              .setProjection(Projections.id())
+              .add(Restrictions.in("hash.hashTagId", new Long[] {hashTagId}))));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class, "tweetPoll");
+        criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 }

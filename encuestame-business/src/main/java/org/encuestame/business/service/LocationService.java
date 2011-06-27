@@ -37,7 +37,7 @@ import org.springframework.stereotype.Service;
  * @version $Id: $
  */
 @Service
-public class LocationService  extends AbstractBaseService implements ILocationService{
+public class LocationService extends AbstractBaseService implements ILocationService{
 
     /** Log. **/
     private Logger log = Logger.getLogger(this.getClass());

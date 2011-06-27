@@ -93,7 +93,8 @@ dojo.declare(
          */
         _viewAll : function(event){
              dojo.stopEvent(event);
-             dijit.byId("allNot").show();
+             //dijit.byId("allNot").show();
+             document.location.href = encuestame.contextDefault+"/user/notifications";
         },
 
         /*
