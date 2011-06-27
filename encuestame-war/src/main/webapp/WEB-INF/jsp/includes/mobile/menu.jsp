@@ -12,8 +12,5 @@
         <li class="item"><a href="<%=request.getContextPath()%>/user/poll">Polls</a></li>
         <li class="item"><a href="<%=request.getContextPath()%>/user/survey">Surveys</a></li>
     </ul>
-    <div style="float: right;">
-        <div dojoType="encuestame.org.core.commons.notifications.Notification"></div>
-    </div>
     <br style="clear: left" />
     </div>
