@@ -69,4 +69,12 @@ public interface IFrontEndService extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     HashTagBean getHashTagItem(final String tagName) throws EnMeNoResultsFoundException;
+
+    /**
+     * Get TweetPolls by hashTag id.
+     * @param hashTagId
+     * @param limit
+     * @return
+     */
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit);
 }
