@@ -623,6 +623,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         utilNotification.setHour(DateUtil.SIMPLE_TIME_FORMAT.format(notification.getCreated()));
         utilNotification.setIcon(convertNotificationIconMessage(notification.getDescription()));
         utilNotification.setType(notification.getDescription().name());
+        utilNotification.setUrl(notification.getUrlReference());
         utilNotification.setAdditionalDescription(notification.getAdditionalDescription());
         return utilNotification;
    }

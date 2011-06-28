@@ -51,12 +51,18 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    public final List<Notification> loadNotificationByUserAndLimit(final Account user, final Integer limit){
+    public final List<Notification> loadNotificationByUserAndLimit(
+            final Account user,
+            final Integer limit,
+            final Integer start,
+            final Boolean onlyUnread){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
             criteria.add(Restrictions.or(Restrictions.eq("account", user), Restrictions.isNull("account")));
-            criteria.add(Restrictions.eq("readed", Boolean.FALSE));
+            if (onlyUnread) {
+                criteria.add(Restrictions.eq("readed", Boolean.FALSE));
+            }
             criteria.addOrder(Order.desc("created"));
-            return getHibernateTemplate().findByCriteria(criteria, 0, limit);
+            return getHibernateTemplate().findByCriteria(criteria, start, limit);
     }
 
     /**

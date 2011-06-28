@@ -460,6 +460,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @param limit
      * @return
      */
-    List<Notification> loadNotificationByUserAndLimit(final Integer limit);
+    List<Notification> loadNotificationByUserAndLimit(final Integer limit, final Integer start,
+            final Boolean onlyUnread);
 
 }

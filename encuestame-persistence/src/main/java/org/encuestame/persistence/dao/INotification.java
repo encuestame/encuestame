@@ -32,7 +32,11 @@ public interface INotification extends IBaseDao{
      * @param limit limit
      * @return
      */
-    List<Notification> loadNotificationByUserAndLimit(final Account secUser, final Integer limit);
+    List<Notification> loadNotificationByUserAndLimit(
+            final Account user,
+            final Integer limit,
+            final Integer start,
+            final Boolean onlyUnread);
 
     /**
      * Get Notification.

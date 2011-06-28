@@ -1528,7 +1528,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Boolean readed){
          final Notification notification = new Notification();
          notification.setAdditionalDescription(message);
-         notification.setCreated(new Date());
+         notification.setCreated(Calendar.getInstance().getTime());
          notification.setDescription(description);
          notification.setReaded(readed);
          notification.setAccount(secUser);
