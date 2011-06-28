@@ -397,6 +397,7 @@ encuestame.contextWidget = function(){
 encuestame.service.list = {};
 encuestame.service.list.userList = encuestame.contextWidget()+"/api/admon/users.json";
 encuestame.service.list.getNotifications = encuestame.contextWidget()+"/api/notifications/list.json";
+encuestame.service.list.getAllNotifications = encuestame.contextWidget()+"/api/notifications/all/list.json";
 encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/notifications/readed.json";
 encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json";
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
