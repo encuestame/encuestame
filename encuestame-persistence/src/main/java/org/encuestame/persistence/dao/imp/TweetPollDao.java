@@ -326,6 +326,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         }
         return totalvotes;
     }
+
     /**
      * Retrieve Tweet Polls Folders By UserId
      * @param userId
@@ -406,5 +407,15 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
         criteria.addOrder(Order.desc("tweetPoll.createDate"));
         return getHibernateTemplate().findByCriteria(criteria, 0, limit);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public TweetPoll getNumberVotes(final Long tweetPollId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
+        return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 }

@@ -545,3 +545,27 @@ div.web-notification-list div.web-notification-list-item .date{
     color: gray;
     padding: 4px;
 }
+
+/********** HASHTAGS **************/
+
+div.web-hashtagName{
+    color: #5C8397;
+    font-size: 130%;
+}
+
+div.web-tags-tweetpolls{
+    margin-top: 4px;
+    width: 100%;
+
+}
+
+div.web-tweetpolls{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #0F0E0E;
+    padding: 5px 5px 5px 5px;
+     margin: 4px;
+}
+
+div.web-tweetpolls-time{
+
+}

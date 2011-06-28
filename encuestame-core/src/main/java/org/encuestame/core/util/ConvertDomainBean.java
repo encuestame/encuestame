@@ -497,6 +497,7 @@ public class ConvertDomainBean {
      */
     public static final TweetPollBean convertTweetPollToBean(final TweetPoll tweetPoll){
         final TweetPollBean unitTweetPoll = new TweetPollBean();
+        final HashMap<Integer, RelativeTimeEnum> relative;
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
         unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll.getCreateDate()));
@@ -512,7 +513,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false : tweetPoll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
-        final HashMap<Integer, RelativeTimeEnum> relative = DateUtil.getRelativeTime(tweetPoll.getCreateDate());
+        relative = DateUtil.getRelativeTime(tweetPoll.getCreateDate());
         unitTweetPoll.setRelativeTime(relative.toString());
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
         return unitTweetPoll;
