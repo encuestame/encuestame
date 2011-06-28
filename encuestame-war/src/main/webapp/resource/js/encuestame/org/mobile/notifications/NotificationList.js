@@ -6,14 +6,17 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.layout.ContentPane");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.core.commons.notifications.NotificationList');
 
 dojo.declare(
     "encuestame.org.mobile.notifications.NotificationList",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.core.commons.notifications.NotificationList],{
         templatePath: dojo.moduleUrl("encuestame.org.mobile.notifications", "template/notificationList.html"),
 
-        widgetsInTemplate: true
+        widgetsInTemplate: true,
 
-
+        postCreate : function(){
+            this.inherited(arguments);
+        }
     }
 );
