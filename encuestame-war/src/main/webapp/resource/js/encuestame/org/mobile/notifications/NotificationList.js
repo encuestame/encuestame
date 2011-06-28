@@ -20,3 +20,33 @@ dojo.declare(
         }
     }
 );
+
+/**
+*
+*/
+dojo.declare(
+       "encuestame.org.mobile.notifications.NotificationListItem",
+       [dijit._Widget, dijit._Templated],{
+           templatePath: dojo.moduleUrl("encuestame.org.mobile.notifications", "template/notificationListItem.html"),
+
+           widgetsInTemplate: true,
+
+           item : null,
+
+           category : null,
+
+           postCreate : function() {
+               console.debug("item", this.item);
+           }
+
+});
+
+dojo.extend(encuestame.org.core.commons.notifications.NotificationList, {
+    _createNotificationItem : function(item, category){
+        var widget = new encuestame.org.mobile.notifications.NotificationListItem({
+            item : item,
+            category : "TODAY"});
+        console.debug("widget", widget);
+       return widget;
+   }
+});

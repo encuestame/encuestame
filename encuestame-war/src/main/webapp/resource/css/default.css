@@ -148,6 +148,8 @@ a:hover{
     font-size: 14px;
 }
 
+/** common classes **/
+
 .error{
     background-color: #C88080;
     -webkit-border-radius: 4px;
@@ -214,6 +216,32 @@ a:hover{
     color: #000;
     font-weight: bold;
 }
+
+.warningImage{
+    background-image: url(../images/social/icons/1243963629_001_11.png);
+}
+
+.helpImage{
+    background-image: url(../images/social/icons/enme_question.gif);
+}
+
+.likeImage{
+    background-image: url(../images/icons/enme_like.png);
+}
+
+.unLikeImage{
+    background-image: url(../images/icons/emne_unlike.png);
+}
+
+.twitterImage{
+    background-image: url("../images/social/twitter/enme_icon_twitter.png");
+}
+
+.pollImage{
+    background-image: url(../images/icons/emne_poll.png);
+}
+
+/** content container **/
 
 #content-container #enme-content div.publicMarginWrapper{
     width: 100%;
@@ -470,4 +498,50 @@ div.socialAccountPicker div.account div.detail{
 div.socialAccountPicker div.account div.icon{
     float: right;
     padding: 5px;
+}
+
+/** notifilication list **/
+
+div.web-notification-list{
+
+}
+
+div.web-notification-list list{
+
+}
+
+div.web-notification-list div.web-notification-list-item{
+    clear: both;
+    padding: 9px;
+    font-size: 100%;
+    text-align: left;
+}
+
+div.web-notification-list div.web-notification-list-item span{
+    margin-left: 5px;
+    margin-right: 10px;
+    font-size: 100%;
+}
+
+div.web-notification-list div.web-notification-list-item .icon{
+    width: 100px;
+    background-repeat: no-repeat;
+}
+
+div.web-notification-list div.web-notification-list-item .title{
+    font-weight: bold;
+    padding: 4px;
+    min-width: 300px;
+}
+
+div.web-notification-list div.web-notification-list-item .description{
+    padding: 4px;
+    min-width: 300px;
+
+}
+
+div.web-notification-list div.web-notification-list-item .date{
+    padding-left: 10px;
+    color: gray;
+    padding: 4px;
 }
