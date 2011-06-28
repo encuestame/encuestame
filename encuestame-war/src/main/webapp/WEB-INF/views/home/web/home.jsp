@@ -56,7 +56,7 @@
                        </div>
                        <div class="tags">
                             <c:forEach items="${item.hashTags}" var="h">
-                                <a href="<%=request.getContextPath()%>/hashtag/${h.hashTagName}/" class="tag">${h.hashTagName}</a>
+                                <a href="<%=request.getContextPath()%>/tag/${h.hashTagName}/" class="tag">${h.hashTagName}</a>
                            </c:forEach>
                        </div>
                     </div>

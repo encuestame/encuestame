@@ -138,4 +138,17 @@ public class UtilNotification implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "UtilNotification [description=" + description + ", id=" + id
+                + ", date=" + date + ", type=" + type + ", icon=" + icon
+                + ", hour=" + hour + ", additionalDescription="
+                + additionalDescription + "]";
+    }
+
+
 }

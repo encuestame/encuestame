@@ -13,7 +13,6 @@
 package org.encuestame.mvc.controller.json.notifications;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +20,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -43,6 +45,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller("notificationsJsonController")
 public class NotificationsJsonController extends AbstractJsonController {
 
+    /**
+     * Log.
+     */
+     private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Status Notification.
@@ -94,21 +100,25 @@ public class NotificationsJsonController extends AbstractJsonController {
          }
          final Map<String, Object> responseJson = new HashMap<String, Object>();
          final List<Notification> notifications = getNotificationDao().loadNotificationByUserAndLimit(secondary.getAccount(), limit);
-         final List<UtilNotification> utilNotifications = new ArrayList<UtilNotification>();
-         for (Notification notification : notifications) {
-             final UtilNotification utilNotification = new UtilNotification();
-             utilNotification.setDate(SIMPLE_DATE_FORMAT.format(notification.getCreated()));
-             utilNotification.setDescription(convertNotificationMessage(notification.getDescription(), request, null));
-             utilNotification.setId(notification.getNotificationId());
-             utilNotification.setHour(SIMPLE_TIME_FORMAT.format(notification.getCreated()));
-             utilNotification.setIcon(convertNotificationIconMessage(notification.getDescription()));
-             utilNotifications.add(utilNotification);
-             utilNotification.setType(notification.getDescription().name());
-             utilNotification.setAdditionalDescription(notification.getAdditionalDescription());
-         }
-         responseJson.put("notifications", utilNotifications);
+         responseJson.put("notifications",convertNotificationList(notifications, request));
          setItemResponse(responseJson);
          return returnData();
+    }
+
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/notifications/all/list.json", method = RequestMethod.GET)
+    public ModelMap getClassifiedNotifications(
+            @RequestParam(value = "limit") Integer limit,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        final Map<String, Object> responseJson = new HashMap<String, Object>();
+        final HashMap<DateClasificatedEnum, List<UtilNotification>> list = classifyNotificationList(convertNotificationList(
+                getSecurityService().loadNotificationByUserAndLimit(500), //TODO: parameterize
+                request));
+        log.debug(list);
+        responseJson.put("notifications", list);
+        setItemResponse(responseJson);
+        return returnData();
     }
 
     /**

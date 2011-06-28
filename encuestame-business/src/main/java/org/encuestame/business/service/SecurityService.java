@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
@@ -33,6 +35,7 @@ import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
@@ -51,6 +54,7 @@ import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
+import org.encuestame.utils.web.notification.UtilNotification;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -1270,6 +1274,18 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
            }
        }
        log.info("update Twitter Account");
+   }
+
+   /**
+    *
+    * @param limit
+    * @return
+    */
+   public List<Notification> loadNotificationByUserAndLimit(final Integer limit) {
+        final List<Notification> notifications = getNotificationDao()
+                .loadNotificationByUserAndLimit(
+                        getUserAccountLogged().getAccount(), limit);
+        return notifications;
    }
 
     /**

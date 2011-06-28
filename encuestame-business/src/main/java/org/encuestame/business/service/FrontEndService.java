@@ -154,4 +154,17 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         }
         return ConvertDomainBean.convertHashTagDomain(tag);
     }
+
+    /**
+     * Get TweetPolls by hashTag id.
+     * @param hashTagId
+     * @param limit
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit){
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId);
+        log.debug("TweetPoll by HashTagId total size ---> "+tweetPolls.size());
+        return ConvertDomainBean.convertListToTweetPollBean(tweetPolls);
+    }
 }
