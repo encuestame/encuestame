@@ -78,34 +78,6 @@ div.livePanel .notificationItem .right .description{
     font-weight: normal;
 }
 
-div.livePanel .notificationItem .warningImage{
-    background-image: url(../images/icons/1243963629_001_11.png);
-}
-
-div.livePanel .notificationItem  .helpImage{
-    background-image: url(../images/icons/enme_question.gif);
-}
-
-div.livePanel .notificationItem .netWorkErrorImage{
-    background-image: url(../images/icons/enme_network-error.png);
-}
-
-div.livePanel .notificationItem .likeImage{
-    background-image: url(../images/icons/enme_like.png);
-}
-
-div.livePanel .notificationItem .unLikeImage{
-    background-image: url(../images/icons/emne_unlike.png);
-}
-
-div.livePanel .notificationItem  .twitterImage{
-    background-image: url(../images/icons/enme_twitter.png);
-}
-
-div.livePanel .notificationItem .pollImage{
-    background-image: url(../images/icons/emne_poll.png);
-}
-
 div.counter{
     color: #FFF;
     cursor: pointer;

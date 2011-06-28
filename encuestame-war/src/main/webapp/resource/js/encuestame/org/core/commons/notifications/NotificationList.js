@@ -41,8 +41,26 @@ dojo.declare(
         /*
          *
          */
-        _loadMoreNotifications : function(){
+        _loadMoreNotifications : function(event){
 
+        },
+
+        _buildSection : function(name, content){
+             var section = dojo.doc.createElement("div");
+             dojo.addClass(section, "section");
+
+             var title = dojo.doc.createElement("h3");
+             title.innerHTML = name;
+             section.appendChild(title);
+             section.appendChild(content);
+             this._list.appendChild(section);
+        },
+
+        _createNotificationItem : function(item, category){
+             var widget = new encuestame.org.core.commons.notifications.NotificationListItem({
+                 item : item,
+                 category : "TODAY"});
+            return widget;
         },
 
         /*
@@ -51,15 +69,14 @@ dojo.declare(
         _showListCategories : function() {
             console.debug("_showListCategories");
             var today = this.arrayNotifications.TODAY;
-            console.debug(today.lenght);
+            var items = dojo.doc.createElement("div");
             if (today.length > 0) {
                 dojo.forEach(today,
                         dojo.hitch(this, function(item, index) {
-                var todayWidget = new encuestame.org.core.commons.notifications.NotificationListItem({
-                    item : item,
-                    category : "TODAY"});
-                    this._list.appendChild(todayWidget.domNode);
+                var todayWidget = this._createNotificationItem(item, "TODAY");
+                items.appendChild(todayWidget.domNode);
                 }));
+               this._buildSection("Today", items);
             }
             //TODO: ENCUESTAME-
             var thisWeek = this.arrayNotifications.THIS_WEEK;
@@ -68,7 +85,6 @@ dojo.declare(
             var fewMonthsAgo = this.arrayNotifications.FEW_MONTHS_AGO;
             var lastYear = this.arrayNotifications.LAST_YEAR;
             var longTimeAgo = this.arrayNotifications.LONG_TIME_AGO;
-            //console.debug("today", today);
             console.debug("thisWeek", thisWeek);
             console.debug("thisMonth", thisMonth);
             console.debug("lastMonth", lastMonth);
@@ -93,7 +109,7 @@ dojo.declare(
             category : null,
 
             postCreate : function() {
-
+                console.debug("item", this.item);
             }
 
 });

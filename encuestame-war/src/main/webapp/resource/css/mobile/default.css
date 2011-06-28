@@ -1,6 +1,51 @@
 div.mobile{
 }
 
+#mobile-header-wrapper{
+    background-color: #E8E8E8;
+    min-height: 27px;
+    padding: 5px;
+}
+
+#mobile-header-wrapper div.logo{
+     margin-left: 1px;
+     width: 128px;
+     float: left;
+}
+
+div.mobile-header-options{
+    width: auto;
+    text-align: right;
+    padding: 0 5px;
+    height: 30px;
+}
+
+div.mobile-header-options span{
+    display: inline-block;
+}
+
+div.mobile-header-options span.link{
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 4px 4px 3px 0;
+}
+
+div.mobile-header-options span.link a{
+    color: #275296;
+    text-decoration: none;
+    font-size: 110%;
+    font-style: italic;
+    font-weight: bold;
+}
+
+div.mobile-header-options span.link a:hover{
+    text-decoration: none;
+}
+
+div.mobile-header-options span.search{
+}
+
+
 div.mobile-enme-content{
     width: 100%;
 }
@@ -334,13 +379,14 @@ div.mobile-answers-questions {
 }
 
 /** menu **/
+
 div.mobile-menu-wrapper {
     background-color: #858181;
     font-size: 110%;
     font-weight: bold;
     max-width: 100%;
     min-height: 40px;
-    padding: 7px;
+    padding: 3px;
 }
 
 div.mobile-menu-wrapper a {
@@ -351,4 +397,38 @@ div.mobile-menu-wrapper span{
     float: left;
     min-height: 20%;
     padding: 5px;
+    max-width: 36px;
+}
+
+div.mobile-notification-list-item {
+    clear: both;
+    background-color: #EDEDED;
+    min-height: 45px;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+}
+
+div.mobile-notification-list-item .title{
+    font-size: 120%;
+}
+
+div.mobile-notification-list-item .mobile-description{
+    font-size: 120%;
+    font-weight: bold;
+    float: left;
+    padding: 3px;
+}
+
+div.mobile-notification-list-item .mobile-description .description{
+    font-size: 90%;
+    padding-bottom: 2px;
+}
+
+div.mobile-notification-list-item .mobile-description .date{
+    font-size: 70%;
+    color: #000;
+}
+
+div.mobile-notification-list-item .options{
+    float: right;
 }
