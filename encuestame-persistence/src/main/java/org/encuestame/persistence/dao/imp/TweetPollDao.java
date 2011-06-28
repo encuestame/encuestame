@@ -393,7 +393,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getTweetpollByHashTagName(java.lang.String)
      */
-    public List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId){
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId, final Integer limit){
          final DetachedCriteria detached = DetachedCriteria.forClass(TweetPoll.class)
         .createAlias("hashTags", "hashTags")
         .setProjection(Projections.id())
@@ -403,6 +404,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
               .add(Restrictions.in("hash.hashTagId", new Long[] {hashTagId}))));
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class, "tweetPoll");
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
-        return getHibernateTemplate().findByCriteria(criteria);
+        criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        return getHibernateTemplate().findByCriteria(criteria, 0, limit);
     }
 }
