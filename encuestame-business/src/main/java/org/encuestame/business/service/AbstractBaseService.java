@@ -59,7 +59,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * {@link MessageSourceFactoryBean}.
      */
     @Autowired
-    private MessageSourceFactoryBean messageSource;
+    private MessageSourceFactoryBean messageSourceFactoryBean;
 
     /**
      *  {@link MailService}.
@@ -76,8 +76,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public MessageSourceFactoryBean getMessageSource() {
-        return messageSource;
+    public MessageSourceFactoryBean getMessageSourceFactoryBean() {
+        return messageSourceFactoryBean;
     }
 
 
@@ -85,8 +85,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
-    public void setMessageSource(final MessageSourceFactoryBean messageSource) {
-        this.messageSource = messageSource;
+    public void setMessageSourceFactoryBean(final MessageSourceFactoryBean messageSourceFactoryBean) {
+        this.messageSourceFactoryBean = messageSourceFactoryBean;
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return value of propertie
      */
     public String getMessageProperties(String propertieId) {
-        return getMessageSource() == null ? propertieId : getMessageSource()
+        return getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
                 .getMessage(propertieId, null, null);
     }
 
