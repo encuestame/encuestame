@@ -83,7 +83,7 @@ public class HashTagController extends AbstractBaseOperations{
                 return "pageNotFound";
             } else {
                 model.addAttribute("tagName", service.getHashTagItem(name));
-                model.addAttribute("tweetPolls", tweetPoll);
+                model.addAttribute("tweetPolls", service.getTweetPollsbyHashTagId(tag.getId(), 10));
             }
         }catch (Exception e) {
             return "pageNotFound";

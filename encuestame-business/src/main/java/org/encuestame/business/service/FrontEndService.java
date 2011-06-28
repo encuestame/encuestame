@@ -13,7 +13,9 @@
 package org.encuestame.business.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -23,7 +25,8 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -163,8 +166,16 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     @SuppressWarnings("unchecked")
     public List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit){
-        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId);
+        String relativeTime;
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit);
         log.debug("TweetPoll by HashTagId total size ---> "+tweetPolls.size());
-        return ConvertDomainBean.convertListToTweetPollBean(tweetPolls);
+        final List<TweetPollBean> tweetPollBean = ConvertDomainBean.convertListToTweetPollBean(tweetPolls);
+        for (TweetPollBean tweetPollBean2 : tweetPollBean) {
+            relativeTime = tweetPollBean2.getRelativeTime().toLowerCase();
+            relativeTime = relativeTime.replace("*", " ").replace("=", " ").replace("_", " ");
+            tweetPollBean2.setRelativeTime(relativeTime);
+        }
+
+        return tweetPollBean;
     }
 }

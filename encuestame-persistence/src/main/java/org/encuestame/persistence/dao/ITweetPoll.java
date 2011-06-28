@@ -220,6 +220,12 @@ public interface ITweetPoll extends IBaseDao{
      */
     List<TweetPollSwitch> getAnswerTweetSwitch(final QuestionAnswer questionAnswer);
 
-    List getTweetpollByHashTagId(final Long hashTag);
+    /**
+     * Get TweetPoll by hashTag id.
+     * @param hashTag
+     * @param limit
+     * @return
+     */
+    List getTweetpollByHashTagId(final Long hashTag,  final Integer limit);
 
 }

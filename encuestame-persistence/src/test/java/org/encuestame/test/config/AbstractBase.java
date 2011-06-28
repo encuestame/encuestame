@@ -1023,6 +1023,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question);
     }
 
+    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
+        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question);
+     }
+
     /**
      * Create Not Published {@link TweetPoll}.
      * @param tweetOwner tweet owner
