@@ -325,11 +325,30 @@ div.mobile-question-detail{
     margin-top: 4%;
     max-width: 100%;
     color: #FFF;
-    padding: 6px;
+    padding: 15px;
 }
 
-div.mobile-answers-questions{
-    padding: 10px;
+div.mobile-answers-questions {
     text-align: left;
     color: #275296;
+}
+
+/** menu **/
+div.mobile-menu-wrapper {
+    background-color: #858181;
+    font-size: 110%;
+    font-weight: bold;
+    max-width: 100%;
+    min-height: 40px;
+    padding: 7px;
+}
+
+div.mobile-menu-wrapper a {
+    color: #FFF;
+}
+
+div.mobile-menu-wrapper span{
+    float: left;
+    min-height: 20%;
+    padding: 5px;
 }

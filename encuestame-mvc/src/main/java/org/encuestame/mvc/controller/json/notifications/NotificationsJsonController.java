@@ -108,7 +108,7 @@ public class NotificationsJsonController extends AbstractJsonController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/all/list.json", method = RequestMethod.GET)
     public ModelMap getClassifiedNotifications(
-            @RequestParam(value = "limit") Integer limit,
+            @RequestParam(value = "limit", required = false) Integer limit,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> responseJson = new HashMap<String, Object>();
