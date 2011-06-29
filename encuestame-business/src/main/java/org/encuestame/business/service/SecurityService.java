@@ -1281,10 +1281,13 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     * @param limit
     * @return
     */
-   public List<Notification> loadNotificationByUserAndLimit(final Integer limit) {
+   public List<Notification> loadNotificationByUserAndLimit(
+           final Integer limit,
+           final Integer start,
+           final Boolean onlyUnread) {
         final List<Notification> notifications = getNotificationDao()
                 .loadNotificationByUserAndLimit(
-                        getUserAccountLogged().getAccount(), limit);
+                        getUserAccountLogged().getAccount(), limit, start, onlyUnread);
         return notifications;
    }
 

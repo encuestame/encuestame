@@ -272,6 +272,8 @@ public class TweetPollJsonController extends AbstractJsonController {
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                 jsonResponse.put("socialPublish", ConvertDomainToJson.convertTweetPollStatusToJson(results));
                 setItemResponse(jsonResponse);
+                //create notification.
+                getTweetPollService().createTweetPollNotification(tweetPoll);
             }
         } catch (Exception e) {
             log.fatal(e);

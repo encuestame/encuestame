@@ -341,8 +341,18 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param tweetPollBean {@link TweetPollBean}.
      * @throws EnMeNoResultsFoundException
       */
-     public TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException;
+     TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException;
 
 
-     public void saveOrUpdateTweetPoll(final TweetPoll tweetPoll);
+     /**
+      *
+      * @param tweetPoll
+      */
+     void saveOrUpdateTweetPoll(final TweetPoll tweetPoll);
+
+     /**
+     *
+     * @param tweetPoll
+     */
+     void createTweetPollNotification(final TweetPoll tweetPoll);
 }

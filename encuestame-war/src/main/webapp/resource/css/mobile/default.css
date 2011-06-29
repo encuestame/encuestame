@@ -416,6 +416,23 @@ div.mobile-menu-wrapper span{
     max-width: 36px;
 }
 
+/** mobile notifications **/
+
+div.mobile-notification-list{
+
+}
+
+div.mobile-notification-list div.section{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+div.mobile-notification-list div.section h3{
+    padding: 2px;
+    background-color: #E3E3E3;
+    color: #C2C2C2;
+}
+
 div.mobile-notification-list-item {
     clear: both;
     background-color: #EDEDED;
@@ -425,23 +442,18 @@ div.mobile-notification-list-item {
 }
 
 div.mobile-notification-list-item .title{
-    font-size: 120%;
+    font-size: 110%;
+    color: #275296;
 }
 
 div.mobile-notification-list-item .mobile-description{
-    font-size: 120%;
-    font-weight: bold;
+    font-size: 90%;
     float: left;
     padding: 3px;
 }
 
-div.mobile-notification-list-item .mobile-description .description{
-    font-size: 90%;
-    padding-bottom: 2px;
-}
-
 div.mobile-notification-list-item .mobile-description .date{
-    font-size: 70%;
+    font-size: 60%;
     color: #000;
 }
 

@@ -18,14 +18,20 @@ dojo.declare(
 
         mobile : false,
 
+        _start : 0,
+
+        _limit :  encuestame.notification.load.limit,
+
+        _seeMoreValue : false,
+
         postCreate : function(){
-            this._loadNotifications();
+            this._loadNotifications(this._start);
         },
 
         /*
          * load notifications.
          */
-        _loadNotifications : function(){
+        _loadNotifications : function(start){
             var load = dojo.hitch(this, function(data) {
                  this.arrayNotifications = data.success.notifications;
                  this._showListCategories();
@@ -34,25 +40,45 @@ dojo.declare(
              var error = function(error) {
                  console.debug("error", error);
              };
+             if (start == null) {
+                 start = 0;
+             }
+             var params = {limit : this._limit, start: start, categorized: true};
              encuestame.service.xhrGet(
-                     encuestame.service.list.getAllNotifications, {required : 10}, load, error);
+                     encuestame.service.list.getAllNotifications, params, load, error);
         },
 
         /*
          *
          */
         _loadMoreNotifications : function(event){
-
+                console.debug("MORE ENCUESTAME-234", event);
         },
 
+        /*
+         * see more items.
+         */
+        _seeMore : function(){
+            //only for mobile interface. override.
+        } ,
+
+        /*
+         * build notification category section.
+         */
         _buildSection : function(name, content){
              var section = dojo.doc.createElement("div");
              dojo.addClass(section, "section");
 
              var title = dojo.doc.createElement("h3");
              title.innerHTML = name;
+             //add title
              section.appendChild(title);
+             //add content
              section.appendChild(content);
+             //add see more
+             if(this._seeMoreValue){
+                 section.appendChild(this._seeMore());
+             }
              this._list.appendChild(section);
         },
 
@@ -110,6 +136,29 @@ dojo.declare(
 
             postCreate : function() {
                 console.debug("item", this.item);
+            },
+
+            /*
+             * remove.
+             */
+            _remove : function(event){
+                //TODO: display dialog.
+                this._removeNotification();
+            },
+
+            /*
+             * remove notification
+             */
+            _removeNotification : function(){
+                var load = dojo.hitch(this, function(data) {
+                     dojo.destroy(this.domNode);
+                 });
+                 var error = function(error) {
+                     console.debug("error", error);
+                 };
+                 var params = {notificationId : this.item.id};
+                 encuestame.service.xhrGet(
+                         encuestame.service.list.removeNotification, params, load, error);
             }
 
 });

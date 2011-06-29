@@ -270,6 +270,10 @@ encuestame.social.shortPicture = function(provider){
      return url;
 };
 
+encuestame.notification = {};
+encuestame.notification.load = {};
+encuestame.notification.load.limit = 100;
+
 encuestame.session.activity = {};
 
 encuestame.session.activity.name = "enme-ac";

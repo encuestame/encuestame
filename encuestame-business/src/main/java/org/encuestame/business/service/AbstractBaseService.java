@@ -13,6 +13,7 @@
 package org.encuestame.business.service;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -166,11 +167,36 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param secUser
      * @return
      */
+    @Deprecated
     public Notification createNotification(final NotificationEnum description, final String additional,  final Account account){
         final Notification notification = new Notification();
         notification.setDescription(description);
         notification.setAccount(account);
         notification.setAdditionalDescription(additional);
+        getNotificationDao().saveOrUpdate(notification);
+        return notification;
+    }
+
+
+    /**
+     * Create {@link Notification} with url reference.
+     * @param description
+     * @param additional
+     * @param urlReference
+     * @return
+     */
+    public Notification createNotification(
+            final NotificationEnum description,
+            final String additional,
+            final String urlReference,
+            final Boolean group){
+        final Notification notification = new Notification();
+        notification.setDescription(description);
+        notification.setAccount(getUserAccountLogged().getAccount());
+        notification.setAdditionalDescription(additional);
+        notification.setUrlReference(urlReference);
+        notification.setCreated(Calendar.getInstance().getTime());
+        notification.setGroup(group);
         getNotificationDao().saveOrUpdate(notification);
         return notification;
     }

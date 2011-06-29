@@ -41,6 +41,8 @@ public class UtilNotification implements Serializable {
 
     private String additionalDescription;
 
+    private String url;
+
     /**
      * @return the description
      */
@@ -139,16 +141,17 @@ public class UtilNotification implements Serializable {
         this.type = type;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
+    /**
+     * @return the url
      */
-    @Override
-    public String toString() {
-        return "UtilNotification [description=" + description + ", id=" + id
-                + ", date=" + date + ", type=" + type + ", icon=" + icon
-                + ", hour=" + hour + ", additionalDescription="
-                + additionalDescription + "]";
+    public String getUrl() {
+        return url;
     }
 
-
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(final String url) {
+        this.url = url;
+    }
 }

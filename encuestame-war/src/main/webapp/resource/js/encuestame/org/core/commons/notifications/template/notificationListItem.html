@@ -3,7 +3,7 @@
         <img alt="icon" dojoAttachPoint="_list">
     </span>
     <span class="title">
-        ${item.type}
+        ${item.description}
     </span>
     <span class="description">
         ${item.additionalDescription} dsa dsa dsa dsa dsaaaaaaaaa djkasljd kldsja lkjdsalkj dlsk
@@ -12,6 +12,8 @@
           ${item.date} | ${item.hour}
     </span>
      <span class="options">
-            <span class=""><a href="#">Delete</a></span>
+        <span class="">
+            <a href="#" dojoAttachEvent="onclick:_remove">Delete</a>
+        </span>
      </span>
 </div>

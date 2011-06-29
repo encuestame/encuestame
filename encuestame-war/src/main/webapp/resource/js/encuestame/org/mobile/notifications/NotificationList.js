@@ -15,8 +15,25 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
+        _seeMoreValue : true,
+
+        _limit : 10,
+
         postCreate : function(){
             this.inherited(arguments);
+        },
+
+        //@override
+        _seeMore : function(){
+            var more = dojo.doc.createElement("div");
+            dojo.addClass(more, "mobile-more");
+            var a = dojo.doc.createElement("a");
+            a.innerHTML = "See Next 10 Items..";
+            dojo.connect(a, "onclick", dojo.hitch(this, function(event) {
+                this._loadMoreNotifications(event);
+            }));
+            more.appendChild(a);
+            return more;
         }
     }
 );
@@ -26,7 +43,7 @@ dojo.declare(
 */
 dojo.declare(
        "encuestame.org.mobile.notifications.NotificationListItem",
-       [dijit._Widget, dijit._Templated],{
+       [encuestame.org.core.commons.notifications.NotificationListItem],{
            templatePath: dojo.moduleUrl("encuestame.org.mobile.notifications", "template/notificationListItem.html"),
 
            widgetsInTemplate: true,
@@ -36,6 +53,7 @@ dojo.declare(
            category : null,
 
            postCreate : function() {
+               this.inherited(arguments);
                console.debug("item", this.item);
            }
 

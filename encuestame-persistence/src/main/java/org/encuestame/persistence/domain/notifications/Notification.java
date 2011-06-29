@@ -60,6 +60,10 @@ public class Notification {
 
     private Boolean readed = Boolean.FALSE;
 
+    private String urlReference;
+
+    private Boolean group = false;
+
     /**
      * @return the notificationId
      */
@@ -158,5 +162,35 @@ public class Notification {
      */
     public void setAdditionalDescription(final String additionalDescription) {
         this.additionalDescription = additionalDescription;
+    }
+
+    /**
+     * @return the urlReference
+     */
+    @Column(name = "reference")
+    public String getUrlReference() {
+        return urlReference;
+    }
+
+    /**
+     * @param urlReference the urlReference to set
+     */
+    public void setUrlReference(String urlReference) {
+        this.urlReference = urlReference;
+    }
+
+    /**
+     * @return the group
+     */
+    @Column(name = "group")
+    public Boolean getGroup() {
+        return group;
+    }
+
+    /**
+     * @param group the group to set
+     */
+    public void setGroup(final Boolean group) {
+        this.group = group;
     }
 }
