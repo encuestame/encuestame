@@ -77,15 +77,17 @@ public class HashTagController extends AbstractBaseOperations{
         try {
             final HashTagBean tag = service.getHashTagItem(name);
             log.debug("hashTag Id ---> "+ tag.getId());
-            final List<TweetPollBean> tweetPoll = service.getTweetPollsbyHashTagId(tag.getId(), 10);
+            final List<TweetPollBean> tweetPoll = service.getTweetPollsbyHashTagId(tag.getId(), 10, request);
             log.debug("TweetPolls by HashTag Id ---> "+ tweetPoll.size());
             if (tag == null) {
                 return "pageNotFound";
             } else {
                 model.addAttribute("tagName", service.getHashTagItem(name));
-                model.addAttribute("tweetPolls", service.getTweetPollsbyHashTagId(tag.getId(), 10));
+                model.addAttribute("tweetPolls", service.getTweetPollsbyHashTagId(tag.getId(), 10, request));
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
             return "pageNotFound";
         }
         return "tag/detail";

@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -310,8 +312,21 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param date
      * @return
      */
+    @Deprecated
     protected  HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date date){
          return DateUtil.getRelativeTime(date);
+    }
+
+
+    @Deprecated
+    public void convertRelativeTime(final TweetPollBean tpbean, final HttpServletRequest request){
+        final HashMap<Integer, RelativeTimeEnum> relativeTime = getRelativeTime(tpbean.getCreatedDateAt());
+        final Iterator it = relativeTime.entrySet().iterator();
+        while (it.hasNext()) {
+            final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
+            log.debug("--"+e.getKey() + "**" + e.getValue());
+            tpbean.setRelativeTime(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
+        }
     }
 
    /**
@@ -322,6 +337,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * @param objects
     * @return
     */
+    @Deprecated
    public String convertRelativeTimeMessage(final RelativeTimeEnum relativeTimeEnum, final Integer number,
            final HttpServletRequest request){
        final StringBuilder builder = new StringBuilder();
@@ -364,6 +380,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
+   @Deprecated
     public String getMessage(final String message,
             final HttpServletRequest request, Object[] args) {
         String stringValue = "";
@@ -383,6 +400,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
+    @Deprecated
     public String getMessage(final String message, Object[] args){
         return getMessage(message, null, args);
     }
@@ -392,6 +410,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param message
      * @return
      */
+    @Deprecated
     public String getMessage(final String message){
         return getMessage(message, null, null);
     }
@@ -401,6 +420,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param request
      * @return
      */
+    @Deprecated
     private Locale getLocale(final HttpServletRequest request){
         return RequestContextUtils.getLocale(request);
     }

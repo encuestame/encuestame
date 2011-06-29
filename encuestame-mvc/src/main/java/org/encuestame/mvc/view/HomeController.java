@@ -62,14 +62,14 @@ public class HomeController extends AbstractBaseOperations {
             final IFrontEndService service = getFrontService();
             try {
                 if (view.isEmpty()) {
-                    model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                    model.addAttribute("items", service.searchItemsByTweetPoll(period, 20, request));
                 } else {
                     if ("tweetpoll".equals(view)){
-                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20, request));
                     } else if("poll".equals(view)){
                         model.addAttribute("items", service.searchItemsByPoll(period, 20));
                     } else if("survey".equals(view)){
-                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20, request));
                     }
                 }
                 model.addAttribute("hashTags", service.getHashTags(30, 0));

@@ -14,6 +14,8 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -37,7 +39,8 @@ public interface IFrontEndService extends ServiceOperations {
      */
      List<TweetPollBean> searchItemsByTweetPoll(
             final String period,
-            Integer maxResults)
+            Integer maxResults,
+            final HttpServletRequest request)
             throws EnMeSearchException;
 
      /**
@@ -74,7 +77,8 @@ public interface IFrontEndService extends ServiceOperations {
      * Get TweetPolls by hashTag id.
      * @param hashTagId
      * @param limit
+     * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit);
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final HttpServletRequest request);
 }

@@ -51,6 +51,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Integer maxRepeatedVotes;
     private Boolean limitVotesEnabled;
     private Boolean resumeTweetPollDashBoard;
+    private Date createdDateAt;
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
@@ -412,6 +413,20 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     */
     public void setOwnerUsername(final String ownerUsername) {
         this.ownerUsername = ownerUsername;
+    }
+
+    /**
+    * @return the createdDateAt
+    */
+    public Date getCreatedDateAt() {
+        return createdDateAt;
+    }
+
+    /**
+    * @param createdDateAt the createdDateAt to set
+    */
+    public void setCreatedDateAt(Date createdDateAt) {
+        this.createdDateAt = createdDateAt;
     }
 
     /* (non-Javadoc)

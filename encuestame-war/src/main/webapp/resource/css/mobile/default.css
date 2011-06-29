@@ -342,6 +342,26 @@ div.mobile-hashTag-cloud {
     margin-top:4px;
 }
 
+div.mobile-hashtagName{
+    color: #5C8397;
+    font-size: 130%;
+}
+
+div.mobile-tags-tweetpolls{
+    margin-top: 4px;
+    width: 100%;
+
+}
+
+div.mobile-tweetpolls{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #0F0E0E;
+    padding: 5px 5px 5px 5px;
+     margin: 4px;
+}
+
+
+
 div.mobile-tags-tweetpolls{
 
 }
