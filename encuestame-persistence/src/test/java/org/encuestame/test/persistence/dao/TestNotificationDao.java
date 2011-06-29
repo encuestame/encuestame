@@ -52,10 +52,10 @@ public class TestNotificationDao extends AbstractBase{
      */
     @Test
     public void testloadNotification(){
-        final List<Notification> list = getNotification().loadNotificationByUserAndLimit(this.account, 5);
+        final List<Notification> list = getNotification().loadNotificationByUserAndLimit(this.account, 5, 0, true);
         final Notification not1 = list.get(0);
         assertEquals("Should be equals", 5, list.size());
-        final List<Notification> list2 = getNotification().loadNotificationByUserAndLimit(this.account, 20);
+        final List<Notification> list2 = getNotification().loadNotificationByUserAndLimit(this.account, 20, 0, true);
         assertEquals("Should be equals", 10, list2.size());
         final Long list3 = getNotification().retrieveTotalNotificationStatus(this.account);
         assertEquals("Should be equals", 20L, list3.longValue());

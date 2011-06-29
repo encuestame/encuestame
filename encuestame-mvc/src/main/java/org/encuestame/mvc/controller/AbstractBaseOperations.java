@@ -25,8 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import junit.framework.Assert;
-import net.tanesha.recaptcha.ReCaptcha;
-
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -61,6 +59,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.captcha.ReCaptcha;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -598,12 +597,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     public String convertNotificationMessage(final NotificationEnum notificationEnum,
             final HttpServletRequest request, final Object[] objects){
            String message = null;
-           if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
+           if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)) {
                message = getMessage("notification.tweetpoll.created", request, null);
-           } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
+           } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)) {
                message = getMessage("notification.tweetpoll.removed", request, objects);
-           } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
+           } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)) {
                message = getMessage("notification.tweetpoll.publish", request, null);
+           } else if(notificationEnum.equals(NotificationEnum.SOCIAL_MESSAGE_PUBLISHED)) {
+               message = getMessage("notification.social.tweet.published", request, objects);
            }
            return message;
     }
@@ -618,7 +619,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
            final Notification notification, final HttpServletRequest request) {
         final UtilNotification utilNotification = new UtilNotification();
         utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT.format(notification.getCreated()));
-        utilNotification.setDescription(convertNotificationMessage(notification.getDescription(), request, null));
+        utilNotification.setDescription(this.convertNotificationMessage(notification.getDescription(), request, new Object[]{}));
         utilNotification.setId(notification.getNotificationId());
         utilNotification.setHour(DateUtil.SIMPLE_TIME_FORMAT.format(notification.getCreated()));
         utilNotification.setIcon(convertNotificationIconMessage(notification.getDescription()));
@@ -691,5 +692,5 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
            icon = "twitterImage";
        }
        return icon;
-}
+   }
 }

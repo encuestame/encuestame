@@ -1536,6 +1536,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          notification.setDescription(description);
          notification.setReaded(readed);
          notification.setAccount(secUser);
+         notification.setUrlReference("http://google.es");
+         notification.setGroup(true);
          getNotification().saveOrUpdate(notification);
          return notification;
     }

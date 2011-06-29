@@ -15,13 +15,12 @@ package org.encuestame.mvc.validator;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import net.tanesha.recaptcha.ReCaptchaResponse;
-
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;

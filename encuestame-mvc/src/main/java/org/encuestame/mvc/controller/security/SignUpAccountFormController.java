@@ -16,13 +16,12 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.tanesha.recaptcha.ReCaptchaResponse;
-
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.security.SignUpBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

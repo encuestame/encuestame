@@ -515,6 +515,7 @@ div.web-notification-list div.web-notification-list-item{
     padding: 9px;
     font-size: 100%;
     text-align: left;
+    border-bottom: 1px solid #E9E9E9;
 }
 
 div.web-notification-list div.web-notification-list-item span{
@@ -524,19 +525,24 @@ div.web-notification-list div.web-notification-list-item span{
 }
 
 div.web-notification-list div.web-notification-list-item .icon{
-    width: 100px;
+    width: 16px;
     background-repeat: no-repeat;
+    display: inline-block;
 }
 
 div.web-notification-list div.web-notification-list-item .title{
     font-weight: bold;
     padding: 4px;
-    min-width: 300px;
+    min-width: 265px;
+    max-width: 265px;
+    display: inline-block;
 }
 
 div.web-notification-list div.web-notification-list-item .description{
     padding: 4px;
-    min-width: 300px;
+    min-width: 405px;
+    display: inline-block;
+    max-width: 405px;
 
 }
 
@@ -544,6 +550,7 @@ div.web-notification-list div.web-notification-list-item .date{
     padding-left: 10px;
     color: gray;
     padding: 4px;
+    display: inline-block;
 }
 
 /********** HASHTAGS **************/
