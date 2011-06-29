@@ -121,7 +121,7 @@
     </bean>
 
     <!-- reCaptcha -->
-    <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl"
+    <bean id="reCaptcha" class="org.encuestame.utils.captcha.ReCaptchaImpl"
         scope="singleton">
         <!-- demo
         <property name="privateKey" value="6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd" />
