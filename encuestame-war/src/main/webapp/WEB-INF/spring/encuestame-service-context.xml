@@ -14,11 +14,11 @@
   <import resource="encuestame-service-social-context.xml"/>
 
  <!-- Message Resources -->
-    <bean id="resourceBundleMessageSource"
+    <bean id="messageSource"
         class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename">
-            <value>messages</value>
-        </property>
+          <property name="basename">
+              <value>messages</value>
+          </property>
     </bean>
 
     <!-- Startup Support -->

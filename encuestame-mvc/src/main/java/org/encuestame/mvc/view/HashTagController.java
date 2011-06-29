@@ -23,6 +23,7 @@ import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,7 +52,7 @@ public class HashTagController extends AbstractBaseOperations{
     public String hashTagController(ModelMap model, HttpServletRequest request,
                   HttpServletResponse response) {
         final IFrontEndService service = getFrontService();
-        final List<HashTagBean> hashTagList = service.getHashTags(20, 0);
+        final List<HashTagBean> hashTagList = service.getHashTags(20, 0); //TODO: Add to file properties number 20
         log.debug("Tag list size ---> "+ hashTagList.size());
         model.addAttribute("hashtags", hashTagList);
         return "cloud";
@@ -75,10 +76,14 @@ public class HashTagController extends AbstractBaseOperations{
         name = filterValue(name);
         try {
             final HashTagBean tag = service.getHashTagItem(name);
+            log.debug("hashTag Id ---> "+ tag.getId());
+            final List<TweetPollBean> tweetPoll = service.getTweetPollsbyHashTagId(tag.getId(), 10);
+            log.debug("TweetPolls by HashTag Id ---> "+ tweetPoll.size());
             if (tag == null) {
                 return "pageNotFound";
             } else {
                 model.addAttribute("tagName", service.getHashTagItem(name));
+                model.addAttribute("tweetPolls", service.getTweetPollsbyHashTagId(tag.getId(), 10));
             }
         }catch (Exception e) {
             return "pageNotFound";

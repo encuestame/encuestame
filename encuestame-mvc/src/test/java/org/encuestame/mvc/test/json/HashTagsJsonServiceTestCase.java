@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import org.encuestame.mvc.controller.json.HashTagsJsonService;
+import org.encuestame.mvc.controller.json.HashTagsJsonController;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.json.simple.JSONArray;
@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.springframework.test.annotation.Repeat;
 
 /**
- * {@link HashTagsJsonService} Test Case.
+ * {@link HashTagsJsonController} Test Case.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 13, 2011
  */

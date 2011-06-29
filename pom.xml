@@ -1266,11 +1266,6 @@
                 <version>3.0.1</version>
             </dependency>
             <dependency>
-                <groupId>net.tanesha.recaptcha4j</groupId>
-                <artifactId>recaptcha4j</artifactId>
-                <version>0.0.7</version>
-            </dependency>
-            <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache-core</artifactId>
                 <version>${ehcache.version}</version>

@@ -16,7 +16,6 @@ package org.encuestame.utils;
  * Relative Time Enumeration.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Dec 14, 2010 20:14:07 PM
- * @version $Id:$
  */
 public enum RelativeTimeEnum {
     RIGTH_NOW,

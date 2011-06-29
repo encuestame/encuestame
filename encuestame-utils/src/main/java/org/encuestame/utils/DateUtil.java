@@ -54,6 +54,16 @@ public class DateUtil {
     public static final String DEFAULT_FORMAT_ALL = "yyyy-MM-dd hh:mm:ss";
 
     /**
+     * Simple date format.
+     */
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
+
+    /**
+     * Simple time format.
+     */
+    public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
+
+    /**
      * Get Format Date.
      * @param date
      * @return
@@ -171,6 +181,13 @@ public class DateUtil {
         //Buscar la diferencia
         int days = Days.daysBetween(start, end).getDays();
      */
+
+    /**
+     *
+     */
+    public static DateClasificatedEnum getClasificated(final Date date){
+        return DateClasificatedEnum.TODAY;
+    }
 
     /**
      * Get Relative Time.

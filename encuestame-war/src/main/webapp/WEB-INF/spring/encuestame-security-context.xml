@@ -69,6 +69,7 @@
         <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_ADMIN')" />
         <security:intercept-url pattern="/settings/**/*" access="hasRole('ENCUESTAME_USER')" />
+        <security:intercept-url pattern="/user/**/*"  access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/tweetpoll"  access="hasAnyRole('ENCUESTAME_USER','ENCUESTAME_EDITOR')" />
         <security:intercept-url pattern="/user/poll"  access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/dashboard"  access="hasRole('ENCUESTAME_USER')" />
@@ -120,10 +121,15 @@
     </bean>
 
     <!-- reCaptcha -->
-    <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl"
+    <bean id="reCaptcha" class="org.encuestame.utils.captcha.ReCaptchaImpl"
         scope="singleton">
+        <!-- demo
         <property name="privateKey" value="6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd" />
         <property name="publicKey" value="6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU" />
+        -->
+        <!-- localhost -->
+        <property name="privateKey" value="6LeytMUSAAAAANFxwgAGkQn-ajpbQKVFms2AWMRX" />
+        <property name="publicKey" value="6LeytMUSAAAAAF84VURfI3TmYFEBLMLvyk5-zTxc" />
         <property name="includeNoscript" value="false" />
         <!-- po ssl -->
         <property name="recaptchaServer" value="https://api-secure.recaptcha.net" />

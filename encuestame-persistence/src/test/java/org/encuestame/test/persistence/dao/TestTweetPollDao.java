@@ -16,10 +16,11 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
-
 import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -28,6 +29,8 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.joda.time.DateMidnight;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,7 +64,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /** {@link TweetPollFolder}. **/
     private TweetPollFolder tweetPollFolder;
 
-
+    private HashTag hashTag1;
     /**
      * Before.
      */
@@ -72,6 +75,11 @@ public class TestTweetPollDao  extends AbstractBase{
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
       this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
+      this.hashTag1 = createHashTag("hash1");
+      final HashTag hashTag2 = createHashTag("hash2");
+      this.tweetPoll.getHashTags().add(hashTag1);
+      this.tweetPoll.getHashTags().add(hashTag2);
+      getTweetPoll().saveOrUpdate(this.tweetPoll);
       this.pollSwitch1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
       this.pollSwitch2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
       createTweetPollResult(pollSwitch1, "192.168.0.1");
@@ -79,7 +87,6 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
       this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getAccount());
-
     }
 
     /**
@@ -234,6 +241,9 @@ public class TestTweetPollDao  extends AbstractBase{
         assertEquals("Should be equals", 1, favouritesTweets.size());
     }
 
+    /**
+     *
+     */
     @Test
     public void testRetrieveScheduledTweetPoll(){
         assertNotNull(this.secondary);
@@ -241,5 +251,61 @@ public class TestTweetPollDao  extends AbstractBase{
         final Long userId = this.secondary.getAccount().getUid();
         final List<TweetPoll> scheduledTweets = getTweetPoll().retrieveScheduledTweetPoll(userId, 5, 0);
         assertEquals("Should be equals", 1, scheduledTweets.size());
+    }
+
+    /**
+     *
+     */
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testgetTweetpollByHashTagName(){
+        assertNotNull(this.tweetPoll);
+        final Integer limit = 3;
+
+        final Calendar calendar = Calendar.getInstance();
+        System.out.println("PRIMER CALENDAR--"+ calendar.getTime());
+        calendar.set(Calendar.SECOND, -15);
+        final Calendar calendar2 = Calendar.getInstance();
+        System.out.println("SECOND CALENDAR--"+ calendar2.getTime());
+
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit);
+        assertEquals("Should be equals", 1, tweetPolls.size());
+        final HashTag hashtag2 = createHashTag("paola");
+        final HashTag hashtag3 = createHashTag("juan");
+        this.tweetPoll.getHashTags().add(hashtag2);
+        this.tweetPoll.getHashTags().add(hashtag3);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+        final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+                secondary.getAccount(),
+                createQuestion("question1", secondary.getAccount()), calendar.getTime());
+        tweetPoll1.getHashTags().add(this.hashTag1);
+        final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+                secondary.getAccount(),
+                createQuestion("question2", secondary.getAccount()), calendar2.getTime());
+        tweetPoll2.getHashTags().add(this.hashTag1);
+
+        getTweetPoll().saveOrUpdate(tweetPoll1);
+        getTweetPoll().saveOrUpdate(tweetPoll2);
+
+        final Calendar calendar3 = Calendar.getInstance();
+        System.out.println("THIRD CALENDAR --> "+calendar3.getTime());
+
+        final HashMap<Integer, RelativeTimeEnum> hm3 = DateUtil.getRelativeTime(tweetPoll1.getCreateDate());
+        System.out.println("HM 3 ---------->"+hm3);
+
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit);
+        System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
+
+
+        final Calendar calendar4 = Calendar.getInstance();
+        System.out.println(calendar.getTime());
+
+        final HashMap<Integer, RelativeTimeEnum> hm4 = DateUtil.getRelativeTime(tweetPoll2.getCreateDate());
+        System.out.println("HM---------->"+hm4);
+
+        for (TweetPoll tweetPoll : tweetPolls2) {
+             System.out.println(" TWITS BY HASHTAG --> " + tweetPoll.getQuestion().getQuestion() + "Published -->" + tweetPoll.getCreateDate());
+        }
+        assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 }

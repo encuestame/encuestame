@@ -270,6 +270,27 @@ encuestame.social.shortPicture = function(provider){
      return url;
 };
 
+encuestame.notification = {};
+encuestame.notification.load = {};
+encuestame.notification.load.limit = 100;
+
+encuestame.notification.buildURLDescription = function(type, description, url) {
+    var multi = dojo.doc.createElement("div");
+    var a = dojo.doc.createElement("a");
+    a.target = "_blank";
+    if (type == "TWEETPOLL_PUBLISHED") {
+        multi.innerHTML = description+ "<br/> ";
+        a.href = encuestame.contextDefault + url;
+        a.innerHTML = "See details here.";
+    } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
+        multi.innerHTML = "";
+        a.href = url;
+        a.innerHTML = description;
+    }
+    multi.appendChild(a);
+    return multi;
+};
+
 encuestame.session.activity = {};
 
 encuestame.session.activity.name = "enme-ac";
@@ -397,6 +418,7 @@ encuestame.contextWidget = function(){
 encuestame.service.list = {};
 encuestame.service.list.userList = encuestame.contextWidget()+"/api/admon/users.json";
 encuestame.service.list.getNotifications = encuestame.contextWidget()+"/api/notifications/list.json";
+encuestame.service.list.getAllNotifications = encuestame.contextWidget()+"/api/notifications/all/list.json";
 encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/notifications/readed.json";
 encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json";
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";

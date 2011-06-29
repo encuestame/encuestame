@@ -24,6 +24,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since Nov 20, 2010 12:43:46 PM
  */
 @Controller
-public class HashTagsJsonService extends AbstractJsonController{
+public class HashTagsJsonController extends AbstractJsonController{
 
 
     /**
@@ -94,5 +95,42 @@ public class HashTagsJsonService extends AbstractJsonController{
             }
             return returnData();
         }
+
+    /**
+     * Get hashTags cloud.
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/common/hashtags/cloud.json", method = RequestMethod.GET)
+    public ModelMap getHashTagsCloud(
+            @RequestParam(value = "limit", required = false) Integer limit,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+         try {
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+             final IFrontEndService service = getFrontService();
+             final List<HashTagBean> hashTagList;
+             if(limit == null){
+                 hashTagList = service.getHashTags(20, 0); // TODO: Add to file properties limit to show hashtags.
+             }
+             else {
+                hashTagList = service.getHashTags(limit, 0);
+             }
+             jsonResponse.put("cloud", hashTagList);
+             setItemResponse(jsonResponse);
+            }
+         catch (Exception e) {
+            // TODO: handle exception
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+                return returnData();
+
+    }
 
 }

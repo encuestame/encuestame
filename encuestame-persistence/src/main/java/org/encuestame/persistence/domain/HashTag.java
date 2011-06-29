@@ -12,13 +12,21 @@
  */
 package org.encuestame.persistence.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -45,6 +53,8 @@ public class HashTag {
 
     /** Total of hits. **/
     private Long hits;
+
+    private Set<TweetPoll> tweetPoll = new HashSet<TweetPoll>();
 
     /**
      * @return the hashTagId
@@ -94,4 +104,21 @@ public class HashTag {
     public void setHits(final Long hits) {
         this.hits = hits;
     }
+
+    /**
+     * @return the tweetPoll
+     */
+    @ManyToMany(cascade = CascadeType.ALL)
+    public Set<TweetPoll> getTweetPoll() {
+        return tweetPoll;
+    }
+
+    /**
+     * @param tweetPoll the tweetPoll to set
+     */
+    public void setTweetPoll(Set<TweetPoll> tweetPoll) {
+        this.tweetPoll = tweetPoll;
+    }
+
+
 }

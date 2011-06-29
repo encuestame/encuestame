@@ -34,6 +34,8 @@ dojo.declare(
 
         openNot : false,
 
+        _originalTitle : null,
+
         /*
          *
          */
@@ -56,6 +58,7 @@ dojo.declare(
                     encuestame.activity.cometd.unsubscribe(subscriptionNotification);
                 }
             });
+            this._originalTitle = document.title;
         },
 
         /*
@@ -93,7 +96,8 @@ dojo.declare(
          */
         _viewAll : function(event){
              dojo.stopEvent(event);
-             dijit.byId("allNot").show();
+             //dijit.byId("allNot").show();
+             document.location.href = encuestame.contextDefault+"/user/notifications";
         },
 
         /*
@@ -107,6 +111,10 @@ dojo.declare(
                 //highlight new notifications.
                 this._updateNotifications = true;
                 this._displayNewHighlight();
+                //update title to show number of new notifications
+                var newTitle = this._originalTitle + "("+totalNew+")";
+                console.debug("newTitle", newTitle);
+                document.title = newTitle;
             } else {
                 this._hideNewHighlight();
                 this._updateNotifications = false;

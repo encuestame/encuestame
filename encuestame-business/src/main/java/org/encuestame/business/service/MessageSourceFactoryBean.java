@@ -32,14 +32,14 @@ public class MessageSourceFactoryBean implements MessageSource {
      *
      */
     @Autowired
-    private MessageSource resourceBundleMessageSource;
+    private MessageSource messageSource;
 
     /**
      *
      * @param messagesource
      */
     public void setMessagesource(final MessageSource messagesource) {
-        this.resourceBundleMessageSource = messagesource;
+        this.messageSource = messagesource;
     }
 
     /**
@@ -47,7 +47,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     public String getMessage(MessageSourceResolvable resolvable, Locale locale)
             throws NoSuchMessageException {
-        return resourceBundleMessageSource.getMessage(resolvable, getDefaultLocale(locale));
+        return messageSource.getMessage(resolvable, getDefaultLocale(locale));
     }
 
     /**
@@ -55,7 +55,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     public String getMessage(String code, Object[] args, Locale locale)
             throws NoSuchMessageException {
-        return resourceBundleMessageSource.getMessage(code, args, code,
+        return messageSource.getMessage(code, args, code,
                 getDefaultLocale(locale));
 
     }
@@ -65,7 +65,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     public String getMessage(String code, Object[] args, String defaultMessage,
             Locale locale) {
-        return resourceBundleMessageSource.getMessage(code, args, defaultMessage,
+        return messageSource.getMessage(code, args, defaultMessage,
                 getDefaultLocale(locale));
     }
 
