@@ -439,6 +439,7 @@ div.mobile-notification-list-item {
     min-height: 45px;
     border-bottom: 1px solid gray;
     padding: 5px;
+    overflow: auto;
 }
 
 div.mobile-notification-list-item .title{

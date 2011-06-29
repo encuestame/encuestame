@@ -17,8 +17,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.tanesha.recaptcha.ReCaptchaResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.SecurityOperations;
@@ -29,6 +27,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

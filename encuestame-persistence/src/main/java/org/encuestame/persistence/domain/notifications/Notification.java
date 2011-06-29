@@ -182,7 +182,7 @@ public class Notification {
     /**
      * @return the group
      */
-    @Column(name = "group")
+    @Column(name = "group_notification")
     public Boolean getGroup() {
         return group;
     }

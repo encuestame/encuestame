@@ -59,7 +59,7 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject response = callJsonService();
         final JSONObject sucess = getSucess(response);
         JSONArray listNotifications = (JSONArray) sucess.get("notifications");
-        final List<Notification> list = getNotification().loadNotificationByUserAndLimit(getSpringSecurityLoggedUserAccount().getAccount(), 100);
+        final List<Notification> list = getNotification().loadNotificationByUserAndLimit(getSpringSecurityLoggedUserAccount().getAccount(), 100, 0, true);
         Assert.assertEquals(list.size(), listNotifications.size());
         initService("/api/notifications/list.json", MethodJson.GET);
         setParameter("limit", "1");

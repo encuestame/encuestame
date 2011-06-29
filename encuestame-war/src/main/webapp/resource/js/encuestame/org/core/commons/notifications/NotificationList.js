@@ -136,6 +136,16 @@ dojo.declare(
 
             postCreate : function() {
                 console.debug("item", this.item);
+                if (this.item.url != null) {
+                    this._description
+                    .appendChild(encuestame.notification
+                    .buildURLDescription(
+                            this.item.type,
+                            this.item.additionalDescription,
+                            this.item.url));
+                } else {
+                    this._description.innerHTML = this.item.additionalDescription;
+                }
             },
 
             /*
