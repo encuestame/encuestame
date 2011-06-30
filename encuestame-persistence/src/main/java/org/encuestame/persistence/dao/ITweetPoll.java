@@ -228,4 +228,12 @@ public interface ITweetPoll extends IBaseDao{
      */
     List getTweetpollByHashTagId(final Long hashTag,  final Integer limit);
 
+    /**
+     * Get tweetPoll by top rated.
+     * @param hashTagId
+     * @param limit
+     * @return
+     */
+    List<TweetPoll> getTweetpollByTopRated(final Long hashTagId, final Integer limit);
+
 }
