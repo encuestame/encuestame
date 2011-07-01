@@ -13,6 +13,7 @@
 package org.encuestame.core.social;
 
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.social.SocialUserProfile;
 
 
 

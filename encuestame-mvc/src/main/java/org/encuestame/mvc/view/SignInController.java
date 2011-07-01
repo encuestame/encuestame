@@ -23,6 +23,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -151,12 +152,12 @@ public class SignInController extends AbstractSocialController{
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
                 auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
-                        SocialUtils.FACEBOOK_SCOPE, httpRequest, false));
+                        SocialUtils.FACEBOOK_SCOPE, httpRequest, providerEnum == SocialProvider.FACEBOOK ? true : false));
             } else {
-
+                url.append("404");
             }
         }
-        log.debug("PROVIDER SIGNIN url"+url);
+        log.debug("PROVIDER SIGNIN url: -->"+url);
         return url.toString();
     }
 
@@ -206,19 +207,22 @@ public class SignInController extends AbstractSocialController{
                }
                String x = "redirect:/user/signin/friends";
                if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
-                    x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant));
+                    x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant, getSecurityService()));
                } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
-                   x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant));
+                   x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant, getSecurityService()));
                }
                if (log.isDebugEnabled()) {
                    log.debug("oauth2Callback sign up with social account "+x);
                }
                return x;
             } catch (EnMeExistPreviousConnectionException e) {
+                 e.printStackTrace();
                  log.fatal("OAuth EnMeExistPreviousConnectionException:{"+e);
+                 Assert.notNull(httpRequest);
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             } catch (Exception e) {
+                 e.printStackTrace();
                  log.fatal("OAuth Exception:{"+e);
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";

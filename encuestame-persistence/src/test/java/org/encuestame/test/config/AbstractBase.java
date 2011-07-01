@@ -1596,31 +1596,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.hashTagDao = hashTagDao;
     }
 
-
-    /**
-     * Create {@link AccountConnection}.
-     * @param provider
-     * @param token
-     * @param socialAccountId
-     * @param userAccountId
-     * @param providerProfileUrl
-     * @return
-     */
-    public AccountConnection createConnection(
-            final SocialProvider provider,
-            final AccessGrant grant,
-            final String socialAccountId,
-            final UserAccount userAccount,
-            final SocialAccount socialAccount,
-            final String providerProfileUrl){
-        return getAccountDao().addConnection(provider,
-                grant,
-                socialAccountId,
-                userAccount,
-                null,
-                socialAccount);
-    }
-
     /**
      * Create fake questions.
      * @param user {@link Account};
