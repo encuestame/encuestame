@@ -47,7 +47,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private String createDate;
     private Boolean allowRepeatedVotes;
     private Long totalVotes;
-    private Date relativeTime;
+    private String relativeTime;
     private Integer maxRepeatedVotes;
     private Boolean limitVotesEnabled;
     private Boolean resumeTweetPollDashBoard;
@@ -346,14 +346,14 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the relativeTime
      */
-    public Date getRelativeTime() {
+    public String getRelativeTime() {
         return relativeTime;
     }
 
     /**
      * @param relativeTime the relativeTime to set
      */
-    public void setRelativeTime(Date relativeTime) {
+    public void setRelativeTime(String relativeTime) {
         this.relativeTime = relativeTime;
     }
 

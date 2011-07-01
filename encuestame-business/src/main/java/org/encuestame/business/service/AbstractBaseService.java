@@ -13,6 +13,7 @@
 package org.encuestame.business.service;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,7 +60,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * {@link MessageSourceFactoryBean}.
      */
     @Autowired
-    private MessageSourceFactoryBean messageSource;
+    private MessageSourceFactoryBean messageSourceFactoryBean;
 
     /**
      *  {@link MailService}.
@@ -76,8 +77,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public MessageSourceFactoryBean getMessageSource() {
-        return messageSource;
+    public MessageSourceFactoryBean getMessageSourceFactoryBean() {
+        return messageSourceFactoryBean;
     }
 
 
@@ -85,8 +86,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
-    public void setMessageSource(final MessageSourceFactoryBean messageSource) {
-        this.messageSource = messageSource;
+    public void setMessageSourceFactoryBean(final MessageSourceFactoryBean messageSourceFactoryBean) {
+        this.messageSourceFactoryBean = messageSourceFactoryBean;
     }
 
     /**
@@ -95,7 +96,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return value of propertie
      */
     public String getMessageProperties(String propertieId) {
-        return getMessageSource() == null ? propertieId : getMessageSource()
+        return getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
                 .getMessage(propertieId, null, null);
     }
 
@@ -166,11 +167,36 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param secUser
      * @return
      */
+    @Deprecated
     public Notification createNotification(final NotificationEnum description, final String additional,  final Account account){
         final Notification notification = new Notification();
         notification.setDescription(description);
         notification.setAccount(account);
         notification.setAdditionalDescription(additional);
+        getNotificationDao().saveOrUpdate(notification);
+        return notification;
+    }
+
+
+    /**
+     * Create {@link Notification} with url reference.
+     * @param description
+     * @param additional
+     * @param urlReference
+     * @return
+     */
+    public Notification createNotification(
+            final NotificationEnum description,
+            final String additional,
+            final String urlReference,
+            final Boolean group){
+        final Notification notification = new Notification();
+        notification.setDescription(description);
+        notification.setAccount(getUserAccountLogged().getAccount());
+        notification.setAdditionalDescription(additional);
+        notification.setUrlReference(urlReference);
+        notification.setCreated(Calendar.getInstance().getTime());
+        notification.setGroup(group);
         getNotificationDao().saveOrUpdate(notification);
         return notification;
     }

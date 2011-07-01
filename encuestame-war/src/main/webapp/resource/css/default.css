@@ -148,6 +148,8 @@ a:hover{
     font-size: 14px;
 }
 
+/** common classes **/
+
 .error{
     background-color: #C88080;
     -webkit-border-radius: 4px;
@@ -214,6 +216,32 @@ a:hover{
     color: #000;
     font-weight: bold;
 }
+
+.warningImage{
+    background-image: url(../images/social/icons/1243963629_001_11.png);
+}
+
+.helpImage{
+    background-image: url(../images/social/icons/enme_question.gif);
+}
+
+.likeImage{
+    background-image: url(../images/icons/enme_like.png);
+}
+
+.unLikeImage{
+    background-image: url(../images/icons/emne_unlike.png);
+}
+
+.twitterImage{
+    background-image: url("../images/social/twitter/enme_icon_twitter.png");
+}
+
+.pollImage{
+    background-image: url(../images/icons/emne_poll.png);
+}
+
+/** content container **/
 
 #content-container #enme-content div.publicMarginWrapper{
     width: 100%;
@@ -470,4 +498,81 @@ div.socialAccountPicker div.account div.detail{
 div.socialAccountPicker div.account div.icon{
     float: right;
     padding: 5px;
+}
+
+/** notifilication list **/
+
+div.web-notification-list{
+
+}
+
+div.web-notification-list list{
+
+}
+
+div.web-notification-list div.web-notification-list-item{
+    clear: both;
+    padding: 9px;
+    font-size: 100%;
+    text-align: left;
+    border-bottom: 1px solid #E9E9E9;
+}
+
+div.web-notification-list div.web-notification-list-item span{
+    margin-left: 5px;
+    margin-right: 10px;
+    font-size: 100%;
+}
+
+div.web-notification-list div.web-notification-list-item .icon{
+    width: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+div.web-notification-list div.web-notification-list-item .title{
+    font-weight: bold;
+    padding: 4px;
+    min-width: 265px;
+    max-width: 265px;
+    display: inline-block;
+}
+
+div.web-notification-list div.web-notification-list-item .description{
+    padding: 4px;
+    min-width: 405px;
+    display: inline-block;
+    max-width: 405px;
+
+}
+
+div.web-notification-list div.web-notification-list-item .date{
+    padding-left: 10px;
+    color: gray;
+    padding: 4px;
+    display: inline-block;
+}
+
+/********** HASHTAGS **************/
+
+div.web-hashtagName{
+    color: #5C8397;
+    font-size: 130%;
+}
+
+div.web-tags-tweetpolls{
+    margin-top: 4px;
+    width: 100%;
+
+}
+
+div.web-tweetpolls{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #0F0E0E;
+    padding: 5px 5px 5px 5px;
+     margin: 4px;
+}
+
+div.web-tweetpolls-time{
+
 }

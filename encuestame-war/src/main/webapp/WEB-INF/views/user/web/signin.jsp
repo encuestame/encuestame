@@ -43,7 +43,7 @@
             </form>
       </div>
     </div>
-     <c:if test="${!social}">
+     <c:if test="${social}">
       <div class="socialConnect">
           <div class="title">Do you already have an account on one of these sites?</div>
 <%--           <div class="twitter">

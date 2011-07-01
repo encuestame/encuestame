@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.social;
+package org.encuestame.utils.social;
 
 import java.util.Date;
 

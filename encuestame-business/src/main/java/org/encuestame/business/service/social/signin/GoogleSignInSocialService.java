@@ -12,18 +12,21 @@
  */
 package org.encuestame.business.service.social.signin;
 
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.social.api.BuzzAPITemplate;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.social.BuzzAPIOperations;
-import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
+
 /**
  * Google SignIn Support.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 5:57:35 PM
  */
-public class GoogleSignInSocialService extends AbstractSocialSignInConnect<BuzzAPIOperations>{
+public class GoogleSignInSocialService extends
+        AbstractSocialSignInConnect<BuzzAPIOperations> {
 
     /**
      *
@@ -32,8 +35,9 @@ public class GoogleSignInSocialService extends AbstractSocialSignInConnect<BuzzA
      * @throws Exception
      */
 
-    public GoogleSignInSocialService(final AccessGrant accessToken) throws Exception {
-        super(accessToken);
+    public GoogleSignInSocialService(final AccessGrant accessToken,
+            final SecurityOperations securityOperations) throws Exception {
+        super(accessToken, securityOperations);
     }
 
     /**
@@ -46,14 +50,8 @@ public class GoogleSignInSocialService extends AbstractSocialSignInConnect<BuzzA
 
     @Override
     public BuzzAPIOperations getAPISocialProvider() {
-         return new BuzzAPITemplate(getAccessGrant().getAccessToken(),
-                 EnMePlaceHolderConfigurer.getProperty("google.api.key"));
-    }
-
-    @Override
-    public void disconnect() {
-        // TODO Auto-generated method stub
-
+        return new BuzzAPITemplate(getAccessGrant().getAccessToken(),
+                EnMePlaceHolderConfigurer.getProperty("google.api.key"));
     }
 
 }

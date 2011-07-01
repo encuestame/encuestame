@@ -41,22 +41,23 @@
                 <div class="item"><a href="<%=request.getContextPath()%>/user/forgot">Forgot your username/password?</a></div>
                 <div class="item"><a href="<%=request.getContextPath()%>/user/signup">Create Account</a></div>
            </div>
-
-           <div class="mobile-signin-social-options">
-                <div class="item">
-                      <form action="<%=request.getContextPath()%>/signin/google" method="POST">
-                          <button type="submit">
-                              <img src="<%=request.getContextPath()%>/resources/images/social/google/enme_google_conn.png" />
-                          </button>
-                      </form>
-                  </div>
-                  <div class="item">
-                      <form action="<%=request.getContextPath()%>/signin/facebook" method="POST">
-                          <button type="submit">
-                              <img src="<%=request.getContextPath()%>/resources/images/social/facebook/enme_connect.gif" />
-                          </button>
-                      </form>
-                  </div>
-           </div>
+           <c:if test="${social}">
+               <div class="mobile-signin-social-options">
+                    <div class="item">
+                          <form action="<%=request.getContextPath()%>/signin/google" method="POST">
+                              <button type="submit">
+                                  <img src="<%=request.getContextPath()%>/resources/images/social/google/enme_google_conn.png" />
+                              </button>
+                          </form>
+                      </div>
+                      <div class="item">
+                          <form action="<%=request.getContextPath()%>/signin/facebook" method="POST">
+                              <button type="submit">
+                                  <img src="<%=request.getContextPath()%>/resources/images/social/facebook/enme_connect.gif" />
+                              </button>
+                          </form>
+                      </div>
+               </div>
+           </c:if>
       </div>
 </div>

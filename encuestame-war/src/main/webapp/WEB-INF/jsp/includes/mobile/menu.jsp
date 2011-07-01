@@ -9,14 +9,15 @@
                <img src="<%=request.getContextPath()%>/resources/images/icons/mobile/enme_member_mobile_32.png" alt="Members" />
             </a>
          </span>
-        <span class="item">
+       <!-- <span class="item">
             <a href="<%=request.getContextPath()%>/admon/location">
                 <img src="<%=request.getContextPath()%>/resources/images/icons/mobile/enme_location_mobile_32.png" alt="Location" />
             </a>
         </span>
+         -->
         <span class="item">
             <a href="<%=request.getContextPath()%>/admon/project">
-                <img src="<%=request.getContextPath()%>/resources/images/icons/mobile/enme_project_mobile_32.png" alt=Project />
+                <img src="<%=request.getContextPath()%>/resources/images/icons/mobile/enme_folder_mobile.png" alt=Project />
             </a>
         </span>
         <span class="item">

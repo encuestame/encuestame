@@ -15,30 +15,29 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.business.service.TweetPollService;
 import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionPattern;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.junit.Before;
 import org.junit.Test;

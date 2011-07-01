@@ -15,9 +15,9 @@ div.livePanel{
     background-color: #FFF;
     right: 4%;
     top: 85px;
-    -moz-box-shadow: 0px 2px 2px #888;
-    -webkit-box-shadow: 0px 2px 2px #888;
-    box-shadow: 10px 10px 5px #888;
+    -moz-box-shadow: 2px 2px 5px #888888;
+    -webkit-box-shadow: 2px 2px 5px #888888;
+     box-shadow: 2px 2px 5px #888888;
     -webkit-border-radius: 0px 0px 5px 5px;
     -moz-border-radius: 0px 0px 5px 5px;
      border-radius: 0px 0px 5px 5px;
@@ -76,34 +76,7 @@ div.livePanel .notificationItem .right .description{
     font-size: 80%;
     color: grey;
     font-weight: normal;
-}
-
-div.livePanel .notificationItem .warningImage{
-    background-image: url(../images/icons/1243963629_001_11.png);
-}
-
-div.livePanel .notificationItem  .helpImage{
-    background-image: url(../images/icons/enme_question.gif);
-}
-
-div.livePanel .notificationItem .netWorkErrorImage{
-    background-image: url(../images/icons/enme_network-error.png);
-}
-
-div.livePanel .notificationItem .likeImage{
-    background-image: url(../images/icons/enme_like.png);
-}
-
-div.livePanel .notificationItem .unLikeImage{
-    background-image: url(../images/icons/emne_unlike.png);
-}
-
-div.livePanel .notificationItem  .twitterImage{
-    background-image: url(../images/icons/enme_twitter.png);
-}
-
-div.livePanel .notificationItem .pollImage{
-    background-image: url(../images/icons/emne_poll.png);
+    margin-left: 60px;
 }
 
 div.counter{

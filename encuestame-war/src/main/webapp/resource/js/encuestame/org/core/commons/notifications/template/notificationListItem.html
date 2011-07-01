@@ -1,3 +1,18 @@
 <div class="web-notification-list-item">
-${item.additionalDescription}
+    <span class="icon">
+        <img alt="icon" dojoAttachPoint="_list">
+    </span>
+    <span class="title">
+        ${item.description}
+    </span>
+    <span class="description" dojoAttachPoint="_description">
+    </span>
+    <span class="date">
+          ${item.date} | ${item.hour}
+    </span>
+     <span class="options">
+        <span class="">
+            <a href="#" dojoAttachEvent="onclick:_remove">Delete</a>
+        </span>
+     </span>
 </div>

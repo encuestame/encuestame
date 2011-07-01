@@ -1023,6 +1023,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question);
     }
 
+    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
+        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question);
+     }
+
     /**
      * Create Not Published {@link TweetPoll}.
      * @param tweetOwner tweet owner
@@ -1528,10 +1532,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Boolean readed){
          final Notification notification = new Notification();
          notification.setAdditionalDescription(message);
-         notification.setCreated(new Date());
+         notification.setCreated(Calendar.getInstance().getTime());
          notification.setDescription(description);
          notification.setReaded(readed);
          notification.setAccount(secUser);
+         notification.setUrlReference("http://google.es");
+         notification.setGroup(true);
          getNotification().saveOrUpdate(notification);
          return notification;
     }
@@ -1588,31 +1594,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public void setHashTagDao(IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
-    }
-
-
-    /**
-     * Create {@link AccountConnection}.
-     * @param provider
-     * @param token
-     * @param socialAccountId
-     * @param userAccountId
-     * @param providerProfileUrl
-     * @return
-     */
-    public AccountConnection createConnection(
-            final SocialProvider provider,
-            final AccessGrant grant,
-            final String socialAccountId,
-            final UserAccount userAccount,
-            final SocialAccount socialAccount,
-            final String providerProfileUrl){
-        return getAccountDao().addConnection(provider,
-                grant,
-                socialAccountId,
-                userAccount,
-                null,
-                socialAccount);
     }
 
     /**

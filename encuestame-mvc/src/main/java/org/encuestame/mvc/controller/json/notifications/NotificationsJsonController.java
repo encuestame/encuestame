@@ -99,24 +99,54 @@ public class NotificationsJsonController extends AbstractJsonController {
              setError("account not valid", response);
          }
          final Map<String, Object> responseJson = new HashMap<String, Object>();
-         final List<Notification> notifications = getNotificationDao().loadNotificationByUserAndLimit(secondary.getAccount(), limit);
-         responseJson.put("notifications",convertNotificationList(notifications, request));
-         setItemResponse(responseJson);
-         return returnData();
+        final List<Notification> notifications = getNotificationDao()
+                .loadNotificationByUserAndLimit(secondary.getAccount(), limit,
+                        0, Boolean.TRUE);
+        responseJson.put("notifications",
+                convertNotificationList(notifications, request));
+        setItemResponse(responseJson);
+        return returnData();
     }
 
+    /**
+     *
+     * @param limit
+     * @param start
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/all/list.json", method = RequestMethod.GET)
     public ModelMap getClassifiedNotifications(
             @RequestParam(value = "limit", required = false) Integer limit,
+            @RequestParam(value = "start", required = false) Integer start,
+            @RequestParam(value = "categorized", required = true) Boolean categorized,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> responseJson = new HashMap<String, Object>();
-        final HashMap<DateClasificatedEnum, List<UtilNotification>> list = classifyNotificationList(convertNotificationList(
-                getSecurityService().loadNotificationByUserAndLimit(500), //TODO: parameterize
-                request));
-        log.debug(list);
-        responseJson.put("notifications", list);
+        if (start == null) {
+            start = 0; //TODO: this value should be on encuestame-config.properties.
+        }
+        if (limit ==  null) {
+            limit = 10; //TODO: this value should be on encuestame-config.properties.
+        }
+        //define if notifications are categorized.
+        if (categorized) {
+           final HashMap<DateClasificatedEnum, List<UtilNotification>> list = classifyNotificationList(convertNotificationList(
+                   getSecurityService().loadNotificationByUserAndLimit(limit, start, Boolean.FALSE),
+                   request));
+           responseJson.put("notifications", list);
+        } else {
+            responseJson.put(
+                    "notifications",
+                    convertNotificationList(getSecurityService()
+                            .loadNotificationByUserAndLimit(limit, start,
+                                    Boolean.FALSE), request));
+        }
         setItemResponse(responseJson);
         return returnData();
     }

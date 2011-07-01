@@ -23,10 +23,10 @@ import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.BuzzProfile;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.social.SocialUserProfile;
 
 /**
  * Google Buzz

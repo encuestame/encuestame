@@ -15,11 +15,10 @@ package org.encuestame.core.util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,8 +30,6 @@ import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
-import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -47,6 +44,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
@@ -70,7 +68,6 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurvey;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
-import org.encuestame.utils.web.notification.UtilNotification;
 
 
 /**
@@ -500,6 +497,7 @@ public class ConvertDomainBean {
      */
     public static final TweetPollBean convertTweetPollToBean(final TweetPoll tweetPoll){
         final TweetPollBean unitTweetPoll = new TweetPollBean();
+        final HashMap<Integer, RelativeTimeEnum> relative;
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
         unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll.getCreateDate()));
@@ -515,6 +513,8 @@ public class ConvertDomainBean {
         unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false : tweetPoll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
+        relative = DateUtil.getRelativeTime(tweetPoll.getCreateDate());
+        unitTweetPoll.setRelativeTime(relative.toString());
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
         return unitTweetPoll;
     }

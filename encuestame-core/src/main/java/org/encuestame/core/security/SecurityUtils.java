@@ -22,7 +22,7 @@ import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.details.SocialAuthenticationToken;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.security.AccountConnection;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,8 +48,8 @@ public class SecurityUtils {
      * @param user
      * @return
      */
-    public static EnMeSocialUserAccount convertUserAccountToUserDetails(final AccountConnection connection) {
-        final UserAccount user = connection.getUserAccout();
+    public static EnMeSocialUserAccount convertUserAccountToUserDetails(final SocialAccount connection) {
+        final UserAccount user = connection.getUserOwner();
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
         final EnMeSocialUserAccount enMeSocialUserAccount = new EnMeSocialUserAccount(user.getUsername(),
@@ -118,8 +118,8 @@ public class SecurityUtils {
      * @param password
      * @param socialSignIn
      */
-    public static void socialAuthentication(final AccountConnection accountConnection) {
-        UserAccount account = accountConnection.getUserAccout();
+    public static void socialAuthentication(final SocialAccount accountConnection) {
+        final UserAccount account = accountConnection.getUserOwner();
         log.info("Register SOCIAL LOGIN USER: " + account.getUsername());
         // building granted authorities
         final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext

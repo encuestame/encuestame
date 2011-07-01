@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
@@ -452,6 +453,31 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             return results;
     }
 
+    /**
+     *
+     * @param tweetPoll
+     */
+    public void createTweetPollNotification(final TweetPoll tweetPoll) {
+        createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
+                getMessageProperties("notification.tweetpoll.created"),
+                this.createTweetPollUrlAccess(tweetPoll), false);
+    }
+
+
+    /**
+     * Create url to acces to tweetPoll.
+     * format tweetpoll/932/test
+     * @param tweetPoll
+     * @return
+     */
+    private String createTweetPollUrlAccess(final TweetPoll tweetPoll){
+        final StringBuilder builder = new StringBuilder("/tweetpoll/");
+        builder.append(tweetPoll.getTweetPollId());
+        builder.append("/");
+        builder.append(tweetPoll.getQuestion().getSlugQuestion());
+        return builder.toString();
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.ITweetPollService#publishTweetPoll(java.lang.Long, org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.social.SocialProvider)
@@ -493,7 +519,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  //store original tweet content.
                  publishedStatus.setTweetContent(metadata.getTextTweeted());
                  //create notification
-                 createNotification(NotificationEnum.TWEETPOLL_PUBLISHED, "tweet published", socialAccount.getAccount());
+                 //createNotification(NotificationEnum.TWEETPOLL_PUBLISHED, "tweet published", socialAccount.getAccount());
+                 createNotification(NotificationEnum.SOCIAL_MESSAGE_PUBLISHED,tweetText, SocialUtils.getSocialTweetPublishedUrl(
+                         metadata.getTweetId(), socialAccount.getSocialAccountName(), socialAccount.getAccounType()), Boolean.TRUE);
              } catch (Exception e) {
                  log.error("Error publish tweet:{"+e);
                  e.printStackTrace();
