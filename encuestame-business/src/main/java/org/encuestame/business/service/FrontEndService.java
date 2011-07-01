@@ -241,4 +241,20 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         }
         return tweetPollBean;
     }
+
+    /**
+     *
+     * @param hashTagId
+     * @param limit
+     * @return
+     */
+    public Integer getHashTagRelevance(final Long hashTagId, final Integer limit){
+        final Integer totalRelTweetPoll;
+        final Integer relevance;
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit);
+        totalRelTweetPoll = tweetPolls.size();
+        relevance = totalRelTweetPoll;
+        //TODO:Pending count relevance hashtags for polls and surveys.
+        return relevance;
+    }
 }
