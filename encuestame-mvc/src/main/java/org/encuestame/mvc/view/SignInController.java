@@ -23,6 +23,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -217,6 +218,7 @@ public class SignInController extends AbstractSocialController{
             } catch (EnMeExistPreviousConnectionException e) {
                  e.printStackTrace();
                  log.fatal("OAuth EnMeExistPreviousConnectionException:{"+e);
+                 Assert.notNull(httpRequest);
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             } catch (Exception e) {
