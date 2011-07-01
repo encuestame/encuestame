@@ -17,10 +17,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.TwitterAPIOperations;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.social.SocialUserProfile;
 import org.springframework.util.Assert;
 
 import twitter4j.Status;

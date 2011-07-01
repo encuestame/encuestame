@@ -29,12 +29,12 @@ import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.social.LinkedInProfile;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.social.SocialUserProfile;
 
 /**
  * Layer to define pareters to initialize OAuth flows.
@@ -136,7 +136,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
-                            socialProvider);
+                            socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
                 }
@@ -152,7 +152,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
-                            socialProvider);
+                            socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
                 }
@@ -166,7 +166,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profile,
-                            socialProvider);
+                            socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
                 }
@@ -194,14 +194,14 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
             getSecurityService().addNewSocialAccount(
                     accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
                     facebookAPIOperations.getProfile(),
-                    socialProvider);
+                    socialProvider, getUserAccount());
         } else if (socialProvider.equals(SocialProvider.GOOGLE)) {
             final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
             log.debug(apiOperations.getProfile());
             getSecurityService().addNewSocialAccount(
                     accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
                     apiOperations.getProfile(),
-                    socialProvider);
+                    socialProvider, getUserAccount());
         }
         return actionToDo;
     }

@@ -254,7 +254,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         // a switch change for ProxyPass to normal get client Id.
         // Solution should be TOMCAT configuration.
         log.debug("X-getHeaderNames ["+ getServletRequestAttributes().getHeaderNames()+"]");
-        if(this.proxyPass){
+        if (this.proxyPass) {
             ip = getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
             log.debug("X-FORWARDED-FOR ["+ip+"]");
         }

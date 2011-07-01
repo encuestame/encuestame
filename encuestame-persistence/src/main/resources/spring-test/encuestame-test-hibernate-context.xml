@@ -42,7 +42,6 @@
             <list>
                 <value>org.encuestame.persistence.domain.application.Application</value>
                 <value>org.encuestame.persistence.domain.application.ApplicationConnection</value>
-                <value>org.encuestame.persistence.domain.security.AccountConnection</value>
                 <value>org.encuestame.persistence.domain.Project</value>
                 <value>org.encuestame.persistence.domain.Project</value>
                 <value>org.encuestame.persistence.domain.GeoPoint</value>

@@ -6,8 +6,8 @@ import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.social.LinkedInConnections;
 import org.encuestame.core.social.LinkedInProfile;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.social.SocialUserProfile;
 
 public class LinkedInAPITemplate extends AbstractSocialAPISupport implements LinkedInAPIOperations {
 

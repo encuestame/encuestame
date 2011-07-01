@@ -20,7 +20,6 @@ import org.encuestame.business.service.SecurityService.Profile;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Group;
@@ -31,8 +30,10 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
@@ -409,27 +410,12 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeExpcetion
      */
     SocialAccount addNewSocialAccount(
-            final String socialAccountId,
-            final String token,
-            final String tokenSecret,
-            final String username,
-            final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
-
-    /**
-     *
-     * @param token
-     * @param tokenSecret
-     * @param socialUserProfile
-     * @param socialProvider
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    SocialAccount addNewSocialAccount(
             final String token,
             final String tokenSecret,
             final String expiresToken,
             final SocialUserProfile socialUserProfile,
-            final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
+            final SocialProvider socialProvider,
+            final UserAccount userAccount);
 
     /**
      *
@@ -455,6 +441,21 @@ public interface SecurityOperations extends ServiceOperations {
      */
     UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException;
 
+
+    /**
+     *
+     * @param accessGrant
+     * @param socialAccountId
+     * @param userAccount
+     * @param providerProfileUrl
+     * @param currentSocialAccount
+     * @return
+     */
+    SocialAccount updateSocialAccountConnection(
+            final AccessGrant accessGrant,
+            final String socialAccountId,
+            final SocialAccount currentSocialAccount);
+
     /**
      *
      * @param limit
@@ -463,4 +464,14 @@ public interface SecurityOperations extends ServiceOperations {
     List<Notification> loadNotificationByUserAndLimit(final Integer limit, final Integer start,
             final Boolean onlyUnread);
 
+
+    /**
+     *
+     * @param provider
+     * @param socialProfileId
+     * @return
+     */
+    SocialAccount findAccountConnectionBySocialProfileId(
+            final SocialProvider provider,
+            final String socialProfileId);
 }
