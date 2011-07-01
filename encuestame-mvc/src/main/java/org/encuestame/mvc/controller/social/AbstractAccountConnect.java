@@ -22,6 +22,7 @@ import org.encuestame.business.service.social.api.FacebookAPITemplate;
 import org.encuestame.business.service.social.api.IdenticaAPITemplate;
 import org.encuestame.business.service.social.api.LinkedInAPITemplate;
 import org.encuestame.business.service.social.api.TwitterAPITemplate;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.FacebookProfile;
@@ -139,6 +140,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                             socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
+                    throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
                 }
             } else if (socialProvider.equals(SocialProvider.LINKEDIN)) {
                 LinkedInAPIOperations apiOperations = new LinkedInAPITemplate(
@@ -146,7 +148,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         accessToken.getSecret());
                 LinkedInProfile profile = apiOperations.getUserProfile();
                 SocialUserProfile profileAPI = apiOperations.getProfile();
-                log.debug("identica profile "+profile.toString());
+                log.debug("linkedin profile "+profile.toString());
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
                         profile.getId());
                 if (socialAccount == null) {
@@ -155,12 +157,13 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                             socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
+                    throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
                 }
             } else if (socialProvider.equals(SocialProvider.TWITTER)) {
                 TwitterAPIOperations operations = new TwitterAPITemplate(consumerSecret, apiKey, accessToken.getValue(),
                         accessToken.getSecret());
                 SocialUserProfile profile = operations.getProfile();
-                log.debug("identica profile "+profile.toString());
+                log.debug("twitter profile "+profile.toString());
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
                         profile.getId());
                 if (socialAccount == null) {
@@ -169,6 +172,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                             socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
+                    throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
                 }
             } else if (socialProvider.equals(SocialProvider.MYSPACE)) {
                 //FUTURE - Issues with OAuth1 request.
