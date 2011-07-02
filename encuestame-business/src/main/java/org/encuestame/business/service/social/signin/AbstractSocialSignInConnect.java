@@ -13,16 +13,16 @@
 package org.encuestame.business.service.social.signin;
 
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
-import org.encuestame.core.social.SocialUserProfile;
-import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
+import org.encuestame.utils.social.SocialUserProfile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 /**
  * Abstract Social Provider.
@@ -37,9 +37,10 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
     protected org.apache.commons.logging.Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Account Dao.
+     * {@link SecurityOperations}
      */
-    private IAccountDao accountDaoImp;
+    @Autowired
+    private SecurityOperations securityOperations;
 
     /**
      * OAuth access grant.
@@ -53,64 +54,45 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
     abstract org.encuestame.core.social.SocialAPIOperations getAPISocialProvider();
 
     /**
-     *
+     * {@link SocialUserProfile}.
      */
     private SocialUserProfile socialUserProfile;
 
     /**
-     *
+     * Constructor.
      * @param accountDaoImpAccountDao
      * @throws Exception
      */
     public AbstractSocialSignInConnect(
-            final AccessGrant accessGrant) throws Exception {
+            final AccessGrant accessGrant,
+            final SecurityOperations securityOperations) throws Exception {
             this.accessGrant = accessGrant;
+            this.securityOperations = securityOperations;
             this.setSocialUserProfile(this.getAPISocialProvider().getProfile());
     }
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.business.service.social.signin.SocialSignInOperations#connect(java.lang.String, org.encuestame.utils.oauth.AccessGrant)
+     *
+     * @see
+     * org.encuestame.business.service.social.signin.SocialSignInOperations#
+     * connect(java.lang.String, org.encuestame.utils.oauth.AccessGrant)
      */
-    public AccountConnection reConnect(String accountId, AccessGrant accesGrant) throws EnMeExistPreviousConnectionException, EnMeNoResultsFoundException {
-            log.info("reConnect ..."+accountId);
-            log.info("reConnect ..."+accesGrant.toString());
-            final AccountConnection accountConnection = this.findAccountByConnection(accountId);
-            log.info("Connect restuls: "+accountConnection);
-            if (accountConnection != null) {
-                log.debug("adding new connection");
-                log.info("Updating connection .... "+accountConnection.getAccountConnectionId());
-                accountConnection.setAccessToken(accesGrant.getAccessToken());
-                accountConnection.setRefreshToken(accesGrant.getRefreshToken());
-                accountConnection.setExpires(accesGrant.getExpires());
-                accountConnection.getSocialAccount().setAccessToken(accesGrant.getAccessToken());
-                accountConnection.getSocialAccount().setRefreshToken(accesGrant.getRefreshToken());
-                accountConnection.getSocialAccount().setExpires(accesGrant.getExpires());
-                return accountConnection;
-            } else {
-                log.fatal("There is already a connection created");
-                throw new EnMeExistPreviousConnectionException("There is already a connection created");
-            }
+    public SocialAccount reConnect(
+            final String accountId,
+            final AccessGrant accesGrant,
+            final SocialAccount socialAccount)
+            throws EnMeExistPreviousConnectionException,
+            EnMeNoResultsFoundException {
+        log.info("reConnect ..." + accountId);
+        log.info("reConnect ..." + accesGrant.toString());
+        log.info("reConnect ..." + socialAccount.getSocialAccountName());
+        log.info("Connect restuls: "+socialAccount);
+        log.debug("reconnect the social account");
+        log.info("Updating connection .... "+socialAccount.getId());
+        this.securityOperations.updateSocialAccountConnection(accesGrant, accountId, socialAccount);
+        return socialAccount;
     }
-
-       /**
-        * Records an existing connection between a user account and this service provider.
-        * @return
-        */
-        @Deprecated
-       public AccountConnection addConnection(
-               final UserAccount account,
-               final SocialAccount socialAccount) {
-            log.info("Connecting: Creating new or update connection");
-           return this.accountDaoImp.addConnection(
-                    getProvider(),
-                    this.accessGrant,
-                    getSocialUserProfile().getId(),
-                    account,
-                    getSocialUserProfile().getProfileImageUrl(),
-                    socialAccount);
-        }
-
 
     /*
      *
@@ -121,59 +103,35 @@ public abstract class AbstractSocialSignInConnect<SocialAPIOperations> implement
      * Return if user account have previous account connection.
      * @param accessToken
      * @return
+     * @throws EnMeExpcetion
      */
-    public boolean isConnected(final String profileId){
-        boolean conected = false;
+    public SocialAccount isConnected(final String profileId) throws EnMeExpcetion {
+        Assert.notNull(profileId);
+        SocialAccount social = null;
         try {
             log.debug("Is connected exist? "+profileId);
-            //check if this user is already conected
-            if(this.findAccountByConnection(profileId) != null){
-                conected = true;
-            }
+            //check if this user is previously connected
+            social = this.findAccountByConnection(profileId);
         } catch (EnMeExpcetion e) {
             log.fatal("isConected error :"+e);
+            throw new EnMeExpcetion(e);
         }
-        log.debug("Is connected "+conected);
-        return conected;
+        log.debug("Is connected "+social);
+        return social;
     }
 
     /**
-     * Sever the connection between the member account and this service provider.
-     * Has no effect if no connection is established to begin with.
-     */
-    public void disconnect(String accountId) {
-            try {
-                this.accountDaoImp.disconnect(accountId, getProvider());
-            } catch (EnMeNoResultsFoundException e) {
-               log.fatal("error on disconect user :"+e);
-            }
-    }
-
-    /**
-     *  Find possible open provider account connections.
+     * Find possible open provider account connections.
      * @param profileId the id provided by social network API
-     * @return {@link AccountConnection}
+     * @return {@link SocialAccount}
      * @throws EnMeNoResultsFoundException
      */
-    public AccountConnection findAccountByConnection(final String socialProfileId)
+    public SocialAccount findAccountByConnection(final String socialProfileId)
             throws EnMeNoResultsFoundException {
-        log.info("Connect  by... "+socialProfileId);
-        return this.accountDaoImp.findAccountConnectionBySocialProfileId(
+        log.info("Find connection with...-> "+socialProfileId);
+        log.info("Find connection with...-> "+socialProfileId);
+        return this.securityOperations.findAccountConnectionBySocialProfileId(
                 getProvider(), socialProfileId);
-    }
-
-    /**
-     * @return the accountDaoImp
-     */
-    public IAccountDao getAccountDaoImp() {
-        return accountDaoImp;
-    }
-
-    /**
-     * @param accountDaoImp the accountDaoImp to set
-     */
-    public void setAccountDaoImp(final IAccountDao accountDaoImp) {
-        this.accountDaoImp = accountDaoImp;
     }
 
     /**

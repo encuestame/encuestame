@@ -111,7 +111,7 @@ dojo.declare(
             var params = {
                     "id" : this.tweetPollId,
                     "answer" : text.get("value"),
-                    "shortUrl" : this._provider[1].code
+                    "shortUrl" : encuestame.shortUrlProvider[1].code
                };
                console.debug("params", params);
                var load = dojo.hitch(this, function(data){
@@ -122,7 +122,7 @@ dojo.declare(
                            answerId : data.success.newAnswer.answerBean.answerId,
                            label: data.success.newAnswer.answerBean.answers,
                            shortUrl : data.success.newAnswer.shortUrl,
-                           provider: this._provider[1]
+                           provider: encuestame.shortUrlProvider[1]
                       },
                       parentAnswer : this,
                       tweetPollId : this.tweetPollId
@@ -186,7 +186,7 @@ dojo.declare(
         /*
          * provider list.
          */
-        _provider : encuestame.shortUrlProvider,
+        _provider : null,
 
         /*
          * answer data.
@@ -201,9 +201,9 @@ dojo.declare(
         /*
          * constructor.
          */
-        postCreate : function(){
-            console.debug("answer", this.answer);
-            if(this._item){
+        postCreate : function() {
+            this._provider = encuestame.shortUrlProvider;
+            if (this._item) {
                 var answer = dojo.doc.createElement("span");
                 answer.innerHTML = this.answer.label;
                 dojo.addClass(answer, "answerItemTitle");

@@ -23,6 +23,7 @@ import org.encuestame.business.service.imp.TwitterAPIOperations;
 import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.TweetPublishedMetadata;
@@ -50,6 +51,8 @@ public class TestTwitterService extends AbstractServiceBase {
     /** {@link Account}. **/
     private Account user;
 
+    private UserAccount userAccount;
+
     private SocialAccount socialTwitterAccount;
 
     /**
@@ -58,7 +61,8 @@ public class TestTwitterService extends AbstractServiceBase {
     @Before
     public void before(){
         this.user = createAccount();
-        this.socialTwitterAccount = createDefaultSettedTwitterAccount(this.user);
+        this.userAccount = createUserAccount("jota", this.user);
+        this.socialTwitterAccount = createDefaultSettedSocialAccount(this.userAccount);
         this.twitterService = new TwitterAPITemplate("", "","", "");
     }
 

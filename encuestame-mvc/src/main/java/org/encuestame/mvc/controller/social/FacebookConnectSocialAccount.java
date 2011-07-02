@@ -16,10 +16,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

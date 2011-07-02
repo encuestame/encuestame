@@ -15,10 +15,15 @@ package org.encuestame.business.service;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,12 +40,16 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -73,6 +82,67 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      */
     public AbstractBaseService() {}
 
+
+
+    /**
+     *
+     * @param tpbean
+     * @param request
+     */
+    public TweetPollBean  convertTweetPollRelativeTime(final TweetPollBean tpbean, final HttpServletRequest request){
+        final HashMap<Integer, RelativeTimeEnum> relativeTime =  DateUtil.getRelativeTime(tpbean.getCreatedDateAt());
+        final Iterator it = relativeTime.entrySet().iterator();
+        while (it.hasNext()) {
+            final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
+            log.debug("--"+e.getKey() + "**" + e.getValue());
+            tpbean.setRelativeTime(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
+        }
+        return tpbean;
+    }
+
+    /**
+     * Convert Relative Time Message.
+     * @param relativeTimeEnum
+     * @param number
+     * @param request
+     * @param objects
+     * @return
+     */
+    public String convertRelativeTimeMessage(
+            final RelativeTimeEnum relativeTimeEnum,
+            final Integer number,
+            final HttpServletRequest request){
+        final StringBuilder builder = new StringBuilder();
+        //builder.append(number);
+        //builder.append(" ");
+        log.debug("Convert Message Relative Time");
+        log.debug("Relative ENUM -->"+relativeTimeEnum);
+        log.debug("NUMBER -->"+number);
+        String str[] = {number.toString()};
+        if (relativeTimeEnum.equals(RelativeTimeEnum.ONE_SECOND_AGO)) {
+            builder.append(getMessage("relative.time.one.second.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.SECONDS_AGO)) {
+            builder.append(getMessage("relative.time.one.seconds.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.A_MINUTE_AGO)) {
+            builder.append(getMessage("relative.time.one.minute.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MINUTES_AGO)) {
+            builder.append(getMessage("relative.time.one.minutes.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.AN_HOUR_AGO)) {
+            builder.append(getMessage("relative.time.one.hour.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.HOURS_AGO)) {
+            builder.append(getMessage("relative.time.one.hours.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MONTHS_AGO)) {
+            builder.append(getMessage("relative.time.one.months.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_MONTH_AGO)) {
+            builder.append(getMessage("relative.time.one.month.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_YEAR_AGO)) {
+            builder.append(getMessage("relative.time.one.year.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.YEARS_AGO)) {
+            builder.append(getMessage("relative.time.one.years.ago", request, str));
+        }
+        return builder.toString();
+    }
+
     /**
      * Getter.
      * @return {@link MessageSourceFactoryBean}
@@ -98,6 +168,23 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     public String getMessageProperties(String propertieId) {
         return getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
                 .getMessage(propertieId, null, null);
+    }
+
+    private Locale getLocale(final HttpServletRequest request){
+        return RequestContextUtils.getLocale(request);
+    }
+
+    public String getMessage(final String message,
+            final HttpServletRequest request, Object[] args) {
+        String stringValue = "";
+        try {
+            stringValue = getMessageSourceFactoryBean().getMessage(
+                    message, args, getLocale(request));
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace(); //TODO: ENCUESTAME-223 - OPEN
+        }
+        return stringValue;
     }
 
     /**

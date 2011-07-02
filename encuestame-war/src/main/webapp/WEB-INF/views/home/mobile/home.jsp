@@ -21,7 +21,7 @@
                     <div>
                         <div>
                             <div class="votes">
-                                <span class="count">141</span>
+                                <span class="count"><strong>${item.totalVotes}</strong></span>
                                 <span class="voteText">Votes</span>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="mobile-submit-bottom">
                         <div class="mobile-submit-options">
-                            <div class= "mobile-submit-text">(Submited By <strong><a href="#">${item.ownerUsername}</a></strong>) added <strong>46 minutes</strong> ago |  25 Comments</div>
+                            <div class= "mobile-submit-text">(Submited By <strong><a href="#">${item.ownerUsername}</a></strong>) added <strong>${item.relativeTime}</strong> |  25 Comments</div>
                         </div>
                     </div>
                 </div>

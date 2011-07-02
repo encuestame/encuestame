@@ -177,7 +177,7 @@ public class TestSecurityService extends AbstractServiceBase{
     @Test
     @Ignore
     public void testupdateOAuthTokenSocialAccount() throws EnMeExpcetion{
-        SocialAccount account = createDefaultSettedTwitterAccount(this.userPrimary);
+        SocialAccount account = createDefaultSettedSocialAccount(this.secUserSecondary);
         //this.securityService.updateOAuthTokenSocialAccount(account.getId(), "12345", "fakeTokenSecret", this.secUserSecondary.getUsername());
         account = getAccountDao().getSocialAccountById(account.getId());
         assertEquals(account.getSecretToken(), "fakeTokenSecret");

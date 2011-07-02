@@ -409,6 +409,23 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().findByCriteria(criteria, 0, limit);
     }
 
+
+    @SuppressWarnings("unchecked")
+       public List<TweetPoll> getTweetpollByTopRated(final Long hashTagId, final Integer limit){
+           final DetachedCriteria detached = DetachedCriteria.forClass(TweetPoll.class)
+           .createAlias("hashTags", "hashTags")
+           .setProjection(Projections.id())
+           .add(Subqueries.propertyIn("hashTags.hashTagId",
+           DetachedCriteria.forClass(HashTag.class, "hash")
+                 .setProjection(Projections.id())
+                 .add(Restrictions.in("hash.hashTagId", new Long[] {hashTagId}))));
+           final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class, "tweetPoll");
+           criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
+           criteria.addOrder(Order.desc("numbervotes"));
+           return getHibernateTemplate().findByCriteria(criteria, 0, limit);
+       }
+
+
     /**
      *
      * @return

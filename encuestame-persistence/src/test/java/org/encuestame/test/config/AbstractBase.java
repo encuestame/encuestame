@@ -61,7 +61,6 @@ import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
@@ -1293,36 +1292,37 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param consumerKey
      * @param consumerSecret
      * @param secretToken
-     * @param secUsers
-     * @param twitterAccount
+     * @param userAccount
+     * @param socialProfileUsername
      * @return
      */
     public SocialAccount createSocialAccount(
             final String token,
             final String secretToken,
-            final Account secUsers,
-            final String twitterAccount,
+            final UserAccount userAccount,
+            final String socialProfileUsername,
             final Boolean verified,
             final SocialProvider provider){
-        final SocialAccount socialTwitterAccounts = new SocialAccount();
-        socialTwitterAccounts.setAccessToken(token);
-        socialTwitterAccounts.setSecretToken(secretToken);
-        socialTwitterAccounts.setAccount(secUsers);
+        final SocialAccount socialAccount = new SocialAccount();
+        socialAccount.setAccessToken(token);
+        socialAccount.setSecretToken(secretToken);
+        socialAccount.setAccount(userAccount.getAccount());
+        socialAccount.setUserOwner(userAccount);
         long randomNum = 100 + (int)(Math.random()* 4000);
-        socialTwitterAccounts.setSocialProfileId(String.valueOf(randomNum));
-        socialTwitterAccounts.setVerfied(verified);
-        socialTwitterAccounts.setAccounType(provider);
-        socialTwitterAccounts.setSocialAccountName(twitterAccount+RandomStringUtils.randomAlphanumeric(10));
-        socialTwitterAccounts.setUpgradedCredentials(new Date());
-        socialTwitterAccounts.setAddedAccount(new Date());
-        socialTwitterAccounts.setEmail("email");
-        socialTwitterAccounts.setProfileUrl("urll");
-        socialTwitterAccounts.setRealName("real name");
-        socialTwitterAccounts.setApplicationKey(RandomUtils.nextLong(new Random(50)));
-        socialTwitterAccounts.setRefreshToken("refresh_token_"+RandomStringUtils.randomAlphanumeric(10));
-        socialTwitterAccounts.setType(TypeAuth.OAUTH1);
-        getAccountDao().saveOrUpdate(socialTwitterAccounts);
-        return socialTwitterAccounts;
+        socialAccount.setSocialProfileId(String.valueOf(randomNum)+RandomStringUtils.randomAlphanumeric(10));
+        socialAccount.setVerfied(verified);
+        socialAccount.setAccounType(provider);
+        socialAccount.setSocialAccountName(socialProfileUsername+RandomStringUtils.randomAlphanumeric(10));
+        socialAccount.setUpgradedCredentials(new Date());
+        socialAccount.setAddedAccount(new Date());
+        socialAccount.setEmail("email"+String.valueOf(randomNum));
+        socialAccount.setProfileUrl("url"+String.valueOf(randomNum));
+        socialAccount.setRealName("real name"+String.valueOf(randomNum));
+        socialAccount.setApplicationKey(RandomUtils.nextLong(new Random(50)));
+        socialAccount.setRefreshToken("refresh_token_"+RandomStringUtils.randomAlphanumeric(10));
+        socialAccount.setType(TypeAuth.OAUTH1);
+        getAccountDao().saveOrUpdate(socialAccount);
+        return socialAccount;
      }
 
     /**
@@ -1330,7 +1330,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param account {@link Account}.
      * @return {@link SocialAccount}.
      */
-    public SocialAccount createDefaultSettedTwitterAccount(final Account account){
+    public SocialAccount createDefaultSettedSocialAccount(final UserAccount account){
         return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
@@ -1344,7 +1344,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param provider {@link SocialProvider}
      * @return {@link SocialAccount}.
      */
-    public SocialAccount createSocialProviderAccount(final Account account, final SocialProvider provider){
+    public SocialAccount createSocialProviderAccount(final UserAccount account, final SocialProvider provider){
         return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
@@ -1358,7 +1358,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param account
      * @return
      */
-    public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account account){
+    public SocialAccount createDefaultSettedVerifiedSocialAccount(final UserAccount account){
         return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
@@ -1594,31 +1594,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public void setHashTagDao(IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
-    }
-
-
-    /**
-     * Create {@link AccountConnection}.
-     * @param provider
-     * @param token
-     * @param socialAccountId
-     * @param userAccountId
-     * @param providerProfileUrl
-     * @return
-     */
-    public AccountConnection createConnection(
-            final SocialProvider provider,
-            final AccessGrant grant,
-            final String socialAccountId,
-            final UserAccount userAccount,
-            final SocialAccount socialAccount,
-            final String providerProfileUrl){
-        return getAccountDao().addConnection(provider,
-                grant,
-                socialAccountId,
-                userAccount,
-                null,
-                socialAccount);
     }
 
     /**

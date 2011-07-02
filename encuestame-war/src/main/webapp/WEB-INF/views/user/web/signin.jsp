@@ -1,4 +1,3 @@
-<%@ page session="false" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
@@ -43,7 +42,7 @@
             </form>
       </div>
     </div>
-     <c:if test="${!social}">
+     <c:if test="${social}">
       <div class="socialConnect">
           <div class="title">Do you already have an account on one of these sites?</div>
 <%--           <div class="twitter">
