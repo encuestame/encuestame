@@ -29,6 +29,9 @@ public enum SocialProvider {
      * Google Buzz provider.
      */
     GOOGLE,
+
+    /** Google +. **/
+    GOOGLE_PLUS,
     /**
      * Yahoo provider.
      */
@@ -36,6 +39,7 @@ public enum SocialProvider {
     /**
      * My Space.
      */
+    @Deprecated
     MYSPACE,
     //TODO: In the future we can add more API's Tumblr, Plurk, Jaiku.
     /**

@@ -142,7 +142,8 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             HttpServletResponse response,
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
-        try {final List<SocialAccountBean> accounts = getSecurityService()
+        try {
+            final List<SocialAccountBean> accounts = getSecurityService()
             .getUserLoggedVerifiedSocialAccounts(SocialProvider.getProvider(provider));
             setItemReadStoreResponse("socialAccounts", "id", accounts);
              log.debug("Twitter Accounts Loaded");

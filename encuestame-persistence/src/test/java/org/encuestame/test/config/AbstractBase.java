@@ -61,7 +61,6 @@ import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
@@ -1594,31 +1593,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public void setHashTagDao(IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
-    }
-
-
-    /**
-     * Create {@link AccountConnection}.
-     * @param provider
-     * @param token
-     * @param socialAccountId
-     * @param userAccountId
-     * @param providerProfileUrl
-     * @return
-     */
-    public AccountConnection createConnection(
-            final SocialProvider provider,
-            final AccessGrant grant,
-            final String socialAccountId,
-            final UserAccount userAccount,
-            final SocialAccount socialAccount,
-            final String providerProfileUrl){
-        return getAccountDao().addConnection(provider,
-                grant,
-                socialAccountId,
-                userAccount,
-                null,
-                socialAccount);
     }
 
     /**

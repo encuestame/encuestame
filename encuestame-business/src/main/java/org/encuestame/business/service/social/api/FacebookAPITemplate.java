@@ -17,15 +17,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.httpclient.URI;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.social.AbstractSocialAPISupport;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.FacebookLink;
 import org.encuestame.core.social.FacebookProfile;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth2.ProtectedResourceClientFactory;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.social.SocialUserProfile;
 import org.jfree.util.Log;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

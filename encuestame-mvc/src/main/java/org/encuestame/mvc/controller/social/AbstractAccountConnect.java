@@ -22,6 +22,7 @@ import org.encuestame.business.service.social.api.FacebookAPITemplate;
 import org.encuestame.business.service.social.api.IdenticaAPITemplate;
 import org.encuestame.business.service.social.api.LinkedInAPITemplate;
 import org.encuestame.business.service.social.api.TwitterAPITemplate;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.FacebookProfile;
@@ -29,12 +30,12 @@ import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.social.LinkedInProfile;
-import org.encuestame.core.social.SocialUserProfile;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.social.SocialUserProfile;
 
 /**
  * Layer to define pareters to initialize OAuth flows.
@@ -136,9 +137,10 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
-                            socialProvider);
+                            socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
+                    throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
                 }
             } else if (socialProvider.equals(SocialProvider.LINKEDIN)) {
                 LinkedInAPIOperations apiOperations = new LinkedInAPITemplate(
@@ -146,29 +148,31 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         accessToken.getSecret());
                 LinkedInProfile profile = apiOperations.getUserProfile();
                 SocialUserProfile profileAPI = apiOperations.getProfile();
-                log.debug("identica profile "+profile.toString());
+                log.debug("linkedin profile "+profile.toString());
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
                         profile.getId());
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
-                            socialProvider);
+                            socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
+                    throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
                 }
             } else if (socialProvider.equals(SocialProvider.TWITTER)) {
                 TwitterAPIOperations operations = new TwitterAPITemplate(consumerSecret, apiKey, accessToken.getValue(),
                         accessToken.getSecret());
                 SocialUserProfile profile = operations.getProfile();
-                log.debug("identica profile "+profile.toString());
+                log.debug("twitter profile "+profile.toString());
                 final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
                         profile.getId());
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profile,
-                            socialProvider);
+                            socialProvider, getUserAccount());
                 } else {
                     log.warn("This account already exist");
+                    throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
                 }
             } else if (socialProvider.equals(SocialProvider.MYSPACE)) {
                 //FUTURE - Issues with OAuth1 request.
@@ -194,14 +198,14 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
             getSecurityService().addNewSocialAccount(
                     accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
                     facebookAPIOperations.getProfile(),
-                    socialProvider);
+                    socialProvider, getUserAccount());
         } else if (socialProvider.equals(SocialProvider.GOOGLE)) {
             final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
             log.debug(apiOperations.getProfile());
             getSecurityService().addNewSocialAccount(
                     accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
                     apiOperations.getProfile(),
-                    socialProvider);
+                    socialProvider, getUserAccount());
         }
         return actionToDo;
     }
