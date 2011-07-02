@@ -32,7 +32,8 @@
         <spring.version>3.0.5.RELEASE</spring.version>
 
         <spring.webflow.version>2.2.1.RELEASE</spring.webflow.version>
-        <spring.security.version>3.1.0.RC1</spring.security.version> <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
+        <spring.security.version>3.1.0.RC2</spring.security.version> 
+        <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.0.0.RC2</spring-integration-core>
         <spring-oauth.version>1.0.0.BUILD-SNAPSHOT</spring-oauth.version>
         <spring.mobile.version>1.0.0.BUILD-SNAPSHOT</spring.mobile.version>
