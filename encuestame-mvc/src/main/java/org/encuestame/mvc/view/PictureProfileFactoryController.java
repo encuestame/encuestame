@@ -44,11 +44,12 @@ public class PictureProfileFactoryController extends AbstractBaseOperations {
     public byte[] getPictureThumbnail(
             @PathVariable String username) throws EnMeNoResultsFoundException{
         byte[] bytes = {};
+        username = filterValue(username);
         try {
             bytes = getPictureService().getProfilePicture(username, PictureType.THUMBNAIL);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // if the user doesn't have picture.
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
