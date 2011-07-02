@@ -2,7 +2,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <div id="publicLineHeader">
         <div class="logo">
-            <a href="<%=request.getContextPath()%>">
+            <a href="<%=request.getContextPath()%>/">
                 <img alt="logo" src="<%=request.getContextPath()%>/resources/${logo}">
             </a>
         </div>

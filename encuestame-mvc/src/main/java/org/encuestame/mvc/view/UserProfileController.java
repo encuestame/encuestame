@@ -15,6 +15,7 @@ package org.encuestame.mvc.view;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,9 +37,14 @@ public class UserProfileController extends AbstractBaseOperations {
     public String tweetPollController(
             final ModelMap model,
             @PathVariable String username) {
-
-
-
-        return "profile/view";
+        username = filterValue(username);
+        final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
+        if (accountBean == null) {
+            return "404";
+        } else {
+            log.debug("user "+accountBean);
+            model.put("profile", accountBean);
+            return "profile/view";
+        }
     }
 }

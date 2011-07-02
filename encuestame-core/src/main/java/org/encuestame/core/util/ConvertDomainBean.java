@@ -502,7 +502,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false : tweetPoll.getScheduleTweetPoll());
         unitTweetPoll.setResultNotification(tweetPoll.getResultNotification() == null ? false : tweetPoll.getResultNotification());
         unitTweetPoll.setUserId(tweetPoll.getTweetOwner().getUid());
-        unitTweetPoll.setOwnerUsername(tweetPoll.getEditorOwner().getUsername());
+        unitTweetPoll.setOwnerUsername(tweetPoll.getEditorOwner() == null ? null : tweetPoll.getEditorOwner().getUsername());
         unitTweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false : tweetPoll.getCaptcha());
         unitTweetPoll.setCloseNotification(tweetPoll.getCloseNotification() == null ? false : tweetPoll.getCloseNotification());
         unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : tweetPoll.getFavourites());

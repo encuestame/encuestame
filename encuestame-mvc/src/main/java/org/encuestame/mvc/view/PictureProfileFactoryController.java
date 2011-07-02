@@ -19,7 +19,6 @@ import org.encuestame.business.service.PictureService.PictureType;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +42,7 @@ public class PictureProfileFactoryController extends AbstractBaseOperations {
     @RequestMapping( value = "/picture/profile/{username}/thumbnail", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureThumbnail(
-            @PathVariable String username ) throws EnMeNoResultsFoundException{
+            @PathVariable String username) throws EnMeNoResultsFoundException{
         byte[] bytes = {};
         try {
             bytes = getPictureService().getProfilePicture(username, PictureType.THUMBNAIL);
