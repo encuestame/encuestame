@@ -186,6 +186,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
             //OAuth1
             //connection.setSecretToken(token.getSecret());
             //TODO: pending OAUTH1.
+            log.debug("pending OAUTH1 - OAuth 1 social connection is not available right now.");
         } else if(SocialProvider.getTypeAuth(currentSocialAccount.getAccounType()).equals(TypeAuth.OAUTH2)) {
             //OAuth2
             currentSocialAccount.setAccessToken(accessGrant.getAccessToken());

@@ -511,7 +511,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
         //unitTweetPoll.setRelativeTime(tweetPoll.get);
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
-        unitTweetPoll.setTotalVotes(Long.valueOf(tweetPoll.getNumbervotes()));
+        unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? 0L : Long.valueOf(tweetPoll.getNumbervotes()));
         unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
         return unitTweetPoll;
     }
