@@ -243,7 +243,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     }
 
     /**
-     *
+     * Get hashTag relevance.
      * @param hashTagId
      * @param limit
      * @return

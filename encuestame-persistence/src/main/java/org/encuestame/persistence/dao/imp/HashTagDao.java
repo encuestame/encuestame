@@ -80,6 +80,16 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
     public List<HashTag> getHashTags( final Integer maxResults,
                     final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
+        //criteria.add(Restrictions.gt("hits", 0L));//review
+        criteria.addOrder(Order.desc("hits"));
+        criteria.addOrder(Order.asc("hashTag"));
+        return (List<HashTag>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<HashTag> getHashTagsCloud( final Integer maxResults,
+                    final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
         criteria.add(Restrictions.gt("hits", 0L));//review
         criteria.addOrder(Order.desc("hits"));
         criteria.addOrder(Order.asc("hashTag"));
