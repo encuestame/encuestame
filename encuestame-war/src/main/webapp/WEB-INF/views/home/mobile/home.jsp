@@ -33,7 +33,10 @@
                     </div>
                     <div class="mobile-submit-bottom">
                         <div class="mobile-submit-options">
-                            <div class= "mobile-submit-text">(Submited By <strong><a href="#">${item.ownerUsername}</a></strong>) added <strong>${item.relativeTime}</strong> |  25 Comments</div>
+                            <div class= "mobile-submit-text">(Submited By
+                            <strong>
+                               <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
+                             </strong>) added <strong>${item.relativeTime}</strong> |  25 Comments</div>
                         </div>
                     </div>
                 </div>

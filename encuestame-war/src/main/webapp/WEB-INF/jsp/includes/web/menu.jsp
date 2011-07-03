@@ -1,4 +1,4 @@
- <div class="menuWrapper">
+ <div class="menuWrapper enme-auto-center">
     <ul>
         <li>
             <a style="margin-left: 5px;">
