@@ -19,6 +19,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -90,9 +92,21 @@ public class UserAccount {
      */
     private boolean credentialsNonExpired = true;
 
+    /**
+     *
+     */
     private Set<Project> projects = new HashSet<Project>();
 
+    /**
+     *
+     */
     private Set<Permission> secUserPermissions = new HashSet<Permission>();
+
+
+    /**
+     *  Type of Picture.
+     */
+    private PictureSource pictureSource = PictureSource.GRAVATAR;
 
     /**
      * {@link Group}
@@ -397,6 +411,23 @@ public class UserAccount {
         this.sharedProfile = sharedProfile;
     }
 
+
+    /**
+     * @return the pictureSource
+     */
+    @Column(name="picture_source")
+    @Enumerated(EnumType.ORDINAL)
+    public PictureSource getPictureSource() {
+        return this.pictureSource == null ? PictureSource.GRAVATAR : this.pictureSource;
+    }
+
+    /**
+     * @param pictureSource the pictureSource to set
+     */
+    public void setPictureSource(final PictureSource pictureSource) {
+        this.pictureSource = pictureSource;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
@@ -407,5 +438,28 @@ public class UserAccount {
                 + lastTimeLogged + ", lastIpLogged=" + lastIpLogged
                 + ", userProfilePicture=" + userProfilePicture + ", enabled="
                 + enabled + "]";
+    }
+
+    /**
+     * Type of picture.
+     * @author Picado, Juan juanATencuestame.org
+     * @since Jul 3, 2011
+     */
+    public enum PictureSource {
+        GRAVATAR,
+        UPLOADED;
+
+        private PictureSource() {
+        }
+
+        /**
+         * To String.
+         */
+        public String toString() {
+            String pictureSize = "_64";
+            if (this == UPLOADED) { pictureSize = "UPLOADED"; }
+            else if (this == GRAVATAR) { pictureSize = "GRAVATAR"; }
+            return pictureSize;
+        }
     }
  }
