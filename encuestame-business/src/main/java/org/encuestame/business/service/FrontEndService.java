@@ -64,7 +64,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         }
         log.debug("Max Results "+maxResults);
         final List<TweetPoll> items = new ArrayList<TweetPoll>();
-        if(period == null ){
+        if (period == null ) {
             throw new EnMeSearchException("search params required.");
         } else {
             final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);

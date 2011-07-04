@@ -7,6 +7,6 @@
   dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
   dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 </script>
-<div>
+<div class="defaultMarginWrapper enme-auto-center">
     <div dojoType="encuestame.org.core.commons.social.SocialAccountPicker"></div>
 </div>

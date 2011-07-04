@@ -15,6 +15,5 @@
                 atom : <a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.atom">TweetPoll ATOM for ${profile.username}</a>
             </li>
         </ul>
-</div>
-
+    </div>
 </div>
