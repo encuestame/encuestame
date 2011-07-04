@@ -235,3 +235,21 @@ div.web-item-wrapper .item .tags .tag{
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+
+
+/** clod **/
+
+div.cloud {
+  clear: both;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  max-width: 200px;
+  padding: 5px;
+}
+
+div.cloud .cloudItem {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 2px;
+}

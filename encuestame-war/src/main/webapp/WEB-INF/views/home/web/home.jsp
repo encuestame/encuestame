@@ -4,6 +4,7 @@
      dojo.require("encuestame.org.core.commons.rated.Comments");
      dojo.require("encuestame.org.core.commons.rated.HashTags");
      dojo.require("encuestame.org.core.commons.rated.Users");
+     dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
      dojo.require("encuestame.org.core.commons.stream.FrontEnd");
 </script>
 <div id="web-main-public-line" class="enme-auto-center">
@@ -88,7 +89,9 @@
                        </div>
                        <div class="tags">
                             <c:forEach items="${item.hashTags}" var="h">
-                                <a href="<%=request.getContextPath()%>/tag/${h.hashTagName}/" class="tag">${h.hashTagName}</a>
+                                   <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                                    url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
+                                    hashTagName="${h.hashTagName}"></span>
                            </c:forEach>
                        </div>
                     </div>
