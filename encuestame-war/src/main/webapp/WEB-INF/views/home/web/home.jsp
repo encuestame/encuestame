@@ -50,9 +50,12 @@
                                     <img width="32" height="32" alt=""
                                     src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
                             </div>
-                            <div>(Submited By <strong><a href="#">${item.ownerUsername}</a></strong>) added <strong>${item.relativeTime}</strong></div>
-                            <div><img src="/resources/images/icons/enme_comment_reply.png"/> 25 Comments</div>
-
+                            <div>(Submited By <strong>
+                                                <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
+                                              </strong>) added <strong>${item.relativeTime}</strong></div>
+                            <div>
+                                <img src="/resources/images/icons/enme_comment_reply.png"/> 25 Comments
+                            </div>
                        </div>
                        <div class="tags">
                             <c:forEach items="${item.hashTags}" var="h">

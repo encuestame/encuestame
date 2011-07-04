@@ -12,7 +12,6 @@
  */
 package org.encuestame.mvc.controller.social;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.TwitterAPIOperations;
 import org.encuestame.business.service.social.OAuth1RequestFlow;
@@ -25,7 +24,6 @@ import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.social.BuzzAPIOperations;
 import org.encuestame.core.social.FacebookAPIOperations;
-import org.encuestame.core.social.FacebookProfile;
 import org.encuestame.core.social.IdentiCaProfile;
 import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.LinkedInAPIOperations;
@@ -174,10 +172,10 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                     log.warn("This account already exist");
                     throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
                 }
-            } else if (socialProvider.equals(SocialProvider.MYSPACE)) {
                 //FUTURE - Issues with OAuth1 request.
             } else if (socialProvider.equals(SocialProvider.YAHOO)) {
                 //FUTURE - Only valid on defined domain.
+                log.debug("Yahoo provider is disabled");
             }
             log.info("Saved New Social Account");
             return actionToDo;

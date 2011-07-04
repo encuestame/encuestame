@@ -13,9 +13,6 @@
 
 package org.encuestame.core.security.util;
 
-import java.util.Random;
-
-import org.apache.commons.lang.RandomStringUtils;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 /**
@@ -25,6 +22,11 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
  * @version $Id$
  */
 public class EnMePasswordUtils {
+
+    /**
+     * Default lenght password.
+     */
+    public static final Integer DEFAULT_LENGTH_PASSWORD = 8;
 
     /**
      * Create Random Password.
