@@ -26,11 +26,13 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
+import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
@@ -73,28 +75,17 @@ import twitter4j.http.AccessToken;
 @Service
 public class SecurityService extends AbstractBaseService implements SecurityOperations {
 
+    /**
+     * Log.
+     */
     private Logger log = Logger.getLogger(this.getClass());
 
     /** Default User Permission **/
     private static final EnMePermission DEFAULT = EnMePermission.ENCUESTAME_USER;
 
-    /** Default User Permission **/
-    private static final EnMePermission ADMIN = EnMePermission.ENCUESTAME_ADMIN;
-
-    /** Default User Permission **/
-    private static final EnMePermission EDITOR = EnMePermission.ENCUESTAME_EDITOR;
-
-    /** Default User Permission **/
-    private static final EnMePermission OWNER = EnMePermission.ENCUESTAME_OWNER;
-
-    /** Default User Permission **/
-    private static final EnMePermission PUBLISHER = EnMePermission.ENCUESTAME_PUBLISHER;
-
-
-    private final Integer DEFAULT_LENGTH_PASSWORD = 8;
-
-    private static int TWITTER_AUTH_ERROR = 401;
-
+    /**
+     * Dashboard path.
+     */
     private final String DASHBOARD_REDIRECT = "redirect:/user/dashboard";
 
     /**
@@ -142,6 +133,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         // SecUsers userD = getUser(user.getUsername());
         // SecPermission perD = loadPermission(permission.getPermission());
         //assingGroup(user, group);
+        //TODO: ????/ emtpy??
     }
 
 
@@ -600,7 +592,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
         //generate password.
-        final String password = EnMePasswordUtils.createRandomPassword(this.DEFAULT_LENGTH_PASSWORD);
+        final String password = EnMePasswordUtils.createRandomPassword(EnMePasswordUtils.DEFAULT_LENGTH_PASSWORD);
         userAccount.setPassword(encodingPassword(password));
         singUpBean.setPassword(password);
         //invite code
@@ -992,7 +984,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             }
         } catch (TwitterException te) {
             log.error("Twitter Error "+te.getMessage());
-            if (SecurityService.TWITTER_AUTH_ERROR == te.getStatusCode()) {
+            if (SocialUtils.TWITTER_AUTH_ERROR == te.getStatusCode()) {
                 log.error("Twitter Error "+te.getStatusCode());
                 verified = false;
             } else {
@@ -1169,7 +1161,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             //getAccountDao().saveOrUpdate(connection.getSocialAccount());
             getAccountDao().saveOrUpdate(socialAccount);
             SecurityUtils.socialAuthentication(socialAccount); //TODO: only with OWNER UserAccount.
-            return DASHBOARD_REDIRECT;
+            return PathUtil.DASHBOARD_REDIRECT;
         } else {
             //if user has been never connected, we check if the user exist with the social account email.
             log.info("Connecting: Creating new connection");

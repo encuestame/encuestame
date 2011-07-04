@@ -87,6 +87,7 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
       this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getAccount());
+      tweetPoll.setNumbervotes(65);
     }
 
     /**
@@ -257,7 +258,6 @@ public class TestTweetPollDao  extends AbstractBase{
      *
      */
     @SuppressWarnings("unchecked")
-    @Test
     public void testgetTweetpollByHashTagName(){
         assertNotNull(this.tweetPoll);
         final Integer limit = 3;
@@ -268,7 +268,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final Calendar calendar2 = Calendar.getInstance();
         System.out.println("SECOND CALENDAR--"+ calendar2.getTime());
 
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit);
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
         assertEquals("Should be equals", 1, tweetPolls.size());
         final HashTag hashtag2 = createHashTag("paola");
         final HashTag hashtag3 = createHashTag("juan");
@@ -293,7 +293,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final HashMap<Integer, RelativeTimeEnum> hm3 = DateUtil.getRelativeTime(tweetPoll1.getCreateDate());
         System.out.println("HM 3 ---------->"+hm3);
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit);
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
         System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
 
 
@@ -308,4 +308,48 @@ public class TestTweetPollDao  extends AbstractBase{
         }
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
+
+
+    @Test
+    public void testgetTweetpollByTop(){
+        assertNotNull(this.tweetPoll);
+        final Integer limit = 4;
+
+        final Calendar calendar = Calendar.getInstance();
+        //  Create hashtags
+        final HashTag hashtag2 = createHashTag("paola");
+        final HashTag hashtag3 = createHashTag("juan");
+        // Add hashtags to tweetPoll
+        this.tweetPoll.getHashTags().add(hashtag2);
+        this.tweetPoll.getHashTags().add(hashtag3);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+        // Publish tweetpoll
+        final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+                secondary.getAccount(),
+                createQuestion("question1", secondary.getAccount()), calendar.getTime());
+        tweetPoll1.setNumbervotes(25);
+        tweetPoll1.getHashTags().add(this.hashTag1);
+
+        final Calendar calendar2 = Calendar.getInstance();
+
+        final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+                secondary.getAccount(),
+                createQuestion("question2", secondary.getAccount()), calendar2.getTime());
+        tweetPoll2.setNumbervotes(45);
+        tweetPoll2.getHashTags().add(this.hashTag1);
+
+        getTweetPoll().saveOrUpdate(tweetPoll1);
+        getTweetPoll().saveOrUpdate(tweetPoll2);
+
+
+
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtagRated");
+        System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
+
+        for (TweetPoll tweetPoll : tweetPolls2) {
+             System.out.println(" TWEET ID --> " + tweetPoll.getTweetPollId() + "VOTES TweetPoll -->" + tweetPoll.getNumbervotes());
+        }
+        assertEquals("Should be equals", 3, tweetPolls2.size());
+    }
+
 }

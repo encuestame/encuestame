@@ -46,8 +46,6 @@ a:hover{
     border: 0px solid #000;
     margin-bottom: 0px;
     width: 100%;
-    position: absolute;
-    left: 0;
     height: 41px;
 }
 
@@ -64,18 +62,16 @@ a:hover{
 }
 
 #mainWrapper {
-    min-height: 92%;
-    position: relative;
+    min-height: 100%;
+    overflow: auto;
 }
 
 #content-container {
-    padding-top: 39px;
-    min-height: 100%;
+    min-height: 450px;
 }
 
 #content-container #enme-content {
     margin: 0 auto;
-    width: 92%;
 }
 
 #content-container #enme-content div.errorWrapper {
@@ -249,7 +245,6 @@ a:hover{
 }
 
 #content-container #enme-content div.defaultMarginWrapper{
-    width: 85%;
     margin-top: 29px;
     margin: 0 auto;
 }

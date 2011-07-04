@@ -4,6 +4,7 @@ package org.encuestame.mvc.test.json;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.junit.Before;
 import org.junit.Ignore;
 
@@ -23,6 +24,7 @@ public class SocialAccountsJsonControllerTestCase extends AbstractJsonMvcUnitBea
       @Before
       public void beforeSocialTest(){
           this.user = createAccount();
-          this.socialTwitterAccount = createDefaultSettedTwitterAccount(this.user);
+          final UserAccount account = createUserAccount("jota 1", user);
+          this.socialTwitterAccount = createDefaultSettedSocialAccount(account);
       }
 }

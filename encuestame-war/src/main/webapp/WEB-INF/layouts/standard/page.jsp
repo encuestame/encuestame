@@ -41,8 +41,8 @@
         <div id="header">
             <tiles:insertAttribute name="header" />
         </div>
-        <div id="content-container">
-            <div id="enme-content">
+        <div id="content-container" class="enme-auto-center">
+            <div id="enme-content" class="enme-auto-center">
                 <tiles:insertAttribute name="menu" ignore="true" />
                 <tiles:insertAttribute name="content"/>
             </div>

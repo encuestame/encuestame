@@ -15,7 +15,8 @@ package org.encuestame.mvc.util;
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.files.PathUtil;
-import org.encuestame.core.util.MD5Utils;
+import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.PictureUtils;
 import org.jfree.util.Log;
 
 /**
@@ -25,8 +26,6 @@ import org.jfree.util.Log;
  * @version $Id:$
  */
 public class WidgetUtil {
-
-    private static final String GRAVATAR_URL = "http://www.gravatar.com/avatar/";
 
     private static final String URL = "http://";
 
@@ -88,11 +87,13 @@ public class WidgetUtil {
      * @param email
      * @param size
      * @return
+     * @deprecated moved to {@link PictureUtils}
      */
+    @Deprecated
     public final String getGravatar(final String email, Integer size) {
         final String hash = MD5Utils.md5Hex(email);
         StringBuilder gravatarUl = new StringBuilder();
-        gravatarUl.append(WidgetUtil.GRAVATAR_URL);
+        gravatarUl.append(PictureUtils.GRAVATAR_URL);
         gravatarUl.append(hash);
         gravatarUl.append("?s=");
         gravatarUl.append(size);

@@ -14,6 +14,8 @@ package org.encuestame.business.service.imp;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -37,7 +39,9 @@ public interface IFrontEndService extends ServiceOperations {
      */
      List<TweetPollBean> searchItemsByTweetPoll(
             final String period,
-            Integer maxResults)
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request)
             throws EnMeSearchException;
 
      /**
@@ -49,6 +53,7 @@ public interface IFrontEndService extends ServiceOperations {
       */
     List<UnitPoll> searchItemsByPoll(
              final String period,
+             final Integer start,
              Integer maxResults)
              throws EnMeSearchException;
 
@@ -56,11 +61,13 @@ public interface IFrontEndService extends ServiceOperations {
      * List Hash tags
      * @param maxResults
      * @param start
+     * @param tagCriteria
      * @return
      */
     List<HashTagBean> getHashTags(
             Integer maxResults,
-            final Integer start);
+            final Integer start,
+            final String tagCriteria);
 
     /**
      * Get hashTag item.
@@ -74,7 +81,17 @@ public interface IFrontEndService extends ServiceOperations {
      * Get TweetPolls by hashTag id.
      * @param hashTagId
      * @param limit
+     * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit);
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
+
+    /**
+     * Get TweetPolls by top rated.
+     * @param hashTagId
+     * @param limit
+     * @param request
+     * @return
+     */
+    //List<TweetPollBean> getTweetPollsbyTopRated(final Long hashTagId, final Integer limit, final HttpServletRequest request);
 }

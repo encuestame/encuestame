@@ -57,6 +57,12 @@ public class SocialUtils {
     public final static Integer TWITTER_LIMIT = 140;
 
     /**
+     * Twitter authentictation error.
+     * TODO: move to {@link SocialUtils}.
+     */
+    public final static int TWITTER_AUTH_ERROR = 401;
+
+    /**
      * Get Google Stats from google short url.
      * @param googleShortUrl
      * @return

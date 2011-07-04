@@ -41,6 +41,11 @@ public class HomeController extends AbstractBaseOperations {
     */
     private Log log = LogFactory.getLog(this.getClass());
 
+    /** HashTag max results. **/
+    private final Integer MAX_HASHTAG = 80;
+
+    /** Items max results. **/
+    private final Integer MAX_ITEMS = 10;
     /**
     * Home Controller.
     *
@@ -62,17 +67,17 @@ public class HomeController extends AbstractBaseOperations {
             final IFrontEndService service = getFrontService();
             try {
                 if (view.isEmpty()) {
-                    model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                    model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
                 } else {
                     if ("tweetpoll".equals(view)){
-                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
                     } else if("poll".equals(view)){
-                        model.addAttribute("items", service.searchItemsByPoll(period, 20));
+                        model.addAttribute("items", service.searchItemsByPoll(period, 0 ,MAX_ITEMS));
                     } else if("survey".equals(view)){
-                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 20));
+                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
                     }
                 }
-                model.addAttribute("hashTags", service.getHashTags(30, 0));
+                model.addAttribute("hashTags", service.getHashTags(MAX_HASHTAG, 0, ""));
                 //TODO: search hashtags and other information.
             } catch (EnMeSearchException e) {
                 return "error";

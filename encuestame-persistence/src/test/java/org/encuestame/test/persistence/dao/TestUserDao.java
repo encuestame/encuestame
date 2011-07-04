@@ -83,7 +83,7 @@ public class TestUserDao extends AbstractBase {
         this.account = createAccount();
         this.userAccount = createUserAccount("user 1", this.account);
         this.userAccount.setInviteCode(this.inviteCode);
-        this.socialAccount = createDefaultSettedVerifiedTwitterAccount(this.account);
+        this.socialAccount = createDefaultSettedVerifiedSocialAccount(this.userAccount);
         this.question = createQuestion("What day is today?", "");
     }
 
@@ -309,7 +309,7 @@ public class TestUserDao extends AbstractBase {
      */
     //@Test
     public void testgetSocialAccount(){
-        final SocialAccount ac = createSocialProviderAccount(this.account, SocialProvider.GOOGLE);
+        final SocialAccount ac = createSocialProviderAccount(this.userAccount, SocialProvider.GOOGLE);
         final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
         assertEquals("Should be equals", ac.getId(),ex.getId());
         final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE, ex.getSocialProfileId());
