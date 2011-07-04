@@ -268,7 +268,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final Calendar calendar2 = Calendar.getInstance();
         System.out.println("SECOND CALENDAR--"+ calendar2.getTime());
 
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit);
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
         assertEquals("Should be equals", 1, tweetPolls.size());
         final HashTag hashtag2 = createHashTag("paola");
         final HashTag hashtag3 = createHashTag("juan");
@@ -293,7 +293,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final HashMap<Integer, RelativeTimeEnum> hm3 = DateUtil.getRelativeTime(tweetPoll1.getCreateDate());
         System.out.println("HM 3 ---------->"+hm3);
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit);
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
         System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
 
 
@@ -343,7 +343,7 @@ public class TestTweetPollDao  extends AbstractBase{
 
 
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByTopRated(this.hashTag1.getHashTagId(), limit);
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtagRated");
         System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
 
         for (TweetPoll tweetPoll : tweetPolls2) {
