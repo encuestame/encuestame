@@ -80,7 +80,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final HttpServletRequest request);
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
 
     /**
      * Get TweetPolls by top rated.
@@ -89,5 +89,5 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyTopRated(final Long hashTagId, final Integer limit, final HttpServletRequest request);
+    //List<TweetPollBean> getTweetPollsbyTopRated(final Long hashTagId, final Integer limit, final HttpServletRequest request);
 }

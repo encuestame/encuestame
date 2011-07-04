@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.dao.SearchPeriods;
 
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -395,7 +396,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @see org.encuestame.persistence.dao.ITweetPoll#getTweetpollByHashTagName(java.lang.String)
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId, final Integer limit){
+    public List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId, final Integer limit, final String filterby){
          final DetachedCriteria detached = DetachedCriteria.forClass(TweetPoll.class)
         .createAlias("hashTags", "hashTags")
         .setProjection(Projections.id())
@@ -405,34 +406,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
               .add(Restrictions.in("hash.hashTagId", new Long[] {hashTagId}))));
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class, "tweetPoll");
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
-        criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        if(filterby.equals("hashtag")){
+            criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        }
+        else if (filterby.equals("hashtagRated")){
+            criteria.addOrder(Order.desc("numbervotes"));
+        }
         return getHibernateTemplate().findByCriteria(criteria, 0, limit);
-    }
-
-
-    @SuppressWarnings("unchecked")
-       public List<TweetPoll> getTweetpollByTopRated(final Long hashTagId, final Integer limit){
-           final DetachedCriteria detached = DetachedCriteria.forClass(TweetPoll.class)
-           .createAlias("hashTags", "hashTags")
-           .setProjection(Projections.id())
-           .add(Subqueries.propertyIn("hashTags.hashTagId",
-           DetachedCriteria.forClass(HashTag.class, "hash")
-                 .setProjection(Projections.id())
-                 .add(Restrictions.in("hash.hashTagId", new Long[] {hashTagId}))));
-           final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class, "tweetPoll");
-           criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
-           criteria.addOrder(Order.desc("numbervotes"));
-           return getHibernateTemplate().findByCriteria(criteria, 0, limit);
-       }
-
-
-    /**
-     *
-     * @return
-     */
-    public TweetPoll getNumberVotes(final Long tweetPollId){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
-        criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
-        return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 }

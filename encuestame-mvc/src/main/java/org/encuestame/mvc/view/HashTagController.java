@@ -77,17 +77,17 @@ public class HashTagController extends AbstractBaseOperations{
         try {
             final HashTagBean tag = service.getHashTagItem(name);
             log.debug("hashTag Id ---> "+ tag.getId());
-            final List<TweetPollBean> tweetPoll = service.getTweetPollsbyHashTagId(tag.getId(), 10, request);
-            log.debug("TweetPolls by HashTag Id ---> "+ tweetPoll.size());
+            final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getId(), 10, "hashtag", request);
+            log.debug("TweetPolls by HashTag Id ---> "+ tweetPollbyTags.size());
 
-            final List<TweetPollBean> tweetPollrated = service.getTweetPollsbyTopRated(tag.getId(), 10, request);
-            log.debug("TweetPolls by Top rated ---> "+ tweetPoll.size());
+            final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getId(), 10, "hashtagRated", request);
+            log.debug("TweetPolls by Top rated ---> "+ tweetPollbyTags.size());
             if (tag == null) {
                 return "pageNotFound";
             } else {
                 model.addAttribute("tagName", service.getHashTagItem(name));
-                model.addAttribute("tweetPolls", service.getTweetPollsbyHashTagId(tag.getId(), 10, request));
-                model.addAttribute("tweetPollrated", service.getTweetPollsbyTopRated(tag.getId(), 10, request));
+                model.addAttribute("tweetPolls", tweetPollbyTags);
+                model.addAttribute("tweetPollrated", tweetPollbyRated);
             }
         } catch (Exception e) {
             log.error(e);

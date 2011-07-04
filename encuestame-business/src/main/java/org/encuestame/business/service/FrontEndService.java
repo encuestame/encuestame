@@ -173,8 +173,9 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     public List<TweetPollBean> getTweetPollsbyHashTagId(
             final Long hashTagId,
             final Integer limit,
+            final String filter,
             final HttpServletRequest request){
-        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit);
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit, filter);
         log.debug("TweetPoll by HashTagId total size ---> "+tweetPolls.size());
         final List<TweetPollBean> tweetPollBean = ConvertDomainBean.convertListToTweetPollBean(tweetPolls);
         for (TweetPollBean tweetPoll : tweetPollBean) {
@@ -183,45 +184,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return tweetPollBean;
     }
 
-
-    public List<TweetPollBean> searchItemsByTweetPollTopRated(
-            final String period,
-            Integer maxResults,
-            final HttpServletRequest request)
-            throws EnMeSearchException{
-    final List<TweetPollBean> results = new ArrayList<TweetPollBean>();
-    if(maxResults == null){
-        maxResults = this.MAX_RESULTS;
-    }
-    log.debug("Max Results "+maxResults);
-    final List<TweetPoll> items = new ArrayList<TweetPoll>();
-    if(period == null ){
-        throw new EnMeSearchException("search params required.");
-    } else {
-        final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
-        if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-            items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
-        } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-            items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
-        } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
-            items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(maxResults));
-        } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
-            items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(maxResults));
-        } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
-            items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(maxResults));
-        }
-        log.debug("TweetPoll "+items.size());
-        results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
-        for (TweetPollBean tweetPoll : results) {
-            tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
-        }
-
-    }
-    return results;
-}
-
-
-
     /**
      * Get tweetPoll by top rated.
      * @param hashTagId
@@ -229,7 +191,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @param request
      * @return
      */
-    public List<TweetPollBean> getTweetPollsbyTopRated(
+  /*  public List<TweetPollBean> getTweetPollsbyTopRated(
             final Long hashTagId,
             final Integer limit,
             final HttpServletRequest request){
@@ -241,7 +203,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         }
         return tweetPollBean;
     }
-
+*/
     /**
      * Get hashTag relevance.
      * @param hashTagId
@@ -251,7 +213,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     public Integer getHashTagRelevance(final Long hashTagId, final Integer limit){
         final Integer totalRelTweetPoll;
         final Integer relevance;
-        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit);
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit, "");
         totalRelTweetPoll = tweetPolls.size();
         relevance = totalRelTweetPoll;
         //TODO:Pending count relevance hashtags for polls and surveys.
