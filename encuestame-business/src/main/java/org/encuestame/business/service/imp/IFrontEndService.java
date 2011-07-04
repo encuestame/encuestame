@@ -39,6 +39,7 @@ public interface IFrontEndService extends ServiceOperations {
      */
      List<TweetPollBean> searchItemsByTweetPoll(
             final String period,
+            final Integer start,
             Integer maxResults,
             final HttpServletRequest request)
             throws EnMeSearchException;
@@ -52,6 +53,7 @@ public interface IFrontEndService extends ServiceOperations {
       */
     List<UnitPoll> searchItemsByPoll(
              final String period,
+             final Integer start,
              Integer maxResults)
              throws EnMeSearchException;
 
@@ -59,11 +61,13 @@ public interface IFrontEndService extends ServiceOperations {
      * List Hash tags
      * @param maxResults
      * @param start
+     * @param tagCriteria
      * @return
      */
     List<HashTagBean> getHashTags(
             Integer maxResults,
-            final Integer start);
+            final Integer start,
+            final String tagCriteria);
 
     /**
      * Get hashTag item.
@@ -80,7 +84,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final HttpServletRequest request);
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
 
     /**
      * Get TweetPolls by top rated.
@@ -89,5 +93,5 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyTopRated(final Long hashTagId, final Integer limit, final HttpServletRequest request);
+    //List<TweetPollBean> getTweetPollsbyTopRated(final Long hashTagId, final Integer limit, final HttpServletRequest request);
 }

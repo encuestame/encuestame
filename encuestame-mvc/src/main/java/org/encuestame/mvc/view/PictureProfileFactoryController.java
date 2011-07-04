@@ -15,9 +15,11 @@ package org.encuestame.mvc.view;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.encuestame.business.service.PictureService.PictureType;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,72 +36,102 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PictureProfileFactoryController extends AbstractBaseOperations {
 
     /**
+     * Log.
+     */
+<<<<<<< .merge_file_Ucb9vq
+    @RequestMapping( value = "/picture/profile/{username}/thumbnail", method = RequestMethod.GET )
+    @ResponseBody
+    public byte[] getPictureThumbnail(
+            @PathVariable String username) throws EnMeNoResultsFoundException{
+=======
+    private Logger log = Logger.getLogger(this.getClass());
+
+
+    /**
+     *
+     * @param username
+     * @param pictureType
+     * @return
+     */
+    private byte[] getPicture(String username, final PictureType pictureType){
+>>>>>>> .merge_file_B7Gwiq
+        byte[] bytes = {};
+        username = filterValue(username);
+        try {
+            bytes = getPictureService().getProfilePicture(username, pictureType);
+        } catch (FileNotFoundException e) {
+<<<<<<< .merge_file_Ucb9vq
+            // if the user doesn't have picture.
+
+=======
+            log.error("file not found "+e);
+>>>>>>> .merge_file_B7Gwiq
+        } catch (IOException e) {
+            log.error("IOException "+e);
+        } catch (EnMeGenericException e) {
+            log.error("EnMeGenericException "+e);
+        }
+        return bytes;
+    }
+
+    /**
      * Returns the byte[] that contains the requested thumbnail image (128x128 constrained).
-     * @param id The identifier of the image
      * @return A byte[] that contains the requested image
      * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/thumbnail", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureThumbnail(
-            @PathVariable String username) throws EnMeNoResultsFoundException{
-        byte[] bytes = {};
-        username = filterValue(username);
-        try {
-            bytes = getPictureService().getProfilePicture(username, PictureType.THUMBNAIL);
-        } catch (FileNotFoundException e) {
-            // if the user doesn't have picture.
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return bytes;
+            @PathVariable String username){
+        return this.getPicture(username, PictureType.THUMBNAIL);
     }
 
     /**
-     * Returns the byte[] that contains the requested master image.
-     * @param id The identifier of the image
+     * Returns the byte[] that contains the requested default image.
      * @return A byte[] that contains the requested image
      * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/default", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureMaster(
-            @PathVariable String username ) throws EnMeNoResultsFoundException{
-        byte[] bytes = {};
-        try {
-            bytes = getPictureService().getProfilePicture(username, PictureType.DEFAULT);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return bytes;
+            @PathVariable String username ) {
+        return this.getPicture(username, PictureType.DEFAULT);
     }
 
     /**
-     * Returns the byte[] that contains the requested preview image (800x800 constrained)
-     * @param id The identifier of the image
+     * Returns the byte[] that contains the requested preview image (256x256 constrained)
+     * @param username
+     * @return
+     */
+    @RequestMapping( value = "/picture/profile/{username}/profile", method = RequestMethod.GET )
+    @ResponseBody
+    public byte[] getPictureProfile(
+            @PathVariable String username ) {
+        return this.getPicture(username, PictureType.PROFILE);
+    }
+
+    /**
+     * Returns the byte[] that contains the requested preview image (375x375 constrained)
      * @return A byte[] that contains the requested image
      * @throws EnMeNoResultsFoundException
      */
     @RequestMapping( value = "/picture/profile/{username}/preview", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPicturePreview(
-            @PathVariable String username ) throws EnMeNoResultsFoundException{
-        byte[] bytes = {};
-        try {
-            bytes = getPictureService().getProfilePicture(username,  PictureType.PREVIEW);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return bytes;
+            @PathVariable String username ){
+          return this.getPicture(username, PictureType.PREVIEW);
+    }
+
+    /**
+     * Returns the byte[] that contains the requested preview image (900x900 constrained)
+     * @param id The identifier of the image
+     * @return A byte[] that contains the requested image
+     * @throws EnMeNoResultsFoundException
+     */
+    @RequestMapping( value = "/picture/profile/{username}/web", method = RequestMethod.GET)
+    @ResponseBody
+    public byte[] getPictureWeb(
+            @PathVariable String username ){
+          return this.getPicture(username, PictureType.WEB);
     }
 }

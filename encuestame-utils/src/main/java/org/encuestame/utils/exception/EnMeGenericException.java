@@ -10,31 +10,50 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.util;
-
-import java.io.IOException;
-import java.io.StringWriter;
-
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
+package org.encuestame.utils.exception;
 
 /**
- * Helper to JSON.
+ * EnMe generic exception.
  * @author Picado, Juan juanATencuestame.org
- * @since Apr 23, 2011
+ * @since Jul 3, 2011
  */
-public class JSONUtils {
+public class EnMeGenericException extends Exception {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4773692936156441054L;
 
-    public static String convertPojoToJSON(final Object object) throws IOException{
-        final ObjectMapper m = new ObjectMapper();
-        final JsonFactory jf = new JsonFactory();
-        final StringWriter sw = new StringWriter();
-        final JsonGenerator jg = jf.createJsonGenerator(sw);
-        jg.useDefaultPrettyPrinter();
-        m.writeValue(jg, object);
-        return sw.toString();
+    /**
+     * Constructor.
+     */
+    public EnMeGenericException() {
+        super();
     }
 
+    /**
+    * Exception.
+    * @param message message
+    * @param cause cause
+    */
+   public EnMeGenericException(final String message, final Throwable cause) {
+       super(message, cause);
+
+   }
+   /**
+    * Exception.
+    * @param message message
+    */
+   public EnMeGenericException(final String message) {
+       super(message);
+
+   }
+
+   /**
+    * Exception.
+    * @param cause cause
+    */
+   public EnMeGenericException(final Throwable cause) {
+       super(cause);
+   }
 }
