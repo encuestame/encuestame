@@ -54,6 +54,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public List<TweetPollBean> searchItemsByTweetPoll(
                 final String period,
+                final Integer start,
                 Integer maxResults,
                 final HttpServletRequest request)
                 throws EnMeSearchException{
@@ -68,15 +69,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         } else {
             final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
             if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
             } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
             } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(maxResults));
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(start, maxResults));
             } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(maxResults));
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(start, maxResults));
             } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(maxResults));
+                items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(start, maxResults));
             }
             log.debug("TweetPoll "+items.size());
             results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
@@ -97,6 +98,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public List<UnitPoll> searchItemsByPoll(
             final String period,
+            final Integer start,
             Integer maxResults)
             throws EnMeSearchException{
     final List<UnitPoll> results = new ArrayList<UnitPoll>();
@@ -110,15 +112,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     } else {
         final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
         if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast24(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast24(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast24(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast24(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast7Days(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast7Days(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast30Days(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast30Days(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
-            items.addAll(getFrontEndDao().getPollFrontEndAllTime(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndAllTime(start, maxResults));
         }
         log.debug("Poll "+items.size());
         results.addAll(ConvertDomainBean.convertListToPollBean((items)));

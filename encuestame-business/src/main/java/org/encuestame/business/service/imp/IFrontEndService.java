@@ -39,6 +39,7 @@ public interface IFrontEndService extends ServiceOperations {
      */
      List<TweetPollBean> searchItemsByTweetPoll(
             final String period,
+            final Integer start,
             Integer maxResults,
             final HttpServletRequest request)
             throws EnMeSearchException;
@@ -52,6 +53,7 @@ public interface IFrontEndService extends ServiceOperations {
       */
     List<UnitPoll> searchItemsByPoll(
              final String period,
+             final Integer start,
              Integer maxResults)
              throws EnMeSearchException;
 

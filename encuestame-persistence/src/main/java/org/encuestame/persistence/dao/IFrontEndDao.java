@@ -30,55 +30,55 @@ public interface IFrontEndDao extends IBaseDao{
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<TweetPoll> getTweetPollFrontEndLast30Days(final Integer maxResults);
+    List<TweetPoll> getTweetPollFrontEndLast30Days(final Integer start, final Integer maxResults);
 
     /**
      * Get TweetPoll Last 7 Days
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<TweetPoll> getTweetPollFrontEndLast7Days(final Integer maxResults);
+    List<TweetPoll> getTweetPollFrontEndLast7Days(final Integer start, final Integer maxResults);
 
     /**
      * Get TweetPoll Last 24 Hours.
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<TweetPoll> getTweetPollFrontEndLast24(final Integer maxResults);
+    List<TweetPoll> getTweetPollFrontEndLast24(final Integer start, final Integer maxResults);
 
     /**
      * Get Poll Last 24 Hours.
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<Poll> getPollFrontEndLast24(final Integer maxResults);
+    List<Poll> getPollFrontEndLast24(final Integer start, final Integer maxResults);
 
     /**
      * Get Poll Last 7 Days
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<Poll> getPollFrontEndLast7Days(final Integer maxResults);
+    List<Poll> getPollFrontEndLast7Days(final Integer start, final Integer maxResults);
 
     /**
      * Get Poll Last 30 Days
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<Poll> getPollFrontEndLast30Days(final Integer maxResults);
+    List<Poll> getPollFrontEndLast30Days(final Integer start, final Integer maxResults);
 
     /**
      * Get Poll on All Time.
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<Poll> getPollFrontEndAllTime(final Integer maxResults);
+    List<Poll> getPollFrontEndAllTime(final Integer start, final Integer maxResults);
 
     /**
      * Get TweetPoll all time.
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    List<TweetPoll> getTweetPollFrontEndAllTime(final Integer maxResults);
+    List<TweetPoll> getTweetPollFrontEndAllTime(final Integer start, final Integer maxResults);
 
 }
