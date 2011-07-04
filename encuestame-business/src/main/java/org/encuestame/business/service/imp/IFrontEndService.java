@@ -59,11 +59,13 @@ public interface IFrontEndService extends ServiceOperations {
      * List Hash tags
      * @param maxResults
      * @param start
+     * @param tagCriteria
      * @return
      */
     List<HashTagBean> getHashTags(
             Integer maxResults,
-            final Integer start);
+            final Integer start,
+            final String tagCriteria);
 
     /**
      * Get hashTag item.

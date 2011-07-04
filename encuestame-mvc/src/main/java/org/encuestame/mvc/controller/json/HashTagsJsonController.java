@@ -115,10 +115,10 @@ public class HashTagsJsonController extends AbstractJsonController{
              final IFrontEndService service = getFrontService();
              final List<HashTagBean> hashTagList;
              if(limit == null){
-                 hashTagList = service.getHashTags(20, 0); // TODO: Add to file properties limit to show hashtags.
+                 hashTagList = service.getHashTags(20, 0, "hashTagsCloud"); // TODO: Add to file properties limit to show hashtags.
              }
              else {
-                hashTagList = service.getHashTags(limit, 0);
+                hashTagList = service.getHashTags(limit, 0, "hashTagsCloud");
              }
              jsonResponse.put("cloud", hashTagList);
              setItemResponse(jsonResponse);

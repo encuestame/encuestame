@@ -41,6 +41,11 @@ public class HashTagController extends AbstractBaseOperations{
     /** Log. **/
         private Log log = LogFactory.getLog(this.getClass());
 
+        /** HashTag max results. **/
+        private final Integer MAX_HASHTAG = 80;
+
+        /** HashTag max results. **/
+        private final Integer LIMIT_HASHTAG = 15;
     /**
      * HashTag List.
      * @param model
@@ -52,7 +57,7 @@ public class HashTagController extends AbstractBaseOperations{
     public String hashTagController(ModelMap model, HttpServletRequest request,
                   HttpServletResponse response) {
         final IFrontEndService service = getFrontService();
-        final List<HashTagBean> hashTagList = service.getHashTags(20, 0); //TODO: Add to file properties number 20
+        final List<HashTagBean> hashTagList = service.getHashTags(MAX_HASHTAG, 0, "hashTagsCloud"); //TODO: Add to file properties number 20
         log.debug("Tag list size ---> "+ hashTagList.size());
         model.addAttribute("hashtags", hashTagList);
         return "cloud";
@@ -77,10 +82,10 @@ public class HashTagController extends AbstractBaseOperations{
         try {
             final HashTagBean tag = service.getHashTagItem(name);
             log.debug("hashTag Id ---> "+ tag.getId());
-            final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getId(), 10, "hashtag", request);
+            final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtag", request);
             log.debug("TweetPolls by HashTag Id ---> "+ tweetPollbyTags.size());
 
-            final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getId(), 10, "hashtagRated", request);
+            final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtagRated", request);
             log.debug("TweetPolls by Top rated ---> "+ tweetPollbyTags.size());
             if (tag == null) {
                 return "pageNotFound";

@@ -53,7 +53,8 @@ public interface IHashTagDao extends IBaseDao	{
      * Get hashTags.
      * @param maxResults
      * @param start
+     * @param tagCriteria
      * @return
      */
-    List<HashTag> getHashTags( final Integer maxResults,final Integer start);
+    List<HashTag> getHashTags( final Integer maxResults,final Integer start, final String tagCriteria);
 }

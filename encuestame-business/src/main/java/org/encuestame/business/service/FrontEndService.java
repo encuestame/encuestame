@@ -135,14 +135,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public List<HashTagBean> getHashTags(
               Integer maxResults,
-              final Integer start){
+              final Integer start,
+              final String tagCriteria){
         final List<HashTagBean> hashBean = new ArrayList<HashTagBean>();
         if(maxResults == null){
             maxResults = this.MAX_RESULTS;
         }
         log.debug("Max Results HashTag -----> "+maxResults);
         List<HashTag> tags = new ArrayList<HashTag>();
-        tags.addAll(getHashTagDao().getHashTags(maxResults, start));
+        tags.addAll(getHashTagDao().getHashTags(maxResults, start, tagCriteria));
         log.debug("Hashtag total size ---> "+tags.size());
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
 
