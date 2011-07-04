@@ -1,72 +1,120 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-    <div id="mainPublicLineWrapper">
-    <div class="itemWrapper" style="border: 0px solid #FFF; width: 79%;">
-          <div class="categoryMenu">
-                <div style="clear: both;">
-                <div style="float: right;">
-                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "24")%>">Hot</a>
-                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "7")%>">Week</a>
-                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "30")%>">Month</a>
-                    <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "all")%>">All</a>
-                </div>
-                <div style="float: left;">
-                    <span><a href="<%=request.getContextPath()%>/home?view=survey">All Surveys</a></span>
-                    <span><a href="<%=request.getContextPath()%>/home?view=tweetpoll">All TweetPoll</a></span>
-                    <span><a href="<%=request.getContextPath()%>/home?view=poll">All Poll</a></span>
-                </div>
-                </div>
-            </div>
-    <c:forEach items="${items}" var="item">
-     <div class="item">
+<script type="text/javascript">
+     dojo.require("encuestame.org.core.commons.hashtags.Cloud");
+     dojo.require("encuestame.org.core.commons.rated.Comments");
+     dojo.require("encuestame.org.core.commons.rated.HashTags");
+     dojo.require("encuestame.org.core.commons.rated.Users");
+     dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
+     dojo.require("encuestame.org.core.commons.stream.FrontEnd");
+</script>
+<div id="web-main-public-line" class="enme-auto-center">
+    <div class="web-item-wrapper">
+        <div class="categoryMenu">
+             <div style="clear: both;">
+                 <div style="float: right;">
+                     <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "24")%>">
+                        <spring:message code="home.category.hot" />
+                     </a>
+                     <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "7")%>">
+                        <spring:message code="home.category.weeks" />
+                     </a>
+                     <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "30")%>">
+                        <spring:message code="home.category.month" />
+                     </a>
+                     <a href="<%=WidgetUtil.getHomeFilterPeriodParameter(request, "all")%>">
+                        <spring:message code="home.category.all" />
+                    </a>
+                 </div>
+                 <div style="float: left;">
+                     <span><a href="<%=request.getContextPath()%>/home?view=survey">
+                        <spring:message code="home.type.surveys" />
+                        </a></span>
+                     <span><a href="<%=request.getContextPath()%>/home?view=tweetpoll">
+                        <spring:message code="home.type.tweetpoll" />
+                        </a></span>
+                     <span><a href="<%=request.getContextPath()%>/home?view=poll">
+                        <spring:message code="home.type.poll" />
+                     </a></span>
+                 </div>
+             </div>
+        </div>
+        <div class="items">
+        <c:forEach items="${items}" var="item">
            <div class="item">
                 <div class="img">
                         <div class="stats">
                             <div class="vote">
                                 <div>
                                     <span class="count"><strong>${item.totalVotes}</strong></span>
-                                    <div class="viewcount">answers</div>
+                                    <div class="viewcount">
+                                         <spring:message code="home.item.votes" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="views">
-                               50 views
+                             <div class="views">
+                               50 <spring:message code="home.item.views" />
                             </div>
                         </div>
                 </div>
                 <div class="content">
-                    <h3>
+                    <div class="title">
                          <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test">${item.questionBean.questionName}</a>
-                    </h3>
-                    <div style="padding: 2px;">
-
                     </div>
                     <div class="bottom">
-                       <div class="share">
-                                <span class="title">Share on:</span><br/>
-                                <img src="resources/images/icons/enme_twitter.png" alt="Twitter" />
-                                <img src="resources/images/icons/enme_facebook.png" alt="Facebook" />
-                       </div>
                        <div class="options">
                             <div class="image">
-                                    <img width="32" height="32" alt=""
-                                    src="http://www.gravatar.com/avatar/6757caf55de0413ae0994293e001d465?s=32&amp;d=identicon&amp;r=PG"/>
+                                    <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">
+                                        <img width="32" height="32" alt=""
+                                        src="<%=request.getContextPath()%>/picture/profile/${item.ownerUsername}/thumbnail"/>
+                                    </a>
                             </div>
-                            <div>(Submited By <strong>
-                                                <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
-                                              </strong>) added <strong>${item.relativeTime}</strong></div>
-                            <div>
-                                <img src="/resources/images/icons/enme_comment_reply.png"/> 25 Comments
+                            <div class="share">
+                                    <span class="title">Share on:</span>
+                                    <img src="<%=request.getContextPath()%>/resources/images/social/twitter/enme_icon_twitter.png" alt="Twitter" />
+                                    <img src="<%=request.getContextPath()%>/resources/images/social/facebook/enme_icon_facebook.png" alt="Facebook" />
+                                </div>
+                            <div class="submited">
+                                <spring:message code="submited.by" />
+                                    <strong>
+                                        <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
+                                    </strong>
+                                         <spring:message code="added" />
+                                    <strong>
+                                        ${item.relativeTime} | <br>
+                                        <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test#comments">
+                                           25  <spring:message code="home.item.comments" />
+                                        </a>
+                                    </strong>
                             </div>
                        </div>
                        <div class="tags">
                             <c:forEach items="${item.hashTags}" var="h">
-                                <a href="<%=request.getContextPath()%>/tag/${h.hashTagName}/" class="tag">${h.hashTagName}</a>
+                                   <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                                    url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
+                                    hashTagName="${h.hashTagName}"></span>
                            </c:forEach>
                        </div>
                     </div>
                 </div>
-                <p class="clear"></p>
-            </div>
-     </div>
-   </c:forEach>
+          </div>
+        </c:forEach>
+        <div class="pagination">
+             <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
+        </div>
+        </div>
+    </div>
+    <div class="web-left-wrapper">
+         <div class="section">
+            <div dojoType="encuestame.org.core.commons.hashtags.Cloud"></div>
+         </div>
+         <div class="section">
+            <div dojoType="encuestame.org.core.commons.rated.Comments"></div>
+         </div>
+         <div class="section">
+            <div dojoType="encuestame.org.core.commons.rated.HashTags"></div>
+         </div>
+         <div class="section">
+            <div dojoType="encuestame.org.core.commons.rated.Users"></div>
+         </div>
     </div>
 </div>
