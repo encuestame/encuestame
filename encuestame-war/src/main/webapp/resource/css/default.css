@@ -62,13 +62,12 @@ a:hover{
 }
 
 #mainWrapper {
-    min-height: 92%;
-    position: relative;
+    min-height: 100%;
+    overflow: auto;
 }
 
 #content-container {
-    padding-top: 19px;
-    min-height: 100%;
+    min-height: 450px;
 }
 
 #content-container #enme-content {
