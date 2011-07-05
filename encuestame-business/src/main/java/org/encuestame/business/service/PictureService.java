@@ -14,7 +14,6 @@ package org.encuestame.business.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -26,12 +25,9 @@ import org.encuestame.core.files.PathUtil;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Service;
-
-import com.sun.java.swing.plaf.gtk.GTKConstants.WidgetType;
 
 /**
  * Picture / Image Service.
