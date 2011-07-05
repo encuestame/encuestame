@@ -105,8 +105,24 @@ div.web-header span.search{
   float: right;
   border-left: 1px solid #EEEEEE;
   margin-bottom: 60px;
-  overflow: hidden;
   width: 220px;
+}
+
+#web-main-public-line div.web-left-wrapper div.section{
+    margin: 4px;
+    border: 1px solid #EAE6E6;
+    min-width: 100%;
+    min-height: 150px;
+}
+
+#web-main-public-line div.web-left-wrapper div.section div.sectionTitle{
+    font-size: 140%;
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-bottom: 5px;
+    background-color: #3E6D8E;
+    color: #FFF;
+    padding: 5px;
 }
 
 div.web-item-wrapper .item {
@@ -223,7 +239,9 @@ div.web-item-wrapper .item .tags{
     padding-bottom: 2px;
 }
 
-div.web-item-wrapper .item .tags .tag{
+/* class tag global */
+
+.tag{
     background-color: #3E6D8E;
     color: #F7FBFF;
     font-size: 90%;
@@ -236,15 +254,48 @@ div.web-item-wrapper .item .tags .tag{
     border-radius: 3px;
 }
 
+div.pagination {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin: 2px;
+}
+
+div.pagination:hover{
+   border: 1px dotted #275296;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+   border-radius: 3px;
+}
+
+
+div.pagination .titleNext {
+  color: #275296;
+  font-size: 122%;
+  font-weight: bold;
+}
 
 /** clod **/
 
 div.cloud {
   clear: both;
   margin-bottom: 4px;
-  margin-top: 4px;
-  max-width: 200px;
-  padding: 5px;
+  max-width: 100%;
+}
+
+div.cloud div.cloudTitle{
+    font-size: 140%;
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-bottom: 5px;
+    background-color: #3E6D8E;
+    color: #FFF;
+    padding: 5px;
+}
+
+div.cloud div.cloudItems{
+    padding: 5px;
+    overflow: auto;
 }
 
 div.cloud .cloudItem {
