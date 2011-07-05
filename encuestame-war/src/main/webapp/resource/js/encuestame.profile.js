@@ -46,6 +46,7 @@ dependencies ={
                 "encuestame.org.core.commons.rated.Users",
                 "encuestame.org.core.commons.stream.FrontEnd",
                 "encuestame.org.core.commons.stream.HashTagInfo",
+                "encuestame.org.core.commons.stream.FrontEndItem",
                 "encuestame.org.core.commons.rated.HashTags",
                 "encuestame.org.mobile.notifications.NotificationList",
                 "org.cometd",

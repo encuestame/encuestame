@@ -481,6 +481,10 @@ encuestame.service.social.linkedIn = {};
 encuestame.service.search = {};
 encuestame.service.search.suggest = encuestame.contextWidget()+"/api/search/quick-suggest.json";
 
+encuestame.service.stream = {};
+encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
+
+
 //short url service.
 //encuestame.service.short = {};
 //encuestame.service.short.google = "/api/short/url/google.json";
