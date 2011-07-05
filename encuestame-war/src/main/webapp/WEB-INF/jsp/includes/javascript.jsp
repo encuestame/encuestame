@@ -1,3 +1,4 @@
+<%@page import="org.encuestame.mvc.util.WidgetUtil"%>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"
         djConfig="parseOnLoad: true, useCommentedJson:true, isDebug: false"></script>
 <script type="text/javascript">
@@ -10,3 +11,4 @@
         };
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js"></script>
+<%=WidgetUtil.getAnalytics("analytics.inc")%>
