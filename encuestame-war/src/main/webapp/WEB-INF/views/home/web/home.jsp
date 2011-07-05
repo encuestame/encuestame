@@ -1,11 +1,13 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <script type="text/javascript">
-     dojo.require("encuestame.org.core.commons.hashtags.Cloud");
-     dojo.require("encuestame.org.core.commons.rated.Comments");
+     dojo.require('encuestame.org.core.commons.hashtags.Cloud');
+     dojo.require('encuestame.org.core.commons.rated.Comments');
      dojo.require("encuestame.org.core.commons.rated.HashTags");
      dojo.require("encuestame.org.core.commons.rated.Users");
      dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
-     dojo.require("encuestame.org.core.commons.stream.FrontEnd");
+     dojo.require('encuestame.org.core.commons.stream.FrontEnd');
+     dojo.require('encuestame.org.core.commons.stream.FrontEndItem');
+
 </script>
 <div id="web-main-public-line" class="enme-auto-center">
     <div class="web-item-wrapper">
@@ -98,22 +100,24 @@
                 </div>
           </div>
         </c:forEach>
-        <div class="pagination">
-             <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
-        </div>
+        <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
         </div>
     </div>
     <div class="web-left-wrapper">
          <div class="section">
+            <div class="sectionTitle">More Popular HashTags</div>
             <div dojoType="encuestame.org.core.commons.hashtags.Cloud"></div>
          </div>
          <div class="section">
+            <div class="sectionTitle">Rated Comments</div>
             <div dojoType="encuestame.org.core.commons.rated.Comments"></div>
          </div>
          <div class="section">
+            <div class="sectionTitle">Rated HashTags</div>
             <div dojoType="encuestame.org.core.commons.rated.HashTags"></div>
          </div>
          <div class="section">
+            <div class="sectionTitle">Rated Users</div>
             <div dojoType="encuestame.org.core.commons.rated.Users"></div>
          </div>
     </div>

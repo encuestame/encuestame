@@ -72,7 +72,7 @@ public class FrontEndJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                if(period == null ){
+                if (period == null ){
                     throw new EnMeSearchException("search params required.");
                 } else {
                     final  List<TweetPollBean> itemList = getFrontService().searchItemsByTweetPoll(period, start, maxResults, request);

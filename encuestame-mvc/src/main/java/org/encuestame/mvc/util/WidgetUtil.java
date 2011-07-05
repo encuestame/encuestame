@@ -12,12 +12,20 @@
  */
 package org.encuestame.mvc.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.jfree.util.Log;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * Dojo Widget Utils.
@@ -98,5 +106,38 @@ public class WidgetUtil {
         gravatarUl.append("?s=");
         gravatarUl.append(size);
         return gravatarUl.toString();
+    }
+
+    /**
+     * Get Analytics google code.
+     * @param path
+     * @return
+     */
+    public static final String getAnalytics(final String path){
+        final String analyticCode = EnMePlaceHolderConfigurer.getProperty("google.analytic.code");
+        final String scriptFilePath = path;
+        final StringBuffer stb = new StringBuffer("");
+        BufferedReader reader;
+        String analyticBlock;
+        try {
+            if (analyticCode.isEmpty()) {
+                throw new EnMeExpcetion("analytics code is emtpy");
+            }
+            reader = new BufferedReader(
+                     new InputStreamReader(new ClassPathResource(scriptFilePath).getInputStream()));
+            String aux;
+            while(true) { aux = reader.readLine();
+            if (aux == null) break;
+            stb.append(aux);
+            }
+            reader.close();
+            analyticBlock = stb.toString();
+            analyticBlock = StringUtils.replace(analyticBlock, "$analyticCode", analyticCode);
+        } catch (IOException e) {
+            analyticBlock = "";
+        } catch (EnMeExpcetion e) {
+            analyticBlock = "";
+        }
+        return analyticBlock;
     }
 }

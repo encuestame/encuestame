@@ -27,11 +27,17 @@ dojo.declare(
         _printCloud : function(items){
             dojo.forEach(items,
                 dojo.hitch(this,function(item) {
-                  var span1 = dojo.doc.createElement("span");
-                  span1.innerHTML = item.hashTagName;
-                  dojo.style(span1, "font-size", item.size+"px");
-                  dojo.addClass(span1, "cloudItem");
-                  this._hashtagCloud.appendChild(span1);
+                  var wrapper = dojo.doc.createElement("div");
+                  dojo.style(wrapper, "display", "inline-block");
+                  //dojo.style(wrapper, "float", "left");
+                  dojo.style(wrapper, "margin", "5px");
+                  dojo.style(wrapper, "fontSize", "1"+item.size+"%");
+                  var widget = new encuestame.org.core.commons.stream.HashTagInfo(
+                          {hashTagName : item.hashTagName,
+                           url : encuestame.contextDefault+"/tag/"+item.hashTagName+"/",
+                           size : item.size});
+                  wrapper.appendChild(widget.domNode);
+                  this._hashtagCloud.appendChild(wrapper);
                 }));
         },
 
