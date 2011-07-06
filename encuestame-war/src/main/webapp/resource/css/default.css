@@ -18,10 +18,12 @@ body {
 
 a{
    text-decoration: none;
+   color: #3E6D8E;
 }
 
 a:hover{
    text-decoration: underline;
+   color: #3E6D8E;
 }
 
 img {
@@ -235,6 +237,18 @@ a:hover{
 
 .pollImage{
     background-image: url(../images/icons/emne_poll.png);
+}
+
+
+div.defaultSectionTitle{
+     font-size: 140%;
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-bottom: 5px;
+    background-color: #3E6D8E;
+    color: #FFF;
+    padding: 5px;
+
 }
 
 /** content container **/
