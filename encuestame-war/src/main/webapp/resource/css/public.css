@@ -1,5 +1,3 @@
-@import url("login.css");
-
 body.public-body{
     margin: 0;
     padding: 0;
@@ -303,4 +301,155 @@ div.cloud .cloudItem {
   font-size: 20px;
   font-weight: bold;
   padding: 2px;
+}
+
+
+/*** login **/
+
+#web-login-wrapper {
+  margin: 5em auto;
+  width: 45em;
+  z-index: 1;
+}
+
+#web-login-wrapper div.loginTitle{
+    padding-left: 10px;
+}
+
+#web-login-wrapper div.signIn {
+  margin: 0 auto;
+  padding: 3px;
+  width: 11em;
+}
+
+#web-login-wrapper div.field{
+    padding: 10px;
+}
+
+#web-login-wrapper div.forgotPassword{
+    font-size: 10px;
+    float: left;
+    margin-left: 100px;
+}
+
+#web-login-wrapper div.forgotPassword a{
+    color: #000;
+    text-decoration: none;
+}
+
+#web-login-wrapper div.forgotPassword a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
+
+#web-login-wrapper div.field div.label {
+  color: #000;
+  float: left;
+  font-size: 133%;
+  padding-top: 6px;
+  width: 90px;
+}
+
+#web-login-wrapper  input[type="text"]{
+    height: 20px;
+    width: 275px;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 4px 2px;
+    border: 1px solid #AAAAAA;
+}
+
+#web-login-wrapper div.field div.output label{
+    margin-left: 90px;
+}
+
+#web-login-wrapper  input[type="password"]{
+        height: 20px;
+    width: 275px;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 4px 2px;
+    border: 1px solid #AAAAAA;
+}
+
+#web-login-wrapper div.field div.output span a{
+    font-size: 10px;
+    text-decoration: none;
+    padding-left: 5px;
+}
+
+#web-login-wrapper div.buttonGroup{
+    margin-left: 95px;
+    margin-top: 25px;
+}
+
+#web-login-wrapper div.web-form-wrapper {
+  float: left;
+  min-width: 440px;
+  border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  background-color: #F9F9F9;
+  border: 1px solid #8BA0BC;
+}
+
+#web-login-wrapper div.singup{
+    text-align: center;
+    padding: 10px;
+    font-size: 120%;
+}
+
+#web-login-wrapper div.web-social-signin {
+  border-top: 1px dotted gray;
+  max-width: 400px;
+  min-width: 350px;
+  padding: 10px;
+  margin: 10px;
+}
+
+#web-login-wrapper div.web-social-signin .title {
+  color: #000000;
+  font-size: 100%;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+#web-login-wrapper div.web-social-signin .section{
+    padding: 4px;
+}
+
+
+div.web-form-wrapper a.button {
+    color: #444;
+    display: block;
+    float: left;
+    font: normal 12px arial, sans-serif;
+    height: 24px;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+    text-decoration: none;
+}
+
+div.web-form-wrapper a.button span {
+    display: block;
+    line-height: 14px;
+    padding: 5px 0 5px 18px;
+}
+
+div.web-form-wrapper a.button:active {
+    background-position: bottom right;
+    color: #000;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+div.web-form-wrapper a.button:active span {
+    background-position: bottom left;
+    padding: 6px 0 4px 18px; /* push text down 1px */
 }
