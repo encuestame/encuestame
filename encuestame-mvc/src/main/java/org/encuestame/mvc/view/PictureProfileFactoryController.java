@@ -38,6 +38,12 @@ public class PictureProfileFactoryController extends AbstractBaseOperations {
     /**
      * Log.
      */
+<<<<<<< .merge_file_Ucb9vq
+    @RequestMapping( value = "/picture/profile/{username}/thumbnail", method = RequestMethod.GET )
+    @ResponseBody
+    public byte[] getPictureThumbnail(
+            @PathVariable String username) throws EnMeNoResultsFoundException{
+=======
     private Logger log = Logger.getLogger(this.getClass());
 
 
@@ -48,12 +54,18 @@ public class PictureProfileFactoryController extends AbstractBaseOperations {
      * @return
      */
     private byte[] getPicture(String username, final PictureType pictureType){
+>>>>>>> .merge_file_B7Gwiq
         byte[] bytes = {};
         username = filterValue(username);
         try {
             bytes = getPictureService().getProfilePicture(username, pictureType);
         } catch (FileNotFoundException e) {
+<<<<<<< .merge_file_Ucb9vq
+            // if the user doesn't have picture.
+
+=======
             log.error("file not found "+e);
+>>>>>>> .merge_file_B7Gwiq
         } catch (IOException e) {
             log.error("IOException "+e);
         } catch (EnMeGenericException e) {
