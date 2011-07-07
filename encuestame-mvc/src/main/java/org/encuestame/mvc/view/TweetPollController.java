@@ -235,6 +235,7 @@ public class TweetPollController extends AbstractBaseOperations {
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tp));
             final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tp);
             model.addAttribute("answers", answers);
+            model.addAttribute("hashtags", tp.getHashTags());
             return "tweetpoll/detail";
         } catch (EnMeTweetPollNotFoundException e) {
             log.error(e);

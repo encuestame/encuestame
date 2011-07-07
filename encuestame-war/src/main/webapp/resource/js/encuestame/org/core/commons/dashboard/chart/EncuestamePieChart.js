@@ -10,9 +10,10 @@ dojo.require("dojox.charting.widget.Legend");
 
 dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", null, {
 
-        constructor: function(node, results){
+        constructor: function(node, results, size){
                 this.node = node;
                 this.data = results;
+                this.size = size;
                 console.debug("data", this.data);
         },
 
@@ -33,6 +34,8 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
 
         node : null,
 
+        size : 80,
+
         data : [],
 
         _seriesData : [],
@@ -47,7 +50,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
                 font: "normal normal 11pt Tahoma",
                 fontColor: "black",
                 labelOffset: -30,
-                radius: 80
+                radius: this.size
             }).addSeries("A", this._seriesData);
             var anim_a = new dc.action2d.MoveSlice(chartTwo, "default");
             var anim_b = new dc.action2d.Highlight(chartTwo, "default");

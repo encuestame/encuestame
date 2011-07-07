@@ -456,6 +456,62 @@ div.web-form-wrapper a.button:active span {
 
 /** tweetpoll detail **/
 
-div.web-tweetpoll-detail{
+div.web-tweetpoll-detail {
     margin-top: 15px;
 }
+
+div.web-tweetpoll-detail div.question{
+    margin: 0px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-info {
+    min-height: 50px;
+    background-color: #EDEDED;
+    padding: 6px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper {
+    padding: 5px;
+    overflow: auto;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-chart {
+    float: left;
+    min-height: 180px;
+    width: 400px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer {
+    float: left;
+    min-height: 100px;
+}
+
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links {
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+
+div.web-tweetpoll-detail div.web-tweetpoll-hashtags{
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+div.web-tweetpoll-detail  div.web-tweetpoll-comments{
+    padding: 10px;
+    border: 1px solid #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

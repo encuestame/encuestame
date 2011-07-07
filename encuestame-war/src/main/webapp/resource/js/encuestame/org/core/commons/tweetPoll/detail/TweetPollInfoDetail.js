@@ -8,6 +8,9 @@ dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
 
+dojo.require("encuestame.org.core.shared.utils.SurveyStatus");
+dojo.require("encuestame.org.core.shared.utils.CountDown");
+
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail",
     [dijit._Widget, dijit._Templated],{
