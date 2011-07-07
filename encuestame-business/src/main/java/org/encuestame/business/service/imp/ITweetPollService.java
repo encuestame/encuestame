@@ -97,6 +97,16 @@ public interface ITweetPollService extends IMasterSurveyService{
     public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException;
 
     /**
+    * Get {@link TweetPoll} by id and slug name.
+    * @param tweetPollId
+    * @param username
+    * @param slug
+    * @return
+    * @throws EnMeNoResultsFoundException
+    */
+    TweetPoll getTweetPollByIdSlugName(final Long tweetPollId, final String slug) throws EnMeNoResultsFoundException;
+
+    /**
      * Get complete list of {@link TweetPollSwitch}/
      * @param tweetPoll {@link TweetPoll}.
      * @return resutls.

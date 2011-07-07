@@ -565,6 +565,30 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return this.getTweetPollById(tweetPollId, getUserPrincipalUsername());
     }
 
+
+    /**
+     *
+     * @param tweetPollId
+     * @param username
+     * @param slug
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public TweetPoll getTweetPollByIdSlugName(final Long tweetPollId, final String slug) throws EnMeNoResultsFoundException {
+        TweetPoll tweetPoll;
+        try {
+                tweetPoll = getTweetPollDao().getTweetPollByIdandSlugName(tweetPollId, slug);
+            if (tweetPoll == null) {
+                log.error("tweet poll invalid with this id "+tweetPollId);
+                throw new EnMeTweetPollNotFoundException("tweet poll invalid with this id "+tweetPollId);
+            }
+        } catch (UnsupportedEncodingException e) {
+            log.error(e);
+            tweetPoll = null;
+        }
+        return tweetPoll;
+    }
+
     /*
      *
      */

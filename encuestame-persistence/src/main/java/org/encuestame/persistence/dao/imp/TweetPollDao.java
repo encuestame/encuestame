@@ -13,11 +13,14 @@
 
 package org.encuestame.persistence.dao.imp;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -40,6 +43,8 @@ import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
+
+import com.lowagie.text.html.HtmlEncoder;
 
 /**
  * TweetPoll Dao Implementation.
@@ -390,6 +395,23 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
          criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
          return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
+    /**
+     * Get {@link TweetPoll} by id, userid and slug name.
+     * @param tweetPollId tweet poll id.
+     * @param userId user id.
+     * @param slugName slug name.
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    @SuppressWarnings("unchecked")
+    public TweetPoll getTweetPollByIdandSlugName(final Long tweetPollId, final String slugName) throws UnsupportedEncodingException {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.createAlias("question", "q");
+        criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
+        criteria.add(Restrictions.eq("q.slugQuestion", URLEncoder.encode(slugName, "UTF-8")));
+        return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+   }
 
     /*
      * (non-Javadoc)

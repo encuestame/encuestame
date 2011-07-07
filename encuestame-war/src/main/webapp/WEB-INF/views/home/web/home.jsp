@@ -60,7 +60,7 @@
                 </div>
                 <div class="content">
                     <div class="title">
-                         <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test">${item.questionBean.questionName}</a>
+                         <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/${item.questionBean.slugName}">${item.questionBean.questionName}</a>
                     </div>
                     <div class="bottom">
                        <div class="options">

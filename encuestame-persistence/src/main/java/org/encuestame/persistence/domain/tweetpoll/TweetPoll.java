@@ -541,5 +541,27 @@ public class TweetPoll {
         this.updatedDate = updatedDate;
     }
 
-
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "TweetPoll [tweetPollId=" + tweetPollId + ", closeNotification="
+                + closeNotification + ", resultNotification="
+                + resultNotification + ", allowLiveResults=" + allowLiveResults
+                + ", publishTweetPoll=" + publishTweetPoll
+                + ", scheduleTweetPoll=" + scheduleTweetPoll
+                + ", resumeTweetPollDashBoard=" + resumeTweetPollDashBoard
+                + ", scheduleDate=" + scheduleDate + ", createDate="
+                + createDate + ", updatedDate=" + updatedDate + ", completed="
+                + completed + ", captcha=" + captcha + ", limitVotesEnabled="
+                + limitVotesEnabled + ", limitVotes=" + limitVotes
+                + ", resumeLiveResults=" + resumeLiveResults + ", tweetOwner="
+                + tweetOwner + ", editorOwner=" + editorOwner + ", question="
+                + question + ", allowRepatedVotes=" + allowRepatedVotes
+                + ", maxRepeatedVotes=" + maxRepeatedVotes + ", hashTags="
+                + hashTags + ", numbervotes=" + numbervotes + ", hits=" + hits
+                + ", tweetPollFolder=" + tweetPollFolder + ", favourites="
+                + favourites + "]";
+    }
 }

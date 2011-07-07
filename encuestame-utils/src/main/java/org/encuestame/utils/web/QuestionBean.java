@@ -17,11 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Unit Question Bean.
- *
+ * Question Bean.
  * @author Picado, Juan juanATencuestame.org
  * @since 01/06/2009 15:22:10
- * @version $Id$
  **/
 public class QuestionBean implements Serializable {
 
@@ -30,8 +28,21 @@ public class QuestionBean implements Serializable {
      */
     private static final long serialVersionUID = -3106607865655197340L;
 
-
+    /**
+     * Question name.
+     */
     private String questionName = new String("");
+
+    /**
+     *  Slug name.
+     */
+    private String slugName;
+
+    /**
+     * Hits.
+     */
+    private Long hits;
+
     /**
      *
      */
@@ -181,13 +192,44 @@ public class QuestionBean implements Serializable {
         this.userId = userId;
     }
 
+    /**
+     * @return the slugName
+     */
+    public String getSlugName() {
+        return slugName;
+    }
+
+    /**
+     * @param slugName the slugName to set
+     */
+    public void setSlugName(final String slugName) {
+        this.slugName = slugName;
+    }
+
+
+
+    /**
+     * @return the hits
+     */
+    public Long getHits() {
+        return hits;
+    }
+
+    /**
+     * @param hits the hits to set
+     */
+    public void setHits(Long hits) {
+        this.hits = hits;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "QuestionBean [questionName=" + questionName + "]";
+        return "QuestionBean [questionName=" + questionName + ", slugName="
+                + slugName + ", version=" + version + ", pattern=" + pattern
+                + ", stateId=" + stateId + ", id=" + id + ", userId=" + userId
+                + ", listAnswers=" + listAnswers + "]";
     }
-
-
 }

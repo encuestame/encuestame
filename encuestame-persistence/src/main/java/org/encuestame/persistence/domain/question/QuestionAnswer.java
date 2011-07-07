@@ -229,4 +229,16 @@ public class QuestionAnswer {
     public void setCreatedDate(final Date createdDate) {
         this.createdDate = createdDate;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "QuestionAnswer [questionAnswerId=" + questionAnswerId
+                + ", questions=" + questions + ", answer=" + answer
+                + ", uniqueAnserHash=" + uniqueAnserHash + ", urlAnswer="
+                + urlAnswer + ", answerType=" + answerType + ", provider="
+                + provider + ", createdDate=" + createdDate + "]";
+    }
 }

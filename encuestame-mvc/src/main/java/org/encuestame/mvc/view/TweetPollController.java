@@ -230,9 +230,8 @@ public class TweetPollController extends AbstractBaseOperations {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
         try {
-            //id = filterValue(id);
             slug = filterValue(slug);
-            final TweetPoll tp = getTweetPollService().getTweetPollById(id, null); //TODO: add slug param.
+            final TweetPoll tp = getTweetPollService().getTweetPollByIdSlugName(id, slug); //TODO: add slug param.
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tp));
             final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tp);
             model.addAttribute("answers", answers);

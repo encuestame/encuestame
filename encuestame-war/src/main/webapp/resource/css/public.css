@@ -453,3 +453,9 @@ div.web-form-wrapper a.button:active span {
     background-position: bottom left;
     padding: 6px 0 4px 18px; /* push text down 1px */
 }
+
+/** tweetpoll detail **/
+
+div.web-tweetpoll-detail{
+    margin-top: 15px;
+}
