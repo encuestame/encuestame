@@ -481,3 +481,37 @@ div.mobile-notification-list-item .mobile-description .date{
 div.mobile-notification-list-item .options{
     float: right;
 }
+
+
+/** profile view **/
+
+div.mobile-profile-wrapper{
+
+}
+
+
+div.mobile-profile-wrapper div.profile-name{
+    padding: 15px;
+    margin-bottom: 0px;
+}
+
+div.mobile-profile-wrapper div.picture {
+    float: left;
+}
+
+div.mobile-profile-wrapper ul{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+div.mobile-profile-wrapper .rss li img{
+    float: left;
+    margin-left: 5px;
+}
+
+div.mobile-profile-wrapper .rss li {
+  border-bottom: 1px dotted #B8B7B7;
+  display: block;
+  padding-left: 5px;
+  vertical-align: middle;
+}

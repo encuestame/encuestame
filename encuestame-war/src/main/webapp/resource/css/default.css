@@ -1,9 +1,7 @@
 @import url("button.css");
-@import url("profile.css");
 @import url("social.css");
 @import url("suggest.css");
 @import url("table.css");
-@import url("livePanel.css");
 
 html, body {
     height: 100%;
@@ -587,7 +585,7 @@ div.web-tweetpolls-time{
 }
 
 
-/*** Profile **/
+/*** Profile Menu **/
 
 /** profile menu **/
 div.profilePanel{
@@ -890,3 +888,34 @@ div.notificationWrapper div.new{
 div.counter:hover{
 }
 
+/** profile view **/
+
+div.web-profile-wrapper{
+    margin: 10px;
+}
+
+div.web-profile-wrapper div.profile-name{
+    padding: 15px;
+    margin-bottom: 0px;
+}
+
+div.web-profile-wrapper div.picture {
+    float: left;
+}
+
+div.web-profile-wrapper ul{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+div.web-profile-wrapper .rss li img{
+    float: left;
+    margin-left: 10px;
+}
+
+div.web-profile-wrapper .rss li {
+  border-bottom: 1px dotted #B8B7B7;
+  display: block;
+  padding-left: 5px;
+  vertical-align: middle;
+}
