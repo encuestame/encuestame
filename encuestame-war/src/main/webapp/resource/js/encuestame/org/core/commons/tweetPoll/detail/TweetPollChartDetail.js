@@ -3,10 +3,11 @@ dojo.provide("encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail"
 dojo.require("dijit.form.Form");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
-dojo.require("dijit.form.CheckBox");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
+
+dojo.require('dojox.timing');
 
 dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
 
@@ -23,12 +24,41 @@ dojo.declare(
 
         username : "",
 
+        enableLiveVotes : true,
+
+        delay : 31000,
+
+        _timer : null,
+
         postCreate : function() {
             this._loadVotes();
+            dojo.addOnLoad(dojo.hitch(this, function() {
+                if (this.enableLiveVotes) {
+                    this.setTimer();
+                    this._live.innerHTML = "ON LIVE: Results are refresing every "+(this.delay/1000)+" seconds";
+                    dojo.removeClass(this._live, "defaultDisplayHide");
+                } else{
+                    dojo.addClass(this._live, "defaultDisplayHide");
+                }
+            }));
         },
 
         _noVotes : function(){
             console.info('NO VOTES');
+        },
+
+        /*
+         * set timer to reload votes.
+         */
+        setTimer : function(){
+            var father = this;
+            this._timer = new dojox.timing.Timer(this.delay);
+            this._timer.onTick = function() {
+                father._loadVotes();
+            };
+            this._timer.onStart = function() {
+            };
+            this._timer.start();
         },
 
         /**
@@ -74,6 +104,7 @@ dojo.declare(
                         this._noVotes();
                     }
                   }
+                dojo.publish("/encuestame/tweetpoll/detail/answer/reload");
               });
             var error = function(error) {
                 console.debug("error", error);

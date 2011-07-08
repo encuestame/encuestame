@@ -99,6 +99,29 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
     /**
      *
      * @param username
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/tweetpoll/{username}/answer/{id}/votes.json", method = RequestMethod.GET)
+    public ModelMap getAnswerVotes(
+            @PathVariable String username,
+            @PathVariable Long id,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        // TODO: we need check if user able to display this tweetpoll. eg. If is
+        // published or if is public
+        this.getVotesStore(id, response); //TODO: response votes for only 1 answer.
+        return returnData();
+    }
+
+    /**
+     *
+     * @param username
      * @param tweetPollId
      * @param request
      * @param response

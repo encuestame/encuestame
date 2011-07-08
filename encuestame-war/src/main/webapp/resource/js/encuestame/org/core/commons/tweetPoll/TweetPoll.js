@@ -41,7 +41,9 @@ dojo.declare(
         dialogWidget : null,
 
         scheduleWidget : null,
+
         scheduledDateWidget  : null,
+
         scheduledTimeWidget  : null,
 
         captchaWidget : null,

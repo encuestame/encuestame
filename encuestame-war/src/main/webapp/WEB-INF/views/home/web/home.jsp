@@ -7,6 +7,7 @@
      dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
      dojo.require('encuestame.org.core.commons.stream.FrontEnd');
      dojo.require('encuestame.org.core.commons.stream.FrontEndItem');
+     dojo.require('encuestame.org.core.shared.utils.AccountPicture');
 
 </script>
 <div id="web-main-public-line" class="enme-auto-center">
@@ -65,10 +66,7 @@
                     <div class="bottom">
                        <div class="options">
                             <div class="image">
-                                    <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">
-                                        <img width="32" height="32" alt=""
-                                        src="<%=request.getContextPath()%>/picture/profile/${item.ownerUsername}/thumbnail"/>
-                                    </a>
+                                 <a dojoType="encuestame.org.core.shared.utils.AccountPicture" username=${item.ownerUsername}></a>
                             </div>
                             <div class="share">
                                     <span class="title">Share on:</span>

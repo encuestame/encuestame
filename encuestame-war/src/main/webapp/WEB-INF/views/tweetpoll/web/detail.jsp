@@ -5,13 +5,13 @@
   dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
   dojo.require("encuestame.org.core.comments.Comments");
   dojo.require("encuestame.org.core.commons.social.LinksPublished");
+  dojo.require("encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer");
 </script>
 <div class="web-tweetpoll-detail ">
    <div class="question defaultSectionTitle">
         ${tweetpoll.questionBean.questionName}
    </div>
    <div class="web-tweetpoll-info">
-        ${tweetpoll}
         <div id="info" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail"
              date=${tweetpoll.createDate}"
              owner="${tweetpoll.ownerUsername}"
@@ -25,13 +25,12 @@
         </div>
         <div class="web-tweetpoll-answer-answer">
             <c:forEach items="${answers}" var="a">
-                 <div class="answer">
-                      <div class="answer">
-                            ${a.answers.answer}
-                      </div>
-                      <div class="url">
-                            <a href="${a.shortUrl}" target="_blank">${a.shortUrl}</a>
-                      </div>
+                 <div class="answer"
+                      dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
+                      aId="${a.answers.questionAnswerId}"
+                      label="${a.answers.answer}"
+                       owner="${tweetpoll.ownerUsername}"
+                      url="${a.shortUrl}">
                  </div>
            </c:forEach>
         </div>
