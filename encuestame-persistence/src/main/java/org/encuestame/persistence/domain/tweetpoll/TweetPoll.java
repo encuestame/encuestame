@@ -80,12 +80,17 @@ public class TweetPoll {
     /** Updated Date. **/
     private Date updatedDate = new Date();
 
-    /** True to close poll. **/
+    /**  This value is true when the tweetpoll has been archived. **/
     private Boolean completed = false;
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
 
+    /** Limit with date. **/
+    private Boolean dateLimit = true;
+
+    /** Limit to close the tweetPoll. **/
+    private Date dateLimited;
 
     /**
      * Enable a limit of valid votes.
@@ -205,7 +210,7 @@ public class TweetPoll {
      * @param completed
      *            the completed to set
      */
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(final Boolean completed) {
         this.completed = completed;
     }
 
@@ -537,9 +542,64 @@ public class TweetPoll {
     /**
      * @param updatedDate the updatedDate to set
      */
-    public void setUpdatedDate(Date updatedDate) {
+    public void setUpdatedDate(final Date updatedDate) {
         this.updatedDate = updatedDate;
     }
 
 
+
+    /**
+     * @return the dateLimit
+     */
+    @Column(name = "limit_with_date")
+    public Boolean getDateLimit() {
+        return dateLimit;
+    }
+
+    /**
+     * @param dateLimit the dateLimit to set
+     */
+    public void setDateLimit(final Boolean dateLimit) {
+        this.dateLimit = dateLimit;
+    }
+
+    /**
+     * @return the dateLimited
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_limited", nullable = true)
+    public Date getDateLimited() {
+        return dateLimited;
+    }
+
+    /**
+     * @param dateLimited the dateLimited to set
+     */
+    public void setDateLimited(Date dateLimited) {
+        this.dateLimited = dateLimited;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "TweetPoll [tweetPollId=" + tweetPollId + ", closeNotification="
+                + closeNotification + ", resultNotification="
+                + resultNotification + ", allowLiveResults=" + allowLiveResults
+                + ", publishTweetPoll=" + publishTweetPoll
+                + ", scheduleTweetPoll=" + scheduleTweetPoll
+                + ", resumeTweetPollDashBoard=" + resumeTweetPollDashBoard
+                + ", scheduleDate=" + scheduleDate + ", createDate="
+                + createDate + ", updatedDate=" + updatedDate + ", completed="
+                + completed + ", captcha=" + captcha + ", limitVotesEnabled="
+                + limitVotesEnabled + ", limitVotes=" + limitVotes
+                + ", resumeLiveResults=" + resumeLiveResults + ", tweetOwner="
+                + tweetOwner + ", editorOwner=" + editorOwner + ", question="
+                + question + ", allowRepatedVotes=" + allowRepatedVotes
+                + ", maxRepeatedVotes=" + maxRepeatedVotes + ", hashTags="
+                + hashTags + ", numbervotes=" + numbervotes + ", hits=" + hits
+                + ", tweetPollFolder=" + tweetPollFolder + ", favourites="
+                + favourites + "]";
+    }
 }

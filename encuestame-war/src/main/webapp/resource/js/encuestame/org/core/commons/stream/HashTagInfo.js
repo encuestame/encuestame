@@ -25,9 +25,9 @@ dojo.declare(
          */
         postCreate : function() {
             if (this.size) {
-               console.debug(this.size);
+               //console.debug(this.size);
                dojo.style(this._hashtag, "font-size", this.size+"px");
-               console.debug(this._hashtag);
+               //console.debug(this._hashtag);
             }
         }
 });

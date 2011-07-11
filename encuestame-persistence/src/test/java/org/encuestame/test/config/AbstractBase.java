@@ -82,6 +82,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.PictureUtils;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -887,6 +888,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         questionsAnswers.setAnswer(answer);
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
+        questionsAnswers.setColor(PictureUtils.getRandomHexColor());
         questionsAnswers.setAnswerType(AnswerType.DEFAULT);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
         //log.info("Q "+questionsAnswers.getQuestionAnswerId());

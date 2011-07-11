@@ -30,7 +30,7 @@
     </logger>
 
     <logger name="org.encuestame.persistence">
-        <level value="info" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.encuestame.core">

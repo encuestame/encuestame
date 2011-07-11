@@ -176,7 +176,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
               model.put("invitation", invitation);
               model.put("domain", domainDefault);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
-                 velocityEngine, "/org/encuestame/business/mail/templates/invitation.vm", model);
+                 velocityEngine, "/org/encuestame/business/mail/templates/invitation.vm", "utf-8", model);
               message.setText(text, true);
            }
         };

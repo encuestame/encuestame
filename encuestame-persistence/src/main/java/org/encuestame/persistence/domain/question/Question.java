@@ -283,7 +283,7 @@ public class Question {
     /**
      * @param slugQuestion the slugQuestion to set
      */
-    public void setSlugQuestion(String slugQuestion) {
+    public void setSlugQuestion(final String slugQuestion) {
         this.slugQuestion = slugQuestion;
     }
 }
