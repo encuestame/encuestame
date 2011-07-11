@@ -266,7 +266,6 @@ public class TweetPollJsonController extends AbstractJsonController {
                 final List<TweetPollSavedPublishedStatus> results = getTweetPollService()
                         .publicMultiplesTweetAccounts(accountBeans,
                                 tweetPoll, tweetText);
-                tweetPoll.setCompleted(Boolean.TRUE);
                 tweetPoll.setPublishTweetPoll(Boolean.TRUE);
                 getTweetPollService().saveOrUpdateTweetPoll(tweetPoll);
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();

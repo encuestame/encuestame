@@ -21,8 +21,9 @@ import java.io.Serializable;
  *
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 16, 2010 8:48:19 PM
- * @version $Id: $
+ * @deprecated use {@link TweetPollResultsBean}
  */
+@Deprecated
 public class UnitTweetPollResult implements Serializable {
 
     /**
@@ -30,8 +31,14 @@ public class UnitTweetPollResult implements Serializable {
      */
     private static final long serialVersionUID = 5592511215675708669L;
 
+    /**
+     * {@link QuestionAnswerBean}
+     */
     private QuestionAnswerBean answersBean;
 
+    /**
+     * Results.
+     */
     private Long results;
 
     /**

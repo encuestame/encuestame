@@ -34,10 +34,8 @@ import org.hibernate.search.annotations.Store;
 
 /**
  * TweetPollResult Domain.
- *
  * @author Morales, Diana Paola paola@encuestame.org
  * @since February 13, 2009
- * @version $Id$
  */
 
 @Entity

@@ -1,11 +1,14 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <script type="text/javascript">
-     dojo.require("encuestame.org.core.commons.hashtags.Cloud");
-     dojo.require("encuestame.org.core.commons.rated.Comments");
+     dojo.require('encuestame.org.core.commons.hashtags.Cloud');
+     dojo.require('encuestame.org.core.commons.rated.Comments');
      dojo.require("encuestame.org.core.commons.rated.HashTags");
      dojo.require("encuestame.org.core.commons.rated.Users");
      dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
-     dojo.require("encuestame.org.core.commons.stream.FrontEnd");
+     dojo.require('encuestame.org.core.commons.stream.FrontEnd');
+     dojo.require('encuestame.org.core.commons.stream.FrontEndItem');
+     dojo.require('encuestame.org.core.shared.utils.AccountPicture');
+
 </script>
 <div id="web-main-public-line" class="enme-auto-center">
     <div class="web-item-wrapper">
@@ -58,15 +61,12 @@
                 </div>
                 <div class="content">
                     <div class="title">
-                         <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test">${item.questionBean.questionName}</a>
+                         <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/${item.questionBean.slugName}">${item.questionBean.questionName}</a>
                     </div>
                     <div class="bottom">
                        <div class="options">
                             <div class="image">
-                                    <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">
-                                        <img width="32" height="32" alt=""
-                                        src="<%=request.getContextPath()%>/picture/profile/${item.ownerUsername}/thumbnail"/>
-                                    </a>
+                                 <a dojoType="encuestame.org.core.shared.utils.AccountPicture" username=${item.ownerUsername}></a>
                             </div>
                             <div class="share">
                                     <span class="title">Share on:</span>
@@ -98,22 +98,24 @@
                 </div>
           </div>
         </c:forEach>
-        <div class="pagination">
-             <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
-        </div>
+        <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
         </div>
     </div>
     <div class="web-left-wrapper">
          <div class="section">
+            <div class="sectionTitle">More Popular HashTags</div>
             <div dojoType="encuestame.org.core.commons.hashtags.Cloud"></div>
          </div>
          <div class="section">
+            <div class="sectionTitle">Rated Comments</div>
             <div dojoType="encuestame.org.core.commons.rated.Comments"></div>
          </div>
          <div class="section">
+            <div class="sectionTitle">Rated HashTags</div>
             <div dojoType="encuestame.org.core.commons.rated.HashTags"></div>
          </div>
          <div class="section">
+            <div class="sectionTitle">Rated Users</div>
             <div dojoType="encuestame.org.core.commons.rated.Users"></div>
          </div>
     </div>

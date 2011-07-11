@@ -172,4 +172,15 @@ public class TweetPollSwitch {
     public void setDateUpdated(Date dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "TweetPollSwitch [switchId=" + switchId + ", codeTweet="
+                + codeTweet + ", tweetPoll=" + tweetPoll + ", answers="
+                + answers + ", dateUpdated=" + dateUpdated + ", shortUrl="
+                + shortUrl + "]";
+    }
 }

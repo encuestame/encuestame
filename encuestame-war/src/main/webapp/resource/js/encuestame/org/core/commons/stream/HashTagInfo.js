@@ -16,14 +16,18 @@ dojo.declare(
 
         hashTagName : "",
 
+        size : null,
+
         url : "#",
 
         /*
          * Post create.
          */
         postCreate : function() {
-            if (this._hashtag) {
-               // this._hashtag.href = encuestame.contextDefault+"/tag/"+this.hashTagName+"/";
+            if (this.size) {
+               //console.debug(this.size);
+               dojo.style(this._hashtag, "font-size", this.size+"px");
+               //console.debug(this._hashtag);
             }
         }
 });

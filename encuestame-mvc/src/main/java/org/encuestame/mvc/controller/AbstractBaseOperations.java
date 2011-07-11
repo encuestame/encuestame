@@ -713,4 +713,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        }
        return icon;
    }
+
+   /**
+    * If is not complete check and validate current status.
+    * @param tweetPoll
+    */
+   public void checkTweetPollStatus(final TweetPoll tweetPoll){
+       if (!tweetPoll.getCompleted()) {
+           getTweetPollService().checkTweetPollCompleteStatus(tweetPoll);
+       }
+   }
 }

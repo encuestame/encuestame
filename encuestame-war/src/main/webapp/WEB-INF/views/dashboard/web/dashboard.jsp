@@ -4,9 +4,10 @@
   dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
   dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardColumn2D");
   dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardLine");
+  dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
   dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
   dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 </script>
 <div class="defaultMarginWrapper enme-auto-center">
-    <div dojoType="encuestame.org.core.commons.social.SocialAccountPicker"></div>
+    <div dojoType="encuestame.org.core.commons.dashboard.chart.EncuestamePieChart"></div>
 </div>

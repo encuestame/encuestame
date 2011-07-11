@@ -178,7 +178,7 @@ dojo.declare(
                 dojo.forEach(
                         votes,
                         dojo.hitch(this, function(data, index) {
-                            var answer = [data.answersBean.answers, data.results];
+                            var answer = [data.question_label, (data.votes == null ? 0: data.votes), data.color];
                             console.debug("Re answer", answer);
                             results.push(answer);
                 }));
