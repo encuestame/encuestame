@@ -264,7 +264,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                 log.debug("Accounts:{" + accountBeans.size());
                 // multi publish social account.
                 final List<TweetPollSavedPublishedStatus> results = getTweetPollService()
-                        .publicMultiplesTweetAccounts(accountBeans,
+                        .publishMultiplesOnSocialAccounts(accountBeans,
                                 tweetPoll, tweetText);
                 tweetPoll.setPublishTweetPoll(Boolean.TRUE);
                 getTweetPollService().saveOrUpdateTweetPoll(tweetPoll);

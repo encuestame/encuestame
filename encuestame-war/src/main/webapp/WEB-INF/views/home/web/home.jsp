@@ -105,6 +105,9 @@
          <div class="section">
             <div class="sectionTitle">More Popular HashTags</div>
             <div dojoType="encuestame.org.core.commons.hashtags.Cloud"></div>
+            <div class="link">
+                 <a href="<%=request.getContextPath()%>/cloud">View All</a>
+            </div>
          </div>
          <div class="section">
             <div class="sectionTitle">Rated Comments</div>

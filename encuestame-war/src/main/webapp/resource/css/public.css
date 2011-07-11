@@ -113,6 +113,13 @@ div.web-header span.search{
     min-height: 150px;
 }
 
+#web-main-public-line div.web-left-wrapper div.section div.link{
+    padding: 1px;
+    padding-right: 8px;
+    text-align: right;
+    font-weight: bold;
+}
+
 #web-main-public-line div.web-left-wrapper div.section div.sectionTitle{
     font-size: 140%;
     font-weight: bold;
@@ -235,6 +242,9 @@ div.web-item-wrapper .item .content .bottom .image{
 div.web-item-wrapper .item .tags{
     padding-top: 5px;
     padding-bottom: 2px;
+}
+div.web-item-wrapper .item .tags a:hover{
+    color: #FFF;
 }
 
 /* class tag global */
