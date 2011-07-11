@@ -47,6 +47,10 @@ public class QuestionAnswerBean implements Serializable{
     /** Question Id. **/
     private	 Long questionId;
 
+    /** Color. */
+    private String color;
+
+
     /** short url type. **/
     private ShortUrlProvider shortUrlType;
 
@@ -165,6 +169,22 @@ public class QuestionAnswerBean implements Serializable{
      */
     public void setShortUrlType(final ShortUrlProvider shortUrlType) {
         this.shortUrlType = shortUrlType;
+    }
+
+
+
+    /**
+     * @return the color
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(String color) {
+        this.color = color;
     }
 
     /* (non-Javadoc)

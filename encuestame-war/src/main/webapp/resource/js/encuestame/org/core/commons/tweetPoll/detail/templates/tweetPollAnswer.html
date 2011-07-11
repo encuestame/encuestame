@@ -1,8 +1,12 @@
-<div class="web-tweetpoll-answers">
-     <div class="answer">
-           ${label}
-     </div>
-     <div class="url">
-           <a href="${url}" target="_blank">${url}</a>
-     </div>
-</div>
+<tr>
+    <td class="answer-right answer-poll">
+        <div id="poll-result-0"
+             class="color-code"
+             style="background-color: ${color}"></div>
+             ${label}
+        </td>
+    <td class="answer-data-strong data-aling-right" ><a href="${url}" target="_blank">${url}</a></td>
+    <td class="answer-data-strong data-aling-right" dojoAttachPoint="_votes"></td>
+    <td class="data-bold data-aling-right" dojoAttachPoint="_percent"></td>
+    <td class="data-aling-right"></td>
+</tr>

@@ -240,4 +240,14 @@ public interface ITweetPoll extends IBaseDao{
      */
    List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId, final Integer limit, final String filterby);
 
+
+  /**
+   * Get results by tweetpoll.
+   * @param tweetPollId
+   * @param answerId
+   * @return
+   */
+   List<Object[]> getResultsByTweetPoll(final Long tweetPollId, final Long answerId);
+
+
 }

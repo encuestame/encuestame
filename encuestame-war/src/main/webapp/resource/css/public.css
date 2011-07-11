@@ -476,16 +476,81 @@ div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper {
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-chart {
-    float: left;
-    min-height: 180px;
-    width: 400px;
+  border-right: 1px dotted #C2C1C1;
+  float: left;
+  min-height: 180px;
+  width: 400px;
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer {
     float: left;
     min-height: 100px;
+    width: 650px;
+    padding: 10px;
 }
 
+div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer div.web-tweetpoll-answers{
+    padding: 10px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-answer-answer .web-tweetpoll-answer-table{
+   border: 1px none;
+   width: 590px;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table .header-table-answer {
+  border: 0 none;
+  color: #000000;
+  font-size: 110%;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table th {
+  border-bottom: 1px solid #3E6D8E;
+  color: #3E6D8E;
+  font-size: 11px;
+  line-height: 11px;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table td {
+  border-bottom: 1px dotted #3E6D8E;
+  padding: 8px 15px;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table  .answer-poll {
+  font-weight: normal;
+  text-align: left;
+  width: 100px;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table .color-code {
+  float: left;
+  height: 11px;
+  margin: 2px 10px 0 0;
+  width: 11px;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table .data-aling-right {
+  border-right: 0 none;
+  text-align: right;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong,  div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong-r {
+  color: #000000;
+  font-weight: bold;
+   text-align: center;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-right {
+  border-right: 1px solid #CCCCCC;
+}
+
+div.web-tweetpoll-detail .web-tweetpoll-answer-table .data-bold {
+  color: #333333;
+}
 
 div.web-tweetpoll-detail div.web-tweetpoll-social-links {
     padding: 10px;
@@ -565,17 +630,12 @@ div.survey-status {
 }
 
 div.survey-status .open{
-    background-color: #3DC83C;
-    color: #FFF;
-    border: 3px solid #FFF;
+    color: #3DC83C;
 }
 
-div.survey-status .close{
-    background-color: red;
-    color: #FFF;
-    border: 3px solid #FFF;
+div.survey-status .close {
+    color: #E75A5A;
 }
-
 
 div.countdown {
   background-color: #444444;

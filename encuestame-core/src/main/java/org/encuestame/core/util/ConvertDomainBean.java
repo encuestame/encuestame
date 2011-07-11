@@ -14,6 +14,7 @@ package org.encuestame.core.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,6 +89,19 @@ public class ConvertDomainBean {
             return TypeAuth.OAUTH1;
     }
 
+    /**
+     *
+     * @param pollSwitchs
+     * @return
+     */
+    public static final  List<TweetPollAnswerSwitchBean> convertListTweetPollSwitchToBean(final List<TweetPollSwitch> pollSwitchs) {
+        final List<TweetPollAnswerSwitchBean> listSwitchs
+        = new ArrayList<TweetPollAnswerSwitchBean>();
+        for (TweetPollSwitch account : pollSwitchs) {
+            listSwitchs.add(ConvertDomainBean.convertTweetPollSwitchToBean(account));
+        }
+        return listSwitchs;
+    }
 
     /**
      *
@@ -486,6 +500,7 @@ public class ConvertDomainBean {
             answersBean.setShortUrl(questionsAnswer.getProvider() == null ? null : questionsAnswer.getProvider().toString());
             answersBean.setAnswerHash(questionsAnswer.getUniqueAnserHash());
             answersBean.setQuestionId(questionsAnswer.getQuestions().getQid());
+            answersBean.setColor(questionsAnswer.getColor());
             return answersBean;
     }
 
@@ -498,7 +513,7 @@ public class ConvertDomainBean {
         final TweetPollBean unitTweetPoll = new TweetPollBean();
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
-        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll.getCreateDate()));
+        unitTweetPoll.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getCreateDate()));
         unitTweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false : tweetPoll.getAllowLiveResults());
         unitTweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false : tweetPoll.getResumeLiveResults());
         unitTweetPoll.setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false : tweetPoll.getScheduleTweetPoll());
@@ -514,6 +529,12 @@ public class ConvertDomainBean {
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
         unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? 0L : Long.valueOf(tweetPoll.getNumbervotes()));
         unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
+        unitTweetPoll.setLimitVotesDate(tweetPoll.getDateLimit() == null ? false : tweetPoll.getDateLimit());
+        if(tweetPoll.getDateLimit() != null && tweetPoll.getDateLimited() != null) {
+            unitTweetPoll.setDateToLimit(tweetPoll.getDateLimited() == null
+                    ? null
+                    : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
+        }
         return unitTweetPoll;
     }
 

@@ -25,10 +25,14 @@ dojo.declare(
         //label
         label : "",
 
+        completed : false,
+
         //url
         url : "",
 
         owner: "",
+
+        color : "#000",
 
         /*
          * post create.
@@ -40,14 +44,22 @@ dojo.declare(
         /*
          * reload answer info.
          */
-        _reloadAnswerInfo : function(){
-            var response = dojo.hitch(this, function(dataJson) {
-                //TODO: reload info answer.
-              });
-            var error = function(error) {
-                console.debug("error", error);
-            };
-            encuestame.service.xhrGet(encuestame.service.list.tweetpoll.answer.getVotes(this.owner, this.aId), response, error);
+        _reloadAnswerInfo : function(id, data /*[votes, percent]*/){
+            if(this.aId == id){
+                this._reloadValues(data[0], data[1]);
+            }
+        },
+
+        /*
+         * reload percent and votes values.
+         */
+        _reloadValues : function(votes, percent){
+            if (this._votes) {
+                this._votes.innerHTML = votes;
+            }
+            if (this._percent) {
+                this._percent.innerHTML = percent;
+            }
         }
 
 

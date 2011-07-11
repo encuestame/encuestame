@@ -22,6 +22,8 @@ dojo.declare(
 
         tweetPollId : null,
 
+        completed : false,
+
         username : "",
 
         enableLiveVotes : true,
@@ -33,7 +35,7 @@ dojo.declare(
         postCreate : function() {
             this._loadVotes();
             dojo.addOnLoad(dojo.hitch(this, function() {
-                if (this.enableLiveVotes) {
+                if (this.enableLiveVotes && !this.completed) {
                     this.setTimer();
                     this._live.innerHTML = "ON LIVE: Results are refresing every "+(this.delay/1000)+" seconds";
                     dojo.removeClass(this._live, "defaultDisplayHide");
@@ -54,7 +56,11 @@ dojo.declare(
             var father = this;
             this._timer = new dojox.timing.Timer(this.delay);
             this._timer.onTick = function() {
+                if (!father.completed) {
                 father._loadVotes();
+                } else {
+                    this._timer.stop();
+                }
             };
             this._timer.onStart = function() {
             };
@@ -92,9 +98,10 @@ dojo.declare(
                     dojo.forEach(
                             votes,
                             dojo.hitch(this, function(data, index) {
-                                var answer = [data.answersBean.answers, data.results];
-                                console.debug("Re answer", answer);
+                                console.info("ANSWER BEAN", data);
+                                var answer = [data.question_label, (data.votes == null ? 0 : data.votes), data.color];
                                 results.push(answer);
+                                dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [data.votes, data.percent]]);
                     }));
                     var id = this.id+"_chart";
                     dojo.empty(this._chart);

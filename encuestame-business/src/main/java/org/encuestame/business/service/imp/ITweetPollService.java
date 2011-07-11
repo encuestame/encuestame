@@ -32,6 +32,7 @@ import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
 /**
@@ -172,7 +173,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
      */
-    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
+    List<TweetPollResultsBean> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
 
     /**
      *
@@ -374,4 +375,17 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPoll
      */
      void createTweetPollNotification(final TweetPoll tweetPoll);
+
+     /**
+      * Return tweetpoll total votes.
+      * @param tweetPoll
+      * @return
+      */
+     Long getTweetPollTotalVotes(final TweetPoll tweetPoll);
+
+     /**
+      * Check and validate if tweetpoll is complete.
+      * @param tweetPoll
+      */
+     void checkTweetPollCompleteStatus(final TweetPoll tweetPoll);
 }

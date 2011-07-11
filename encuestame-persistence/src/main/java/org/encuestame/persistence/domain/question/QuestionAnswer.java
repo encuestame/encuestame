@@ -60,6 +60,9 @@ public class QuestionAnswer {
     /** uniqueAnserHash. **/
     private String uniqueAnserHash;
 
+    /** default color. **/
+    private String color;
+
     /** Url Answer. **/
     private String urlAnswer;
 
@@ -228,6 +231,23 @@ public class QuestionAnswer {
      */
     public void setCreatedDate(final Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+
+
+    /**
+     * @return the color
+     */
+    @Column(name = "color", nullable = false)
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(final String color) {
+        this.color = color;
     }
 
     /* (non-Javadoc)

@@ -26,6 +26,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -115,7 +116,9 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
             throws JsonGenerationException, JsonMappingException, IOException {
         // TODO: we need check if user able to display this tweetpoll. eg. If is
         // published or if is public
-        this.getVotesStore(id, response); //TODO: response votes for only 1 answer.
+        //this.getVotesStore(id, response); //TODO: response votes for only 1 answer.
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        setItemResponse(jsonResponse);
         return returnData();
     }
 
@@ -149,13 +152,18 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
      * @param tweetPollId tweetpoll id
      * @param response {@link HttpServletResponse}.
      */
-    private void getVotesStore(final Long tweetPollId,
+    private void getVotesStore(
+            final Long tweetPollId,
             final HttpServletResponse response) {
         try {
             final Map<String, Object> jsonResult = new HashMap<String, Object>();
             //results by tweetpoll id.
-            final List<UnitTweetPollResult> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
+            final List<TweetPollResultsBean> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
             jsonResult.put("votesResult", results);
+            org.encuestame.utils.json.TweetPollResultsBean d = new org.encuestame.utils.json.TweetPollResultsBean();
+            d.setId(234);
+            jsonResult.put("jsonTest", d);
+
             log.debug("TweetPoll results " + results.size());
             setItemResponse(jsonResult);
         } catch (EnMeNoResultsFoundException e) {
