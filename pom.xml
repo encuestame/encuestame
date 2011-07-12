@@ -276,10 +276,22 @@
              <enabled>true</enabled>
           </snapshots>
         </repository>
+        <repository>
+          <id>atlassian-maven public 1</id>
+          <url>https://maven.atlassian.com/repository/public</url>
+        </repository>
+	<repository>
+          <id>atlassian-maven public 2</id>
+          <url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>
+        </repository>
     </repositories>
 
     <!-- Plugin Repository -->
     <pluginRepositories>
+	<pluginRepository>
+            <id>Atlasian Snapshots Public</id>
+            <url>https://maven.atlassian.com/repository/public</url>
+        </pluginRepository>
         <pluginRepository>
             <id>Codehaus Snapshots</id>
             <url>https://nexus.codehaus.org/content/repositories/releases/</url>
@@ -317,6 +329,13 @@
     <!-- Build Info -->
     <build>
         <defaultGoal>install</defaultGoal>
+	<plugins>
+	     <plugin>
+            <groupId>com.atlassian.maven.plugins</groupId>
+            <artifactId>maven-clover2-plugin</artifactId>
+                <version>3.0.0</version>
+      	     </plugin>
+	</plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -514,21 +533,7 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>net.objectlab</groupId>
-                <artifactId>mvn-qalab-plugin</artifactId>
-                <version>2.2</version>
-                <reportSets>
-                  <reportSet>
-                    <reports>
-                      <report>report-merge-chart</report>
-                      <report>report-movers-all</report>
-                   </reports>
-                 </reportSet>
-               </reportSets>
-             </plugin>
-            --><plugin>
+	    <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
