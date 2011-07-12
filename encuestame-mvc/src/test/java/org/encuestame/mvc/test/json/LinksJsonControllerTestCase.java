@@ -64,7 +64,7 @@ public class LinksJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void testLinks() throws ServletException, IOException{
-        initService("/api/social/links/published.json", MethodJson.GET);
+        initService("/api/public/social/links/published.json", MethodJson.GET);
         setParameter("id", tweetPoll.getTweetPollId().toString());
         setParameter("type", "TWEETPOLL");
         final JSONObject response = callJsonService();
