@@ -35,7 +35,6 @@ import org.springframework.dao.support.DataAccessUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 30, 2011
  */
-@SuppressWarnings("deprecation")
 public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
 
     /**
@@ -149,6 +148,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
      * @param provider
      * @return
      */
+    @SuppressWarnings("unchecked")
     public final List<SocialAccount> getSocialVerifiedAccountByUserAccount(
             final Account account, final SocialProvider provider) {
         final DetachedCriteria criteria = DetachedCriteria
@@ -265,6 +265,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
      * @param proviver
      * @return
      */
+    @SuppressWarnings("unchecked")
     public SocialAccount getAccountConnection(final String accountId, final SocialProvider provider){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.createAlias("userAccout","userAccout");
@@ -327,6 +328,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IAccountDao#findAccountConnectionBySocialProfileId(org.encuestame.persistence.domain.social.SocialProvider, java.lang.String)
      */
+    @SuppressWarnings("unchecked")
     public SocialAccount findAccountConnectionBySocialProfileId(final SocialProvider provider,
                        final String socialProfileId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);

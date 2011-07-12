@@ -536,7 +536,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  //change status to failed
                  publishedStatus.setStatus(Status.FAILED);
                  //store error descrition
-                 publishedStatus.setDescriptionStatus(e.getMessage().substring(254)); //limited to 254 characters.
+                 publishedStatus.setDescriptionStatus(e.getMessage() == null ? "" : e.getMessage().substring(254)); //limited to 254 characters.
                  //save original tweet content.
                  publishedStatus.setTweetContent(tweetText);
              }
