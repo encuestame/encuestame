@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.util;
+package org.encuestame.persistence.utils;
 
 import java.util.Date;
 

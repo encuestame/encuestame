@@ -103,7 +103,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @see org.encuestame.business.service.AbstractSurveyService#createQuestionAnswer(org.encuestame.utils.web.QuestionAnswerBean, org.encuestame.persistence.domain.question.Question)
      */
     public QuestionAnswer createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
-           return createQuestionAnswer(answerBean, question);
+           //return createQuestionAnswer(answerBean, question);
+            return null; //TODO: fix java.lang.StackOverflowError
     }
 
     /**

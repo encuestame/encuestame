@@ -63,7 +63,7 @@
         </div>
    </div>
    <div class="web-tweetpoll-social-links">
-       <div dojoType="encuestame.org.core.commons.social.LinksPublished" itemId="${tweetpoll.id}" type="tp"></div>
+       <div dojoType="encuestame.org.core.commons.social.LinksPublished" itemId="${tweetpoll.id}" type="TWEETPOLL"></div>
    </div>
    <div class="web-tweetpoll-hashtags">
        <c:forEach items="${hashtags}" var="h">

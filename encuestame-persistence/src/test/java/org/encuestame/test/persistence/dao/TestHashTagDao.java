@@ -76,7 +76,7 @@ public class TestHashTagDao  extends AbstractBase{
         final int start = 0;
         final List<HashTag> results = getHashTagDao().getHashTags(limit, start, "");
         Assert.assertNotNull(results);
-        assertEquals("Should be equals", 4, results.size());
+        assertEquals("Should be equals", 6, results.size());
 
         final HashTag expHas1 = results.get(0);
         final HashTag expHas2 = results.get(1);
