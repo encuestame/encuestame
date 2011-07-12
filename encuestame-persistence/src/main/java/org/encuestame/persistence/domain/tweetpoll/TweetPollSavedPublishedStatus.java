@@ -39,7 +39,6 @@ import org.hibernate.search.annotations.Store;
  * TweetPoll Status Save Tweet Id.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 19, 2010 1:37:15 AM
- * @version $Id:$
  */
 @Entity
 @Indexed(index="TweetPollSavedPublishedStatus")

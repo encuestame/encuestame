@@ -80,6 +80,7 @@ import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.PictureUtils;
@@ -1654,4 +1655,26 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          getTweetPoll().saveOrUpdate(tweetPoll);
          return tweetPoll;
      }
+
+     /**
+      *
+      * @param tweetPoll
+      * @param tweetId
+      * @param socialAccount
+      * @param tweetText
+      * @return
+      */
+    public TweetPollSavedPublishedStatus createTweetPollSavedPublishedSTatus(
+            final TweetPoll tweetPoll, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+        final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
+        publishedStatus.setTweetPoll(tweetPoll);
+        publishedStatus.setStatus(org.encuestame.persistence.domain.tweetpoll.Status.SUCCESS);
+        publishedStatus.setTweetContent(tweetText);
+        publishedStatus.setTwitterAccount(socialAccount);
+        publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
+        publishedStatus.setPublicationDateTweet(new Date());
+        getTweetPoll().saveOrUpdate(publishedStatus);
+        return publishedStatus;
+    }
 }

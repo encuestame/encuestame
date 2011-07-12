@@ -27,6 +27,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -190,7 +191,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */
-    List<TweetPollSavedPublishedStatus> publicMultiplesTweetAccounts(
+    List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
             final List<SocialAccountBean> twitterAccounts,
             final TweetPoll tweetPoll,
             final String tweetText);
@@ -388,4 +389,11 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param tweetPoll
       */
      void checkTweetPollCompleteStatus(final TweetPoll tweetPoll);
+
+     /**
+      * Return list of links published by {@link TweetPoll}.
+      * @param tweetPoll
+      * @return
+      */
+     List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll);
 }

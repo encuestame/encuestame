@@ -25,9 +25,11 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.tweetpoll.Status;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -445,5 +447,20 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             criteria.addOrder(Order.desc("numbervotes"));
         }
         return getHibernateTemplate().findByCriteria(criteria, 0, limit);
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getLinksByTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSavedPublishedStatus.class);
+        criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        criteria.add(Restrictions.isNotNull("apiType"));
+        criteria.add(Restrictions.isNotNull("tweetId"));
+        criteria.add(Restrictions.eq("status", Status.SUCCESS));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 }

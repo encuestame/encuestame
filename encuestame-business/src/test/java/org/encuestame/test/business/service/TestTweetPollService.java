@@ -37,6 +37,7 @@ import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.junit.Before;
@@ -201,7 +202,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     @Test
     public void testGetResultsByTweetPollId() throws EnMeNoResultsFoundException{
     final TweetPoll tweetPoll = createFastTweetPollVotes();
-    final List<UnitTweetPollResult> results = this.tweetPollService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
+    final List<TweetPollResultsBean> results = this.tweetPollService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
     assertEquals("Should be equals", 2 , results.size());
     }
 
@@ -238,7 +239,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
             final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
              final String tweetText = RandomStringUtils.randomAlphabetic(5);
             final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.userAccount, question);
-            tweetPollService.publicMultiplesTweetAccounts(listUnitTwitterAccount, tweetPoll, tweetText);
+            tweetPollService.publishMultiplesOnSocialAccounts(listUnitTwitterAccount, tweetPoll, tweetText);
             final TweetPoll tweet = getTweetPoll().getTweetPollById(tweetPoll.getTweetPollId());
             assertNotNull(tweet);
     }

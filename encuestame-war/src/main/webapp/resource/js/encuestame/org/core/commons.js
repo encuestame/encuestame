@@ -262,6 +262,8 @@ encuestame.session.getSession = function(){
 
 encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
 
+encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY'];
+
 encuestame.social = {};
 
 encuestame.social.shortPicture = function(provider){
@@ -477,6 +479,8 @@ encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/acc
 
 //settings social
 encuestame.service.social = {};
+encuestame.service.social.links = {};
+encuestame.service.social.links.loadByType = encuestame.contextWidget()+"/api/public/social/links/published.json";
 encuestame.service.social.twitter = {};
 encuestame.service.social.twitter.authorize = encuestame.contextWidget()+"/api/social/twitter/authorize/url.json";
 encuestame.service.social.twitter.confirm = encuestame.contextWidget()+"/api/social/twitter/authorize/confirm.json";

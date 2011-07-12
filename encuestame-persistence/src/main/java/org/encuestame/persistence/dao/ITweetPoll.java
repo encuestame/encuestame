@@ -22,6 +22,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.hibernate.HibernateException;
 
@@ -248,6 +249,13 @@ public interface ITweetPoll extends IBaseDao{
    * @return
    */
    List<Object[]> getResultsByTweetPoll(final Long tweetPollId, final Long answerId);
+
+   /**
+    * Return all links published by {@link TweetPoll}.
+    * @param tweetPoll
+    * @return
+    */
+   List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll);
 
 
 }

@@ -46,6 +46,7 @@ import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -445,9 +446,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.business.service.imp.ITweetPollService#publicMultiplesTweetAccounts(java.util.List, java.lang.Long, java.lang.String)
+     * @see org.encuestame.business.service.imp.ITweetPollService#publishMultiplesOnSocialAccounts(java.util.List, java.lang.Long, java.lang.String)
      */
-    public List<TweetPollSavedPublishedStatus> publicMultiplesTweetAccounts(
+    public List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
             final List<SocialAccountBean> twitterAccounts,
             final TweetPoll tweetPoll,
             final String tweetText){
@@ -490,12 +491,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @see org.encuestame.business.service.imp.ITweetPollService#publishTweetPoll(java.lang.Long, org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.social.SocialProvider)
      */
     public TweetPollSavedPublishedStatus publishTweetBySocialAccountId(
-            final Long accountId,
+            final Long socialAccountId,
             final TweetPoll tweetPoll,
             final String tweetText) {
          log.debug("publicMultiplesTweetAccounts tweetPoll" + tweetPoll);
         //get social account
-         final SocialAccount socialAccount = getAccountDao().getSocialAccountById(accountId);
+         final SocialAccount socialAccount = getAccountDao().getSocialAccountById(socialAccountId);
          log.debug("publishTweetPoll socialTwitterAccounts: {"+socialAccount);
          //create tweet status
          final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
@@ -540,7 +541,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  publishedStatus.setTweetContent(tweetText);
              }
          } else {
-             log.warn("Twitter Account Not Found [Id:"+accountId+"]");
+             log.warn("Twitter Account Not Found [Id:"+socialAccountId+"]");
              publishedStatus.setStatus(Status.FAILED);
              //throw new EnMeFailSendSocialTweetException("Twitter Account Not Found [Id:"+accountId+"]");
              tweetPoll.setPublishTweetPoll(Boolean.FALSE);
@@ -988,4 +989,27 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         //TODO: other possibles validates.
         this.saveOrUpdateTweetPoll(tweetPoll);
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.ITweetPollService#getTweetPollLinks(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+     */
+    public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll) {
+      final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
+      final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll);
+      for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
+          final LinksSocialBean linksSocialBean = new LinksSocialBean();
+            linksSocialBean.setProvider(tweetPollSavedPublishedStatus
+                    .getTwitterAccount().getAccounType().name());
+            linksSocialBean.setLink(SocialUtils.getSocialTweetPublishedUrl(
+                    tweetPollSavedPublishedStatus.getTweetId(),
+                    tweetPollSavedPublishedStatus.getTwitterAccount()
+                            .getSocialAccountName(),
+                    tweetPollSavedPublishedStatus.getTwitterAccount()
+                            .getAccounType()));
+          linksBean.add(linksSocialBean);
+       }
+      return linksBean;
+    }
 }
+
