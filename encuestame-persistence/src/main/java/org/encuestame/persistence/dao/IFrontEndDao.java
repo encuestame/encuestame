@@ -14,6 +14,7 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 
@@ -80,5 +81,12 @@ public interface IFrontEndDao extends IBaseDao{
      * @return list of tweetPoll.
      */
     List<TweetPoll> getTweetPollFrontEndAllTime(final Integer start, final Integer maxResults);
+
+    /**
+     * Get hashTag by ip address.
+     * @param ipAddress
+     * @return
+     */
+    HashTagHits getHashTagsHitByIp( final String ipAddress);
 
 }

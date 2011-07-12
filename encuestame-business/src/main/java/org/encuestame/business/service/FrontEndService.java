@@ -22,6 +22,7 @@ import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -221,5 +222,23 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         relevance = totalRelTweetPoll;
         //TODO:Pending count relevance hashtags for polls and surveys.
         return relevance;
+    }
+
+    /**
+     *  Chec previous hash tag hit.
+     * @param ipAddress
+     * @return
+     */
+    public Boolean checkPreviousHashTagHit(final String ipAddress){
+        boolean tagHit = false;
+        HashTagHits hashTag = getFrontEndDao().getHashTagsHitByIp(ipAddress);
+        if(hashTag!=null){
+            tagHit = true;
+        }
+        return tagHit;
+    }
+
+    public void registerHashTagHit(final String tagName, final String ipAddress){
+
     }
 }
