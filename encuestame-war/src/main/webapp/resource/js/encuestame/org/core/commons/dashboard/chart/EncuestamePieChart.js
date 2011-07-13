@@ -55,7 +55,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
             console.debug("render 3");
             chartTwo.setTheme(dc.themes.MiamiNice).addPlot("default", {
                 type: "Pie",
-                font: "normal normal 11pt Tahoma",
+                font: "normal normal 12px Myriad,Helvetica,Tahoma,Arial,clean,sans-serif",
                 fontColor: "black",
                 labelOffset: -30,
                 radius: this.size

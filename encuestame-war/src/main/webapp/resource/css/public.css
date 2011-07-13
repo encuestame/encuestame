@@ -262,6 +262,11 @@ div.web-item-wrapper .item .tags a:hover{
     border-radius: 3px;
 }
 
+.tag:hover{
+     color: #F7FBFF;
+     text-decoration: none;
+}
+
 div.pagination {
     padding: 10px;
     cursor: pointer;
@@ -570,6 +575,18 @@ div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links{
     padding: 5px;
 }
 
+div.web-tweetpoll-detail .titleTweetPollSection{
+    font-size: 120%;
+    border-bottom: 2px solid #000;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+div.web-tweetpoll-detail .extraMargin {
+    margin-bottom: 15px;
+}
+
 div.web-tweetpoll-detail div.web-tweetpoll-social-links div.title{
     font-size: 120%;
     border-bottom: 2px solid #000;
@@ -580,7 +597,7 @@ div.web-tweetpoll-detail div.web-tweetpoll-social-links div.title{
 
 div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item{
     overflow: auto;
-    padding: 10px;
+    padding: 5px;
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links h2{
@@ -601,12 +618,12 @@ div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .link
 
 div.web-tweetpoll-detail div.web-tweetpoll-hashtags{
     padding: 10px;
-    border: 1px solid #000;
+    margin-bottom: 15px;
 }
 
 div.web-tweetpoll-detail  div.web-tweetpoll-comments{
     padding: 10px;
-    border: 1px solid #000;
+    margin-bottom: 15px;
 }
 
 /* tweetpoll info detail */
@@ -652,12 +669,20 @@ div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.data {
   margin-right: 20px;
 }
 
-div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.onLive{
-    padding: 2px;
-    width: 100%;
-    background-color: red;
-    color: #FFF;
-    border: 1px solid #FFF;
+div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.tweetPollChart{
+    border: 1px dotted #000;
+}
+
+div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.onLive {
+  background-color: #ED9C9C;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  padding: 2px;
+  width: 370px;
+  -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding-left: 15px;
 }
 
 /** survey status */

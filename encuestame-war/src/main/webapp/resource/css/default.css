@@ -130,6 +130,9 @@ a:hover{
   width: 100%;
   margin-top: 15px;
 }
+#footer .powered{
+ float: right;
+}
 
 #footer .footer{
   font-size: 0.9em;
