@@ -5,9 +5,9 @@
         Powered By <a href="http://www.encuestame.org" target="_blank">Encuestame</a>
     </div>
     <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
-    <div class="errorDialog">
-        <div id="sessionHandler"></div>
-        <div id="errorHandler"></div>
-        <div id="errorConexionHandler"></div>
-    </div>
+<!--     <div class="errorDialog"> -->
+<!--         <div id="sessionHandler"></div> -->
+<!--         <div id="errorHandler"></div> -->
+<!--         <div id="errorConexionHandler"></div> -->
+<!--     </div> -->
 </div>

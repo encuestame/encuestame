@@ -76,34 +76,34 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
                 switch (ioargs.xhr.status) {
                 case 200:
                     message = "Good request.";
-                    if (encuestame.error.dialog != null) {
-                        encuestame.error.clear();
-                    }
+                    //if (encuestame.error.dialog != null) {
+                     //   encuestame.error.clear();
+                    //}
                     break;
                 case 404:
                     message = "The page you requested was not found.";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 400:
                     message = "Bad Request";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 500:
                     break;
                     message = "Service temporarily unavailable.";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 407:
                     message = "You need to authenticate with a proxy.";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 0:
                     message = "A network error occurred. Check that you are connected to the internet.";
-                    encuestame.error.conexion(message);
+                    //encuestame.error.conexion(message);
                     break;
                 default:
                     message = "An unknown error occurred";
-                    encuestame.error.unknown(message, ioargs.xhr.status);
+                    //encuestame.error.unknown(message, ioargs.xhr.status);
                 }
               }
           });

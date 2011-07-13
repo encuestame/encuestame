@@ -626,6 +626,7 @@ div.web-tweetpoll-detail  div.web-tweetpoll-comments{
     margin-bottom: 15px;
 }
 
+
 /* tweetpoll info detail */
 
 div.web-tweetpoll-detail div.web-tweetPoll-info-detail {
@@ -713,4 +714,41 @@ div.countdown {
   max-height: 16px;
   text-align: center;
   width: 100z%;
+}
+
+
+div.comments{
+    overflow: auto;
+}
+
+div.comments div.comment-wrapper{
+    margin: 3px;
+}
+
+div.comments div.comment-wrapper div.comment{
+    padding: 5px;
+    clear: both;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-image{
+    float: left;
+    width: 45px;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data{
+    float: left;
+    width: 980px;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data div.comment-info-data{
+    padding: 1px;
+    font-weight: bold;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data div.comment-date{
+    padding: 1px;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data div.comment-body{
+        padding: 3px;
 }
