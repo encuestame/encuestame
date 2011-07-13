@@ -243,23 +243,22 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             // TODO: handle exception
             e.printStackTrace();
         }
-
         return tagHit;
     }
 
 
-    public void registerHashTagHit(final String tagName, final String ip, final String username){
-        final Date hitd = new Date();
+    public Boolean registerHashTagHit(final String tagName, final String ip, final String username){
         final HashTagHits hashHit ;
-        final HashTag tag;
         Long hitCount = 1L;
+        Boolean register = false;
         try {
             if((ip!=null) || (tagName!=null) ){
-                hashHit = this.newHashTagHit(tagName, hitd, ip);
+                hashHit = this.newHashTagHit(tagName, new Date(), ip);
                 if (hashHit!=null){
-                    tag = getHashTagDao().getHashTagByName(tagName);
+                    final HashTag tag = getHashTagDao().getHashTagByName(tagName);
                     hitCount = tag.getHits()+hitCount;
                     tag.setHits(hitCount);
+                    register = true;
                 }
             }
         } catch (Exception e) {
@@ -267,7 +266,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             e.printStackTrace();
             // TODO: handle exception
         }
-
+        return register;
     }
 
     /**
@@ -282,7 +281,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setHitDate(hitDate);
         tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
         tagHitsDomain.setIpAddress(ipAddress);
-      //  tagHitsDomain.setUserAccount(getUserAccountLogged());
+        tagHitsDomain.setUserAccount(getUserAccountLogged());
         this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }
