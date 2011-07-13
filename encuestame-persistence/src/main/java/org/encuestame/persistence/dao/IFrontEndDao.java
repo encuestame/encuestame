@@ -87,6 +87,6 @@ public interface IFrontEndDao extends IBaseDao{
      * @param ipAddress
      * @return
      */
-    HashTagHits getHashTagsHitByIp( final String ipAddress);
+    List<HashTagHits> getHashTagsHitByIp(final String ipAddress);
 
 }

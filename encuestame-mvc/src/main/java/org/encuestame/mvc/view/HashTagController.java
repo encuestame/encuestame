@@ -78,14 +78,16 @@ public class HashTagController extends AbstractBaseOperations{
                   @PathVariable String name) throws EnmeFailOperation{
         final IFrontEndService service = getFrontService();
         log.debug("hashTag Name ---> "+name);
-        // Search HashTag hits.
-        boolean hashTagVisite = service.checkPreviousHashTagHit(getIpClient());
-        if (!hashTagVisite) {
-        service.registerHashTagHit(name, getIpClient());
-        }
-
-
         name = filterValue(name);
+        final String IP = getIpClient();
+        log.info("IP" + IP);
+
+        // Search HashTag hits.
+        boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
+        // TODO: Check that previous hash Tag hit has been visited the same day.
+        if (!hashTagVisite) {
+            service.registerHashTagHit(name, IP, "pao");
+        }
         try {
             final HashTagBean tag = service.getHashTagItem(name);
             log.debug("hashTag Id ---> "+ tag.getId());

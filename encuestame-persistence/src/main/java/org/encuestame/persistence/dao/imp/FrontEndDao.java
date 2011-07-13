@@ -15,14 +15,11 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
-import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -211,19 +208,19 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param ipAddress
      * @return
      */
-    public HashTagHits getHashTagsHitByIp( final String ipAddress){
-        log.info("ipAddress "+ipAddress);
-        @SuppressWarnings("unchecked")
-        HashTagHits searchResult = getHibernateTemplate().execute(new HibernateCallback() {
+     public List<HashTagHits> getHashTagsHitByIp(final String ipAddress){
+        log.debug("search by ipAddress ---> "+ipAddress);
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        List<HashTagHits> searchResult = (List) getHibernateTemplate().execute(new HibernateCallback() {
                     public Object doInHibernate(org.hibernate.Session session) {
-                        HashTagHits searchResult = new HashTagHits();
-                        long start = System.currentTimeMillis();
+                        List<HashTagHits> searchResult = new ArrayList<HashTagHits>();
                         final Criteria criteria = session.createCriteria(HashTagHits.class);
-                        return searchResult = (HashTagHits)
-                        fetchMultiFieldQueryParserFullText(ipAddress, new String[] {"ipAddress"},
-                        HashTagHits.class, criteria, new SimpleAnalyzer());
+                        searchResult = (List<HashTagHits>) fetchPhraseFullText(ipAddress, "ipAddress", HashTagHits.class,
+                        criteria, new SimpleAnalyzer());
+                        log.debug("total results ---> "+searchResult.size());
+                        return searchResult;
                         }
         });
         return searchResult;
-        }
+    }
 }

@@ -12,11 +12,13 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.web.HashTagBean;
@@ -93,5 +95,10 @@ public interface IFrontEndService extends ServiceOperations {
      */
     Boolean checkPreviousHashTagHit(final String ipAddress);
 
-   void registerHashTagHit(final String tagName, final String ipAddress);
+    /**
+     * Register hashTag hits.
+     * @param tagName
+     * @param ipAddress
+     */
+    void registerHashTagHit(final String tagName, final String ip, final String username);
 }
