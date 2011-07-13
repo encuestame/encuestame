@@ -564,9 +564,40 @@ div.web-tweetpoll-detail .web-tweetpoll-answer-table .data-bold {
 
 div.web-tweetpoll-detail div.web-tweetpoll-social-links {
     padding: 10px;
-    border: 1px solid #000;
 }
 
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links{
+    padding: 5px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.title{
+    font-size: 120%;
+    border-bottom: 2px solid #000;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item{
+    overflow: auto;
+    padding: 10px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links h2{
+    font-weight: normal;
+    margin-top: 1em;
+    font-size: 100%;
+
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .img{
+    float: left;
+    min-width: 27px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .link{
+    float: left;
+}
 
 div.web-tweetpoll-detail div.web-tweetpoll-hashtags{
     padding: 10px;
