@@ -41,6 +41,7 @@ import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -233,6 +234,7 @@ public class TestTweetPollService  extends AbstractServiceBase{
     }
 
     @Test
+    @Ignore
     public void testPublicMultiplesTweetAccounts(){
             createDefaultSettedSocialAccount(this.userAccount);
             final List<SocialAccount> list = getAccountDao().getSocialAccountByAccount(this.userAccount.getAccount(), SocialProvider.TWITTER);
