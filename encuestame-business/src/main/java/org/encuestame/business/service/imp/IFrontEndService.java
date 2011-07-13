@@ -12,11 +12,13 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.web.HashTagBean;
@@ -87,11 +89,16 @@ public interface IFrontEndService extends ServiceOperations {
     List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
 
     /**
-     * Get TweetPolls by top rated.
-     * @param hashTagId
-     * @param limit
-     * @param request
+     *
+     * @param ipAddress
      * @return
      */
-    //List<TweetPollBean> getTweetPollsbyTopRated(final Long hashTagId, final Integer limit, final HttpServletRequest request);
+    Boolean checkPreviousHashTagHit(final String ipAddress);
+
+    /**
+     * Register hashTag hits.
+     * @param tagName
+     * @param ipAddress
+     */
+    void registerHashTagHit(final String tagName, final String ip, final String username);
 }

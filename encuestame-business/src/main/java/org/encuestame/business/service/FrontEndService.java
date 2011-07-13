@@ -13,6 +13,7 @@
 package org.encuestame.business.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -221,5 +223,67 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         relevance = totalRelTweetPoll;
         //TODO:Pending count relevance hashtags for polls and surveys.
         return relevance;
+    }
+
+    /**
+     * Check previous hash tag hit.
+     * @param ipAddress
+     * @return
+     */
+    public Boolean checkPreviousHashTagHit(final String ipAddress){
+        boolean tagHit = false;
+        final List<HashTagHits> hashTag = getFrontEndDao().getHashTagsHitByIp(ipAddress);
+        try {
+            if(hashTag.size() == 1){
+                if(hashTag.get(0).getIpAddress().equals(ipAddress)){
+                    tagHit = true;
+                }
+             }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+
+        return tagHit;
+    }
+
+
+    public void registerHashTagHit(final String tagName, final String ip, final String username){
+        final Date hitd = new Date();
+        final HashTagHits hashHit ;
+        final HashTag tag;
+        Long hitCount = 1L;
+        try {
+            if((ip!=null) || (tagName!=null) ){
+                hashHit = this.newHashTagHit(tagName, hitd, ip);
+                if (hashHit!=null){
+                    tag = getHashTagDao().getHashTagByName(tagName);
+                    hitCount = tag.getHits()+hitCount;
+                    tag.setHits(hitCount);
+                }
+            }
+        } catch (Exception e) {
+            log.debug(e);
+            e.printStackTrace();
+            // TODO: handle exception
+        }
+
+    }
+
+    /**
+     * New hash tag hit.
+     * @param tagName
+     * @param hitDate
+     * @param ipAddress
+     * @return
+     */
+    private HashTagHits newHashTagHit(final String tagName, final Date hitDate, final String ipAddress){
+        final HashTagHits tagHitsDomain = new HashTagHits();
+        tagHitsDomain.setHitDate(hitDate);
+        tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
+        tagHitsDomain.setIpAddress(ipAddress);
+      //  tagHitsDomain.setUserAccount(getUserAccountLogged());
+        this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
+        return tagHitsDomain;
     }
 }

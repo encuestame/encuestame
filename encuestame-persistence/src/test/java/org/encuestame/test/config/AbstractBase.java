@@ -23,6 +23,7 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
+import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
 import org.encuestame.persistence.dao.IGroupDao;
@@ -37,6 +38,7 @@ import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
+import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
@@ -50,6 +52,7 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
@@ -171,6 +174,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** {@link HashTagDao} **/
     @Autowired
     private IHashTagDao hashTagDao;
+
+    /** {@link FrontEndDao} **/
+    @Autowired
+    private IFrontEndDao frontEndDao;
 
     /**
      * Get Property.
@@ -1598,6 +1605,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+    * @return the frontEndDao
+    */
+    public IFrontEndDao getFrontEndDao() {
+        return frontEndDao;
+    }
+
+    /**
+    * @param frontEndDao the frontEndDao to set
+    */
+    public void setFrontEndDao(IFrontEndDao frontEndDao) {
+        this.frontEndDao = frontEndDao;
+    }
+
+
+    /**
      * Create fake questions.
      * @param user {@link Account};
      */
@@ -1656,8 +1678,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          return tweetPoll;
      }
 
-     /**
-      *
+      /**
       * @param tweetPoll
       * @param tweetId
       * @param socialAccount
@@ -1676,5 +1697,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         publishedStatus.setPublicationDateTweet(new Date());
         getTweetPoll().saveOrUpdate(publishedStatus);
         return publishedStatus;
+    }
+
+
+    /**
+     * Create hash tag hit by ip.
+     * @param hashTagName
+     * @param ipAddress
+     * @return
+     */
+    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress){
+       final Date hitDate = new Date();
+       final HashTagHits tagHits = new HashTagHits();
+       tagHits.setHitDate(hitDate);
+       tagHits.setIpAddress(ipAddress);
+       tagHits.setHashTagId(hashTag);
+       getHashTagDao().saveOrUpdate(tagHits);
+       return tagHits;
     }
 }

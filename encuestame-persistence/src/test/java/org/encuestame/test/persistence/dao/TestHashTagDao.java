@@ -21,6 +21,7 @@ import junit.framework.Assert;
 
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -88,4 +89,6 @@ public class TestHashTagDao  extends AbstractBase{
         assertEquals("Should be equals", hashTag4.getHashTag(), expHas3.getHashTag());
         assertEquals("Should be equals", hashTag3.getHashTag(), expHas4.getHashTag());
     }
+
+
 }

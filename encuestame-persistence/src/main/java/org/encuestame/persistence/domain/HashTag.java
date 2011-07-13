@@ -54,7 +54,11 @@ public class HashTag {
     /** Total of hits. **/
     private Long hits;
 
+    /** {@link TweetPoll} **/
     private Set<TweetPoll> tweetPoll = new HashSet<TweetPoll>();
+
+    /** Size Tag**/
+    private Long size;
 
     /**
      * @return the hashTagId
@@ -120,5 +124,17 @@ public class HashTag {
         this.tweetPoll = tweetPoll;
     }
 
+    /**
+    * @return the size
+    */
+    public Long getSize() {
+        return size;
+    }
 
+    /**
+    * @param size the size to set
+    */
+    public void setSize(final Long size) {
+        this.size = size;
+    }
 }
