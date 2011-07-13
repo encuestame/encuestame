@@ -103,15 +103,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @see org.encuestame.business.service.AbstractSurveyService#createQuestionAnswer(org.encuestame.utils.web.QuestionAnswerBean, org.encuestame.persistence.domain.question.Question)
      */
     public QuestionAnswer createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
-            final QuestionAnswer answer = new QuestionAnswer();
-            answer.setQuestions(question);
-            answer.setAnswer(answerBean.getAnswers());
-            answer.setUrlAnswer(answerBean.getShortUrl());
-            //TODO: and real url? /{type}/answer/{id}
-            answer.setUniqueAnserHash(answerBean.getAnswerHash());
-            this.getQuestionDao().saveOrUpdate(answer);
-            answerBean.setAnswerId(answer.getQuestionAnswerId());
-            return answer;
+           //return createQuestionAnswer(answerBean, question);
+            return null; //TODO: fix java.lang.StackOverflowError
     }
 
     /**

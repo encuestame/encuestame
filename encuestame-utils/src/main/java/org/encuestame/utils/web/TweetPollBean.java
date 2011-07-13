@@ -52,6 +52,8 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Boolean limitVotesEnabled;
     private Boolean resumeTweetPollDashBoard;
     private Date createdDateAt;
+    private Boolean limitVotesDate;
+    private String dateToLimit;
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
@@ -427,6 +429,36 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     */
     public void setCreatedDateAt(Date createdDateAt) {
         this.createdDateAt = createdDateAt;
+    }
+
+
+
+    /**
+     * @return the limitVotesDate
+     */
+    public Boolean getLimitVotesDate() {
+        return limitVotesDate;
+    }
+
+    /**
+     * @param limitVotesDate the limitVotesDate to set
+     */
+    public void setLimitVotesDate(Boolean limitVotesDate) {
+        this.limitVotesDate = limitVotesDate;
+    }
+
+    /**
+     * @return the dateToLimit
+     */
+    public String getDateToLimit() {
+        return dateToLimit;
+    }
+
+    /**
+     * @param dateToLimit the dateToLimit to set
+     */
+    public void setDateToLimit(String dateToLimit) {
+        this.dateToLimit = dateToLimit;
     }
 
     /* (non-Javadoc)

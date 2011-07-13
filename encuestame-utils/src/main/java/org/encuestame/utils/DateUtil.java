@@ -49,6 +49,11 @@ public class DateUtil {
     public static final String COMPLETE_FORMAT_TIME = "dd/MM/yy hh:mm:ss";
 
     /**
+     * Dojo date object format.
+     */
+    public static final SimpleDateFormat DOJO_DATE_FORMAT = new SimpleDateFormat("MMMMM d, yyyy hh:mm:ss");
+
+    /**
      * yyyy-MM-dd hh:mm:ss
      */
     public static final String DEFAULT_FORMAT_ALL = "yyyy-MM-dd hh:mm:ss";

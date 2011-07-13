@@ -164,6 +164,8 @@ public class TestHibernateDomains extends AbstractBase{
         questionsAns.setQuestions(createQuestion("how old are you", "textbox"));
         questionsAns.setAnswer("25");
         questionsAns.setUniqueAnserHash("");
+        questionsAns.setColor("#RRRRRR");
+        questionsAns.setCreatedDate(new Date());
         getQuestionDaoImp().saveOrUpdate(questionsAns);
         assertNotNull(questionsAns.getQuestionAnswerId());
     }

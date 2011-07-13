@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2010
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,6 +13,8 @@
 
 package org.encuestame.persistence.dao.imp;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,13 +23,13 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.ITweetPoll;
-import org.encuestame.persistence.dao.SearchPeriods;
-
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.tweetpoll.Status;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -45,7 +47,6 @@ import org.springframework.stereotype.Repository;
  * TweetPoll Dao Implementation.
  * @author Picado, Juan juan@encuestame.org
  * @since Feb 17, 2010 8:26:57 PM
- * @version $Id$
  */
 @Repository("tweetPollDao")
 public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetPoll{
@@ -241,10 +242,26 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return List of {@link TweetPollResult}
      */
     @SuppressWarnings("unchecked")
-    public List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, QuestionAnswer answers){
+    public List<Object[]> getResultsByTweetPoll(final TweetPoll tweetPoll, final QuestionAnswer answers){
         return getHibernateTemplate().findByNamedParam("select tweetPollSwitch.answers.answer, count(tweetPollResultId) from TweetPollResult "
               +"where tweetPollSwitch.tweetPoll = :tweetPoll and tweetPollSwitch.answers = :answer group by tweetPollSwitch.answers.answer",
               new String[]{"tweetPoll", "answer"}, new Object[]{tweetPoll, answers});
+    }
+
+    /**
+     *
+     * @param tweetPollId
+     * @param answerId
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getResultsByTweetPoll(final Long tweetPollId, final Long answerId) {
+        return getHibernateTemplate().findByNamedParam(
+              " select tweetPollSwitch.answers.answer, tweetPollSwitch.answers.color, count(tweetPollResultId)"
+              +" from TweetPollResult "
+              +" where tweetPollSwitch.tweetPoll.tweetPollId = :tweetPoll "
+              +" and tweetPollSwitch.answers.questionAnswerId = :answer group by tweetPollSwitch.answers.answer, tweetPollSwitch.answers.color",
+              new String[]{"tweetPoll", "answer"}, new Object[]{tweetPollId, answerId});
     }
 
     /**
@@ -391,6 +408,23 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
          return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
+    /**
+     * Get {@link TweetPoll} by id, userid and slug name.
+     * @param tweetPollId tweet poll id.
+     * @param userId user id.
+     * @param slugName slug name.
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    @SuppressWarnings("unchecked")
+    public TweetPoll getTweetPollByIdandSlugName(final Long tweetPollId, final String slugName) throws UnsupportedEncodingException {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.createAlias("question", "q");
+        criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
+        criteria.add(Restrictions.eq("q.slugQuestion", URLEncoder.encode(slugName, "UTF-8")));
+        return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+   }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getTweetpollByHashTagName(java.lang.String)
@@ -413,5 +447,20 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             criteria.addOrder(Order.desc("numbervotes"));
         }
         return getHibernateTemplate().findByCriteria(criteria, 0, limit);
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getLinksByTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSavedPublishedStatus.class);
+        criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        criteria.add(Restrictions.isNotNull("apiType"));
+        criteria.add(Restrictions.isNotNull("tweetId"));
+        criteria.add(Restrictions.eq("status", Status.SUCCESS));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 }

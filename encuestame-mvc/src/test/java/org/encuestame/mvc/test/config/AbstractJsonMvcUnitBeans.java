@@ -172,6 +172,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      */
     public JSONObject getSucess(final JSONObject response){
         Assert.assertNotNull("You need call first callJsonService", this.response);
+        System.out.println(this.response);
         return (JSONObject) response.get("success");
     }
 

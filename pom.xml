@@ -147,8 +147,6 @@
     </mailingLists>
 
     <scm>
-        <connection>scm:git:git://github.com/encuestame/encuestame.git</connection>
-        <developerConnection>scm:git:git://github.com/encuestame/encuestame.git</developerConnection>
         <url>https://github.com/encuestame/encuestame.git</url>
     </scm>
 
@@ -278,10 +276,22 @@
              <enabled>true</enabled>
           </snapshots>
         </repository>
+        <repository>
+          <id>atlassian-maven public 1</id>
+          <url>https://maven.atlassian.com/repository/public</url>
+        </repository>
+	<repository>
+          <id>atlassian-maven public 2</id>
+          <url>https://maven.atlassian.com/content/repositories/atlassian-public/</url>
+        </repository>
     </repositories>
 
     <!-- Plugin Repository -->
     <pluginRepositories>
+	<pluginRepository>
+            <id>Atlasian Snapshots Public</id>
+            <url>https://maven.atlassian.com/repository/public</url>
+        </pluginRepository>
         <pluginRepository>
             <id>Codehaus Snapshots</id>
             <url>https://nexus.codehaus.org/content/repositories/releases/</url>
@@ -319,6 +329,13 @@
     <!-- Build Info -->
     <build>
         <defaultGoal>install</defaultGoal>
+	<plugins>
+	     <plugin>
+            <groupId>com.atlassian.maven.plugins</groupId>
+            <artifactId>maven-clover2-plugin</artifactId>
+                <version>3.0.0</version>
+      	     </plugin>
+	</plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -422,13 +439,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                 </plugin>
-                <!--
-		<plugin>
-                  <groupId>net.sf</groupId>
-                  <artifactId>stat-scm</artifactId>
-                  <version>1.2.0</version>
-                </plugin>
-		-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -455,43 +465,9 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-         <plugins>
-	      <plugin>
-		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>buildnumber-maven-plugin</artifactId>
-		<version>1.0</version>
-		<executions>
-		  <execution>
-		    <phase>validate</phase>
-		    <goals>
-		      <goal>create</goal>
-		    </goals>
-		  </execution>
-		</executions>
-		<configuration>
-		  <doCheck>false</doCheck>
-		  <doUpdate>false</doUpdate>
-		  <format>{0,date,yyyy-MM-dd-HH:mm:ss}</format>
-	          <items>           
-		      <item>timestamp</item>         
-		  </items>
-		</configuration>
-	      </plugin>
-         </plugins>
     </build>
     <reporting>
-        <plugins><!--
-             <plugin>
-                     <groupId>net.sf</groupId>
-                     <artifactId>stat-scm</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
-            </plugin>
-            -->
+        <plugins>
   	     <plugin>
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-changes-plugin</artifactId>
@@ -504,20 +480,6 @@
 		  </reportSet>
 		</reportSets>
 	     </plugin>
-             <!--<plugin>
-                 <groupId>net.sf</groupId>
-                 <artifactId>stat-scm</artifactId>
-                 <configuration>
-                     <includes>
-                             <include>**/*.java</include>
-                     </includes>
-                     <excludes>
-                             <exclude>**/test/**/*.java</exclude>
-                     </excludes>
-                 </configuration>
-                 <version>1.2.0</version>
-            </plugin>
-    	    -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -571,21 +533,7 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>net.objectlab</groupId>
-                <artifactId>mvn-qalab-plugin</artifactId>
-                <version>2.2</version>
-                <reportSets>
-                  <reportSet>
-                    <reports>
-                      <report>report-merge-chart</report>
-                      <report>report-movers-all</report>
-                   </reports>
-                 </reportSet>
-               </reportSets>
-             </plugin>
-            --><plugin>
+	    <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>

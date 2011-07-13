@@ -262,6 +262,8 @@ encuestame.session.getSession = function(){
 
 encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
 
+encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY'];
+
 encuestame.social = {};
 
 encuestame.social.shortPicture = function(provider){
@@ -446,6 +448,18 @@ encuestame.service.list.liveResultsTweetPoll = encuestame.contextWidget()+"/api/
 encuestame.service.list.notificationTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/notification-tweetpoll.json";
 encuestame.service.list.repeatedTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/repeated-tweetpoll.json";
 encuestame.service.list.VotesTweetPoll = encuestame.contextWidget()+"/api/chart/tweetpoll/votes.json";
+
+encuestame.service.list.tweetpoll = {};
+encuestame.service.list.tweetpoll.answer = {};
+encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
+    return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
+};
+
+encuestame.service.list.votes = {};
+encuestame.service.list.getTweetPollVotes = function(username, id){
+    return  encuestame.contextWidget()+"/api/"+username+"/tweetpoll/"+id+"/votes.json";
+};
+
 encuestame.service.list.addAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/add.json";
 encuestame.service.list.removeAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/remove.json";
 //group services
@@ -465,6 +479,8 @@ encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/acc
 
 //settings social
 encuestame.service.social = {};
+encuestame.service.social.links = {};
+encuestame.service.social.links.loadByType = encuestame.contextWidget()+"/api/public/social/links/published.json";
 encuestame.service.social.twitter = {};
 encuestame.service.social.twitter.authorize = encuestame.contextWidget()+"/api/social/twitter/authorize/url.json";
 encuestame.service.social.twitter.confirm = encuestame.contextWidget()+"/api/social/twitter/authorize/confirm.json";

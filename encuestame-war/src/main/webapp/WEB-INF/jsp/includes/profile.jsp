@@ -1,2 +1,4 @@
 <div dojoType="encuestame.org.core.commons.profile.ProfileMenu"
-                                    contextPath="<%=request.getContextPath()%>"></div>
+         username="${account.username}" completeName="${account.fullName}"></div>
+
+

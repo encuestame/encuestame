@@ -83,8 +83,10 @@ import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.PictureUtils;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -894,6 +896,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         questionsAnswers.setAnswer(answer);
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
+        questionsAnswers.setColor(PictureUtils.getRandomHexColor());
         questionsAnswers.setAnswerType(AnswerType.DEFAULT);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
         //log.info("Q "+questionsAnswers.getQuestionAnswerId());
@@ -1675,19 +1678,41 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          return tweetPoll;
      }
 
-     /**
-      * Create hash tag hit by ip.
-      * @param hashTagName
-      * @param ipAddress
+      /**
+      * @param tweetPoll
+      * @param tweetId
+      * @param socialAccount
+      * @param tweetText
       * @return
       */
-     public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress){
-        final Date hitDate = new Date();
-        final HashTagHits tagHits = new HashTagHits();
-        tagHits.setHitDate(hitDate);
-        tagHits.setIpAddress(ipAddress);
-        tagHits.setHashTagId(hashTag);
-        getHashTagDao().saveOrUpdate(tagHits);
-        return tagHits;
-     }
+    public TweetPollSavedPublishedStatus createTweetPollSavedPublishedSTatus(
+            final TweetPoll tweetPoll, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+        final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
+        publishedStatus.setTweetPoll(tweetPoll);
+        publishedStatus.setStatus(org.encuestame.persistence.domain.tweetpoll.Status.SUCCESS);
+        publishedStatus.setTweetContent(tweetText);
+        publishedStatus.setTwitterAccount(socialAccount);
+        publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
+        publishedStatus.setPublicationDateTweet(new Date());
+        getTweetPoll().saveOrUpdate(publishedStatus);
+        return publishedStatus;
+    }
+
+
+    /**
+     * Create hash tag hit by ip.
+     * @param hashTagName
+     * @param ipAddress
+     * @return
+     */
+    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress){
+       final Date hitDate = new Date();
+       final HashTagHits tagHits = new HashTagHits();
+       tagHits.setHitDate(hitDate);
+       tagHits.setIpAddress(ipAddress);
+       tagHits.setHashTagId(hashTag);
+       getHashTagDao().saveOrUpdate(tagHits);
+       return tagHits;
+    }
 }
