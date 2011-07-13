@@ -14,6 +14,7 @@ package org.encuestame.test.business.service;
 
 import org.encuestame.business.service.FrontEndService;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.junit.Test;
 
 /**
  * Test for {@link FrontEndService}.
@@ -22,5 +23,10 @@ import org.encuestame.test.business.service.config.AbstractServiceBase;
  * @version $Id:$
  */
 public class TestFrontEndService extends AbstractServiceBase{
+
+    @Test
+    public void testGetHashTagHitbyIp(){
+            System.out.println("testing");
+    }
 
 }
