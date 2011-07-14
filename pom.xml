@@ -31,7 +31,7 @@
         -->
         <spring.version>3.0.5.RELEASE</spring.version>
 
-        <spring.webflow.version>2.2.1.RELEASE</spring.webflow.version>
+        <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
         <spring.security.version>3.1.0.RC2</spring.security.version> 
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.0.0.RC2</spring-integration-core>
