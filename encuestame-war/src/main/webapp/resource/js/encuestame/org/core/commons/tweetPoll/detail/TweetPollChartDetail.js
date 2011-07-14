@@ -37,7 +37,7 @@ dojo.declare(
             dojo.addOnLoad(dojo.hitch(this, function() {
                 if (this.enableLiveVotes && !this.completed) {
                     this.setTimer();
-                    this._live.innerHTML = "ON LIVE: Results are refresing every "+(this.delay/1000)+" seconds";
+                    this._live.innerHTML = "ON LIVE: Results refreshed every "+(this.delay/1000)+" seconds";
                     dojo.removeClass(this._live, "defaultDisplayHide");
                 } else{
                     dojo.addClass(this._live, "defaultDisplayHide");

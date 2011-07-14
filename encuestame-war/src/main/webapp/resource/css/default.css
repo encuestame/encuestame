@@ -130,6 +130,9 @@ a:hover{
   width: 100%;
   margin-top: 15px;
 }
+#footer .powered{
+ float: right;
+}
 
 #footer .footer{
   font-size: 0.9em;
@@ -153,7 +156,16 @@ a:hover{
     border-radius: 4px;
     color: #FFF;
     font-weight: bold;
-    padding: 10px;
+    padding: 6px;
+}
+
+.defaultForm input {
+  border: 1px solid #CCCCCC;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+  outline: 0 none;
+  padding: 8px 6px;
+  width: 382px;
 }
 
 .warning{
@@ -173,6 +185,16 @@ a:hover{
     border-radius: 2px;
    /* border-top: 1px solid #00FF59;
     border-bottom: 1px solid #00FF59;*/
+}
+
+.success-message{
+    color: #358852;
+    padding: 2px;
+}
+
+.error-message{
+    color: #C88080;
+    padding: 2px;
 }
 
 .success .rich-messages-label{

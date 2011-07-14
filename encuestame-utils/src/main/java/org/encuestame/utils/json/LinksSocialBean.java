@@ -73,4 +73,11 @@ public class LinksSocialBean implements Serializable {
     }
 
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "LinksSocialBean [link=" + link + ", provider=" + provider + "]";
+    }
 }

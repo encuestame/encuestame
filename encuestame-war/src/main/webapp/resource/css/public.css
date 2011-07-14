@@ -262,6 +262,11 @@ div.web-item-wrapper .item .tags a:hover{
     border-radius: 3px;
 }
 
+.tag:hover{
+     color: #F7FBFF;
+     text-decoration: none;
+}
+
 div.pagination {
     padding: 10px;
     cursor: pointer;
@@ -313,6 +318,160 @@ div.cloud .cloudItem {
   padding: 2px;
 }
 
+
+/** sign up **/
+
+#web-signup-wrapper {
+  margin: 5em auto;
+  width: 100%;
+  z-index: 1;
+}
+
+#web-signup-wrapper, #page-container {
+
+}
+
+#web-signup-wrapper div.leftMessage {
+  left: 20px;
+  position: absolute;
+  top: 10px;
+  width: 250px;
+}
+
+div.web-form-wrapper .signup-form {
+  left: 50%;
+  margin: 20px 0 0 -200px;
+  position: relative;
+  width: 400px;
+}
+
+#web-signup-wrapper div.field{
+    padding: 17px;
+}
+
+#web-signup-wrapper div.field div.label {
+  color: #000;
+  float: left;
+  font-size: 133%;
+  padding-top: 6px;
+  width: 90px;
+}
+
+#web-signup-wrapper div.web-form-wrapper {
+
+}
+
+#web-signup-wrapper .textbox div.sidetip {
+  margin-top: 0px;
+}
+
+#web-signup-wrapper div.sidetip {
+  left: 406px;
+  position: absolute;
+  width: 250px;
+}
+
+#web-signup-wrapper .section div.tooltip {
+  border: 1px solid #000000;
+  -webkit-border-radius: 3px 3px 3px 3px ;
+  -moz-border-radius: 3px 3px 3px 3px ;
+  border-radius: 3px 3px 3px 3px ;
+  -moz-box-shadow: 0 1px 2px #888888;
+  -webkit-box-shadow: 0 1px 2px #888888;
+  box-shadow:0 1px 2px #888888;
+  left: -269px;
+  padding: 10px;
+  position: absolute;
+  top: -2px;
+  width: 237px;
+  opacity : 0;
+  display: none;
+  color : #FFF;
+  background-color: #39568C;
+  z-index: 10px;
+}
+
+#web-signup-wrapper div.sidetip p {
+  background-position: left center;
+  background-repeat: no-repeat;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+#web-signup-wrapper  .textbox .validator-wrapper .shadow-input-message {
+  -moz-user-select: none;
+  display: inline;
+}
+
+#web-signup-wrapper  .textbox .validator-wrapper .shadow-input-message {
+  color: #DDDDDD;
+  line-height: 43px;
+  padding-left: 1px;
+  font-size: 150%;
+}
+
+#web-signup-wrapper .textbox div.section {
+  margin-bottom: 15px;
+}
+
+#web-signup-wrapper form .validator-wrapper {
+  overflow: visible;
+  position: relative;
+}
+
+#web-signup-wrapper .textbox input, .textbox .shadow-input-message {
+  font: 20px "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#web-signup-wrapper  .shadow-input-message {
+  -moz-transition: opacity 0.1s ease 0s, font-size 0.1s ease 0s;
+  cursor: text;
+  left: 8px;
+  position: absolute;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  top: 0;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+#web-signup-wrapper div.web-form-wrapper div.submit{
+  margin: 0 auto;
+  padding: 3px;
+  width: 37em;
+}
+
+#web-signup-wrapper div.web-form-wrapper div.suggestions {
+  background: none repeat scroll 0 0 #F4F4F4;
+  border-radius: 4px 4px 4px 4px;
+  color: gray;
+  font-size: 13px;
+  margin-top: 1px;
+  overflow: auto;
+  padding: 5px 10px 10px;
+  width: 376px;
+}
+
+#web-signup-wrapper div.web-form-wrapper div.suggestions ul {
+  display: inline;
+  line-height: 26px;
+}
+
+#web-signup-wrapper div.web-form-wrapper div.suggestions ul {
+  list-style: disc outside none;
+}
+
+#web-signup-wrapper div.web-form-wrapper div.suggestions li {
+  border: 1px solid #929292;
+  border-radius: 3px 3px 3px 3px;
+  color: #259912;
+  cursor: pointer;
+  display: -moz-box;
+  font-size: 90%;
+  margin: 2px 2px 2px 0;
+  padding: 2px;
+  white-space: nowrap;
+}
 
 /*** login **/
 
@@ -564,19 +723,63 @@ div.web-tweetpoll-detail .web-tweetpoll-answer-table .data-bold {
 
 div.web-tweetpoll-detail div.web-tweetpoll-social-links {
     padding: 10px;
-    border: 1px solid #000;
 }
 
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links{
+    padding: 5px;
+}
+
+div.web-tweetpoll-detail .titleTweetPollSection{
+    font-size: 120%;
+    border-bottom: 2px solid #000;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+div.web-tweetpoll-detail .extraMargin {
+    margin-bottom: 15px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.title{
+    font-size: 120%;
+    border-bottom: 2px solid #000;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item{
+    overflow: auto;
+    padding: 5px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links h2{
+    font-weight: normal;
+    margin-top: 1em;
+    font-size: 100%;
+
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .img{
+    float: left;
+    min-width: 27px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .link{
+    float: left;
+}
 
 div.web-tweetpoll-detail div.web-tweetpoll-hashtags{
     padding: 10px;
-    border: 1px solid #000;
+    margin-bottom: 15px;
 }
 
 div.web-tweetpoll-detail  div.web-tweetpoll-comments{
     padding: 10px;
-    border: 1px solid #000;
+    margin-bottom: 15px;
 }
+
 
 /* tweetpoll info detail */
 
@@ -621,12 +824,20 @@ div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.data {
   margin-right: 20px;
 }
 
-div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.onLive{
-    padding: 2px;
-    width: 100%;
-    background-color: red;
-    color: #FFF;
-    border: 1px solid #FFF;
+div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.tweetPollChart{
+    border: 1px dotted #000;
+}
+
+div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.onLive {
+  background-color: #ED9C9C;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+  padding: 2px;
+  width: 370px;
+  -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding-left: 15px;
 }
 
 /** survey status */
@@ -657,4 +868,41 @@ div.countdown {
   max-height: 16px;
   text-align: center;
   width: 100z%;
+}
+
+
+div.comments{
+    overflow: auto;
+}
+
+div.comments div.comment-wrapper{
+    margin: 3px;
+}
+
+div.comments div.comment-wrapper div.comment{
+    padding: 5px;
+    clear: both;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-image{
+    float: left;
+    width: 45px;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data{
+    float: left;
+    width: 980px;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data div.comment-info-data{
+    padding: 1px;
+    font-weight: bold;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data div.comment-date{
+    padding: 1px;
+}
+
+div.comments div.comment-wrapper div.comment div.comment-data div.comment-body{
+        padding: 3px;
 }

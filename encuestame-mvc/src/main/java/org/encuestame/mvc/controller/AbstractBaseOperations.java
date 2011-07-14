@@ -380,7 +380,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
-   @Deprecated
+
     public String getMessage(final String message,
             final HttpServletRequest request, Object[] args) {
         String stringValue = "";
@@ -400,7 +400,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
-    @Deprecated
+    //@Deprecated
     public String getMessage(final String message, Object[] args){
         return getMessage(message, null, args);
     }
@@ -410,7 +410,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param message
      * @return
      */
-    @Deprecated
+    //@Deprecated
     public String getMessage(final String message){
         return getMessage(message, null, null);
     }
@@ -420,9 +420,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param request
      * @return
      */
-    @Deprecated
-    private Locale getLocale(final HttpServletRequest request){
-        return RequestContextUtils.getLocale(request);
+    private Locale getLocale(final HttpServletRequest request) {
+        if(request == null){
+            return Locale.ENGLISH;
+        } else {
+            return RequestContextUtils.getLocale(request);
+        }
     }
 
     /**

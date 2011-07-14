@@ -202,8 +202,8 @@ dojo.declare(
         postCreate : function(){
             this._accountProviderIcon.src = encuestame.social.shortPicture(this.account.type_account);
             dojo.connect(this.domNode, "onclick", this, dojo.hitch(this, function(){
-                console.debug("pick account ", this.account);
-                console.debug("pick account ", this.selected);
+                //console.debug("pick account ", this.account);
+                //console.debug("pick account ", this.selected);
                 this.selected = !this.selected;
                 if (this.selected) {
                     this.markAsSelected();

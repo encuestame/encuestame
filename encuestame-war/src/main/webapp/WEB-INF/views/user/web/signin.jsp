@@ -41,7 +41,7 @@
         </form>
         <div class="singup">
            <span >
-                New User? <a href="<%=request.getContextPath()%>/user/signup"><span>Sign Up</span></a> for free
+                New User? <a href="<%=request.getContextPath()%>/signup"><span>Sign Up</span></a> for free
            </span>
         </div>
          <c:if test="${social}">

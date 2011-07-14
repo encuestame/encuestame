@@ -536,7 +536,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  //change status to failed
                  publishedStatus.setStatus(Status.FAILED);
                  //store error descrition
-                 publishedStatus.setDescriptionStatus(e.getMessage() == null ? "" : e.getMessage().substring(254)); //limited to 254 characters.
+                 if (e.getMessage() != null && e.getMessage().isEmpty()) {
+                     publishedStatus.setDescriptionStatus(e.getMessage().substring(254)); //limited to 254 characters.
+                 } else {
+                     publishedStatus.setDescriptionStatus("");
+                 }
                  //save original tweet content.
                  publishedStatus.setTweetContent(tweetText);
              }
@@ -997,7 +1001,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll) {
       final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
       final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll);
+      log.debug("getTweetPollLinks "+links.size());
       for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
+          log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
           final LinksSocialBean linksSocialBean = new LinksSocialBean();
             linksSocialBean.setProvider(tweetPollSavedPublishedStatus
                     .getTwitterAccount().getAccounType().name());
@@ -1008,7 +1014,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     tweetPollSavedPublishedStatus.getTwitterAccount()
                             .getAccounType()));
           linksBean.add(linksSocialBean);
+          log.debug("getTweetPollLinks "+linksSocialBean.toString());
        }
+
       return linksBean;
     }
 }
