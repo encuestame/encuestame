@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.util.ValidationUtils;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.web.UserAccountBean;
@@ -29,7 +28,6 @@ import org.springframework.validation.Errors;
  * Controller Validation.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 13, 2010 7:48:27 PM
- * @version $Id:$
  */
 public class ValidateOperations {
 
@@ -38,8 +36,15 @@ public class ValidateOperations {
      */
     private static final Pattern emailPattern = Pattern.compile(ValidationUtils.EMAIL_REGEXP, Pattern.CASE_INSENSITIVE);
 
+    /**
+     * Minimum username length.
+     */
+    public static final Integer MIN_USERNAME_LENGTH = 3;
 
-    private static final Integer MIN_USERNAME_LENGTH = 3;
+    /**
+     * Minimum email length.
+     */
+    public static final Integer MIN_EMAIL_LENGTH = 5;
 
     /**
      *
@@ -155,22 +160,25 @@ public class ValidateOperations {
         log.debug("validating email... ->"+email);
         Boolean valid = false;
         if (this.validateEmail(email)) {
-            if(user == null){
-                log.debug("email is valid..");
+            if (user == null) {
+                log.debug("email is valid.. 1 ");
                 getMessages().put("email", "email is available");
                 valid = true;
             } else if(userLogged != null && userLogged.getUserEmail().equals(email)){
-                log.debug("email is valid..");
+                log.debug("email is valid.. 2 ");
                 getMessages().put("email", "it's your email");
                 valid = true;
             } else if(email.equals(user.getUserEmail())){
+                log.debug("email not valid.. 3 ");
                 getMessages().put("email", "email already exist");
             } else {
+                log.debug("email not valid.. 4 ");
                 getMessages().put("email", "email not valid");
             }
         } else {
             getMessages().put("email", "email wrong format");
         }
+        log.debug("validateUserEmail valid ->>>>"+valid);
         return valid;
     }
 

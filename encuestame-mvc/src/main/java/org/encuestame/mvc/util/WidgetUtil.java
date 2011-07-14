@@ -140,4 +140,37 @@ public class WidgetUtil {
         }
         return analyticBlock;
     }
+
+
+    /**
+     *
+     * @param path
+     * @return
+     */
+    public static final String getPasswordBlackList(final String path){
+        final String scriptFilePath = path;
+        final StringBuffer stb = new StringBuffer("[");
+        BufferedReader reader;
+        String passwordArray;
+        try {
+            reader = new BufferedReader(
+                     new InputStreamReader(new ClassPathResource(scriptFilePath).getInputStream()));
+            String aux;
+            while(true) {
+                aux = reader.readLine();
+                if (aux == null) {
+                    stb.append("\"\"]");
+                    break;
+                }
+                stb.append("\"");
+                stb.append(aux);
+                stb.append("\",");
+            }
+            reader.close();
+            passwordArray = stb.toString();
+        } catch (IOException e) {
+            passwordArray = "";
+        }
+        return passwordArray;
+    }
 }
