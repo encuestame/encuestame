@@ -37,4 +37,20 @@ public class EnMeUtils {
             return "0.00%";
         }
     }
+
+    /**
+     *
+     * @param frecuency Number of times the label has been used in polls, survey or tweetPolls
+     * @param frecMax : Maximum number of frequency.
+     * @param frecMin : Minimum number of frecuency.
+     * @return
+     */
+    public static Double calculateSizeTag(final Integer frecuency, final Integer frecMax, final Integer frecMin){
+
+        final Integer frecDiff = frecMax - frecMin;
+        final Integer v = 30;
+        final Long perRelative =   (long) ((frecuency - (frecMax - frecMin) / frecDiff) * v);
+        final double perLog = (Math.log(perRelative)/Math.log(2));
+        return perLog;
+    }
 }

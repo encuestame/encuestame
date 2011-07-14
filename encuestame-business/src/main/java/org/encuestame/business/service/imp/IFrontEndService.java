@@ -98,4 +98,12 @@ public interface IFrontEndService extends ServiceOperations {
      * @param username
      */
     Boolean registerHashTagHit(final String tagName, final String ip, final String username);
+
+    /**
+     * Get hashTag Counter.
+     * @param hashTagId
+     * @param limit
+     * @return
+     */
+    Integer getHashTagFrecuency(final Long hashTagId, final Integer limit);
 }
