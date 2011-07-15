@@ -15,12 +15,11 @@ package org.encuestame.business.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
@@ -148,6 +147,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         log.debug("Max Results HashTag -----> "+maxResults);
         List<HashTag> tags = new ArrayList<HashTag>();
         tags.addAll(getHashTagDao().getHashTags(maxResults, start, tagCriteria));
+        for (HashTag hashTag : tags) {
+            final Integer tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(),2);
+            final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
+            final Integer maxFrecuency = (Integer) maxMin.get(0)[0];
+            final Integer minFrecuency = (Integer) maxMin.get(0)[1];
+            final Double logFrecuency = EnMeUtils.calculateSizeTag(tagFrecuency, maxFrecuency, minFrecuency);
+            hashTag.setSize(logFrecuency.longValue());
+        }
+
         log.debug("Hashtag total size ---> "+tags.size());
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
 
@@ -210,19 +218,30 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     }
 */
     /**
-     * Get hashTag relevance.
+     * Get hashTag counter.
      * @param hashTagId
      * @param limit
      * @return
      */
-    public Integer getHashTagRelevance(final Long hashTagId, final Integer limit){
+    public Integer getHashTagFrecuency(final Long hashTagId, final Integer limit){
         final Integer totalRelTweetPoll;
-        final Integer relevance;
+        final Integer frecuency;
         final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit, "");
         totalRelTweetPoll = tweetPolls.size();
-        relevance = totalRelTweetPoll;
+        frecuency = totalRelTweetPoll;
         //TODO:Pending count relevance hashtags for polls and surveys.
-        return relevance;
+        return frecuency;
+    }
+
+    /**
+     * Get Hit by Hash Tag
+     * @param hashTagId
+     * @return
+     */
+    public Long getHitbyHashTag(final Long hashTagId){
+        final Integer hit;
+        final HashTag tagHit = getHashTagDao().getHashTagById(hashTagId);
+        return (tagHit.getHits());
     }
 
     /**
@@ -243,23 +262,28 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             // TODO: handle exception
             e.printStackTrace();
         }
-
         return tagHit;
     }
 
-
-    public void registerHashTagHit(final String tagName, final String ip, final String username){
-        final Date hitd = new Date();
+    /**
+     * Register hash tag hit.
+     * @param tagName
+     * @param hitDate
+     * @param ipAddress
+     * @return
+     */
+    public Boolean registerHashTagHit(final String tagName, final String ip, final String username){
         final HashTagHits hashHit ;
-        final HashTag tag;
         Long hitCount = 1L;
+        Boolean register = false;
         try {
             if((ip!=null) || (tagName!=null) ){
-                hashHit = this.newHashTagHit(tagName, hitd, ip);
+                hashHit = this.newHashTagHit(tagName, new Date(), ip);
                 if (hashHit!=null){
-                    tag = getHashTagDao().getHashTagByName(tagName);
+                    final HashTag tag = getHashTagDao().getHashTagByName(tagName);
                     hitCount = tag.getHits()+hitCount;
                     tag.setHits(hitCount);
+                    register = true;
                 }
             }
         } catch (Exception e) {
@@ -267,7 +291,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             e.printStackTrace();
             // TODO: handle exception
         }
-
+        return register;
     }
 
     /**
@@ -282,7 +306,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setHitDate(hitDate);
         tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
         tagHitsDomain.setIpAddress(ipAddress);
-      //  tagHitsDomain.setUserAccount(getUserAccountLogged());
+        tagHitsDomain.setUserAccount(getUserAccountLogged());
         this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }

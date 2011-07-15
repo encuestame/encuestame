@@ -79,14 +79,17 @@ public class HashTagController extends AbstractBaseOperations{
         final IFrontEndService service = getFrontService();
         log.debug("hashTag Name ---> "+name);
         name = filterValue(name);
-        final String IP = getIpClient();
+        final String IP = "192.168.1.3";
+            //getIpClient();
         log.info("IP" + IP);
 
         // Search HashTag hits.
         boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
         // TODO: Check that previous hash Tag hit has been visited the same day.
         if (!hashTagVisite) {
-            service.registerHashTagHit(name, IP, "pao");
+           final Boolean tagHit = service.registerHashTagHit(name, IP, "paola");
+           System.out.println(" Registro hit? ---> "+tagHit);
+
         }
         try {
             final HashTagBean tag = service.getHashTagItem(name);

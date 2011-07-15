@@ -39,7 +39,7 @@ public class TestHashTagDao  extends AbstractBase{
 
     @Before
     public void initData(){
-        this.hashTag = createHashTag("software");
+        this.hashTag = createHashTag("software",10L);
     }
 
     /**
@@ -90,5 +90,21 @@ public class TestHashTagDao  extends AbstractBase{
         assertEquals("Should be equals", hashTag3.getHashTag(), expHas4.getHashTag());
     }
 
+    /**
+     * Test get max-min tag frecuency.
+     */
+    @Test
+    public void testGetMaxMinTagFrecuency(){
+        createHashTag("America", 20L);
+        createHashTag("Amazonas", 90L);
+        createHashTag("Carazo",  50L);
+        final List<Object[]>  frecuency = getHashTagDao().getMaxMinTagFrecuency();
+        //System.out.println("MAX 1-------->"+ frecuency.get(0)[0]);
+        //System.out.println(" MIN 1-------->"+ frecuency.get(0)[1]);
+         for (Object[] objects : frecuency) {
+           // System.out.println("---- MAX ----****"+ objects[0]);
+           // System.out.println("---- MIN ----****"+ objects[1]);
+        }
+    }
 
 }

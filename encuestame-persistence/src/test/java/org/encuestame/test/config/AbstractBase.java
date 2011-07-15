@@ -1706,12 +1706,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param ipAddress
      * @return
      */
-    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress){
+    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress, final UserAccount userAcc){
        final Date hitDate = new Date();
        final HashTagHits tagHits = new HashTagHits();
        tagHits.setHitDate(hitDate);
        tagHits.setIpAddress(ipAddress);
        tagHits.setHashTagId(hashTag);
+       tagHits.setUserAccount(userAcc);
        getHashTagDao().saveOrUpdate(tagHits);
        return tagHits;
     }
