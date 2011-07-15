@@ -15,6 +15,7 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IHashTagDao;
@@ -179,5 +180,27 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                     }
                 });
         return searchResult;
+    }
+
+    /**
+     * Get hashTag by Id.
+     * @param hashTagId
+     * @return
+     * @throws HibernateException
+     */
+    public HashTag getHashTagById(final Long hashTagId) throws HibernateException {
+        return (HashTag) getHibernateTemplate().get(HashTag.class, hashTagId);
+    }
+
+    /**
+     * Get max-min tag frecuency.
+     * @param tag
+     * @param filter
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getMaxMinTagFrecuency(){
+        final String maxHit = "Select max(hits) as maximum, min(hits) as minimum from HashTag";
+        return getHibernateTemplate().find(maxHit);
     }
 }

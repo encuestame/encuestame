@@ -20,6 +20,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,12 +38,16 @@ public class TestFrontEndDao extends AbstractBase {
     /** {@link HashTagHits} **/
     private HashTagHits hashTagHit;
 
+    /** {@link UserAccount}. **/
+    private UserAccount secondary;
+
     final String ipAddress = "192.168.1.1";
 
     @Before
     public void initData(){
+        this.secondary = createUserAccount("paola", createAccount());
         this.hashTag = createHashTag("software");
-        this.hashTagHit = createHashTagHit(hashTag, ipAddress);
+        this.hashTagHit = createHashTagHit(hashTag, ipAddress, this.secondary);
       /*  System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
         System.out.println("hashTagHit IP --->"+ hashTagHit.getIpAddress());
         System.out.println("hashTagHit ID --->"+ hashTagHit.getHitId());
@@ -57,7 +62,7 @@ public class TestFrontEndDao extends AbstractBase {
         final List<HashTagHits> hitsbyIp = getFrontEndDao().getHashTagsHitByIp(this.ipAddress);
         System.out.print("SIZE HASHTAG hit---> "+ hitsbyIp.size());
         assertNotNull(hitsbyIp);
-        //System.out.println("HashTagHits data ---> "+ hitsbyIp.get(0).getIpAddress());
-       // assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
+        assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
+        assertEquals("Should be equals", hitsbyIp.size(),1);
     }
 }

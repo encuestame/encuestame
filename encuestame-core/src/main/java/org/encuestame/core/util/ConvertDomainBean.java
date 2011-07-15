@@ -151,9 +151,9 @@ public class ConvertDomainBean {
         unitHashTag.setId(hashTag.getHashTagId());
         unitHashTag.setHits(hashTag.getHits());
         //TODO: ENCUESTAME-191
-        int x = (10 + (int)(Math.random() * ((40) - 5) + 10)); //TEMP.
-        log.debug("random hastag number "+x);
-        unitHashTag.setSize(x);
+        // int x = (10 + (int)(Math.random() * ((40) - 5) + 10)); //TEMP.
+        log.debug("random hastag number "+hashTag.getSize());
+        unitHashTag.setSize(hashTag.getSize().intValue());
         return unitHashTag;
     }
 
