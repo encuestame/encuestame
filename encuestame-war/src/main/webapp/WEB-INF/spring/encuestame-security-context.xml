@@ -64,10 +64,10 @@
         <security:intercept-url pattern="/profile/**" access="permitAll" />
         <security:intercept-url pattern="/tags/**"  access="permitAll" />
         <security:intercept-url pattern="/signin/**" access="permitAll" />
-        <security:intercept-url pattern="/signup" access="permitAll" />
-        <security:intercept-url pattern="/signup/**" access="permitAll" />
+        <security:intercept-url pattern="/user/signin/**" access="permitAll" />
+        <security:intercept-url pattern="/user/signup/**" access="permitAll" />
+        <security:intercept-url pattern="/user/signup/create" access="permitAll" />
         <security:intercept-url pattern="/user/forgot/**" access="permitAll" />
-        <security:intercept-url pattern="/user/signup/**" access="permitAll"  />
         <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_ADMIN')" />
         <security:intercept-url pattern="/settings/**/*" access="hasRole('ENCUESTAME_USER')" />

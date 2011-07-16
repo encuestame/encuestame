@@ -105,7 +105,7 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
             if (value.isEmpty() || value.length() < ValidateOperations.MIN_EMAIL_LENGTH) {
                 jsonResponse.put("msg", getMessage("secure.email.emtpy", request, null));
             } else {
-                valid = validateOperations.validateEmail(value);
+                valid = validateOperations.validateUserEmail(value, null);
                 log.debug("validate EMAIL"+valid);
                 if (valid) {
                     jsonResponse.put("msg", getMessage("secure.email.valid", request, null));

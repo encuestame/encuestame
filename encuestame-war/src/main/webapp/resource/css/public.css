@@ -396,7 +396,7 @@ div.web-form-wrapper .signup-form {
   background-repeat: no-repeat;
   font-weight: bold;
   font-size: 13px;
-  line-height: 16px;
+  margin: 15px;
 }
 
 #web-signup-wrapper  .textbox .validator-wrapper .shadow-input-message {
@@ -420,8 +420,8 @@ div.web-form-wrapper .signup-form {
   position: relative;
 }
 
-#web-signup-wrapper .textbox input, .textbox .shadow-input-message {
-  font: 20px "Helvetica Neue",Helvetica,Arial,sans-serif;
+#web-signup-wrapper .textbox input button, .textbox .shadow-input-message {
+
 }
 
 #web-signup-wrapper  .shadow-input-message {

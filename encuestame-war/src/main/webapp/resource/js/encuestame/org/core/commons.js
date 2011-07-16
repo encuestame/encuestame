@@ -522,29 +522,29 @@ encuestame.constants.imageSizes = {
     web : "web"
 };
 encuestame.constants.errorCodes = {
-    002 : "Enter your first and last name.",
-    003 : "Whats your email address?",
-    006 : "Doesn't look like a valid email.",
-    007 : "An email is required!",
-    008 : "This email is already registered",
-    012 : "Password is too obvious.",
-    013 : "Password is not secure enough.",
-    014 : "Password must be at least 6 characters. No whitespace.",
-    015 : "Password cannot be blank!",
-    017 : "This username is already taken!",
-    018 : "Invalid username!",
-    019:  "A username is required!"
+    "002" : "Enter your first and last name.",
+    "003" : "Whats your email address?",
+    "006" : "Doesn't look like a valid email.",
+    "007" : "An email is required!",
+    "008" : "This email is already registered",
+    "012" : "Password is too obvious.",
+    "013" : "Password is not secure enough.",
+    "014" : "Password must be at least 6 characters. No whitespace.",
+    "015" : "Password cannot be blank!",
+    "017" : "This username is already taken!",
+    "018" : "Invalid username!",
+    "019":  "A username is required!"
 };
 encuestame.constants.messageCodes = {
-    001 : "Name looks great",
-    004 : "We will email you a confirmation.",
-    005 : "Validating...",
-    007 : "An email is required!",
-    008 : "This email is already registered",
-    009 : "Password is perfect!<",
-    010 : "Password is okay.",
-    011 : "Password could be more secure.",
-    016 : "Don't worry, you can change it later."
+    "001" : "Name looks great",
+    "004" : "We will email you a confirmation.",
+    "005" : "Validating...",
+    "007" : "An email is required!",
+    "008" : "This email is already registered",
+    "009" : "Password is perfect!",
+    "010" : "Password is okay.",
+    "011" : "Password could be more secure.",
+    "016" : "Don't worry, you can change it later."
 };
 
 encuestame.constants.version = { version : "1.1.37"};

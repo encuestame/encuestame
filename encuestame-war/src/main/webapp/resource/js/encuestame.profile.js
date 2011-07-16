@@ -9,6 +9,7 @@ dependencies ={
                 "encuestame.org.core.shared.utils.AccountPicture",
                 "encuestame.org.core.commons.social.LinksPublished",
                 "encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer",
+                "encuestame.org.core.commons.signup.Signup",
                 "encuestame.org.core.commons.tweetPoll.TweetPollList",
                 "encuestame.org.core.commons.tweetPoll.TweetPollListDetail",
                 "encuestame.org.core.commons.tweetPoll.HashTags",

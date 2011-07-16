@@ -18,12 +18,17 @@ dojo.declare("encuestame.org.core.commons.validator.EmailValidator",
     /*
     *
     */
-   _validate : function(event){
+   _validate : function(event) {
+           this.inputTextValue = this._input.value;
            this._loadService(
-           encuestame.service.publicService.validate.email, {
+           this.getServiceUrl(), {
            context : this.enviroment,
            email : this._input.value
        }, this.error);
+   },
+
+   getServiceUrl : function(){
+       return encuestame.service.publicService.validate.email;
    },
 
     error : function(error) {

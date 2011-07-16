@@ -14,13 +14,14 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
     focusDefault : false,
     enviroment : "external",
     isValid : false,
+    inputTextValue : "",
     toolTip : true,
     postCreate : function(){
         this.inherited(arguments);
         if (this.focusDefault) {
             dijit.focus( dojo.byId("input_"+this.id));
         }
-        if(!this.noEvents) {
+        if (!this.noEvents) {
             dojo.connect(this._input, "onchange", dojo.hitch(this, function(event) {
                 this._validate(event);
             }));
@@ -38,13 +39,29 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
         }
     },
 
+    getServiceUrl : function(){
+        return "";
+    },
+
+    recheck : function(data){
+         this._loadService(
+                   this.getServiceUrl(), {
+                   context : this.enviroment,
+                   data : this.inputTextValue
+               }, this.error);
+    },
+
+    error : function() {
+        console.info("override");
+    },
+
     /*
      *
      */
     _showToolTip : function(){
         var position = dojo.position(dojo.byId("input_"+this.id), true);
         var node = dojo.byId("_tooltip_"+this.id);
-        console.info("_showToolTip", position);
+        //console.info("_showToolTip", position);
         if (node) {
             dojo.style(node, "opacity", "0");
             var fadeArgs = {
@@ -54,13 +71,13 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
             dojo.style(node, "display", "block");
             dojo.fadeIn(fadeArgs).play();
             dojo.style(node, "top",  "0px");
-            console.info("_showToolTip", node);
+            //console.info("_showToolTip", node);
         }
     },
 
     _hideToolTip : function(){
         var node = dojo.byId("_tooltip_"+this.id);
-        console.info("_hideToolTip", node);
+        //console.info("_hideToolTip", node);
         if (node) {
             dojo.style(node, "opacity", "1");
             var fadeArgs = {
@@ -139,7 +156,7 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
          */
         _showErrorMessage : function(data){
             var node = dojo.byId("_message_"+this.id);
-            console.info("_showSuccessMessage", data);
+            //console.info("_showSuccessMessage", data);
             if (node) {
                 dojo.empty(node);
                 var p = dojo.doc.createElement("p");
