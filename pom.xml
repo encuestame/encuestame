@@ -593,8 +593,7 @@
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>architect</role>
-                <role>developer</role>
+                <role>Lead Developer (Project founder)</role>
             </roles>
             <timezone>1</timezone>
         </developer>
@@ -605,8 +604,7 @@
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>architect</role>
-                <role>developer</role>
+                <role>Lead Developer (Project founder)</role>
             </roles>
             <timezone>1</timezone>
         </developer>
