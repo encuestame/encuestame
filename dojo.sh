@@ -1,8 +1,8 @@
 #!/bin/bash
 DOJO_PATH=dojo
-SVN_DOJO=http://svn.dojotoolkit.org/src/tags/release-1.6.0/
-FILE_DOJO=http://download.dojotoolkit.org/release-1.6.0/dojo-release-1.6.0-src.zip
-FILE_NAME=dojo-release-1.6.0-src.zip
+SVN_DOJO=http://svn.dojotoolkit.org/src/tags/release-1.6.1/
+FILE_DOJO=http://download.dojotoolkit.org/release-1.6.1/dojo-release-1.6.1-src.zip
+FILE_NAME=dojo-release-1.6.1-src.zip
 
 function createFromDownload {
         if [ -d ${DOJO_PATH} ]; then
@@ -94,7 +94,7 @@ function fileDownload {
     wget ${FILE_DOJO}
     echo "ZIP - Create work path"
     unzip ${FILE_NAME}
-    mv dojo-release-1.6.0-src ${DOJO_PATH}
+    mv dojo-release-1.6.1-src ${DOJO_PATH}
     echo "ZIP - Copy Resources"
     rm ${FILE_NAME}
     copyResources
