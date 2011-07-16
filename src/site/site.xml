@@ -24,21 +24,18 @@
         <head>
             <!-- Google Analytics - Start -->
             <script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-2527438-15']);
+		  _gaq.push(['_setDomainName', '.encuestame.org']);
+		  _gaq.push(['_trackPageview']);
 
-                var _gaq = _gaq || [];
-                _gaq.push(['_setAccount', 'UA-2527438-15']);
-                _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
 
-                (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
-                'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
-                })();
-
-        </script>
+		</script>
         <!-- Google Analytics - End -->
 
 	<!-- Piwik -->
@@ -91,10 +88,11 @@
             <item name="Features" href="features.html" />
             <item name="Demo Site" href="http://demo.encuestame.org" />
 	    <item name="CI" href="http://ci.encuestame.org" />
+	    <item name="Wiki" href="http://wiki.encuestame.org" />
 	    <item name="Bug Tracking" href="http://issues.encuestame.org" />
             <item name="Download" href="download.html" />
-            <item name="Releases" href="http://wiki.encuestame.org/en/Changelog" />
-            <item name="Source Repository" href="http://code.encuestame.org" />
+            <item name="Releases Notes" href="http://wiki.encuestame.org/display/RELEASE/Home" />
+            <item name="Source Browser Repository" href="http://code.encuestame.org" />
             <item name="License" href="license.html" />
         </menu>
 
