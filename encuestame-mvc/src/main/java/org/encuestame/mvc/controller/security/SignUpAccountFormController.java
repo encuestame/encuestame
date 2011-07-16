@@ -19,13 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.PasswordGenerator;
-import org.encuestame.mvc.util.WidgetUtil;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.security.SignUpBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +55,7 @@ public class SignUpAccountFormController extends AbstractSecurityController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/signup", method = RequestMethod.GET)
     public String addHandler(Model model) {
         final Boolean privateHome = EnMePlaceHolderConfigurer
         .getBooleanProperty("application.signup.enabled");
@@ -83,47 +83,51 @@ public class SignUpAccountFormController extends AbstractSecurityController {
      * @param status
      * @return
      */
-    //@RequestMapping(method = RequestMethod.POST)
-    public String processSubmit(
-        HttpServletRequest req,
-        @RequestParam("recaptcha_challenge_field") String challenge,
-        @RequestParam("recaptcha_response_field") String response,
-        @ModelAttribute SignUpBean user, BindingResult result, SessionStatus status) {
-             log.info("recaptcha_challenge_field "+challenge);
-             log.info("recaptcha_response_field "+response);
-             final String email = filterValue(user.getEmail());
-             final String username = filterValue(user.getUsername());
+    @RequestMapping(value = "/user/signup/create", method = RequestMethod.POST)
+    public String processSubmit(final ModelMap model,
+        HttpServletRequest req) {
+                log.info("u**************************************");
+                log.info("u**************************************");
+                log.info("u**************************************");
+                log.info("u**************************************");
+                log.info("u**************************************");
+                log.info("u**************************************");
+               final SignUpBean user = new SignUpBean();
+               user.setEmail("juan@jotadeveloper.com");
+               user.setUsername("jota22");
+             final String email = filterValue("juan@jotadeveloper.com");
+             final String username = filterValue("jota22");
              log.info("username "+username);
              log.info("password "+email);
-             final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
+             //final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(req.getRemoteAddr(), challenge, response);
              final ValidateOperations validation = new ValidateOperations(getSecurityService());
 
              if(validation.validateUserEmail(email, null) != null){
                    log.warn("Email NOT VALID");
-                   result.rejectValue("email", "secure.email.notvalid"); //secure.email.notvalid
+//                   result.rejectValue("email", "secure.email.notvalid"); //secure.email.notvalid
              }
              if(!validation.validateUsername(username,  null)){
                  log.warn("Username NOT VALID");
-                  result.rejectValue("username", "secure.user.notvalid"); //secure.user.notvalid
+ //                 result.rejectValue("username", "secure.user.notvalid"); //secure.user.notvalid
              }
             //validate captcha
-            validation.validateCaptcha(reCaptchaResponse, result);
-            log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
-            log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
-            log.info("result.hasErrors() "+result.hasErrors());
-            if (result.hasErrors()) {
-                return "register";
-            }
-            else {
+ //           validation.validateCaptcha(reCaptchaResponse, result);
+            //log.info("reCaptchaResponse "+reCaptchaResponse.getErrorMessage());
+            //log.info("reCaptchaResponse "+reCaptchaResponse.isValid());
+           // log.info("result.hasErrors() "+result.hasErrors());
+//            if (result.hasErrors()) {
+//                return "register";
+ //           }
+//            else {
                 final String password = PasswordGenerator.getPassword(PASSWORD_LENGHT);
                 user.setPassword(password);
                 //create
                 final UserAccount unitUserBean = getSecurityService().singupUser(user);
-                status.setComplete();
+              //  status.setComplete();
                 log.info("password generated "+password);
                 log.info("New User with userId: " + unitUserBean.getUid() + " added at " + new Date());
                 //authenticate(req, username, password); //TODO: I don't know why we have Lazy here.
-                return "redirect:/user/signin";
-            }
+                return "redirect:/user/dashboard";
+   //         }
     }
 }

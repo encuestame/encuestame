@@ -20,11 +20,17 @@ dojo.declare("encuestame.org.core.commons.validator.RealNameValidator",
     *
     */
    _validate : function(event){
+       this.inputTextValue = this._input.value;
            this._loadService(
-       encuestame.service.publicService.validate.realName, {
+       this.getServiceUrl(), {
            context : this.enviroment,
-           real_name : "432432342"
+           real_name : this._input.value
        }, this.error);
+   },
+
+
+   getServiceUrl : function(){
+       return encuestame.service.publicService.validate.realName;
    },
 
     error : function(error) {

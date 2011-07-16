@@ -158,6 +158,7 @@ public class ValidateOperations {
      */
     public Boolean validateUserEmail(final String email, final UserAccount user, final UserAccount userLogged){
         log.debug("validating email... ->"+email);
+        log.debug("validating email UserAccount... ->"+user);
         Boolean valid = false;
         if (this.validateEmail(email)) {
             if (user == null) {

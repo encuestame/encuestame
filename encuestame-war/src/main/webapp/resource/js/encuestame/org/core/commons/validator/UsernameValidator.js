@@ -20,11 +20,16 @@ dojo.declare("encuestame.org.core.commons.validator.UsernameValidator",
      *
      */
     _validate : function(event){
+        this.inputTextValue = this._input.value;
             this._loadService(
-        encuestame.service.publicService.validate.username, {
+            this.getServiceUrl(), {
             context : this.enviroment,
             username :  this._input.value
         }, this.error);
+    },
+
+    getServiceUrl : function(){
+        return encuestame.service.publicService.validate.username;
     },
 
     /**
