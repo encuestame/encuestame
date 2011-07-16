@@ -110,7 +110,7 @@
                 This section is dedicated to people who support us every day.
         </div>
             <h3>Atlassian Open Source License</h3>
-            Our software to manage this project is supported by free open source
+            This project is supported by free open source
             license adquired on
             <a
                 href="http://www.atlassian.com/software/views/opensource-license-request.jsp"
@@ -154,14 +154,14 @@
             </div>
         </section>
         <section name="Project Team Twitter">
-            <table style="background-color:#FFF; text-align: center;">
-                <tr style="background-color:#FFF; text-align: center;">
-                    <td style="background-color:#FFF; text-align: center;">
+            <table style="background-color:#FFF;  text-align: center;">
+                <tr style="background-color:#FFF;  text-align: center;">
+                    <td style="background-color:#FFF;  text-align: center;">
                         <span>
                             <script src="js/jotadeveloper.js"></script>
                         </span>
                     </td>
-                    <td style="background-color:#FFF; text-align: center;">
+                    <td style="background-color:#FFF;  text-align: center;">
                         <span>
                             <script src="js/dianmora.js"></script>
                         </span>
