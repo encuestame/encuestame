@@ -105,5 +105,5 @@ public interface IFrontEndService extends ServiceOperations {
      * @param limit
      * @return
      */
-    Integer getHashTagFrecuency(final Long hashTagId, final Integer limit);
+    Long getHashTagFrecuency(final Long hashTagId, final Integer limit);
 }

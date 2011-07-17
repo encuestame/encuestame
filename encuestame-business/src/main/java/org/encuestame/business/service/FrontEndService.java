@@ -147,18 +147,26 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         log.debug("Max Results HashTag -----> "+maxResults);
         List<HashTag> tags = new ArrayList<HashTag>();
         tags.addAll(getHashTagDao().getHashTags(maxResults, start, tagCriteria));
+        // Selecciona el Max y Minimo de Hits en HashTag
+
+        final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
+        final long maxFrecuency =  (Long) maxMin.get(0)[0];
+        final long minFrecuency =  (Long) maxMin.get(0)[1];
+        log.debug("MAX FRECUENCY ------> "+ maxFrecuency);
+        log.debug("MIN FRECUENCY ------> "+ minFrecuency);
         for (HashTag hashTag : tags) {
-            final Integer tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(),2);
-            final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
-            final Integer maxFrecuency = (Integer) maxMin.get(0)[0];
-            final Integer minFrecuency = (Integer) maxMin.get(0)[1];
-            final Double logFrecuency = EnMeUtils.calculateSizeTag(tagFrecuency, maxFrecuency, minFrecuency);
+           // log.debug("******///*********************************************///*********");
+            //  Selecciona el Numero de Uso del Tag en TweetPoll
+            final Long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(),2);
+            final Long relevance = tagFrecuency + hashTag.getHits();
+            final Double logFrecuency = EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency);
+           // log.debug("LOG FRECUENCY ------> "+ logFrecuency);
             hashTag.setSize(logFrecuency.longValue());
+           // log.debug("Hashtag total size a Convertir ---> "+hashTag.getSize());
+            getFrontEndDao().saveOrUpdate(hashTag);
+           // log.debug("******///*********************************************///*********");
         }
-
-        log.debug("Hashtag total size ---> "+tags.size());
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
-
         return hashBean;
     }
 
@@ -223,14 +231,12 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @param limit
      * @return
      */
-    public Integer getHashTagFrecuency(final Long hashTagId, final Integer limit){
+    public Long getHashTagFrecuency(final Long hashTagId, final Integer limit){
         final Integer totalRelTweetPoll;
-        final Integer frecuency;
         final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit, "");
         totalRelTweetPoll = tweetPolls.size();
-        frecuency = totalRelTweetPoll;
         //TODO:Pending count relevance hashtags for polls and surveys.
-        return frecuency;
+        return totalRelTweetPoll.longValue();
     }
 
     /**

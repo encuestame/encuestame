@@ -124,6 +124,7 @@ public class HashTag {
     /**
     * @return the size
     */
+    @Column(name = "size")
     public Long getSize() {
         return size;
     }
