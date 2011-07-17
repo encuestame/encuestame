@@ -41,11 +41,7 @@
         </form>
         <div class="singup">
            <span >
-<<<<<<< .merge_file_tHqgiO
-                New User? <a href="<%=request.getContextPath()%>/signup"><span>Sign Up</span></a> for free
-=======
                 New User? <a href="<%=request.getContextPath()%>/user/signup"><span>Sign Up</span></a> for free
->>>>>>> .merge_file_cH6utJ
            </span>
         </div>
          <c:if test="${social}">

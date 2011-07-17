@@ -14,13 +14,10 @@ import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.core.util.SocialUtils;
+import org.encuestame.mvc.controller.security.ForgetPasswordController;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
-import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
-import org.encuestame.utils.web.UserAccountBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -43,44 +40,11 @@ public class SignInController extends AbstractSocialController{
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * Post register redirect.
+     */
     private final String POST_REGISTER_REDIRECT = "/user/signin/register/";
 
-
-    @Autowired
-    private IAccountDao accountDao;
-
-
-    @RequestMapping(value = "/user/confirm/email/{inviteCode}", method = RequestMethod.GET)
-    public String confirmAccountController(
-            @PathVariable String inviteCode,
-            final ModelMap model,
-            HttpServletResponse response,
-            HttpServletRequest request) {
-            log.debug("Invitation Code----->" + inviteCode);
-        UserAccountBean userAccountBean;
-        try {
-            userAccountBean = getSecurityService().getUserAccountbyCode(inviteCode);
-        } catch (EnMeNoResultsFoundException e) {
-            log.error(e.getMessage());
-            return "signin";
-        }
-        if (userAccountBean == null) {
-            return "signin";
-        } else {
-             model.put("userAccount", userAccountBean);
-        }
-        log.debug("confirmation Account");
-        return "user/confirm/";
-    }
-
-
-   /* @RequestMapping(value = "/user/confirm/email/", method = RequestMethod.GET)
-    public String confirmedAccountController(
-              final ModelMap model,
-              HttpServletResponse response,
-              HttpServletRequest request){
-        return "confirmation/account";
-    }*/
 
     /**
      * Signin Controller.
@@ -103,8 +67,9 @@ public class SignInController extends AbstractSocialController{
      * Forgot Password Controller.
      * @param model model
      * @return template
+     * check {@link ForgetPasswordController}.
      */
-    @RequestMapping(value = "/user/forgot", method = RequestMethod.GET)
+    //@RequestMapping(value = "/user/forgot", method = RequestMethod.GET)
     public String forgotPasswordController(final ModelMap model) {
         log.debug("forgot password");
         return "forgot";
@@ -198,7 +163,6 @@ public class SignInController extends AbstractSocialController{
            final ModelMap model,
            HttpServletRequest httpRequest,
            WebRequest request) {
-           //get AccesGrant.
        try {
                final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
                if (log.isDebugEnabled()) {
@@ -241,20 +205,6 @@ public class SignInController extends AbstractSocialController{
            final ModelMap model,
            HttpServletRequest httpRequest,
            WebRequest request) {
-       return "";
+       return "user/friends";
    }
-
-    /**
-     * @return the accountDao
-     */
-    public IAccountDao getAccountDao() {
-        return accountDao;
-    }
-
-    /**
-     * @param accountDao the accountDao to set
-     */
-    public void setAccountDao(IAccountDao accountDao) {
-        this.accountDao = accountDao;
-    }
 }

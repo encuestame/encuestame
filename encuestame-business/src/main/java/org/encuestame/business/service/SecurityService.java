@@ -592,18 +592,21 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         final UserAccount userAccount = new UserAccount();
         userAccount.setUsername(singUpBean.getUsername());
         //generate password.
-        final String password = EnMePasswordUtils.createRandomPassword(EnMePasswordUtils.DEFAULT_LENGTH_PASSWORD);
+        final String password = singUpBean.getPassword() == null ? EnMePasswordUtils
+                .createRandomPassword(EnMePasswordUtils.DEFAULT_LENGTH_PASSWORD)
+                : singUpBean.getPassword();
         userAccount.setPassword(encodingPassword(password));
         singUpBean.setPassword(password);
         //invite code
         final String inviteCode =  UUID.randomUUID().toString();
         userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
         userAccount.setAccount(account);
-        userAccount.setUserStatus(Boolean.TRUE);
+        userAccount.setUserStatus(Boolean.FALSE);
         userAccount.setUserEmail(singUpBean.getEmail());
-        userAccount.setCompleteName("");
+        userAccount.setCompleteName(singUpBean.getFullName());
         userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.
         getAccountDao().saveOrUpdate(userAccount);
+
         //create global account directory
         if (log.isDebugEnabled()) {
             log.debug("singupUser created user account");
@@ -616,16 +619,17 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
+
         //send new password
         getMailService().sendPasswordConfirmationEmail(singUpBean);
         //send confirmation account
         getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+
         if (log.isDebugEnabled()) {
             log.debug("new user "+userAccount.getUsername());
             log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
         }
-        //login user.
-        setSpringSecurityAuthentication(singUpBean.getUsername(), password, permissions);
+        SecurityUtils.authenticate(userAccount);
         return userAccount;
     }
 
@@ -666,10 +670,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String username,
             final String password,
             final Set<Permission> permissions){
-         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
-         Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(permissions);
-         SecurityContextHolder.getContext().setAuthentication(
-                 new UsernamePasswordAuthenticationToken(username, String.valueOf(password), authorities));
+//         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
+//         Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(permissions);
+//         SecurityContextHolder.getContext().setAuthentication(
+//                 new UsernamePasswordAuthenticationToken(username, String.valueOf(password), authorities));
     }
 
     /**

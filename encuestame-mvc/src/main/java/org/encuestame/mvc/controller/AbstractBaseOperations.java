@@ -264,50 +264,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
-     * Authenticate.
-     * @param request {@link HttpServletRequest}
-     * @param username username
-     * @param password password
-     */
-    public void authenticate(final HttpServletRequest request, final String username, final String password) {
-        try{
-            final UsernamePasswordAuthenticationToken usernameAndPassword = new UsernamePasswordAuthenticationToken(username, password);
-            final HttpSession session = request.getSession();
-            session.setAttribute(
-                    UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
-                    username);
-
-            final Authentication auth = getAuthenticationManager().authenticate(usernameAndPassword);
-
-            final SecurityContext securityContext = getSecCtx();
-            securityContext.setAuthentication(auth);
-            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-
-        }
-        catch (AuthenticationException e) {
-            SecurityContextHolder.getContext().setAuthentication(null);
-            log.error("Authenticate", e);
-        }
-    }
-
-    /**
-     * Authenticate User.
-     * @param user
-     * @deprecated user {@link SecurityUtils}.
-     */
-    @Deprecated
-    public void authenticate(final UserAccount user){
-        final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(user, true);
-        final Collection<GrantedAuthority> authorities = details.getAuthorities();
-        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(details, null,
-                authorities));
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication());
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().getName());
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-    }
-
-    /**
      * Relative Time.
      * @param date
      * @return
