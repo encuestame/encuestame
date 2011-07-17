@@ -339,10 +339,10 @@ div.cloud .cloudItem {
 }
 
 div.web-form-wrapper .signup-form {
-  left: 50%;
+  left: 400px;
   margin: 20px 0 0 -200px;
   position: relative;
-  width: 400px;
+  width: 600px;
 }
 
 #web-signup-wrapper div.field{
@@ -420,14 +420,14 @@ div.web-form-wrapper .signup-form {
   position: relative;
 }
 
-#web-signup-wrapper .textbox input button, .textbox .shadow-input-message {
+#web-signup-wrapper .textbox input, .textbox button, .textbox .shadow-input-message {
 
 }
 
 #web-signup-wrapper  .shadow-input-message {
   -moz-transition: opacity 0.1s ease 0s, font-size 0.1s ease 0s;
   cursor: text;
-  left: 8px;
+  left: 100px;
   position: absolute;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   top: 0;
@@ -905,4 +905,27 @@ div.comments div.comment-wrapper div.comment div.comment-data div.comment-date{
 
 div.comments div.comment-wrapper div.comment div.comment-data div.comment-body{
         padding: 3px;
+}
+
+
+div.panel-bar{
+    border: 1px solid gray;
+}
+
+div.panel-bar-item {
+
+}
+
+div.panel-bar-item .panel-bar-item-content{
+    padding: 8px;
+    background-color: #F1F1F1;
+}
+
+div.panel-bar-item div.panel-bar-item-title {
+  background-color: #BABABA;
+  color: #000000;
+  cursor: pointer;
+  font-size: 160%;
+  font-weight: bold;
+  padding: 8px;
 }

@@ -56,9 +56,7 @@ public class SignInController extends AbstractSocialController{
             final ModelMap model,
             HttpServletResponse response,
             HttpServletRequest request) {
-        final Boolean enabledSocialSignIn = EnMePlaceHolderConfigurer
-                     .getBooleanProperty("application.social.signin.enabled");
-        request.setAttribute("social", enabledSocialSignIn);
+        request.setAttribute("social", isSocialSignInUpEnabled());
         log.debug("login");
         return "signin";
     }

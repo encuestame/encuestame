@@ -47,20 +47,7 @@
          <c:if test="${social}">
               <div class="web-social-signin">
                   <div class="title">Select one of these thrid-party accouns to sign in</div>
-                  <div class="section">
-                      <form action="<%=request.getContextPath()%>/signin/google" method="POST">
-                          <button type="submit">
-                              <img src="<%=request.getContextPath()%>/resources/images/social/google/enme_google_conn.png" />
-                          </button>
-                      </form>
-                  </div>
-                  <div class="section">
-                      <form action="<%=request.getContextPath()%>/signin/facebook" method="POST">
-                          <button type="submit">
-                              <img src="<%=request.getContextPath()%>/resources/images/social/facebook/enme_connect.gif" />
-                          </button>
-                      </form>
-                  </div>
+                  <%@ include file="/WEB-INF/jsp/includes/web/social.jsp" %>
                 </div>
           </c:if>
     </div>

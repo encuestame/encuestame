@@ -47,6 +47,7 @@ import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.business.service.imp.SearchServiceOperations;
 import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
@@ -681,5 +682,13 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        if (!tweetPoll.getCompleted()) {
            getTweetPollService().checkTweetPollCompleteStatus(tweetPoll);
        }
+   }
+
+   /**
+    *
+    * @return
+    */
+   public Boolean isSocialSignInUpEnabled(){
+       return EnMePlaceHolderConfigurer.getBooleanProperty("application.social.signin.enabled");
    }
 }

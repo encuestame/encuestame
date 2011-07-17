@@ -54,7 +54,9 @@ public class SignUpController extends AbstractSecurityController {
      * @return
      */
     @RequestMapping(value = "/user/signup", method = RequestMethod.GET)
-    public String addHandler(Model model) {
+    public String addHandler(
+            final Model model,
+            final HttpServletRequest request) {
         final Boolean privateHome = EnMePlaceHolderConfigurer
         .getBooleanProperty("application.signup.enabled");
         if (!privateHome) {
