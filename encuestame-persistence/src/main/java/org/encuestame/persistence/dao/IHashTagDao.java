@@ -70,5 +70,5 @@ public interface IHashTagDao extends IBaseDao	{
      * Get max-min tag frecuency.
      * @return
      */
-    List<Object[]>  getMaxMinTagFrecuency();
+   List<Object[]> getMaxMinTagFrecuency();
 }

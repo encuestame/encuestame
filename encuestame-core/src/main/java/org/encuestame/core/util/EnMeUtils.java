@@ -14,6 +14,8 @@ package org.encuestame.core.util;
 
 import java.text.DecimalFormat;
 
+import org.apache.log4j.Logger;
+
 /**
  * Commons utils.
  * @author Picado, Juan juanATencuestame.org
@@ -21,6 +23,8 @@ import java.text.DecimalFormat;
  */
 public class EnMeUtils {
 
+    /** Front End Service Log. **/
+    private static Logger log = Logger.getLogger(EnMeUtils.class);
 
     /**
      * Calculate percent.
@@ -45,12 +49,16 @@ public class EnMeUtils {
      * @param frecMin : Minimum number of frecuency.
      * @return
      */
-    public static Double calculateSizeTag(final Integer frecuency, final Integer frecMax, final Integer frecMin){
+    public static Double calculateSizeTag(long frecuency, long  frecMax, long frecMin){
+         double perRelative ;
+         float frec = Float.valueOf(frecuency);
+         float maxiFrec = Float.valueOf(frecMax);
+         float miniFrec = Float.valueOf(frecMin);
+         double minValue = Double.valueOf(12);
+         final float frecDiff = frec - miniFrec;
+         perRelative = ((frec-miniFrec)/frecDiff);
+         double perLog = (Math.log(perRelative)/Math.log(2))+minValue;
 
-        final Integer frecDiff = frecMax - frecMin;
-        final Integer v = 30;
-        final Long perRelative =   (long) ((frecuency - (frecMax - frecMin) / frecDiff) * v);
-        final double perLog = (Math.log(perRelative)/Math.log(2));
         return perLog;
     }
 }
