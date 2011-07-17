@@ -144,14 +144,14 @@ public class SecurityUtils {
     }
 
     /**
-     *
-     * @param account
+     * Authenticate {@link UserAccount}.
+     * @param account {@link UserAccount}.
      */
     public static void authenticate(final UserAccount account){
         final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(account, true);
         final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
         .convertEnMePermission(account.getSecUserPermissions());
-        final EnMeSecurityToken securityToken = new EnMeSecurityToken(details, authorities);
+        final EnMeSecurityToken securityToken = new EnMeSecurityToken(account);
          //clear the context.
         SecurityContextHolder.clearContext();
         //set new authentication.

@@ -51,7 +51,7 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails,
-            UsernamePasswordAuthenticationToken authentication)
+            final UsernamePasswordAuthenticationToken authentication)
             throws AuthenticationException {
         log.debug("additionalAuthenticationChecks *********************************************");
         log.debug("additionalAuthenticationChecks *********************************************");

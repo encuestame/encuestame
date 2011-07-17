@@ -78,7 +78,7 @@
     </logger>
 
     <logger name="org.springframework.security">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.integration">

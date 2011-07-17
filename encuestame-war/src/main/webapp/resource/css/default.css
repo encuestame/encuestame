@@ -685,7 +685,7 @@ div.menuWrapper{
     -moz-border-radius: 0px 0px 5px 5px;
      border-radius: 0px 0px 5px 5px;
      background-color: #444444;
-     max-height : 30px;
+     max-height : 34px;
 }
 
 div.menuWrapper .item {
@@ -802,6 +802,7 @@ div.web-profile-menu {
   vertical-align: middle;
   cursor: pointer;
   min-width: 100px;
+  padding-top: 4px;
 }
 
 div.web-profile-menu:hover {
@@ -813,12 +814,14 @@ div.web-profile-menu .image {
 }
 
 div.web-profile-menu .real-name {
+  min-width: 119px;
+  padding-right: 4px;
   padding-top: 4px;
   vertical-align: middle;
-  width: 100px;
-  padding-right: 4px;
-
+  width: 145px;
+  text-align: center;
 }
+
 /** notifications **/
 
 div.notificationWrapper {

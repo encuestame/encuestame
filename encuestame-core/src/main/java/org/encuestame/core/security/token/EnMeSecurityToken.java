@@ -14,6 +14,9 @@ package org.encuestame.core.security.token;
 
 import java.util.Collection;
 
+import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.util.ConvertDomainsToSecurityContext;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -30,21 +33,50 @@ public class EnMeSecurityToken extends AbstractAuthenticationToken {
      */
     private static final long serialVersionUID = 7648924296863041359L;
     private final Object principal;
+    private UserAccount userAccount;
 
-    public EnMeSecurityToken(Object principal,
-            Collection<? extends GrantedAuthority> arg0) {
-        super(arg0);
-        this.principal = principal;
+    /**
+     *
+     * @param principal
+     * @param arg0
+     */
+    public EnMeSecurityToken(
+            final UserAccount userAccount) {
+        super(ConvertDomainsToSecurityContext
+                .convertEnMePermission(userAccount.getSecUserPermissions()));
+        this.principal = SecurityUtils.convertUserAccountToUserDetails(userAccount, true);
         setAuthenticated(false);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#getCredentials()
+     */
     @Override
     public Object getCredentials() {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.security.core.Authentication#getPrincipal()
+     */
     @Override
     public Object getPrincipal() {
         return principal;
+    }
+
+    /**
+     * @return the userAccount
+     */
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    /**
+     * @param userAccount the userAccount to set
+     */
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 }

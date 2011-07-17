@@ -12,7 +12,7 @@
     <definition name="poll/list" extends="page">
         <put-attribute name="title" value="Poll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}poll-list.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}poll-list.jsp" />
     </definition>
 
 </tiles-definitions>
