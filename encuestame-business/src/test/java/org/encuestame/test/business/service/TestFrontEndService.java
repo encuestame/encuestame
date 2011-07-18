@@ -52,16 +52,16 @@ public class TestFrontEndService extends AbstractServiceBase{
         this.secondary = createUserAccount("paola", createAccount());
         this.hashTag = createHashTag("software");
         this.hashTagHit = createHashTagHit(hashTag, this.ipAddress, this.secondary);
-        System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
+        //System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
     }
 
     @Test
     public void testCheckPreviousHashTagHit(){
         flushIndexes();
         final Boolean previousRecord = getFrontEndService().checkPreviousHashTagHit(this.ipAddress);
-        System.out.println("Previous record exists? --> "+ previousRecord + "IP" + this.ipAddress);
+        //System.out.println("Previous record exists? --> "+ previousRecord + "IP" + this.ipAddress);
         final Boolean previousRecord2 = getFrontEndService().checkPreviousHashTagHit(this.ipAddress2);
-        System.out.println("Previous record exists 2? --> "+ previousRecord2 + "IP" + this.ipAddress2);
+        //System.out.println("Previous record exists 2? --> "+ previousRecord2 + "IP" + this.ipAddress2);
     }
 
     @Test
