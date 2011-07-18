@@ -64,6 +64,7 @@ dependencies ={
                 "encuestame.org.core.commons.validator.PasswordValidator",
                 "encuestame.org.core.commons.validator.RealNameValidator",
                 "encuestame.org.core.shared.utils.StandBy",
+                "encuestame.org.core.commons.panel.PanelBar",
                 "org.cometd",
                 "org.cometd.AckExtension",
                 "org.cometd.ReloadExtension",
