@@ -342,7 +342,7 @@ div.web-form-wrapper .signup-form {
   left: 400px;
   margin: 20px 0 0 -200px;
   position: relative;
-  width: 600px;
+  width: 700px;
 }
 
 #web-signup-wrapper div.field{
@@ -366,9 +366,9 @@ div.web-form-wrapper .signup-form {
 }
 
 #web-signup-wrapper div.sidetip {
-  left: 406px;
+  left: 540px;
   position: absolute;
-  width: 250px;
+  width: 149px;
 }
 
 #web-signup-wrapper .section div.tooltip {
@@ -396,7 +396,7 @@ div.web-form-wrapper .signup-form {
   background-repeat: no-repeat;
   font-weight: bold;
   font-size: 13px;
-  margin: 15px;
+  margin: 2px;
 }
 
 #web-signup-wrapper  .textbox .validator-wrapper .shadow-input-message {
@@ -406,7 +406,7 @@ div.web-form-wrapper .signup-form {
 
 #web-signup-wrapper  .textbox .validator-wrapper .shadow-input-message {
   color: #DDDDDD;
-  line-height: 43px;
+  line-height: 37px;
   padding-left: 1px;
   font-size: 150%;
 }
@@ -427,7 +427,7 @@ div.web-form-wrapper .signup-form {
 #web-signup-wrapper  .shadow-input-message {
   -moz-transition: opacity 0.1s ease 0s, font-size 0.1s ease 0s;
   cursor: text;
-  left: 100px;
+  left: 150px;
   position: absolute;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   top: 0;
@@ -450,6 +450,8 @@ div.web-form-wrapper .signup-form {
   overflow: auto;
   padding: 5px 10px 10px;
   width: 376px;
+  margin: 0 auto;
+  text-align: left;
 }
 
 #web-signup-wrapper div.web-form-wrapper div.suggestions ul {
@@ -922,7 +924,7 @@ div.panel-bar-item .panel-bar-item-content{
 }
 
 div.panel-bar-item div.panel-bar-item-title {
-  background-color: #E8E8E8;
+  background-color: #C9C9C9;
   color: #000000;
   cursor: pointer;
   font-size: 160%;
