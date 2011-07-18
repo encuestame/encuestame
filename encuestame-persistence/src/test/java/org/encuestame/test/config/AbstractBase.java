@@ -558,10 +558,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public UserAccount createUserAccount(
             final String name,
-            final Account secUser){
-        return createUserAccount(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
+            final Account account){
+        return createUserAccount(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", account);
     }
-
 
     public UserAccount createSecondaryUserGroup(
             final String name,
