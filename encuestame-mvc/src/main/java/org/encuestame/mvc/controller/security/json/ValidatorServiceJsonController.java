@@ -97,12 +97,14 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
      * @param value
      * @return
      */
-    private  Map<String, Object> validate(final String context, final String type, final String value, final  HttpServletRequest request){
+    private  Map<String, Object> validate(final String context, final String type, String value, final  HttpServletRequest request) {
+        value = value == null ? "" : value;
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         final ValidateOperations validateOperations = new ValidateOperations(getSecurityService());
         boolean valid = false;
         if ("email".equals(type)) {
             if (value.isEmpty() || value.length() < ValidateOperations.MIN_EMAIL_LENGTH) {
+                 log.debug("validate email emtpy");
                 jsonResponse.put("msg", getMessage("secure.email.emtpy", request, null));
             } else {
                 valid = validateOperations.validateUserEmail(value, null);
@@ -115,9 +117,11 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
             }
         } else if("username".equals(type)) {
             valid = validateOperations.validateUsername(value, null);
-            if (value.isEmpty() || value.length() < ValidateOperations.MIN_USERNAME_LENGTH) {
+            if(value.isEmpty() || value.length() < ValidateOperations.MIN_USERNAME_LENGTH) {
+                log.debug("validate username emtpy");
                 jsonResponse.put("msg", getMessage("secure.username.empty", request, null));
             } else {
+                log.debug("validate username NO emtpy");
                 if (!valid) {
                     jsonResponse.put("msg", getMessage("secure.user.notvalid", request, null));
                     final List<String> suggestions = new ArrayList<String>();
@@ -131,8 +135,15 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
                 jsonResponse.put("valid", valid);
             }
         } else if("realName".equals(type)) {
-            valid = true;
-            jsonResponse.put("msg", getMessage("secure.realName.valid", request, null));
+            if (value.isEmpty()){
+                valid = false;
+                jsonResponse.put("msg", getMessage("secure.realName.empty", request, null));
+            } else {
+                valid = true;
+                jsonResponse.put("msg", getMessage("secure.realName.valid", request, null));
+            }
+        } else {
+            jsonResponse.put("msg", getMessage("secure.type.not.valid", request, null));
         }
         jsonResponse.put("valid", valid);
         jsonResponse.put("color", "#RRR");

@@ -36,15 +36,16 @@ public class EnMeSocialAccountUserService implements SocialUserService {
     /*
      * Log.
      */
-    private Logger log = Logger.getLogger(SecurityUtils.class);
+    private Logger log = Logger.getLogger(EnMeSocialAccountUserService.class);
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.security.service.SocialUserService#loadAccountConnection(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
      */
     @Override
-    public UserDetails loadAccountConnection(String profileId,
-            SocialProvider provider)
+    public UserDetails loadAccountConnection(
+            final String profileId,
+            final SocialProvider provider)
             throws EnMeNoSuchAccountConnectionException {
         UserAccount accountConnection = null;
         log.debug("EnMeSocialAccountUserService "+profileId);

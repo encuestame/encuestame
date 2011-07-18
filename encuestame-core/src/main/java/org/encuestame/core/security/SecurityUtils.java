@@ -19,7 +19,8 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.details.EnMeSocialUserAccount;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
-import org.encuestame.core.security.details.SocialAuthenticationToken;
+import org.encuestame.core.security.token.EnMeSecurityToken;
+import org.encuestame.core.security.token.SocialAuthenticationToken;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -139,6 +140,26 @@ public class SecurityUtils {
             log.info("Username " + account.getUsername() + " is logged at "
                     + new Date());
             log.debug("created EnMeSocialUserAccount" +details);
+        }
+    }
+
+    /**
+     * Authenticate {@link UserAccount}.
+     * @param account {@link UserAccount}.
+     */
+    public static void authenticate(final UserAccount account){
+        final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(account, true);
+        final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
+        .convertEnMePermission(account.getSecUserPermissions());
+        final EnMeSecurityToken securityToken = new EnMeSecurityToken(account);
+         //clear the context.
+        SecurityContextHolder.clearContext();
+        //set new authentication.
+        SecurityContextHolder.getContext().setAuthentication(securityToken);
+        if (log.isInfoEnabled()) {
+            log.info("Username " + account.getUsername() + " is logged at "
+                    + new Date());
+            log.debug("created EnMeUserAccountDetails" +details);
         }
     }
 

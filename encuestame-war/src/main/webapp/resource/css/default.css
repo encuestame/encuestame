@@ -166,11 +166,33 @@ a:hover{
 
 .defaultForm input {
   border: 1px solid #CCCCCC;
-  border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius:  4px 4px 4px 4px;
+  -moz-border-radius:  4px 4px 4px 4px;
+  border-radius:  4px 4px 4px 4px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
   outline: 0 none;
   padding: 8px 6px;
   width: 382px;
+  -moz-box-shadow: 0px 0px 1px #CFCFCF;
+  -webkit-box-shadow: 0x 0px 1px #CFCFCF;
+  box-shadow: 0px 0px 1px #CFCFCF;
+}
+
+.defaultForm button.button {
+  background-color: #258E24;
+  border: 1px solid #CCCCCC;
+  -webkit-border-radius:  4px 4px 4px 4px;
+  -moz-border-radius:  4px 4px 4px 4px;
+  border-radius:  4px 4px 4px 4px;
+  -moz-box-shadow: 0px 0px 1px #888;
+  -webkit-box-shadow: 0x 0px 1px #888;
+  box-shadow: 0px 0px 1px #888;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: bold;
+  outline: 0 none;
+  padding: 8px 6px;
+  width: 395px;
 }
 
 .warning{
@@ -685,7 +707,8 @@ div.menuWrapper{
     -moz-border-radius: 0px 0px 5px 5px;
      border-radius: 0px 0px 5px 5px;
      background-color: #444444;
-     max-height : 30px;
+     max-height : 34px;
+     padding-top: 3px;
 }
 
 div.menuWrapper .item {
@@ -802,6 +825,7 @@ div.web-profile-menu {
   vertical-align: middle;
   cursor: pointer;
   min-width: 100px;
+  padding-top: 4px;
 }
 
 div.web-profile-menu:hover {
@@ -813,12 +837,14 @@ div.web-profile-menu .image {
 }
 
 div.web-profile-menu .real-name {
+  min-width: 119px;
+  padding-right: 4px;
   padding-top: 4px;
   vertical-align: middle;
-  width: 100px;
-  padding-right: 4px;
-
+  width: 145px;
+  text-align: center;
 }
+
 /** notifications **/
 
 div.notificationWrapper {

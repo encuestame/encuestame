@@ -1559,6 +1559,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(hashTagName);
         hashTag.setHits(0L);
+        hashTag.setSize(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }

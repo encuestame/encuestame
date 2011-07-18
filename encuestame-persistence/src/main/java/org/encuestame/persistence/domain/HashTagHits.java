@@ -36,7 +36,6 @@ import org.hibernate.search.annotations.Store;
  * Hash Tags Hits.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Jul 23, 2010 11:49:56 PM
- * @version Id:
  */
 
 @Entity
@@ -65,7 +64,7 @@ public class HashTagHits {
     @Id
     @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "hash_tag_id", unique = true, nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
     public Long getHitId() {
         return hitId;
     }
@@ -81,7 +80,7 @@ public class HashTagHits {
     * @return the hitDate
     */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "hitDate", nullable = false)
+    @Column(name = "hits_date", nullable = false)
     public Date getHitDate() {
         return hitDate;
     }
@@ -112,7 +111,7 @@ public class HashTagHits {
     * @return the ipAddress
     */
     @Field(index=Index.TOKENIZED, store=Store.YES)
-    @Column(name = "ip_address", nullable = false, length = 100)
+    @Column(name = "hits_ip_address", nullable = false, length = 100)
     public String getIpAddress() {
         return ipAddress;
     }
@@ -128,7 +127,7 @@ public class HashTagHits {
     * @return the userAccount
     */
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "hits_user_account")
     public UserAccount getUserAccount() {
         return userAccount;
     }
@@ -139,5 +138,4 @@ public class HashTagHits {
     public void setUserAccount(final UserAccount userAccount) {
         this.userAccount = userAccount;
     }
-
 }

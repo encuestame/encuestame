@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <author>Juan Picado</author>
+        <title>encuestame open source social survey</title>
+    </properties>
+    <meta name="keyword"
+        content="survey, poll, social network, java, open source, tweetpoll, free" />
+    <body>
+        <section name="encuestame open source social survey">
+            <div class="section">
+                             <p><b>encuestame</b> is a survey <b>free open source software</b> to create online Surveys, not
+                    only surveys, you also have the opportunity to get the user
+                    opinions
+                    in differents ways, also share and collect information trough social
+                    network applications like <b>twitter</b>, <b>facebook</b> as in your own website
+                    if
+                    you wish or another.</p>
+                <p>Survey your Facebook friends and Twitter followers to get quick
+                    responses with just one click your message and survey link
+                    automatically posts to your Facebook wall or Twitter feed,
+                    increasing
+                    your surveys response rate and distribution.</p>
+                <p> You can do from a simple survey to more complex
+                    one, according your needs.. Once you have collected all data,
+                    Encuestame offers you a better and easy handle of all your answers
+                    and results. Now you can graphically display real-time answers to
+                    your survey questions as they come in, also, statistical and
+                    graphical analysis with export facility.</p>
+                <p>You can do all this without worrying about limitations.</p>
+            </div>
+            <div class="social-secction">
+                <table>
+                    <tr style="background-color:#FFF; text-align: center;">
+                        <td style="background-color:#FFF; text-align: center;">
+                            <iframe
+                                src="http://www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fencuestame%2F80467777529%3Fref%3Dts&amp;width=350&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=true&amp;header=true&amp;height=427"
+                                scrolling="no" frameborder="0"
+                                style="border:none; overflow:hidden; width:350px; height:427px;"
+                                allowTransparency="true"></iframe>
+                        </td>
+                        <td style="background-color:#FFF; text-align: center;">
+                            <script src="js/twitter.js"></script>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+        <section name="What we offer?">
+            <ul>
+                <li>Produce and Publish online Surveys.</li>
+                <li>Unlimited number of surveys/tweetpoll/poll.</li>
+                <li>Supports multiple users.</li>
+                <li>SignIn/Up with social network accounts (Facebook and Google).
+                </li>
+                <li>Step-by-step Wizards walk you through the process.</li>
+                <li>Add Surveys geographic references in Google Maps.</li>
+                <li>View live results as it's being collected.</li>
+                <li>Share survey or Poll results</li>
+                <li>Many ways to Publication match your website, social
+                    networking profile or email campaign.</li>
+                <li>Twitter polls based on url response with facility to publish
+                    in many Accounts.</li>
+                <li>Post a quick online poll on your website or blog and let
+                    your customers, friends and fans share their opinions.</li>
+                <li>Poll embebed just about anywhere.</li>
+                <li>Reminders</li>
+                <li>Organize your Dashboard with the latest results, stats
+                    toptens or according to your interests</li>
+            </ul>
+        </section>
+        <section name="Links">
+            <ul>
+                <li>
+                    <a class="externalLink" href="http://sourceforge.net/projects/encuestame/files/">
+                        Downloads</a>
+                </li>
+                <li>
+                    <a class="externalLink" href="http://trac.encuesta.me/">
+                        Issues</a>
+                </li>
+                <li>
+                    <a class="externalLink" href="http://http://code.encuestame.org"> Browser Code</a>
+                </li>
+                <li>
+                    <a class="externalLink" href="http://metrics.encuestame.org/"> Metrics</a>
+                </li>
+                <li>
+                    <a class="externalLink" href="http://demo.encuestame.org/">
+                        Demo</a>
+                </li>
+                <li>
+                    <a class="externalLink" href="http://stats.encuestame.org/git/"> GIT Stats</a>
+                </li>
+                <li>
+                    <a class="externalLink" href="http://wiki.encuestame.org/en/Build_Project"> Build Guide</a>
+                </li>
+                <li>
+                    <a class="externalLink" href="http://webalizer.encuestame.org/"> Webalizer</a>
+                </li>
+                <li>
+                    <a class="externalLink"
+                        href="https://market.android.com/details?id=me.encuesta&amp;feature=search_result">
+                        Android App (Planning status </a>
+                </li>
+            </ul>
+        </section>
+        <section name="Thanks Section">
+            <div class="description">
+                This section is dedicated to people who support us every day.
+        </div>
+            <h3>Atlassian Open Source License</h3>
+            This project is supported by free open source
+            license adquired on
+            <a
+                href="http://www.atlassian.com/software/views/opensource-license-request.jsp"
+                target="_blank">
+                <b>Atlassian Open Source Program</b>
+            </a>
+            .
+            <div style="padding:15px;">
+                <a href="http://www.atlassian.com/software/jira">
+                    <img border="0" width="150" height="50" alt="Bug Tracking Software"
+                        title="Bug Tracking Software"
+                        src="http://www.atlassian.com/software/jira/images/badges/v2/bug_tracking_software_lg.png" />
+                </a>
+                <a href="http://www.atlassian.com/software/greenhopper">
+                    <img border="0" width="150" height="50"
+                        alt="Agile and Scrum Project Management Tool" title="Agile and Scrum Project Management Tool"
+                        src="http://www.atlassian.com/software/greenhopper/images/badges/v2/agile_scrum_project_management_lg.png" />
+                </a>
+                <a href="http://www.atlassian.com/software/confluence">
+                    <img border="0" width="150" height="50"
+                        alt="Collaboration Enterprise Wiki Software" title="Collaboration Enterprise Wiki Software"
+                        src="http://www.atlassian.com/software/confluence/images/badges/v2/collaboration_enterprise_wiki_software_lg.png" />
+                </a>
+                <a href="http://www.atlassian.com/software/bamboo" title="Continuous Integration Tools">
+                    <img border="0" width="150" height="50"
+                        alt="Continuous Integration Tools"
+                        src="http://www.atlassian.com/software/bamboo/images/badges/v2/continuous_integration_tools_lg.png" />
+                </a>
+                <a href="http://www.atlassian.com/software/clover" title="Code Coverage Tool">
+                    <img border="0" width="150" height="50" alt="Code Coverage Tool"
+                        src="http://www.atlassian.com/software/clover/images/badges/v2/code_coverage_lg.png" />
+                </a>
+                <a href="http://www.atlassian.com/software/crucible" title="Code Review Tools">
+                    <img border="0" width="150" height="50" alt="Code Review Tools"
+                        src="http://www.atlassian.com/software/crucible/images/badges/v2/code_review_lg.png" />
+                </a>
+                <a href="http://www.atlassian.com/software/fisheye" title="Source Code Analysis">
+                    <img border="0" width="150" height="50" alt="Source Code Analysis Tool"
+                        src="http://www.atlassian.com/software/fisheye/images/badges/v2/source_code_analysis_lg.png" />
+                </a>
+            </div>
+        </section>
+        <section name="Project Team Twitter">
+            <table style="background-color:#FFF;  text-align: center;">
+                <tr style="background-color:#FFF;  text-align: center;">
+                    <td style="background-color:#FFF;  text-align: center;">
+                        <span>
+                            <script src="js/jotadeveloper.js"></script>
+                        </span>
+                    </td>
+                    <td style="background-color:#FFF;  text-align: center;">
+                        <span>
+                            <script src="js/dianmora.js"></script>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </body>
+</document>

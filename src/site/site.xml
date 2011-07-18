@@ -24,35 +24,20 @@
         <head>
             <!-- Google Analytics - Start -->
             <script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-2527438-15']);
+		  _gaq.push(['_setDomainName', '.encuestame.org']);
+		  _gaq.push(['_trackPageview']);
 
-                var _gaq = _gaq || [];
-                _gaq.push(['_setAccount', 'UA-2527438-15']);
-                _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
 
-                (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
-                'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
-                })();
-
-        </script>
+		</script>
         <!-- Google Analytics - End -->
-
-	<!-- Piwik -->
-	<script type="text/javascript">
-	var pkBaseURL = (("https:" == document.location.protocol) ? "https://webalizer.encuestame.org/piwik/" : "http://webalizer.encuestame.org/piwik/");
-	document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-	</script><script type="text/javascript">
-	try {
-	var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
-	piwikTracker.trackPageView();
-	piwikTracker.enableLinkTracking();
-	} catch( err ) {}
-	</script><noscript><p><img src="http://webalizer.encuestame.org/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
-	<!-- End Piwik Tracking Code -->
+	<script src="http://widgets.twimg.com/j/2/widget.js"></script>
 
         <!-- SEO -->
         <title>Encuestame Java Open Source Survey System, Twitter, Poll, Surveys.</title>
@@ -91,11 +76,13 @@
             <item name="Features" href="features.html" />
             <item name="Demo Site" href="http://demo.encuestame.org" />
 	    <item name="CI" href="http://ci.encuestame.org" />
+	    <item name="Wiki" href="http://wiki.encuestame.org" />
 	    <item name="Bug Tracking" href="http://issues.encuestame.org" />
             <item name="Download" href="download.html" />
-            <item name="Releases" href="http://wiki.encuestame.org/en/Changelog" />
-            <item name="Source Repository" href="http://code.encuestame.org" />
+            <item name="Releases Notes" href="http://wiki.encuestame.org/display/RELEASE/Home" />
+            <item name="Source Browser Repository" href="http://code.encuestame.org" />
             <item name="License" href="license.html" />
+	    <item name="Screenshots" href="screenshots.html" />
         </menu>
 
         <menu ref="reports" />

@@ -209,6 +209,18 @@ public class TweetPollController extends AbstractBaseOperations {
     }
 
     /**
+     * TweetPoll Redirect.
+     * @param model model
+     * @return template
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/tweetpoll", method = RequestMethod.GET)
+    public String tweetPollControllerRedirect(final ModelMap model) {
+        log.debug("tweetpoll");
+        return "redirect:/user/tweetpoll/list";
+    }
+
+    /**
      * TweetPoll Controller.
      * @param model model
      * @return template

@@ -100,8 +100,10 @@ public class ValidateOperations {
      */
     public Boolean validateUsername(final String username, final UserAccount user, final UserAccount userLogged){
         log.debug("validating username... ");
-        Boolean valid = false;
-        if(username.length() >= MIN_USERNAME_LENGTH){
+        boolean valid = false;
+        if (username == null){
+            valid = false;
+        } else if(username.length() >= MIN_USERNAME_LENGTH){
             log.debug("fect user by username "+user);
             if (user == null) {
                 log.debug("username is valid..");
@@ -159,8 +161,10 @@ public class ValidateOperations {
     public Boolean validateUserEmail(final String email, final UserAccount user, final UserAccount userLogged){
         log.debug("validating email... ->"+email);
         log.debug("validating email UserAccount... ->"+user);
-        Boolean valid = false;
-        if (this.validateEmail(email)) {
+        boolean valid = false;
+        if(email == null) {
+            valid = false;
+        } else if (this.validateEmail(email)) {
             if (user == null) {
                 log.debug("email is valid.. 1 ");
                 getMessages().put("email", "email is available");

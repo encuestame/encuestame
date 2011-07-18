@@ -215,13 +215,13 @@
             <releases><enabled>false</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
         </repository>
-        <!-- For Spring releases -->
+        <!-- For Spring releases
         <repository>
             <id>org.springframework.maven.release</id>
             <name>Spring Maven Release Repository</name>
             <url>http://maven.springframework.org/release</url>
             <snapshots><enabled>false</enabled></snapshots>
-        </repository>
+        </repository> -->
         <!-- For developing against latest Spring milestones -->
         <repository>
             <id>org.springframework.maven.milestone</id>
@@ -521,7 +521,6 @@
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <report>dependencies</report>
                             <report>project-team</report>
                             <report>mailing-list</report>
                             <report>cim</report>
@@ -542,23 +541,6 @@
                          <format>xml</format>
                     </formats>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changelog-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <id>dual-report</id>
-                        <configuration>
-                            <type>range</type>
-                            <range>30</range>
-                        </configuration>
-                        <reports>
-                            <report>changelog</report>
-                            <report>file-activity</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -611,8 +593,7 @@
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>architect</role>
-                <role>developer</role>
+                <role>Lead Developer (Project founder)</role>
             </roles>
             <timezone>1</timezone>
         </developer>
@@ -623,8 +604,7 @@
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>architect</role>
-                <role>developer</role>
+                <role>Lead Developer (Project founder)</role>
             </roles>
             <timezone>1</timezone>
         </developer>

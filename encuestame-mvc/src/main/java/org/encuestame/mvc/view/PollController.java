@@ -18,6 +18,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,12 +27,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Class Description.
+ *
  * @author Picado, Juan juan@encuestame.org
  * @since Mar 11, 2010 9:21:37 PM
  * @version $Id: $
  */
 @Controller
-public class PollController  extends AbstractBaseOperations {
+public class PollController extends AbstractBaseOperations {
 
     /**
      * Log.
@@ -39,22 +41,46 @@ public class PollController  extends AbstractBaseOperations {
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Survey Controller.
+     * Poll Controller.
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/user/poll/{id}", method = RequestMethod.GET)
-    public String pollController(final  ModelMap model,
-                                @PathVariable Long id ) {
-    log.debug("poll Id -->" + id);
-    try {
-        final Poll poll = getPollService().getPollById(id);
-        model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
-        return "poll/detail";
-    } catch (EnMePollNotFoundException e) {
-        log.error(e);
-        e.printStackTrace();
-        return "404";
+    @RequestMapping(value = "/poll/{id}", method = RequestMethod.GET)
+    public String pollController(final ModelMap model, @PathVariable Long id) {
+        log.debug("poll Id -->" + id);
+        try {
+            final Poll poll = getPollService().getPollById(id);
+            model.addAttribute("poll",
+                    ConvertDomainBean.convertPollDomainToBean(poll));
+            return "poll/detail";
+        } catch (EnMePollNotFoundException e) {
+            log.error(e);
+            e.printStackTrace();
+            return "404";
+        }
     }
+
+    /**
+     * TweetPoll Redirect.
+     * @param model model
+     * @return template
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/poll", method = RequestMethod.GET)
+    public String tweetPollControllerRedirect(final ModelMap model) {
+        log.debug("tweetpoll");
+        return "redirect:/user/poll/list";
+    }
+
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/poll/list", method = RequestMethod.GET)
+    public String tweetPollController(final ModelMap model) {
+        log.debug("tweetpoll");
+        return "poll/list";
     }
 }
