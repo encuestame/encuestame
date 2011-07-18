@@ -44,19 +44,24 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
 
     private PasswordEncoder passwordEncoder = new PasswordEncoder();
 
+    /**
+     * {@link UserDetailsService}.
+     */
     @Autowired
     private UserDetailsService userDetailsService;
 
+    /**
+     */
     private boolean includeDetailsObject = true;
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider#additionalAuthenticationChecks(org.springframework.security.core.userdetails.UserDetails, org.springframework.security.authentication.UsernamePasswordAuthenticationToken)
+     */
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails,
             final UsernamePasswordAuthenticationToken authentication)
             throws AuthenticationException {
-        log.debug("additionalAuthenticationChecks *********************************************");
-        log.debug("additionalAuthenticationChecks *********************************************");
-        log.debug("additionalAuthenticationChecks *********************************************");
-        log.debug("additionalAuthenticationChecks *********************************************");
 
         Object salt = null;
 
@@ -67,7 +72,7 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
         final EnMeUserAccount detailsDataAccount = (EnMeUserAccount) userDetails;
 
         if (log.isDebugEnabled()) {
-            log.debug("detailsDataAccount "+detailsDataAccount.toString());
+            log.debug("detailsDataAccount " + detailsDataAccount.toString());
         }
 
         if (!detailsDataAccount.isSocialCredentials()) {
@@ -75,38 +80,26 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
             if (authentication.getCredentials() == null) {
                 logger.debug("Authentication failed: no credentials provided");
 
-                throw new BadCredentialsException(messages.getMessage(
-                        "AbstractUserDetailsAuthenticationProvider.badCredentials",
-                        "Bad credentials"), includeDetailsObject ? userDetails
-                        : null);
+                throw new BadCredentialsException(
+                        messages.getMessage(
+                                "AbstractUserDetailsAuthenticationProvider.badCredentials",
+                                "Bad credentials"),
+                        includeDetailsObject ? userDetails : null);
             }
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
 
-            String presentedPassword = authentication.getCredentials().toString();
-            log.debug("EnMe: presentedPassword "+presentedPassword);
-            log.debug("EnMe: presentedPassword details "+userDetails.getPassword());
-            log.debug("EnMe: presentedPassword details "+passwordEncoder.getClass());
+            String presentedPassword = authentication.getCredentials()
+                    .toString();
 
             if (!passwordEncoder.isPasswordValid(userDetails.getPassword(),
                     presentedPassword, salt)) {
                 logger.debug("Authentication failed: password does not match stored value");
 
-                throw new BadCredentialsException(messages.getMessage(
-                        "AbstractUserDetailsAuthenticationProvider.badCredentials",
-                        "Bad credentials"), includeDetailsObject ? userDetails
-                        : null);
+                throw new BadCredentialsException(
+                        messages.getMessage(
+                                "AbstractUserDetailsAuthenticationProvider.badCredentials",
+                                "Bad credentials"),
+                        includeDetailsObject ? userDetails : null);
             }
-
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
-            log.debug("PASOWRDDDDDDDD CHECKKKKKKKS *********************************************");
         } else {
             if (log.isInfoEnabled()) {
                 log.info("SOCIAL CREDENTIALS ON");
@@ -136,12 +129,6 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
             final String username,
             UsernamePasswordAuthenticationToken authentication)
             throws AuthenticationException {
-        log.info("retrieve user customized *********************************************************");
-        log.info("retrieve user customized *********************************************************");
-        log.info("retrieve user customized *********************************************************");
-        log.info("retrieve user customized *********************************************************");
-        log.info("retrieve user customized *********************************************************");
-        log.info("retrieve user customized *********************************************************");
 
         EnMeUserAccount loadedUser;
         try {
