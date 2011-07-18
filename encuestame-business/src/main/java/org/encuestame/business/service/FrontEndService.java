@@ -145,26 +145,16 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             maxResults = this.MAX_RESULTS;
         }
         log.debug("Max Results HashTag -----> "+maxResults);
-        List<HashTag> tags = new ArrayList<HashTag>();
-        tags.addAll(getHashTagDao().getHashTags(maxResults, start, tagCriteria));
-        // Selecciona el Max y Minimo de Hits en HashTag
-
+        final List<HashTag> tags = getHashTagDao().getHashTags(maxResults, start, tagCriteria);
         final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
         final long maxFrecuency =  (Long) maxMin.get(0)[0];
         final long minFrecuency =  (Long) maxMin.get(0)[1];
-        log.debug("MAX FRECUENCY ------> "+ maxFrecuency);
-        log.debug("MIN FRECUENCY ------> "+ minFrecuency);
         for (HashTag hashTag : tags) {
-           // log.debug("******///*********************************************///*********");
-            //  Selecciona el Numero de Uso del Tag en TweetPoll
-            final Long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(),2);
-            final Long relevance = tagFrecuency + hashTag.getHits();
-            final Double logFrecuency = EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency);
-           // log.debug("LOG FRECUENCY ------> "+ logFrecuency);
-            hashTag.setSize(logFrecuency.longValue());
-           // log.debug("Hashtag total size a Convertir ---> "+hashTag.getSize());
+            long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(), 2);
+            long relevance = (tagFrecuency + (hashTag.getHits() == null ? 0 : hashTag.getHits()));
+            double logFrecuency = EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency);
+            hashTag.setSize(Math.round(logFrecuency));
             getFrontEndDao().saveOrUpdate(hashTag);
-           // log.debug("******///*********************************************///*********");
         }
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
         return hashBean;

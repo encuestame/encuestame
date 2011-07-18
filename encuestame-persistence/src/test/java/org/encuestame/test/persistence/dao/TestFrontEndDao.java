@@ -60,7 +60,7 @@ public class TestFrontEndDao extends AbstractBase {
         assertNotNull(this.hashTagHit);
         flushIndexes();
         final List<HashTagHits> hitsbyIp = getFrontEndDao().getHashTagsHitByIp(this.ipAddress);
-        System.out.print("SIZE HASHTAG hit---> "+ hitsbyIp.size());
+       // System.out.print("SIZE HASHTAG hit---> "+ hitsbyIp.size());
         assertNotNull(hitsbyIp);
         assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
         assertEquals("Should be equals", hitsbyIp.size(),1);

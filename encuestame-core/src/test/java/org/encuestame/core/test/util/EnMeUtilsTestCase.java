@@ -25,23 +25,28 @@ import junit.framework.TestCase;
  */
 public class EnMeUtilsTestCase extends TestCase {
 
+    /**
+    * Test calculate size tag.
+    */
     @Test
-    public void testCalculateSizeTag(){
-        long f = 32;
-        long mi = 10;
-        long ma = 85;
-        float frecuency = Float.valueOf(f);
-        float max = Float.valueOf(ma);
-        float min = Float.valueOf(mi);
-        double fijo = Double.valueOf(12);
-
-        final float frecDiff = max - min;
-        //System.out.println("FRECUENCY Relevance ------> "+ frecuency);
-        //System.out.println("MIN FRECUENCY ------> "+ max);
-        //System.out.println("MAX FRECUENCY ------> "+ min);
-        //System.out.println("DIFFERENCE FRECUENCY ------> "+ frecDiff);
-        double perRelative = ((frecuency-min)/frecDiff);
-        final double perLog = (Math.log(perRelative)/Math.log(2))+fijo;
+    public void testCalculateSizeTag() {
+        final double calc1 = EnMeUtils.calculateSizeTag(40, 0, 0);
+        assertEquals(calc1, 12D);
+        final double calc2 = EnMeUtils.calculateSizeTag(3, 5, 1);
+        assertEquals(calc2, 13D);
+        final double calc3 = EnMeUtils.calculateSizeTag(40, 75, 15);
+        assertEquals(calc3, 17D);
+        final double calc4 = EnMeUtils.calculateSizeTag(75, 152, 75);
+        assertEquals(calc4, 12D);
+        final double calc5 = EnMeUtils.calculateSizeTag(140, 600000, 50);
+        assertEquals(calc5, 18D);
+        final double calc6 = EnMeUtils.calculateSizeTag(145001, 600000000, 5000);
+        assertEquals(calc6, 29D);
+        final double calc9 = EnMeUtils.calculateSizeTag(5003, 600000000, 5000);
+        assertEquals(calc9, 14D);
+        final double calc7 = EnMeUtils.calculateSizeTag(30, 85, 0);
+        assertEquals(calc7, 17D);
+        final double calc8 = EnMeUtils.calculateSizeTag(79, 85, 0);
+        assertEquals(calc8, 18D);
      }
-
 }

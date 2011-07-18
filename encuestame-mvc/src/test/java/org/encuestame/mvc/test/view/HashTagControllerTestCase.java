@@ -17,6 +17,9 @@ import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.mvc.view.HashTagController;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +43,15 @@ public class HashTagControllerTestCase extends AbstractMvcUnitBeans{
 
     @Test
     public void testHashTagController() throws Exception {
-      /*  final HashTag hashTag = createHashTag("software");
+        final HashTag hashTag = createHashTag("software", 50L);
+        final String ipAddress = "192.168.1.99";
+        final Account account = createAccount();
+        final UserAccount userAcc = createUserAccount("paola", account);
+        final HashTagHits tagHits = createHashTagHit(hashTag, ipAddress, userAcc);
         request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tag/software");
         final ModelAndView mav = handlerAdapter.handle(request, response,
                 hashTagController);
         assertViewName(mav, "tag/detail");
-*/
         System.out.println("Test hash Tag Controller");
 
     }

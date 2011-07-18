@@ -14,7 +14,6 @@ package org.encuestame.core.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -152,8 +151,10 @@ public class ConvertDomainBean {
         unitHashTag.setHits(hashTag.getHits());
         //TODO: ENCUESTAME-191
         // int x = (10 + (int)(Math.random() * ((40) - 5) + 10)); //TEMP.
-        log.debug("Hastag Number GET SIZE---> "+hashTag.getSize().intValue());
-        unitHashTag.setSize(hashTag.getSize().intValue());
+        if(hashTag.getSize() != null){
+            unitHashTag.setSize(hashTag.getSize().intValue());
+        }
+
         return unitHashTag;
     }
 
