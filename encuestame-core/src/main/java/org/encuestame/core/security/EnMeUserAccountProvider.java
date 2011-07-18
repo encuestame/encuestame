@@ -45,13 +45,6 @@ public class EnMeUserAccountProvider implements AuthenticationProvider {
             throws AuthenticationException {
          log.debug("EnMeUserAccountProvider "+authentication);
          if (authentication instanceof EnMeSecurityToken) {
-//             EnMeSecurityToken response = (EnMeSecurityToken) authentication;
-//                 // handle the various possibilities
-//                 // Lookup user details
-//                 final UserDetails userDetails =  SecurityUtils.convertUserAccountToUserDetails(response.getUserAccount(), true);
-//                     log.debug("user details "+userDetails);
-//             final Authentication auth = new EnMeSecurityToken(response.getUserAccount());
-             log.debug("EnMeUserAccountProvider -------- Return -------------");
              return authentication;
          } else {
              return null;
