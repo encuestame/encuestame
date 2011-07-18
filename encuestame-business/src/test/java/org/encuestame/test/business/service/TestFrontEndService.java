@@ -12,12 +12,18 @@
  */
 package org.encuestame.test.business.service;
 
+import java.util.List;
+
 import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.web.HashTagBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +53,23 @@ public class TestFrontEndService extends AbstractServiceBase{
 
     final String ipAddress2 = "192.168.1.2";
 
+    /** {@link TweetPoll}. **/
+    private TweetPoll tweetPoll;
+
     @Before
     public void initData(){
         this.secondary = createUserAccount("paola", createAccount());
-        this.hashTag = createHashTag("software");
         this.hashTagHit = createHashTagHit(hashTag, this.ipAddress, this.secondary);
+        final Question question = createQuestion("Who I am?", "");
+        createQuestionAnswer("yes", question, "12345");
+        createQuestionAnswer("no", question, "12346");
+        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
+        this.hashTag = createHashTag("hardware",50L);
+        final HashTag hashTag2 = createHashTag("programmer",80L);
+        this.tweetPoll.getHashTags().add(hashTag);
+        this.tweetPoll.getHashTags().add(hashTag2);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+
         //System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
     }
 
@@ -69,11 +87,81 @@ public class TestFrontEndService extends AbstractServiceBase{
         System.out.println(" previous tag hit --> "+ this.hashTag.getHits());
         final Boolean registerHit = getFrontEndService().registerHashTagHit(this.hashTag.getHashTag(), this.ipAddress,
                                     this.secondary.getUsername());
-        System.out.println(" Se agrego registro nuevo? --> "+ registerHit);
-        System.out.println(" tag hit anterior 2--> "+ this.hashTag.getHits());
         getFrontEndService().registerHashTagHit(this.hashTag.getHashTag(), this.ipAddress2,
                              this.secondary.getUsername());
-        System.out.println(" tag hit posterior --> "+ this.hashTag.getHits());
+    }
+
+    /**
+     * Test Get hash tags
+     */
+    @Test
+    public void testGetHashTags(){
+
+        /** Hash Tags **/
+        final HashTag hashTag1 = createHashTag("software",50L);
+        final HashTag hashTag2 = createHashTag("holidays",70L);
+        final HashTag hashTag3 = createHashTag("futboll",80L);
+        final HashTag hashTag4 = createHashTag("championsLeague",90L);
+        final HashTag hashTag5 = createHashTag("copaAmerica",150L);
+
+        /** Question 2 **/
+        final Question question2 = createQuestion("Question 1", "");
+        createQuestionAnswer("yes", question2, "12345");
+        createQuestionAnswer("no", question2, "12346");
+        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question2);
+
+        this.tweetPoll.getHashTags().add(hashTag1);
+        this.tweetPoll.getHashTags().add(hashTag2);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+
+        /** Question 3 **/
+        final Question question3 = createQuestion("Question 2", "");
+        createQuestionAnswer("yes", question3, "12345");
+        createQuestionAnswer("no", question3, "12346");
+        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question3);
+
+        this.tweetPoll.getHashTags().add(hashTag1);
+        this.tweetPoll.getHashTags().add(hashTag2);
+        this.tweetPoll.getHashTags().add(hashTag3);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+
+        /** Question 4 **/
+        final Question question4 = createQuestion("Question 3", "");
+        createQuestionAnswer("yes", question4, "12345");
+        createQuestionAnswer("no", question4, "12346");
+        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question4);
+
+        this.tweetPoll.getHashTags().add(hashTag1);
+        this.tweetPoll.getHashTags().add(hashTag4);
+        this.tweetPoll.getHashTags().add(hashTag5);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+
+        /** Question 5 **/
+        final Question question5 = createQuestion("Question 4", "");
+        createQuestionAnswer("yes", question5, "12345");
+        createQuestionAnswer("no", question5, "12346");
+        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question5);
+
+        this.tweetPoll.getHashTags().add(hashTag4);
+        this.tweetPoll.getHashTags().add(hashTag5);
+        this.tweetPoll.getHashTags().add(hashTag3);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+
+        final Question question6 = createQuestion("Question 5", "");
+        createQuestionAnswer("yes", question6, "12345");
+        createQuestionAnswer("no", question6, "12346");
+        this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question6);
+
+        this.tweetPoll.getHashTags().add(hashTag3);
+        this.tweetPoll.getHashTags().add(hashTag4);
+        this.tweetPoll.getHashTags().add(hashTag5);
+        getTweetPoll().saveOrUpdate(this.tweetPoll);
+
+        final List<HashTagBean> hashBean = getFrontEndService().getHashTags(30, 0, "");
+        System.out.println(" Hash Bean size --> "+hashBean.size());
+        for (HashTagBean hashTagBean : hashBean) {
+           // System.out.println(" Hash Bean size --> "+hashTagBean.getSize());
+        }
     }
 
     /**

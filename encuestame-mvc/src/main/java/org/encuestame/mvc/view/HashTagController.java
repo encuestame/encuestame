@@ -75,30 +75,22 @@ public class HashTagController extends AbstractBaseOperations{
     @RequestMapping(value = "/tag/{name}", method = RequestMethod.GET)
     public String tagController(ModelMap model , HttpServletRequest request,
                   HttpServletResponse response,
-                  @PathVariable String name) throws EnmeFailOperation{
+                  @PathVariable String name){
         final IFrontEndService service = getFrontService();
         log.debug("hashTag Name ---> "+name);
         name = filterValue(name);
-        final String IP = "192.168.1.3";
-            //getIpClient();
+        final String IP = getIpClient();
         log.info("IP" + IP);
-
-        // Search HashTag hits.
-        boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
-        // TODO: Check that previous hash Tag hit has been visited the same day.
-        if (!hashTagVisite) {
-           final Boolean tagHit = service.registerHashTagHit(name, IP, "paola");
-           System.out.println(" Registro hit? ---> "+tagHit);
-
-        }
         try {
+            // Search HashTag hits.
+              boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
+            // TODO: Check that previous hash Tag hit has been visited the same day.
+              if (!hashTagVisite) {
+               final Boolean tagHit = service.registerHashTagHit(name, IP, "paola");
+            }
             final HashTagBean tag = service.getHashTagItem(name);
-            log.debug("hashTag Id ---> "+ tag.getId());
             final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtag", request);
-            log.debug("TweetPolls by HashTag Id ---> "+ tweetPollbyTags.size());
-
             final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtagRated", request);
-            log.debug("TweetPolls by Top rated ---> "+ tweetPollbyTags.size());
             if (tag == null) {
                 return "pageNotFound";
             } else {
