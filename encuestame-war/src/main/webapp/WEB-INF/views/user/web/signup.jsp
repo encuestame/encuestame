@@ -61,10 +61,9 @@
                               </div>
                         </c:if>
                     </div>
-
             <div class="standby">
                 <div id="standby" dojoType="encuestame.org.core.shared.utils.StandBy" target="web-form-wrapper"></div>
-                </div>
+            </div>
             </form>
     </div>
 </div>

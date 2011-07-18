@@ -28,22 +28,24 @@ dojo.declare("encuestame.org.core.commons.signup.Signup",
         this.passWidget = dijit.byId("pssw");
         this.emailWidget = dijit.byId("em");
         this.realWidget = dijit.byId("rm");
-        this.standWidget = dijit.byId("standby");
                 if (this.userWidget == null || this.passWidget == null
-                || this.emailWidget == null || this.realWidget == null
-                || this.standWidget == null) {
-        } else {
-             dojo.connect(this._submit, "onclick", dojo.hitch(this, function(event) {
-                 console.debug("standby init");
-                 this.standWidget.startup();
-                 this.standWidget.start();
-                 console.debug("standby init 2");
-                 this._checkValidWidgets();
-             }));
-             dojo.connect(this._input, "ondoubleclick", dojo.hitch(this, function(event) {
-                 console.debug("calm down cowboy !!");
-             }));
-        }
+                || this.emailWidget == null || this.realWidget == null) {
+                    console.error("NO WIDGETS FOUND");
+                }
+                //dojo.connect(this._submit, "onclick", dojo.hitch(this, this._onSubmit()));
+                dojo.connect(this._input, "ondoubleclick", dojo.hitch(this, function(event) {
+                    console.debug("calm down cowboy !!");
+                }));
+        //}
+    },
+
+    _onSubmit : function(event) {
+        dojo.stopEvent(event);
+        console.debug("*****************************************");
+        dijit.byId("standby").startup();
+        dijit.byId("standby").start();
+        console.debug("standby init 2");
+        this._checkValidWidgets();
     },
 
     createNewAccountService : function(){
@@ -53,16 +55,12 @@ dojo.declare("encuestame.org.core.commons.signup.Signup",
 
     _checkValidWidgets : function(){
         console.debug("standby init 3");
-        console.debug("standby init 3",this.userWidget.isValid);
-        console.debug("standby init 3", this.passWidget.isValid);
-        console.debug("standby init 3",this.emailWidget.isValid);
-        console.debug("standby init 3",this.realWidget.isValid);
         if(this.userWidget.isValid && this.passWidget.isValid && this.emailWidget.isValid && this.realWidget.isValid){
             console.debug("_checkValidWidgets 1");
             this.createNewAccountService(this.userWidget, this.passWidget, this.emailWidget, this.realWidget);
         } else {
             console.debug("_checkValidWidgets 2");
-            this.standWidget.stop();
+            dijit.byId("standby").stop();
             this.userWidget.recheck("username");
             this.passWidget.validatePassword();
             this.emailWidget.recheck("email");

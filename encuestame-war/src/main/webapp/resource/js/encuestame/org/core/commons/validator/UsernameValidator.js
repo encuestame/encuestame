@@ -37,28 +37,30 @@ dojo.declare("encuestame.org.core.commons.validator.UsernameValidator",
      * @param data
      */
     _additionalErrorHandler : function(data){
-        if (data.suggestions.length > 0) {
-            dojo.style(this._block, "display", "block");
-            dojo.empty(this._suggest);
-            //<li><a href="#" data-sugg-sources="username,full_name" -->
-            //<!--                 data-sugg-technik="make_pairs">Jota148Jota</a></li>
-            dojo.style(this._suggest, "opacity", "0");
-            var fadeArgs = {
-                    node: this._suggest,
-                    duration: 500
-                };
-            dojo.fadeIn(fadeArgs).play();
-            dojo.forEach(data.suggestions,
-                    dojo.hitch(this,function(item) {
-                        var li = dojo.doc.createElement("li");
-                        li.innerHTML = item;
-                        dojo.connect(li, "onclick", dojo.hitch(this, function(event) {
-                            this._replaceUsername(item);
-                        }));
-                        this._suggest.appendChild(li);
-            }));
-        } else {
-            dojo.style(this._block, "display", "none");
+        if (data.suggestions) {
+            if (data.suggestions.length > 0) {
+                dojo.style(this._block, "display", "block");
+                dojo.empty(this._suggest);
+                //<li><a href="#" data-sugg-sources="username,full_name" -->
+                //<!--                 data-sugg-technik="make_pairs">Jota148Jota</a></li>
+                dojo.style(this._suggest, "opacity", "0");
+                var fadeArgs = {
+                        node: this._suggest,
+                        duration: 500
+                    };
+                dojo.fadeIn(fadeArgs).play();
+                dojo.forEach(data.suggestions,
+                        dojo.hitch(this,function(item) {
+                            var li = dojo.doc.createElement("li");
+                            li.innerHTML = item;
+                            dojo.connect(li, "onclick", dojo.hitch(this, function(event) {
+                                this._replaceUsername(item);
+                            }));
+                            this._suggest.appendChild(li);
+                }));
+            } else {
+                dojo.style(this._block, "display", "none");
+            }
         }
     },
 
