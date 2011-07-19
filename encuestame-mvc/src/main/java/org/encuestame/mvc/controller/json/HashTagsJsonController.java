@@ -53,6 +53,8 @@ public class HashTagsJsonController extends AbstractJsonController{
      */
     private final static Integer LIMIT_DEFAULT = 10;
 
+    private final static Integer CLOUD_LIMIT_DEFAULT = 20;
+
      /**
      * Get List of Users.
      * @param username username
@@ -115,9 +117,8 @@ public class HashTagsJsonController extends AbstractJsonController{
              final IFrontEndService service = getFrontService();
              final List<HashTagBean> hashTagList;
              if(limit == null){
-                 hashTagList = service.getHashTags(20, 0, "hashTagsCloud"); // TODO: Add to file properties limit to show hashtags.
-             }
-             else {
+                 hashTagList = service.getHashTags(CLOUD_LIMIT_DEFAULT, 0, "hashTagsCloud"); // TODO: Add to file properties limit to show hashtags.
+             } else {
                 hashTagList = service.getHashTags(limit, 0, "hashTagsCloud");
              }
              jsonResponse.put("cloud", hashTagList);

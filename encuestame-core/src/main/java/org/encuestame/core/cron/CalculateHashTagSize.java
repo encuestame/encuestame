@@ -12,7 +12,9 @@
  */
 package org.encuestame.core.cron;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -53,7 +55,13 @@ public class CalculateHashTagSize {
      */
     public void calculate(){
         log.info("************ Start hashtag calculate job **************");
+        double average = 0;
+        int total = 0;
+        double score = 0;
+        List<Long> maxMinTotal = new ArrayList<Long>();
         final List<HashTag> tags = getHashTagDao().getHashTags(null, 0, "");
+        log.debug("HashTag to process "+tags.size());
+        total = tags.size();
         final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
         final long maxFrecuency =  (Long) maxMin.get(0)[0];
         final long minFrecuency =  (Long) maxMin.get(0)[1];
@@ -61,13 +69,28 @@ public class CalculateHashTagSize {
             log.debug("Calculate for: "+hashTag.getHashTag()+" size after calculate: "+hashTag.getSize());
             long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(), 2);
             long relevance = (tagFrecuency + (hashTag.getHits() == null ? 0 : hashTag.getHits()));
-            double logFrecuency = EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency);
+            long logFrecuency = Math.round(EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency));
             log.debug("-------- log frecuency: "+logFrecuency);
-            hashTag.setSize(Math.round(logFrecuency));
-            log.debug("Calculate for: "+hashTag.getHashTag()+" size before calculate: "+Math.round(logFrecuency));
+            score += logFrecuency;
+            maxMinTotal.add(logFrecuency);
+            hashTag.setSize(Long.valueOf(logFrecuency));
+            log.debug("Calculate for: "+hashTag.getHashTag()+" size before calculate: "+logFrecuency);
             hashTag.setUpdatedDate(Calendar.getInstance().getTime());
             getHashTagDao().saveOrUpdate(hashTag);
         }
+        average = (double) score / (double)total;
+        log.info("*******************************");
+        log.info("******* Resume of Process *****");
+        log.info("-------------------------------");
+        log.info("|  Max Frec : "+maxFrecuency+"            |");
+        log.info("|  Min Frec : "+minFrecuency+"            |");
+        log.info("|  Total : "+total+"            |");
+        log.info("|  Score : "+Math.round(score)+"           |");
+        log.info("|  Average : "+Math.round(average)+"       |");
+        log.info("|  Max : "+Collections.max(maxMinTotal)+"               |");
+        log.info("|  Min : "+Collections.min(maxMinTotal)+"               |");
+        log.info("-------------------------------");
+        log.info("*******************************");
         log.info("************ Finished Start hashtag calculate job **************");
     }
 

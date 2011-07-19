@@ -70,15 +70,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             throw new EnMeSearchException("search params required.");
         } else {
             final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
-            if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
+            if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
+            } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
+            } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
+            } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
+            } else if(periodSelected.equals(SearchPeriods.ALLTIME)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(start, maxResults));
             }
             log.debug("TweetPoll "+items.size());
