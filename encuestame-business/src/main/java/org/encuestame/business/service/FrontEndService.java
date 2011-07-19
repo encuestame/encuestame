@@ -15,11 +15,12 @@ package org.encuestame.business.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
@@ -146,16 +147,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         }
         log.debug("Max Results HashTag -----> "+maxResults);
         final List<HashTag> tags = getHashTagDao().getHashTags(maxResults, start, tagCriteria);
-        final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
-        final long maxFrecuency =  (Long) maxMin.get(0)[0];
-        final long minFrecuency =  (Long) maxMin.get(0)[1];
-        for (HashTag hashTag : tags) {
-            long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(), 2);
-            long relevance = (tagFrecuency + (hashTag.getHits() == null ? 0 : hashTag.getHits()));
-            double logFrecuency = EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency);
-            hashTag.setSize(Math.round(logFrecuency));
-            getFrontEndDao().saveOrUpdate(hashTag);
-        }
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
         return hashBean;
     }
@@ -215,30 +206,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return tweetPollBean;
     }
 */
-    /**
-     * Get hashTag counter.
-     * @param hashTagId
-     * @param limit
-     * @return
-     */
-    public Long getHashTagFrecuency(final Long hashTagId, final Integer limit){
-        final Integer totalRelTweetPoll;
-        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit, "");
-        totalRelTweetPoll = tweetPolls.size();
-        //TODO:Pending count relevance hashtags for polls and surveys.
-        return totalRelTweetPoll.longValue();
-    }
-
-    /**
-     * Get Hit by Hash Tag
-     * @param hashTagId
-     * @return
-     */
-    public Long getHitbyHashTag(final Long hashTagId){
-        final Integer hit;
-        final HashTag tagHit = getHashTagDao().getHashTagById(hashTagId);
-        return (tagHit.getHits());
-    }
 
     /**
      * Check previous hash tag hit.

@@ -9,8 +9,16 @@
     </bean>
 
     <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/>
-
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
+    <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>
+
+    <bean id="calculateInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="calculateHashTagSize"/>
+        <property name="targetMethod" value="calculate"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
 
     <bean id="reindexingInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="reindexJob"/>
@@ -46,6 +54,13 @@
                     <property name="jobDetail" ref="reindexingAttachmentsJobDetail" />
                     <property name="cronExpression" value="0 15 10 * * ? *" />
                 </bean> -->
+                <bean id="calculateReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="calculateInvokingJobDetail" />
+                    <property name="cronExpression" value="0 0/1 * * * ?" />
+                    <!-- Every 5 minutes 0 0/5 * * * ? -->
+                    <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
+                    <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
+                </bean>
             </list>
         </property>
     </bean>

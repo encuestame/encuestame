@@ -78,11 +78,12 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
     * @see org.encuestame.persistence.dao.IHashTagDao#getHashTags(java.lang.Integer, java.lang.Integer)
     */
     @SuppressWarnings("unchecked")
-    public List<HashTag> getHashTags( final Integer maxResults,
+    public List<HashTag> getHashTags(
+                    final Integer maxResults,
                     final Integer start,
                     final String tagCriteria){
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
-        if(tagCriteria.equals("hashTagsCloud")){
+        if (tagCriteria.equals("hashTagsCloud")) {
             criteria.add(Restrictions.gt("hits", 0L));//review
         }
         else {
