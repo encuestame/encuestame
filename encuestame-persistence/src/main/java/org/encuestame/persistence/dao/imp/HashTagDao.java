@@ -84,9 +84,12 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                     final String tagCriteria){
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
         if (tagCriteria.equals("hashTagsCloud")) {
-            criteria.add(Restrictions.gt("hits", 0L));//review
-        }
-        else {
+            log.debug("getCurrentMidnightDate() "+getCurrentdMidnightDate());
+            criteria.add(Restrictions.gt("size", 12L));
+            criteria.add(Restrictions.gt("updatedDate", getCurrentdMidnightDate()));
+            criteria.addOrder(Order.desc("size"));
+            criteria.addOrder(Order.asc("hashTag"));
+        } else {
             criteria.addOrder(Order.desc("hits"));
             criteria.addOrder(Order.asc("hashTag"));
         }

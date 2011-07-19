@@ -29,7 +29,6 @@ dojo.declare(
                 dojo.hitch(this,function(item) {
                   var wrapper = dojo.doc.createElement("div");
                   dojo.style(wrapper, "display", "inline-block");
-                  //dojo.style(wrapper, "float", "left");
                   dojo.style(wrapper, "margin", "5px");
                   dojo.style(wrapper, "fontSize", "1"+item.size+"%");
                   var widget = new encuestame.org.core.commons.stream.HashTagInfo(

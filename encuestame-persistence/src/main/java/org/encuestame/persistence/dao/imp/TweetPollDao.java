@@ -137,7 +137,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             final Integer start){
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
          criteria.createAlias("tweetOwner","tweetOwner");
-         criteria.add(Restrictions.between("createDate", initDate, getCurrentMidnightDate()));
+         criteria.add(Restrictions.between("createDate", initDate, getNextDayMidnightDate()));
          criteria.add(Restrictions.eq("tweetOwner.id", userId));
          return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
