@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -675,12 +676,15 @@ public class TestSecurityService extends AbstractServiceBase{
 
     @Test
     public void testRemoveUnconfirmedAccount(){
+        final Calendar createdAt = Calendar.getInstance();
+        createdAt.add(Calendar.DATE, -2);
         final Account acc1 = createAccount(Boolean.TRUE);
-        final UserAccount userAcc1 = createUserAccount(Boolean.FALSE, "diana", acc1);
-        final UserAccount userAcc2 = createUserAccount(Boolean.FALSE, "paola", acc1);
-        final UserAccount userAcc3 = createUserAccount(Boolean.FALSE, "isabella", acc1);
+        createUserAccount(Boolean.FALSE, createdAt.getTime(), "diana", acc1);
+        createUserAccount(Boolean.FALSE, createdAt.getTime(), "paola", acc1);
+        createUserAccount(Boolean.FALSE, createdAt.getTime(), "isabella", acc1);
         System.out.println("Account Id before --->"+ acc1.getUid());
         securityService.removeUnconfirmedAccount(Boolean.FALSE);
-        //System.out.println("UserAccount without to set --->"+ msg);
+        // System.out.println("UserAccount without to set --->"+ msg);
+        assertEquals(acc1.getEnabled(), Boolean.FALSE);
     }
 }

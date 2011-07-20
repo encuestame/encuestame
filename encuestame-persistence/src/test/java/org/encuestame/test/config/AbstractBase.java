@@ -651,8 +651,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param account
      * @return
      */
-    public UserAccount createUserAccount(final Boolean status, final String name, final Account account){
+    public UserAccount createUserAccount(final Boolean status, final Date createdAt , final String name, final Account account){
         final UserAccount userAcc = this.createUserAccount(name, account);
+        userAcc.setEnjoyDate(createdAt);
         userAcc.setUserStatus(status);
         getAccountDao().saveOrUpdate(userAcc);
         return userAcc;

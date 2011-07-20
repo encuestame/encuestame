@@ -421,23 +421,37 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetUserAccountsbyStatus(){
+
+        final Calendar createdAt = Calendar.getInstance();
         final Calendar currentDate = Calendar.getInstance();
-        System.out.println("Fecha Actual ------>"+ currentDate.getTime());
+        // Date range
         final Calendar beforeDate = Calendar.getInstance();
-        beforeDate.add(Calendar.DATE, -8);
-        System.out.println("Fecha Before ------>"+ beforeDate.getTime());
+        beforeDate.add(Calendar.DATE, -7);
+        beforeDate.add(Calendar.HOUR, +5);
+        // final String expireValue = getProperty("account.expire.limit");
+        //System.out.println("Account Value  property------>"+ expireValue);
 
         for (int i = 0; i < 10; i++) {
-               createUserAccount(Boolean.TRUE, "diana-"+i, this.account);
+            createdAt.add(Calendar.DATE, -i);
+            createdAt.add(Calendar.HOUR, +i);
+               final UserAccount uAcc = createUserAccount(Boolean.FALSE, createdAt.getTime(), "diana-"+i, this.account);
+               //System.out.println("Account Date ------>"+ uAcc.getEnjoyDate());
         }
         //create disabled account.
-        createUserAccount(Boolean.FALSE, "user 2", this.account);
-        createUserAccount(Boolean.FALSE, "user 3", this.account);
-        createUserAccount(Boolean.FALSE, "user 4", this.account);
-        final List<UserAccount> userAcc = getAccountDao().getUserAccountsbyStatus(Boolean.FALSE);
+        createdAt.add(Calendar.MONTH, +1);
+        createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 2", this.account);
+        createdAt.add(Calendar.DATE, +10);
+        createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 3", this.account);
+        createdAt.add(Calendar.MONTH, +12);
+        createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 4", this.account);
+
+        System.out.println("Current Date ------>"+  currentDate.getTime());
+        System.out.println("Account Value  property------>"+ beforeDate.getTime());
+
+        final List<UserAccount> userAcc = getAccountDao().getUserAccountsbyStatus(Boolean.FALSE, beforeDate.getTime(), currentDate.getTime());
            //10 + 1 on @Before.
         System.out.println("DisableUser Accounts size--->"+ userAcc.size());
-        assertEquals("Should be equals", 3, userAcc.size());
+        assertEquals("Should be equals", 5, userAcc.size());
            if(log.isDebugEnabled()){
                for (UserAccount userStatus : userAcc) {
                    log.debug("d->"+userStatus);
