@@ -9,7 +9,17 @@
     <body>
         <section name="encuestame open source social survey">
             <div class="section">
-                             <p><b>encuestame</b> is a survey <b>free open source software</b> to create online Surveys, not
+	           <div style="float:left;padding-left:0px;margin:6px;">
+                        <!-- Place this tag in your head or just before your
+                        close body tag -->
+                        <script type="text/javascript"
+                        src="https://apis.google.com/js/plusone.js"></script>
+
+                        <!-- Place this tag where you want the +1 button to
+                        render -->
+                        <g:plusone size="tall"></g:plusone>
+                    </div>
+                    <p><b>encuestame</b> is a survey <b>free open source software</b> to create online Surveys, not
                     only surveys, you also have the opportunity to get the user
                     opinions
                     in differents ways, also share and collect information trough social
