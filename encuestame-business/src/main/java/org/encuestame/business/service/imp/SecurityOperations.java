@@ -474,4 +474,10 @@ public interface SecurityOperations extends ServiceOperations {
     SocialAccount findAccountConnectionBySocialProfileId(
             final SocialProvider provider,
             final String socialProfileId);
+
+    /**
+     * Remove unconfirmed account.
+     * @param status
+     */
+    void removeUnconfirmedAccount(final Boolean status);
 }

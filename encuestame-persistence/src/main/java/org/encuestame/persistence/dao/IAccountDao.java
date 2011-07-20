@@ -234,7 +234,7 @@ public interface IAccountDao extends IBaseDao {
      * Get list of id accounts only if are enabled.
      * @return list of id's.
      */
-    List<Long> getAccountsEnabled();
+    List<Long> getAccountsEnabled(final Boolean option);
 
     /**
      *
@@ -273,5 +273,11 @@ public interface IAccountDao extends IBaseDao {
      */
     UserAccount getUserAccountbyInvitationCode(final String inviteCode);
 
+    /**
+    * get {@link UserAccount} by status.
+    * @param status
+    * @return
+    */
+    List<UserAccount> getUserAccountsbyStatus(final Boolean status);
 
 }

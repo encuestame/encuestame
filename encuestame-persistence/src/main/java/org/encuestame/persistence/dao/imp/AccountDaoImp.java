@@ -184,9 +184,9 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      * Get list of id accounts only if are enabled.
      * @return list of id's.
      */
-    public List<Long> getAccountsEnabled(){
+    public List<Long> getAccountsEnabled(final Boolean status){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Account.class);
-        criteria.add(Restrictions.eq("enabled", Boolean.TRUE));
+        criteria.add(Restrictions.eq("enabled", status));
         criteria.setProjection(Projections.id());
         final List<Long> accountsId = getHibernateTemplate().findByCriteria(criteria);
         return accountsId;
@@ -289,6 +289,18 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
         criteria.add(Restrictions.eq("inviteCode", inviteCode));
         return (UserAccount) DataAccessUtils.uniqueResult(getHibernateTemplate()
                 .findByCriteria(criteria));
+    }
+
+    /**
+     * Get user accounts by status.
+     * @param status
+     * @return
+     */
+    public List<UserAccount> getUserAccountsbyStatus(final Boolean status){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
+        criteria.add(Restrictions.eq("userStatus", status));
+        final List<UserAccount> statusUserAccount = getHibernateTemplate().findByCriteria(criteria);
+        return statusUserAccount;
     }
 
 }

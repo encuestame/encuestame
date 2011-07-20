@@ -1264,6 +1264,24 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return notifications;
    }
 
+   /**
+    * Remove unconfirmed account.
+    */
+    public void removeUnconfirmedAccount(final Boolean status){
+        String msg = null;
+        final List<UserAccount> accountWithoutConfirmation = getAccountDao().getUserAccountsbyStatus(status);
+        System.out.println("Account without confirmation --->"+ accountWithoutConfirmation.size());
+        for (UserAccount userAcc  : accountWithoutConfirmation) {
+            final Account ownerAccount = getAccountDao().getUserById(userAcc.getAccount().getUid());
+            System.out.println( userAcc.getUid());
+            if(ownerAccount!=null){
+                ownerAccount.setEnabled(Boolean.FALSE);
+                userAcc.setUserStatus(Boolean.FALSE);
+                msg="setted";
+           }
+        }
+   }
+
     /**
      * Follow Operations
      * @author Picado, Juan juanATencuestame.org
@@ -1305,6 +1323,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             }
             return result;
         }
+
+
 
         /**
          * To String.
