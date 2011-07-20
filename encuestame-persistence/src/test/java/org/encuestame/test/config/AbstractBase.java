@@ -39,7 +39,6 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
-import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Attachment;
@@ -644,6 +643,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        getAccountDao().saveOrUpdate(account);
        return account;
     }
+
+    /**
+     * Create user account.
+     * @param status
+     * @param name
+     * @param account
+     * @return
+     */
+    public UserAccount createUserAccount(final Boolean status, final String name, final Account account){
+        final UserAccount userAcc = this.createUserAccount(name, account);
+        userAcc.setUserStatus(status);
+        getAccountDao().saveOrUpdate(userAcc);
+        return userAcc;
+     }
 
     /**
      * Create User.

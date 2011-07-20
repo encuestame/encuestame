@@ -15,6 +15,7 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -294,7 +295,7 @@ public class TestUserDao extends AbstractBase {
         createAccount(false);
         createAccount(false);
         createAccount(false);
-        final List<Long> d = getAccountDao().getAccountsEnabled();
+        final List<Long> d = getAccountDao().getAccountsEnabled(Boolean.TRUE);
         //20 + 2 on @Before.
         assertEquals("Should be equals", 22, d.size());
         if(log.isDebugEnabled()){
@@ -414,4 +415,33 @@ public class TestUserDao extends AbstractBase {
         assertNotNull(acc);
         assertEquals("Should be equals", acc.getInviteCode(), this.inviteCode);
     }
+
+    /**
+     * Test get user account list by status.
+     */
+    @Test
+    public void testGetUserAccountsbyStatus(){
+        final Calendar currentDate = Calendar.getInstance();
+        System.out.println("Fecha Actual ------>"+ currentDate.getTime());
+        final Calendar beforeDate = Calendar.getInstance();
+        beforeDate.add(Calendar.DATE, -8);
+        System.out.println("Fecha Before ------>"+ beforeDate.getTime());
+
+        for (int i = 0; i < 10; i++) {
+               createUserAccount(Boolean.TRUE, "diana-"+i, this.account);
+        }
+        //create disabled account.
+        createUserAccount(Boolean.FALSE, "user 2", this.account);
+        createUserAccount(Boolean.FALSE, "user 3", this.account);
+        createUserAccount(Boolean.FALSE, "user 4", this.account);
+        final List<UserAccount> userAcc = getAccountDao().getUserAccountsbyStatus(Boolean.FALSE);
+           //10 + 1 on @Before.
+        System.out.println("DisableUser Accounts size--->"+ userAcc.size());
+        assertEquals("Should be equals", 3, userAcc.size());
+           if(log.isDebugEnabled()){
+               for (UserAccount userStatus : userAcc) {
+                   log.debug("d->"+userStatus);
+               }
+           }
+       }
 }
