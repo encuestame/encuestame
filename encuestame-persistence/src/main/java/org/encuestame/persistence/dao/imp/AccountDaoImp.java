@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -296,9 +297,10 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      * @param status
      * @return
      */
-    public List<UserAccount> getUserAccountsbyStatus(final Boolean status){
+    public List<UserAccount> getUserAccountsbyStatus(final Boolean status, final Date beforeDate, final Date afterDate){
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("userStatus", status));
+        criteria.add(Restrictions.between("enjoyDate", beforeDate, afterDate));
         final List<UserAccount> statusUserAccount = getHibernateTemplate().findByCriteria(criteria);
         return statusUserAccount;
     }

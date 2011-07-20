@@ -56,10 +56,8 @@ public class RemoveUnconfirmedAccountJob {
         try {
           getSecurityService().removeUnconfirmedAccount(Boolean.FALSE);
         } catch (Exception e) {
-            // TODO: handle exception
-            log.debug(e);
+          log.error("Owner account not found to change status");
         }
-        log.debug("Unconfirmed Account");
     }
 
     /**

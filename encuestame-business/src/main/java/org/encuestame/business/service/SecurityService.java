@@ -26,6 +26,7 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.social.signin.SocialSignInOperations;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
@@ -1264,20 +1265,26 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return notifications;
    }
 
-   /**
-    * Remove unconfirmed account.
-    */
-    public void removeUnconfirmedAccount(final Boolean status){
-        String msg = null;
-        final List<UserAccount> accountWithoutConfirmation = getAccountDao().getUserAccountsbyStatus(status);
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#removeUnconfirmedAccount(java.lang.Boolean)
+     */
+    public void removeUnconfirmedAccount(final Boolean status) {
+        final String expireLimit = EnMePlaceHolderConfigurer.getProperty("account.expire.limit");
+        final Calendar currentDate = Calendar.getInstance();
+        final Calendar expireDate = Calendar.getInstance();
+        expireDate.add(Calendar.DATE, -Integer.parseInt(expireLimit));
+        log.debug("Before date ----->" + expireDate.getTime());
+
+        final List<UserAccount> accountWithoutConfirmation = getAccountDao().getUserAccountsbyStatus(status, expireDate.getTime(), currentDate.getTime());
         System.out.println("Account without confirmation --->"+ accountWithoutConfirmation.size());
         for (UserAccount userAcc  : accountWithoutConfirmation) {
             final Account ownerAccount = getAccountDao().getUserById(userAcc.getAccount().getUid());
-            System.out.println( userAcc.getUid());
+            log.debug("User account id ----> " + userAcc.getUid());
+            log.debug("Owner account id ----> " + ownerAccount.getUid());
             if(ownerAccount!=null){
                 ownerAccount.setEnabled(Boolean.FALSE);
-                userAcc.setUserStatus(Boolean.FALSE);
-                msg="setted";
+                getAccountDao().saveOrUpdate(ownerAccount);
            }
         }
    }
