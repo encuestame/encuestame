@@ -27,6 +27,7 @@ dojo.declare(
         typeChart : ['Bars', 'Pie', 'Lines'],
         //post create
         postCreate : function(){
+            console.debug("DETAIL", this.data);
             dojo.subscribe("/encuestame/tweetpoll/detail/update", this, "updateDetail");
             dojo.subscribe("/encuestame/tweetpoll/detail/chart/render", this, "render");
         },
@@ -35,7 +36,6 @@ dojo.declare(
          * Update Detail.
          */
         updateDetail : function(data){
-            console.debug("data 1", data);
             if(data != null){
                 this.loadContent(data);
             } else {
@@ -92,7 +92,7 @@ dojo.declare(
        },
 
         error : function(){
-            console.error("error");
+            console.error("tweetpoll list errorrrrrrrrr ");
         },
 
         /**
@@ -100,7 +100,6 @@ dojo.declare(
          */
         loadContent : function(data){
             this.data = data;
-            this._title.innerHTML = this.data.questionBean.questionName;
             this.displayChart(this.typeChart[1]);
             //Build Detail.
             dojo.empty(this._detailItems);
@@ -192,7 +191,7 @@ dojo.declare(
                 } else if(type == this.typeChart[1]){
                     this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id, results);
                 }
-                this.render();
+                //this.render();
             });;
             this._callService(response, encuestame.service.list.VotesTweetPoll);
         },

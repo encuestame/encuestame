@@ -193,38 +193,38 @@ encuestame.error.session = function(message){
  * Create New Error Dialog.
  */
 encuestame.error.createDialog = function(title, content, addcloseButton){
-    var node = dojo.byId("errorHandler");
-    console.debug("node", node);
-    if(node != null){
-        if (encuestame.error.dialog != null){
-             encuestame.error.dialog.open ? encuestame.error.dialog.hide() : "";
-        } else {
-        }
-        dojo.empty(node);
-        //close button validation
-        addcloseButton = addcloseButton == null ? false : addcloseButton;
-        encuestame.error.dialog = new dijit.Dialog({
-              title: title,
-              content: content,
-              style: "width: 480px; height: 100px;"
-          });
-        if(addcloseButton){
-            var widgetButton = new dijit.form.Button({
-                label: "Close",
-                onClick: dojo.hitch(this, function(event) {
-                    dojo.stopEvent(event);
-                    encuestame.error.dialog.hide();
-                })
-            });
-            var content = encuestame.error.dialog.content;
-            content.appendChild(widgetButton.domNode);
-        }
-        console.debug("dialog", encuestame.error.dialog);
-        node.appendChild(encuestame.error.dialog.domNode);
-        encuestame.error.dialog.show();
-    } else {
-        console.error("no error handler dialog found");
-    }
+    //var node = dojo.byId("errorHandler");
+    console.error("error dialog "+title, content);
+//    if(node != null){
+//        if (encuestame.error.dialog != null){
+//             encuestame.error.dialog.open ? encuestame.error.dialog.hide() : "";
+//        } else {
+//        }
+//        dojo.empty(node);
+//        //close button validation
+//        addcloseButton = addcloseButton == null ? false : addcloseButton;
+//        encuestame.error.dialog = new dijit.Dialog({
+//              title: title,
+//              content: content,
+//              style: "width: 480px; height: 100px;"
+//          });
+//        if(addcloseButton){
+//            var widgetButton = new dijit.form.Button({
+//                label: "Close",
+//                onClick: dojo.hitch(this, function(event) {
+//                    dojo.stopEvent(event);
+//                    encuestame.error.dialog.hide();
+//                })
+//            });
+//            var content = encuestame.error.dialog.content;
+//            content.appendChild(widgetButton.domNode);
+//        }
+//        console.debug("dialog", encuestame.error.dialog);
+//        node.appendChild(encuestame.error.dialog.domNode);
+//        encuestame.error.dialog.show();
+//    } else {
+//        console.error("no error handler dialog found");
+//    }
 };
 
 encuestame.error.messages = {};

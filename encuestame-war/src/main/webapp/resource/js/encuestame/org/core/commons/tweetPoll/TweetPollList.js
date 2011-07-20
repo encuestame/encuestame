@@ -14,6 +14,7 @@ dojo.require("dojo.fx");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
+dojo.require("encuestame.org.core.commons.support.Wipe");
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollList",
         [dijit._Widget, dijit._Templated],{
@@ -21,7 +22,7 @@ dojo.declare(
         widgetsInTemplate: true,
         url : encuestame.service.list.listTweetPoll,
         listItems : null,
-        defaultSearch : "LASTDAY",
+        defaultSearch : "ALL",
         currentSearch : "",
         contextPath : "",
         showNew : false,
@@ -41,33 +42,6 @@ dojo.declare(
             dojo.stopEvent(event);
             this.start = this.start + this.max;
             this.loadTweetPolls({typeSearch : this.currentSearch});
-        },
-
-        _onSwichChange : function(event){
-            dojo.stopEvent(event);
-            console.debug("new");
-            location.href = this.contextPath + "/user/tweetpoll/new";
-            //future, should add effects.
-            /*var slideArgs = {
-                    node: "detail",
-                    top: dojo.coords("tweetListContent").t,
-                    left: dojo.coords("tweetListContent").l ,
-                    unit: "px"
-                };
-            console.debug("slide", slideArgs);
-            dojo.fx.slideTo(slideArgs).play();*/
-//            if(!this.showNew){
-//                dojo.style(dojo.byId("tweetListContent"), "display", "none");
-//                dojo.style(dojo.byId("newTweetPoll"), "display", "block");
-//                this._swichChange.innerHTML = "Show Lists";
-//            } else {
-//                dojo.style(dojo.byId("tweetListContent"), "display", "block");
-//                dojo.style(dojo.byId("newTweetPoll"), "display", "none");
-//                this._swichChange.innerHTML = "New TweetPoll";
-//            }
-//            this.showNew = !this.showNew;
-            //dijit.byId("newTweetPoll").show();
-            //dojo.publish("/encuestame/tweetpoll/create/reset");
         },
 
         _searchByAll : function(event){
@@ -141,6 +115,9 @@ dojo.declare(
             encuestame.service.xhrGet(this.url, params, load, error);
         },
 
+        /*
+         * create item.
+         */
         createTweetPollItem : function(data, i){
             var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem(
                     {
@@ -154,14 +131,22 @@ dojo.declare(
         }
  });
 
+/**
+ * Represents a row for each item of the tweetpoll list.
+ */
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollListItem",
         [dijit._Widget, dijit._Templated],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListItem.html"),
-        //widget
+        //enable widgets on template.
         widgetsInTemplate: true,
         //data
         data: null,
+        //seleted
+        selected : false,
+
+        panelWidget : null,
+
         //post create
         postCreate : function(){
             this.showInfo();
@@ -173,19 +158,15 @@ dojo.declare(
                 dojo.addClass(this._favourite, "selectedFavourite");
                 dojo.removeClass(this._favourite, "emptyFavourite");
             }
+            dojo.connect(this.domNode, "onclick", dojo.hitch(this, this._onClickItem));
+            this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._panel);
         },
 
         showInfo : function(){
 
         },
 
-        unselect : function(data){
-            if(data != this.data){
-                dojo.removeClass(this.domNode, "listItemTweetSeleted");
-            }
-        },
-
-        /**
+        /*
          * Call Service.
          */
         _callService : function(/* function after response */ load, url){
@@ -198,6 +179,9 @@ dojo.declare(
             encuestame.service.xhrGet(url, params, load, error);
         },
 
+        /*
+         * set favourite this item.
+         */
         _setFavourite : function(event){
             dojo.stopEvent(event);
             var load = dojo.hitch(this, function(data){
@@ -213,6 +197,9 @@ dojo.declare(
             this._callService(load, encuestame.service.list.favouriteTweetPoll);
         },
 
+        /*
+         *
+         */
         _setCloseTweetPoll : function(event){
              dojo.stopEvent(event);
             var load = dojo.hitch(this, function(data){
@@ -221,15 +208,50 @@ dojo.declare(
             this._callService(load, encuestame.service.list.changeTweetPollStatus);
         },
 
+        /*
+         * change background color on if selected.
+         */
         _changeBackGroundSelected : function(){
-            dojo.addClass(this.domNode, "listItemTweetSeleted");
+            if (this.selected) {
+               this._setUnselected();
+               this.panelWidget.wipeOutOne();
+               dojo.empty(this._panel);
+            } else {
+               dojo.addClass(this.domNode, "listItemTweetSeleted");
+               this._createDetail(this.data);
+               this.panelWidget.wipeInOne();
+            }
+            this.selected =!this.selected;
         },
 
+        _setUnselected : function(){
+            dojo.removeClass(this.domNode, "listItemTweetSeleted");
+        },
+
+        /*
+         * unselect this item.
+         */
+        unselect : function(id) {
+            if (this.selected && this != id) {
+                this._changeBackGroundSelected();
+            }
+        },
+
+        /*
+         * create detail.
+         */
+        _createDetail : function(data) {
+            var detail = new encuestame.org.core.commons.tweetPoll.TweetPollListDetail({data: data});
+            this._panel.appendChild(detail.domNode);
+            dojo.publish("/encuestame/tweetpoll/detail/update", [data]);
+        },
+
+        /*
+         * on click on the widget dom node.
+         */
         _onClickItem : function(event){
              dojo.stopEvent(event);
-             console.debug("_onClickItem");
-             dojo.publish("/encuestame/tweetpoll/detail/update", [this.data]);
              this._changeBackGroundSelected();
-             dojo.publish("/encuestame/tweetpoll/item/unselect", [this.data]);
+             dojo.publish("/encuestame/tweetpoll/item/unselect", [this]);
         }
 });

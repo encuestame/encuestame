@@ -87,17 +87,20 @@ dojo.declare("encuestame.org.core.commons.panel.PanelBarItem",
         }
     },
 
+    /*
+     * TODO: migrate to WIPE class.
+     */
     _change : function(){
         if(this.collapsed){
-            this.wipeOutOne();
+            this.wipeOutOne(); //this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._panel);
         } else {
-            this.wipeInOne();
+            this.wipeInOne(); //this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._panel);
         }
         this.collapsed = !this.collapsed;
     },
 
     /*
-     *
+     * @deprecated
      */
     wipeInOne: function() {
         if (this._item) {
@@ -110,7 +113,7 @@ dojo.declare("encuestame.org.core.commons.panel.PanelBarItem",
     },
 
     /*
-     *
+     * @deprecated
      */
     wipeOutOne : function() {
         if (this._item) {
