@@ -66,7 +66,7 @@ public class FileUploadController extends AbstractBaseOperations {
             String filePath = null;
             try {
                 log.debug("getting file path for this user");
-                filePath = getPictureService().getAccountUserPicturePath(getUserPrincipalUsername());
+                //filePath = getPictureService().getAccountUserPicturePath(getUserPrincipalUsername());
                 InputStream stream = multipartFile.getInputStream();
                 try {
                     //generate thumbnails
@@ -89,9 +89,6 @@ public class FileUploadController extends AbstractBaseOperations {
             } catch (IOException e) {
                 e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
-            } catch (EnMeNoResultsFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
             // Save the file here
             mav.addObject("status", "saved");

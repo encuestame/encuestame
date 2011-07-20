@@ -12,6 +12,8 @@ log/
 *./*.log*
 *.settings/*
 */.classpath
+*/.clover
+*/.clover/*
 */buildNumber.properties
 buildNumber.properties
 */.project

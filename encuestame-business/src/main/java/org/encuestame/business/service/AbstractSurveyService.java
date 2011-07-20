@@ -40,7 +40,6 @@ import org.encuestame.core.social.IdenticaAPIOperations;
 import org.encuestame.core.social.LinkedInAPIOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
-import org.encuestame.core.util.MD5Utils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -57,6 +56,8 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.TweetPublishedMetadata;
@@ -64,6 +65,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
@@ -147,6 +149,7 @@ public class AbstractSurveyService extends AbstractChartService {
         answer.setQuestions(question);
         answer.setAnswer(answerBean.getAnswers());
         answer.setProvider(answerBean.getShortUrlType());
+        answer.setColor(PictureUtils.getRandomHexColor());
         answer.setUniqueAnserHash(answerBean.getAnswerHash());
         this.getQuestionDao().saveOrUpdate(answer);
         answerBean.setAnswerId(answer.getQuestionAnswerId());
@@ -610,25 +613,6 @@ public class AbstractSurveyService extends AbstractChartService {
         pollResult.setTweetPollSwitch(pollSwitch);
         pollResult.setTweetResponseDate(new Date());
         getTweetPollDao().saveOrUpdate(pollResult);
-    }
-
-    /**
-     * Get Results By {@link TweetPoll}.
-     * @param tweetPollId tweetPoll Id
-     * @return list of {@link UnitTweetPollResult}
-     * @throws EnMeNoResultsFoundException exception
-     */
-    public List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException{
-        final List<UnitTweetPollResult> pollResults = new ArrayList<UnitTweetPollResult>();
-        final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-        for (QuestionAnswer questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
-              final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPoll, questionsAnswers);
-              final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
-              tweetPollResult.setResults(Long.valueOf(result.get(0)[1].toString()));
-              tweetPollResult.setAnswersBean(ConvertDomainBean.convertAnswerToBean(questionsAnswers));
-              pollResults.add(tweetPollResult);
-        }
-        return pollResults;
     }
 
     /**

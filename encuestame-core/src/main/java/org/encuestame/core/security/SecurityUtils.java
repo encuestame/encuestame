@@ -19,10 +19,11 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.details.EnMeSocialUserAccount;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
-import org.encuestame.core.security.details.SocialAuthenticationToken;
+import org.encuestame.core.security.token.EnMeSecurityToken;
+import org.encuestame.core.security.token.SocialAuthenticationToken;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.security.AccountConnection;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,8 +49,8 @@ public class SecurityUtils {
      * @param user
      * @return
      */
-    public static EnMeSocialUserAccount convertUserAccountToUserDetails(final AccountConnection connection) {
-        final UserAccount user = connection.getUserAccout();
+    public static EnMeSocialUserAccount convertUserAccountToUserDetails(final SocialAccount connection) {
+        final UserAccount user = connection.getUserOwner();
         final Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
         final EnMeSocialUserAccount enMeSocialUserAccount = new EnMeSocialUserAccount(user.getUsername(),
@@ -118,8 +119,8 @@ public class SecurityUtils {
      * @param password
      * @param socialSignIn
      */
-    public static void socialAuthentication(final AccountConnection accountConnection) {
-        UserAccount account = accountConnection.getUserAccout();
+    public static void socialAuthentication(final SocialAccount accountConnection) {
+        final UserAccount account = accountConnection.getUserOwner();
         log.info("Register SOCIAL LOGIN USER: " + account.getUsername());
         // building granted authorities
         final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
@@ -139,6 +140,26 @@ public class SecurityUtils {
             log.info("Username " + account.getUsername() + " is logged at "
                     + new Date());
             log.debug("created EnMeSocialUserAccount" +details);
+        }
+    }
+
+    /**
+     * Authenticate {@link UserAccount}.
+     * @param account {@link UserAccount}.
+     */
+    public static void authenticate(final UserAccount account){
+        final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(account, true);
+        final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
+        .convertEnMePermission(account.getSecUserPermissions());
+        final EnMeSecurityToken securityToken = new EnMeSecurityToken(account);
+         //clear the context.
+        SecurityContextHolder.clearContext();
+        //set new authentication.
+        SecurityContextHolder.getContext().setAuthentication(securityToken);
+        if (log.isInfoEnabled()) {
+            log.info("Username " + account.getUsername() + " is logged at "
+                    + new Date());
+            log.debug("created EnMeUserAccountDetails" +details);
         }
     }
 

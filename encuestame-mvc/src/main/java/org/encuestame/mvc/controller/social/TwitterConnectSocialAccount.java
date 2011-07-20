@@ -16,12 +16,15 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,11 +93,25 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
+            HttpServletRequest httpRequest,
             WebRequest request,
-            final UserAccount account) throws Exception {
-        final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-        log.debug("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
-        this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
+            final UserAccount account) {
+        OAuth1Token accessToken;
+        try {
+            Assert.notNull(httpRequest);
+            accessToken = auth1RequestProvider.getAccessToken(verifier, request);
+        log.debug("OAUTH 1 ACCESS TOKEN:{ " + accessToken.toString());
+            this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
+        } catch (EnMeOAuthSecurityException e1) {
+            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+            e1.printStackTrace();
+        } catch (EnMeExistPreviousConnectionException e1) {
+            RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
+            e1.printStackTrace();
+        } catch (Exception e) {
+            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+            e.printStackTrace();
+        }
         return this.redirect+"#provider="+SocialProvider.TWITTER.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }

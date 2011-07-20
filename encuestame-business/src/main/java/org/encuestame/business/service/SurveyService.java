@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.ISurveyService;
 import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -33,6 +32,7 @@ import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.FolderBean;
@@ -103,15 +103,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @see org.encuestame.business.service.AbstractSurveyService#createQuestionAnswer(org.encuestame.utils.web.QuestionAnswerBean, org.encuestame.persistence.domain.question.Question)
      */
     public QuestionAnswer createQuestionAnswer(final QuestionAnswerBean answerBean, final Question question){
-            final QuestionAnswer answer = new QuestionAnswer();
-            answer.setQuestions(question);
-            answer.setAnswer(answerBean.getAnswers());
-            answer.setUrlAnswer(answerBean.getShortUrl());
-            //TODO: and real url? /{type}/answer/{id}
-            answer.setUniqueAnserHash(answerBean.getAnswerHash());
-            this.getQuestionDao().saveOrUpdate(answer);
-            answerBean.setAnswerId(answer.getQuestionAnswerId());
-            return answer;
+           //return createQuestionAnswer(answerBean, question);
+            return null; //TODO: fix java.lang.StackOverflowError
     }
 
     /**

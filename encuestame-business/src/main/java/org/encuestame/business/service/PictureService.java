@@ -24,7 +24,9 @@ import org.encuestame.business.setup.DirectorySetupOperations;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
+import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -58,20 +60,29 @@ public class PictureService extends AbstractBaseService implements IPictureServi
     }
 
     /**
-     * Get Profile Picture.
-     * @param id
-     * @param username
-     * @param pictureType
+     * Return a gravatar picture url.
+     * @param email
+     * @param size
+     * @return
+     * @throws EnMeGenericException
+     */
+    private byte[] getGravatarPicture(final String email, final PictureType size) throws EnMeGenericException {
+        log.debug("getGravatarPicture "+size);
+        log.debug("getGravatarPicture "+email);
+        return PictureUtils.downloadGravatar(email, size.toInt());
+    }
+
+    /**
+     *
+     * @param size
+     * @param account
      * @return
      * @throws IOException
-     * @throws EnMeNoResultsFoundException
      */
-    public byte[] getProfilePicture(
-            final String username,
-            final PictureType pictureType) throws IOException, EnMeNoResultsFoundException{
-        final StringBuilder url = new StringBuilder(getAccountUserPicturePath(username));
+    private byte[] getProfilePicture(final PictureType size, final UserAccount account) throws IOException{
+        final StringBuilder url = new StringBuilder(this.getPicturePath(account.getAccount()));
         url.append("/file");
-        url.append(pictureType.toString());
+        url.append(size.toInt().toString());
         url.append(".jpg");
         log.debug("getProfileURl "+url);
         final File file = new File(url.toString());
@@ -101,25 +112,43 @@ public class PictureService extends AbstractBaseService implements IPictureServi
         is.close();
         log.debug("getProfileURl "+bytes);
         return bytes;
-
     }
 
     /**
-     * Return real path folder for user account.
+     * Get Profile Picture.
+     * @param id
+     * @param username
+     * @param pictureType
      * @return
-     * @throws EnMeNoResultsFoundException
+     * @throws IOException
+     * @throws EnMeGenericException
      */
-    public String getAccountUserPicturePath(final String username)
-           throws EnMeNoResultsFoundException{
+    public byte[] getProfilePicture(
+            final String username,
+            final PictureType pictureType) throws IOException, EnMeGenericException {
+        log.debug("getProfilePicture "+username);
+        log.debug("getProfilePicture "+pictureType.toString());
         final UserAccount user = getUserAccount(username);
-        log.debug("getAccountUserPicturePath "+user);
-        return this.getPicturePath(user.getAccount());
+        if (user.getPictureSource().equals(PictureSource.UPLOADED)) {
+            return this.getProfilePicture(pictureType, user);
+        } else if (user.getPictureSource().equals(PictureSource.GRAVATAR)) {
+            return this.getGravatarPicture(user.getUserEmail(), pictureType);
+        } else {
+            return this.getGravatarPicture(user.getUserEmail(), pictureType);
+        }
     }
 
+
+    /**
+     * Picture Type.
+     * @author Picado, Juan juanATencuestame.org
+     * @since Jul 3, 2011
+     */
     public enum PictureType {
         ICON,
         THUMBNAIL,
         DEFAULT,
+        PROFILE,
         PREVIEW,
         WEB;
 
@@ -134,8 +163,24 @@ public class PictureService extends AbstractBaseService implements IPictureServi
             if (this == ICON) { pictureSize = "_22"; }
             else if (this == THUMBNAIL) { pictureSize = "_64"; }
             else if (this == DEFAULT) { pictureSize = "_128"; }
+            else if (this == PROFILE) { pictureSize = "_256"; }
             else if (this == PREVIEW) { pictureSize = "_375"; }
             else if (this == WEB) { pictureSize = "_900"; }
+            return pictureSize;
+        }
+
+        /**
+         * To integer.
+         * @return
+         */
+        public Integer toInt() {
+            Integer pictureSize = 64;
+            if (this == ICON) { pictureSize = 22; }
+            else if (this == THUMBNAIL) { pictureSize = 64; }
+            else if (this == DEFAULT) { pictureSize = 128; }
+            else if (this == PROFILE) { pictureSize = 256; }
+            else if (this == PREVIEW) { pictureSize = 375; }
+            else if (this == WEB) { pictureSize = 900; }
             return pictureSize;
         }
     }

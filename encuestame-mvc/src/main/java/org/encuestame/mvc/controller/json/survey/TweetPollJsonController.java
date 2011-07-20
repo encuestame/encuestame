@@ -264,14 +264,15 @@ public class TweetPollJsonController extends AbstractJsonController {
                 log.debug("Accounts:{" + accountBeans.size());
                 // multi publish social account.
                 final List<TweetPollSavedPublishedStatus> results = getTweetPollService()
-                        .publicMultiplesTweetAccounts(accountBeans,
+                        .publishMultiplesOnSocialAccounts(accountBeans,
                                 tweetPoll, tweetText);
-                tweetPoll.setCompleted(Boolean.TRUE);
                 tweetPoll.setPublishTweetPoll(Boolean.TRUE);
                 getTweetPollService().saveOrUpdateTweetPoll(tweetPoll);
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                 jsonResponse.put("socialPublish", ConvertDomainToJson.convertTweetPollStatusToJson(results));
                 setItemResponse(jsonResponse);
+                //create notification.
+                getTweetPollService().createTweetPollNotification(tweetPoll);
             }
         } catch (Exception e) {
             log.fatal(e);

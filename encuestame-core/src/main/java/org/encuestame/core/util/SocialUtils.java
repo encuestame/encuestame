@@ -57,6 +57,12 @@ public class SocialUtils {
     public final static Integer TWITTER_LIMIT = 140;
 
     /**
+     * Twitter authentictation error.
+     * TODO: move to {@link SocialUtils}.
+     */
+    public final static int TWITTER_AUTH_ERROR = 401;
+
+    /**
      * Get Google Stats from google short url.
      * @param googleShortUrl
      * @return
@@ -208,7 +214,7 @@ public class SocialUtils {
         final StringBuilder builder = new StringBuilder();
         if(SocialProvider.TWITTER.equals(provider)){
             String twitterUrl = EnMePlaceHolderConfigurer.getProperty("social.twitter");
-            twitterUrl = twitterUrl.replace("{username}", username);
+            twitterUrl = twitterUrl.replace("{username}", username); //TODO: possible NULLPOINTEREXCEPTION
             twitterUrl = twitterUrl.replace("{id}", id);
             builder.append(twitterUrl);
         } else if(SocialProvider.FACEBOOK.equals(provider)){

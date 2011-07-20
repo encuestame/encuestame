@@ -13,11 +13,10 @@
 
 package org.encuestame.mvc.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
-import net.tanesha.recaptcha.ReCaptchaResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,10 +24,12 @@ import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -81,7 +82,10 @@ public class TweetPollController extends AbstractBaseOperations {
             if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                 log.debug("tweetpoll answer not found");
                 model.put("message", "Tweet Not Valid.");
-            } else {
+            } else  if (tweetPoll.getTweetPoll().getCompleted()) {
+                log.debug("tweetpoll is archived");
+                model.put("message", "Tweetpoll is closed, no more votes.");
+            }else {
                 log.info("Validate Votting");
                     final String IP = getIpClient();
                     log.info("IP" + IP);
@@ -205,11 +209,23 @@ public class TweetPollController extends AbstractBaseOperations {
     }
 
     /**
+     * TweetPoll Redirect.
+     * @param model model
+     * @return template
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/tweetpoll", method = RequestMethod.GET)
+    public String tweetPollControllerRedirect(final ModelMap model) {
+        log.debug("tweetpoll");
+        return "redirect:/user/tweetpoll/list";
+    }
+
+    /**
      * TweetPoll Controller.
      * @param model model
      * @return template
      */
-    @PreAuthorize("hasRole('ENCUESTAME_EDITOR')")
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
         log.debug("tweetpoll new");
@@ -231,11 +247,14 @@ public class TweetPollController extends AbstractBaseOperations {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
         try {
-            //id = filterValue(id);
             slug = filterValue(slug);
-            final TweetPoll tp = getTweetPollService().getTweetPollById(id); //TODO: add slug param.
-            model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tp));
-            final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tp);
+            final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);
+            this.checkTweetPollStatus(tweetPoll);
+            model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
+            final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());
+            model.addAttribute("hashtags", ConvertDomainBean.convertListHashTagsToBean(hashtagsBean));
+            //answers.
+            final List<TweetPollSwitch> answers = getTweetPollService().getTweetPollSwitch(tweetPoll);
             model.addAttribute("answers", answers);
             return "tweetpoll/detail";
         } catch (EnMeTweetPollNotFoundException e) {

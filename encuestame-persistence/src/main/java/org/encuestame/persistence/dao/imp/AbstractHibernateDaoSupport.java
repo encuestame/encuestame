@@ -107,13 +107,22 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      }
 
     /**
-     * Return current midnight date.
+     * Return current midnight date +1.
      * @return midnight date
      */
-    public Date getCurrentMidnightDate(){
+    public Date getNextDayMidnightDate(){
         DateTime midNight = new DateTime();
         midNight = midNight.plusDays(1);
         final DateMidnight midnightDate  = midNight.toDateMidnight();
+        return midnightDate.toDate();
+    }
+
+    /**
+     * Return the current date midnight.
+     * @return
+     */
+    public Date getCurrentdMidnightDate(){
+        final DateMidnight midnightDate  = new DateTime().toDateMidnight();
         return midnightDate.toDate();
     }
 

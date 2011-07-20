@@ -47,10 +47,13 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private String createDate;
     private Boolean allowRepeatedVotes;
     private Long totalVotes;
-    private Date relativeTime;
+    private String relativeTime;
     private Integer maxRepeatedVotes;
     private Boolean limitVotesEnabled;
     private Boolean resumeTweetPollDashBoard;
+    private Date createdDateAt;
+    private Boolean limitVotesDate;
+    private String dateToLimit;
 
     /** Required Captcha to Vote. **/
     private Boolean captcha = false;
@@ -346,14 +349,14 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the relativeTime
      */
-    public Date getRelativeTime() {
+    public String getRelativeTime() {
         return relativeTime;
     }
 
     /**
      * @param relativeTime the relativeTime to set
      */
-    public void setRelativeTime(Date relativeTime) {
+    public void setRelativeTime(String relativeTime) {
         this.relativeTime = relativeTime;
     }
 
@@ -412,6 +415,50 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     */
     public void setOwnerUsername(final String ownerUsername) {
         this.ownerUsername = ownerUsername;
+    }
+
+    /**
+    * @return the createdDateAt
+    */
+    public Date getCreatedDateAt() {
+        return createdDateAt;
+    }
+
+    /**
+    * @param createdDateAt the createdDateAt to set
+    */
+    public void setCreatedDateAt(Date createdDateAt) {
+        this.createdDateAt = createdDateAt;
+    }
+
+
+
+    /**
+     * @return the limitVotesDate
+     */
+    public Boolean getLimitVotesDate() {
+        return limitVotesDate;
+    }
+
+    /**
+     * @param limitVotesDate the limitVotesDate to set
+     */
+    public void setLimitVotesDate(Boolean limitVotesDate) {
+        this.limitVotesDate = limitVotesDate;
+    }
+
+    /**
+     * @return the dateToLimit
+     */
+    public String getDateToLimit() {
+        return dateToLimit;
+    }
+
+    /**
+     * @param dateToLimit the dateToLimit to set
+     */
+    public void setDateToLimit(String dateToLimit) {
+        this.dateToLimit = dateToLimit;
     }
 
     /* (non-Javadoc)

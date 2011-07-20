@@ -23,6 +23,7 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IEmail;
+import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
 import org.encuestame.persistence.dao.IGroupDao;
@@ -37,7 +38,7 @@ import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
-import org.encuestame.persistence.dao.imp.HashTagDao;
+import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Attachment;
@@ -50,6 +51,7 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
@@ -61,7 +63,6 @@ import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
@@ -81,10 +82,10 @@ import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.oauth.AccessGrant;
-import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.PictureUtils;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +173,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** {@link HashTagDao} **/
     @Autowired
     private IHashTagDao hashTagDao;
+
+    /** {@link FrontEndDao} **/
+    @Autowired
+    private IFrontEndDao frontEndDao;
 
     /**
      * Get Property.
@@ -552,16 +557,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public UserAccount createUserAccount(
             final String name,
-            final Account secUser){
-        return createUserAccount(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
+            final Account account){
+        return createUserAccount(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", account);
     }
-
 
     public UserAccount createSecondaryUserGroup(
             final String name,
             final Account secUser,
             final Group group){
-        return createSecondaryUserGroup(name, name+"-"+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
+        return createSecondaryUserGroup(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
     }
 
 
@@ -581,7 +585,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         user.setCompleteName(name);
         user.setUsername(name);
         user.setPassword("12345");
-        user.setUserEmail(email);
+        user.setUserEmail(email.trim());
         user.setEnjoyDate(new Date());
         user.setInviteCode("xxxxxxx");
         user.setAccount(secUser);
@@ -639,6 +643,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        getAccountDao().saveOrUpdate(account);
        return account;
     }
+
+    /**
+     * Create user account.
+     * @param status
+     * @param name
+     * @param account
+     * @return
+     */
+    public UserAccount createUserAccount(final Boolean status, final String name, final Account account){
+        final UserAccount userAcc = this.createUserAccount(name, account);
+        userAcc.setUserStatus(status);
+        getAccountDao().saveOrUpdate(userAcc);
+        return userAcc;
+     }
 
     /**
      * Create User.
@@ -890,6 +908,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         questionsAnswers.setAnswer(answer);
         questionsAnswers.setQuestions(question);
         questionsAnswers.setUniqueAnserHash(hash);
+        questionsAnswers.setColor(PictureUtils.getRandomHexColor());
         questionsAnswers.setAnswerType(AnswerType.DEFAULT);
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
         //log.info("Q "+questionsAnswers.getQuestionAnswerId());
@@ -1022,6 +1041,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
        return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question);
     }
+
+    public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
+        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question);
+     }
 
     /**
      * Create Not Published {@link TweetPoll}.
@@ -1289,36 +1312,37 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param consumerKey
      * @param consumerSecret
      * @param secretToken
-     * @param secUsers
-     * @param twitterAccount
+     * @param userAccount
+     * @param socialProfileUsername
      * @return
      */
     public SocialAccount createSocialAccount(
             final String token,
             final String secretToken,
-            final Account secUsers,
-            final String twitterAccount,
+            final UserAccount userAccount,
+            final String socialProfileUsername,
             final Boolean verified,
             final SocialProvider provider){
-        final SocialAccount socialTwitterAccounts = new SocialAccount();
-        socialTwitterAccounts.setAccessToken(token);
-        socialTwitterAccounts.setSecretToken(secretToken);
-        socialTwitterAccounts.setAccount(secUsers);
+        final SocialAccount socialAccount = new SocialAccount();
+        socialAccount.setAccessToken(token);
+        socialAccount.setSecretToken(secretToken);
+        socialAccount.setAccount(userAccount.getAccount());
+        socialAccount.setUserOwner(userAccount);
         long randomNum = 100 + (int)(Math.random()* 4000);
-        socialTwitterAccounts.setSocialProfileId(String.valueOf(randomNum));
-        socialTwitterAccounts.setVerfied(verified);
-        socialTwitterAccounts.setAccounType(provider);
-        socialTwitterAccounts.setSocialAccountName(twitterAccount+RandomStringUtils.randomAlphanumeric(10));
-        socialTwitterAccounts.setUpgradedCredentials(new Date());
-        socialTwitterAccounts.setAddedAccount(new Date());
-        socialTwitterAccounts.setEmail("email");
-        socialTwitterAccounts.setProfileUrl("urll");
-        socialTwitterAccounts.setRealName("real name");
-        socialTwitterAccounts.setApplicationKey(RandomUtils.nextLong(new Random(50)));
-        socialTwitterAccounts.setRefreshToken("refresh_token_"+RandomStringUtils.randomAlphanumeric(10));
-        socialTwitterAccounts.setType(TypeAuth.OAUTH1);
-        getAccountDao().saveOrUpdate(socialTwitterAccounts);
-        return socialTwitterAccounts;
+        socialAccount.setSocialProfileId(String.valueOf(randomNum)+RandomStringUtils.randomAlphanumeric(10));
+        socialAccount.setVerfied(verified);
+        socialAccount.setAccounType(provider);
+        socialAccount.setSocialAccountName(socialProfileUsername+RandomStringUtils.randomAlphanumeric(10));
+        socialAccount.setUpgradedCredentials(new Date());
+        socialAccount.setAddedAccount(new Date());
+        socialAccount.setEmail("email"+String.valueOf(randomNum));
+        socialAccount.setProfileUrl("url"+String.valueOf(randomNum));
+        socialAccount.setRealName("real name"+String.valueOf(randomNum));
+        socialAccount.setApplicationKey(RandomUtils.nextLong(new Random(50)));
+        socialAccount.setRefreshToken("refresh_token_"+RandomStringUtils.randomAlphanumeric(10));
+        socialAccount.setType(TypeAuth.OAUTH1);
+        getAccountDao().saveOrUpdate(socialAccount);
+        return socialAccount;
      }
 
     /**
@@ -1326,7 +1350,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param account {@link Account}.
      * @return {@link SocialAccount}.
      */
-    public SocialAccount createDefaultSettedTwitterAccount(final Account account){
+    public SocialAccount createDefaultSettedSocialAccount(final UserAccount account){
         return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
@@ -1340,7 +1364,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param provider {@link SocialProvider}
      * @return {@link SocialAccount}.
      */
-    public SocialAccount createSocialProviderAccount(final Account account, final SocialProvider provider){
+    public SocialAccount createSocialProviderAccount(final UserAccount account, final SocialProvider provider){
         return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
@@ -1354,7 +1378,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param account
      * @return
      */
-    public SocialAccount createDefaultSettedVerifiedTwitterAccount(final Account account){
+    public SocialAccount createDefaultSettedVerifiedSocialAccount(final UserAccount account){
         return this.createSocialAccount(
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
@@ -1528,10 +1552,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Boolean readed){
          final Notification notification = new Notification();
          notification.setAdditionalDescription(message);
-         notification.setCreated(new Date());
+         notification.setCreated(Calendar.getInstance().getTime());
          notification.setDescription(description);
          notification.setReaded(readed);
          notification.setAccount(secUser);
+         notification.setUrlReference("http://google.es");
+         notification.setGroup(true);
          getNotification().saveOrUpdate(notification);
          return notification;
     }
@@ -1545,6 +1571,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(hashTagName);
         hashTag.setHits(0L);
+        hashTag.setUpdatedDate(new Date());
+        hashTag.setSize(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }
@@ -1590,30 +1618,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.hashTagDao = hashTagDao;
     }
 
+    /**
+    * @return the frontEndDao
+    */
+    public IFrontEndDao getFrontEndDao() {
+        return frontEndDao;
+    }
 
     /**
-     * Create {@link AccountConnection}.
-     * @param provider
-     * @param token
-     * @param socialAccountId
-     * @param userAccountId
-     * @param providerProfileUrl
-     * @return
-     */
-    public AccountConnection createConnection(
-            final SocialProvider provider,
-            final AccessGrant grant,
-            final String socialAccountId,
-            final UserAccount userAccount,
-            final SocialAccount socialAccount,
-            final String providerProfileUrl){
-        return getAccountDao().addConnection(provider,
-                grant,
-                socialAccountId,
-                userAccount,
-                null,
-                socialAccount);
+    * @param frontEndDao the frontEndDao to set
+    */
+    public void setFrontEndDao(IFrontEndDao frontEndDao) {
+        this.frontEndDao = frontEndDao;
     }
+
 
     /**
      * Create fake questions.
@@ -1673,4 +1691,43 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          getTweetPoll().saveOrUpdate(tweetPoll);
          return tweetPoll;
      }
+
+      /**
+      * @param tweetPoll
+      * @param tweetId
+      * @param socialAccount
+      * @param tweetText
+      * @return
+      */
+    public TweetPollSavedPublishedStatus createTweetPollSavedPublishedSTatus(
+            final TweetPoll tweetPoll, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+        final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
+        publishedStatus.setTweetPoll(tweetPoll);
+        publishedStatus.setStatus(org.encuestame.persistence.domain.tweetpoll.Status.SUCCESS);
+        publishedStatus.setTweetContent(tweetText);
+        publishedStatus.setTwitterAccount(socialAccount);
+        publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
+        publishedStatus.setPublicationDateTweet(new Date());
+        getTweetPoll().saveOrUpdate(publishedStatus);
+        return publishedStatus;
+    }
+
+
+    /**
+     * Create hash tag hit by ip.
+     * @param hashTagName
+     * @param ipAddress
+     * @return
+     */
+    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress, final UserAccount userAcc){
+       final Date hitDate = new Date();
+       final HashTagHits tagHits = new HashTagHits();
+       tagHits.setHitDate(hitDate);
+       tagHits.setIpAddress(ipAddress);
+       tagHits.setHashTagId(hashTag);
+       tagHits.setUserAccount(userAcc);
+       getHashTagDao().saveOrUpdate(tagHits);
+       return tagHits;
+    }
 }

@@ -6,8 +6,8 @@
     <div id= containerBody style="margin-bottom:25px">
         <div style= "margin:10px;font-size:12px; ">
              Hi,
-             <span style="color:#0101DF;font-size:medium;"> ${user.username} </span>.
-             Your new user account has been successfully set up.
+             <br/>
+             Thank you <span style="color:#0101DF;font-size:12px;"> ${user.username} </span>. Your registration has been successful.
         </div>
 
         <div id= "containerLink" style="margin:10px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">

@@ -25,6 +25,8 @@ import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.question.CatQuestionCategory;
@@ -162,6 +164,8 @@ public class TestHibernateDomains extends AbstractBase{
         questionsAns.setQuestions(createQuestion("how old are you", "textbox"));
         questionsAns.setAnswer("25");
         questionsAns.setUniqueAnserHash("");
+        questionsAns.setColor("#RRRRRR");
+        questionsAns.setCreatedDate(new Date());
         getQuestionDaoImp().saveOrUpdate(questionsAns);
         assertNotNull(questionsAns.getQuestionAnswerId());
     }
@@ -368,7 +372,6 @@ public class TestHibernateDomains extends AbstractBase{
          //questionCategory.setQuestionCategoryId(1L);
          questionCategory.setCategory("Education");
          getQuestionDaoImp().saveOrUpdate(questionCategory);
-         //System.out.println(questionCategory.getQuestionCategoryId());
          assertNotNull(questionCategory.getQuestionCategoryId());
      }
 
@@ -384,5 +387,40 @@ public class TestHibernateDomains extends AbstractBase{
          client.setClientTwitter("encuestame");
          client.setClientUrl("http://www.encuestame.org");
          client.setProject(createProject("encuestame","open source", "info", createAccount()));
+     }
+
+     /** HashTag domain. **/
+     @Test
+     public void testHashTag(){
+        final String hashTag = "";
+        final Long hits = 1L;
+        final Long size = 10L;
+        final HashTag tag = new HashTag();
+        tag.setHashTag(hashTag);
+        tag.setHits(hits);
+        tag.setSize(size);
+        tag.getTweetPoll().add(createTweetPollPublicated(
+                Boolean.TRUE,
+                Boolean.TRUE,
+                new Date(),
+                createUserAccount("juan carlos", createAccount()),
+                createQuestion("Did you do the homework?", "YesNo")));
+        getHashTagDao().saveOrUpdate(tag);
+        assertNotNull(tag.getHashTagId());
+     }
+
+     /** HashTag domain. **/
+     @Test
+     public void testHashTagHits(){
+        final Date hitDate = new Date();
+        final String ipAddress = "";
+        final String tagName = "programmer";
+        final HashTagHits tagHits = new HashTagHits();
+        tagHits.setHitDate(hitDate);
+        tagHits.setIpAddress(ipAddress);
+        tagHits.setUserAccount(createUserAccount("juan carlos", createAccount()));
+        tagHits.setHashTagId(createHashTag(tagName));
+        getHashTagDao().saveOrUpdate(tagHits);
+        assertNotNull(tagHits.getHashTagId());
      }
 }

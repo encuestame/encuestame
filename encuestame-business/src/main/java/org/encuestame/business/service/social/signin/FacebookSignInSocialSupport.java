@@ -12,51 +12,40 @@
  */
 package org.encuestame.business.service.social.signin;
 
+import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.business.service.social.api.FacebookAPITemplate;
 import org.encuestame.core.social.FacebookAPIOperations;
 import org.encuestame.core.social.SocialAPIOperations;
-import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
+
 /**
  * Facebook. Social Service.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 5:57:35 PM
  */
-public class FacebookSignInSocialSupport extends AbstractSocialSignInConnect<FacebookAPIOperations>{
+public class FacebookSignInSocialSupport extends AbstractSocialSignInConnect<FacebookAPIOperations> {
 
     /**
      *
      * @param accountDao
      * @throws Exception
      */
-    public FacebookSignInSocialSupport(final AccessGrant accessToken) throws Exception {
-        super(accessToken);
+    public FacebookSignInSocialSupport(
+            final AccessGrant accessToken,
+            final SecurityOperations securityOperations)
+            throws Exception {
+        super(accessToken, securityOperations);
     }
-
 
     @Override
     public SocialAPIOperations getAPISocialProvider() {
-       return new FacebookAPITemplate(getAccessGrant().getAccessToken());
-    }
-
-
-    @Override
-    public void disconnect(String accountId) {
-        // TODO Auto-generated method stub
+        return new FacebookAPITemplate(getAccessGrant().getAccessToken());
     }
 
     @Override
     public SocialProvider getProvider() {
         return SocialProvider.FACEBOOK;
-    }
-
-
-    @Override
-    public void disconnect() {
-        // TODO Auto-generated method stub
-
     }
 }

@@ -14,6 +14,7 @@ package org.encuestame.business.service;
 
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
@@ -30,14 +31,15 @@ public class MessageSourceFactoryBean implements MessageSource {
     /**
      *
      */
-    private MessageSource messagesource;
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      *
      * @param messagesource
      */
     public void setMessagesource(final MessageSource messagesource) {
-        this.messagesource = messagesource;
+        this.messageSource = messagesource;
     }
 
     /**
@@ -45,7 +47,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     public String getMessage(MessageSourceResolvable resolvable, Locale locale)
             throws NoSuchMessageException {
-        return messagesource.getMessage(resolvable, getDefaultLocale(locale));
+        return messageSource.getMessage(resolvable, getDefaultLocale(locale));
     }
 
     /**
@@ -53,7 +55,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     public String getMessage(String code, Object[] args, Locale locale)
             throws NoSuchMessageException {
-        return messagesource.getMessage(code, args, code,
+        return messageSource.getMessage(code, args, code,
                 getDefaultLocale(locale));
 
     }
@@ -63,7 +65,7 @@ public class MessageSourceFactoryBean implements MessageSource {
      */
     public String getMessage(String code, Object[] args, String defaultMessage,
             Locale locale) {
-        return messagesource.getMessage(code, args, defaultMessage,
+        return messageSource.getMessage(code, args, defaultMessage,
                 getDefaultLocale(locale));
     }
 
@@ -74,15 +76,6 @@ public class MessageSourceFactoryBean implements MessageSource {
      * @return
      */
     protected Locale getDefaultLocale(Locale locale) {
-        if (locale != null) {
-            return locale;
-        }
-        // try to get it from faces context
-        //FacesContext context = FacesContext.getCurrentInstance();
-        //if (context != null) {
-        //    return context.getViewRoot().getLocale();
-        //} else {
-            return null;
-        //}
+          return Locale.ENGLISH; //TODO: default locale?
     }
 }

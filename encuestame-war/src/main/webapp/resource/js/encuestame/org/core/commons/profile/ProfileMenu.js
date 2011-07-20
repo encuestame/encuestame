@@ -9,7 +9,11 @@ dojo.declare(
 
         _openBox : false,
 
-        contextPath : "",
+        contextPath : encuestame.contextDefault,
+
+        completeName : "",
+
+        username : "",
 
         /*
          *

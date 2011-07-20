@@ -48,7 +48,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Table(name = "social_account")
 @Indexed(index="SocialAccount")
-public class SocialAccount extends AbstractSocial{
+public class SocialAccount extends AbstractSocial {
 
     /**
      * Id.
@@ -59,6 +59,11 @@ public class SocialAccount extends AbstractSocial{
      * {@link Account}.
      */
     private Account account;
+
+    /**
+     * Reference to User Account.
+     */
+    private UserAccount userOwner;
 
     /**
      * Social Account Name.
@@ -141,7 +146,7 @@ public class SocialAccount extends AbstractSocial{
     @Id
     @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name="sec_user_twitter_id", unique=true)
+    @Column (name="social_account_id", unique=true)
     public Long getId() {
         return id;
     }
@@ -172,7 +177,7 @@ public class SocialAccount extends AbstractSocial{
      * @return the twitterAccount
      */
     @Field(index = Index.TOKENIZED, store = Store.YES)
-    @Column (name="social_account_name", nullable = false, unique = true)
+    @Column (name="social_account_name", nullable = false, unique=true)
     public String getSocialAccountName() {
         return socialAccountName;
     }
@@ -348,9 +353,22 @@ public class SocialAccount extends AbstractSocial{
     /**
      * @param prictureUrl the prictureUrl to set
      */
-    public void setPrictureUrl(String prictureUrl) {
+    public void setPrictureUrl(final String prictureUrl) {
         this.prictureUrl = prictureUrl;
     }
 
+    /**
+     * @return the userAccout
+     */
+    @ManyToOne()
+    public UserAccount getUserOwner() {
+        return userOwner;
+    }
 
+    /**
+     * @param userAccout the userAccout to set
+     */
+    public void setUserOwner(final UserAccount userOwnser) {
+        this.userOwner = userOwnser;
+    }
 }

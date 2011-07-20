@@ -13,8 +13,10 @@
 
     <!-- Authentication Manager -->
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider
+       <security:authentication-provider
             ref="socialAccountProvider" />
+       <security:authentication-provider
+            ref="enMeUserAccountProvider" />
         <security:authentication-provider
              user-service-ref="enMeAuthenticationUserService">
             <security:password-encoder ref="passwordEncoder" />
@@ -25,6 +27,8 @@
     <bean id="enmeprovider" class="org.encuestame.core.security.EnMeUsernameProvider" autowire="byName"  />
     <bean id="socialAccountProvider"
         class="org.encuestame.core.security.SocialAccountAuthenticationProvider"  autowire="byName" />
+    <bean id="enMeUserAccountProvider"
+        class="org.encuestame.core.security.EnMeUserAccountProvider"  autowire="byName" />
 
     <!-- User Services -->
     <bean id="enMeAuthenticationUserService" class="org.encuestame.core.security.service.EnMeUserServiceImp"
@@ -120,13 +124,11 @@
     </bean>
 
     <!-- reCaptcha -->
-    <bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl"
+    <bean id="reCaptcha" class="org.encuestame.utils.captcha.ReCaptchaImpl"
         scope="singleton">
         <property name="privateKey" value="6LdyFwUAAAAAAGB3BsjX-j5EgYzULsR3ftiUvwUd" />
         <property name="publicKey" value="6LdyFwUAAAAAAP6p1IeqUM7uMKUYyPazw-haEAUU" />
         <property name="includeNoscript" value="false" />
-        <!-- po ssl -->
-        <property name="recaptchaServer" value="https://api-secure.recaptcha.net" />
     </bean>
 
     <!-- Enable OAuth Security. <import resource="encuestame-security-oauth-context.xml"/> -->

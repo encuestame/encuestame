@@ -12,18 +12,19 @@
  */
 package org.encuestame.test.persistence.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.security.AccountConnection;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
@@ -32,7 +33,6 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
-import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,7 +84,7 @@ public class TestUserDao extends AbstractBase {
         this.account = createAccount();
         this.userAccount = createUserAccount("user 1", this.account);
         this.userAccount.setInviteCode(this.inviteCode);
-        this.socialAccount = createDefaultSettedVerifiedTwitterAccount(this.account);
+        this.socialAccount = createDefaultSettedVerifiedSocialAccount(this.userAccount);
         this.question = createQuestion("What day is today?", "");
     }
 
@@ -295,7 +295,7 @@ public class TestUserDao extends AbstractBase {
         createAccount(false);
         createAccount(false);
         createAccount(false);
-        final List<Long> d = getAccountDao().getAccountsEnabled();
+        final List<Long> d = getAccountDao().getAccountsEnabled(Boolean.TRUE);
         //20 + 2 on @Before.
         assertEquals("Should be equals", 22, d.size());
         if(log.isDebugEnabled()){
@@ -310,7 +310,7 @@ public class TestUserDao extends AbstractBase {
      */
     //@Test
     public void testgetSocialAccount(){
-        final SocialAccount ac = createSocialProviderAccount(this.account, SocialProvider.GOOGLE);
+        final SocialAccount ac = createSocialProviderAccount(this.userAccount, SocialProvider.GOOGLE);
         final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
         assertEquals("Should be equals", ac.getId(),ex.getId());
         final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE, ex.getSocialProfileId());
@@ -328,7 +328,7 @@ public class TestUserDao extends AbstractBase {
     }
 
     /**
-     * {@link AccountConnection} test case.
+     * {@link } test case.
      * @throws EnMeNoResultsFoundException
      */
     @Test
@@ -396,31 +396,6 @@ public class TestUserDao extends AbstractBase {
     }
 
     /**
-     * Test getAccountConnection.
-     */
-    @Test
-    public void testgetAccountConnection(){
-        final UserAccount account = createUserAccount("jota", this.account);
-        //final OAuth1Token token = new OAuth1Token("token", "secret");
-        final SocialAccount socialAccount = createSocialProviderAccount(
-                account.getAccount(),
-                SocialProvider.GOOGLE);
-        final AccountConnection ac = createConnection(SocialProvider.GOOGLE,
-                new AccessGrant("test1", "test2"), "f%$#FDSFS", account,
-                socialAccount, null);
-        createConnection(SocialProvider.TWITTER, new AccessGrant("test2", "test3"), "FD@432f%$#FDSFS", account,
-                socialAccount, null);
-        createConnection(SocialProvider.FACEBOOK, new AccessGrant("test2", "test3"), "FD@432f%$#FDSF54432S", account,
-                socialAccount, null);
-        final AccountConnection exAc = getAccountDao().findAccountConnectionBySocialProfileId(
-                SocialProvider.GOOGLE,
-                ac.getSocialProfileId());
-        assertNotNull(exAc);
-        assertEquals("Should be equals", ac.getAccountConnectionId(), exAc.getAccountConnectionId());
-        assertEquals("Should be equals", 3, getHibernateTemplate().find("from AccountConnection").size());
-    }
-
-    /**
      * Test getPublicProfiles.
      */
     @Test
@@ -440,4 +415,33 @@ public class TestUserDao extends AbstractBase {
         assertNotNull(acc);
         assertEquals("Should be equals", acc.getInviteCode(), this.inviteCode);
     }
+
+    /**
+     * Test get user account list by status.
+     */
+    @Test
+    public void testGetUserAccountsbyStatus(){
+        final Calendar currentDate = Calendar.getInstance();
+        System.out.println("Fecha Actual ------>"+ currentDate.getTime());
+        final Calendar beforeDate = Calendar.getInstance();
+        beforeDate.add(Calendar.DATE, -8);
+        System.out.println("Fecha Before ------>"+ beforeDate.getTime());
+
+        for (int i = 0; i < 10; i++) {
+               createUserAccount(Boolean.TRUE, "diana-"+i, this.account);
+        }
+        //create disabled account.
+        createUserAccount(Boolean.FALSE, "user 2", this.account);
+        createUserAccount(Boolean.FALSE, "user 3", this.account);
+        createUserAccount(Boolean.FALSE, "user 4", this.account);
+        final List<UserAccount> userAcc = getAccountDao().getUserAccountsbyStatus(Boolean.FALSE);
+           //10 + 1 on @Before.
+        System.out.println("DisableUser Accounts size--->"+ userAcc.size());
+        assertEquals("Should be equals", 3, userAcc.size());
+           if(log.isDebugEnabled()){
+               for (UserAccount userStatus : userAcc) {
+                   log.debug("d->"+userStatus);
+               }
+           }
+       }
 }

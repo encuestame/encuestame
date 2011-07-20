@@ -49,9 +49,24 @@ public class DateUtil {
     public static final String COMPLETE_FORMAT_TIME = "dd/MM/yy hh:mm:ss";
 
     /**
+     * Dojo date object format.
+     */
+    public static final SimpleDateFormat DOJO_DATE_FORMAT = new SimpleDateFormat("MMMMM d, yyyy hh:mm:ss");
+
+    /**
      * yyyy-MM-dd hh:mm:ss
      */
     public static final String DEFAULT_FORMAT_ALL = "yyyy-MM-dd hh:mm:ss";
+
+    /**
+     * Simple date format.
+     */
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
+
+    /**
+     * Simple time format.
+     */
+    public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
     /**
      * Get Format Date.
@@ -170,8 +185,14 @@ public class DateUtil {
         DateTime end = new DateTime(); //Devuelve la fecha actual al estilo Date
         //Buscar la diferencia
         int days = Days.daysBetween(start, end).getDays();
-        System.out.println("days = " + days);
      */
+
+    /**
+     *
+     */
+    public static DateClasificatedEnum getClasificated(final Date date){
+        return DateClasificatedEnum.TODAY;
+    }
 
     /**
      * Get Relative Time.
@@ -186,11 +207,8 @@ public class DateUtil {
         int MONTH = 30 * DAY;
         final HashMap<Integer, RelativeTimeEnum> numbers = new HashMap<Integer, RelativeTimeEnum>();
         final Integer seconds = DateUtil.getSecondsBetweenDates(startDate);
-        //System.out.println("seconds ago  "+seconds);
         final Integer minutes = DateUtil.getMinutesBetweenDates(startDate);
-        //System.out.println("minutes ago  "+minutes);
         final Integer hour = DateUtil.getHoursBetweenDates(startDate);
-        //System.out.println("hour ago  "+hour);
         final Integer days = DateUtil.getDaysBetweenDates(startDate);
         if (seconds < 0) {
             numbers.put(seconds, RelativeTimeEnum.RIGTH_NOW);

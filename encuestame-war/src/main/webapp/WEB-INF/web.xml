@@ -101,6 +101,11 @@
         <url-pattern>/survey/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+        <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/cloud</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/social/*</url-pattern>
@@ -108,7 +113,7 @@
     </filter-mapping>
      <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
-        <url-pattern>/signin/register/*</url-pattern>
+        <url-pattern>/home</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
     <filter-mapping>

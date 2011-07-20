@@ -1,32 +1,7 @@
-<div class="tweetPollListWrapper">
-         <div>
-            <div style="float: left; padding-top: 14px; padding-left: 17px; font-size: 112%; font-weight:
-                        bold; color: blue;cursor: pointer;
-            text-decoration: underline;">
-                    <div dojoAttachEvent="onclick:_onSwichChange" dojoAttachPoint="_swichChange">
-                        New TweetPoll
-                    </div>
-            </div>
-              <div class="navigation" id="basicNode">
-                    <table>
-                        <tr>
-                            <td>
-                                <label>Search by Keyword</label>
-                                <input type="text" dojoAttachPoint="_suggest"
-                                       dojoType="dijit.form.TextBox"
-                                       trim="true" class="inputClass"
-                                       ></input>
-                            </td>
-                            <td align="right" style="padding-left: 95px;">
-                               <a href="#"  dojoAttachEvent="onclick:_nextSearch">Next 10 Items</a>
-                            </td>
-                        </tr>
-                    </table>
-             </div>
-         </div>
+<div class="web-tweetpoll-wrapper">
          <div id="tweetListContent" class="tweetListContent">
-            <div class="options">
-                <div class="panel1">
+            <div class="web-tweetpoll-options">
+                <div class="web-tweetpoll-sidebar-panel">
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount">
                         <span>By Account</span>
                     </div>
@@ -46,15 +21,12 @@
                         <span>See All</span>
                     </div>
                 </div>
-                <div class="panel2" dojoAttachPoint="_groups">
-                    xxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxx
-                </div>
             </div>
-            <div class="listTweet" dojoAttachPoint="_items">
-
+            <div class="web-list-tweet" dojoAttachPoint="_items">
             </div>
-            <div class="tweetDetail" id="detailTweet">
+            <!-- <div class="tweetDetail" id="detailTweet">
                 <div id="detail" dojoType="encuestame.org.core.commons.tweetPoll.TweetPollListDetail"></div>
             </div>
+             -->
          </div>
 </div>

@@ -1,9 +1,7 @@
 @import url("button.css");
-@import url("profile.css");
 @import url("social.css");
 @import url("suggest.css");
 @import url("table.css");
-@import url("livePanel.css");
 
 html, body {
     height: 100%;
@@ -18,10 +16,12 @@ body {
 
 a{
    text-decoration: none;
+   color: #3E6D8E;
 }
 
 a:hover{
    text-decoration: underline;
+   color: #3E6D8E;
 }
 
 img {
@@ -46,8 +46,6 @@ a:hover{
     border: 0px solid #000;
     margin-bottom: 0px;
     width: 100%;
-    position: absolute;
-    left: 0;
     height: 41px;
 }
 
@@ -64,18 +62,16 @@ a:hover{
 }
 
 #mainWrapper {
-    min-height: 92%;
-    position: relative;
+    min-height: 100%;
+    overflow: auto;
 }
 
 #content-container {
-    padding-top: 39px;
-    min-height: 100%;
+    min-height: 450px;
 }
 
 #content-container #enme-content {
     margin: 0 auto;
-    width: 92%;
 }
 
 #content-container #enme-content div.errorWrapper {
@@ -135,6 +131,14 @@ a:hover{
   margin-top: 15px;
 }
 
+#footer .powered{
+ float: right;
+}
+
+.center {
+ text-align: center;
+}
+
 #footer .footer{
   font-size: 0.9em;
   height: 20px;
@@ -148,6 +152,8 @@ a:hover{
     font-size: 14px;
 }
 
+/** common classes **/
+
 .error{
     background-color: #C88080;
     -webkit-border-radius: 4px;
@@ -155,7 +161,38 @@ a:hover{
     border-radius: 4px;
     color: #FFF;
     font-weight: bold;
-    padding: 10px;
+    padding: 6px;
+}
+
+.defaultForm input {
+  border: 1px solid #CCCCCC;
+  -webkit-border-radius:  4px 4px 4px 4px;
+  -moz-border-radius:  4px 4px 4px 4px;
+  border-radius:  4px 4px 4px 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+  outline: 0 none;
+  padding: 8px 6px;
+  width: 382px;
+  -moz-box-shadow: 0px 0px 1px #CFCFCF;
+  -webkit-box-shadow: 0x 0px 1px #CFCFCF;
+  box-shadow: 0px 0px 1px #CFCFCF;
+}
+
+.defaultForm button.button {
+  background-color: #258E24;
+  border: 1px solid #CCCCCC;
+  -webkit-border-radius:  4px 4px 4px 4px;
+  -moz-border-radius:  4px 4px 4px 4px;
+  border-radius:  4px 4px 4px 4px;
+  -moz-box-shadow: 0px 0px 1px #888;
+  -webkit-box-shadow: 0x 0px 1px #888;
+  box-shadow: 0px 0px 1px #888;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: bold;
+  outline: 0 none;
+  padding: 8px 6px;
+  width: 395px;
 }
 
 .warning{
@@ -175,6 +212,16 @@ a:hover{
     border-radius: 2px;
    /* border-top: 1px solid #00FF59;
     border-bottom: 1px solid #00FF59;*/
+}
+
+.success-message{
+    color: #358852;
+    padding: 2px;
+}
+
+.error-message{
+    color: #C88080;
+    padding: 2px;
 }
 
 .success .rich-messages-label{
@@ -215,13 +262,50 @@ a:hover{
     font-weight: bold;
 }
 
+.warningImage{
+    background-image: url(../images/social/icons/1243963629_001_11.png);
+}
+
+.helpImage{
+    background-image: url(../images/social/icons/enme_question.gif);
+}
+
+.likeImage{
+    background-image: url(../images/icons/enme_like.png);
+}
+
+.unLikeImage{
+    background-image: url(../images/icons/emne_unlike.png);
+}
+
+.twitterImage{
+    background-image: url("../images/social/twitter/enme_icon_twitter.png");
+}
+
+.pollImage{
+    background-image: url(../images/icons/emne_poll.png);
+}
+
+
+div.defaultSectionTitle{
+     font-size: 140%;
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin-bottom: 5px;
+    background-color: #3E6D8E;
+    color: #FFF;
+    padding: 5px;
+
+}
+
+/** content container **/
+
 #content-container #enme-content div.publicMarginWrapper{
     width: 100%;
     margin-top: 29px;
 }
 
 #content-container #enme-content div.defaultMarginWrapper{
-    width: 85%;
     margin-top: 29px;
     margin: 0 auto;
 }
@@ -470,4 +554,421 @@ div.socialAccountPicker div.account div.detail{
 div.socialAccountPicker div.account div.icon{
     float: right;
     padding: 5px;
+}
+
+/** notifilication list **/
+
+div.web-notification-list{
+
+}
+
+div.web-notification-list list{
+
+}
+
+div.web-notification-list div.web-notification-list-item{
+    clear: both;
+    padding: 9px;
+    font-size: 100%;
+    text-align: left;
+    border-bottom: 1px solid #E9E9E9;
+}
+
+div.web-notification-list div.web-notification-list-item span{
+    margin-left: 5px;
+    margin-right: 10px;
+    font-size: 100%;
+}
+
+div.web-notification-list div.web-notification-list-item .icon{
+    width: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+div.web-notification-list div.web-notification-list-item .title{
+    font-weight: bold;
+    padding: 4px;
+    min-width: 265px;
+    max-width: 265px;
+    display: inline-block;
+}
+
+div.web-notification-list div.web-notification-list-item .description{
+    padding: 4px;
+    min-width: 405px;
+    display: inline-block;
+    max-width: 405px;
+
+}
+
+div.web-notification-list div.web-notification-list-item .date{
+    padding-left: 10px;
+    color: gray;
+    padding: 4px;
+    display: inline-block;
+}
+
+/********** HASHTAGS **************/
+
+div.web-hashtagName{
+    color: #5C8397;
+    font-size: 130%;
+}
+
+div.web-tags-tweetpolls{
+    margin-top: 4px;
+    width: 100%;
+
+}
+
+div.web-tweetpolls{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #0F0E0E;
+    padding: 5px 5px 5px 5px;
+     margin: 4px;
+}
+
+div.web-tweetpolls-time{
+
+}
+
+
+/*** Profile Menu **/
+
+/** profile menu **/
+div.profilePanel{
+    display: none;
+    position: absolute;
+    min-height: 120px;
+    min-width: 245px;
+    background-color: #444444;
+    right: 0px;
+    top: 30px;
+    z-index: 5px;
+    zoom: 1;
+    -moz-box-shadow: 1px 2px 3px #888888;
+    -webkit-box-shadow: 1px 2px 3px #888888;
+     box-shadow: 1px 2px 3px #888888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+     border-radius: 0px 0px 5px 5px;
+     z-index: 99999;
+}
+
+div.profileOpenPanel{
+    display: block;
+}
+div.profilePanel ul{
+    max-height: 350px;
+    overflow: hidden;
+}
+
+div.profilePanel li{
+    background-image: none;
+    clear: both;
+    display: block;
+    width: 215px;
+    float: left;
+    text-align: left;
+    list-style: none;
+    margin: 0px;
+    padding: 6px 15px;
+}
+div.profilePanel li:hover{
+    background-color: "#5F5F5F";
+}
+
+div.profilePanel li a:link{
+   color: #BABABA !important;
+   font-weight: normal;
+}
+
+div.profilePanel li a{
+    padding: 10px;
+    color: #BABABA !important;
+    font-weight: normal;
+}
+
+/** profile update wrapper **/
+
+div.accountUpdateWrapper{
+    padding: 10px;
+}
+
+/** Menu **/
+
+div.menuWrapper{
+    font-weight: bold;
+    -moz-box-shadow: 0px 2px 2px #888;
+    -webkit-box-shadow: 0px 2px 2px #888;
+     box-shadow: 0px 0px 2px #888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+     border-radius: 0px 0px 5px 5px;
+     background-color: #444444;
+     max-height : 34px;
+     padding-top: 3px;
+}
+
+div.menuWrapper .item {
+    display: inline-block;
+    border-radius: 4px 4px 4px 4px;
+}
+
+div.menuWrapper a:hover {
+    background-color: #555555;
+}
+
+div.menuWrapper .item a {
+    float: left;
+    text-decoration: none;
+    color: white;
+    padding: 7px 7px 7px 13px;
+    background-color: #444444;
+}
+
+div..menuWrapper .item a:visited {
+    color: white;
+}
+
+div..menuWrapper .item a:hover,.menuWrapper .item .current {
+    color: #444444;
+    background-color: #E8E8E8;
+    -moz-box-shadow: 0px 2px 2px #888;
+    -webkit-box-shadow: 0px 2px 2px #888;
+    box-shadow: 0px 0px 2px #888;
+}
+
+#profile_menu {
+    background: #aaaaaa;
+    border: solid 1px #666666;
+    width: 400px;
+    padding: 10px;
+    color: #FFFFFF;
+    position: absolute;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    min-height: 160px;
+    z-index: 500;
+   -webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
+    right: 120px !important;
+    top:37px;
+}
+
+#profile_menu li {
+    padding-bottom: 6px;
+    text-align: right;
+}
+
+#detail_profile {
+    padding-right: 10px;
+    border-right: 1px #DEDEDE solid;
+    height: 120px;
+    width: 230px;
+    float: left;
+    line-height: 12px;
+}
+
+#options_profile {
+    padding-left: 20px;
+    height: 120px;
+    width: 135px;
+    float: left;
+    line-height: 12px;
+    text-align: right;
+}
+
+#profile_menu label {
+    font-size: 11px;
+    font-weight: normal;
+}
+
+#profile_menu input {
+    font-size: 11px;
+    color: #333333;
+    margin-left: 10px;
+}
+
+#profile_menu button {
+    line-height: 24px;
+    float: right;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+div.menuWrapper div.rightSide {
+  float: right;
+  text-align: right;
+  width: 225px;
+}
+
+div.menuWrapper div.rightSide span {
+  display: inline-block;
+  margin-left: 3px;
+  margin-right: 3px;
+  overflow: auto;
+  vertical-align: middle;
+}
+
+/** web-profile-menu **/
+
+div.web-profile-menu {
+  color: #FFFFFF;
+  overflow: auto;
+  vertical-align: middle;
+  cursor: pointer;
+  min-width: 100px;
+  padding-top: 4px;
+}
+
+div.web-profile-menu:hover {
+    background-color: #555555;
+}
+
+div.web-profile-menu .image {
+  float: left;
+}
+
+div.web-profile-menu .real-name {
+  min-width: 119px;
+  padding-right: 4px;
+  padding-top: 4px;
+  vertical-align: middle;
+  width: 145px;
+  text-align: center;
+}
+
+/** notifications **/
+
+div.notificationWrapper {
+  min-height: 22px;
+  padding: 4px;
+}
+
+div.notificationWrapper:hover{
+    background-color: #5A5959;
+}
+
+div.livePanel{
+    display: none;
+    position: absolute;
+    min-height: 5px;
+    width: 400px;
+    background-color: #FFF;
+    right: 0px;
+    top: 30px;
+    -moz-box-shadow: 2px 2px 5px #888888;
+    -webkit-box-shadow: 2px 2px 5px #888888;
+     box-shadow: 2px 2px 5px #888888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+     border-radius: 0px 0px 5px 5px;
+     min-width: 345px;
+     max-width: 345px;
+     z-index: 20;
+}
+
+div.livePanel .panelItems{
+    min-height: 100%;
+}
+
+div.livePanel .final{
+    padding: 4px;
+    text-align: right;
+    font-weight: bold;
+    background-color: #E8E8E8;
+}
+div.livePanel .final a:link{
+    color: "#000";
+}
+
+div.openLivePanel{
+     display: block;
+}
+
+.notificationItem{
+    padding: 5px;
+    min-height: 30px;
+    text-align: left;
+}
+
+.notificationItem:hover{
+    background-color: #E8E8E8;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div.livePanel .notificationItem .left{
+    float: left;
+    min-height: 30px;
+    margin-left: 10px;
+    width: 50px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+div.livePanel .notificationItem .right{
+
+}
+
+div.livePanel .notificationItem .right .title{
+    font-size: 110%;
+}
+
+div.livePanel .notificationItem .right .description{
+    font-size: 80%;
+    color: grey;
+    font-weight: normal;
+    margin-left: 60px;
+}
+
+div.counter{
+    color: #FFF;
+    cursor: pointer;
+}
+
+div.notificationWrapper div.new{
+    color: red !important;
+}
+
+div.counter:hover{
+}
+
+/** profile view **/
+
+div.web-profile-wrapper{
+    margin: 10px;
+}
+
+div.web-profile-wrapper div.profile-name{
+    padding: 15px;
+    margin-bottom: 0px;
+}
+
+div.web-profile-wrapper div.picture {
+    float: left;
+}
+
+div.web-profile-wrapper ul{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+div.web-profile-wrapper .rss li img{
+    float: left;
+    margin-right: 10px;
+}
+
+div.web-profile-wrapper .rss li {
+  border-bottom: 1px dotted #B8B7B7;
+  display: block;
+  padding-left: 5px;
+  vertical-align: middle;
 }

@@ -12,11 +12,20 @@
  */
 package org.encuestame.mvc.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
-import org.encuestame.core.util.MD5Utils;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.PictureUtils;
 import org.jfree.util.Log;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * Dojo Widget Utils.
@@ -25,8 +34,6 @@ import org.jfree.util.Log;
  * @version $Id:$
  */
 public class WidgetUtil {
-
-    private static final String GRAVATAR_URL = "http://www.gravatar.com/avatar/";
 
     private static final String URL = "http://";
 
@@ -88,14 +95,82 @@ public class WidgetUtil {
      * @param email
      * @param size
      * @return
+     * @deprecated moved to {@link PictureUtils}
      */
+    @Deprecated
     public final String getGravatar(final String email, Integer size) {
         final String hash = MD5Utils.md5Hex(email);
         StringBuilder gravatarUl = new StringBuilder();
-        gravatarUl.append(WidgetUtil.GRAVATAR_URL);
+        gravatarUl.append(PictureUtils.GRAVATAR_URL);
         gravatarUl.append(hash);
         gravatarUl.append("?s=");
         gravatarUl.append(size);
         return gravatarUl.toString();
+    }
+
+    /**
+     * Get Analytics google code.
+     * @param path
+     * @return
+     */
+    public static final String getAnalytics(final String path){
+        final String analyticCode = EnMePlaceHolderConfigurer.getProperty("google.analytic.code");
+        final String scriptFilePath = path;
+        final StringBuffer stb = new StringBuffer("");
+        BufferedReader reader;
+        String analyticBlock;
+        try {
+            if (analyticCode.isEmpty()) {
+                throw new EnMeExpcetion("analytics code is emtpy");
+            }
+            reader = new BufferedReader(
+                     new InputStreamReader(new ClassPathResource(scriptFilePath).getInputStream()));
+            String aux;
+            while(true) { aux = reader.readLine();
+            if (aux == null) break;
+            stb.append(aux);
+            }
+            reader.close();
+            analyticBlock = stb.toString();
+            analyticBlock = StringUtils.replace(analyticBlock, "$analyticCode", analyticCode);
+        } catch (IOException e) {
+            analyticBlock = "";
+        } catch (EnMeExpcetion e) {
+            analyticBlock = "";
+        }
+        return analyticBlock;
+    }
+
+
+    /**
+     *
+     * @param path
+     * @return
+     */
+    public static final String getPasswordBlackList(final String path){
+        final String scriptFilePath = path;
+        final StringBuffer stb = new StringBuffer("[");
+        BufferedReader reader;
+        String passwordArray;
+        try {
+            reader = new BufferedReader(
+                     new InputStreamReader(new ClassPathResource(scriptFilePath).getInputStream()));
+            String aux;
+            while(true) {
+                aux = reader.readLine();
+                if (aux == null) {
+                    stb.append("\"\"]");
+                    break;
+                }
+                stb.append("\"");
+                stb.append(aux);
+                stb.append("\",");
+            }
+            reader.close();
+            passwordArray = stb.toString();
+        } catch (IOException e) {
+            passwordArray = "";
+        }
+        return passwordArray;
     }
 }

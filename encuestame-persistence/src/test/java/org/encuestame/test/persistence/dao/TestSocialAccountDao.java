@@ -43,7 +43,6 @@ public class TestSocialAccountDao extends AbstractBase{
     @Ignore
     public void testGetSocialAccountProviderId(){
         //final SocialAccountProvider socialAccount = getProviderDao().getSocialAccountProviderId(this.socialAccount.getId());
-       // System.out.println("TEST");
     }
 
 }

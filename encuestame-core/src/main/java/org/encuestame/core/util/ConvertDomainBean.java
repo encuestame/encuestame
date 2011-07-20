@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IFolder;
@@ -89,6 +88,19 @@ public class ConvertDomainBean {
             return TypeAuth.OAUTH1;
     }
 
+    /**
+     *
+     * @param pollSwitchs
+     * @return
+     */
+    public static final  List<TweetPollAnswerSwitchBean> convertListTweetPollSwitchToBean(final List<TweetPollSwitch> pollSwitchs) {
+        final List<TweetPollAnswerSwitchBean> listSwitchs
+        = new ArrayList<TweetPollAnswerSwitchBean>();
+        for (TweetPollSwitch account : pollSwitchs) {
+            listSwitchs.add(ConvertDomainBean.convertTweetPollSwitchToBean(account));
+        }
+        return listSwitchs;
+    }
 
     /**
      *
@@ -138,9 +150,11 @@ public class ConvertDomainBean {
         unitHashTag.setId(hashTag.getHashTagId());
         unitHashTag.setHits(hashTag.getHits());
         //TODO: ENCUESTAME-191
-        int x = (10 + (int)(Math.random() * ((40) - 5) + 10)); //TEMP.
-        log.debug("random hastag number "+x);
-        unitHashTag.setSize(x);
+        // int x = (10 + (int)(Math.random() * ((40) - 5) + 10)); //TEMP.
+        if(hashTag.getSize() != null){
+            unitHashTag.setSize(hashTag.getSize().intValue());
+        }
+
         return unitHashTag;
     }
 
@@ -468,7 +482,9 @@ public class ConvertDomainBean {
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setId(questions.getQid());
         questionBean.setQuestionName(questions.getQuestion());
-        questionBean.setUserId(questions.getAccountQuestion().getUid());
+        questionBean.setSlugName(questions.getSlugQuestion());
+        questionBean.setHits(questions.getHits());
+        questionBean.setUserId(questions.getAccountQuestion() == null ? null : questions.getAccountQuestion().getUid());
         return questionBean;
     }
 
@@ -485,6 +501,7 @@ public class ConvertDomainBean {
             answersBean.setShortUrl(questionsAnswer.getProvider() == null ? null : questionsAnswer.getProvider().toString());
             answersBean.setAnswerHash(questionsAnswer.getUniqueAnserHash());
             answersBean.setQuestionId(questionsAnswer.getQuestions().getQid());
+            answersBean.setColor(questionsAnswer.getColor());
             return answersBean;
     }
 
@@ -497,13 +514,13 @@ public class ConvertDomainBean {
         final TweetPollBean unitTweetPoll = new TweetPollBean();
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
-        unitTweetPoll.setCreateDate(DateUtil.getFormatDate(tweetPoll.getCreateDate()));
+        unitTweetPoll.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getCreateDate()));
         unitTweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false : tweetPoll.getAllowLiveResults());
         unitTweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false : tweetPoll.getResumeLiveResults());
         unitTweetPoll.setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false : tweetPoll.getScheduleTweetPoll());
         unitTweetPoll.setResultNotification(tweetPoll.getResultNotification() == null ? false : tweetPoll.getResultNotification());
         unitTweetPoll.setUserId(tweetPoll.getTweetOwner().getUid());
-        unitTweetPoll.setOwnerUsername(tweetPoll.getEditorOwner().getUsername());
+        unitTweetPoll.setOwnerUsername(tweetPoll.getEditorOwner() == null ? null : tweetPoll.getEditorOwner().getUsername());
         unitTweetPoll.setCaptcha(tweetPoll.getCaptcha() == null ? false : tweetPoll.getCaptcha());
         unitTweetPoll.setCloseNotification(tweetPoll.getCloseNotification() == null ? false : tweetPoll.getCloseNotification());
         unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : tweetPoll.getFavourites());
@@ -511,6 +528,14 @@ public class ConvertDomainBean {
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
+        unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? 0L : Long.valueOf(tweetPoll.getNumbervotes()));
+        unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
+        unitTweetPoll.setLimitVotesDate(tweetPoll.getDateLimit() == null ? false : tweetPoll.getDateLimit());
+        if(tweetPoll.getDateLimit() != null && tweetPoll.getDateLimited() != null) {
+            unitTweetPoll.setDateToLimit(tweetPoll.getDateLimited() == null
+                    ? null
+                    : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
+        }
         return unitTweetPoll;
     }
 
@@ -680,7 +705,6 @@ public class ConvertDomainBean {
     }
 
     public static final UnitSurvey convertSurveyDomaintoBean(final Survey survey){
-
         final UnitSurvey unitSurvey = new UnitSurvey();
         unitSurvey.setSid(survey.getSid());
         unitSurvey.setTicket(survey.getTicket());
@@ -710,6 +734,4 @@ public class ConvertDomainBean {
         unitSurvey.setNotifications(survey.getNotifications());
         unitSurvey.setName(survey.getName());
         return unitSurvey;}
-
-
-}
+    }

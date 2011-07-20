@@ -27,6 +27,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -64,6 +65,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
      * @throws IOException
      */
     @Test
+    @Ignore //TODO: peding 1.1.37
     public void testCountUsersByGroup() throws ServletException, IOException{
         Assert.assertEquals(retrieveItemsbyDate("date", this.yesterdayDate, 10, 0 ).intValue(), 1);
     }

@@ -15,6 +15,7 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IHashTagDao;
@@ -77,12 +78,21 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
     * @see org.encuestame.persistence.dao.IHashTagDao#getHashTags(java.lang.Integer, java.lang.Integer)
     */
     @SuppressWarnings("unchecked")
-    public List<HashTag> getHashTags( final Integer maxResults,
-                    final Integer start){
+    public List<HashTag> getHashTags(
+                    final Integer maxResults,
+                    final Integer start,
+                    final String tagCriteria){
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
-        criteria.add(Restrictions.gt("hits", 0L));//review
-        criteria.addOrder(Order.desc("hits"));
-        criteria.addOrder(Order.asc("hashTag"));
+        if (tagCriteria.equals("hashTagsCloud")) {
+            log.debug("getCurrentMidnightDate() "+getCurrentdMidnightDate());
+            criteria.add(Restrictions.gt("size", 12L));
+            criteria.add(Restrictions.gt("updatedDate", getCurrentdMidnightDate()));
+            criteria.addOrder(Order.desc("size"));
+            criteria.addOrder(Order.asc("hashTag"));
+        } else {
+            criteria.addOrder(Order.desc("hits"));
+            criteria.addOrder(Order.asc("hashTag"));
+        }
         return (List<HashTag>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -174,5 +184,27 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                     }
                 });
         return searchResult;
+    }
+
+    /**
+     * Get hashTag by Id.
+     * @param hashTagId
+     * @return
+     * @throws HibernateException
+     */
+    public HashTag getHashTagById(final Long hashTagId) throws HibernateException {
+        return (HashTag) getHibernateTemplate().get(HashTag.class, hashTagId);
+    }
+
+    /**
+     * Get max-min tag frecuency.
+     * @param tag
+     * @param filter
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> getMaxMinTagFrecuency(){
+        final String maxHit = "Select max(hits) as maximum, min(hits) as minimum from HashTag";
+        return getHibernateTemplate().find(maxHit);
     }
 }

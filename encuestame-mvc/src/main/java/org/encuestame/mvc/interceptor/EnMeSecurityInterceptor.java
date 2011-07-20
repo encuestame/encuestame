@@ -20,6 +20,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.joda.time.DateTimeZone;
 import org.springframework.security.core.Authentication;
@@ -92,7 +93,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
                 log.trace("session is valid");
                 final UserAccount user = getByUsername(getUserPrincipalUsername());
                 log.trace("Account User Interceptor "+user);
-                request.setAttribute("account", user);
+                request.setAttribute("account", ConvertDomainBean.convertBasicSecondaryUserToSignUpBean(user));
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
                 if(cookieName != null){
                     log.debug("Cookie "+cookieName.getName());

@@ -68,7 +68,7 @@ public class ReIndexAttachmentsJob {
      */
     private List<File> getListOfAccountEnabledDirectories(){
         final List<File> userDomainAttachmentsLocation = new ArrayList<File>();
-        final List<Long> listOfAccounts = getAccountDao().getAccountsEnabled();
+        final List<Long> listOfAccounts = getAccountDao().getAccountsEnabled(Boolean.TRUE);
         log.debug("listOfAccounts enabled:{"+listOfAccounts.size());
         for (Long accountId : listOfAccounts) {
             final StringBuilder path = new StringBuilder(DirectorySetupOperations.getProfilesDirectory());

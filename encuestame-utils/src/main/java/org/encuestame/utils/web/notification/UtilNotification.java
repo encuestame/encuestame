@@ -41,6 +41,8 @@ public class UtilNotification implements Serializable {
 
     private String additionalDescription;
 
+    private String url;
+
     /**
      * @return the description
      */
@@ -137,5 +139,19 @@ public class UtilNotification implements Serializable {
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(final String url) {
+        this.url = url;
     }
 }

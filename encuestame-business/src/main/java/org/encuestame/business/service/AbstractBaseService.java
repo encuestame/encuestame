@@ -13,16 +13,23 @@
 package org.encuestame.business.service;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.MailServiceOperations;
 import org.encuestame.business.setup.DirectorySetupOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.MD5Utils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
@@ -32,12 +39,17 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -57,24 +69,86 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * {@link MessageSourceFactoryBean}.
      */
     @Autowired
-    private MessageSourceFactoryBean messageSource;
+    private MessageSourceFactoryBean messageSourceFactoryBean;
 
     /**
      *  {@link MailService}.
      */
-    private MailServiceOperations mailServiceOperations;
+    @Resource()
+    private MailServiceOperations mailService;
 
     /**
      * Constructor.
      */
     public AbstractBaseService() {}
 
+
+
+    /**
+     *
+     * @param tpbean
+     * @param request
+     */
+    public TweetPollBean  convertTweetPollRelativeTime(final TweetPollBean tpbean, final HttpServletRequest request){
+        final HashMap<Integer, RelativeTimeEnum> relativeTime =  DateUtil.getRelativeTime(tpbean.getCreatedDateAt());
+        final Iterator it = relativeTime.entrySet().iterator();
+        while (it.hasNext()) {
+            final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
+            log.debug("--"+e.getKey() + "**" + e.getValue());
+            tpbean.setRelativeTime(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
+        }
+        return tpbean;
+    }
+
+    /**
+     * Convert Relative Time Message.
+     * @param relativeTimeEnum
+     * @param number
+     * @param request
+     * @param objects
+     * @return
+     */
+    public String convertRelativeTimeMessage(
+            final RelativeTimeEnum relativeTimeEnum,
+            final Integer number,
+            final HttpServletRequest request){
+        final StringBuilder builder = new StringBuilder();
+        //builder.append(number);
+        //builder.append(" ");
+        log.debug("Convert Message Relative Time");
+        log.debug("Relative ENUM -->"+relativeTimeEnum);
+        log.debug("NUMBER -->"+number);
+        String str[] = {number.toString()};
+        if (relativeTimeEnum.equals(RelativeTimeEnum.ONE_SECOND_AGO)) {
+            builder.append(getMessage("relative.time.one.second.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.SECONDS_AGO)) {
+            builder.append(getMessage("relative.time.one.seconds.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.A_MINUTE_AGO)) {
+            builder.append(getMessage("relative.time.one.minute.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MINUTES_AGO)) {
+            builder.append(getMessage("relative.time.one.minutes.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.AN_HOUR_AGO)) {
+            builder.append(getMessage("relative.time.one.hour.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.HOURS_AGO)) {
+            builder.append(getMessage("relative.time.one.hours.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.MONTHS_AGO)) {
+            builder.append(getMessage("relative.time.one.months.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_MONTH_AGO)) {
+            builder.append(getMessage("relative.time.one.month.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.ONE_YEAR_AGO)) {
+            builder.append(getMessage("relative.time.one.year.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.YEARS_AGO)) {
+            builder.append(getMessage("relative.time.one.years.ago", request, str));
+        }
+        return builder.toString();
+    }
+
     /**
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public MessageSourceFactoryBean getMessageSource() {
-        return messageSource;
+    public MessageSourceFactoryBean getMessageSourceFactoryBean() {
+        return messageSourceFactoryBean;
     }
 
 
@@ -82,8 +156,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
-    public void setMessageSource(final MessageSourceFactoryBean messageSource) {
-        this.messageSource = messageSource;
+    public void setMessageSourceFactoryBean(final MessageSourceFactoryBean messageSourceFactoryBean) {
+        this.messageSourceFactoryBean = messageSourceFactoryBean;
     }
 
     /**
@@ -92,8 +166,25 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return value of propertie
      */
     public String getMessageProperties(String propertieId) {
-        return getMessageSource() == null ? propertieId : getMessageSource()
+        return getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
                 .getMessage(propertieId, null, null);
+    }
+
+    private Locale getLocale(final HttpServletRequest request){
+        return RequestContextUtils.getLocale(request);
+    }
+
+    public String getMessage(final String message,
+            final HttpServletRequest request, Object[] args) {
+        String stringValue = "";
+        try {
+            stringValue = getMessageSourceFactoryBean().getMessage(
+                    message, args, getLocale(request));
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace(); //TODO: ENCUESTAME-223 - OPEN
+        }
+        return stringValue;
     }
 
     /**
@@ -145,7 +236,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 subscribe.setList(emailList);
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
-                getMailServiceOperations().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
                 //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {
@@ -163,11 +254,36 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param secUser
      * @return
      */
+    @Deprecated
     public Notification createNotification(final NotificationEnum description, final String additional,  final Account account){
         final Notification notification = new Notification();
         notification.setDescription(description);
         notification.setAccount(account);
         notification.setAdditionalDescription(additional);
+        getNotificationDao().saveOrUpdate(notification);
+        return notification;
+    }
+
+
+    /**
+     * Create {@link Notification} with url reference.
+     * @param description
+     * @param additional
+     * @param urlReference
+     * @return
+     */
+    public Notification createNotification(
+            final NotificationEnum description,
+            final String additional,
+            final String urlReference,
+            final Boolean group){
+        final Notification notification = new Notification();
+        notification.setDescription(description);
+        notification.setAccount(getUserAccountLogged().getAccount());
+        notification.setAdditionalDescription(additional);
+        notification.setUrlReference(urlReference);
+        notification.setCreated(Calendar.getInstance().getTime());
+        notification.setGroup(group);
         getNotificationDao().saveOrUpdate(notification);
         return notification;
     }
@@ -315,14 +431,14 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return the mailServiceOperations
      */
     @Autowired
-    public MailServiceOperations getMailServiceOperations() {
-        return mailServiceOperations;
+    public MailServiceOperations getMailService() {
+        return mailService;
     }
 
     /**
      * @param mailServiceOperations the mailServiceOperations to set
      */
-    public void setMailServiceOperations(final MailServiceOperations mailServiceOperations) {
-        this.mailServiceOperations = mailServiceOperations;
+    public void setMailService(final MailServiceOperations mailServiceOperations) {
+        this.mailService = mailServiceOperations;
     }
 }

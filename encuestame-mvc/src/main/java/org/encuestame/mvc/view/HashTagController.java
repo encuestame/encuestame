@@ -23,6 +23,7 @@ import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,11 @@ public class HashTagController extends AbstractBaseOperations{
     /** Log. **/
         private Log log = LogFactory.getLog(this.getClass());
 
+        /** HashTag max results. **/
+        private final Integer MAX_HASHTAG = 80;
+
+        /** HashTag max results. **/
+        private final Integer LIMIT_HASHTAG = 15;
     /**
      * HashTag List.
      * @param model
@@ -51,7 +57,7 @@ public class HashTagController extends AbstractBaseOperations{
     public String hashTagController(ModelMap model, HttpServletRequest request,
                   HttpServletResponse response) {
         final IFrontEndService service = getFrontService();
-        final List<HashTagBean> hashTagList = service.getHashTags(20, 0);
+        final List<HashTagBean> hashTagList = service.getHashTags(MAX_HASHTAG, 0, "hashTagsCloud"); //TODO: Add to file properties number 20
         log.debug("Tag list size ---> "+ hashTagList.size());
         model.addAttribute("hashtags", hashTagList);
         return "cloud";
@@ -69,18 +75,32 @@ public class HashTagController extends AbstractBaseOperations{
     @RequestMapping(value = "/tag/{name}", method = RequestMethod.GET)
     public String tagController(ModelMap model , HttpServletRequest request,
                   HttpServletResponse response,
-                  @PathVariable String name) throws EnmeFailOperation{
+                  @PathVariable String name){
         final IFrontEndService service = getFrontService();
         log.debug("hashTag Name ---> "+name);
         name = filterValue(name);
+        final String IP = getIpClient();
+        log.info("IP" + IP);
         try {
+            // Search HashTag hits.
+              boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
+            // TODO: Check that previous hash Tag hit has been visited the same day.
+              if (!hashTagVisite) {
+               final Boolean tagHit = service.registerHashTagHit(name, IP, "paola");
+            }
             final HashTagBean tag = service.getHashTagItem(name);
+            final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtag", request);
+            final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtagRated", request);
             if (tag == null) {
                 return "pageNotFound";
             } else {
                 model.addAttribute("tagName", service.getHashTagItem(name));
+                model.addAttribute("tweetPolls", tweetPollbyTags);
+                model.addAttribute("tweetPollrated", tweetPollbyRated);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
             return "pageNotFound";
         }
         return "tag/detail";

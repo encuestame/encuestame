@@ -13,17 +13,21 @@
 package org.encuestame.business.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
@@ -52,7 +56,9 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public List<TweetPollBean> searchItemsByTweetPoll(
                 final String period,
-                Integer maxResults)
+                final Integer start,
+                Integer maxResults,
+                final HttpServletRequest request)
                 throws EnMeSearchException{
         final List<TweetPollBean> results = new ArrayList<TweetPollBean>();
         if(maxResults == null){
@@ -60,23 +66,27 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         }
         log.debug("Max Results "+maxResults);
         final List<TweetPoll> items = new ArrayList<TweetPoll>();
-        if(period == null ){
+        if (period == null ) {
             throw new EnMeSearchException("search params required.");
         } else {
             final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
-            if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
-            } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(maxResults));
-            } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(maxResults));
-            } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(maxResults));
-            } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
-                items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(maxResults));
+            if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
+            } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
+            } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)) {
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(start, maxResults));
+            } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)) {
+                items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(start, maxResults));
+            } else if(periodSelected.equals(SearchPeriods.ALLTIME)) {
+                items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(start, maxResults));
             }
             log.debug("TweetPoll "+items.size());
             results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
+            for (TweetPollBean tweetPoll : results) {
+                tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
+            }
+
         }
         return results;
     }
@@ -90,6 +100,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public List<UnitPoll> searchItemsByPoll(
             final String period,
+            final Integer start,
             Integer maxResults)
             throws EnMeSearchException{
     final List<UnitPoll> results = new ArrayList<UnitPoll>();
@@ -103,15 +114,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     } else {
         final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
         if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast24(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast24(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast24(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast24(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast7Days(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast7Days(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
-            items.addAll(getFrontEndDao().getPollFrontEndLast30Days(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndLast30Days(start, maxResults));
         } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
-            items.addAll(getFrontEndDao().getPollFrontEndAllTime(maxResults));
+            items.addAll(getFrontEndDao().getPollFrontEndAllTime(start, maxResults));
         }
         log.debug("Poll "+items.size());
         results.addAll(ConvertDomainBean.convertListToPollBean((items)));
@@ -128,15 +139,14 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public List<HashTagBean> getHashTags(
               Integer maxResults,
-              final Integer start){
+              final Integer start,
+              final String tagCriteria){
         final List<HashTagBean> hashBean = new ArrayList<HashTagBean>();
         if(maxResults == null){
             maxResults = this.MAX_RESULTS;
         }
         log.debug("Max Results HashTag -----> "+maxResults);
-        List<HashTag> tags = new ArrayList<HashTag>();
-        tags.addAll(getHashTagDao().getHashTags(maxResults, start));
-        log.debug("Hashtag total size ---> "+tags.size());
+        final List<HashTag> tags = getHashTagDao().getHashTags(maxResults, start, tagCriteria);
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
         return hashBean;
     }
@@ -153,5 +163,114 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             throw new EnMeNoResultsFoundException("hashtag not found");
         }
         return ConvertDomainBean.convertHashTagDomain(tag);
+    }
+
+    /**
+     * Get TweetPolls by hashTag id.
+     * @param hashTagId
+     * @param limit
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPollBean> getTweetPollsbyHashTagId(
+            final Long hashTagId,
+            final Integer limit,
+            final String filter,
+            final HttpServletRequest request){
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit, filter);
+        log.debug("TweetPoll by HashTagId total size ---> "+tweetPolls.size());
+        final List<TweetPollBean> tweetPollBean = ConvertDomainBean.convertListToTweetPollBean(tweetPolls);
+        for (TweetPollBean tweetPoll : tweetPollBean) {
+            tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
+        }
+        return tweetPollBean;
+    }
+
+    /**
+     * Get tweetPoll by top rated.
+     * @param hashTagId
+     * @param limit
+     * @param request
+     * @return
+     */
+  /*  public List<TweetPollBean> getTweetPollsbyTopRated(
+            final Long hashTagId,
+            final Integer limit,
+            final HttpServletRequest request){
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByTopRated(hashTagId, limit);
+        log.debug("TweetPoll by TopRated total size ---> "+tweetPolls.size());
+        final List<TweetPollBean> tweetPollBean = ConvertDomainBean.convertListToTweetPollBean(tweetPolls);
+        for (TweetPollBean tweetPoll : tweetPollBean) {
+            tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
+        }
+        return tweetPollBean;
+    }
+*/
+
+    /**
+     * Check previous hash tag hit.
+     * @param ipAddress
+     * @return
+     */
+    public Boolean checkPreviousHashTagHit(final String ipAddress){
+        boolean tagHit = false;
+        final List<HashTagHits> hashTag = getFrontEndDao().getHashTagsHitByIp(ipAddress);
+        try {
+            if(hashTag.size() == 1){
+                if(hashTag.get(0).getIpAddress().equals(ipAddress)){
+                    tagHit = true;
+                }
+             }
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return tagHit;
+    }
+
+    /**
+     * Register hash tag hit.
+     * @param tagName
+     * @param hitDate
+     * @param ipAddress
+     * @return
+     */
+    public Boolean registerHashTagHit(final String tagName, final String ip, final String username){
+        final HashTagHits hashHit ;
+        Long hitCount = 1L;
+        Boolean register = false;
+        try {
+            if((ip!=null) || (tagName!=null) ){
+                hashHit = this.newHashTagHit(tagName, new Date(), ip);
+                if (hashHit!=null){
+                    final HashTag tag = getHashTagDao().getHashTagByName(tagName);
+                    hitCount = tag.getHits()+hitCount;
+                    tag.setHits(hitCount);
+                    register = true;
+                }
+            }
+        } catch (Exception e) {
+            log.debug(e);
+            e.printStackTrace();
+            // TODO: handle exception
+        }
+        return register;
+    }
+
+    /**
+     * New hash tag hit.
+     * @param tagName
+     * @param hitDate
+     * @param ipAddress
+     * @return
+     */
+    private HashTagHits newHashTagHit(final String tagName, final Date hitDate, final String ipAddress){
+        final HashTagHits tagHitsDomain = new HashTagHits();
+        tagHitsDomain.setHitDate(hitDate);
+        tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
+        tagHitsDomain.setIpAddress(ipAddress);
+        tagHitsDomain.setUserAccount(getUserAccountLogged());
+        this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
+        return tagHitsDomain;
     }
 }

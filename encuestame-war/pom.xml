@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.1.37-SNAPSHOT</version>
+        <version>1.1.38-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
     <name>encuestame war</name>
     <build>
-    <finalName>encuestame-${project.version}-beta-r${buildNumber}</finalName>
+    <finalName>encuestame-${project.version}-beta</finalName>
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -78,12 +78,15 @@
                 <packagingIncludes>
                     WEB-INF/lib/*,
                     WEB-INF/**/*.xml,
+                    WEB-INF/**/*.inc,
                     resource/css/**/*,
                     resource/images/**/*,
                     resource/js/dojo/**/*,
                     resource/js/dijit/**/*,
                     resource/js/dojox/**/*,
                     resource/js/org/**/*,
+                    resource/js/org/**/*,
+                    resource/js/encuestame.profile.js,
                     **/*.properties,
                     **/*.class,
                     **/*.ico,
@@ -104,7 +107,7 @@
                 </webResources>
             </configuration>
             </plugin>-->
-        <!-- Development War Configuration - NOT Optimized -->
+        <!-- Development War Configuration - NOT Optimized-->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
@@ -114,11 +117,6 @@
                     <manifest>
                         <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                     </manifest>
-                    <manifestEntries>
-                        <Implementation-Build>${buildNumber}</Implementation-Build>
-                         <manifest_entry>value</manifest_entry>
-                         <addClasspath>true</addClasspath>
-                    </manifestEntries>
                 </archive>
             </configuration>
         </plugin>
@@ -405,10 +403,6 @@
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.tanesha.recaptcha4j</groupId>
-            <artifactId>recaptcha4j</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>

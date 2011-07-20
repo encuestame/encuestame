@@ -35,17 +35,17 @@ public class DateUtilsTestCase extends TestCase{
     @Test
     public void testGetRelativeDate(){
         final Calendar calendar = Calendar.getInstance();
-        System.out.println(calendar.getTime());
+        //System.out.println(calendar.getTime());
         calendar.set(Calendar.SECOND, -5);
-        System.out.println(calendar.getTime());
+        //System.out.println(calendar.getTime());
         final HashMap<Integer, RelativeTimeEnum> hm = DateUtil.getRelativeTime(calendar.getTime());
-        System.out.println(hm);
+        //System.out.println(hm);
         //assertEquals(hm.get(0).name().toString(), new String("5"));
         final Calendar calendar2 = Calendar.getInstance();
-        System.out.println(calendar2.getTime());
+        //System.out.println(calendar2.getTime());
         calendar2.set(Calendar.DAY_OF_MONTH, -5);
-        System.out.println(calendar2.getTime());
+        //System.out.println(calendar2.getTime());
         final HashMap<Integer, RelativeTimeEnum> hm1 = DateUtil.getRelativeTime(calendar2.getTime());
-        System.out.println(hm1);
+        //System.out.println(hm1);
     }
 }

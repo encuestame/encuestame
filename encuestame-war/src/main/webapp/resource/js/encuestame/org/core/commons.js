@@ -76,34 +76,34 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
                 switch (ioargs.xhr.status) {
                 case 200:
                     message = "Good request.";
-                    if (encuestame.error.dialog != null) {
-                        encuestame.error.clear();
-                    }
+                    //if (encuestame.error.dialog != null) {
+                     //   encuestame.error.clear();
+                    //}
                     break;
                 case 404:
                     message = "The page you requested was not found.";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 400:
                     message = "Bad Request";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 500:
                     break;
                     message = "Service temporarily unavailable.";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 407:
                     message = "You need to authenticate with a proxy.";
-                    encuestame.error.createDialog(message, message);
+                    //encuestame.error.createDialog(message, message);
                     break;
                 case 0:
                     message = "A network error occurred. Check that you are connected to the internet.";
-                    encuestame.error.conexion(message);
+                    //encuestame.error.conexion(message);
                     break;
                 default:
                     message = "An unknown error occurred";
-                    encuestame.error.unknown(message, ioargs.xhr.status);
+                    //encuestame.error.unknown(message, ioargs.xhr.status);
                 }
               }
           });
@@ -262,12 +262,35 @@ encuestame.session.getSession = function(){
 
 encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
 
+encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY'];
+
 encuestame.social = {};
 
 encuestame.social.shortPicture = function(provider){
      var url = encuestame.contextDefault + "/resources/images/social/"+provider.toLowerCase()
                +"/enme_icon_"+provider.toLowerCase()+".png";
      return url;
+};
+
+encuestame.notification = {};
+encuestame.notification.load = {};
+encuestame.notification.load.limit = 100;
+
+encuestame.notification.buildURLDescription = function(type, description, url) {
+    var multi = dojo.doc.createElement("div");
+    var a = dojo.doc.createElement("a");
+    a.target = "_blank";
+    if (type == "TWEETPOLL_PUBLISHED") {
+        multi.innerHTML = description+ "<br/> ";
+        a.href = encuestame.contextDefault + url;
+        a.innerHTML = "See details here.";
+    } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
+        multi.innerHTML = "";
+        a.href = url;
+        a.innerHTML = description;
+    }
+    multi.appendChild(a);
+    return multi;
 };
 
 encuestame.session.activity = {};
@@ -397,6 +420,7 @@ encuestame.contextWidget = function(){
 encuestame.service.list = {};
 encuestame.service.list.userList = encuestame.contextWidget()+"/api/admon/users.json";
 encuestame.service.list.getNotifications = encuestame.contextWidget()+"/api/notifications/list.json";
+encuestame.service.list.getAllNotifications = encuestame.contextWidget()+"/api/notifications/all/list.json";
 encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/api/notifications/readed.json";
 encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json";
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
@@ -408,6 +432,7 @@ encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/a
 encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/add-permission.json";
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
+encuestame.service.list.cloud = encuestame.contextWidget()+"/api/common/hashtags/cloud.json";
 //TODO: replace twitter encuestame.service.list.socialAccounts
 encuestame.service.list.socialAccounts = encuestame.contextWidget()+"/api/common/social/confirmed-accounts.json";
 encuestame.service.list.allSocialAccount = encuestame.contextWidget()+"/api/common/social/accounts.json";
@@ -423,6 +448,18 @@ encuestame.service.list.liveResultsTweetPoll = encuestame.contextWidget()+"/api/
 encuestame.service.list.notificationTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/notification-tweetpoll.json";
 encuestame.service.list.repeatedTweetPoll = encuestame.contextWidget()+"/api/survey/tweetpoll/repeated-tweetpoll.json";
 encuestame.service.list.VotesTweetPoll = encuestame.contextWidget()+"/api/chart/tweetpoll/votes.json";
+
+encuestame.service.list.tweetpoll = {};
+encuestame.service.list.tweetpoll.answer = {};
+encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
+    return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
+};
+
+encuestame.service.list.votes = {};
+encuestame.service.list.getTweetPollVotes = function(username, id){
+    return  encuestame.contextWidget()+"/api/"+username+"/tweetpoll/"+id+"/votes.json";
+};
+
 encuestame.service.list.addAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/add.json";
 encuestame.service.list.removeAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/remove.json";
 //group services
@@ -440,8 +477,17 @@ encuestame.service.list.myProfile = encuestame.contextWidget()+"/api/admon/info-
 
 encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/account/validate.json";
 
+
+encuestame.service.publicService = {};
+encuestame.service.publicService.validate = {};
+encuestame.service.publicService.validate.username = encuestame.contextWidget()+"/api/public/validator/username.json";
+encuestame.service.publicService.validate.email = encuestame.contextWidget()+"/api/public/validator/email.json";
+encuestame.service.publicService.validate.realName = encuestame.contextWidget()+"/api/public/validator/realName.json";
+
 //settings social
 encuestame.service.social = {};
+encuestame.service.social.links = {};
+encuestame.service.social.links.loadByType = encuestame.contextWidget()+"/api/public/social/links/published.json";
 encuestame.service.social.twitter = {};
 encuestame.service.social.twitter.authorize = encuestame.contextWidget()+"/api/social/twitter/authorize/url.json";
 encuestame.service.social.twitter.confirm = encuestame.contextWidget()+"/api/social/twitter/authorize/confirm.json";
@@ -458,7 +504,47 @@ encuestame.service.social.linkedIn = {};
 encuestame.service.search = {};
 encuestame.service.search.suggest = encuestame.contextWidget()+"/api/search/quick-suggest.json";
 
+encuestame.service.stream = {};
+encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
+
 //short url service.
 //encuestame.service.short = {};
 //encuestame.service.short.google = "/api/short/url/google.json";
 //encuestame.service.short.tinyurl = "/api/short/url/tinyurl.json";
+
+encuestame.constants = {};
+encuestame.constants.passwordExcludes = [];
+encuestame.constants.imageSizes = {
+    thumbnail : "thumbnail",
+    defaultType : "default",
+    profile : "profile",
+    preview : "preview",
+    web : "web"
+};
+encuestame.constants.errorCodes = {
+    "002" : "Enter your first and last name.",
+    "003" : "Whats your email address?",
+    "006" : "Doesn't look like a valid email.",
+    "007" : "An email is required!",
+    "008" : "This email is already registered",
+    "012" : "Password is too obvious.",
+    "013" : "Password is not secure enough.",
+    "014" : "Password must be at least 6 characters. No whitespace.",
+    "015" : "Password cannot be blank!",
+    "017" : "This username is already taken!",
+    "018" : "Invalid username!",
+    "019":  "A username is required!"
+};
+encuestame.constants.messageCodes = {
+    "001" : "Name looks great",
+    "004" : "We will email you a confirmation.",
+    "005" : "Validating...",
+    "007" : "An email is required!",
+    "008" : "This email is already registered",
+    "009" : "Password is perfect!",
+    "010" : "Password is okay.",
+    "011" : "Password could be more secure.",
+    "016" : "Don't worry, you can change it later."
+};
+
+encuestame.constants.version = { version : "1.1.37"};

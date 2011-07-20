@@ -17,7 +17,6 @@ import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.SocialAccountConnectionException;
 import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.domain.security.AccountConnection;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -37,15 +36,16 @@ public class EnMeSocialAccountUserService implements SocialUserService {
     /*
      * Log.
      */
-    private Logger log = Logger.getLogger(SecurityUtils.class);
+    private Logger log = Logger.getLogger(EnMeSocialAccountUserService.class);
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.security.service.SocialUserService#loadAccountConnection(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
      */
     @Override
-    public UserDetails loadAccountConnection(String profileId,
-            SocialProvider provider)
+    public UserDetails loadAccountConnection(
+            final String profileId,
+            final SocialProvider provider)
             throws EnMeNoSuchAccountConnectionException {
         UserAccount accountConnection = null;
         log.debug("EnMeSocialAccountUserService "+profileId);

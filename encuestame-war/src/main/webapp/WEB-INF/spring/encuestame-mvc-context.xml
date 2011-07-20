@@ -21,7 +21,6 @@
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
        <property name="mappings">
          <value>
-           /user/signup=flowController
          </value>
        </property>
        <property name="defaultHandler" ref="urlFilenameViewController"/>
@@ -94,7 +93,7 @@
            <property name="defaultLocale" value="en" />
     </bean>
 
-
+    <bean id="sessionLocaleResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 
   <!--
     - This bean resolves specific types of exceptions to corresponding

@@ -23,6 +23,11 @@
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}cloud.jsp" />
     </definition>
 
+   <definition name="profile/view" extends="page">
+        <put-attribute name="title" value="Profile | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}profile.jsp" />
+    </definition>
+
     <definition name="tag/detail" extends="page">
         <put-attribute name="title" value="HashTag Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}hashtag.jsp" />

@@ -53,7 +53,22 @@ public interface IHashTagDao extends IBaseDao	{
      * Get hashTags.
      * @param maxResults
      * @param start
+     * @param tagCriteria
      * @return
      */
-    List<HashTag> getHashTags( final Integer maxResults,final Integer start);
+    List<HashTag> getHashTags( final Integer maxResults,final Integer start, final String tagCriteria);
+
+    /**
+     * Get hashTag by Id.
+     * @param hashTagId
+     * @return
+     * @throws HibernateException
+     */
+    HashTag getHashTagById(final Long hashTagId) throws HibernateException;
+
+    /**
+     * Get max-min tag frecuency.
+     * @return
+     */
+   List<Object[]> getMaxMinTagFrecuency();
 }

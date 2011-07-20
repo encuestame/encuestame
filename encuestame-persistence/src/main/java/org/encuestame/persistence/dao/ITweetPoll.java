@@ -13,6 +13,7 @@
 
 package org.encuestame.persistence.dao;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.hibernate.HibernateException;
 
@@ -144,6 +146,16 @@ public interface ITweetPoll extends IBaseDao{
       TweetPoll getTweetPollByIdandUserId(final Long tweetPollId, final Long userId);
 
       /**
+       * Get {@link TweetPoll} by id, userid and slug name.
+       * @param tweetPollId tweet poll id.
+       * @param userId user id.
+       * @param slugName slug name.
+       * @return
+     * @throws UnsupportedEncodingException
+       */
+      TweetPoll getTweetPollByIdandSlugName(final Long tweetPollId, final String slugName) throws UnsupportedEncodingException;
+
+      /**
        * Retrieve TweetPoll Today.
        * @param keyWord
        * @param userId
@@ -219,4 +231,31 @@ public interface ITweetPoll extends IBaseDao{
      * @return
      */
     List<TweetPollSwitch> getAnswerTweetSwitch(final QuestionAnswer questionAnswer);
+
+     /**
+     * Get tweetPoll by top rated.
+     * @param hashTagId
+     * @param limit
+     * @param limit
+     * @return
+     */
+   List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId, final Integer limit, final String filterby);
+
+
+  /**
+   * Get results by tweetpoll.
+   * @param tweetPollId
+   * @param answerId
+   * @return
+   */
+   List<Object[]> getResultsByTweetPoll(final Long tweetPollId, final Long answerId);
+
+   /**
+    * Return all links published by {@link TweetPoll}.
+    * @param tweetPoll
+    * @return
+    */
+   List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll);
+
+
 }

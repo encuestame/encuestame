@@ -27,11 +27,13 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
 /**
@@ -86,6 +88,25 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeTweetPollNotFoundException, EnMeNoResultsFoundException;
+
+    /**
+     * Get tweetpoll by id and username
+     * @param tweetPollId tweetpoll id
+     * @param username username
+     * @return {@link TweetPoll}
+     * @throws EnMeNoResultsFoundException
+     */
+    public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException;
+
+    /**
+    * Get {@link TweetPoll} by id and slug name.
+    * @param tweetPollId
+    * @param username
+    * @param slug
+    * @return
+    * @throws EnMeNoResultsFoundException
+    */
+    TweetPoll getTweetPollByIdSlugName(final Long tweetPollId, final String slug) throws EnMeNoResultsFoundException;
 
     /**
      * Get complete list of {@link TweetPollSwitch}/
@@ -153,7 +174,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPollId tweetPoll Id
      * @return list of {@link UnitTweetPollResult}
      */
-    List<UnitTweetPollResult> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
+    List<TweetPollResultsBean> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
 
     /**
      *
@@ -170,7 +191,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
      */
-    List<TweetPollSavedPublishedStatus> publicMultiplesTweetAccounts(
+    List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
             final List<SocialAccountBean> twitterAccounts,
             final TweetPoll tweetPoll,
             final String tweetText);
@@ -341,8 +362,38 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param tweetPollBean {@link TweetPollBean}.
      * @throws EnMeNoResultsFoundException
       */
-     public TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException;
+     TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException;
 
 
-     public void saveOrUpdateTweetPoll(final TweetPoll tweetPoll);
+     /**
+      *
+      * @param tweetPoll
+      */
+     void saveOrUpdateTweetPoll(final TweetPoll tweetPoll);
+
+     /**
+     *
+     * @param tweetPoll
+     */
+     void createTweetPollNotification(final TweetPoll tweetPoll);
+
+     /**
+      * Return tweetpoll total votes.
+      * @param tweetPoll
+      * @return
+      */
+     Long getTweetPollTotalVotes(final TweetPoll tweetPoll);
+
+     /**
+      * Check and validate if tweetpoll is complete.
+      * @param tweetPoll
+      */
+     void checkTweetPollCompleteStatus(final TweetPoll tweetPoll);
+
+     /**
+      * Return list of links published by {@link TweetPoll}.
+      * @param tweetPoll
+      * @return
+      */
+     List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll);
 }
