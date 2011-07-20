@@ -73,7 +73,7 @@ public class SignInController extends AbstractSocialController{
         return "forgot";
     }
 
-    OAuth1RequestFlow auth1RequestProvider;
+    private OAuth1RequestFlow auth1RequestProvider;
 
     /**
      * Sign in by {@link SocialProvider} account.
@@ -132,7 +132,6 @@ public class SignInController extends AbstractSocialController{
      * @param httpRequest
      * @param request
      * @return
-     * @throws Exception
      */
     @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="error")
     public String oauth2ErrorCallback(
@@ -140,7 +139,7 @@ public class SignInController extends AbstractSocialController{
             @PathVariable String provider,
             final ModelMap model,
             HttpServletRequest httpRequest,
-            WebRequest request) throws Exception {
+            WebRequest request){
             log.fatal("OAuth Error:{"+error);
             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
             return "redirect:/user/signin";
@@ -152,7 +151,6 @@ public class SignInController extends AbstractSocialController{
     * @param httpRequest
     * @param request
     * @return
-    * @throws Exception
     */
    @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="code")
    public String oauth2Callback(
@@ -178,13 +176,11 @@ public class SignInController extends AbstractSocialController{
                }
                return x;
             } catch (EnMeExistPreviousConnectionException e) {
-                 e.printStackTrace();
                  log.fatal("OAuth EnMeExistPreviousConnectionException:{"+e);
                  Assert.notNull(httpRequest);
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             } catch (Exception e) {
-                 e.printStackTrace();
                  log.fatal("OAuth Exception:{"+e);
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
