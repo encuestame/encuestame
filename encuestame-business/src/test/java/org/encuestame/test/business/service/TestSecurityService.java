@@ -680,7 +680,7 @@ public class TestSecurityService extends AbstractServiceBase{
         final UserAccount userAcc2 = createUserAccount(Boolean.FALSE, "paola", acc1);
         final UserAccount userAcc3 = createUserAccount(Boolean.FALSE, "isabella", acc1);
         System.out.println("Account Id before --->"+ acc1.getUid());
-        final String msg = securityService.removeUnconfirmedAccount(Boolean.FALSE);
-        System.out.println("UserAccount without to set --->"+ msg);
+        securityService.removeUnconfirmedAccount(Boolean.FALSE);
+        //System.out.println("UserAccount without to set --->"+ msg);
     }
 }
