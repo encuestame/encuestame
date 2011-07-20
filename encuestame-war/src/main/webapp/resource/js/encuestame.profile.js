@@ -53,7 +53,6 @@ dependencies ={
                 "encuestame.org.core.commons.stream.HashTagInfo",
                 "encuestame.org.core.commons.stream.FrontEndItem",
                 "encuestame.org.core.commons.rated.HashTags",
-                "encuestame.org.mobile.notifications.NotificationList",
                 "encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail",
                 "encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail",
                 "encuestame.org.core.shared.utils.CountDown",
@@ -66,6 +65,9 @@ dependencies ={
                 "encuestame.org.core.commons.validator.UsernameValidator",
                 "encuestame.org.core.shared.utils.StandBy",
                 "encuestame.org.core.commons.panel.PanelBar",
+                //mobile
+                "encuestame.org.mobile.notifications.NotificationList",
+                "encuestame.org.mobile.tweetPoll.TweetPollList",
                 "org.cometd",
                 "org.cometd.AckExtension",
                 "org.cometd.ReloadExtension",
