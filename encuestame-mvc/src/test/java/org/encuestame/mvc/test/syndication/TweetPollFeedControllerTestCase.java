@@ -26,9 +26,9 @@ import javax.servlet.ServletException;
 import junit.framework.Assert;
 
 import org.encuestame.mvc.controller.json.MethodJson;
+import org.encuestame.mvc.controller.syndication.view.TweetPollAtomFeedView;
+import org.encuestame.mvc.controller.syndication.view.TweetPollRssFeedView;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
-import org.encuestame.mvc.view.TweetPollAtomFeedView;
-import org.encuestame.mvc.view.TweetPollRssFeedView;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.web.TweetPollBean;

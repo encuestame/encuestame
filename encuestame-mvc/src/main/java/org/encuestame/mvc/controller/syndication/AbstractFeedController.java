@@ -14,9 +14,16 @@ package org.encuestame.mvc.controller.syndication;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.encuestame.core.util.FeedUtils;
+import org.encuestame.core.util.InternetUtils;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.TweetPollBean;
+
+import com.sun.syndication.feed.atom.Entry;
+import com.sun.syndication.feed.rss.Item;
 
 /**
  * Abstract Feed Controller.
@@ -36,4 +43,33 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
         return getTweetPollService().getTweetsPollsByUserName(username, null, null);
     }
 
+    /**
+     * Get RSS item tweet poll.
+     * @param username
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<Item> getItemRssTweetPoll(final String username,
+            final HttpServletRequest request) throws EnMeNoResultsFoundException{
+        final List<Item> tweetpoll = FeedUtils
+        .convertTweetPollBeanToItemRSS(
+                getTweetPolls(username),
+                InternetUtils.getDomain(request));
+        return tweetpoll;
+    }
+
+    /**
+     * Get atom entry tweet poll.
+     * @param username
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<Entry> getEntryAtomTweetPoll(final String username,
+            final HttpServletRequest request) throws EnMeNoResultsFoundException{
+        final List<Entry> tweetpoll = FeedUtils
+            .convertTweetPollBeanToEntryAtom(getTweetPolls(username),InternetUtils.getDomain(request));
+        return tweetpoll;
+    }
 }

@@ -13,11 +13,16 @@
 package org.encuestame.core.util;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.web.UnitPoll;
 
+import com.sun.syndication.feed.atom.Entry;
 import com.sun.syndication.feed.atom.Link;
+import com.sun.syndication.feed.rss.Item;
 
 /**
  * Feed Utils.
@@ -42,7 +47,7 @@ public class FeedUtils {
     }
 
     /**
-    *
+    * Create url syndicate.
     * @param url
     * @param code
     * @param slug
@@ -67,5 +72,68 @@ public class FeedUtils {
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
         String dateToFormat = formatDate.format(tweetPollDate);
         return dateToFormat;
+    }
+
+    /**
+     * Convert tweetPoll bean to item.
+     * @param tpBean
+     * @param domain
+     * @return
+     */
+    public final static List<Item> convertTweetPollBeanToItemRSS(final List<TweetPollBean> tpBean, final String domain){
+        List<Item> entries = new ArrayList<Item>(tpBean.size());
+        for (TweetPollBean content : tpBean) {
+            final Item item = new Item();
+            final String createdAt = FeedUtils.formattedDate("yyyy-MM-dd", content.getCreatedDateAt());
+            item.setTitle(String.format("On %s, %s publish", createdAt, content.getQuestionBean().getQuestionName()));
+            String urlTweet = FeedUtils.createUrlTweetPoll(domain, "/tweetpoll/", content);
+            item.setPubDate(content.getUpdateDate());
+            item.setLink(urlTweet);
+            entries.add(item);
+        }
+        return entries;
+    }
+
+    /**
+     * Convert tweetPollBean to entry atom.
+     * @param tpBean
+     * @param domain
+     * @return
+     */
+    public final static List<Entry> convertTweetPollBeanToEntryAtom(final List<TweetPollBean> tpBean, final String domain){
+        List<Entry> entries = new ArrayList<Entry>(tpBean.size());
+        for (TweetPollBean content : tpBean) {
+            final Entry entry = new Entry();
+            final String createdAt = FeedUtils.formattedDate("yyyy-MM-dd", content.getCreatedDateAt());
+            entry.setId(content.getQuestionBean().getQuestionName());
+            entry.setTitle(String.format("On %s, %s publish", createdAt, content.getQuestionBean().getQuestionName()));
+            entry.setUpdated(content.getUpdateDate());
+            String urlTweet = FeedUtils.createUrlTweetPoll(domain, "/tweetpoll/", content);
+            final List<Link> links = new ArrayList<Link>();
+            links.add(FeedUtils.createLink(urlTweet,"Tweet Polls"));
+            entry.setAlternateLinks(links);
+            entries.add(entry);
+        }
+       return entries;
+    }
+
+    /**
+     * Convert pollBean to entry item.
+     * @param pollBean
+     * @param domain
+     * @return
+     */
+    public final static List<Item> convertPollBeanToItemRSS(final List<UnitPoll> pollBean, final String domain){
+        List<Item> entries = new ArrayList<Item>(pollBean.size());
+        for (UnitPoll content : pollBean) {
+            final Item item = new Item();
+            final String createdAt = FeedUtils.formattedDate("yyyy-MM-dd", content.getCreationDate());
+            item.setTitle(String.format("On %s, %s publish", createdAt, content.getQuestionBean().getQuestionName()));
+         //   String urlTweet = FeedUtils.createUrlTweetPoll(domain, "/tweetpoll/", content);
+            item.setPubDate(null);
+            item.setLink(null);
+            entries.add(item);
+        }
+        return entries;
     }
 }
