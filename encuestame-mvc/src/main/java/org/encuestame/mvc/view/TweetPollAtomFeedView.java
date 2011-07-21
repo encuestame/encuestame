@@ -57,15 +57,19 @@ public final class TweetPollAtomFeedView extends AbstractBaseAtomFeedView {
             HttpServletResponse response) throws Exception {
         List<TweetPollBean> contentList = (List<TweetPollBean>) model.get("tweetPolls");
         List<Entry> entries = new ArrayList<Entry>(contentList.size());
+        final String urlDomain = model.get("url").toString();
         for (TweetPollBean content : contentList) {
             final Entry entry = new Entry();
+            final Date createdAt = content.getCreatedDateAt();
             String date = String.format("%1$tY-%1$tm-%1$td", new Date());
             entry.setId(content.getQuestionBean().getQuestionName());
-            entry.setTitle(String.format("On %s, %s publish", date, content.getQuestionBean().getQuestionName()));
+            entry.setTitle(String.format("On %s, %s publish", createdAt, content.getQuestionBean().getQuestionName()));
             entry.setUpdated(new Date());
+            String urlTweet = FeedUtils.createUrlTweetPoll(urlDomain, "/tweetpoll/", content);
             final List<Link> links = new ArrayList<Link>();
             //TODO: need work in this details.
-            links.add(FeedUtils.createLink("http://www.encuestame.org","title"));
+            links.add(FeedUtils.createLink(urlTweet,"Tweet Polls"));
+            log.debug("-----ATOM LINK-----------"+ FeedUtils.createLink(urlTweet,"Tweet Polls"));
             entry.setAlternateLinks(links);
             entries.add(entry);
         }

@@ -21,7 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
+import org.encuestame.core.util.FeedUtils;
+import org.encuestame.core.util.InternetUtils;
 import org.encuestame.utils.web.TweetPollBean;
+import org.jfree.util.Log;
+
 import com.sun.syndication.feed.rss.Channel;
 
 import com.sun.syndication.feed.rss.Item;
@@ -55,12 +59,17 @@ public class TweetPollRssFeedView extends AbstractBaseRssFeedView{
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<TweetPollBean> contentList = (List<TweetPollBean>) model.get("tweetPolls");
         List<Item> entries = new ArrayList<Item>(contentList.size());
+        final String urlDomain = model.get("url").toString();
         for (TweetPollBean content : contentList) {
             final Item item = new Item();
+            final Date createdAt = content.getCreatedDateAt();
             String date = String.format("%1$tY-%1$tm-%1$td", new Date());
-            item.setTitle(String.format("On %s, %s publish", date, content.getQuestionBean().getQuestionName()));
-            item.setPubDate( new Date());
-            item.setLink("http://www.encuestame.org");
+            item.setTitle(String.format("On %s, %s publish", createdAt, content.getQuestionBean().getQuestionName()));
+            String urlTweet = FeedUtils.createUrlTweetPoll(urlDomain, "/tweetpoll/", content);
+            Log.debug("******************** RSS DATE ************************> "+content.getCreateDate());
+            Log.debug("---------------URL RSS -----------------------> "+ urlTweet);
+            item.setPubDate(content.getCreatedDateAt());
+            item.setLink(urlTweet);
             entries.add(item);
         }
         return entries;

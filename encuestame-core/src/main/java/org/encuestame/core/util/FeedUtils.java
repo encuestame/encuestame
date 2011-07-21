@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.util;
 
+import org.encuestame.utils.web.TweetPollBean;
+
 import com.sun.syndication.feed.atom.Link;
 
 /**
@@ -34,5 +36,21 @@ public class FeedUtils {
         link.setHref(url);
         link.setTitle(title);
         return link;
+    }
+
+    /**
+    *
+    * @param url
+    * @param code
+    * @param slug
+    * @return
+    */
+    public final static String createUrlTweetPoll(final String url, final String code, final TweetPollBean tweetPoll){
+        StringBuffer urlString = new StringBuffer(url);
+        urlString.append(code);
+        urlString.append(tweetPoll.getId());
+        urlString.append("/");
+        urlString.append(tweetPoll.getQuestionBean().getSlugName());
+        return urlString.toString();
     }
 }

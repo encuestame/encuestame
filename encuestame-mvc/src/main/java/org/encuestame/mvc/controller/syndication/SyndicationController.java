@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version $Id:$
  */
 @Controller
-public class TweetPollFeedController extends AbstractFeedController {
+public class SyndicationController extends AbstractFeedController {
 
     /**
      * Log.
