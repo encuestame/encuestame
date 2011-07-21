@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.rss.AbstractBaseAtomFeedView;
 import org.encuestame.core.util.FeedUtils;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 
 import com.sun.syndication.feed.atom.Entry;
 import com.sun.syndication.feed.atom.Feed;

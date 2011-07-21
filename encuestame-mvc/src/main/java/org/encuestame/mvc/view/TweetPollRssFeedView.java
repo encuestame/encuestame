@@ -21,7 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
+
 import com.sun.syndication.feed.rss.Channel;
 
 import com.sun.syndication.feed.rss.Item;

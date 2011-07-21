@@ -42,7 +42,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;

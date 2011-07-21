@@ -30,9 +30,9 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.QuestionBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -71,8 +71,8 @@ public class TestSurveyService  extends AbstractServiceBase{
     /** {@link QuestionBean} **/
     private QuestionBean questionBean;
 
-    /** {@link UnitPatternBean}**/
-    private UnitPatternBean patternBean;
+    /** {@link QuestionPatternBean}**/
+    private QuestionPatternBean patternBean;
 
      /**
      *
@@ -122,7 +122,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     @Test
     public void testloadPatternInfo() throws EnMeExpcetion {
         //  this.serviceInit();
-        UnitPatternBean patternBean = new UnitPatternBean();
+        QuestionPatternBean patternBean = new QuestionPatternBean();
         patternBean.setId(this.pattern.getPatternId());
         //    	patternBean.setId(createQuestionPattern("html").getPatternId());
         patternBean = surveyService.loadPatternInfo(patternBean);
@@ -137,7 +137,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     @Test
     public void testloadAllPatrons() throws EnMeExpcetion {
     // this.serviceInit();
-        final Collection<UnitPatternBean> patternList = surveyService.loadAllPatrons();
+        final Collection<QuestionPatternBean> patternList = surveyService.loadAllPatrons();
     // assertNotNull(patternList);
         assertEquals("Should be equals",2, patternList.size());
     }
@@ -148,7 +148,7 @@ public class TestSurveyService  extends AbstractServiceBase{
      */
 //  @Test
     public void testloadAllPatronsZeroResults() throws EnMeExpcetion {
-        final Collection<UnitPatternBean> patternList = surveyService.loadAllPatrons();
+        final Collection<QuestionPatternBean> patternList = surveyService.loadAllPatrons();
         assertNotNull(patternList);
         assertEquals("Should be equals",0, patternList.size());
     }

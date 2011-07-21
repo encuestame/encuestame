@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
 
 /**

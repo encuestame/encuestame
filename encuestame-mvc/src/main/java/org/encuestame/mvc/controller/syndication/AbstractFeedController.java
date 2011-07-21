@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 
 /**
  * Abstract Feed Controller.

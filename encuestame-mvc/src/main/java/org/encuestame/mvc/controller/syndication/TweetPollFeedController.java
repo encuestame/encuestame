@@ -21,7 +21,7 @@ import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

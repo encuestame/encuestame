@@ -33,12 +33,12 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -72,8 +72,8 @@ public class TestTweetPollService  extends AbstractServiceBase{
 
     private List<QuestionAnswerBean> answers;
 
-    /** {@link UnitPatternBean}**/
-    private UnitPatternBean patternBean;
+    /** {@link QuestionPatternBean}**/
+    private QuestionPatternBean patternBean;
 
     /** {@link QuestionBean} **/
     private QuestionBean questionBean;

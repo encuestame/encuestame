@@ -19,10 +19,10 @@ import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.FolderBean;
-import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.QuestionBean;
 
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;
@@ -46,19 +46,19 @@ public interface ISurveyService extends IMasterSurveyService {
 
     /**
      * Load pattern info.
-     * @param unitPatternBean {@link UnitPatternBean}
-     * @return {@link UnitPatternBean}
+     * @param unitPatternBean {@link QuestionPatternBean}
+     * @return {@link QuestionPatternBean}
      * @throws EnMeExpcetion exception
      */
-    UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
+    QuestionPatternBean loadPatternInfo(QuestionPatternBean unitPatternBean)
     throws EnMeExpcetion;
 
     /**
      * Load all Patrons.
-     * @return List of {@link UnitPatternBean}
+     * @return List of {@link QuestionPatternBean}
      * @throws EnMeExpcetion exception
      */
-    Collection<UnitPatternBean> loadAllPatrons()
+    Collection<QuestionPatternBean> loadAllPatrons()
     throws EnMeExpcetion;
 
     /**

@@ -10,11 +10,14 @@ dojo.require("dijit.Dialog");
 dojo.require("dojox.widget.Dialog");
 dojo.require("dojox.form.Rating");
 dojo.require("dojo.fx");
+dojo.require("dojo.hash");
 
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
 dojo.require("encuestame.org.core.commons.support.Wipe");
+dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
+
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollList",
         [dijit._Widget, dijit._Templated],{
@@ -28,14 +31,44 @@ dojo.declare(
         showNew : false,
         max : 8,
         start : 0,
-        postCreate : function(){
+        postCreate : function() {
+            var hash = dojo.queryToObject(dojo.hash());
             if(this.listItems == null){
-                this.loadTweetPolls({typeSearch : this.defaultSearch});
+                this.loadTweetPolls({typeSearch : (hash.f == null ? this.defaultSearch: hash.f) });
+            }
+            dojo.subscribe("/encuestame/tweetpoll/list/updateOptions", this, "_checkOptionItem");
+            if (hash.f) {
+            dojo.query(".optionItem").forEach(function(node, index, arr) {
+               if (node.getAttribute("type") == hash.f) {
+                   dojo.addClass(node, "optionItemSelected");
+                }
+              });
             }
         },
 
+        /*
+         *
+         */
+        _checkOptionItem : function(node){
+            dojo.query(".optionItem").forEach(function(node, index, arr){
+                dojo.removeClass(node, "optionItemSelected");
+              });
+             dojo.addClass(node, "optionItemSelected");
+        },
+
+        /*
+         *
+         */
         resetPagination : function(){
             this.start = 0;
+        },
+
+        _changeHash : function(id){
+            var hash = dojo.queryToObject(dojo.hash());
+            params = {
+               f : id
+            };
+            dojo.hash(dojo.objectToQuery(params));
         },
 
         _nextSearch : function(event){
@@ -47,43 +80,56 @@ dojo.declare(
         _searchByAll : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "ALL";
+            this._changeHash(this.currentSearch);
             this.resetPagination();
             this.loadTweetPolls({typeSearch : "ALL"});
+            console.debug(event);
+            dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
         _searchByAccount : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "ALL";
+            this._changeHash(this.currentSearch);
             this.resetPagination();
             this.loadTweetPolls({typeSearch : "ALL"});
+            dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
         _searchByFavourites : function(event){
             dojo.stopEvent(event);
-            this.currentSearch = "SCHEDULED";
+            this.currentSearch = "FAVOURITES";
+            this._changeHash(this.currentSearch);
             this.resetPagination();
             this.loadTweetPolls({typeSearch : "FAVOURITES"});
+            dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
         _searchByScheduled : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "SCHEDULED";
+            this._changeHash(this.currentSearch);
             this.resetPagination();
             this.loadTweetPolls({typeSearch : "SCHEDULED"});
+            dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
         _searchByLastDay : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "LASTDAY";
+            this._changeHash(this.currentSearch);
             this.resetPagination();
             this.loadTweetPolls({typeSearch : "LASTDAY"});
+            dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
         _searchByLastWeek : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "LASTWEEK";
+            this._changeHash(this.currentSearch);
             this.resetPagination();
             this.loadTweetPolls({typeSearch : "LASTWEEK"});
+            dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
         /**
@@ -160,6 +206,18 @@ dojo.declare(
             }
             dojo.connect(this.domNode, "onclick", dojo.hitch(this, this._onClickItem));
             this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._panel);
+            if (this.data.hashTags) {
+                dojo.forEach(this.data.hashTags,
+                dojo.hitch(this,function(item) {
+                    var hashtag = new encuestame.org.core.commons.stream.HashTagInfo(
+                            {
+                             hashTagName: item.hashTagName,
+                             url: encuestame.contextDefault+"/tag/"+item.hashTagName+"/"
+                            }
+                            );
+                    this._hashtags.appendChild(hashtag.domNode);
+                }));
+            }
         },
 
         showInfo : function(){
@@ -218,6 +276,7 @@ dojo.declare(
                dojo.empty(this._panel);
             } else {
                dojo.addClass(this.domNode, "listItemTweetSeleted");
+               dojo.removeClass(this._hashtags, "defaultDisplayHide");
                this._createDetail(this.data);
                this.panelWidget.wipeInOne();
             }
@@ -226,6 +285,7 @@ dojo.declare(
 
         _setUnselected : function(){
             dojo.removeClass(this.domNode, "listItemTweetSeleted");
+            dojo.addClass(this._hashtags, "defaultDisplayHide");
         },
 
         /*

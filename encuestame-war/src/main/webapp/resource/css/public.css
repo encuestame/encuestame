@@ -252,20 +252,19 @@ div.web-item-wrapper .item .tags a:hover {
 
 /* class tag global */
 .tag {
-    background-color: #3E6D8E;
-    color: #F7FBFF;
-    font-size: 90%;
-    margin: 2px 2px 2px 0;
-    padding: 3px 4px;
-    white-space: nowrap;
-    border: 1px solid #929292;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+  background-color: #EDEDED;
+  border: 1px solid #DDDDDD;
+  border-radius: 3px 3px 3px 3px;
+  color: #12122D;
+  font-size: 90%;
+  margin: 2px 2px 2px 0;
+  padding: 3px 4px;
+  white-space: nowrap;
 }
 
 .tag:hover {
     color: #F7FBFF;
+    background-color: #3E6D8E;
     text-decoration: none;
 }
 
@@ -1006,8 +1005,7 @@ div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel
 
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem {
     border-bottom: 1px solid #EEEEEE;
     float: left;
     font-size: 14px;
@@ -1015,8 +1013,12 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
     width: 164px;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected {
+    background-color: #6F6F6F;
+    color: #FFF;
+}
+
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover {
     background-color: #6F6F6F;
     color: #FFF;
     cursor: pointer;
@@ -1050,6 +1052,17 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     padding: 8px;
     border-bottom: 1px solid #D2D2D2;
     background-color: #F4F4F4;
+}
+
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags{
+    padding: 2px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags .tag{
+    margin-right: 6px !important;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item:hover{
@@ -1165,6 +1178,17 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     border-radius: 0px 0px 5px 5px;
     border: 1px solid #DCDCDC;
     background-color: #DCDCD;
+}
+
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail .detail{
+    float: left;
+    width: 450px;
+}
+
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail .extra{
+    float: left;
+    width: 370px;
+    margin: 15px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.subMenu
@@ -1489,42 +1513,6 @@ div.options .saveButton {
     padding: 4px;
 }
 
-font-size
-
-
-:
-
-
-
-12
-px
-
-
-;
-width
-
-
-:
-
-
-
-135
-px
-
-
-;
-color
-
-
-:
-
-
-
-#FFF
-
-
-;
-}
 div.answerAddForm .inputClass {
     padding: 5px;
     border: 1px solid #BCBCBC;

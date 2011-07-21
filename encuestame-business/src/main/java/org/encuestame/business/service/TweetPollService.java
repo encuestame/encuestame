@@ -47,11 +47,12 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.json.LinksSocialBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.joda.time.DateTime;
@@ -90,7 +91,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         log.debug("tweetPoll username "+username);
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(getPrimaryUser(username), maxResults, start);
          log.info("tweetPoll size "+tweetPolls.size());
-        return this.setTweetPollListAnswers(tweetPolls);
+        return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE);
     }
 
     /**
@@ -99,16 +100,25 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeExpcetion
      */
-    private List<TweetPollBean> setTweetPollListAnswers(final List<TweetPoll> listTweetPolls){
+    private List<TweetPollBean> setTweetPollListAnswers(final List<TweetPoll> listTweetPolls, final Boolean results){
         final List<TweetPollBean> tweetPollsBean = new ArrayList<TweetPollBean>();
         for (TweetPoll tweetPoll : listTweetPolls) {
-            final TweetPollBean unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
-             unitTweetPoll.getQuestionBean().setListAnswers(this.retrieveAnswerByQuestionId(unitTweetPoll.getQuestionBean().getId()));
-             if (unitTweetPoll.getId() != null) {
-                 unitTweetPoll.setTotalVotes(getTweetPollDao().getTotalVotesByTweetPollId(unitTweetPoll.getId()));
-             } else {
-                 unitTweetPoll.setTotalVotes(this.TOTALVOTE);
+             final List<TweetPollSwitch> answers = this.getTweetPollSwitch(tweetPoll);
+             final TweetPollBean unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
+             final List<TweetPollAnswerSwitchBean> listSwitchs = new ArrayList<TweetPollAnswerSwitchBean>();
+             //);
+             if (results) {
+                 final List<TweetPollResultsBean> list = new ArrayList<TweetPollResultsBean>();
+                 for (TweetPollSwitch tweetPollSwitch : answers) {
+                     final TweetPollAnswerSwitchBean answerResults = ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch);
+                     final TweetPollResultsBean rBean = this.getVotesByTweetPollAnswerId(tweetPoll.getTweetPollId(), tweetPollSwitch.getAnswers());
+                     answerResults.setResultsBean(rBean);
+                     list.add(rBean);
+                     listSwitchs.add(answerResults);
+                }
+                 this.calculatePercents(list);
              }
+             unitTweetPoll.setAnswerSwitchBeans(listSwitchs);
              tweetPollsBean.add(unitTweetPoll);
         }
         return tweetPollsBean;
@@ -121,9 +131,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeExpcetion
      */
-    public List<TweetPollBean> searchTweetsPollsByKeyWord(final String username,
+    public List<TweetPollBean> searchTweetsPollsByKeyWord(
+                               final String username,
                                final String keyword,
-                               final Integer maxResults, final Integer start) throws EnMeExpcetion{
+                               final Integer maxResults,
+                               final Integer start) throws EnMeExpcetion{
         log.info("search keyword tweetPoll  "+keyword);
         List<TweetPoll> tweetPolls  = new ArrayList<TweetPoll>();
         if(keyword == null){
@@ -132,7 +144,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username), maxResults, start);
         }
         log.info("search keyword tweetPoll size "+tweetPolls.size());
-        return this.setTweetPollListAnswers(tweetPolls);
+        return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE);
     }
 
     /**
@@ -147,7 +159,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollsToday(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion{
         return this.setTweetPollListAnswers(getTweetPollDao().retrieveTweetPollToday(
-                getPrimaryUser(username), maxResults, start));
+                getPrimaryUser(username), maxResults, start), Boolean.TRUE);
     }
 
     /**
@@ -162,7 +174,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollsLastWeek(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion{
         return this.setTweetPollListAnswers(getTweetPollDao().retrieveTweetPollLastWeek(
-                getPrimaryUser(username), maxResults, start));
+                getPrimaryUser(username), maxResults, start), Boolean.TRUE);
     }
 
     /**
@@ -177,7 +189,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollFavourites(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion{
         return this.setTweetPollListAnswers(getTweetPollDao().retrieveFavouritesTweetPoll(
-                getPrimaryUser(username), maxResults, start));
+                getPrimaryUser(username), maxResults, start), Boolean.TRUE);
     }
 
     /**
@@ -192,7 +204,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollScheduled(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion{
         return this.setTweetPollListAnswers(getTweetPollDao().retrieveScheduledTweetPoll(
-                getPrimaryUser(username), maxResults, start));
+                getPrimaryUser(username), maxResults, start), Boolean.TRUE);
     }
 
     /**
@@ -647,14 +659,20 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @throws EnMeNoResultsFoundException
      */
     public List<TweetPollResultsBean> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException{
-        log.debug("getResultsByTweetPollId "+tweetPollId);
+        if (log.isDebugEnabled()) {
+            log.debug("getResultsByTweetPollId "+tweetPollId);
+        }
         final List<TweetPollResultsBean> pollResults = new ArrayList<TweetPollResultsBean>();
         final TweetPoll tweetPoll = getTweetPollById(tweetPollId, null);
-        log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
-        log.debug("tweetPoll "+tweetPoll);
-        for (QuestionAnswer questionsAnswers : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
-              log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());
-              pollResults.add(this.getVotesByTweetPollAnswerId(tweetPollId, questionsAnswers));
+        if (log.isDebugEnabled()) {
+            log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
+            log.debug("tweetPoll "+tweetPoll);
+        }
+        for (QuestionAnswer questionsAnswer : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
+              if (log.isDebugEnabled()) {
+                  log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());
+              }
+              pollResults.add(this.getVotesByTweetPollAnswerId(tweetPollId, questionsAnswer));
         }
         this.calculatePercents(pollResults);
         return pollResults;
@@ -981,7 +999,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
         }
         log.debug("checkTweetPollCompleteStatus tweetPoll.getDateLimit() "+tweetPoll.getDateLimit());
-        if (tweetPoll.getDateLimit() && next && tweetPoll.getDateLimited() != null) {
+        if (next && tweetPoll.getDateLimited() != null) {
             DateTime date = new DateTime(tweetPoll.getDateLimited());
             log.debug(date);
             if(date.isBeforeNow()){

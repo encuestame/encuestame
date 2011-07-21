@@ -23,10 +23,10 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.QuestionBean;
 
 /**
  * Poll Service Interface.

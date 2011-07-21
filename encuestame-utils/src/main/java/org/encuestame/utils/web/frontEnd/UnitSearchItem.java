@@ -14,8 +14,8 @@ package org.encuestame.utils.web.frontEnd;
 
 import java.util.List;
 
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.TweetPollBean;
 
 /**
  * Represent a Item on Search Form.

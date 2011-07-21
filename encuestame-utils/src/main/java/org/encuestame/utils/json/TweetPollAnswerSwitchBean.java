@@ -10,36 +10,45 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils.web;
+package org.encuestame.utils.json;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
+
 /**
- * Description.
- *
+ * Represents tweetpoll answer switch.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 15, 2011
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TweetPollAnswerSwitchBean implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = -5463311757853384293L;
-
+    @JsonProperty(value = "id")
     private Long id;
-
+    @JsonIgnore
     public TweetPollBean tweetPollBean;
-
+    @JsonProperty(value = "tweet_poll_id")
     public Long tweetPollId;
-
+    @JsonProperty(value = "answer")
     public QuestionAnswerBean answerBean;
-
+    @JsonProperty(value = "short_url")
     public String shortUrl;
+    @JsonProperty(value = "results")
+    public TweetPollResultsBean resultsBean;
 
     /**
      * @return the tweetPollBean
      */
+    @JsonIgnore
     public TweetPollBean getTweetPollBean() {
         return tweetPollBean;
     }
@@ -55,6 +64,7 @@ public class TweetPollAnswerSwitchBean implements Serializable {
     /**
      * @return the answerBean
      */
+    @JsonIgnore
     public QuestionAnswerBean getAnswerBean() {
         return answerBean;
     }
@@ -70,6 +80,7 @@ public class TweetPollAnswerSwitchBean implements Serializable {
     /**
      * @return the shortUrl
      */
+    @JsonIgnore
     public String getShortUrl() {
         return shortUrl;
     }
@@ -85,6 +96,7 @@ public class TweetPollAnswerSwitchBean implements Serializable {
     /**
      * @return the tweetPollId
      */
+    @JsonIgnore
     public Long getTweetPollId() {
         return tweetPollId;
     }
@@ -99,6 +111,7 @@ public class TweetPollAnswerSwitchBean implements Serializable {
     /**
      * @return the id
      */
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -110,6 +123,18 @@ public class TweetPollAnswerSwitchBean implements Serializable {
         this.id = id;
     }
 
+    /**
+     * @return the resultsBean
+     */
+    @JsonIgnore
+    public TweetPollResultsBean getResultsBean() {
+        return resultsBean;
+    }
 
-
+    /**
+     * @param resultsBean the resultsBean to set
+     */
+    public void setResultsBean(TweetPollResultsBean resultsBean) {
+        this.resultsBean = resultsBean;
+    }
 }

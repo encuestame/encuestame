@@ -28,8 +28,8 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.springframework.stereotype.Service;
 
