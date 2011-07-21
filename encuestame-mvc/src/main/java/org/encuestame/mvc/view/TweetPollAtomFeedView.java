@@ -60,11 +60,12 @@ public final class TweetPollAtomFeedView extends AbstractBaseAtomFeedView {
         final String urlDomain = model.get("url").toString();
         for (TweetPollBean content : contentList) {
             final Entry entry = new Entry();
-            final Date createdAt = content.getCreatedDateAt();
-            String date = String.format("%1$tY-%1$tm-%1$td", new Date());
+            final String createdAt = FeedUtils.formattedDate("yyyy-MM-dd", content.getCreatedDateAt());
+            //final String updatedAt = FeedUtils.formattedDate("MM-dd-yyyy HH:mm:ss", content.getUpdateDate());
+            // String date = String.format("%1$tY-%1$tm-%1$td", new Date());
             entry.setId(content.getQuestionBean().getQuestionName());
             entry.setTitle(String.format("On %s, %s publish", createdAt, content.getQuestionBean().getQuestionName()));
-            entry.setUpdated(new Date());
+            entry.setUpdated(content.getUpdateDate());
             String urlTweet = FeedUtils.createUrlTweetPoll(urlDomain, "/tweetpoll/", content);
             final List<Link> links = new ArrayList<Link>();
             //TODO: need work in this details.

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -22,19 +22,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
 import org.encuestame.core.util.FeedUtils;
-import org.encuestame.core.util.InternetUtils;
 import org.encuestame.utils.web.TweetPollBean;
 import org.jfree.util.Log;
 
 import com.sun.syndication.feed.rss.Channel;
-
 import com.sun.syndication.feed.rss.Item;
 
 /**
  * TweetPoll Published RSS Feed View.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 3, 2010 10:42:10 AM
- * @version $Id: $
  */
 public class TweetPollRssFeedView extends AbstractBaseRssFeedView{
 
@@ -62,13 +59,12 @@ public class TweetPollRssFeedView extends AbstractBaseRssFeedView{
         final String urlDomain = model.get("url").toString();
         for (TweetPollBean content : contentList) {
             final Item item = new Item();
-            final Date createdAt = content.getCreatedDateAt();
-            String date = String.format("%1$tY-%1$tm-%1$td", new Date());
+            final String createdAt = FeedUtils.formattedDate("yyyy-MM-dd", content.getCreatedDateAt());
+            //final String updatedAt = FeedUtils.formattedDate("MM-dd-yyyy HH:mm:ss", content.getUpdateDate());
+            //String date = String.format("%1$tY-%1$tm-%1$td", new Date());
             item.setTitle(String.format("On %s, %s publish", createdAt, content.getQuestionBean().getQuestionName()));
             String urlTweet = FeedUtils.createUrlTweetPoll(urlDomain, "/tweetpoll/", content);
-            Log.debug("******************** RSS DATE ************************> "+content.getCreateDate());
-            Log.debug("---------------URL RSS -----------------------> "+ urlTweet);
-            item.setPubDate(content.getCreatedDateAt());
+            item.setPubDate(content.getUpdateDate());
             item.setLink(urlTweet);
             entries.add(item);
         }

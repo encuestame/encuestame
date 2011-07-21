@@ -13,9 +13,7 @@
 package org.encuestame.mvc.controller.syndication;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.domain.security.UserAccount;

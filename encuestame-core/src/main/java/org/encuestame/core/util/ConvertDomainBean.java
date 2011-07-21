@@ -531,6 +531,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? 0L : Long.valueOf(tweetPoll.getNumbervotes()));
         unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
         unitTweetPoll.setLimitVotesDate(tweetPoll.getDateLimit() == null ? false : tweetPoll.getDateLimit());
+        unitTweetPoll.setUpdateDate(tweetPoll.getUpdatedDate());
         if(tweetPoll.getDateLimit() != null && tweetPoll.getDateLimited() != null) {
             unitTweetPoll.setDateToLimit(tweetPoll.getDateLimited() == null
                     ? null

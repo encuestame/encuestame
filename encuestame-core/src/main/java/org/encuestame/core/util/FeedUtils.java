@@ -12,6 +12,9 @@
  */
 package org.encuestame.core.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.encuestame.utils.web.TweetPollBean;
 
 import com.sun.syndication.feed.atom.Link;
@@ -52,5 +55,17 @@ public class FeedUtils {
         urlString.append("/");
         urlString.append(tweetPoll.getQuestionBean().getSlugName());
         return urlString.toString();
+    }
+
+    /**
+     * Format date.
+     * @param format
+     * @param tweetPollDate
+     * @return
+     */
+    public final static String formattedDate(final String format, final Date tweetPollDate){
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        String dateToFormat = formatDate.format(tweetPollDate);
+        return dateToFormat;
     }
 }
