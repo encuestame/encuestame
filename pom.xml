@@ -13,7 +13,7 @@
     <url>http://www.encuestame.org</url>
     <issueManagement>
         <system>JIRA</system>
-        <url>http://trac.encuesta.me</url>
+        <url>http://issues.encuestame.org</url>
     </issueManagement>
     <ciManagement>
         <system>Jenkins</system>
