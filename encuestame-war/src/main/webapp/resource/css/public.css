@@ -661,13 +661,12 @@ div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answ
     padding: 10px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-answer-answer .web-tweetpoll-answer-table
-    {
+div.web-tweetpoll-answer-answer .web-tweetpoll-answer-table {
     border: 1px none;
     width: 590px;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table .header-table-answer
+.web-tweetpoll-answer-table .header-table-answer
     {
     border: 0 none;
     color: #000000;
@@ -676,7 +675,7 @@ div.web-tweetpoll-detail .web-tweetpoll-answer-table .header-table-answer
     padding-bottom: 5px;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table th {
+.web-tweetpoll-answer-table th {
     border-bottom: 1px solid #3E6D8E;
     color: #3E6D8E;
     font-size: 11px;
@@ -685,41 +684,41 @@ div.web-tweetpoll-detail .web-tweetpoll-answer-table th {
     text-transform: lowercase;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table td {
+.web-tweetpoll-answer-table td {
     border-bottom: 1px dotted #3E6D8E;
     padding: 8px 15px;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table  .answer-poll {
+.web-tweetpoll-answer-table  .answer-poll {
     font-weight: normal;
     text-align: left;
     width: 100px;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table .color-code {
+.web-tweetpoll-answer-table .color-code {
     float: left;
     height: 11px;
     margin: 2px 10px 0 0;
     width: 11px;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table .data-aling-right {
+.web-tweetpoll-answer-table .data-aling-right {
     border-right: 0 none;
     text-align: right;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong,div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong-r
+.web-tweetpoll-answer-table .answer-data-strong,div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong-r
     {
     color: #000000;
     font-weight: bold;
     text-align: center;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-right {
+.web-tweetpoll-answer-table .answer-right {
     border-right: 1px solid #CCCCCC;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-answer-table .data-bold {
+.web-tweetpoll-answer-table .data-bold {
     color: #333333;
 }
 
@@ -1178,6 +1177,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     border-radius: 0px 0px 5px 5px;
     border: 1px solid #DCDCDC;
     background-color: #DCDCD;
+    overflow: auto;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail .detail{

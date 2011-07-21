@@ -7,6 +7,10 @@ dojo.require("dijit.form.CheckBox");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
+dojo.require("dijit.layout.TabContainer");
+dojo.require("dijit.layout.ContentPane");
+dojo.require("dijit.layout.AccordionContainer");
+dojo.require("dijit.layout.AccordionPane");
 dojo.require("dojox.widget.Dialog");
 dojo.require("dojox.form.Rating");
 dojo.require("dojo.fx");
@@ -143,8 +147,7 @@ dojo.declare(
                         data.success.tweetPolls,
                         dojo.hitch(this, function(data, index) {
                             this.createTweetPollItem(data, i);
-                            if(!i){
-                                dojo.publish("/encuestame/tweetpoll/detail/update", [data]);
+                            if(!i) {
                                 i = true;
                             }
                 }));
@@ -165,15 +168,13 @@ dojo.declare(
          * create item.
          */
         createTweetPollItem : function(data, i){
-            var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem(
-                    {
-                        data : data
-                    }
-                    );
-            if(!i){
-                widget._changeBackGroundSelected();
-            }
-            this._items.appendChild(widget.domNode);
+            dojo.addOnLoad(dojo.hitch(this, function() {
+                var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem({data : data });
+                this._items.appendChild(widget.domNode);
+                if (!i) {
+                    widget._changeBackGroundSelected();
+                }
+            }));
         }
  });
 
@@ -194,9 +195,9 @@ dojo.declare(
         panelWidget : null,
 
         //post create
-        postCreate : function(){
-            this.showInfo();
+        postCreate : function() {
             dojo.subscribe("/encuestame/tweetpoll/item/unselect", this, "unselect");
+            dojo.connect(this._title, "onclick", dojo.hitch(this, this._onClickItem));
             if(!this.data.favourites){
                 dojo.addClass(this._favourite, "emptyFavourite");
                 dojo.removeClass(this._favourite, "selectedFavourite");
@@ -204,7 +205,7 @@ dojo.declare(
                 dojo.addClass(this._favourite, "selectedFavourite");
                 dojo.removeClass(this._favourite, "emptyFavourite");
             }
-            dojo.connect(this.domNode, "onclick", dojo.hitch(this, this._onClickItem));
+
             this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._panel);
             if (this.data.hashTags) {
                 dojo.forEach(this.data.hashTags,
@@ -218,10 +219,6 @@ dojo.declare(
                     this._hashtags.appendChild(hashtag.domNode);
                 }));
             }
-        },
-
-        showInfo : function(){
-
         },
 
         /*
@@ -303,7 +300,6 @@ dojo.declare(
         _createDetail : function(data) {
             var detail = new encuestame.org.core.commons.tweetPoll.TweetPollListDetail({data: data});
             this._panel.appendChild(detail.domNode);
-            dojo.publish("/encuestame/tweetpoll/detail/update", [data]);
         },
 
         /*

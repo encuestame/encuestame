@@ -1,25 +1,13 @@
 <div class="web-tweetpoll-list-item">
-   <div class="title-wrapper">
+   <div class="title-wrapper" dojoAttachPoint="_title">
         <div class="web-tweetpoll-favourite emptyFavourite" dojoAttachPoint="_favourite" dojoAttachEvent="onclick:_setFavourite"></div>
         <div class="web-tweetpoll-list-item-title">
                 ${data.question.question_name}
         </div>
    </div>
-   <!--
-   <div class="rightPanel">
-        <div class="votesTitle">
-            Votes
-        </div>
-        <div class="votesCount">
-            0/${data.limitVotes}
-        </div>
-        <div class="rating">
-            <div dojoType="dojox.form.Rating" numStars="5" value="2"></div>
-        </div>
-   </div>
-   -->
   <div dojoAttachPoint="_panel" class="tweet-poll-item-panel">
   </div>
   <div class="hashTags defaultDisplayHide" dojoAttachPoint="_hashtags">
+    <label><b>Tags:</b></label>
   </div>
 </div>
