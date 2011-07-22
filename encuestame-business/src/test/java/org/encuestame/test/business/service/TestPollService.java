@@ -33,10 +33,10 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
+import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
 import org.hibernate.HibernateException;
@@ -94,7 +94,7 @@ public class TestPollService extends AbstractServiceBase{
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
         createDefaultEmails("dianmorales@gmail.com", this.emailList);
-        this.folder = createPollFolder("folder 1", this.user);
+        this.folder = createPollFolder("folder 1", this.userAccount);
         this.poll.setPollFolder(folder);
      }
 

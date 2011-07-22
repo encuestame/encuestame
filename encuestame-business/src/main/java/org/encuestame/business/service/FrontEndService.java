@@ -269,7 +269,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setHitDate(hitDate);
         tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
         tagHitsDomain.setIpAddress(ipAddress);
-        tagHitsDomain.setUserAccount(getUserAccountLogged());
+        tagHitsDomain.setUserAccount(getUserAccountonSecurityContext());
         this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }

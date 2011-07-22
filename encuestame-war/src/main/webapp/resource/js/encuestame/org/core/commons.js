@@ -507,6 +507,27 @@ encuestame.service.search.suggest = encuestame.contextWidget()+"/api/search/quic
 encuestame.service.stream = {};
 encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
 
+encuestame.service.folder = {};
+
+encuestame.service.folder.create = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/create.json";
+};
+encuestame.service.folder.update = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/update.json";
+};
+encuestame.service.folder.remove = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/remove.json";
+};
+encuestame.service.folder.move = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/move.json";
+};
+
+encuestame.service.folder.list = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/list.json";
+};
+encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
+encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
+
 //short url service.
 //encuestame.service.short = {};
 //encuestame.service.short.google = "/api/short/url/google.json";

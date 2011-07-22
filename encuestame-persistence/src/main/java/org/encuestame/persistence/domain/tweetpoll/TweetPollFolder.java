@@ -25,18 +25,20 @@ import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 
 /**
- * Poll Domain.
- *
+ * TweetPoll Folder Domain.
  * @author Morales, Diana Paola paola@encuestame.org
  * @since October 04, 2010
- * @version $Id: $
  */
 
 @Entity
 @Table(name = "tweetPoll_Folder")
 @Indexed(index="TweetPollFolder")
 public class TweetPollFolder extends AbstractFolder implements IFolder{
-     private Long id;
+
+    /**
+     * Id.
+     */
+    private Long id;
 
     /**
      * @return the tweetPollFolderId

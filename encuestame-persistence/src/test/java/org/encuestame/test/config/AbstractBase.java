@@ -1394,11 +1394,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
    * @param users
    * @return
    */
-    public SurveyFolder createSurveyFolders(final String folderName, final Account users){
+    public SurveyFolder createSurveyFolders(final String folderName, final UserAccount users){
         final SurveyFolder surveyFolders = new SurveyFolder();
         surveyFolders.setCreatedAt(new Date());
         surveyFolders.setFolderName(folderName);
-        surveyFolders.setUsers(users);
+        surveyFolders.setUsers(users.getAccount());
+        surveyFolders.setStatus(Status.ACTIVE);
+        surveyFolders.setCreatedBy(users);
         getSurveyDaoImp().saveOrUpdate(surveyFolders);
         return surveyFolders;
     }
@@ -1410,11 +1412,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param users {@link Account}
      * @return {@link PollFolder}.
      */
-    public PollFolder createPollFolder(final String folderName, final Account users){
+    public PollFolder createPollFolder(final String folderName, final UserAccount users){
         final PollFolder folder = new PollFolder();
         folder.setCreatedAt(new Date());
         folder.setFolderName(folderName);
-        folder.setUsers(users);
+        folder.setUsers(users.getAccount());
+        folder.setStatus(Status.ACTIVE);
+        folder.setCreatedBy(users);
         getiPoll().saveOrUpdate(folder);
         return folder;
     }
@@ -1425,11 +1429,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param users
      * @return
      */
-    public TweetPollFolder createTweetPollFolder(final String folderName, final Account users){
+    public TweetPollFolder createTweetPollFolder(final String folderName, final UserAccount users){
         final TweetPollFolder folder = new TweetPollFolder();
         folder.setCreatedAt(new Date());
         folder.setFolderName(folderName);
-        folder.setUsers(users);
+        folder.setStatus(Status.ACTIVE);
+        folder.setCreatedBy(users);
+        folder.setUsers(users.getAccount());
         getTweetPoll().saveOrUpdate(folder);
         return folder;
     }

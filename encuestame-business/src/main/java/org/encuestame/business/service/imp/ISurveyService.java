@@ -19,10 +19,10 @@ import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.FolderBean;
 
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;

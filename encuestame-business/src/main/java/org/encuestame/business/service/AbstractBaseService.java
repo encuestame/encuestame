@@ -279,7 +279,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             final Boolean group){
         final Notification notification = new Notification();
         notification.setDescription(description);
-        notification.setAccount(getUserAccountLogged().getAccount());
+        notification.setAccount(getUserAccountonSecurityContext().getAccount());
         notification.setAdditionalDescription(additional);
         notification.setUrlReference(urlReference);
         notification.setCreated(Calendar.getInstance().getTime());

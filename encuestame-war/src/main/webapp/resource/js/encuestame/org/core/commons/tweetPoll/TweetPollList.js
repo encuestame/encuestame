@@ -20,6 +20,7 @@ dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
 dojo.require("encuestame.org.core.commons.support.Wipe");
+dojo.require("encuestame.org.core.shared.utils.FoldersActions");
 dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
 
 dojo.declare(
@@ -33,6 +34,7 @@ dojo.declare(
         currentSearch : "",
         contextPath : "",
         showNew : false,
+        folder_support : true,
         max : 8,
         start : 0,
         postCreate : function() {
@@ -48,6 +50,14 @@ dojo.declare(
                 }
               });
             }
+            if (this.folder_support && this._folder) {
+                var folder = new encuestame.org.core.shared.utils.FoldersActions({folderContext: "tweetpoll"});
+                this._folder.appendChild(folder.domNode);
+            }
+        },
+
+        _initFolderSupport : function() {
+
         },
 
         /*
