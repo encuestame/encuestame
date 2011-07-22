@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
 
 import com.sun.syndication.feed.atom.Entry;

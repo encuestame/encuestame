@@ -165,16 +165,23 @@ public class SignInController extends AbstractSocialController{
                    log.debug(accessGrant.getAccessToken());
                    log.debug(accessGrant.getRefreshToken());
                }
-               String x = "redirect:/user/signin/friends";
-               if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
-                    x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant, getSecurityService()));
-               } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
-                   x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant, getSecurityService()));
-               }
-               if (log.isDebugEnabled()) {
-                   log.debug("oauth2Callback sign up with social account "+x);
-               }
-               return x;
+            String friendsUrl = "redirect:/user/signin/friends";
+            if (SocialProvider.getProvider(provider).equals(
+                    SocialProvider.GOOGLE)) {
+                friendsUrl = getSecurityService().connectSignInAccount(
+                        new GoogleSignInSocialService(accessGrant,
+                                getSecurityService()));
+            } else if (SocialProvider.getProvider(provider).equals(
+                    SocialProvider.FACEBOOK)) {
+                friendsUrl = getSecurityService().connectSignInAccount(
+                        new FacebookSignInSocialSupport(accessGrant,
+                                getSecurityService()));
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("oauth2Callback sign up with social account "
+                        + friendsUrl);
+            }
+               return friendsUrl;
             } catch (EnMeExistPreviousConnectionException e) {
                  log.fatal("OAuth EnMeExistPreviousConnectionException:{"+e);
                  Assert.notNull(httpRequest);

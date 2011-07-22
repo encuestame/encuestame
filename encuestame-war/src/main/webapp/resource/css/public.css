@@ -1504,10 +1504,13 @@ div.addAnswers div.options {
 }
 
 div.options .saveButton {
-    background-image: url(../images/icons/add.png);
+    background-image: "url(../images/icons/add.png)";
     padding: 5px;
     border: 1px solid #BCBCBC;
-    color: #808080; . addButton { margin-left : 8px;
+    color: #808080;
+}
+
+. addButton { margin-left : 8px;
     border: 1px solid #BCBCBC;
     min-width: 100px;
     padding: 4px;
@@ -1659,19 +1662,7 @@ div.addAnswers div.addNewAnswer .addButton {
     padding: 4px;
 }
 
-div.header {
-    font-size: 1.6em;
-    padding: 4px;
-    margin: 1px;
-    color: #FFF;
-}
 
-div.subHeader {
-    font-size: 1em;
-    padding: 4px;
-    margin: 1px;
-    color: #FFF;
-}
 
 /** Hash Tags **/
 div.hashTagWrapper {
@@ -1875,10 +1866,6 @@ div.publishOptions tr {
     font-weight: bold;
 }
 
-/**div.publishOptions tr:hover{
-   background-color: #000;
-   color: #FFF;
-}**/
 div.publishOptions tr .label {
     padding-left: 10px;
 }
@@ -1982,7 +1969,7 @@ div.tweetPollPublishDialog div.items div.item div.detail .success-url {
     padding: 3px;
     padding: 4px;
     color: #358852;
-    font-weight: bold;;
+    font-weight: bold;
 }
 
 div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover
@@ -1990,8 +1977,7 @@ div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover
     text-decoration: underline;
 }
 
-div.tweetPollPublishDialog div.items div.item div.detail .failure-message
-    {
+div.tweetPollPublishDialog div.items div.item div.detail .failure-message{
     background-color: #EB2C2C;
     border-radius: 2px 2px 2px 2px;
     color: #FFFFFF;
@@ -1999,4 +1985,608 @@ div.tweetPollPublishDialog div.items div.item div.detail .failure-message
     max-width: 50%;
     padding: 4px;
     float: left;
+}
+
+div.web-folder-wrapper {
+    float: left;
+    width: 100%;
+}
+
+div.web-folder-wrapper .folder-title{
+    font-size: 130%;
+    padding: 5px;
+    background-color: #888;
+    color: #FFF;
+}
+
+div.web-folder-wrapper .folder-menu {
+  background-color: #444444;
+  color: #FFFFFF;
+  font-size: 121%;
+  min-height: 21px;
+  padding: 4px 1px 1px 6px;
+}
+
+
+div.web-folder-wrapper .web-folder-item{
+    padding: 4px;
+    border: 1px dotted #EEE;
+    width: auto;
+    clear: both;
+    padding-left: 13px;
+}
+
+div.web-folder-wrapper .web-folder-item:hover {
+    background-color: #6F6F6F;
+    color: #FFF;'
+}
+
+div.web-folder-wrapper .web-folder-item span:hover{
+    color: #FFF;'
+}
+
+div.web-folder-wrapper .web-folder-item .icon-folder {
+  background-image: url("../images/icons/enme_folder.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16px;
+  margin-left: 2px;
+  min-width: 17px;
+}
+
+div.web-folder-wrapper .web-folder-item .folder-name {
+    width: 50px;
+    font-size: 14px;
+}
+
+
+/** tweetPollVote **/
+
+div.tweetPollVote{
+
+
+}
+
+div.tweetPollVote div.question{
+    font-size: 180%;
+    font-weight: bold;
+    padding: 5px;
+    color: #C4C4C4;
+}
+div.tweetPollVote div.answer{
+    font-size: 150%;
+    font-weight: bold;
+    padding: 15px;
+    background-color: #DCE0FF;
+    color: #515151;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+/** tweetPollDetail. **/
+
+div.tweetPollDetail{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+div.tweetPollDetail div.question{
+    padding: 15px;
+    background-color: #E5EEE9;
+    font-size: 160%;
+    font-weight: bold;
+    color: #BAACAC;
+}
+
+div.tweetPollDetail div.answerVote{
+    padding: 5px;
+}
+
+/** social accounts **/
+
+div.socialAccountPicker{
+    width: 100%;
+    max-width: 600px;
+    padding: 4px;
+    max-height: 240px;
+}
+
+div.socialAccountPicker div.menu{
+    padding: 5px;
+    background: #888888;
+    color: white;
+    min-height: 15px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    font-size: 95%;
+    text-align: right;
+}
+
+div.socialAccountPicker .pick{
+    cursor: pointer;
+}
+
+div.socialAccountPicker .pick:hover{
+    text-decoration: underline;
+}
+
+div.socialAccountPicker div.resume{
+    padding: 5px;
+    background: #888888;
+    color: white;
+    min-height: 15px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
+    font-size: 95%;
+    text-align: right;
+}
+
+div.socialAccountPicker .list {
+  background: none repeat scroll 0 0 #D5D5D5;
+  max-height: 200px;
+  min-height: 15px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+div.socialAccountPicker div.account{
+    margin: 1px;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #E6E6E6;
+    color: #776E6E;
+    font-size: 130%;
+    border: 0.1em solid #D0CFCF;
+    padding: 1px;
+    min-width: 200px;
+    cursor: pointer;
+    overflow: auto;
+}
+
+div.socialAccountPicker div.selected {
+  background-color: #2E2F25;
+  color: white;
+  font-weight: normal;
+}
+
+div.socialAccountPicker div.account:hover{
+    background-color: #A3A7A7;
+}
+
+div.socialAccountPicker div.account div.image{
+    float: left;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+
+div.socialAccountPicker div.account div.detail{
+    float: left;
+}
+
+div.socialAccountPicker div.account div.icon{
+    float: right;
+    padding: 5px;
+}
+
+/** notifilication list **/
+
+div.web-notification-list{
+
+}
+
+div.web-notification-list list{
+
+}
+
+div.web-notification-list div.web-notification-list-item{
+    clear: both;
+    padding: 9px;
+    font-size: 100%;
+    text-align: left;
+    border-bottom: 1px solid #E9E9E9;
+}
+
+div.web-notification-list div.web-notification-list-item span{
+    margin-left: 5px;
+    margin-right: 10px;
+    font-size: 100%;
+}
+
+div.web-notification-list div.web-notification-list-item .icon{
+    width: 16px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+div.web-notification-list div.web-notification-list-item .title{
+    font-weight: bold;
+    padding: 4px;
+    min-width: 265px;
+    max-width: 265px;
+    display: inline-block;
+}
+
+div.web-notification-list div.web-notification-list-item .description{
+    padding: 4px;
+    min-width: 405px;
+    display: inline-block;
+    max-width: 405px;
+
+}
+
+div.web-notification-list div.web-notification-list-item .date{
+    padding-left: 10px;
+    color: gray;
+    padding: 4px;
+    display: inline-block;
+}
+
+/********** HASHTAGS **************/
+
+div.web-hashtagName{
+    color: #5C8397;
+    font-size: 130%;
+}
+
+div.web-tags-tweetpolls{
+    margin-top: 4px;
+    width: 100%;
+
+}
+
+div.web-tweetpolls{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #0F0E0E;
+    padding: 5px 5px 5px 5px;
+     margin: 4px;
+}
+
+div.web-tweetpolls-time{
+
+}
+
+
+/*** Profile Menu **/
+
+/** profile menu **/
+div.profilePanel{
+    display: none;
+    position: absolute;
+    min-height: 120px;
+    min-width: 245px;
+    background-color: #444444;
+    right: 0px;
+    top: 30px;
+    z-index: 5px;
+    zoom: 1;
+    -moz-box-shadow: 1px 2px 3px #888888;
+    -webkit-box-shadow: 1px 2px 3px #888888;
+     box-shadow: 1px 2px 3px #888888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+     border-radius: 0px 0px 5px 5px;
+     z-index: 99999;
+}
+
+div.profileOpenPanel{
+    display: block;
+}
+div.profilePanel ul{
+    max-height: 350px;
+    overflow: hidden;
+}
+
+div.profilePanel li{
+    background-image: none;
+    clear: both;
+    display: block;
+    width: 215px;
+    float: left;
+    text-align: left;
+    list-style: none;
+    margin: 0px;
+    padding: 6px 15px;
+}
+div.profilePanel li:hover{
+    background-color: "#5F5F5F";
+}
+
+div.profilePanel li a:link{
+   color: #BABABA !important;
+   font-weight: normal;
+}
+
+div.profilePanel li a{
+    padding: 10px;
+    color: #BABABA !important;
+    font-weight: normal;
+}
+
+/** profile update wrapper **/
+
+div.accountUpdateWrapper{
+    padding: 10px;
+}
+
+/** Menu **/
+
+div.menuWrapper{
+    font-weight: bold;
+    -moz-box-shadow: 0px 2px 2px #888;
+    -webkit-box-shadow: 0px 2px 2px #888;
+     box-shadow: 0px 0px 2px #888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+     border-radius: 0px 0px 5px 5px;
+     background-color: #444444;
+     max-height : 34px;
+     padding-top: 3px;
+}
+
+div.menuWrapper .item {
+    display: inline-block;
+    border-radius: 4px 4px 4px 4px;
+}
+
+div.menuWrapper a:hover {
+    background-color: #555555;
+}
+
+div.menuWrapper .item a {
+    float: left;
+    text-decoration: none;
+    color: white;
+    padding: 7px 7px 7px 13px;
+    background-color: #444444;
+}
+
+div..menuWrapper .item a:visited {
+    color: white;
+}
+
+div..menuWrapper .item a:hover,.menuWrapper .item .current {
+    color: #444444;
+    background-color: #E8E8E8;
+    -moz-box-shadow: 0px 2px 2px #888;
+    -webkit-box-shadow: 0px 2px 2px #888;
+    box-shadow: 0px 0px 2px #888;
+}
+
+#profile_menu {
+    background: #aaaaaa;
+    border: solid 1px #666666;
+    width: 400px;
+    padding: 10px;
+    color: #FFFFFF;
+    position: absolute;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    min-height: 160px;
+    z-index: 500;
+   -webkit-border-radius: 0px 0px 10px 10px;
+    -moz-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
+    right: 120px !important;
+    top:37px;
+}
+
+#profile_menu li {
+    padding-bottom: 6px;
+    text-align: right;
+}
+
+#detail_profile {
+    padding-right: 10px;
+    border-right: 1px #DEDEDE solid;
+    height: 120px;
+    width: 230px;
+    float: left;
+    line-height: 12px;
+}
+
+#options_profile {
+    padding-left: 20px;
+    height: 120px;
+    width: 135px;
+    float: left;
+    line-height: 12px;
+    text-align: right;
+}
+
+#profile_menu label {
+    font-size: 11px;
+    font-weight: normal;
+}
+
+#profile_menu input {
+    font-size: 11px;
+    color: #333333;
+    margin-left: 10px;
+}
+
+#profile_menu button {
+    line-height: 24px;
+    float: right;
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+div.menuWrapper div.rightSide {
+  float: right;
+  text-align: right;
+  width: 225px;
+}
+
+div.menuWrapper div.rightSide span {
+  display: inline-block;
+  margin-left: 3px;
+  margin-right: 3px;
+  overflow: auto;
+  vertical-align: middle;
+}
+
+/** web-profile-menu **/
+
+div.web-profile-menu {
+  color: #FFFFFF;
+  overflow: auto;
+  vertical-align: middle;
+  cursor: pointer;
+  min-width: 100px;
+  padding-top: 4px;
+}
+
+div.web-profile-menu:hover {
+    background-color: #555555;
+}
+
+div.web-profile-menu .image {
+  float: left;
+}
+
+div.web-profile-menu .real-name {
+  min-width: 119px;
+  padding-right: 4px;
+  padding-top: 4px;
+  vertical-align: middle;
+  width: 145px;
+  text-align: center;
+}
+
+/** notifications **/
+
+div.notificationWrapper {
+  min-height: 22px;
+  padding: 4px;
+}
+
+div.notificationWrapper:hover{
+    background-color: #5A5959;
+}
+
+div.livePanel{
+    display: none;
+    position: absolute;
+    min-height: 5px;
+    width: 400px;
+    background-color: #FFF;
+    right: 0px;
+    top: 30px;
+    -moz-box-shadow: 2px 2px 5px #888888;
+    -webkit-box-shadow: 2px 2px 5px #888888;
+     box-shadow: 2px 2px 5px #888888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+     border-radius: 0px 0px 5px 5px;
+     min-width: 345px;
+     max-width: 345px;
+     z-index: 20;
+}
+
+div.livePanel .panelItems{
+    min-height: 100%;
+}
+
+div.livePanel .final{
+    padding: 4px;
+    text-align: right;
+    font-weight: bold;
+    background-color: #E8E8E8;
+}
+div.livePanel .final a:link{
+    color: "#000";
+}
+
+div.openLivePanel{
+     display: block;
+}
+
+.notificationItem{
+    padding: 5px;
+    min-height: 30px;
+    text-align: left;
+}
+
+.notificationItem:hover{
+    background-color: #E8E8E8;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div.livePanel .notificationItem .left{
+    float: left;
+    min-height: 30px;
+    margin-left: 10px;
+    width: 50px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+div.livePanel .notificationItem .right{
+
+}
+
+div.livePanel .notificationItem .right .title{
+    font-size: 110%;
+}
+
+div.livePanel .notificationItem .right .description{
+    font-size: 80%;
+    color: grey;
+    font-weight: normal;
+    margin-left: 60px;
+}
+
+div.counter{
+    color: #FFF;
+    cursor: pointer;
+}
+
+div.notificationWrapper div.new{
+    color: red !important;
+}
+
+div.counter:hover{
+}
+
+/** profile view **/
+
+div.web-profile-wrapper{
+    margin: 10px;
+}
+
+div.web-profile-wrapper div.profile-name{
+    padding: 15px;
+    margin-bottom: 0px;
+}
+
+div.web-profile-wrapper div.picture {
+    float: left;
+}
+
+div.web-profile-wrapper ul{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+div.web-profile-wrapper .rss li img{
+    float: left;
+    margin-right: 10px;
+}
+
+div.web-profile-wrapper .rss li {
+  border-bottom: 1px dotted #B8B7B7;
+  display: block;
+  padding-left: 5px;
+  vertical-align: middle;
 }
