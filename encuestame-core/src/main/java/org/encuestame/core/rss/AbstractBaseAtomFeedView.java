@@ -43,13 +43,17 @@ public abstract class AbstractBaseAtomFeedView extends AbstractAtomFeedView {
     protected abstract void buildFeedMetadata(Map<String, Object> model, Feed feed,
             HttpServletRequest request);
 
+
     /**
-     * Build List Feed Entries.
+     * Build Feed Entries.
      */
-    @Override
-    protected abstract List<Entry> buildFeedEntries(Map<String, Object> model,
-            HttpServletRequest request, HttpServletResponse response)
-            throws Exception;
+     @SuppressWarnings("unchecked")
+     @Override
+     protected List<Entry> buildFeedEntries(Map<String, Object> model, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+        List<Entry> contentList = (List<Entry>) model.get("items");
+        return contentList;
+     }
 
     /**
      * @return the atomTitle

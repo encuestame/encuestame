@@ -83,6 +83,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Boolean limitVotesDate;
     @JsonProperty(value = "dateToLimit")
     private String dateToLimit;
+    private Date updateDate;
 
     /** Required Captcha to Vote. **/
     @JsonProperty(value = "captcha")
@@ -520,8 +521,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
         this.dateToLimit = dateToLimit;
     }
 
-
-
     /**
      * @return the answerSwitchBeans
      */
@@ -536,6 +535,19 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     public void setAnswerSwitchBeans(
             List<TweetPollAnswerSwitchBean> answerSwitchBeans) {
         this.answerSwitchBeans = answerSwitchBeans;
+    }
+    /**
+    * @return the updateDate
+    */
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    /**
+    * @param updateDate the updateDate to set
+    */
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     /* (non-Javadoc)

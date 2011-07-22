@@ -78,7 +78,7 @@ public class TweetPoll {
     private Date createDate;
 
     /** Updated Date. **/
-    private Date updatedDate = new Date();
+    private Date updatedDate;
 
     /**  This value is true when the tweetpoll has been archived. **/
     private Boolean completed = false;
