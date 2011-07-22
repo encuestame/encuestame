@@ -2,6 +2,9 @@ package org.encuestame.utils;
 
 import java.util.Date;
 import java.util.List;
+
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -9,10 +12,8 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.QuestionBean;
 
 import junit.framework.TestCase;
 
@@ -118,7 +119,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         final String questionName,
         final String version,
         final List unitAnswer,
-        final UnitPatternBean pattern
+        final QuestionPatternBean pattern
     ){
         final QuestionBean unitQuestionBean = new QuestionBean();
         unitQuestionBean.setId(questionId);
@@ -139,10 +140,10 @@ public abstract class AbstractBaseUtils extends TestCase{
     * @param levelpattern levelpattern
     * @param patronType patronType
     * @param shortNumberString shortNumberString
-    * @return {@link UnitPatternBean}
+    * @return {@link QuestionPatternBean}
     */
 
-    public UnitPatternBean createUnitPatternBean(
+    public QuestionPatternBean createUnitPatternBean(
         final String classpattern,
         final String descripcion,
         final String finallity,
@@ -154,7 +155,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         final String template
         )
     {
-        final UnitPatternBean unitPatternBean = new UnitPatternBean();
+        final QuestionPatternBean unitPatternBean = new QuestionPatternBean();
         unitPatternBean.setClasspattern(classpattern);
         unitPatternBean.setDescripcion(descripcion);
         unitPatternBean.setFinallity(finallity);

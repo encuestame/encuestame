@@ -86,7 +86,7 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch1, "192.168.0.2");
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
-      this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getAccount());
+      this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary);
       tweetPoll.setNumbervotes(65);
     }
 
@@ -164,7 +164,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetPollFolderByUserId(){
         assertNotNull(tweetPollFolder);
         assertNotNull(secondary);
-        final List<TweetPollFolder> tpfu = getTweetPoll().retrieveTweetPollFolderByUserId(this.secondary.getAccount().getUid());
+        final List<TweetPollFolder> tpfu = getTweetPoll().retrieveTweetPollFolderByAccount(this.secondary.getAccount());
         assertEquals("Should be equals", 1, tpfu.size());
     }
 

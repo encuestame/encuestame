@@ -65,7 +65,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @return list of folders.
      */
     @SuppressWarnings("unchecked")
-    public List<IFolder> getPollFolderBySecUser(final Account secUser){
+    public List<PollFolder> getPollFolderBySecUser(final Account secUser){
           final DetachedCriteria criteria = DetachedCriteria.forClass(PollFolder.class);
           criteria.add(Restrictions.eq("users", secUser));
           return getHibernateTemplate().findByCriteria(criteria);

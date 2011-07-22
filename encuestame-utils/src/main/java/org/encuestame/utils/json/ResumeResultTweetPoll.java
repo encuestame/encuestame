@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.utils.web;
+package org.encuestame.utils.json;
 
 /**
  * Resume Result.

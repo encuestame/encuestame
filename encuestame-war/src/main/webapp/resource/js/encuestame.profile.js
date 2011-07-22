@@ -68,6 +68,8 @@ dependencies ={
                 //mobile
                 "encuestame.org.mobile.notifications.NotificationList",
                 "encuestame.org.mobile.tweetPoll.TweetPollList",
+                //support,
+                "encuestame.org.core.commons.support.Wipe",
                 "org.cometd",
                 "org.cometd.AckExtension",
                 "org.cometd.ReloadExtension",

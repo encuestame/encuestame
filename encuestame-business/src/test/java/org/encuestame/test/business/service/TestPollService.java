@@ -33,12 +33,12 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.UnitLists;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.QuestionBean;
 import org.hibernate.HibernateException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -94,7 +94,7 @@ public class TestPollService extends AbstractServiceBase{
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
         createDefaultEmails("dianmorales@gmail.com", this.emailList);
-        this.folder = createPollFolder("folder 1", this.user);
+        this.folder = createPollFolder("folder 1", this.userAccount);
         this.poll.setPollFolder(folder);
      }
 
@@ -210,7 +210,7 @@ public class TestPollService extends AbstractServiceBase{
     public void testUpdateQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the tooth are white";
          final List<QuestionAnswerBean> answers;
-         final UnitPatternBean patternBean;
+         final QuestionPatternBean patternBean;
          answers = new ArrayList<QuestionAnswerBean>();
          answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
          answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));
@@ -230,7 +230,7 @@ public class TestPollService extends AbstractServiceBase{
     public void testUpdateNullQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the sea is blue";
          final List<QuestionAnswerBean> answers;
-         final UnitPatternBean patternBean;
+         final QuestionPatternBean patternBean;
          answers = new ArrayList<QuestionAnswerBean>();
          answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
          answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));

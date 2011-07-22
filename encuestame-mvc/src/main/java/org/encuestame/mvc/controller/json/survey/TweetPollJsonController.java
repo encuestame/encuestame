@@ -39,9 +39,9 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.ShortUrlProvider;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -87,17 +87,17 @@ public class TweetPollJsonController extends AbstractJsonController {
         List<TweetPollBean> list = new ArrayList<TweetPollBean>();
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
-            if(TypeSearch.KEYWORD.name().equals(typeSearch)){
+            if(TypeSearch.KEYWORD.name().equals(typeSearch)) {
                 list = getTweetPollService().searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword, max, start);
-            } else if(TypeSearch.ALL.name().equals(typeSearch)){
+            } else if(TypeSearch.ALL.name().equals(typeSearch)) {
                 list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername(), max, start);
             } else if(TypeSearch.LASTDAY.name().equals(typeSearch)){
                 list = getTweetPollService().searchTweetsPollsToday(getUserPrincipalUsername(), max, start);
-            } else if(TypeSearch.LASTWEEK.name().equals(typeSearch)){
+            } else if(TypeSearch.LASTWEEK.name().equals(typeSearch)) {
                 list = getTweetPollService().searchTweetsPollsLastWeek(getUserPrincipalUsername(), max, start);
-            } else if(TypeSearch.FAVOURITES.name().equals(typeSearch)){
+            } else if(TypeSearch.FAVOURITES.name().equals(typeSearch)) {
                 list = getTweetPollService().searchTweetsPollFavourites(getUserPrincipalUsername(), max, start);
-            } else if(TypeSearch.SCHEDULED.name().equals(typeSearch)){
+            } else if(TypeSearch.SCHEDULED.name().equals(typeSearch)) {
                 list = getTweetPollService().searchTweetsPollScheduled(getUserPrincipalUsername(), max, start);
             } else {
                 list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername(), max, start);

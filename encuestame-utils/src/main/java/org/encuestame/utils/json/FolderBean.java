@@ -10,17 +10,21 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils.web;
+package org.encuestame.utils.json;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Unit Folder.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 9, 2010 12:34:11 PM
- * @version $Id:$
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FolderBean implements Serializable {
 
     /**
@@ -28,14 +32,16 @@ public class FolderBean implements Serializable {
      */
     private static final long serialVersionUID = -980650572883612949L;
 
+    @JsonProperty(value = "id")
     private Long id;
 
+    @JsonProperty(value = "name")
     private String folderName;
 
+    @JsonProperty(value = "create_date")
     private Date createAt;
 
     public FolderBean() {
-
     }
 
     public FolderBean(Long id) {
@@ -46,6 +52,7 @@ public class FolderBean implements Serializable {
     /**
      * @return the id
      */
+    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -53,13 +60,14 @@ public class FolderBean implements Serializable {
     /**
      * @param id the id to set
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
     /**
      * @return the folderName
      */
+    @JsonIgnore
     public String getFolderName() {
         return folderName;
     }
@@ -67,13 +75,14 @@ public class FolderBean implements Serializable {
     /**
      * @param folderName the folderName to set
      */
-    public void setFolderName(String folderName) {
+    public void setFolderName(final String folderName) {
         this.folderName = folderName;
     }
 
     /**
      * @return the createAt
      */
+    @JsonIgnore
     public Date getCreateAt() {
         return createAt;
     }
@@ -81,7 +90,7 @@ public class FolderBean implements Serializable {
     /**
      * @param createAt the createAt to set
      */
-    public void setCreateAt(Date createAt) {
+    public void setCreateAt(final Date createAt) {
         this.createAt = createAt;
     }
 

@@ -56,7 +56,7 @@ public abstract class AbstractSecurityContext {
      * Get logged {@link UserAccount}.
      * @return {@link UserAccount}.
      */
-    public UserAccount getUserAccountLogged(){
+    public UserAccount getUserAccountonSecurityContext(){
         UserAccount account = null;
         final EnMeUserAccountDetails details = getSecurityDetails();
         if (details != null) {

@@ -20,7 +20,7 @@ import org.encuestame.core.util.FeedUtils;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 
 import com.sun.syndication.feed.atom.Entry;
 import com.sun.syndication.feed.rss.Item;

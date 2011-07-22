@@ -28,8 +28,8 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.springframework.stereotype.Service;
 
@@ -269,7 +269,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setHitDate(hitDate);
         tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
         tagHitsDomain.setIpAddress(ipAddress);
-        tagHitsDomain.setUserAccount(getUserAccountLogged());
+        tagHitsDomain.setUserAccount(getUserAccountonSecurityContext());
         this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }

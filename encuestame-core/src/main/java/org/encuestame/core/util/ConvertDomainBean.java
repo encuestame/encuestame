@@ -38,26 +38,29 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollAnswerSwitchBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
@@ -94,8 +97,7 @@ public class ConvertDomainBean {
      * @return
      */
     public static final  List<TweetPollAnswerSwitchBean> convertListTweetPollSwitchToBean(final List<TweetPollSwitch> pollSwitchs) {
-        final List<TweetPollAnswerSwitchBean> listSwitchs
-        = new ArrayList<TweetPollAnswerSwitchBean>();
+        final List<TweetPollAnswerSwitchBean> listSwitchs = new ArrayList<TweetPollAnswerSwitchBean>();
         for (TweetPollSwitch account : pollSwitchs) {
             listSwitchs.add(ConvertDomainBean.convertTweetPollSwitchToBean(account));
         }
@@ -461,12 +463,12 @@ public class ConvertDomainBean {
 
 
     /**
-     * Convert {@link QuestionPattern} to {@link UnitPatternBean}.
+     * Convert {@link QuestionPattern} to {@link QuestionPatternBean}.
      * @param pattern  {@link QuestionPattern}
-     * @return {@link UnitPatternBean}
+     * @return {@link QuestionPatternBean}
      */
-    public static final UnitPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
-        final UnitPatternBean patterBean = new UnitPatternBean();
+    public static final QuestionPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
+        final QuestionPatternBean patterBean = new QuestionPatternBean();
         patterBean.setId(pattern.getPatternId());
         patterBean.setPatronType(pattern.getPatternType());
         patterBean.setLabel(pattern.getLabelQid());
@@ -697,14 +699,45 @@ public class ConvertDomainBean {
      * @param folders List of Folders.
      * @return
      */
-    public static final List<FolderBean> convertListToUniUnitFolder(final List<IFolder> folders){
+    public static final List<FolderBean> convertListTweetPollFoldertoBean(final List<TweetPollFolder> folders){
         final List<FolderBean> folderList = new LinkedList<FolderBean>();
-            for (IFolder folder : folders) {
+            for (TweetPollFolder folder : folders) {
                 folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
             }
         return folderList;
     }
 
+    /**
+     * Convert a List of {@link PollFolder} to {@link FolderBean}.
+     * @param folders List of {@link PollFolder}.
+     * @return
+     */
+    public static final List<FolderBean> convertListPollFolderToBean(final List<PollFolder> folders){
+        final List<FolderBean> folderList = new LinkedList<FolderBean>();
+            for (PollFolder folder : folders) {
+                folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
+            }
+        return folderList;
+    }
+
+    /**
+     * Convert a List of {@link SurveyFolder} to {@link FolderBean}.
+     * @param folders List of {@link PollFolder}.
+     * @return
+     */
+    public static final List<FolderBean> convertListSurveyFolderToBean(final List<SurveyFolder> folders){
+        final List<FolderBean> folderList = new LinkedList<FolderBean>();
+            for (SurveyFolder folder : folders) {
+                folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
+            }
+        return folderList;
+    }
+
+    /**
+     *
+     * @param survey
+     * @return
+     */
     public static final UnitSurvey convertSurveyDomaintoBean(final Survey survey){
         final UnitSurvey unitSurvey = new UnitSurvey();
         unitSurvey.setSid(survey.getSid());

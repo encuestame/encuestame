@@ -31,7 +31,7 @@ import org.encuestame.mvc.controller.syndication.view.TweetPollRssFeedView;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;

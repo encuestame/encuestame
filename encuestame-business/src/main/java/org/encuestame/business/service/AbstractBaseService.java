@@ -42,7 +42,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
@@ -279,7 +279,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             final Boolean group){
         final Notification notification = new Notification();
         notification.setDescription(description);
-        notification.setAccount(getUserAccountLogged().getAccount());
+        notification.setAccount(getUserAccountonSecurityContext().getAccount());
         notification.setAdditionalDescription(additional);
         notification.setUrlReference(urlReference);
         notification.setCreated(Calendar.getInstance().getTime());

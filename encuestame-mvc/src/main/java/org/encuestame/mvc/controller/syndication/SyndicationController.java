@@ -58,7 +58,7 @@ public class SyndicationController extends AbstractFeedController {
     }
 
     /**
-     * Display TweetPoll Atom Feed.
+     * Display TweetPoll ATOM Feed.
      * @param username
      * @param model
      * @param request
@@ -100,7 +100,7 @@ public class SyndicationController extends AbstractFeedController {
     }
 
     /**
-     *
+     * Display profile RSS Feed.
      * @param username
      * @param model
      * @param request
@@ -125,7 +125,7 @@ public class SyndicationController extends AbstractFeedController {
     }
 
     /**
-     *
+     * Display profile ATOM Feed.
      * @param username
      * @param model
      * @param request
@@ -145,9 +145,15 @@ public class SyndicationController extends AbstractFeedController {
         return "profileAtomFeedView";
     }
 
-
+    /**
+     * Display survey Atom Feed.
+     * @param username
+     * @param model
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/feed/{username}/survey.atom", method = RequestMethod.GET)
-    public String surveyPollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+    public String surveyAtom(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
@@ -159,16 +165,15 @@ public class SyndicationController extends AbstractFeedController {
         return "surveyAtomFeedView";
     }
 
-
     /**
-     * Display TweetPoll RSS Feed.
+     * Display survey RSS Feed.
      * @param username username
      * @param model model
      * @param request request
      * @return
      */
     @RequestMapping(value = "/feed/{username}/survey.rss", method = RequestMethod.GET)
-    public String surveyPollRss(@PathVariable String username, Model model, HttpServletRequest request) {
+    public String surveyRss(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
              try {
@@ -180,4 +185,126 @@ public class SyndicationController extends AbstractFeedController {
         return "surveyRssFeedView";
     }
 
+    /**
+     * Display polls ATOM Feed.
+     * @param username
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/feed/{username}/polls.atom", method = RequestMethod.GET)
+    public String pollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername(username);
+        if(secUserSecondary != null){
+            try {
+                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+            } catch (EnMeExpcetion e) {
+                log.error(e);
+            }
+        }
+        return "pollAtomFeedView";
+    }
+
+
+    /**
+     * Display polls RSS Feed.
+     * @param username username
+     * @param model model
+     * @param request request
+     * @return
+     */
+    @RequestMapping(value = "/feed/{username}/polls.rss", method = RequestMethod.GET)
+    public String pollRss(@PathVariable String username, Model model, HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername(username);
+        if(secUserSecondary != null){
+             try {
+                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+             } catch (EnMeNoResultsFoundException e) {
+                 log.error(e);
+             }
+        }
+        return "pollRssFeedView";
+    }
+
+    /**
+     * Display projects ATOM Feed.
+     * @param username
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/feed/{username}/projects.atom", method = RequestMethod.GET)
+    public String projectAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername(username);
+        if(secUserSecondary != null){
+            try {
+                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+            } catch (EnMeExpcetion e) {
+                log.error(e);
+            }
+        }
+        return "projectAtomFeedView";
+    }
+
+
+    /**
+     * Display projects RSS Feed.
+     * @param username username
+     * @param model model
+     * @param request request
+     * @return
+     */
+    @RequestMapping(value = "/feed/{username}/projects.rss", method = RequestMethod.GET)
+    public String projectRss(@PathVariable String username, Model model, HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername(username);
+        if(secUserSecondary != null){
+             try {
+                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+             } catch (EnMeNoResultsFoundException e) {
+                 log.error(e);
+             }
+        }
+        return "projectRssFeedView";
+    }
+
+    /**
+     * Display frontend ATOM Feed.
+     * @param username
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/feed/{username}/home.atom", method = RequestMethod.GET)
+    public String frontendAtom(@PathVariable String username, Model model, HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername(username);
+        if(secUserSecondary != null){
+            try {
+                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+            } catch (EnMeExpcetion e) {
+                log.error(e);
+            }
+        }
+        return "frontEndAtomFeedView";
+    }
+
+
+    /**
+     * Display frontend RSS Feed.
+     * @param username username
+     * @param model model
+     * @param request request
+     * @return
+     */
+    @RequestMapping(value = "/feed/{username}/home.rss", method = RequestMethod.GET)
+    public String frontendRss(@PathVariable String username, Model model, HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername(username);
+        if(secUserSecondary != null){
+             try {
+                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+             } catch (EnMeNoResultsFoundException e) {
+                 log.error(e);
+             }
+        }
+        return "frontEndRssFeedView";
+    }
 }

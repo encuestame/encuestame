@@ -19,17 +19,17 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPoll;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UserAccountBean;
@@ -60,7 +60,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
             final Long stateId,
             final Long userId,
             final List listAnswers,
-            final UnitPatternBean pattern){
+            final QuestionPatternBean pattern){
          final QuestionBean question = new QuestionBean();
          question.setQuestionName(questionName);
          question.setStateId(stateId);
@@ -79,13 +79,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param template
      * @return
      */
-     public UnitPatternBean createPatternBean(
+     public QuestionPatternBean createPatternBean(
              final String classpattern,
              final String descripcionPattern,
              final String levelpattern,
              final String patronType,
              final String template){
-         final UnitPatternBean unitPatternBean = new UnitPatternBean();
+         final QuestionPatternBean unitPatternBean = new QuestionPatternBean();
          unitPatternBean.setClasspattern(classpattern);
          unitPatternBean.setDescripcion(descripcionPattern);
          unitPatternBean.setLevelpattern(levelpattern);
@@ -227,7 +227,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              final Long stateId,
              final Long userId,
              final List listAnswers,
-             final UnitPatternBean pattern){
+             final QuestionPatternBean pattern){
           final QuestionBean question = new QuestionBean();
           question.setId(questionId);
           question.setQuestionName(questionName);

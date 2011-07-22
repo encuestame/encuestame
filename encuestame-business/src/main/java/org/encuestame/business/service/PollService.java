@@ -22,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
@@ -33,8 +32,8 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.utils.MD5Utils;
-import org.encuestame.utils.web.FolderBean;
-import org.encuestame.utils.web.QuestionBean;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPoll;
 import org.springframework.stereotype.Service;
@@ -179,7 +178,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeNoResultsFoundException
      */
     public List<UnitPoll> getPollsByFolder(final FolderBean folder, final String username) throws EnMeNoResultsFoundException{
-        final Account account = getUserAccount(username).getAccount();
+        final Account account = getUserAccount(getUserPrincipalUsername()).getAccount();
         final List<Poll> polls = getPollDao().getPollsByPollFolder(account, getPollFolder(folder.getId()));
         return ConvertDomainBean.convertSetToUnitPollBean(polls);
     }
@@ -240,10 +239,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException exception
      */
-    public List<FolderBean> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException{
+    public List<FolderBean> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException {
         final Account account = getUserAccount(username).getAccount();
-        final List<IFolder> folders = getPollDao().getPollFolderBySecUser(account);
-        return ConvertDomainBean.convertListToUniUnitFolder(folders);
+        final List<PollFolder> folders = getPollDao().getPollFolderBySecUser(account);
+        return ConvertDomainBean.convertListPollFolderToBean(folders);
     }
 
     /**
@@ -253,7 +252,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public FolderBean createPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException{
+    public FolderBean createPollFolder(final String folderName, final String username) throws EnMeNoResultsFoundException {
         final PollFolder pollFolder = new PollFolder();
         pollFolder.setUsers(getUserAccount(username).getAccount());
         pollFolder.setCreatedAt(new Date());

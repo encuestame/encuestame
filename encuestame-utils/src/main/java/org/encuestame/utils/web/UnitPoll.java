@@ -16,6 +16,8 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.encuestame.utils.json.QuestionBean;
+
 /**
  * Unit Poll Bean.
  *

@@ -47,12 +47,9 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
         _seriesData : [],
 
         render: function(){
-            console.debug("render 1");
             this._buildSeries();
-            console.debug("render 2");
             var dc = dojox.charting;
             var chartTwo = new dc.Chart2D(this.node);
-            console.debug("render 3");
             chartTwo.setTheme(dc.themes.MiamiNice).addPlot("default", {
                 type: "Pie",
                 font: "normal normal 12px Myriad,Helvetica,Tahoma,Arial,clean,sans-serif",
@@ -60,17 +57,13 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
                 labelOffset: -30,
                 radius: this.size
             }).addSeries("A", this._seriesData);
-            console.debug("render 4");
             var anim_a = new dc.action2d.MoveSlice(chartTwo, "default");
             var anim_b = new dc.action2d.Highlight(chartTwo, "default");
             var anim_c = new dc.action2d.Tooltip(chartTwo, "default");
-            console.debug("render 5");
             chartTwo.render();
-            console.debug("render 6");
             var legendTwo = new dojox.charting.widget.Legend({
                 chart: chartTwo
             },
             "legendTwo");
-            console.debug("render 7");
         }
 });

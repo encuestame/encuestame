@@ -1261,7 +1261,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
            final Boolean onlyUnread) {
         final List<Notification> notifications = getNotificationDao()
                 .loadNotificationByUserAndLimit(
-                        getUserAccountLogged().getAccount(), limit, start, onlyUnread);
+                        getUserAccountonSecurityContext().getAccount(), limit, start, onlyUnread);
         return notifications;
    }
 
