@@ -61,13 +61,13 @@ public class FolderJsonServiceController extends AbstractJsonController{
     @RequestMapping(value = "/api/survey/folder/{actionType}/create.json", method = RequestMethod.GET)
     public ModelMap createFolder(
             @PathVariable String actionType,
-            @RequestParam(value = "n", required = true) String folderName,
+            @RequestParam(value = "name", required = true) String folderName,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                log.debug("FolderName "+folderName);
               final Map<String, Object> sucess = new HashMap<String, Object>();
-              if("tweetPoll".equals(actionType)){
+              if("tweetpoll".equals(actionType)){
                    sucess.put("folder", getTweetPollService().createTweetPollFolder(folderName,
                                   getUserPrincipalUsername()));
                    setItemResponse(sucess);
@@ -111,7 +111,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                 try {
                     log.debug("FolderName "+folderName);
                    final Map<String, Object> sucess = new HashMap<String, Object>();
-                   if("tweetPoll".equals(actionType)){
+                   if("tweetpoll".equals(actionType)){
                         sucess.put("folder", getTweetPollService().updateTweetPollFolder(folderId,
                                              folderName,getUserPrincipalUsername()));
                         setItemResponse(sucess);
@@ -201,7 +201,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                   * itemId (poll) == 2 is assigned to folder "A" and user drag and drop to the other
                   * folder, the current relationship should be removed and create new realtionship.
                   */
-                 if("tweetPoll".equals(actionType)){
+                 if("tweetpoll".equals(actionType)){
                      getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), itemId);
                      setSuccesResponse();
                  } else if("poll".equals(actionType)){

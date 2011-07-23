@@ -2014,6 +2014,7 @@ div.web-folder-wrapper .web-folder-item{
     width: auto;
     clear: both;
     padding-left: 13px;
+    overflow: au
 }
 
 div.web-folder-wrapper .web-folder-item:hover {
@@ -2032,11 +2033,14 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   height: 16px;
   margin-left: 2px;
   min-width: 17px;
+  float: left;
 }
 
 div.web-folder-wrapper .web-folder-item .folder-name {
     width: 50px;
     font-size: 14px;
+    float: left;
+    max-width: 100px;
 }
 
 

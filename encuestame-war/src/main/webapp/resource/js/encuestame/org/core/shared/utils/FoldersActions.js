@@ -4,7 +4,7 @@ dojo.require("dojo.dnd.Source");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
-dojo.require('dojox.timing');
+dojo.require("dijit.InlineEditBox");
 dojo.require('encuestame.org.core.commons');
 
 
@@ -50,7 +50,8 @@ dojo.declare(
 
       _addNewFolder : function(event){
           dojo.stopEvent(event);
-          console.debug("new folder");
+          var node = this._createFolder({folderId: null, name : "Add new name."});
+          this._folders.appendChild(node.domNode);
       },
 
       /*
@@ -111,7 +112,8 @@ dojo.declare(
        *
        */
       _createFolder : function(data) {
-          var folder = new encuestame.org.core.shared.utils.FoldersItemAction({folderId: data.id, name : data.name});
+          var folder = new encuestame.org.core.shared.utils.FoldersItemAction(
+                  {folderId: data.id, name : data.name, folderParentWidget: this});
           return folder;
       }
 });
@@ -126,8 +128,10 @@ dojo.declare(
 
         name : "",
 
+        folderParentWidget: null,
+
         /*
-         * enable drop support.
+         * enable drop support. _getContextUrlService
          */
         dropSupport : true,
 
@@ -144,6 +148,82 @@ dojo.declare(
                     });
                     dojo.connect(this._folderSourceWidget, "onDndDrop", dojo.hitch(this, this.onDndDropFolder));
                };
+               var name = dijit.byId(this._name);
+               name.onChange = dojo.hitch(this, function(){
+                   if (this.folderId == null) {
+                       this.folderId = this._create(name.get('value'));
+                   } else {
+                       this._update(name.get('value'));
+                   }
+               });
+               console.debug("widget inline", name);
+               dojo.style(name.domNode, "max-width:", "60px");
+        },
+
+        /*
+         * add folder.
+         */
+        _create : function(name) {
+            console.debug("updated name to", name);
+            var id = null;
+            var i = false;
+            var load = dojo.hitch(this, function(data){
+                console.debug("data", data);
+                console.info("updated name");
+            });
+            var params = {
+                name : name
+                };
+            var error = function(error) {
+                console.debug("error", error);
+            };
+                encuestame.service.xhrGet(this.folderParentWidget
+            ._getContextUrlService(this.folderParentWidget._actions[0]),
+            params, load, error);
+            return id;
+        },
+
+        /*
+         * update folder.
+         */
+        _update : function(name) {
+            console.debug("updated name to", name);
+            var i = false;
+            var load = dojo.hitch(this, function(data){
+                console.debug("data", data);
+                console.info("updated name");
+            });
+            var params = {
+                folderId :this.folderId,
+                folderName : name
+                };
+            var error = function(error) {
+                console.debug("error", error);
+            };
+                encuestame.service.xhrGet(this.folderParentWidget
+            ._getContextUrlService(this.folderParentWidget._actions[1]),
+            params, load, error);
+        },
+
+        /*
+         * add item.
+         */
+        _addItem : function(id) {
+            var i = false;
+            var load = dojo.hitch(this, function(data){
+                console.debug("data", data);
+                console.info("Item Added");
+            });
+            var params = {
+                folderId :this.folderId,
+                itemId : id
+                };
+            var error = function(error) {
+                console.debug("error", error);
+            };
+                encuestame.service.xhrGet(this.folderParentWidget
+            ._getContextUrlService(this.folderParentWidget._actions[2]),
+            params, load, error);
         },
 
         /*
@@ -164,10 +244,12 @@ dojo.declare(
                 } else {
                     dojo.forEach(this._folderSourceWidget.getSelectedNodes(), dojo.hitch(this, function(item) {
                         console.debug("item", item);
-                        var tweetPollId = item.getAttribute('tip');
+                        var tweetPollId = item.getAttribute('tweetpollId');
                         var type = item.getAttribute('dndtype');
-                        console.debug("tip", tweetPollId);
+                        console.debug("tweetpollId", tweetPollId);
                         console.debug("type", type);
+                        this._addItem(parseInt(tweetPollId));
+                        dojo.destroy(item);
                     }));
                 }
         }

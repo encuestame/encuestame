@@ -1,6 +1,7 @@
 <div class="web-folder-item">
    <div dojoAttachPoint="_folder">
    <span class="icon-folder"></span>
-   <span class="folder-name">${name}</span>
+   <span  dojoAttachPoint="_name" class="folder-name"  dojoType="dijit.InlineEditBox"
+         noValueIndicator = "Type a Name" witdh="50px" editorParams="{ style: 'max-width: 60px;' }">${name}</span>
    </div>
 </div>
