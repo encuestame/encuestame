@@ -15,6 +15,7 @@ dojo.require("dojox.widget.Dialog");
 dojo.require("dojox.form.Rating");
 dojo.require("dojo.fx");
 dojo.require("dojo.hash");
+dojo.require("dojo.dnd.Source");
 
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
@@ -37,6 +38,12 @@ dojo.declare(
         folder_support : true,
         max : 8,
         start : 0,
+        dragSupport : true,
+        _tweetpollListSourceWidget : null,
+
+        /*
+         * post create.
+         */
         postCreate : function() {
             var hash = dojo.queryToObject(dojo.hash());
             if(this.listItems == null){
@@ -54,10 +61,33 @@ dojo.declare(
                 var folder = new encuestame.org.core.shared.utils.FoldersActions({folderContext: "tweetpoll"});
                 this._folder.appendChild(folder.domNode);
             }
+            //enable drag support.
+            if (this.dragSupport) {
+                this._tweetpollListSourceWidget  = new dojo.dnd.Source(this._items, {
+                    accept: [],
+                    copyOnly: true,
+                    selfCopy : false,
+                    selfAccept: false,
+                    withHandles : true,
+                    autoSync : true,
+                    isSource : true,
+                    creator: this.dndNodeCreator
+                    });
+            }
         },
 
+        /*
+         * init folder support.
+         */
         _initFolderSupport : function() {
 
+        },
+
+        dndNodeCreator : function (item, hint) {
+            console.debug("hint", hint);
+            var tr = document.createElement("div");
+            tr.innerHTML = "Item Dropped...";
+            return {node: tr, data: item, type: "tweetpoll"};
         },
 
         /*
@@ -91,6 +121,9 @@ dojo.declare(
             this.loadTweetPolls({typeSearch : this.currentSearch});
         },
 
+        /*
+         * searc by all.
+         */
         _searchByAll : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "ALL";
@@ -101,6 +134,9 @@ dojo.declare(
             dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
+        /*
+         * search by account.
+         */
         _searchByAccount : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "ALL";
@@ -110,6 +146,9 @@ dojo.declare(
             dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
+        /*
+         * search by favourites.
+         */
         _searchByFavourites : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "FAVOURITES";
@@ -119,6 +158,9 @@ dojo.declare(
             dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
+        /*
+         * search by secheduled.
+         */
         _searchByScheduled : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "SCHEDULED";
@@ -128,6 +170,9 @@ dojo.declare(
             dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
+        /*
+         * search by last day.
+         */
         _searchByLastDay : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "LASTDAY";
@@ -137,6 +182,9 @@ dojo.declare(
             dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
         },
 
+        /*
+         * search by last week.
+         */
         _searchByLastWeek : function(event){
             dojo.stopEvent(event);
             this.currentSearch = "LASTWEEK";
@@ -153,14 +201,23 @@ dojo.declare(
             var i = false;
             var load = dojo.hitch(this, function(data){
                 dojo.empty(this._items);
+                var itemArray = [];
                 dojo.forEach(
                         data.success.tweetPolls,
                         dojo.hitch(this, function(data, index) {
-                            this.createTweetPollItem(data, i);
+                            var widget = this.createTweetPollItem(data, i);
                             if(!i) {
                                 i = true;
                             }
+                            if (this.dropSupport) {
+                                itemArray.push(widget.domNode);
+                            } else {
+                                this._items.appendChild(widget.domNode);
+                            }
                 }));
+                if (this.dropSupport) {
+                    this._tweetpollListSourceWidget.insertNodes(false, itemArray);
+                }
             });
             dojo.mixin(params,
                 {
@@ -178,13 +235,13 @@ dojo.declare(
          * create item.
          */
         createTweetPollItem : function(data, i){
-            dojo.addOnLoad(dojo.hitch(this, function() {
+            //dojo.addOnLoad(dojo.hitch(this, function() {
                 var widget = new encuestame.org.core.commons.tweetPoll.TweetPollListItem({data : data });
-                this._items.appendChild(widget.domNode);
                 if (!i) {
                     widget._changeBackGroundSelected();
                 }
-            }));
+                return widget;
+            //}));
         }
  });
 

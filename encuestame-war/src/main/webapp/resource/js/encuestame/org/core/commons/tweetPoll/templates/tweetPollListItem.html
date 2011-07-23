@@ -1,6 +1,6 @@
-<div class="web-tweetpoll-list-item">
-   <div class="title-wrapper" dojoAttachPoint="_title">
-        <div class="web-tweetpoll-favourite emptyFavourite" dojoAttachPoint="_favourite" dojoAttachEvent="onclick:_setFavourite"></div>
+<div class="web-tweetpoll-list-item dojoDndItem" dndtype="tweetpoll" tid="${data.id}">
+   <div class="title-wrapper dojoDndHandle dojoDndItem" dndtype="tweetpoll"  dojoAttachPoint="_title">
+        <div class="web-tweetpoll-favourite emptyFavourite dojoDndHandle" dojoAttachPoint="_favourite" dojoAttachEvent="onclick:_setFavourite"></div>
         <div class="web-tweetpoll-list-item-title">
                 ${data.question.question_name}
         </div>

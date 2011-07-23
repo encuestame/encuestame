@@ -24,8 +24,6 @@ dojo.declare(
        */
       widgetsInTemplate: true,
 
-      dropSupport : true,
-
       /*
        * context.
        */
@@ -47,23 +45,7 @@ dojo.declare(
           } else {
               console.error("folderContext is required.");
           }
-          if (this.dropSupport) {
-              this._folderSourceWidget  = new dojo.dnd.Source(this._folders, {
-                  accept: [],
-                  copyOnly: true,
-                  selfCopy : false,
-                  selfAccept: false,
-                  withHandles : false,
-                  autoSync : true,
-                  isSource : true
-                  });
-                  dojo.connect(this._folderSourceWidget, "onDrop", this, this.onDndDropFolder);
-             }
           dojo.connect(this._new, "onclick", this, this._addNewFolder);
-      },
-
-      onDndDropFolder : function() {
-          console.debug("droped");
       },
 
       _addNewFolder : function(event){
@@ -108,15 +90,12 @@ dojo.declare(
           var i = false;
           var load = dojo.hitch(this, function(data){
               dojo.empty(this._folders);
-              var folderArray = [];
               dojo.forEach(
                       data.success.folders,
                       dojo.hitch(this, function(data, index) {
                           var node = this._createFolder(data);
-                          folderArray.push(node.domNode);
-                          //this._folders.appendChild(node.domNode);
+                          this._folders.appendChild(node.domNode);
               }));
-              this._folderSourceWidget.insertNodes(false, folderArray);
           });
           var params = {
               max : this.max,
@@ -147,10 +126,50 @@ dojo.declare(
 
         name : "",
 
+        /*
+         * enable drop support.
+         */
+        dropSupport : true,
+
         folderId : null,
 
-        postCreate : function(){
+        _accept : ["tweetpoll", "poll", "survey"],
 
+        _foldersourceWidget : null,
+
+        postCreate : function(){
+            if (this.dropSupport) {
+                this._folderSourceWidget  = new dojo.dnd.Target(this._folder, {
+                    accept: this._accept
+                    });
+                    dojo.connect(this._folderSourceWidget, "onDndDrop", dojo.hitch(this, this.onDndDropFolder));
+               };
+        },
+
+        /*
+         * on drop on folder.
+         */
+        onDndDropFolder : function(source, nodes, copy, target) {
+                dojo.forEach(dojo.query(".dojoDndItemSelected"), function(item){
+                    dojo.removeClass(item, "dojoDndItemSelected");
+                });
+                dojo.forEach(dojo.query(".dojoDndItemAnchor"), function(item){
+                    dojo.removeClass(item, "dojoDndItemAnchor");
+                });
+                if(dojo.dnd.manager().target !== this._folderSourceWidget){
+                    return;
+                }
+                if(dojo.dnd.manager().target == dojo.dnd.manager().source){
+                    console.debug("same");
+                } else {
+                    dojo.forEach(this._folderSourceWidget.getSelectedNodes(), dojo.hitch(this, function(item) {
+                        console.debug("item", item);
+                        var tweetPollId = item.getAttribute('tip');
+                        var type = item.getAttribute('dndtype');
+                        console.debug("tip", tweetPollId);
+                        console.debug("type", type);
+                    }));
+                }
         }
 
 });
