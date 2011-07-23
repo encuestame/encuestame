@@ -25,7 +25,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -161,7 +161,7 @@ public class PollJsonController extends AbstractJsonController{
            try {
                final Map<String, Object> sucess = new HashMap<String, Object>();
                if("create".equals(actionType)){
-                   final UnitPoll unitPoll = new UnitPoll();
+                   final PollBean unitPoll = new PollBean();
                    final Question question =  getSurveyService().createQuestion(new QuestionBean(questionName));
                    unitPoll.setCreationDate(creationDate);
                    unitPoll.setCompletedPoll(completedPoll);

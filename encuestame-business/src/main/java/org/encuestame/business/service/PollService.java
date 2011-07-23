@@ -16,7 +16,6 @@ package org.encuestame.business.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,7 +34,7 @@ import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.UnitLists;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -55,7 +54,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Create Poll.
      */
-    public final void createPoll(final UnitPoll pollBean, final String currentUser,
+    public final void createPoll(final PollBean pollBean, final String currentUser,
             final Question question) throws EnMeExpcetion{
         try {
             final Poll pollDomain = new Poll();
@@ -107,7 +106,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeExpcetion
      */
-    public List<UnitPoll> searchPollByKeyword(final String keywordQuestion, final String username, final Integer maxResults,
+    public List<PollBean> searchPollByKeyword(final String keywordQuestion, final String username, final Integer maxResults,
         final Integer start) throws EnMeExpcetion{
         log.info("search keyword Poll  "+keywordQuestion);
         List<Poll> polls = new ArrayList<Poll>();
@@ -128,14 +127,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException{
+    public List<PollBean> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException{
         final PollFolder pollFolder = getPollDao().getPollFolderById(folderId);
         List<Poll> polls = new ArrayList<Poll>();
         if (pollFolder != null){
             polls = getPollDao().getPollsByPollFolderId(getPrimaryUser(username), pollFolder);
         }
         log.info("search polls by folder size "+polls.size());
-        return ConvertDomainBean.convertSetToUnitPollBean(polls);
+        return ConvertDomainBean.convertSetToPollBean(polls);
     }
 
 
@@ -146,10 +145,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeNoResultsFoundException
      */
 
-    public List<UnitPoll> listPollByUser(final String currentUser,
+    public List<PollBean> listPollByUser(final String currentUser,
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
-        final List<UnitPoll> unitPoll = new ArrayList<UnitPoll>();
+        final List<PollBean> unitPoll = new ArrayList<PollBean>();
         final List<Poll> polls = getPollDao().findAllPollByUserId(getPrimaryUser(currentUser), maxResults, start);
          for (Poll poll : polls) {
              unitPoll.add(ConvertDomainBean.convertPollDomainToBean(poll));
@@ -161,13 +160,13 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * List Poll by Question Keyword.
      * @param currentUser currentUser
      * @param keyword QuestionKeyword
-     * @return {@link UnitPoll}
+     * @return {@link PollBean}
      * @throws EnMeNoResultsFoundException
      */
-    public List<UnitPoll> listPollbyQuestionKeyword(final String currentUser,
+    public List<PollBean> listPollbyQuestionKeyword(final String currentUser,
             final String keyword, final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException {
         final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword, getPrimaryUser(currentUser), maxResults, start);
-        return ConvertDomainBean.convertSetToUnitPollBean(polls);
+        return ConvertDomainBean.convertSetToPollBean(polls);
     }
 
     /**
@@ -177,10 +176,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public List<UnitPoll> getPollsByFolder(final FolderBean folder, final String username) throws EnMeNoResultsFoundException{
+    public List<PollBean> getPollsByFolder(final FolderBean folder, final String username) throws EnMeNoResultsFoundException{
         final Account account = getUserAccount(getUserPrincipalUsername()).getAccount();
         final List<Poll> polls = getPollDao().getPollsByPollFolder(account, getPollFolder(folder.getId()));
-        return ConvertDomainBean.convertSetToUnitPollBean(polls);
+        return ConvertDomainBean.convertSetToPollBean(polls);
     }
 
     /**
@@ -229,7 +228,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param folderId
      * @return
      */
-    public List<UnitPoll> getPollByFolderId(final Long folderId){
+    public List<PollBean> getPollByFolderId(final Long folderId){
         return null;
     }
 
@@ -310,7 +309,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
     }
 
-    public List<UnitPoll> listPollByUser(String currentUser)
+    public List<PollBean> listPollByUser(String currentUser)
             throws EnMeNoResultsFoundException {
         // TODO Auto-generated method stub
         return null;
@@ -357,7 +356,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public List<UnitPoll> getPollsbyDate(final String username, final Date date,
+    public List<PollBean> getPollsbyDate(final String username, final Date date,
         final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException{
         List<Poll> pollList = new ArrayList<Poll>();
         if (date !=null){
@@ -368,7 +367,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         else{
             throw new EnMeNoResultsFoundException("Date not found");
         }
-        return ConvertDomainBean.convertSetToUnitPollBean(pollList);
+        return ConvertDomainBean.convertSetToPollBean(pollList);
     }
 
     /**
@@ -403,4 +402,17 @@ public class PollService extends AbstractSurveyService implements IPollService{
         return poll;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IPollService#getPollsByUserName(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<PollBean> getPollsByUserName(final String username,
+            final Integer maxResults,
+            final Integer start) throws EnMeNoResultsFoundException{
+        log.debug("Poll username "+username);
+        final List<Poll> polls = getPollDao().retrievePollsByUserId(getPrimaryUser(username), maxResults, start);
+         log.info("Polls size "+ polls.size());
+         final List<PollBean> pollBean = ConvertDomainBean.convertSetToPollBean(polls);
+        return pollBean;
+    }
 }

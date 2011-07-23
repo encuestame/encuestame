@@ -338,15 +338,20 @@ dojo.declare(
                this._setUnselected();
                this.panelWidget.wipeOutOne();
                dojo.empty(this._panel);
+               dojo.addClass(this._panel, "tweet-poll-item-panel");
             } else {
                dojo.addClass(this.domNode, "listItemTweetSeleted");
                dojo.removeClass(this._hashtags, "defaultDisplayHide");
+               dojo.removeClass(this._panel, "tweet-poll-item-panel");
                this._createDetail(this.data);
                this.panelWidget.wipeInOne();
             }
             this.selected =!this.selected;
         },
 
+        /*
+         * un selected.
+         */
         _setUnselected : function(){
             dojo.removeClass(this.domNode, "listItemTweetSeleted");
             dojo.addClass(this._hashtags, "defaultDisplayHide");

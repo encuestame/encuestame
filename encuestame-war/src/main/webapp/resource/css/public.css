@@ -1005,11 +1005,12 @@ div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem {
-    border-bottom: 1px solid #EEEEEE;
-    float: left;
-    font-size: 14px;
-    padding: 11px;
-    width: 164px;
+  border-bottom: 1px solid #EEEEEE;
+  clear: both;
+  float: left;
+  font-size: 14px;
+  padding: 7px;
+  width: 171px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected {
@@ -1046,9 +1047,13 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
     width: 912px;
 }
 
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu{
+    min-height: 20px;
+}
+
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {
-    min-height: 40px;
-    padding: 8px;
+    min-height: 35px;
+    padding: 1px;
     border-bottom: 1px solid #D2D2D2;
     background-color: #F4F4F4;
 }
@@ -1083,7 +1088,7 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title
     {
-    font-size: 150%;
+    font-size: 140%;
     color: #70798C;
     float: left;
 }
@@ -1993,18 +1998,10 @@ div.web-folder-wrapper {
 }
 
 div.web-folder-wrapper .folder-title{
-    font-size: 130%;
-    padding: 5px;
-    background-color: #888;
-    color: #FFF;
 }
 
 div.web-folder-wrapper .folder-menu {
-  background-color: #444444;
-  color: #FFFFFF;
-  font-size: 121%;
-  min-height: 21px;
-  padding: 4px 1px 1px 6px;
+
 }
 
 
@@ -2035,6 +2032,7 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   margin-left: 2px;
   min-width: 17px;
   float: left;
+  margin-right: 3px;
 }
 
 div.web-folder-wrapper .web-folder-item .folder-name {

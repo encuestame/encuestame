@@ -127,4 +127,13 @@ public interface IPoll extends IBaseDao {
       */
      List<Poll> getPollByIdandCreationDate(final Date date, final Long userId,
             final Integer maxResults, final Integer start );
+
+     /**
+      * Retrieve polls by userId.
+      * @param userId
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<Poll> retrievePollsByUserId(final Long userId, final Integer maxResults, final Integer start);
 }

@@ -143,7 +143,7 @@ public class TestTweetPollDao  extends AbstractBase{
     @Test
     public void testGetTweetPollFolderByIdandUser(){
         assertNotNull(this.tweetPollFolder);
-        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getAccount().getUid());
+        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getAccount());
         assertEquals("Should be equals", this.tweetPollFolder.getId(), tpf.getId());
      }
 

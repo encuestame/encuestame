@@ -325,6 +325,34 @@ div.defaultSectionTitle{
     display: none;
 }
 
+.default-background-dark-color {
+    background-color: #444444;
+}
+
+.default-background-dark-color-sub {
+    background-color: #A6A5A5;
+}
+
+.default-top-menu{
+    font-size: 100%;
+    padding: 5px;
+    color: #FFF;
+    width: auto;
+}
+
+.default-sidebar-menu{
+    font-size: 130%;
+    padding: 5px;
+    color: #FFF;
+}
+
+.default-sidebar-menu-sub{
+  background-color: #A6A5A5;
+  color: #FFFFFF;
+  font-size: 121%;
+  min-height: 21px;
+  padding: 4px 1px 1px 6px;
+}
 /** Suggest. **/
 
 div.suggestBox{

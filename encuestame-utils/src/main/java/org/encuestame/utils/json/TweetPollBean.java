@@ -458,7 +458,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
         this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
     }
 
-
     /**
     * @return the ownerUsername
     */
@@ -488,8 +487,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     public void setCreatedDateAt(Date createdDateAt) {
         this.createdDateAt = createdDateAt;
     }
-
-
 
     /**
      * @return the limitVotesDate
@@ -535,10 +532,12 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     public void setAnswerSwitchBeans(
             List<TweetPollAnswerSwitchBean> answerSwitchBeans) {
         this.answerSwitchBeans = answerSwitchBeans;
+
     }
     /**
     * @return the updateDate
     */
+    @JsonIgnore
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -546,7 +545,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     /**
     * @param updateDate the updateDate to set
     */
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(final Date updateDate) {
         this.updateDate = updateDate;
     }
 
