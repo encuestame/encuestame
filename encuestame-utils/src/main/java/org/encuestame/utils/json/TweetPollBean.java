@@ -458,7 +458,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
         this.resumeTweetPollDashBoard = resumeTweetPollDashBoard;
     }
 
-
     /**
     * @return the ownerUsername
     */
@@ -488,8 +487,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     public void setCreatedDateAt(Date createdDateAt) {
         this.createdDateAt = createdDateAt;
     }
-
-
 
     /**
      * @return the limitVotesDate
@@ -521,7 +518,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
         this.dateToLimit = dateToLimit;
     }
 
-<<<<<<< HEAD:encuestame-utils/src/main/java/org/encuestame/utils/web/TweetPollBean.java
     /**
     * @return the updateDate
     */
@@ -534,8 +530,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-=======
-
+    }
 
     /**
      * @return the answerSwitchBeans
@@ -551,7 +546,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     public void setAnswerSwitchBeans(
             List<TweetPollAnswerSwitchBean> answerSwitchBeans) {
         this.answerSwitchBeans = answerSwitchBeans;
->>>>>>> 9fac0c635f08f93744ee82c3423ee03918e75967:encuestame-utils/src/main/java/org/encuestame/utils/json/TweetPollBean.java
+
     }
 
     /* (non-Javadoc)

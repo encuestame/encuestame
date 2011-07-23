@@ -15,9 +15,7 @@ package org.encuestame.business.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -30,7 +28,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -98,12 +96,12 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @return
      * @throws EnMeSearchException
      */
-    public List<UnitPoll> searchItemsByPoll(
+    public List<PollBean> searchItemsByPoll(
             final String period,
             final Integer start,
             Integer maxResults)
             throws EnMeSearchException{
-    final List<UnitPoll> results = new ArrayList<UnitPoll>();
+    final List<PollBean> results = new ArrayList<PollBean>();
     if(maxResults == null){
         maxResults = this.MAX_RESULTS;
     }

@@ -69,7 +69,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "tweetPolls"));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -90,7 +90,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "tweetPolls"));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
@@ -112,9 +112,9 @@ public class SyndicationController extends AbstractFeedController {
         if(secUserSecondary != null){
              try {
                 final List<Item> globalItems = new ArrayList<Item>();
-                globalItems.addAll(this.getItemRssTweetPoll(username, request));
-                globalItems.addAll(this.getItemRssTweetPoll(username, request));
-                globalItems.addAll(this.getItemRssTweetPoll(username, request));
+                globalItems.addAll(this.getItemRssFeed(username, request, "profiles"));
+                globalItems.addAll(this.getItemRssFeed(username, request, "profiles"));
+                globalItems.addAll(this.getItemRssFeed(username, request, "profiles"));
                 model.addAttribute("items", globalItems);
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
@@ -136,7 +136,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "profiles"));
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
             } catch (EnMeExpcetion e) {
                 log.error(e);
@@ -157,7 +157,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "surveys"));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -177,7 +177,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "surveys"));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
@@ -197,7 +197,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "polls"));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -218,7 +218,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "polls"));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
@@ -238,7 +238,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "projects"));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -259,7 +259,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "projects"));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
@@ -279,7 +279,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomTweetPoll(username, request));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "frontend"));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -300,7 +300,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = getByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssTweetPoll(username, request));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "frontend"));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }

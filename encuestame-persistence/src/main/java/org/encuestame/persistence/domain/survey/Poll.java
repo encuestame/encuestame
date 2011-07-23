@@ -53,6 +53,7 @@ public class Poll extends AbstractSurvey {
     private Boolean closeNotification;
     private Boolean showVotes;
     private PollFolder pollFolder;
+    private Date updatedDate;
 
     /**
      * @return the poll_id
@@ -236,4 +237,17 @@ public class Poll extends AbstractSurvey {
         this.pollFolder = pollFolder;
     }
 
+    /**
+    * @return the updatedDate
+    */
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+    * @param updatedDate the updatedDate to set
+    */
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 }

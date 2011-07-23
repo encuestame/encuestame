@@ -19,7 +19,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 
 /**
  * Implementation for Front End Service.
@@ -49,7 +49,7 @@ public interface IFrontEndService extends ServiceOperations {
       * @return
       * @throws EnMeSearchException
       */
-    List<UnitPoll> searchItemsByPoll(
+    List<PollBean> searchItemsByPoll(
              final String period,
              final Integer start,
              Integer maxResults)

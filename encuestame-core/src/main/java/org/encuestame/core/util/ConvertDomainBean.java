@@ -62,7 +62,7 @@ import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurvey;
@@ -556,12 +556,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link Poll} to {@link UnitPoll}.
+     * Convert {@link Poll} to {@link PollBean}.
      * @param poll
      * @return unitPoll unitPoll
      */
-    public static final UnitPoll convertPollDomainToBean(final Poll poll){
-        final UnitPoll unitPoll = new UnitPoll();
+    public static final PollBean convertPollDomainToBean(final Poll poll){
+        final PollBean unitPoll = new PollBean();
         unitPoll.setId(poll.getPollId());
         unitPoll.setCompletedPoll(poll.getPollCompleted());
         unitPoll.setCreationDate(poll.getCreatedAt());
@@ -570,6 +570,7 @@ public class ConvertDomainBean {
         unitPoll.setPublishPoll(poll.getPublish());
         unitPoll.setShowResultsPoll(poll.getShowVotes());
         unitPoll.setFinishDate(poll.getEndDate());
+        unitPoll.setUpdatedDate(poll.getUpdatedDate());
        return unitPoll;
     }
 
@@ -578,8 +579,8 @@ public class ConvertDomainBean {
      * @param poll
      * @return
      */
-    public static final List<UnitPoll> convertListToPollBean(final List<Poll> poll){
-        final List<UnitPoll> listPolls = new ArrayList<UnitPoll>();
+    public static final List<PollBean> convertListToPollBean(final List<Poll> poll){
+        final List<PollBean> listPolls = new ArrayList<PollBean>();
         for (Poll polls : poll) {
             listPolls.add(ConvertDomainBean.convertPollDomainToBean(polls));
         }
@@ -592,8 +593,8 @@ public class ConvertDomainBean {
      * @return collection of groups beans.
      * @throws Exception
      */
-    public static final List<UnitPoll> convertSetToUnitPollBean(final List<Poll> polls){
-        final List<UnitPoll> loadListPolls = new LinkedList<UnitPoll>();
+    public static final List<PollBean> convertSetToPollBean(final List<Poll> polls){
+        final List<PollBean> loadListPolls = new LinkedList<PollBean>();
             for (Poll poll : polls) {
                 loadListPolls.add(ConvertDomainBean.convertPollDomainToBean(poll));
             }

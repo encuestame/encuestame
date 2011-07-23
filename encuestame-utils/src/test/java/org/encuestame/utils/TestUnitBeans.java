@@ -39,8 +39,8 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.UnitPollResult;
+import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
@@ -233,11 +233,11 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link UnitPoll}.
+     * Test {@link PollBean}.
      */
     @Test
     public void testUnitPoll(){
-        final UnitPoll poll = new UnitPoll();
+        final PollBean poll = new PollBean();
         poll.setId(1L);
         poll.setCompletedPoll(true);
         poll.setCreationDate(new Date());
@@ -259,13 +259,13 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link UnitPollResult}.
+     * Test {@link PollBeanResult}.
      */
     @Test
     public void testUnitPollResult(){
-        final UnitPollResult pollResult =  new UnitPollResult();
+        final PollBeanResult pollResult =  new PollBeanResult();
         pollResult.setAnswerBean(new QuestionAnswerBean());
-        pollResult.setPoll( new UnitPoll());
+        pollResult.setPoll( new PollBean());
         pollResult.setResult(1L);
         pollResult.setVotedDate(new Date());
         assertNotNull(pollResult.getAnswerBean());
@@ -598,7 +598,7 @@ import org.junit.Test;
     @Test
     public void testUnitSearchItem(){
         final UnitSearchItem si = new UnitSearchItem();
-        si.setPolls(new ArrayList<UnitPoll>());
+        si.setPolls(new ArrayList<PollBean>());
         si.setTweetPolls(new ArrayList<TweetPollBean>());
         assertNotNull(si.getPolls());
         assertNotNull(si.getTweetPolls());

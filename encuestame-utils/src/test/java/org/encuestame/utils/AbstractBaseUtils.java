@@ -12,7 +12,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 
 import junit.framework.TestCase;
@@ -179,12 +179,12 @@ public abstract class AbstractBaseUtils extends TestCase{
      * @param questionBean UnitQuestionBean
      * @return
      */
-    public UnitPoll createUnitPoll(
+    public PollBean createUnitPoll(
             final Boolean completedPoll,
             final Date creationDate,
             final Long id,
             final QuestionBean questionBean){
-        final UnitPoll unitPoll = new UnitPoll();
+        final PollBean unitPoll = new PollBean();
         unitPoll.setCompletedPoll(completedPoll);
         unitPoll.setCreationDate(creationDate);
         unitPoll.setId(id);
@@ -268,7 +268,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         return unitEmails;
      }
 
-     public UnitPoll createUnitPollComplete(
+     public PollBean createUnitPollComplete(
              final Boolean closeNotification,
              final Boolean completedPoll,
              final Date creationDate,
@@ -278,7 +278,7 @@ public abstract class AbstractBaseUtils extends TestCase{
              final Boolean publishPoll,
              final QuestionBean questionBean,
              final Boolean showResultsPoll){
-         final UnitPoll unitPollComplete = new UnitPoll();
+         final PollBean unitPollComplete = new PollBean();
          unitPollComplete.setCloseNotification(closeNotification);
          unitPollComplete.setCompletedPoll(completedPoll);
          unitPollComplete.setCreationDate(creationDate);

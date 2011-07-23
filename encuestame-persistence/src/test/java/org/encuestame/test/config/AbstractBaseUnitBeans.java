@@ -30,12 +30,9 @@ import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UserAccountBean;
-
-import com.sun.mail.imap.protocol.BODY;
-
 
 /**
  * Abstract Base Unit Beans.
@@ -385,11 +382,11 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param showResultsPoll
       * @return
       */
-     public UnitPoll createUnitPoll(final Boolean closeNotification, final Boolean completedPoll,
+     public PollBean createUnitPoll(final Boolean closeNotification, final Boolean completedPoll,
                                     final Date creationDate, final Date finishDate, final String hashPoll,
                                     final Boolean publishPoll, final QuestionBean questionBean,
                                     final Boolean showResultsPoll){
-        final UnitPoll unitPoll = new UnitPoll();
+        final PollBean unitPoll = new PollBean();
         unitPoll.setCloseNotification(closeNotification);
         unitPoll.setCompletedPoll(completedPoll);
         unitPoll.setCreationDate(creationDate);
@@ -406,7 +403,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param questionBean
       * @return
       */
-     public UnitPoll createUnitPollDefault(final QuestionBean questionBean){
+     public PollBean createUnitPollDefault(final QuestionBean questionBean){
         return this.createUnitPoll(Boolean.TRUE, Boolean.TRUE, new Date(), new Date(), "h1a2s3hP", Boolean.TRUE,
                 questionBean, Boolean.TRUE);
      }
