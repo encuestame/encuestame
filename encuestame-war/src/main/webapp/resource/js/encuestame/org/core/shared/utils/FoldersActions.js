@@ -157,7 +157,6 @@ dojo.declare(
                    }
                });
                console.debug("widget inline", name);
-               dojo.style(name.domNode, "max-width:", "60px");
         },
 
         /*
