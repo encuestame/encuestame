@@ -15,6 +15,8 @@ package org.encuestame.mvc.controller.syndication;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -77,6 +79,17 @@ public class SyndicationController extends AbstractFeedController {
         return "tweetPollAtomFeedView";
     }
 
+   /**
+    *
+    * @param model
+    * @param request
+    * @return
+    */
+   @RequestMapping(value = "/feed/tweetpoll.atom", method = RequestMethod.GET)
+   public String tweetPollAtom(Model model, HttpServletRequest request) {
+       model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
+       return "tweetPollAtomFeedView";
+   }
 
     /**
      * Display TweetPoll RSS Feed.
@@ -98,6 +111,18 @@ public class SyndicationController extends AbstractFeedController {
 
         return "tweetPollRssFeedView";
     }
+
+    /**
+    *
+    * @param model
+    * @param request
+    * @return
+    */
+   @RequestMapping(value = "/feed/tweetpoll.rss", method = RequestMethod.GET)
+   public String tweetPollRss(Model model, HttpServletRequest request) {
+       model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
+       return "tweetPollRssFeedView";
+   }
 
     /**
      * Display profile RSS Feed.
@@ -166,6 +191,18 @@ public class SyndicationController extends AbstractFeedController {
     }
 
     /**
+    *
+    * @param model
+    * @param request
+    * @return
+    */
+   @RequestMapping(value = "/feed/survey.atom", method = RequestMethod.GET)
+   public String surveyAtom(Model model, HttpServletRequest request) {
+       model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
+       return "surveyAtomFeedView";
+   }
+
+    /**
      * Display survey RSS Feed.
      * @param username username
      * @param model model
@@ -182,6 +219,18 @@ public class SyndicationController extends AbstractFeedController {
                  log.error(e);
              }
         }
+        return "surveyRssFeedView";
+    }
+
+    /**
+     *
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/feed/survey.rss", method = RequestMethod.GET)
+    public String surveyRss(Model model, HttpServletRequest request) {
+        model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
         return "surveyRssFeedView";
     }
 
@@ -205,6 +254,18 @@ public class SyndicationController extends AbstractFeedController {
         return "pollAtomFeedView";
     }
 
+    /**
+     *
+     * @param username
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/feed/polls.atom", method = RequestMethod.GET)
+    public String pollAtom(Model model, HttpServletRequest request) {
+        model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
+        return "pollAtomFeedView";
+    }
 
     /**
      * Display polls RSS Feed.
@@ -226,6 +287,19 @@ public class SyndicationController extends AbstractFeedController {
         return "pollRssFeedView";
     }
 
+   /**
+    *
+    * @param username
+    * @param model
+    * @param request
+    * @return
+    */
+   @RequestMapping(value = "/feed/polls.rss", method = RequestMethod.GET)
+   public String pollRss(Model model, HttpServletRequest request) {
+       model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
+       return "pollRssFeedView";
+   }
+
     /**
      * Display projects ATOM Feed.
      * @param username
@@ -245,6 +319,18 @@ public class SyndicationController extends AbstractFeedController {
         }
         return "projectAtomFeedView";
     }
+
+    /**
+    *
+    * @param model
+    * @param request
+    * @return
+    */
+   @RequestMapping(value = "/feed/projects.atom", method = RequestMethod.GET)
+   public String projectAtom(Model model, HttpServletRequest request) {
+       model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
+       return "projectAtomFeedView";
+   }
 
 
     /**
@@ -267,6 +353,18 @@ public class SyndicationController extends AbstractFeedController {
         return "projectRssFeedView";
     }
 
+   /**
+    *
+    * @param model
+    * @param request
+    * @return
+    */
+   @RequestMapping(value = "/feed/projects.rss", method = RequestMethod.GET)
+   public String projectRss(Model model, HttpServletRequest request) {
+       model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
+       return "projectRssFeedView";
+   }
+
     /**
      * Display frontend ATOM Feed.
      * @param username
@@ -274,12 +372,14 @@ public class SyndicationController extends AbstractFeedController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/home.atom", method = RequestMethod.GET)
-    public String frontendAtom(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+    @RequestMapping(value = "/feed/home.atom", method = RequestMethod.GET)
+    public String frontendAtom(
+        Model model,
+        HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername("");//TODO: remove
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "frontend"));
+                model.addAttribute("items", this.getEntryAtomFeed("", request, "frontend"));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -295,12 +395,14 @@ public class SyndicationController extends AbstractFeedController {
      * @param request request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/home.rss", method = RequestMethod.GET)
-    public String frontendRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+    @RequestMapping(value = "/feed/home.rss", method = RequestMethod.GET)
+    public String frontendRss(
+            Model model,
+            HttpServletRequest request) {
+        final UserAccount secUserSecondary = getByUsername(""); //TODO: remove
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssFeed(username, request, "frontend"));
+                model.addAttribute("items", this.getItemRssFeed("", request, "frontend")); //TODO: remove
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
