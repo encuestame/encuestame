@@ -73,7 +73,7 @@ public class SignInController extends AbstractSocialController{
         return "forgot";
     }
 
-    OAuth1RequestFlow auth1RequestProvider;
+    private OAuth1RequestFlow auth1RequestProvider;
 
     /**
      * Sign in by {@link SocialProvider} account.
@@ -132,7 +132,6 @@ public class SignInController extends AbstractSocialController{
      * @param httpRequest
      * @param request
      * @return
-     * @throws Exception
      */
     @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="error")
     public String oauth2ErrorCallback(
@@ -140,7 +139,7 @@ public class SignInController extends AbstractSocialController{
             @PathVariable String provider,
             final ModelMap model,
             HttpServletRequest httpRequest,
-            WebRequest request) throws Exception {
+            WebRequest request){
             log.fatal("OAuth Error:{"+error);
             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
             return "redirect:/user/signin";
@@ -152,7 +151,6 @@ public class SignInController extends AbstractSocialController{
     * @param httpRequest
     * @param request
     * @return
-    * @throws Exception
     */
    @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="code")
    public String oauth2Callback(
@@ -167,24 +165,29 @@ public class SignInController extends AbstractSocialController{
                    log.debug(accessGrant.getAccessToken());
                    log.debug(accessGrant.getRefreshToken());
                }
-               String x = "redirect:/user/signin/friends";
-               if (SocialProvider.getProvider(provider).equals(SocialProvider.GOOGLE)) {
-                    x = getSecurityService().connectSignInAccount(new GoogleSignInSocialService(accessGrant, getSecurityService()));
-               } else if(SocialProvider.getProvider(provider).equals(SocialProvider.FACEBOOK)) {
-                   x = getSecurityService().connectSignInAccount(new FacebookSignInSocialSupport(accessGrant, getSecurityService()));
-               }
-               if (log.isDebugEnabled()) {
-                   log.debug("oauth2Callback sign up with social account "+x);
-               }
-               return x;
+            String friendsUrl = "redirect:/user/signin/friends";
+            if (SocialProvider.getProvider(provider).equals(
+                    SocialProvider.GOOGLE)) {
+                friendsUrl = getSecurityService().connectSignInAccount(
+                        new GoogleSignInSocialService(accessGrant,
+                                getSecurityService()));
+            } else if (SocialProvider.getProvider(provider).equals(
+                    SocialProvider.FACEBOOK)) {
+                friendsUrl = getSecurityService().connectSignInAccount(
+                        new FacebookSignInSocialSupport(accessGrant,
+                                getSecurityService()));
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("oauth2Callback sign up with social account "
+                        + friendsUrl);
+            }
+               return friendsUrl;
             } catch (EnMeExistPreviousConnectionException e) {
-                 e.printStackTrace();
                  log.fatal("OAuth EnMeExistPreviousConnectionException:{"+e);
                  Assert.notNull(httpRequest);
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             } catch (Exception e) {
-                 e.printStackTrace();
                  log.fatal("OAuth Exception:{"+e);
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";

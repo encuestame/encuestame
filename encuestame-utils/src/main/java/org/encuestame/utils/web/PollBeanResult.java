@@ -22,12 +22,12 @@ import java.util.Date;
  * @version $Id: $
  */
 
-public class UnitPollResult {
+public class PollBeanResult {
 
     private QuestionAnswerBean answerBean;
     private Long result;
     private Date votedDate;
-    private UnitPoll poll;
+    private PollBean poll;
     /**
      * @return the answerBean
      */
@@ -67,13 +67,13 @@ public class UnitPollResult {
     /**
      * @return the poll
      */
-    public UnitPoll getPoll() {
+    public PollBean getPoll() {
         return poll;
     }
     /**
      * @param poll the poll to set
      */
-    public void setPoll(UnitPoll poll) {
+    public void setPoll(PollBean poll) {
         this.poll = poll;
     }
 

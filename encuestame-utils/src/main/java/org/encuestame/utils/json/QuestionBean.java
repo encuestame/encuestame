@@ -10,17 +10,23 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils.web;
+package org.encuestame.utils.json;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.encuestame.utils.web.QuestionAnswerBean;
 
 /**
  * Question Bean.
  * @author Picado, Juan juanATencuestame.org
  * @since 01/06/2009 15:22:10
  **/
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestionBean implements Serializable {
 
     /**
@@ -31,46 +37,55 @@ public class QuestionBean implements Serializable {
     /**
      * Question name.
      */
+    @JsonProperty(value = "question_name")
     private String questionName = new String("");
 
     /**
      *  Slug name.
      */
+    @JsonProperty(value = "slug")
     private String slugName;
 
     /**
      * Hits.
      */
+    @JsonProperty(value = "hits")
     private Long hits;
 
     /**
      *
      */
+    @JsonProperty(value = "version")
     private String version;
 
     /**
      *
      */
-    private UnitPatternBean pattern = new UnitPatternBean();
+    @JsonProperty(value = "pattern")
+    private QuestionPatternBean pattern = new QuestionPatternBean();
 
     /**
      *
      */
+    @JsonProperty(value = "state_id")
     private Long stateId;
 
     /**
      *
      */
+    @JsonProperty(value = "id")
     private Long id;
 
     /**
      * User Id.
      */
+    @JsonProperty(value = "uid")
     private Long userId;
 
     /**
      *
      */
+    @JsonProperty(value = "list_answers")
     private List<QuestionAnswerBean> listAnswers = new ArrayList<QuestionAnswerBean>();
 
     /**
@@ -90,6 +105,7 @@ public class QuestionBean implements Serializable {
     /**
      * @return the questionName
      */
+    @JsonIgnore
     public final String getQuestionName() {
         return questionName;
     }
@@ -105,6 +121,7 @@ public class QuestionBean implements Serializable {
     /**
      * @return the version
      */
+    @JsonIgnore
     public final String getVersion() {
         return version;
     }
@@ -120,7 +137,8 @@ public class QuestionBean implements Serializable {
     /**
      * @return the pattern
      */
-    public final UnitPatternBean getPattern() {
+    @JsonIgnore
+    public final QuestionPatternBean getPattern() {
         return pattern;
     }
 
@@ -128,13 +146,14 @@ public class QuestionBean implements Serializable {
      * @param pattern
      *            the pattern to set
      */
-    public final void setPattern(UnitPatternBean pattern) {
+    public final void setPattern(final QuestionPatternBean pattern) {
         this.pattern = pattern;
     }
 
     /**
      * @return the id
      */
+    @JsonIgnore
     public final Long getId() {
         return id;
     }
@@ -150,6 +169,7 @@ public class QuestionBean implements Serializable {
     /**
      * @return the listAnswers
      */
+    @JsonIgnore
     public final List<QuestionAnswerBean> getListAnswers() {
         return listAnswers;
     }
@@ -165,6 +185,7 @@ public class QuestionBean implements Serializable {
     /**
      * @return the stateId
      */
+    @JsonIgnore
     public final Long getStateId() {
         return stateId;
     }
@@ -173,13 +194,14 @@ public class QuestionBean implements Serializable {
      * @param stateId
      *            the stateId to set
      */
-    public final void setStateId(Long stateId) {
+    public final void setStateId(final Long stateId) {
         this.stateId = stateId;
     }
 
     /**
      * @return the userId
      */
+    @JsonIgnore
     public final Long getUserId() {
         return userId;
     }
@@ -188,13 +210,14 @@ public class QuestionBean implements Serializable {
      * @param userId
      *            the userId to set
      */
-    public final void setUserId(Long userId) {
+    public final void setUserId(final Long userId) {
         this.userId = userId;
     }
 
     /**
      * @return the slugName
      */
+    @JsonIgnore
     public String getSlugName() {
         return slugName;
     }
@@ -211,6 +234,7 @@ public class QuestionBean implements Serializable {
     /**
      * @return the hits
      */
+    @JsonIgnore
     public Long getHits() {
         return hits;
     }
@@ -218,7 +242,7 @@ public class QuestionBean implements Serializable {
     /**
      * @param hits the hits to set
      */
-    public void setHits(Long hits) {
+    public void setHits(final Long hits) {
         this.hits = hits;
     }
 

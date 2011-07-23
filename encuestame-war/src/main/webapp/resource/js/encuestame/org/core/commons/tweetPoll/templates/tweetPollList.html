@@ -1,60 +1,46 @@
-<div class="tweetPollListWrapper">
-         <div>
-            <div style="float: left; padding-top: 14px; padding-left: 17px; font-size: 112%; font-weight:
-                        bold; color: blue;cursor: pointer;
-            text-decoration: underline;">
-                    <div dojoAttachEvent="onclick:_onSwichChange" dojoAttachPoint="_swichChange">
-                        New TweetPoll
-                    </div>
-            </div>
-              <div class="navigation" id="basicNode">
-                    <table>
-                        <tr>
-                            <td>
-                                <label>Search by Keyword</label>
-                                <input type="text" dojoAttachPoint="_suggest"
-                                       dojoType="dijit.form.TextBox"
-                                       trim="true" class="inputClass"
-                                       ></input>
-                            </td>
-                            <td align="right" style="padding-left: 95px;">
-                               <a href="#"  dojoAttachEvent="onclick:_nextSearch">Next 10 Items</a>
-                            </td>
-                        </tr>
-                    </table>
-             </div>
-         </div>
+<div class="web-tweetpoll-wrapper">
          <div id="tweetListContent" class="tweetListContent">
-            <div class="options">
-                <div class="panel1">
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount">
+            <div class="web-tweetpoll-options">
+                <div class="web-tweetpoll-sidebar-panel">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount" type="ACCOUNT">
                         <span>By Account</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByLastDay">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByLastDay" type="LASTDAY">
                         <span>Today</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByLastWeek">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByLastWeek" type="LASTWEEK">
                         <span>Last Week</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByFavourites">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByFavourites" type="FAVOURITES">
                         <span>Favourites</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByScheduled">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByScheduled" type="SCHEDULED">
                         <span>Scheduled</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
                         <span>See All</span>
                     </div>
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
+                        <span>All Published</span>
+                    </div>
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
+                        <span>All Un-Published</span>
+                    </div>
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
+                        <span>All Completed</span>
+                    </div>
                 </div>
-                <div class="panel2" dojoAttachPoint="_groups">
-                    xxxxxxxxxx xxxxxxxxxxxxx xxxxxxxxxx
-                </div>
+                <div dojoAttachPoint="_folder"></div>
             </div>
-            <div class="listTweet" dojoAttachPoint="_items">
-
+            <div class="web-list-tweet">
+            <div dojoAttachPoint="_customMenu" class="web-twettpoll-list-menu default-background-dark-color-sub default-top-menu">
+                Search | Filter Options | Order Options | Social Network Options | Votes Options
             </div>
-            <div class="tweetDetail" id="detailTweet">
+            <div dojoAttachPoint="_items"></div>
+            </div>
+            <!-- <div class="tweetDetail" id="detailTweet">
                 <div id="detail" dojoType="encuestame.org.core.commons.tweetPoll.TweetPollListDetail"></div>
             </div>
+             -->
          </div>
 </div>

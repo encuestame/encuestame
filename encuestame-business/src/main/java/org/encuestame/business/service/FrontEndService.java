@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
@@ -27,9 +26,9 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.TweetPollBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -69,15 +68,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             throw new EnMeSearchException("search params required.");
         } else {
             final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
-            if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
+            if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)){
+            } else if(periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast24(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)){
+            } else if(periodSelected.equals(SearchPeriods.SEVENDAYS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast7Days(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)){
+            } else if(periodSelected.equals(SearchPeriods.THIRTYDAYS)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndLast30Days(start, maxResults));
-            } else if(periodSelected.equals(SearchPeriods.ALLTIME)){
+            } else if(periodSelected.equals(SearchPeriods.ALLTIME)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(start, maxResults));
             }
             log.debug("TweetPoll "+items.size());
@@ -97,12 +96,12 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @return
      * @throws EnMeSearchException
      */
-    public List<UnitPoll> searchItemsByPoll(
+    public List<PollBean> searchItemsByPoll(
             final String period,
             final Integer start,
             Integer maxResults)
             throws EnMeSearchException{
-    final List<UnitPoll> results = new ArrayList<UnitPoll>();
+    final List<PollBean> results = new ArrayList<PollBean>();
     if(maxResults == null){
         maxResults = this.MAX_RESULTS;
     }
@@ -145,27 +144,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             maxResults = this.MAX_RESULTS;
         }
         log.debug("Max Results HashTag -----> "+maxResults);
-        List<HashTag> tags = new ArrayList<HashTag>();
-        tags.addAll(getHashTagDao().getHashTags(maxResults, start, tagCriteria));
-        // Selecciona el Max y Minimo de Hits en HashTag
-
-        final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
-        final long maxFrecuency =  (Long) maxMin.get(0)[0];
-        final long minFrecuency =  (Long) maxMin.get(0)[1];
-        log.debug("MAX FRECUENCY ------> "+ maxFrecuency);
-        log.debug("MIN FRECUENCY ------> "+ minFrecuency);
-        for (HashTag hashTag : tags) {
-           // log.debug("******///*********************************************///*********");
-            //  Selecciona el Numero de Uso del Tag en TweetPoll
-            final Long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(),2);
-            final Long relevance = tagFrecuency + hashTag.getHits();
-            final Double logFrecuency = EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency);
-           // log.debug("LOG FRECUENCY ------> "+ logFrecuency);
-            hashTag.setSize(logFrecuency.longValue());
-           // log.debug("Hashtag total size a Convertir ---> "+hashTag.getSize());
-            getFrontEndDao().saveOrUpdate(hashTag);
-           // log.debug("******///*********************************************///*********");
-        }
+        final List<HashTag> tags = getHashTagDao().getHashTags(maxResults, start, tagCriteria);
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
         return hashBean;
     }
@@ -225,30 +204,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return tweetPollBean;
     }
 */
-    /**
-     * Get hashTag counter.
-     * @param hashTagId
-     * @param limit
-     * @return
-     */
-    public Long getHashTagFrecuency(final Long hashTagId, final Integer limit){
-        final Integer totalRelTweetPoll;
-        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetpollByHashTagId(hashTagId, limit, "");
-        totalRelTweetPoll = tweetPolls.size();
-        //TODO:Pending count relevance hashtags for polls and surveys.
-        return totalRelTweetPoll.longValue();
-    }
-
-    /**
-     * Get Hit by Hash Tag
-     * @param hashTagId
-     * @return
-     */
-    public Long getHitbyHashTag(final Long hashTagId){
-        final Integer hit;
-        final HashTag tagHit = getHashTagDao().getHashTagById(hashTagId);
-        return (tagHit.getHits());
-    }
 
     /**
      * Check previous hash tag hit.
@@ -312,7 +267,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setHitDate(hitDate);
         tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
         tagHitsDomain.setIpAddress(ipAddress);
-        tagHitsDomain.setUserAccount(getUserAccountLogged());
+        tagHitsDomain.setUserAccount(getUserAccountonSecurityContext());
         this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }

@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
@@ -109,10 +110,10 @@ public interface ITweetPoll extends IBaseDao{
 
       /**
        * Retrieve TweetPoll Folder by User Id.
-       * @param userId
+       * @param account {@link Account}.
        * @return
        */
-      List<TweetPollFolder> retrieveTweetPollFolderByUserId(final Long userId);
+      List<TweetPollFolder> retrieveTweetPollFolderByAccount(final Account account);
 
       /**
        * Retrieve TweetPoll by Folder Id.
@@ -131,11 +132,11 @@ public interface ITweetPoll extends IBaseDao{
 
       /**
        * Get TweetPoll Folders by Id and UserId.
-       * @param FolderId
-       * @param userId
+       * @param folderId
+       * @param account
        * @return
        */
-      TweetPollFolder getTweetPollFolderByIdandUser(final Long FolderId, final Long userId);
+      TweetPollFolder getTweetPollFolderByIdandUser(final Long folderId, final Account account);
 
       /**
        *

@@ -15,6 +15,7 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -294,7 +295,7 @@ public class TestUserDao extends AbstractBase {
         createAccount(false);
         createAccount(false);
         createAccount(false);
-        final List<Long> d = getAccountDao().getAccountsEnabled();
+        final List<Long> d = getAccountDao().getAccountsEnabled(Boolean.TRUE);
         //20 + 2 on @Before.
         assertEquals("Should be equals", 22, d.size());
         if(log.isDebugEnabled()){
@@ -414,4 +415,47 @@ public class TestUserDao extends AbstractBase {
         assertNotNull(acc);
         assertEquals("Should be equals", acc.getInviteCode(), this.inviteCode);
     }
+
+    /**
+     * Test get user account list by status.
+     */
+    @Test
+    public void testGetUserAccountsbyStatus(){
+
+        final Calendar createdAt = Calendar.getInstance();
+        final Calendar currentDate = Calendar.getInstance();
+        // Date range
+        final Calendar beforeDate = Calendar.getInstance();
+        beforeDate.add(Calendar.DATE, -7);
+        beforeDate.add(Calendar.HOUR, +5);
+        // final String expireValue = getProperty("account.expire.limit");
+        //System.out.println("Account Value  property------>"+ expireValue);
+
+        for (int i = 0; i < 10; i++) {
+            createdAt.add(Calendar.DATE, -i);
+            createdAt.add(Calendar.HOUR, +i);
+               final UserAccount uAcc = createUserAccount(Boolean.FALSE, createdAt.getTime(), "diana-"+i, this.account);
+               //System.out.println("Account Date ------>"+ uAcc.getEnjoyDate());
+        }
+        //create disabled account.
+        createdAt.add(Calendar.MONTH, +1);
+        createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 2", this.account);
+        createdAt.add(Calendar.DATE, +10);
+        createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 3", this.account);
+        createdAt.add(Calendar.MONTH, +12);
+        createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 4", this.account);
+
+        System.out.println("Current Date ------>"+  currentDate.getTime());
+        System.out.println("Account Value  property------>"+ beforeDate.getTime());
+
+        final List<UserAccount> userAcc = getAccountDao().getUserAccountsbyStatus(Boolean.FALSE, beforeDate.getTime(), currentDate.getTime());
+           //10 + 1 on @Before.
+        System.out.println("DisableUser Accounts size--->"+ userAcc.size());
+        assertEquals("Should be equals", 5, userAcc.size());
+           if(log.isDebugEnabled()){
+               for (UserAccount userStatus : userAcc) {
+                   log.debug("d->"+userStatus);
+               }
+           }
+       }
 }

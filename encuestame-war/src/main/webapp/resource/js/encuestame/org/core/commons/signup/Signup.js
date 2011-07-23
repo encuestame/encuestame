@@ -41,10 +41,8 @@ dojo.declare("encuestame.org.core.commons.signup.Signup",
 
     _onSubmit : function(event) {
         dojo.stopEvent(event);
-        console.debug("*****************************************");
         dijit.byId("standby").startup();
         dijit.byId("standby").start();
-        console.debug("standby init 2");
         this._checkValidWidgets();
     },
 
@@ -56,10 +54,10 @@ dojo.declare("encuestame.org.core.commons.signup.Signup",
     _checkValidWidgets : function(){
         console.debug("standby init 3");
         if(this.userWidget.isValid && this.passWidget.isValid && this.emailWidget.isValid && this.realWidget.isValid){
-            console.debug("_checkValidWidgets 1");
+            //console.debug("_checkValidWidgets 1");
             this.createNewAccountService(this.userWidget, this.passWidget, this.emailWidget, this.realWidget);
         } else {
-            console.debug("_checkValidWidgets 2");
+            //console.debug("_checkValidWidgets 2");
             dijit.byId("standby").stop();
             this.userWidget.recheck("username");
             this.passWidget.validatePassword();

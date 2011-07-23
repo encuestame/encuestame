@@ -23,10 +23,10 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
-import org.encuestame.utils.web.FolderBean;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.UnitLists;
-import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.QuestionBean;
+import org.encuestame.utils.web.PollBean;
 
 /**
  * Poll Service Interface.
@@ -43,7 +43,7 @@ public interface IPollService extends IMasterSurveyService{
     * @param Question
     * @throws Exception
     */
-    void createPoll(final UnitPoll pollBean, final String currentUser,
+    void createPoll(final PollBean pollBean, final String currentUser,
                 final Question question) throws EnMeExpcetion;
 
     /**
@@ -52,7 +52,7 @@ public interface IPollService extends IMasterSurveyService{
     * @param keyword Question keyword
     * @return
     */
-    List<UnitPoll> listPollbyQuestionKeyword(final String currentUser, final String keyword, final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException ;
+    List<PollBean> listPollbyQuestionKeyword(final String currentUser, final String keyword, final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException ;
 
    /**
     * List Poll by User Id.
@@ -62,7 +62,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-    List<UnitPoll> listPollByUser(final String currentUser,
+    List<PollBean> listPollByUser(final String currentUser,
         final Integer maxResults,
         final Integer start) throws EnMeNoResultsFoundException;
 
@@ -132,7 +132,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-  List<UnitPoll> getPollsByFolder(final FolderBean folder, final String username) throws EnMeNoResultsFoundException;
+  List<PollBean> getPollsByFolder(final FolderBean folder, final String username) throws EnMeNoResultsFoundException;
 
       /**
     *
@@ -143,7 +143,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeExpcetion
     */
-    List<UnitPoll> searchPollByKeyword(final String keywordQuestion, final String username, final Integer maxResults,
+    List<PollBean> searchPollByKeyword(final String keywordQuestion, final String username, final Integer maxResults,
         final Integer start) throws EnMeExpcetion;
 
     /**
@@ -153,7 +153,7 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<UnitPoll> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException;
+    List<PollBean> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException;
 
     /**
      * Add poll to folder.
@@ -181,7 +181,7 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<UnitPoll> getPollsbyDate(final String username, final Date date,
+    List<PollBean> getPollsbyDate(final String username, final Date date,
             final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 
     /**
@@ -200,4 +200,15 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeTweetPollNotFoundException
      */
     Poll getPollById(final Long pollId) throws EnMePollNotFoundException;
+
+    /**
+     * Get polls by userName.
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<PollBean> getPollsByUserName(final String username, final Integer maxResults,
+            final Integer start) throws EnMeNoResultsFoundException;
 }

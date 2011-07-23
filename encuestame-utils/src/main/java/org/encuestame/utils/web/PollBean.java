@@ -16,6 +16,8 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.encuestame.utils.json.QuestionBean;
+
 /**
  * Unit Poll Bean.
  *
@@ -23,7 +25,7 @@ import java.util.Date;
  * @since  March 15, 2009
  * @version $Id: $
  */
-public class UnitPoll extends AbstractUnitSurvey implements Serializable{
+public class PollBean extends AbstractUnitSurvey implements Serializable{
 
     /**
      * Serial
@@ -57,6 +59,9 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
     /***/
     private String hashPoll;
 
+    /** **/
+    private Date updatedDate;
+
     @Deprecated
     private String pollUser;
 
@@ -67,42 +72,49 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
     public final Long getId() {
         return id;
     }
+
     /**
      * @param id the id to set
      */
     public final void setId(final Long id) {
         this.id = id;
     }
+
     /**
      * @return the completedPoll
      */
     public final Boolean getCompletedPoll() {
         return completedPoll;
     }
+
     /**
      * @param completedPoll the completedPoll to set
      */
     public final void setCompletedPoll(final Boolean completedPoll) {
         this.completedPoll = completedPoll;
     }
+
     /**
      * @return the creationDate
      */
     public final Date getCreationDate() {
         return creationDate;
     }
+
     /**
      * @param creationDate the creationDate to set
      */
     public final void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
     }
+
     /**
      * @return the questionBean
      */
     public final QuestionBean getQuestionBean() {
         return questionBean;
     }
+
     /**
      * @param questionBean the questionBean to set
      */
@@ -165,12 +177,14 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
     public void setShowResultsPoll(Boolean showResultsPoll) {
         this.showResultsPoll = showResultsPoll;
     }
+
     /**
      * @return the hashPoll
      */
     public String getHashPoll() {
         return hashPoll;
     }
+
     /**
      * @param hashPoll the hashPoll to set
      */
@@ -178,5 +192,17 @@ public class UnitPoll extends AbstractUnitSurvey implements Serializable{
         this.hashPoll = hashPoll;
     }
 
+    /**
+    * @return the updatedDate
+    */
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
 
+    /**
+    * @param updatedDate the updatedDate to set
+    */
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 }

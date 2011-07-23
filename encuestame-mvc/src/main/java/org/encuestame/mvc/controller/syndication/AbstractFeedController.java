@@ -12,11 +12,18 @@
  */
 package org.encuestame.mvc.controller.syndication;
 
+import java.util.ArrayList;
 import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.collections.ListUtils;
+import org.encuestame.core.util.FeedUtils;
+import org.encuestame.core.util.InternetUtils;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.PollBean;
+import com.sun.syndication.feed.atom.Entry;
+import com.sun.syndication.feed.rss.Item;
 
 /**
  * Abstract Feed Controller.
@@ -36,4 +43,90 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
         return getTweetPollService().getTweetsPollsByUserName(username, null, null);
     }
 
+    /**
+     * Get polls.
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<PollBean> getPolls(final String username) throws EnMeNoResultsFoundException{
+        return getPollService().getPollsByUserName(username, null, null);
+    }
+
+
+    /**
+     * Get RSS item tweet poll.
+     * @param username
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<Item> getItemRssFeed(final String username,
+            final HttpServletRequest request, final String itemType) throws EnMeNoResultsFoundException{
+        List<Item> item = new ArrayList<Item>();
+        if (itemType.equals("tweetPolls")){
+            item = FeedUtils.convertTweetPollBeanToItemRSS(
+                    getTweetPolls(username),
+                    InternetUtils.getDomain(request));
+        }else if(itemType.equals("polls")){
+            item = FeedUtils.convertPollBeanToItemRSS(
+                      getPolls(username),
+                      InternetUtils.getDomain(request));
+
+        }else if(itemType.equals("surveys")){
+            item = ListUtils.EMPTY_LIST;
+        }
+        else if(itemType.equals("profiles")){
+            item = ListUtils.EMPTY_LIST;
+        }
+        else if(itemType.equals("projects")){
+            item = ListUtils.EMPTY_LIST;
+        }
+        else if(itemType.equals("frontend")){
+            item = ListUtils.EMPTY_LIST;
+        }
+        return item;
+    }
+
+    /**
+     * Get atom entry tweet poll.
+     * @param username
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public List<Entry> getEntryAtomFeed(final String username,
+            final HttpServletRequest request, final String entryType ) throws EnMeNoResultsFoundException{
+        List<Entry> entry = new ArrayList<Entry>();
+        if (entryType.equals("tweetPolls")){
+            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
+                    getTweetPolls(username),
+                    InternetUtils.getDomain(request));
+        }else if(entryType.equals("polls")){
+            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
+                      getTweetPolls(username),
+                      InternetUtils.getDomain(request));
+
+        }else if(entryType.equals("surveys")){
+            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
+                     getTweetPolls(username),
+                     InternetUtils.getDomain(request));
+        }
+        else if(entryType.equals("profiles")){
+            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
+                     getTweetPolls(username),
+                     InternetUtils.getDomain(request));
+        }
+        else if(entryType.equals("projects")){
+            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
+                     getTweetPolls(username),
+                     InternetUtils.getDomain(request));
+        }
+        else if(entryType.equals("frontend")){
+            entry = FeedUtils.convertTweetPollBeanToEntryAtom(
+                     getTweetPolls(username),
+                     InternetUtils.getDomain(request));
+        }
+        return entry;
+    }
 }

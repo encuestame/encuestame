@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.TweetPollBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 
 /**
  * Implementation for Front End Service.
@@ -49,7 +49,7 @@ public interface IFrontEndService extends ServiceOperations {
       * @return
       * @throws EnMeSearchException
       */
-    List<UnitPoll> searchItemsByPoll(
+    List<PollBean> searchItemsByPoll(
              final String period,
              final Integer start,
              Integer maxResults)
@@ -99,11 +99,4 @@ public interface IFrontEndService extends ServiceOperations {
      */
     Boolean registerHashTagHit(final String tagName, final String ip, final String username);
 
-    /**
-     * Get hashTag Counter.
-     * @param hashTagId
-     * @param limit
-     * @return
-     */
-    Long getHashTagFrecuency(final Long hashTagId, final Integer limit);
 }

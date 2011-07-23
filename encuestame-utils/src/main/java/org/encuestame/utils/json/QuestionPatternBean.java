@@ -10,31 +10,49 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils.web;
+package org.encuestame.utils.json;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Unit Pattern Bean.
+ *
  * @author Picado, Juan Carlos juan@encuestame.org
  * @since 01/06/2009 15:25:459
- * @version $Id$
  */
-public class UnitPatternBean implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class QuestionPatternBean implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = 504237606410573311L;
+    @JsonProperty(value = "id")
     private Long id;
+    @JsonProperty(value = "pattern_description")
     private String descripcion;
+    @JsonProperty(value = "label")
     private String label;
+    @JsonProperty(value = "type")
     private String patronType;
+    @JsonIgnore
     private String template;
+    @JsonIgnore
     private String classpattern;
+    @JsonIgnore
     private String levelpattern;
+    @JsonIgnore
     private String finallity;
+
+   /**
+    * Constructor.
+    */
+    public QuestionPatternBean() {
+    }
 
     /**
      * @return the descripcion
@@ -54,6 +72,7 @@ public class UnitPatternBean implements Serializable {
     /**
      * @return the label
      */
+    @JsonIgnore
     public final String getLabel() {
         return label;
     }
@@ -69,6 +88,7 @@ public class UnitPatternBean implements Serializable {
     /**
      * @return the patronType
      */
+    @JsonIgnore
     public final String getPatronType() {
         return patronType;
     }
@@ -84,6 +104,7 @@ public class UnitPatternBean implements Serializable {
     /**
      * @return the id
      */
+    @JsonIgnore
     public final Long getId() {
         return id;
     }
@@ -99,6 +120,7 @@ public class UnitPatternBean implements Serializable {
     /**
      * @return template
      */
+    @JsonIgnore
     public final String getTemplate() {
         return template;
     }
@@ -114,12 +136,14 @@ public class UnitPatternBean implements Serializable {
     /**
      * @return classpattern classpattern
      */
+    @JsonIgnore
     public final String getClasspattern() {
         return classpattern;
     }
 
     /**
-     * @param classpattern classpattern
+     * @param classpattern
+     *            classpattern
      */
     public final void setClasspattern(String classpattern) {
         this.classpattern = classpattern;
@@ -128,12 +152,14 @@ public class UnitPatternBean implements Serializable {
     /**
      * @return levelpattern
      */
+    @JsonIgnore
     public final String getLevelpattern() {
         return levelpattern;
     }
 
     /**
-     * @param levelpattern levelpattern
+     * @param levelpattern
+     *            levelpattern
      */
     public final void setLevelpattern(String levelpattern) {
         this.levelpattern = levelpattern;
@@ -142,20 +168,17 @@ public class UnitPatternBean implements Serializable {
     /**
      * @return finallity
      */
+    @JsonIgnore
     public final String getFinallity() {
         return finallity;
     }
 
     /**
-     * @param finallity finallity
+     * @param finallity
+     *            finallity
      */
     public final void setFinallity(String finallity) {
         this.finallity = finallity;
     }
-
-    /**
-     *
-     */
-    public UnitPatternBean(){}
 
 }

@@ -12,6 +12,7 @@
  */
 package org.encuestame.business.service;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -123,8 +124,8 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      * @throws EnMeNoResultsFoundException exception
      */
     public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
-        final UserAccount userAccount = getUserAccountLogged() == null
-              ? getAccountDao().getUserByUsername(username) : getUserAccountLogged();
+        final UserAccount userAccount = getUserAccountonSecurityContext() == null
+              ? getAccountDao().getUserByUsername(username) : getUserAccountonSecurityContext();
         if(userAccount == null){
             throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
@@ -275,7 +276,9 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public final HashTag createHashTag(final String name){
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(ValidationUtils.removeNonAlphanumericCharacters(name));
-        hashTag.setHits(0L);
+        hashTag.setHits(1L);
+        hashTag.setSize(12L);
+        hashTag.setUpdatedDate(Calendar.getInstance().getTime());
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }

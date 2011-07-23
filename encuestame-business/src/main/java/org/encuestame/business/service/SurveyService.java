@@ -34,10 +34,10 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RestFullUtil;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.FolderBean;
-import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSurvey;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.hibernate.HibernateException;
@@ -182,11 +182,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 
     /**
      * Load pattern info.
-     * @param unitPatternBean {@link UnitPatternBean}
-     * @return {@link UnitPatternBean}
+     * @param unitPatternBean {@link QuestionPatternBean}
+     * @return {@link QuestionPatternBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitPatternBean loadPatternInfo(UnitPatternBean unitPatternBean)
+    public QuestionPatternBean loadPatternInfo(QuestionPatternBean unitPatternBean)
             throws EnMeExpcetion {
         if (unitPatternBean != null && unitPatternBean.getId() != null) {
             final QuestionPattern questionPatternDomain = getQuestionDao().loadPatternInfo(
@@ -211,18 +211,18 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 
     /**
      * Load all Patrons.
-     * @return List of {@link UnitPatternBean}
+     * @return List of {@link QuestionPatternBean}
      * @throws EnMeExpcetion exception
      */
-    public Collection<UnitPatternBean> loadAllPatrons()
+    public Collection<QuestionPatternBean> loadAllPatrons()
             throws EnMeExpcetion {
-        final List<UnitPatternBean> listPatronBean = new LinkedList<UnitPatternBean>();
+        final List<QuestionPatternBean> listPatronBean = new LinkedList<QuestionPatternBean>();
         try {
             final List<QuestionPattern> patronList = getQuestionDao()
                     .loadAllQuestionPattern();
             if (patronList.size() > 0) {
                for (QuestionPattern patron : patronList) {
-                    UnitPatternBean p = new UnitPatternBean();
+                    QuestionPatternBean p = new QuestionPatternBean();
                     p.setId(patron.getPatternId());
                     p.setPatronType(patron.getPatternType());
                     listPatronBean.add(p);

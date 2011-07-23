@@ -16,9 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
-
 import javax.net.ssl.HttpsURLConnection;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
@@ -26,15 +24,13 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.util.Assert;
-//import org.json.simple.JSONObject;
-//import org.json.simple.JSONValue;
-
 /**
  * Social Util Helpers.
  * @author Picado, Juan juanATencuestame.org
@@ -42,18 +38,37 @@ import org.springframework.util.Assert;
  */
 public class SocialUtils {
 
-    private static org.apache.commons.logging.Log log = LogFactory.getLog(SocialUtils.class);
+    /** Log. **/
+    private static Logger log = Logger.getLogger(SocialUtils.class);
 
-    public final static String tinyURL = "http://tinyurl.com/api-create.php";
+    /**
+     * TinyUrl rest url.
+     */
+    public final static String TINY_URL = "http://tinyurl.com/api-create.php";
 
-    public final static String googleURL = "https://www.googleapis.com/urlshortener/v1/url";
+    /**
+     * Google Url short url.
+     */
+    public final static String GOOGLE_SHORT_URL = "https://www.googleapis.com/urlshortener/v1/url";
 
-    public final static String googleURLStas = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=$1&projection=FULL";
+    /**
+     * Google url stats.
+     */
+    public final static String GOOGLE_SHORT_URL_STATS = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=$1&projection=FULL";
 
-    public final static String bitLyUrlApi = "http://api.bit.ly/shorten";
+    /**
+     * Bity short url api.
+     */
+    public final static String BITLY_SHORT_URL = "http://api.bit.ly/shorten";
 
+    /**
+     * Facebook scopes.
+     */
     public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
 
+    /**
+     * Twitter limit.
+     */
     public final static Integer TWITTER_LIMIT = 140;
 
     /**
@@ -70,7 +85,7 @@ public class SocialUtils {
      */
     public static String getGoGlStats(final String googleShortUrl) throws IOException {
         HttpClient httpclient = new HttpClient();
-        String completeUrl = StringUtils.replace(SocialUtils.googleURLStas, "$1", googleShortUrl);
+        String completeUrl = StringUtils.replace(SocialUtils.GOOGLE_SHORT_URL_STATS, "$1", googleShortUrl);
         HttpMethod method = new GetMethod(completeUrl);
         httpclient.executeMethod(method);
         String tinyUrl = method.getResponseBodyAsString();
@@ -133,7 +148,7 @@ public class SocialUtils {
     public static String getTinyUrl(String string){
         String tinyUrl = string;
         HttpClient httpclient = new HttpClient();
-        HttpMethod method = new GetMethod(SocialUtils.tinyURL);
+        HttpMethod method = new GetMethod(SocialUtils.TINY_URL);
         method.setQueryString(new NameValuePair[] { new NameValuePair("url",
                 string) });
         try {
@@ -141,11 +156,9 @@ public class SocialUtils {
             tinyUrl = method.getResponseBodyAsString();
         } catch (HttpException e) {
             log.error(e);
-            e.printStackTrace();
             tinyUrl = string;
         } catch (IOException e) {
             log.error(e);
-            e.printStackTrace();
             tinyUrl = string;
         } finally{
             method.releaseConnection();
@@ -163,7 +176,7 @@ public class SocialUtils {
      */
     public static String getBitLy(final String urlPath, final String key, final String login){
         final HttpClient httpclient = new HttpClient();
-        final HttpMethod method = new GetMethod(SocialUtils.bitLyUrlApi);
+        final HttpMethod method = new GetMethod(SocialUtils.BITLY_SHORT_URL);
         method.setQueryString(
                 new NameValuePair[]{
                         new NameValuePair("longUrl",urlPath),

@@ -193,38 +193,38 @@ encuestame.error.session = function(message){
  * Create New Error Dialog.
  */
 encuestame.error.createDialog = function(title, content, addcloseButton){
-    var node = dojo.byId("errorHandler");
-    console.debug("node", node);
-    if(node != null){
-        if (encuestame.error.dialog != null){
-             encuestame.error.dialog.open ? encuestame.error.dialog.hide() : "";
-        } else {
-        }
-        dojo.empty(node);
-        //close button validation
-        addcloseButton = addcloseButton == null ? false : addcloseButton;
-        encuestame.error.dialog = new dijit.Dialog({
-              title: title,
-              content: content,
-              style: "width: 480px; height: 100px;"
-          });
-        if(addcloseButton){
-            var widgetButton = new dijit.form.Button({
-                label: "Close",
-                onClick: dojo.hitch(this, function(event) {
-                    dojo.stopEvent(event);
-                    encuestame.error.dialog.hide();
-                })
-            });
-            var content = encuestame.error.dialog.content;
-            content.appendChild(widgetButton.domNode);
-        }
-        console.debug("dialog", encuestame.error.dialog);
-        node.appendChild(encuestame.error.dialog.domNode);
-        encuestame.error.dialog.show();
-    } else {
-        console.error("no error handler dialog found");
-    }
+    //var node = dojo.byId("errorHandler");
+    console.error("error dialog "+title, content);
+//    if(node != null){
+//        if (encuestame.error.dialog != null){
+//             encuestame.error.dialog.open ? encuestame.error.dialog.hide() : "";
+//        } else {
+//        }
+//        dojo.empty(node);
+//        //close button validation
+//        addcloseButton = addcloseButton == null ? false : addcloseButton;
+//        encuestame.error.dialog = new dijit.Dialog({
+//              title: title,
+//              content: content,
+//              style: "width: 480px; height: 100px;"
+//          });
+//        if(addcloseButton){
+//            var widgetButton = new dijit.form.Button({
+//                label: "Close",
+//                onClick: dojo.hitch(this, function(event) {
+//                    dojo.stopEvent(event);
+//                    encuestame.error.dialog.hide();
+//                })
+//            });
+//            var content = encuestame.error.dialog.content;
+//            content.appendChild(widgetButton.domNode);
+//        }
+//        console.debug("dialog", encuestame.error.dialog);
+//        node.appendChild(encuestame.error.dialog.domNode);
+//        encuestame.error.dialog.show();
+//    } else {
+//        console.error("no error handler dialog found");
+//    }
 };
 
 encuestame.error.messages = {};
@@ -505,6 +505,27 @@ encuestame.service.search = {};
 encuestame.service.search.suggest = encuestame.contextWidget()+"/api/search/quick-suggest.json";
 
 encuestame.service.stream = {};
+encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
+
+encuestame.service.folder = {};
+
+encuestame.service.folder.create = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/create.json";
+};
+encuestame.service.folder.update = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/update.json";
+};
+encuestame.service.folder.remove = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/remove.json";
+};
+encuestame.service.folder.move = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/move.json";
+};
+
+encuestame.service.folder.list = function(type) {
+    return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/list.json";
+};
+encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
 encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
 
 //short url service.

@@ -38,7 +38,7 @@
                 </div>
                 <div class="mobile-content">
                     <div class="mobile-tweetpoll">
-                        <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test">${item.questionBean.questionName}</a>
+                        <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/${item.questionBean.slugName}">${item.questionBean.questionName}</a>
                     </div>
                     <div class="mobile-submit-bottom">
                         <div class="mobile-submit-options">

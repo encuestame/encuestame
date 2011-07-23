@@ -16,6 +16,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -23,6 +25,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;
@@ -30,14 +33,30 @@ import org.hibernate.search.annotations.Store;
 @MappedSuperclass
 public abstract class AbstractFolder {
 
-    /****/
+    /**
+     * Folder Name.
+     * **/
     private String folderName;
 
-    /****/
+    /**
+     * Context of users.
+     * */
     private Account users;
 
-    /****/
+    /**
+     * Date of creation.
+     * **/
     private Date createdAt;
+
+    /**
+     * Create by.
+     */
+    private UserAccount createdBy;
+
+    /**
+     * Status of folder.
+     */
+    private Status status;
 
     /**
      * @return the folderName
@@ -85,5 +104,36 @@ public abstract class AbstractFolder {
      */
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the createdBy
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public UserAccount getCreatedBy() {
+        return createdBy;
+    }
+
+    /**
+     * @param createdBy the createdBy to set
+     */
+    public void setCreatedBy(final UserAccount createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    /**
+     * @return the status
+     */
+    @Column(name="folder_status")
+    @Enumerated(EnumType.ORDINAL)
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(final Status status) {
+        this.status = status;
     }
 }

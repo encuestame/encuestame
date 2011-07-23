@@ -13,21 +13,15 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.utils.web.FolderBean;
-import org.encuestame.utils.web.TweetPollBean;
-import org.encuestame.utils.web.UnitPoll;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Folder Json Service Controller.
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since December 07, 2010
- * @version $Id:$
  */
 @Controller
 public class FolderJsonServiceController extends AbstractJsonController{
@@ -62,13 +55,13 @@ public class FolderJsonServiceController extends AbstractJsonController{
     @RequestMapping(value = "/api/survey/folder/{actionType}/create.json", method = RequestMethod.GET)
     public ModelMap createFolder(
             @PathVariable String actionType,
-            @RequestParam(value = "n", required = true) String folderName,
+            @RequestParam(value = "name", required = true) String folderName,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                log.debug("FolderName "+folderName);
               final Map<String, Object> sucess = new HashMap<String, Object>();
-              if("tweetPoll".equals(actionType)){
+              if("tweetpoll".equals(actionType)){
                    sucess.put("folder", getTweetPollService().createTweetPollFolder(folderName,
                                   getUserPrincipalUsername()));
                    setItemResponse(sucess);
@@ -112,7 +105,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                 try {
                     log.debug("FolderName "+folderName);
                    final Map<String, Object> sucess = new HashMap<String, Object>();
-                   if("tweetPoll".equals(actionType)){
+                   if("tweetpoll".equals(actionType)){
                         sucess.put("folder", getTweetPollService().updateTweetPollFolder(folderId,
                                              folderName,getUserPrincipalUsername()));
                         setItemResponse(sucess);
@@ -202,7 +195,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                   * itemId (poll) == 2 is assigned to folder "A" and user drag and drop to the other
                   * folder, the current relationship should be removed and create new realtionship.
                   */
-                 if("tweetPoll".equals(actionType)){
+                 if("tweetpoll".equals(actionType)){
                      getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), itemId);
                      setSuccesResponse();
                  } else if("poll".equals(actionType)){
@@ -225,7 +218,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
     }
 
     /**
-     * Retrieve Folder Items.
+     * Retrieve a List of Folders.
      * @param actionType
      * @param folderId
      * @param request
@@ -236,18 +229,23 @@ public class FolderJsonServiceController extends AbstractJsonController{
     @RequestMapping(value = "/api/survey/folder/{actionType}/list.json", method = RequestMethod.GET)
     public ModelMap retrieveItemsbyFolder(
              @PathVariable String actionType,
-             @RequestParam(value = "folderId", required = true) Long folderId,
              HttpServletRequest request,
-             HttpServletResponse response){
-             List<UnitPoll> list = new ArrayList<UnitPoll>();
+             HttpServletResponse response) {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            log.debug("type:{ "+actionType);
             try {
-                if("poll".equals(actionType)){
-                    FolderBean fbean = new FolderBean(folderId);
-                    list =  getPollService().getPollsByFolder(fbean, getUserPrincipalUsername());
-                    jsonResponse.put("polls", list);
-                    setItemResponse(jsonResponse);
+                if ("poll".equals(actionType)) {
+                    //FolderBean fbean = new FolderBean(folderId);
+                    //list =  getPollService().getPollsByFolder(fbean, getUserPrincipalUsername());
+                    //jsonResponse.put("folders", list);
+                    //setItemResponse(jsonResponse);
+                    jsonResponse.put("folders", ListUtils.EMPTY_LIST);
+                } else if("tweetpoll".equals(actionType)) {
+                    jsonResponse.put("folders", getTweetPollService().getFolders());
+                } else if ("survey".equals(actionType)) {
+                    jsonResponse.put("folders", ListUtils.EMPTY_LIST);
                 }
+                setItemResponse(jsonResponse);
             } catch (Exception e) {
                log.error(e);
                e.printStackTrace();

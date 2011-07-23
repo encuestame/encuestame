@@ -39,13 +39,20 @@ dojo.declare(
          */
         postCreate : function() {
             dojo.subscribe("/encuestame/tweetpoll/detail/answer/reload", this, this._reloadAnswerInfo);
+            dojo.connect(this._url, "onclick", dojo.hitch(this, function(event){
+                dojo.stopEvent(event);
+                location.href = this.url;
+            }));
         },
 
         /*
          * reload answer info.
          */
-        _reloadAnswerInfo : function(id, data /*[votes, percent]*/){
+        _reloadAnswerInfo : function(id, data /*[votes, percent]*/) {
             if(this.aId == id){
+                console.debug("_reloadAnswerInfo", id);
+                console.debug("_reloadAnswerInfo", this.aId);
+                console.debug("_reloadAnswerInfo", data);
                 this._reloadValues(data[0], data[1]);
             }
         },

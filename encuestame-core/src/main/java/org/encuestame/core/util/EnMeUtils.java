@@ -26,6 +26,10 @@ public class EnMeUtils {
     /** Front End Service Log. **/
     private static Logger log = Logger.getLogger(EnMeUtils.class);
 
+
+    private static final int BASE = 2;
+    private static final int MIN_SIZE = 12;
+
     /**
      * Calculate percent.
      * @param total
@@ -43,22 +47,31 @@ public class EnMeUtils {
     }
 
     /**
-     *
+     * Description.
+     * <p>
+     * The frequency is calculated based on the hits (visits) that receives the hashtag
+     * and use has on tweetPolls, survey, etc.. Frequency is the use of hashtag.
+     * </p>
      * @param frecuency Number of times the label has been used in polls, survey or tweetPolls
      * @param frecMax : Maximum number of frequency.
      * @param frecMin : Minimum number of frecuency.
      * @return
      */
-    public static Double calculateSizeTag(long frecuency, long  frecMax, long frecMin){
-         double perRelative ;
-         float frec = Float.valueOf(frecuency);
-         float maxiFrec = Float.valueOf(frecMax);
-         float miniFrec = Float.valueOf(frecMin);
-         double minValue = Double.valueOf(12);
-         final float frecDiff = frec - miniFrec;
-         perRelative = ((frec-miniFrec)/frecDiff);
-         double perLog = (Math.log(perRelative)/Math.log(2))+minValue;
-
-        return perLog;
+    public static long calculateSizeTag(long frecuency, long  frecMax, long frecMin) {
+        float frec = Float.valueOf(frecuency);
+        float maxiFrec = Float.valueOf(frecMax);
+        float miniFrec = Float.valueOf(frecMin);
+        double minValue = Double.valueOf(EnMeUtils.MIN_SIZE);
+        final float frecDiff = frecMax - miniFrec;
+        double perRelative = ((frec - miniFrec) / (frecDiff == 0 ? 1 : frecDiff)) * maxiFrec;
+        double perLog;
+        if (perRelative == 0) {
+            perLog = minValue;
+        } else {
+            perLog = (Math.log(perRelative) / Math.log(EnMeUtils.BASE))
+             + minValue;
+        }
+        log.debug("Size tag Value ---------------> " + Math.round(perLog) );
+        return Math.round(perLog);
     }
 }

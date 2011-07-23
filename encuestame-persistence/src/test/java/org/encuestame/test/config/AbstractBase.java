@@ -39,7 +39,6 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
-import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Attachment;
@@ -644,6 +643,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        getAccountDao().saveOrUpdate(account);
        return account;
     }
+
+    /**
+     * Create user account.
+     * @param status
+     * @param name
+     * @param account
+     * @return
+     */
+    public UserAccount createUserAccount(final Boolean status, final Date createdAt , final String name, final Account account){
+        final UserAccount userAcc = this.createUserAccount(name, account);
+        userAcc.setEnjoyDate(createdAt);
+        userAcc.setUserStatus(status);
+        getAccountDao().saveOrUpdate(userAcc);
+        return userAcc;
+     }
 
     /**
      * Create User.
@@ -1380,11 +1394,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
    * @param users
    * @return
    */
-    public SurveyFolder createSurveyFolders(final String folderName, final Account users){
+    public SurveyFolder createSurveyFolders(final String folderName, final UserAccount users){
         final SurveyFolder surveyFolders = new SurveyFolder();
         surveyFolders.setCreatedAt(new Date());
         surveyFolders.setFolderName(folderName);
-        surveyFolders.setUsers(users);
+        surveyFolders.setUsers(users.getAccount());
+        surveyFolders.setStatus(Status.ACTIVE);
+        surveyFolders.setCreatedBy(users);
         getSurveyDaoImp().saveOrUpdate(surveyFolders);
         return surveyFolders;
     }
@@ -1396,11 +1412,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param users {@link Account}
      * @return {@link PollFolder}.
      */
-    public PollFolder createPollFolder(final String folderName, final Account users){
+    public PollFolder createPollFolder(final String folderName, final UserAccount users){
         final PollFolder folder = new PollFolder();
         folder.setCreatedAt(new Date());
         folder.setFolderName(folderName);
-        folder.setUsers(users);
+        folder.setUsers(users.getAccount());
+        folder.setStatus(Status.ACTIVE);
+        folder.setCreatedBy(users);
         getiPoll().saveOrUpdate(folder);
         return folder;
     }
@@ -1411,11 +1429,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param users
      * @return
      */
-    public TweetPollFolder createTweetPollFolder(final String folderName, final Account users){
+    public TweetPollFolder createTweetPollFolder(final String folderName, final UserAccount users){
         final TweetPollFolder folder = new TweetPollFolder();
         folder.setCreatedAt(new Date());
         folder.setFolderName(folderName);
-        folder.setUsers(users);
+        folder.setStatus(Status.ACTIVE);
+        folder.setCreatedBy(users);
+        folder.setUsers(users.getAccount());
         getTweetPoll().saveOrUpdate(folder);
         return folder;
     }
@@ -1558,6 +1578,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(hashTagName);
         hashTag.setHits(0L);
+        hashTag.setUpdatedDate(new Date());
         hashTag.setSize(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;

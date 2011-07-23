@@ -19,23 +19,20 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.FolderBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UserAccountBean;
-
-import com.sun.mail.imap.protocol.BODY;
-
 
 /**
  * Abstract Base Unit Beans.
@@ -60,7 +57,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
             final Long stateId,
             final Long userId,
             final List listAnswers,
-            final UnitPatternBean pattern){
+            final QuestionPatternBean pattern){
          final QuestionBean question = new QuestionBean();
          question.setQuestionName(questionName);
          question.setStateId(stateId);
@@ -79,13 +76,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param template
      * @return
      */
-     public UnitPatternBean createPatternBean(
+     public QuestionPatternBean createPatternBean(
              final String classpattern,
              final String descripcionPattern,
              final String levelpattern,
              final String patronType,
              final String template){
-         final UnitPatternBean unitPatternBean = new UnitPatternBean();
+         final QuestionPatternBean unitPatternBean = new QuestionPatternBean();
          unitPatternBean.setClasspattern(classpattern);
          unitPatternBean.setDescripcion(descripcionPattern);
          unitPatternBean.setLevelpattern(levelpattern);
@@ -227,7 +224,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              final Long stateId,
              final Long userId,
              final List listAnswers,
-             final UnitPatternBean pattern){
+             final QuestionPatternBean pattern){
           final QuestionBean question = new QuestionBean();
           question.setId(questionId);
           question.setQuestionName(questionName);
@@ -385,11 +382,11 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param showResultsPoll
       * @return
       */
-     public UnitPoll createUnitPoll(final Boolean closeNotification, final Boolean completedPoll,
+     public PollBean createUnitPoll(final Boolean closeNotification, final Boolean completedPoll,
                                     final Date creationDate, final Date finishDate, final String hashPoll,
                                     final Boolean publishPoll, final QuestionBean questionBean,
                                     final Boolean showResultsPoll){
-        final UnitPoll unitPoll = new UnitPoll();
+        final PollBean unitPoll = new PollBean();
         unitPoll.setCloseNotification(closeNotification);
         unitPoll.setCompletedPoll(completedPoll);
         unitPoll.setCreationDate(creationDate);
@@ -406,7 +403,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @param questionBean
       * @return
       */
-     public UnitPoll createUnitPollDefault(final QuestionBean questionBean){
+     public PollBean createUnitPollDefault(final QuestionBean questionBean){
         return this.createUnitPoll(Boolean.TRUE, Boolean.TRUE, new Date(), new Date(), "h1a2s3hP", Boolean.TRUE,
                 questionBean, Boolean.TRUE);
      }

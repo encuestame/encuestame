@@ -18,7 +18,6 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
@@ -27,12 +26,11 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.FolderBean;
-import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 
@@ -396,4 +394,11 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @return
       */
      List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll);
+
+     /**
+      * Get List of TweetPoll Folders.
+      * @return
+      * @throws EnMeNoResultsFoundException
+      */
+     List<FolderBean> getFolders() throws EnMeNoResultsFoundException;
 }
