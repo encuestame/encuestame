@@ -80,12 +80,12 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     @Test
     public void testcreateFolder() throws ServletException, IOException{
         /** Create poll folder json. **/
-        Assert.assertEquals(createJsonPollFolder("poll", "Education"), "Education");
+         Assert.assertEquals(createJsonPollFolder("poll", "Education"), "Education");
         Assert.assertEquals(createJsonPollFolder("poll", "Nicaragua"), "Nicaragua");
 
         /** Create tweetPoll folder json. **/
-        Assert.assertEquals(createJsonPollFolder("tweetPoll", "Health"), "Health");
-        Assert.assertEquals(createJsonPollFolder("tweetPoll", "Technology"), "Technology");
+        Assert.assertEquals(createJsonPollFolder("tweetpoll", "Health"), "Health");
+        Assert.assertEquals(createJsonPollFolder("tweetpoll", "Technology"), "Technology");
 
         /** Create survey folder json. **/
         Assert.assertEquals(createJsonPollFolder("survey", "Champions"), "Champions");
@@ -102,7 +102,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      */
     public String createJsonPollFolder(final String actionType, final String folderName) throws ServletException, IOException{
         initService("/api/survey/folder/"+actionType+"/create.json", MethodJson.GET);
-        setParameter("n", folderName);
+        setParameter("name", folderName);
         final JSONObject response = callJsonService();
         //"error":{},"success":{"folder":{"id":87,"createAt":1303337873233,"folderName":"Education"}}}
         final JSONObject success = getSucess(response);
@@ -121,7 +121,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         Assert.assertEquals(updateJsonFolder("poll", "My Last Poll Folder",this.pollFolder.getId()),this.pollFolder.getId());
 
         /** Update tweetPoll folder json. **/
-        Assert.assertEquals(updateJsonFolder("tweetPoll", "My Last TweetPoll Folder",this.tweetPollFolder.getId()),this.tweetPollFolder.getId());
+        Assert.assertEquals(updateJsonFolder("tweetpoll", "My Last TweetPoll Folder",this.tweetPollFolder.getId()),this.tweetPollFolder.getId());
 
         /** Update Survey folder json. **/
         Assert.assertEquals(updateJsonFolder("survey", "My Last Survey Folder",this.surveyFolder.getId()),this.surveyFolder.getId());
@@ -180,7 +180,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     @Test
     public void testMoveItemJsonFolder() throws ServletException, IOException{
         final TweetPollFolder tpf = createTweetPollFolder("My third tweetPoll folder", getSpringSecurityLoggedUserAccount());
-        assertSuccessResponse(this.moveItemJsonFolder("tweetPoll", tpf.getId(), this.tweetPoll.getTweetPollId()));
+        assertSuccessResponse(this.moveItemJsonFolder("tweetpoll", tpf.getId(), this.tweetPoll.getTweetPollId()));
         assertSuccessResponse(moveItemJsonFolder("survey",  this.surveyFolder.getId(), this.survey.getSid()));
         assertSuccessResponse(moveItemJsonFolder("poll",  this.pollFolder.getId(), this.poll.getPollId()));
     }
