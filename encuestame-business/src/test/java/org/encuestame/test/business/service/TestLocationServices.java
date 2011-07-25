@@ -14,17 +14,18 @@ package org.encuestame.test.business.service;
 
 import java.util.List;
 
+import org.encuestame.business.service.GeoLocationService;
 import org.encuestame.business.service.imp.GeoLocationSupport;
+import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.dao.IGeoPoint;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.junit.Assert;
@@ -38,7 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Oct 10, 2010 11:37:52 AM
  * @version $Id:$
  */
-public class TestLocationServices extends AbstractServiceBase{
+public class TestLocationServices extends AbstractSpringSecurityContext{
 
     /**
      * Location Service.
@@ -65,7 +66,7 @@ public class TestLocationServices extends AbstractServiceBase{
      */
     @Test
     public void testupdateGeoPoint() throws EnMeExpcetion{
-        final GeoPoint locationBean = createGeoPoint("test", "test", 0, this.secondary.getAccount());
+        final GeoPoint locationBean = createGeoPoint("test", "test", 0, getSpringSecurityLoggedUserAccount().getAccount());
         final UnitLocationBean bean = ConvertDomainBean.convertLocationToBean(locationBean);
         bean.setName("test2");
         this.locationService.updateGeoPoint(bean);
@@ -104,7 +105,7 @@ public class TestLocationServices extends AbstractServiceBase{
          this.locationService.createGeoPointFolder(folder1);
          final UnitLocationFolder folder2 = createUnitLocationFolder("folder2 ");
          this.locationService.createGeoPointFolder(folder2);
-         final List<UnitLocationFolder> list = this.locationService.retrieveLocationFolderByUser(this.secondary.getUsername());
+         final List<UnitLocationFolder> list = this.locationService.retrieveLocationFolderByUser(getSpringSecurityLoggedUserAccount().getUsername());
          Assert.assertEquals(list.size(), 2);
     }
 

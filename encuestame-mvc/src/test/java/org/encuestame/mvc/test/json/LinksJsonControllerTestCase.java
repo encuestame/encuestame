@@ -36,9 +36,9 @@ import org.junit.Test;
 public class LinksJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
 
     /**
-    str *
+     * {@link TweetPoll}
      */
-    TweetPoll tweetPoll;
+    private TweetPoll tweetPoll;
 
     /**
      *
