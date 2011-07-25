@@ -65,12 +65,11 @@ public class PermissionDaoImp extends AbstractHibernateDaoSupport implements IPe
      * @return {@link Permission}
      */
     @SuppressWarnings("unchecked")
-    public Permission loadPermission(final EnMePermission permission)
-           throws HibernateException{
+    public Permission loadPermission(final EnMePermission permission) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Permission.class);
-        criteria.add(Restrictions.like("permission", permission) );
+        criteria.add(Restrictions.eq("permission", permission) );
         final List<Permission> permissions = getHibernateTemplate().findByCriteria(criteria);
-        if (permissions.size() > 1) {
+        if (permissions.size() >= 1) {
             log.warn("two permissions with the same name ");
             if (log.isDebugEnabled()) {
                 for (Permission permission2 : permissions) {

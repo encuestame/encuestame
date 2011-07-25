@@ -152,7 +152,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
         final String responseAsString = this.callStringService();
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
-        System.out.println(responseAsString);
+        //System.out.println(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
     }
 
