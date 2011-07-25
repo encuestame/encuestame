@@ -14,12 +14,15 @@ package org.encuestame.business.security;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -129,4 +132,29 @@ public abstract class AbstractSecurityContext {
         return details;
     }
 
+    /**
+     * Check ip in black list.
+     * @param ip
+     * @return
+     */
+    public Boolean checkIPinBlackList(final String ip){
+        System.out.println("IP in Checking --->" + ip);
+        Boolean bannedIp = Boolean.FALSE;
+        try {
+            if(ip!=null){
+                final List<String> blackList = WidgetUtil.getBlackListIP("blacklist.inc");
+                System.out.println("Black List size -----> "+ blackList.size());
+                for (String ipItem : blackList) {
+                    if(ipItem.equals(ip)){
+                        bannedIp = Boolean.TRUE;
+                    }
+                }
+            }
+        } catch (EnMeExpcetion e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println("ERRORR----->"+e);
+        }
+        return bannedIp;
+    }
 }

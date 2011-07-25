@@ -1,4 +1,4 @@
-<%@page import="org.encuestame.mvc.util.WidgetUtil"%>
+<%@page import="org.encuestame.core.security.util.WidgetUtil"%>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"
         djConfig="parseOnLoad: true, useCommentedJson:true, isDebug: false"></script>
 <script type="text/javascript">
