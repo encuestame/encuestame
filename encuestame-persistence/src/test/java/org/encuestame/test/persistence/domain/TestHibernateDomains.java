@@ -222,7 +222,6 @@ public class TestHibernateDomains extends AbstractBase{
         userSec.setInviteCode("S");
         userSec.setEnjoyDate(new Date());
         userSec.setUserStatus(true);
-        userSec.setUserTwitterAccount("si");
         userSec.setAccount(createAccount());
         getAccountDao().saveOrUpdate(userSec);
         assertNotNull(userSec.getUid());
@@ -283,8 +282,8 @@ public class TestHibernateDomains extends AbstractBase{
      public void testLocationFolder(){
          final GeoPointFolder geoPointFolder = new GeoPointFolder();
          geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
-         geoPointFolder.setLocationFolderName("test folder");
-         geoPointFolder.setAccount(createAccount());
+         geoPointFolder.setFolderName("test folder");
+         geoPointFolder.setUsers(createAccount());
          getGeoPointDao().saveOrUpdate(geoPointFolder);
      }
 

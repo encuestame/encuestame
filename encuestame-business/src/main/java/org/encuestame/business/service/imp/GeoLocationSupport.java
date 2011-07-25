@@ -24,11 +24,10 @@ import org.encuestame.utils.web.UnitLocationTypeBean;
 
 /**
  * Description Class.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since May 15, 2010 8:19:02 PM
- * @version $Id: $
  */
-public interface ILocationService {
+public interface GeoLocationSupport {
 
 
     /**
@@ -37,7 +36,7 @@ public interface ILocationService {
      * @return {@link UnitLocationFolder}.
      * @throws EnMeNoResultsFoundException
      */
-    UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeNoResultsFoundException;
+    UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder) throws EnMeNoResultsFoundException;
 
     /**
      * Create Cat LocationType.
@@ -46,14 +45,14 @@ public interface ILocationService {
      * @throws EnMeExpcetion exception
      */
     UnitLocationTypeBean createGeoPointType(
-            final UnitLocationTypeBean locatTypeBean, final String username) throws EnMeExpcetion;
+            final UnitLocationTypeBean locatTypeBean) throws EnMeExpcetion;
 
     /**
      * @param locationBean locationBean
      * @throws EnMeExpcetion EnMeExpcetion
      * @throws EnMeNoResultsFoundException
      */
-    void updateGeoPoint(final UnitLocationBean locationBean, final String username) throws EnMeExpcetion, EnMeNoResultsFoundException;
+    void updateGeoPoint(final UnitLocationBean locationBean) throws EnMeExpcetion, EnMeNoResultsFoundException;
 
     /**
      * @param locationTypeBean locationTypeBean
@@ -67,7 +66,7 @@ public interface ILocationService {
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    UnitLocationBean createGeoPoint(final UnitLocationBean location, final String username) throws EnMeExpcetion;
+    UnitLocationBean createGeoPoint(final UnitLocationBean location) throws EnMeExpcetion;
 
     /**
      * Assign Location to Location Folder.

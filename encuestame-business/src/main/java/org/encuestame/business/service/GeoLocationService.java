@@ -15,7 +15,7 @@ package org.encuestame.business.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.imp.GeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
@@ -34,10 +34,9 @@ import org.springframework.stereotype.Service;
  * Location Service.
  * @author Picado, Juan juanATencuestame.org
  * @since May 15, 2010 8:17:15 PM
- * @version $Id: $
  */
 @Service
-public class LocationService extends AbstractBaseService implements ILocationService{
+public class GeoLocationService extends AbstractBaseService implements GeoLocationSupport{
 
     /** Log. **/
     private Logger log = Logger.getLogger(this.getClass());
@@ -49,7 +48,7 @@ public class LocationService extends AbstractBaseService implements ILocationSer
      * @throws EnMeExpcetion exception
      */
     public UnitLocationTypeBean createGeoPointType(
-            final UnitLocationTypeBean locatTypeBean, final String username) throws EnMeExpcetion {
+            final UnitLocationTypeBean locatTypeBean) throws EnMeExpcetion {
         if (locatTypeBean != null) {
             try {
                 final GeoPointType locationTypeDomain = new GeoPointType();
@@ -57,7 +56,7 @@ public class LocationService extends AbstractBaseService implements ILocationSer
                         .getLocTypeDesc());
                 locationTypeDomain.setLocationTypeLevel(locatTypeBean
                         .getLevel());
-                locationTypeDomain.setUsers(getUserAccount(username).getAccount());
+                locationTypeDomain.setUsers(getUserAccount(getUserPrincipalUsername()).getAccount());
                 getGeoPointTypeDao().saveOrUpdate(locationTypeDomain);
                 locatTypeBean.setIdLocType(locationTypeDomain
                         .getLocationTypeId());
@@ -77,8 +76,8 @@ public class LocationService extends AbstractBaseService implements ILocationSer
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion EnMeExpcetion
      */
-    public void updateGeoPoint(final UnitLocationBean locationBean, final String username) throws EnMeNoResultsFoundException, EnMeExpcetion{
-       final GeoPoint geoPoint =  getLocation(locationBean.getId(), username);
+    public void updateGeoPoint(final UnitLocationBean locationBean) throws EnMeNoResultsFoundException, EnMeExpcetion{
+       final GeoPoint geoPoint =  getLocation(locationBean.getId(), getUserPrincipalUsername());
         if (geoPoint!=null){
             geoPoint.setLocationStatus(Status.valueOf(locationBean.getStatus()));
             geoPoint.setLocationDescription(locationBean.getName());
@@ -114,14 +113,14 @@ public class LocationService extends AbstractBaseService implements ILocationSer
      * @param location {@link LocationBean}
      * @throws EnMeExpcetion exception
      */
-    public UnitLocationBean createGeoPoint(final UnitLocationBean location, final String username) throws EnMeExpcetion{
+    public UnitLocationBean createGeoPoint(final UnitLocationBean location) throws EnMeExpcetion{
         if (location != null){
             try{
                 final GeoPoint geoPointDomain = new GeoPoint();
                 geoPointDomain.setLocationDescription(location.getName());
                 geoPointDomain.setLocationStatus(Status.ACTIVE);
                 geoPointDomain.setLocationLatitude(location.getLat());
-                geoPointDomain.setAccount(getUserAccount(username).getAccount());
+                geoPointDomain.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
                 geoPointDomain.setLocationLongitude(location.getLng());
                 if(location.getTidtype() != null){
                     geoPointDomain.setTidtype(getGeoPointTypeDao().getLocationById(location.getTidtype()));
@@ -144,14 +143,14 @@ public class LocationService extends AbstractBaseService implements ILocationSer
      * @return {@link UnitLocationFolder}.
      * @throws EnMeNoResultsFoundException
      */
-    public UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder, final String username) throws EnMeNoResultsFoundException{
+    public UnitLocationFolder createGeoPointFolder(final UnitLocationFolder locationFolder) throws EnMeNoResultsFoundException{
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(GeoPointFolderType.valueOf(locationFolder.getType()));
-        geoPointFolder.setLocationFolderName(locationFolder.getName());
-        geoPointFolder.setAccount(getUserAccount(username).getAccount());
+        geoPointFolder.setFolderName(locationFolder.getName());
+        geoPointFolder.setUsers(getUserAccount(getUserPrincipalUsername()).getAccount());
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         locationFolder.setId(geoPointFolder.getLocationFolderId());
-        createNotification(NotificationEnum.LOCATION_FOLDER_NEW, "New Folder "+locationFolder.getName() +" is created.", geoPointFolder.getAccount());
+        createNotification(NotificationEnum.LOCATION_FOLDER_NEW, "New Folder "+locationFolder.getName() +" is created.", geoPointFolder.getUsers());
         return locationFolder;
     }
 
@@ -321,11 +320,11 @@ public class LocationService extends AbstractBaseService implements ILocationSer
         else {
             if (typeUpdate.equals("name")) {
                 log.debug("updating folder name");
-                locationFolder.setLocationFolderName(locationFolderBean.getName());
+                locationFolder.setFolderName(locationFolderBean.getName());
             }
             getGeoPointDao().saveOrUpdate(locationFolder);
             createNotification(NotificationEnum.LOCATION_GMAP_CHANGED_NAME, "Folder name change to "
-                                + locationFolderBean.getName(), locationFolder.getAccount());
+                                + locationFolderBean.getName(), locationFolder.getUsers());
         }
     }
 

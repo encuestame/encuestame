@@ -27,6 +27,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -135,19 +136,25 @@ public class NotificationsJsonController extends AbstractJsonController {
             limit = 10; //TODO: this value should be on encuestame-config.properties.
         }
         //define if notifications are categorized.
-        if (categorized) {
-           final HashMap<DateClasificatedEnum, List<UtilNotification>> list = classifyNotificationList(convertNotificationList(
-                   getSecurityService().loadNotificationByUserAndLimit(limit, start, Boolean.FALSE),
-                   request));
-           responseJson.put("notifications", list);
-        } else {
-            responseJson.put(
-                    "notifications",
-                    convertNotificationList(getSecurityService()
-                            .loadNotificationByUserAndLimit(limit, start,
-                                    Boolean.FALSE), request));
+        try{
+            if (categorized) {
+               final HashMap<DateClasificatedEnum, List<UtilNotification>> list = classifyNotificationList(convertNotificationList(
+                       getSecurityService().loadNotificationByUserAndLimit(limit, start, Boolean.FALSE),
+                       request));
+               responseJson.put("notifications", list);
+            } else {
+                responseJson.put(
+                        "notifications",
+                        convertNotificationList(getSecurityService()
+                                .loadNotificationByUserAndLimit(limit, start,
+                                        Boolean.FALSE), request));
+            }
+            setItemResponse(responseJson);
+        } catch (EnMeNoResultsFoundException e) {
+            log.error(e);
+            setError(e, response);
         }
-        setItemResponse(responseJson);
+
         return returnData();
     }
 

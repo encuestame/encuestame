@@ -78,12 +78,12 @@ public interface IApplicationServices  extends ServiceOperations {
     /**
      * @param locationService the locationService to set
      */
-    void setLocationService(final ILocationService locationService);
+    void setLocationService(final GeoLocationSupport locationService);
 
     /**
      * @return the locationService
      */
-    ILocationService getLocationService();
+    GeoLocationSupport getLocationService();
 
     /**
      *

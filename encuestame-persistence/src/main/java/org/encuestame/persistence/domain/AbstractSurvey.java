@@ -36,7 +36,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 
 
 @MappedSuperclass
-public abstract class AbstractSurvey {
+public abstract class AbstractSurvey extends AbstractGeoPoint {
 
     /**
      * Use a custom start message.

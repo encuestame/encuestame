@@ -1254,14 +1254,15 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     *
     * @param limit
     * @return
+ * @throws EnMeNoResultsFoundException
     */
    public List<Notification> loadNotificationByUserAndLimit(
            final Integer limit,
            final Integer start,
-           final Boolean onlyUnread) {
+           final Boolean onlyUnread) throws EnMeNoResultsFoundException {
         final List<Notification> notifications = getNotificationDao()
                 .loadNotificationByUserAndLimit(
-                        getUserAccountonSecurityContext().getAccount(), limit, start, onlyUnread);
+                        getUserAccount(getUserPrincipalUsername()).getAccount(), limit, start, onlyUnread);
         return notifications;
    }
 

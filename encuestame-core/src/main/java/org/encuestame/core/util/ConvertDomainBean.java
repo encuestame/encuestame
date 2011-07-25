@@ -622,7 +622,7 @@ public class ConvertDomainBean {
     public static UnitLocationFolder convertGeoPointFolderDomainToBean(final GeoPointFolder geoPointFolder){
         final UnitLocationFolder locationFolder = new UnitLocationFolder();
         locationFolder.setId(geoPointFolder.getLocationFolderId());
-        locationFolder.setName(geoPointFolder.getLocationFolderName());
+        locationFolder.setName(geoPointFolder.getFolderName());
         locationFolder.setType(geoPointFolder.getFolderType().GROUPING.name());
         return locationFolder;
     }

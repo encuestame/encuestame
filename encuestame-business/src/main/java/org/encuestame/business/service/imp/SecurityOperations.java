@@ -460,9 +460,10 @@ public interface SecurityOperations extends ServiceOperations {
      *
      * @param limit
      * @return
+     * @throws EnMeNoResultsFoundException
      */
     List<Notification> loadNotificationByUserAndLimit(final Integer limit, final Integer start,
-            final Boolean onlyUnread);
+            final Boolean onlyUnread) throws EnMeNoResultsFoundException;
 
 
     /**

@@ -1123,8 +1123,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final GeoPointFolder locationFolder){
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
-        geoPointFolder.setLocationFolderName(folderName);
-        geoPointFolder.setAccount(secUsers);
+        geoPointFolder.setFolderName(folderName);
+        geoPointFolder.setUsers(secUsers);
         geoPointFolder.setSubLocationFolder(locationFolder);
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         return geoPointFolder;
