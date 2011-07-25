@@ -33,6 +33,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.encuestame.persistence.domain.AbstractGeoPoint;
 import org.encuestame.persistence.domain.Project;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -54,7 +55,7 @@ import org.hibernate.search.annotations.Store;
   )
 @Indexed(index="UserAccount")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class UserAccount {
+public class UserAccount extends AbstractGeoPoint{
 
     private Long uid;
     private String completeName;
@@ -65,8 +66,6 @@ public class UserAccount {
     private String inviteCode;
     private Date enjoyDate;
     private Boolean userStatus;
-    @Deprecated
-    private String userTwitterAccount;
     private Date lastTimeLogged;
     private String lastIpLogged;
     private String userProfilePicture;
@@ -264,16 +263,6 @@ public class UserAccount {
     }
 
     /**
-     * @return userTwitterAccount
-     * @deprecated twitter account should be on {@link SocialAccount}.
-     */
-    @Deprecated
-    @Column(name = "twitter", nullable = true)
-    public String getUserTwitterAccount() {
-        return this.userTwitterAccount;
-    }
-
-    /**
      * @return the secUserPermissions
      */
     //TODO: eager is not properly solution, but works for now, we need remove this anotation.
@@ -290,13 +279,6 @@ public class UserAccount {
      */
     public void setSecUserPermissions(Set<Permission> secUserPermissions) {
         this.secUserPermissions = secUserPermissions;
-    }
-
-    /**
-     * @param userTwitterAccount userTwitterAccount
-     */
-    public void setUserTwitterAccount(final String userTwitterAccount) {
-        this.userTwitterAccount = userTwitterAccount;
     }
 
     /**

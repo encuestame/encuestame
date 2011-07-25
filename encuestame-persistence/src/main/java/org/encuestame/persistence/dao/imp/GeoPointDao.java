@@ -93,7 +93,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     @SuppressWarnings("unchecked")
     public List<GeoPointFolder> getLocationFolders(final Long userId){
          final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
-         criteria.add(Restrictions.eq("account.id", userId));
+         criteria.add(Restrictions.eq("users.id", userId));
          criteria.add(Restrictions.isNull("subLocationFolder"));
          return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -107,7 +107,7 @@ public class GeoPointDao extends AbstractHibernateDaoSupport implements IGeoPoin
     @SuppressWarnings("unchecked")
     public List<GeoPointFolder> getLocationFoldersByLocationFolderId(final Long locationFolderId, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(GeoPointFolder.class);
-        criteria.add(Restrictions.eq("account.id", userId));
+        criteria.add(Restrictions.eq("users.id", userId));
         criteria.add(Restrictions.eq("subLocationFolder.locationFolderId", locationFolderId));
         criteria.add(Restrictions.isNotNull("subLocationFolder"));
         return getHibernateTemplate().findByCriteria(criteria);

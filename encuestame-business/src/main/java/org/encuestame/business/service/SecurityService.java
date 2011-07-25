@@ -404,6 +404,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             try{
                 getAccountDao().saveOrUpdate(retrievedUser);
             } catch (Exception e) {
+                e.printStackTrace();
                 throw new EnMeExpcetion(e.getMessage());
             }
     }
@@ -434,9 +435,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param permissions List of {@link Permission}.
      */
     private void assingPermission(final UserAccount userAccount , final Set<Permission> permissions){
-        for (Permission Permission : permissions) {
-            if(Permission != null){
-                userAccount.getSecUserPermissions().add(Permission);
+        for (Permission permission : permissions) {
+            if(permission != null){
+                userAccount.getSecUserPermissions().add(permission);
             } else {
                 log.error("Error on assing permission to "+userAccount.getUsername());
             }
@@ -1254,14 +1255,15 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     *
     * @param limit
     * @return
+ * @throws EnMeNoResultsFoundException
     */
    public List<Notification> loadNotificationByUserAndLimit(
            final Integer limit,
            final Integer start,
-           final Boolean onlyUnread) {
+           final Boolean onlyUnread) throws EnMeNoResultsFoundException {
         final List<Notification> notifications = getNotificationDao()
                 .loadNotificationByUserAndLimit(
-                        getUserAccountonSecurityContext().getAccount(), limit, start, onlyUnread);
+                        getUserAccount(getUserPrincipalUsername()).getAccount(), limit, start, onlyUnread);
         return notifications;
    }
 

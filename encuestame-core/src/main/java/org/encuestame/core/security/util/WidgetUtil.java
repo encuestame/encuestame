@@ -10,11 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.util;
+package org.encuestame.core.security.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -172,5 +174,30 @@ public class WidgetUtil {
             passwordArray = "";
         }
         return passwordArray;
+    }
+
+    /**
+     * Get black list ip.
+     * @return
+     */
+    public static final List<String> getBlackListIP(final String path) throws EnMeExpcetion{
+        final String blackListPath =  path;
+        BufferedReader reader;
+        final List<String> blackList = new ArrayList<String>();
+        try {
+            reader = new BufferedReader(
+                     new InputStreamReader(new ClassPathResource(blackListPath).getInputStream()));
+            String ipLine;
+            while(true) {
+                ipLine = reader.readLine();
+                Log.debug("IP readed ---> "+ ipLine);
+            if (ipLine == null) break;
+            blackList.add(ipLine);
+            }
+            reader.close();
+        } catch (IOException e) {
+            Log.debug(e);
+        }
+        return blackList;
     }
 }

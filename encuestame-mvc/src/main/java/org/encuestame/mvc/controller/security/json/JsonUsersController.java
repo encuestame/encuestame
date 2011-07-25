@@ -194,10 +194,6 @@ public class JsonUsersController extends AbstractJsonController{
             final UserAccountBean userBean = new UserAccountBean();
             userBean.setEmail(email);
             userBean.setUsername(username);
-            ///final Integer emails = getServiceManager().getApplicationServices()
-            //     .getSecurityService().searchUsersByEmail(email).size();
-            //final Integer usernames = getServiceManager().getApplicationServices()
-            //     .getSecurityService().searchUsersByUsername(username).size();
             final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices()
                   .getSecurityService());
             if(cv.validateEmail(email)){ //TODO && cv.validateUsername(username)

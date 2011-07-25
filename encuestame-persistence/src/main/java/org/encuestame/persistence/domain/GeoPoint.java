@@ -40,7 +40,7 @@ import org.encuestame.persistence.domain.security.Account;
  */
 @Entity
 @Table(name = "geoPoint")
-public class GeoPoint {
+public class GeoPoint extends AbstractGeoPoint{
 
     /** Id. **/
     private Long locateId;
@@ -52,12 +52,6 @@ public class GeoPoint {
 
     /** Status. **/
     private Status locationStatus;
-
-    /** Latitude **/
-    private Float locationLatitude;
-
-    /** Longitude **/
-    private Float locationLongitude;
 
     /** Address. **/
     private String locationAddress;
@@ -119,36 +113,6 @@ public class GeoPoint {
     @Column(name = "description")
     public String getLocationDescription() {
         return this.locationDescription;
-    }
-
-    /**
-     * @return locationLatitude
-     */
-    @Column(name = "lat", precision = 10, scale = 6)
-    public Float getLocationLatitude() {
-        return this.locationLatitude;
-    }
-
-    /**
-     * @param locationLatitude locationLatitude
-     */
-    public void setLocationLatitude(final Float locationLatitude) {
-        this.locationLatitude = locationLatitude;
-    }
-
-    /**
-     * @return locationLongitude
-     */
-    @Column(name = "lng", precision = 10, scale = 6)
-    public Float getLocationLongitude() {
-        return this.locationLongitude;
-    }
-
-    /**
-     * @param locationLongitude locationLongitude
-     */
-    public void setLocationLongitude(final Float locationLongitude) {
-        this.locationLongitude = locationLongitude;
     }
 
     /**

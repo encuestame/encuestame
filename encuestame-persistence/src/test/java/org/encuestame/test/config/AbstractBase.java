@@ -1123,8 +1123,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final GeoPointFolder locationFolder){
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
-        geoPointFolder.setLocationFolderName(folderName);
-        geoPointFolder.setAccount(secUsers);
+        geoPointFolder.setFolderName(folderName);
+        geoPointFolder.setUsers(secUsers);
         geoPointFolder.setSubLocationFolder(locationFolder);
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         return geoPointFolder;
@@ -1323,7 +1323,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final UserAccount userAccount,
             final String socialProfileUsername,
             final Boolean verified,
-            final SocialProvider provider){
+            final SocialProvider provider) {
         final SocialAccount socialAccount = new SocialAccount();
         socialAccount.setAccessToken(token);
         socialAccount.setSecretToken(secretToken);
@@ -1332,6 +1332,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         long randomNum = 100 + (int)(Math.random()* 4000);
         socialAccount.setSocialProfileId(String.valueOf(randomNum)+RandomStringUtils.randomAlphanumeric(10));
         socialAccount.setVerfied(verified);
+        socialAccount.setUserOwner(userAccount);
         socialAccount.setAccounType(provider);
         socialAccount.setSocialAccountName(socialProfileUsername+RandomStringUtils.randomAlphanumeric(10));
         socialAccount.setUpgradedCredentials(new Date());
@@ -1356,7 +1357,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 account,
-                getProperty("twitter.test.account"), Boolean.FALSE, SocialProvider.TWITTER);
+                getProperty("twitter.test.account"), Boolean.TRUE, SocialProvider.TWITTER);
     }
 
     /**
@@ -1370,7 +1371,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 account,
-                getProperty("twitter.test.account"), Boolean.FALSE, provider);
+                getProperty("twitter.test.account"), Boolean.TRUE, provider);
     }
 
 

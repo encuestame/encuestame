@@ -38,7 +38,7 @@ import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.business.service.imp.IFrontEndService;
-import org.encuestame.business.service.imp.ILocationService;
+import org.encuestame.business.service.imp.GeoLocationSupport;
 import org.encuestame.business.service.imp.IPictureService;
 import org.encuestame.business.service.imp.IPollService;
 import org.encuestame.business.service.imp.IProjectService;
@@ -431,7 +431,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * Location Service.
      * @return
      */
-    public ILocationService getLocationService(){
+    public GeoLocationSupport getLocationService(){
         return getServiceManager().getApplicationServices().getLocationService();
     }
 

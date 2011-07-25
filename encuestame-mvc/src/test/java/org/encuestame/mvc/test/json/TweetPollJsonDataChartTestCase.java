@@ -81,15 +81,14 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
      * Test /{username}/tweetPoll/votes.json.
      * @throws Exception
      */
-
+    @Test
     public void tweetPollJsonDataChartTest() throws Exception {
-
         //Invalid Vote.
         initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll/votes.json", MethodJson.GET);
         setParameter("tweetPollId", "1234");
         final JSONObject response = callJsonService();
-        final JSONObject error = getErrors(response);
-        Assert.assertEquals("tweetPoll not found", error.get("error"));
+        final String error = getErrorsMessage(response);
+        Assert.assertEquals("tweet poll invalid with this id 1234", error.toString());
 
         //Valid Vote.
         initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll/votes.json", MethodJson.GET);
@@ -97,11 +96,37 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject response2 = callJsonService();
         final JSONObject sucess2 = getSucess(response2);
         final JSONArray listVotes = (JSONArray) sucess2.get("votesResult");
+        // votesResult":[
+        //{"id":72297,"question_label":"Yes","percent":"28.57%","color":"#08D0B3","answerId":72297,"votes":2,"answerName":"Yes"},
+        //{"id":72298,"question_label":"No","percent":"42.86%","color":"#FFE133","answerId":72298,"votes":3,"answerName":"No"}
         Assert.assertEquals(listVotes.size(), 2); //answers
         final JSONObject firstAnswer = (JSONObject) listVotes.get(0);
-        Assert.assertEquals(firstAnswer.get("results").toString(), "2");
+        Assert.assertEquals(firstAnswer.get("votes").toString(), "2");
         final JSONObject secondAnswer = (JSONObject) listVotes.get(1);
-        Assert.assertEquals(secondAnswer.get("results").toString(), "3");
+        Assert.assertEquals(secondAnswer.get("votes").toString(), "3");
+
+        //
+        initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll/"+this.tweetPoll.getTweetPollId()+"/votes.json", MethodJson.GET);
+        final JSONObject response3 = callJsonService();
+        final JSONObject success3 = getSucess(response3);
+        Assert.assertNotNull(response3);
+        Assert.assertNotNull(success3);
+        //{"error":{},"success":{"votesResult":[
+        //{"id":72314,"question_label":"Yes","percent":"28.57%","color":"#954679","answerId":72314,"votes":2,"answerName":"Yes"},
+        //{"id":72315,"question_label":"No","percent":"42.86%","color":"#1879BE","answerId":72315,"votes":3,"answerName":"No"}]}}
+        final JSONArray listVotes2 = (JSONArray) sucess2.get("votesResult");
+        Assert.assertEquals(listVotes2.size(), 2); //answers
+        final JSONObject firstAnswer2 = (JSONObject) listVotes2.get(0);
+        Assert.assertEquals(firstAnswer2.get("votes").toString(), "2");
+        final JSONObject secondAnswer2 = (JSONObject) listVotes2.get(1);
+        Assert.assertEquals(secondAnswer2.get("votes").toString(), "3");
+
+        initService("/api/chart/tweetpoll/votes.json", MethodJson.GET);
+        setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
+        final JSONObject response4 = callJsonService();
+        final JSONObject success4 = getSucess(response4);
+        Assert.assertNotNull(response4);
+        Assert.assertNotNull(success4);
     }
 
     /**
@@ -117,10 +142,5 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     @Autowired
     public void setTweetPollService(final ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
-    }
-
-    @Test
-    public void testJson() {
-
     }
 }
