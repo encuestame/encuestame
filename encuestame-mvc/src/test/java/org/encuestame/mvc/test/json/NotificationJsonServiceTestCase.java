@@ -25,6 +25,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Test for {@link NotificationsJsonController}.
@@ -97,6 +100,10 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         setParameter("id", this.notification.getNotificationId().toString());
         final JSONObject response = callJsonService();
         assertSuccessResponse(response);
+        initService("/api/notifications/readed.json", MethodJson.GET);
+        setParameter("id", "12345");
+        final JSONObject response2 = callJsonService();
+        assertFailedResponse(response2);
     }
 
     /**
@@ -112,4 +119,58 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         Assert.assertEquals(sucess.get("t").toString(), "2");
         Assert.assertEquals(sucess.get("n").toString(), "2");
     }
+
+    /**
+     *
+     * @throws Exception
+     */
+    @Test
+    public void listTest() throws Exception {
+        initService("/api/notifications/all/list.json", MethodJson.GET);
+        setParameter("categorized", "true");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        JSONObject listNotifications = (JSONObject) success.get("notifications");
+        JSONArray LONG_TIME_AGO = (JSONArray) listNotifications.get("LONG_TIME_AGO");
+        JSONArray FEW_MONTHS_AGO = (JSONArray) listNotifications.get("FEW_MONTHS_AGO");
+        JSONArray TODAY = (JSONArray) listNotifications.get("TODAY");
+        JSONArray THIS_WEEK = (JSONArray) listNotifications.get("THIS_WEEK");
+        JSONArray LAST_YEAR = (JSONArray) listNotifications.get("LAST_YEAR");
+        JSONArray THIS_MONTH = (JSONArray) listNotifications.get("THIS_MONTH");
+        JSONArray LAST_MONTH = (JSONArray) listNotifications.get("LAST_MONTH");
+        Assert.assertNotNull(LONG_TIME_AGO);
+        Assert.assertNotNull(FEW_MONTHS_AGO);
+        Assert.assertNotNull(TODAY);
+        Assert.assertNotNull(THIS_WEEK);
+        Assert.assertNotNull(LAST_YEAR);
+        Assert.assertNotNull(THIS_MONTH);
+        Assert.assertNotNull(LAST_MONTH);
+        Assert.assertEquals(TODAY.size(), 2);
+        //
+        initService("/api/notifications/all/list.json", MethodJson.GET);
+        setParameter("categorized", "false");
+        final JSONObject response2 = callJsonService();
+        final JSONObject success2 = getSucess(response2);
+        JSONArray listNotification2 = (JSONArray) success2.get("notifications");
+        System.out.println(listNotification2);
+        Assert.assertNotNull(listNotification2);
+        Assert.assertEquals(listNotification2.size(), 2);
+    }
+
+    /**
+    *
+    * @throws Exception
+    */
+   @Test(expected = Exception.class)
+   public void listTestWithOutSecContext() throws Exception {
+       //clear context
+       SecurityContextHolder.clearContext();
+       initService("/api/notifications/all/list.json", MethodJson.GET);
+       setParameter("categorized", "false");
+       final JSONObject response3 = callJsonService();
+       final JSONObject success3 = getSucess(response3);
+       JSONObject listNotification3 = (JSONObject) success3.get("notifications");
+       System.out.println(listNotification3);
+       Assert.assertNotNull(listNotification3);
+   }
 }

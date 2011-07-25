@@ -30,6 +30,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.persistence.domain.AbstractGeoPoint;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
@@ -43,7 +44,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 
 @Entity
 @Table(name = "tweetPoll")
-public class TweetPoll {
+public class TweetPoll extends AbstractGeoPoint{
 
     private Long tweetPollId;
 

@@ -217,7 +217,31 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
             //final ModelAndView mav3 = handlerAdapter.handle(request, response,
             //        tweetPollController);
             //assertViewName(mav3, "tweetpoll/new");
+        }
 
+        /**
+         *
+         * @throws Exception
+         */
+        @Test
+        public void testRedirecttweetPollController() throws Exception {
+            final TweetPollController controller = this.tweetPollController;
+            // /user/tweetpoll/list
+            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll");
+            final ModelAndView mav = handlerAdapter.handle(request, response,
+                controller);
+            System.out.println(mav);
+            assertViewName(mav, "redirect:/user/tweetpoll/list");
+        }
+
+        @Test
+        public void testtweetPollController() throws Exception {
+             final TweetPollController controller = this.tweetPollController;
+            // /user/tweetpoll/list
+            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/list");
+            final ModelAndView mav = handlerAdapter.handle(request, response,
+                controller);
+            assertViewName(mav, "tweetpoll");
         }
 
         /**

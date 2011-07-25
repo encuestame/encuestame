@@ -61,28 +61,24 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
      * @return
      * @throws EnMeNoResultsFoundException
      */
+    @SuppressWarnings("unchecked")
     public List<Item> getItemRssFeed(final String username,
             final HttpServletRequest request, final String itemType) throws EnMeNoResultsFoundException{
         List<Item> item = new ArrayList<Item>();
-        if (itemType.equals("tweetPolls")){
+        if (itemType.equals("tweetPolls")) {
             item = FeedUtils.convertTweetPollBeanToItemRSS(
-                    getTweetPolls(username),
+                    getTweetPolls(username), InternetUtils.getDomain(request));
+        } else if (itemType.equals("polls")) {
+            item = FeedUtils.convertPollBeanToItemRSS(getPolls(username),
                     InternetUtils.getDomain(request));
-        }else if(itemType.equals("polls")){
-            item = FeedUtils.convertPollBeanToItemRSS(
-                      getPolls(username),
-                      InternetUtils.getDomain(request));
 
-        }else if(itemType.equals("surveys")){
+        } else if (itemType.equals("surveys")) {
             item = ListUtils.EMPTY_LIST;
-        }
-        else if(itemType.equals("profiles")){
+        } else if (itemType.equals("profiles")) {
             item = ListUtils.EMPTY_LIST;
-        }
-        else if(itemType.equals("projects")){
+        } else if (itemType.equals("projects")) {
             item = ListUtils.EMPTY_LIST;
-        }
-        else if(itemType.equals("frontend")){
+        } else if (itemType.equals("frontend")) {
             item = ListUtils.EMPTY_LIST;
         }
         return item;

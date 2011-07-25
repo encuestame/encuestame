@@ -22,18 +22,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.domain.security.Account;
-
 /**
- * Cat Location Folder.
- * This domain group
+ * Geo location folder.
  * @author Picado, Juan juan@encuestame.org
  * @since May 15, 2010 10:23:15 PM
- * @version $Id:$
  */
 @Entity
 @Table(name = "geoPoint_folder")
-public class GeoPointFolder {
+public class GeoPointFolder extends AbstractFolder{
 
     /**
      * Id.
@@ -41,19 +37,9 @@ public class GeoPointFolder {
     private Long locationFolderId;
 
     /**
-     * Name.
-     */
-    private String locationFolderName;
-
-    /**
      * {@link GeoPointFolderType}.
      */
     private GeoPointFolderType folderType;
-
-    /**
-     * {@link Account}.
-     */
-    private Account account;
 
     /**
      * SubLocation Folder.
@@ -78,21 +64,6 @@ public class GeoPointFolder {
     }
 
     /**
-     * @return the locationFolderName
-     */
-    @Column(name = "name", nullable = false)
-    public String getLocationFolderName() {
-        return locationFolderName;
-    }
-
-    /**
-     * @param locationFolderName the locationFolderName to set
-     */
-    public void setLocationFolderName(final String locationFolderName) {
-        this.locationFolderName = locationFolderName;
-    }
-
-    /**
      * @return the folderType
      */
     @Column(name="type")
@@ -106,21 +77,6 @@ public class GeoPointFolder {
      */
     public void setFolderType(final GeoPointFolderType folderType) {
         this.folderType = folderType;
-    }
-
-    /**
-     * @return the account
-     */
-    @ManyToOne()
-    public Account getAccount() {
-        return account;
-    }
-
-    /**
-     * @param account the account to set
-     */
-    public void setAccount(final Account account) {
-        this.account = account;
     }
 
     /**
