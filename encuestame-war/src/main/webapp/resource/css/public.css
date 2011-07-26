@@ -2337,6 +2337,7 @@ div.menuWrapper{
 div.menuWrapper .item {
     display: inline-block;
     border-radius: 4px 4px 4px 4px;
+    padding: 7px 7px 7px 13px;
 }
 
 div.menuWrapper a:hover {
@@ -2347,8 +2348,6 @@ div.menuWrapper .item a {
     float: left;
     text-decoration: none;
     color: white;
-    padding: 7px 7px 7px 13px;
-    background-color: #595959;
 }
 
 div..menuWrapper .item a:visited {

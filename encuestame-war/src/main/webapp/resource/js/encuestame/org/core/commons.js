@@ -557,7 +557,8 @@ encuestame.constants.errorCodes = {
     "019" : "A username is required!",
     "020" : "Your Tweet contains more than 140 characters. You will have to be more ingenious.",
     "021" : "Your Tweet no contains required answers, imagine a sky without clouds?",
-    "022" : "You need at least 1 social account to publish your beautiful creation."
+    "022" : "You need at least 1 social account to publish your beautiful creation.",
+    "023" : "Ops, something is wrong."
 };
 encuestame.constants.messageCodes = {
     "001" : "Name looks great",

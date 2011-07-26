@@ -398,19 +398,15 @@ dojo.declare(
          * check if tweetpoll is valid and start the process to publish.
          */
         _checkPublish : function() {
-            console.info("&&&&&&&&&&&&&&&& 1");
             var valid = this.previeWidget.isValid();
             if(!valid) {
                this._showErrorMessage(this.previeWidget.isValidMessage());
             } else {
-                console.info("&&&&&&&&&&&&&&&& 2");
                 valid = this.socialWidget.isValid();
                 if (!valid) {
                     this._showErrorMessage(this.socialWidget.isValidMessage());
                 } else {
-                    console.info("&&&&&&&&&&&&&&&& 3");
                     //if is valid.
-                    console.info("_checkPublish", valid);
                     if (valid) {
                         this.dialogWidget = new dijit.Dialog({
                              content: this.tweetPollPublishWidget.domNode,
@@ -602,9 +598,7 @@ dojo.declare(
               * update counter.
               */
             _updateCounter : function(textTweet) {
-              console.debug("******************");
-              console.debug(textTweet, textTweet.length);
-              if(this._counter){
+              if (this._counter) {
                 var counter = this._getCurrentLengthText();
                   //console.debug("counter", counter);
                   if (counter >= 0) {
@@ -622,6 +616,8 @@ dojo.declare(
                     this._counter.innerHTML = currentCounter;
                     this._lastedCounter = currentCounter;
                   }
+              } else {
+                  console.error(encuestame.constants.errorCodes["023"]);
               }
             },
 

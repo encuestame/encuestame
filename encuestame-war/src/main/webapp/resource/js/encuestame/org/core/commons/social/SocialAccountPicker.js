@@ -23,6 +23,10 @@ dojo.declare(
 
         _showOnlySelected : false,
 
+        enableEasyAddAccount : false,
+
+        checkRequiredSocialAccounts : false,
+
         _selectAll : false,
 
         _required : 1,
@@ -167,6 +171,9 @@ dojo.declare(
                 dojo.empty(this._listSocialAccounts);
                 console.debug("social", this.arrayAccounts);
                 this.showListAccounts();
+                if (checkRequiredSocialAccounts) {
+
+                }
             });
             var error = function(error) {
                 console.debug("error", error);
