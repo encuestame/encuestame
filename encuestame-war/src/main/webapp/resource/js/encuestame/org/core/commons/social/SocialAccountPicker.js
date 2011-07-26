@@ -27,6 +27,8 @@ dojo.declare(
 
         _required : 1,
 
+        _isValidMessage : "",
+
         postCreate : function(){
             dojo.subscribe("/encuestame/social/picker/accounts/reload", this, "showListAccounts");
             this._loadSocialConfirmedAccounts();
@@ -91,24 +93,28 @@ dojo.declare(
         },
 
         /*
-         * is valid
+         * is valid check.
          */
-        isValid : function(){
-            if (this.arrayWidgetAccounts.length >= this._required) {
+        isValid : function() {
+            if (this._countSelected() >= this._required) {
                 return true;
             } else {
+                this._isValidMessage = encuestame.constants.errorCodes["022"];
                 return false;
             }
         },
 
-        isValidMessage : function(){
-            return "not valid";
+        /*
+         * return a validator message.
+         */
+        isValidMessage : function() {
+            return this._isValidMessage;
         },
 
         /*
-         * reload counter
+         *
          */
-        _reloadCounter : function(){
+        _countSelected : function(){
             var counter = 0;
             dojo.forEach(
                     this.arrayWidgetAccounts,
@@ -118,6 +124,14 @@ dojo.declare(
                     }
                 }));
             console.debug("_reloadCounter", counter);
+            return counter;
+        },
+
+        /*
+         * reload counter
+         */
+        _reloadCounter : function(){
+            var counter = this._reloadCounter();
             this._counter.innerHTML = counter;
         },
 

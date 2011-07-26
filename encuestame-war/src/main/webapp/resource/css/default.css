@@ -146,6 +146,7 @@ a:hover{
   overflow: hidden;
   white-space: nowrap;
   padding: 10px;
+  background-color: #E7E7E7;
 }
 
 .message{
@@ -326,11 +327,11 @@ div.defaultSectionTitle{
 }
 
 .default-background-dark-color {
-    background-color: #444444;
+    background-color: #A6B4BF !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
 }
 
 .default-background-dark-color-sub {
-    background-color: #A6A5A5;
+    background-color: #595959; /**A6A5A5 **/
 }
 
 .default-top-menu{
@@ -347,7 +348,7 @@ div.defaultSectionTitle{
 }
 
 .default-sidebar-menu-sub{
-  background-color: #A6A5A5;
+  background-color: #595959; /**A6A5A5 **/
   color: #FFFFFF;
   font-size: 121%;
   min-height: 21px;
@@ -437,12 +438,12 @@ div.updateProfile .profileItem label{
 
 div.defaultMarginWrapper .dijitButton .dijitButtonNode{
     font-size: 110% !important;
-    border: 3px solid #6D6767 !important;
-    padding: 3px 4px 4px !important;
+    border: 1px solid #6D6767 !important;
+    padding: 3px 7px 2px !important;
     background-image: none !important;
     font-weight: bold;
     color: #FFF;
-    background-color: #433C3C !important;
+    background-color: #595959 !important; /* 595959 433C3C **/
     -moz-border-radius: 4px !important;
     border-radius: 4px !important;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;

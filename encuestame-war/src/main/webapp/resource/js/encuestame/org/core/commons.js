@@ -554,7 +554,10 @@ encuestame.constants.errorCodes = {
     "015" : "Password cannot be blank!",
     "017" : "This username is already taken!",
     "018" : "Invalid username!",
-    "019":  "A username is required!"
+    "019" : "A username is required!",
+    "020" : "Your Tweet contains more than 140 characters. You will have to be more ingenious.",
+    "021" : "Your Tweet no contains required answers, imagine a sky without clouds?",
+    "022" : "You need at least 1 social account to publish your beautiful creation."
 };
 encuestame.constants.messageCodes = {
     "001" : "Name looks great",
@@ -565,7 +568,8 @@ encuestame.constants.messageCodes = {
     "009" : "Password is perfect!",
     "010" : "Password is okay.",
     "011" : "Password could be more secure.",
-    "016" : "Don't worry, you can change it later."
+    "016" : "Don't worry, you can change it later.",
+    "020" : ""
 };
 
 encuestame.constants.version = { version : "1.1.37"};

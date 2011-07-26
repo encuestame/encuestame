@@ -1,12 +1,12 @@
-<div class="tweetPollWrapper spaceBlock">
+<div class="web-tweetpoll-wrapper spaceBlock">
      <div id="wrapper">   </div>
      <div id="previewWrapper" class="tweetPollPreviewRelative previewAbsolute">
          <div id="preview" dojoType="encuestame.org.core.commons.tweetPoll.TweetPollPreview"></div>
      </div>
 
-    <div class="tweetPollQuestion spaceBlock spaceBlockTop" dojoAttachPoint="_tweetQuestion">
-        <div class="tweetThis">
-            <div class="title">Tweet this !</div>
+    <div class="web-tweetpoll-section spaceBlock spaceBlockTop" dojoAttachPoint="_tweetQuestion">
+        <div class="web-tweetpoll-section-title default-background-dark-color">1. Write your question</div>
+        <div class="tweetThis space">
             <div id="question" dojoType="dijit.form.TextBox"
                   class="questionTextBox inputClass"
                   maxSize="140"
@@ -14,94 +14,103 @@
                   selectOnClick="true"></div>
          </div>
     </div>
-    <div class="tweetPollSecondQuestion spaceBlock">
-        <div class="tweetPollOptions">
-            <div class="right">
-                <div id="answers" dojoType="encuestame.org.core.commons.tweetPoll.Answers" class="answers"></div>
-            </div>
-            <div class="left">
-                 <div id="hashtags" dojoType="encuestame.org.core.commons.tweetPoll.HashTags" class="hashtags"></div>
-            </div>
+
+    <div class="web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">2. Add your answers</div>
+         <div class="space">
+            <div id="answers" dojoType="encuestame.org.core.commons.tweetPoll.Answers" class="answers"></div>
         </div>
     </div>
 
-    <div class="tweetPollPublish spaceBlock">
-         <div class="item">
-            <h4>Scheduled</h4>
-            <div class="section">
-                <input id="schedule" name="schedule" dojoType="dijit.form.CheckBox">
-                <label for="schedule">
-                    Schedule this tweetPoll
-                </label>
-            </div>
-            <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledTime">
-               <input type="text" name="scheduledTime" id="scheduledTime" value="T15:00:00" dojoType="dijit.form.TimeTextBox" />
-           </div>
-           <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledDate">
-             <input id="scheduledDate" type="text" name="shortYear" dojoType="dijit.form.DateTextBox"
-                    required="true" />
-            </div>
-         </div>
-         <div class="item item-padding">
-            <h4>Chart Features</h4>
-             <div class="section">
-                <input id="liveResults" name="liveResults"" dojoType="dijit.form.CheckBox">
-                <label for="liveResults">
-                    Allow live Results
-                </label>
-            </div>
-         </div>
-         <div class="item item-padding">
-            <h4>Anti-SPAM</h4>
-             <div class="section">
-                <input id="captcha" name="captcha"" dojoType="dijit.form.CheckBox">
-                <label for="captcha">
-                    Captcha
-                </label>
-            </div>
-            <div class="section">
-                <input id="limitVotes" name="limitVotes"" dojoType="dijit.form.CheckBox">
-                <label for="limitVotes">
-                    Limit Votes
-                </label>
-            </div>
-            <div class="section defaultDisplayHide" dojoAttachPoint="_limitNumbers">
-                <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="limitNumbers"
-                    constraints="{min:0,max:4000}" value="${tweetPoll.options.maxLimitVotes}">
-                </div>
-            </div>
-            <div class="section">
-                <input id="ip" name="ip" dojoType="dijit.form.CheckBox">
-                <label for="ip">
-                    Allow Repeated Votes.
-                </label>
-            </div>
-            <div class="section defaultDisplayHide" dojoAttachPoint="_repeatedNumbers">
-                <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="repeatedNumbers"
-                    constraints="{min:2,max:10}" value="${tweetPoll.options.maxRepeatedVotes}">
-                </div>
-            </div>
-         </div>
-         <div class="item item-padding">
-                <h4>Report</h4>
-             <div class="section">
-                <input id="resume" name="resume" dojoType="dijit.form.CheckBox">
-                <label for="resume">
-                    Resume Live Results
-                </label>
-            </div>
-            <div class="section">
-                <input id="dashboard" name="dashboard" dojoType="dijit.form.CheckBox">
-                <label for="dashboard">
-                    Follow on DashBoard
-                </label>
-            </div>
-         </div>
+     <div class="web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">3. Add Hastags</div>
+         <div class="space">
+            <div id="hashtags" dojoType="encuestame.org.core.commons.tweetPoll.HashTags" class="hashtags"></div>
+        </div>
     </div>
 
+    <div class="tweetPollPublish web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">4. Customize your Tweetpoll</div>
+         <div class="space">
+             <div class="item">
+                <h4>Scheduled</h4>
+                <div class="section">
+                    <input id="schedule" name="schedule" dojoType="dijit.form.CheckBox">
+                    <label for="schedule">
+                        Schedule this tweetPoll
+                    </label>
+                </div>
+                <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledTime">
+                   <input type="text" name="scheduledTime" id="scheduledTime" value="T15:00:00" dojoType="dijit.form.TimeTextBox" />
+               </div>
+               <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledDate">
+                 <input id="scheduledDate" type="text" name="shortYear" dojoType="dijit.form.DateTextBox"
+                        required="true" />
+                </div>
+             </div>
+             <div class="item item-padding">
+                <h4>Chart Features</h4>
+                 <div class="section">
+                    <input id="liveResults" name="liveResults"" dojoType="dijit.form.CheckBox">
+                    <label for="liveResults">
+                        Allow live Results
+                    </label>
+                </div>
+             </div>
+             <div class="item item-padding">
+                <h4>Anti-SPAM</h4>
+                 <div class="section">
+                    <input id="captcha" name="captcha"" dojoType="dijit.form.CheckBox">
+                    <label for="captcha">
+                        Captcha
+                    </label>
+                </div>
+                <div class="section">
+                    <input id="limitVotes" name="limitVotes"" dojoType="dijit.form.CheckBox">
+                    <label for="limitVotes">
+                        Limit Votes
+                    </label>
+                </div>
+                <div class="section defaultDisplayHide" dojoAttachPoint="_limitNumbers">
+                    <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="limitNumbers"
+                        constraints="{min:0,max:4000}" value="${tweetPoll.options.maxLimitVotes}">
+                    </div>
+                </div>
+                <div class="section">
+                    <input id="ip" name="ip" dojoType="dijit.form.CheckBox">
+                    <label for="ip">
+                        Allow Repeated Votes.
+                    </label>
+                </div>
+                <div class="section defaultDisplayHide" dojoAttachPoint="_repeatedNumbers">
+                    <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="repeatedNumbers"
+                        constraints="{min:2,max:10}" value="${tweetPoll.options.maxRepeatedVotes}">
+                    </div>
+                </div>
+             </div>
+             <div class="item item-padding">
+                    <h4>Report</h4>
+                 <div class="section">
+                    <input id="resume" name="resume" dojoType="dijit.form.CheckBox">
+                    <label for="resume">
+                           Resume Live Results
+                    </label>
+                </div>
+                <div class="section">
+                    <input id="dashboard" name="dashboard" dojoType="dijit.form.CheckBox">
+                    <label for="dashboard">
+                        Follow on DashBoard
+                    </label>
+                </div>
+         </div>
+       </div>
+    </div>
 
-     <div class="tweetPollPublish spaceBlock socialBlock">
+    <div class="web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">5. Select where to publish</div>
+        <div class="space">
             <div id="social" dojoType="encuestame.org.core.commons.social.SocialAccountPicker"></div>
+        </div>
      </div>
 
      <div class="tweetPollPublishButton" style="text-align: right;">
