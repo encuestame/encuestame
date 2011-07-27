@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.ResumeResultTweetPoll;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.mail.InvitationBean;
@@ -28,7 +29,6 @@ import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.ForgotPasswordBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.QuestionAnswerBean;

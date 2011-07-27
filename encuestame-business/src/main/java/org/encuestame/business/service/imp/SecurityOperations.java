@@ -31,9 +31,9 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
@@ -73,13 +73,14 @@ public interface SecurityOperations extends ServiceOperations {
 
     /**
      * Get User Logged Verified Social Accounts.
-     * @param username username
+     * @param addStats add stats
      * @param socialProvider
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<SocialAccountBean> getUserLoggedVerifiedSocialAccounts(
-            final SocialProvider socialProvider) throws EnMeNoResultsFoundException;
+    List<SocialAccountBean> getValidSocialAccounts(
+            final SocialProvider socialProvider,
+            final Boolean addStats) throws EnMeNoResultsFoundException;
 
     /**
      * Retrieve Total Own Users.

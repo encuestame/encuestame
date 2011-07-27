@@ -179,7 +179,7 @@ dojo.declare(
                 console.debug("error", error);
             };
             encuestame.service.xhrGet(
-                    encuestame.service.list.socialAccounts, {}, load, error);
+                    encuestame.service.list.allSocialAccount, {}, load, error);
        },
 
        /*

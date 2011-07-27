@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -32,7 +33,6 @@ import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -46,9 +46,9 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
@@ -56,8 +56,6 @@ import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -1009,13 +1007,39 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#getUserLoggedVerifiedTwitterAccount(java.lang.String, org.encuestame.persistence.domain.social.SocialProvider)
      */
-    public List<SocialAccountBean> getUserLoggedVerifiedSocialAccounts(final SocialProvider provider)
+    public List<SocialAccountBean> getValidSocialAccounts(
+            final SocialProvider provider,
+            final Boolean addStats)
              throws EnMeNoResultsFoundException{
         final List<SocialAccount> socialAccounts = getAccountDao()
                 .getSocialVerifiedAccountByUserAccount(getUserAccount(getUserPrincipalUsername()).getAccount(), provider);
         log.debug("social provider verified:{"+socialAccounts.size());
+        final List<SocialAccountBean> accounts = new ArrayList<SocialAccountBean>();
+        if ( addStats) {
+            accounts.addAll(this.addSocialStats(socialAccounts));
+        } else {
+            accounts.addAll(ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts));
+        }
         return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
    }
+
+    /**
+     * Add social stats.
+     * @param socialAccount {@link SocialAccount}.
+     * @return list of social accounts.
+     */
+    private List<SocialAccountBean> addSocialStats(final List<SocialAccount> socialAccounts) {
+        final List<SocialAccountBean> accounts = new ArrayList<SocialAccountBean>();
+        for (SocialAccount socialAccount : socialAccounts) {
+            final HashMap<String, Long> stats = getAccountDao().getSocialAccountStats(socialAccount);
+            final SocialAccountBean bean = ConvertDomainBean.convertSocialAccountToBean(socialAccount);
+            bean.setTweetpoll(stats.get("tweetpoll"));
+            bean.setPoll(stats.get("poll"));
+            bean.setSurvey(stats.get("survey"));
+            accounts.add(bean);
+        }
+        return accounts;
+    }
 
     /**
      * Get {@link UserAccount} by confirmation code.

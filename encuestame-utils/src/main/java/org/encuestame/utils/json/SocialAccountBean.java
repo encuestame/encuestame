@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils.security;
+package org.encuestame.utils.json;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +19,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.encuestame.utils.json.JsonDateDeserializer;
 
 /**
  * Social Account Bean.
@@ -29,7 +28,7 @@ import org.encuestame.utils.json.JsonDateDeserializer;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SocialAccountBean implements Serializable {
+public class SocialAccountBean extends GlobalStats implements Serializable {
 
     /**
      * Serial.
