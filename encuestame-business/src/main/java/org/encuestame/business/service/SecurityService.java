@@ -877,74 +877,26 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         getAccountDao().saveOrUpdate(account);
     }
 
-//    /**
-//     * Update OAuth Secret Twitter Credentials.
-//     * @param accountBean {@link SocialAccountBean}
-//     * @param username username logged
-//     * @throws EnMeExpcetion exception
-//     */
-//   @Deprecated
-//    public void updateSecretTwitterCredentials(final SocialAccountBean accountBean,
-//            final String username) throws EnMeExpcetion{
-//         //TODO: we should search twitter account filter by username
-//         final SocialAccount twitterAccount = this.getSocialAccount(accountBean.getAccountId()); //TODO: filter by Username Too
-//         //twitterAccount.setConsumerKey(accountBean.getKey());
-//         //twitterAccount.setConsumerSecret(accountBean.getSecret());
-//         twitterAccount.setType(ConvertDomainBean.convertStringToEnum(accountBean.getType()));
-//         if(accountBean.getPin() != null && !accountBean.getPin().isEmpty()){
-//             log.debug("PIN Exists {"+accountBean.getPin());
-//             //twitterAccount.setTwitterPin(Integer.valueOf(accountBean.getPin()));
-//            //If exist pin, we can verify credentials
-//            log.debug("Verify OAuth Credentials");
-//                if(verifyCredentials(
-//                        //Token and Secret token should be always from database
-//                        twitterAccount.getAccessToken(),
-//                        twitterAccount.getSecretToken(),
-//                        //consumer key's
-//                        accountBean.getKey(),
-//                        accountBean.getSecret(),
-//                        //pin, update by the user.
-//                        accountBean.getPin())){
-//                    twitterAccount.setVerfied(Boolean.TRUE);
-//                } else {
-//                    twitterAccount.setVerfied(Boolean.FALSE);
-//                }
-//         } else {
-//             log.info("Account not verified, pin not found");
-//             //twitterAccount.setTwitterPin(null);
-//             twitterAccount.setVerfied(Boolean.FALSE);
-//         }
-//        log.debug("Update Secret Twitter Credentials");
-//        getAccountDao().saveOrUpdate(twitterAccount);
-//        log.info("update Twitter Account");
-//    }
-
-    /**
-     * Change state social account.
-     * @param accountId
-     * @param username
-     * @param action
-     * @throws EnMeNoResultsFoundException
-     * @throws IllegalSocialActionException
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.SecurityOperations#changeStateSocialAccount(java.lang.Long, java.lang.String)
      */
     public void changeStateSocialAccount(
             final Long accountId,
-            final String username,
             final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException{
-        final UserAccount userAccount = getUserAccount(username);
+        final UserAccount userAccount = getUserAccount(getUserPrincipalUsername());
         final SocialAccount social = getAccountDao().getSocialAccount(accountId, userAccount.getAccount());
+        log.debug("changeStateSocialAccount account");
+        log.debug("changeStateSocialAccount account accountId "+accountId);
+        log.debug("changeStateSocialAccount account action "+action);
         if(social == null){
             throw new EnMeNoResultsFoundException("social accout not found");
         }
-        if("default".equals(action)){
-           log.info("update social twitter account");
+        if ("default".equals(action)) {
            social.setDefaultSelected(!social.getDefaultSelected());
            getAccountDao().saveOrUpdate(social);
         } else if("remove".equals(action)){
             getAccountDao().delete(social);
-        } else if("valid".equals(action)){
-            social.setVerfied(!social.getVerfied());
-            getAccountDao().saveOrUpdate(social);
         } else {
             throw new IllegalSocialActionException();
         }

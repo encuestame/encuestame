@@ -15,10 +15,11 @@ package org.encuestame.utils.security;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.encuestame.utils.JsonDateDeserializer;
+import org.encuestame.utils.json.JsonDateDeserializer;
 
 /**
  * Social Account Bean.
@@ -33,49 +34,54 @@ public class SocialAccountBean implements Serializable {
     /**
      * Serial.
      */
-    public static final long serialVersionUID = 4250537795415299836L;
+    private static final long serialVersionUID = 4250537795415299836L;
 
     @JsonProperty(value = "id")
-    public Long accountId;
+    private Long accountId;
 
     @JsonProperty(value = "account")
-    public String account;
+    private String account;
 
     @JsonProperty(value = "type")
-    public String type;
+    private String type;
 
     @JsonProperty(value = "type_account")
-    public String typeAccount;
+    private String typeAccount;
 
     @JsonProperty(value = "description")
-    public String  descriptionProfile;
+    private String  descriptionProfile;
 
     @JsonProperty(value = "email")
-    public String  email;
+    private String  email;
 
     @JsonProperty(value = "default_selected")
-    public Boolean  defaultSelected;
+    private Boolean  defaultSelected;
 
     @JsonProperty(value = "date_created")
     @JsonDeserialize(using = JsonDateDeserializer.class)
-    public Date addedAccount;
+    private Date addedAccount;
 
     @JsonProperty(value = "picture_url")
-    public String prictureUrl;
+    private String prictureUrl;
 
     @JsonProperty(value = "profile_picture_url")
-    public String  profilePictureUrl;
+    private String  profilePictureUrl;
 
     @JsonProperty(value = "profile_thumbnail_picture")
-    public String  profileThumbnailPictureUrl;
+    private String  profileThumbnailPictureUrl;
 
     @JsonProperty(value = "real_name")
-    public String realName;
+    private String realName;
 
     @JsonProperty(value = "social_username")
-    public String socialAccountName;
+    private String socialAccountName;
 
+    @JsonProperty(value = "url")
+    private String socialProfileUrl;
 
+    /**
+     * Constructor.
+     */
     public SocialAccountBean() {
     }
 
@@ -83,7 +89,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param accountId the accountId to set
      */
-    public void setAccountId(Long accountId) {
+    public void setAccountId(final Long accountId) {
         this.accountId = accountId;
     }
 
@@ -91,7 +97,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param account the account to set
      */
-    public void setAccount(String account) {
+    public void setAccount(final String account) {
         this.account = account;
     }
 
@@ -99,7 +105,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param type the type to set
      */
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -107,7 +113,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param typeAccount the typeAccount to set
      */
-    public void setTypeAccount(String typeAccount) {
+    public void setTypeAccount(final String typeAccount) {
         this.typeAccount = typeAccount;
     }
 
@@ -115,7 +121,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param descriptionProfile the descriptionProfile to set
      */
-    public void setDescriptionProfile(String descriptionProfile) {
+    public void setDescriptionProfile(final String descriptionProfile) {
         this.descriptionProfile = descriptionProfile;
     }
 
@@ -123,7 +129,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param email the email to set
      */
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -131,7 +137,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param defaultSelected the defaultSelected to set
      */
-    public void setDefaultSelected(Boolean defaultSelected) {
+    public void setDefaultSelected(final Boolean defaultSelected) {
         this.defaultSelected = defaultSelected;
     }
 
@@ -139,7 +145,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param addedAccount the addedAccount to set
      */
-    public void setAddedAccount(Date addedAccount) {
+    public void setAddedAccount(final Date addedAccount) {
         this.addedAccount = addedAccount;
     }
 
@@ -147,7 +153,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param prictureUrl the prictureUrl to set
      */
-    public void setPrictureUrl(String prictureUrl) {
+    public void setPrictureUrl(final String prictureUrl) {
         this.prictureUrl = prictureUrl;
     }
 
@@ -155,7 +161,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param profilePictureUrl the profilePictureUrl to set
      */
-    public void setProfilePictureUrl(String profilePictureUrl) {
+    public void setProfilePictureUrl(final String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
     }
 
@@ -163,7 +169,7 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param profileThumbnailPictureUrl the profileThumbnailPictureUrl to set
      */
-    public void setProfileThumbnailPictureUrl(String profileThumbnailPictureUrl) {
+    public void setProfileThumbnailPictureUrl(final String profileThumbnailPictureUrl) {
         this.profileThumbnailPictureUrl = profileThumbnailPictureUrl;
     }
 
@@ -179,11 +185,158 @@ public class SocialAccountBean implements Serializable {
     /**
      * @param socialAccountName the socialAccountName to set
      */
-    public void setSocialAccountName(String socialAccountName) {
+    public void setSocialAccountName(final String socialAccountName) {
         this.socialAccountName = socialAccountName;
     }
 
 
+    /**
+     * @return the accountId
+     */
+    @JsonIgnore
+    public Long getAccountId() {
+        return accountId;
+    }
 
 
+    /**
+     * @return the account
+     */
+    @JsonIgnore
+    public String getAccount() {
+        return account;
+    }
+
+
+    /**
+     * @return the type
+     */
+    @JsonIgnore
+    public String getType() {
+        return type;
+    }
+
+
+    /**
+     * @return the typeAccount
+     */
+    @JsonIgnore
+    public String getTypeAccount() {
+        return typeAccount;
+    }
+
+
+    /**
+     * @return the descriptionProfile
+     */
+     @JsonIgnore
+    public String getDescriptionProfile() {
+        return descriptionProfile;
+    }
+
+
+    /**
+     * @return the email
+     */
+    @JsonIgnore
+    public String getEmail() {
+        return email;
+    }
+
+
+    /**
+     * @return the defaultSelected
+     */
+    @JsonIgnore
+    public Boolean getDefaultSelected() {
+        return defaultSelected;
+    }
+
+
+    /**
+     * @return the addedAccount
+     */
+    @JsonIgnore
+    public Date getAddedAccount() {
+        return addedAccount;
+    }
+
+
+    /**
+     * @return the prictureUrl
+     */
+    @JsonIgnore
+    public String getPrictureUrl() {
+        return prictureUrl;
+    }
+
+
+    /**
+     * @return the profilePictureUrl
+     */
+    @JsonIgnore
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+
+    /**
+     * @return the profileThumbnailPictureUrl
+     */
+    @JsonIgnore
+    public String getProfileThumbnailPictureUrl() {
+        return profileThumbnailPictureUrl;
+    }
+
+
+    /**
+     * @return the realName
+     */
+    @JsonIgnore
+    public String getRealName() {
+        return realName;
+    }
+
+
+    /**
+     * @return the socialAccountName
+     */
+    @JsonIgnore
+    public String getSocialAccountName() {
+        return socialAccountName;
+    }
+
+
+    /**
+     * @return the socialProfileUrl
+     */
+    public String getSocialProfileUrl() {
+        return socialProfileUrl;
+    }
+
+
+    /**
+     * @param socialProfileUrl the socialProfileUrl to set
+     */
+    public void setSocialProfileUrl(final String socialProfileUrl) {
+        this.socialProfileUrl = socialProfileUrl;
+    }
+
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "SocialAccountBean [accountId=" + accountId + ", account="
+                + account + ", type=" + type + ", typeAccount=" + typeAccount
+                + ", descriptionProfile=" + descriptionProfile + ", email="
+                + email + ", defaultSelected=" + defaultSelected
+                + ", addedAccount=" + addedAccount + ", prictureUrl="
+                + prictureUrl + ", profilePictureUrl=" + profilePictureUrl
+                + ", profileThumbnailPictureUrl=" + profileThumbnailPictureUrl
+                + ", realName=" + realName + ", socialAccountName="
+                + socialAccountName + ", socialProfileUrl=" + socialProfileUrl
+                + "]";
+    }
 }

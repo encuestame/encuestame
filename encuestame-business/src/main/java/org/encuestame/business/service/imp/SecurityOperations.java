@@ -30,6 +30,7 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.SocialAccountBean;
@@ -57,6 +58,18 @@ public interface SecurityOperations extends ServiceOperations {
      */
     List<UserAccountBean> loadListUsers(final String currentUsername, final Integer maxResults,
             final Integer start) throws Exception;
+
+    /**
+     * Change state social account.
+     * @param accountId
+     * @param username
+     * @param action
+     * @throws EnMeNoResultsFoundException
+     * @throws IllegalSocialActionException
+     */
+    public void changeStateSocialAccount(
+            final Long accountId,
+            final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException;
 
     /**
      * Get User Logged Verified Social Accounts.

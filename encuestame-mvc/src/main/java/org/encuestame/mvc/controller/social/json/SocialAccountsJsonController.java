@@ -24,9 +24,9 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.security.SocialAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -37,8 +37,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
 import twitter4j.http.RequestToken;
 
 
@@ -56,16 +54,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     * Twitter Instance.
-     */
-    private Twitter twitter = null;
-
-    /**
-     * Request Token.
-     */
-    private static RequestToken requestToken = null;
-
-    /**
      * Change state of social account.
      * @param type
      * @param socialAccountId
@@ -77,19 +65,20 @@ public class SocialAccountsJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/social/twitter/account/{type}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/social/actions/account/{type}.json", method = RequestMethod.GET)
     public ModelMap actionTwitterAccount(
             @PathVariable String type,
             @RequestParam(value = "socialAccountId", required = true) Long socialAccountId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-//         try {
-//           //getSecurityService().changeStateSocialAccount(socialAccountId, getUserPrincipalUsername(), type);
-//        } catch (IllegalSocialActionException e) {
-//            setError(e.getMessage(), response);
-//        } catch (EnMeNoResultsFoundException e) {
-//            setError(e.getMessage(), response);
-//        }
+        try {
+           getSecurityService().changeStateSocialAccount(socialAccountId, type);
+           setSuccesResponse();
+        } catch (IllegalSocialActionException e) {
+            setError(e.getMessage(), response);
+        } catch (EnMeNoResultsFoundException e) {
+            setError(e.getMessage(), response);
+        }
         return returnData();
     }
 

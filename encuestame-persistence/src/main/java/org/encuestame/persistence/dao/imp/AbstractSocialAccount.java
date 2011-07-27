@@ -234,6 +234,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
          socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
          socialAccount.setUpgradedCredentials(new Date());
          socialAccount.setSocialProfileId(socialUserProfile.getId());
+         socialAccount.setPublicProfileUrl(socialUserProfile.getProfileUrl());
          socialAccount.setPrictureUrl(socialUserProfile.getProfileImageUrl()); //TODO: repeated
          socialAccount.setProfilePictureUrl(socialUserProfile.getProfileImageUrl());
          socialAccount.setEmail(socialUserProfile.getEmail());

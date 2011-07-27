@@ -488,14 +488,10 @@ encuestame.service.publicService.validate.realName = encuestame.contextWidget()+
 encuestame.service.social = {};
 encuestame.service.social.links = {};
 encuestame.service.social.links.loadByType = encuestame.contextWidget()+"/api/public/social/links/published.json";
-encuestame.service.social.twitter = {};
-encuestame.service.social.twitter.authorize = encuestame.contextWidget()+"/api/social/twitter/authorize/url.json";
-encuestame.service.social.twitter.confirm = encuestame.contextWidget()+"/api/social/twitter/authorize/confirm.json";
-encuestame.service.social.twitter.create = encuestame.contextWidget()+"/api/social/twitter/account/create.json";
+encuestame.service.social.action = {};
 
-encuestame.service.social.twitter.defaultState = encuestame.contextWidget()+"/api/social/twitter/account/default.json";
-encuestame.service.social.twitter.remove = encuestame.contextWidget()+"/api/social/twitter/account/remove.json";
-encuestame.service.social.twitter.valid = encuestame.contextWidget()+"/api/social/twitter/account/valid.json";
+encuestame.service.social.action.defaultState = encuestame.contextWidget()+"/api/social/actions/account/default.json";
+encuestame.service.social.action.remove = encuestame.contextWidget()+"/api/social/actions/account/remove.json";
 
 encuestame.service.social.facebook = {};
 encuestame.service.social.linkedIn = {};

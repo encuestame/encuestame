@@ -171,7 +171,7 @@ dojo.declare(
                 dojo.empty(this._listSocialAccounts);
                 console.debug("social", this.arrayAccounts);
                 this.showListAccounts();
-                if (checkRequiredSocialAccounts) {
+                if (this.checkRequiredSocialAccounts) {
 
                 }
             });
