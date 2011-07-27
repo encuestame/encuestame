@@ -82,8 +82,8 @@
                 <value>org.encuestame.persistence.domain.Attachment</value>
                 <value>org.encuestame.persistence.domain.HashTagHits</value>
                 <value>org.encuestame.persistence.domain.dashboard.Dashboard</value>
-                <value>org.encuestame.persistence.domain.dashboard.Widget</value>
-                <value>org.encuestame.persistence.domain.dashboard.WidgetProperties</value>
+                <value>org.encuestame.persistence.domain.dashboard.Gadget</value>
+                <value>org.encuestame.persistence.domain.dashboard.GadgetProperties</value>
             </list>
         </property>
         <property name="hibernateProperties">

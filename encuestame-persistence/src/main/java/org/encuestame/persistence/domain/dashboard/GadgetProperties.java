@@ -96,7 +96,7 @@ public class GadgetProperties {
     /**
     * @return the widget
     */
-
+    @ManyToOne()
     public Gadget getWidget() {
         return gadget;
     }

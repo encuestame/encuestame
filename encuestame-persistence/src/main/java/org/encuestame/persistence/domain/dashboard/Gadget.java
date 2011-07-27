@@ -43,7 +43,7 @@ public class Gadget {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "gadgetId", unique = true, nullable = true)
-    public Long getWidgetId() {
+    public Long getGadgetId() {
         return gadgetId;
     }
 
@@ -57,7 +57,7 @@ public class Gadget {
     /**
     * @return the widgetName
     */
-    @Column(name = "widgetName", nullable = false)
+    @Column(name = "gadgetName", nullable = false)
     public String getGadgetName() {
         return gadgetName;
     }
@@ -72,6 +72,7 @@ public class Gadget {
     /**
     * @return the widgetType
     */
+    @Column(name = "gadgetType", nullable = false)
     public String getGadgetType() {
         return gadgetType;
     }

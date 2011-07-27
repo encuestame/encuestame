@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
@@ -29,6 +30,8 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.question.CatQuestionCategory;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -408,7 +411,7 @@ public class TestHibernateDomains extends AbstractBase{
         assertNotNull(tag.getHashTagId());
      }
 
-     /** HashTag domain. **/
+     /** HashTag hits domain. **/
      @Test
      public void testHashTagHits(){
         final Date hitDate = new Date();
@@ -421,5 +424,27 @@ public class TestHibernateDomains extends AbstractBase{
         tagHits.setHashTagId(createHashTag(tagName));
         getHashTagDao().saveOrUpdate(tagHits);
         assertNotNull(tagHits.getHashTagId());
+     }
+
+     /** Dashboard domain. **/
+     public void testDashboard(){
+        final Dashboard board = new Dashboard();
+        board.setPageBoardName("");
+        board.setDescription("");
+        board.setFavorite(Boolean.TRUE);
+        board.setFavoriteCounter(1);
+        board.setPageLayout("AAA");
+        board.setBoardSequence(1);
+        board.setUserBoard(createUserAccount("juan carlos", createAccount()));
+        board.getWidgetDashboard().add(createGadgetDefault());
+        getDashboardDao().saveOrUpdate(board);
+      }
+
+     /** Gadget domain **/
+     public void testGadget(){
+        final Gadget gadget = new Gadget();
+        gadget.setGadgetName("Notifications");
+        gadget.setGadgetType("Poll");
+        getDashboardDao().saveOrUpdate(gadget);
      }
 }
