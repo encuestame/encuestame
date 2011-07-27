@@ -165,7 +165,7 @@ dojo.declare(
         /*
          * load all social accounts verified.
          */
-        _loadSocialConfirmedAccounts : function(){
+        _loadSocialConfirmedAccounts : function() {
            var load = dojo.hitch(this, function(data) {
                 this.arrayAccounts = data.success.items;
                 dojo.empty(this._listSocialAccounts);

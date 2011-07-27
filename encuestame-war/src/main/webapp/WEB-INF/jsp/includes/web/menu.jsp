@@ -1,6 +1,16 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="menuWrapper enme-auto-center">
-    <div>
+<div class="menuWrapper">
+    <div class="rightSide">
+        <c:if test="${logged}">
+            <span class="section">
+                <div dojoType="encuestame.org.core.commons.notifications.Notification"></div>
+            </span>
+            <span class="section"> <%@ include
+                    file="/WEB-INF/jsp/includes/profile.jsp"%>
+            </span>
+        </c:if>
+    </div>
+    <div class="leftSide">
         <span class="item"><a
             href="<%=request.getContextPath()%>/admon/members"> <spring:message
                     code="menu.members" /> </a>
@@ -21,15 +31,5 @@
                     code="menu.survey" />
         </a>
         </span>
-    </div>
-    <div class="rightSide">
-        <c:if test="${logged}">
-            <span class="section">
-                <div dojoType="encuestame.org.core.commons.notifications.Notification"></div>
-            </span>
-            <span class="section"> <%@ include
-                    file="/WEB-INF/jsp/includes/profile.jsp"%>
-            </span>
-        </c:if>
     </div>
 </div>

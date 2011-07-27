@@ -2332,6 +2332,8 @@ div.menuWrapper{
      max-height : 34px;
      padding-top: 3px;
      width: 100%;
+     min-height: 33px;
+     overflow: auto;
 }
 
 div.menuWrapper .item {
@@ -2425,10 +2427,14 @@ div..menuWrapper .item a:hover,.menuWrapper .item .current {
     cursor: pointer;
 }
 
+div.menuWrapper div.leftSide {
+  float: left;
+  text-align: right;
+}
+
 div.menuWrapper div.rightSide {
   float: right;
   text-align: right;
-  width: 225px;
 }
 
 div.menuWrapper div.rightSide span {
@@ -2485,7 +2491,7 @@ div.livePanel{
     width: 400px;
     background-color: #FFF;
     right: 0px;
-    top: 30px;
+    top: 37px;
     -moz-box-shadow: 2px 2px 5px #888888;
     -webkit-box-shadow: 2px 2px 5px #888888;
      box-shadow: 2px 2px 5px #888888;
