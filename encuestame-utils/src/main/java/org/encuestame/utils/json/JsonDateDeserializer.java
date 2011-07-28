@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.utils;
+package org.encuestame.utils.json;
 
 import java.io.IOException;
 import java.text.ParseException;

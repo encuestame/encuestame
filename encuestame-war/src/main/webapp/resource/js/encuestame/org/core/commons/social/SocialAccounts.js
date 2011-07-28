@@ -27,7 +27,6 @@ dojo.declare(
             this._createDetail("googleDetail", "Google");
             this._createDetail("identicaDetail", "Identica");
             //this._createDetail("yahooDetail", "Yahoo"); DISABLED
-            //this._createDetail("myspaceDetail", "MySpace"); DISABLED
             //buttons
             this._cretateButton("twitter", "Twitter");
             this._cretateButton("facebook", "Facebook");
@@ -35,7 +34,6 @@ dojo.declare(
             this._cretateButton("google", "Google Buzz");
             this._cretateButton("identica", "Identi.ca");
             //this._cretateButton("yahoo", "Yahoo"); DISABLED
-            //this._cretateButton("myspace", "MySpace"); DISABLED
         },
 
         /*
@@ -182,10 +180,10 @@ dojo.declare(
              /*
               * Create twitter account row on dom node.
               */
-             _createTwitterAccount : function(twitterAccount){
+             _createTwitterAccount : function(account){
                  var widget = new encuestame.org.core.commons.social.SocialAccountRow(
                          {
-                             account : twitterAccount
+                             account : account
                           }
                          );
                  return widget;
@@ -224,9 +222,6 @@ dojo.declare(
 
             },
 
-            _removeSocialAccount : function(){
-
-            },
 
             /*
              * open dialog.
@@ -237,10 +232,12 @@ dojo.declare(
                     content: content,
                     style: "width: 350px"
                 });
+                console.debug("dialog 1 ", myDialog);
                 myDialog.functionYes = dojo.hitch(this, function(){
                     this._removeAction();
                     myDialog.hide();
                 });
+                console.debug("dialog 2 ", myDialog);
                 myDialog.show();
             },
 
@@ -257,8 +254,8 @@ dojo.declare(
                     console.debug("error", error);
                 };
                 encuestame.service.xhrGet(
-                       encuestame.service.social.twitter.remove,
-                      {socialAccountId : this.account.accountId}, load, error);
+                       encuestame.service.social.action.remove,
+                      {socialAccountId : this.account.id}, load, error);
             },
 
             /*
@@ -266,21 +263,25 @@ dojo.declare(
              */
             _remove : function(event){
                 dojo.stopEvent(event);
-                this._openDialog();
+                this._openDialog("title", "");
+            },
+
+            /*
+             * change status account.
+             */
+            _changeStatusAccount : function(event){
+                dojo.stopEvent(event);
                 var load = dojo.hitch(this, function(data){
                     console.debug("data", data);
+                    dojo.publish("/encuestame/social/list/reload");
                 });
                 var error = function(error) {
                     console.debug("error", error);
                 };
-                console.debug("this.account", this.account);
-                //encuestame.service.xhrGet(
-                 //       encuestame.service.social.twitter.remove,
-                  //      {socialAccountId : this.account.accountId}, load, error);
-            },
-
-            _changeStatusAccount : function(){
-                dojo.stopEvent(event);
+                var params = {socialAccountId : this.account.id};
+                encuestame.service.xhrGet(
+                       encuestame.service.social.action.defaultState,
+                      params, load, error);
             },
 
             _showHideAction : function(){

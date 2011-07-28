@@ -62,6 +62,10 @@ public class AbstractSocial {
      */
     private String profilePictureUrl;
 
+    /**
+     * Public profile url.
+     */
+    private String publicProfileUrl;
 
     /**
      * Time to expires OAuth2 access token.
@@ -192,5 +196,20 @@ public class AbstractSocial {
      */
     public void setExpires(final String expires) {
         this.expires = expires;
+    }
+
+    /**
+     * @return the publicProfileUrl
+     */
+    @Column(name = "public_profile_url")
+    public String getPublicProfileUrl() {
+        return publicProfileUrl;
+    }
+
+    /**
+     * @param publicProfileUrl the publicProfileUrl to set
+     */
+    public void setPublicProfileUrl(final String publicProfileUrl) {
+        this.publicProfileUrl = publicProfileUrl;
     }
 }

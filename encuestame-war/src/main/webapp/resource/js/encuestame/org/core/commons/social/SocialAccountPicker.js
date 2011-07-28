@@ -171,7 +171,7 @@ dojo.declare(
                 dojo.empty(this._listSocialAccounts);
                 console.debug("social", this.arrayAccounts);
                 this.showListAccounts();
-                if (checkRequiredSocialAccounts) {
+                if (this.checkRequiredSocialAccounts) {
 
                 }
             });
@@ -179,7 +179,7 @@ dojo.declare(
                 console.debug("error", error);
             };
             encuestame.service.xhrGet(
-                    encuestame.service.list.socialAccounts, {}, load, error);
+                    encuestame.service.list.allSocialAccount, {}, load, error);
        },
 
        /*

@@ -91,10 +91,14 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      */
     public TweetPollBean  convertTweetPollRelativeTime(final TweetPollBean tpbean, final HttpServletRequest request){
         final HashMap<Integer, RelativeTimeEnum> relativeTime =  DateUtil.getRelativeTime(tpbean.getCreatedDateAt());
+        @SuppressWarnings("rawtypes")
         final Iterator it = relativeTime.entrySet().iterator();
         while (it.hasNext()) {
+            @SuppressWarnings("unchecked")
             final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
-            log.debug("--"+e.getKey() + "**" + e.getValue());
+            if (log.isDebugEnabled()) {
+                log.debug("--"+e.getKey() + "**" + e.getValue());
+            }
             tpbean.setRelativeTime(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
         }
         return tpbean;
@@ -209,7 +213,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
               }
               return unitLists;
           } else {
-              throw new EnMeExpcetion("Email List is null");
+              throw new EnMeExpcetion("email list is not valid");
           }
       }
 

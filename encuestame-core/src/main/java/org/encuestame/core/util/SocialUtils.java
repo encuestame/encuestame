@@ -249,4 +249,30 @@ public class SocialUtils {
         log.debug("getSocialTweetPublishedUrl "+builder.toString());
         return builder.toString();
     }
+
+    /**
+     * Build a real url profile based on id.
+     * @param id social account id.
+     * @param provider {@link SocialProvider}.
+     * @return
+     */
+    public static String getSocialAccountProfileUrl(final String id,
+            final SocialProvider provider){
+        final StringBuilder builder = new StringBuilder();
+        if(SocialProvider.TWITTER.equals(provider)){
+            String twitterUrl = EnMePlaceHolderConfigurer.getProperty("social.profile.twitter");
+            twitterUrl = twitterUrl.replace("{username}", id);
+            builder.append(twitterUrl);
+        } else if(SocialProvider.FACEBOOK.equals(provider)) {
+             String twitterUrl = EnMePlaceHolderConfigurer.getProperty("social.profile.facebook");
+             twitterUrl = twitterUrl.replace("{id}", id);
+             builder.append(twitterUrl);
+        } else if(SocialProvider.IDENTICA.equals(provider)) {
+             String identicaUrl = EnMePlaceHolderConfigurer.getProperty("social.profile.identica");
+             identicaUrl = identicaUrl.replace("{id}", id);
+             builder.append(identicaUrl);
+        }
+        log.debug("getSocialTweetPublishedUrl "+builder.toString());
+        return builder.toString();
+    }
 }

@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -22,11 +23,13 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.support.DataAccessUtils;
 
@@ -57,8 +60,6 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
             final SocialProvider socialProvider,
             final String socialProfileId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
-        log.debug("accounType: "+socialProvider);
-        log.debug("socialProfileId: "+socialProfileId);
         criteria.add(Restrictions.eq("accounType", socialProvider));
         criteria.add(Restrictions.eq("socialProfileId", socialProfileId));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
@@ -74,8 +75,6 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
     public final SocialAccount getSocialAccount(
             final Long socialAccountId,
             final Account account){
-        log.debug("account "+account.getUid());
-        log.debug("socialAccountId "+socialAccountId);
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("id", socialAccountId));
@@ -93,9 +92,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
     public final SocialAccount getSocialAccount(
             final Long socialAccountId,
             final Account account,
-            final UserAccount userAccount){
-        log.debug("account "+account.getUid());
-        log.debug("socialAccountId "+socialAccountId);
+            final UserAccount userAccount) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("userOwner", userAccount));
@@ -112,9 +109,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
     @SuppressWarnings("unchecked")
     public final SocialAccount getSocialAccount(
             final Long socialProfileId,
-            final UserAccount userAccount){
-        log.debug("socialProfileId "+socialProfileId);
-        log.debug("userOwner "+userAccount.getUsername());
+            final UserAccount userAccount) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("userOwner", userAccount));
         criteria.add(Restrictions.eq("socialProfileId", socialProfileId));
@@ -201,7 +196,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
     }
 
    /**
-    *
+    * Create new social account.
     * @param socialAccountId
     * @param token
     * @param tokenSecret
@@ -234,6 +229,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
          socialAccount.setType(SocialProvider.getTypeAuth(socialProvider));
          socialAccount.setUpgradedCredentials(new Date());
          socialAccount.setSocialProfileId(socialUserProfile.getId());
+         socialAccount.setPublicProfileUrl(socialUserProfile.getProfileUrl());
          socialAccount.setPrictureUrl(socialUserProfile.getProfileImageUrl()); //TODO: repeated
          socialAccount.setProfilePictureUrl(socialUserProfile.getProfileImageUrl());
          socialAccount.setEmail(socialUserProfile.getEmail());
@@ -336,5 +332,32 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
          criteria.add(Restrictions.eq("accounType", provider));
          return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate()
                  .findByCriteria(criteria));
+    }
+
+    /**
+     * Get social accounts stats.
+     * @param socialAccount {@link SocialAccount}.
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public HashMap<String, Long> getSocialAccountStats(final SocialAccount socialAccount) {
+        final HashMap<String, Long> stats = new HashMap<String, Long>();
+        log.debug("getSocialAccountStats "+socialAccount.getId());
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSavedPublishedStatus.class);
+        criteria.add(Restrictions.eq("socialAccount", socialAccount));
+        criteria.setProjection(Projections.id());
+        final List<Long> tweetPollstats = getHibernateTemplate().findByCriteria(criteria);
+        log.debug("getSocialAccountStats "+tweetPollstats.size());
+        log.debug("getSocialAccountStats "+tweetPollstats);
+        if(tweetPollstats.size() > 0) {
+            stats.put("tweetpoll", Long.valueOf(tweetPollstats.get(0).toString()));
+        } else {
+            stats.put("tweetpoll", 0L);
+        }
+      //TODO: in the future we can add another stats.
+        stats.put("poll", 0L);
+        stats.put("survey", 0L);
+        log.debug("getSocialAccountStats stats"+stats);
+        return stats;
     }
 }

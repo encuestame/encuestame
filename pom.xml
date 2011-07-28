@@ -31,6 +31,8 @@
         -->
         <spring.version>3.0.5.RELEASE</spring.version>
 
+       <env>development</env>
+
         <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
         <spring.security.version>3.1.0.RC2</spring.security.version> 
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
@@ -46,6 +48,9 @@
         <hibernate.search.version>3.3.0.Final</hibernate.search.version>
 	<hibernate.validator>4.0.2.GA</hibernate.validator>
 	<ehcache.version>2.4.1</ehcache.version>
+
+	<!-- JSON -->
+	<jackson.version>1.8.3</jackson.version>
 
         <!-- Lucene Version -->
 	<lucene.version>3.0.3</lucene.version>
@@ -239,12 +244,12 @@
 
         <!-- Maven Repos -->
         <repository>
-            <id>maven2-repository.dev.java.net</id>
+            <id>maven2-repository.dev.java.net-1</id>
             <name>Java.net Repository for Maven</name>
             <url>http://download.java.net/maven/2</url>
         </repository>
         <repository>
-            <id>maven2-repository.dev.java.net</id>
+            <id>maven2-repository.dev.java.net-2</id>
             <name>Java.net Repository for Maven</name>
             <url>https://maven2-repository.dev.java.net/nonav/repository</url>
         </repository>
@@ -466,6 +471,22 @@
             </resource>
         </resources>
     </build>
+
+     <profiles>
+        <profile>
+            <id>development</id>
+            <properties>
+                <env>development</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>demo</id>
+            <properties>
+                <env>demo</env>
+            </properties>
+        </profile>
+    </profiles>
+
     <reporting>
         <plugins>
   	     <plugin>
@@ -1259,7 +1280,7 @@
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.5.3</version>
+            <version>${jackson.version}</version>
         </dependency>
          <dependency>
             <groupId>com.googlecode.json-simple</groupId>

@@ -1769,7 +1769,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         publishedStatus.setTweetPoll(tweetPoll);
         publishedStatus.setStatus(org.encuestame.persistence.domain.tweetpoll.Status.SUCCESS);
         publishedStatus.setTweetContent(tweetText);
-        publishedStatus.setTwitterAccount(socialAccount);
+        publishedStatus.setSocialAccount(socialAccount);
         publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
         publishedStatus.setPublicationDateTweet(new Date());
         getTweetPoll().saveOrUpdate(publishedStatus);
