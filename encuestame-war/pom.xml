@@ -11,6 +11,9 @@
     <packaging>war</packaging>
     <name>encuestame war</name>
     <build>
+    <filters>
+            <filter>../env/${env}.properties</filter>
+       </filters>
     <finalName>encuestame-${project.version}-beta</finalName>
     <plugins>
         <plugin>
@@ -224,15 +227,9 @@
                 <includes>
                     <include>*.*</include>
                 </includes>
-                <excludes>
-                    <exclude>encuestame-config-custom.properties</exclude>
-                </excludes>
                 <filtering>true</filtering>
             </resource>
         </resources>
-        <filters>
-            <filter>../env/${env}.properties</filter>
-        </filters>
     </build>
     <dependencies>
         <dependency>
@@ -642,12 +639,4 @@
             <artifactId>ehcache-spring-annotations</artifactId>
         </dependency>
     </dependencies>
-
-    <repositories>
-         <repository>
-             <id>local-project-repo</id>
-             <url>file:${basedir}/../lib/repository</url>
-         </repository>
-    </repositories>
-
 </project>

@@ -479,6 +479,18 @@
                 <env>development</env>
             </properties>
         </profile>
+ 	<profile>
+            <id>jpicado</id>
+            <properties>
+                <env>jpicado</env>
+            </properties>
+        </profile>
+	<profile>
+            <id>dmorales</id>
+            <properties>
+                <env>dmorales</env>
+            </properties>
+        </profile>
         <profile>
             <id>demo</id>
             <properties>
