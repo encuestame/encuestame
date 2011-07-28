@@ -12,13 +12,84 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.List;
 import org.encuestame.persistence.dao.IDashboardDao;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Dashboard Dao.
  * @author Morales,Diana Paola paolaATencuestame.org
  * @since July 27, 2011
  */
+@Repository("dashboardDao")
 public class DashboardDao extends AbstractHibernateDaoSupport implements IDashboardDao {
 
+	@Autowired
+	public DashboardDao(SessionFactory sessionFactory) {
+		setSessionFactory(sessionFactory);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IDashboardDao#getDashboardbyId(java.lang.Long)
+	 */
+	public Dashboard getDashboardbyId(final Long boardId){
+	 		return (Dashboard) getHibernateTemplate().get(Dashboard.class, boardId);
+	 }
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IDashboardDao#retrieveDashboards(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Dashboard> retrieveDashboards(final UserAccount userBoard){
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Dashboard.class);
+			criteria.createAlias("userBoard", "userBoard");
+	        criteria.add(Restrictions.eq("userBoard", userBoard));
+	        return getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IDashboardDao#retrieveFavouritesDashboards(java.lang.Long, java.lang.Integer, java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Dashboard> retrieveFavouritesDashboards(
+			final Long userId,
+	        final Integer maxResults,
+	        final Integer start){
+	        final DetachedCriteria criteria = DetachedCriteria.forClass(Dashboard.class);
+	        criteria.createAlias("userBoard","userBoard");
+	        criteria.add(Restrictions.eq("favorite", Boolean.TRUE));
+	        criteria.add(Restrictions.eq("userBoard.uid", userId));
+	        return (List<Dashboard>) filterByMaxorStart(criteria, maxResults, start);
+	    }
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IDashboardDao#getGadgetbyId(java.lang.Long)
+	 */
+	public Gadget getGadgetbyId(final Long gadgetId){
+ 		return (Gadget) getHibernateTemplate().get(Gadget.class, gadgetId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IDashboardDao#getGadgetbyKeyword(java.lang.String, java.lang.Integer, java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Gadget> getGadgetbyKeyword(final String keyword, final Integer maxResults, final Integer start){
+		  final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
+	        criteria.createAlias("gadgetName","gadgetName");
+	        criteria.add(Restrictions.like("gadgetName", keyword, MatchMode.ANYWHERE));
+	        return (List<Gadget>) filterByMaxorStart(criteria, maxResults, start);
+	    }
 }

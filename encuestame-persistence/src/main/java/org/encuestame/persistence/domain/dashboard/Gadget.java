@@ -12,11 +12,16 @@
  */
 package org.encuestame.persistence.domain.dashboard;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,6 +41,9 @@ public class Gadget {
 
     /** Widget type**/
     private String gadgetType;
+
+    /** {@link Dashboard} **/
+    private Set<Dashboard> dashboard = new HashSet<Dashboard>();
 
     /**
     * @return the widgetId
@@ -83,4 +91,19 @@ public class Gadget {
     public void setGadgetType(final String gadgetType) {
         this.gadgetType = gadgetType;
     }
+
+	/**
+	 * @return the dashboard
+	 */
+    @ManyToMany(cascade = CascadeType.ALL)
+	public Set<Dashboard> getDashboard() {
+		return dashboard;
+	}
+
+	/**
+	 * @param dashboard the dashboard to set
+	 */
+	public void setDashboard(final Set<Dashboard> dashboard) {
+		this.dashboard = dashboard;
+	}
 }

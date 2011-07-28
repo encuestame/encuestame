@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
@@ -32,6 +31,7 @@ import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.question.CatQuestionCategory;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -427,24 +427,37 @@ public class TestHibernateDomains extends AbstractBase{
      }
 
      /** Dashboard domain. **/
+     @Test
      public void testDashboard(){
         final Dashboard board = new Dashboard();
-        board.setPageBoardName("");
-        board.setDescription("");
+        board.setPageBoardName("First dashboard");
+        board.setDescription("My first dashboard");
         board.setFavorite(Boolean.TRUE);
         board.setFavoriteCounter(1);
         board.setPageLayout("AAA");
         board.setBoardSequence(1);
         board.setUserBoard(createUserAccount("juan carlos", createAccount()));
-        board.getWidgetDashboard().add(createGadgetDefault());
+        board.getGadgetDashboard().add(createGadgetDefault());
         getDashboardDao().saveOrUpdate(board);
       }
 
      /** Gadget domain **/
+     @Test
      public void testGadget(){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName("Notifications");
         gadget.setGadgetType("Poll");
         getDashboardDao().saveOrUpdate(gadget);
+     }
+
+     /** Gadget Properties **/
+     @Test
+     public void testGadgetProperties(){
+    	 final GadgetProperties gadgetProp = new GadgetProperties();
+    	 gadgetProp.setGadgetPropName("maxResults");
+    	 gadgetProp.setGadgetPropValue("10");
+    	 gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
+    	 gadgetProp.setGadget(createGadgetDefault());
+    	 getDashboardDao().saveOrUpdate(gadgetProp);
      }
 }

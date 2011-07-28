@@ -12,6 +12,12 @@
  */
 package org.encuestame.persistence.dao;
 
+import java.util.List;
+
+import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.security.UserAccount;
+
 /**
  * Dashboard Interface.
  * @author Morales,Diana Paola paolaATencuestame.org
@@ -19,4 +25,45 @@ package org.encuestame.persistence.dao;
  */
 public interface IDashboardDao extends IBaseDao {
 
+	/**
+	 * Get dashboard by id.
+	 * @param boardId
+	 * @return
+	 */
+	Dashboard getDashboardbyId(final Long boardId);
+
+	/**
+	 * Retrieve dashboards by id and user.
+	 * @param userBoard
+	 * @return
+	 */
+	List<Dashboard> retrieveDashboards(final UserAccount userBoard);
+
+	/**
+	 * Retrieve favorites dashboards.
+	 * @param userId
+	 * @param maxResults
+	 * @param start
+	 * @return
+	 */
+	List<Dashboard> retrieveFavouritesDashboards(
+	            final Long userId,
+	            final Integer maxResults,
+	            final Integer start);
+
+	/**
+	 * Get gadget by id.
+	 * @param gadgetId
+	 * @return
+	 */
+	Gadget getGadgetbyId(final Long gadgetId);
+
+	/**
+	 * Get gadget by keyword.
+	 * @param keyword
+	 * @param maxResults
+	 * @param start
+	 * @return
+	 */
+	List<Gadget> getGadgetbyKeyword(final String keyword, final Integer maxResults, final Integer start);
 }

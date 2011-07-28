@@ -26,8 +26,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
@@ -64,7 +62,7 @@ public class Dashboard {
     /** {@link UserAccount} **/
     private UserAccount userBoard;
 
-    private Set<Gadget> widgetDashboard = new HashSet<Gadget>();
+    private Set<Gadget> gadgetDashboard = new HashSet<Gadget>();
 
     /**
     * @return the boardId
@@ -194,15 +192,15 @@ public class Dashboard {
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="dashboard_gadget",
                joinColumns={@JoinColumn(name="dashboardId")},
-               inverseJoinColumns={@JoinColumn(name="widgetId")})
-    public Set<Gadget> getWidgetDashboard() {
-        return widgetDashboard;
+               inverseJoinColumns={@JoinColumn(name="gadgetId")})
+    public Set<Gadget> getGadgetDashboard() {
+        return gadgetDashboard;
     }
 
     /**
     * @param widgetDashboard the widgetDashboard to set
     */
-    public void setWidgetDashboard(Set<Gadget> widgetDashboard) {
-        this.widgetDashboard = widgetDashboard;
+    public void setGadgetDashboard(Set<Gadget> gadgetDashboard) {
+        this.gadgetDashboard = gadgetDashboard;
     }
 }

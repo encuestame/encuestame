@@ -97,15 +97,15 @@ public class GadgetProperties {
     * @return the widget
     */
     @ManyToOne()
-    public Gadget getWidget() {
+    public Gadget getGadget() {
         return gadget;
     }
 
     /**
     * @param widget the widget to set
     */
-    public void setWidget(Gadget widget) {
-        this.gadget = widget;
+    public void setGadget(Gadget gadget) {
+        this.gadget = gadget;
     }
 
     /**
