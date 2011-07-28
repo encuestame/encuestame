@@ -12,6 +12,9 @@
     <packaging>jar</packaging>
     <name>encuestame business</name>
     <build>
+        <filters>
+            <filter>../env/${env}.properties</filter>
+        </filters>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

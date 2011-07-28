@@ -230,6 +230,9 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+        <filters>
+            <filter>../env/${env}.properties</filter>
+        </filters>
     </build>
     <dependencies>
         <dependency>
