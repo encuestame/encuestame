@@ -594,6 +594,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
         gadget.setGadgetType(type);
+        getDashboardDao().saveOrUpdate(gadget);
         return gadget;
     }
 
@@ -613,6 +614,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
           board.setPageLayout("AAA");
           board.setBoardSequence(1);
           board.setUserBoard(userAcc);
+          getDashboardDao().saveOrUpdate(board);
         return board;
     }
 

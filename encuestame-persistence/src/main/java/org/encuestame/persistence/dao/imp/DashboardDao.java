@@ -88,7 +88,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
 	@SuppressWarnings("unchecked")
 	public List<Gadget> getGadgetbyKeyword(final String keyword, final Integer maxResults, final Integer start){
 		  final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
-	        criteria.createAlias("gadgetName","gadgetName");
+	        //criteria.createAlias("gadgetName","gadgetName");
 	        criteria.add(Restrictions.like("gadgetName", keyword, MatchMode.ANYWHERE));
 	        return (List<Gadget>) filterByMaxorStart(criteria, maxResults, start);
 	    }
