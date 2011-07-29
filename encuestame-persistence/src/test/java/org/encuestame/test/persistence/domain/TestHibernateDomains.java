@@ -437,7 +437,6 @@ public class TestHibernateDomains extends AbstractBase{
         board.setPageLayout("AAA");
         board.setBoardSequence(1);
         board.setUserBoard(createUserAccount("juan carlos", createAccount()));
-        board.getGadgetDashboard().add(createGadgetDefault());
         getDashboardDao().saveOrUpdate(board);
       }
 
