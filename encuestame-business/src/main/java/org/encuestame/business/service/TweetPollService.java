@@ -22,8 +22,8 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;

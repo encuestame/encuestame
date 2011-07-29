@@ -12,7 +12,7 @@
  */
 package org.encuestame.business.service;
 
-import org.encuestame.business.service.imp.IChartService;
+import org.encuestame.core.service.imp.IChartService;
 import org.springframework.stereotype.Service;
 
 /**

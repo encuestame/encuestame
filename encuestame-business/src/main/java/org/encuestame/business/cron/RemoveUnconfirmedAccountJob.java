@@ -14,7 +14,7 @@ package org.encuestame.business.cron;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
 

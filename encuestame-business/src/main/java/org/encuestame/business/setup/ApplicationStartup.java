@@ -13,10 +13,11 @@
 package org.encuestame.business.setup;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.MailServiceOperations;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.business.setup.install.TypeDatabase;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;

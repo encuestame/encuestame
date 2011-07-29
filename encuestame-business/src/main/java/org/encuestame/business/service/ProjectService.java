@@ -18,7 +18,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.IProjectService;
+import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.core.service.imp.IProjectService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.Project;

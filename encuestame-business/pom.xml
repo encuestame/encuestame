@@ -83,6 +83,16 @@
             <classifier>tests</classifier>
         </dependency>
         <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-social</artifactId>
+        </dependency>
+        <dependency> <!-- reuse src/test/java code from encuestame-core! -->
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-social</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>

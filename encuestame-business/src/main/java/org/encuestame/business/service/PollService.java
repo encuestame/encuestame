@@ -19,7 +19,7 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.IPollService;
+import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.question.Question;

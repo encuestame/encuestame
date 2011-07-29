@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.json.TweetPollBean;

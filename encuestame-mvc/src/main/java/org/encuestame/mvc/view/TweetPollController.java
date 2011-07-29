@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.validator.ValidateOperations;

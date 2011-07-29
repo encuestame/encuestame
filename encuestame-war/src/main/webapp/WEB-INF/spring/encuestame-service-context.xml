@@ -9,6 +9,8 @@
 
   <!-- Scans for application @Components to deploy -->
   <context:component-scan base-package="org.encuestame.business.service" />
+  <context:component-scan base-package="org.encuestame.core.service" />
+  <context:component-scan base-package="org.encuestame.social.connect.service" />
 
   <!-- Social Support -->
   <import resource="encuestame-service-social-context.xml"/>

@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.social.oauth.OAuth2Parameters;
+import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.beans.factory.annotation.Value;

@@ -14,16 +14,6 @@
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-business</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-business</artifactId>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
             <artifactId>encuestame-persistence</artifactId>
         </dependency>
         <dependency>
@@ -49,6 +39,16 @@
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-oauth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-oauth</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>

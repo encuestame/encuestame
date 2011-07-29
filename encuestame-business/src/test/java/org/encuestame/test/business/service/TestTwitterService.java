@@ -19,11 +19,11 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.business.service.imp.TwitterAPIOperations;
-import org.encuestame.business.service.social.api.TwitterAPITemplate;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.social.api.TwitterAPITemplate;
+import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.test.config.AbstractBaseUnitBeans;
 import org.encuestame.utils.TweetPublishedMetadata;

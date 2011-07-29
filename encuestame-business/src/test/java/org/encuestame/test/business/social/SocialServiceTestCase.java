@@ -1,7 +1,7 @@
 
 package org.encuestame.test.business.social;
 
-import org.encuestame.business.service.AbstractBaseService;
+import org.encuestame.core.service.AbstractBaseService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

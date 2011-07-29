@@ -12,17 +12,19 @@
  */
 package org.encuestame.business.service;
 
-import org.encuestame.business.service.imp.IApplicationServices;
-import org.encuestame.business.service.imp.IChartService;
-import org.encuestame.business.service.imp.IFrontEndService;
-import org.encuestame.business.service.imp.GeoLocationSupport;
-import org.encuestame.business.service.imp.IPictureService;
-import org.encuestame.business.service.imp.IPollService;
-import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.business.service.imp.SearchServiceOperations;
-import org.encuestame.business.service.imp.ISurveyService;
-import org.encuestame.business.service.imp.ITweetPollService;
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.core.service.SecurityService;
+import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.imp.IApplicationServices;
+import org.encuestame.core.service.imp.IChartService;
+import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IPictureService;
+import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.service.imp.SearchServiceOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
