@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.business.service.imp.IProjectService;
+import org.encuestame.core.service.imp.IProjectService;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;

@@ -2332,6 +2332,8 @@ div.menuWrapper{
      max-height : 34px;
      padding-top: 3px;
      width: 100%;
+     min-height: 33px;
+     overflow: auto;
 }
 
 div.menuWrapper .item {
@@ -2425,10 +2427,14 @@ div..menuWrapper .item a:hover,.menuWrapper .item .current {
     cursor: pointer;
 }
 
+div.menuWrapper div.leftSide {
+  float: left;
+  text-align: right;
+}
+
 div.menuWrapper div.rightSide {
   float: right;
   text-align: right;
-  width: 225px;
 }
 
 div.menuWrapper div.rightSide span {
@@ -2485,7 +2491,7 @@ div.livePanel{
     width: 400px;
     background-color: #FFF;
     right: 0px;
-    top: 30px;
+    top: 37px;
     -moz-box-shadow: 2px 2px 5px #888888;
     -webkit-box-shadow: 2px 2px 5px #888888;
      box-shadow: 2px 2px 5px #888888;
@@ -2593,4 +2599,114 @@ div.web-profile-wrapper .rss li {
   display: block;
   padding-left: 5px;
   vertical-align: middle;
+}
+
+/** social **/
+
+div.socialAccounts{
+    margin-top: 20px;
+}
+
+
+div.socialAccounts div.socialWrapper{
+    margin: 0px;
+}
+
+div.socialAccounts div.socialWrapper div.listSocialCommunities{
+    min-width: 200px;
+    float: left;
+    margin-right: 6px;
+}
+
+div.socialAccounts div.socialWrapper div.socialCommunitieItem{
+    padding: 10px;
+    font-size: 110%;
+    font-weight: bold;
+    color: #FFF;
+    max-width: 200px;
+    cursor: pointer;
+    border-bottom: 1px dotted black;
+}
+
+div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
+    background-color: white;
+    color: grey;
+}
+
+div.socialAccounts div.socialWrapper  div.socialAccountListDetail{
+    float: left;
+    width: 850px;
+}
+
+
+/** Row Account */
+
+div.socialWrapperRow{
+     padding: 2px;
+     font-size: 110%;
+     margin: 2px;
+    -moz-box-shadow: 0px 1px 1px #888;
+    -webkit-box-shadow: 0px 1px 1px #888;
+     box-shadow: 0px 1px 1px #888;
+    -webkit-border-radius:  2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+     border-radius: 2px 2px 2px 2px;
+     cursor: pointer;
+     margin: 10px 0px 10px 0px;
+     overflow: auto;
+}
+
+div.socialWrapperRow div.socialNewForm{
+    clear: both;
+    position: fixed;
+}
+
+div.socialWrapperRow div.tokensWrapper{
+    padding: 5px;
+    border-top: 1px dotted;
+}
+
+div.socialWrapperRow div.tokensWrapper div.tokenHideOptions{
+    min-height: 45px;
+}
+
+div.socialWrapperRow  div.option-button{
+    text-align: right;
+    float: right;
+    font-size: 12px;
+}
+
+div.socialWrapperRow div.tokensWrapper .dijitTextBox{
+    font-size: 100%;
+    min-width: 250px;
+}
+
+div.socialWrapperRow div.tokensWrapper label{
+    font-weight: bold;
+    font-size: 90%;
+}
+
+div.socialWrapperRow div.title{
+    font-size: 100%;
+    margin: 2px;
+    float: left;
+    padding: 4px;
+}
+
+/** Twitter Account **/
+
+div.twitterListAccount{
+
+}
+
+div.twitterWrapperRow{
+    background-color: #9AE4E8;
+}
+
+div.twitterWrapperRow div.tokensWrapper label{
+    color: #2C4762;
+}
+
+div.twitterListAccount div.newTwitterAccount{
+    padding: 10px;
 }

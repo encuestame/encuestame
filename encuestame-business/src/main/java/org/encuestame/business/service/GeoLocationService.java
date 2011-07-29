@@ -15,7 +15,8 @@ package org.encuestame.business.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;

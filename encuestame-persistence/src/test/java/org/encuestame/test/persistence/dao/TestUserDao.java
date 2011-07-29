@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
@@ -417,6 +418,20 @@ public class TestUserDao extends AbstractBase {
     }
 
     /**
+     *
+     */
+    @Test
+    public void testgetSocialAccountStats() {
+        createTweetPollPublicated(true, true, null, userAccount, createQuestion("test", this.userAccount.getAccount()));
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12345", this.socialAccount, "hello encuestame");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12346", this.socialAccount, "hello encuestame 1");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12347", this.socialAccount, "hello encuestame 2");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12348", this.socialAccount, "hello encuestame 3");
+        final HashMap<String, Long> d = getAccountDao().getSocialAccountStats(this.socialAccount);
+        System.out.println(d);
+    }
+
+    /**
      * Test get user account list by status.
      */
     @Test
@@ -445,12 +460,8 @@ public class TestUserDao extends AbstractBase {
         createdAt.add(Calendar.MONTH, +12);
         createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 4", this.account);
 
-        System.out.println("Current Date ------>"+  currentDate.getTime());
-        System.out.println("Account Value  property------>"+ beforeDate.getTime());
-
         final List<UserAccount> userAcc = getAccountDao().getUserAccountsbyStatus(Boolean.FALSE, beforeDate.getTime(), currentDate.getTime());
            //10 + 1 on @Before.
-        System.out.println("DisableUser Accounts size--->"+ userAcc.size());
         assertEquals("Should be equals", 5, userAcc.size());
            if(log.isDebugEnabled()){
                for (UserAccount userStatus : userAcc) {

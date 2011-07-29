@@ -47,12 +47,12 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -129,7 +129,7 @@ public class ConvertDomainBean {
                    socialAccountBean.setAccountId(socialAccount.getId());
                    socialAccountBean.setTypeAccount(socialAccount.getAccounType().toString());
                    socialAccountBean.setDescriptionProfile(socialAccount.getDescriptionProfile());
-                   socialAccount.setEmail(socialAccount.getEmail());
+                   socialAccount.setEmail(socialAccount.getEmail() == null ? "" : socialAccount.getEmail());
                    socialAccount.setDefaultSelected(socialAccount.getDefaultSelected() ==  null
                                     ? false : socialAccount.getDefaultSelected());
                    socialAccountBean.setAddedAccount(socialAccount.getAddedAccount());
@@ -137,8 +137,12 @@ public class ConvertDomainBean {
                    socialAccountBean.setProfilePictureUrl(socialAccount.getProfilePictureUrl());
                    socialAccountBean.setProfileThumbnailPictureUrl(socialAccount.getProfileThumbnailPictureUrl());
                    socialAccountBean.setRealName(socialAccount.getRealName());
-                   socialAccountBean.setSocialAccountName(socialAccount.getSocialAccountName());
-           return socialAccountBean;
+                   socialAccountBean.setSocialAccountName(socialAccount
+                            .getSocialAccountName());
+                   socialAccountBean.setSocialProfileUrl(socialAccount
+                            .getPublicProfileUrl() == null ? "" : socialAccount
+                            .getPublicProfileUrl());
+        return socialAccountBean;
     }
 
     /**
@@ -179,8 +183,10 @@ public class ConvertDomainBean {
      * @return
      */
     public static final  List<SocialAccountBean> convertListSocialAccountsToBean(final List<SocialAccount> accounts) {
+        log.debug("convertListSocialAccountsToBean "+accounts.size());
         final List<SocialAccountBean> loadListPermission = new ArrayList<SocialAccountBean>();
         for (SocialAccount account : accounts) {
+            log.debug("convertListSocialAccountsToBean account "+account.getId());
             loadListPermission.add(ConvertDomainBean.convertSocialAccountToBean(account));
         }
         return loadListPermission;

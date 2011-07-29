@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.captcha.ReCaptchaResponse;

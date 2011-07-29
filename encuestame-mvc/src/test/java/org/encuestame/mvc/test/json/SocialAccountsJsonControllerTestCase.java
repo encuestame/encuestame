@@ -38,23 +38,7 @@ public class SocialAccountsJsonControllerTestCase extends AbstractJsonMvcUnitBea
       @Before
       public void beforeSocialTest(){
           this.socialAccount = createDefaultSettedSocialAccount(getSpringSecurityLoggedUserAccount());
-          SocialAccount socialAccount2 = createSocialProviderAccount(getSpringSecurityLoggedUserAccount(), SocialProvider.TWITTER);
-      }
-
-      /**
-       *
-       * @throws ServletException
-       * @throws IOException
-       */
-      @Test
-      public void testLoadSocialConfirmedAccounts() throws ServletException, IOException{
-          initService("/api/common/social/confirmed-accounts.json", MethodJson.GET);
-          setParameter("provider", "twitter");
-          final org.json.simple.JSONObject response = callJsonService();
-          System.out.println(response);
-          //{"error":{},"success":{"items":[],"label":"socialAccounts","identifier":"id"}}
-          org.json.simple.JSONArray list = (org.json.simple.JSONArray) getSucess(response).get("items");
-          Assert.assertEquals(list.size(), 2);
+          createSocialProviderAccount(getSpringSecurityLoggedUserAccount(), SocialProvider.TWITTER);
       }
 
       /**

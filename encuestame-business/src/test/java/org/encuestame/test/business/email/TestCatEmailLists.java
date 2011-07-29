@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.encuestame.business.service.imp.MailServiceOperations;
+import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.security.Account;

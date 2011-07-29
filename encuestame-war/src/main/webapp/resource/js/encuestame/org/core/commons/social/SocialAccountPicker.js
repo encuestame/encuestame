@@ -165,13 +165,13 @@ dojo.declare(
         /*
          * load all social accounts verified.
          */
-        _loadSocialConfirmedAccounts : function(){
+        _loadSocialConfirmedAccounts : function() {
            var load = dojo.hitch(this, function(data) {
                 this.arrayAccounts = data.success.items;
                 dojo.empty(this._listSocialAccounts);
                 console.debug("social", this.arrayAccounts);
                 this.showListAccounts();
-                if (checkRequiredSocialAccounts) {
+                if (this.checkRequiredSocialAccounts) {
 
                 }
             });
@@ -179,7 +179,7 @@ dojo.declare(
                 console.debug("error", error);
             };
             encuestame.service.xhrGet(
-                    encuestame.service.list.socialAccounts, {}, load, error);
+                    encuestame.service.list.allSocialAccount, {}, load, error);
        },
 
        /*

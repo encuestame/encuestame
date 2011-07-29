@@ -15,7 +15,7 @@ package org.encuestame.test.business.service;
 import java.util.List;
 
 import org.encuestame.business.service.FrontEndService;
-import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.question.Question;

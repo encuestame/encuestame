@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
@@ -282,5 +283,12 @@ public interface IAccountDao extends IBaseDao {
      * @return
      */
     List<UserAccount> getUserAccountsbyStatus(final Boolean status, final Date beforeDate, final Date afterDate);
+
+    /**
+     * Get social accounts stats.
+     * @param socialAccount {@link SocialAccount}.
+     * @return
+     */
+    HashMap<String, Long> getSocialAccountStats(final SocialAccount socialAccount);
 
 }

@@ -22,8 +22,8 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.ITweetPollService;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
@@ -50,9 +50,9 @@ import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
@@ -467,7 +467,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final List<TweetPollSavedPublishedStatus> results = new ArrayList<TweetPollSavedPublishedStatus>();
             for (SocialAccountBean unitTwitterAccountBean : twitterAccounts) {
                 log.debug("publicMultiplesTweetAccounts unitTwitterAccountBean:{ "+unitTwitterAccountBean.toString());
-                results.add(this.publishTweetBySocialAccountId(unitTwitterAccountBean.accountId, tweetPoll, tweetText));
+                results.add(this.publishTweetBySocialAccountId(unitTwitterAccountBean.getAccountId(), tweetPoll, tweetText));
             }
             return results;
     }
@@ -519,7 +519,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          if (socialAccount != null && tweetPoll != null) {
              log.debug("socialAccount Account NAME:{"+socialAccount.getSocialAccountName());
              //adding social account
-             publishedStatus.setTwitterAccount(socialAccount);
+             publishedStatus.setSocialAccount(socialAccount);
              try {
                  log.debug("publishTweetPoll Publishing... "+tweetText.length());
                  final TweetPublishedMetadata metadata = publicTweetPoll(tweetText, socialAccount);
@@ -1040,12 +1040,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
           log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
           final LinksSocialBean linksSocialBean = new LinksSocialBean();
             linksSocialBean.setProvider(tweetPollSavedPublishedStatus
-                    .getTwitterAccount().getAccounType().name());
+                    .getSocialAccount().getAccounType().name());
             linksSocialBean.setLink(SocialUtils.getSocialTweetPublishedUrl(
                     tweetPollSavedPublishedStatus.getTweetId(),
-                    tweetPollSavedPublishedStatus.getTwitterAccount()
+                    tweetPollSavedPublishedStatus.getSocialAccount()
                             .getSocialAccountName(),
-                    tweetPollSavedPublishedStatus.getTwitterAccount()
+                    tweetPollSavedPublishedStatus.getSocialAccount()
                             .getAccounType()));
           linksBean.add(linksSocialBean);
           log.debug("getTweetPollLinks "+linksSocialBean.toString());

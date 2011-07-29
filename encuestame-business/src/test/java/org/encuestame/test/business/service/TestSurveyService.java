@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.business.service.imp.ISurveyService;
-import org.encuestame.business.service.imp.MailServiceOperations;
+import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -53,7 +53,7 @@ public class TestSurveyService  extends AbstractServiceBase{
     private ISurveyService surveyService;
 
     @Autowired
-    private org.encuestame.business.service.imp.MailServiceOperations mailService;
+    private org.encuestame.core.service.imp.MailServiceOperations mailService;
 
     /** {@link Question} */
     private Question question;

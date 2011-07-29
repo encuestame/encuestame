@@ -36,6 +36,9 @@
                 </executions>
             </plugin>
         </plugins>
+        <filters>
+            <filter>../env/${env}.properties</filter>
+        </filters>
         <resources>
             <resource>
               <directory>src/main/resources/</directory>
