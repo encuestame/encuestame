@@ -5,18 +5,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.social.OAuth1RequestFlow;
-import org.encuestame.business.service.social.OAuth2RequestFlow;
-import org.encuestame.business.service.social.signin.FacebookSignInSocialSupport;
-import org.encuestame.business.service.social.signin.GoogleSignInSocialService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.core.social.oauth.OAuth2Parameters;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.security.ForgetPasswordController;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
+import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.oauth1.support.OAuth1RequestFlow;
+import org.encuestame.oauth2.support.OAuth2RequestFlow;
+import org.encuestame.social.connect.FacebookSignInSocialSupport;
+import org.encuestame.social.connect.GoogleSignInSocialService;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -168,14 +168,14 @@ public class SignInController extends AbstractSocialController{
             String friendsUrl = "redirect:/user/signin/friends";
             if (SocialProvider.getProvider(provider).equals(
                     SocialProvider.GOOGLE)) {
-                friendsUrl = getSecurityService().connectSignInAccount(
+                friendsUrl = getConnectOperations().connectSignInAccount(
                         new GoogleSignInSocialService(accessGrant,
-                                getSecurityService()));
+                                getConnectOperations()));
             } else if (SocialProvider.getProvider(provider).equals(
                     SocialProvider.FACEBOOK)) {
-                friendsUrl = getSecurityService().connectSignInAccount(
+                friendsUrl = getConnectOperations().connectSignInAccount(
                         new FacebookSignInSocialSupport(accessGrant,
-                                getSecurityService()));
+                                getConnectOperations()));
             }
             if (log.isDebugEnabled()) {
                 log.debug("oauth2Callback sign up with social account "

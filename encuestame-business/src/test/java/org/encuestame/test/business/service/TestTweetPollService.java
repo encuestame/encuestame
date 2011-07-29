@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionPattern;

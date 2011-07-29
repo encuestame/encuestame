@@ -24,7 +24,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
-import org.encuestame.core.social.BuzzProfile;
+import org.encuestame.social.api.support.BuzzProfile;
 import org.junit.Ignore;
 import org.junit.Test;
 

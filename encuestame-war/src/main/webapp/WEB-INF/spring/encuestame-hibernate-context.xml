@@ -144,7 +144,6 @@
 
     <import resource="encuestame-encrypt-context.xml" />
 
-
     <ehcache:annotation-driven />
 
      <ehcache:config cache-manager="cacheManager">

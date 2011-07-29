@@ -17,7 +17,7 @@ import java.util.Date;
 import junit.framework.Assert;
 
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.business.service.imp.ITweetPollService;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.chart.TweetPollJsonDataChart;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
