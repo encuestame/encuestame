@@ -18,6 +18,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,7 +42,7 @@ public class Gadget {
     private String gadgetName;
 
     /** Widget type**/
-    private String gadgetType;
+    private GadgetType gadgetType;
 
     /** {@link Dashboard} **/
     private Set<Dashboard> dashboard = new HashSet<Dashboard>();
@@ -81,14 +83,15 @@ public class Gadget {
     * @return the widgetType
     */
     @Column(name = "gadgetType", nullable = false)
-    public String getGadgetType() {
+    @Enumerated(EnumType.STRING)
+    public GadgetType getGadgetType() {
         return gadgetType;
     }
 
     /**
     * @param widgetType the widgetType to set
     */
-    public void setGadgetType(final String gadgetType) {
+    public void setGadgetType(final GadgetType gadgetType) {
         this.gadgetType = gadgetType;
     }
 
