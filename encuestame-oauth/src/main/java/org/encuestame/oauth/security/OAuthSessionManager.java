@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.security.oauth;
+package org.encuestame.oauth.security;
 
 import org.encuestame.persistence.domain.application.ApplicationConnection;
 import org.encuestame.persistence.exception.EnMeNotValidKeyOAuthSecurityException;

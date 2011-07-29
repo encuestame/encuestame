@@ -1009,13 +1009,13 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         final List<SocialAccount> socialAccounts = getAccountDao()
                 .getSocialVerifiedAccountByUserAccount(getUserAccount(getUserPrincipalUsername()).getAccount(), provider);
         log.debug("social provider verified:{"+socialAccounts.size());
-        final List<SocialAccountBean> accounts = new ArrayList<SocialAccountBean>();
+        List<SocialAccountBean> accounts = new ArrayList<SocialAccountBean>();
         if ( addStats) {
-            accounts.addAll(this.addSocialStats(socialAccounts));
+            accounts = this.addSocialStats(socialAccounts);
         } else {
-            accounts.addAll(ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts));
+            accounts = ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
         }
-        return ConvertDomainBean.convertListSocialAccountsToBean(socialAccounts);
+        return accounts;
    }
 
     /**
@@ -1026,11 +1026,17 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     private List<SocialAccountBean> addSocialStats(final List<SocialAccount> socialAccounts) {
         final List<SocialAccountBean> accounts = new ArrayList<SocialAccountBean>();
         for (SocialAccount socialAccount : socialAccounts) {
+            log.debug("addSocialStats to "+socialAccount.getId());
             final HashMap<String, Long> stats = getAccountDao().getSocialAccountStats(socialAccount);
+            log.debug("addSocialStats stats: "+stats);
             final SocialAccountBean bean = ConvertDomainBean.convertSocialAccountToBean(socialAccount);
+            log.debug("addSocialStats stats tweetpoll: "+stats.get("tweetpoll"));
+            log.debug("addSocialStats stats poll: "+stats.get("poll"));
+            log.debug("addSocialStats stats survey: "+stats.get("survey"));
             bean.setTweetpoll(stats.get("tweetpoll"));
             bean.setPoll(stats.get("poll"));
             bean.setSurvey(stats.get("survey"));
+            log.debug("addSocialStats bean: "+bean.toString());
             accounts.add(bean);
         }
         return accounts;

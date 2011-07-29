@@ -28,7 +28,7 @@ import org.codehaus.jackson.map.annotate.JsonDeserialize;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SocialAccountBean extends GlobalStats implements Serializable {
+public class SocialAccountBean implements Serializable {
 
     /**
      * Serial.
@@ -77,6 +77,22 @@ public class SocialAccountBean extends GlobalStats implements Serializable {
 
     @JsonProperty(value = "url")
     private String socialProfileUrl;
+
+    /**
+    *
+    */
+   @JsonProperty(value = "tweetpoll_stats")
+   private Long tweetpoll;
+   /**
+    *
+    */
+   @JsonProperty(value = "poll_stats")
+   private Long poll;
+   /**
+    *
+    */
+   @JsonProperty(value = "survey_stats")
+   private Long survey;
 
     /**
      * Constructor.
@@ -321,21 +337,56 @@ public class SocialAccountBean extends GlobalStats implements Serializable {
         this.socialProfileUrl = socialProfileUrl;
     }
 
+    /**
+     * @return the tweetpoll
+     */
+    @JsonIgnore
+    public Long getTweetpoll() {
+        return tweetpoll;
+    }
+    /**
+     * @param tweetpoll the tweetpoll to set
+     */
+    public void setTweetpoll(final Long tweetpoll) {
+        this.tweetpoll = tweetpoll;
+    }
+    /**
+     * @return the poll
+     */
+    @JsonIgnore
+    public Long getPoll() {
+        return poll;
+    }
+    /**
+     * @param poll the poll to set
+     */
+    public void setPoll(final Long poll) {
+        this.poll = poll;
+    }
+    /**
+     * @return the survey
+     */
+    @JsonIgnore
+    public Long getSurvey() {
+        return survey;
+    }
+    /**
+     * @param survey the survey to set
+     */
+    public void setSurvey(final Long survey) {
+        this.survey = survey;
+    }
 
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "SocialAccountBean [accountId=" + accountId + ", account="
-                + account + ", type=" + type + ", typeAccount=" + typeAccount
-                + ", descriptionProfile=" + descriptionProfile + ", email="
-                + email + ", defaultSelected=" + defaultSelected
-                + ", addedAccount=" + addedAccount + ", prictureUrl="
-                + prictureUrl + ", profilePictureUrl=" + profilePictureUrl
-                + ", profileThumbnailPictureUrl=" + profileThumbnailPictureUrl
-                + ", realName=" + realName + ", socialAccountName="
-                + socialAccountName + ", socialProfileUrl=" + socialProfileUrl
-                + "]";
+        return "SocialAccountBean [accountId=" + accountId + ", type=" + type
+                + ", typeAccount=" + typeAccount + ", email=" + email
+                + ", defaultSelected=" + defaultSelected
+                + ", socialAccountName=" + socialAccountName
+                + ", getTweetpoll()=" + tweetpoll + ", getPoll()="
+                + poll + ", getSurvey()=" + survey + "]";
     }
 }

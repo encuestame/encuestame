@@ -39,15 +39,22 @@
                         <td>
                             <a href="${account.url}" target="_blank">${account.url}</a>
                         </td>
+                     </tr>published with this account
+                     <tr>
+                        <td>
+                            <div><label>Tweetpoll published with this account:</label> ${account.tweetpoll_stats}</div>
+                            <div><label>Survey published with this account:</label> ${account.survey_stats}</div>
+                            <div><label>Poll published with this account:</label> ${account.poll_stats}</div>
+                        </td>
                      </tr>
                </table>
                <div class="option-button">
-                   <button id="${id}_remove" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_remove">
+                   <button id="${id}_remove" dojoType="dijit.form.Button" type="button" dojoAttachPoint="_removeButton">
                             Remove
                    </button>
-                   <button id="${id}_statusAccount" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
+<!--                    <button id="${id}_statusAccount" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
                             Disable
-                   </button>
+                   </button> -->
                    <button id="${id}_default" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
                             Set as Default
                    </button>

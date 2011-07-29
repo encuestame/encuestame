@@ -42,7 +42,7 @@
                             </classpath>
                             <jvmarg value="-Xmx512M"/>
                             <arg value="build.js"/>
-                            <arg value="version=1.6.0"/>
+                            <arg value="version=1.6.1"/>
                             <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
                             <arg value="action=clean,release"/>
                             <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
