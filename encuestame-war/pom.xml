@@ -253,6 +253,14 @@
             <artifactId>encuestame-business</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-oauth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>encuestame-social</artifactId>
+        </dependency>
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>

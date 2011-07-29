@@ -31,7 +31,7 @@
         -->
         <spring.version>3.0.5.RELEASE</spring.version>
 
-       <env>development</env>
+        <env>development</env>
 
         <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
         <spring.security.version>3.1.0.RC2</spring.security.version> 
@@ -106,6 +106,8 @@
     <modules>
         <module>encuestame-utils</module>
         <module>encuestame-core</module>
+ 	<module>encuestame-social</module>
+	<module>encuestame-oauth</module>
         <module>encuestame-persistence</module>        
         <module>encuestame-business</module>
         <module>encuestame-mvc</module>
@@ -719,7 +721,34 @@
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
-
+	   <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-oauth</artifactId>
+                <version>${encuestame.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+           <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-social</artifactId>
+                <version>${encuestame.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+            </dependency>
+	   <dependency> 
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-social</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>		
+	   <dependency> 
+                <groupId>org.encuestame</groupId>
+                <artifactId>encuestame-oauth</artifactId>
+                <version>${encuestame.version}</version>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
