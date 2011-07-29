@@ -12,7 +12,15 @@
  */
 package org.encuestame.core.rss;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.servlet.view.feed.AbstractRssFeedView;
+
+import com.sun.syndication.feed.rss.Item;
 
 /**
  * Dashboard Rss View.
@@ -37,5 +45,16 @@ public abstract class AbstractBaseRssFeedView extends AbstractRssFeedView{
      */
     public void setAtomTitle(String atomTitle) {
         this.atomTitle = atomTitle;
+    }
+
+    /**
+     * Build Feed Item Body.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    protected List<Item> buildFeedItems(Map<String, Object> model,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List<Item> items = (List<Item>) model.get("items");
+        return items;
     }
 }

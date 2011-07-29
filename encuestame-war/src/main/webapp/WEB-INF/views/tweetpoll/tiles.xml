@@ -41,4 +41,9 @@
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail.jsp" />
     </definition>
 
+    <definition name="banned" extends="page">
+        <put-attribute name="title" value="banned IP" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}banned.jsp" />
+    </definition>
+
 </tiles-definitions>

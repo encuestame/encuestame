@@ -18,7 +18,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.setup.DirectorySetupOperations;
+import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -68,7 +68,7 @@ public class ReIndexAttachmentsJob {
      */
     private List<File> getListOfAccountEnabledDirectories(){
         final List<File> userDomainAttachmentsLocation = new ArrayList<File>();
-        final List<Long> listOfAccounts = getAccountDao().getAccountsEnabled();
+        final List<Long> listOfAccounts = getAccountDao().getAccountsEnabled(Boolean.TRUE);
         log.debug("listOfAccounts enabled:{"+listOfAccounts.size());
         for (Long accountId : listOfAccounts) {
             final StringBuilder path = new StringBuilder(DirectorySetupOperations.getProfilesDirectory());

@@ -22,14 +22,15 @@ dojo.declare(
          */
         type : "TWEETPOLL",
 
+        /**
+         * Item Id.
+         */
         itemId : null,
 
         /*
          * post create.
          */
         postCreate : function() {
-            console.debug("data", this.type);
-            console.debug("data", this.itemId);
             if (this.type == null) {
                 console.error("type is null");
             } else {
@@ -53,7 +54,15 @@ dojo.declare(
            };
            console.debug("params", params);
            var load = dojo.hitch(this, function(data){
-               console.debug(data);
+               var links = data.success.links;
+               if (links.length > 0) {
+                   dojo.forEach(links,
+                           dojo.hitch(this,function(item) {
+                             this._createLink(item);
+                           }));
+               } else {
+                   this._showNoLinksMessage();
+               }
            });
            var error = function(error) {
                this.autosave = true;
@@ -61,5 +70,47 @@ dojo.declare(
            };
            encuestame.service.xhrGet(
                    encuestame.service.social.links.loadByType, params, load, error);
+        },
+
+        /**
+         *
+         */
+        _showNoLinksMessage : function() {
+            var message = dojo.doc.createElement("h2");
+            message.innerHTML = "No Links Refered.";
+            this._items.appendChild(message);
+        },
+
+        /**
+         * Create link.
+         * @param data link data.
+         */
+        _createLink : function(data){
+            var widget = new encuestame.org.core.commons.social.LinksPublishedItem({social: data.provider_social, link: data.link_url});
+            this._items.appendChild(widget.domNode);
         }
+});
+
+/**
+ * Represents a social item external link.
+ */
+dojo.declare(
+        "encuestame.org.core.commons.social.LinksPublishedItem",
+        [dijit._Widget, dijit._Templated],{
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublishedItem.html"),
+
+            //template enabled
+            widgetsInTemplate: true,
+
+            social : null,
+
+            link : "#",
+
+            /*
+             * post create.
+             */
+            postCreate : function() {
+                this._image.src = encuestame.social.shortPicture(this.social);
+            }
+
 });

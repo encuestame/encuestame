@@ -8,7 +8,7 @@ dojo.require("dijit.Menu");
 
 dojo.declare("encuestame.org.core.commons.signup.SignupProfile",
         [dijit._Widget, dijit._Templated ], {
-    templatePath : dojo.moduleUrl("encuestame.org.core.commons.signup.", "templates/profile.html"),
+    templatePath : dojo.moduleUrl("encuestame.org.core.commons.signup", "templates/profile.html"),
 
     widgetsInTemplate : true,
 

@@ -25,7 +25,7 @@ import org.apache.lucene.store.Directory;
 import org.encuestame.business.search.IndexWriterManager;
 import org.encuestame.business.search.IndexerManager;
 import org.encuestame.business.search.SearchAttachmentManager;
-import org.encuestame.business.service.imp.IIndexWriter;
+import org.encuestame.core.service.imp.IIndexWriter;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.hibernate.search.jpa.Search;
 import org.junit.Assert;

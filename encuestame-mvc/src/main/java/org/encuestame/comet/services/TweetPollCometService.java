@@ -31,8 +31,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**

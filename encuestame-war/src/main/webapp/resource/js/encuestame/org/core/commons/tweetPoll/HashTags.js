@@ -23,9 +23,8 @@ dojo.declare(
         _itemsSelected : [],
 
         postCreate: function() {
-             var hashTagWidget = new encuestame.org.core.commons.tweetPoll.HashTagsSuggest({});
-             hashTagWidget.processSelectedItemButton = dojo.hitch(this, function(){
-                 console.debug("customized add button");
+             var hashTagWidget = new encuestame.org.core.commons.tweetPoll.HashTagsSuggest({label: "Add Hashtag"});
+             hashTagWidget.processSelectedItemButton = dojo.hitch(this, function() {
                  if(hashTagWidget.textBoxWidget && hashTagWidget.addButton){
                      var newValue = {id:null, label:"", newValue: true};
                      newValue.label = hashTagWidget.textBoxWidget.get("value");
@@ -37,8 +36,7 @@ dojo.declare(
                  }
              });
              //if user click on space bar.
-             hashTagWidget.processSpaceAction =  dojo.hitch(this, function(){
-                 console.debug("processSpaceAction item");
+             hashTagWidget.processSpaceAction =  dojo.hitch(this, function() {
                  if (hashTagWidget.textBoxWidget) {
                      var currentText = hashTagWidget.textBoxWidget.get("value");
                      var added = false;
@@ -46,9 +44,7 @@ dojo.declare(
                          dojo.forEach(
                              hashTagWidget._itemStored,
                              dojo.hitch(this, function(data, index) {
-                                 if(!added){
-                                 console.debug("processing item ",index);
-                                 console.debug("processing item ",data.i);
+                                 if (!added) {
                                  if(currentText.toLowerCase() == data.i.hashTagName.toLowerCase()){
                                      console.debug("adding existing item", data.i);
                                      hashTagWidget.processSelectedItem({id:data.i.id, label:data.i.hashTagName, newValue: false});

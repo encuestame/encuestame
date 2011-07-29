@@ -19,11 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,18 +75,22 @@ public class HashTagController extends AbstractBaseOperations{
     @RequestMapping(value = "/tag/{name}", method = RequestMethod.GET)
     public String tagController(ModelMap model , HttpServletRequest request,
                   HttpServletResponse response,
-                  @PathVariable String name) throws EnmeFailOperation{
+                  @PathVariable String name){
         final IFrontEndService service = getFrontService();
         log.debug("hashTag Name ---> "+name);
         name = filterValue(name);
+        final String IP = getIpClient();
+        log.info("IP" + IP);
         try {
+            // Search HashTag hits.
+              boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
+            // TODO: Check that previous hash Tag hit has been visited the same day.
+              if (!hashTagVisite) {
+               final Boolean tagHit = service.registerHashTagHit(name, IP, "paola");
+            }
             final HashTagBean tag = service.getHashTagItem(name);
-            log.debug("hashTag Id ---> "+ tag.getId());
             final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtag", request);
-            log.debug("TweetPolls by HashTag Id ---> "+ tweetPollbyTags.size());
-
             final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtagRated", request);
-            log.debug("TweetPolls by Top rated ---> "+ tweetPollbyTags.size());
             if (tag == null) {
                 return "pageNotFound";
             } else {

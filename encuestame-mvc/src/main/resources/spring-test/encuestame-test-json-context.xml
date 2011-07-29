@@ -46,8 +46,8 @@
                       <property name="prefixJson" value="false"/>
                       <property name="disableCaching" value="true"></property>
                 </bean>
-                <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
-                <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
+                <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.controller.syndication.view.TweetPollAtomFeedView"></bean>
+                <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.controller.syndication.view.TweetPollRssFeedView"></bean>
             </list>
         </property>
         <property name="ignoreAcceptHeader" value="true" />

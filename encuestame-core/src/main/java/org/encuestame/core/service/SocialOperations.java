@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.security.SocialAccountBean;
+import org.encuestame.utils.json.SocialAccountBean;
 
 
 /**

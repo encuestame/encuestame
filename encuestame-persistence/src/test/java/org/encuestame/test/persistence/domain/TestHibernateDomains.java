@@ -25,8 +25,13 @@ import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.question.CatQuestionCategory;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -220,7 +225,6 @@ public class TestHibernateDomains extends AbstractBase{
         userSec.setInviteCode("S");
         userSec.setEnjoyDate(new Date());
         userSec.setUserStatus(true);
-        userSec.setUserTwitterAccount("si");
         userSec.setAccount(createAccount());
         getAccountDao().saveOrUpdate(userSec);
         assertNotNull(userSec.getUid());
@@ -281,8 +285,8 @@ public class TestHibernateDomains extends AbstractBase{
      public void testLocationFolder(){
          final GeoPointFolder geoPointFolder = new GeoPointFolder();
          geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
-         geoPointFolder.setLocationFolderName("test folder");
-         geoPointFolder.setAccount(createAccount());
+         geoPointFolder.setFolderName("test folder");
+         geoPointFolder.setUsers(createAccount());
          getGeoPointDao().saveOrUpdate(geoPointFolder);
      }
 
@@ -385,5 +389,75 @@ public class TestHibernateDomains extends AbstractBase{
          client.setClientTwitter("encuestame");
          client.setClientUrl("http://www.encuestame.org");
          client.setProject(createProject("encuestame","open source", "info", createAccount()));
+     }
+
+     /** HashTag domain. **/
+     @Test
+     public void testHashTag(){
+        final String hashTag = "";
+        final Long hits = 1L;
+        final Long size = 10L;
+        final HashTag tag = new HashTag();
+        tag.setHashTag(hashTag);
+        tag.setHits(hits);
+        tag.setSize(size);
+        tag.getTweetPoll().add(createTweetPollPublicated(
+                Boolean.TRUE,
+                Boolean.TRUE,
+                new Date(),
+                createUserAccount("juan carlos", createAccount()),
+                createQuestion("Did you do the homework?", "YesNo")));
+        getHashTagDao().saveOrUpdate(tag);
+        assertNotNull(tag.getHashTagId());
+     }
+
+     /** HashTag hits domain. **/
+     @Test
+     public void testHashTagHits(){
+        final Date hitDate = new Date();
+        final String ipAddress = "";
+        final String tagName = "programmer";
+        final HashTagHits tagHits = new HashTagHits();
+        tagHits.setHitDate(hitDate);
+        tagHits.setIpAddress(ipAddress);
+        tagHits.setUserAccount(createUserAccount("juan carlos", createAccount()));
+        tagHits.setHashTagId(createHashTag(tagName));
+        getHashTagDao().saveOrUpdate(tagHits);
+        assertNotNull(tagHits.getHashTagId());
+     }
+
+     /** Dashboard domain. **/
+     @Test
+     public void testDashboard(){
+        final Dashboard board = new Dashboard();
+        board.setPageBoardName("First dashboard");
+        board.setDescription("My first dashboard");
+        board.setFavorite(Boolean.TRUE);
+        board.setFavoriteCounter(1);
+        board.setPageLayout("AAA");
+        board.setBoardSequence(1);
+        board.setUserBoard(createUserAccount("juan carlos", createAccount()));
+        board.getGadgetDashboard().add(createGadgetDefault());
+        getDashboardDao().saveOrUpdate(board);
+      }
+
+     /** Gadget domain **/
+     @Test
+     public void testGadget(){
+        final Gadget gadget = new Gadget();
+        gadget.setGadgetName("Notifications");
+        gadget.setGadgetType("Poll");
+        getDashboardDao().saveOrUpdate(gadget);
+     }
+
+     /** Gadget Properties **/
+     @Test
+     public void testGadgetProperties(){
+    	 final GadgetProperties gadgetProp = new GadgetProperties();
+    	 gadgetProp.setGadgetPropName("maxResults");
+    	 gadgetProp.setGadgetPropValue("10");
+    	 gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
+    	 gadgetProp.setGadget(createGadgetDefault());
+    	 getDashboardDao().saveOrUpdate(gadgetProp);
      }
 }

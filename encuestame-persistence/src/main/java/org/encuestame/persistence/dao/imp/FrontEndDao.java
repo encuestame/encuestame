@@ -12,19 +12,23 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -197,5 +201,26 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      */
     public void setHashTagDao(final IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
+    }
+
+    /**
+     * Get hash tags hits by Ip.
+     * @param ipAddress
+     * @return
+     */
+     public List<HashTagHits> getHashTagsHitByIp(final String ipAddress){
+        log.debug("search by ipAddress ---> "+ipAddress);
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        List<HashTagHits> searchResult = (List) getHibernateTemplate().execute(new HibernateCallback() {
+                    public Object doInHibernate(org.hibernate.Session session) {
+                        List<HashTagHits> searchResult = new ArrayList<HashTagHits>();
+                        final Criteria criteria = session.createCriteria(HashTagHits.class);
+                        searchResult = (List<HashTagHits>) fetchPhraseFullText(ipAddress, "ipAddress", HashTagHits.class,
+                        criteria, new SimpleAnalyzer());
+                        log.debug("total results ---> "+searchResult.size());
+                        return searchResult;
+                        }
+        });
+        return searchResult;
     }
 }

@@ -1,15 +1,19 @@
 <div class="web-profile-menu">
-     <div class="image">
-        <img alt="${username}" dojoAttachEvent="onclick:_open" height="24" width="24"
+     <div class="image"  dojoAttachEvent="onclick:_open">
+        <img alt="${username}" height="24" width="24"
              src="${contextPath}/picture/profile/${username}/thumbnail">
      </div>
-    <div class="real-name">${completeName}</div>
+    <div class="real-name"  dojoAttachEvent="onclick:_open">${completeName}</div>
     <div class="profilePanel" dojoAttachPoint="_profileBox">
-            <li><a href="${contextPath}/settings/configuration">Configuration</a></li>
+        <ul style="margin: 0px; padding: 0px;">
+            <li>
+                <a href="${contextPath}/settings/configuration">Configuration</a>
+            </li>
             <li><a href="${contextPath}/settings/social">Social Accounts</a></li>
             <li><a href="${contextPath}/user/help">Help</a></li>
             <li>
               <a href="${contextPath}/user/logout">Log out</a>
             </li>
+        </ul>
     </div>
 </div>

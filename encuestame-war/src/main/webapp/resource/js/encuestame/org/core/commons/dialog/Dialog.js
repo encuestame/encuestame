@@ -9,6 +9,7 @@ dojo.declare(
         draggable : false,
         //post create
         postCreate : function(){
+            this.inherited(arguments);
             console.debug(this.templatePath);
         }
 });

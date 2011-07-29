@@ -21,7 +21,7 @@
             </a>
         </span>
         <span class="item">
-            <a href="<%=request.getContextPath()%>/user/tweetpoll/spanst">
+            <a href="<%=request.getContextPath()%>/user/tweetpoll">
                 <img src="<%=request.getContextPath()%>/resources/images/icons/mobile/enme_tweetpoll_mobile.png" alt=TweetPoll />
             </a>
         </span>

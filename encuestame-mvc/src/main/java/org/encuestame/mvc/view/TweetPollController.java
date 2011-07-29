@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.validator.ValidateOperations;
@@ -68,6 +68,16 @@ public class TweetPollController extends AbstractBaseOperations {
         @PathVariable String tweetId) {
         log.debug("tweetId: "+tweetId);
         String pathVote = "badTweetVote";
+        final String IP = getIpClient();
+        // Check IP in BlackListFile
+        final Boolean checkBannedIp = checkIPinBlackList(IP);
+        log.debug("Check Banned IP----> " + checkBannedIp);
+
+        if(checkBannedIp){
+            pathVote ="banned";
+            log.debug("ip banned");
+        }
+        else{
         if (tweetId.isEmpty()) {
             log.debug("tweet is empty");
             model.put("message", "Tweet Not Valid..");
@@ -87,7 +97,6 @@ public class TweetPollController extends AbstractBaseOperations {
                 model.put("message", "Tweetpoll is closed, no more votes.");
             }else {
                 log.info("Validate Votting");
-                    final String IP = getIpClient();
                     log.info("IP" + IP);
                     if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
                         if (!tweetPoll.getTweetPoll().getCaptcha()) {
@@ -107,7 +116,8 @@ public class TweetPollController extends AbstractBaseOperations {
                         pathVote = "repeatedTweetVote";
                     }
                     model.get("message");
-            }
+                 }
+        }
         }
         log.info("redirect template WHERE "+pathVote);
         return pathVote;
@@ -206,6 +216,18 @@ public class TweetPollController extends AbstractBaseOperations {
     public String tweetPollController(final ModelMap model) {
         log.debug("tweetpoll");
         return "tweetpoll";
+    }
+
+    /**
+     * TweetPoll Redirect.
+     * @param model model
+     * @return template
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/tweetpoll", method = RequestMethod.GET)
+    public String tweetPollControllerRedirect(final ModelMap model) {
+        log.debug("tweetpoll");
+        return "redirect:/user/tweetpoll/list";
     }
 
     /**

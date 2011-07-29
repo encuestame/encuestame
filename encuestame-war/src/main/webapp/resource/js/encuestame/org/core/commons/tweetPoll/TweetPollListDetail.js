@@ -12,6 +12,7 @@ dojo.require("dojox.form.Rating");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
 dojo.require("encuestame.org.core.shared.utils.YesNoWidget");
+dojo.require("encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPollListDetail",
@@ -27,15 +28,25 @@ dojo.declare(
         typeChart : ['Bars', 'Pie', 'Lines'],
         //post create
         postCreate : function(){
+            console.debug("DETAIL", this.data);
             dojo.subscribe("/encuestame/tweetpoll/detail/update", this, "updateDetail");
             dojo.subscribe("/encuestame/tweetpoll/detail/chart/render", this, "render");
+            this.updateDetail(this.data);
+            if (this._extra) {
+                dojo.connect(this._extra, "onclick", dojo.hitch(this, function(event){
+                    console.debug("click extra");
+                    dojo.stopEvent(event);
+                }));
+            }
+            //tab links.
+            //TODOL: future.
+
         },
 
         /**
          * Update Detail.
          */
         updateDetail : function(data){
-            console.debug("data 1", data);
             if(data != null){
                 this.loadContent(data);
             } else {
@@ -92,7 +103,7 @@ dojo.declare(
        },
 
         error : function(){
-            console.error("error");
+            console.error("tweetpoll list errorrrrrrrrr ");
         },
 
         /**
@@ -100,7 +111,6 @@ dojo.declare(
          */
         loadContent : function(data){
             this.data = data;
-            this._title.innerHTML = this.data.questionBean.questionName;
             this.displayChart(this.typeChart[1]);
             //Build Detail.
             dojo.empty(this._detailItems);
@@ -118,6 +128,25 @@ dojo.declare(
             this.addDetail(this.builDetailRow("Notifications", this.addYesNoWidget(
                     this.data.closeNotification
                     , dojo.hitch(this, this._setNotification))));
+            if (this._extra) {
+                dojo.forEach(
+                            this.data.tweetpoll_answers,
+                            dojo.hitch(this, function(data, index) {
+                            var param = {
+                                    aId : data.id,
+                                    color : data.results.color,
+                                    label : data.results.question_label,
+                                    owner : this.data.ownerUsername,
+                                    completed : this.data.completed,
+                                    url : data.short_url
+                                };
+                            var row = new encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer(
+                                    param
+                                    , "tr");
+                            this._extra.appendChild(row.domNode);
+                            dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [data.results.votes, data.results.percent]]);
+                     }));
+            }
         },
 
         addDetail : function(node){
@@ -172,7 +201,7 @@ dojo.declare(
          * Call Votes.
          */
         _callVotes : function(type){
-            var response = dojo.hitch(this, function(dataJson){
+            var response = dojo.hitch(this, function(dataJson) {
                 var votes = dataJson.success.votesResult;
                 var results = [];
                 dojo.forEach(
@@ -181,6 +210,7 @@ dojo.declare(
                             var answer = [data.question_label, (data.votes == null ? 0: data.votes), data.color];
                             console.debug("Re answer", answer);
                             results.push(answer);
+                            dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [data.votes, data.percent]]);
                 }));
                 var id = this.id+"_chart";
                 dojo.empty(this._chart);
@@ -192,7 +222,7 @@ dojo.declare(
                 } else if(type == this.typeChart[1]){
                     this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id, results);
                 }
-                this.render();
+                //this.render();
             });;
             this._callService(response, encuestame.service.list.VotesTweetPoll);
         },

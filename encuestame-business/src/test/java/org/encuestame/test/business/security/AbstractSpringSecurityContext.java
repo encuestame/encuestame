@@ -45,7 +45,7 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
     /**
      * Administrative user.
      */
-    private final String ADMINISTRATIVE_USER = "admin";
+    protected final String ADMINISTRATIVE_USER = "admin";
 
     /**
      * Before.
@@ -56,6 +56,8 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
        this.springSecurityLoggedUserAccount = createUserAccount(this.ADMINISTRATIVE_USER, createAccount());
        createPermission("ENCUESTAME_USER");
        createPermission("ENCUESTAME_ADMIN");
+       createPermission("ENCUESTAME_OWNER");
+       createPermission("ENCUESTAME_WRITE");
        //TODO:  maybe we need more specific here.
        setAuthentication(this.springSecurityLoggedUserAccount.getUsername(), "12345");
     }
@@ -85,6 +87,8 @@ public abstract class AbstractSpringSecurityContext extends AbstractServiceBase 
         //Add permissions.
         authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_USER.name()));
         authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_ADMIN.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_WRITE.name()));
+        authorities.add(new SimpleGrantedAuthority(EnMePermission.ENCUESTAME_OWNER.name()));
         TestingAuthenticationToken token = new TestingAuthenticationToken(username, password, authorities);
         token.setAuthenticated(true);
         SecurityContextHolder.getContext().setAuthentication(token);

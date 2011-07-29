@@ -15,6 +15,8 @@
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider
             ref="socialAccountProvider" />
+       <security:authentication-provider
+            ref="enMeUserAccountProvider" />
         <security:authentication-provider
              user-service-ref="enMeAuthenticationUserService">
             <security:password-encoder ref="passwordEncoder" />
@@ -25,6 +27,8 @@
     <bean id="enmeprovider" class="org.encuestame.core.security.EnMeUsernameProvider" autowire="byName"  />
     <bean id="socialAccountProvider"
         class="org.encuestame.core.security.SocialAccountAuthenticationProvider"  autowire="byName" />
+    <bean id="enMeUserAccountProvider"
+        class="org.encuestame.core.security.EnMeUserAccountProvider"  autowire="byName" />
 
     <!-- User Services -->
     <bean id="enMeAuthenticationUserService" class="org.encuestame.core.security.service.EnMeUserServiceImp"
@@ -63,9 +67,11 @@
         <security:intercept-url pattern="/home/**"  access="permitAll" />
         <security:intercept-url pattern="/profile/**" access="permitAll" />
         <security:intercept-url pattern="/tags/**"  access="permitAll" />
+        <security:intercept-url pattern="/signin/**" access="permitAll" />
         <security:intercept-url pattern="/user/signin/**" access="permitAll" />
+        <security:intercept-url pattern="/user/signup/**" access="permitAll" />
+        <security:intercept-url pattern="/user/signup/create" access="permitAll" />
         <security:intercept-url pattern="/user/forgot/**" access="permitAll" />
-        <security:intercept-url pattern="/user/signup/**" access="permitAll"  />
         <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_ADMIN')" />
         <security:intercept-url pattern="/settings/**/*" access="hasRole('ENCUESTAME_USER')" />

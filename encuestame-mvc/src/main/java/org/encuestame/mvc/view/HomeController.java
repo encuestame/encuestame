@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.IFrontEndService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.springframework.stereotype.Controller;
@@ -63,7 +63,8 @@ public class HomeController extends AbstractBaseOperations {
             return "redirect:/user/signin";
         } else {
             final String view = filterValue(request.getParameter("view"));
-            final String period = filterValue(request.getParameter("period"));
+            String period = filterValue(request.getParameter("period"));
+            period = (period == null ? "all" : period);
             final IFrontEndService service = getFrontService();
             try {
                 if (view.isEmpty()) {
@@ -75,6 +76,8 @@ public class HomeController extends AbstractBaseOperations {
                         model.addAttribute("items", service.searchItemsByPoll(period, 0 ,MAX_ITEMS));
                     } else if("survey".equals(view)){
                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
+                    } else {
+                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
                     }
                 }
                 model.addAttribute("hashTags", service.getHashTags(MAX_HASHTAG, 0, ""));

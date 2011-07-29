@@ -16,12 +16,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.business.service.SecurityService;
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.service.SecurityService;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
@@ -671,5 +672,19 @@ public class TestSecurityService extends AbstractServiceBase{
         getAccountDao().saveOrUpdate(account);
         final UserAccountBean userAccBean = securityService.getUserAccountbyCode(inviteCode);
         assertNotNull(userAccBean);
+    }
+
+    @Test
+    public void testRemoveUnconfirmedAccount(){
+        final Calendar createdAt = Calendar.getInstance();
+        createdAt.add(Calendar.DATE, -2);
+        final Account acc1 = createAccount(Boolean.TRUE);
+        createUserAccount(Boolean.FALSE, createdAt.getTime(), "diana", acc1);
+        createUserAccount(Boolean.FALSE, createdAt.getTime(), "paola", acc1);
+        createUserAccount(Boolean.FALSE, createdAt.getTime(), "isabella", acc1);
+        System.out.println("Account Id before --->"+ acc1.getUid());
+        securityService.removeUnconfirmedAccount(Boolean.FALSE);
+        // System.out.println("UserAccount without to set --->"+ msg);
+        assertEquals(acc1.getEnabled(), Boolean.FALSE);
     }
 }

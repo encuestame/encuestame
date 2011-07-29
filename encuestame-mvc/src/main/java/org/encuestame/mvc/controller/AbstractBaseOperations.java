@@ -30,26 +30,27 @@ import junit.framework.Assert;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.ProjectService;
-import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.business.service.imp.IFrontEndService;
-import org.encuestame.business.service.imp.ILocationService;
-import org.encuestame.business.service.imp.IPictureService;
-import org.encuestame.business.service.imp.IPollService;
-import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.business.service.imp.IServiceManager;
-import org.encuestame.business.service.imp.ISurveyService;
-import org.encuestame.business.service.imp.ITweetPollService;
-import org.encuestame.business.service.imp.SearchServiceOperations;
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
+import org.encuestame.core.service.AbstractSecurityContext;
+import org.encuestame.core.service.SecurityService;
+import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IPictureService;
+import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.core.service.imp.IServiceManager;
+import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.service.imp.SearchServiceOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
@@ -62,11 +63,11 @@ import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -264,50 +265,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
-     * Authenticate.
-     * @param request {@link HttpServletRequest}
-     * @param username username
-     * @param password password
-     */
-    public void authenticate(final HttpServletRequest request, final String username, final String password) {
-        try{
-            final UsernamePasswordAuthenticationToken usernameAndPassword = new UsernamePasswordAuthenticationToken(username, password);
-            final HttpSession session = request.getSession();
-            session.setAttribute(
-                    UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY,
-                    username);
-
-            final Authentication auth = getAuthenticationManager().authenticate(usernameAndPassword);
-
-            final SecurityContext securityContext = getSecCtx();
-            securityContext.setAuthentication(auth);
-            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-
-        }
-        catch (AuthenticationException e) {
-            SecurityContextHolder.getContext().setAuthentication(null);
-            log.error("Authenticate", e);
-        }
-    }
-
-    /**
-     * Authenticate User.
-     * @param user
-     * @deprecated user {@link SecurityUtils}.
-     */
-    @Deprecated
-    public void authenticate(final UserAccount user){
-        final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(user, true);
-        final Collection<GrantedAuthority> authorities = details.getAuthorities();
-        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(details, null,
-                authorities));
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication());
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().getName());
-        log.debug("SecurityContextHolder.getContext()"+SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-    }
-
-    /**
      * Relative Time.
      * @param date
      * @return
@@ -380,7 +337,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
-   @Deprecated
+
     public String getMessage(final String message,
             final HttpServletRequest request, Object[] args) {
         String stringValue = "";
@@ -400,7 +357,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
-    @Deprecated
+    //@Deprecated
     public String getMessage(final String message, Object[] args){
         return getMessage(message, null, args);
     }
@@ -410,7 +367,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param message
      * @return
      */
-    @Deprecated
+    //@Deprecated
     public String getMessage(final String message){
         return getMessage(message, null, null);
     }
@@ -420,9 +377,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param request
      * @return
      */
-    @Deprecated
-    private Locale getLocale(final HttpServletRequest request){
-        return RequestContextUtils.getLocale(request);
+    private Locale getLocale(final HttpServletRequest request) {
+        if(request == null){
+            return Locale.ENGLISH;
+        } else {
+            return RequestContextUtils.getLocale(request);
+        }
     }
 
     /**
@@ -471,7 +431,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * Location Service.
      * @return
      */
-    public ILocationService getLocationService(){
+    public GeoLocationSupport getLocationService(){
         return getServiceManager().getApplicationServices().getLocationService();
     }
 
@@ -722,5 +682,13 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        if (!tweetPoll.getCompleted()) {
            getTweetPollService().checkTweetPollCompleteStatus(tweetPoll);
        }
+   }
+
+   /**
+    *
+    * @return
+    */
+   public Boolean isSocialSignInUpEnabled(){
+       return EnMePlaceHolderConfigurer.getBooleanProperty("application.social.signin.enabled");
    }
 }

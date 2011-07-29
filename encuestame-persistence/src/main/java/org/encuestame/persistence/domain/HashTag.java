@@ -12,6 +12,8 @@
  */
 package org.encuestame.persistence.domain;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,10 +23,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.search.annotations.DocumentId;
@@ -37,7 +39,6 @@ import org.hibernate.search.annotations.Store;
  * Hash Tags Domain.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 23, 2010 11:49:56 PM
- * @version Id:
  */
 
 @Entity
@@ -54,7 +55,14 @@ public class HashTag {
     /** Total of hits. **/
     private Long hits;
 
+    /** Last time updated. **/
+    private Date updatedDate = Calendar.getInstance().getTime();
+
+    /** {@link TweetPoll} **/
     private Set<TweetPoll> tweetPoll = new HashSet<TweetPoll>();
+
+    /** Size Tag**/
+    private Long size;
 
     /**
      * @return the hashTagId
@@ -120,5 +128,35 @@ public class HashTag {
         this.tweetPoll = tweetPoll;
     }
 
+    /**
+    * @return the size
+    */
+    @Column(name = "size")
+    public Long getSize() {
+        return size;
+    }
 
+    /**
+    * @param size the size to set
+    */
+    public void setSize(final Long size) {
+        this.size = size;
+    }
+
+    /**
+     * @return the updatedDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Column(name = "hashtag_updated_date", nullable = false)
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+     * @param updatedDate the updatedDate to set
+     */
+    public void setUpdatedDate(final Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 }

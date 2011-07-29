@@ -22,7 +22,9 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
+import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.dao.IEmail;
+import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
 import org.encuestame.persistence.dao.IGroupDao;
@@ -36,8 +38,9 @@ import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.ClientDao;
+import org.encuestame.persistence.dao.imp.DashboardDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
-import org.encuestame.persistence.dao.imp.HashTagDao;
+import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Attachment;
@@ -50,9 +53,12 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
@@ -171,6 +177,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** {@link HashTagDao} **/
     @Autowired
     private IHashTagDao hashTagDao;
+
+    /** {@link FrontEndDao} **/
+    @Autowired
+    private IFrontEndDao frontEndDao;
+
+    /** {@link DashboardDao} **/
+    @Autowired
+    private IDashboardDao dashboardDao;
 
     /**
      * Get Property.
@@ -551,10 +565,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public UserAccount createUserAccount(
             final String name,
-            final Account secUser){
-        return createUserAccount(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser);
+            final Account account){
+        return createUserAccount(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", account);
     }
-
 
     public UserAccount createSecondaryUserGroup(
             final String name,
@@ -563,7 +576,56 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createSecondaryUserGroup(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
     }
 
+    /**
+     * Create gadget default.
+     * @return
+     */
+    public Gadget createGadgetDefault(){
+        return this.createGadget("default", "defaultType");
+    }
 
+    /**
+     * Create gadget.
+     * @param name
+     * @param type
+     * @return
+     */
+    public Gadget createGadget(final String name, final String type){
+        final Gadget gadget = new Gadget();
+        gadget.setGadgetName(name);
+        gadget.setGadgetType(type);
+        getDashboardDao().saveOrUpdate(gadget);
+        return gadget;
+    }
+
+    /**
+     * Create dashboard.
+     * @param boardName
+     * @param favorite
+     * @param userAcc
+     * @return
+     */
+    public Dashboard createDashboard(final String boardName,  final Boolean favorite, final UserAccount userAcc){
+        final Dashboard board = new Dashboard();
+        board.setPageBoardName(boardName);
+          board.setDescription("");
+          board.setFavorite(favorite);
+          board.setFavoriteCounter(1);
+          board.setPageLayout("AAA");
+          board.setBoardSequence(1);
+          board.setUserBoard(userAcc);
+          getDashboardDao().saveOrUpdate(board);
+        return board;
+    }
+
+    /**
+     * Create dashboard default.
+     * @param userAcc
+     * @return
+     */
+    public Dashboard createDashboardDefault(final UserAccount userAcc){
+        return this.createDashboard("Board default", Boolean.TRUE, userAcc);
+    }
 
     /**
      * Create Secondary User.
@@ -638,6 +700,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        getAccountDao().saveOrUpdate(account);
        return account;
     }
+
+    /**
+     * Create user account.
+     * @param status
+     * @param name
+     * @param account
+     * @return
+     */
+    public UserAccount createUserAccount(final Boolean status, final Date createdAt , final String name, final Account account){
+        final UserAccount userAcc = this.createUserAccount(name, account);
+        userAcc.setEnjoyDate(createdAt);
+        userAcc.setUserStatus(status);
+        getAccountDao().saveOrUpdate(userAcc);
+        return userAcc;
+     }
 
     /**
      * Create User.
@@ -1103,8 +1180,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final GeoPointFolder locationFolder){
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
-        geoPointFolder.setLocationFolderName(folderName);
-        geoPointFolder.setAccount(secUsers);
+        geoPointFolder.setFolderName(folderName);
+        geoPointFolder.setUsers(secUsers);
         geoPointFolder.setSubLocationFolder(locationFolder);
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         return geoPointFolder;
@@ -1303,7 +1380,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final UserAccount userAccount,
             final String socialProfileUsername,
             final Boolean verified,
-            final SocialProvider provider){
+            final SocialProvider provider) {
         final SocialAccount socialAccount = new SocialAccount();
         socialAccount.setAccessToken(token);
         socialAccount.setSecretToken(secretToken);
@@ -1312,6 +1389,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         long randomNum = 100 + (int)(Math.random()* 4000);
         socialAccount.setSocialProfileId(String.valueOf(randomNum)+RandomStringUtils.randomAlphanumeric(10));
         socialAccount.setVerfied(verified);
+        socialAccount.setUserOwner(userAccount);
         socialAccount.setAccounType(provider);
         socialAccount.setSocialAccountName(socialProfileUsername+RandomStringUtils.randomAlphanumeric(10));
         socialAccount.setUpgradedCredentials(new Date());
@@ -1336,7 +1414,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 account,
-                getProperty("twitter.test.account"), Boolean.FALSE, SocialProvider.TWITTER);
+                getProperty("twitter.test.account"), Boolean.TRUE, SocialProvider.TWITTER);
     }
 
     /**
@@ -1350,7 +1428,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
                 getProperty("twitter.test.token"),
                 getProperty("twitter.test.tokenSecret"),
                 account,
-                getProperty("twitter.test.account"), Boolean.FALSE, provider);
+                getProperty("twitter.test.account"), Boolean.TRUE, provider);
     }
 
 
@@ -1374,11 +1452,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
    * @param users
    * @return
    */
-    public SurveyFolder createSurveyFolders(final String folderName, final Account users){
+    public SurveyFolder createSurveyFolders(final String folderName, final UserAccount users){
         final SurveyFolder surveyFolders = new SurveyFolder();
         surveyFolders.setCreatedAt(new Date());
         surveyFolders.setFolderName(folderName);
-        surveyFolders.setUsers(users);
+        surveyFolders.setUsers(users.getAccount());
+        surveyFolders.setStatus(Status.ACTIVE);
+        surveyFolders.setCreatedBy(users);
         getSurveyDaoImp().saveOrUpdate(surveyFolders);
         return surveyFolders;
     }
@@ -1390,11 +1470,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param users {@link Account}
      * @return {@link PollFolder}.
      */
-    public PollFolder createPollFolder(final String folderName, final Account users){
+    public PollFolder createPollFolder(final String folderName, final UserAccount users){
         final PollFolder folder = new PollFolder();
         folder.setCreatedAt(new Date());
         folder.setFolderName(folderName);
-        folder.setUsers(users);
+        folder.setUsers(users.getAccount());
+        folder.setStatus(Status.ACTIVE);
+        folder.setCreatedBy(users);
         getiPoll().saveOrUpdate(folder);
         return folder;
     }
@@ -1405,11 +1487,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param users
      * @return
      */
-    public TweetPollFolder createTweetPollFolder(final String folderName, final Account users){
+    public TweetPollFolder createTweetPollFolder(final String folderName, final UserAccount users){
         final TweetPollFolder folder = new TweetPollFolder();
         folder.setCreatedAt(new Date());
         folder.setFolderName(folderName);
-        folder.setUsers(users);
+        folder.setStatus(Status.ACTIVE);
+        folder.setCreatedBy(users);
+        folder.setUsers(users.getAccount());
         getTweetPoll().saveOrUpdate(folder);
         return folder;
     }
@@ -1552,6 +1636,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(hashTagName);
         hashTag.setHits(0L);
+        hashTag.setUpdatedDate(new Date());
+        hashTag.setSize(0L);
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;
     }
@@ -1596,6 +1682,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public void setHashTagDao(IHashTagDao hashTagDao) {
         this.hashTagDao = hashTagDao;
     }
+
+    /**
+    * @return the frontEndDao
+    */
+    public IFrontEndDao getFrontEndDao() {
+        return frontEndDao;
+    }
+
+    /**
+    * @param frontEndDao the frontEndDao to set
+    */
+    public void setFrontEndDao(IFrontEndDao frontEndDao) {
+        this.frontEndDao = frontEndDao;
+    }
+
 
     /**
      * Create fake questions.
@@ -1656,8 +1757,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
          return tweetPoll;
      }
 
-     /**
-      *
+      /**
       * @param tweetPoll
       * @param tweetId
       * @param socialAccount
@@ -1671,10 +1771,42 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         publishedStatus.setTweetPoll(tweetPoll);
         publishedStatus.setStatus(org.encuestame.persistence.domain.tweetpoll.Status.SUCCESS);
         publishedStatus.setTweetContent(tweetText);
-        publishedStatus.setTwitterAccount(socialAccount);
+        publishedStatus.setSocialAccount(socialAccount);
         publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
         publishedStatus.setPublicationDateTweet(new Date());
         getTweetPoll().saveOrUpdate(publishedStatus);
         return publishedStatus;
+    }
+
+
+    /**
+     * Create hash tag hit by ip.
+     * @param hashTagName
+     * @param ipAddress
+     * @return
+     */
+    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress, final UserAccount userAcc){
+       final Date hitDate = new Date();
+       final HashTagHits tagHits = new HashTagHits();
+       tagHits.setHitDate(hitDate);
+       tagHits.setIpAddress(ipAddress);
+       tagHits.setHashTagId(hashTag);
+       tagHits.setUserAccount(userAcc);
+       getHashTagDao().saveOrUpdate(tagHits);
+       return tagHits;
+    }
+
+    /**
+    * @return the dashboardDao
+    */
+    public IDashboardDao getDashboardDao() {
+        return dashboardDao;
+    }
+
+    /**
+    * @param dashboardDao the dashboardDao to set
+    */
+    public void setDashboardDao(final IDashboardDao dashboardDao) {
+        this.dashboardDao = dashboardDao;
     }
 }

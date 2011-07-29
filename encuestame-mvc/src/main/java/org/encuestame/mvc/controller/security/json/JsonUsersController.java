@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.business.service.SecurityService.Profile;
+import org.encuestame.core.util.Profile;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -194,10 +194,6 @@ public class JsonUsersController extends AbstractJsonController{
             final UserAccountBean userBean = new UserAccountBean();
             userBean.setEmail(email);
             userBean.setUsername(username);
-            ///final Integer emails = getServiceManager().getApplicationServices()
-            //     .getSecurityService().searchUsersByEmail(email).size();
-            //final Integer usernames = getServiceManager().getApplicationServices()
-            //     .getSecurityService().searchUsersByUsername(username).size();
             final ValidateOperations cv = new ValidateOperations( getServiceManager().getApplicationServices()
                   .getSecurityService());
             if(cv.validateEmail(email)){ //TODO && cv.validateUsername(username)

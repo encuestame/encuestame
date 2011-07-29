@@ -12,7 +12,7 @@
  */
 package org.encuestame.mvc.controller.security;
 
-import org.encuestame.business.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 

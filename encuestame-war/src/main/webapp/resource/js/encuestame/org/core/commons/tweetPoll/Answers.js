@@ -23,6 +23,8 @@ dojo.declare(
 
         buttonWidget : null,
 
+        label : "Answer",
+
         tweetPollId : null,
 
         answerSource : null,
@@ -119,9 +121,9 @@ dojo.declare(
                    var items = [];
                    var answerWidget = new encuestame.org.core.commons.tweetPoll.AnswerItem({
                        answer :{
-                           answerId : data.success.newAnswer.answerBean.answerId,
-                           label: data.success.newAnswer.answerBean.answers,
-                           shortUrl : data.success.newAnswer.shortUrl,
+                           answerId : data.success.newAnswer.answer.answerId,
+                           label: data.success.newAnswer.answer.answers,
+                           shortUrl : data.success.newAnswer.short_url,
                            provider: encuestame.shortUrlProvider[1]
                       },
                       parentAnswer : this,

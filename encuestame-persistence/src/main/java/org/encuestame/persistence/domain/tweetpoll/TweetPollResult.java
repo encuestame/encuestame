@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.persistence.domain.AbstractGeoPoint;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -41,7 +42,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="TweetPollResult")
 @Table(name = "tweetpoll_result")
-public class TweetPollResult {
+public class TweetPollResult extends AbstractGeoPoint{
 
     private Long tweetPollResultId;
     private TweetPollSwitch tweetPollSwitch;

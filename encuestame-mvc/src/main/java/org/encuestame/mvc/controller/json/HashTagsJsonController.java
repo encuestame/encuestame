@@ -24,7 +24,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,6 +52,8 @@ public class HashTagsJsonController extends AbstractJsonController{
      * Limit of results by default.
      */
     private final static Integer LIMIT_DEFAULT = 10;
+
+    private final static Integer CLOUD_LIMIT_DEFAULT = 20;
 
      /**
      * Get List of Users.
@@ -115,9 +117,8 @@ public class HashTagsJsonController extends AbstractJsonController{
              final IFrontEndService service = getFrontService();
              final List<HashTagBean> hashTagList;
              if(limit == null){
-                 hashTagList = service.getHashTags(20, 0, "hashTagsCloud"); // TODO: Add to file properties limit to show hashtags.
-             }
-             else {
+                 hashTagList = service.getHashTags(CLOUD_LIMIT_DEFAULT, 0, "hashTagsCloud"); // TODO: Add to file properties limit to show hashtags.
+             } else {
                 hashTagList = service.getHashTags(limit, 0, "hashTagsCloud");
              }
              jsonResponse.put("cloud", hashTagList);

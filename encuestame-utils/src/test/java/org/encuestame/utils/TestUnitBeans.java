@@ -18,15 +18,18 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.ResumeResultTweetPoll;
+import org.encuestame.utils.json.SocialAccountBean;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.ForgotPasswordBean;
-import org.encuestame.utils.security.SocialAccountBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
-import org.encuestame.utils.web.ResumeResultTweetPoll;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitCatStateBean;
@@ -35,15 +38,12 @@ import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitPoll;
-import org.encuestame.utils.web.UnitPollResult;
+import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.QuestionBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
@@ -91,7 +91,7 @@ import org.junit.Test;
     */
     @Test
     public void testUnitPatternBean() {
-        final UnitPatternBean unitPattern = createUnitPatternBean("b", "", "",
+        final QuestionPatternBean unitPattern = createUnitPatternBean("b", "", "",
                 2L, "", "", "", 1, "");
         assertNotNull(unitPattern);
     }
@@ -233,11 +233,11 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link UnitPoll}.
+     * Test {@link PollBean}.
      */
     @Test
     public void testUnitPoll(){
-        final UnitPoll poll = new UnitPoll();
+        final PollBean poll = new PollBean();
         poll.setId(1L);
         poll.setCompletedPoll(true);
         poll.setCreationDate(new Date());
@@ -259,13 +259,13 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link UnitPollResult}.
+     * Test {@link PollBeanResult}.
      */
     @Test
     public void testUnitPollResult(){
-        final UnitPollResult pollResult =  new UnitPollResult();
+        final PollBeanResult pollResult =  new PollBeanResult();
         pollResult.setAnswerBean(new QuestionAnswerBean());
-        pollResult.setPoll( new UnitPoll());
+        pollResult.setPoll( new PollBean());
         pollResult.setResult(1L);
         pollResult.setVotedDate(new Date());
         assertNotNull(pollResult.getAnswerBean());
@@ -411,7 +411,7 @@ import org.junit.Test;
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setId(1L);
         questionBean.setListAnswers(new ArrayList<QuestionAnswerBean>());
-        questionBean.setPattern(new UnitPatternBean());
+        questionBean.setPattern(new QuestionPatternBean());
         questionBean.setQuestionName("Why sky is blue?");
         questionBean.setStateId(1L);
         questionBean.setUserId(1L);
@@ -426,11 +426,11 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link UnitPatternBean}.
+     * Test {@link QuestionPatternBean}.
      */
     @Test
     public void testUnitPatterBean(){
-        final UnitPatternBean patternBean = new UnitPatternBean();
+        final QuestionPatternBean patternBean = new QuestionPatternBean();
         patternBean.setId(1L);
         patternBean.setClasspattern("class.class");
         patternBean.setDescripcion("description");
@@ -598,7 +598,7 @@ import org.junit.Test;
     @Test
     public void testUnitSearchItem(){
         final UnitSearchItem si = new UnitSearchItem();
-        si.setPolls(new ArrayList<UnitPoll>());
+        si.setPolls(new ArrayList<PollBean>());
         si.setTweetPolls(new ArrayList<TweetPollBean>());
         assertNotNull(si.getPolls());
         assertNotNull(si.getTweetPolls());

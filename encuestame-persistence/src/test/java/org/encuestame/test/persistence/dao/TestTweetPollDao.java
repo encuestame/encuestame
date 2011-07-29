@@ -86,7 +86,7 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch1, "192.168.0.2");
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
-      this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary.getAccount());
+      this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary);
       tweetPoll.setNumbervotes(65);
     }
 
@@ -143,7 +143,7 @@ public class TestTweetPollDao  extends AbstractBase{
     @Test
     public void testGetTweetPollFolderByIdandUser(){
         assertNotNull(this.tweetPollFolder);
-        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getAccount().getUid());
+        final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getAccount());
         assertEquals("Should be equals", this.tweetPollFolder.getId(), tpf.getId());
      }
 
@@ -164,7 +164,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetPollFolderByUserId(){
         assertNotNull(tweetPollFolder);
         assertNotNull(secondary);
-        final List<TweetPollFolder> tpfu = getTweetPoll().retrieveTweetPollFolderByUserId(this.secondary.getAccount().getUid());
+        final List<TweetPollFolder> tpfu = getTweetPoll().retrieveTweetPollFolderByAccount(this.secondary.getAccount());
         assertEquals("Should be equals", 1, tpfu.size());
     }
 
@@ -288,23 +288,23 @@ public class TestTweetPollDao  extends AbstractBase{
         getTweetPoll().saveOrUpdate(tweetPoll2);
 
         final Calendar calendar3 = Calendar.getInstance();
-        System.out.println("THIRD CALENDAR --> "+calendar3.getTime());
+        //System.out.println("THIRD CALENDAR --> "+calendar3.getTime());
 
         final HashMap<Integer, RelativeTimeEnum> hm3 = DateUtil.getRelativeTime(tweetPoll1.getCreateDate());
-        System.out.println("HM 3 ---------->"+hm3);
+        //System.out.println("HM 3 ---------->"+hm3);
 
         final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
-        System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
+        //System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
 
 
         final Calendar calendar4 = Calendar.getInstance();
-        System.out.println(calendar.getTime());
+        //System.out.println(calendar.getTime());
 
         final HashMap<Integer, RelativeTimeEnum> hm4 = DateUtil.getRelativeTime(tweetPoll2.getCreateDate());
-        System.out.println("HM---------->"+hm4);
+        //System.out.println("HM---------->"+hm4);
 
         for (TweetPoll tweetPoll : tweetPolls2) {
-             System.out.println(" TWITS BY HASHTAG --> " + tweetPoll.getQuestion().getQuestion() + "Published -->" + tweetPoll.getCreateDate());
+             //System.out.println(" TWITS BY HASHTAG --> " + tweetPoll.getQuestion().getQuestion() + "Published -->" + tweetPoll.getCreateDate());
         }
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }

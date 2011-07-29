@@ -152,6 +152,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
         final String responseAsString = this.callStringService();
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
+        //System.out.println(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
     }
 
@@ -162,7 +163,21 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      */
     public JSONObject getErrors(final JSONObject response){
         Assert.assertNotNull("You need call first callJsonService", this.response);
-        return (JSONObject) response.get("error");
+        log.debug("error =--->"+response);
+        final JSONObject error = (JSONObject) response.get("error");
+        Assert.assertNotNull(error);
+        return error;
+    }
+
+    /**
+     *
+     * @param response
+     * @return
+     */
+    public String getErrorsMessage(final JSONObject response){
+        final String error = (String) this.getErrors(response).get("message");
+        Assert.assertNotNull(error);
+        return error;
     }
 
     /**
@@ -172,8 +187,11 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      */
     public JSONObject getSucess(final JSONObject response){
         Assert.assertNotNull("You need call first callJsonService", this.response);
-        System.out.println(this.response);
-        return (JSONObject) response.get("success");
+        if(response.get("success") == null) {
+            return new JSONObject();
+        } else {
+            return (JSONObject) response.get("success");
+        }
     }
 
     /**
@@ -228,5 +246,14 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
          final JSONObject sucess = getSucess(response);
         Assert.assertEquals(sucess.get("r").toString(), "0");
     }
+
+    /**
+     *
+     * @param response
+     */
+    public void assertFailedResponse(final JSONObject response){
+        final JSONObject error = getErrors(response);
+        Assert.assertNotNull(error);
+   }
 
 }
