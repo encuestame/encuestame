@@ -22,6 +22,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
+import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IGeoPoint;
@@ -37,6 +38,7 @@ import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ISurveyFormatDao;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.ClientDao;
+import org.encuestame.persistence.dao.imp.DashboardDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.PollDao;
@@ -55,6 +57,8 @@ import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
@@ -177,6 +181,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** {@link FrontEndDao} **/
     @Autowired
     private IFrontEndDao frontEndDao;
+
+    /** {@link DashboardDao} **/
+    @Autowired
+    private IDashboardDao dashboardDao;
 
     /**
      * Get Property.
@@ -568,7 +576,56 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createSecondaryUserGroup(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
     }
 
+    /**
+     * Create gadget default.
+     * @return
+     */
+    public Gadget createGadgetDefault(){
+        return this.createGadget("default", "defaultType");
+    }
 
+    /**
+     * Create gadget.
+     * @param name
+     * @param type
+     * @return
+     */
+    public Gadget createGadget(final String name, final String type){
+        final Gadget gadget = new Gadget();
+        gadget.setGadgetName(name);
+        gadget.setGadgetType(type);
+        getDashboardDao().saveOrUpdate(gadget);
+        return gadget;
+    }
+
+    /**
+     * Create dashboard.
+     * @param boardName
+     * @param favorite
+     * @param userAcc
+     * @return
+     */
+    public Dashboard createDashboard(final String boardName,  final Boolean favorite, final UserAccount userAcc){
+        final Dashboard board = new Dashboard();
+        board.setPageBoardName(boardName);
+          board.setDescription("");
+          board.setFavorite(favorite);
+          board.setFavoriteCounter(1);
+          board.setPageLayout("AAA");
+          board.setBoardSequence(1);
+          board.setUserBoard(userAcc);
+          getDashboardDao().saveOrUpdate(board);
+        return board;
+    }
+
+    /**
+     * Create dashboard default.
+     * @param userAcc
+     * @return
+     */
+    public Dashboard createDashboardDefault(final UserAccount userAcc){
+        return this.createDashboard("Board default", Boolean.TRUE, userAcc);
+    }
 
     /**
      * Create Secondary User.
@@ -1737,5 +1794,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        tagHits.setUserAccount(userAcc);
        getHashTagDao().saveOrUpdate(tagHits);
        return tagHits;
+    }
+
+    /**
+    * @return the dashboardDao
+    */
+    public IDashboardDao getDashboardDao() {
+        return dashboardDao;
+    }
+
+    /**
+    * @param dashboardDao the dashboardDao to set
+    */
+    public void setDashboardDao(final IDashboardDao dashboardDao) {
+        this.dashboardDao = dashboardDao;
     }
 }
