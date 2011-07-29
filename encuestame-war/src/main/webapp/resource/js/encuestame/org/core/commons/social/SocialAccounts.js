@@ -208,6 +208,15 @@ dojo.declare(
 
             postCreate : function(){
               console.debug("account", this.account);
+              if (this._removeButton) {
+                  if (this.account.tweetpoll_stats > 0 || this.account.poll_stats > 0 || this.account.survey_stats > 0) {
+                      console.debug("remove this button ", this._removeButton);
+                      dojo.destroy(this._removeButton.domNode);
+                  } else {
+                      console.debug("add this button ", this._removeButton);
+                      dojo.connect(this._removeButton, "onClick", dojo.hitch(this, "_remove"));
+                  }
+              }
               dojo.subscribe("/encuestame/social/account/row/show", this, function(widget){
                   if (this.id != widget.id) {
                       this._secrets = true;

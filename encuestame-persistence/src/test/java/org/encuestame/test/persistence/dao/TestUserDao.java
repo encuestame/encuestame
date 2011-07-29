@@ -424,7 +424,11 @@ public class TestUserDao extends AbstractBase {
     public void testgetSocialAccountStats() {
         createTweetPollPublicated(true, true, null, userAccount, createQuestion("test", this.userAccount.getAccount()));
         createTweetPollSavedPublishedSTatus(tweetPoll, "12345", this.socialAccount, "hello encuestame");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12346", this.socialAccount, "hello encuestame 1");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12347", this.socialAccount, "hello encuestame 2");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12348", this.socialAccount, "hello encuestame 3");
         final HashMap<String, Long> d = getAccountDao().getSocialAccountStats(this.socialAccount);
+        System.out.println(d);
     }
 
     /**
