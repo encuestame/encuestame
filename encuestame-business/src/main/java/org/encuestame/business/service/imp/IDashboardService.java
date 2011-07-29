@@ -12,6 +12,12 @@
  */
 package org.encuestame.business.service.imp;
 
+import java.util.List;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+
 /**
  * Dashboard Service.
  * @author Morales, Diana Paola paolaATencuestame.org
@@ -19,4 +25,62 @@ package org.encuestame.business.service.imp;
  */
 public interface IDashboardService {
 
+	/**
+	  * Get all dashboards.
+	  * @param username
+	  * @param maxResults
+	  * @param start
+	  * @return
+	  * @throws EnMeNoResultsFoundException
+	  */
+	List<Dashboard> getAllDashboards(final String username,
+            final Integer maxResults,
+            final Integer start) throws EnMeNoResultsFoundException;
+
+	/**
+	 * Get all dashboard by id and username.
+	 * @param boardId
+	 * @param username
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Dashboard getAllDashboardbyId(final Long boardId, final String username) throws EnMeNoResultsFoundException;
+
+	/**
+	 * Retrieve favourites dashboards.
+	 * @param userId
+	 * @param maxResults
+	 * @param start
+	 * @return
+	 */
+	List<Dashboard> retrieveFavouritesDashboards(final Long userId,
+	        final Integer maxResults,
+	        final Integer start);
+
+	/**
+	 * Get dashboard by id.
+	 * @param boardId
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Dashboard getDashboardById(final Long boardId) throws EnMeNoResultsFoundException;
+
+	/**
+	 * Get gadget by id.
+	 * @param gadgetId
+	 * @return
+	 */
+	Gadget getGadgetById(final Long gadgetId);
+
+	/**
+	 * Search gadgets by keyword.
+	 * @param keyword
+	 * @param maxResults
+	 * @param start
+	 * @return
+	 * @throws EnMeExpcetion
+	 */
+	List<Gadget> searchGadgetbyKeyword(final String keyword,
+            final Integer maxResults,
+            final Integer start)throws EnMeExpcetion;
 }
