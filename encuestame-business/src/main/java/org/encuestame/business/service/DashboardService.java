@@ -20,9 +20,12 @@ import org.encuestame.business.service.imp.IDashboardService;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDashboardNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeGadgetNotFoundException;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.DashboardBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -109,4 +112,50 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
 	        log.info("search keyword Gadgets size "+gadgets.size());
 	        return gadgets;
 	    }
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.business.service.imp.IDashboardService#createDashboard(org.encuestame.utils.web.DashboardBean, org.encuestame.persistence.domain.security.UserAccount)
+	 */
+	public Dashboard createDashboard(final DashboardBean dashboardBean, final UserAccount user){
+		final Dashboard board = new Dashboard();
+			board.setPageBoardName(dashboardBean.getDashboardName());
+			board.setDescription(dashboardBean.getDashboardDesc());
+			board.setFavorite(dashboardBean.getFavorite());
+			board.setBoardSequence(dashboardBean.getSequence());
+			board.setFavoriteCounter(dashboardBean.getFavoriteCounter());
+			//board.setGadgetDashboard(gadgetDashboard);
+			//board.setPageLayout(dashboardBean.getLayout());
+			board.setUserBoard(user);
+		return board;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.business.service.imp.IDashboardService#addGadgetOnDashboard(java.lang.Long, java.lang.Long)
+	 */
+	public void addGadgetOnDashboard(final Long boardId, final Long gadgetId) throws EnMeGadgetNotFoundException{
+		final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
+		if(gadget!=null){
+			final Dashboard dashboard = getDashboardDao().getDashboardbyId(boardId);
+			dashboard.getGadgetDashboard().add(gadget);
+
+		}else{
+            throw new EnMeGadgetNotFoundException("gadget not found");
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.business.service.imp.IDashboardService#removeGadget(java.lang.Long)
+	 */
+	public void removeGadget(final Long gadgetId) throws EnMeGadgetNotFoundException{
+		final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
+		if(gadget!=null){
+			getDashboardDao().delete(gadget);
+		}
+		else{
+			throw new EnMeGadgetNotFoundException("gadget not found");
+		}
+	}
 }

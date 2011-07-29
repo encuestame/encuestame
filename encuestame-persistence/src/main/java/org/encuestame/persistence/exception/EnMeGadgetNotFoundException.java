@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,28 +10,23 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.json;
-
-import org.apache.log4j.Logger;
-import org.encuestame.mvc.controller.AbstractJsonController;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+package org.encuestame.persistence.exception;
 
 /**
- * DashBoard Json Controller.
+ * EnMe Gadget exception.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 29, 2011
  */
-@Controller
-public class DashboardJsonController extends AbstractJsonController {
+public class EnMeGadgetNotFoundException extends EnMeNoResultsFoundException {
 
     /**
-     * Log.
+     * Constructor.
      */
-    private Logger log = Logger.getLogger(this.getClass());
-
-    public ModelMap getAllWidgets(){
-    	return null;
+    public EnMeGadgetNotFoundException() {
+        super("user not found");
     }
 
+    public EnMeGadgetNotFoundException(String message) {
+        super(message);
+    }
 }

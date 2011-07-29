@@ -15,8 +15,11 @@ package org.encuestame.business.service.imp;
 import java.util.List;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeGadgetNotFoundException;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.DashboardBean;
 
 /**
  * Dashboard Service.
@@ -83,4 +86,27 @@ public interface IDashboardService {
 	List<Gadget> searchGadgetbyKeyword(final String keyword,
             final Integer maxResults,
             final Integer start)throws EnMeExpcetion;
+
+	/**
+	 * Create dashboard.
+	 * @param dashboardBean
+	 * @param user
+	 * @return
+	 */
+	Dashboard createDashboard(final DashboardBean dashboardBean, final UserAccount user);
+
+	/**
+	 * Add gadget on dashboard.
+	 * @param boardId
+	 * @param gadgetId
+	 * @throws EnMeGadgetNotFoundException
+	 */
+	void addGadgetOnDashboard(final Long boardId, final Long gadgetId) throws EnMeGadgetNotFoundException;
+
+	/**
+	 * Remove gadget.
+	 * @param gadgetId
+	 * @throws EnMeGadgetNotFoundException
+	 */
+	void removeGadget(final Long gadgetId) throws EnMeGadgetNotFoundException;
 }

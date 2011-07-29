@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -14,6 +15,7 @@ import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
+import org.encuestame.utils.web.UserAccountBean;
 
 import junit.framework.TestCase;
 
@@ -268,6 +270,19 @@ public abstract class AbstractBaseUtils extends TestCase{
         return unitEmails;
      }
 
+     /**
+      * Create unit poll complete.
+      * @param closeNotification
+      * @param completedPoll
+      * @param creationDate
+      * @param finishDate
+      * @param hashTags
+      * @param idPoll
+      * @param publishPoll
+      * @param questionBean
+      * @param showResultsPoll
+      * @return
+      */
      public PollBean createUnitPollComplete(
              final Boolean closeNotification,
              final Boolean completedPoll,
@@ -292,4 +307,30 @@ public abstract class AbstractBaseUtils extends TestCase{
 
      }
 
+     /**
+      * Create dashboard bean.
+      * @param dashboardName
+      * @param dashboardDesc
+      * @param favorite
+      * @param layout
+      * @param sequence
+      * @param counter
+      * @return
+      */
+     public DashboardBean createDashboardBean(
+    		 final String dashboardName,
+    		 final String dashboardDesc,
+    		 final Boolean favorite,
+    		 final String layout,
+    		 final Integer sequence,
+    		 final Integer counter){
+    	 final DashboardBean dashboardBean = new DashboardBean();
+    	 dashboardBean.setDashboardName(dashboardName);
+    	 dashboardBean.setDashboardDesc(dashboardDesc);
+    	 dashboardBean.setFavorite(favorite);
+    	 dashboardBean.setLayout(layout);
+    	 dashboardBean.setSequence(sequence);
+    	 dashboardBean.setFavoriteCounter(counter);
+    	 return dashboardBean;
+     }
 }
