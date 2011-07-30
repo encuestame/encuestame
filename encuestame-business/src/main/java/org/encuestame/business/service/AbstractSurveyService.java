@@ -46,7 +46,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.social.api.BuzzAPITemplate;
+import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
@@ -499,8 +499,8 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.error(e);
                 e.printStackTrace();
             }
-        } else if (socialAccount.getAccounType().equals(SocialProvider.GOOGLE)) {
-            BuzzAPIOperations buzzInAPIOperations = new BuzzAPITemplate(socialAccount);
+        } else if (socialAccount.getAccounType().equals(SocialProvider.GOOGLE_BUZZ)) {
+            BuzzAPIOperations buzzInAPIOperations = new GoogleBuzzAPITemplate(socialAccount);
             try {
                 log.debug("Publish on LinkedIn............>");
                 published = buzzInAPIOperations.updateStatus(tweetText);

@@ -379,6 +379,10 @@
                <groupId>com.google.api.client</groupId>
                <artifactId>google-api-client</artifactId>
           </dependency>
+          <dependency>
+             <groupId>com.google.gdata</groupId>
+             <artifactId>gdata-java-client</artifactId>
+          </dependency>
     </dependencies>
     <build>
         <filters>
