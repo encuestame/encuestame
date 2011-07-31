@@ -185,8 +185,10 @@ public class ConvertDomainBean {
      * @return
      */
     public static final  List<SocialAccountBean> convertListSocialAccountsToBean(final List<SocialAccount> accounts) {
+        log.debug("convertListSocialAccountsToBean "+accounts.size());
         final List<SocialAccountBean> loadListPermission = new ArrayList<SocialAccountBean>();
         for (SocialAccount account : accounts) {
+            log.debug("convertListSocialAccountsToBean account "+account.getId());
             loadListPermission.add(ConvertDomainBean.convertSocialAccountToBean(account));
         }
         return loadListPermission;

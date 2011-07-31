@@ -1,6 +1,4 @@
-LEEME.txt
 
-Si tu quieres consturir y deployar desde el código fuente sigue las siguientes
-instrucciones.
+Aqui las instrucciones para construir Encuestame: (Por ahora solo en ingles ;) )
 
-    http://wiki.encuestame.org/
+   http://wiki.encuestame.org/display/DOC/How+to+build+Encuestame

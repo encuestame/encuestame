@@ -16,7 +16,7 @@
         <url>http://issues.encuestame.org</url>
     </issueManagement>
     <ciManagement>
-        <system>Jenkins</system>
+        <system>Bamboo</system>
         <url>http://ci.encuestame.org</url>
     </ciManagement>
     <inceptionYear>2009</inceptionYear>
@@ -97,8 +97,8 @@
 	<comet.version>2.1.0</comet.version>
 
          <!-- Plugin Version -->
-         <surefire.version>2.6</surefire.version>
-         <site.version>2.2</site.version>
+         <surefire.version>2.9</surefire.version>
+         <site.version>2.3</site.version>
     	 <jetty7.version>7.2.2.v20101205</jetty7.version>
          <jetty-plugin-version>${jetty7.version}</jetty-plugin-version>
      </properties>

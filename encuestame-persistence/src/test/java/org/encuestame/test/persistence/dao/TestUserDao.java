@@ -311,10 +311,10 @@ public class TestUserDao extends AbstractBase {
      */
     //@Test
     public void testgetSocialAccount(){
-        final SocialAccount ac = createSocialProviderAccount(this.userAccount, SocialProvider.GOOGLE);
+        final SocialAccount ac = createSocialProviderAccount(this.userAccount, SocialProvider.GOOGLE_BUZZ);
         final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
         assertEquals("Should be equals", ac.getId(),ex.getId());
-        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE, ex.getSocialProfileId());
+        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE_BUZZ, ex.getSocialProfileId());
         assertNotNull(ex2);
         assertEquals("Should be equals", ac.getId(), ex2.getId());
     }
@@ -424,7 +424,11 @@ public class TestUserDao extends AbstractBase {
     public void testgetSocialAccountStats() {
         createTweetPollPublicated(true, true, null, userAccount, createQuestion("test", this.userAccount.getAccount()));
         createTweetPollSavedPublishedSTatus(tweetPoll, "12345", this.socialAccount, "hello encuestame");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12346", this.socialAccount, "hello encuestame 1");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12347", this.socialAccount, "hello encuestame 2");
+        createTweetPollSavedPublishedSTatus(tweetPoll, "12348", this.socialAccount, "hello encuestame 3");
         final HashMap<String, Long> d = getAccountDao().getSocialAccountStats(this.socialAccount);
+        System.out.println(d);
     }
 
     /**

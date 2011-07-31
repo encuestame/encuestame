@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.security.oauth;
+package org.encuestame.oauth.security;
 
 import org.encuestame.persistence.dao.IApplicationDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;

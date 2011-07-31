@@ -423,9 +423,9 @@ public class TestHibernateDomains extends AbstractBase{
         tagHits.setHitDate(hitDate);
         tagHits.setIpAddress(ipAddress);
         tagHits.setUserAccount(createUserAccount("juan carlos", createAccount()));
-        tagHits.setHashTagId(createHashTag(tagName));
+        tagHits.setHashTag(createHashTag(tagName));
         getHashTagDao().saveOrUpdate(tagHits);
-        assertNotNull(tagHits.getHashTagId());
+        assertNotNull(tagHits.getHashTag());
      }
 
      /** Dashboard domain. **/
@@ -454,11 +454,11 @@ public class TestHibernateDomains extends AbstractBase{
      /** Gadget Properties **/
      @Test
      public void testGadgetProperties(){
-    	 final GadgetProperties gadgetProp = new GadgetProperties();
-    	 gadgetProp.setGadgetPropName("maxResults");
-    	 gadgetProp.setGadgetPropValue("10");
-    	 gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
-    	 gadgetProp.setGadget(createGadgetDefault());
-    	 getDashboardDao().saveOrUpdate(gadgetProp);
+         final GadgetProperties gadgetProp = new GadgetProperties();
+         gadgetProp.setGadgetPropName("maxResults");
+         gadgetProp.setGadgetPropValue("10");
+         gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
+         gadgetProp.setGadget(createGadgetDefault());
+         getDashboardDao().saveOrUpdate(gadgetProp);
      }
 }

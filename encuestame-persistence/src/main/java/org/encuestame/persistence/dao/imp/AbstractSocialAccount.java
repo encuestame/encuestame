@@ -345,7 +345,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
         log.debug("getSocialAccountStats "+socialAccount.getId());
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSavedPublishedStatus.class);
         criteria.add(Restrictions.eq("socialAccount", socialAccount));
-        criteria.setProjection(Projections.id());
+        criteria.setProjection(Projections.rowCount());
         final List<Long> tweetPollstats = getHibernateTemplate().findByCriteria(criteria);
         log.debug("getSocialAccountStats "+tweetPollstats.size());
         log.debug("getSocialAccountStats "+tweetPollstats);

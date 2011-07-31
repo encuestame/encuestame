@@ -32,6 +32,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.Account;
@@ -48,6 +49,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import twitter4j.Twitter;
@@ -82,6 +84,25 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     public AbstractBaseService() {}
 
 
+    /**
+     *
+     * @param tagName
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public HashTag getHashTag(final String tagName)
+            throws EnMeNoResultsFoundException {
+        Assert.notNull(tagName);
+        final HashTag hashTag = getHashTagDao().getHashTagByName(
+                tagName.toLowerCase());
+        if (hashTag == null) {
+            throw new EnMeNoResultsFoundException("hashtag [" + hashTag
+                    + "] not found");
+        } else {
+             System.out.println("getHashTag "+hashTag);
+            return hashTag;
+        }
+    }
 
     /**
      *
