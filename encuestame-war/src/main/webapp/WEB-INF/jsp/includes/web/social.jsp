@@ -1,9 +1,9 @@
 <div class="section">
-    <form action="<%=request.getContextPath()%>/signin/google"
+    <form action="<%=request.getContextPath()%>/signin/google_buzz"
         method="POST">
         <button type="submit">
             <img
-                src="<%=request.getContextPath()%>/resources/images/social/google/enme_google_conn.png" />
+                src="<%=request.getContextPath()%>/resources/images/social/google/buzz/enme_connect_buzz.png" />
         </button>
     </form>
 </div>

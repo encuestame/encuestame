@@ -14,8 +14,8 @@ package org.encuestame.social.connect;
 
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.social.api.BuzzAPITemplate;
-import org.encuestame.social.api.support.BuzzAPIOperations;
+import org.encuestame.social.api.GoogleBuzzAPITemplate;
+import org.encuestame.social.api.support.GoogleContactsAPIOperations;
 import org.encuestame.social.connect.service.ConnectOperations;
 import org.encuestame.utils.oauth.AccessGrant;
 
@@ -25,8 +25,7 @@ import org.encuestame.utils.oauth.AccessGrant;
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 5:57:35 PM
  */
-public class GoogleSignInSocialService extends
-        AbstractSocialSignInConnect<BuzzAPIOperations> {
+public class GoogleBuzzSignInSocialService extends AbstractSocialSignInConnect<GoogleContactsAPIOperations> {
 
     /**
      *
@@ -35,7 +34,7 @@ public class GoogleSignInSocialService extends
      * @throws Exception
      */
 
-    public GoogleSignInSocialService(final AccessGrant accessToken,
+    public GoogleBuzzSignInSocialService(final AccessGrant accessToken,
             final ConnectOperations securityOperations) throws Exception {
         super(accessToken, securityOperations);
     }
@@ -45,12 +44,12 @@ public class GoogleSignInSocialService extends
      */
     @Override
     public SocialProvider getProvider() {
-        return SocialProvider.GOOGLE;
+        return SocialProvider.GOOGLE_BUZZ;
     }
 
     @Override
-    public BuzzAPIOperations getAPISocialProvider() {
-        return new BuzzAPITemplate(getAccessGrant().getAccessToken(),
+    public GoogleBuzzAPITemplate getAPISocialProvider() {
+        return new GoogleBuzzAPITemplate(getAccessGrant().getAccessToken(),
                 EnMePlaceHolderConfigurer.getProperty("google.api.key"));
     }
 

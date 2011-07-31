@@ -59,6 +59,8 @@ import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetType;
+import org.encuestame.persistence.domain.dashboard.LayoutEnum;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
@@ -581,7 +583,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public Gadget createGadgetDefault(){
-        return this.createGadget("default", "defaultType");
+        return this.createGadget("default");
     }
 
     /**
@@ -590,10 +592,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param type
      * @return
      */
-    public Gadget createGadget(final String name, final String type){
+    public Gadget createGadget(final String name){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
-        gadget.setGadgetType(type);
+        gadget.setGadgetType(GadgetType.TWEETPOLLS);
         getDashboardDao().saveOrUpdate(gadget);
         return gadget;
     }
@@ -611,7 +613,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
           board.setDescription("");
           board.setFavorite(favorite);
           board.setFavoriteCounter(1);
-          board.setPageLayout("AAA");
+          board.setPageLayout(LayoutEnum.AAA_COLUMNS);
           board.setBoardSequence(1);
           board.setUserBoard(userAcc);
           getDashboardDao().saveOrUpdate(board);
@@ -1790,7 +1792,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        final HashTagHits tagHits = new HashTagHits();
        tagHits.setHitDate(hitDate);
        tagHits.setIpAddress(ipAddress);
-       tagHits.setHashTagId(hashTag);
+       tagHits.setHashTag(hashTag);
        tagHits.setUserAccount(userAcc);
        getHashTagDao().saveOrUpdate(tagHits);
        return tagHits;

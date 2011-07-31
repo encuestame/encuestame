@@ -16,12 +16,13 @@ import java.util.List;
 import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
-import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -47,14 +48,27 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
 
 	/*
 	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IDashboardDao#getDashboard(java.lang.Long, java.lang.Long)
+	 */
+	@SuppressWarnings("unchecked")
+	public Dashboard getAllDashboards(final Long boardId, final Long userAccId){
+		  final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+	      criteria.add(Restrictions.eq("userBoard.uid", userAccId));
+	      criteria.add(Restrictions.eq("boardId", boardId));
+	      return (Dashboard) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see org.encuestame.persistence.dao.IDashboardDao#retrieveDashboards(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Dashboard> retrieveDashboards(final UserAccount userBoard){
+	public List<Dashboard> retrieveDashboards(final Long userBoard, final Integer maxResults,
+	        final Integer start){
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Dashboard.class);
 			criteria.createAlias("userBoard", "userBoard");
 	        criteria.add(Restrictions.eq("userBoard", userBoard));
-	        return getHibernateTemplate().findByCriteria(criteria);
+	        return (List<Dashboard>) filterByMaxorStart(criteria, maxResults, start);
 	}
 
 	/*

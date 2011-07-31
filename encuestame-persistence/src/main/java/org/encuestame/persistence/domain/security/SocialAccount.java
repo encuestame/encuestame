@@ -121,6 +121,12 @@ public class SocialAccount extends AbstractSocial {
     private TypeAuth type = TypeAuth.OAUTH1;
 
 
+    /**
+     *
+     */
+    private SocialSupport support = SocialSupport.PUBLISH_SUPPORT;
+
+
     /** Verfied. **/
     private Boolean verfied = false;
 
@@ -137,6 +143,27 @@ public class SocialAccount extends AbstractSocial {
      * OAuth2 protocol
      */
     OAUTH2
+
+    };
+
+    /**
+     */
+    public enum SocialSupport {
+
+    /**
+     * Publish support.
+     */
+    PUBLISH_SUPPORT,
+
+    /**
+     * To publish and connect.
+     */
+    PUBLISH_SUPPORT_AND_CONNECT,
+
+    /**
+     * To social account to background task.
+     */
+    BACKGROUND_SUPPORT
 
     };
 
@@ -370,5 +397,21 @@ public class SocialAccount extends AbstractSocial {
      */
     public void setUserOwner(final UserAccount userOwnser) {
         this.userOwner = userOwnser;
+    }
+
+    /**
+     * @return the support
+     */
+    @Column(name="social_support")
+    @Enumerated(EnumType.ORDINAL)
+    public SocialSupport getSupport() {
+        return support;
+    }
+
+    /**
+     * @param support the support to set
+     */
+    public void setSupport(final SocialSupport support) {
+        this.support = support;
     }
 }

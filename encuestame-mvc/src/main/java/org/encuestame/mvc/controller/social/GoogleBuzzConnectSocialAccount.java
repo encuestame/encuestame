@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
-public class GoogleConnectSocialAccount extends AbstractAccountConnect{
+public class GoogleBuzzConnectSocialAccount extends AbstractAccountConnect{
 
 
     /**
@@ -32,14 +33,14 @@ public class GoogleConnectSocialAccount extends AbstractAccountConnect{
      * @param clientId
      */
     @Inject
-    public GoogleConnectSocialAccount(
+    public GoogleBuzzConnectSocialAccount(
             @Value("${google.api.key}") String keyId,
             @Value("${google.accesToken}") String accessTokenUrl,
             @Value("${google.authorizeURl}") String authorizeUrl,
             @Value("${google.client.secret}") String clientSecret,
             @Value("${google.client.id}") String clientId) {
        super(new OAuth2Parameters(clientId, clientSecret, accessTokenUrl,
-                 authorizeUrl, SocialProvider.GOOGLE, clientId));
+                 authorizeUrl, SocialProvider.GOOGLE_BUZZ, clientId));
     }
 
     /**
@@ -62,7 +63,7 @@ public class GoogleConnectSocialAccount extends AbstractAccountConnect{
             @RequestParam(required = false) String scope,
             HttpServletRequest httpRequest) {
         return this.auth2RequestProvider.buildOAuth2AuthorizeUrl(
-                "https://www.googleapis.com/auth/buzz", httpRequest, false);
+                EnMePlaceHolderConfigurer.getProperty("google.buzz.scope"), httpRequest, false);
     }
 
     /**
@@ -81,7 +82,7 @@ public class GoogleConnectSocialAccount extends AbstractAccountConnect{
             final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
             log.debug(accessGrant.getAccessToken());
             log.debug(accessGrant.getRefreshToken());
-            checkOAuth2SocialAccount(SocialProvider.GOOGLE, accessGrant);
-            return this.redirect+"#provider="+SocialProvider.GOOGLE.toString().toLowerCase()+"&refresh=true&successful=true";
+            checkOAuth2SocialAccount(SocialProvider.GOOGLE_BUZZ, accessGrant);
+            return this.redirect+"#provider="+SocialProvider.GOOGLE_BUZZ.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }

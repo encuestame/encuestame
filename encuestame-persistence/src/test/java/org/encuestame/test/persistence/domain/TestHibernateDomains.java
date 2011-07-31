@@ -32,6 +32,8 @@ import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
+import org.encuestame.persistence.domain.dashboard.GadgetType;
+import org.encuestame.persistence.domain.dashboard.LayoutEnum;
 import org.encuestame.persistence.domain.question.CatQuestionCategory;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -421,9 +423,9 @@ public class TestHibernateDomains extends AbstractBase{
         tagHits.setHitDate(hitDate);
         tagHits.setIpAddress(ipAddress);
         tagHits.setUserAccount(createUserAccount("juan carlos", createAccount()));
-        tagHits.setHashTagId(createHashTag(tagName));
+        tagHits.setHashTag(createHashTag(tagName));
         getHashTagDao().saveOrUpdate(tagHits);
-        assertNotNull(tagHits.getHashTagId());
+        assertNotNull(tagHits.getHashTag());
      }
 
      /** Dashboard domain. **/
@@ -434,10 +436,9 @@ public class TestHibernateDomains extends AbstractBase{
         board.setDescription("My first dashboard");
         board.setFavorite(Boolean.TRUE);
         board.setFavoriteCounter(1);
-        board.setPageLayout("AAA");
+        board.setPageLayout(LayoutEnum.AAA_COLUMNS);
         board.setBoardSequence(1);
         board.setUserBoard(createUserAccount("juan carlos", createAccount()));
-        board.getGadgetDashboard().add(createGadgetDefault());
         getDashboardDao().saveOrUpdate(board);
       }
 
@@ -446,18 +447,18 @@ public class TestHibernateDomains extends AbstractBase{
      public void testGadget(){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName("Notifications");
-        gadget.setGadgetType("Poll");
+        gadget.setGadgetType(GadgetType.TWEETPOLLS);
         getDashboardDao().saveOrUpdate(gadget);
      }
 
      /** Gadget Properties **/
      @Test
      public void testGadgetProperties(){
-    	 final GadgetProperties gadgetProp = new GadgetProperties();
-    	 gadgetProp.setGadgetPropName("maxResults");
-    	 gadgetProp.setGadgetPropValue("10");
-    	 gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
-    	 gadgetProp.setGadget(createGadgetDefault());
-    	 getDashboardDao().saveOrUpdate(gadgetProp);
+         final GadgetProperties gadgetProp = new GadgetProperties();
+         gadgetProp.setGadgetPropName("maxResults");
+         gadgetProp.setGadgetPropValue("10");
+         gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
+         gadgetProp.setGadget(createGadgetDefault());
+         getDashboardDao().saveOrUpdate(gadgetProp);
      }
 }
