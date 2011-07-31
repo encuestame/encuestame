@@ -311,10 +311,10 @@ public class TestUserDao extends AbstractBase {
      */
     //@Test
     public void testgetSocialAccount(){
-        final SocialAccount ac = createSocialProviderAccount(this.userAccount, SocialProvider.GOOGLE);
+        final SocialAccount ac = createSocialProviderAccount(this.userAccount, SocialProvider.GOOGLE_BUZZ);
         final SocialAccount ex = getAccountDao().getSocialAccount(ac.getId(), this.account);
         assertEquals("Should be equals", ac.getId(),ex.getId());
-        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE, ex.getSocialProfileId());
+        final SocialAccount ex2 = getAccountDao().getSocialAccount(SocialProvider.GOOGLE_BUZZ, ex.getSocialProfileId());
         assertNotNull(ex2);
         assertEquals("Should be equals", ac.getId(), ex2.getId());
     }

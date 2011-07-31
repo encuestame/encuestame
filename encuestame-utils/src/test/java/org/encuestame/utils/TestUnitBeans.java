@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.ResumeResultTweetPoll;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -30,6 +29,7 @@ import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.ForgotPasswordBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitCatStateBean;
@@ -626,4 +626,23 @@ import org.junit.Test;
         assertNotNull(oa.getAuthorizingAccountId());
     }
 
+    /**
+     * Test {@link DashboardBean}
+     */
+    @Test
+    public void testDashboardBean(){
+    	final DashboardBean boardBean = new DashboardBean();
+    	boardBean.setDashboardName("My Dashboard");
+    	boardBean.setDashboardDesc("My First Dashboard");
+    	boardBean.setFavorite(Boolean.TRUE);
+    	boardBean.setLayout("AAA");
+    	boardBean.setSequence(1);
+    	boardBean.setFavoriteCounter(5);
+    	//boardBean.setSecUser(create)
+    	 assertNotNull(boardBean.getDashboardName());
+    	 assertNotNull(boardBean.getDashboardDesc());
+    	 assertNotNull(boardBean.getFavorite());
+    	 assertNotNull(boardBean.getLayout());
+    	 assertNotNull(boardBean.getSequence());
+    }
 }

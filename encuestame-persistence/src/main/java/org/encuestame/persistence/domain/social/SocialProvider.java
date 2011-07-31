@@ -28,7 +28,7 @@ public enum SocialProvider {
     /**
      * Google Buzz provider.
      */
-    GOOGLE,
+    GOOGLE_BUZZ,
 
     /** Google +. **/
     GOOGLE_PLUS,
@@ -39,9 +39,30 @@ public enum SocialProvider {
     /**
      * My Space.
      */
-    @Deprecated
     MYSPACE,
     //TODO: In the future we can add more API's Tumblr, Plurk, Jaiku.
+
+    YOUTUBE,
+    /**
+     * Use full
+     */
+    PICASA,
+
+    /**
+     * Google orkut social.
+     */
+    ORKUT,
+
+    /**
+     * To access to google contact support.
+     */
+    GOOGLE_CONTACTS,
+
+    /**
+     * Blog support to publish on blogger accounts.
+     */
+    BLOGGER,
+
     /**
      * Constructor.
      */
@@ -58,7 +79,7 @@ public enum SocialProvider {
         else if (this == FACEBOOK) { provider = "FACEBOOK"; }
         else if (this == IDENTICA) { provider = "IDENTICA"; }
         else if (this == LINKEDIN) { provider = "LINKEDIN"; }
-        else if (this == GOOGLE) { provider = "GOOGLE"; }
+        else if (this == GOOGLE_BUZZ) { provider = "GOOGLEBUZZ"; }
         else if (this == YAHOO) { provider = "YAHOO"; }
         else if (this == MYSPACE) { provider = "MYSPACE"; }
         return provider;
@@ -75,7 +96,7 @@ public enum SocialProvider {
         else if (socialProvider.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
         else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
         else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
-        else if (socialProvider.equalsIgnoreCase("GOOGLE")) { return GOOGLE; }
+        else if (socialProvider.equalsIgnoreCase("GOOGLEBUZZ")) { return GOOGLE_BUZZ; }
         else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
         else if (socialProvider.equalsIgnoreCase("MYSPACE")) { return MYSPACE; }
         else return null;
@@ -93,7 +114,7 @@ public enum SocialProvider {
                 || provider.equals(MYSPACE)
                 || provider.equals(YAHOO)){
             return TypeAuth.OAUTH1;
-        } else if (provider.equals(GOOGLE) || provider.equals(FACEBOOK)){
+        } else if (provider.equals(GOOGLE_BUZZ) || provider.equals(FACEBOOK)){
             return TypeAuth.OAUTH2;
         } else {
             return null;

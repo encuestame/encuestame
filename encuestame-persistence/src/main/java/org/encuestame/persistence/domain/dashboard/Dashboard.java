@@ -18,6 +18,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,7 +53,7 @@ public class Dashboard {
     private Boolean favorite;
 
     /** Page Layout. **/
-    private String pageLayout;
+    private LayoutEnum pageLayout;
 
     /** Dashboard sequence. **/
     private Integer boardSequence;
@@ -130,14 +132,15 @@ public class Dashboard {
     * @return the pageLayout
     */
     @Column(name = "layout", nullable = false)
-    public String getPageLayout() {
+    @Enumerated(EnumType.STRING)
+    public LayoutEnum getPageLayout() {
         return pageLayout;
     }
 
     /**
     * @param pageLayout the pageLayout to set
     */
-    public void setPageLayout(final String pageLayout) {
+    public void setPageLayout(final LayoutEnum pageLayout) {
         this.pageLayout = pageLayout;
     }
 

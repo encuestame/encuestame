@@ -13,10 +13,8 @@
 package org.encuestame.persistence.dao;
 
 import java.util.List;
-
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
-import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * Dashboard Interface.
@@ -35,9 +33,12 @@ public interface IDashboardDao extends IBaseDao {
 	/**
 	 * Retrieve dashboards by id and user.
 	 * @param userBoard
+	 * @param maxResults
+	 * @param start
 	 * @return
 	 */
-	List<Dashboard> retrieveDashboards(final UserAccount userBoard);
+	List<Dashboard> retrieveDashboards(final Long userBoard, final Integer maxResults,
+	        final Integer start);
 
 	/**
 	 * Retrieve favorites dashboards.
@@ -66,4 +67,12 @@ public interface IDashboardDao extends IBaseDao {
 	 * @return
 	 */
 	List<Gadget> getGadgetbyKeyword(final String keyword, final Integer maxResults, final Integer start);
+
+	/**
+	 * Get all dashboards.
+	 * @param boardId
+	 * @param userAccId
+	 * @return
+	 */
+	Dashboard getAllDashboards(final Long boardId, final Long userAccId);
 }

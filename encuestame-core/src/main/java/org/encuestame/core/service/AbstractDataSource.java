@@ -15,13 +15,11 @@ package org.encuestame.core.service;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
-
-import javax.annotation.Resource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ValidationUtils;
+import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.dao.IGeoPointTypeDao;
@@ -115,6 +113,10 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
    /** {@link IEmail} **/
     @Autowired
     private IEmail emailListsDao;
+
+    /** {@link IDashboardDao} **/
+    @Autowired
+    private IDashboardDao dashboardDao;
 
     /**
      * Get {@link UserAccount} by Username.
@@ -493,4 +495,18 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public final void setFrontEndDao(final IFrontEndDao frontEndDao) {
         this.frontEndDao = frontEndDao;
     }
+
+	/**
+	 * @return the dashboardDao
+	 */
+	public IDashboardDao getDashboardDao() {
+		return dashboardDao;
+	}
+
+	/**
+	 * @param dashboardDao the dashboardDao to set
+	 */
+	public void setDashboardDao(final IDashboardDao dashboardDao) {
+		this.dashboardDao = dashboardDao;
+	}
 }

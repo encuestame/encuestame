@@ -14,7 +14,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.poi.poifs.storage.ListManagedBlock;
-import org.encuestame.social.api.BuzzAPITemplate;
+import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
@@ -104,7 +104,7 @@ public class SocialAPITestCase extends TestCase {
         // "https://api.linkedin.com/uas/oauth/accessToken";
         final String realToken = "1/8hNJx9pdEkj6ziWJhkdPYCJFjoXZgQACKjDcse93x8Q";
         final String refreshToken = "1/2GI75S23HtwoB1kiPcaRFEqePVh1kYoniubI6obcj_8";
-        BuzzAPITemplate apiTemplate = new BuzzAPITemplate(realToken,
+        GoogleBuzzAPITemplate apiTemplate = new GoogleBuzzAPITemplate(realToken,
                 "AIzaSyCvEMnlGa4q4Suayx1bMYXg-Wkf1jYmmaQ");
         // try{
         // System.out.println(apiTemplate.getActivities());

@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -53,6 +54,7 @@ import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -775,4 +777,34 @@ public class ConvertDomainBean {
         unitSurvey.setNotifications(survey.getNotifications());
         unitSurvey.setName(survey.getName());
         return unitSurvey;}
+
+    /**
+     * Convert Dashboard bean to dashboard domain.
+     * @param dashboards
+     * @return
+     */
+    public static final List<DashboardBean> convertListDashboardToBean(final List<Dashboard> dashboards){
+        final List<DashboardBean> dashboardList = new LinkedList<DashboardBean>();
+            for (Dashboard dashboard : dashboards) {
+            	dashboardList.add(ConvertDomainBean.convertDashboardDomaintoBean(dashboard));
+            }
+        return dashboardList;
     }
+
+    /**
+     * Convert Dashboard domain to dashboard bean.
+     * @param dashboard
+     * @return
+     */
+    public static final DashboardBean convertDashboardDomaintoBean(final Dashboard dashboard){
+    	final DashboardBean dashboardBean = new DashboardBean();
+    	dashboardBean.setDashboardId(dashboard.getBoardId());
+    	dashboardBean.setDashboardName(dashboard.getPageBoardName());
+    	dashboardBean.setDashboardDesc(dashboard.getDescription());
+    	dashboardBean.setFavorite(dashboard.getFavorite());
+    	dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
+    	dashboardBean.setLayout(dashboard.getPageLayout().toString());
+    	dashboardBean.setSequence(dashboard.getBoardSequence());
+    	return dashboardBean;
+    }
+}

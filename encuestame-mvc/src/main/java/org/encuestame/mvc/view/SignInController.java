@@ -16,7 +16,7 @@ import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
 import org.encuestame.social.connect.FacebookSignInSocialSupport;
-import org.encuestame.social.connect.GoogleSignInSocialService;
+import org.encuestame.social.connect.GoogleBuzzSignInSocialService;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -73,8 +73,6 @@ public class SignInController extends AbstractSocialController{
         return "forgot";
     }
 
-    private OAuth1RequestFlow auth1RequestProvider;
-
     /**
      * Sign in by {@link SocialProvider} account.
      * @param provider
@@ -92,18 +90,18 @@ public class SignInController extends AbstractSocialController{
         if (providerEnum == null) {
             url.append("404");
         } else {
-            if (SocialProvider.GOOGLE.equals(providerEnum)) {
+            if (SocialProvider.GOOGLE_BUZZ.equals(providerEnum)) {
                OAuth2Parameters auth2Parameters = new OAuth2Parameters(
                         EnMePlaceHolderConfigurer.getProperty("google.register.client.id"),
                         EnMePlaceHolderConfigurer.getProperty("google.register.client.secret"),
                         EnMePlaceHolderConfigurer.getProperty("google.accesToken"),
                         EnMePlaceHolderConfigurer.getProperty("google.authorizeURl"),
-                        SocialProvider.GOOGLE,
+                        SocialProvider.GOOGLE_BUZZ,
                         EnMePlaceHolderConfigurer.getProperty("google.register.client.id"));
                 auth2RequestProvider  =  new OAuth2RequestFlow(auth2Parameters);
                 auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
-                        "https://www.googleapis.com/auth/buzz", httpRequest, false));
+                        EnMePlaceHolderConfigurer.getProperty("google.buzz.scope"), httpRequest, false));
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
                 OAuth2Parameters auth2Parameters = new OAuth2Parameters(
                         EnMePlaceHolderConfigurer.getProperty("facebook.api.key"),
@@ -167,9 +165,9 @@ public class SignInController extends AbstractSocialController{
                }
             String friendsUrl = "redirect:/user/signin/friends";
             if (SocialProvider.getProvider(provider).equals(
-                    SocialProvider.GOOGLE)) {
+                    SocialProvider.GOOGLE_BUZZ)) {
                 friendsUrl = getConnectOperations().connectSignInAccount(
-                        new GoogleSignInSocialService(accessGrant,
+                        new GoogleBuzzSignInSocialService(accessGrant,
                                 getConnectOperations()));
             } else if (SocialProvider.getProvider(provider).equals(
                     SocialProvider.FACEBOOK)) {
