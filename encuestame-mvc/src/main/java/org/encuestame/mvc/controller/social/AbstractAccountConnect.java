@@ -19,7 +19,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
-import org.encuestame.social.api.BuzzAPITemplate;
+import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
@@ -197,8 +197,8 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                     accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
                     facebookAPIOperations.getProfile(),
                     socialProvider, getUserAccount());
-        } else if (socialProvider.equals(SocialProvider.GOOGLE)) {
-            final BuzzAPIOperations apiOperations = new BuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
+        } else if (socialProvider.equals(SocialProvider.GOOGLE_BUZZ)) {
+            final BuzzAPIOperations apiOperations = new GoogleBuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
             log.debug(apiOperations.getProfile());
             getSecurityService().addNewSocialAccount(
                     accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),

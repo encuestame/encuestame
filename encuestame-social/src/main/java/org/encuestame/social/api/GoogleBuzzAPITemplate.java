@@ -32,7 +32,7 @@ import org.encuestame.utils.social.SocialUserProfile;
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 19, 2011
  */
-public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPIOperations{
+public class GoogleBuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPIOperations{
 
     /**
      * Log.
@@ -54,7 +54,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      *
      * @param socialAccount
      */
-    public BuzzAPITemplate(final SocialAccount socialAccount){
+    public GoogleBuzzAPITemplate(final SocialAccount socialAccount){
         this(socialAccount.getAccessToken(), socialAccount.getApplicationKey().toString());
     }
 
@@ -62,7 +62,7 @@ public class BuzzAPITemplate extends AbstractSocialAPISupport implements BuzzAPI
      * Constructor.
      * @param accessToken
      */
-    public BuzzAPITemplate(final String accessToken, final String googleKey) {
+    public GoogleBuzzAPITemplate(final String accessToken, final String googleKey) {
           setRestTemplate(ProtectedResourceClientFactory.draft10(accessToken));
           //this.GOOGLE_KEY = googleKey;
     }
