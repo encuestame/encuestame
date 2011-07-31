@@ -13,13 +13,13 @@
 package org.encuestame.business.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
@@ -28,9 +28,9 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.TweetPollBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -98,12 +98,12 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @return
      * @throws EnMeSearchException
      */
-    public List<UnitPoll> searchItemsByPoll(
+    public List<PollBean> searchItemsByPoll(
             final String period,
             final Integer start,
             Integer maxResults)
             throws EnMeSearchException{
-    final List<UnitPoll> results = new ArrayList<UnitPoll>();
+    final List<PollBean> results = new ArrayList<PollBean>();
     if(maxResults == null){
         maxResults = this.MAX_RESULTS;
     }
@@ -157,12 +157,12 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public HashTagBean getHashTagItem(final String tagName) throws EnMeNoResultsFoundException {
+    public HashTag getHashTagItem(final String tagName) throws EnMeNoResultsFoundException {
         final HashTag tag = getHashTagDao().getHashTagByName(tagName);
         if (tag == null){
             throw new EnMeNoResultsFoundException("hashtag not found");
         }
-        return ConvertDomainBean.convertHashTagDomain(tag);
+        return tag;
     }
 
     /**
@@ -234,25 +234,19 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @param hitDate
      * @param ipAddress
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    public Boolean registerHashTagHit(final String tagName, final String ip, final String username){
+    public Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException{
         final HashTagHits hashHit ;
         Long hitCount = 1L;
         Boolean register = false;
-        try {
-            if((ip!=null) || (tagName!=null) ){
-                hashHit = this.newHashTagHit(tagName, new Date(), ip);
-                if (hashHit!=null){
-                    final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-                    hitCount = tag.getHits()+hitCount;
-                    tag.setHits(hitCount);
-                    register = true;
-                }
+        if ((ip != null) || (tag != null)) {
+            hashHit = this.newHashTagHit(tag, Calendar.getInstance().getTime(), ip);
+            if (hashHit != null) {
+                hitCount = tag.getHits() + hitCount;
+                tag.setHits(hitCount);
+                register = true;
             }
-        } catch (Exception e) {
-            log.debug(e);
-            e.printStackTrace();
-            // TODO: handle exception
         }
         return register;
     }
@@ -263,13 +257,17 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @param hitDate
      * @param ipAddress
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    private HashTagHits newHashTagHit(final String tagName, final Date hitDate, final String ipAddress){
+    private HashTagHits newHashTagHit(
+            final HashTag tag,
+            final Date hitDate,
+            final String ipAddress) throws EnMeNoResultsFoundException {
         final HashTagHits tagHitsDomain = new HashTagHits();
         tagHitsDomain.setHitDate(hitDate);
-        tagHitsDomain.setHashTagId(getHashTagDao().getHashTagByName(tagName));
+        tagHitsDomain.setHashTag(tag);
         tagHitsDomain.setIpAddress(ipAddress);
-        tagHitsDomain.setUserAccount(getUserAccountLogged());
+        tagHitsDomain.setUserAccount(getUserAccount(getUserPrincipalUsername()));
         this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }

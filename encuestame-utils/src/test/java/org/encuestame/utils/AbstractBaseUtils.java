@@ -2,6 +2,10 @@ package org.encuestame.utils;
 
 import java.util.Date;
 import java.util.List;
+
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.QuestionPatternBean;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -9,10 +13,9 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitPatternBean;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.QuestionBean;
+import org.encuestame.utils.web.UserAccountBean;
 
 import junit.framework.TestCase;
 
@@ -118,7 +121,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         final String questionName,
         final String version,
         final List unitAnswer,
-        final UnitPatternBean pattern
+        final QuestionPatternBean pattern
     ){
         final QuestionBean unitQuestionBean = new QuestionBean();
         unitQuestionBean.setId(questionId);
@@ -139,10 +142,10 @@ public abstract class AbstractBaseUtils extends TestCase{
     * @param levelpattern levelpattern
     * @param patronType patronType
     * @param shortNumberString shortNumberString
-    * @return {@link UnitPatternBean}
+    * @return {@link QuestionPatternBean}
     */
 
-    public UnitPatternBean createUnitPatternBean(
+    public QuestionPatternBean createUnitPatternBean(
         final String classpattern,
         final String descripcion,
         final String finallity,
@@ -154,7 +157,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         final String template
         )
     {
-        final UnitPatternBean unitPatternBean = new UnitPatternBean();
+        final QuestionPatternBean unitPatternBean = new QuestionPatternBean();
         unitPatternBean.setClasspattern(classpattern);
         unitPatternBean.setDescripcion(descripcion);
         unitPatternBean.setFinallity(finallity);
@@ -178,12 +181,12 @@ public abstract class AbstractBaseUtils extends TestCase{
      * @param questionBean UnitQuestionBean
      * @return
      */
-    public UnitPoll createUnitPoll(
+    public PollBean createUnitPoll(
             final Boolean completedPoll,
             final Date creationDate,
             final Long id,
             final QuestionBean questionBean){
-        final UnitPoll unitPoll = new UnitPoll();
+        final PollBean unitPoll = new PollBean();
         unitPoll.setCompletedPoll(completedPoll);
         unitPoll.setCreationDate(creationDate);
         unitPoll.setId(id);
@@ -267,7 +270,20 @@ public abstract class AbstractBaseUtils extends TestCase{
         return unitEmails;
      }
 
-     public UnitPoll createUnitPollComplete(
+     /**
+      * Create unit poll complete.
+      * @param closeNotification
+      * @param completedPoll
+      * @param creationDate
+      * @param finishDate
+      * @param hashTags
+      * @param idPoll
+      * @param publishPoll
+      * @param questionBean
+      * @param showResultsPoll
+      * @return
+      */
+     public PollBean createUnitPollComplete(
              final Boolean closeNotification,
              final Boolean completedPoll,
              final Date creationDate,
@@ -277,7 +293,7 @@ public abstract class AbstractBaseUtils extends TestCase{
              final Boolean publishPoll,
              final QuestionBean questionBean,
              final Boolean showResultsPoll){
-         final UnitPoll unitPollComplete = new UnitPoll();
+         final PollBean unitPollComplete = new PollBean();
          unitPollComplete.setCloseNotification(closeNotification);
          unitPollComplete.setCompletedPoll(completedPoll);
          unitPollComplete.setCreationDate(creationDate);
@@ -291,4 +307,30 @@ public abstract class AbstractBaseUtils extends TestCase{
 
      }
 
+     /**
+      * Create dashboard bean.
+      * @param dashboardName
+      * @param dashboardDesc
+      * @param favorite
+      * @param layout
+      * @param sequence
+      * @param counter
+      * @return
+      */
+     public DashboardBean createDashboardBean(
+    		 final String dashboardName,
+    		 final String dashboardDesc,
+    		 final Boolean favorite,
+    		 final String layout,
+    		 final Integer sequence,
+    		 final Integer counter){
+    	 final DashboardBean dashboardBean = new DashboardBean();
+    	 dashboardBean.setDashboardName(dashboardName);
+    	 dashboardBean.setDashboardDesc(dashboardDesc);
+    	 dashboardBean.setFavorite(favorite);
+    	 dashboardBean.setLayout(layout);
+    	 dashboardBean.setSequence(sequence);
+    	 dashboardBean.setFavoriteCounter(counter);
+    	 return dashboardBean;
+     }
 }

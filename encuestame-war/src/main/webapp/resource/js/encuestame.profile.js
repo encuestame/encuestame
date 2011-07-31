@@ -65,9 +65,12 @@ dependencies ={
                 "encuestame.org.core.commons.validator.UsernameValidator",
                 "encuestame.org.core.shared.utils.StandBy",
                 "encuestame.org.core.commons.panel.PanelBar",
+                "encuestame.org.core.shared.utils.FoldersActions",
                 //mobile
                 "encuestame.org.mobile.notifications.NotificationList",
                 "encuestame.org.mobile.tweetPoll.TweetPollList",
+                //support,
+                "encuestame.org.core.commons.support.Wipe",
                 "org.cometd",
                 "org.cometd.AckExtension",
                 "org.cometd.ReloadExtension",

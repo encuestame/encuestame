@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.persistence.domain.EnMePermission;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,24 +68,24 @@ public class SignInInterceptor extends AbstractEnMeInterceptor{
         path.append(PathUtil.signIn);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.trace("Sign In Auth:{ "+authentication);
-        //if (arg0.getRequestURI().equals(path.toString())) {
-         //   log.debug("Sign In are equals:{ "+arg0.getRequestURI());
-        //    if (authentication != null) {
-//                if (!SecurityUtils.checkIsSessionIsAnonymousUser(authentication)) {
-//                    log.debug("Sign In session is valid");
-//                    for (GrantedAuthority auth : authentication.getAuthorities()) {
-//                        log.debug("Sign In Auth:{ "+auth.getAuthority());
-//                        if (EnMePermission.getPermissionString(
-//                                auth.getAuthority()).equals(
-//                                EnMePermission.ENCUESTAME_USER)) {
-//                            log.debug("User is logged, redirec to dashboard");
-//                            arg1.sendRedirect(arg0.getContextPath()+"/user/dashboard");
-//                            break;
-//                        }
-//                    }
-//                }
-          //  }
-        //}
+        if (arg0.getRequestURI().equals(path.toString())) {
+            log.debug("Sign In are equals:{ "+arg0.getRequestURI());
+            if (authentication != null) {
+                if (!SecurityUtils.checkIsSessionIsAnonymousUser(authentication)) {
+                    log.debug("Sign In session is valid");
+                    for (GrantedAuthority auth : authentication.getAuthorities()) {
+                        log.debug("Sign In Auth:{ "+auth.getAuthority());
+                        if (EnMePermission.getPermissionString(
+                                auth.getAuthority()).equals(
+                                EnMePermission.ENCUESTAME_USER)) {
+                            log.debug("User is logged, redirec to dashboard");
+                            arg1.sendRedirect(arg0.getContextPath()+"/user/dashboard");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
         return true;
     }
 

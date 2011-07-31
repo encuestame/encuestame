@@ -27,18 +27,18 @@
     <!-- ConsumerDetailsService that constructs ConsumerDetails objects from Apps loaded by App Dao. -->
     <bean id="oauthConsumerDetails"
           autowire="byName"
-          class="org.encuestame.business.security.oauth.EnMeConsumerDetailsService" />
+          class="org.encuestame.oauth.security.EnMeConsumerDetailsService" />
 
     <!-- OAuthProviderTokenServices that uses a OAuthSessionManager to manage OAuthSession storage -->
     <bean id="oauthProviderTokenServices"
           autowire="byName"
-          class="org.encuestame.business.security.oauth.EnMeOAuthSessionManagerProviderTokenService">
+          class="org.encuestame.oauth.security.EnMeOAuthSessionManagerProviderTokenService">
     </bean>
 
     <!-- Stores OAuthSessions in a ConcurrentMap with soft values and 2 minutes time idle -->
     <bean id="oauthSessionManager"
           autowire="byName"
-          class="org.encuestame.business.security.oauth.ConcurrentMapOAuthSessionManager" />
+          class="org.encuestame.oauth.security.ConcurrentMapOAuthSessionManager" />
 
     <!-- Sends a UNAUTHORIZED response back to clients attempting to access protected resources but who have not yet authenticated via OAuth -->
     <bean id="oauthAuthenticationEntryPoint" autowire="byName"

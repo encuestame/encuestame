@@ -30,27 +30,27 @@ import junit.framework.Assert;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.encuestame.business.security.AbstractSecurityContext;
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.ProjectService;
-import org.encuestame.business.service.SecurityService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.business.service.imp.IFrontEndService;
-import org.encuestame.business.service.imp.ILocationService;
-import org.encuestame.business.service.imp.IPictureService;
-import org.encuestame.business.service.imp.IPollService;
-import org.encuestame.business.service.imp.IProjectService;
-import org.encuestame.business.service.imp.IServiceManager;
-import org.encuestame.business.service.imp.ISurveyService;
-import org.encuestame.business.service.imp.ITweetPollService;
-import org.encuestame.business.service.imp.SearchServiceOperations;
-import org.encuestame.business.service.imp.SecurityOperations;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
+import org.encuestame.core.service.AbstractSecurityContext;
+import org.encuestame.core.service.SecurityService;
+import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IPictureService;
+import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.core.service.imp.IServiceManager;
+import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.imp.ITweetPollService;
+import org.encuestame.core.service.imp.SearchServiceOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
@@ -63,11 +63,11 @@ import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -431,7 +431,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * Location Service.
      * @return
      */
-    public ILocationService getLocationService(){
+    public GeoLocationSupport getLocationService(){
         return getServiceManager().getApplicationServices().getLocationService();
     }
 

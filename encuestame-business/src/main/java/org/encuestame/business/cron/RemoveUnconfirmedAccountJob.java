@@ -12,15 +12,10 @@
  */
 package org.encuestame.business.cron;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.business.service.imp.SecurityOperations;
-import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.persistence.dao.IAccountDao;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -56,10 +51,8 @@ public class RemoveUnconfirmedAccountJob {
         try {
           getSecurityService().removeUnconfirmedAccount(Boolean.FALSE);
         } catch (Exception e) {
-            // TODO: handle exception
-            log.debug(e);
+          log.error("Owner account not found to change status");
         }
-        log.debug("Unconfirmed Account");
     }
 
     /**

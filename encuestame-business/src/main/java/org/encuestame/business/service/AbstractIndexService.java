@@ -10,6 +10,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.business.search.AttachmentSearchItem;
 import org.encuestame.business.search.SearchManagerOperation;
+import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;

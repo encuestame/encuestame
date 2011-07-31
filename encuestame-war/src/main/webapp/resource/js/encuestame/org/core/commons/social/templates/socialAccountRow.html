@@ -1,10 +1,10 @@
-<div class="${type}WrapperRow socialWrapperRow">
+<div class="${type}WrapperRow socialWrapperRow default-background-dark-color">
     <div dojoType="dijit.form.Form" class="socialNewForm">
         <table  dojoAttachEvent="onclick:_showHideSecrets">
             <tr>
                 <td>
                     <div style="float: left;">
-                        <img alt="${account.account}" src="${account.profile_thumbnail_picture}">
+                        <img alt="${account.account}" src="${account.profile_thumbnail_picture}" height="25" width="25">
                     </div>
                     <div class="title">${account.account}</div>
                 </td>
@@ -15,32 +15,21 @@
         </table>
         <div class="tokensWrapper defaultDisplayHide" dojoAttachPoint="_secretView">
             <div class="tokenHideOptions">
-                <div class="optionToken">
-                      <button id="${id}_remove" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_remove">
-                               Remove
-                      </button>
-                      <button id="${id}_statusAccount" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
-                               Disable
-                      </button>
-                      <button id="${id}_default" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
-                               Set as Default
-                      </button>
-                </div>
                 <table>
                     <tr>
                         <td>
-                            <label>Secret Token</label>
+                            <label>Email</label>
                         </td>
                          <td>
-                          dsadas
+                            ${account.email}
                         </td>
                     </tr>
                     <tr>
                         <td>
-                           <label> Token</label>
+                           <label>Real Name</label>
                         </td>
                          <td>
-                            dasdsa
+                            ${account.real_name}
                         </td>
                     </tr>
                      <tr>
@@ -48,10 +37,28 @@
                             <label>Profile Url</label>
                         </td>
                         <td>
-                            <a href="#" target="_blank">http://twitter.com/xxxxx</a>
+                            <a href="${account.url}" target="_blank">${account.url}</a>
+                        </td>
+                     </tr>published with this account
+                     <tr>
+                        <td>
+                            <div><label>Tweetpoll published with this account:</label> ${account.tweetpoll_stats}</div>
+                            <div><label>Survey published with this account:</label> ${account.survey_stats}</div>
+                            <div><label>Poll published with this account:</label> ${account.poll_stats}</div>
                         </td>
                      </tr>
                </table>
+               <div class="option-button">
+                   <button id="${id}_remove" dojoType="dijit.form.Button" type="button" dojoAttachPoint="_removeButton">
+                            Remove
+                   </button>
+<!--                    <button id="${id}_statusAccount" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
+                            Disable
+                   </button> -->
+                   <button id="${id}_default" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
+                            Set as Default
+                   </button>
+               </div>
             </div>
          </div>
     </div>

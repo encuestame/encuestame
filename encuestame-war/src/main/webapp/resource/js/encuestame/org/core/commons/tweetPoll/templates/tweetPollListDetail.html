@@ -1,13 +1,35 @@
-<div class="tweetPollListDetailWrapper">
-    <div class="title" dojoAttachPoint="_title">
-    </div>
-    <div class="detail">
-        <div class="subMenu">
-            Options
-        </div>
-        <div dojoAttachPoint="_detailItems">
+<div class="web-tweetpoll-list-detail-wrapper">
+    <span class="tab" dojoAttachPoint="_detail">Detail</span>
+    <span class="tab" dojoAttachPoint="_stats">Stats</span>
+    <span class="tab" dojoAttachPoint="_comments">Comments</span>
+    <span class="tab" dojoAttachPoint="_social">Social Links</span>
+    <span class="tab" dojoAttachPoint="_delete">Delete</span>
+    <div class="web-tweetpoll-list-detail-detail">
+        <div dojoAttachPoint="_detailItems" class="detail">
 
-         </div>
+        </div>
+        <div class="extra">
+                <table style="width: auto;" class="web-tweetpoll-answer-table" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="header-table-answer"></th>
+                        <th class="header-table-answer">Link to Vote</th>
+                        <th class="header-table-answer">Count</th>
+                        <th class="header-table-answer">Percent</th>
+                        <th class="header-table-answer"></th>
+                    </tr>
+                    <tr>
+                        <th class="header-table-answer-emtpy"></th>
+                        <th class="header-table-answer-emtpy"></th>
+                        <th class="header-table-answer-emtpy"></th>
+                        <th class="header-table-answer-emtpy"></th>
+                        <th class="header-table-answer-emtpy"></th>
+                    </tr>
+                </thead>
+                <tbody dojoAttachPoint="_extra">
+               </tbody>
+            </table>
+        </div>
     </div>
     <div dojoAttachPoint="_chart" id="${id}_chart"></div>
 </div>

@@ -49,7 +49,7 @@ public class TweetPollSavedPublishedStatus {
     private Long id;
 
     /** {@link SocialAccount}. **/
-    private SocialAccount twitterAccount;
+    private SocialAccount socialAccount;
 
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
@@ -125,15 +125,15 @@ public class TweetPollSavedPublishedStatus {
      * @return the twitterAccount
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    public SocialAccount getTwitterAccount() {
-        return twitterAccount;
+    public SocialAccount getSocialAccount() {
+        return socialAccount;
     }
 
     /**
      * @param twitterAccount the twitterAccount to set
      */
-    public void setTwitterAccount(SocialAccount twitterAccount) {
-        this.twitterAccount = twitterAccount;
+    public void setSocialAccount(final SocialAccount socialAccount) {
+        this.socialAccount = socialAccount;
     }
 
     /**
@@ -222,7 +222,7 @@ public class TweetPollSavedPublishedStatus {
     @Override
     public String toString() {
         return "TweetPollSavedPublishedStatus [id=" + id + ", socialAccount="
-                + twitterAccount.toString() + ", tweetPoll=" + tweetPoll.toString()
+                + socialAccount.toString() + ", tweetPoll=" + tweetPoll.toString()
                 + ", tweetContent=" + tweetContent + ", tweetId=" + tweetId
                 + ", apiType=" + apiType + ", status=" + status
                 + ", descriptionStatus=" + descriptionStatus

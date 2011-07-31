@@ -49,6 +49,7 @@
                 <value>org.encuestame.persistence.domain.GeoPointFolder</value>
                 <value>org.encuestame.persistence.domain.Client</value>
                 <value>org.encuestame.persistence.domain.HashTag</value>
+                <value>org.encuestame.persistence.domain.HashTagHits</value>
                 <value>org.encuestame.persistence.domain.security.Group</value>
                 <value>org.encuestame.persistence.domain.security.Permission</value>
                 <value>org.encuestame.persistence.domain.security.Account</value>
@@ -81,7 +82,9 @@
                 <value>org.encuestame.persistence.domain.survey.PollFolder</value>
                 <value>org.encuestame.persistence.domain.notifications.Notification</value>
                 <value>org.encuestame.persistence.domain.Attachment</value>
-                <value>org.encuestame.persistence.domain.HashTagHits</value>
+                <value>org.encuestame.persistence.domain.dashboard.Dashboard</value>
+                <value>org.encuestame.persistence.domain.dashboard.Gadget</value>
+                <value>org.encuestame.persistence.domain.dashboard.GadgetProperties</value>
             </list>
         </property>
         <property name="hibernateProperties">

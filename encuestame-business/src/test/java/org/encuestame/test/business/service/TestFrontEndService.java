@@ -15,13 +15,14 @@ package org.encuestame.test.business.service;
 import java.util.List;
 
 import org.encuestame.business.service.FrontEndService;
-import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.web.HashTagBean;
 import org.junit.Before;
@@ -32,9 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Test for {@link FrontEndService}.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 12, 2011
- * @version $Id:$
  */
-public class TestFrontEndService extends AbstractServiceBase{
+public class TestFrontEndService extends AbstractSpringSecurityContext{
 
     @Autowired
     private IFrontEndService frontEndService;
@@ -73,6 +73,9 @@ public class TestFrontEndService extends AbstractServiceBase{
         //System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
     }
 
+    /**
+     *
+     */
     @Test
     public void testCheckPreviousHashTagHit(){
         flushIndexes();
@@ -82,13 +85,15 @@ public class TestFrontEndService extends AbstractServiceBase{
         //System.out.println("Previous record exists 2? --> "+ previousRecord2 + "IP" + this.ipAddress2);
     }
 
+    /**
+     *
+     * @throws EnMeNoResultsFoundException
+     */
     @Test
-    public void testRegisterHashTagHit(){
-        System.out.println(" previous tag hit --> "+ this.hashTag.getHits());
-        final Boolean registerHit = getFrontEndService().registerHashTagHit(this.hashTag.getHashTag(), this.ipAddress,
-                                    this.secondary.getUsername());
-        getFrontEndService().registerHashTagHit(this.hashTag.getHashTag(), this.ipAddress2,
-                             this.secondary.getUsername());
+    public void testRegisterHashTagHit() throws EnMeNoResultsFoundException{
+        //System.out.println(" previous tag hit --> "+ this.hashTag.getHits());
+        final Boolean registerHit = getFrontEndService().registerHashTagHit(this.hashTag, this.ipAddress);
+        getFrontEndService().registerHashTagHit(this.hashTag, this.ipAddress2);
     }
 
     /**

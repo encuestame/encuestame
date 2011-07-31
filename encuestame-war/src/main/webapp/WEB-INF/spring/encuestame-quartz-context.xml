@@ -11,7 +11,7 @@
     <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/>
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>
-    <bean id="removeAccountJob" class="org.encuestame.core.cron.RemoveUnconfirmedAccountJob"/>
+    <bean id="removeAccountJob" class="org.encuestame.business.cron.RemoveUnconfirmedAccountJob"/>
 
     <bean id="calculateInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="calculateHashTagSize"/>
@@ -47,6 +47,9 @@
         </property>
     </bean>
 
+     <!-- Every 5 minutes 0 0/5 * * * ? -->
+     <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
+     <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
     <bean id="schedulerFactoryBean"
         class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
@@ -54,10 +57,8 @@
                  <!--  Reindex domains -->
                  <bean id="cronReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingInvokingJobDetail" />
-                    <property name="cronExpression" value="0 0/40 * * * ?" />
-                    <!-- Every 5 minutes 0 0/5 * * * ? -->
-                    <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
-                    <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
+                    <property name="cronExpression" value="0 15 10 ? * MON-FRI" />
+                    <!-- Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday -->
                 </bean>
                 <!-- Reindex attachments
                 <bean id="attachmentsReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
@@ -66,18 +67,14 @@
                 </bean> -->
                 <bean id="calculateReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="calculateInvokingJobDetail" />
-                    <property name="cronExpression" value="0 0 12 * * ?" />
-                    <!-- Every 5 minutes 0 0/5 * * * ? -->
-                    <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
-                    <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
+                    <property name="cronExpression" value="0 0/20 * * * ?" />
+                    <!--    Fire at 11pm (noon) every day -->
                 </bean>
-                 <!-- Reindex attachments -->
+                 <!-- Remove unconfirmed expired accounts -->
                 <bean id="removeUnconfirmedAccount" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="removeAccountJobDetail" />
-                    <property name="cronExpression" value="0 0/2 * * * ?" />
-                    <!-- Every 5 minutes 0 0/5 * * * ? -->
-                    <!-- 0 0 12 * * ?   Fire at 12pm (noon) every day -->
-                    <!-- 0 0 12 1/5 * ? Fire at 12pm (noon) every 5 days every month, starting on the first day of the month. -->
+                    <property name="cronExpression" value="0 0 12 * * ?" />
+                    <!--    Fire at 12pm (noon) every day -->
                 </bean>
             </list>
         </property>

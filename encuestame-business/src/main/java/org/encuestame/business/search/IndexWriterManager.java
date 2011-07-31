@@ -22,8 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.LockObtainFailedException;
-import org.encuestame.business.service.imp.IIndexWriter;
 import org.encuestame.core.search.DirectoryIndexStore;
+import org.encuestame.core.service.imp.IIndexWriter;
 import org.springframework.util.Assert;
 
 /**

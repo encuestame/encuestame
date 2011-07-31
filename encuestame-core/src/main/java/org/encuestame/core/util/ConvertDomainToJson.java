@@ -53,13 +53,13 @@ public class ConvertDomainToJson {
         tweetResponse.textTweeted = savedPublishedStatus.getTweetContent();
         tweetResponse.statusTweet = savedPublishedStatus.getStatus().name();
         tweetResponse.statusDescriptionTweet = savedPublishedStatus.getDescriptionStatus();
-        tweetResponse.socialAccountId = savedPublishedStatus.getTwitterAccount().getId();
+        tweetResponse.socialAccountId = savedPublishedStatus.getSocialAccount().getId();
         tweetResponse.sourceTweet = savedPublishedStatus.getApiType().name();
         tweetResponse.tweetId = savedPublishedStatus.getTweetId();
         tweetResponse.tweetUrl = SocialUtils.getSocialTweetPublishedUrl(savedPublishedStatus.getTweetId(),
-                savedPublishedStatus.getTwitterAccount().getSocialAccountName(),
-                savedPublishedStatus.getTwitterAccount().getAccounType());
-        tweetResponse.socialAccountName = savedPublishedStatus.getTwitterAccount().getSocialAccountName();
+                savedPublishedStatus.getSocialAccount().getSocialAccountName(),
+                savedPublishedStatus.getSocialAccount().getAccounType());
+        tweetResponse.socialAccountName = savedPublishedStatus.getSocialAccount().getSocialAccountName();
         return tweetResponse;
     }
 }

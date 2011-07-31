@@ -6,6 +6,7 @@ dojo.require("dijit.form.Button");
 dojo.declare(
     "encuestame.org.core.commons.dialog.Confirm",
     [encuestame.org.core.commons.dialog.Dialog],{
+
         //templatePath: dojo.moduleUrl("encuestame.org.core.commons.dialog", "templates/dialog.html"),
 
         draggable : false,
@@ -16,9 +17,11 @@ dojo.declare(
          * post create.
          */
         postCreate : function(){
-            this.inherited(arguments);
+             console.debug("functionYes");
+            //this._modalconnects = [];
             this.containerNode.appendChild(this._createContent());
             this.titleNode.innerHTML = this._question;
+            this.inherited(arguments);
         },
 
         functionYes : function(){

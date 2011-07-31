@@ -12,7 +12,6 @@
  */
 package org.encuestame.mvc.controller.security.json;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.springframework.stereotype.Controller;
@@ -48,13 +45,12 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
     public ModelMap validateEmail(
             @RequestParam(value = "context", required = false) String context,
             @RequestParam(value = "email", required = false) String email,
-            HttpServletRequest request, HttpServletResponse response)
-            throws JsonGenerationException, JsonMappingException, IOException {
+            HttpServletRequest request, HttpServletResponse response){
         try {
             setItemResponse(this.validate(context, "email", email, request));
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+
         }
         return returnData();
     }
@@ -63,13 +59,12 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
     public ModelMap validateRealName(
             @RequestParam(value = "context", required = false) String context,
             @RequestParam(value = "real_name", required = false) String name,
-            HttpServletRequest request, HttpServletResponse response)
-            throws JsonGenerationException, JsonMappingException, IOException {
+            HttpServletRequest request, HttpServletResponse response) {
         try {
             setItemResponse(this.validate(context, "realName", name, request));
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+
         }
         return returnData();
     }
@@ -78,13 +73,12 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
     public ModelMap validateUsername(
             @RequestParam(value = "context", required = false) String context,
             @RequestParam(value = "username", required = false) String username,
-            HttpServletRequest request, HttpServletResponse response)
-            throws JsonGenerationException, JsonMappingException, IOException {
+            HttpServletRequest request, HttpServletResponse response) {
         try {
             setItemResponse(this.validate(context, "username", username, request));
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
+
         }
         return returnData();
     }
@@ -126,7 +120,7 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
                     jsonResponse.put("msg", getMessage("secure.user.notvalid", request, null));
                     final List<String> suggestions = new ArrayList<String>();
                     for (int i = 0; i < 5; i++) {
-                        suggestions.add(value+RandomStringUtils.randomAlphabetic(6));
+                        suggestions.add(value+RandomStringUtils.randomAlphabetic(ValidateOperations.LENGTH_RANDOM_VALUE));
                     }
                     jsonResponse.put("suggestions", suggestions);
                 } else {

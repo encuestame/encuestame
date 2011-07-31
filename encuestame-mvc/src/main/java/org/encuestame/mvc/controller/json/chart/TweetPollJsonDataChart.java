@@ -160,10 +160,6 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
             //results by tweetpoll id.
             final List<TweetPollResultsBean> results = getTweetPollService().getResultsByTweetPollId(tweetPollId);
             jsonResult.put("votesResult", results);
-            org.encuestame.utils.json.TweetPollResultsBean d = new org.encuestame.utils.json.TweetPollResultsBean();
-            d.setId(234);
-            jsonResult.put("jsonTest", d);
-
             log.debug("TweetPoll results " + results.size());
             setItemResponse(jsonResult);
         } catch (EnMeNoResultsFoundException e) {

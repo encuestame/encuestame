@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.tweetpoll.Status;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -351,8 +352,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPollFolder> retrieveTweetPollFolderByUserId(final Long userId){
-        return getHibernateTemplate().findByNamedParam("FROM TweetPollFolder where users.uid=:userId","userId", userId);
+    public List<TweetPollFolder> retrieveTweetPollFolderByAccount(final Account account){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
+        criteria.add(Restrictions.eq("users", account));
+        criteria.add(Restrictions.eq("status", org.encuestame.persistence.domain.Status.ACTIVE));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
     /**
@@ -386,11 +390,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
 
     @SuppressWarnings("unchecked")
-    public TweetPollFolder getTweetPollFolderByIdandUser(final Long FolderId, final Long userId){
+    public TweetPollFolder getTweetPollFolderByIdandUser(final Long folderId, final Account account) {
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
-         criteria.createAlias("users", "users");
-         criteria.add(Restrictions.eq("users.uid", userId));
-         criteria.add(Restrictions.eq("id", FolderId));
+         criteria.add(Restrictions.eq("users", account));
+         criteria.add(Restrictions.eq("status", org.encuestame.persistence.domain.Status.ACTIVE));
+         criteria.add(Restrictions.eq("id", folderId));
          return (TweetPollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 

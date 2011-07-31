@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -38,28 +39,32 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.SocialAccountBean;
+import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.security.SocialAccountBean;
-import org.encuestame.utils.web.FolderBean;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.QuestionBean;
-import org.encuestame.utils.web.TweetPollAnswerSwitchBean;
-import org.encuestame.utils.web.TweetPollBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.UnitPatternBean;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.UnitPoll;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurvey;
@@ -94,8 +99,7 @@ public class ConvertDomainBean {
      * @return
      */
     public static final  List<TweetPollAnswerSwitchBean> convertListTweetPollSwitchToBean(final List<TweetPollSwitch> pollSwitchs) {
-        final List<TweetPollAnswerSwitchBean> listSwitchs
-        = new ArrayList<TweetPollAnswerSwitchBean>();
+        final List<TweetPollAnswerSwitchBean> listSwitchs = new ArrayList<TweetPollAnswerSwitchBean>();
         for (TweetPollSwitch account : pollSwitchs) {
             listSwitchs.add(ConvertDomainBean.convertTweetPollSwitchToBean(account));
         }
@@ -127,7 +131,7 @@ public class ConvertDomainBean {
                    socialAccountBean.setAccountId(socialAccount.getId());
                    socialAccountBean.setTypeAccount(socialAccount.getAccounType().toString());
                    socialAccountBean.setDescriptionProfile(socialAccount.getDescriptionProfile());
-                   socialAccount.setEmail(socialAccount.getEmail());
+                   socialAccount.setEmail(socialAccount.getEmail() == null ? "" : socialAccount.getEmail());
                    socialAccount.setDefaultSelected(socialAccount.getDefaultSelected() ==  null
                                     ? false : socialAccount.getDefaultSelected());
                    socialAccountBean.setAddedAccount(socialAccount.getAddedAccount());
@@ -135,8 +139,12 @@ public class ConvertDomainBean {
                    socialAccountBean.setProfilePictureUrl(socialAccount.getProfilePictureUrl());
                    socialAccountBean.setProfileThumbnailPictureUrl(socialAccount.getProfileThumbnailPictureUrl());
                    socialAccountBean.setRealName(socialAccount.getRealName());
-                   socialAccountBean.setSocialAccountName(socialAccount.getSocialAccountName());
-           return socialAccountBean;
+                   socialAccountBean.setSocialAccountName(socialAccount
+                            .getSocialAccountName());
+                   socialAccountBean.setSocialProfileUrl(socialAccount
+                            .getPublicProfileUrl() == null ? "" : socialAccount
+                            .getPublicProfileUrl());
+        return socialAccountBean;
     }
 
     /**
@@ -177,8 +185,10 @@ public class ConvertDomainBean {
      * @return
      */
     public static final  List<SocialAccountBean> convertListSocialAccountsToBean(final List<SocialAccount> accounts) {
+        log.debug("convertListSocialAccountsToBean "+accounts.size());
         final List<SocialAccountBean> loadListPermission = new ArrayList<SocialAccountBean>();
         for (SocialAccount account : accounts) {
+            log.debug("convertListSocialAccountsToBean account "+account.getId());
             loadListPermission.add(ConvertDomainBean.convertSocialAccountToBean(account));
         }
         return loadListPermission;
@@ -461,12 +471,12 @@ public class ConvertDomainBean {
 
 
     /**
-     * Convert {@link QuestionPattern} to {@link UnitPatternBean}.
+     * Convert {@link QuestionPattern} to {@link QuestionPatternBean}.
      * @param pattern  {@link QuestionPattern}
-     * @return {@link UnitPatternBean}
+     * @return {@link QuestionPatternBean}
      */
-    public static final UnitPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
-        final UnitPatternBean patterBean = new UnitPatternBean();
+    public static final QuestionPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
+        final QuestionPatternBean patterBean = new QuestionPatternBean();
         patterBean.setId(pattern.getPatternId());
         patterBean.setPatronType(pattern.getPatternType());
         patterBean.setLabel(pattern.getLabelQid());
@@ -531,6 +541,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? 0L : Long.valueOf(tweetPoll.getNumbervotes()));
         unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
         unitTweetPoll.setLimitVotesDate(tweetPoll.getDateLimit() == null ? false : tweetPoll.getDateLimit());
+        unitTweetPoll.setUpdateDate(tweetPoll.getUpdatedDate());
         if(tweetPoll.getDateLimit() != null && tweetPoll.getDateLimited() != null) {
             unitTweetPoll.setDateToLimit(tweetPoll.getDateLimited() == null
                     ? null
@@ -553,12 +564,12 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link Poll} to {@link UnitPoll}.
+     * Convert {@link Poll} to {@link PollBean}.
      * @param poll
      * @return unitPoll unitPoll
      */
-    public static final UnitPoll convertPollDomainToBean(final Poll poll){
-        final UnitPoll unitPoll = new UnitPoll();
+    public static final PollBean convertPollDomainToBean(final Poll poll){
+        final PollBean unitPoll = new PollBean();
         unitPoll.setId(poll.getPollId());
         unitPoll.setCompletedPoll(poll.getPollCompleted());
         unitPoll.setCreationDate(poll.getCreatedAt());
@@ -567,6 +578,7 @@ public class ConvertDomainBean {
         unitPoll.setPublishPoll(poll.getPublish());
         unitPoll.setShowResultsPoll(poll.getShowVotes());
         unitPoll.setFinishDate(poll.getEndDate());
+        unitPoll.setUpdatedDate(poll.getUpdatedDate());
        return unitPoll;
     }
 
@@ -575,8 +587,8 @@ public class ConvertDomainBean {
      * @param poll
      * @return
      */
-    public static final List<UnitPoll> convertListToPollBean(final List<Poll> poll){
-        final List<UnitPoll> listPolls = new ArrayList<UnitPoll>();
+    public static final List<PollBean> convertListToPollBean(final List<Poll> poll){
+        final List<PollBean> listPolls = new ArrayList<PollBean>();
         for (Poll polls : poll) {
             listPolls.add(ConvertDomainBean.convertPollDomainToBean(polls));
         }
@@ -589,8 +601,8 @@ public class ConvertDomainBean {
      * @return collection of groups beans.
      * @throws Exception
      */
-    public static final List<UnitPoll> convertSetToUnitPollBean(final List<Poll> polls){
-        final List<UnitPoll> loadListPolls = new LinkedList<UnitPoll>();
+    public static final List<PollBean> convertSetToPollBean(final List<Poll> polls){
+        final List<PollBean> loadListPolls = new LinkedList<PollBean>();
             for (Poll poll : polls) {
                 loadListPolls.add(ConvertDomainBean.convertPollDomainToBean(poll));
             }
@@ -618,7 +630,7 @@ public class ConvertDomainBean {
     public static UnitLocationFolder convertGeoPointFolderDomainToBean(final GeoPointFolder geoPointFolder){
         final UnitLocationFolder locationFolder = new UnitLocationFolder();
         locationFolder.setId(geoPointFolder.getLocationFolderId());
-        locationFolder.setName(geoPointFolder.getLocationFolderName());
+        locationFolder.setName(geoPointFolder.getFolderName());
         locationFolder.setType(geoPointFolder.getFolderType().GROUPING.name());
         return locationFolder;
     }
@@ -696,14 +708,45 @@ public class ConvertDomainBean {
      * @param folders List of Folders.
      * @return
      */
-    public static final List<FolderBean> convertListToUniUnitFolder(final List<IFolder> folders){
+    public static final List<FolderBean> convertListTweetPollFoldertoBean(final List<TweetPollFolder> folders){
         final List<FolderBean> folderList = new LinkedList<FolderBean>();
-            for (IFolder folder : folders) {
+            for (TweetPollFolder folder : folders) {
                 folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
             }
         return folderList;
     }
 
+    /**
+     * Convert a List of {@link PollFolder} to {@link FolderBean}.
+     * @param folders List of {@link PollFolder}.
+     * @return
+     */
+    public static final List<FolderBean> convertListPollFolderToBean(final List<PollFolder> folders){
+        final List<FolderBean> folderList = new LinkedList<FolderBean>();
+            for (PollFolder folder : folders) {
+                folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
+            }
+        return folderList;
+    }
+
+    /**
+     * Convert a List of {@link SurveyFolder} to {@link FolderBean}.
+     * @param folders List of {@link PollFolder}.
+     * @return
+     */
+    public static final List<FolderBean> convertListSurveyFolderToBean(final List<SurveyFolder> folders){
+        final List<FolderBean> folderList = new LinkedList<FolderBean>();
+            for (SurveyFolder folder : folders) {
+                folderList.add(ConvertDomainBean.convertFolderToBeanFolder(folder));
+            }
+        return folderList;
+    }
+
+    /**
+     *
+     * @param survey
+     * @return
+     */
     public static final UnitSurvey convertSurveyDomaintoBean(final Survey survey){
         final UnitSurvey unitSurvey = new UnitSurvey();
         unitSurvey.setSid(survey.getSid());
@@ -734,4 +777,34 @@ public class ConvertDomainBean {
         unitSurvey.setNotifications(survey.getNotifications());
         unitSurvey.setName(survey.getName());
         return unitSurvey;}
+
+    /**
+     * Convert Dashboard bean to dashboard domain.
+     * @param dashboards
+     * @return
+     */
+    public static final List<DashboardBean> convertListDashboardToBean(final List<Dashboard> dashboards){
+        final List<DashboardBean> dashboardList = new LinkedList<DashboardBean>();
+            for (Dashboard dashboard : dashboards) {
+            	dashboardList.add(ConvertDomainBean.convertDashboardDomaintoBean(dashboard));
+            }
+        return dashboardList;
     }
+
+    /**
+     * Convert Dashboard domain to dashboard bean.
+     * @param dashboard
+     * @return
+     */
+    public static final DashboardBean convertDashboardDomaintoBean(final Dashboard dashboard){
+    	final DashboardBean dashboardBean = new DashboardBean();
+    	dashboardBean.setDashboardId(dashboard.getBoardId());
+    	dashboardBean.setDashboardName(dashboard.getPageBoardName());
+    	dashboardBean.setDashboardDesc(dashboard.getDescription());
+    	dashboardBean.setFavorite(dashboard.getFavorite());
+    	dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
+    	dashboardBean.setLayout(dashboard.getPageLayout().toString());
+    	dashboardBean.setSequence(dashboard.getBoardSequence());
+    	return dashboardBean;
+    }
+}

@@ -78,7 +78,7 @@ public class TestPollDao extends AbstractBase {
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
         this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
-        this.pollFolder = createPollFolder("My First Poll Folder", this.user);
+        this.pollFolder = createPollFolder("My First Poll Folder", this.secUserSecondary);
 
     }
 

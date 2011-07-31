@@ -24,7 +24,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.business.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.security.access.prepost.PreAuthorize;

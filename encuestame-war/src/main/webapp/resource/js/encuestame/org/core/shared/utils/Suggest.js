@@ -18,6 +18,8 @@ dojo.declare(
 
         store: null,
 
+        label : "Add",
+
         url : encuestame.service.list.hashtags,
 
         textBoxWidget : null,
@@ -57,6 +59,8 @@ dojo.declare(
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                     if (dojo.keys.SPACE == e.keyCode || dojo.keys.ENTER == e.keyCode) {
                          this.processSpaceAction();
+                    } else if (dojo.keys.ESCAPE == e.keyCode) {
+                        this.hide();
                     } else {
                         this._setParams(
                                 { limit: this.limit,
@@ -67,6 +71,7 @@ dojo.declare(
                             this.callSuggest();
                         }
                     }
+                    //this.textBoxWidget //TODO: this.hide() on lost focus.
                 }));
                 //query read store.
                 this.store = new dojox.data.QueryReadStore({

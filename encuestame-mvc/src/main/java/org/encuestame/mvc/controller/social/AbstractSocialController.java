@@ -12,9 +12,11 @@
  */
 package org.encuestame.mvc.controller.social;
 
-import org.encuestame.business.service.social.OAuth1RequestFlow;
-import org.encuestame.business.service.social.OAuth2RequestFlow;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.oauth1.support.OAuth1RequestFlow;
+import org.encuestame.oauth2.support.OAuth2RequestFlow;
+import org.encuestame.social.connect.service.ConnectOperations;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Define helper methods to social networks OAuth connect.
@@ -22,6 +24,12 @@ import org.encuestame.mvc.controller.AbstractBaseOperations;
  * @since Dec 25, 2010 4:47:05 PM
  */
 public abstract class AbstractSocialController extends AbstractBaseOperations {
+
+    /**
+     *
+     */
+    @Autowired
+    private ConnectOperations connectOperations;
 
     /**
      * {@link OAuth1RequestFlow}
@@ -33,4 +41,17 @@ public abstract class AbstractSocialController extends AbstractBaseOperations {
      */
     public OAuth2RequestFlow auth2RequestProvider;
 
+    /**
+     * @return the connectOperations
+     */
+    public ConnectOperations getConnectOperations() {
+        return connectOperations;
+    }
+
+    /**
+     * @param connectOperations the connectOperations to set
+     */
+    public void setConnectOperations(final ConnectOperations connectOperations) {
+        this.connectOperations = connectOperations;
+    }
 }
