@@ -11,9 +11,9 @@ public class TestCalculation extends TestCase {
         double total = 200;
         double actual = 123;
         double result = ((actual/total));
-        System.out.println(result);
+        //System.out.println(result);
         DecimalFormat percent2 = new DecimalFormat("#0.00%");
         String st2 = percent2.format(result);
-        System.out.println(st2.toString());
+        //System.out.println(st2.toString());
     }
 }

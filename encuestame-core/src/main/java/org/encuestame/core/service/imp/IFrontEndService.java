@@ -15,6 +15,7 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.TweetPollBean;
@@ -73,7 +74,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    HashTagBean getHashTagItem(final String tagName) throws EnMeNoResultsFoundException;
+    HashTag getHashTagItem(final String tagName) throws EnMeNoResultsFoundException;
 
     /**
      * Get TweetPolls by hashTag id.
@@ -93,10 +94,11 @@ public interface IFrontEndService extends ServiceOperations {
 
     /**
      * Register hashTag hits.
-     * @param tagName
+     * @param tag
      * @param ipAddress
      * @param username
+     * @throws EnMeNoResultsFoundException
      */
-    Boolean registerHashTagHit(final String tagName, final String ip, final String username);
+    Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException;
 
 }

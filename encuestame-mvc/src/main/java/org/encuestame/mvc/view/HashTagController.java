@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -82,15 +83,15 @@ public class HashTagController extends AbstractBaseOperations{
         final String IP = getIpClient();
         log.info("IP" + IP);
         try {
+             final HashTag tag = service.getHashTagItem(name);
             // Search HashTag hits.
-              boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
+             boolean hashTagVisite = service.checkPreviousHashTagHit(IP);
             // TODO: Check that previous hash Tag hit has been visited the same day.
-              if (!hashTagVisite) {
-               final Boolean tagHit = service.registerHashTagHit(name, IP, "paola");
+             if (!hashTagVisite) {
+                 service.registerHashTagHit(tag, IP);
             }
-            final HashTagBean tag = service.getHashTagItem(name);
-            final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtag", request);
-            final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getId(), LIMIT_HASHTAG, "hashtagRated", request);
+            final List<TweetPollBean> tweetPollbyTags = service.getTweetPollsbyHashTagId(tag.getHashTagId(), LIMIT_HASHTAG, "hashtag", request);
+            final List<TweetPollBean> tweetPollbyRated = service.getTweetPollsbyHashTagId(tag.getHashTagId(), LIMIT_HASHTAG, "hashtagRated", request);
             if (tag == null) {
                 return "pageNotFound";
             } else {

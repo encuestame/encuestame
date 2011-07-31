@@ -1792,7 +1792,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        final HashTagHits tagHits = new HashTagHits();
        tagHits.setHitDate(hitDate);
        tagHits.setIpAddress(ipAddress);
-       tagHits.setHashTagId(hashTag);
+       tagHits.setHashTag(hashTag);
        tagHits.setUserAccount(userAcc);
        getHashTagDao().saveOrUpdate(tagHits);
        return tagHits;
