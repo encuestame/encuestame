@@ -28,7 +28,7 @@ import org.encuestame.utils.oauth.AccessGrant;
 public class GoogleBuzzSignInSocialService extends AbstractSocialSignInConnect<GoogleContactsAPIOperations> {
 
     /**
-     *
+     * Constructor.
      * @param accessGrant
      * @param key
      * @throws Exception
@@ -40,13 +40,16 @@ public class GoogleBuzzSignInSocialService extends AbstractSocialSignInConnect<G
     }
 
     /**
-     *
+     * Google buzz provider.
      */
     @Override
     public SocialProvider getProvider() {
         return SocialProvider.GOOGLE_BUZZ;
     }
 
+    /**
+     *
+     */
     @Override
     public GoogleBuzzAPITemplate getAPISocialProvider() {
         return new GoogleBuzzAPITemplate(getAccessGrant().getAccessToken(),

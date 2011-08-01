@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+/**
+ * Google Buzz Connect Social Account.
+ * @author Picado, Juan juanATencuestame.org
+ * @since 01/08/2011
+ */
 @Controller
 public class GoogleBuzzConnectSocialAccount extends AbstractAccountConnect{
 
@@ -48,7 +53,7 @@ public class GoogleBuzzConnectSocialAccount extends AbstractAccountConnect{
      * @return
      */
     @RequestMapping(value="/connect/google", method = RequestMethod.GET)
-    public String signinTwitterGet(){
+    public String signinGoogleGet(){
         return "redirect:/settings/social";
     }
 

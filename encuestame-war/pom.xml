@@ -213,11 +213,6 @@
                         <artifactId>jasperreports</artifactId>
                         <version>3.5.3</version>
                     </dependency>
-                    <dependency>
-                        <groupId>org.apache.log4j</groupId>
-                        <artifactId>com.springsource.org.apache.log4j</artifactId>
-                        <version>1.2.15</version>
-                    </dependency>
                 </dependencies>
             </plugin>
         </plugins>
@@ -345,20 +340,8 @@
             <artifactId>twitter4j-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -431,10 +414,6 @@
         <dependency>
             <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-core</artifactId>
         </dependency>
             <dependency>
               <groupId>org.opensymphony.quartz</groupId>
