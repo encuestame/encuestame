@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.1.38</version>
+        <version>1.1.39-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
@@ -150,8 +150,8 @@
                             <keystore>${project.build.directory}/jetty-ssl.keystore</keystore>
                             <password>jetty6</password>
                             <keyPassword>jetty6</keyPassword>
-                        </connector>
-                 --></connectors>
+                        </connector>-->
+                 </connectors>
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
                     </webAppConfig>
@@ -392,10 +392,10 @@
             <groupId>jboss</groupId>
             <artifactId>javassist</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.el</groupId>
-            <artifactId>jboss-el</artifactId>
-        </dependency>
+<!--         <dependency> -->
+<!--             <groupId>org.jboss.el</groupId> -->
+<!--             <artifactId>jboss-el</artifactId> -->
+<!--         </dependency> -->
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -583,19 +583,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.apache.tiles</groupId>
-            <artifactId>tiles-el</artifactId>
-        </dependency>
-                <dependency>
+            <dependency>
+        <groupId>org.apache.tiles</groupId>
+        <artifactId>tiles-extras</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.tiles</groupId>
+        <artifactId>tiles-servlet</artifactId>
+      </dependency>
+       <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.4</version>
         </dependency>
         <dependency>
              <groupId>javax.servlet.jsp</groupId>
@@ -628,11 +626,6 @@
                     <artifactId>jetty-client</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <version>${jetty-plugin-version}</version>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
