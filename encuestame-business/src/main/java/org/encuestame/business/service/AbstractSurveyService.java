@@ -188,11 +188,12 @@ public class AbstractSurveyService extends AbstractChartService {
      *
      * @param hashtagBeans
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    public List<HashTag> retrieveListOfHashTags(final List<HashTagBean> hashtagBeans){
+    public List<HashTag> retrieveListOfHashTags(final List<HashTagBean> hashtagBeans) throws EnMeNoResultsFoundException{
         final List<HashTag> tagList = new ArrayList<HashTag>();
         for (HashTagBean unitHashTag : hashtagBeans) {
-            HashTag hashTag = getHashTagDao().getHashTagByName(unitHashTag.getHashTagName().toLowerCase());
+            HashTag hashTag = getHashTag(unitHashTag.getHashTagName());
             //if is null, create new hashTag.
             if(hashTag == null && unitHashTag.getHashTagName() != null){
                 log.debug("created new hashTag:{"+unitHashTag.getHashTagName().toLowerCase());

@@ -44,13 +44,13 @@ import org.hibernate.search.annotations.Store;
 public class HashTagHits {
 
     /** Hash Tag Id. **/
-    private Long hitId;
+    private Long id;
 
     /** Tag String.**/
     private Date hitDate;
 
     /** Hash**/
-    private HashTag hashTagId;
+    private HashTag hashTag;
 
     /** Ip address**/
     private String ipAddress;
@@ -64,16 +64,16 @@ public class HashTagHits {
     @Id
     @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
-    public Long getHitId() {
-        return hitId;
+    @Column(name = "hashtag_hits_id", unique = true, nullable = false)
+    public Long getId() {
+        return id;
     }
 
     /**
     * @param hitId the hitId to set
     */
-    public void setHitId(final Long hitId) {
-        this.hitId = hitId;
+    public void setId(final Long id) {
+        this.id = id;
     }
 
     /**
@@ -95,16 +95,16 @@ public class HashTagHits {
     /**
     * @return the hashTagId
     */
-    @ManyToOne()
-    public HashTag getHashTagId() {
-        return hashTagId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public HashTag getHashTag() {
+        return hashTag;
     }
 
     /**
     * @param hashTagId the hashTagId to set
     */
-    public void setHashTagId(final HashTag hashTagId) {
-        this.hashTagId = hashTagId;
+    public void setHashTag(final HashTag hashTag) {
+        this.hashTag = hashTag;
     }
 
     /**
