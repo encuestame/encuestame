@@ -45,7 +45,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
 	public List<Dashboard> getAllDashboards(final String username,
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
-		final List<Dashboard> boards = getDashboardDao().retrieveDashboards(getPrimaryUser(username), maxResults, start);
+		final List<Dashboard> boards = getDashboardDao().retrieveDashboardsbyUser(getPrimaryUser(username), maxResults, start);
 		log.info("dashboards list size "+boards.size());
 		return boards;
 	}
@@ -57,7 +57,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
 	public Dashboard getAllDashboardbyId(final Long boardId, final String username) throws EnMeNoResultsFoundException{
 		Dashboard dashboard = null;
 	        if (username != null) {
-	        	dashboard = getDashboardDao().getAllDashboards(boardId, getPrimaryUser(username));
+	        	dashboard = getDashboardDao().getDashboardbyIdandUser(boardId, getPrimaryUser(username));
 	        } else {
 	        	dashboard = getDashboardDao().getDashboardbyId(boardId);
 	        }
