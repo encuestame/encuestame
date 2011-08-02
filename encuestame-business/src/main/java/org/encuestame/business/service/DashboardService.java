@@ -20,6 +20,7 @@ import org.encuestame.business.service.imp.IDashboardService;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeDashboardNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -157,5 +158,55 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
 		else{
 			throw new EnMeGadgetNotFoundException("gadget not found");
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.business.service.imp.IDashboardService#getDashboardsbyKeyword(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+	 */
+	public List<Dashboard> getDashboardsbyKeyword(final String keyword,
+			final String username,
+			final Integer maxResults,
+			final Integer start) throws EnMeExpcetion{
+		List<Dashboard> dashboardList = new ArrayList<Dashboard>();
+		if(keyword!= null){
+			throw new EnMeExpcetion("keyword is missing");
+		}
+		else {
+		  dashboardList = getDashboardDao().retrieveDashboardbyKeyword(keyword, getPrimaryUser(username), maxResults, start);
+		}
+		return dashboardList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.business.service.imp.IDashboardService#getGadgetsbyDashboard(java.lang.Long, java.lang.String)
+	 */
+	public List<Gadget> getGadgetsbyDashboard(final Long dashboardId, final String username) throws EnMeNoResultsFoundException{
+		final Dashboard board = getDashboardDao().getDashboardbyIdandUser(dashboardId, getPrimaryUser(username));
+		List<Gadget> gadgets = new ArrayList<Gadget>();
+		if(board==null){
+			throw new EnMeDashboardNotFoundException("dashboard not found");
+		}
+		else{
+			gadgets = getDashboardDao().retrieveGadgetsbyDashboard(dashboardId);
+		}
+		return gadgets;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.business.service.imp.IDashboardService#getPropertiesbyGadget(java.lang.Long)
+	 */
+	public List<GadgetProperties> getPropertiesbyGadget(final Long gadgetId) throws EnMeGadgetNotFoundException{
+		final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
+		List<GadgetProperties> properties = new ArrayList<GadgetProperties>();
+		if(gadget==null){
+			throw new EnMeGadgetNotFoundException("gadget not found");
+		}
+		else{
+			properties = getDashboardDao().retrievePropertiesbyGadget(gadgetId);
+		}
+		return properties;
 	}
 }

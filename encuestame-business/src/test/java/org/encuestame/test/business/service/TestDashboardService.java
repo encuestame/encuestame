@@ -12,6 +12,10 @@
  */
 package org.encuestame.test.business.service;
 
+import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.encuestame.business.service.DashboardService;
 import org.encuestame.business.service.imp.IDashboardService;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
@@ -57,8 +61,8 @@ public class TestDashboardService extends AbstractServiceBase{
 	@Test
 	public void testGetAllDashboards() throws EnMeNoResultsFoundException{
 		System.out.println("testing");
-		//final List<Dashboard> allBoards = dashboardService.getAllDashboards(this.userAccount.getUsername(), 10, 0);
-		//  assertEquals("Should be equals", 3, allBoards.size());
+		final List<Dashboard> allBoards = dashboardService.getAllDashboards(this.userAccount.getUsername(), 10, 0);
+		assertEquals("Should be equals", 3, allBoards.size());
 	}
 
 	/**
