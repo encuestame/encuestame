@@ -162,6 +162,8 @@ a:hover{
     color: #FFF;
     font-weight: bold;
     padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 3px;
 }
 
 .defaultForm input {

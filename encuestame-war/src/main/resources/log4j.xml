@@ -29,6 +29,14 @@
         <level value="debug" />
     </logger>
 
+     <logger name="org.encuestame.social">
+        <level value="debug" />
+    </logger>
+
+        <logger name="org.encuestame.oauth">
+        <level value="debug" />
+    </logger>
+
     <logger name="org.encuestame.persistence">
         <level value="debug" />
     </logger>

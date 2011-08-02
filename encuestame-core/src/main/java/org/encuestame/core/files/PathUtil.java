@@ -17,6 +17,9 @@ public class PathUtil {
      */
     public static final String profile = "/profile";
 
+
+    public static String DEFAULT_SOCIAL_CALLBACK_PATH = "/social/back/";
+
     /**
      * Upload Folder.
      */
