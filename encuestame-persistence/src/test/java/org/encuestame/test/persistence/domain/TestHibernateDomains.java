@@ -236,7 +236,7 @@ public class TestHibernateDomains extends AbstractBase{
     /**
     * Test Survey Format Domain.
     **/
- @Test
+    @Test
      public void testSurveyFormat(){
          final SurveyFormat surveyformat = new SurveyFormat();
          surveyformat.setDateCreated(new Date());
@@ -448,6 +448,9 @@ public class TestHibernateDomains extends AbstractBase{
         final Gadget gadget = new Gadget();
         gadget.setGadgetName("Notifications");
         gadget.setGadgetType(GadgetType.TWEETPOLLS);
+        gadget.setGadgetColor("blue");
+        gadget.setGadgetColumn(1);
+        gadget.setGadgetPosition(1);
         getDashboardDao().saveOrUpdate(gadget);
      }
 

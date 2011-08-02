@@ -59,6 +59,7 @@ import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.dashboard.GadgetType;
 import org.encuestame.persistence.domain.dashboard.LayoutEnum;
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -578,6 +579,18 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createSecondaryUserGroup(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
     }
 
+    public GadgetProperties createGadgetProperties(final String name, final String value,
+    		final Gadget gadget,
+    		final UserAccount user){
+    	final GadgetProperties properties = new GadgetProperties();
+    	properties.setGadgetPropName(name);
+    	properties.setGadgetPropValue(value);
+    	properties.setUserAccount(user);
+    	properties.setGadget(gadget);
+    	getDashboardDao().saveOrUpdate(properties);
+    	return properties;
+    }
+
     /**
      * Create gadget default.
      * @return
@@ -596,6 +609,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
         gadget.setGadgetType(GadgetType.TWEETPOLLS);
+        gadget.setGadgetColumn(2);
+        gadget.setGadgetColor("default");
+        gadget.setGadgetPosition(0);
         getDashboardDao().saveOrUpdate(gadget);
         return gadget;
     }

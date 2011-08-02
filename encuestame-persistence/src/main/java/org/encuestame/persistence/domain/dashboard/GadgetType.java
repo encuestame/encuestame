@@ -26,6 +26,23 @@ public enum GadgetType {
 	SURVEYS,
 
 	/** Gadget type for tweetPolls**/
-	TWEETPOLLS
+	TWEETPOLLS,
+
+	GadgetType(){
+
+	};
+
+	/**
+	 * Get gadget type by string
+	 * @param gadgetType
+	 * @return
+	 */
+	public static GadgetType getGadgetType(final String gadgetType) {
+        if (null == gadgetType) { return null; }
+        else if (gadgetType.equalsIgnoreCase("TWEETPOLLS")) { return TWEETPOLLS; }
+        else if (gadgetType.equalsIgnoreCase("SURVEYS")) { return SURVEYS; }
+        else if (gadgetType.equalsIgnoreCase("POLL")) { return POLL; }
+        else return null;
+    }
 
 }
