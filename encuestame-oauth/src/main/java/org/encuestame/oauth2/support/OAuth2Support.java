@@ -88,7 +88,7 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
      */
     public AccessGrant exchangeForAccess(String authorizationCode, String redirectUri) {
         log.debug("exchangeForAccess:{"+authorizationCode);
-        log.debug("redirectUri{: "+redirectUri);
+        log.debug("exchangeForAccess redirectUri{: "+redirectUri);
         MultiValueMap<String, String> requestParameters = new LinkedMultiValueMap<String, String>();
         requestParameters.set("client_id", clientId);
         requestParameters.set("client_secret", clientSecret);
@@ -96,7 +96,6 @@ public class OAuth2Support extends AbstractOAuthSupport implements OAuth2RestOpe
         requestParameters.set("redirect_uri", redirectUri);
         requestParameters.set("grant_type", "authorization_code");
         log.debug("requestParameters "+requestParameters.toString());
-        @SuppressWarnings("unchecked")
         Map result = getRestTemplate().postForObject(accessTokenUrl, requestParameters, Map.class);
         log.debug("Access Grant "+result.toString());
         return new AccessGrant(valueOf(result.get("access_token")), valueOf(result.get("refresh_token")));

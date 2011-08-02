@@ -52,8 +52,8 @@ public class GoogleBuzzConnectSocialAccount extends AbstractAccountConnect{
      *
      * @return
      */
-    @RequestMapping(value="/connect/google", method = RequestMethod.GET)
-    public String signinGoogleGet(){
+    @RequestMapping(value="/connect/googlebuzz", method = RequestMethod.GET)
+    public String signinGoogleBuzzGet(){
         return "redirect:/settings/social";
     }
 
@@ -63,8 +63,8 @@ public class GoogleBuzzConnectSocialAccount extends AbstractAccountConnect{
      * @param httpRequest
      * @return
      */
-    @RequestMapping(value = "/connect/google", method = RequestMethod.POST)
-    public String connectGooglePost(
+    @RequestMapping(value = "/connect/googlebuzz", method = RequestMethod.POST)
+    public String connectGoogleBuzzPost(
             @RequestParam(required = false) String scope,
             HttpServletRequest httpRequest) {
         return this.auth2RequestProvider.buildOAuth2AuthorizeUrl(

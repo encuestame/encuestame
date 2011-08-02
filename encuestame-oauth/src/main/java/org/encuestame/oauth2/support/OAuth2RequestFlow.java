@@ -71,7 +71,8 @@ public class OAuth2RequestFlow {
     public AccessGrant getAccessGrant(final String code,final HttpServletRequest httpRequest){
         log.debug("Access Grant "+this.buildCallBackUrl(httpRequest));
         log.debug("Access Grant code "+code);
-        return  getoAuth2RestOperations().exchangeForAccess(code, this.buildCallBackUrl(httpRequest));
+        String url = this.buildCallBackUrl(httpRequest);
+        return  getoAuth2RestOperations().exchangeForAccess(code, url);
     }
 
     /**
@@ -83,7 +84,8 @@ public class OAuth2RequestFlow {
     public String buildOAuth2AuthorizeUrl(
             final String scope,
             final HttpServletRequest httpRequest,
-            final Boolean forceScope){
+            final Boolean forceScope) {
+        log.debug("buildOAuth2AuthorizeUrl");
         this.oAuth2RestOperations = new OAuth2Support(auth2Parameters.getAppId() == null
                 ? auth2Parameters.getApiKey() : auth2Parameters.getAppId().toString(),
                 auth2Parameters.getClientSecret(),
@@ -96,6 +98,7 @@ public class OAuth2RequestFlow {
             authorizeUrl.append(scope);
         }
         log.debug("Authorize Url "+authorizeUrl.toString() + " for "+this.provider.name());
+        System.out.println("Authorize Url "+authorizeUrl.toString() + " for "+this.provider.name());
         return authorizeUrl.toString();
     }
 
@@ -107,7 +110,7 @@ public class OAuth2RequestFlow {
     public String buildCallBackUrl(final HttpServletRequest request){
         final StringBuilder callBackurl = new StringBuilder(InternetUtils.getDomain(request));
         callBackurl.append(DEFAULT_CALLBACK_PATH);
-        callBackurl.append(provider.toString().toLowerCase());
+        callBackurl.append(provider.getBackUrlProviderName());
         log.debug("buildCallBackUrl "+callBackurl.toString());
         return callBackurl.toString();
     }
