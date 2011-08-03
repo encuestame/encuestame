@@ -176,7 +176,7 @@ public class SignInController extends AbstractSocialController{
                 providerBack = SocialProvider.getProvider(provider);
             }
             if (providerBack == null) {
-                throw new EnMeOAuthSecurityException("provider not valid");
+                throw new EnMeOAuthSecurityException("provider ["+provider+"] not valid");
             }
             if (providerBack.equals(SocialProvider.GOOGLE_BUZZ)) {
                 friendsUrl = getConnectOperations().connectSignInAccount(

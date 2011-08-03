@@ -36,126 +36,126 @@ import org.springframework.stereotype.Service;
 @Service
 public class DashboardService extends AbstractBaseService implements IDashboardService{
 
-	 private Log log = LogFactory.getLog(this.getClass());
+     private Log log = LogFactory.getLog(this.getClass());
 
-	 /*
-	  * (non-Javadoc)
-	  * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboards(java.lang.String, java.lang.Integer, java.lang.Integer)
-	  */
-	public List<Dashboard> getAllDashboards(final String username,
+     /*
+      * (non-Javadoc)
+      * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboards(java.lang.String, java.lang.Integer, java.lang.Integer)
+      */
+    public List<Dashboard> getAllDashboards(final String username,
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
-		final List<Dashboard> boards = getDashboardDao().retrieveDashboards(getPrimaryUser(username), maxResults, start);
-		log.info("dashboards list size "+boards.size());
-		return boards;
-	}
+        final List<Dashboard> boards = getDashboardDao().retrieveDashboards(getPrimaryUser(username), maxResults, start);
+        log.info("dashboards list size "+boards.size());
+        return boards;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboardbyId(java.lang.Long, java.lang.String)
-	 */
-	public Dashboard getAllDashboardbyId(final Long boardId, final String username) throws EnMeNoResultsFoundException{
-		Dashboard dashboard = null;
-	        if (username != null) {
-	        	dashboard = getDashboardDao().getAllDashboards(boardId, getPrimaryUser(username));
-	        } else {
-	        	dashboard = getDashboardDao().getDashboardbyId(boardId);
-	        }
-	        if (dashboard == null) {
-	            log.error("dashboardinvalid with this id "+boardId);
-	            throw new EnMeDashboardNotFoundException("tweet poll invalid with this id "+boardId);
-	        }
-		return dashboard;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboardbyId(java.lang.Long, java.lang.String)
+     */
+    public Dashboard getAllDashboardbyId(final Long boardId, final String username) throws EnMeNoResultsFoundException{
+        Dashboard dashboard = null;
+            if (username != null) {
+                dashboard = getDashboardDao().getAllDashboards(boardId, getPrimaryUser(username));
+            } else {
+                dashboard = getDashboardDao().getDashboardbyId(boardId);
+            }
+            if (dashboard == null) {
+                log.error("dashboardinvalid with this id "+boardId);
+                throw new EnMeDashboardNotFoundException("tweet poll invalid with this id "+boardId);
+            }
+        return dashboard;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#retrieveFavouritesDashboards(java.lang.Long, java.lang.Integer, java.lang.Integer)
-	 */
-	public List<Dashboard> retrieveFavouritesDashboards(final Long userId,
-	        final Integer maxResults,
-	        final Integer start){
-		final List<Dashboard> favoriteBoards = getDashboardDao().retrieveFavouritesDashboards(userId, maxResults, start);
-		return favoriteBoards;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#retrieveFavouritesDashboards(java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    public List<Dashboard> retrieveFavouritesDashboards(final Long userId,
+            final Integer maxResults,
+            final Integer start){
+        final List<Dashboard> favoriteBoards = getDashboardDao().retrieveFavouritesDashboards(userId, maxResults, start);
+        return favoriteBoards;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#getDashboardById(java.lang.Long)
-	 */
-	public Dashboard getDashboardById(final Long boardId) throws EnMeNoResultsFoundException{
-	        return this.getAllDashboardbyId(boardId, getUserPrincipalUsername());
-	    }
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#getDashboardById(java.lang.Long)
+     */
+    public Dashboard getDashboardById(final Long boardId) throws EnMeNoResultsFoundException{
+            return this.getAllDashboardbyId(boardId, getUserPrincipalUsername());
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#getGadgetById(java.lang.Long)
-	 */
-	public Gadget getGadgetById(final Long gadgetId){
-		final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
-		return gadget;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#getGadgetById(java.lang.Long)
+     */
+    public Gadget getGadgetById(final Long gadgetId){
+        final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
+        return gadget;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#searchGadgetbyKeyword(java.lang.String, java.lang.Integer, java.lang.Integer)
-	 */
-	public List<Gadget> searchGadgetbyKeyword(final String keyword,
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#searchGadgetbyKeyword(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<Gadget> searchGadgetbyKeyword(final String keyword,
             final Integer maxResults,
             final Integer start) throws EnMeExpcetion{
-		 	List<Gadget> gadgets  = new ArrayList<Gadget>();
-	        if(keyword == null){
-	           throw new EnMeExpcetion("keyword is missing");
-	        } else {
-	        	gadgets = getDashboardDao().getGadgetbyKeyword(keyword, maxResults, start);
-	        }
-	        log.info("search keyword Gadgets size "+gadgets.size());
-	        return gadgets;
-	    }
+             List<Gadget> gadgets  = new ArrayList<Gadget>();
+            if(keyword == null){
+               throw new EnMeExpcetion("keyword is missing");
+            } else {
+                gadgets = getDashboardDao().getGadgetbyKeyword(keyword, maxResults, start);
+            }
+            log.info("search keyword Gadgets size "+gadgets.size());
+            return gadgets;
+        }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#createDashboard(org.encuestame.utils.web.DashboardBean, org.encuestame.persistence.domain.security.UserAccount)
-	 */
-	public Dashboard createDashboard(final DashboardBean dashboardBean, final UserAccount user){
-		final Dashboard board = new Dashboard();
-			board.setPageBoardName(dashboardBean.getDashboardName());
-			board.setDescription(dashboardBean.getDashboardDesc());
-			board.setFavorite(dashboardBean.getFavorite());
-			board.setBoardSequence(dashboardBean.getSequence());
-			board.setFavoriteCounter(dashboardBean.getFavoriteCounter());
-			//board.setGadgetDashboard(gadgetDashboard);
-			//board.setPageLayout(dashboardBean.getLayout());
-			board.setUserBoard(user);
-		return board;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#createDashboard(org.encuestame.utils.web.DashboardBean, org.encuestame.persistence.domain.security.UserAccount)
+     */
+    public Dashboard createDashboard(final DashboardBean dashboardBean, final UserAccount user){
+        final Dashboard board = new Dashboard();
+            board.setPageBoardName(dashboardBean.getDashboardName());
+            board.setDescription(dashboardBean.getDashboardDesc());
+            board.setFavorite(dashboardBean.getFavorite());
+            board.setBoardSequence(dashboardBean.getSequence());
+            board.setFavoriteCounter(dashboardBean.getFavoriteCounter());
+            //board.setGadgetDashboard(gadgetDashboard);
+            //board.setPageLayout(dashboardBean.getLayout());
+            board.setUserBoard(user);
+        return board;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#addGadgetOnDashboard(java.lang.Long, java.lang.Long)
-	 */
-	public void addGadgetOnDashboard(final Long boardId, final Long gadgetId) throws EnMeGadgetNotFoundException{
-		final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
-		if(gadget!=null){
-			final Dashboard dashboard = getDashboardDao().getDashboardbyId(boardId);
-			dashboard.getGadgetDashboard().add(gadget);
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#addGadgetOnDashboard(java.lang.Long, java.lang.Long)
+     */
+    public void addGadgetOnDashboard(final Long boardId, final Long gadgetId) throws EnMeGadgetNotFoundException{
+        final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
+        if(gadget!=null){
+            final Dashboard dashboard = getDashboardDao().getDashboardbyId(boardId);
+            dashboard.getGadgetDashboard().add(gadget);
 
-		}else{
+        }else{
             throw new EnMeGadgetNotFoundException("gadget not found");
-		}
-	}
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.business.service.imp.IDashboardService#removeGadget(java.lang.Long)
-	 */
-	public void removeGadget(final Long gadgetId) throws EnMeGadgetNotFoundException{
-		final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
-		if(gadget!=null){
-			getDashboardDao().delete(gadget);
-		}
-		else{
-			throw new EnMeGadgetNotFoundException("gadget not found");
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#removeGadget(java.lang.Long)
+     */
+    public void removeGadget(final Long gadgetId) throws EnMeGadgetNotFoundException{
+        final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
+        if(gadget!=null){
+            getDashboardDao().delete(gadget);
+        }
+        else{
+            throw new EnMeGadgetNotFoundException("gadget not found");
+        }
+    }
 }
