@@ -564,7 +564,8 @@ encuestame.constants.messageCodes = {
     "010" : "Password is okay.",
     "011" : "Password could be more secure.",
     "016" : "Don't worry, you can change it later.",
-    "020" : ""
+    "020" : "",
+    "021" : "Drag your gadget here !!"
 };
 
 encuestame.constants.version = { version : "1.1.37"};

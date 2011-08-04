@@ -15,6 +15,7 @@ package org.encuestame.oauth2.support;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.utils.oauth.AccessGrant;
@@ -32,19 +33,21 @@ public class OAuth2RequestFlow {
     private Logger log = Logger.getLogger(this.getClass());
 
 
-    public String DEFAULT_CALLBACK_PATH = "/social/back/";
-
-
-    OAuth2RestOperations oAuth2RestOperations;
+    public String DEFAULT_CALLBACK_PATH = PathUtil.DEFAULT_SOCIAL_CALLBACK_PATH;
 
     /**
-    *
+     * {@link OAuth2RestOperations}.
+     */
+    OAuth2RestOperations oAuth2RestOperations;
+
+   /**
+    * {@link SocialProvider}.
     */
    private SocialProvider provider;
 
 
    /**
-    *
+    * {@link OAuth2Parameters}.
     */
    private OAuth2Parameters auth2Parameters;
 
