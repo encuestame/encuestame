@@ -42,7 +42,6 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
 
      private Log log = LogFactory.getLog(this.getClass());
 
-
      /*
       * (non-Javadoc)
       * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboards(java.lang.String, java.lang.Integer, java.lang.Integer)
@@ -98,6 +97,25 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
 
     /*
      * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboardbyId(java.lang.Long, java.lang.String)
+     */
+    public Dashboard getAllDashboardbyId(final Long boardId, final String username) throws EnMeNoResultsFoundException{
+        Dashboard dashboard = null;
+            if (username != null) {
+                dashboard = getDashboardDao().getDashboardbyIdandUser(boardId, getPrimaryUser(username));
+            } else {
+                dashboard = getDashboardDao().getDashboardbyId(boardId);
+            }
+            if (dashboard == null) {
+                log.error("dashboardinvalid with this id "+boardId);
+                throw new EnMeDashboardNotFoundException("tweet poll invalid with this id "+boardId);
+            }
+        return dashboard;
+    }
+
+
+    /*
+     * (non-Javadoc)
      * @see org.encuestame.business.service.imp.IDashboardService#getGadgetById(java.lang.Long)
      */
     public Gadget getGadgetById(final Long gadgetId){
@@ -143,6 +161,22 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
         return board;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.imp.IDashboardService#createDashboard(org.encuestame.utils.web.DashboardBean, org.encuestame.persistence.domain.security.UserAccount)
+     */
+    public Dashboard createDashboard(final DashboardBean dashboardBean, final UserAccount user){
+        final Dashboard board = new Dashboard();
+            board.setPageBoardName(dashboardBean.getDashboardName());
+            board.setDescription(dashboardBean.getDashboardDesc());
+            board.setFavorite(dashboardBean.getFavorite());
+            board.setBoardSequence(dashboardBean.getSequence());
+            board.setFavoriteCounter(dashboardBean.getFavoriteCounter());
+            //board.setGadgetDashboard(gadgetDashboard);
+            //board.setPageLayout(dashboardBean.getLayout());
+            board.setUserBoard(user);
+        return board;
+    }
 
     /*
      * (non-Javadoc)
@@ -158,6 +192,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
             throw new EnMeGadgetNotFoundException("gadget not found");
         }
     }
+
 
     /*
      * (non-Javadoc)
