@@ -16,8 +16,11 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import junit.framework.Assert;
+
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Test;
 
@@ -36,13 +39,42 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testCreateDashboard() throws ServletException, IOException{
-        initService("/api/common/dashboard/create-dashboard.json", MethodJson.GET);
+        initService("/api/common/dashboard/create-dashboard.json", MethodJson.POST);
         setParameter("name", "test");
         setParameter("desc", "test");
         setParameter("favorite", "true");
         setParameter("layout", "AAA");
         final JSONObject response = callJsonService();
+        //{"error":{},"success":{"dashboard":{"dashboard_name":"test","id":7608,"sequence":null,
+        //"layout":"AAA","favorite":true,"favorite_counter":null,"dashboard_description":"test"}}}
+        final JSONObject success = getSucess(response);
+        final JSONObject dashboard = (JSONObject) success.get("dashboard");
+        Assert.assertEquals(dashboard.get("dashboard_name").toString(), "test");
+        Assert.assertEquals(dashboard.get("layout").toString(), "AAA");
+        Assert.assertEquals(dashboard.get("favorite").toString(), "true");
+        Assert.assertEquals(dashboard.get("dashboard_description").toString(), "test");
+    }
+
+    /**
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testgetGadgets() throws ServletException, IOException{
+        initService("/api/common/gadgets.json", MethodJson.GET);
+        final JSONObject response = callJsonService();
         System.out.println(response);
         final JSONObject success = getSucess(response);
+        final JSONArray gadgets = (JSONArray) success.get("gadgets");
+        Assert.assertEquals(gadgets.size(), 0);
+        createGadgetDefault();
+        createGadgetDefault();
+        initService("/api/common/gadgets.json", MethodJson.GET);
+        final JSONObject response2 = callJsonService();
+        System.out.println(response2);
+        final JSONObject success2 = getSucess(response2);
+        final JSONArray gadgets2 = (JSONArray) success2.get("gadgets");
+        Assert.assertEquals(gadgets2.size(), 0);
     }
 }

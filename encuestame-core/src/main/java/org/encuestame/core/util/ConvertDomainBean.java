@@ -807,7 +807,7 @@ public class ConvertDomainBean {
         dashboardBean.setDashboardDesc(dashboard.getDescription());
         dashboardBean.setFavorite(dashboard.getFavorite());
         dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
-        dashboardBean.setLayout(dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString());
+        dashboardBean.setLayout((dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString()));
         dashboardBean.setSequence(dashboard.getBoardSequence());
         return dashboardBean;
     }

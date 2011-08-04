@@ -78,7 +78,7 @@ public class DashboardJsonController extends AbstractJsonController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/api/common/dashboard/create-dashboard.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/dashboard/create-dashboard.json", method = RequestMethod.POST)
     public ModelMap createtDashboard(
             @RequestParam(value = "name", required = true) String boardName,
             @RequestParam(value = "desc", required = true) String boardDesc,

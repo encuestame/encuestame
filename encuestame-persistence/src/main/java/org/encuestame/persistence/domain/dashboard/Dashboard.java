@@ -135,7 +135,7 @@ public class Dashboard {
     * @return the pageLayout
     */
     @Column(name = "layout")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     public LayoutEnum getPageLayout() {
         return pageLayout;
     }
