@@ -31,6 +31,7 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.business.service.DashboardService;
 import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.ProjectService;
 import org.encuestame.business.service.ServiceManager;
@@ -42,6 +43,7 @@ import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.AbstractSecurityContext;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.service.imp.IPollService;
@@ -409,6 +411,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public ISurveyService getSurveyService(){
         return getServiceManager().getApplicationServices().getSurveyService();
+    }
+
+    /**
+     * Get {@link DashboardService}
+     * @return
+     */
+    public IDashboardService getDashboardService(){
+        return getServiceManager().getApplicationServices().getDashboardService();
     }
 
     /**

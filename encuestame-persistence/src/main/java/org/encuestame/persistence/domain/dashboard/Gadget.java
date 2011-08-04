@@ -56,6 +56,9 @@ public class Gadget {
     /** {@link Dashboard} **/
     private Set<Dashboard> dashboard = new HashSet<Dashboard>();
 
+    /** Availability gadget**/
+    private Boolean status;
+
     /**
     * @return the widgetId
     */
@@ -165,5 +168,20 @@ public class Gadget {
 	 */
 	public void setDashboard(final Set<Dashboard> dashboard) {
 		this.dashboard = dashboard;
+	}
+
+	/**
+	 * @return the status
+	 */
+	@Column(name = "status", nullable = true)
+	public Boolean getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(final Boolean status) {
+		this.status = status;
 	}
 }

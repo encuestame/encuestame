@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.business.service.imp;
+package org.encuestame.core.service.imp;
 
 import java.util.List;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
@@ -21,6 +21,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeGadgetNotFoundException;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.DashboardBean;
+import org.encuestame.utils.web.GadgetBean;
 
 /**
  * Dashboard Service.
@@ -37,7 +38,7 @@ public interface IDashboardService {
 	  * @return
 	  * @throws EnMeNoResultsFoundException
 	  */
-	List<Dashboard> getAllDashboards(final String username,
+	List<DashboardBean> getAllDashboards(final String username,
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException;
 
@@ -48,7 +49,7 @@ public interface IDashboardService {
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	Dashboard getAllDashboardbyId(final Long boardId, final String username) throws EnMeNoResultsFoundException;
+	Dashboard getDashboardbyIdandUser(final Long boardId, final String username) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Retrieve favourites dashboards.
@@ -57,7 +58,7 @@ public interface IDashboardService {
 	 * @param start
 	 * @return
 	 */
-	List<Dashboard> retrieveFavouritesDashboards(final Long userId,
+	List<DashboardBean> retrieveFavouritesDashboards(final Long userId,
 	        final Integer maxResults,
 	        final Integer start);
 
@@ -84,7 +85,7 @@ public interface IDashboardService {
 	 * @return
 	 * @throws EnMeExpcetion
 	 */
-	List<Gadget> searchGadgetbyKeyword(final String keyword,
+	List<GadgetBean> searchGadgetbyKeyword(final String keyword,
             final Integer maxResults,
             final Integer start)throws EnMeExpcetion;
 
@@ -93,8 +94,9 @@ public interface IDashboardService {
 	 * @param dashboardBean
 	 * @param user
 	 * @return
+	 * @throws EnMeNoResultsFoundException
 	 */
-	Dashboard createDashboard(final DashboardBean dashboardBean, final UserAccount user);
+	Dashboard createDashboard(final DashboardBean dashboardBean) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Add gadget on dashboard.
@@ -118,6 +120,7 @@ public interface IDashboardService {
 	 * @param maxResults
 	 * @param start
 	 * @return
+	 * @throws EnMeExpcetion
 	 */
 	List<Dashboard> getDashboardsbyKeyword(final String keyword, final String username,
 			final Integer maxResults,
@@ -139,4 +142,10 @@ public interface IDashboardService {
 	 * @throws EnMeGadgetNotFoundException
 	 */
 	List<GadgetProperties> getPropertiesbyGadget(final Long gadgetId) throws EnMeGadgetNotFoundException;
+
+	/**
+	 * Get all gadgets available.
+	 * @return
+	 */
+	List<GadgetBean> getAllGadgetsAvailable();
 }

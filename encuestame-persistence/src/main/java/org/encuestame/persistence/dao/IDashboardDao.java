@@ -111,4 +111,11 @@ public interface IDashboardDao extends IBaseDao {
 	 * @return
 	 */
 	List<Gadget> retrieveGadgetsbyType(final GadgetType gadgetType);
+
+	/**
+	 * Retrieve gadgets by status.
+	 * @param status
+	 * @return
+	 */
+	List<Gadget> retrieveGadgets(final Boolean status);
 }

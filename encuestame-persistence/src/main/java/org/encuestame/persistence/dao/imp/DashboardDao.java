@@ -107,7 +107,7 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
 	@SuppressWarnings("unchecked")
 	public List<Gadget> getGadgetbyKeyword(final String keyword, final Integer maxResults, final Integer start){
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
-	        //criteria.createAlias("gadgetName","gadgetName");
+	   // criteria.createAlias("gadgetName","gadgetName");
 	    criteria.add(Restrictions.like("gadgetName", keyword, MatchMode.ANYWHERE));
 	    return (List<Gadget>) filterByMaxorStart(criteria, maxResults, start);
 	    }
@@ -167,5 +167,16 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
 		final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
 		criteria.add(Restrictions.eq("gadgetType", gadgetType));
 	    return getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IDashboardDao#retrieveGadgets(java.lang.Boolean)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Gadget> retrieveGadgets(final Boolean status){
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
+		criteria.add(Restrictions.eq("status", status));
+		return getHibernateTemplate().findByCriteria(criteria);
 	}
 }

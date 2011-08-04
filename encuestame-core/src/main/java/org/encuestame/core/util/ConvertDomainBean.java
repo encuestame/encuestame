@@ -29,6 +29,8 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -55,6 +57,8 @@ import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.DashboardBean;
+import org.encuestame.utils.web.GadgetBean;
+import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -806,5 +810,62 @@ public class ConvertDomainBean {
     	dashboardBean.setLayout(dashboard.getPageLayout().toString());
     	dashboardBean.setSequence(dashboard.getBoardSequence());
     	return dashboardBean;
+    }
+
+    /**
+     * Convert Gadget domain to gadget bean.
+     * @param gadget
+     * @return
+     */
+    public static final GadgetBean convertGadgetDomaintoBean(final Gadget gadget){
+    	final GadgetBean gadgetBean = new GadgetBean();
+    	gadgetBean.setGadgetId(gadget.getGadgetId());
+    	gadgetBean.setGadgetName(gadget.getGadgetName());
+    	gadgetBean.setGadgetColor(gadget.getGadgetColor());
+    	gadgetBean.setGadgetColumn(gadget.getGadgetColumn());
+    	gadgetBean.setGadgetPosition(gadget.getGadgetColumn());
+    	gadgetBean.setStatus(gadget.getStatus());
+    	return gadgetBean;
+    }
+
+    /**
+     * Convert Gadget domain list to gadget bean.
+     * @param gadgets
+     * @return
+     */
+    public static final List<GadgetBean> convertListGadgetToBean(final List<Gadget> gadgets){
+        final List<GadgetBean> gadgetList = new LinkedList<GadgetBean>();
+            for (Gadget gadget : gadgets) {
+            	gadgetList.add(ConvertDomainBean.convertGadgetDomaintoBean(gadget));
+            }
+        return gadgetList;
+    }
+
+    /**
+     * Convert Gadget properties domain to bean.
+     * @param gadgetProp
+     * @return
+     */
+    public static final GadgetPropertiesBean convertGadgetPropertiesDomaintoBean(final GadgetProperties gadgetProp){
+    	final GadgetPropertiesBean propertiesBean = new GadgetPropertiesBean();
+    	propertiesBean.setPropertyId(gadgetProp.getPropertyId());
+    	propertiesBean.setGadgetPropName(gadgetProp.getGadgetPropName());
+    	propertiesBean.setGadgetPropValue(gadgetProp.getGadgetPropValue());
+    	//propertiesBean.setUserAccount(gadgetProp.getUserAccount());
+    	//propertiesBean.setGadget(gadgetProp.getGadget());
+    	return propertiesBean;
+    }
+
+    /**
+     * Convert list gadget properties domain to bean.
+     * @param properties
+     * @return
+     */
+    public static final List<GadgetPropertiesBean> convertListGadgetPropertiesToBean(final List<GadgetProperties> properties){
+        final List<GadgetPropertiesBean> gadgetBean = new LinkedList<GadgetPropertiesBean>();
+            for (GadgetProperties gadget : properties) {
+            	gadgetBean.add(ConvertDomainBean.convertGadgetPropertiesDomaintoBean(gadget));
+            }
+        return gadgetBean;
     }
 }

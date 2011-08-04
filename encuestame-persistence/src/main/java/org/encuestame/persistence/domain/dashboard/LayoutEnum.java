@@ -32,5 +32,19 @@ public enum LayoutEnum {
 	AB_COLUMN_BLOCK,
 
 	/** One Block and One column. **/
-	BA_BLOCK_COLUMN
+	BA_BLOCK_COLUMN,
+
+	LayoutEnum(){
+
+	};
+
+	public static LayoutEnum getDashboardLayout(final String layout) {
+        if (null == layout) { return null; }
+        else if (layout.equalsIgnoreCase("TWEETPOLLS")) { return AAA_COLUMNS; }
+        else if (layout.equalsIgnoreCase("SURVEYS")) { return BB_BLOCK; }
+        else if (layout.equalsIgnoreCase("POLL")) { return B_BLOCK; }
+        else if (layout.equalsIgnoreCase("SURVEYS")) { return AB_COLUMN_BLOCK; }
+        else if (layout.equalsIgnoreCase("POLL")) { return BA_BLOCK_COLUMN; }
+        else return null;
+    }
 }
