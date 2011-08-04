@@ -14,8 +14,6 @@ package org.encuestame.persistence.domain.dashboard;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,6 +21,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -44,8 +44,20 @@ public class Gadget {
     /** Widget type**/
     private GadgetType gadgetType;
 
+    /** Gadget color. **/
+    private String gadgetColor;
+
+    /** Column Number **/
+    private Integer gadgetColumn;
+
+    /** Gadget position **/
+    private Integer gadgetPosition;
+
     /** {@link Dashboard} **/
     private Set<Dashboard> dashboard = new HashSet<Dashboard>();
+
+    /** Availability gadget**/
+    private Boolean status;
 
     /**
     * @return the widgetId
@@ -96,9 +108,57 @@ public class Gadget {
     }
 
 	/**
+	 * @return the gadgetColor
+	 */
+    @Column(name = "gadgetColor", nullable = false)
+	public String getGadgetColor() {
+		return gadgetColor;
+	}
+
+	/**
+	 * @param gadgetColor the gadgetColor to set
+	 */
+	public void setGadgetColor(final String gadgetColor) {
+		this.gadgetColor = gadgetColor;
+	}
+
+	/**
+	 * @return the column
+	 */
+	@Column(name = "gadgetColumn", nullable = false)
+	public Integer getGadgetColumn() {
+		return gadgetColumn;
+	}
+
+	/**
+	 * @param column the column to set
+	 */
+	public void setGadgetColumn(final Integer gadgetColumn) {
+		this.gadgetColumn = gadgetColumn;
+	}
+
+	/**
+	 * @return the position
+	 */
+	@Column(name = "gadgetPosition", nullable = false)
+	public Integer getGadgetPosition() {
+		return gadgetPosition;
+	}
+
+	/**
+	 * @param position the position to set
+	 */
+	public void setGadgetPosition(final Integer gadgetPosition) {
+		this.gadgetPosition = gadgetPosition;
+	}
+
+	/**
 	 * @return the dashboard
 	 */
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
+    @JoinTable(name="dashboard_gadget",
+               joinColumns={@JoinColumn(name="gadgetId")},
+               inverseJoinColumns={@JoinColumn(name="dashboardId")})
 	public Set<Dashboard> getDashboard() {
 		return dashboard;
 	}
@@ -108,5 +168,20 @@ public class Gadget {
 	 */
 	public void setDashboard(final Set<Dashboard> dashboard) {
 		this.dashboard = dashboard;
+	}
+
+	/**
+	 * @return the status
+	 */
+	@Column(name = "status", nullable = true)
+	public Boolean getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(final Boolean status) {
+		this.status = status;
 	}
 }

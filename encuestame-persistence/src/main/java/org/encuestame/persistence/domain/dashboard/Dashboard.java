@@ -64,6 +64,9 @@ public class Dashboard {
     /** {@link UserAccount} **/
     private UserAccount userBoard;
 
+    /**
+     *
+     */
     private Set<Gadget> gadgetDashboard = new HashSet<Gadget>();
 
     /**
@@ -101,7 +104,7 @@ public class Dashboard {
     /**
     * @return the description
     */
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -116,7 +119,7 @@ public class Dashboard {
     /**
     * @return the favorite
     */
-    @Column(name = "favorite", nullable = false)
+    @Column(name = "favorite")
     public Boolean getFavorite() {
         return favorite;
     }
@@ -131,7 +134,7 @@ public class Dashboard {
     /**
     * @return the pageLayout
     */
-    @Column(name = "layout", nullable = false)
+    @Column(name = "layout")
     @Enumerated(EnumType.STRING)
     public LayoutEnum getPageLayout() {
         return pageLayout;
@@ -147,7 +150,7 @@ public class Dashboard {
     /**
     * @return the boardSequence
     */
-    @Column(name = "sequence", nullable = false)
+    @Column(name = "sequence")
     public Integer getBoardSequence() {
         return boardSequence;
     }
@@ -162,7 +165,7 @@ public class Dashboard {
     /**
     * @return the favoriteCounter
     */
-    @Column(name = "favorite_counter", nullable = false)
+    @Column(name = "favorite_counter")
     public Integer getFavoriteCounter() {
         return favoriteCounter;
     }

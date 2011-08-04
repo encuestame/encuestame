@@ -378,9 +378,9 @@ public class TweetPoll extends AbstractGeoPoint{
      * @return the hashTags
      */
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-    name = "tweetpoll_hashtags", joinColumns = {@JoinColumn(name = "tweetpoll_id")},
-                                 inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
+    @JoinTable(name = "tweetpoll_hashtags",
+    		   joinColumns = {@JoinColumn(name = "tweetpoll_id")},
+               inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
     public Set<HashTag> getHashTags() {
         return hashTags;
     }
