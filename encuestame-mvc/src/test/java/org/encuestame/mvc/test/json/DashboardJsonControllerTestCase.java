@@ -62,7 +62,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
      */
     @Test
     public void testgetGadgets() throws ServletException, IOException{
-        initService("/api/common/gadgets.json", MethodJson.GET);
+        initService("/api/common/gadgets/list.json", MethodJson.GET);
         final JSONObject response = callJsonService();
         System.out.println(response);
         final JSONObject success = getSucess(response);
@@ -70,7 +70,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
         Assert.assertEquals(gadgets.size(), 0);
         createGadgetDefault();
         createGadgetDefault();
-        initService("/api/common/gadgets.json", MethodJson.GET);
+        initService("/api/common/gadgets/list.json", MethodJson.GET);
         final JSONObject response2 = callJsonService();
         System.out.println(response2);
         final JSONObject success2 = getSucess(response2);

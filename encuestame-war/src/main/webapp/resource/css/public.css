@@ -2787,3 +2787,30 @@ div.web-dash-actions .action {
   margin-right: 5px;
   padding: 1px;
 }
+
+div.web-directory{
+    overflow: auto;
+    padding: 5px;
+}
+
+div.web-directory-item {
+  border-bottom: 1px dotted #D7D7D7;
+  min-height: 38px;
+  padding: 2px;
+}
+
+div.web-directory-item .web-directory-item-title{
+ font-weight: bold;
+}
+
+div.web-directory-item .web-directory-item-description, div.web-directory-item .web-directory-item-description p {
+  margin: 0px;
+}
+
+div.web-directory-item .web-directory-item-actions{
+    text-align: right;
+}
+
+div.web-directory-item .web-directory-item-actions a{
+    cursor: pointer;
+}

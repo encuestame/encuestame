@@ -1,12 +1,18 @@
 dojo.provide("encuestame.org.core.commons.dashboard.DashboardWrapper");
 
-dojo.require("dojo.dnd.Source");
-dojo.require("dojo.data.ItemFileReadStore");
-dojo.require("dijit.form.ComboBox");
-
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
+dojo.require("dijit.form.ComboBox");
 
+dojo.require("dojo.dnd.Source");
+dojo.require("dojo.data.ItemFileReadStore");
+
+dojo.require("encuestame.org.core.commons.dashboard.GadgetDirectory");
+dojo.require("encuestame.org.core.commons.dialog.Info");
+
+/**
+ *
+ */
 dojo.declare(
     "encuestame.org.core.commons.dashboard.DashboardWrapper",
     [dijit._Widget, dijit._Templated],{
@@ -31,6 +37,37 @@ dojo.declare(
            dojo.subscribe("/encuestame/dashboard/clean", this, "clean");
            dojo.subscribe("/encuestame/dashboard/insert", this, "insert");
            this._buildDashBoardList();
+           dojo.connect(this._gadgets, "onclick", dojo.hitch(this, this._openDirectory));
+        },
+
+        /**
+         * open directory.
+         */
+        _openDirectory : function(){
+            console.info("open dialog gadgets");
+            var dialog = this._createDialog(this._loadGadgetDirectory().domNode);
+            console.info("open dialog show", dialog);
+            dialog.show();
+        },
+
+         /**
+          * Load new gadget directory.
+          * @returns {encuestame.org.core.commons.dashboard.GadgetDirectory}
+          */
+        _loadGadgetDirectory : function(){
+            var directory = new encuestame.org.core.commons.dashboard.GadgetDirectory({});
+            return directory;
+        },
+
+        /*
+         * Create dialog.
+         * @param content
+         * @returns {encuestame.org.core.commons.dialog.Info}
+         */
+        _createDialog : function(content){
+            console.info("open dialog content", content);
+            var dialog = new encuestame.org.core.commons.dialog.Info({content:content});
+            return dialog;
         },
 
         /*
