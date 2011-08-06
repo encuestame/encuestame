@@ -12,10 +12,6 @@
  */
 package org.encuestame.persistence.domain.dashboard;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,9 +19,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -53,7 +46,7 @@ public class Dashboard {
     private Boolean favorite;
 
     /** Page Layout. **/
-    private LayoutEnum pageLayout;
+    private LayoutEnum pageLayout = LayoutEnum.AAA_COLUMNS;
 
     /** Dashboard sequence. **/
     private Integer boardSequence;
@@ -63,11 +56,6 @@ public class Dashboard {
 
     /** {@link UserAccount} **/
     private UserAccount userBoard;
-
-    /**
-     *
-     */
-    private Set<Gadget> gadgetDashboard = new HashSet<Gadget>();
 
     /**
     * @return the boardId
@@ -190,23 +178,5 @@ public class Dashboard {
     */
     public void setUserBoard(final UserAccount userBoard) {
         this.userBoard = userBoard;
-    }
-
-    /**
-    * @return the widgetDashboard
-    */
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="dashboard_gadget",
-               joinColumns={@JoinColumn(name="dashboardId")},
-               inverseJoinColumns={@JoinColumn(name="gadgetId")})
-    public Set<Gadget> getGadgetDashboard() {
-        return gadgetDashboard;
-    }
-
-    /**
-    * @param widgetDashboard the widgetDashboard to set
-    */
-    public void setGadgetDashboard(Set<Gadget> gadgetDashboard) {
-        this.gadgetDashboard = gadgetDashboard;
     }
 }

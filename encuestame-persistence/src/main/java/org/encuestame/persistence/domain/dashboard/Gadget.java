@@ -12,8 +12,6 @@
  */
 package org.encuestame.persistence.domain.dashboard;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,9 +19,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -54,7 +50,7 @@ public class Gadget {
     private Integer gadgetPosition;
 
     /** {@link Dashboard} **/
-    private Set<Dashboard> dashboard = new HashSet<Dashboard>();
+    private Dashboard dashboard;
 
     /** Availability gadget**/
     private Boolean status;
@@ -95,7 +91,7 @@ public class Gadget {
     * @return the widgetType
     */
     @Column(name = "gadgetType", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     public GadgetType getGadgetType() {
         return gadgetType;
     }
@@ -155,18 +151,15 @@ public class Gadget {
 	/**
 	 * @return the dashboard
 	 */
-    @ManyToMany()
-    @JoinTable(name="dashboard_gadget",
-               joinColumns={@JoinColumn(name="gadgetId")},
-               inverseJoinColumns={@JoinColumn(name="dashboardId")})
-	public Set<Dashboard> getDashboard() {
+	@ManyToOne()
+	public Dashboard getDashboard() {
 		return dashboard;
 	}
 
 	/**
 	 * @param dashboard the dashboard to set
 	 */
-	public void setDashboard(final Set<Dashboard> dashboard) {
+	public void setDashboard(final Dashboard dashboard) {
 		this.dashboard = dashboard;
 	}
 

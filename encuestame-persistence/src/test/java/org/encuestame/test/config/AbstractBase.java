@@ -595,8 +595,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * Create gadget default.
      * @return
      */
-    public Gadget createGadgetDefault(){
-        return this.createGadget("default");
+    public Gadget createGadgetDefault(final Dashboard board){
+        return this.createGadget("default", board);
     }
 
     /**
@@ -605,13 +605,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param type
      * @return
      */
-    public Gadget createGadget(final String name){
+    public Gadget createGadget(final String name, final Dashboard board){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
         gadget.setGadgetType(GadgetType.TWEETPOLLS);
         gadget.setGadgetColumn(2);
         gadget.setGadgetColor("default");
         gadget.setGadgetPosition(0);
+        gadget.setDashboard(board);
         getDashboardDao().saveOrUpdate(gadget);
         return gadget;
     }
@@ -623,7 +624,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userAcc
      * @return
      */
-    public Dashboard createDashboard(final String boardName,  final Boolean favorite, final UserAccount userAcc){
+    public Dashboard createDashboard(final String boardName, final Boolean favorite, final UserAccount userAcc){
         final Dashboard board = new Dashboard();
         board.setPageBoardName(boardName);
           board.setDescription("");
