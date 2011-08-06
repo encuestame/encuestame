@@ -27,7 +27,6 @@ import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,11 +51,13 @@ public class DashboardJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/gadgets.json", method = RequestMethod.GET)
-    public ModelMap getAllWidgets(HttpServletRequest request,
+    public ModelMap getAllWidgets(
+    		@RequestParam(value = "dashboardId", required = true) Long dashboardId,
+    		HttpServletRequest request,
             HttpServletResponse response){
          try {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                 final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable();
+                 final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable(dashboardId);
                  jsonResponse.put("gadgets", gadgets);
                  setItemResponse(jsonResponse);
          } catch (Exception e) {
@@ -127,5 +128,33 @@ public class DashboardJsonController extends AbstractJsonController {
              setError(e.getMessage(), response);
         }
         return returnData();
+    }
+
+    /**
+     * Move gadget on dashboard.
+     * @param gadgetId
+     * @param positionId
+     * @param columnId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/api/common/dashboard/move-gadget.json", method = RequestMethod.GET)
+    public ModelMap moveGadget(
+    		@RequestParam(value = "gadgetId", required = true) Long gadgetId,
+    		@RequestParam(value = "position", required = true) Integer position,
+    		@RequestParam(value = "column", required = true) Integer column,
+    		@RequestParam(value = "dashboardId", required = true) Long dashboardId,
+    		HttpServletRequest request,
+            HttpServletResponse response){
+    	try {
+			getDashboardService().moveGadget(gadgetId, dashboardId, position, column);
+			setSuccesResponse();
+		} catch (Exception e) {
+			log.error(e);
+			e.printStackTrace();
+			setError(e.getMessage(), response);
+		}
+    	return returnData();
     }
 }

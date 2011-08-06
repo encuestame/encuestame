@@ -63,18 +63,30 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     @Test
     public void testgetGadgets() throws ServletException, IOException{
         initService("/api/common/gadgets.json", MethodJson.GET);
+        setParameter("dashboardId", "1");
         final JSONObject response = callJsonService();
         System.out.println(response);
         final JSONObject success = getSucess(response);
         final JSONArray gadgets = (JSONArray) success.get("gadgets");
         Assert.assertEquals(gadgets.size(), 0);
-        createGadgetDefault();
-        createGadgetDefault();
+        createGadgetDefault(createDashboardDefault(getSpringSecurityLoggedUserAccount()));
+        createGadgetDefault(createDashboardDefault(getSpringSecurityLoggedUserAccount()));
         initService("/api/common/gadgets.json", MethodJson.GET);
+        setParameter("dashboardId", "2");
         final JSONObject response2 = callJsonService();
         System.out.println(response2);
         final JSONObject success2 = getSucess(response2);
         final JSONArray gadgets2 = (JSONArray) success2.get("gadgets");
         Assert.assertEquals(gadgets2.size(), 0);
     }
+
+    /*@Test
+    public void testMoveGadgets() throws ServletException, IOException{
+        initService("/api/common/move-gadgets.json", MethodJson.GET);
+        setParameter("gadgetId", "gadgetId");
+        setParameter("position", "position");
+        setParameter("column", "column");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+    }*/
 }
