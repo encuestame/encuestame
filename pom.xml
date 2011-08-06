@@ -96,7 +96,7 @@
          <webresources.javascript.location>encuestame-war/src/main/webapp/js</webresources.javascript.location>
 	
 	<!--CometD -->
-	<comet.version>2.1.0</comet.version>
+	<comet.version>2.3.1</comet.version>
 
          <!-- Plugin Version -->
          <surefire.version>2.9</surefire.version>
