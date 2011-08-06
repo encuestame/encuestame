@@ -198,8 +198,8 @@ public class DashboardJsonController extends AbstractJsonController {
     public ModelMap createtDashboard(
             @RequestParam(value = "name", required = true) String boardName,
             @RequestParam(value = "desc", required = true) String boardDesc,
-            @RequestParam(value = "favorite", required = true) Boolean favorite,
-            @RequestParam(value = "layout", required = true) String layout,
+            @RequestParam(value = "favorite", required = false) Boolean favorite,
+            @RequestParam(value = "layout", required = false) String layout,
             HttpServletRequest request,
             HttpServletResponse response){
          try {
@@ -207,7 +207,7 @@ public class DashboardJsonController extends AbstractJsonController {
              bean.setDashboardName(boardName);
              bean.setDashboardDesc(boardDesc);
              bean.setFavorite(favorite);
-             bean.setLayout(layout);
+             bean.setLayout(layout == null ? "AAA" : layout);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Dashboard dashboard = getDashboardService().createDashboard(bean);
              jsonResponse.put("dashboard", ConvertDomainBean.convertDashboardDomaintoBean(dashboard));

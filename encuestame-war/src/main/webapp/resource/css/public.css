@@ -2814,3 +2814,23 @@ div.web-directory-item .web-directory-item-actions{
 div.web-directory-item .web-directory-item-actions a{
     cursor: pointer;
 }
+
+div.web-dashboard-create{
+    padding: 6px;
+    width: 255px;
+}
+
+div.web-dashboard-create div.web-dashboard-create-row{
+    padding: 2px;
+}
+
+div.web-dashboard-create div.web-dashboard-create-row label {
+  display: inline-block;
+  max-width: 62px;
+  min-width: 60px;
+}
+
+div.web-dashboard-create div.web-dashboard-create-actions{
+    padding: 4px;
+    text-align: right;
+}

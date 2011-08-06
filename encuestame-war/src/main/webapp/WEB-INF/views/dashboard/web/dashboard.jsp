@@ -8,6 +8,6 @@
   dojo.require("encuestame.org.core.commons.dashboard.DashboardWrapper");
   dojo.require("encuestame.org.core.commons.dashboard.DashboardLayout");
 </script>
-<div class="defaultMarginWrapper enme-auto-center">
+<div class="defaultMarginWrapper">
     <div dojoType="encuestame.org.core.commons.dashboard.DashboardWrapper"></div>
 </div>

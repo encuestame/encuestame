@@ -437,7 +437,7 @@ div.updateProfile .profileItem label{
 
 /** default button */
 
-div.defaultMarginWrapper .dijitButton .dijitButtonNode{
+.dijitButton .dijitButtonNode{
     font-size: 110% !important;
     border: 1px solid #6D6767 !important;
     padding: 3px 7px 2px !important;
