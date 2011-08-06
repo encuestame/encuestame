@@ -62,9 +62,9 @@ import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
+import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.notification.UtilNotification;
@@ -155,8 +155,8 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public UserAccount getUserAccount() throws EnMeNoResultsFoundException{
         final UserAccount account = this.getByUsername(this.getUserPrincipalUsername());
-        if(account == null){
-            log.fatal("user not found");
+        if (account == null) {
+            log.fatal("user session not found ");
             throw new EnMeNoResultsFoundException("user not found");
         }
         return account;

@@ -425,7 +425,13 @@ encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/
 encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json";
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
 encuestame.service.list.createUser = encuestame.contextWidget()+"/api/admon/create-user.json";
+encuestame.service.list.profile = {};
+encuestame.service.list.profile.my = encuestame.contextWidget()+"/api/settings/profile/my.json";
 encuestame.service.list.upgradeProfile = encuestame.contextWidget()+"/api/user/profile/upgrade.json";
+//settings update
+encuestame.service.list.updateProfile = encuestame.contextWidget()+"/api/settings/profile/update.json";
+encuestame.service.list.updateUsername = encuestame.contextWidget()+"/api/settings/profile/username/update.json";
+encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/profile/email/update.json";
 
 encuestame.service.list.listPermissions = encuestame.contextWidget()+"/api/admon/list-permissions.json";
 encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/admon/list-user-permissions.json";
@@ -466,12 +472,6 @@ encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/u
 encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/removeGroup.json";
 encuestame.service.list.loadGroups = encuestame.contextWidget()+"/api/groups/groups.json";
 encuestame.service.list.assingGroups = encuestame.contextWidget()+"/api/admon/groups/assingToUser.json";
-
-//settings update
-encuestame.service.list.updateProfile = encuestame.contextWidget()+"/api/settings/profile/update.json";
-encuestame.service.list.updateUsername = encuestame.contextWidget()+"/api/settings/profile/username/update.json";
-encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/profile/email/update.json";
-encuestame.service.list.myProfile = encuestame.contextWidget()+"/api/admon/info-profile.json";
 
 encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/account/validate.json";
 

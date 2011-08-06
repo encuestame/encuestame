@@ -13,10 +13,10 @@
 package org.encuestame.core.service.imp;
 
 import java.util.List;
+
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeGadgetNotFoundException;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -38,8 +38,7 @@ public interface IDashboardService {
 	  * @return
 	  * @throws EnMeNoResultsFoundException
 	  */
-	List<DashboardBean> getAllDashboards(final String username,
-            final Integer maxResults,
+	List<DashboardBean> getAllDashboards(final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException;
 
 	/**
@@ -49,7 +48,7 @@ public interface IDashboardService {
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	Dashboard getDashboardbyIdandUser(final Long boardId, final String username) throws EnMeNoResultsFoundException;
+	Dashboard getDashboardbyIdandUser(final Long boardId) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Retrieve favourites dashboards.
@@ -58,17 +57,8 @@ public interface IDashboardService {
 	 * @param start
 	 * @return
 	 */
-	List<DashboardBean> retrieveFavouritesDashboards(final Long userId,
-	        final Integer maxResults,
-	        final Integer start);
-
-	/**
-	 * Get dashboard by id.
-	 * @param boardId
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	Dashboard getDashboardById(final Long boardId) throws EnMeNoResultsFoundException;
+	List<DashboardBean> retrieveFavouritesDashboards(final Integer maxResults,
+	        final Integer start) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Get gadget by id.
@@ -111,7 +101,7 @@ public interface IDashboardService {
 	 * @param gadgetId
 	 * @throws EnMeGadgetNotFoundException
 	 */
-	void removeGadget(final Long gadgetId) throws EnMeGadgetNotFoundException;
+	void removeGadget(final Long gadgetId, final Long dashboardId) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Get dashboards by keyword.
@@ -122,7 +112,7 @@ public interface IDashboardService {
 	 * @return
 	 * @throws EnMeExpcetion
 	 */
-	List<Dashboard> getDashboardsbyKeyword(final String keyword, final String username,
+	List<Dashboard> getDashboardsbyKeyword(final String keyword,
 			final Integer maxResults,
 			final Integer start) throws EnMeExpcetion;
 
@@ -133,7 +123,7 @@ public interface IDashboardService {
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	List<Gadget> getGadgetsbyDashboard(final Long dashboardId, final String username)throws EnMeNoResultsFoundException;
+	List<Gadget> getGadgetsbyDashboard(final Long dashboardId)throws EnMeNoResultsFoundException;
 
 	/**
 	 * Get gadget properties.
@@ -147,5 +137,15 @@ public interface IDashboardService {
 	 * Get all gadgets available.
 	 * @return
 	 */
-	List<GadgetBean> getAllGadgetsAvailable();
+	List<GadgetBean> getAllGadgetsAvailable(final Long boardId) throws EnMeNoResultsFoundException;
+
+	/**
+     * Move gadget
+     * @param gadgetId
+     * @param position
+     * @param column
+     * @return
+	 * @throws EnMeNoResultsFoundException
+     */
+	void moveGadget(final Long gadgetId, final Long boardId, final Integer position, final Integer column) throws EnMeNoResultsFoundException;
 }

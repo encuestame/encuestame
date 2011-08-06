@@ -59,11 +59,13 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/gadgets/list.json", method = RequestMethod.GET)
-    public ModelMap getAllWidgets(HttpServletRequest request,
+    public ModelMap getAllWidgets(
+            @RequestParam(value = "dashboardId", required = true) Long dashboardId,
+            HttpServletRequest request,
             HttpServletResponse response){
          try {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                 final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable();
+                 final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable(dashboardId);
                  jsonResponse.put("gadgets", gadgets);
                  setItemResponse(jsonResponse);
          } catch (Exception e) {
@@ -240,6 +242,34 @@ public class DashboardJsonController extends AbstractJsonController {
         } catch (Exception e) {
              log.error(e);
              setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     * Move gadget on dashboard.
+     * @param gadgetId
+     * @param positionId
+     * @param columnId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/api/common/dashboard/move-gadget.json", method = RequestMethod.GET)
+    public ModelMap moveGadget(
+            @RequestParam(value = "gadgetId", required = true) Long gadgetId,
+            @RequestParam(value = "position", required = true) Integer position,
+            @RequestParam(value = "column", required = true) Integer column,
+            @RequestParam(value = "dashboardId", required = true) Long dashboardId,
+            HttpServletRequest request,
+            HttpServletResponse response){
+        try {
+            getDashboardService().moveGadget(gadgetId, dashboardId, position, column);
+            setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
         }
         return returnData();
     }

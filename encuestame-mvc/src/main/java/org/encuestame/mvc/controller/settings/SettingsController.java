@@ -15,8 +15,6 @@ package org.encuestame.mvc.controller.settings;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.security.ProfileUserAccount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +38,6 @@ public class SettingsController extends AbstractBaseOperations{
      */
     @RequestMapping(value = "/settings/configuration", method = RequestMethod.GET)
     public String settingsAccountController(ModelMap model) {
-        try {
-            final ProfileUserAccount user = getProfileUserInfo();
-            model.put("profile", user);
-        } catch (EnMeNoResultsFoundException e) {
-            log.warn("profile not found");
-        }
         log.debug("account");
         return "settings/account";
     }

@@ -6,69 +6,50 @@ dojo.require("dijit.form.Select");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.Form");
 
+/**
+ *
+ */
 dojo.declare(
     "encuestame.org.core.commons.profile.Profile",
     [dijit._Widget, dijit._Templated],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.profile", "templates/profile.html"),
 
+        /*
+         * enable widget on template.
+         */
         widgetsInTemplate: true,
 
         _openBox : false,
 
-        contextPath : "",
-
-        completeName : "",
-
-        username : " ",
-
-        email : "",
-
-        bio : "",
-
-        language : "",
-
-        privateProfile : "",
-
-        serviceProfileInfo : encuestame.service.list.myProfile,
-
+        /*
+         *
+         */
         postCreate : function(){
-            //this._getMyProfile();
-            var email = dijit.byId("email");
-            email.onChange = dojo.hitch(this, function(){
-                    console.debug("change");
-                    email.validateBackEnd("email");
-            });
-            var username = dijit.byId("username");
-            username.onChange = dojo.hitch(this, function(){
-                console.debug("change");
-                username.validateBackEnd("username");
-            });
-            var completeName = dijit.byId("completeName");
-            var bio = dijit.byId("bio");
-            dojo.style(this._form, "display", "block");
+            this._getMyProfile();
         },
 
         /*
          * get profile.
          */
         _getMyProfile :function(){
-           var load = dojo.hitch(this, function(response){
-               //
-           });
-           var error = function(error) {
-               console.debug("error", error);
-           };
-           encuestame.service.xhrGet(this.serviceProfileInfo, {}, load, error);
-        },
-
-        _emptyBio : function(bio){
-            if(bio == "" || bio == null){
-                //TODO: we need show up default message if is emtpy.
-                bio = "Write your bio....";
-                return bio;
-            } else {
-                return bio;
-            }
+           var profileSupport = new encuestame.org.core.commons.profile.ProfileSupport();
+           var profile = profileSupport.getMyProfile();
+               if (profile != null) {
+                   var email = dijit.byId("email");
+                   email.set('value', profile.email);
+                   email.onChange = dojo.hitch(this, function(){
+                           console.debug("change");
+                           email.validateBackEnd("email");
+                   });
+                   var username = dijit.byId("username");
+                   username.set('value', profile.username);
+                   username.onChange = dojo.hitch(this, function(){
+                       console.debug("change");
+                       username.validateBackEnd("username");
+                   });
+                   var completeName = dijit.byId("completeName");
+                   completeName.set('value', profile.name);
+               }
         },
 
         /*

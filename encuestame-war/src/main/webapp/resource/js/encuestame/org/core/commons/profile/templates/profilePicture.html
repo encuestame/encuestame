@@ -1,0 +1,19 @@
+<div class="pictureProfileNew">
+    <form method="post" action="${contextPath}/file/upload/profile" enctype="multipart/form-data" id="imageForm">
+        <div style="padding: 10px;">
+            <div style="float: left; padding: 10px;">
+                <div class="pictureWrapper" dojoAttachPoint="_pictureWrapper">
+                    <img src="${contextPath}/resources/images/default.png"/>
+                </div>
+            </div>
+            <div style="margin-left: 120px;  padding: 15px;">
+                <div>
+                    <input type="file" class="medium" id="file" name="file" style="width: 300px;">
+                    <button  dojoAttachEvent="onclick:_uploadImage" type="button" >Go</button>
+                    <p>Choose one file from your computer (10 MB máx.)</p>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

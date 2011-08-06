@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller.settings;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,8 @@ import org.encuestame.core.util.Profile;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.json.ProfileUserAccount;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -48,6 +51,33 @@ public class SettingsJsonController extends AbstractJsonController{
      * Log.
      */
     private Log log = LogFactory.getLog(this.getClass());
+
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/settings/profile/my.json", method = RequestMethod.GET)
+    public ModelMap myAccountProfile(HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        ProfileUserAccount user;
+        try {
+            user = getProfileUserInfo();
+            jsonResponse.put("account", user);
+            setItemResponse(jsonResponse);
+        } catch (EnMeNoResultsFoundException e) {
+            setError(e, response);
+        }
+        return returnData();
+    }
 
     /**
      * Upgrade profile settings.
@@ -98,7 +128,6 @@ public class SettingsJsonController extends AbstractJsonController{
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
             throw new JsonGenerationException(e.getMessage());
         }
@@ -170,7 +199,6 @@ public class SettingsJsonController extends AbstractJsonController{
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

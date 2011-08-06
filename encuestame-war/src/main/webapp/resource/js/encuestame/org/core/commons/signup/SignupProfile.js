@@ -44,18 +44,6 @@ dojo.declare("encuestame.org.core.commons.signup.SignupProfile",
         });
     },
 
-    _uploadImage : function(event){
-        this.uploadImage();
-    },
-
-    _showPicture : function(url){
-        dojo.empty(this._pictureWrapper);
-        var textData = dojo.doc.createElement('img');
-        textData.src = url;
-        this._pictureWrapper.appendChild(textData);
-
-    },
-
     /**
      * Upgrade Profile.
      * @param property
@@ -88,32 +76,6 @@ dojo.declare("encuestame.org.core.commons.signup.SignupProfile",
 
     _upgradeEmail : function(event){
         dojo.stopEvent(event);
-    },
-
-    uploadImage : function() {
-        dojo.io.iframe.send({
-            form : dojo.byId("imageForm"),
-            handleAs : "html",
-            handle : dojo.hitch(this, function(ioResponse, args) {
-                if (ioResponse instanceof Error) {
-                    console.error("handle error: " + ioResponse);
-                } else {
-                    var url =  this.imagePath+ "/" + this.username+"/" + this._size[1];
-                    console.debug(args);
-                    console.info("image path response: " + this.imagePath+ "/" + this.username+"/" + this._size[1]);
-                    this._showPicture(url);
-                }
-            }),
-            // Callback on successful call:
-            load: function(response, ioArgs) {
-                // do something
-                // ...
-                console.log("response: " + response);
-                console.log("ioArgs: " + ioArgs);
-                // return the response for succeeding callbacks
-                return response;
-            }
-        });
     }
 
 });

@@ -452,6 +452,10 @@ div.updateProfile .profileItem label{
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
 }
 
+.defaultMarginWrapper .dijitTabContainerTop-container{
+    border: 0 none !important;
+}
+
 div.header {
     font-size: 1.6em;
     padding: 4px;

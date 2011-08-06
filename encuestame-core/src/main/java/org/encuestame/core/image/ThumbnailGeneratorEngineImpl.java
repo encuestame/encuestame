@@ -96,7 +96,8 @@ public class ThumbnailGeneratorEngineImpl implements ThumbnailGeneratorEngine {
                     log.error("Error generating thumbnail for: " + inputStream
                             + " in " + fileOut + " for type " + contentType, e);
                 }
-
+                log.debug("Created Thumbnail on:"+fileOut.getAbsolutePath());
+                log.debug("Created Thumbnail on:"+fileOut.getPath());
             }
         } else {
             log.warn("Thumbnail generator not found for content type: "

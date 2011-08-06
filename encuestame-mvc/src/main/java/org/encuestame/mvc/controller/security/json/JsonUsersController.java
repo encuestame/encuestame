@@ -30,7 +30,7 @@ import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.RelativeTimeEnum;
-import org.encuestame.utils.security.ProfileUserAccount;
+import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -130,37 +130,6 @@ public class JsonUsersController extends AbstractJsonController{
                 log.error("user not found");
             } else {
                 sucess.put("user", user);
-                setItemResponse(sucess);
-            }
-        } catch (Exception e) {
-            log.error(e);
-            setError(e.getMessage(), response);
-        }
-        return returnData();
-    }
-
-    /**
-     * Get my info profile.
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/admon/info-profile.json", method = RequestMethod.GET)
-    public ModelMap getMyUserInfo(
-            HttpServletRequest request,
-            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-        try {
-            final Map<String, Object> sucess = new HashMap<String, Object>();
-            final ProfileUserAccount user = getProfileUserInfo();
-            if (user == null) {
-                setError("user not found", response);
-                log.error("user not found");
-            } else {
-                sucess.put("profile", user);
                 setItemResponse(sucess);
             }
         } catch (Exception e) {
