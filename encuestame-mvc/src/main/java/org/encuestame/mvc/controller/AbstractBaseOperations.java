@@ -143,8 +143,18 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * Get By Username.
      * @param username username
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    public UserAccount getByUsername(final String username){
+    public UserAccount getByUsername(final String username) throws EnMeNoResultsFoundException{
+        return getServiceManager().getApplicationServices().getSecurityService().getUserAccount(username);
+    }
+
+    /**
+     * Get by username without Exceptions.
+     * @param username user name
+     * @return {@link UserAccount}.
+     */
+    public UserAccount findByUsername(final String username){
         return getServiceManager().getApplicationServices().getSecurityService().findUserByUserName(username);
     }
 

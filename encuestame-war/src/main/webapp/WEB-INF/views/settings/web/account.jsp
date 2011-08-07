@@ -6,7 +6,7 @@
     dojo.require("encuestame.org.core.commons.profile.UploadProfilePicture");
 </script>
 <div class="defaultMarginWrapper">
-    <h2>Settings Configuration</h2>
+    <h1>Settings Configuration</h1>
     <div style="width: 900px; height: 500px;">
         <div dojoType="dijit.layout.TabContainer"
             style="width: 100%; height: 100%;">
@@ -15,7 +15,7 @@
                 <div dojoType="encuestame.org.core.commons.profile.Profile"></div>
             </div>
             <div dojoType="dijit.layout.ContentPane" title="Picture" style="border: 0 none;">
-                 <div dojoType="encuestame.org.core.commons.profile.UploadProfilePicture"></div>
+                 <div dojoType="encuestame.org.core.commons.profile.UploadProfilePicture" source="${userAccount.pictureSource}" username="${username}"></div>
            </div>
            <div dojoType="dijit.layout.ContentPane" title="Password" style="border: 0 none;"
                 closable="true">

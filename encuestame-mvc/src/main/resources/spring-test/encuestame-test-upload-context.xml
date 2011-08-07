@@ -20,11 +20,10 @@
         <property name="supportedSizes">
             <list>
                 <value>900</value>
-                <value>768</value>
                 <value>375</value>
+                <value>256</value>
                 <value>128</value>
                 <value>64</value>
-                <value>48</value>
                 <value>22</value>
             </list>
         </property>

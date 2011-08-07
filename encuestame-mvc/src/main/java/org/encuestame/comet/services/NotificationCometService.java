@@ -24,6 +24,7 @@ import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
  * Notification comet service.
@@ -50,18 +51,25 @@ public class NotificationCometService extends AbstractCometService {
         final Map<String, Object> input = message.getDataAsMap();
         //log.debug("Notification Input "+input);
         final Map<String, Object> output = new HashMap<String, Object>();
-        final UserAccount userAccount = getByUsername(getUserPrincipalUsername());
-        if (userAccount != null) {
-            final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
-            log.debug("totalNot "+totalNot);
-            final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
-            log.debug("totalNewNot "+totalNewNot);
-            output.put("totalNot", totalNot);
-            output.put("totalNewNot", totalNewNot);
-            log.debug(totalNewNot + " NEW of "+totalNot+" total not");
-        } else {
-            output.put("totalNot", 0);
-            output.put("totalNewNot", 0);
+        UserAccount userAccount;
+        try {
+            userAccount = getByUsername(getUserPrincipalUsername());
+            if (userAccount != null) {
+                final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
+                log.debug("totalNot "+totalNot);
+                final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
+                log.debug("totalNewNot "+totalNewNot);
+                output.put("totalNot", totalNot);
+                output.put("totalNewNot", totalNewNot);
+                log.debug(totalNewNot + " NEW of "+totalNot+" total not");
+            } else {
+                output.put("totalNot", 0);
+                output.put("totalNewNot", 0);
+            }
+        } catch (EnMeNoResultsFoundException e) {
+             output.put("totalNot", 0);
+             output.put("totalNewNot", 0);
+             log.fatal("cometd: username invalid");
         }
         remote.deliver(getServerSession(), message.getChannel(), output, null);
     }

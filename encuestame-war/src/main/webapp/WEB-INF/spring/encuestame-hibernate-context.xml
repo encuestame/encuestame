@@ -93,7 +93,7 @@
                 <prop key="hibernate.show_sql">${datasource.showsql}</prop>
                 <prop key="hibernate.hbm2ddl.delimiter">${datasource.delimited}</prop>
                 <prop key="hibernate.search.default.directory_provider">${hibernate.search.provider}</prop>
-                <prop key="hibernate.search.default.indexBase">${dir.data.index.hibernate.search.store.path}</prop>
+                <prop key="hibernate.search.default.indexBase">${encuestame.home.hibernate.search.store.path}</prop>
 
                 <!-- Check this properties, seems alter results on test cases -->
                 <prop key="hibernate.search.worker.execution">async</prop>

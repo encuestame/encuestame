@@ -48,6 +48,7 @@ public class UserAccountBean implements Serializable {
     private Date lastTimeLogged;
     private String ipLastLogged;
     private Long groupId;
+    private String pictureSource;
 
     /**
      * @return the id
@@ -290,6 +291,19 @@ public class UserAccountBean implements Serializable {
      */
     public void setRelateTimeEnjoy(final String relateTimeEnjoy) {
         this.relateTimeEnjoy = relateTimeEnjoy;
+    }
+
+    /**
+     * @return the pictureSource
+     */
+    public String getPictureSource() {
+        return pictureSource;
+    }
+    /**
+     * @param pictureSource the pictureSource to set
+     */
+    public void setPictureSource(final String pictureSource) {
+        this.pictureSource = pictureSource;
     }
     /* (non-Javadoc)
      * @see java.lang.Object#toString()

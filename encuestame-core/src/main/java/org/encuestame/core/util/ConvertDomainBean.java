@@ -287,18 +287,21 @@ public class ConvertDomainBean {
 
     /**
      * Convert Basic {@link UserAccount} to {@link UserAccountBean}.
-     * @param secUserSecondary {@link UserAccount}.
+     * @param userAccount {@link UserAccount}.
      * @return {@link UserAccountBean}
      */
-    public static final UserAccountBean convertBasicSecondaryUserToUserBean(final UserAccount secUserSecondary){
+    public static final UserAccountBean convertBasicSecondaryUserToUserBean(final UserAccount userAccount){
         final UserAccountBean unitUserBean = new UserAccountBean();
-        if(secUserSecondary != null){
-            unitUserBean.setId(secUserSecondary.getUid());
-            unitUserBean.setName(secUserSecondary.getCompleteName());
-            unitUserBean.setEmail(secUserSecondary.getUserEmail());
-            unitUserBean.setUsername(secUserSecondary.getUsername());
-            unitUserBean.setStatus(secUserSecondary.isUserStatus());
-            unitUserBean.setInviteCode(secUserSecondary.getInviteCode());
+        if (userAccount != null) {
+            unitUserBean.setId(userAccount.getUid());
+            unitUserBean.setName(userAccount.getCompleteName());
+            unitUserBean.setEmail(userAccount.getUserEmail());
+            unitUserBean.setUsername(userAccount.getUsername());
+            unitUserBean.setStatus(userAccount.isUserStatus());
+            unitUserBean.setInviteCode(userAccount.getInviteCode());
+            unitUserBean
+                    .setPictureSource(userAccount.getPictureSource() == null ? null
+                            : userAccount.getPictureSource().toString().toLowerCase());
         }
         return unitUserBean;
     }
@@ -308,7 +311,7 @@ public class ConvertDomainBean {
      * @param userAccount
      * @return
      */
-    public static final SignUpBean convertBasicSecondaryUserToSignUpBean(final UserAccount userAccount){
+    public static final SignUpBean convertUserAccountToSignUpBean(final UserAccount userAccount){
         final SignUpBean signUpBean = new SignUpBean();
         if(userAccount != null){
             signUpBean.setCaptcha("");

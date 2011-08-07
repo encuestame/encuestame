@@ -84,11 +84,11 @@ public class SettingsJsonController extends AbstractJsonController{
      * @param model
      * @return
      */
-    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
-    @RequestMapping(value = "/api/settings/profile/{type}/update.json", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/settings/profile/{type}/update.json", method = RequestMethod.POST)
     public ModelMap upgradeProfile(HttpServletRequest request,
             @PathVariable String type,
-            @RequestParam(value = "data", required = true) String data,
+            @RequestParam(value = "data", required = false) String data,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         log.debug("update profile type:"+type);
@@ -99,26 +99,29 @@ public class SettingsJsonController extends AbstractJsonController{
             final HashMap<String, Object> listError = new HashMap<String, Object>();
             //filter data
             data = filterValue(data);
-            final UserAccount account = getUserAccount();
             if(type.equals(Profile.EMAIL.toString())){
                 //TODO: review pattern email format validator.
                 log.debug("update email");
+                final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUserEmail(data, account)) {
-                    security.upadteAccountProfile(Profile.EMAIL, data,
-                            getUserPrincipalUsername());
+                    security.upadteAccountProfile(Profile.EMAIL, data);
                     setSuccesResponse();
                 } else {
                     listError.put(type, "email not valid");
                 }
             } else if(type.equals(Profile.USERNAME.toString())){
                 log.debug("update username");
+                final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUsername(data, account)) {
-                    security.upadteAccountProfile(Profile.USERNAME, data,
-                            getUserPrincipalUsername());
+                    security.upadteAccountProfile(Profile.USERNAME, data);
                     setSuccesResponse();
                 } else {
                     listError.put(type, "username not valid");
                 }
+            } else if(type.equals(Profile.PICTURE.toString())){
+                 log.debug("update PICTURE");
+                 security.upadteAccountProfile(Profile.PICTURE, data);
+                 setSuccesResponse();
             } else {
                 setError("type not valid", response);
             }
@@ -128,8 +131,9 @@ public class SettingsJsonController extends AbstractJsonController{
             }
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
-            throw new JsonGenerationException(e.getMessage());
+            //throw new JsonGenerationException(e.getMessage());
         }
         return returnData();
     }
@@ -191,11 +195,7 @@ public class SettingsJsonController extends AbstractJsonController{
                 valid = false;
             } else {
                 log.debug("updating profile ....");
-                security.upadteAccountProfile(Profile.USERNAME, username, getUserPrincipalUsername());
-                security.upadteAccountProfile(Profile.EMAIL, email, getUserPrincipalUsername());
-                //update the other properties
-                security.upadteAccountProfile(bio, language, completeName, getUserPrincipalUsername());
-                setSuccesResponse();
+                setError("invalid type", response);
             }
         } catch (Exception e) {
             log.error(e);

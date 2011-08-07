@@ -26,5 +26,7 @@ dojo.declare(
 
         contextPath : encuestame.contextDefault,
 
-        username : ""
+        username : "",
+
+        postCreate : function(){}
 });

@@ -432,6 +432,7 @@ encuestame.service.list.upgradeProfile = encuestame.contextWidget()+"/api/user/p
 encuestame.service.list.updateProfile = encuestame.contextWidget()+"/api/settings/profile/update.json";
 encuestame.service.list.updateUsername = encuestame.contextWidget()+"/api/settings/profile/username/update.json";
 encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/profile/email/update.json";
+encuestame.service.list.updatePicture = encuestame.contextWidget()+"/api/settings/profile/picture/update.json";
 
 encuestame.service.list.listPermissions = encuestame.contextWidget()+"/api/admon/list-permissions.json";
 encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/admon/list-user-permissions.json";

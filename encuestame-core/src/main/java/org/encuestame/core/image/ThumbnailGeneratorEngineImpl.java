@@ -76,8 +76,10 @@ public class ThumbnailGeneratorEngineImpl implements ThumbnailGeneratorEngine {
      * @param contentType
      *            the content type of this input stream for example image/jpeg
      */
-    public void generateThumbnails(final String fileNamePrefix,
-            final InputStream inputStream, final String contentType,
+    public void generateThumbnails(
+            final String fileNamePrefix,
+            final InputStream inputStream,
+            final String contentType,
             final String thumbnailsLocation) {
         ThumbnailGenerator thumbnailGenerator = thumbnailGenerators.get(contentType);
         thumbnailGenerator = thumbnailGenerator != null ? thumbnailGenerator
@@ -85,9 +87,17 @@ public class ThumbnailGeneratorEngineImpl implements ThumbnailGeneratorEngine {
         if (thumbnailGenerator != null) {
             Object hint = null;
             for (int dimension : supportedSizes) {
-                File fileOut = new File(thumbnailsLocation, fileNamePrefix
-                        + "_" + dimension + generatedExtension);
+                File fileOut = new File(thumbnailsLocation, fileNamePrefix + dimension + generatedExtension);
                 try {
+                    if (log.isDebugEnabled()) {
+                        log.debug("Checking user account picture folder "+fileOut.getAbsolutePath());
+                        log.debug("Checking user account picture folder "+fileOut.exists());
+                    }
+                    if (!fileOut.exists()) {
+                        log.debug("Creating user account picture folder");
+                        fileOut.mkdirs();
+                        log.debug("Checking user account picture folder "+fileOut.exists());
+                    }
                     hint = thumbnailGenerator.createThumbnail(inputStream,
                             fileOut, dimension, hint);
                     log.debug("Generated thumbnail for: " + inputStream

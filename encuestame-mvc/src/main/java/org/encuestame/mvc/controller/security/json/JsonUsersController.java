@@ -284,8 +284,7 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         try {
-            getSecurityService().upadteAccountProfile(Profile.findProfile(property.toUpperCase()), value,
-                    getUserPrincipalUsername());
+            getSecurityService().upadteAccountProfile(Profile.findProfile(property.toUpperCase()), value);
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);

@@ -3,9 +3,8 @@ dojo.provide("encuestame.org.core.commons.profile.UploadProfilePicture");
 dojo.require("dojo.io.iframe");
 dojo.require("dijit.form.TextBox");
 dojo.require("dijit.form.ComboButton");
-dojo.require("dijit.MenuItem");
-dojo.require("dijit.Menu");
-
+dojo.require("dijit.form.RadioButton");
+dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 dojo.require("dojox.form.FileUploader");
 
 dojo.require("encuestame.org.core.commons.profile.ProfileSupport");
@@ -26,7 +25,9 @@ dojo.declare(
 
     upgradeProfileService : encuestame.service.list.upgradeProfile,
 
-    profile : null,
+    username : "",
+
+    pictureSource : "",
 
     imagePath : '/',
 
@@ -38,23 +39,61 @@ dojo.declare(
      *
      */
     postCreate : function(){
-        console.debug("UploadProfilePicture");
-        var profileSupport = new encuestame.org.core.commons.profile.ProfileSupport();
-        this.profile = profileSupport.getMyProfile();
-        console.info("profile ", this.profile);
+        console.debug("UploadProfilePicture", this.username);
+        if (this.username != null) {
+            this._reloadPicture();
+        }
+        var radioGravatar = dijit.byId("gravatar_radio");
+        if (this.pictureSource == "gravatar") {
+            radioGravatar.value('checked', true);
+        }
+        radioGravatar.onChange = dojo.hitch(this, function(e){
+             if(e){
+                 this._updatePictureSource("gravatar");
+                 dojo.addClass(this._uploadedForm, "defaultDisplayHide");
+             }
+        });
+        var uploadedRadio = dijit.byId("uploaded_radio");
+        if (this.pictureSource == "uploaded") {
+            uploadedRadio.value('checked', true);
+        }
+        uploadedRadio.onChange = dojo.hitch(this, function(e){
+             if(e){
+                 this._updatePictureSource("uploaded");
+                 dojo.removeClass(this._uploadedForm, "defaultDisplayHide");
+             }
+        });
+    },
+
+    /*
+     *
+     */
+    _updatePictureSource : function(value) {
+        var params = {
+                "data" : value
+       };
+       console.debug("params", params);
+       var load = dojo.hitch(this, function(data) {
+           this._reloadPicture();
+       });
+       var error = function(error) {
+           console.error(error);
+       };
+       encuestame.service.xhrPostParam(
+               encuestame.service.list.updatePicture, params, load, error);
     },
 
     /**
      *
      * @param url
      */
-    _showPicture : function(url){
-        console.log("_pictureWrapper", this._pictureWrapper);
+    _reloadPicture : function(){
         dojo.empty(this._pictureWrapper);
-        var textData = dojo.doc.createElement('img');
-        textData.src = url;
-        console.log("textData", textData);
-        this._pictureWrapper.appendChild(textData);
+        console.debug("_reloadPicture");
+        var textData = new encuestame.org.core.shared.utils.AccountPicture({username : this.username, picture_width :"128",
+            picture_height : "128", type : "default"}, "a");
+        console.log("textData", textData.domNode);
+        this._pictureWrapper.appendChild(textData.domNode);
     },
 
 
@@ -68,24 +107,23 @@ dojo.declare(
             handleAs : "html",
             method: "POST",
             handle : dojo.hitch(this, function(ioResponse, args) {
-                console.info("form", dojo.byId("imageForm"));
                 if (ioResponse instanceof Error) {
                     console.error("handle error: " + ioResponse);
                 } else {
-                    var url =  this.contextPath + "/picture/profile/admin/" + this._size[1];
                     console.debug(args);
-                    console.info("image path response: " + this.imagePath+ "admin/" + this._size[1]);
-                    this._showPicture(url);
                 }
             }),
-            timeoutSeconds: 200,
-            error: function (res,ioArgs) {alert(res);},
+            timeoutSeconds: 2000,
+            error: function (res,ioArgs) {
+                console.error("handle error: " + res);
+                console.error("handle error: " + ioArgs);
+            },
             // Callback on successful call:
             load: function(response, ioArgs) {
                 // do something
                 // ...
-                console.log("response: " + response);
-                console.log("ioArgs: " + ioArgs);
+                console.debug("response: " + response);
+                console.debug("ioArgs: " + ioArgs);
                 // return the response for succeeding callbacks
                 return response;
             }

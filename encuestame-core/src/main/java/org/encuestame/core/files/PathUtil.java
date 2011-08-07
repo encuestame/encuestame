@@ -12,6 +12,8 @@ public class PathUtil {
      */
     public static String signIn = "/user/signin";
 
+    public static String DEFAUL_PICTURE_PREFIX = "file_";
+
     /**
      * Profile Images Folder.
      */

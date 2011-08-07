@@ -14,7 +14,9 @@ package org.encuestame.mvc.controller.settings;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +39,10 @@ public class SettingsController extends AbstractBaseOperations{
      * @return
      */
     @RequestMapping(value = "/settings/configuration", method = RequestMethod.GET)
-    public String settingsAccountController(ModelMap model) {
-        log.debug("account");
+    public String settingsAccountController(ModelMap model, final UserAccount userAccount) {
+        log.debug("account "+userAccount);
+        model.put("username", getUserPrincipalUsername());
+        model.put("userAccount", ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAccount));
         return "settings/account";
     }
 

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,12 +67,12 @@ public class FileUploadController extends AbstractBaseOperations {
             String filePath = null;
             try {
                 log.debug("getting file path for this user");
-                //filePath = getPictureService().getAccountUserPicturePath(getUserPrincipalUsername());
+                filePath = getPictureService().getAccountUserPicturePath(getSecurityService().getUserAccount(getUserPrincipalUsername()));
                 InputStream stream = multipartFile.getInputStream();
                 try {
                     //generate thumbnails
                     thumbnailGeneratorEngine.generateThumbnails(
-                            multipartFile.getName(),
+                            PathUtil.DEFAUL_PICTURE_PREFIX,
                             stream,
                             multipartFile.getContentType(),
                             filePath);
@@ -87,6 +88,9 @@ public class FileUploadController extends AbstractBaseOperations {
                 e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             } catch (IOException e) {
+                e.printStackTrace();
+                log.error("File uploaded failed:" + orgName);
+            } catch (EnMeNoResultsFoundException e) {
                 e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             }

@@ -46,19 +46,16 @@ public class PictureService extends AbstractBaseService implements IPictureServi
     private Log log = LogFactory.getLog(this.getClass());
 
 
-
     /**
      * Create Picture Path.
-     * @param account
+     * @param account Account
      */
-    private String getPicturePath(final Account account){
-        final StringBuilder d = new StringBuilder(DirectorySetupOperations.getProfilesDirectory(account.getUid().toString()));
-        d.append(PathUtil.profile);
-        final File profileDir =  new File(d.toString());
-        if (!profileDir.exists()) {
-            profileDir.mkdirs();
+    public String getPicturePath(final UserAccount account) {
+        final StringBuilder profilesPicturePath = new StringBuilder();
+        if (account != null) {
+            profilesPicturePath.append(getAccountUserPicturePath(account));
         }
-        return d.toString();
+        return profilesPicturePath.toString();
     }
 
     /**
@@ -69,9 +66,23 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @throws EnMeGenericException
      */
     private byte[] getGravatarPicture(final String email, final PictureType size) throws EnMeGenericException {
-        log.debug("getGravatarPicture "+size);
-        log.debug("getGravatarPicture "+email);
+        log.debug("getGravatarPicture:{ "+size);
+        log.debug("getGravatarPicture:{ "+email);
         return PictureUtils.downloadGravatar(email, size.toInt());
+    }
+
+    /**
+     *
+     * @param userAccount
+     * @return
+     */
+    public String getAccountUserPicturePath(final UserAccount userAccount){
+        final StringBuffer user = new StringBuffer(DirectorySetupOperations.getPictureDirectory());
+        user.append("/");
+        user.append(userAccount.getUid());
+        user.append("/");
+        log.debug("getAccountUserPicturePath:{"+user.toString());
+        return user.toString();
     }
 
     /**
@@ -82,8 +93,9 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @throws IOException
      */
     private byte[] getProfilePicture(final PictureType size, final UserAccount account) throws IOException{
-        final StringBuilder url = new StringBuilder(this.getPicturePath(account.getAccount()));
-        url.append("/file");
+        final StringBuilder url = new StringBuilder(this.getPicturePath(account));
+        url.append("/");
+        url.append(PathUtil.DEFAUL_PICTURE_PREFIX);
         url.append(size.toInt().toString());
         url.append(".jpg");
         log.debug("getProfileURl "+url);
@@ -125,9 +137,7 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @throws IOException
      * @throws EnMeGenericException
      */
-    public byte[] getProfilePicture(
-            final String username,
-            final PictureType pictureType) throws IOException, EnMeGenericException {
+    public byte[] getProfilePicture(final String username, final PictureType pictureType) throws IOException, EnMeGenericException {
         log.debug("getProfilePicture "+username);
         log.debug("getProfilePicture "+pictureType.toString());
         final UserAccount user = getUserAccount(username);
