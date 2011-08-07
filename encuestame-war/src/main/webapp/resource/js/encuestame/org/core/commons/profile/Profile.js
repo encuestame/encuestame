@@ -32,24 +32,32 @@ dojo.declare(
          * get profile.
          */
         _getMyProfile :function(){
-           var profileSupport = new encuestame.org.core.commons.profile.ProfileSupport();
-           var profile = profileSupport.getMyProfile();
-               if (profile != null) {
-                   var email = dijit.byId("email");
-                   email.set('value', profile.email);
-                   email.onChange = dojo.hitch(this, function(){
-                           console.debug("change");
-                           email.validateBackEnd("email");
-                   });
-                   var username = dijit.byId("username");
-                   username.set('value', profile.username);
-                   username.onChange = dojo.hitch(this, function(){
-                       console.debug("change");
-                       username.validateBackEnd("username");
-                   });
-                   var completeName = dijit.byId("completeName");
-                   completeName.set('value', profile.name);
-               }
+            var load = dojo.hitch(this, function(response){
+                if (response.success) {
+                    var profile = response.success.account;
+                    if (profile != null) {
+                        var email = dijit.byId("email");
+                        email.set('value', profile.email);
+                        email.onChange = dojo.hitch(this, function(){
+                                console.debug("change");
+                                email.validateBackEnd("email");
+                        });
+                        var username = dijit.byId("username");
+                        username.set('value', profile.username);
+                        username.onChange = dojo.hitch(this, function(){
+                            console.debug("change");
+                            username.validateBackEnd("username");
+                        });
+                        var completeName = dijit.byId("completeName");
+                        completeName.set('value', profile.name);
+                    }
+                }
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(encuestame.service.list.profile.my, {}, load, error);
+            return this.userAccount;
         },
 
         /*

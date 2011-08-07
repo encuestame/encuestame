@@ -39,7 +39,7 @@ dojo.declare(
      *
      */
     postCreate : function(){
-        console.debug("UploadProfilePicture", this.username);
+        console.debug("UploadProfilePicture", this.pictureSource);
         if (this.username != null) {
             this._reloadPicture();
         }
@@ -48,7 +48,7 @@ dojo.declare(
             radioGravatar.value('checked', true);
         }
         radioGravatar.onChange = dojo.hitch(this, function(e){
-             if(e){
+             if (e) {
                  this._updatePictureSource("gravatar");
                  dojo.addClass(this._uploadedForm, "defaultDisplayHide");
              }

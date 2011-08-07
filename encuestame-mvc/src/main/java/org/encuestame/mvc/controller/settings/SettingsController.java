@@ -40,7 +40,8 @@ public class SettingsController extends AbstractBaseOperations{
      */
     @RequestMapping(value = "/settings/configuration", method = RequestMethod.GET)
     public String settingsAccountController(ModelMap model, final UserAccount userAccount) {
-        log.debug("account "+userAccount);
+        log.debug("settingsAccountController account: "+userAccount);
+        log.debug("settingsAccountController account: "+userAccount.toString());
         model.put("username", getUserPrincipalUsername());
         model.put("userAccount", ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAccount));
         return "settings/account";
