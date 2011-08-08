@@ -121,10 +121,54 @@
         </resources>
     </build>
     <profiles>
-    <profile>
+        <profile>
         <id>development</id>
         <properties>
             <env>development</env>
+        </properties>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1.1</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+        <id>jpicado</id>
+        <properties>
+            <env>jpicado</env>
+        </properties>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1.1</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+        <id>dmorales</id>
+        <properties>
+            <env>dmorales</env>
         </properties>
         <build>
             <plugins>
@@ -241,6 +285,7 @@
                                             <arg value="mini=true"/>
                                           </java>
                                           <delete includeEmptyDirs="true" verbose="true">
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="tests/**/"/>
                                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/tests/**/"/>
                                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/demos/**/"/>
                                                <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="util/**"/>
