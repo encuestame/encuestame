@@ -72,7 +72,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
         initService("/api/common/gadgets/list.json", MethodJson.GET);
         createGadgetDefault(createDashboardDefault(getSpringSecurityLoggedUserAccount()));
         createGadgetDefault(createDashboardDefault(getSpringSecurityLoggedUserAccount()));
-        initService("/api/common/gadgets.json", MethodJson.GET);
+        initService("/api/common/gadgets/list.json", MethodJson.GET);
         setParameter("dashboardId", "2");
         final JSONObject response2 = callJsonService();
         System.out.println(response2);

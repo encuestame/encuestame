@@ -84,23 +84,6 @@ public class JsonUsersControllerTestCase extends AbstractJsonMvcUnitBeans {
         //Assert.assertEquals(1, polls.size());
     }
 
-    /**
-    *
-    * @throws ServletException
-    * @throws IOException
-    */
-   @Test
-   public void testProfileInfo()
-           throws ServletException, IOException {
-       initService("/api/admon/info-profile.json", MethodJson.GET);
-       final JSONObject response = callJsonService();
-       final JSONObject success = getSucess(response);
-       final JSONObject user = (JSONObject) success.get("profile");
-       Assert.assertNotNull(user);
-       System.out.println(user);
-       //Assert.assertEquals(1, polls.size());
-   }
-
    /**
     *
     * @throws ServletException
