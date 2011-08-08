@@ -78,7 +78,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
         System.out.println(response2);
         final JSONObject success2 = getSucess(response2);
         final JSONArray gadgets2 = (JSONArray) success2.get("gadgets");
-        Assert.assertEquals(gadgets2.size(), 0);
+        Assert.assertEquals(gadgets2.size(), 1);
     }
 
     /*@Test
