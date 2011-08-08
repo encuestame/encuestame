@@ -4,6 +4,7 @@
         xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
   <group name='web'>
     <css>/resource/css/web/public.css</css>
+    <css>/resource/css/web/default.css</css>
     <css>/resource/css/web/admon.css</css>
     <css>/resource/css/web/button.css</css>
     <css>/resource/css/web/list.css</css>
