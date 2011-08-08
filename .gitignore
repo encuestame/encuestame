@@ -21,6 +21,7 @@ buildNumber.properties
 .classpath
 *~
 target/
+encuestame-war/src/main/webapp/resource/static/
 */.settings
 *DEADJOE*
 encuestame-war/src/main/webapp/resource/js/dijit/
