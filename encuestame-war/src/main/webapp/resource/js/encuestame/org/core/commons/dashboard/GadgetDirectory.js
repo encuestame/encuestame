@@ -8,8 +8,14 @@ dojo.declare(
     [dijit._Widget, dijit._Templated],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/directory.html"),
 
+        /*
+         * dasboard id.
+         */
         dasboardId : null,
 
+        /*
+         * post create.
+         */
         postCreate : function(){
             this._loadDirectory();
         },
@@ -46,8 +52,7 @@ dojo.declare(
                      dojo.forEach(
                              gadgets,
                              dojo.hitch(this, function(data, index) {
-                                 console.debug("Gadget", data);
-                                 var node = this._createItemDirectory({title:data.name,description:data.description});
+                                 var node = this._createItemDirectory(data);
                                  this._dir.appendChild(node);
                      }));
                 }
@@ -59,29 +64,23 @@ dojo.declare(
         },
 
         /*
-         *
-         */
-        _addGadget : function(event){
-            console.info("add gadget");
-        },
-
-        /**
          * create directory item.
          * @param gadget
          * @returns
          */
-        _createItemDirectory : function(gadget){
+        _createItemDirectory : function(gadget) {
             var item = dojo.create("div");
+            item.setAttribute("ga", gadget.id);
             dojo.addClass(item, "web-directory-item");
-            var title = dojo.create("div", { innerHTML: "<div>"+gadget.title+"</div>" }, item);
+            var title = dojo.create("div", { innerHTML: "<div>"+gadget.name+"</div>" }, item);
             dojo.addClass(title, "web-directory-item-title");
             var description = dojo.create("div", { innerHTML: "<p>"+gadget.description+"</p>" }, item);
             dojo.addClass(description, "web-directory-item-description");
             var actions = dojo.create("div", null, item);
             dojo.addClass(actions, "web-directory-item-actions");
             var a = dojo.create("a", { innerHTML: "Add" }, actions);
-            dojo.connect(a, "onclick", dojo.hitch(this, function(){
-                console.info("add gadget");
+            dojo.connect(a, "onclick", dojo.hitch(this, function() {
+                dojo.publish("/encuestame/dashboard/gadget/add", [gadget.id]);
             }));
             return item;
         }

@@ -81,7 +81,12 @@ dependencies ={
                 "org.cometd.AckExtension",
                 "org.cometd.ReloadExtension",
                 "org.cometd.TimeStampExtension",
-                "org.cometd.TimeSyncExtension"
+                "org.cometd.TimeSyncExtension",
+                //gadgets
+                "encuestame.org.core.gadget.Gadget",
+                "encuestame.org.core.gadget.Activity",
+                "encuestame.org.core.gadget.Comments",
+                "encuestame.org.core.gadget.TweetPollVotes"
                 ]
             }
           /*,

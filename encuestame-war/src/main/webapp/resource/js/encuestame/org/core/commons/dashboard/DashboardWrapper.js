@@ -34,16 +34,6 @@ dojo.declare(
 
         _addComboStoreWidget : null,
 
-        _dadsboards_test : [{id: 1, label: "dasboard 1"},{id: 2, label: "dasboard 2"},{id: 3, label: "dasboard 3"}],
-
-        _dashboard_store : {"items":[
-                                     {"id":1205,"name":"My Dashboard"},
-                                     {"id":1201,"name":"TweetPoll Resume"},
-                                     {"id":1204,"name":"Chart Votes"},
-                                     {"id":12025,"name":"Comments Top Rate"},
-                                     {"id":14205,"name":"Activity Stream"},
-                                     ],"label":"name","identifier":"id"},
-
         /**
          * Post create.
          */
@@ -52,7 +42,6 @@ dojo.declare(
            dojo.subscribe("/encuestame/dashboard/insert", this, "insert");
            this._buildDashBoardList();
            dojo.connect(this._gadgets, "onclick", dojo.hitch(this, this._openDirectory));
-           //dojo.connect(this._new, "onclick", dojo.hitch(this, this._createDashboard));
            this._createDashboardButton();
         },
 

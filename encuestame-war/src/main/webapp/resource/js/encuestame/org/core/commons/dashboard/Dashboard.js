@@ -26,9 +26,8 @@ dojo.declare(
 
         dashBoardSource : null,
 
-        dashboardId : null,
 
-        name : null,
+        dashboard : null,
 
         /*
          *
@@ -46,9 +45,9 @@ dojo.declare(
          * configure layout
          */
         _configureLayout : function(data) {
+            console.debug("_configureLayout", data);
             this.layoutWidget = new encuestame.org.core.commons.dashboard.DashboardLayout(
-                         {dashboardWidget: this, dashboard: data.dasboard, gadgets : data.gadgets, style: "height: 700px; width: 100%;"});
-            console.debug("_configureLayout", this.layoutWidget);
+                         {dashboardWidget: this, dashboard: data.dashboard, gadgets : data.gadgets, style: "height: 700px; width: 100%;"});
             return this.layoutWidget;
         },
 
@@ -72,19 +71,25 @@ dojo.declare(
          */
         _loadGadgets : function(){
             var load = dojo.hitch(this, function(data) {
-                this.loadLayOut(data);
+                console.debug("_loadGadgets initialize", data);
+                if(data.success){
+                    this.loadLayOut(data.success);
+                } else {
+                    //posible error message.
+                }
             });
             var error = function(error) {
                 console.debug("error", error);
             };
-            encuestame.service.xhrGet(encuestame.service.gadget.list, {dashboardId : this.dashboardId}, load, error);
+            encuestame.service.xhrGet(encuestame.service.gadget.list, {dashboardId : this.dashboard.dashboardId}, load, error);
         },
 
         /*
          * initialize.
          */
         initialize : function(){
-            if (this.dashboardId) {
+            console.debug("_configureLayout initialize", this.dashboard);
+            if (this.dashboard !=  null) {
                 this._loadGadgets();
             }
         }

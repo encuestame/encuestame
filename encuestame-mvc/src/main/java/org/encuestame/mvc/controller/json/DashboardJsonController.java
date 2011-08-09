@@ -67,7 +67,7 @@ public class DashboardJsonController extends AbstractJsonController {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                  final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable(dashboardId);
                  jsonResponse.put("gadgets", gadgets);
-                 jsonResponse.put("dashboard", getDashboardService().getDashboardbyId(dashboardId));
+                 jsonResponse.put("dashboard", ConvertDomainBean.convertDashboardDomaintoBean(getDashboardService().getDashboardbyId(dashboardId)));
                  setItemResponse(jsonResponse);
          } catch (Exception e) {
               log.error(e);
