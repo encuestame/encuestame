@@ -32,7 +32,17 @@ dojo.declare(
         /*
          * enable widgets on template.
          */
-        widgetsInTemplate: true,
+        widgetsInTemplate : true,
+
+        /*
+         * dashboard info.
+         */
+        dashboard : null,
+
+        /*
+         * gadgets.
+         */
+        gadgets: null,
 
         /*
          *
@@ -45,6 +55,8 @@ dojo.declare(
         postCreate : function() {
             //dojo.subscribe("/encuestame/dashboard/layout/change", this, "_change");
             //console.debug("postCreate", this._layout);
+            console.debug("Layout ", this.dashboard);
+            console.debug("Layout ", this.gadgets);
             this._layout.appendChild(this._createLayoutAAA());
         },
 

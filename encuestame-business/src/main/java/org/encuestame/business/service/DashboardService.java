@@ -45,7 +45,8 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
       * (non-Javadoc)
       * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboards(java.lang.String, java.lang.Integer, java.lang.Integer)
       */
-    public List<DashboardBean> getAllDashboards(final Integer maxResults,
+    public List<DashboardBean> getAllDashboards(
+            final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
         final List<DashboardBean> boardBean = new ArrayList<DashboardBean>();
         final List<Dashboard> boards = getDashboardDao().retrieveDashboardsbyUser(getUserAccount(getUserPrincipalUsername()), maxResults, start);
@@ -58,12 +59,12 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.IDashboardService#getAllDashboardbyId(java.lang.Long, java.lang.String)
      */
-    public Dashboard getDashboardbyIdandUser(final Long boardId) throws EnMeNoResultsFoundException {
+    public Dashboard getDashboardbyId(final Long boardId) throws EnMeNoResultsFoundException {
         Dashboard dashboard = null;
             if ( (boardId == null)) {
-            	 throw new EnMeDashboardNotFoundException("dashboard id is missing");
+                 throw new EnMeDashboardNotFoundException("dashboard id is missing");
             } else {
-            	dashboard = getDashboardDao().getDashboardbyIdandUser(boardId, getUserAccount(getUserPrincipalUsername()));
+                dashboard = getDashboardDao().getDashboardbyIdandUser(boardId, getUserAccount(getUserPrincipalUsername()));
             }
 
         return dashboard;
@@ -86,9 +87,9 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @see org.encuestame.business.service.imp.IDashboardService#getDashboardById(java.lang.Long)
      */
 
-	private Dashboard getDashboardById(final Long boardId) throws EnMeNoResultsFoundException{
-            return this.getDashboardbyIdandUser(boardId);
-        }
+    private Dashboard getDashboardById(final Long boardId) throws EnMeNoResultsFoundException{
+            return this.getDashboardbyId(boardId);
+    }
 
     /*
      * (non-Javadoc)
@@ -97,9 +98,9 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
     public Dashboard getAllDashboardbyId(final Long boardId) throws EnMeNoResultsFoundException{
         Dashboard dashboard = null;
             if (boardId == null) {
-            	  throw new EnMeDashboardNotFoundException("dashboard Id poll is missing "+boardId);
+                  throw new EnMeDashboardNotFoundException("dashboard Id poll is missing "+boardId);
             } else {
-            	 dashboard = this.getDashboardById(boardId);
+                 dashboard = this.getDashboardById(boardId);
             }
        return dashboard;
     }
@@ -173,17 +174,17 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @see org.encuestame.business.service.imp.IDashboardService#removeGadget(java.lang.Long)
      */
     public void removeGadget(final Long gadgetId, final Long dashboardId) throws EnMeNoResultsFoundException{
-    	final Dashboard board = this.getDashboardById(dashboardId);
-    	final Gadget gadget= this.getGadget(gadgetId, board);
-    	final List<GadgetProperties> prop = getDashboardDao().retrievePropertiesbyGadget(gadget.getGadgetId());
-    	if(prop.size() > 0){
-    		for (GadgetProperties gadgetProperties : prop) {
-				getDashboardDao().delete(gadgetProperties);
-			}
-    	}
+        final Dashboard board = this.getDashboardById(dashboardId);
+        final Gadget gadget= this.getGadget(gadgetId, board);
+        final List<GadgetProperties> prop = getDashboardDao().retrievePropertiesbyGadget(gadget.getGadgetId());
+        if(prop.size() > 0){
+            for (GadgetProperties gadgetProperties : prop) {
+                getDashboardDao().delete(gadgetProperties);
+            }
+        }
         getDashboardDao().delete(gadget);
 
-    	}
+        }
 
     /*
      * (non-Javadoc)
@@ -239,7 +240,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @see org.encuestame.business.service.imp.IDashboardService#getAllGadgetsAvailable()
      */
     public List<GadgetBean> getAllGadgetsAvailable(final Long boardId) throws EnMeNoResultsFoundException{
-    		final Dashboard dashboard = this.getDashboardById(boardId);
+            final Dashboard dashboard = this.getDashboardById(boardId);
             List<GadgetBean> gadgetBean = new ArrayList<GadgetBean>();
             final List<Gadget> gadgets = getDashboardDao().retrieveGadgets(dashboard);
             gadgetBean.addAll(ConvertDomainBean.convertListGadgetToBean(gadgets));
@@ -255,10 +256,10 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @throws EnMeNoResultsFoundException
      */
     public void moveGadget(final Long gadgetId, final Long boardId, final Integer position, final Integer column) throws EnMeNoResultsFoundException{
-    	final Dashboard board = this.getDashboardById(boardId);
-    	final Gadget gadget = this.getGadget(gadgetId, board);
-    	gadget.setGadgetPosition(position);
-    	gadget.setGadgetColumn(column);
+        final Dashboard board = this.getDashboardById(boardId);
+        final Gadget gadget = this.getGadget(gadgetId, board);
+        gadget.setGadgetPosition(position);
+        gadget.setGadgetColumn(column);
     }
 
     /**
@@ -267,12 +268,12 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @return
      * @throws EnMeNoResultsFoundException
      */
-	private Gadget getGadget(final Long gadgetId, final Dashboard board) throws EnMeNoResultsFoundException{
-		 Gadget gadget = null;
+    private Gadget getGadget(final Long gadgetId, final Dashboard board) throws EnMeNoResultsFoundException{
+         Gadget gadget = null;
          if ( (gadgetId == null)) {
-         	 throw new EnMeGadgetNotFoundException("gadget id is missing");
+              throw new EnMeGadgetNotFoundException("gadget id is missing");
          } else {
-        	 gadget = getDashboardDao().getGadgetbyIdandBoard(gadgetId, board);
+             gadget = getDashboardDao().getGadgetbyIdandBoard(gadgetId, board);
          }
      return gadget;
     }

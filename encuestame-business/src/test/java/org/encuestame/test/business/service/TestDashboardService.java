@@ -87,7 +87,7 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
 	 */
 	@Test
 	public void testGetDashboardbyIdandUser() throws EnMeNoResultsFoundException{
-		final Dashboard board = dashboardService.getDashboardbyIdandUser(this.dashboard.getBoardId());
+		final Dashboard board = dashboardService.getDashboardbyId(this.dashboard.getBoardId());
 		assertNotNull(board);
 		assertEquals("Should be equals", this.dashboard.getBoardId(), board.getBoardId());
 	}

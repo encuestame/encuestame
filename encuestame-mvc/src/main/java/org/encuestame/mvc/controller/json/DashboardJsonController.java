@@ -67,7 +67,30 @@ public class DashboardJsonController extends AbstractJsonController {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                  final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable(dashboardId);
                  jsonResponse.put("gadgets", gadgets);
+                 jsonResponse.put("dashboard", getDashboardService().getDashboardbyId(dashboardId));
                  setItemResponse(jsonResponse);
+         } catch (Exception e) {
+              log.error(e);
+              setError(e.getMessage(), response);
+         }
+         return returnData();
+     }
+
+    /**
+     *
+     * @param dashboardId
+     * @param request
+     * @param response
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/dashboard/list.json", method = RequestMethod.GET)
+    public ModelMap getMyDasboards(
+            HttpServletRequest request,
+            HttpServletResponse response){
+         try {
+            final List<DashboardBean> dashboards = getDashboardService().getAllDashboards(null, 0);
+            setItemReadStoreResponse("dashboard_name", "id", dashboards);
          } catch (Exception e) {
               log.error(e);
               setError(e.getMessage(), response);

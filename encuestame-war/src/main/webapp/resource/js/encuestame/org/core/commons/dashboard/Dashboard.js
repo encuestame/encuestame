@@ -26,6 +26,10 @@ dojo.declare(
 
         dashBoardSource : null,
 
+        dashboardId : null,
+
+        name : null,
+
         /*
          *
          */
@@ -35,31 +39,15 @@ dojo.declare(
          * Post create.
          */
         postCreate: function() {
-//             this.dashBoardSource  = new dojo.dnd.Source(this._gadgets, {
-//                 accept: [],
-//                 copyOnly: false,
-//                 selfCopy : false,
-//                 selfAccept: true,
-//                 withHandles : true,
-//                 autoSync : true,
-//                 isSource : true
-//                 //creator: this.dndNodeCreator
-//                 });
-             if(this.layoutWidget == null) {
-                 var parent = this;
-                 this.layoutWidget = parent._configureLayout();
-                 console.debug("layoutWidget", this.layoutWidget);
-                 this.layoutWidget.placeAt(dojo.byId(parent._layout));
-                 this.layoutWidget.startup();
-             }
+
         },
 
         /*
          * configure layout
          */
-        _configureLayout : function() {
+        _configureLayout : function(data) {
             this.layoutWidget = new encuestame.org.core.commons.dashboard.DashboardLayout(
-                         {dashboardWidget: this, style: "height: 700px; width: 100%;"});
+                         {dashboardWidget: this, dashboard: data.dasboard, gadgets : data.gadgets, style: "height: 700px; width: 100%;"});
             console.debug("_configureLayout", this.layoutWidget);
             return this.layoutWidget;
         },
@@ -68,19 +56,37 @@ dojo.declare(
 
         printGadget : function(gadget){},
 
+
+        loadLayOut : function(data){
+             if(this.layoutWidget == null) {
+                 var parent = this;
+                 this.layoutWidget = parent._configureLayout(data);
+                 this.layoutWidget.placeAt(dojo.byId(parent._layout));
+                 this.layoutWidget.startup();
+             }
+        },
+
+
+        /**
+         *
+         */
+        _loadGadgets : function(){
+            var load = dojo.hitch(this, function(data) {
+                this.loadLayOut(data);
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(encuestame.service.gadget.list, {dashboardId : this.dashboardId}, load, error);
+        },
+
         /*
          * initialize.
          */
         initialize : function(){
-//            console.debug("initalize");
-//            var itemArray = [];
-//            dojo.forEach(
-//                    this._test_gadgets,
-//                    dojo.hitch(this, function(data, index) {
-//                        var widget = this._createGadget(data, index);
-//                        itemArray.push(widget.domNode);
-//            }));
-            //this.dashBoardSource.insertNodes(false, itemArray);
+            if (this.dashboardId) {
+                this._loadGadgets();
+            }
         }
 
     }

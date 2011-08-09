@@ -42,7 +42,7 @@ public enum LayoutEnum {
      * To String.
      */
     public String toString() {
-        String layout = "ENCUESTAME_USER";
+        String layout = "";
         if (this == AAA_COLUMNS) { layout = "AAA"; }
         else if (this == BB_BLOCK) { layout = "BB"; }
         else if (this == B_BLOCK) { layout = "B"; }

@@ -122,7 +122,7 @@ public class Dashboard {
     /**
     * @return the pageLayout
     */
-    @Column(name = "layout")
+    @Column(name = "dashboad_layout")
     @Enumerated(EnumType.ORDINAL)
     public LayoutEnum getPageLayout() {
         return pageLayout;

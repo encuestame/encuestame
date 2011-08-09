@@ -48,7 +48,7 @@ public interface IDashboardService {
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	Dashboard getDashboardbyIdandUser(final Long boardId) throws EnMeNoResultsFoundException;
+	Dashboard getDashboardbyId(final Long boardId) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Retrieve favourites dashboards.
