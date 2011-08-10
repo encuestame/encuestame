@@ -30,6 +30,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * {@link Dashboard} service support.
@@ -159,7 +160,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      */
     public void addGadgetOnDashboard(final Long boardId, final Long gadgetId) throws EnMeGadgetNotFoundException{
         final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
-        if(gadget!=null){
+        if (gadget != null) {
             final Dashboard dashboard = getDashboardDao().getDashboardbyId(boardId);
             //dashboard.getGadgetDashboard().add(gadget);
 
@@ -255,11 +256,20 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public void moveGadget(final Long gadgetId, final Long boardId, final Integer position, final Integer column) throws EnMeNoResultsFoundException{
+    public void moveGadget(final Long gadgetId, final Long boardId,
+            final Integer position, final Integer column)
+            throws EnMeNoResultsFoundException {
+        if (log.isDebugEnabled()) {
+            log.debug("Moving gadgetId "+gadgetId);
+            log.debug("boardId "+boardId);
+            log.debug("position "+position);
+            log.debug("column "+column);
+        }
         final Dashboard board = this.getDashboardById(boardId);
         final Gadget gadget = this.getGadget(gadgetId, board);
         gadget.setGadgetPosition(position);
         gadget.setGadgetColumn(column);
+        getDashboardDao().saveOrUpdate(gadget);
     }
 
     /**
@@ -269,11 +279,11 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @throws EnMeNoResultsFoundException
      */
     private Gadget getGadget(final Long gadgetId, final Dashboard board) throws EnMeNoResultsFoundException{
-         Gadget gadget = null;
-         if ( (gadgetId == null)) {
-              throw new EnMeGadgetNotFoundException("gadget id is missing");
-         } else {
-             gadget = getDashboardDao().getGadgetbyIdandBoard(gadgetId, board);
+         Assert.notNull(gadgetId);
+         Assert.notNull(board);
+         final Gadget gadget = getDashboardDao().getGadgetbyIdandBoard(gadgetId, board);
+         if (gadget == null) {
+              throw new EnMeGadgetNotFoundException("gadget is missing");
          }
      return gadget;
     }

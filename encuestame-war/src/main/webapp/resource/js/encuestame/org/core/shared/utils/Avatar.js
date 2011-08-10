@@ -80,7 +80,7 @@ define("encuestame.org.core.shared.utils.Avatar", ["dojo", "dojo/dnd/common"], f
 
 
         update: function(){
-            console.info("AVATAR UPDATE");
+            //console.info("AVATAR UPDATE");
             // summary:
             //		updates the avatar to reflect the current DnD state
             dojo[(this.manager.canDropFlag ? "add" : "remove") + "Class"](this.node, "dojoDndAvatarCanDrop");
