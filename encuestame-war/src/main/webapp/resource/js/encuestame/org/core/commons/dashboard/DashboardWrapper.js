@@ -108,9 +108,10 @@ dojo.declare(
             dojo.byId("stateSelect_"+this.id).appendChild(this._addComboWidget.domNode);
             this._addComboWidget.onChange = dojo.hitch(this, function(value) {
                 console.debug("load dasboard", this._addComboWidget.get('value'));
-                console.debug("load dasboard", this._addComboWidget.item.id[0]);
-                console.debug("load dasboard", this._addComboWidget);
-                this.loadDashBoard({dashboardId: this._addComboWidget.item.id[0], name: this._addComboWidget.get('value')});
+                console.debug("load dasboard", (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]));
+                console.debug("load dasboard", this._addComboWidget); //TODO: check id null values.
+                this.loadDashBoard({dashboardId: (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]),
+                     name: this._addComboWidget.get('value')});
             });
         },
 

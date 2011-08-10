@@ -15,6 +15,7 @@ package org.encuestame.business.gadgets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -32,7 +33,12 @@ public class GadgetsLoader {
     /**
      *
      */
-    final static List<Properties> directoy = new ArrayList<Properties>();
+    final static List<Properties> directory = new ArrayList<Properties>();
+
+    /**
+     *
+     */
+    final static HashMap<String, Properties> mapDirectory = new HashMap<String, Properties>();
 
     /**
      *
@@ -55,7 +61,10 @@ public class GadgetsLoader {
                 try {
                    final InputStream is = location.getInputStream();
                     try {
-                        directoy.add(loadPropertyFile(is));
+                        Properties properties = loadPropertyFile(is);
+                        directory.add(properties);
+                        log.debug("adding to map getDirectoy "+properties.getProperty("name"));
+                        mapDirectory.put(properties.getProperty("name"), properties);
                     }
                     finally {
                         is.close();
@@ -87,8 +96,18 @@ public class GadgetsLoader {
      * @return
      */
     public static List<Properties> getDirectoy(){
-        return directoy;
+        return directory;
     }
+
+    /**
+    *
+    * @return
+    */
+   public static Properties getDirectoy(final String key){
+       log.debug("getDirectoy "+mapDirectory.size());
+       log.debug("getDirectoy "+mapDirectory);
+       return mapDirectory.get(key);
+   }
 
     /**
      * @param gadgets the gadgets to set

@@ -805,13 +805,15 @@ public class ConvertDomainBean {
      */
     public static final DashboardBean convertDashboardDomaintoBean(final Dashboard dashboard){
         final DashboardBean dashboardBean = new DashboardBean();
-        dashboardBean.setDashboardId(dashboard.getBoardId());
-        dashboardBean.setDashboardName(dashboard.getPageBoardName());
-        dashboardBean.setDashboardDesc(dashboard.getDescription());
-        dashboardBean.setFavorite(dashboard.getFavorite());
-        dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
-        dashboardBean.setLayout((dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString()));
-        dashboardBean.setSequence(dashboard.getBoardSequence());
+        if (dashboard != null) {
+            dashboardBean.setDashboardId(dashboard.getBoardId());
+            dashboardBean.setDashboardName(dashboard.getPageBoardName());
+            dashboardBean.setDashboardDesc(dashboard.getDescription());
+            dashboardBean.setFavorite(dashboard.getFavorite());
+            dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
+            dashboardBean.setLayout((dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString()));
+            dashboardBean.setSequence(dashboard.getBoardSequence());
+        }
         return dashboardBean;
     }
 

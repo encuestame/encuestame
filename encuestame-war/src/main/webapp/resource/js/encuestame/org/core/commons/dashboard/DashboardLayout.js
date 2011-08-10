@@ -71,18 +71,18 @@ dojo.declare(
          * @param layout layout to load.
          */
         loadLayout : function(layout /*string layout*/){
-            var gadgets = [{id:5, name:"gadget1"}, {id:1, name:"gadget2"}];
+            var gadgets = [];
             var node = null;
             if (layout == this._type[0]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[1]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[2]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[3]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[4]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else {
                 //error.
             }
@@ -92,7 +92,16 @@ dojo.declare(
         },
 
         _addGadget : function(name){
+            var params = {boardId: this.dashboard.id, gadgetId: name};
             console.debug("add gadget", name);
+            console.debug("_addDndGadgetItem", params);
+            var load = dojo.hitch(this, function(data) {
+                console.debug("_addGadget", data);
+                });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(encuestame.service.gadget.add, params, load, error);
         },
 
         /*
@@ -106,7 +115,7 @@ dojo.declare(
          * create layout AAA.
          */
         _createLayoutAAA : function(gadgets) {
-            this._listColumns = [];
+            this._listColumns = [1, 2, 3];
             var wrapper = document.createElement("div");
             wrapper.appendChild(this._createColumn("1", "a1_"+this.id, gadgets).domNode);
             wrapper.appendChild(this._createColumn("2", "a2_"+this.id, gadgets).domNode);
@@ -198,12 +207,14 @@ dojo.declare(
              */
             _addGadgets : function(){
               var itemArray = [];
-              //console.debug("this.gadgets", this.gadgets);
+              console.debug("this.gadgets", this.gadgets);
               dojo.forEach(this.gadgets, dojo.hitch(this, function(item) {
-                  //console.debug("item", item);
-                  var widget = this._createGadget(item);
-                  this._widgetsGadgets.push(widget);
-                  itemArray.push(widget.domNode);
+                  console.debug(item.gadget_column, this.column);
+                  if(item.gadget_column == parseInt(this.column)){
+                      var widget = this._createGadget(item);
+                      this._widgetsGadgets.push(widget);
+                      itemArray.push(widget.domNode);
+                  }
               }));
               //console.debug("this.sourceDndWidget", this.sourceDndWidget);
               this.sourceDndWidget.insertNodes(false, itemArray);

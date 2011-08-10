@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Widget domain.
+ * Gadget domain.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 27, 2011
  */
@@ -38,7 +38,7 @@ public class Gadget {
     private String gadgetName;
 
     /** Widget type**/
-    private GadgetType gadgetType;
+    private GadgetType gadgetType = GadgetType.ACTIVITY_STREAM;
 
     /** Gadget color. **/
     private String gadgetColor;
@@ -103,78 +103,78 @@ public class Gadget {
         this.gadgetType = gadgetType;
     }
 
-	/**
-	 * @return the gadgetColor
-	 */
-    @Column(name = "gadgetColor", nullable = false)
-	public String getGadgetColor() {
-		return gadgetColor;
-	}
+    /**
+     * @return the gadgetColor
+     */
+    @Column(name = "gadgetColor", nullable = true)
+    public String getGadgetColor() {
+        return gadgetColor;
+    }
 
-	/**
-	 * @param gadgetColor the gadgetColor to set
-	 */
-	public void setGadgetColor(final String gadgetColor) {
-		this.gadgetColor = gadgetColor;
-	}
+    /**
+     * @param gadgetColor the gadgetColor to set
+     */
+    public void setGadgetColor(final String gadgetColor) {
+        this.gadgetColor = gadgetColor;
+    }
 
-	/**
-	 * @return the column
-	 */
-	@Column(name = "gadgetColumn", nullable = false)
-	public Integer getGadgetColumn() {
-		return gadgetColumn;
-	}
+    /**
+     * @return the column
+     */
+    @Column(name = "gadgetColumn", nullable = false)
+    public Integer getGadgetColumn() {
+        return gadgetColumn;
+    }
 
-	/**
-	 * @param column the column to set
-	 */
-	public void setGadgetColumn(final Integer gadgetColumn) {
-		this.gadgetColumn = gadgetColumn;
-	}
+    /**
+     * @param column the column to set
+     */
+    public void setGadgetColumn(final Integer gadgetColumn) {
+        this.gadgetColumn = gadgetColumn;
+    }
 
-	/**
-	 * @return the position
-	 */
-	@Column(name = "gadgetPosition", nullable = false)
-	public Integer getGadgetPosition() {
-		return gadgetPosition;
-	}
+    /**
+     * @return the position
+     */
+    @Column(name = "gadgetPosition", nullable = true)
+    public Integer getGadgetPosition() {
+        return gadgetPosition;
+    }
 
-	/**
-	 * @param position the position to set
-	 */
-	public void setGadgetPosition(final Integer gadgetPosition) {
-		this.gadgetPosition = gadgetPosition;
-	}
+    /**
+     * @param position the position to set
+     */
+    public void setGadgetPosition(final Integer gadgetPosition) {
+        this.gadgetPosition = gadgetPosition;
+    }
 
-	/**
-	 * @return the dashboard
-	 */
-	@ManyToOne()
-	public Dashboard getDashboard() {
-		return dashboard;
-	}
+    /**
+     * @return the dashboard
+     */
+    @ManyToOne()
+    public Dashboard getDashboard() {
+        return dashboard;
+    }
 
-	/**
-	 * @param dashboard the dashboard to set
-	 */
-	public void setDashboard(final Dashboard dashboard) {
-		this.dashboard = dashboard;
-	}
+    /**
+     * @param dashboard the dashboard to set
+     */
+    public void setDashboard(final Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
 
-	/**
-	 * @return the status
-	 */
-	@Column(name = "status", nullable = true)
-	public Boolean getStatus() {
-		return status;
-	}
+    /**
+     * @return the status
+     */
+    @Column(name = "status", nullable = true)
+    public Boolean getStatus() {
+        return status;
+    }
 
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(final Boolean status) {
-		this.status = status;
-	}
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(final Boolean status) {
+        this.status = status;
+    }
 }
