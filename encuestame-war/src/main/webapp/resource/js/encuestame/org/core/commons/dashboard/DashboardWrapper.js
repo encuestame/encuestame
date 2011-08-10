@@ -28,15 +28,11 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        _dadsboards_test : [{id: 1, label: "dasboard 1"},{id: 2, label: "dasboard 2"},{id: 3, label: "dasboard 3"}],
+        _addButtonWidget : null,
 
-        _dashboard_store : {"items":[
-                                     {"id":1205,"name":"My Dashboard"},
-                                     {"id":1201,"name":"TweetPoll Resume"},
-                                     {"id":1204,"name":"Chart Votes"},
-                                     {"id":12025,"name":"Comments Top Rate"},
-                                     {"id":14205,"name":"Activity Stream"},
-                                     ],"label":"name","identifier":"id"},
+        _addComboWidget : null,
+
+        _addComboStoreWidget : null,
 
         /**
          * Post create.
@@ -46,7 +42,6 @@ dojo.declare(
            dojo.subscribe("/encuestame/dashboard/insert", this, "insert");
            this._buildDashBoardList();
            dojo.connect(this._gadgets, "onclick", dojo.hitch(this, this._openDirectory));
-           //dojo.connect(this._new, "onclick", dojo.hitch(this, this._createDashboard));
            this._createDashboardButton();
         },
 
@@ -84,21 +79,40 @@ dojo.declare(
          *
          */
         _buildDashBoardList : function(){
-            console.debug("_buildDashBoardList");
-            var stateStore = new dojo.data.ItemFileReadStore({
-                data: this._dashboard_store
+            var load = dojo.hitch(this, function(data){
+                this._addComboStoreWidget = new dojo.data.ItemFileReadStore({
+                    data: data.success
+                });
+                if (this._addComboWidget == null) {
+                    this._buildCombo();
+                } else {
+                    this._addComboWidget.store = this._addComboStoreWidget;
+                }
             });
-            var filteringSelect = new dijit.form.ComboBox({
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(encuestame.service.dashboard.list, {}, load, error);
+        },
+
+        /*
+         * create a dijit combo box.
+         */
+        _buildCombo : function(){
+            this._addComboWidget = new dijit.form.ComboBox({
                 name: "dashboard",
-                store: stateStore,
-                searchAttr: "name"
+                store:  this._addComboStoreWidget,
+                searchAttr: "dashboard_name"
             });
-            console.debug("_buildDashBoardList 2");
-            dojo.byId("stateSelect_"+this.id).appendChild(filteringSelect.domNode);
-            filteringSelect.onChange = dojo.hitch(this, function(value){
-                this.loadDashBoard({id:123, name: value});
+            dojo.empty(dojo.byId("stateSelect_"+this.id));
+            dojo.byId("stateSelect_"+this.id).appendChild(this._addComboWidget.domNode);
+            this._addComboWidget.onChange = dojo.hitch(this, function(value) {
+                console.debug("load dasboard", this._addComboWidget.get('value'));
+                console.debug("load dasboard", (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]));
+                console.debug("load dasboard", this._addComboWidget); //TODO: check id null values.
+                this.loadDashBoard({dashboardId: (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]),
+                     name: this._addComboWidget.get('value')});
             });
-            console.debug("_buildDashBoardList 3");
         },
 
         /**
@@ -111,13 +125,11 @@ dojo.declare(
                         + '<div class="web-dashboard-create-actions"><button id="createDashBoardAdd" dojoType="dijit.form.Button" type="button">Add</button>'
                         + '<button dojoType="dijit.form.Button"  id="createDashBoardCancel" type="button">Cancel</button></div></div></div>'
             });
-            var button = new dijit.form.DropDownButton({
+            this._addButtonWidget = new dijit.form.DropDownButton({
                 label: "New Dashboard",
                 dropDown: dialog
             });
             var form = dijit.byId("createDashBoard");
-            var name = dijit.byId("name");
-            var description = dijit.byId("desc");
             var add = dijit.byId("createDashBoardAdd");
             add.onClick = dojo.hitch(this, function() {
                 if(form.isValid()){
@@ -128,11 +140,9 @@ dojo.declare(
             });
             var cancel = dijit.byId("createDashBoardCancel");
             cancel.onClick = function(){
-                button.closeDropDown();
+                this._addButtonWidget.closeDropDown();
             };
-            console.debug("cancel", cancel);
-            console.debug("add", add);
-            this._new.appendChild(button.domNode);
+            this._new.appendChild(this._addButtonWidget.domNode);
         },
 
         /**
@@ -142,6 +152,10 @@ dojo.declare(
             console.debug("form", form);
             var load = dojo.hitch(this, function(data){
                 console.debug("data", data);
+                this._buildDashBoardList();
+                this._addButtonWidget.closeDropDown();
+                this._addComboWidget.set('displayedValue',  dijit.byId("name").get('value'));
+                dijit.byId("createDashBoard").reset();
             });
             var error = function(error) {
                 console.debug("error", error);

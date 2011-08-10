@@ -16,7 +16,10 @@ dojo.declare(
          * Post create.
          */
         postCreate: function() {
-
+            console.debug("data", this.data);
+            if (this.data) {
+                this.domNode.setAttribute("gid",  this.data.id);
+            }
         },
 
         _editConfiguration : function(){},

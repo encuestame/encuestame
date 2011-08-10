@@ -1118,11 +1118,9 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     color: #4A66B5;
     padding: 4px;
     font-weight: bold;
-    "
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.rating
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.rating{
 
 }
 
@@ -2018,11 +2016,11 @@ div.web-folder-wrapper .web-folder-item{
 
 div.web-folder-wrapper .web-folder-item:hover {
     background-color: #6F6F6F;
-    color: #FFF;'
+    color: #FFF;
 }
 
 div.web-folder-wrapper .web-folder-item span:hover{
-    color: #FFF;'
+    color: #FFF;
 }
 
 div.web-folder-wrapper .web-folder-item .icon-folder {

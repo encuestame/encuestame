@@ -448,7 +448,7 @@ public class TestHibernateDomains extends AbstractBase{
         final Gadget gadget = new Gadget();
         final UserAccount user = createUserAccount("diana paola", createAccount());
         gadget.setGadgetName("Notifications");
-        gadget.setGadgetType(GadgetType.TWEETPOLLS);
+        gadget.setGadgetType(GadgetType.ACTIVITY_STREAM);
         gadget.setGadgetColor("blue");
         gadget.setGadgetColumn(1);
         gadget.setGadgetPosition(1);
@@ -459,8 +459,8 @@ public class TestHibernateDomains extends AbstractBase{
      /** Gadget Properties **/
      @Test
      public void testGadgetProperties(){
-    	 final UserAccount user = createUserAccount("diana paola", createAccount());
-    	 final Dashboard board = createDashboardDefault(user);
+         final UserAccount user = createUserAccount("diana paola", createAccount());
+         final Dashboard board = createDashboardDefault(user);
          final GadgetProperties gadgetProp = new GadgetProperties();
          gadgetProp.setGadgetPropName("maxResults");
          gadgetProp.setGadgetPropValue("10");

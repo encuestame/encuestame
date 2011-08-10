@@ -38,26 +38,26 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TestDashboardService extends AbstractSpringSecurityContext{
 
-	/** {@link IDashboardService} **/
-	@Autowired
-	public IDashboardService dashboardService;
+    /** {@link IDashboardService} **/
+    @Autowired
+    public IDashboardService dashboardService;
 
-	/** {@link Dashboard} **/
-	private Dashboard dashboard;
+    /** {@link Dashboard} **/
+    private Dashboard dashboard;
 
-	/** Max Results. **/
-	private Integer MAX_RESULTS = 10;
+    /** Max Results. **/
+    private Integer MAX_RESULTS = 10;
 
-	/** Start Results. **/
-	private Integer START = 0;
+    /** Start Results. **/
+    private Integer START = 0;
 
-	/** {@link Gadget} **/
-	private Gadget gadget;
+    /** {@link Gadget} **/
+    private Gadget gadget;
 
-	/** {@link DashboardBean} **/
-	private DashboardBean boardBean;
+    /** {@link DashboardBean} **/
+    private DashboardBean boardBean;
 
-	@Before
+    @Before
     public void initService(){
         this.dashboard = createDashboard("First board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         createDashboard("Second board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
@@ -90,7 +90,7 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
 	 */
 	@Test
 	public void testGetDashboardbyIdandUser() throws EnMeNoResultsFoundException{
-		final Dashboard board = dashboardService.getDashboardbyIdandUser(this.dashboard.getBoardId());
+		final Dashboard board = dashboardService.getDashboardbyId(this.dashboard.getBoardId());
 		assertNotNull(board);
 		assertEquals("Should be equals", this.dashboard.getBoardId(), board.getBoardId());
 	}

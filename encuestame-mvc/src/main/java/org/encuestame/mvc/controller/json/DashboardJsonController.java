@@ -1,4 +1,4 @@
-/*
+ /*
  ************************************************************************************
  * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2010
  * encuestame Development Team.
@@ -29,6 +29,7 @@ import org.encuestame.business.gadgets.GadgetsLoader;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -67,7 +68,32 @@ public class DashboardJsonController extends AbstractJsonController {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                  final List<GadgetBean> gadgets = getDashboardService().getAllGadgetsAvailable(dashboardId);
                  jsonResponse.put("gadgets", gadgets);
-                 setItemResponse(jsonResponse);
+                 jsonResponse.put("dashboard", ConvertDomainBean
+                        .convertDashboardDomaintoBean(getDashboardService()
+                                .getDashboardbyId(dashboardId)));
+            setItemResponse(jsonResponse);
+         } catch (Exception e) {
+              log.error(e);
+              setError(e.getMessage(), response);
+         }
+         return returnData();
+     }
+
+    /**
+     *
+     * @param dashboardId
+     * @param request
+     * @param response
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/dashboard/list.json", method = RequestMethod.GET)
+    public ModelMap getMyDasboards(
+            HttpServletRequest request,
+            HttpServletResponse response){
+         try {
+            final List<DashboardBean> dashboards = getDashboardService().getAllDashboards(null, 0);
+            setItemReadStoreResponse("dashboard_name", "id", dashboards);
          } catch (Exception e) {
               log.error(e);
               setError(e.getMessage(), response);
@@ -222,36 +248,32 @@ public class DashboardJsonController extends AbstractJsonController {
      }
 
     /**
-    *
-    * @param boardId
-    * @param gadgetId
-    * @param request
-    * @param response
-    * @return
-    */
-   @RequestMapping(value = "/api/common/dashboard/addGadget.json", method = RequestMethod.GET)
-   public ModelMap addGadgetonDashboard(
-           @RequestParam(value = "boardId", required = true) Long boardId,
-           @RequestParam(value = "gadgetName", required = true) String gadgetName,
-           @RequestParam(value = "position", required = true) Integer position,
-           @RequestParam(value = "column", required = true) Integer column,
-           HttpServletRequest request,
-           HttpServletResponse response){
-       try {
-       	final Dashboard board = getDashboardService().getDashboardbyIdandUser(boardId);
-       	final GadgetBean gadgetBean = new GadgetBean();
-       	gadgetBean.setGadgetName(gadgetName);
-       	gadgetBean.setGadgetColumn(column);
-       	gadgetBean.setGadgetPosition(position);
-           getDashboardService().addGadgetOnDashboard(boardId, gadgetBean);
-           setSuccesResponse();
-       } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace();
-            setError(e.getMessage(), response);
-       }
-       return returnData();
-   }
+     *
+     * @param boardId
+     * @param gadgetId
+     * @param request
+     * @param response
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/gadgets/add.json", method = RequestMethod.GET)
+    public ModelMap addGadgetonDashboard(
+            @RequestParam(value = "boardId", required = true) Long boardId,
+            @RequestParam(value = "gadgetId", required = true) String gadgetId,
+            HttpServletRequest request,
+            HttpServletResponse response){
+        try {
+             log.debug("addGadgetonDashboard "+"/api/common/gadgets/add.json");
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+             final Gadget gadget = getDashboardService().addGadgetOnDashboard(boardId, gadgetId);
+             jsonResponse.put("gadget", ConvertDomainBean.convertGadgetDomaintoBean(gadget));
+             setItemResponse(jsonResponse);
+        } catch (Exception e) {
+             log.error(e);
+             setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 
     /**
      * Move gadget on dashboard.

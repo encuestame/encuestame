@@ -17,113 +17,6 @@
     <finalName>encuestame-${project.version}-beta</finalName>
     <plugins>
         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-                <execution>
-                    <phase>compile</phase>
-                    <configuration>
-                        <classpath>
-                          <pathelement location="../dojo/util/shrinksafe/js.jar"/>
-                          <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
-                        </classpath>
-                        <property file="${basedir}/dojo.properties"/>
-                        <!--  To optimize JS uncomment this.
-                        <target unless="build">
-                            <java
-                             fork="true"
-                             failonerror="true"
-                             dir="../dojo/util/buildscripts"
-                             classname="org.mozilla.javascript.tools.shell.Main">
-                            <classpath>
-                              <pathelement location="../dojo/util/shrinksafe/js.jar"/>
-                              <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
-                            </classpath>
-                            <jvmarg value="-Xmx512M"/>
-                            <arg value="build.js"/>
-                            <arg value="version=1.6.1"/>
-                            <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
-                            <arg value="action=clean,release"/>
-                            <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
-                            <arg value="optimize=shrinksafe"/>
-                            <arg value="layerOptimize=shrinksafe"/>
-                            <arg value="cssOptimize=comments"/>
-                            <arg value="mini=true"/>
-                          </java>
-                          <delete includeEmptyDirs="true" verbose="true">
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/tests/**/"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/demos/**/"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="util/**"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.psd"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.fla"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.svg"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.as"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.swf"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dijit/themes/" excludes="**/claro/**/"/>
-                               <fileset dir="${basedir}/target/dojo-compiled/dojo/" includes="**/*.uncompressed.js"/>
-                           </delete>
-                          <echo message="Dojo optimized." />
-                        </target>-->
-                    </configuration>
-                    <goals>
-                        <goal>run</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <!--
-        Customize and Optimize WAR file.
-        <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.1.1</version>
-            <configuration>
-                <packagingIncludes>
-                    WEB-INF/lib/*,
-                    WEB-INF/**/*.xml,
-                    WEB-INF/**/*.inc,
-                    resource/css/**/*,
-                    resource/images/**/*,
-                    resource/js/dojo/**/*,
-                    resource/js/dijit/**/*,
-                    resource/js/dojox/**/*,
-                    resource/js/org/**/*,
-                    resource/js/org/**/*,
-                    resource/js/encuestame.profile.js,
-                    **/*.properties,
-                    **/*.class,
-                    **/*.ico,
-                    **/*.xsd,
-                    **/*.jsp
-                </packagingIncludes>
-                <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                        <classpathPrefix>lib/</classpathPrefix>
-                    </manifest>
-                </archive>
-                <webResources>
-                   <resource>
-                        <directory>${project.build.directory}/dojo-compiled/dojo/</directory>
-                        <targetPath>resource/js</targetPath>
-                    </resource>
-                </webResources>
-            </configuration>
-            </plugin>-->
-        <!-- Development War Configuration - NOT Optimized-->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.1.1</version>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                    </manifest>
-                </archive>
-            </configuration>
-        </plugin>
-        <plugin>
            <groupId>org.mortbay.jetty</groupId>
            <artifactId>jetty-maven-plugin</artifactId>
            <version>${jetty-plugin-version}</version>
@@ -168,6 +61,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>keytool-maven-plugin</artifactId>
+                <version>1.0</version>
                 <executions>
                     <execution>
                         <phase>generate-resources</phase>
@@ -226,6 +120,197 @@
             </resource>
         </resources>
     </build>
+    <profiles>
+        <profile>
+        <id>development</id>
+        <properties>
+            <env>development</env>
+        </properties>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1.1</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+        <id>jpicado</id>
+        <properties>
+            <env>jpicado</env>
+        </properties>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1.1</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+        <id>dmorales</id>
+        <properties>
+            <env>dmorales</env>
+        </properties>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1.1</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+    <profile>
+        <id>demo</id>
+        <properties>
+            <env>demo</env>
+            </properties>
+            <build>
+                <plugins>
+                     <plugin>
+                        <groupId>ro.isdc.wro4j</groupId>
+                        <artifactId>wro4j-maven-plugin</artifactId>
+                        <version>1.3.8</version>
+                        <executions>
+                          <execution>
+                            <phase>compile</phase>
+                            <goals>
+                              <goal>run</goal>
+                            </goals>
+                          </execution>
+                        </executions>
+                        <configuration>
+                          <targetGroups>web,mobile</targetGroups>
+                          <wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>
+                          <destinationFolder>${basedir}/src/main/webapp/resource/static/</destinationFolder>
+                          <contextFolder>${basedir}/src/main/webapp/</contextFolder>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.1.1</version>
+                        <configuration>
+                            <packagingIncludes>
+                                WEB-INF/lib/*,
+                                WEB-INF/**/*.xml,
+                                WEB-INF/**/*.inc,
+                                resource/static/**/*,
+                                resource/images/**/*,
+                                resource/js/dojo/**/*,
+                                resource/js/dijit/**/*,
+                                resource/js/dojox/**/*,
+                                resource/js/org/**/*,
+                                resource/js/org/**/*,
+                                resource/js/encuestame.profile.js,
+                                resource/js/default.js, <!-- This file is because a issue on Dojo 1.6 with AMD modules. -->
+                                **/*.properties,
+                                **/*.class,
+                                **/*.ico,
+                                **/*.xsd,
+                                **/*.jsp
+                            </packagingIncludes>
+                            <archive>
+                                <manifest>
+                                    <addClasspath>true</addClasspath>
+                                    <classpathPrefix>lib/</classpathPrefix>
+                                </manifest>
+                            </archive>
+                            <webResources>
+                               <resource>
+                                    <directory>${project.build.directory}/dojo-compiled/dojo/</directory>
+                                    <targetPath>resource/js</targetPath>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                        </plugin>
+                         <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-antrun-plugin</artifactId>
+                            <version>1.6</version>
+                            <executions>
+                                <execution>
+                                    <phase>compile</phase>
+                                    <configuration>
+                                        <classpath>
+                                          <pathelement location="../dojo/util/shrinksafe/js.jar"/>
+                                          <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
+                                        </classpath>
+                                        <property file="${basedir}/dojo.properties"/>
+                                        <target unless="build">
+                                            <java
+                                             fork="true"
+                                             failonerror="true"
+                                             dir="../dojo/util/buildscripts"
+                                             classname="org.mozilla.javascript.tools.shell.Main">
+                                            <classpath>
+                                              <pathelement location="../dojo/util/shrinksafe/js.jar"/>
+                                              <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
+                                            </classpath>
+                                            <jvmarg value="-Xmx512M"/>
+                                            <arg value="build.js"/>
+                                            <arg value="version=1.6.0"/>
+                                            <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
+                                            <arg value="action=clean,release"/>
+                                            <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
+                                            <arg value="optimize=shrinksafe"/>
+                                            <arg value="layerOptimize=shrinksafe"/>
+                                            <arg value="cssOptimize=comments"/>
+                                            <arg value="mini=true"/>
+                                          </java>
+                                          <delete includeEmptyDirs="true" verbose="true">
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="tests/**/"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/tests/**/"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/demos/**/"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="util/**"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.psd"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.fla"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.svg"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.as"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.swf"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dijit/themes/" excludes="**/claro/**/"/>
+                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/" includes="**/*.uncompressed.js"/>
+                                           </delete>
+                                          <echo message="Dojo optimized." />
+                                        </target>
+                                    </configuration>
+                                    <goals>
+                                        <goal>run</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>

@@ -580,15 +580,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     public GadgetProperties createGadgetProperties(final String name, final String value,
-    		final Gadget gadget,
-    		final UserAccount user){
-    	final GadgetProperties properties = new GadgetProperties();
-    	properties.setGadgetPropName(name);
-    	properties.setGadgetPropValue(value);
-    	properties.setUserAccount(user);
-    	properties.setGadget(gadget);
-    	getDashboardDao().saveOrUpdate(properties);
-    	return properties;
+            final Gadget gadget,
+            final UserAccount user){
+        final GadgetProperties properties = new GadgetProperties();
+        properties.setGadgetPropName(name);
+        properties.setGadgetPropValue(value);
+        properties.setUserAccount(user);
+        properties.setGadget(gadget);
+        getDashboardDao().saveOrUpdate(properties);
+        return properties;
     }
 
     /**
@@ -608,7 +608,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Gadget createGadget(final String name, final Dashboard board){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
-        gadget.setGadgetType(GadgetType.TWEETPOLLS);
+        gadget.setGadgetType(GadgetType.getGadgetType("stream"));
         gadget.setGadgetColumn(2);
         gadget.setGadgetColor("default");
         gadget.setGadgetPosition(0);

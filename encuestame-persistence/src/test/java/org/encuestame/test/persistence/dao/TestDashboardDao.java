@@ -72,6 +72,23 @@ public class TestDashboardDao extends AbstractBase {
     }
 
     /**
+     *
+     */
+    @Test
+    public void testTetrieveGadgets(){
+        final List<Gadget> sd = getDashboardDao().retrieveGadgets(this.board);
+        assertEquals("Should be equals", sd.size(), 3);
+        createGadget("gadget 2", this.board);
+        createGadget("gadget 3", this.board);
+        createGadget("gadget 4", this.board);
+        createGadget("gadget 5", this.board);
+        createGadget("gadget 6", this.board);
+        createGadget("gadget 7", this.board);
+        final List<Gadget> sd2 = getDashboardDao().retrieveGadgets(this.board);
+        assertEquals("Should be equals", sd2.size(), 9);
+    }
+
+    /**
      * Test retrieve dashboard by id.
      */
     @Test
@@ -167,7 +184,7 @@ public class TestDashboardDao extends AbstractBase {
      */
     //@Test
     public void testRetrieveGadgetsbyType(){
-        final List<Gadget> gadget = getDashboardDao().retrieveGadgetsbyType(GadgetType.TWEETPOLLS);
+        final List<Gadget> gadget = getDashboardDao().retrieveGadgetsbyType(GadgetType.ACTIVITY_STREAM);
         assertEquals("Should be equals", 3, gadget.size());
     }
 }

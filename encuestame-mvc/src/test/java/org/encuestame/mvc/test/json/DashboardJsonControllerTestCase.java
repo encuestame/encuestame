@@ -20,6 +20,7 @@ import junit.framework.Assert;
 
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
+import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Test;
@@ -57,7 +58,7 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
 
     /**
      *
-     * @throws ServletException
+     * @throws ServletExceptionreateDashboardDefault(getSpringSecurityLoggedUserAccount())
      * @throws IOException
      */
     @Test
@@ -65,20 +66,18 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
         initService("/api/common/gadgets/list.json", MethodJson.GET);
         setParameter("dashboardId", "1");
         final JSONObject response = callJsonService();
-        System.out.println(response);
-        final JSONObject success = getSucess(response);
-        final JSONArray gadgets = (JSONArray) success.get("gadgets");
-        Assert.assertEquals(gadgets.size(), 0);
+        final String error = getErrorsMessage(response);
+        Assert.assertEquals(error, "dashboard id is missing");
         initService("/api/common/gadgets/list.json", MethodJson.GET);
-        createGadgetDefault(createDashboardDefault(getSpringSecurityLoggedUserAccount()));
-        createGadgetDefault(createDashboardDefault(getSpringSecurityLoggedUserAccount()));
+        Dashboard dash = createDashboardDefault(getSpringSecurityLoggedUserAccount());
+        createGadgetDefault(dash);
+        createGadgetDefault(dash);
         initService("/api/common/gadgets/list.json", MethodJson.GET);
-        setParameter("dashboardId", "2");
+        setParameter("dashboardId", dash.getBoardId().toString());
         final JSONObject response2 = callJsonService();
-        System.out.println(response2);
         final JSONObject success2 = getSucess(response2);
         final JSONArray gadgets2 = (JSONArray) success2.get("gadgets");
-        Assert.assertEquals(gadgets2.size(), 0);
+        Assert.assertEquals(gadgets2.size(), 2);
     }
 
     /*@Test
