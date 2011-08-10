@@ -104,4 +104,10 @@ public interface IApplicationServices  extends ServiceOperations {
 
     void setSearchService(SearchServiceOperations searchService);
 
+    /**
+     * @return the dashboard service.
+     */
+    IDashboardService getDashboardService();
+
+    void setDashboardService(final IDashboardService dashboardService);
 }

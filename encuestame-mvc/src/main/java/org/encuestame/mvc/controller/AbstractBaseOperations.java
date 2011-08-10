@@ -15,7 +15,6 @@ package org.encuestame.mvc.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,24 +23,24 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import junit.framework.Assert;
+
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.business.service.DashboardService;
 import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.ProjectService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
-import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.AbstractSecurityContext;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.service.imp.IPollService;
@@ -63,23 +62,15 @@ import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
+import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -152,8 +143,18 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * Get By Username.
      * @param username username
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    public UserAccount getByUsername(final String username){
+    public UserAccount getByUsername(final String username) throws EnMeNoResultsFoundException{
+        return getServiceManager().getApplicationServices().getSecurityService().getUserAccount(username);
+    }
+
+    /**
+     * Get by username without Exceptions.
+     * @param username user name
+     * @return {@link UserAccount}.
+     */
+    public UserAccount findByUsername(final String username){
         return getServiceManager().getApplicationServices().getSecurityService().findUserByUserName(username);
     }
 
@@ -164,8 +165,8 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public UserAccount getUserAccount() throws EnMeNoResultsFoundException{
         final UserAccount account = this.getByUsername(this.getUserPrincipalUsername());
-        if(account == null){
-            log.fatal("user not found");
+        if (account == null) {
+            log.fatal("user session not found ");
             throw new EnMeNoResultsFoundException("user not found");
         }
         return account;
@@ -275,6 +276,11 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
 
+    /**
+     *
+     * @param tpbean
+     * @param request
+     */
     @Deprecated
     public void convertRelativeTime(final TweetPollBean tpbean, final HttpServletRequest request){
         final HashMap<Integer, RelativeTimeEnum> relativeTime = getRelativeTime(tpbean.getCreatedDateAt());
@@ -409,6 +415,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public ISurveyService getSurveyService(){
         return getServiceManager().getApplicationServices().getSurveyService();
+    }
+
+    /**
+     * Get {@link DashboardService}
+     * @return
+     */
+    public IDashboardService getDashboardService(){
+        return getServiceManager().getApplicationServices().getDashboardService();
     }
 
     /**

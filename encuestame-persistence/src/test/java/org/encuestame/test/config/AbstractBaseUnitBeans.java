@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.dashboard.LayoutEnum;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -24,6 +25,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitEmails;
@@ -406,5 +408,32 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      public PollBean createUnitPollDefault(final QuestionBean questionBean){
         return this.createUnitPoll(Boolean.TRUE, Boolean.TRUE, new Date(), new Date(), "h1a2s3hP", Boolean.TRUE,
                 questionBean, Boolean.TRUE);
+     }
+
+     /**
+      * Create dashboard bean.
+      * @param dashboardName
+      * @param dashboardDesc
+      * @param favorite
+      * @param layout
+      * @param sequence
+      * @param counter
+      * @return
+      */
+     public DashboardBean createDashboardBean(
+    		 final String dashboardName,
+    		 final String dashboardDesc,
+    		 final Boolean favorite,
+    		 final LayoutEnum layout,
+    		 final Integer sequence,
+    		 final Integer counter){
+    	 final DashboardBean dashboardBean = new DashboardBean();
+    	 dashboardBean.setDashboardName(dashboardName);
+    	 dashboardBean.setDashboardDesc(dashboardDesc);
+    	 dashboardBean.setFavorite(favorite);
+    	 dashboardBean.setLayout(layout.toString());
+    	 dashboardBean.setSequence(sequence);
+    	 dashboardBean.setFavoriteCounter(counter);
+    	 return dashboardBean;
      }
 }

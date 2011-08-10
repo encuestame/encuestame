@@ -72,8 +72,18 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @throws HibernateException hibernate
       */
      //@Transactional(readOnly = false)
-     public void saveOrUpdate(final Object obj) throws HibernateException {
+     public void saveOrUpdate(final Object obj) {
          getHibernateTemplate().saveOrUpdate(obj);
+         getSession().flush();
+     }
+
+     /**
+      *
+      * @param obj
+      * @throws HibernateException
+      */
+     public void merge(final Object obj) {
+         getHibernateTemplate().merge(obj);
          getSession().flush();
      }
 

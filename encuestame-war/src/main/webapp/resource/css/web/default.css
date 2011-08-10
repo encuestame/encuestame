@@ -162,6 +162,8 @@ a:hover{
     color: #FFF;
     font-weight: bold;
     padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 3px;
 }
 
 .defaultForm input {
@@ -435,7 +437,7 @@ div.updateProfile .profileItem label{
 
 /** default button */
 
-div.defaultMarginWrapper .dijitButton .dijitButtonNode{
+.dijitButton .dijitButtonNode{
     font-size: 110% !important;
     border: 1px solid #6D6767 !important;
     padding: 3px 7px 2px !important;
@@ -448,6 +450,10 @@ div.defaultMarginWrapper .dijitButton .dijitButtonNode{
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.defaultMarginWrapper .dijitTabContainerTop-container{
+    border: 0 none !important;
 }
 
 div.header {

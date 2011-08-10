@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
+  <group name='web'>
+    <css>/resource/css/web/public.css</css>
+    <css>/resource/css/web/default.css</css>
+    <css>/resource/css/web/admon.css</css>
+    <css>/resource/css/web/button.css</css>
+    <css>/resource/css/web/list.css</css>
+    <css>/resource/css/web/menu.css</css>
+    <css>/resource/css/web/project.css</css>
+    <css>/resource/css/web/question.css</css>
+    <css>/resource/css/web/section.css</css>
+    <css>/resource/css/web/table.css</css>
+    <css>/resource/css/web/user.css</css>
+  </group>
+  <group name='mobile'>
+    <css>/resource/css/mobile/default.css</css>
+  </group>
+</groups>

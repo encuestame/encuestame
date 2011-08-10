@@ -236,7 +236,7 @@ public class TestHibernateDomains extends AbstractBase{
     /**
     * Test Survey Format Domain.
     **/
- @Test
+    @Test
      public void testSurveyFormat(){
          final SurveyFormat surveyformat = new SurveyFormat();
          surveyformat.setDateCreated(new Date());
@@ -446,19 +446,26 @@ public class TestHibernateDomains extends AbstractBase{
      @Test
      public void testGadget(){
         final Gadget gadget = new Gadget();
+        final UserAccount user = createUserAccount("diana paola", createAccount());
         gadget.setGadgetName("Notifications");
         gadget.setGadgetType(GadgetType.TWEETPOLLS);
+        gadget.setGadgetColor("blue");
+        gadget.setGadgetColumn(1);
+        gadget.setGadgetPosition(1);
+        gadget.setDashboard(createDashboardDefault(user));
         getDashboardDao().saveOrUpdate(gadget);
      }
 
      /** Gadget Properties **/
      @Test
      public void testGadgetProperties(){
+    	 final UserAccount user = createUserAccount("diana paola", createAccount());
+    	 final Dashboard board = createDashboardDefault(user);
          final GadgetProperties gadgetProp = new GadgetProperties();
          gadgetProp.setGadgetPropName("maxResults");
          gadgetProp.setGadgetPropValue("10");
-         gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
-         gadgetProp.setGadget(createGadgetDefault());
+         gadgetProp.setUserAccount(user);
+         gadgetProp.setGadget(createGadgetDefault(board));
          getDashboardDao().saveOrUpdate(gadgetProp);
      }
 }

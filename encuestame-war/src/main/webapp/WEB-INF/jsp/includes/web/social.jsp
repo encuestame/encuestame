@@ -1,5 +1,5 @@
 <div class="section">
-    <form action="<%=request.getContextPath()%>/signin/google_buzz"
+    <form action="<%=request.getContextPath()%>/signin/googlebuzz"
         method="POST">
         <button type="submit">
             <img

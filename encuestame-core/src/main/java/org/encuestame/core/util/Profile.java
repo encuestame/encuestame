@@ -9,6 +9,7 @@ public enum Profile{
     EMAIL,
     USERNAME,
     LANGUAGE,
+    PICTURE,
     PRIVATE,
     REAL_NAME;
 
@@ -25,6 +26,7 @@ public enum Profile{
         if (null != value) {
            if ("EMAIL".equalsIgnoreCase(value)) { result = EMAIL; }
            if ("USERNAME".equalsIgnoreCase(value)) { result = USERNAME; }
+           if ("PICTURE".equalsIgnoreCase(value)) { result = PICTURE; }
            if ("LANGUAGE".equalsIgnoreCase(value)) { result = LANGUAGE; }
            if ("PRIVATE".equalsIgnoreCase(value)) { result = PRIVATE; }
            if ("REAL_NAME".equalsIgnoreCase(value)) { result = REAL_NAME; }
@@ -42,6 +44,7 @@ public enum Profile{
         if (this == EMAIL) { type = "email"; }
         else if (this == USERNAME) { type = "username"; }
         else if (this == REAL_NAME) { type = "completeName"; }
+        else if (this == PICTURE) { type = "picture"; }
         else if (this == LANGUAGE) { type = "language"; }
         else if (this == PRIVATE) { type = "private"; }
         return type;

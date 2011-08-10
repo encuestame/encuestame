@@ -14,11 +14,16 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * Unit Dashboard.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 29, 2011
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DashboardBean implements Serializable {
 
 	/**
@@ -27,32 +32,37 @@ public class DashboardBean implements Serializable {
 	private static final long serialVersionUID = 8091000998249747994L;
 
 	/** Dashboard id. **/
+	@JsonProperty(value = "id")
 	private Long dashboardId;
 
 	/** Dashboard name. **/
+	@JsonProperty(value = "dashboard_name")
 	private String dashboardName;
 
 	/** Favorite dashboard. **/
+	@JsonProperty(value = "favorite")
 	private Boolean favorite;
 
 	/** Dashboard descrtiption. **/
+	@JsonProperty(value = "dashboard_description")
 	private String dashboardDesc;
 
 	/** Dashboard layout. **/
+	@JsonProperty(value = "layout")
 	private String layout;
 
 	/** Sequence. **/
+	@JsonProperty(value = "sequence")
 	private Integer sequence;
 
 	/** Favorite dashboard counter **/
+	@JsonProperty(value = "favorite_counter")
 	private Integer favoriteCounter;
-
-	/** User**/
-	private UserAccountBean secUser;
 
 	/**
 	 * @return the dashboardId
 	 */
+	@JsonIgnore
 	public Long getDashboardId() {
 		return dashboardId;
 	}
@@ -67,6 +77,7 @@ public class DashboardBean implements Serializable {
 	/**
 	 * @return the dashboardName
 	 */
+	@JsonIgnore
 	public String getDashboardName() {
 		return dashboardName;
 	}
@@ -81,6 +92,7 @@ public class DashboardBean implements Serializable {
 	/**
 	 * @return the favorite
 	 */
+	@JsonIgnore
 	public Boolean getFavorite() {
 		return favorite;
 	}
@@ -95,6 +107,7 @@ public class DashboardBean implements Serializable {
 	/**
 	 * @return the dashboardDesc
 	 */
+	@JsonIgnore
 	public String getDashboardDesc() {
 		return dashboardDesc;
 	}
@@ -109,6 +122,7 @@ public class DashboardBean implements Serializable {
 	/**
 	 * @return the layout
 	 */
+	@JsonIgnore
 	public String getLayout() {
 		return layout;
 	}
@@ -123,6 +137,7 @@ public class DashboardBean implements Serializable {
 	/**
 	 * @return the sequence
 	 */
+	@JsonIgnore
 	public Integer getSequence() {
 		return sequence;
 	}
@@ -137,6 +152,7 @@ public class DashboardBean implements Serializable {
 	/**
 	 * @return the favoriteCounter
 	 */
+	@JsonIgnore
 	public Integer getFavoriteCounter() {
 		return favoriteCounter;
 	}
@@ -146,19 +162,5 @@ public class DashboardBean implements Serializable {
 	 */
 	public void setFavoriteCounter(Integer favoriteCounter) {
 		this.favoriteCounter = favoriteCounter;
-	}
-
-	/**
-	 * @return the secUser
-	 */
-	public UserAccountBean getSecUser() {
-		return secUser;
-	}
-
-	/**
-	 * @param secUser the secUser to set
-	 */
-	public void setSecUser(final UserAccountBean secUser) {
-		this.secUser = secUser;
 	}
 }

@@ -28,4 +28,14 @@
         scope="singleton" />
     <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"
         scope="singleton" />
+    <!--  Gadget Support -->
+    <bean id="gadgetLoader" init-method="load" class="org.encuestame.business.gadgets.GadgetsLoader" scope="singleton">
+       <property name="gadgets">
+          <list>
+            <value>classpath:org/encuestame/business/gadgets/activity-stream.properties</value>
+            <value>classpath:org/encuestame/business/gadgets/comments.properties</value>
+            <value>classpath:org/encuestame/business/gadgets/tweetpoll-votes.properties</value>
+          </list>
+        </property>
+    </bean>
 </beans>

@@ -88,7 +88,6 @@ dojo.declare(
        * load folders.
        */
       _loadFolders : function() {
-          var i = false;
           var load = dojo.hitch(this, function(data){
               dojo.empty(this._folders);
               dojo.forEach(

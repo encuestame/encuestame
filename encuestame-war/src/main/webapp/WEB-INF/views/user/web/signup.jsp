@@ -54,12 +54,10 @@
                         </div>
                     </div>
                     <div class="section-signup" title="Sign up with your favourite social network" collapsed="false">
-                        <c:if test="<%=EnMePlaceHolderConfigurer.getBooleanProperty("application.social.signin.enabled")%>">
                             <div class="web-social-signin">
                                 <h2>Select one of these thrid-party accouns to sign in</h2>
                                 <%@ include file="/WEB-INF/jsp/includes/web/social.jsp" %>
                               </div>
-                        </c:if>
                     </div>
             <div class="standby">
                 <div id="standby" dojoType="encuestame.org.core.shared.utils.StandBy" target="web-form-wrapper"></div>

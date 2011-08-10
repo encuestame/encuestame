@@ -23,7 +23,7 @@ public class EnMeDashboardNotFoundException extends EnMeNoResultsFoundException 
      * Constructor.
      */
     public EnMeDashboardNotFoundException() {
-        super("user not found");
+        super("dashboard not found");
     }
 
     public EnMeDashboardNotFoundException(String message) {

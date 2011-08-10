@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -30,6 +31,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -49,7 +51,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-public class TweetPollController extends AbstractBaseOperations {
+public class TweetPollController extends AbstractSocialController {
 
     /**
      * Log.
@@ -239,7 +241,19 @@ public class TweetPollController extends AbstractBaseOperations {
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
         log.debug("tweetpoll new");
-        return "tweetpoll/new";
+        //check social accounts.
+        String path = "tweetpoll/new";
+        try {
+            final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(null, false);
+            if (socials.size() == 0) {
+                path = "tweetpoll/social";
+            }
+        } catch (EnMeNoResultsFoundException e) {
+            log.error(e);
+            path = "505";
+        }
+        log.debug("newTweetPollController "+path);
+        return path;
     }
 
     /**

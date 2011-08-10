@@ -12,9 +12,9 @@ import org.encuestame.core.util.SocialUtils;
 import org.encuestame.mvc.controller.security.ForgetPasswordController;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.oauth2.support.OAuth2Parameters;
-import org.encuestame.persistence.domain.social.SocialProvider;
-import org.encuestame.oauth1.support.OAuth1RequestFlow;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
+import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.social.connect.FacebookSignInSocialSupport;
 import org.encuestame.social.connect.GoogleBuzzSignInSocialService;
 import org.encuestame.utils.oauth.AccessGrant;
@@ -102,6 +102,8 @@ public class SignInController extends AbstractSocialController{
                 auth2RequestProvider.DEFAULT_CALLBACK_PATH = POST_REGISTER_REDIRECT;
                 url.append(auth2RequestProvider.buildOAuth2AuthorizeUrl(
                         EnMePlaceHolderConfigurer.getProperty("google.buzz.scope"), httpRequest, false));
+                url.append("&state=");
+                url.append(providerEnum.toString());
             } else if (SocialProvider.FACEBOOK.equals(providerEnum)) {
                 OAuth2Parameters auth2Parameters = new OAuth2Parameters(
                         EnMePlaceHolderConfigurer.getProperty("facebook.api.key"),
@@ -152,20 +154,31 @@ public class SignInController extends AbstractSocialController{
     */
    @RequestMapping(value="/user/signin/register/{provider}", method=RequestMethod.GET, params="code")
    public String oauth2Callback(
-           @RequestParam("code") String code,
+           @RequestParam(value = "code", required = true) String code,
+           @RequestParam(value = "state", required = false) String state,
            @PathVariable String provider,
            final ModelMap model,
            HttpServletRequest httpRequest,
            WebRequest request) {
-       try {
+        try {
+                  log.debug("httpRequest "+httpRequest.getRequestURI());
+                  log.debug("httpRequest "+httpRequest.getQueryString());
                final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
                if (log.isDebugEnabled()) {
                    log.debug(accessGrant.getAccessToken());
                    log.debug(accessGrant.getRefreshToken());
                }
             String friendsUrl = "redirect:/user/signin/friends";
-            if (SocialProvider.getProvider(provider).equals(
-                    SocialProvider.GOOGLE_BUZZ)) {
+            final SocialProvider providerBack;
+            if ("google".equals(provider) && state != null) {
+                providerBack = SocialProvider.getProvider(state);
+            } else {
+                providerBack = SocialProvider.getProvider(provider);
+            }
+            if (providerBack == null) {
+                throw new EnMeOAuthSecurityException("provider ["+provider+"] not valid");
+            }
+            if (providerBack.equals(SocialProvider.GOOGLE_BUZZ)) {
                 friendsUrl = getConnectOperations().connectSignInAccount(
                         new GoogleBuzzSignInSocialService(accessGrant,
                                 getConnectOperations()));
@@ -186,7 +199,8 @@ public class SignInController extends AbstractSocialController{
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             } catch (Exception e) {
-                 log.fatal("OAuth Exception:{"+e);
+                 log.fatal("OAuth Exception:{"+e.getMessage());
+                 e.printStackTrace();
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             }

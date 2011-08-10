@@ -94,8 +94,7 @@ public class DirectorySetupOperations {
      */
     public static boolean checkIfIndexedDirectoryExist(boolean createIfNotExist)
             throws EnmeFailOperation {
-        final File indexedDir = new File(
-                DirectorySetupOperations.getIndexesDirectory());
+        final File indexedDir = new File(DirectorySetupOperations.getIndexesDirectory());
         //if autocreate is enabled and directory not exist
         if (createIfNotExist && !indexedDir.exists()) {
             boolean indexes = indexedDir.mkdirs();
@@ -114,14 +113,14 @@ public class DirectorySetupOperations {
      */
     public static String getRootDirectory() {
         String root = EnMePlaceHolderConfigurer
-                .getProperty("dir.data.warehouse");
+                .getProperty("encuestame.home");
         if (root != null) {
             root = System.getProperty("user.home")+ "/" + DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
         }
         if (!root.endsWith("/")) {
             root = root + "/";
         }
-        log.debug("getRootFolder " + root);
+        log.debug("getRootFolder:{" + root);
         return root;
     }
 
@@ -130,16 +129,10 @@ public class DirectorySetupOperations {
      * @return picture path.
      */
     public static String getPictureDirectory() {
-        String picture = EnMePlaceHolderConfigurer
-                .getProperty("dir.data.picture");
-        if (picture == null) {
-            picture = getRootDirectory()
-                    + DirectorySetupOperations.PICTURES_DEFAULT_FOLDER;
-        } else {
-            picture = getRootDirectory() + picture;
-        }
-        log.debug("getPictureDirectory " + picture);
-        return picture;
+        final StringBuffer picture = new StringBuffer(getRootDirectory());
+        picture.append(DirectorySetupOperations.PICTURES_DEFAULT_FOLDER);
+        log.debug("getPictureDirectory:{ " + picture);
+        return picture.toString();
     }
 
     /**
@@ -147,15 +140,10 @@ public class DirectorySetupOperations {
      * @return real path of directory path.
      */
     public static String getProfilesDirectory() {
-        String profiles = EnMePlaceHolderConfigurer
-                .getProperty("dir.data.profiles");
-        if (profiles == null) {
-            profiles = DirectorySetupOperations.PROFILES_DEFAULT_FOLDER;
-        }  else {
-            profiles = getRootDirectory() + profiles;
-        }
-        log.debug("getProfilesDirectory " + profiles);
-        return profiles;
+        final StringBuffer profiles = new StringBuffer(getRootDirectory());
+        profiles.append(DirectorySetupOperations.PROFILES_DEFAULT_FOLDER);
+        log.debug("getProfilesDirectory:{" + profiles);
+        return profiles.toString();
     }
 
     /**
@@ -177,14 +165,7 @@ public class DirectorySetupOperations {
      * @return indexed real path.
      */
     public static String getIndexesDirectory() {
-        String index = EnMePlaceHolderConfigurer
-                .getProperty("dir.data.index");
-        if (index == null) {
-            index = getRootDirectory()
-                    + DirectorySetupOperations.INDEXES_DEFAULT_FOLDER;
-        } else {
-            index = getRootDirectory() + index;
-        }
+        final String index = getRootDirectory() + DirectorySetupOperations.INDEXES_DEFAULT_FOLDER;
         log.debug("getIndexesDirectory " + index);
         return index;
     }
@@ -212,10 +193,8 @@ public class DirectorySetupOperations {
      * @param rootFolder {@link File} reference or root directory.
      * @throws EnMeStartupException
      */
-    private static void validateInternalStructureDirectory(final File rootFolder,
-            final boolean createIfNoExist) throws EnmeFailOperation {
-            if (!DirectorySetupOperations
-                    .checkIfIndexedDirectoryExist(createIfNoExist)) {
+    private static void validateInternalStructureDirectory(final File rootFolder, final boolean createIfNoExist) throws EnmeFailOperation {
+            if (!DirectorySetupOperations.checkIfIndexedDirectoryExist(createIfNoExist)) {
                 log.debug("EnMe: index folder not found, creating one...");
             }
             if (!DirectorySetupOperations

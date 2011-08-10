@@ -86,6 +86,24 @@ public enum SocialProvider {
     }
 
     /**
+     * Some cases it´s necessary return the same provider name because the OAuth2 handler is the same.
+     * Google manage all API keys with the same callback url on the same console.
+     * http://wiki.encuestame.org/display/DOC/Set+Up+or+Customize+Google+OAuth+credentials+on+Encuestame
+     * @return social callback string.
+     */
+    public String getBackUrlProviderName() {
+        String provider = "";
+        if (this == TWITTER) { provider = "TWITTER"; }
+        else if (this == FACEBOOK) { provider = "FACEBOOK"; }
+        else if (this == IDENTICA) { provider = "IDENTICA"; }
+        else if (this == LINKEDIN) { provider = "LINKEDIN"; }
+        else if (this == GOOGLE_BUZZ) { provider = "GOOGLE"; }
+        else if (this == YAHOO) { provider = "YAHOO"; }
+        else if (this == MYSPACE) { provider = "MYSPACE"; }
+        return provider.toLowerCase();
+    }
+
+    /**
      * Get Provider by String.
      * @param socialProvider period
      * @return provider enum
@@ -97,6 +115,7 @@ public enum SocialProvider {
         else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
         else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
         else if (socialProvider.equalsIgnoreCase("GOOGLEBUZZ")) { return GOOGLE_BUZZ; }
+        else if (socialProvider.equalsIgnoreCase("GOOGLE_BUZZ")) { return GOOGLE_BUZZ; }
         else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
         else if (socialProvider.equalsIgnoreCase("MYSPACE")) { return MYSPACE; }
         else return null;

@@ -126,7 +126,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      */
     public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getUserAccountonSecurityContext() == null
-              ? getAccountDao().getUserByUsername(username) : getUserAccountonSecurityContext();
+              ? findUserByUserName(username) : getUserAccountonSecurityContext();
         if(userAccount == null){
             throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
@@ -496,17 +496,17 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
         this.frontEndDao = frontEndDao;
     }
 
-	/**
-	 * @return the dashboardDao
-	 */
-	public IDashboardDao getDashboardDao() {
-		return dashboardDao;
-	}
+    /**
+     * @return the dashboardDao
+     */
+    public IDashboardDao getDashboardDao() {
+        return dashboardDao;
+    }
 
-	/**
-	 * @param dashboardDao the dashboardDao to set
-	 */
-	public void setDashboardDao(final IDashboardDao dashboardDao) {
-		this.dashboardDao = dashboardDao;
-	}
+    /**
+     * @param dashboardDao the dashboardDao to set
+     */
+    public void setDashboardDao(final IDashboardDao dashboardDao) {
+        this.dashboardDao = dashboardDao;
+    }
 }

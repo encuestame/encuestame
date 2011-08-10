@@ -21,10 +21,9 @@ import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialUserProfile;
 
 /**
- * Description Class.
+ * Social Sign In Operations.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 2:11:24 AM
- * @version Id:
  */
 public interface SocialSignInOperations{
 
