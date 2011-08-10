@@ -30,6 +30,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * {@link Dashboard} service support.
@@ -156,14 +157,18 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.IDashboardService#addGadgetOnDashboard(java.lang.Long, java.lang.Long)
      */
-    public void addGadgetOnDashboard(final Long boardId, final Long gadgetId) throws EnMeGadgetNotFoundException{
-        final Gadget gadget = getDashboardDao().getGadgetbyId(gadgetId);
-        if(gadget!=null){
-            final Dashboard dashboard = getDashboardDao().getDashboardbyId(boardId);
-            //dashboard.getGadgetDashboard().add(gadget);
+    public void addGadgetOnDashboard(final Long boardId, final GadgetBean gadgetbean) throws EnMeNoResultsFoundException{
+    	final Dashboard board = this.getDashboardById(boardId);
+    	final Gadget gadget = new Gadget();
+         if(board == null){
+        	throw new EnMeDashboardNotFoundException("dashboard not found");
 
         }else{
-            throw new EnMeGadgetNotFoundException("gadget not found");
+        	gadget.setGadgetName(gadgetbean.getGadgetName());
+        	gadget.setGadgetPosition(gadgetbean.getGadgetPosition());
+        	gadget.setGadgetPosition(gadgetbean.getGadgetPosition());
+        	gadget.setGadgetColumn(gadgetbean.getGadgetColumn());
+        	getDashboardDao().saveOrUpdate(gadget);
         }
     }
 
@@ -276,4 +281,21 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
          }
      return gadget;
     }
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.core.service.imp.IDashboardService#updateDashboard(org.encuestame.utils.web.DashboardBean)
+	 */
+	public Dashboard updateDashboard(final Long boardId, final DashboardBean boardBean) throws EnMeNoResultsFoundException{
+		final Dashboard board = this.getDashboardById(boardBean.getDashboardId());
+	    Assert.notNull(board);
+	    if (board == null) {
+            throw new EnMeDashboardNotFoundException("dashboard not found");
+        }
+	   board.setPageBoardName(boardBean.getDashboardName());
+	   board.setBoardSequence(boardBean.getSequence());
+	   board.setDescription(boardBean.getDashboardDesc());
+	   board.setFavorite(boardBean.getFavorite());
+	   return board;
+	}
 }

@@ -222,29 +222,36 @@ public class DashboardJsonController extends AbstractJsonController {
      }
 
     /**
-     *
-     * @param boardId
-     * @param gadgetId
-     * @param request
-     * @param response
-     * @return
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/common/gadgets/add.json", method = RequestMethod.GET)
-    public ModelMap addGadgetonDashboard(
-            @RequestParam(value = "boardId", required = true) Long boardId,
-            @RequestParam(value = "gadgetId", required = true) Long gadgetId,
-            HttpServletRequest request,
-            HttpServletResponse response){
-        try {
-             getDashboardService().addGadgetOnDashboard(boardId, gadgetId);
-             setSuccesResponse();
-        } catch (Exception e) {
-             log.error(e);
-             setError(e.getMessage(), response);
-        }
-        return returnData();
-    }
+    *
+    * @param boardId
+    * @param gadgetId
+    * @param request
+    * @param response
+    * @return
+    */
+   @RequestMapping(value = "/api/common/dashboard/addGadget.json", method = RequestMethod.GET)
+   public ModelMap addGadgetonDashboard(
+           @RequestParam(value = "boardId", required = true) Long boardId,
+           @RequestParam(value = "gadgetName", required = true) String gadgetName,
+           @RequestParam(value = "position", required = true) Integer position,
+           @RequestParam(value = "column", required = true) Integer column,
+           HttpServletRequest request,
+           HttpServletResponse response){
+       try {
+       	final Dashboard board = getDashboardService().getDashboardbyIdandUser(boardId);
+       	final GadgetBean gadgetBean = new GadgetBean();
+       	gadgetBean.setGadgetName(gadgetName);
+       	gadgetBean.setGadgetColumn(column);
+       	gadgetBean.setGadgetPosition(position);
+           getDashboardService().addGadgetOnDashboard(boardId, gadgetBean);
+           setSuccesResponse();
+       } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+       }
+       return returnData();
+   }
 
     /**
      * Move gadget on dashboard.

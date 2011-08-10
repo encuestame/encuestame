@@ -91,10 +91,10 @@ public interface IDashboardService {
 	/**
 	 * Add gadget on dashboard.
 	 * @param boardId
-	 * @param gadgetId
+	 * @param gadgetbean
 	 * @throws EnMeGadgetNotFoundException
 	 */
-	void addGadgetOnDashboard(final Long boardId, final Long gadgetId) throws EnMeGadgetNotFoundException;
+	void addGadgetOnDashboard(final Long boardId, final GadgetBean gadgetbean) throws EnMeNoResultsFoundException;
 
 	/**
 	 * Remove gadget.
@@ -148,4 +148,13 @@ public interface IDashboardService {
 	 * @throws EnMeNoResultsFoundException
      */
 	void moveGadget(final Long gadgetId, final Long boardId, final Integer position, final Integer column) throws EnMeNoResultsFoundException;
+
+	/**
+	 * Update dashboard.
+	 * @param boardId
+	 * @param boardBean
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Dashboard updateDashboard(final Long boardId, final DashboardBean boardBean) throws EnMeNoResultsFoundException;
 }
