@@ -71,7 +71,6 @@ dojo.declare(
          * @param layout layout to load.
          */
         loadLayout : function(layout /*string layout*/){
-            var gadgets = [];
             var node = null;
             if (layout == this._type[0]) {
                 this._layout.appendChild(this._createLayoutAAA(this.gadgets));
@@ -91,17 +90,24 @@ dojo.declare(
             }
         },
 
-        _addGadget : function(name){
-            var params = {boardId: this.dashboard.id, gadgetId: name};
-            console.debug("add gadget", name);
-            console.debug("_addDndGadgetItem", params);
-            var load = dojo.hitch(this, function(data) {
-                console.debug("_addGadget", data);
+        /*
+         *
+         */
+        _addGadget : function(widget, name) {
+            if(widget.id == this.id){
+                var params = {boardId: this.dashboard.id, gadgetId: name};
+                var load = dojo.hitch(this, function(data) {
+                    if (data.success) {
+                        console.debug("_addGadget", data);
+                        var gadget = data.success.gadget;
+                        dijit.byId("a1_"+this.id).addGadget(gadget);
+                    }
                 });
-            var error = function(error) {
-                console.debug("error", error);
-            };
-            encuestame.service.xhrGet(encuestame.service.gadget.add, params, load, error);
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                encuestame.service.xhrGet(encuestame.service.gadget.add, params, load, error);
+            }
         },
 
         /*
@@ -120,7 +126,6 @@ dojo.declare(
             wrapper.appendChild(this._createColumn("1", "a1_"+this.id, gadgets).domNode);
             wrapper.appendChild(this._createColumn("2", "a2_"+this.id, gadgets).domNode);
             wrapper.appendChild(this._createColumn("3", "a3_"+this.id, gadgets).domNode);
-            //console.debug("_createLayoutAAA", wrapper);
             return wrapper;
         },
 
@@ -130,7 +135,7 @@ dojo.declare(
         _createLayoutA : function() {
             var wrapper = document.createElement("div");
             wrapper.appendChild(this._createColumn("1", "a1_"+this.id));
-            console.debug("_createLayoutA", wrapper);
+            //console.debug("_createLayoutA", wrapper);
             return wrapper;
         },
 
@@ -139,8 +144,14 @@ dojo.declare(
          *
          */
         _createColumn : function(i, id, gadgets){
-            var widget = new encuestame.org.core.commons.dashboard.LayoutColumn({ id: id, column : i, gadgets : gadgets, dashboard: this.dashboard}, "ul");
-            this._listColumns.push(widget);
+            var widget = new encuestame.org.core.commons.dashboard.LayoutColumn(
+                                {
+                                    id : id,
+                                    column : i,
+                                    gadgets : gadgets,
+                                    dashboard : this.dashboard
+                                }, "ul");
+                        this._listColumns.push(widget);
             return widget;
         }
     }
@@ -188,9 +199,25 @@ dojo.declare(
              *
              */
             postCreate : function() {
+                if(this.gadgets.length == 0){
+                    //this._addEmtpyContent(this._info);
+                    //dojo.addClass(this._ul, "empty-text");
+                } else {
+                    //dojo.empty(this._info);
+                }
                 this._addDndSupport();
                 this._addGadgets();
             },
+
+            /*
+            *
+            */
+           _addEmtpyContent : function(node){
+               var li = document.createElement("div");
+               dojo.addClass(li, "empty-text");
+               li.innerHTML = "Layout empty,  add a new gadget here.";
+               node.appendChild(li);
+           },
 
 
             /*
@@ -207,9 +234,9 @@ dojo.declare(
              */
             _addGadgets : function(){
               var itemArray = [];
-              console.debug("this.gadgets", this.gadgets);
+              console.debug("Adding Gadgets -->", this.gadgets.length);
               dojo.forEach(this.gadgets, dojo.hitch(this, function(item) {
-                  console.debug(item.gadget_column, this.column);
+                  //console.debug(item.gadget_column, this.column);
                   if(item.gadget_column == parseInt(this.column)){
                       var widget = this._createGadget(item);
                       this._widgetsGadgets.push(widget);
@@ -218,6 +245,18 @@ dojo.declare(
               }));
               //console.debug("this.sourceDndWidget", this.sourceDndWidget);
               this.sourceDndWidget.insertNodes(false, itemArray);
+            },
+
+            /**
+             *
+             */
+            addGadget : function(data){
+                console.debug("add gadget ", data);
+                var itemArray = [];
+                var widget = this._createGadget(data);
+                this._widgetsGadgets.push(widget);
+                itemArray.push(widget.domNode);
+                this.sourceDndWidget.insertNodes(false, itemArray);
             },
 
             /*
@@ -236,7 +275,6 @@ dojo.declare(
              * on drop on folder.
              */
             onDndColumn : function(source, nodes, copy, target) {
-                    console.debug("//////////////////////////////////////////////////onDndColumn", nodes);
                     dojo.forEach(dojo.query(".dojoDndItemSelected"), function(item){
                         dojo.removeClass(item, "dojoDndItemSelected");
                     });
@@ -250,8 +288,8 @@ dojo.declare(
                         console.debug("same");
                     } else {
                         dojo.forEach(this.sourceDndWidget.getSelectedNodes(), dojo.hitch(this, function(item) {
-                              console.debug("DND item", item);
-                              console.debug("DND item", this.dashboard);
+                              //console.debug("DND item", item);
+                              //console.debug("DND item", this.dashboard);
                               var gid = item.getAttribute('gid');
                               if (gid) {
                                   this._addDndGadgetItem({
@@ -483,17 +521,6 @@ dojo.declare(
                     this.before = true;
                 };
                 dojo.connect(source, "onDndDrop", dojo.hitch(this, this.onDndColumn));
-            },
-
-
-            /*
-             *
-             */
-            _addEmtpyContent : function(node){
-                var li = document.createElement("div");
-                dojo.addClass(li, "empty-text");
-                li.innerHTML = "Drag your gadgets here or add a new gadget.";
-                node.appendChild(li);
             }
 });
 

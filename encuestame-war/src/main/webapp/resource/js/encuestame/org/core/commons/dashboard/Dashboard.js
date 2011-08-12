@@ -18,11 +18,6 @@ dojo.declare(
          */
         widgetsInTemplate: true,
 
-        /*
-         *
-         */
-        _test_gadgets : [{id:5, name:"gadget1"}, {id:1, name:"gadget2"}],
-
 
         dashBoardSource : null,
 
@@ -51,17 +46,14 @@ dojo.declare(
             return this.layoutWidget;
         },
 
-        insertGadget : function(gadget){},
-
-        printGadget : function(gadget){},
-
-
+        /*
+         *
+         */
         loadLayOut : function(data){
              if(this.layoutWidget == null) {
-                 var parent = this;
-                 this.layoutWidget = parent._configureLayout(data);
-                 this.layoutWidget.placeAt(dojo.byId(parent._layout));
-                 this.layoutWidget.startup();
+                 this.layoutWidget = this._configureLayout(data);
+                 this._layout.appendChild(this.layoutWidget.domNode);
+                 //this.layoutWidget.startup();
              }
         },
 
@@ -72,7 +64,7 @@ dojo.declare(
         _loadGadgets : function(){
             var load = dojo.hitch(this, function(data) {
                 console.debug("_loadGadgets initialize", data);
-                if(data.success){
+                if (data.success) {
                     this.loadLayOut(data.success);
                 } else {
                     //posible error message.

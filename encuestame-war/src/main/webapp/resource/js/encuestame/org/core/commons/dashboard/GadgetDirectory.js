@@ -9,9 +9,9 @@ dojo.declare(
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/directory.html"),
 
         /*
-         * dasboard id.
+         * dasboard widget.
          */
-        dasboardId : null,
+        dashboardWidget : null,
 
         /*
          * post create.
@@ -80,7 +80,7 @@ dojo.declare(
             dojo.addClass(actions, "web-directory-item-actions");
             var a = dojo.create("a", { innerHTML: "Add" }, actions);
             dojo.connect(a, "onclick", dojo.hitch(this, function() {
-                dojo.publish("/encuestame/dashboard/gadget/add", [gadget.id]);
+                dojo.publish("/encuestame/dashboard/gadget/add", [this.dashboardWidget.layoutWidget, gadget.id]);
             }));
             return item;
         }

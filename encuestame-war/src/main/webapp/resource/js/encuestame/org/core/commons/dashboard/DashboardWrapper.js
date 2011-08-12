@@ -34,6 +34,10 @@ dojo.declare(
 
         _addComboStoreWidget : null,
 
+        dashboardWidget : null,
+
+        layoutWidget : null,
+
         /**
          * Post create.
          */
@@ -42,16 +46,25 @@ dojo.declare(
            dojo.subscribe("/encuestame/dashboard/insert", this, "insert");
            this._buildDashBoardList();
            dojo.connect(this._gadgets, "onclick", dojo.hitch(this, this._openDirectory));
+           dojo.connect(this._layout, "onclick", dojo.hitch(this, this._openLayout));
            this._createDashboardButton();
+           this.layoutWidget = new encuestame.org.core.commons.dashboard.Layout();
         },
 
         /**
          * open directory.
          */
-        _openDirectory : function(){
+        _openDirectory : function(event){
+            dojo.stopEvent(event);
             console.info("open dialog gadgets");
             var dialog = this._createDialog(this._loadGadgetDirectory().domNode);
             console.info("open dialog show", dialog);
+            dialog.show();
+        },
+
+        _openLayout : function(event){
+            dojo.stopEvent(event);
+            var dialog = this._createDialog(this.layoutWidget.domNode);
             dialog.show();
         },
 
@@ -60,8 +73,13 @@ dojo.declare(
           * @returns {encuestame.org.core.commons.dashboard.GadgetDirectory}
           */
         _loadGadgetDirectory : function(){
-            var directory = new encuestame.org.core.commons.dashboard.GadgetDirectory({});
-            return directory;
+            if (this.dashboardWidget != null) {
+                console.info("dashboardWidget", this.dashboardWidget);
+                var directory = new encuestame.org.core.commons.dashboard.GadgetDirectory({dashboardWidget : this.dashboardWidget});
+                return directory;
+            } else {
+                //error.
+            }
         },
 
         /**
@@ -107,9 +125,8 @@ dojo.declare(
             dojo.empty(dojo.byId("stateSelect_"+this.id));
             dojo.byId("stateSelect_"+this.id).appendChild(this._addComboWidget.domNode);
             this._addComboWidget.onChange = dojo.hitch(this, function(value) {
-                console.debug("load dasboard", this._addComboWidget.get('value'));
-                console.debug("load dasboard", (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]));
-                console.debug("load dasboard", this._addComboWidget); //TODO: check id null values.
+                //TODO: item is null when check id null values.
+                console.debug(this._addComboWidget);
                 this.loadDashBoard({dashboardId: (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]),
                      name: this._addComboWidget.get('value')});
             });
@@ -149,9 +166,7 @@ dojo.declare(
          *
          */
         _createDashboardService : function(form) {
-            console.debug("form", form);
-            var load = dojo.hitch(this, function(data){
-                console.debug("data", data);
+            var load = dojo.hitch(this, function(data) {
                 this._buildDashBoardList();
                 this._addButtonWidget.closeDropDown();
                 this._addComboWidget.set('displayedValue',  dijit.byId("name").get('value'));
@@ -168,17 +183,17 @@ dojo.declare(
          */
         _createNewDashBoard : function(data) {
             console.debug("_createNewDashBoard", data);
-            var widget = new encuestame.org.core.commons.dashboard.Dashboard({dashboard: data });
-            widget.initialize();
-            dojo.publish("/encuestame/dashboard/insert", [widget.domNode]);
-            return widget;
+            this.dashboardWidget = new encuestame.org.core.commons.dashboard.Dashboard({dashboard: data });
+            this.dashboardWidget.initialize();
+            dojo.publish("/encuestame/dashboard/insert", [this.dashboardWidget.domNode]);
+            return this.dashboardWidget;
         },
 
         /**
          *
          */
         loadDashBoard : function(data) {
-            dojo.publish("/encuestame/dashboard/clean");
+            this.clean();
             this._createNewDashBoard(data);
         },
 
@@ -187,8 +202,17 @@ dojo.declare(
          *
          */
         clean : function() {
-            console.debug("cleaning dashboard wrapper");
-            dojo.empty(this._dasboard);
+            if (this.dashboardWidget != null) {
+                /*
+                 * TODO: issues on try to remove this widget. destroyRecursive don't seems work properly.
+                 */
+                this.dashboardWidget.destroyRecursive(true);
+                dojo.destroy(this.dashboardWidget.layoutWidget);
+                dojo.destroy(this.dashboardWidget);
+            }
+            if(this._dasboard){
+                dojo.empty(this._dasboard);
+            }
         },
 
         /*
@@ -197,10 +221,26 @@ dojo.declare(
         insert : function(node) {
             console.debug("insert new dashboard node", node);
             this._dasboard.appendChild(node);
-        },
-
-        _switchDashBard : function(){},
-        _addGadgetToDashBard : function(){},
-        _addGadgetToDashBard : function(){},
+        }
     }
 );
+
+/*
+ *
+ */
+dojo.declare(
+        "encuestame.org.core.commons.dashboard.Layout",
+        [dijit._Widget, dijit._Templated],{
+            templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/layout.html"),
+
+            widgetsInTemplate: true,
+
+            postCreate : function(){
+                // dojo.connect(this.layout-a, "onclick", dojo.hitch(this, this._openDirectory));
+                // dojo.connect(this.layout-aa, "onclick", dojo.hitch(this, this._openDirectory));
+                // dojo.connect(this.layout-ba, "onclick", dojo.hitch(this, this._openDirectory));
+                // dojo.connect(this.layout-ab, "onclick", dojo.hitch(this, this._openDirectory));
+                 //dojo.connect(this.layout-aaa, "onclick", dojo.hitch(this, this._openDirectory));
+            }
+
+});

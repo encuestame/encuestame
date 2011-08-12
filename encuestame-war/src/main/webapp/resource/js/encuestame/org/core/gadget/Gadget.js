@@ -1,31 +1,68 @@
 dojo.provide("encuestame.org.core.gadget.Gadget");
 
+dojo.require("dijit._Templated");
+dojo.require("dijit._Widget");
 dojo.require("dojo.parser");
 
-dojo.declare("encuestame.org.core.gadget.Gadget", null,{
+dojo.declare(
+        "encuestame.org.core.gadget.Gadget",
+        [dijit._Widget, dijit._Templated],{
 
-    /*
-     * constructor.
-     */
-    constructor: function(id, widget) {
-        this.gadget.id = id;
-        this.gadget.widget = widget;
-    },
+             timer: null,
 
-    gadget: {},
+             params : { timer : 180000}, //180000 , 900000
 
-    render : function(){
-       var node = dojo.create("div",{
-                name:"gadget_"+this.gadget.id,
-                jsId:"gadget_"+this.gadget.id,
-                dojoType:this.gadget.widget});
-       console.debug("dojo render", node);
-       this.parse(node);
-       console.debug("dojo rendered", node);
-       return node;
-    },
+             postCreate : function() {
+                 var subscriptionNotification = null;
+                 dojo.addOnLoad(dojo.hitch(this, function(){
+                 subscriptionNotification  = encuestame.activity.cometd.subscribe(this.getUrl(),
+                     dojo.hitch(this, function(message) {
+                         this._updateStream(message);
+                   }));
+                 }));
+                 dojo.addOnUnload(function() {
+                     if(subscriptionNotification != null){
+                         encuestame.activity.cometd.unsubscribe(subscriptionNotification);
+                     }
+                 });
+                 this.loadTimer();
+             },
 
-    parse : function(node){
-         dojo.parser.parse(node);
-    }
-});
+             /*
+              * override.
+              */
+             _updateStream : function(message){
+
+             },
+
+            /*
+             * Load Timer.
+             */
+            loadTimer : function(){
+                var father = this;
+                this.timer = new dojox.timing.Timer(180000);
+                this.timer.onTick = function() {
+                    father.callCometd();
+                };
+                this.timer.onStart = function() {
+                };
+                this.timer.start();
+            },
+
+            /*
+             *
+             */
+            stopTimer : function() {
+                 this.timer.stop();
+            },
+
+            /*
+             *
+             */
+            callCometd : function() {
+                encuestame.activity.cometd.startBatch();
+                encuestame.activity.cometd.publish(this.getUrl(), {});
+                encuestame.activity.cometd.endBatch();
+            },
+
+    });
