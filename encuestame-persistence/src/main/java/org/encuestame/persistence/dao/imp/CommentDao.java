@@ -15,15 +15,21 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +48,51 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 
 	/*
 	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.CommentsOperations#getCommentById(java.lang.Long)
+	 */
+	public Comment getCommentById(final Long commentId) throws HibernateException {
+		return (Comment) getHibernateTemplate().get(Comment.class, commentId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.CommentsOperations#getCommentByIdandUser(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
+	 */
+	@SuppressWarnings("unchecked")
+	public Comment getCommentByIdandUser(final Long commentId, final UserAccount userAcc) throws HibernateException {
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
+        criteria.add(Restrictions.eq("user", userAcc));
+        criteria.add(Restrictions.eq("commentId", commentId));
+		return (Comment) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.CommentsOperations#getCommentsbyUser(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Comment> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults, final Integer start){
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
+        criteria.add(Restrictions.eq("user", userAcc));
+        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("likeVote"));
+        return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.CommentsOperations#getCommentsbyTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll, java.lang.Integer, java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Comment> getCommentsbyTweetPoll(final TweetPoll tpoll, final Integer maxResults, final Integer start){
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
+		criteria.add(Restrictions.eq("tweetPoll",tpoll));
+		criteria.addOrder(Order.desc("likeVote"));
+		return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
+	}
+
+	/*
+	 * (non-Javadoc)
 	 * @see org.encuestame.persistence.dao.CommentsOperations#getListCommentsByKeyword(java.lang.String, java.lang.Integer, java.lang.Long[])
 	 */
 	@SuppressWarnings("unchecked")
@@ -57,7 +108,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	                        List<Comment> searchResult = new ArrayList<Comment>();
 	                        long start = System.currentTimeMillis();
 	                        final Criteria criteria = session
-	                                .createCriteria(HashTag.class);
+	                                .createCriteria(Comment.class);
 	                        // limit results
 	                        if (maxResults != null) {
 	                            criteria.setMaxResults(maxResults.intValue());
