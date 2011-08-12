@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
@@ -50,6 +51,7 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -467,5 +469,21 @@ public class TestHibernateDomains extends AbstractBase{
          gadgetProp.setUserAccount(user);
          gadgetProp.setGadget(createGadgetDefault(board));
          getDashboardDao().saveOrUpdate(gadgetProp);
+     }
+
+     /** Test Comments **/
+     @Test
+     public void testComments(){
+    	 final Comment comments = new Comment();
+    	 final UserAccount user = createUserAccount("diana", createAccount());
+    	 final Question question = createQuestion("Who I am?", "");
+    	 final TweetPoll tpoll = createPublishedTweetPoll(user.getAccount(), question);
+    	 comments.setComment("First comment");
+    	 comments.setCreatedAt(new Date());
+    	 comments.setLikeVote(1L);
+    	 comments.setUnlikeVote(2L);
+     	 comments.setUser(user);
+    	 comments.setTweetPoll(tpoll);
+    	 getCommentsOperations().saveOrUpdate(comments);
      }
 }

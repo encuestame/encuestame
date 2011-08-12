@@ -84,6 +84,7 @@
                 <value>org.encuestame.persistence.domain.dashboard.Dashboard</value>
                 <value>org.encuestame.persistence.domain.dashboard.Gadget</value>
                 <value>org.encuestame.persistence.domain.dashboard.GadgetProperties</value>
+                <value>org.encuestame.persistence.domain.Comments</value>
             </list>
         </property>
         <property name="hibernateProperties">
