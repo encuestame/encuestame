@@ -529,6 +529,7 @@ encuestame.service.gadget.directory = encuestame.contextWidget()+"/api/common/ga
 encuestame.service.gadget.list = encuestame.contextWidget()+"/api/common/gadgets/list.json";
 encuestame.service.gadget.move = encuestame.contextWidget()+"/api/common/dashboard/move-gadget.json";
 encuestame.service.gadget.add = encuestame.contextWidget()+"/api/common/gadgets/add.json";
+encuestame.service.gadget.load = encuestame.contextWidget()+"/api/common/dashboard/gadget/load.json";
 
 //short url service.
 //encuestame.service.short = {};

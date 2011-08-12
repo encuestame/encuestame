@@ -53,7 +53,7 @@ public class SocialAccountAuthenticationProvider implements AuthenticationProvid
                 UserDetails userDetails;
                 try {
                     userDetails = socialUserService.loadAccountConnection(response.getProfileId(), response.getProvider());
-                    logger.debug("user details "+userDetails);
+                    //logger.debug("user details "+userDetails);
                 } catch (EnMeNoSuchAccountConnectionException e) {
                     throw new BadCredentialsException(e.getMessage());
                 }
