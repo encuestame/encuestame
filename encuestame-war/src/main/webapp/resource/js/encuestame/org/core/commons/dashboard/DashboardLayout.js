@@ -224,7 +224,7 @@ dojo.declare(
              * create gadgets.
              */
             _createGadget : function(data /* gadget info*/) {
-                var gatget = new encuestame.org.core.commons.dashboard.Gadget({data : data});
+                var gatget = new encuestame.org.core.commons.dashboard.Gadget({data : data, dashboardId: this.dashboard.id});
                 return gatget;
             },
 

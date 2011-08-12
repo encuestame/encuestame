@@ -90,7 +90,7 @@ public class SecurityUtils {
         // permissions
         if (roleUserAuth) {
             authorities.addAll(ConvertDomainsToSecurityContext.convertEnMePermission(user.getSecUserPermissions()));
-            log.debug("EnMeUserDetails: Authorities size :"+authorities.size());
+           // log.debug("EnMeUserDetails: Authorities size :"+authorities.size());
         }
 
          //creating user details
@@ -109,7 +109,7 @@ public class SecurityUtils {
          userDetails.setSocialCredentials(false);
          userDetails.setAccountNonExpired(true);
          userDetails.setAccountNonLocked(true);
-         log.debug("EnMeUserDetails : "+userDetails.toString());
+         //log.debug("EnMeUserDetails : "+userDetails.toString());
          return userDetails;
     }
 

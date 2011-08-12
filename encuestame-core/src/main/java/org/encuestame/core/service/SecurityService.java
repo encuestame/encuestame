@@ -1107,23 +1107,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
     /* Social Account SignIn Connect. * */
 
-
-   /**
-    *
-    * @param limit
-    * @return
- * @throws EnMeNoResultsFoundException
-    */
-   public List<Notification> loadNotificationByUserAndLimit(
-           final Integer limit,
-           final Integer start,
-           final Boolean onlyUnread) throws EnMeNoResultsFoundException {
-        final List<Notification> notifications = getNotificationDao()
-                .loadNotificationByUserAndLimit(
-                        getUserAccount(getUserPrincipalUsername()).getAccount(), limit, start, onlyUnread);
-        return notifications;
-   }
-
     /*
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#removeUnconfirmedAccount(java.lang.Boolean)

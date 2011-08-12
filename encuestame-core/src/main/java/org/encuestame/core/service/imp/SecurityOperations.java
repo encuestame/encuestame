@@ -450,16 +450,6 @@ public interface SecurityOperations extends ServiceOperations {
      */
     UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException;
 
-
-    /**
-     *
-     * @param limit
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    List<Notification> loadNotificationByUserAndLimit(final Integer limit, final Integer start,
-            final Boolean onlyUnread) throws EnMeNoResultsFoundException;
-
     /**
      * Remove unconfirmed account.
      * @param status
