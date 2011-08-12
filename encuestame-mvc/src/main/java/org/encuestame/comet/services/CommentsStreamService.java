@@ -34,7 +34,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
  */
 @Named // Tells Spring that this is a bean
 @Singleton // Tells Spring that this is a singleton
-@Service("commentService")
+@Service("commentCometService")
 public class CommentsStreamService extends AbstractCometService {
 
     /*

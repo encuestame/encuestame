@@ -13,6 +13,7 @@
 package org.encuestame.comet.services;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
@@ -26,6 +27,7 @@ import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.notification.UtilNotification;
 
 /**
  * Description.
@@ -50,15 +52,10 @@ public class ActivityStreamService extends AbstractCometService {
         final Map<String, Object> input = message.getDataAsMap();
         //log.debug("Notification Input "+input);
         final Map<String, Object> output = new HashMap<String, Object>();
-        UserAccount userAccount;
         try {
             log.debug("ActivityStreamService............");
-            userAccount = getByUsername(getUserPrincipalUsername());
-            if (userAccount != null) {
-                output.put("stream", ListUtils.EMPTY_LIST);
-            } else {
-                output.put("stream", ListUtils.EMPTY_LIST);
-            }
+            final List<UtilNotification> d = getStreamOperations().retrieveLastNotifications(20, null);
+            output.put("stream", d);
         } catch (EnMeNoResultsFoundException e) {
              output.put("stream", ListUtils.EMPTY_LIST);
              log.fatal("cometd: username invalid");

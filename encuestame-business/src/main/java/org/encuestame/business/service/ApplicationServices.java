@@ -26,6 +26,7 @@ import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.StreamOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,9 +69,10 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /** {@link SearchServiceOperations}. **/
     @Autowired
     private SearchServiceOperations searchService;
-
     @Autowired
     private IDashboardService dashboardService;
+    @Autowired
+    private StreamOperations streamOperations;
 
     /**
      * @return the securityService
@@ -212,17 +214,31 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
         this.searchService = searchService;
     }
 
-	/**
-	 * @return the dashboardService
-	 */
-	public IDashboardService getDashboardService() {
-		return dashboardService;
-	}
+    /**
+     * @return the dashboardService
+     */
+    public IDashboardService getDashboardService() {
+        return dashboardService;
+    }
 
-	/**
-	 * @param dashboardService the dashboardService to set
-	 */
-	public void setDashboardService(final IDashboardService dashboardService) {
-		this.dashboardService = dashboardService;
-	}
+    /**
+     * @param dashboardService the dashboardService to set
+     */
+    public void setDashboardService(final IDashboardService dashboardService) {
+        this.dashboardService = dashboardService;
+    }
+
+    /**
+     * @return the streamOperations
+     */
+    public StreamOperations getStreamOperations() {
+        return streamOperations;
+    }
+
+    /**
+     * @param streamOperations the streamOperations to set
+     */
+    public void setStreamOperations(final StreamOperations streamOperations) {
+        this.streamOperations = streamOperations;
+    }
 }

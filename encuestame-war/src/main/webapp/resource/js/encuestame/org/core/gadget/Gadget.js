@@ -40,7 +40,7 @@ dojo.declare(
              */
             loadTimer : function(){
                 var father = this;
-                this.timer = new dojox.timing.Timer(180000);
+                this.timer = new dojox.timing.Timer(90000);
                 this.timer.onTick = function() {
                     father.callCometd();
                 };

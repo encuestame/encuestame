@@ -303,7 +303,13 @@ public class DashboardJsonController extends AbstractJsonController {
         return returnData();
     }
 
-
+    /**
+     *
+     * @param gadgetId
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/api/common/dashboard/gadget/load.json", method = RequestMethod.GET)
     public ModelMap loadGadget(
             @RequestParam(value = "gadgetId", required = true) String gadgetId,
@@ -311,6 +317,31 @@ public class DashboardJsonController extends AbstractJsonController {
             HttpServletResponse response){
         try {
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+             setItemResponse(jsonResponse);
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     *
+     * @param gadgetId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/api/common/dashboard/gadget/remove.json", method = RequestMethod.GET)
+    public ModelMap removeGadget(
+            @RequestParam(value = "gadgetId", required = true) Long gadgetId,
+            @RequestParam(value = "dashboardId", required = true) Long dashboardId,
+            HttpServletRequest request,
+            HttpServletResponse response){
+        try {
+             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+             getDashboardService().removeGadget(gadgetId, dashboardId);
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
