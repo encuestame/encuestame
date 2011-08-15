@@ -21,6 +21,7 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IFolder;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
@@ -56,6 +57,7 @@ import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
@@ -873,4 +875,35 @@ public class ConvertDomainBean {
             }
         return gadgetBean;
     }
+
+    /**
+     * Convert Domain to bean.
+     * @param commentDomain
+     * @return
+     */
+   public static final CommentBean convertCommentDomainToBean(final Comment commentDomain){
+	   final CommentBean commentBean = new CommentBean();
+	   commentBean.setCommentId(commentDomain.getCommentId());
+	   commentBean.setComment(commentDomain.getComment());
+	   commentBean.setCreatedAt(commentDomain.getCreatedAt());
+	   commentBean.setDislikeVote(commentDomain.getDislikeVote());
+	   commentBean.setLikeVote(commentDomain.getLikeVote());
+	   commentBean.setPollId(commentDomain.getPoll().getPollId());
+	   commentBean.setTweetPoll(commentDomain.getTweetPoll().getTweetPollId());
+	   commentBean.setUserAccountId(commentDomain.getUser().getUid());
+	   return commentBean;
+   }
+
+   /**
+    * Convert Comment list domain to comment list bean
+    * @param comments
+    * @return
+    */
+   public static final List<CommentBean> convertListCommentDomainToBean(final List<Comment> comments){
+       final List<CommentBean> commentsBean = new LinkedList<CommentBean>();
+       for (Comment comment : comments) {
+    	   commentsBean.add(ConvertDomainBean.convertCommentDomainToBean(comment));
+       }
+       return commentsBean;
+   }
 }

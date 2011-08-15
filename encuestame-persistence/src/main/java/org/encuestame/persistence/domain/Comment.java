@@ -63,7 +63,7 @@ public class Comment{
 	private Long likeVote;
 
 	/** Unlike **/
-	private Long unlikeVote;
+	private Long dislikeVote;
 
 	/** {@link TweetPoll} **/
 	private TweetPoll tweetPoll;
@@ -173,16 +173,16 @@ public class Comment{
 	/**
 	 * @return the unlike
 	 */
-	@Column(name = "unlikeVote", nullable = true)
-	public Long getUnlikeVote() {
-		return unlikeVote;
+	@Column(name = "dislikeVote", nullable = true)
+	public Long getDislikeVote() {
+		return dislikeVote;
 	}
 
 	/**
 	 * @param unlike the unlike to set
 	 */
-	public void setUnlikeVote(final Long unlikeVote) {
-		this.unlikeVote = unlikeVote;
+	public void setDislikeVote(final Long dislikeVote) {
+		this.dislikeVote = dislikeVote;
 	}
 
 	/**

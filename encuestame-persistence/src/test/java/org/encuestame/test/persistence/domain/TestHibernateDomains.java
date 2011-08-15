@@ -481,7 +481,7 @@ public class TestHibernateDomains extends AbstractBase{
     	 comments.setComment("First comment");
     	 comments.setCreatedAt(new Date());
     	 comments.setLikeVote(1L);
-    	 comments.setUnlikeVote(2L);
+    	 comments.setDislikeVote(2L);
      	 comments.setUser(user);
     	 comments.setTweetPoll(tpoll);
     	 getCommentsOperations().saveOrUpdate(comments);

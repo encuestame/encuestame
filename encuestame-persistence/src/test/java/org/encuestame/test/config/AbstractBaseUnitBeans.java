@@ -25,6 +25,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitAttachment;
@@ -435,5 +436,25 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
     	 dashboardBean.setSequence(sequence);
     	 dashboardBean.setFavoriteCounter(counter);
     	 return dashboardBean;
+     }
+
+     /**
+      * Create comment bean.
+      * @param comment
+      * @param createdAt
+      * @param userId
+      * @param tweetPollId
+      * @param pollId
+      * @return
+      */
+     public CommentBean createCommentBean(final String comment,
+    		 final Date createdAt, final Long userId, final Long tweetPollId, final Long pollId){
+    	 final CommentBean commentBean = new CommentBean();
+    	 commentBean.setComment(comment);
+    	 commentBean.setCreatedAt(createdAt);
+    	 commentBean.setUserAccountId(userId);
+    	 commentBean.setTweetPoll(tweetPollId);
+    	 commentBean.setPollId(pollId);
+    	 return commentBean;
      }
 }
