@@ -433,14 +433,6 @@
             <artifactId>aspectjweaver</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
         </dependency>
@@ -453,28 +445,12 @@
             <artifactId>ehcache-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.java-persistence</groupId>
-            <artifactId>jpa-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>javassist</artifactId>
-        </dependency>
-<!--         <dependency> -->
-<!--             <groupId>org.jboss.el</groupId> -->
-<!--             <artifactId>jboss-el</artifactId> -->
-<!--         </dependency> -->
-        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>

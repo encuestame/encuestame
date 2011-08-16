@@ -20,13 +20,10 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.HttpStatus;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
@@ -46,8 +43,8 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.FacebookAPITemplate;
+import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
 import org.encuestame.social.api.TwitterAPITemplate;
@@ -62,18 +59,15 @@ import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.TweetPollResultsBean;
-import org.encuestame.utils.web.UnitTweetPollResult;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;
 

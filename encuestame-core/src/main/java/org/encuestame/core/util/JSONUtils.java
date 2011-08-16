@@ -13,28 +13,63 @@
 package org.encuestame.core.util;
 
 import java.io.IOException;
-import java.io.StringWriter;
+import java.util.Map;
 
 import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
 /**
- * Helper to JSON.
+ * JSON utilities..
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 23, 2011
  */
 public class JSONUtils {
 
-
-    public static String convertPojoToJSON(final Object object) throws IOException{
-        final ObjectMapper m = new ObjectMapper();
-        final JsonFactory jf = new JsonFactory();
-        final StringWriter sw = new StringWriter();
-        final JsonGenerator jg = jf.createJsonGenerator(sw);
-        jg.useDefaultPrettyPrinter();
-        m.writeValue(jg, object);
-        return sw.toString();
+    /**
+     *
+     * @param object
+     * @return
+     * @throws IOException
+     * @throws JsonMappingException
+     * @throws JsonGenerationException
+     */
+    public static String convertObjectToJsonString(Object object) throws JsonGenerationException, JsonMappingException, IOException{
+         final JsonFactory factory = new JsonFactory();
+         final ObjectMapper mapper = new ObjectMapper(factory);
+         return mapper.writeValueAsString(object);
     }
 
+    /**
+     *
+     * @param json
+     * @param clazz
+     * @return
+     * @throws JsonParseException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @SuppressWarnings("unchecked")
+    public static Object convertJsonToObject(final String json, final Class clazz) throws JsonParseException, JsonMappingException, IOException{
+        final JsonFactory factory = new JsonFactory();
+        ObjectMapper mapper = new ObjectMapper(factory);
+        return mapper.readValue(json, clazz);
+    }
+
+    /**
+     *
+     * @param json
+     * @return
+     * @throws JsonParseException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    public static Map<String, Object> convertJsonToObject(final String json) throws JsonParseException, JsonMappingException, IOException{
+        final JsonFactory factory = new JsonFactory();
+        ObjectMapper mapper = new ObjectMapper(factory);
+        return mapper.readValue(json, new TypeReference<Map<String, Object>>() {});
+    }
 }

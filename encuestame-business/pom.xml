@@ -210,14 +210,6 @@
             <artifactId>commons-digester</artifactId>
         </dependency>
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>javassist</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.el</groupId>
-            <artifactId>jboss-el</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
         </dependency>
@@ -226,24 +218,12 @@
             <artifactId>cglib-nodep</artifactId>
         </dependency>
         <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
         </dependency>
         <dependency>
             <groupId>rome</groupId>
