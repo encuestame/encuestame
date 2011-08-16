@@ -21,10 +21,12 @@ import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,8 @@ public class CommentService extends AbstractBaseService implements ICommentServi
 
 	/** Log. **/
     private Log log = LogFactory.getLog(this.getClass());
+
+    private Long COUNTER = 1L;
 
     /*
      * (non-Javadoc)
@@ -57,12 +61,11 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#getCommentsbyUser(java.lang.Integer, java.lang.Integer)
      */
-    public List<CommentBean> getCommentsbyUser(final Integer maxResults,
+    public List<CommentBean> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults,
     		final Integer start) throws EnMeNoResultsFoundException{
     	final List<CommentBean> commentBean = new ArrayList<CommentBean>();
     	final List<Comment> comments = getCommentsOperations().getCommentsbyUser(
-    			getUserAccount(getUserPrincipalUsername()), maxResults, start);
-    	log.info("Comments by user list size "+ comments.size());
+    			userAcc, maxResults, start);
     	commentBean.addAll(ConvertDomainBean.convertListCommentDomainToBean(comments));
     	return commentBean;
     }
@@ -81,9 +84,9 @@ public class CommentService extends AbstractBaseService implements ICommentServi
     		throw new EnMeExpcetion("keyword is missing");
     	}
     	else {
-    		comments = getCommentsOperations().getListCommentsByKeyword(keyword, maxResults, null);
+    		comments = getCommentsOperations().getCommentsByKeyword(keyword, maxResults, null);
+    		log.info(" Comments by keyword size" + comments.size());
     		commentBean.addAll(ConvertDomainBean.convertListCommentDomainToBean(comments));
-    		log.info("Comments by keyword ---> " + commentBean.size());
     	}
     	return commentBean;
     }
@@ -105,17 +108,36 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#getCommentsbyTweetPoll(java.lang.Long, java.lang.Integer, java.lang.Integer)
      */
-    public Comment getCommentsbyTweetPoll(final Long tweetPollId,
+    public List<Comment> getCommentsbyTweetPoll(final Long tweetPollId,
     		final Integer maxResults,
-    		final Integer start){
+    		final Integer start) throws EnMeTweetPollNotFoundException{
     	List<Comment> tweetPollComments = new ArrayList<Comment>();
     	final TweetPoll tpoll = getTweetPollDao().getTweetPollById(tweetPollId);
     	if (tpoll == null){
-
+    		throw new EnMeTweetPollNotFoundException("keyword is missing");
     	}else {
     		tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tpoll, maxResults, start);
     	}
-    	return null;
+    	return tweetPollComments;
+    }
+
+
+    public void CommentVoteLike(final Long commentId, final String vote) throws EnMeNoResultsFoundException, HibernateException{
+    	final Comment comment = this.getCommentbyId(commentId);
+    	//TODO: Validate that has not previously voted
+
+
+    	if (comment == null){
+    		throw new EnMeCommentNotFoundException("comment not found");
+    	}else if(vote.equals("LIKE_VOTE"))
+    	{
+    		comment.setLikeVote(comment.getLikeVote());
+    	} else if(vote.equals("DISLIKE_VOTE")){
+    		comment.setDislikeVote(1L);
+    	}
+    	 else{
+    		throw new EnMeTweetPollNotFoundException("keyword is missing");
+    	}
     }
 
 }

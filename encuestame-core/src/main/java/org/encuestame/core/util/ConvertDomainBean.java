@@ -18,6 +18,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import junit.framework.Assert;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IFolder;
@@ -883,13 +886,16 @@ public class ConvertDomainBean {
      */
    public static final CommentBean convertCommentDomainToBean(final Comment commentDomain){
 	   final CommentBean commentBean = new CommentBean();
+	   Assert.assertNotNull(commentDomain);
 	   commentBean.setCommentId(commentDomain.getCommentId());
 	   commentBean.setComment(commentDomain.getComment());
 	   commentBean.setCreatedAt(commentDomain.getCreatedAt());
-	   commentBean.setDislikeVote(commentDomain.getDislikeVote());
-	   commentBean.setLikeVote(commentDomain.getLikeVote());
-	   commentBean.setPollId(commentDomain.getPoll().getPollId());
-	   commentBean.setTweetPoll(commentDomain.getTweetPoll().getTweetPollId());
+	   commentBean.setDislikeVote(commentDomain.getDislikeVote() == null ? null : commentDomain.getDislikeVote());
+	   commentBean.setLikeVote(commentDomain.getLikeVote() == null ? null : commentDomain.getLikeVote());
+	   commentBean.setPollId(commentDomain.getPoll() == null ? null : commentDomain.getPoll().getPollId());
+	   commentBean.setTweetPoll(commentDomain.getTweetPoll() == null ? null : commentDomain.getTweetPoll().getTweetPollId());
+	   commentBean.setSurveyId(commentDomain.getSurvey() == null ? null : commentDomain.getSurvey().getSid());
+	   commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
 	   commentBean.setUserAccountId(commentDomain.getUser().getUid());
 	   return commentBean;
    }
@@ -899,11 +905,11 @@ public class ConvertDomainBean {
     * @param comments
     * @return
     */
-   public static final List<CommentBean> convertListCommentDomainToBean(final List<Comment> comments){
-       final List<CommentBean> commentsBean = new LinkedList<CommentBean>();
-       for (Comment comment : comments) {
-    	   commentsBean.add(ConvertDomainBean.convertCommentDomainToBean(comment));
-       }
-       return commentsBean;
-   }
+   public static final List<CommentBean> convertListCommentDomainToBean(final List<Comment> commentList){
+	   final List<CommentBean> commentsBean = new LinkedList<CommentBean>();
+	   for (Comment comment : commentList) {
+		   commentsBean.add(ConvertDomainBean.convertCommentDomainToBean(comment));
+	   }
+	   return commentsBean;
+     }
 }

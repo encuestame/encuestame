@@ -57,7 +57,7 @@ public class TestCommentDao extends AbstractBase {
         assertNotNull(this.comment);
         flushIndexes();
     	final String keyword = "working";
-        final List<Comment> commentList = getCommentsOperations().getListCommentsByKeyword(keyword,10 ,null);
+        final List<Comment> commentList = getCommentsOperations().getCommentsByKeyword(keyword,10 ,null);
         assertEquals("Should be equals", 1, commentList.size());
 	}
 
