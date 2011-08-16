@@ -15,10 +15,12 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.domain.CommentsSocialOptions;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 
@@ -81,11 +83,13 @@ public interface ICommentService {
 	    		final Integer start) throws EnMeTweetPollNotFoundException;
 
 	/**
-	 * Comment vote like.
-	 * @param commentId
-	 * @param vote
-	 * @throws EnMeNoResultsFoundException
-	 * @throws HibernateException
-	 */
-	void CommentVoteLike(final Long commentId, final String vote) throws EnMeNoResultsFoundException, HibernateException;
+     * Vote comment social option.
+     * @param commentId
+     * @param vote
+     * @throws EnMeNoResultsFoundException
+     * @throws HibernateException
+     * @throws EnmeFailOperation
+     */
+	 void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
+		HibernateException, EnmeFailOperation;
 }

@@ -21,12 +21,14 @@ import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.domain.CommentsSocialOptions;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -42,7 +44,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
 	/** Log. **/
     private Log log = LogFactory.getLog(this.getClass());
 
-    private Long COUNTER = 1L;
+    private Long VOTE_VALUE = 1L;
 
     /*
      * (non-Javadoc)
@@ -121,23 +123,41 @@ public class CommentService extends AbstractBaseService implements ICommentServi
     	return tweetPollComments;
     }
 
-
-    public void CommentVoteLike(final Long commentId, final String vote) throws EnMeNoResultsFoundException, HibernateException{
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ICommentService#voteCommentSocialOption(java.lang.Long, org.encuestame.persistence.domain.CommentsSocialOptions)
+     */
+    public void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
+    									HibernateException, EnmeFailOperation{
     	final Comment comment = this.getCommentbyId(commentId);
-    	//TODO: Validate that has not previously voted
+		if (vote.equals(CommentsSocialOptions.LIKE_VOTE)) {
+			this.CommentLikeVote(comment);
+		} else if (vote.equals(CommentsSocialOptions.DISLIKE_VOTE)) {
+			this.CommentDislikeVote(comment);
+		} else {
+			throw new EnmeFailOperation("Social option not found");
+		}
 
-
-    	if (comment == null){
-    		throw new EnMeCommentNotFoundException("comment not found");
-    	}else if(vote.equals("LIKE_VOTE"))
-    	{
-    		comment.setLikeVote(comment.getLikeVote());
-    	} else if(vote.equals("DISLIKE_VOTE")){
-    		comment.setDislikeVote(1L);
-    	}
-    	 else{
-    		throw new EnMeTweetPollNotFoundException("keyword is missing");
-    	}
     }
 
+    /**
+     * Vote dislike comment option.
+     * @param comment
+     */
+    private void CommentDislikeVote(final Comment comment){
+    	long lastDislikeVote = comment.getDislikeVote();
+    	lastDislikeVote += this.VOTE_VALUE;
+    	comment.setDislikeVote(lastDislikeVote);
+
+    }
+
+    /**
+     * Vote Like comment option.
+     * @param comment
+     */
+    private void CommentLikeVote(final Comment comment){
+    	long lastLikeVote = comment.getLikeVote();
+    	lastLikeVote += this.VOTE_VALUE;
+    	comment.setDislikeVote(lastLikeVote);
+    }
 }

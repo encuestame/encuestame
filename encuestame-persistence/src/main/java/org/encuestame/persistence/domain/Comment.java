@@ -60,10 +60,10 @@ public class Comment{
 	private Long parentId;
 
 	/** Like option**/
-	private Long likeVote;
+	private Long likeVote = 0L;
 
 	/** Unlike **/
-	private Long dislikeVote;
+	private Long dislikeVote = 0L;
 
 	/** {@link TweetPoll} **/
 	private TweetPoll tweetPoll;
