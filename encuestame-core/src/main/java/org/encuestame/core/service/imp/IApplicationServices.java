@@ -143,4 +143,15 @@ public interface IApplicationServices  extends ServiceOperations {
      */
     void setStreamOperations(final StreamOperations streamOperations);
 
+    /**
+     *
+     * @return
+     */
+    ICommentService getCommentService();
+
+    /**
+     * @param commentService the commentService to set
+     */
+    void setCommentService(final ICommentService commentService);
+
 }

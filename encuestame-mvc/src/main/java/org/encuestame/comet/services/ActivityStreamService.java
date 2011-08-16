@@ -57,8 +57,8 @@ public class ActivityStreamService extends AbstractCometService {
         //log.debug("Notification Input "+input);
         final Map<String, Object> output = new HashMap<String, Object>();
         try {
-            log.debug("ActivityStreamService............");
-            final List<UtilNotification> activities = getStreamOperations().retrieveLastNotifications(20, null);
+            log.debug("ActivityStreamService............");		            //TODO: null pointer with request null;
+            final List<UtilNotification> activities = getStreamOperations().retrieveLastNotifications(20, false, null);
             log.debug("not stream SIZE...."+activities.size());
             output.put("stream", JSONUtils.convertObjectToJsonString(activities));
             //TODO: temp, awaiting cometd 1.4.0 with json jackson plug in.

@@ -23,34 +23,50 @@ import org.encuestame.utils.web.notification.UtilNotification;
 
 /**
  * Implementation for stream operations.
+ *
  * @author Picado, Juan juanATencuestame.org
  * @since 12/08/2011
  */
-public interface StreamOperations{
-
-
-    /**
-    *
-    * @param limit
-    * @param request
-    * @throws EnMeNoResultsFoundException
-    */
-    List<UtilNotification> retrieveLastNotifications(final Integer limit, final HttpServletRequest request) throws EnMeNoResultsFoundException;
+public interface StreamOperations {
 
     /**
-    *
-    * @param limit
-    * @return
-    * @throws EnMeNoResultsFoundException
-    */
-   List<UtilNotification> loadNotificationByUserAndLimit(final Integer limit, final Integer start,
-           final Boolean onlyUnread, final HttpServletRequest request) throws EnMeNoResultsFoundException;
+     *
+     * @param limit
+     * @param request
+     * @throws EnMeNoResultsFoundException
+     */
+    List<UtilNotification> retrieveLastNotifications(final Integer limit,
+            final HttpServletRequest request)
+            throws EnMeNoResultsFoundException;
 
-   /**
-    *
-    * @param utilNotifications
-    * @return
-    */
-   HashMap<DateClasificatedEnum, List<UtilNotification>> classifyNotificationList(
-           final List<UtilNotification> utilNotifications);
+    /**
+     *
+     * @param limit
+     * @param onlyReaded
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<UtilNotification> retrieveLastNotifications(final Integer limit,
+            final Boolean onlyReaded, final HttpServletRequest request)
+            throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param limit
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<UtilNotification> loadNotificationByUserAndLimit(final Integer limit,
+            final Integer start, final Boolean onlyUnread,
+            final HttpServletRequest request)
+            throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param utilNotifications
+     * @return
+     */
+    HashMap<DateClasificatedEnum, List<UtilNotification>> classifyNotificationList(
+            final List<UtilNotification> utilNotifications);
 }

@@ -50,7 +50,7 @@
         <jasypt>1.8</jasypt>
         <joda.time>1.6.2</joda.time>
         <!-- Hibernate Version -->
-        <hibernate.version>3.6.2.Final</hibernate.version>
+        <hibernate.version>3.6.6.Final</hibernate.version>
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.3.0.Final</hibernate.search.version>
         <hibernate.validator>4.0.2.GA</hibernate.validator>
@@ -112,6 +112,7 @@
         <cglib-nodep>2.2</cglib-nodep>
         <aspectjrt>1.6.0</aspectjrt>
         <jaxen>1.1.1</jaxen>
+	<javassist>3.12.1.GA</javassist>
         <javax.inject>1</javax.inject>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
         <dojo.version>1.6.1</dojo.version>
@@ -1465,6 +1466,16 @@
                 <artifactId>javax.inject</artifactId>
                 <version>${javax.inject}</version>
             </dependency>
+	    <dependency>
+                <groupId>javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist}</version>
+            </dependency>
+	    <dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20090211</version>
+	    </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

@@ -40,6 +40,7 @@ import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.AbstractSecurityContext;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
@@ -424,6 +425,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public IDashboardService getDashboardService(){
         return getServiceManager().getApplicationServices().getDashboardService();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ICommentService getCommentService(){
+        return getServiceManager().getApplicationServices().getCommentService();
     }
 
     /**

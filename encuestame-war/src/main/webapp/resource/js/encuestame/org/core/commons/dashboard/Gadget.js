@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: open source social survey Copyright (C) 2009
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 dojo.provide("encuestame.org.core.commons.dashboard.Gadget");
 
 dojo.require("dijit._Templated");
@@ -52,8 +64,10 @@ dojo.declare(
         /*
          * set gadget title.
          */
-        _setTitle : function() {
-
+        _setTitle : function(title) {
+            if (title) {
+                this._title.innerHTML = title;
+            }
         },
 
         /*
@@ -62,9 +76,9 @@ dojo.declare(
         _initialize : function() {
              var load = dojo.hitch(this, function(data) {
                  if (data.success) {
-                     console.info("loaded gadget", data);
                      var widget = this._loadGadget(this.data.gadget_name, {});
                      widget.placeAt(this._content);
+                     this._setTitle(this.data.gadget_name); //TODO: the title should be more specific.
                  }
              });
              var error = function(error) {
@@ -77,12 +91,9 @@ dojo.declare(
          * remove the gadget.
          */
         _removeGadget : function() {
-            console.info("_removeGadget ");
             var params = { gadgetId: this.data.id, dashboardId: this.dashboardId};
-            console.info("_removeGadget ", params);
             var load = dojo.hitch(this, function(data) {
                 if (data.success) {
-                    console.info("remove gadget", data);
                     //this.destroyRecursive(true);
                     dojo.destroy(this.domNode);
                 }

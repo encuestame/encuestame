@@ -6,8 +6,6 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.google.api.client.util.DateTime;
-import com.google.api.client.util.Key;
 
 public class SocialTestCase extends TestCase{
 
@@ -64,15 +62,4 @@ public class SocialTestCase extends TestCase{
 //        }
 
     }
-
-    public static class BuzzActivity {
-        @Key public String id;
-        @Key public BuzzObject object;
-        @Key public DateTime published;
-      }
-
-      public static class BuzzObject {
-        @Key public String content;
-      }
-
 }

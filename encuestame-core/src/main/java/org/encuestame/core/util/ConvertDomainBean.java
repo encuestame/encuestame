@@ -882,16 +882,21 @@ public class ConvertDomainBean {
      * @return
      */
    public static final CommentBean convertCommentDomainToBean(final Comment commentDomain){
-	   final CommentBean commentBean = new CommentBean();
-	   commentBean.setCommentId(commentDomain.getCommentId());
-	   commentBean.setComment(commentDomain.getComment());
-	   commentBean.setCreatedAt(commentDomain.getCreatedAt());
-	   commentBean.setDislikeVote(commentDomain.getDislikeVote());
-	   commentBean.setLikeVote(commentDomain.getLikeVote());
-	   commentBean.setPollId(commentDomain.getPoll().getPollId());
-	   commentBean.setTweetPoll(commentDomain.getTweetPoll().getTweetPollId());
-	   commentBean.setUserAccountId(commentDomain.getUser().getUid());
-	   return commentBean;
+       final CommentBean commentBean = new CommentBean();
+       commentBean.setCommentId(commentDomain.getCommentId());
+       commentBean.setComment(commentDomain.getComment());
+       commentBean.setCreatedAt(commentDomain.getCreatedAt());
+       commentBean.setDislikeVote(commentDomain.getDislikeVote());
+       commentBean.setLikeVote(commentDomain.getLikeVote());
+       if(commentDomain.getPoll() != null) {
+           commentBean.setPollId(commentDomain.getPoll().getPollId());
+       }
+       if(commentDomain.getTweetPoll() != null) {
+           commentBean.setTweetPoll(commentDomain.getTweetPoll().getTweetPollId());
+       }
+       //TODO: and survey?
+       commentBean.setUserAccountId(commentDomain.getUser().getUid());
+       return commentBean;
    }
 
    /**
@@ -902,7 +907,7 @@ public class ConvertDomainBean {
    public static final List<CommentBean> convertListCommentDomainToBean(final List<Comment> comments){
        final List<CommentBean> commentsBean = new LinkedList<CommentBean>();
        for (Comment comment : comments) {
-    	   commentsBean.add(ConvertDomainBean.convertCommentDomainToBean(comment));
+           commentsBean.add(ConvertDomainBean.convertCommentDomainToBean(comment));
        }
        return commentsBean;
    }

@@ -44,192 +44,192 @@ import org.hibernate.search.annotations.Store;
 @Table(name = "comments")
 public class Comment{
 
-	/** Comment id **/
-	private Long commentId;
+    /** Comment id **/
+    private Long commentId;
 
-	/** Comment **/
-	private String comment;
+    /** Comment **/
+    private String comment;
 
-	/** Comment created at **/
-	private Date createdAt;
+    /** Comment created at **/
+    private Date createdAt;
 
-	/** {@link UserAccount} **/
-	private UserAccount user;
+    /** {@link UserAccount} **/
+    private UserAccount user;
 
-	/** Comment parent id.**/
-	private Long parentId;
+    /** Comment parent id.**/
+    private Long parentId;
 
-	/** Like option**/
-	private Long likeVote;
+    /** Like option**/
+    private Long likeVote;
 
-	/** Unlike **/
-	private Long dislikeVote;
+    /** Unlike **/
+    private Long dislikeVote;
 
-	/** {@link TweetPoll} **/
-	private TweetPoll tweetPoll;
+    /** {@link TweetPoll} **/
+    private TweetPoll tweetPoll;
 
-	/** {@link Poll} **/
-	private Poll poll;
+    /** {@link Poll} **/
+    private Poll poll;
 
-	/** {@link Survey} **/
-	private Survey survey;
+    /** {@link Survey} **/
+    private Survey survey;
 
-	/**
-	 * @return the commentId
-	 */
-	@Id
+    /**
+     * @return the commentId
+     */
+    @Id
     @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "commentId", unique = true, nullable = false)
-	public Long getCommentId() {
-		return commentId;
-	}
+    public Long getCommentId() {
+        return commentId;
+    }
 
-	/**
-	 * @param commentId the commentId to set
-	 */
-	public void setCommentId(final Long commentId) {
-		this.commentId = commentId;
-	}
+    /**
+     * @param commentId the commentId to set
+     */
+    public void setCommentId(final Long commentId) {
+        this.commentId = commentId;
+    }
 
-	/**
-	 * @return the comment
-	 */
-	@Field(index=Index.TOKENIZED, store=Store.YES)
-	@Column(name = "comment", nullable = false)
-	public String getComment() {
-		return comment;
-	}
+    /**
+     * @return the comment
+     */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Column(name = "comment", nullable = false , length = 2000)
+    public String getComment() {
+        return comment;
+    }
 
-	/**
-	 * @param comment the comment to set
-	 */
-	public void setComment(final String comment) {
-		this.comment = comment;
-	}
+    /**
+     * @param comment the comment to set
+     */
+    public void setComment(final String comment) {
+        this.comment = comment;
+    }
 
-	/**
-	 * @return the createdAt
-	 */
-	@Temporal(TemporalType.DATE)
+    /**
+     * @return the createdAt
+     */
+    @Temporal(TemporalType.DATE)
     @Column(name = "created_at")
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	public void setCreatedAt(final Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(final Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	/**
-	 * @return the user
-	 */
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "uid", nullable = false)
-	public UserAccount getUser() {
-		return user;
-	}
+    /**
+     * @return the user
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "uid", nullable = false)
+    public UserAccount getUser() {
+        return user;
+    }
 
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(final UserAccount user) {
-		this.user = user;
-	}
+    /**
+     * @param user the user to set
+     */
+    public void setUser(final UserAccount user) {
+        this.user = user;
+    }
 
-	/**
-	 * @return the parentId
-	 */
-	@Column(name = "parentId", nullable = true)
-	public Long getParentId() {
-		return parentId;
-	}
+    /**
+     * @return the parentId
+     */
+    @Column(name = "parentId", nullable = true)
+    public Long getParentId() {
+        return parentId;
+    }
 
-	/**
-	 * @param parentId the parentId to set
-	 */
-	public void setParentId(final Long parentId) {
-		this.parentId = parentId;
-	}
+    /**
+     * @param parentId the parentId to set
+     */
+    public void setParentId(final Long parentId) {
+        this.parentId = parentId;
+    }
 
-	/**
-	 * @return the like
-	 */
-	@Column(name = "likeVote", nullable = true)
-	public Long getLikeVote() {
-		return likeVote;
-	}
+    /**
+     * @return the like
+     */
+    @Column(name = "likeVote", nullable = true)
+    public Long getLikeVote() {
+        return likeVote;
+    }
 
-	/**
-	 * @param like the like to set
-	 */
-  	public void setLikeVote(final Long likeVote) {
-		this.likeVote = likeVote;
-	}
+    /**
+     * @param like the like to set
+     */
+      public void setLikeVote(final Long likeVote) {
+        this.likeVote = likeVote;
+    }
 
-	/**
-	 * @return the unlike
-	 */
-	@Column(name = "dislikeVote", nullable = true)
-	public Long getDislikeVote() {
-		return dislikeVote;
-	}
+    /**
+     * @return the unlike
+     */
+    @Column(name = "dislikeVote", nullable = true)
+    public Long getDislikeVote() {
+        return dislikeVote;
+    }
 
-	/**
-	 * @param unlike the unlike to set
-	 */
-	public void setDislikeVote(final Long dislikeVote) {
-		this.dislikeVote = dislikeVote;
-	}
+    /**
+     * @param unlike the unlike to set
+     */
+    public void setDislikeVote(final Long dislikeVote) {
+        this.dislikeVote = dislikeVote;
+    }
 
-	/**
-	 * @return the tweetPoll
-	 */
-	@ManyToOne(cascade = CascadeType.MERGE)
+    /**
+     * @return the tweetPoll
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "tweetPollId", nullable = true)
-	public TweetPoll getTweetPoll() {
-		return tweetPoll;
-	}
+    public TweetPoll getTweetPoll() {
+        return tweetPoll;
+    }
 
-	/**
-	 * @param tweetPoll the tweetPoll to set
-	 */
-	public void setTweetPoll(final TweetPoll tweetPoll) {
-		this.tweetPoll = tweetPoll;
-	}
+    /**
+     * @param tweetPoll the tweetPoll to set
+     */
+    public void setTweetPoll(final TweetPoll tweetPoll) {
+        this.tweetPoll = tweetPoll;
+    }
 
-	/**
-	 * @return the poll
-	 */
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "pollId", nullable = true)
-	public Poll getPoll() {
-		return poll;
-	}
+    /**
+     * @return the poll
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "pollId", nullable = true)
+    public Poll getPoll() {
+        return poll;
+    }
 
-	/**
-	 * @param poll the poll to set
-	 */
-	public void setPoll(final Poll poll) {
-		this.poll = poll;
-	}
+    /**
+     * @param poll the poll to set
+     */
+    public void setPoll(final Poll poll) {
+        this.poll = poll;
+    }
 
-	/**
-	 * @return the survey
-	 */
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "sid", nullable = true)
-	public Survey getSurvey() {
-		return survey;
-	}
+    /**
+     * @return the survey
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "sid", nullable = true)
+    public Survey getSurvey() {
+        return survey;
+    }
 
-	/**
-	 * @param survey the survey to set
-	 */
-	public void setSurvey(final Survey survey) {
-		this.survey = survey;
-	}
+    /**
+     * @param survey the survey to set
+     */
+    public void setSurvey(final Survey survey) {
+        this.survey = survey;
+    }
 }

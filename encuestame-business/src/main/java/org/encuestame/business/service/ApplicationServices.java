@@ -17,6 +17,7 @@ import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.service.imp.IApplicationServices;
 import org.encuestame.core.service.imp.IChartService;
+import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
@@ -73,6 +74,8 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private IDashboardService dashboardService;
     @Autowired
     private StreamOperations streamOperations;
+    @Autowired
+    private ICommentService commentService;
 
     /**
      * @return the securityService
@@ -240,5 +243,19 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      */
     public void setStreamOperations(final StreamOperations streamOperations) {
         this.streamOperations = streamOperations;
+    }
+
+    /**
+     * @return the commentService
+     */
+    public ICommentService getCommentService() {
+        return commentService;
+    }
+
+    /**
+     * @param commentService the commentService to set
+     */
+    public void setCommentService(final ICommentService commentService) {
+        this.commentService = commentService;
     }
 }

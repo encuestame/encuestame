@@ -13,6 +13,7 @@
 package org.encuestame.comet.services;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Named;
@@ -24,8 +25,10 @@ import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
+import org.encuestame.core.util.JSONUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.CommentBean;
 
 /**
  * Comments service.
@@ -47,21 +50,17 @@ public class CommentsStreamService extends AbstractCometService {
      */
     @Listener("/service/comment/get")
     public void processStream(final ServerSession remote, final ServerMessage.Mutable message) {
-        final Map<String, Object> input = message.getDataAsMap();
         //log.debug("Notification Input "+input);
         final Map<String, Object> output = new HashMap<String, Object>();
-        UserAccount userAccount;
         try {
             log.debug("CommentsStreamService............");
-            userAccount = getByUsername(getUserPrincipalUsername());
-            if (userAccount != null) {
-                output.put("comments", ListUtils.EMPTY_LIST);
-            } else {
-                output.put("comments", ListUtils.EMPTY_LIST);
-            }
-        } catch (EnMeNoResultsFoundException e) {
-             output.put("stream", ListUtils.EMPTY_LIST);
-             log.fatal("cometd: username invalid");
+            List<CommentBean> comments = getCommentService().getCommentsbyUser(20, 0);
+            log.debug("CommentsStreamService.comments size .."+comments.size());
+            output.put("comments", JSONUtils.convertObjectToJsonString(comments));
+        } catch (Exception e) {
+             e.printStackTrace();
+             output.put("comments", ListUtils.EMPTY_LIST);
+             log.fatal("cometd: username invalid "+e);
         }
         remote.deliver(getServerSession(), message.getChannel(), output, null);
     }
