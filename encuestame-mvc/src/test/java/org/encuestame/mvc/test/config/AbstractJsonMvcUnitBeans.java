@@ -14,12 +14,14 @@ package org.encuestame.mvc.test.config;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
 import junit.framework.Assert;
 
 import org.custommonkey.xmlunit.XMLUnit;
+import org.encuestame.core.util.JSONUtils;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.jdom.Document;
@@ -154,6 +156,44 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
         log.debug(responseAsString);
         //System.out.println(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
+    }
+
+    /**
+     * Call
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public Map<String, Object> callMapJsonService() throws ServletException, IOException{
+        final String responseAsString = this.callStringService();
+        System.out.println(responseAsString);
+        Assert.assertNotNull(responseAsString);
+        log.debug(responseAsString);
+        return JSONUtils.convertJsonToObject(responseAsString);
+    }
+
+    /**
+     *
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getSuccess() throws ServletException, IOException{
+        return (Map<String, Object>) callMapJsonService().get("success");
+    }
+
+    /**
+     *
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getError() throws ServletException, IOException{
+        return (Map<String, Object>) callMapJsonService().get("error");
     }
 
     /**e

@@ -25,6 +25,8 @@ dojo.declare(
          * override.
          */
         _updateStream : function(message){
+            var obj = dojo.fromJson(message.data.stream);
+            console.log(obj);
             console.info("stream ...", message);
         }
 

@@ -26,6 +26,7 @@ dojo.declare(
                      }
                  });
                  this.loadTimer();
+                 this.callCometd();
              },
 
              /*

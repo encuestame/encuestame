@@ -36,13 +36,13 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-utils</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-core</artifactId>
         </dependency>
@@ -192,19 +192,6 @@
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>ejb3-persistence</artifactId>
-        </dependency>
-        --><dependency>
-            <groupId>jboss</groupId>
-            <artifactId>javassist</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.el</groupId>
-            <artifactId>jboss-el</artifactId>
-        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -212,10 +199,6 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>antlr</groupId>
-            <artifactId>antlr</artifactId>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
@@ -226,10 +209,6 @@
             <artifactId>velocity</artifactId>
         </dependency>
         <dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-        </dependency>
-         <dependency>
             <groupId>jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
         </dependency>
@@ -246,24 +225,10 @@
             <artifactId>spring-integration-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.portlet</groupId>
-            <artifactId>portlet-api</artifactId>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.sf.spring-json</groupId>-->
-<!--            <artifactId>spring-json</artifactId>-->
-<!--        </dependency>-->
         <dependency>
-             <groupId>org.codehaus.jackson</groupId>
-             <artifactId>jackson-mapper-asl</artifactId>
-         </dependency>
-         <!-- OAuth
-         <dependency>
-            <groupId>org.codehaus.spring-security-oauth</groupId>
-            <artifactId>spring-security-oauth</artifactId>
-         </dependency>
-         -->
-         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
         </dependency>
@@ -271,78 +236,78 @@
             <groupId>xmlunit</groupId>
             <artifactId>xmlunit</artifactId>
         </dependency>
-         <dependency>
-             <groupId>joda-time</groupId>
-             <artifactId>joda-time</artifactId>
-         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
 
-                         <!-- Spring Framework Dependencies -->
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-webmvc</artifactId>
-                </dependency>
-               <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-            </dependency>
-            <!-- Spring WebFlow -->
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-binding</artifactId>
-            </dependency>
-            <!-- Spring Integration  -->
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-core</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-http</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-mail</artifactId>
-            </dependency>
-              <!-- Spring Security -->
-             <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>${spring.security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-ldap</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-openid</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-taglibs</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth</artifactId>
-            </dependency>
-          <dependency>
+        <!-- Spring Framework Dependencies -->
+        <dependency>
             <groupId>org.springframework</groupId>
-                <artifactId>spring-tx</artifactId>
-          </dependency>
-          <dependency>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <!-- Spring WebFlow -->
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-binding</artifactId>
+        </dependency>
+        <!-- Spring Integration -->
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-mail</artifactId>
+        </dependency>
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-openid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
         </dependency>
@@ -352,30 +317,30 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.ldap</groupId>
-                <artifactId>spring-ldap-core</artifactId>
-        </dependency>
-            <dependency>
-              <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-js</artifactId>
+            <artifactId>spring-ldap-core</artifactId>
         </dependency>
         <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-expression</artifactId>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-js</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
-           <groupId>org.scribe</groupId>
-           <artifactId>scribe</artifactId>
+            <groupId>org.scribe</groupId>
+            <artifactId>scribe</artifactId>
         </dependency>
-       <dependency>
-          <groupId>org.springframework.mobile</groupId>
-         <artifactId>spring-mobile-device</artifactId>
-      </dependency>
-      <!-- Commet API -->
-      <dependency>
+        <dependency>
+            <groupId>org.springframework.mobile</groupId>
+            <artifactId>spring-mobile-device</artifactId>
+        </dependency>
+        <!-- Commet API -->
+        <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>bayeux-api</artifactId>
         </dependency>
@@ -388,17 +353,9 @@
             <artifactId>cometd-java-annotations</artifactId>
         </dependency>
         <dependency>
-             <groupId>org.easymock</groupId>
+            <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
-         </dependency>
-         <dependency>
-             <groupId>com.google.code.facebookapi</groupId>
-             <artifactId>facebook-java-api</artifactId>
-          </dependency>
-          <dependency>
-               <groupId>com.google.api.client</groupId>
-               <artifactId>google-api-client</artifactId>
-          </dependency>
+        </dependency>
     </dependencies>
     <build>
         <filters>
@@ -417,42 +374,37 @@
                 </configuration>
             </plugin>
             <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-jar-plugin</artifactId>
-               <executions>
-                 <execution>
-                   <goals>
-                       <goal>test-jar</goal>
-                    </goals>
-                  </execution>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
-<!--         <testResources>
-            <testResource>
-                <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/config</directory>
-            </testResource>
-            <testResource>
-                <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/classes</directory>
-            </testResource>
-        </testResources> -->
+        <!-- <testResources> <testResource> <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/config</directory>
+            </testResource> <testResource> <directory>${basedir}/encuestame-war/src/main/webapp/WEB-INF/classes</directory>
+            </testResource> </testResources> -->
         <resources>
             <resource>
-              <directory>src/main/resources/</directory>
-              <includes>
-                <include>spring-test/*.*</include>
-                <include>properties-test/*.*</include>
-              </includes>
-              <filtering>true</filtering>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>spring-test/*.*</include>
+                    <include>properties-test/*.*</include>
+                </includes>
+                <filtering>true</filtering>
             </resource>
         </resources>
     </build>
 
 
-     <repositories>
-            <repository>
-                <id>local-project-repo</id>
-                <url>file:${basedir}/../lib/repository</url>
-            </repository>
-     </repositories>
+    <repositories>
+        <repository>
+            <id>local-project-repo</id>
+            <url>file:${basedir}/../lib/repository</url>
+        </repository>
+    </repositories>
 </project>

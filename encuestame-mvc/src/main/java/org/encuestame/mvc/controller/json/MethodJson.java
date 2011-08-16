@@ -20,5 +20,6 @@ package org.encuestame.mvc.controller.json;
  */
 public enum MethodJson {
     GET,
-    POST
+    POST,
+    PUT
 }
