@@ -15,8 +15,12 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.domain.CommentsSocialOptions;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 
@@ -43,7 +47,7 @@ public interface ICommentService {
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	List<CommentBean> getCommentsbyUser(final Integer maxResults,
+	List<CommentBean> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults,
     		final Integer start) throws EnMeNoResultsFoundException;
 
 	/**
@@ -74,7 +78,18 @@ public interface ICommentService {
 	 * @param start
 	 * @return
 	 */
-	Comment getCommentsbyTweetPoll(final Long tweetPollId,
+	List<Comment> getCommentsbyTweetPoll(final Long tweetPollId,
 	    		final Integer maxResults,
-	    		final Integer start);
+	    		final Integer start) throws EnMeTweetPollNotFoundException;
+
+	/**
+     * Vote comment social option.
+     * @param commentId
+     * @param vote
+     * @throws EnMeNoResultsFoundException
+     * @throws HibernateException
+     * @throws EnmeFailOperation
+     */
+	 void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
+		HibernateException, EnmeFailOperation;
 }

@@ -17,15 +17,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
-
+import java.util.List;
 import org.encuestame.business.service.CommentService;
-import org.encuestame.persistence.dao.CommentsOperations;
+import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.web.CommentBean;
+import org.hibernate.HibernateException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +41,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TestCommentService extends AbstractSpringSecurityContext {
 
 	@Autowired
-	private CommentsOperations commentsOperations;
+	private ICommentService commentsOperationsService;
 
 	/** {@link Comment} **/
 	private Comment comment;
-
-	/** {@link Account} **/
-	private Account account;
-
-	/** {@link UserAccount} **/
-	private UserAccount userAccount;
 
 	  /** Max Results. **/
     private Integer MAX_RESULTS = 10;
@@ -55,35 +52,95 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     /** Start Results. **/
     private Integer START = 0;
 
+    private TweetPoll tweetPoll;
+
 
 	@Before
 	public void initService(){
-		this.account = createAccount();
-		this.userAccount = createUserAccount("Diana", this.account);
 		final Question question = createQuestion("Why the sky is blue?","html");
-        final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), userAccount, question);
-		this.comment = createDefaultTweetPollComment("My first tweetPoll comment", tweetPoll, userAccount);
+        this.tweetPoll = createTweetPollPublicated(true, true, new Date(), getSpringSecurityLoggedUserAccount(), question);
+        // First comment on Tweetpoll
+		this.comment = createDefaultTweetPollComment("My first tweetPoll comment", tweetPoll, getSpringSecurityLoggedUserAccount());
+		// Second comment on Tweetpoll
+		createDefaultTweetPollComment("My Second tweetPoll comment", tweetPoll, getSpringSecurityLoggedUserAccount());
+		// Third comment on Tweetpoll
+		createDefaultTweetPollComment("My Third tweetPoll comment", tweetPoll, getSpringSecurityLoggedUserAccount());
+		// Fourth comment on Tweetpoll
+		createDefaultTweetPollComment("dumb tweetPoll question", tweetPoll, getSpringSecurityLoggedUserAccount());
 	}
 
+	/**
+	 * Test get comment by id and user
+	 * @throws HibernateException
+	 * @throws EnMeNoResultsFoundException
+	 */
 	@Test
-	public void testGetCommentbyId(){
+	public void testGetCommentbyId() throws EnMeNoResultsFoundException, HibernateException{
 		assertNotNull(this.comment);
-		final Comment comment = getCommentsOperations().getCommentById(this.comment.getCommentId());
-		System.out.println("Comment ID getted --> "+ comment.getCommentId());
+		final Comment comment = getCommentsOperationsService().getCommentbyId(this.comment.getCommentId());
 		assertEquals("Should be equals", this.comment.getCommentId(), comment.getCommentId());
 	}
 
 	/**
-	 * @return the commentsOperations
+	 * Test get comments by user.
+	 * @throws EnMeNoResultsFoundException
 	 */
-	public CommentsOperations getCommentsOperations() {
-		return commentsOperations;
+	@Test
+	public void testGetCommentsbyUser() throws EnMeNoResultsFoundException{
+		assertNotNull(this.comment);
+		final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(getSpringSecurityLoggedUserAccount(), this.MAX_RESULTS, this.START);
+		assertEquals("Should be equals", 4, commentsbyUser.size());
 	}
 
 	/**
-	 * @param commentsOperations the commentsOperations to set
+	 * Test get comments by keyword.
+	 * @throws EnMeExpcetion
 	 */
-	public void setCommentsOperations(final CommentsOperations commentsOperations) {
-		this.commentsOperations = commentsOperations;
+	@Test
+	public void testGetCommentsbyKeyword() throws EnMeExpcetion{
+		assertNotNull(this.comment);
+		final String keyword1 = "tweetPoll";
+		final String keyword2 = "My";
+		final String keyword3 = "question";
+		flushIndexes();
+		final List<CommentBean> commentsbyKeyword1 = getCommentsOperationsService().getCommentsbyKeyword(keyword1, this.MAX_RESULTS, null);
+		assertEquals("Should be equals", 4, commentsbyKeyword1.size());
+		final List<Comment> commentsbyKeyword2 = getCommentsOperations().getCommentsByKeyword(keyword2, this.MAX_RESULTS, null);
+		assertEquals("Should be equals", 3, commentsbyKeyword2.size());
+		final List<Comment> commentsbyKeyword3 = getCommentsOperations().getCommentsByKeyword(keyword3, this.MAX_RESULTS, null);
+		assertEquals("Should be equals", 1, commentsbyKeyword3.size());
+	}
+
+	/**
+	 * Test create comment
+	 * @throws EnMeNoResultsFoundException
+	 */
+	@Test
+	public void testCreateComment() throws EnMeNoResultsFoundException{
+		final CommentBean commentBean = createCommentBean("totally Agree", new Date(),
+				getSpringSecurityLoggedUserAccount().getUid(), this.tweetPoll.getTweetPollId(), null);
+		final Comment comment = getCommentsOperationsService().createComment(commentBean);
+		assertNotNull(comment);
+	}
+
+	@Test
+	public void testGetCommentsbyTweetPoll() throws EnMeTweetPollNotFoundException{
+		final List<Comment> comments = getCommentsOperationsService().getCommentsbyTweetPoll(
+				this.tweetPoll.getTweetPollId(), this.MAX_RESULTS, this.START);
+		assertEquals("Should be equals", 4, comments.size());
+	}
+
+	/**
+	 * @return the commentsOperationsService
+	 */
+	public ICommentService getCommentsOperationsService() {
+		return commentsOperationsService;
+	}
+
+	/**
+	 * @param commentsOperationsService the commentsOperationsService to set
+	 */
+	public void setCommentsOperationsService(final ICommentService commentsOperationsService) {
+		this.commentsOperationsService = commentsOperationsService;
 	}
 }

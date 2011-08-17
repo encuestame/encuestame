@@ -1870,6 +1870,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 	       comment.setCreatedAt(new Date());
 	       comment.setLikeVote(likeVote);
 	       comment.setPoll(poll);
+	       comment.setParentId(null);
 	       comment.setSurvey(survey);
 	       comment.setTweetPoll(tpoll);
 	       comment.setUser(user);

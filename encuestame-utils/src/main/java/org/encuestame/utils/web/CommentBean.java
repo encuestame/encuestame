@@ -62,6 +62,14 @@ public class CommentBean implements Serializable{
 	@JsonProperty(value = "tweetPoll_id")
 	private Long tweetPoll;
 
+	/** **/
+	@JsonProperty(value = "parent_id")
+	private Long parentId;
+
+	/** **/
+	@JsonProperty(value = "survey_id")
+	private Long surveyId;
+
 	/**
 	 * @return the commentId
 	 */
@@ -180,5 +188,35 @@ public class CommentBean implements Serializable{
 	 */
 	public void setTweetPoll(final Long tweetPoll) {
 		this.tweetPoll = tweetPoll;
+	}
+
+	/**
+	 * @return the parentId
+	 */
+	@JsonIgnore
+	public Long getParentId() {
+		return parentId;
+	}
+
+	/**
+	 * @param parentId the parentId to set
+	 */
+	public void setParentId(final Long parentId) {
+		this.parentId = parentId;
+	}
+
+	/**
+	 * @return the surveyId
+	 */
+	@JsonIgnore
+	public Long getSurveyId() {
+		return surveyId;
+	}
+
+	/**
+	 * @param surveyId the surveyId to set
+	 */
+	public void setSurveyId(final Long surveyId) {
+		this.surveyId = surveyId;
 	}
 }

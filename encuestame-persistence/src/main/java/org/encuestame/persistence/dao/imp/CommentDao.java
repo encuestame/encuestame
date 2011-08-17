@@ -96,7 +96,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
 	 * @see org.encuestame.persistence.dao.CommentsOperations#getListCommentsByKeyword(java.lang.String, java.lang.Integer, java.lang.Long[])
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Comment> getListCommentsByKeyword(
+	public List<Comment> getCommentsByKeyword(
 			final String keyword,
 	        final Integer maxResults,
 	        final Long[] excludes){
