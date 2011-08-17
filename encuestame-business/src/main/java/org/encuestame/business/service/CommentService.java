@@ -41,7 +41,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService extends AbstractBaseService implements ICommentService{
 
-	/** Log. **/
+    /** Log. **/
     private Log log = LogFactory.getLog(this.getClass());
 
     private Long VOTE_VALUE = 1L;
@@ -51,25 +51,25 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#getCommentbyId(java.lang.Long)
      */
     public Comment getCommentbyId(final Long commentId) throws EnMeNoResultsFoundException, HibernateException{
-    	Comment comment = getCommentsOperations().getCommentByIdandUser(
-    			commentId,  getUserAccount(getUserPrincipalUsername()));
-    	if (comment == null){
-    	    throw new EnMeCommentNotFoundException("comment not found");
-    	}
-    	return comment;
+        Comment comment = getCommentsOperations().getCommentByIdandUser(
+                commentId,  getUserAccount(getUserPrincipalUsername()));
+        if (comment == null){
+            throw new EnMeCommentNotFoundException("comment not found");
+        }
+        return comment;
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#getCommentsbyUser(java.lang.Integer, java.lang.Integer)
      */
-    public List<CommentBean> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults,
-    		final Integer start) throws EnMeNoResultsFoundException{
-    	final List<CommentBean> commentBean = new ArrayList<CommentBean>();
-    	final List<Comment> comments = getCommentsOperations().getCommentsbyUser(
-    			userAcc, maxResults, start);
-    	commentBean.addAll(ConvertDomainBean.convertListCommentDomainToBean(comments));
-    	return commentBean;
+    public List<CommentBean> getCommentsbyUser(final Integer maxResults,
+            final Integer start) throws EnMeNoResultsFoundException{
+        final List<CommentBean> commentBean = new ArrayList<CommentBean>();
+        final List<Comment> comments = getCommentsOperations().getCommentsbyUser(
+                getUserAccount(getUserPrincipalUsername()), maxResults, start);
+        commentBean.addAll(ConvertDomainBean.convertListCommentDomainToBean(comments));
+        return commentBean;
     }
 
     /*
@@ -77,20 +77,20 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#getCommentsbyKeyword(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
     public List<CommentBean> getCommentsbyKeyword(
-    		final String keyword,
-    		final Integer maxResults,
-    		final Integer start) throws EnMeExpcetion{
-    	List<CommentBean> commentBean = new ArrayList<CommentBean>();
-    	List<Comment> comments = new ArrayList<Comment>();
-    	if (keyword == null){
-    		throw new EnMeExpcetion("keyword is missing");
-    	}
-    	else {
-    		comments = getCommentsOperations().getCommentsByKeyword(keyword, maxResults, null);
-    		log.info(" Comments by keyword size" + comments.size());
-    		commentBean.addAll(ConvertDomainBean.convertListCommentDomainToBean(comments));
-    	}
-    	return commentBean;
+            final String keyword,
+            final Integer maxResults,
+            final Integer start) throws EnMeExpcetion{
+        List<CommentBean> commentBean = new ArrayList<CommentBean>();
+        List<Comment> comments = new ArrayList<Comment>();
+        if (keyword == null){
+            throw new EnMeExpcetion("keyword is missing");
+        }
+        else {
+            comments = getCommentsOperations().getCommentsByKeyword(keyword, maxResults, null);
+            log.info(" Comments by keyword size" + comments.size());
+            commentBean.addAll(ConvertDomainBean.convertListCommentDomainToBean(comments));
+        }
+        return commentBean;
     }
 
     /*
@@ -98,12 +98,12 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#createComment(org.encuestame.utils.web.CommentBean)
      */
     public Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException{
-    	final Comment comment = new Comment();
-    	comment.setComment(commentBean.getComment());
-    	comment.setCreatedAt(commentBean.getCreatedAt());
-    	comment.setUser(getUserAccount(getUserPrincipalUsername()));
-    	getCommentsOperations().saveOrUpdate(comment);
-    	return comment;
+        final Comment comment = new Comment();
+        comment.setComment(commentBean.getComment());
+        comment.setCreatedAt(commentBean.getCreatedAt());
+        comment.setUser(getUserAccount(getUserPrincipalUsername()));
+        getCommentsOperations().saveOrUpdate(comment);
+        return comment;
     }
 
     /*
@@ -111,16 +111,16 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#getCommentsbyTweetPoll(java.lang.Long, java.lang.Integer, java.lang.Integer)
      */
     public List<Comment> getCommentsbyTweetPoll(final Long tweetPollId,
-    		final Integer maxResults,
-    		final Integer start) throws EnMeTweetPollNotFoundException{
-    	List<Comment> tweetPollComments = new ArrayList<Comment>();
-    	final TweetPoll tpoll = getTweetPollDao().getTweetPollById(tweetPollId);
-    	if (tpoll == null){
-    		throw new EnMeTweetPollNotFoundException("keyword is missing");
-    	}else {
-    		tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tpoll, maxResults, start);
-    	}
-    	return tweetPollComments;
+            final Integer maxResults,
+            final Integer start) throws EnMeTweetPollNotFoundException{
+        List<Comment> tweetPollComments = new ArrayList<Comment>();
+        final TweetPoll tpoll = getTweetPollDao().getTweetPollById(tweetPollId);
+        if (tpoll == null){
+            throw new EnMeTweetPollNotFoundException("keyword is missing");
+        }else {
+            tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tpoll, maxResults, start);
+        }
+        return tweetPollComments;
     }
 
     /*
@@ -128,15 +128,15 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#voteCommentSocialOption(java.lang.Long, org.encuestame.persistence.domain.CommentsSocialOptions)
      */
     public void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
-    									HibernateException, EnmeFailOperation{
-    	final Comment comment = this.getCommentbyId(commentId);
-		if (vote.equals(CommentsSocialOptions.LIKE_VOTE)) {
-			this.CommentLikeVote(comment);
-		} else if (vote.equals(CommentsSocialOptions.DISLIKE_VOTE)) {
-			this.CommentDislikeVote(comment);
-		} else {
-			throw new EnmeFailOperation("Social option not found");
-		}
+                                        HibernateException, EnmeFailOperation{
+        final Comment comment = this.getCommentbyId(commentId);
+        if (vote.equals(CommentsSocialOptions.LIKE_VOTE)) {
+            this.CommentLikeVote(comment);
+        } else if (vote.equals(CommentsSocialOptions.DISLIKE_VOTE)) {
+            this.CommentDislikeVote(comment);
+        } else {
+            throw new EnmeFailOperation("Social option not found");
+        }
 
     }
 
@@ -145,9 +145,9 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @param comment
      */
     private void CommentDislikeVote(final Comment comment){
-    	long lastDislikeVote = comment.getDislikeVote();
-    	lastDislikeVote += this.VOTE_VALUE;
-    	comment.setDislikeVote(lastDislikeVote);
+        long lastDislikeVote = comment.getDislikeVote();
+        lastDislikeVote += this.VOTE_VALUE;
+        comment.setDislikeVote(lastDislikeVote);
 
     }
 
@@ -156,8 +156,8 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @param comment
      */
     private void CommentLikeVote(final Comment comment){
-    	long lastLikeVote = comment.getLikeVote();
-    	lastLikeVote += this.VOTE_VALUE;
-    	comment.setDislikeVote(lastLikeVote);
+        long lastLikeVote = comment.getLikeVote();
+        lastLikeVote += this.VOTE_VALUE;
+        comment.setDislikeVote(lastLikeVote);
     }
 }

@@ -14,6 +14,7 @@ dojo.provide("encuestame.org.core.gadget.Comments");
 
 dojo.require("encuestame.org.core.gadget.Gadget");
 dojo.require("encuestame.org.core.comments.Comment");
+dojo.require("encuestame.org.core.comments.Comment");
 
 dojo.declare(
     "encuestame.org.core.gadget.Comments",
@@ -39,7 +40,23 @@ dojo.declare(
          * override.
          */
         _updateStream : function(message){
-            console.info("comments ...", message);
+             var obj = dojo.fromJson(message.data.comments);
+             this._printStream(obj);
+        },
+
+        /*
+         * create item comment.
+         */
+        createItem : function(item){
+            return new encuestame.org.core.comments.Comment({comment : item , minimizeFormat : true});
+        },
+
+        /*
+         *
+         * @returns
+         */
+        getNode : function(){
+            return this._comments;
         }
 
 });

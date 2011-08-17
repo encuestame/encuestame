@@ -41,6 +41,25 @@ dojo.declare(
                  this.callCometd();
              },
 
+             _printStream : function(items){
+                 dojo.empty(this.getNode());
+                  dojo.forEach(items,
+                          dojo.hitch(this, function(item, index) {
+                          var widget = this.createItem(item);
+                          this.getNode().appendChild(widget.domNode);
+                   }));
+             },
+
+             /*
+              *
+              */
+             createItem : function(item){},
+
+             /*
+              *
+              */
+             getNode : function(){return "";},
+
              /*
               * override.
               */

@@ -31,58 +31,58 @@ import org.hibernate.HibernateException;
  */
 public interface ICommentService {
 
-	/**
-	 * Get comment by id.
-	 * @param commentId
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 * @throws HibernateException
-	 */
-	Comment getCommentbyId(final Long commentId) throws EnMeNoResultsFoundException, HibernateException;
+    /**
+     * Get comment by id.
+     * @param commentId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws HibernateException
+     */
+    Comment getCommentbyId(final Long commentId) throws EnMeNoResultsFoundException, HibernateException;
 
-	/**
-	 * Get comments by user.
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	List<CommentBean> getCommentsbyUser(final UserAccount userAcc, final Integer maxResults,
-    		final Integer start) throws EnMeNoResultsFoundException;
+    /**
+     * Get comments by user.
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<CommentBean> getCommentsbyUser(final Integer maxResults,
+            final Integer start) throws EnMeNoResultsFoundException;
 
-	/**
-	 * Get comments by keyword.
-	 * @param keyword
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	List<CommentBean> getCommentsbyKeyword(
-	    		final String keyword,
-	    		final Integer maxResults,
-	    		final Integer start) throws EnMeExpcetion;
+    /**
+     * Get comments by keyword.
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<CommentBean> getCommentsbyKeyword(
+                final String keyword,
+                final Integer maxResults,
+                final Integer start) throws EnMeExpcetion;
 
-	/**
-	 * Create comment.
-	 * @param commentBean
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException;
+    /**
+     * Create comment.
+     * @param commentBean
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Comment createComment(final CommentBean commentBean) throws EnMeNoResultsFoundException;
 
-	/***
-	 * Get comments by TweetPoll.
-	 * @param tweetPollId
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 */
-	List<Comment> getCommentsbyTweetPoll(final Long tweetPollId,
-	    		final Integer maxResults,
-	    		final Integer start) throws EnMeTweetPollNotFoundException;
+    /***
+     * Get comments by TweetPoll.
+     * @param tweetPollId
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Comment> getCommentsbyTweetPoll(final Long tweetPollId,
+                final Integer maxResults,
+                final Integer start) throws EnMeTweetPollNotFoundException;
 
-	/**
+    /**
      * Vote comment social option.
      * @param commentId
      * @param vote
@@ -90,6 +90,6 @@ public interface ICommentService {
      * @throws HibernateException
      * @throws EnmeFailOperation
      */
-	 void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
-		HibernateException, EnmeFailOperation;
+     void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
+        HibernateException, EnmeFailOperation;
 }

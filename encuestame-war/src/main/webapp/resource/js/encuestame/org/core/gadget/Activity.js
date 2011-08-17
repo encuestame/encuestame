@@ -43,17 +43,13 @@ dojo.declare(
             this._printStream(obj);
         },
 
-        /*
-         *
-         */
-        _printStream : function(items){
-            dojo.empty(this._list);
-             dojo.forEach(items,
-                     dojo.hitch(this, function(item, index) {
-                     var widget = new encuestame.org.core.gadget.ActivityItem({item: item});
-                     this._list.appendChild(widget.domNode);
-              }));
+        createItem : function(item){
+            return new encuestame.org.core.gadget.ActivityItem({item: item});
         },
+
+        getNode : function(){
+            return this._list;
+        }
 });
 
 /**
