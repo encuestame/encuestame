@@ -1864,11 +1864,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final TweetPoll tpoll,
 			final Survey survey,
 			final Poll poll,
-			final UserAccount user){
+			final UserAccount user,
+			final Long dislikeVote){
 	       final Comment comment = new Comment();
 	       comment.setComment(comm);
 	       comment.setCreatedAt(new Date());
 	       comment.setLikeVote(likeVote);
+	       comment.setDislikeVote(dislikeVote);
 	       comment.setPoll(poll);
 	       comment.setParentId(null);
 	       comment.setSurvey(survey);
@@ -1887,7 +1889,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final String comment,
 			final TweetPoll tpoll,
 			final UserAccount userAcc){
-		return this.createComment(comment, null, tpoll, null, null, userAcc);
+		return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
 	}
 
 	/**
@@ -1899,7 +1901,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final String comment,
 			final Poll poll,
 			final UserAccount userAcc){
-		return this.createComment(comment, null, null, null, poll, userAcc);
+		return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
 	}
 
 	/**
@@ -1911,6 +1913,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final String comment,
 			final Survey survey,
 			final UserAccount userAcc){
-		return this.createComment(comment, null, null, survey, null, userAcc);
+		return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
 	}
 }

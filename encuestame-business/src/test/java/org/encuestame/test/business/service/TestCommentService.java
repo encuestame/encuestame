@@ -88,7 +88,7 @@ public class TestCommentService extends AbstractSpringSecurityContext {
 	@Test
 	public void testGetCommentsbyUser() throws EnMeNoResultsFoundException{
 		assertNotNull(this.comment);
-		final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(getSpringSecurityLoggedUserAccount(), this.MAX_RESULTS, this.START);
+		final List<CommentBean> commentsbyUser = getCommentsOperationsService().getCommentsbyUser(this.MAX_RESULTS, this.START);
 		assertEquals("Should be equals", 4, commentsbyUser.size());
 	}
 
