@@ -96,12 +96,28 @@ public interface IApplicationServices  extends ServiceOperations {
      */
     void setFrontEndService(final IFrontEndService frontEndService);
 
+    /**
+     *
+     * @return
+     */
     IPictureService getPictureService();
 
+    /**
+     *
+     * @param pictureService
+     */
     void setPictureService(IPictureService pictureService);
 
+    /**
+     *
+     * @return
+     */
     SearchServiceOperations getSearchService();
 
+    /**
+     *
+     * @param searchService
+     */
     void setSearchService(SearchServiceOperations searchService);
 
     /**
@@ -109,5 +125,33 @@ public interface IApplicationServices  extends ServiceOperations {
      */
     IDashboardService getDashboardService();
 
+    /**
+     *
+     * @param dashboardService
+     */
     void setDashboardService(final IDashboardService dashboardService);
+
+    /**
+     *
+     * @return
+     */
+    StreamOperations getStreamOperations();
+
+    /**
+     *
+     * @param streamOperations
+     */
+    void setStreamOperations(final StreamOperations streamOperations);
+
+    /**
+     *
+     * @return
+     */
+    ICommentService getCommentService();
+
+    /**
+     * @param commentService the commentService to set
+     */
+    void setCommentService(final ICommentService commentService);
+
 }

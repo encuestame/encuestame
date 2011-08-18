@@ -28,5 +28,10 @@ dojo.declare(
 
         username : "",
 
-        postCreate : function(){}
+        /*
+         *
+         */
+        postMixInProperties: function(){
+            this.contextPath = encuestame.contextDefault;
+        }
 });

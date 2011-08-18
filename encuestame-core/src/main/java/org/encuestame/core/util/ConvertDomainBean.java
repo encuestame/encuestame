@@ -18,9 +18,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import junit.framework.Assert;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IFolder;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
@@ -56,6 +60,7 @@ import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
@@ -805,13 +810,16 @@ public class ConvertDomainBean {
      */
     public static final DashboardBean convertDashboardDomaintoBean(final Dashboard dashboard){
         final DashboardBean dashboardBean = new DashboardBean();
-        dashboardBean.setDashboardId(dashboard.getBoardId());
-        dashboardBean.setDashboardName(dashboard.getPageBoardName());
-        dashboardBean.setDashboardDesc(dashboard.getDescription());
-        dashboardBean.setFavorite(dashboard.getFavorite());
-        dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
-        dashboardBean.setLayout((dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString()));
-        dashboardBean.setSequence(dashboard.getBoardSequence());
+        if (dashboard != null) {
+            dashboardBean.setDashboardId(dashboard.getBoardId());
+            dashboardBean.setDashboardName(dashboard.getPageBoardName());
+            dashboardBean.setDashboardDesc(dashboard.getDescription());
+            dashboardBean.setFavorite(dashboard.getFavorite());
+            dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
+            dashboardBean.setLayout((dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString()));
+            dashboardBean.setSequence(dashboard.getBoardSequence());
+            dashboardBean.setSelected(dashboard.getSelectedByDefault() == null ? false : dashboard.getSelectedByDefault());
+        }
         return dashboardBean;
     }
 
@@ -871,4 +879,39 @@ public class ConvertDomainBean {
             }
         return gadgetBean;
     }
+
+    /**
+     * Convert Domain to bean.
+     * @param commentDomain
+     * @return
+     */
+   public static final CommentBean convertCommentDomainToBean(final Comment commentDomain){
+       final CommentBean commentBean = new CommentBean();
+       Assert.assertNotNull(commentDomain);
+       commentBean.setCommentId(commentDomain.getCommentId());
+       commentBean.setComment(commentDomain.getComment());
+       commentBean.setCreatedAt(commentDomain.getCreatedAt());
+       commentBean.setDislikeVote(commentDomain.getDislikeVote() == null ? null : commentDomain.getDislikeVote());
+       commentBean.setLikeVote(commentDomain.getLikeVote() == null ? null : commentDomain.getLikeVote());
+       commentBean.setPollId(commentDomain.getPoll() == null ? null : commentDomain.getPoll().getPollId());
+       commentBean.setTweetPoll(commentDomain.getTweetPoll() == null ? null : commentDomain.getTweetPoll().getTweetPollId());
+       commentBean.setSurveyId(commentDomain.getSurvey() == null ? null : commentDomain.getSurvey().getSid());
+       commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
+       commentBean.setUserAccountId(commentDomain.getUser().getUid());
+       return commentBean;
+   }
+
+   /**
+    * Convert Comment list domain to comment list bean
+    * @param comments
+    * @return
+    */
+
+   public static final List<CommentBean> convertListCommentDomainToBean(final List<Comment> commentList){
+       final List<CommentBean> commentsBean = new LinkedList<CommentBean>();
+       for (Comment comment : commentList) {
+           commentsBean.add(ConvertDomainBean.convertCommentDomainToBean(comment));
+       }
+       return commentsBean;
+     }
 }

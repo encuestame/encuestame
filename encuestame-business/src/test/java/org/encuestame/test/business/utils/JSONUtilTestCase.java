@@ -52,7 +52,7 @@ public class JSONUtilTestCase extends TestCase {
 
         //System.out.println(mapper.writeValueAsString(bz));
        final Map d = mapper.readValue(json, Map.class);
-       System.out.println(d);
+       //System.out.println(d);
 
 
        TypeReference<HashMap<String,Object>> typeRef
@@ -61,6 +61,6 @@ public class JSONUtilTestCase extends TestCase {
                   >() {};
        HashMap<String,Object> o
             = mapper.readValue(json, typeRef);
-       System.out.println("Got " + o);
+       //System.out.println("Got " + o);
     }
 }

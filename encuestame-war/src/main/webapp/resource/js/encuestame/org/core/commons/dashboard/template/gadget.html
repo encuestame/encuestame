@@ -1,8 +1,10 @@
 <div class="web-gadget dojoDndItem" dndType="gadget">
     <div class="gad-title dojoDndHandle dojoDndItem">
-        <div class="gad-des">Gadget Title</div>
+        <div class="gad-des" dojoAttachPoint="_title">Gadget Title</div>
+        <div class="gad-actions">
+            <a href="#"  dojoAttachPoint="_remove">Remove</a>
+        </div>
     </div>
-    <div class="gad-content">
-        gadget ${data.id}
+    <div class="gad-content" dojoAttachPoint="_content">
     </div>
 </div>

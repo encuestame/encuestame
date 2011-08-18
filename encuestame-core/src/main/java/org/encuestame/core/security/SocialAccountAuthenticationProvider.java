@@ -53,7 +53,7 @@ public class SocialAccountAuthenticationProvider implements AuthenticationProvid
                 UserDetails userDetails;
                 try {
                     userDetails = socialUserService.loadAccountConnection(response.getProfileId(), response.getProvider());
-                    logger.debug("user details "+userDetails);
+                    //logger.debug("user details "+userDetails);
                 } catch (EnMeNoSuchAccountConnectionException e) {
                     throw new BadCredentialsException(e.getMessage());
                 }
@@ -77,7 +77,7 @@ public class SocialAccountAuthenticationProvider implements AuthenticationProvid
         result.setProfileId(authentication.getProfileId());
         result.setProvider(authentication.getProvider());
         if (logger.isDebugEnabled()) {
-            logger.debug("createSuccessAuthentication "+result);
+            //logger.debug("createSuccessAuthentication "+result);
         }
         return result;
     }

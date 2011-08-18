@@ -40,6 +40,7 @@ import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.AbstractSecurityContext;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
+import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
@@ -50,6 +51,7 @@ import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
@@ -426,6 +428,22 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
+     *
+     * @return
+     */
+    public ICommentService getCommentService(){
+        return getServiceManager().getApplicationServices().getCommentService();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public StreamOperations getStreamOperations(){
+        return getServiceManager().getApplicationServices().getStreamOperations();
+    }
+
+    /**
      * Get {@link SecurityService}.
      * @return
      */
@@ -580,113 +598,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         return hashtagsList;
     }
 
-
-    /**
-     * Convert Notification Message.
-     * @param notificationEnum
-     * @param request
-     * @param objects
-     * @return
-     */
-    public String convertNotificationMessage(final NotificationEnum notificationEnum,
-            final HttpServletRequest request, final Object[] objects){
-           String message = null;
-           if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)) {
-               message = getMessage("notification.tweetpoll.created", request, null);
-           } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)) {
-               message = getMessage("notification.tweetpoll.removed", request, objects);
-           } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)) {
-               message = getMessage("notification.tweetpoll.publish", request, null);
-           } else if(notificationEnum.equals(NotificationEnum.SOCIAL_MESSAGE_PUBLISHED)) {
-               message = getMessage("notification.social.tweet.published", request, objects);
-           }
-           return message;
-    }
-
-    /**
-    *
-    * @param notification
-    * @param request
-    * @return
-    */
-   public UtilNotification convertNotificationToBean(
-           final Notification notification, final HttpServletRequest request) {
-        final UtilNotification utilNotification = new UtilNotification();
-        utilNotification.setDate(DateUtil.SIMPLE_DATE_FORMAT.format(notification.getCreated()));
-        utilNotification.setDescription(this.convertNotificationMessage(notification.getDescription(), request, new Object[]{}));
-        utilNotification.setId(notification.getNotificationId());
-        utilNotification.setHour(DateUtil.SIMPLE_TIME_FORMAT.format(notification.getCreated()));
-        utilNotification.setIcon(convertNotificationIconMessage(notification.getDescription()));
-        utilNotification.setType(notification.getDescription().name());
-        utilNotification.setUrl(notification.getUrlReference());
-        utilNotification.setAdditionalDescription(notification.getAdditionalDescription());
-        return utilNotification;
-   }
-
-   /**
-    * Convert a List of {@link Notification} on a List of {@link UtilNotification}.
-    * @param notifications List of {@link Notification}.
-    * @param request {@link HttpServletRequest}
-    * @return
-    */
-    public List<UtilNotification> convertNotificationList(
-            final List<Notification> notifications,
-            final HttpServletRequest request) {
-        final List<UtilNotification> utilNotifications = new ArrayList<UtilNotification>();
-        for (Notification notification : notifications) {
-            utilNotifications.add(convertNotificationToBean(notification,
-                    request));
-        }
-        return utilNotifications;
-    }
-
-    /**
-     * Classify notifications by {@link DateClasificatedEnum}.
-     */
-    @SuppressWarnings("unchecked")
-    public HashMap<DateClasificatedEnum, List<UtilNotification>> classifyNotificationList(
-            final List<UtilNotification> utilNotifications) {
-        final HashMap<DateClasificatedEnum, List<UtilNotification>> response = new HashMap<DateClasificatedEnum, List<UtilNotification>>();
-        for (UtilNotification utilNotification : utilNotifications) {
-            //TODO: ENCUESTAME-233
-            log.debug(utilNotification.toString());
-        }
-        //TODO: by default awaiting ENCUESTAME-233.
-        response.put(DateClasificatedEnum.TODAY, utilNotifications);
-        response.put(DateClasificatedEnum.LAST_MONTH, ListUtils.EMPTY_LIST);
-        response.put(DateClasificatedEnum.FEW_MONTHS_AGO, ListUtils.EMPTY_LIST);
-        response.put(DateClasificatedEnum.LAST_YEAR, ListUtils.EMPTY_LIST);
-        response.put(DateClasificatedEnum.LONG_TIME_AGO, ListUtils.EMPTY_LIST);
-        response.put(DateClasificatedEnum.THIS_MONTH, ListUtils.EMPTY_LIST);
-        response.put(DateClasificatedEnum.THIS_WEEK, ListUtils.EMPTY_LIST);
-        return response;
-    }
-
-    /**
-     * Convert {@link Notification} icon message.
-     * @param notificationEnum
-     * @return
-     */
-   public String convertNotificationIconMessage(final NotificationEnum notificationEnum){
-       String icon = null;
-       /*
-        * Help: helpImage
-        * Error Network: netWorkErrorImage
-        * Like: likeImage
-        * Warning: warningImage
-        * Unlike: unLikeImage
-        * Twitter: twitterImage
-        * Poll: pollImage
-        */
-       if(notificationEnum.equals(NotificationEnum.TWEETPOL_CREATED)){
-           icon = "twitterImage";
-       } else if(notificationEnum.equals(NotificationEnum.TWEETPOL_REMOVED)){
-           icon = "warningImage";
-       } else if(notificationEnum.equals(NotificationEnum.TWEETPOLL_PUBLISHED)){
-           icon = "twitterImage";
-       }
-       return icon;
-   }
 
    /**
     * If is not complete check and validate current status.

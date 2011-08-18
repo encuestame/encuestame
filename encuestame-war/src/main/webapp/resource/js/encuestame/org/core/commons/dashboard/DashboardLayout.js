@@ -70,29 +70,59 @@ dojo.declare(
          * Load layout
          * @param layout layout to load.
          */
-        loadLayout : function(layout /*string layout*/){
-            var gadgets = [{id:5, name:"gadget1"}, {id:1, name:"gadget2"}];
+        loadLayout : function(layout /*string layout*/) {
+            this.cleanLayout();
             var node = null;
             if (layout == this._type[0]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[1]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[2]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[3]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else if (layout == this._type[4]) {
-                this._layout.appendChild(this._createLayoutAAA(gadgets));
+                this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else {
                 //error.
+                console.error("no layout")
             }
             if(node != null){
                 this._layout.appendChild(node);
             }
         },
 
-        _addGadget : function(name){
-            console.debug("add gadget", name);
+        /*
+         *
+         */
+        cleanLayout : function() {
+            console.debug("cleaning gadgets _widgetsGadgets...", this._listColumns);
+            dojo.forEach(this._listColumns, dojo.hitch(this, function(widget) {
+                console.debug("cleaning gadgets...", widget);
+                widget.cleanColumn();
+                widget.destroyRecursive(true);
+            }));
+            this._listColumns = [];
+        },
+
+        /*
+         *
+         */
+        _addGadget : function(widget, name) {
+            if(widget.id == this.id){
+                var params = {boardId: this.dashboard.id, gadgetId: name};
+                var load = dojo.hitch(this, function(data) {
+                    if (data.success) {
+                        console.debug("_addGadget", data);
+                        var gadget = data.success.gadget;
+                        dijit.byId("a1_"+this.id).addGadget(gadget);
+                    }
+                });
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                encuestame.service.xhrGet(encuestame.service.gadget.add, params, load, error);
+            }
         },
 
         /*
@@ -106,12 +136,10 @@ dojo.declare(
          * create layout AAA.
          */
         _createLayoutAAA : function(gadgets) {
-            this._listColumns = [];
             var wrapper = document.createElement("div");
             wrapper.appendChild(this._createColumn("1", "a1_"+this.id, gadgets).domNode);
             wrapper.appendChild(this._createColumn("2", "a2_"+this.id, gadgets).domNode);
             wrapper.appendChild(this._createColumn("3", "a3_"+this.id, gadgets).domNode);
-            //console.debug("_createLayoutAAA", wrapper);
             return wrapper;
         },
 
@@ -121,7 +149,7 @@ dojo.declare(
         _createLayoutA : function() {
             var wrapper = document.createElement("div");
             wrapper.appendChild(this._createColumn("1", "a1_"+this.id));
-            console.debug("_createLayoutA", wrapper);
+            //console.debug("_createLayoutA", wrapper);
             return wrapper;
         },
 
@@ -130,8 +158,15 @@ dojo.declare(
          *
          */
         _createColumn : function(i, id, gadgets){
-            var widget = new encuestame.org.core.commons.dashboard.LayoutColumn({ id: id, column : i, gadgets : gadgets, dashboard: this.dashboard}, "ul");
-            this._listColumns.push(widget);
+             var widget = new encuestame.org.core.commons.dashboard.LayoutColumn(
+                                {
+                                    id : id,
+                                    column : i,
+                                    gadgets : gadgets,
+                                    dashboard : this.dashboard
+                                }, "ul");
+             this._listColumns.push(widget);
+             widget.startup();
             return widget;
         }
     }
@@ -152,6 +187,7 @@ dojo.declare(
 
             column : "1",
 
+            _gadgets : 0,
 
             dashboard : null,
 
@@ -179,34 +215,77 @@ dojo.declare(
              *
              */
             postCreate : function() {
+                console.debug("init _widgetsGadgets", this._widgetsGadgets);
                 this._addDndSupport();
                 this._addGadgets();
             },
+
+            /*
+             *
+             */
+            cleanColumn : function() {
+                //this.sourceDndWidget.destroy();
+                console.debug("cleanColumn ...  "+this.column , this._gadgets);
+                console.debug("cleanColumn ... "+this.column , this.sourceDndWidget);
+                if(this._gadgets > 0) {
+                    dojo.forEach(this._widgetsGadgets, dojo.hitch(this, function(widget) {
+                        //console.debug("cleaning gadgets...", widget);
+                        widget._widgetInside.destroyRecursive(true);
+                        widget.destroyRecursive(true);
+                    }));
+                }
+                this._widgetsGadgets = [];
+            },
+
+            /*
+            *
+            */
+           _addEmtpyContent : function(node){
+               var li = document.createElement("div");
+               dojo.addClass(li, "empty-text");
+               li.innerHTML = "Layout empty,  add a new gadget here.";
+               node.appendChild(li);
+           },
 
 
             /*
              * create gadgets.
              */
             _createGadget : function(data /* gadget info*/) {
-                var gatget = new encuestame.org.core.commons.dashboard.Gadget({data : data});
+                var gatget = new encuestame.org.core.commons.dashboard.Gadget({data : data, dashboardId: this.dashboard.id});
+                gatget.startup();
                 return gatget;
             },
-
 
             /*
              *
              */
             _addGadgets : function(){
               var itemArray = [];
-              //console.debug("this.gadgets", this.gadgets);
+              console.debug("Column "+this.column+" Adding Gadgets -->", this.gadgets.length);
               dojo.forEach(this.gadgets, dojo.hitch(this, function(item) {
-                  //console.debug("item", item);
-                  var widget = this._createGadget(item);
-                  this._widgetsGadgets.push(widget);
-                  itemArray.push(widget.domNode);
+                  console.debug(item.gadget_column, parseInt(this.column));
+                  if (item.gadget_column == parseInt(this.column)) {
+                      var widget = this._createGadget(item);
+                      this._widgetsGadgets.push(widget);
+                      itemArray.push(widget.domNode);
+                      this._gadgets++;
+                  }
               }));
-              //console.debug("this.sourceDndWidget", this.sourceDndWidget);
+              console.debug("Column "+this.column+" Adding Gadgets -->", this._widgetsGadgets.length);
               this.sourceDndWidget.insertNodes(false, itemArray);
+            },
+
+            /**
+             *
+             */
+            addGadget : function(data){
+                console.debug("add gadget ", data);
+                var itemArray = [];
+                var widget = this._createGadget(data);
+                this._widgetsGadgets.push(widget);
+                itemArray.push(widget.domNode);
+                this.sourceDndWidget.insertNodes(false, itemArray);
             },
 
             /*
@@ -225,7 +304,6 @@ dojo.declare(
              * on drop on folder.
              */
             onDndColumn : function(source, nodes, copy, target) {
-                    console.debug("//////////////////////////////////////////////////onDndColumn", nodes);
                     dojo.forEach(dojo.query(".dojoDndItemSelected"), function(item){
                         dojo.removeClass(item, "dojoDndItemSelected");
                     });
@@ -239,8 +317,8 @@ dojo.declare(
                         console.debug("same");
                     } else {
                         dojo.forEach(this.sourceDndWidget.getSelectedNodes(), dojo.hitch(this, function(item) {
-                              console.debug("DND item", item);
-                              console.debug("DND item", this.dashboard);
+                              //console.debug("DND item", item);
+                              //console.debug("DND item", this.dashboard);
                               var gid = item.getAttribute('gid');
                               if (gid) {
                                   this._addDndGadgetItem({
@@ -472,17 +550,6 @@ dojo.declare(
                     this.before = true;
                 };
                 dojo.connect(source, "onDndDrop", dojo.hitch(this, this.onDndColumn));
-            },
-
-
-            /*
-             *
-             */
-            _addEmtpyContent : function(node){
-                var li = document.createElement("div");
-                dojo.addClass(li, "empty-text");
-                li.innerHTML = "Drag your gadgets here or add a new gadget.";
-                node.appendChild(li);
             }
 });
 

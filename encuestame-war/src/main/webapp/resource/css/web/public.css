@@ -29,7 +29,7 @@ div.web-header div.logo {
 }
 
 div.web-header div.logoEncuestame {
-    background-image: url(../images/logos/encuestame_logoalone.png);
+    background-image: url(../../images/logos/encuestame_logoalone.png);
     background-repeat: no-repeat;
 }
 
@@ -1518,7 +1518,7 @@ div.addAnswers div.options {
 }
 
 div.options .saveButton {
-    background-image: "url(../images/icons/add.png)";
+    background-image: "url(../../images/icons/add.png)";
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
@@ -1827,7 +1827,7 @@ div.publishWrapper div.itemPublish .check {
 div.publishWrapper div.itemPublish .account {
     display: inline-block;
     width: 200px;
-    background-image: url(../images/icons/twitter-logo-small.png);
+    background-image: url(../../images/icons/twitter-logo-small.png);
     background-repeat: no-repeat;
     padding-left: 44px;
     width: 200px;

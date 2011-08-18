@@ -521,15 +521,17 @@ encuestame.service.folder.list = function(type) {
     return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/list.json";
 };
 encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
-encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
 encuestame.service.dashboard = {};
 encuestame.service.dashboard.create = encuestame.contextWidget()+"/api/common/dashboard/create-dashboard.json";
 encuestame.service.dashboard.list = encuestame.contextWidget()+"/api/common/dashboard/list.json";
+encuestame.service.dashboard.select = encuestame.contextWidget()+"/api/common/dashboard/select.json";
 encuestame.service.gadget = {};
 encuestame.service.gadget.directory = encuestame.contextWidget()+"/api/common/gadgets/directory.json";
 encuestame.service.gadget.list = encuestame.contextWidget()+"/api/common/gadgets/list.json";
 encuestame.service.gadget.move = encuestame.contextWidget()+"/api/common/dashboard/move-gadget.json";
-encuestame.service.gadget.createDashboard = encuestame.contextWidget()+"/api/common/gadgets/add.json";
+encuestame.service.gadget.add = encuestame.contextWidget()+"/api/common/gadgets/add.json";
+encuestame.service.gadget.load = encuestame.contextWidget()+"/api/common/dashboard/gadget/load.json";
+encuestame.service.gadget.remove = encuestame.contextWidget()+"/api/common/dashboard/gadget/remove.json";
 
 //short url service.
 //encuestame.service.short = {};

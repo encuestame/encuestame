@@ -19,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ValidationUtils;
+import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
@@ -117,6 +118,9 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     /** {@link IDashboardDao} **/
     @Autowired
     private IDashboardDao dashboardDao;
+
+    @Autowired
+    private CommentsOperations commentsOperations;
 
     /**
      * Get {@link UserAccount} by Username.
@@ -509,4 +513,18 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public void setDashboardDao(final IDashboardDao dashboardDao) {
         this.dashboardDao = dashboardDao;
     }
+
+	/**
+	 * @return the commentsOperations
+	 */
+	public CommentsOperations getCommentsOperations() {
+		return commentsOperations;
+	}
+
+	/**
+	 * @param commentsOperations the commentsOperations to set
+	 */
+	public void setCommentsOperations(final CommentsOperations commentsOperations) {
+		this.commentsOperations = commentsOperations;
+	}
 }

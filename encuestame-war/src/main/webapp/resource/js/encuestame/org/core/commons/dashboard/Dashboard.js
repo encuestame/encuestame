@@ -18,11 +18,6 @@ dojo.declare(
          */
         widgetsInTemplate: true,
 
-        /*
-         *
-         */
-        _test_gadgets : [{id:5, name:"gadget1"}, {id:1, name:"gadget2"}],
-
 
         dashBoardSource : null,
 
@@ -45,37 +40,53 @@ dojo.declare(
          * configure layout
          */
         _configureLayout : function(data) {
-            console.debug("_configureLayout", data);
+            console.debug("_configureLayout...", data);
             this.layoutWidget = new encuestame.org.core.commons.dashboard.DashboardLayout(
                          {dashboardWidget: this, dashboard: data.dashboard, gadgets : data.gadgets, style: "height: 700px; width: 100%;"});
+            this.layoutWidget.startup();
             return this.layoutWidget;
         },
 
-        insertGadget : function(gadget){},
+        /*
+         * load new layout.
+         */
+        loadLayOut : function(data) {
+             console.debug("LAYOUT DEBERIA SER NULO ", this.layoutWidget);
+             if (this.layoutWidget == null) {
+                 this.layoutWidget = this._configureLayout(data);
+                 console.debug("NEW LAYOUT...", this.layoutWidget);
+                 this._layout.appendChild(this.layoutWidget.domNode);
+             }
+        },
 
-        printGadget : function(gadget){},
-
-
-        loadLayOut : function(data){
-             if(this.layoutWidget == null) {
-                 var parent = this;
-                 this.layoutWidget = parent._configureLayout(data);
-                 this.layoutWidget.placeAt(dojo.byId(parent._layout));
-                 this.layoutWidget.startup();
+        /*
+         * destroy current layout.
+         */
+        destroyLayout : function() {
+             if (this.layoutWidget != null) {
+                 //console.info("destroying layout...", this.layoutWidget);
+                 //this.layoutWidget.cleanLayout();
+                 //this.layoutWidget.destroyRecursive(true);
+                 console.info("destroyed layout...", this.layoutWidget);
+                 this.layoutWidget.destroy(false);
+                 //dojo.destroy(this.layoutWidget.domNode);
+                 console.info("LAYOUT NODEEEEEEEEEEEEEEE", this.layoutWidget.domNode);
+                 dojo.publish("/encuestame/dashboard/gadget/unsubscribe", [null]);
+                 this.layoutWidget = null;
              }
         },
 
 
-        /**
-         *
+        /*
+         * load list of gadgets for this dashboard.
          */
         _loadGadgets : function(){
             var load = dojo.hitch(this, function(data) {
-                console.debug("_loadGadgets initialize", data);
-                if(data.success){
+                console.debug("_loadGadgets initialize", data.success);
+                if (data.success) {
                     this.loadLayOut(data.success);
                 } else {
-                    //posible error message.
+                    console.error("error no gadgets");
                 }
             });
             var error = function(error) {
@@ -88,8 +99,9 @@ dojo.declare(
          * initialize.
          */
         initialize : function(){
-            console.debug("_configureLayout initialize", this.dashboard);
+            console.debug("DASHBOARD initialize", this.dashboard);
             if (this.dashboard !=  null) {
+                this.destroyLayout();
                 this._loadGadgets();
             }
         }

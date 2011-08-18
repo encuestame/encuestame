@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -112,16 +113,13 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
          UserAccount secondary;
         try {
-            secondary = getByUsername(getUserPrincipalUsername());
+             secondary = getByUsername(getUserPrincipalUsername());
              if(secondary == null){
                  setError("account not valid", response);
              }
              final Map<String, Object> responseJson = new HashMap<String, Object>();
-            final List<Notification> notifications = getNotificationDao()
-                    .loadNotificationByUserAndLimit(secondary.getAccount(), limit,
-                            0, Boolean.TRUE);
-            responseJson.put("notifications",
-                    convertNotificationList(notifications, request));
+            final List<UtilNotification> streamOperations = getStreamOperations().retrieveLastNotifications(limit, request);
+            responseJson.put("notifications", streamOperations);
             setItemResponse(responseJson);
         } catch (EnMeNoResultsFoundException e) {
              setError(e.getMessage(), response);
@@ -158,16 +156,16 @@ public class NotificationsJsonController extends AbstractJsonController {
         //define if notifications are categorized.
         try{
             if (categorized) {
-               final HashMap<DateClasificatedEnum, List<UtilNotification>> list = classifyNotificationList(convertNotificationList(
-                       getSecurityService().loadNotificationByUserAndLimit(limit, start, Boolean.FALSE),
-                       request));
-               responseJson.put("notifications", list);
+                List<UtilNotification> stream = getStreamOperations()
+                        .loadNotificationByUserAndLimit(limit, start,
+                                Boolean.FALSE, request);
+                final HashMap<DateClasificatedEnum, List<UtilNotification>> list = getStreamOperations()
+                        .classifyNotificationList(stream);
+                responseJson.put("notifications", list);
             } else {
-                responseJson.put(
-                        "notifications",
-                        convertNotificationList(getSecurityService()
-                                .loadNotificationByUserAndLimit(limit, start,
-                                        Boolean.FALSE), request));
+                responseJson.put("notifications", getStreamOperations()
+                        .loadNotificationByUserAndLimit(limit, start,
+                                Boolean.FALSE, request));
             }
             setItemResponse(responseJson);
         } catch (EnMeNoResultsFoundException e) {

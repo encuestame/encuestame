@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 import org.encuestame.business.service.DashboardService;
 import org.encuestame.core.service.imp.IDashboardService;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.LayoutEnum;
@@ -37,26 +38,26 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TestDashboardService extends AbstractSpringSecurityContext{
 
-	/** {@link IDashboardService} **/
-	@Autowired
-	public IDashboardService dashboardService;
+    /** {@link IDashboardService} **/
+    @Autowired
+    public IDashboardService dashboardService;
 
-	/** {@link Dashboard} **/
-	private Dashboard dashboard;
+    /** {@link Dashboard} **/
+    private Dashboard dashboard;
 
-	/** Max Results. **/
-	private Integer MAX_RESULTS = 10;
+    /** Max Results. **/
+    private Integer MAX_RESULTS = 10;
 
-	/** Start Results. **/
-	private Integer START = 0;
+    /** Start Results. **/
+    private Integer START = 0;
 
-	/** {@link Gadget} **/
-	private Gadget gadget;
+    /** {@link Gadget} **/
+    private Gadget gadget;
 
-	/** {@link DashboardBean} **/
-	private DashboardBean boardBean;
+    /** {@link DashboardBean} **/
+    private DashboardBean boardBean;
 
-	@Before
+    @Before
     public void initService(){
         this.dashboard = createDashboard("First board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
         createDashboard("Second board", Boolean.TRUE, getSpringSecurityLoggedUserAccount());
@@ -67,7 +68,9 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
 	    createGadgetProperties("name", "Notifications", this.gadget, getSpringSecurityLoggedUserAccount());
 	    createGadgetProperties("maxResults", "20", this.gadget,getSpringSecurityLoggedUserAccount());
 	    createGadgetProperties("order", "Asc", this.gadget, getSpringSecurityLoggedUserAccount());
-	    this.boardBean = createDashboardBean("Notifications", "Notifications board", Boolean.TRUE , LayoutEnum.AAA_COLUMNS , 1, 0);
+	    this.boardBean = ConvertDomainBean.convertDashboardDomaintoBean(this.dashboard);
+
+	    //createDashboardBean("Notifications", "Notifications board", Boolean.TRUE , LayoutEnum.AAA_COLUMNS , 1, 0);
 	}
 
 	//@Test
@@ -153,7 +156,13 @@ public class TestDashboardService extends AbstractSpringSecurityContext{
 		assertEquals("Should be equals", 2, gadgets2.size());
 	}
 
-
+	@Test
+	public void testUpdateDashboard() throws EnMeNoResultsFoundException{
+		final String newName = "Notifications2";
+		this.boardBean.setDashboardName(newName);
+		final Dashboard boardUpdate = getDashboardService().updateDashboard(this.dashboard.getBoardId() , boardBean);
+		System.out.println("EL NUEVO NAME ES ----> " + boardUpdate.getPageBoardName());
+	}
 
 	/**
 	 * @return the dashboardService

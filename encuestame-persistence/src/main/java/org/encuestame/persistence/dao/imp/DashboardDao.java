@@ -184,7 +184,6 @@ public class DashboardDao extends AbstractHibernateDaoSupport implements IDashbo
     @SuppressWarnings("unchecked")
     public List<Gadget> retrieveGadgets(final Dashboard board){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Gadget.class);
-        criteria.createAlias("dashboard","dashboard");
         criteria.add(Restrictions.eq("dashboard", board));
         return getHibernateTemplate().findByCriteria(criteria);
     }

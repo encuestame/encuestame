@@ -49,7 +49,7 @@ a:hover{
 }
 
 #header span.logo{
-      background-image: url(../images/logos/encuestame_header.gif);
+      background-image: url(../../images/logos/encuestame_header.gif);
       background-repeat: no-repeat;
       min-height : 20px;
       display: inline-block;
@@ -265,15 +265,15 @@ a:hover{
 }
 
 .warningImage{
-    background-image: url(../images/social/icons/1243963629_001_11.png);
+    background-image: url(../../images/social/icons/1243963629_001_11.png);
 }
 
 .helpImage{
-    background-image: url(../images/social/icons/enme_question.gif);
+    background-image: url(../../images/social/icons/enme_question.gif);
 }
 
 .likeImage{
-    background-image: url(../images/icons/enme_like.png);
+    background-image: url(../../images/icons/enme_like.png);
 }
 
 .unLikeImage{
@@ -281,11 +281,11 @@ a:hover{
 }
 
 .twitterImage{
-    background-image: url("../images/social/twitter/enme_icon_twitter.png");
+    background-image: url("../../images/social/twitter/enme_icon_twitter.png");
 }
 
 .pollImage{
-    background-image: url(../images/icons/emne_poll.png);
+    background-image: url(../../images/icons/emne_poll.png);
 }
 
 
@@ -386,7 +386,7 @@ div.yesNoWrapper div.label{
 }
 
 .emptyFavourite{
-      background-image: url(../images/icons/enme_empty_star.gif);
+      background-image: url(../../images/icons/enme_empty_star.gif);
       background-repeat: no-repeat;
       min-height : 16px;
       display: inline-block;
@@ -394,7 +394,7 @@ div.yesNoWrapper div.label{
 }
 
 .selectedFavourite{
-      background-image: url(../images/icons/enme_full_star.png);
+      background-image: url(../../images/icons/enme_full_star.png);
       background-repeat: no-repeat;
       min-height : 16px;
       display: inline-block;
