@@ -126,10 +126,27 @@ dojo.declare(
             dojo.byId("stateSelect_"+this.id).appendChild(this._addComboWidget.domNode);
             this._addComboWidget.onChange = dojo.hitch(this, function(value) {
                 //TODO: item is null when check id null values.
-                console.debug(this._addComboWidget);
-                this.loadDashBoard({dashboardId: (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]),
-                     name: this._addComboWidget.get('value')});
+                var id = (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]);
+                if (id) {
+                    this._markAsSelected(id);
+                    this.loadDashBoard({dashboardId: id,
+                         name: this._addComboWidget.get('value')});
+                }
             });
+        },
+
+        /*
+         * mark as selected dasboard
+         * @id dasboard id.
+         */
+        _markAsSelected : function(id){
+            var load = dojo.hitch(this, function(data) {
+               console.debug(data);
+            });
+            var error = function(error) {
+                console.error("error", error);
+            };
+            encuestame.service.xhrGet(encuestame.service.dashboard.select, {id : id}, load, error);
         },
 
         /**

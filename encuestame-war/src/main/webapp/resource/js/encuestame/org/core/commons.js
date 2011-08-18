@@ -524,6 +524,7 @@ encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/str
 encuestame.service.dashboard = {};
 encuestame.service.dashboard.create = encuestame.contextWidget()+"/api/common/dashboard/create-dashboard.json";
 encuestame.service.dashboard.list = encuestame.contextWidget()+"/api/common/dashboard/list.json";
+encuestame.service.dashboard.select = encuestame.contextWidget()+"/api/common/dashboard/select.json";
 encuestame.service.gadget = {};
 encuestame.service.gadget.directory = encuestame.contextWidget()+"/api/common/gadgets/directory.json";
 encuestame.service.gadget.list = encuestame.contextWidget()+"/api/common/gadgets/list.json";

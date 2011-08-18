@@ -55,10 +55,27 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
         final List<DashboardBean> boardBean = new ArrayList<DashboardBean>();
-        final List<Dashboard> boards = getDashboardDao().retrieveDashboardsbyUser(getUserAccount(getUserPrincipalUsername()), maxResults, start);
+        final List<Dashboard> boards = this.getAllDasboard(maxResults,
+                        start);
         log.info("dashboards list size "+boards.size());
         boardBean.addAll(ConvertDomainBean.convertListDashboardToBean(boards));
         return boardBean;
+    }
+
+    /**
+     *
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private List<Dashboard> getAllDasboard(final Integer maxResults,
+            final Integer start) throws EnMeNoResultsFoundException {
+        final List<Dashboard> boards = getDashboardDao()
+                .retrieveDashboardsbyUser(
+                        getUserAccount(getUserPrincipalUsername()), maxResults,
+                        start);
+        return boards;
     }
 
     /*
@@ -322,6 +339,24 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
         getDashboardDao().saveOrUpdate(gadget);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IDashboardService#markAsSelectedDasboard(java.lang.Long)
+     */
+    public Dashboard markAsSelectedDasboard(
+            final  Long dashBoardId)
+            throws EnMeNoResultsFoundException {
+         final Dashboard board = this.getDashboardById(dashBoardId);
+         final List<Dashboard> listDashboard = this.getAllDasboard(null, null);
+         for (Dashboard dashboard : listDashboard) {
+            dashboard.setSelectedByDefault(Boolean.FALSE);
+            getDashboardDao().saveOrUpdate(dashboard);
+         }
+         board.setSelectedByDefault(Boolean.TRUE);
+         getDashboardDao().saveOrUpdate(board);
+         return board;
+    }
+
     /**
      * Get gadget.
      * @param gadgetId
@@ -338,20 +373,20 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      return gadget;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.core.service.imp.IDashboardService#updateDashboard(org.encuestame.utils.web.DashboardBean)
-	 */
-	public Dashboard updateDashboard(final Long boardId, final DashboardBean boardBean) throws EnMeNoResultsFoundException{
-		final Dashboard board = this.getDashboardById(boardBean.getDashboardId());
-	    Assert.notNull(board);
-	    if (board == null) {
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IDashboardService#updateDashboard(org.encuestame.utils.web.DashboardBean)
+     */
+    public Dashboard updateDashboard(final Long boardId, final DashboardBean boardBean) throws EnMeNoResultsFoundException{
+        final Dashboard board = this.getDashboardById(boardBean.getDashboardId());
+        Assert.notNull(board);
+        if (board == null) {
             throw new EnMeDashboardNotFoundException("dashboard not found");
         }
-	   board.setPageBoardName(boardBean.getDashboardName());
-	   board.setBoardSequence(boardBean.getSequence());
-	   board.setDescription(boardBean.getDashboardDesc());
-	   board.setFavorite(boardBean.getFavorite());
-	   return board;
-	}
+       board.setPageBoardName(boardBean.getDashboardName());
+       board.setBoardSequence(boardBean.getSequence());
+       board.setDescription(boardBean.getDashboardDesc());
+       board.setFavorite(boardBean.getFavorite());
+       return board;
+    }
 }

@@ -818,6 +818,7 @@ public class ConvertDomainBean {
             dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
             dashboardBean.setLayout((dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString()));
             dashboardBean.setSequence(dashboard.getBoardSequence());
+            dashboardBean.setSelected(dashboard.getSelectedByDefault() == null ? false : dashboard.getSelectedByDefault());
         }
         return dashboardBean;
     }

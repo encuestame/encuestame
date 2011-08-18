@@ -57,6 +57,9 @@ public class Dashboard {
     /** {@link UserAccount} **/
     private UserAccount userBoard;
 
+    /** Selected by default.  **/
+    private Boolean selectedByDefault = false;
+
     /**
     * @return the boardId
     */
@@ -178,5 +181,20 @@ public class Dashboard {
     */
     public void setUserBoard(final UserAccount userBoard) {
         this.userBoard = userBoard;
+    }
+
+    /**
+     * @return the selectedByDefault
+     */
+    @Column(name = "dashboard_selected")
+    public Boolean getSelectedByDefault() {
+        return selectedByDefault;
+    }
+
+    /**
+     * @param selectedByDefault the selectedByDefault to set
+     */
+    public void setSelectedByDefault(final Boolean selectedByDefault) {
+        this.selectedByDefault = selectedByDefault;
     }
 }

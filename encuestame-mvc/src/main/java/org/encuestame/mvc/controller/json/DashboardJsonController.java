@@ -303,6 +303,30 @@ public class DashboardJsonController extends AbstractJsonController {
         return returnData();
     }
 
+
+    /**
+     * Mark as dasboard selected.
+     * @param dashBoardId
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/api/common/dashboard/select.json", method = RequestMethod.GET)
+    public ModelMap moveGadget(
+            @RequestParam(value = "id", required = true) Long dashBoardId,
+            HttpServletRequest request,
+            HttpServletResponse response){
+        try {
+            getDashboardService().markAsSelectedDasboard(dashBoardId);
+            setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
     /**
      *
      * @param gadgetId
