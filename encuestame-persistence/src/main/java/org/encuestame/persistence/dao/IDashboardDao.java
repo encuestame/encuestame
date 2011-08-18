@@ -15,6 +15,9 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
+import org.encuestame.persistence.domain.dashboard.GadgetType;
+import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * Dashboard Interface.
@@ -37,7 +40,7 @@ public interface IDashboardDao extends IBaseDao {
 	 * @param start
 	 * @return
 	 */
-	List<Dashboard> retrieveDashboards(final Long userBoard, final Integer maxResults,
+	List<Dashboard> retrieveDashboardsbyUser(final UserAccount userAcc, final Integer maxResults,
 	        final Integer start);
 
 	/**
@@ -48,9 +51,17 @@ public interface IDashboardDao extends IBaseDao {
 	 * @return
 	 */
 	List<Dashboard> retrieveFavouritesDashboards(
-	            final Long userId,
+				final UserAccount userAcc,
 	            final Integer maxResults,
 	            final Integer start);
+
+	/**
+	 * Get gadget by id.
+	 * @param gadgetId
+	 * @param board
+	 * @return
+	 */
+	Gadget getGadgetbyIdandBoard(final Long gadgetId, final Dashboard board);
 
 	/**
 	 * Get gadget by id.
@@ -74,5 +85,46 @@ public interface IDashboardDao extends IBaseDao {
 	 * @param userAccId
 	 * @return
 	 */
-	Dashboard getAllDashboards(final Long boardId, final Long userAccId);
+	Dashboard getDashboardbyIdandUser(final Long boardId, final UserAccount userAcc);
+
+	/**
+	 * Retrieve dashboard by keyword.
+	 * @param keyword
+	 * @param userId
+	 * @param maxResults
+	 * @param start
+	 * @return
+	 */
+	List<Dashboard> retrieveDashboardbyKeyword(final String keyword,
+			final UserAccount userAcc,
+			final Integer maxResults,
+			final Integer start);
+
+	/**
+	 * Retrieve properties by gadget.
+	 * @param gadgetId
+	 * @return
+	 */
+	List<GadgetProperties> retrievePropertiesbyGadget(final Long gadgetId);
+
+	/**
+	 * Retrieve gadgets by dashboard.
+	 * @param boardId
+	 * @return
+	 */
+	List<Gadget> retrieveGadgetsbyDashboard(final Long boardId);
+
+	/**
+	 * Retrieve Gadgets by type.
+	 * @param gadgetType
+	 * @return
+	 */
+	List<Gadget> retrieveGadgetsbyType(final GadgetType gadgetType);
+
+	/**
+	 * Retrieve gadgets by status.
+	 * @param status
+	 * @return
+	 */
+	List<Gadget> retrieveGadgets(final Dashboard dashboard);
 }

@@ -29,6 +29,13 @@ public interface IBaseDao {
     public void saveOrUpdate(final Object domain);
 
     /**
+     *
+     * @param obj
+     * @throws HibernateException
+     */
+    void merge(final Object obj);
+
+    /**
      * Deletes a table row.
      * @param domain domain
      * @throws HibernateException  exception

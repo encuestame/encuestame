@@ -17,8 +17,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 19, 2011
  */
-public class EnMeContext extends ContextLoaderListener implements
-        ServletContextListener {
+public class EnMeContext extends ContextLoaderListener implements ServletContextListener {
 
     /**
      * Local service context.

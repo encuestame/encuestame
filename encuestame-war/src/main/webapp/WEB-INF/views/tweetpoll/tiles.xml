@@ -41,6 +41,12 @@
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail.jsp" />
     </definition>
 
+     <definition name="tweetpoll/social" extends="page">
+        <put-attribute name="title" value="TweetPoll Social Networks Accounts" />
+         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}social.jsp" />
+    </definition>
+
     <definition name="banned" extends="page">
         <put-attribute name="title" value="banned IP" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}banned.jsp" />

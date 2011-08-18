@@ -9,6 +9,9 @@
             notification : { delay : 60000, limit : 8},
             tp : {a : 2, hr : false, minsoa : 1 }
         };
+        var djConfig = { isDebug: false };
 </script>
+<script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js"></script>
+<%-- <script src="<%=request.getContextPath()%>/resources/js/encuestame/encuestame.js"></script> --%>
 <%=WidgetUtil.getAnalytics("analytics.inc")%>

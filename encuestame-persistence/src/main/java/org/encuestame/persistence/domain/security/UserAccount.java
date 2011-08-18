@@ -32,7 +32,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-
 import org.encuestame.persistence.domain.AbstractGeoPoint;
 import org.encuestame.persistence.domain.Project;
 import org.hibernate.annotations.Cache;
@@ -394,6 +393,44 @@ public class UserAccount extends AbstractGeoPoint{
     }
 
 
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((account == null) ? 0 : account.hashCode());
+        result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof UserAccount))
+            return false;
+        UserAccount other = (UserAccount) obj;
+        if (account == null) {
+            if (other.account != null)
+                return false;
+        } else if (!account.equals(other.account))
+            return false;
+        if (uid == null) {
+            if (other.uid != null)
+                return false;
+        } else if (!uid.equals(other.uid))
+            return false;
+        return true;
+    }
+
     /**
      * @return the pictureSource
      */
@@ -434,11 +471,20 @@ public class UserAccount extends AbstractGeoPoint{
         private PictureSource() {
         }
 
+        public static PictureSource findPictureSource(final String value) {
+            PictureSource result = null;
+            if (null != value) {
+               if ("gravatar".equalsIgnoreCase(value)) { result = GRAVATAR; }
+               if ("uploaded".equalsIgnoreCase(value)) { result = UPLOADED; }
+            }
+            return result;
+        }
+
         /**
          * To String.
          */
         public String toString() {
-            String pictureSize = "_64";
+            String pictureSize = "";
             if (this == UPLOADED) { pictureSize = "UPLOADED"; }
             else if (this == GRAVATAR) { pictureSize = "GRAVATAR"; }
             return pictureSize;

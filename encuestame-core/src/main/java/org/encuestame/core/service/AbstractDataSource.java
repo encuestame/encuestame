@@ -19,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ValidationUtils;
+import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IDashboardDao;
 import org.encuestame.persistence.dao.IEmail;
 import org.encuestame.persistence.dao.IGeoPoint;
@@ -118,6 +119,9 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     @Autowired
     private IDashboardDao dashboardDao;
 
+    @Autowired
+    private CommentsOperations commentsOperations;
+
     /**
      * Get {@link UserAccount} by Username.
      * @param username username
@@ -126,7 +130,7 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      */
     public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
         final UserAccount userAccount = getUserAccountonSecurityContext() == null
-              ? getAccountDao().getUserByUsername(username) : getUserAccountonSecurityContext();
+              ? findUserByUserName(username) : getUserAccountonSecurityContext();
         if(userAccount == null){
             throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
@@ -496,17 +500,31 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
         this.frontEndDao = frontEndDao;
     }
 
+    /**
+     * @return the dashboardDao
+     */
+    public IDashboardDao getDashboardDao() {
+        return dashboardDao;
+    }
+
+    /**
+     * @param dashboardDao the dashboardDao to set
+     */
+    public void setDashboardDao(final IDashboardDao dashboardDao) {
+        this.dashboardDao = dashboardDao;
+    }
+
 	/**
-	 * @return the dashboardDao
+	 * @return the commentsOperations
 	 */
-	public IDashboardDao getDashboardDao() {
-		return dashboardDao;
+	public CommentsOperations getCommentsOperations() {
+		return commentsOperations;
 	}
 
 	/**
-	 * @param dashboardDao the dashboardDao to set
+	 * @param commentsOperations the commentsOperations to set
 	 */
-	public void setDashboardDao(final IDashboardDao dashboardDao) {
-		this.dashboardDao = dashboardDao;
+	public void setCommentsOperations(final CommentsOperations commentsOperations) {
+		this.commentsOperations = commentsOperations;
 	}
 }

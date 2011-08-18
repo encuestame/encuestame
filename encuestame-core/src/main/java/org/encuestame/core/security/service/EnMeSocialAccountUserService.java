@@ -48,8 +48,8 @@ public class EnMeSocialAccountUserService implements SocialUserService {
             final SocialProvider provider)
             throws EnMeNoSuchAccountConnectionException {
         UserAccount accountConnection = null;
-        log.debug("EnMeSocialAccountUserService "+profileId);
-        log.debug("EnMeSocialAccountUserService "+provider);
+        //log.debug("EnMeSocialAccountUserService "+profileId);
+        //log.debug("EnMeSocialAccountUserService "+provider);
         try {
            accountConnection = this.accountDao.findAccountByConnection(provider, profileId);
         } catch (EnMeNoResultsFoundException e) {

@@ -14,8 +14,12 @@ package org.encuestame.mvc.test.json;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
+
+import junit.framework.Assert;
 
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
@@ -24,9 +28,11 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * LinksJsonController Test Case.
@@ -67,16 +73,12 @@ public class LinksJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         initService("/api/public/social/links/published.json", MethodJson.GET);
         setParameter("id", tweetPoll.getTweetPollId().toString());
         setParameter("type", "TWEETPOLL");
-        final JSONObject response = callJsonService();
-        System.out.println(response);
-        //{"error":{},"success":{"items":[],"label":"hashTagName","identifier":"id"}}
-        final JSONObject success = getSucess(response);
-/*        final JSONArray items = (JSONArray) success.get("items");
-        final String label = (String) success.get("label");
-        final String identifier = (String) success.get("identifier");
-        Assert.assertNotNull(items);
-        Assert.assertEquals(label, "hashTagName");
-        Assert.assertEquals(identifier, "id");
-        return items.size();*/
+        System.out.println("*************************");
+        final Map<String, Object> success = getSuccess();
+        System.out.println(success);
+        System.out.println(success.get("links"));
+        List d = (List) success.get("links");
+        System.out.println(d.size());
+        Assert.assertEquals(d.size(), 0);
     }
 }

@@ -49,7 +49,7 @@ a:hover{
 }
 
 #header span.logo{
-      background-image: url(../images/logos/encuestame_header.gif);
+      background-image: url(../../images/logos/encuestame_header.gif);
       background-repeat: no-repeat;
       min-height : 20px;
       display: inline-block;
@@ -162,6 +162,8 @@ a:hover{
     color: #FFF;
     font-weight: bold;
     padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 3px;
 }
 
 .defaultForm input {
@@ -263,15 +265,15 @@ a:hover{
 }
 
 .warningImage{
-    background-image: url(../images/social/icons/1243963629_001_11.png);
+    background-image: url(../../images/social/icons/1243963629_001_11.png);
 }
 
 .helpImage{
-    background-image: url(../images/social/icons/enme_question.gif);
+    background-image: url(../../images/social/icons/enme_question.gif);
 }
 
 .likeImage{
-    background-image: url(../images/icons/enme_like.png);
+    background-image: url(../../images/icons/enme_like.png);
 }
 
 .unLikeImage{
@@ -279,11 +281,11 @@ a:hover{
 }
 
 .twitterImage{
-    background-image: url("../images/social/twitter/enme_icon_twitter.png");
+    background-image: url("../../images/social/twitter/enme_icon_twitter.png");
 }
 
 .pollImage{
-    background-image: url(../images/icons/emne_poll.png);
+    background-image: url(../../images/icons/emne_poll.png);
 }
 
 
@@ -384,7 +386,7 @@ div.yesNoWrapper div.label{
 }
 
 .emptyFavourite{
-      background-image: url(../images/icons/enme_empty_star.gif);
+      background-image: url(../../images/icons/enme_empty_star.gif);
       background-repeat: no-repeat;
       min-height : 16px;
       display: inline-block;
@@ -392,7 +394,7 @@ div.yesNoWrapper div.label{
 }
 
 .selectedFavourite{
-      background-image: url(../images/icons/enme_full_star.png);
+      background-image: url(../../images/icons/enme_full_star.png);
       background-repeat: no-repeat;
       min-height : 16px;
       display: inline-block;
@@ -435,7 +437,7 @@ div.updateProfile .profileItem label{
 
 /** default button */
 
-div.defaultMarginWrapper .dijitButton .dijitButtonNode{
+.dijitButton .dijitButtonNode{
     font-size: 110% !important;
     border: 1px solid #6D6767 !important;
     padding: 3px 7px 2px !important;
@@ -448,6 +450,10 @@ div.defaultMarginWrapper .dijitButton .dijitButtonNode{
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.defaultMarginWrapper .dijitTabContainerTop-container{
+    border: 0 none !important;
 }
 
 div.header {

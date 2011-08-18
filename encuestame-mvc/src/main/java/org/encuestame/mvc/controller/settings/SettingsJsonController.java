@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller.settings;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,8 @@ import org.encuestame.core.util.Profile;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.json.ProfileUserAccount;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -49,16 +52,43 @@ public class SettingsJsonController extends AbstractJsonController{
      */
     private Log log = LogFactory.getLog(this.getClass());
 
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/settings/profile/my.json", method = RequestMethod.GET)
+    public ModelMap myAccountProfile(HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        ProfileUserAccount user;
+        try {
+            user = getProfileUserInfo();
+            jsonResponse.put("account", user);
+            setItemResponse(jsonResponse);
+        } catch (EnMeNoResultsFoundException e) {
+            setError(e, response);
+        }
+        return returnData();
+    }
+
     /**
      * Upgrade profile settings.
      * @param model
      * @return
      */
-    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
-    @RequestMapping(value = "/api/settings/profile/{type}/update.json", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/settings/profile/{type}/update.json", method = RequestMethod.POST)
     public ModelMap upgradeProfile(HttpServletRequest request,
             @PathVariable String type,
-            @RequestParam(value = "data", required = true) String data,
+            @RequestParam(value = "data", required = false) String data,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         log.debug("update profile type:"+type);
@@ -69,26 +99,29 @@ public class SettingsJsonController extends AbstractJsonController{
             final HashMap<String, Object> listError = new HashMap<String, Object>();
             //filter data
             data = filterValue(data);
-            final UserAccount account = getUserAccount();
             if(type.equals(Profile.EMAIL.toString())){
                 //TODO: review pattern email format validator.
                 log.debug("update email");
+                final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUserEmail(data, account)) {
-                    security.upadteAccountProfile(Profile.EMAIL, data,
-                            getUserPrincipalUsername());
+                    security.upadteAccountProfile(Profile.EMAIL, data);
                     setSuccesResponse();
                 } else {
                     listError.put(type, "email not valid");
                 }
             } else if(type.equals(Profile.USERNAME.toString())){
                 log.debug("update username");
+                final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUsername(data, account)) {
-                    security.upadteAccountProfile(Profile.USERNAME, data,
-                            getUserPrincipalUsername());
+                    security.upadteAccountProfile(Profile.USERNAME, data);
                     setSuccesResponse();
                 } else {
                     listError.put(type, "username not valid");
                 }
+            } else if(type.equals(Profile.PICTURE.toString())){
+                 log.debug("update PICTURE");
+                 security.upadteAccountProfile(Profile.PICTURE, data);
+                 setSuccesResponse();
             } else {
                 setError("type not valid", response);
             }
@@ -100,7 +133,7 @@ public class SettingsJsonController extends AbstractJsonController{
             log.error(e);
             e.printStackTrace();
             setError(e.getMessage(), response);
-            throw new JsonGenerationException(e.getMessage());
+            //throw new JsonGenerationException(e.getMessage());
         }
         return returnData();
     }
@@ -162,15 +195,10 @@ public class SettingsJsonController extends AbstractJsonController{
                 valid = false;
             } else {
                 log.debug("updating profile ....");
-                security.upadteAccountProfile(Profile.USERNAME, username, getUserPrincipalUsername());
-                security.upadteAccountProfile(Profile.EMAIL, email, getUserPrincipalUsername());
-                //update the other properties
-                security.upadteAccountProfile(bio, language, completeName, getUserPrincipalUsername());
-                setSuccesResponse();
+                setError("invalid type", response);
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

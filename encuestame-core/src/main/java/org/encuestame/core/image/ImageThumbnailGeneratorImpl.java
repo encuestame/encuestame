@@ -30,7 +30,9 @@ public class ImageThumbnailGeneratorImpl implements ThumbnailGenerator {
     /**
      *
      */
-    public Object createThumbnail(InputStream inputStream, File fileOut,
+    public Object createThumbnail(
+                  InputStream inputStream,
+                  File fileOut,
                   int largestDimension, Object hint) throws IOException {
 
         // What's the base image that we are starting with?  If there's a hint, that's the scaled image
@@ -44,14 +46,11 @@ public class ImageThumbnailGeneratorImpl implements ThumbnailGenerator {
             log.info("createThumbnail(" + fileOut + ") reading image from stream " + inputStream);
             imageIn = ImageIO.read(inputStream);
         }
-
         if (imageIn == null) {
             log.warn("Could not read image file: " + inputStream);
             return hint;
         }
-
         BufferedImage imageOut = createThumbnailImage(imageIn, fileOut, largestDimension);
-
         // Return this image now as the hint for the next scaling iteration
         if (imageOut != null)
             hint = imageOut;

@@ -194,10 +194,22 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 .getMessage(propertieId, null, null);
     }
 
+    /**
+     * Return the locale inside the {@link HttpServletRequest}.
+     * @param request
+     * @return
+     */
     private Locale getLocale(final HttpServletRequest request){
         return RequestContextUtils.getLocale(request);
     }
 
+    /**
+     * Return the i18 message by {@link Locale}.
+     * @param message
+     * @param request
+     * @param args
+     * @return
+     */
     public String getMessage(final String message,
             final HttpServletRequest request, Object[] args) {
         String stringValue = "";

@@ -18,9 +18,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import junit.framework.Assert;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.dao.IFolder;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
@@ -29,6 +33,8 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -47,14 +53,17 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
-import org.encuestame.utils.security.ProfileUserAccount;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
+import org.encuestame.utils.web.GadgetBean;
+import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -283,18 +292,21 @@ public class ConvertDomainBean {
 
     /**
      * Convert Basic {@link UserAccount} to {@link UserAccountBean}.
-     * @param secUserSecondary {@link UserAccount}.
+     * @param userAccount {@link UserAccount}.
      * @return {@link UserAccountBean}
      */
-    public static final UserAccountBean convertBasicSecondaryUserToUserBean(final UserAccount secUserSecondary){
+    public static final UserAccountBean convertBasicSecondaryUserToUserBean(final UserAccount userAccount){
         final UserAccountBean unitUserBean = new UserAccountBean();
-        if(secUserSecondary != null){
-            unitUserBean.setId(secUserSecondary.getUid());
-            unitUserBean.setName(secUserSecondary.getCompleteName());
-            unitUserBean.setEmail(secUserSecondary.getUserEmail());
-            unitUserBean.setUsername(secUserSecondary.getUsername());
-            unitUserBean.setStatus(secUserSecondary.isUserStatus());
-            unitUserBean.setInviteCode(secUserSecondary.getInviteCode());
+        if (userAccount != null) {
+            unitUserBean.setId(userAccount.getUid());
+            unitUserBean.setName(userAccount.getCompleteName());
+            unitUserBean.setEmail(userAccount.getUserEmail());
+            unitUserBean.setUsername(userAccount.getUsername());
+            unitUserBean.setStatus(userAccount.isUserStatus());
+            unitUserBean.setInviteCode(userAccount.getInviteCode());
+            unitUserBean
+                    .setPictureSource(userAccount.getPictureSource() == null ? null
+                            : userAccount.getPictureSource().toString().toLowerCase());
         }
         return unitUserBean;
     }
@@ -304,7 +316,7 @@ public class ConvertDomainBean {
      * @param userAccount
      * @return
      */
-    public static final SignUpBean convertBasicSecondaryUserToSignUpBean(final UserAccount userAccount){
+    public static final SignUpBean convertUserAccountToSignUpBean(final UserAccount userAccount){
         final SignUpBean signUpBean = new SignUpBean();
         if(userAccount != null){
             signUpBean.setCaptcha("");
@@ -786,7 +798,7 @@ public class ConvertDomainBean {
     public static final List<DashboardBean> convertListDashboardToBean(final List<Dashboard> dashboards){
         final List<DashboardBean> dashboardList = new LinkedList<DashboardBean>();
             for (Dashboard dashboard : dashboards) {
-            	dashboardList.add(ConvertDomainBean.convertDashboardDomaintoBean(dashboard));
+                dashboardList.add(ConvertDomainBean.convertDashboardDomaintoBean(dashboard));
             }
         return dashboardList;
     }
@@ -797,14 +809,109 @@ public class ConvertDomainBean {
      * @return
      */
     public static final DashboardBean convertDashboardDomaintoBean(final Dashboard dashboard){
-    	final DashboardBean dashboardBean = new DashboardBean();
-    	dashboardBean.setDashboardId(dashboard.getBoardId());
-    	dashboardBean.setDashboardName(dashboard.getPageBoardName());
-    	dashboardBean.setDashboardDesc(dashboard.getDescription());
-    	dashboardBean.setFavorite(dashboard.getFavorite());
-    	dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
-    	dashboardBean.setLayout(dashboard.getPageLayout().toString());
-    	dashboardBean.setSequence(dashboard.getBoardSequence());
-    	return dashboardBean;
+        final DashboardBean dashboardBean = new DashboardBean();
+        if (dashboard != null) {
+            dashboardBean.setDashboardId(dashboard.getBoardId());
+            dashboardBean.setDashboardName(dashboard.getPageBoardName());
+            dashboardBean.setDashboardDesc(dashboard.getDescription());
+            dashboardBean.setFavorite(dashboard.getFavorite());
+            dashboardBean.setFavoriteCounter(dashboard.getFavoriteCounter());
+            dashboardBean.setLayout((dashboard.getPageLayout() == null ? null : dashboard.getPageLayout().toString()));
+            dashboardBean.setSequence(dashboard.getBoardSequence());
+            dashboardBean.setSelected(dashboard.getSelectedByDefault() == null ? false : dashboard.getSelectedByDefault());
+        }
+        return dashboardBean;
     }
+
+    /**
+     * Convert Gadget domain to gadget bean.
+     * @param gadget
+     * @return
+     */
+    public static final GadgetBean convertGadgetDomaintoBean(final Gadget gadget){
+        final GadgetBean gadgetBean = new GadgetBean();
+        gadgetBean.setGadgetId(gadget.getGadgetId());
+        gadgetBean.setGadgetName(gadget.getGadgetName());
+        gadgetBean.setGadgetColor(gadget.getGadgetColor());
+        gadgetBean.setGadgetColumn(gadget.getGadgetColumn());
+        gadgetBean.setGadgetPosition(gadget.getGadgetColumn());
+        gadgetBean.setStatus(gadget.getStatus());
+        return gadgetBean;
+    }
+
+    /**
+     * Convert Gadget domain list to gadget bean.
+     * @param gadgets
+     * @return
+     */
+    public static final List<GadgetBean> convertListGadgetToBean(final List<Gadget> gadgets){
+        final List<GadgetBean> gadgetList = new LinkedList<GadgetBean>();
+            for (Gadget gadget : gadgets) {
+                gadgetList.add(ConvertDomainBean.convertGadgetDomaintoBean(gadget));
+            }
+        return gadgetList;
+    }
+
+    /**
+     * Convert Gadget properties domain to bean.
+     * @param gadgetProp
+     * @return
+     */
+    public static final GadgetPropertiesBean convertGadgetPropertiesDomaintoBean(final GadgetProperties gadgetProp){
+        final GadgetPropertiesBean propertiesBean = new GadgetPropertiesBean();
+        propertiesBean.setPropertyId(gadgetProp.getPropertyId());
+        propertiesBean.setGadgetPropName(gadgetProp.getGadgetPropName());
+        propertiesBean.setGadgetPropValue(gadgetProp.getGadgetPropValue());
+        //propertiesBean.setUserAccount(gadgetProp.getUserAccount());
+        //propertiesBean.setGadget(gadgetProp.getGadget());
+        return propertiesBean;
+    }
+
+    /**
+     * Convert list gadget properties domain to bean.
+     * @param properties
+     * @return
+     */
+    public static final List<GadgetPropertiesBean> convertListGadgetPropertiesToBean(final List<GadgetProperties> properties){
+        final List<GadgetPropertiesBean> gadgetBean = new LinkedList<GadgetPropertiesBean>();
+            for (GadgetProperties gadget : properties) {
+                gadgetBean.add(ConvertDomainBean.convertGadgetPropertiesDomaintoBean(gadget));
+            }
+        return gadgetBean;
+    }
+
+    /**
+     * Convert Domain to bean.
+     * @param commentDomain
+     * @return
+     */
+   public static final CommentBean convertCommentDomainToBean(final Comment commentDomain){
+       final CommentBean commentBean = new CommentBean();
+       Assert.assertNotNull(commentDomain);
+       commentBean.setCommentId(commentDomain.getCommentId());
+       commentBean.setComment(commentDomain.getComment());
+       commentBean.setCreatedAt(commentDomain.getCreatedAt());
+       commentBean.setDislikeVote(commentDomain.getDislikeVote() == null ? null : commentDomain.getDislikeVote());
+       commentBean.setLikeVote(commentDomain.getLikeVote() == null ? null : commentDomain.getLikeVote());
+       commentBean.setPollId(commentDomain.getPoll() == null ? null : commentDomain.getPoll().getPollId());
+       commentBean.setTweetPoll(commentDomain.getTweetPoll() == null ? null : commentDomain.getTweetPoll().getTweetPollId());
+       commentBean.setSurveyId(commentDomain.getSurvey() == null ? null : commentDomain.getSurvey().getSid());
+       commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
+       commentBean.setUserAccountId(commentDomain.getUser().getUid());
+       return commentBean;
+   }
+
+   /**
+    * Convert Comment list domain to comment list bean
+    * @param comments
+    * @return
+    */
+
+   public static final List<CommentBean> convertListCommentDomainToBean(final List<Comment> commentList){
+       final List<CommentBean> commentsBean = new LinkedList<CommentBean>();
+       for (Comment comment : commentList) {
+           commentsBean.add(ConvertDomainBean.convertCommentDomainToBean(comment));
+       }
+       return commentsBean;
+     }
 }

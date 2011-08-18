@@ -74,7 +74,7 @@ public class GadgetProperties {
     /**
     * @param prefName the prefName to set
     */
-    public void setGadgetPropName(String gadgetPropName) {
+    public void setGadgetPropName(final String gadgetPropName) {
         this.gadgetPropName = gadgetPropName;
     }
 
@@ -89,7 +89,7 @@ public class GadgetProperties {
     /**
     * @param prefValue the prefValue to set
     */
-    public void setGadgetPropValue(String gadgetPropValue) {
+    public void setGadgetPropValue(final String gadgetPropValue) {
         this.gadgetPropValue = gadgetPropValue;
     }
 

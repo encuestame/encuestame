@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -66,15 +67,21 @@ public class NotificationsJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> responseJson = new HashMap<String, Object>();
-        final UserAccount userAccount = getByUsername(getUserPrincipalUsername());
-        if (userAccount != null) {
-            final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
-            final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
-            responseJson.put("t", totalNot);
-            responseJson.put("n", totalNewNot);
-            setItemResponse(responseJson);
-        } else {
-            setError("account not valid", response);
+        UserAccount userAccount;
+        try {
+            userAccount = getByUsername(getUserPrincipalUsername());
+            if (userAccount != null) {
+                final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
+                final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
+                responseJson.put("t", totalNot);
+                responseJson.put("n", totalNewNot);
+                setItemResponse(responseJson);
+            } else {
+                setError("account not valid", response);
+            }
+
+        } catch (EnMeNoResultsFoundException e) {
+             setError(e.getMessage(), response);
         }
         return returnData();
     }
@@ -87,16 +94,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @return
      * @throws JsonGenerationException
      * @throws JsonMappingException
-     * @throws IOException
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/notifications/list.json", method = RequestMethod.GET)
-    public ModelMap get(
-            @RequestParam(value = "limit") Integer limit,
-            HttpServletRequest request,
-            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-         final UserAccount secondary = getByUsername(getUserPrincipalUsername());
-         if(secondary == null){
+     * @throws if(secondary == null){
              setError("account not valid", response);
          }
          final Map<String, Object> responseJson = new HashMap<String, Object>();
@@ -105,7 +103,27 @@ public class NotificationsJsonController extends AbstractJsonController {
                         0, Boolean.TRUE);
         responseJson.put("notifications",
                 convertNotificationList(notifications, request));
-        setItemResponse(responseJson);
+        setItemResponse(responseJson); IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/notifications/list.json", method = RequestMethod.GET)
+    public ModelMap get(
+            @RequestParam(value = "limit") Integer limit,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+         UserAccount secondary;
+        try {
+             secondary = getByUsername(getUserPrincipalUsername());
+             if(secondary == null){
+                 setError("account not valid", response);
+             }
+             final Map<String, Object> responseJson = new HashMap<String, Object>();
+            final List<UtilNotification> streamOperations = getStreamOperations().retrieveLastNotifications(limit, request);
+            responseJson.put("notifications", streamOperations);
+            setItemResponse(responseJson);
+        } catch (EnMeNoResultsFoundException e) {
+             setError(e.getMessage(), response);
+        }
         return returnData();
     }
 
@@ -138,16 +156,16 @@ public class NotificationsJsonController extends AbstractJsonController {
         //define if notifications are categorized.
         try{
             if (categorized) {
-               final HashMap<DateClasificatedEnum, List<UtilNotification>> list = classifyNotificationList(convertNotificationList(
-                       getSecurityService().loadNotificationByUserAndLimit(limit, start, Boolean.FALSE),
-                       request));
-               responseJson.put("notifications", list);
+                List<UtilNotification> stream = getStreamOperations()
+                        .loadNotificationByUserAndLimit(limit, start,
+                                Boolean.FALSE, request);
+                final HashMap<DateClasificatedEnum, List<UtilNotification>> list = getStreamOperations()
+                        .classifyNotificationList(stream);
+                responseJson.put("notifications", list);
             } else {
-                responseJson.put(
-                        "notifications",
-                        convertNotificationList(getSecurityService()
-                                .loadNotificationByUserAndLimit(limit, start,
-                                        Boolean.FALSE), request));
+                responseJson.put("notifications", getStreamOperations()
+                        .loadNotificationByUserAndLimit(limit, start,
+                                Boolean.FALSE, request));
             }
             setItemResponse(responseJson);
         } catch (EnMeNoResultsFoundException e) {

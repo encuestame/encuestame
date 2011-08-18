@@ -14,13 +14,21 @@ dependencies ={
                 "encuestame.org.core.commons.tweetPoll.TweetPollListDetail",
                 "encuestame.org.core.commons.tweetPoll.HashTags",
                 "encuestame.org.core.commons.tweetPoll.Answers",
+                "encuestame.org.core.comments.Comment",
                 "encuestame.org.core.commons.poll.Poll",
+                "encuestame.org.core.commons.dialog.Info",
+                "encuestame.org.core.commons.dashboard.GadgetDirectory",
                 "encuestame.org.core.commons.social.SocialAccounts",
                 "encuestame.org.core.commons.dashboard.Dashboard",
+                "encuestame.org.core.commons.dashboard.DashboardLayout",
+                "encuestame.org.core.commons.dashboard.DashboardWrapper",
+                "encuestame.org.core.commons.dashboard.Gadget",
+                "encuestame.org.core.shared.utils.Avatar",
                 "encuestame.org.core.commons.dashboard.chart.DashboardPie",
                 "encuestame.org.core.commons.dashboard.chart.DashboardLine",
                 "encuestame.org.core.commons.dashboard.chart.DashboardColumn2D",
                 "encuestame.org.core.commons.notifications.Notification",
+                "encuestame.org.core.commons.notifications.NotificationItem",
                 "encuestame.org.core.commons.notifications.NotificationList",
                 "encuestame.org.core.admon.project.Projects",
                 "encuestame.org.core.admon.user.Users",
@@ -75,7 +83,12 @@ dependencies ={
                 "org.cometd.AckExtension",
                 "org.cometd.ReloadExtension",
                 "org.cometd.TimeStampExtension",
-                "org.cometd.TimeSyncExtension"
+                "org.cometd.TimeSyncExtension",
+                //gadgets
+                "encuestame.org.core.gadget.Gadget",
+                "encuestame.org.core.gadget.Activity",
+                "encuestame.org.core.gadget.Comments",
+                "encuestame.org.core.gadget.TweetPollVotes"
                 ]
             }
           /*,
