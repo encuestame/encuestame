@@ -39,7 +39,8 @@ dojo.declare(
         /*
          * override.
          */
-        _updateStream : function(message){
+        _updateStream : function(message) {
+             console.info("comment update ...", message);
              var obj = dojo.fromJson(message.data.comments);
              this._printStream(obj);
         },
@@ -47,7 +48,7 @@ dojo.declare(
         /*
          * create item comment.
          */
-        createItem : function(item){
+        createItem : function(item) {
             return new encuestame.org.core.comments.Comment({comment : item , minimizeFormat : true});
         },
 
@@ -55,8 +56,7 @@ dojo.declare(
          *
          * @returns
          */
-        getNode : function(){
+        getNode : function() {
             return this._comments;
         }
-
 });

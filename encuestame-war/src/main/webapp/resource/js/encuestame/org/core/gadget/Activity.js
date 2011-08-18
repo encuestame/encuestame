@@ -39,7 +39,7 @@ dojo.declare(
          */
         _updateStream : function(message){
             var obj = dojo.fromJson(message.data.stream);
-            console.info("stream ...", message);
+            console.info("activity update ...", obj);
             this._printStream(obj);
         },
 

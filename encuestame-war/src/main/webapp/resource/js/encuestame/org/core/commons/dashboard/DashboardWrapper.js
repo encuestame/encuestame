@@ -181,11 +181,17 @@ dojo.declare(
         /*
          * create new dashboard.
          */
-        _createNewDashBoard : function(data) {
-            console.debug("_createNewDashBoard", data);
-            this.dashboardWidget = new encuestame.org.core.commons.dashboard.Dashboard({dashboard: data });
+        _createDashBoard : function(data) {
+            console.debug("_createDashBoard", data);
+            if (this.dashboardWidget == null) {
+                this.clean();
+                this.dashboardWidget = new encuestame.org.core.commons.dashboard.Dashboard({dashboard: data });
+                this.dashboardWidget.startup();
+                dojo.publish("/encuestame/dashboard/insert", [this.dashboardWidget.domNode]);
+            } else {
+                this.dashboardWidget.dashboard = data;
+            }
             this.dashboardWidget.initialize();
-            dojo.publish("/encuestame/dashboard/insert", [this.dashboardWidget.domNode]);
             return this.dashboardWidget;
         },
 
@@ -193,8 +199,7 @@ dojo.declare(
          *
          */
         loadDashBoard : function(data) {
-            this.clean();
-            this._createNewDashBoard(data);
+            this._createDashBoard(data);
         },
 
 
@@ -206,9 +211,10 @@ dojo.declare(
                 /*
                  * TODO: issues on try to remove this widget. destroyRecursive don't seems work properly.
                  */
+                this.dashboardWidget.destroyLayout();
                 this.dashboardWidget.destroyRecursive(true);
-                dojo.destroy(this.dashboardWidget.layoutWidget);
-                dojo.destroy(this.dashboardWidget);
+                //dojo.destroy(this.dashboardWidget.layoutWidget);
+                //dojo.destroy(this.dashboardWidget);
             }
             if(this._dasboard){
                 dojo.empty(this._dasboard);
