@@ -6,18 +6,14 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.InlineEditBox");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.core.shared.utils.FolderOperations');
 
 
 dojo.declare(
     "encuestame.org.core.shared.utils.FoldersActions",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.core.shared.utils.FolderOperations],{
 
       templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/foldersAction.html"),
-
-      /*
-       * folder context.
-       */
-      folderContext : null,
 
       /*
        * enable templates.
@@ -25,29 +21,22 @@ dojo.declare(
       widgetsInTemplate: true,
 
       /*
-       * context.
+       *
        */
-      _context : ["tweetpoll", "poll", "survey"],
-
-      /*
-       * actions.
-       */
-      _actions : ["create", "update", "move", "list", "remove"],
-
       _folderSourceWidget : null,
 
       /*
        * post create.
        */
-      postCreate : function(){
-          if (this.folderContext != null) {
-              this._loadFolders();
-          } else {
-              console.error("folderContext is required.");
-          }
+      postCreate : function() {
+          this.inherited(arguments);
+          this._loadFolders();
           dojo.connect(this._new, "onclick", this, this._addNewFolder);
       },
 
+      /*
+       * add new folder.
+       */
       _addNewFolder : function(event){
           dojo.stopEvent(event);
           var node = this._createFolder({folderId: null, name : "Add new name."});
@@ -55,40 +44,11 @@ dojo.declare(
       },
 
       /*
-       * get service by action.
-       */
-      _serviceAction : function(type, context){
-          if (type == this._actions[0]) {
-              return encuestame.service.folder.create(context);
-         } else if (type == this._actions[1]) {
-             return encuestame.service.folder.update(context);
-         } else if (type == this._actions[2]) {
-             return encuestame.service.folder.move(context);
-         } else if (type == this._actions[3]) {
-             return encuestame.service.folder.list(context);
-         } else if (type == this._actions[4]) {
-             return encuestame.service.folder.remove(context);
-         }
-      },
-
-      /*
-       * get service by context.
-       */
-      _getContextUrlService : function(type){
-         if (this.folderContext == this._context[0]) {
-             return this._serviceAction(type, this._context[0]);
-         } else if (this.folderContext == this._context[1]) {
-             return this._serviceAction(type,this._context[1]);
-         } else if (this.folderContext == this._context[2]) {
-             return this._serviceAction(type, this._context[2]);
-         }
-      },
-
-      /*
        * load folders.
        */
       _loadFolders : function() {
-          var load = dojo.hitch(this, function(data){
+          this.getAction("list");
+          var load = function(data){
               dojo.empty(this._folders);
               dojo.forEach(
                       data.success.folders,
@@ -96,15 +56,12 @@ dojo.declare(
                           var node = this._createFolder(data);
                           this._folders.appendChild(node.domNode);
               }));
-          });
+          };
           var params = {
               max : this.max,
               start : this.start
               };
-          var error = function(error) {
-              console.debug("error", error);
-          };
-          encuestame.service.xhrGet(this._getContextUrlService(this._actions[3]), params, load, error);
+          this._callFolderService(load, params, this.getAction("list"), false);
       },
 
       /*
@@ -117,9 +74,12 @@ dojo.declare(
       }
 });
 
+/**
+ *
+ */
 dojo.declare(
         "encuestame.org.core.shared.utils.FoldersItemAction",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.core.shared.utils.FolderOperations],{
 
         templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/foldersItemAction.html"),
 
@@ -140,6 +100,9 @@ dojo.declare(
 
         _foldersourceWidget : null,
 
+        /*
+         * post create cycle.
+         */
         postCreate : function(){
             if (this.dropSupport) {
                 this._folderSourceWidget  = new dojo.dnd.Target(this._folder, {
@@ -148,13 +111,22 @@ dojo.declare(
                     dojo.connect(this._folderSourceWidget, "onDndDrop", dojo.hitch(this, this.onDndDropFolder));
                };
                var name = dijit.byId(this._name);
-               name.onChange = dojo.hitch(this, function(){
-                   if (this.folderId == null) {
-                       this.folderId = this._create(name.get('value'));
-                   } else {
-                       this._update(name.get('value'));
-                   }
-               });
+               if (name != null) {
+                   console.debug("inline on change", name);
+                   /*
+                    * TODO: on change event issues, review.
+                    */
+                   name.onChange = dojo.hitch(this, function() {
+                       if (this.folderId == null) {
+                           this.folderId = this._create(name.get('value'));
+                       } else {
+                           this._update(name.get('value'));
+                       }
+                   });
+                   console.debug("inline on change 2", name);
+               } else {
+                   console.error("inline error");
+               }
                console.debug("widget inline", name);
         },
 
@@ -162,9 +134,8 @@ dojo.declare(
          * add folder.
          */
         _create : function(name) {
-            console.debug("updated name to", name);
+            console.debug("updated name to;", name);
             var id = null;
-            var i = false;
             var load = dojo.hitch(this, function(data){
                 console.debug("data", data);
                 console.info("updated name");
@@ -172,12 +143,7 @@ dojo.declare(
             var params = {
                 name : name
                 };
-            var error = function(error) {
-                console.debug("error", error);
-            };
-                encuestame.service.xhrGet(this.folderParentWidget
-            ._getContextUrlService(this.folderParentWidget._actions[0]),
-            params, load, error);
+            this._callFolderService(load, params, this.getAction("create"));
             return id;
         },
 
@@ -186,7 +152,6 @@ dojo.declare(
          */
         _update : function(name) {
             console.debug("updated name to", name);
-            var i = false;
             var load = dojo.hitch(this, function(data){
                 console.debug("data", data);
                 console.info("updated name");
@@ -195,33 +160,22 @@ dojo.declare(
                 folderId :this.folderId,
                 folderName : name
                 };
-            var error = function(error) {
-                console.debug("error", error);
-            };
-                encuestame.service.xhrGet(this.folderParentWidget
-            ._getContextUrlService(this.folderParentWidget._actions[1]),
-            params, load, error);
+            this._callFolderService(load, params, this.getAction("update"));
         },
 
         /*
          * add item.
          */
         _addItem : function(id) {
-            var i = false;
-            var load = dojo.hitch(this, function(data){
+            var load = function(data){
                 console.debug("data", data);
                 console.info("Item Added");
-            });
+            };
             var params = {
                 folderId :this.folderId,
                 itemId : id
                 };
-            var error = function(error) {
-                console.debug("error", error);
-            };
-                encuestame.service.xhrGet(this.folderParentWidget
-            ._getContextUrlService(this.folderParentWidget._actions[2]),
-            params, load, error);
+           this._callFolderService(load, params, this.getAction("move"));
         },
 
         /*
@@ -241,11 +195,11 @@ dojo.declare(
                     console.debug("same");
                 } else {
                     dojo.forEach(this._folderSourceWidget.getSelectedNodes(), dojo.hitch(this, function(item) {
-                        console.debug("item", item);
+                        //console.debug("item", item);
                         var tweetPollId = item.getAttribute('tweetpollId');
                         var type = item.getAttribute('dndtype');
-                        console.debug("tweetpollId", tweetPollId);
-                        console.debug("type", type);
+                        //console.debug("tweetpollId", tweetPollId);
+                        //console.debug("type", type);
                         this._addItem(parseInt(tweetPollId));
                         dojo.destroy(item);
                     }));

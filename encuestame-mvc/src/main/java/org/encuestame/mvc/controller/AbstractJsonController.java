@@ -213,6 +213,17 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
     }
 
     /**
+     *
+     * @param label
+     * @param object
+     */
+    public void setSingleResponse(final String label, Object object){
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        jsonResponse.put(label, object);
+        setItemResponse(jsonResponse);
+    }
+
+    /**
      * Get User.
      * @param userId user Id.
      * @return

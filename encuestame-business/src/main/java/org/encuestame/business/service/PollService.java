@@ -238,8 +238,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException exception
      */
-    public List<FolderBean> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException {
-        final Account account = getUserAccount(username).getAccount();
+    public List<FolderBean> retrieveFolderPoll() throws EnMeNoResultsFoundException {
+        final Account account = getUserAccount(getUserPrincipalUsername()).getAccount();
         final List<PollFolder> folders = getPollDao().getPollFolderBySecUser(account);
         return ConvertDomainBean.convertListPollFolderToBean(folders);
     }

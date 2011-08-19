@@ -79,8 +79,20 @@ public class PollController extends AbstractBaseOperations {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll/list", method = RequestMethod.GET)
-    public String tweetPollController(final ModelMap model) {
+    public String pollListController(final ModelMap model) {
         log.debug("tweetpoll");
         return "poll/list";
+    }
+
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/poll/new", method = RequestMethod.GET)
+    public String newPollController(final ModelMap model) {
+        log.debug("tweetpoll");
+        return "poll/new";
     }
 }

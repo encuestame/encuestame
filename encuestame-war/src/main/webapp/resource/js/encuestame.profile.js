@@ -16,6 +16,7 @@ dependencies ={
                 "encuestame.org.core.commons.tweetPoll.Answers",
                 "encuestame.org.core.comments.Comment",
                 "encuestame.org.core.commons.poll.Poll",
+                "encuestame.org.core.commons.poll.PollNavigate",
                 "encuestame.org.core.commons.dialog.Info",
                 "encuestame.org.core.commons.dashboard.GadgetDirectory",
                 "encuestame.org.core.commons.social.SocialAccounts",
