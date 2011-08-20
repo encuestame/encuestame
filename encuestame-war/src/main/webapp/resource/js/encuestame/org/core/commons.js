@@ -460,6 +460,11 @@ encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
 };
 
+encuestame.service.list.poll = {};
+encuestame.service.list.create = encuestame.contextWidget()+"/api/poll/create.json";
+encuestame.service.list.publish = encuestame.contextWidget()+"/api/poll/publish.json";
+
+
 encuestame.service.list.votes = {};
 encuestame.service.list.getTweetPollVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/"+username+"/tweetpoll/"+id+"/votes.json";

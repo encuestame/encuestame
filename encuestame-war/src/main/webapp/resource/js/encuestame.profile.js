@@ -91,7 +91,13 @@ dependencies ={
                 "encuestame.org.core.gadget.Gadget",
                 "encuestame.org.core.gadget.Activity",
                 "encuestame.org.core.gadget.Comments",
-                "encuestame.org.core.gadget.TweetPollVotes"
+                "encuestame.org.core.gadget.TweetPollVotes",
+                //patterns
+                "encuestame.org.core.commons.questions.Question",
+                "encuestame.org.core.commons.questions.patterns.SingleResponse",
+                "encuestame.org.core.commons.questions.patterns.AbstractPattern",
+                "encuestame.org.core.shared.publish.PublishSupport",
+                "encuestame.org.core.shared.utils.ContextSupport",
                 ]
             }
           /*,
