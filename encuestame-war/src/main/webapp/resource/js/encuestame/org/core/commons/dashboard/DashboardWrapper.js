@@ -62,6 +62,9 @@ dojo.declare(
             dialog.show();
         },
 
+        /*
+         * open layout.
+         */
         _openLayout : function(event){
             dojo.stopEvent(event);
             var dialog = this._createDialog(this.layoutWidget.domNode);

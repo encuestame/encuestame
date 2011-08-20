@@ -16,6 +16,13 @@
         <param-value>/WEB-INF/classes/log4j.xml</param-value>
     </context-param>
 
+    <jsp-config>
+        <taglib>
+            <taglib-uri>enmetags</taglib-uri>
+            <taglib-location>/WEB-INF/tld/emne-dojo.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
         <!-- Allows attributes to be accessed on the next request -->
     <filter>
         <filter-name>flashMapFilter</filter-name>
@@ -221,6 +228,11 @@
         <servlet-name>cometd</servlet-name>
         <url-pattern>/activity/*</url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500page.jsp</location>
+    </error-page>
 
     <welcome-file-list>
         <welcome-file>home</welcome-file>

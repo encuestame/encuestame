@@ -123,7 +123,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException exception
     */
-    List<FolderBean> retrieveFolderPoll(final String username) throws EnMeNoResultsFoundException;
+    List<FolderBean> retrieveFolderPoll() throws EnMeNoResultsFoundException;
 
     /**
     * Get Polls by Folder.

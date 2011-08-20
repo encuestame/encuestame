@@ -229,23 +229,27 @@ public class FolderJsonServiceController extends AbstractJsonController{
     @RequestMapping(value = "/api/survey/folder/{actionType}/list.json", method = RequestMethod.GET)
     public ModelMap retrieveItemsbyFolder(
              @PathVariable String actionType,
+             @RequestParam(value = "store", required = false) Boolean store,
              HttpServletRequest request,
              HttpServletResponse response) {
-             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            log.debug("type:{ "+actionType);
-            try {
+             store = store == null ? false : store;
+             log.debug("type:{ "+actionType);
+             try {
                 if ("poll".equals(actionType)) {
-                    //FolderBean fbean = new FolderBean(folderId);
-                    //list =  getPollService().getPollsByFolder(fbean, getUserPrincipalUsername());
-                    //jsonResponse.put("folders", list);
-                    //setItemResponse(jsonResponse);
-                    jsonResponse.put("folders", ListUtils.EMPTY_LIST);
+                    if(store){
+                        setItemReadStoreResponse("name","id", getPollService().retrieveFolderPoll());
+                    } else {
+                        setSingleResponse("folders", getPollService().retrieveFolderPoll());
+                    }
                 } else if("tweetpoll".equals(actionType)) {
-                    jsonResponse.put("folders", getTweetPollService().getFolders());
+                    if(store){
+                        setItemReadStoreResponse("name", "id", getTweetPollService().getFolders());
+                    } else {
+                        setSingleResponse("folders", getTweetPollService().getFolders());
+                    }
                 } else if ("survey".equals(actionType)) {
-                    jsonResponse.put("folders", ListUtils.EMPTY_LIST);
+                    setSingleResponse("folders", ListUtils.EMPTY_LIST);
                 }
-                setItemResponse(jsonResponse);
             } catch (Exception e) {
                log.error(e);
                e.printStackTrace();

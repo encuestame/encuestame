@@ -160,7 +160,7 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                final Map<String, Object> sucess = new HashMap<String, Object>();
-               if("create".equals(actionType)){
+               if ("create".equals(actionType)) {
                    final PollBean unitPoll = new PollBean();
                    final Question question =  getSurveyService().createQuestion(new QuestionBean(questionName));
                    unitPoll.setCreationDate(creationDate);
