@@ -15,5 +15,14 @@
         <required>true</required>
         <description>Dojo widget to render</description>
     </attribute>
+    <attribute>
+        <name>parameters</name>
+        <required>false</required>
+        <description>parameters to append</description>
+    </attribute>
+  </tag>
+  <tag>
+    <name>require</name>
+    <tag-class>org.encuestame.mvc.tag.RequiredWidgetsResource</tag-class>
   </tag>
 </taglib>

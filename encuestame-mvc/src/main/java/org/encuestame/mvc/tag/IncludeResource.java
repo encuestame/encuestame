@@ -25,13 +25,15 @@ import org.apache.commons.lang.StringUtils;
  */
 public class IncludeResource extends TagSupport {
 
-    private String widget = "";
+    private String type = "";
+
+
 
     /**
-     * @param widget the widget to set
+     * @param type the type to set
      */
-    public void setWidget(String widget) {
-        this.widget = widget;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -47,9 +49,9 @@ public class IncludeResource extends TagSupport {
         try {
             final JspWriter out = pageContext.getOut();
             final StringBuffer buffer = new StringBuffer("<div");
-            if (StringUtils.startsWith(widget, "encuestame.org")) {
+            if (StringUtils.startsWith(type, "encuestame.org")) {
                 buffer.append(" dojoType=\"");
-                buffer.append(widget);
+                buffer.append(type);
                 buffer.append("\">");
             } else {
                 buffer.append("> ");
