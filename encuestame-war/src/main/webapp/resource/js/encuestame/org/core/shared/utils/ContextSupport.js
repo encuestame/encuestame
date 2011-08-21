@@ -23,8 +23,14 @@ dojo.declare("encuestame.org.core.shared.utils.ContextSupport",
          */
         _context : ["tweetpoll", "poll", "survey"],
 
+        /*
+         *
+         */
         context : null,
 
+        /*
+         *
+         */
         constructor: function(){
             this.context = "";
         },

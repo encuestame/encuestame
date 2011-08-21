@@ -2862,3 +2862,120 @@ div.web-settings-account-row .info-block {
 div.web-settings-account .data{
      margin-left: 150px;
 }
+
+/* publish support */
+
+div.web-publish-support{
+    min-width: 500px;
+    min-height: 500px;
+}
+
+div.web-publish-support .sidebar{
+    float: left;
+    width: 185px;
+}
+
+div.web-publish-support .title{
+    font-size: 140%;
+    padding: 10px;
+    font-weight: bold;
+}
+
+div.web-publish-support .title h2{
+    margin: 0px;
+}
+
+div.web-publish-support .sub-section{
+    overflow: auto;
+}
+
+div.web-publish-support .wrapper{
+    overflow: auto;
+}
+
+div.web-publish-support .detail {
+  margin-left: 170px;
+  padding: 15px;
+}
+
+div.web-publish-support ul.menu {
+  background: none repeat scroll 0 0 #F4F4F4;
+  height: 335px;
+  padding: 5px;
+}
+
+div.web-publish-support ul.menu li {
+  border-bottom: 1px dotted #DEDEDE;
+  border-top: 1px solid #FFFFFF;
+  border-width: 1px;
+  font-size: 130%;
+  list-style: none outside none;
+  padding: 10px;
+  width: 150px;
+  cursor: pointer;
+}
+
+div.web-publish-support ul.menu li:hover{
+    background-color: #A4BCCB;
+    color: white;
+}
+
+div.web-publish-support ul.menu li a:hover{
+    color: white;
+}
+
+div.web-publish-support .footer-section {
+  background-color: #F4F4F4;
+  border-top: 2px solid #D7D7D7;
+  min-height: 40px;
+  padding: 20px 50px 0px 10px;
+  text-align: right;
+  width: auto;
+}
+
+div.web-publish-support div.web-support-panel-item-title {
+  background-color: #F2F2F2;
+  border-bottom: 1px dotted #DEDEDE;
+  color: #7D7D7D;
+  cursor: pointer;
+  font-size: 130%;
+  padding: 13px;
+  text-transform: capitalize;
+  width: auto;
+}
+
+div.web-publish-support div.web-support-panel-item-content{
+  min-height: 200px !important;
+  padding: 5px;
+}
+
+
+div.web-support-embebed{
+    padding: 15px;
+    font-size: 12px;
+}
+
+div.web-support-embebed .emebed-title {
+  color: #000000;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 26px;
+  padding: 0 0 5px;
+}
+
+div.web-support-embebed .embebed-des{
+   color: #666666;
+   font-size: 12px;
+   line-height: 18px;
+}
+
+div.web-support-embebed textarea {
+  color: #000000;
+  font-family: courier;
+  font-size: 120%;
+  height: 100px;
+  margin-top: 0;
+  padding: 6px;
+  width: 520px;
+}
+

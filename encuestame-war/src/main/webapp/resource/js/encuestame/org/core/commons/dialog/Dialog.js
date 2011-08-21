@@ -7,7 +7,7 @@ dojo.declare(
     [dijit.Dialog],{
         //disable drag support.
         draggable : false,
-        style : null,
+        style : "width: 200px; height: 200px;",
         //post create
         postCreate : function(){
             this.inherited(arguments);

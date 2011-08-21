@@ -138,6 +138,6 @@ dojo.declare(
          *
          */
         _createDialogSupport : function(){
-            this._dialogPublish = new encuestame.org.core.commons.dialog.Dialog({ style : "width:500;heigth:500;"});
+            this._dialogPublish = new encuestame.org.core.commons.dialog.Dialog({ style :"width: 850px; heigth:400px;"});
         }
 });
