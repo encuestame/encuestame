@@ -96,7 +96,7 @@ public class TestPollService extends AbstractServiceBase{
 
     @Test
     public void test(){
-    	System.out.println("------");
+        System.out.println("------");
     }
 
     /**
@@ -130,7 +130,7 @@ public class TestPollService extends AbstractServiceBase{
      */
     //@Test
     public void testretrieveFolderPoll() throws EnMeNoResultsFoundException{
-        List<FolderBean> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
+        List<FolderBean> folders = this.pollService.retrieveFolderPoll();
         assertEquals(folders.size(), 1);
     }
 
@@ -141,7 +141,7 @@ public class TestPollService extends AbstractServiceBase{
     //@Test
     public void testcreatePollFolder() throws EnMeNoResultsFoundException{
          this.pollService.createPollFolder("folder 2", this.userAccount.getUsername());
-         List<FolderBean> folders = this.pollService.retrieveFolderPoll(this.userAccount.getUsername());
+         List<FolderBean> folders = this.pollService.retrieveFolderPoll();
          assertEquals(folders.size(), 2);
     }
 
