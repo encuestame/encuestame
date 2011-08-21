@@ -4,6 +4,7 @@ dojo.require("dijit.form.TextBox");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.core.shared.utils.Icon');
 dojo.require('encuestame.org.core.commons.questions.patterns.AbstractPattern');
 
 dojo.declare(
@@ -13,7 +14,12 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        postCreate : function(){
+        dndEnabled : false,
 
+        postCreate : function(){
+            if (this.dndEnabled) {
+                dojo.addClass(this._handle, "dojoDndHandle");
+                //add class dojoDndHandle
+            }
         }
 });

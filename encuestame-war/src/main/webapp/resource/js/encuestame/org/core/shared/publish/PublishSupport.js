@@ -38,10 +38,19 @@ dojo.declare("encuestame.org.core.shared.publish.PublishSupport", [
 
     messageClass : "succesfully",
 
+    dialogContext : null,
+
+    /*
+     *
+     */
     postCreate : function(){
         this.initializeSocial(false);
         this.initializeEmail(true);
         this.initializeEmbebed(true);
+        dojo.connect(this._close, "onClick", dojo.hitch(this, function(){
+            console.info("closing dialog..", this.dialogContext);
+            this.dialogContext.hide(); //TODO: destroy dialog after close.
+        }));
     },
 
     /*

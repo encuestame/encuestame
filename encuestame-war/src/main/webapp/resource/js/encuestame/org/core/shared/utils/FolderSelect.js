@@ -38,6 +38,11 @@ dojo.declare(
       widgetsInTemplate: true,
 
       /*
+       * label.
+       */
+      label : "Folder",
+
+      /*
        *
        */
       _addComboStoreWidget : null,

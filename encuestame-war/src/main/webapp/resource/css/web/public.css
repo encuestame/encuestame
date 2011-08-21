@@ -1232,7 +1232,7 @@ div.web-tweetpoll-wrapper {
     margin-bottom: 5em;
 }
 
-div.web-tweetpoll-wrapper div.spaceBlock {
+div.spaceBlock {
     margin-bottom: 20px !important;
 }
 
@@ -1240,7 +1240,7 @@ div.web-tweetpoll-wrapper div.spaceBlockTop {
     margin-top: 80px !important;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section {
+div.web-tweetpoll-section {
     background-color: #F6F6F6;
     border: 1px solid #E5E5E5;
     margin: 0 auto;
@@ -1252,7 +1252,7 @@ div.web-tweetpoll-wrapper div.web-tweetpoll-section {
     border-radius: 10px 10px 10px 10px;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section div.web-tweetpoll-section-title {
+div.web-tweetpoll-section div.web-tweetpoll-section-title {
  /** #737373 D7D7D7 #8EA5B7  */
   color: #FFFFFF;
   font-size: 125%;
@@ -1260,15 +1260,15 @@ div.web-tweetpoll-wrapper div.web-tweetpoll-section div.web-tweetpoll-section-ti
   font-weight: bold;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section .space{
+div.web-tweetpoll-section .space{
     padding: 10px;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section .info{
+div.web-tweetpoll-section .info{
 
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section .counterGlobal {
+div.web-tweetpoll-section .counterGlobal {
     -webkit-border-radius: 100px 100px 100px 100px;
     -moz-border-radius: 100px 100px 100px 100px;
     border-radius: 100px 100px 100px 100px;
@@ -1311,7 +1311,7 @@ div.web-tweetpoll-wrapper .socialBlock {
     border-top: 1px solid;
 }
 
-div.web-tweetpoll-wrapper div.tweetPollPublishButton {
+div.tweetPollPublishButton {
     background-color: #EBEBEB;
     margin: auto 65px;
     padding: 10px;
@@ -2979,3 +2979,68 @@ div.web-support-embebed textarea {
   width: 520px;
 }
 
+/** poll */
+
+div.web-poll-wrapper{
+    padding: 10px;
+    margin: 0 auto;
+    padding: 35px 0;
+    width: auto;
+}
+
+div.web-poll-wrapper div.web-poll-question{
+    min-height: 60px;
+}
+
+div.web-poll-wrapper ul.web-poll-answers{
+
+}
+
+div.web-poll-wrapper ul.web-poll-answers li{
+    list-style: none;
+    padding: 5px;
+}
+
+div.web-poll-wrapper .web-tweetpoll-section{
+    width: auto;
+    margin: auto 0;
+}
+
+
+/** paterns **/
+
+.web-pattern{
+
+}
+
+.single-response{
+
+}
+
+.single-response .single-response-handle {
+  float: left;
+  margin-right: 10px;
+  margin-top: 7px;
+}
+
+.single-response .single-response-input{
+    margin-left: 10px;
+}
+
+/* folder selection */
+div.folder-selection{
+    padding: 0px;
+}
+
+div.folder-selection div.folder-selection-label {
+  color: #848282;
+  float: left;
+  font-size: 120%;
+  font-weight: normal;
+  margin-right: 3px;
+  margin-top: 2px;
+}
+
+div.folder-selection  div.folder-selection-combo{
+    margin-left: 45px;
+}

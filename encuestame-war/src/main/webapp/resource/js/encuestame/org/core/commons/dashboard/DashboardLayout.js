@@ -85,7 +85,7 @@ dojo.declare(
                 this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else {
                 //error.
-                console.error("no layout")
+                console.error("no layout");
             }
             if(node != null){
                 this._layout.appendChild(node);

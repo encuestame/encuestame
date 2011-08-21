@@ -98,6 +98,8 @@ dependencies ={
                 "encuestame.org.core.commons.questions.patterns.AbstractPattern",
                 "encuestame.org.core.shared.publish.PublishSupport",
                 "encuestame.org.core.shared.utils.ContextSupport",
+                "encuestame.org.core.commons.support.DnD",
+                "encuestame.org.core.shared.utils.Icon"
                 ]
             }
           /*,

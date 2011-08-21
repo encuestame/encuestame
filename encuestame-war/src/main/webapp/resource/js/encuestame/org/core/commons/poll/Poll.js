@@ -14,24 +14,25 @@ dojo.provide("encuestame.org.core.commons.poll.Poll");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
+dojo.require('dijit.form.Button');
 dojo.require("dijit.form.CheckBox");
 dojo.require('dijit.form.TimeTextBox');
 dojo.require('dijit.form.DateTextBox');
 dojo.require('encuestame.org.core.commons');
 dojo.require('encuestame.org.core.shared.utils.FolderSelect');
-dojo.require('dijit.form.Button');
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require('encuestame.org.core.commons.questions.patterns.SingleResponse');
 dojo.require('encuestame.org.core.commons.questions.Question');
 dojo.require('encuestame.org.core.shared.publish.PublishSupport');
+dojo.require('encuestame.org.core.commons.support.DnD');
 
-/*
+/**
  *
  */
 dojo.declare(
     "encuestame.org.core.commons.poll.Poll",
-    [dijit._Widget, dijit._Templated],{
+    [dijit._Widget, dijit._Templated, encuestame.org.core.commons.support.DnD],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/poll.html"),
 
         widgetsInTemplate: true,
@@ -41,6 +42,9 @@ dojo.declare(
          */
         _folderWidget : null,
 
+        /*
+         *
+         */
         context : "poll",
 
         /*
@@ -69,6 +73,7 @@ dojo.declare(
                 this._folder.appendChild(this._folderWidget.domNode);
             }
             dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
+            this.enableDndSupport(this._source);
         },
 
 
@@ -121,7 +126,8 @@ dojo.declare(
             //social widget.
             var publishWidget = new encuestame.org.core.shared.publish.PublishSupport(
                     {
-                        context:this.context
+                        context:this.context,
+                        dialogContext : this._dialogPublish
                     });
             this._dialogPublish.containerNode.appendChild(publishWidget.domNode);
             this._dialogPublish.show();
