@@ -73,7 +73,7 @@ dojo.declare(
                 this._folder.appendChild(this._folderWidget.domNode);
             }
             dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
-            this.enableDndSupport(this._source);
+            this.enableDndSupport(this._source, true);
         },
 
 

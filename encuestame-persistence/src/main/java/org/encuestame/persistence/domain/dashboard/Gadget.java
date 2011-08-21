@@ -22,6 +22,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
  * Gadget domain.
  * @author Morales, Diana Paola paolaATencuestame.org
@@ -29,6 +32,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "gadget")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Gadget {
 
     /** Widget id.**/

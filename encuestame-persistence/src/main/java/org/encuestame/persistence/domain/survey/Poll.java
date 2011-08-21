@@ -30,6 +30,8 @@ import javax.persistence.UniqueConstraint;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Poll Domain.
@@ -41,6 +43,7 @@ import org.encuestame.persistence.domain.security.Account;
 @Entity
 @Table(name = "poll",
     uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Poll extends AbstractSurvey {
     private Long pollId;
     private Boolean pollCompleted;

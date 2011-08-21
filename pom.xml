@@ -55,6 +55,7 @@
         <hibernate.search.version>3.3.0.Final</hibernate.search.version>
         <hibernate.validator>4.0.2.GA</hibernate.validator>
         <ehcache.version>2.4.1</ehcache.version>
+	<ehcache-web.version>2.0.3</ehcache-web.version>
         <!-- JSON -->
         <jackson.version>1.8.3</jackson.version>
         <!-- Lucene Version -->
@@ -1232,7 +1233,11 @@
                 <artifactId>ehcache-core</artifactId>
                 <version>${ehcache.version}</version>
             </dependency>
-
+            <dependency>
+	        <groupId>net.sf.ehcache</groupId>
+	        <artifactId>ehcache-web</artifactId>
+	        <version>${ehcache-web.version}</version>
+	    </dependency>
             <dependency>
                 <groupId>org.apache.velocity</groupId>
                 <artifactId>velocity</artifactId>

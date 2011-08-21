@@ -22,6 +22,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Dashboard domain.
@@ -31,6 +33,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
  */
 @Entity
 @Table(name = "dashboard")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Dashboard {
 
     /** Dashboard Id. **/
