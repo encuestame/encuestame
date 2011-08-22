@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
 import java.util.List;
 
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.IFrontEndService;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.json.TweetPollBean;

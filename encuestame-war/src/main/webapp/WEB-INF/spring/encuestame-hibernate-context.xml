@@ -13,7 +13,8 @@
        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd
-       http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
+       http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+       http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd">
 
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -112,6 +113,7 @@
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
+        <property name="cacheQueries" value="true"/>
     </bean>
 
     <!--  Encuestame Transactions Configuration  -->
@@ -145,6 +147,8 @@
 
     <import resource="encuestame-encrypt-context.xml" />
 
+    <!-- Ehcache Configuration -->
+
     <ehcache:annotation-driven />
 
      <ehcache:config cache-manager="cacheManager">
@@ -154,28 +158,4 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation"  value="classpath:ehcache.xml"/>
     </bean>
-
-    <!-- ehcache configuration
-
-    <ehcache:config configLocation="classpath:ehcache.xml" />
-
-     -->
-    <!-- Question Dao
-    <ehcache:annotations>
-
-        <ehcache:caching id="retrieveQuestionsByName" cacheName="questionCache" />
-        <ehcache:caching id="retrieveQuestionById" cacheName="questionCache" />
-        <ehcache:caching id="retrieveAnswerById" cacheName="questionCache" />
-        <ehcache:flushing id="createQuestion" cacheNames="questionCache" />
-    </ehcache:annotations>
-    -->
-    <!-- Permission Dao
-    <ehcache:annotations>
-
-        <ehcache:caching id="loadAllPermissions" cacheName="permissionCache" />
-        <ehcache:caching id="loadPermission" cacheName="permissionCache" />
-        <ehcache:caching id="getPermissionById" cacheName="permissionCache" />
-        <ehcache:flushing id="createPermission" cacheNames="permissionCache" />
-    </ehcache:annotations>
-    -->
 </beans>

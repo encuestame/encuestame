@@ -11,11 +11,10 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;

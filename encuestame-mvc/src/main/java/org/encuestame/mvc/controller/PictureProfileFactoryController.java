@@ -10,14 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.PictureType;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Controller;

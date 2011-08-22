@@ -29,7 +29,6 @@
                 <entry key="rss" value="application/rss+xml" />
             </map>
         </property>
-
         <property name="defaultContentType" value="application/json" />
         <property name="favorPathExtension" value="true" />
 
@@ -46,9 +45,9 @@
                       <property name="prefixJson" value="false"/>
                       <property name="disableCaching" value="true"></property>
                 </bean>
-                <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.controller.syndication.view.TweetPollAtomFeedView"></bean>
-                <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.controller.syndication.view.TweetPollRssFeedView"></bean>
-            </list>
+                <ref bean="tweetPollAtomFeedView"/>
+                <ref bean="tweetPollRssFeedView"/>
+             </list>
         </property>
         <property name="ignoreAcceptHeader" value="true" />
     </bean>

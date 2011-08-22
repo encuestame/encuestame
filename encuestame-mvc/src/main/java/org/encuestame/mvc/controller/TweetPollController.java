@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;

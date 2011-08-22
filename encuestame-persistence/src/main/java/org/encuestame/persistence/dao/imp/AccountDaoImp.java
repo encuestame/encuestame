@@ -75,6 +75,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
         criteria.add(Restrictions.eq("account", account));
         criteria.setFetchMode("secUserPermissions", FetchMode.SELECT);
         criteria.addOrder(Order.asc("enjoyDate"));
+        getHibernateTemplate().setCacheQueries(true);
         return getHibernateTemplate().findByCriteria(criteria, start, maxResults);
     }
 
@@ -118,6 +119,8 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
         log.debug("getUserByUsername by :{"+username);
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("username", username));
+        getHibernateTemplate().setQueryCacheRegion("query.user.by.username");
+        getHibernateTemplate().setCacheQueries(true);
         final UserAccount userAccount = (UserAccount) DataAccessUtils
                 .uniqueResult(getHibernateTemplate().findByCriteria(criteria));
         return userAccount;

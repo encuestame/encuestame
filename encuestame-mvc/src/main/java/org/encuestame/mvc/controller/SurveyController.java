@@ -11,53 +11,52 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.apache.log4j.Logger;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Admon View Controller.
+ * Class Description.
  * @author Picado, Juan juan@encuestame.org
- * @since Mar 6, 2010 10:58:02 AM
- * @version $Id: $
+ * @since Mar 11, 2010 9:21:55 PM
+ * @version $Id:$
  */
-
 @Controller
-public class AdmonController extends AbstractBaseOperations {
-
-    private Log log = LogFactory.getLog(this.getClass());
+public class SurveyController  extends AbstractBaseOperations {
 
     /**
-     * Tweet Poll Controller.
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     * Survey Controller.
      * @param model model
-     * @param id id tweet
      * @return template
      */
-    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
-    @RequestMapping(value = "/admon/location", method = RequestMethod.GET)
-    public String admonLocation(ModelMap model) {
-        log.debug("LOCATION");
-        return "location";
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/survey", method = RequestMethod.GET)
+    public String surveyController(final ModelMap model) {
+        log.debug("survey");
+        return "user/survey";
     }
 
-    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
-    @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
-    public String membersLocation(ModelMap model) {
-        log.debug("MEMGERS");
-        return "members";
-    }
-
-    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
-    @RequestMapping(value = "/admon/project", method = RequestMethod.GET)
-    public String admonProject(ModelMap model) {
-        log.debug("PROJECT");
-        return "project";
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/survey/{id}/{slug}/", method = RequestMethod.GET)
+    public String surveyPublicController(final ModelMap model,
+            @PathVariable Long id,
+            @PathVariable String slug) {
+        log.debug("survey");
+        return "survey";
     }
 }

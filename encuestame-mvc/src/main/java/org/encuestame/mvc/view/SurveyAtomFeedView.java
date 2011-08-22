@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.syndication.view;
+package org.encuestame.mvc.view;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +18,11 @@ import org.encuestame.core.rss.AbstractBaseAtomFeedView;
 import com.sun.syndication.feed.atom.Feed;
 
 /**
- * Profile Published Atom Feed View.
+ * Survey Published Atom Feed View.
  * @author Morales, Diana Paola paolaATencuestame.org
- * @since July 21, 2012
+ * @since July 21, 2011
  */
-public final class ProfileAtomFeedView extends AbstractBaseAtomFeedView {
+public final class SurveyAtomFeedView extends AbstractBaseAtomFeedView {
 
     /**
      * Build Feed Meta Data.
@@ -30,7 +30,7 @@ public final class ProfileAtomFeedView extends AbstractBaseAtomFeedView {
     @Override
     protected void buildFeedMetadata(Map<String, Object> model, Feed feed,
             HttpServletRequest request) {
-        setAtomTitle(model.get("feedTitle") == null ? "Profile Published " : model.get("feedTitle").toString());
+        setAtomTitle(model.get("feedTitle") == null ? "Survey Published " : model.get("feedTitle").toString());
         feed.setId(getAtomTitle());
         feed.setTitle(getAtomTitle());
     }

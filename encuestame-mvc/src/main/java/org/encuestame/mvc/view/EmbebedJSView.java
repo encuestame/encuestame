@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: open source social survey Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -10,17 +10,33 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-
 package org.encuestame.mvc.view;
 
-import org.encuestame.mvc.controller.AbstractBaseOperations;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.View;
 
 /**
- * Class Description.
- * @author Picado, Juan juan@encuestame.org
- * @since Mar 11, 2010 9:20:05 PM
- * @version $Id: $
+ * Description.
+ * @author Picado, Juan juanATencuestame.org
+ * @since 22/08/2011
  */
-public class ResultTweetPollController  extends AbstractBaseOperations {
+public class EmbebedJSView implements View{
+
+    @Override
+    public String getContentType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void render(Map<String, ?> arg0, HttpServletRequest arg1,
+            HttpServletResponse arg2) throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 
 }

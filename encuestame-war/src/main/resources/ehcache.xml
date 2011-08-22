@@ -73,6 +73,13 @@
         name="org.encuestame.persistence.domain.security.UserAccount.followers"
         maxElementsInMemory="450" eternal="false" timeToLiveSeconds="600"
         overflowToDisk="true" />
+    <cache name="query.user.by.username"
+            maxElementsInMemory="60"
+            eternal="true"
+            overflowToDisk="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+        />
     <cache
         name="org.encuestame.persistence.domain.security.UserAccount.projects"
         maxElementsInMemory="450" eternal="false" timeToLiveSeconds="600"
@@ -119,4 +126,8 @@
     <cache name="org.encuestame.persistence.domain.HashTagHits"
         maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
         timeToLiveSeconds="600" overflowToDisk="true" />
+
+    <!-- Spring ehcache annotations -->
+    <cache name="searchUserByUsername" maxElementsInMemory="10" eternal="true" overflowToDisk="false" />
+
 </ehcache>

@@ -10,28 +10,28 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.syndication.view;
+package org.encuestame.mvc.view;
 
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import org.encuestame.core.rss.AbstractBaseAtomFeedView;
-import com.sun.syndication.feed.atom.Feed;
+import java.util.Date;
+import org.encuestame.core.rss.AbstractBaseRssFeedView;
+import com.sun.syndication.feed.rss.Channel;
 
 /**
- * Projects Published Atom Feed View.
+ * Poll Published RSS Feed View.
  * @author Morales, Diana Paola paolaATencuestame.org
- * @since Jul 21, 2011
+ * @since July 21, 2011
  */
-public final class ProjectAtomFeedView extends AbstractBaseAtomFeedView {
+public class PollRssFeedView extends AbstractBaseRssFeedView{
 
-    /**
-     * Build Feed Meta Data.
-     */
     @Override
-    protected void buildFeedMetadata(Map<String, Object> model, Feed feed,
-            HttpServletRequest request) {
-        setAtomTitle(model.get("feedTitle") == null ? "Project Published " : model.get("feedTitle").toString());
-        feed.setId(getAtomTitle());
-        feed.setTitle(getAtomTitle());
+    protected Channel newFeed() {
+        final Channel channel = new Channel("rss_2.0");
+        channel.setPubDate(new Date());
+        channel.setDescription("RSS Description");
+        channel.setTitle("Poll Published");
+        channel.setLink("link");
+        channel.setCopyright("2011");
+        channel.setPubDate(new Date());
+        return  channel;
     }
 }

@@ -11,9 +11,8 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
-import org.encuestame.mvc.controller.AbstractBaseOperations;
 
 /**
  * Report view controller.

@@ -11,12 +11,10 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,25 +22,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * DashBoard Controller.
+ * Admon View Controller.
  * @author Picado, Juan juan@encuestame.org
  * @since Mar 6, 2010 10:58:02 AM
+ * @version $Id: $
  */
 
 @Controller
-public class DashBoardController extends AbstractBaseOperations {
+public class AdmonController extends AbstractBaseOperations {
 
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * DashBoard Controller.
+     * Tweet Poll Controller.
      * @param model model
+     * @param id id tweet
      * @return template
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
-    public String dashBoardController(ModelMap model, UserAccount account) {
-        log.debug("dashboard");
-        return "dashboard";
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/admon/location", method = RequestMethod.GET)
+    public String admonLocation(ModelMap model) {
+        log.debug("LOCATION");
+        return "location";
+    }
+
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
+    public String membersLocation(ModelMap model) {
+        log.debug("MEMGERS");
+        return "members";
+    }
+
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
+    @RequestMapping(value = "/admon/project", method = RequestMethod.GET)
+    public String admonProject(ModelMap model) {
+        log.debug("PROJECT");
+        return "project";
     }
 }

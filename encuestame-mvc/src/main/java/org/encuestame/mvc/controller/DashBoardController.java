@@ -11,53 +11,37 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.view;
+package org.encuestame.mvc.controller;
 
-import org.apache.log4j.Logger;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Class Description.
+ * DashBoard Controller.
  * @author Picado, Juan juan@encuestame.org
- * @since Mar 11, 2010 9:21:55 PM
- * @version $Id:$
+ * @since Mar 6, 2010 10:58:02 AM
  */
+
 @Controller
-public class SurveyController  extends AbstractBaseOperations {
+public class DashBoardController extends AbstractBaseOperations {
+
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
-     * Log.
-     */
-    private Logger log = Logger.getLogger(this.getClass());
-
-    /**
-     * Survey Controller.
+     * DashBoard Controller.
      * @param model model
      * @return template
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/user/survey", method = RequestMethod.GET)
-    public String surveyController(final ModelMap model) {
-        log.debug("survey");
-        return "user/survey";
-    }
-
-    /**
-     *
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "/survey/{id}/{slug}/", method = RequestMethod.GET)
-    public String surveyPublicController(final ModelMap model,
-            @PathVariable Long id,
-            @PathVariable String slug) {
-        log.debug("survey");
-        return "survey";
+    @RequestMapping(value = "/user/dashboard", method = RequestMethod.GET)
+    public String dashBoardController(ModelMap model, UserAccount account) {
+        log.debug("dashboard");
+        return "dashboard";
     }
 }

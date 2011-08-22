@@ -10,25 +10,27 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.syndication.view;
+package org.encuestame.mvc.view;
 
 import java.util.Date;
+
 import org.encuestame.core.rss.AbstractBaseRssFeedView;
+
 import com.sun.syndication.feed.rss.Channel;
 
 /**
- * Frontend Published RSS Feed View.
+ * Project Published RSS Feed View.
  * @author Morales, Diana Paola paolaATencuestame.org
- * @since July 21, 2011
+ * @since Jul 3, 2010 10:42:10 AM
  */
-public class FrontEndRssFeedView extends AbstractBaseRssFeedView{
+public class ProjectRssFeedView extends AbstractBaseRssFeedView{
 
     @Override
     protected Channel newFeed() {
         final Channel channel = new Channel("rss_2.0");
         channel.setPubDate(new Date());
         channel.setDescription("RSS Description");
-        channel.setTitle("FrontEnd Published");
+        channel.setTitle("Project published");
         channel.setLink("link");
         channel.setCopyright("2011");
         channel.setPubDate(new Date());
