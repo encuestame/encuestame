@@ -24,15 +24,18 @@ dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require('encuestame.org.core.commons.questions.patterns.SingleResponse');
 dojo.require('encuestame.org.core.commons.questions.Question');
-dojo.require('encuestame.org.core.shared.publish.PublishSupport');
 dojo.require('encuestame.org.core.commons.support.DnD');
+dojo.require('encuestame.org.core.shared.options.RepeatedVotes');
+dojo.require('encuestame.org.core.shared.options.LimitVotes');
+dojo.require('encuestame.org.core.shared.publish.PublishSupport');
 
 /**
  *
  */
 dojo.declare(
     "encuestame.org.core.commons.poll.Poll",
-    [dijit._Widget, dijit._Templated, encuestame.org.core.commons.support.DnD],{
+    [dijit._Widget, dijit._Templated,
+        encuestame.org.core.commons.support.DnD],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/poll.html"),
 
         widgetsInTemplate: true,
