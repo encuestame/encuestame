@@ -13,29 +13,31 @@ package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.encuestame.persistence.domain.EmailList;
+
+import org.encuestame.business.service.PollService;
+import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.core.service.imp.IPollService;
-import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitLists;
-import org.encuestame.utils.web.PollBean;
-import org.hibernate.HibernateException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,7 +87,7 @@ public class TestPollService extends AbstractServiceBase{
         this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.userAccount.getAccount());
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);

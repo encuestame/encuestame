@@ -69,7 +69,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         this.question = createQuestion("Who I am?", "");
         this.tweetPoll = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
         this.survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
-        this.poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount().getAccount(), true, true);
+        this.poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), true, true);
     }
 
     /**

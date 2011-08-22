@@ -432,7 +432,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Poll createPoll(final Date createdAt,
             final Question question,
-            final Account secUser,
+            final UserAccount secUser,
             final Boolean pollCompleted,
             final Boolean pollPublish
             ){
@@ -461,7 +461,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Date createdDate,
             final Question question,
             final String hash,
-            final Account secUsers,
+            final UserAccount secUsers,
             final Boolean pollCompleted,
             final Boolean published){
         final Poll poll = new Poll();

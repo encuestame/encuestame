@@ -158,7 +158,8 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          */
         @Test
         public void testPollController() throws Exception {
-            final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"), createAccount(), true, true);
+            final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"),
+            		createUserAccount("diana", createAccount()), true, true);
             //"/user/signin
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/poll/"+poll.getPollId());
             final ModelAndView mav = handlerAdapter.handle(request, response,

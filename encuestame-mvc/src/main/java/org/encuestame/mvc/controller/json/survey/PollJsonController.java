@@ -62,7 +62,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/poll/search.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/poll/search.json", method = RequestMethod.GET)
     public ModelMap searchPolls(
             @RequestParam(value = "typeSearch", required = true) String typeSearch,
             @RequestParam(value = "keyword", required = false) String keyword,
@@ -85,7 +85,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/survey/poll/removePoll.json", method = RequestMethod.GET)
+    @RequestMapping(value = "api/poll/remove.json", method = RequestMethod.GET)
     public ModelMap deleteGroup(
             @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,
@@ -103,7 +103,7 @@ public class PollJsonController extends AbstractJsonController{
       }
 
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/poll/searchPollby{type}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/poll/searchby{type}.json", method = RequestMethod.GET)
     public ModelMap countUsersByGroup(
               @RequestParam(value = "pollId", required = false) Long pollId,
               @RequestParam(value = "keyword", required = false) String keyword,
@@ -146,7 +146,7 @@ public class PollJsonController extends AbstractJsonController{
 
 
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-      @RequestMapping(value = "api/survey/poll/{actionType}Poll.json", method = RequestMethod.GET)
+    @RequestMapping(value = "api/poll/{actionType}.json", method = RequestMethod.GET)
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
@@ -161,14 +161,7 @@ public class PollJsonController extends AbstractJsonController{
            try {
                final Map<String, Object> sucess = new HashMap<String, Object>();
                if ("create".equals(actionType)) {
-                   final PollBean unitPoll = new PollBean();
-                   final Question question =  getSurveyService().createQuestion(new QuestionBean(questionName));
-                   unitPoll.setCreationDate(creationDate);
-                   unitPoll.setCompletedPoll(completedPoll);
-                   unitPoll.setCloseNotification(closeNotification);
-                   unitPoll.setHashPoll(hashPoll);
-                   unitPoll.setPublishPoll(publishPoll);
-                   getPollService().createPoll(unitPoll, getUserPrincipalUsername(), question);
+
                    setSuccesResponse();
                }
           } catch (Exception e) {

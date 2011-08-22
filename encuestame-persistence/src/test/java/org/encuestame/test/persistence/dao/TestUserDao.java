@@ -278,7 +278,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetTotalPollByUser(){
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.account, Boolean.TRUE, Boolean.TRUE);
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         final List<Long> polls = getAccountDao().getTotalPollByUser(this.account.getUid());
         assertEquals("Should be equals", 1, polls.size());
     }

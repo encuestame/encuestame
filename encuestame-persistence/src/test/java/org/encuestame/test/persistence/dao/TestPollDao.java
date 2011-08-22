@@ -77,7 +77,7 @@ public class TestPollDao extends AbstractBase {
         this.secUserSecondary = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.user, Boolean.TRUE, Boolean.TRUE);
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         this.pollFolder = createPollFolder("My First Poll Folder", this.secUserSecondary);
 
     }
@@ -87,8 +87,7 @@ public class TestPollDao extends AbstractBase {
       **/
     @Test
     public void testFindAllPollByUserId(){
-        this.secUserSecondary = createUserAccount("diana1", this.user);
-        final List<Poll> pollList = getiPoll().findAllPollByUserId(this.user.getUid(),5,0);
+        final List<Poll> pollList = getiPoll().findAllPollByUserId(this.secUserSecondary.getUid(),5,0);
         assertEquals("Should be equals", 1, pollList.size());
     }
 
@@ -108,9 +107,9 @@ public class TestPollDao extends AbstractBase {
     public void testRetrievePollResultsById(){
         final Question quest = createQuestion("Do you like futboll", "Yes/No");
         final QuestionAnswer qansw = createQuestionAnswer("Yes", quest, "2020");
-        final QuestionAnswer qansw2 = createQuestionAnswer("No", quest, "2020");
-        final PollResult pollResult =createPollResults(qansw, this.poll);
-        final PollResult pollResult2 =createPollResults(qansw, this.poll);
+        createQuestionAnswer("No", quest, "2020");
+        createPollResults(qansw, this.poll);
+        createPollResults(qansw, this.poll);
         final List<Object[]> polli = getiPoll().retrieveResultPolls(this.poll.getPollId(),qansw.getQuestionAnswerId());
         final Iterator<Object[]> iterator = polli.iterator();
         while (iterator.hasNext()) {
@@ -135,7 +134,7 @@ public class TestPollDao extends AbstractBase {
     @Test
     public void testGetPollByIdandUserId(){
         assertNotNull(this.poll);
-        final Poll poll = getiPoll().getPollByIdandUserId(this.poll.getPollId(), this.user.getUid());
+        final Poll poll = getiPoll().getPollByIdandUserId(this.poll.getPollId(), this.secUserSecondary.getUid());
         assertNotNull(poll);
         assertEquals("Should be equals", this.poll.getPollId(), poll.getPollId());
     }
@@ -147,7 +146,7 @@ public class TestPollDao extends AbstractBase {
     public void testGetPollsByQuestionKeyword(){
         assertNotNull(this.poll);
         final String keywordQuestion = "roses";
-        final List<Poll> listPoll = getiPoll().getPollsByQuestionKeyword(keywordQuestion, this.user.getUid(), 5, 0);
+        final List<Poll> listPoll = getiPoll().getPollsByQuestionKeyword(keywordQuestion, this.secUserSecondary.getUid(), 5, 0);
         assertEquals("Should be equals", 1, listPoll.size());
     }
 
@@ -166,9 +165,9 @@ public class TestPollDao extends AbstractBase {
     public void testGetPollsByPollFolderId() throws EnMeNoResultsFoundException{
          assertNotNull(this.pollFolder);
          assertNotNull(poll);
-         final Poll addPoll = addPollToFolder(this.pollFolder.getId(), this.user.getUid(), this.poll.getPollId());
+         final Poll addPoll = addPollToFolder(this.pollFolder.getId(), this.secUserSecondary.getUid(), this.poll.getPollId());
          assertNotNull(addPoll);
-         final List<Poll> pfolder = getiPoll().getPollsByPollFolderId(this.user.getUid(), this.pollFolder);
+         final List<Poll> pfolder = getiPoll().getPollsByPollFolderId(this.secUserSecondary.getUid(), this.pollFolder);
          assertEquals("Should be equals", 1, pfolder.size());
     }
 
@@ -190,10 +189,9 @@ public class TestPollDao extends AbstractBase {
         final Date yesterdayDate= calendarDate.getTime();
         final Calendar calendarDate2 = Calendar.getInstance();
         final Date todayDate = calendarDate2.getTime();
-        final Poll poll2 = createPoll(yesterdayDate, this.question, "FDK135", this.user, Boolean.TRUE, Boolean.TRUE);
-        final Poll poll3 = createPoll(todayDate, this.question, "FDK456", this.user, Boolean.TRUE, Boolean.TRUE);
+        createPoll(yesterdayDate, this.question, "FDK135", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
+        createPoll(todayDate, this.question, "FDK456", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.user.getUid(), 10,0);
-        //assertEquals("Should be equals", 2, pollList.size());
+       //assertEquals("Should be equals", 2, pollList.size());
     }
-
 }

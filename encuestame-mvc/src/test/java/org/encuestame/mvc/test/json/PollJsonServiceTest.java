@@ -56,7 +56,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
         final Calendar calendarDate2 = Calendar.getInstance();
         final Date todayDate = calendarDate2.getTime();
         this.question = createQuestion("Where are you from?", "");
-        this.poll = createPoll(yesterdayDate, question, getSpringSecurityLoggedUserAccount().getAccount(), true, true);
+        this.poll = createPoll(yesterdayDate, question, getSpringSecurityLoggedUserAccount(), true, true);
     }
 
     /**

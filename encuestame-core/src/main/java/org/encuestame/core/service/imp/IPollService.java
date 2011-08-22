@@ -43,7 +43,7 @@ public interface IPollService extends IMasterSurveyService{
     * @param Question
     * @throws Exception
     */
-    void createPoll(final PollBean pollBean, final String currentUser,
+	PollBean createPoll(final PollBean pollBean, final String currentUser,
                 final Question question) throws EnMeExpcetion;
 
     /**

@@ -54,12 +54,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
     /**
      * Create Poll.
      */
-    public final void createPoll(final PollBean pollBean, final String currentUser,
+    public PollBean createPoll(final PollBean pollBean, final String currentUser,
             final Question question) throws EnMeExpcetion{
         try {
             final Poll pollDomain = new Poll();
-            pollDomain.setCreatedAt(pollBean.getCreationDate());
-            pollDomain.setPollOwner(getUserAccount(currentUser).getAccount());
+           // pollDomain.setCreatedAt( );
+            pollDomain.setPollOwner(getUserAccount(getUserPrincipalUsername()));
             pollDomain.setPollCompleted(Boolean.FALSE);
             pollDomain.setCreatedAt(new Date());
             pollDomain.setPollHash(MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500)));
@@ -72,6 +72,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         } catch (Exception e) {
             throw new EnMeExpcetion(e);
         }
+        return null;
     }
 
     /**
