@@ -155,6 +155,9 @@ dojo.declare(
               dojo.publish("/encuestame/tweetpoll/autosave");
             });
 
+            /*
+             * replace by encuestame.org.core.shared.options.DateToClose.
+             */
             //scheduled
             this.scheduleWidget = dijit.byId("schedule");
             this.scheduleWidget.onChange = dojo.hitch(this, function(event){
@@ -200,6 +203,9 @@ dojo.declare(
                 this.tweetPoll.options.captcha = event;
                 dojo.publish("/encuestame/tweetpoll/autosave");
             });
+            /*
+             * end warning.
+             */
 
             //Limit Votes
             /*

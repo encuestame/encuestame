@@ -109,5 +109,6 @@ dojo.declare(
                             items : this.numberSpinner.get("value")
             });
             }
+            return this.options;
         }
 });

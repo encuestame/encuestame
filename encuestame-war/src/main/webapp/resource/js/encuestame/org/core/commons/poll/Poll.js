@@ -28,6 +28,8 @@ dojo.require('encuestame.org.core.commons.support.DnD');
 dojo.require('encuestame.org.core.shared.options.RepeatedVotes');
 dojo.require('encuestame.org.core.shared.options.LimitVotes');
 dojo.require('encuestame.org.core.shared.publish.PublishSupport');
+dojo.require('encuestame.org.core.shared.options.CommentsOptions');
+dojo.require('encuestame.org.core.shared.options.DateToClose');
 
 /**
  *

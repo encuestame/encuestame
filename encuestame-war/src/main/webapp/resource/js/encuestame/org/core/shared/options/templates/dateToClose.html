@@ -1,0 +1,14 @@
+<div class="date-to-close">
+    <div class="section">
+        <input id="schedule_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
+        <label for="schedule"> ${label} </label>
+    </div>
+    <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledTime">
+        <input type="text" name="scheduledTime_${id}" id="scheduledTime_${id}"
+               value="${default_time}" dojoType="dijit.form.TimeTextBox" />
+    </div>
+    <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledDate">
+        <input id="scheduledDate_${id}" type="text" name="scheduledDate_${id}"
+               dojoType="dijit.form.DateTextBox" required="true" />
+    </div>
+</div>

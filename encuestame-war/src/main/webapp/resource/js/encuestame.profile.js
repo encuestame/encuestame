@@ -98,6 +98,9 @@ dependencies ={
                 "encuestame.org.core.shared.options.RepeatedVotes",
                 "encuestame.org.core.shared.options.ConstrainNumberPicker",
                 "encuestame.org.core.shared.options.LimitVotes",
+                "encuestame.org.core.shared.options.CommentsOptions",
+                "encuestame.org.core.shared.options.DateToClose",
+                "encuestame.org.core.shared.options.Scheduled",
 
                 //patterns
                 "encuestame.org.core.commons.questions.Question",
