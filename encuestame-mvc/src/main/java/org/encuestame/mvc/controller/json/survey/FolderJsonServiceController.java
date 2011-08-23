@@ -66,7 +66,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                                   getUserPrincipalUsername()));
                    setItemResponse(sucess);
                } else if("poll".equals(actionType)){
-                   sucess.put("folder", getPollService().createPollFolder(folderName, getUserPrincipalUsername()));
+                   sucess.put("folder", getPollService().createPollFolder(folderName));
                    setItemResponse(sucess);
                } else if("survey".equals(actionType)){
                    sucess.put("folder", getSurveyService().createSurveyFolder(folderName, getUserPrincipalUsername()));
@@ -199,7 +199,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                      getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), itemId);
                      setSuccesResponse();
                  } else if("poll".equals(actionType)){
-                     getPollService().addPollToFolder(folderId,  getUserPrincipalUsername(), itemId);
+                     getPollService().addPollToFolder(folderId, itemId);
                      setSuccesResponse();
                  } else if("survey".equals(actionType)){
                      getSurveyService().addSurveyToFolder(folderId, getUserPrincipalUsername(), itemId);

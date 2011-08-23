@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,8 +24,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -125,7 +125,7 @@ public class PollJsonController extends AbstractJsonController{
                   final Map<String, Object> sucess = new HashMap<String, Object>();
                   if("keyword".equals(type)){
                       log.debug("Poll Id"+ pollId);
-                      sucess.put("pollsbyKey", getPollService().searchPollByKeyword(keyword, getUserPrincipalUsername(), maxResults, start));
+                      sucess.put("pollsbyKey", getPollService().searchPollByKeyword(keyword, maxResults, start));
                       setItemResponse(sucess);
                   } else if ("folder".equals(type)) {
                      log.debug("Folder Id"+ folderId);
@@ -133,7 +133,7 @@ public class PollJsonController extends AbstractJsonController{
                  }
                   else if("date".equals(type)) {
                     log.debug("search polls by date ---> "+ date);
-                    sucess.put("pollsByDate", getPollService().getPollsbyDate(getUserPrincipalUsername(), date, maxResults, start));
+                    sucess.put("pollsByDate", getPollService().getPollsbyDate(date, maxResults, start));
                     setItemResponse(sucess);
                   }
               } catch (Exception e) {
@@ -150,19 +150,25 @@ public class PollJsonController extends AbstractJsonController{
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
-            @RequestParam(value = "creationDate", required = true) Date creationDate,
-            @RequestParam(value = "completedPoll", required = true) Boolean completedPoll,
-            @RequestParam(value = "closeNotification", required = true) Boolean closeNotification,
-            @RequestParam(value = "hashPoll", required = true) String hashPoll,
-            @RequestParam(value = "publishPoll", required = true) Boolean publishPoll,
+            @RequestParam(value = "showResults", required = false) Boolean showResults,
+            @RequestParam(value = "showComments", required = false) String showComments,
+            @RequestParam(value = "notification", required = false) Boolean notification,
+            @RequestParam(value = "limitVote", required = false) Boolean limitVote,
+            @RequestParam(value = "closeAfter", required = false) Boolean closeAfter,
+            @RequestParam(value = "blockIp", required = false) Boolean blockIp,
+
             @PathVariable String actionType,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
-               final Map<String, Object> sucess = new HashMap<String, Object>();
+               final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                if ("create".equals(actionType)) {
-
-                   setSuccesResponse();
+            	   final Poll poll = getPollService().createPoll(questionName, answers, showResults,
+            	    		         showComments, notification);
+            	   final PollBean pollBean = getPollService().convertPolltoBean(poll);
+                   jsonResponse.put("pollBean", "pollBean");
+                   setItemResponse(jsonResponse);
+                   getPollService().createPollNotification(poll);
                }
           } catch (Exception e) {
               log.error(e);

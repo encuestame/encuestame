@@ -1563,9 +1563,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeNoResultsFoundException{
+    public Poll addPollToFolder(final Long folderId, final UserAccount userAccount, final Long pollId) throws EnMeNoResultsFoundException{
         final PollFolder pfolder = getiPoll().getPollFolderById(folderId);
-        final Poll poll = getiPoll().getPollByIdandUserId(pollId, userId);
+        final Poll poll = getiPoll().getPollByIdandUserId(pollId, userAccount);
         poll.setPollFolder(pfolder);
         getiPoll().saveOrUpdate(poll);
         return poll;
