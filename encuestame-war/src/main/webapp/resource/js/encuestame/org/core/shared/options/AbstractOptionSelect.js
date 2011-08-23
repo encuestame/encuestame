@@ -63,6 +63,7 @@ dojo.declare(
       */
      _createOption : function(title){
          var div = dojo.create("div");
+         dojo.addClass(div, "space-option");
          var radioOne = new dijit.form.RadioButton({
              checked: false,
              value: this.option_value,
@@ -76,6 +77,7 @@ dojo.declare(
             </label>
           */
          var label = dojo.create("label");
+         dojo.addClass(label, "pattern-label");
          label.innerHTML = title;
          label.setAttribute("for", radioOne.id);
          div.appendChild(label);

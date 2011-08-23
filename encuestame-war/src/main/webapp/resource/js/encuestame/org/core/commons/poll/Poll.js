@@ -98,7 +98,7 @@ dojo.declare(
            });
            console.debug("_createPoll", params);
            encuestame.service.xhrPostParam(
-                   encuestame.service.list.create, params, load, error);
+                   encuestame.service.list.poll.create, params, load, error);
         },
 
         /*
@@ -114,7 +114,7 @@ dojo.declare(
         _validatePoll : function(event){
             dojo.stopEvent(event);
             var valid = false;
-            var params = {};
+            var params = { questionName : "xxxxxx", listAnswers : ["abc", "dvbc", "dfg"]};
             valid = true;
             if (valid) {
                 this.createPoll(params);
