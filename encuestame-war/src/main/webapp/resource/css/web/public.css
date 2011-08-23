@@ -1318,6 +1318,12 @@ div.tweetPollPublishButton {
     text-align: right;
 }
 
+div.botton-button-publish {
+    margin: auto 65px;
+    padding: 10px;
+    text-align: right;
+}
+
 div.web-tweetpoll-wrapper div.tweetPollPublish div.item {
     border-right: 1px solid #CCCBCA;
     float: left;
@@ -3007,10 +3013,28 @@ div.web-poll-wrapper .web-tweetpoll-section{
 }
 
 
-/** paterns **/
+/** list of paterns **/
+/*
+ * - Single Response
+ * - Options
+ */
 
 .web-pattern{
 
+}
+
+.pattern-options-label{
+    padding: 2px;
+}
+
+.web-pattern .pattern-options-label input{
+
+}
+
+.web-pattern label.pattern-label{
+    margin-left: 5px;
+    font-size: 12px;
+    font-stretch: ultra-expanded;
 }
 
 .single-response{
@@ -3026,6 +3050,9 @@ div.web-poll-wrapper .web-tweetpoll-section{
 .single-response .single-response-input{
     margin-left: 10px;
 }
+
+/** end list of paterns **/
+
 
 /* folder selection */
 div.folder-selection{
@@ -3043,4 +3070,41 @@ div.folder-selection div.folder-selection-label {
 
 div.folder-selection  div.folder-selection-combo{
     margin-left: 45px;
+}
+
+div.section-botton-wrapper {
+  margin-left: 40px;
+  overflow: auto;
+  padding: 5px;
+}
+
+div.section-botton-wrapper .sub-option{
+    float: left;
+    margin: 15px;
+}
+
+div.section-option-wrapper{
+    width: auto;
+}
+
+div.section-option-wrapper div.section-default {
+  border-right: 1px solid #D6D6D6;
+  float: left;
+  margin: 16px;
+  min-height: 130px;
+  padding: 0;
+  width: 250px;
+}
+div.section-option-wrapper div.section-default h2{
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+div.section-option-wrapper div.section-default .space{
+    margin: 2px;
+}
+
+div.section-option-wrapper div.section-default .space-option {
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
