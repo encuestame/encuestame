@@ -30,6 +30,8 @@ dojo.require('encuestame.org.core.shared.options.LimitVotes');
 dojo.require('encuestame.org.core.shared.publish.PublishSupport');
 dojo.require('encuestame.org.core.shared.options.CommentsOptions');
 dojo.require('encuestame.org.core.shared.options.DateToClose');
+dojo.require('encuestame.org.core.shared.options.ResultsOptions');
+dojo.require('encuestame.org.core.shared.options.CheckSingleOption');
 
 /**
  *

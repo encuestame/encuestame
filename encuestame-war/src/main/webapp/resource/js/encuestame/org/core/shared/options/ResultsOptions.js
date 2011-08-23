@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-dojo.provide("encuestame.org.core.shared.options.CommentsOptions");
+dojo.provide("encuestame.org.core.shared.options.ResultsOptions");
 
 dojo.require('encuestame.org.core.commons');
 dojo.require('encuestame.org.core.shared.options.AbstractOptionSelect');
@@ -19,7 +19,7 @@ dojo.require('encuestame.org.core.shared.options.AbstractOptionSelect');
  * Represents a option to repeate votes.
  */
 dojo.declare(
-    "encuestame.org.core.shared.options.CommentsOptions",
+    "encuestame.org.core.shared.options.ResultsOptions",
     [encuestame.org.core.shared.options.AbstractOptionSelect],{
 
      /*
@@ -27,11 +27,10 @@ dojo.declare(
       */
      widgetsInTemplate: true,
 
-     option_value : "comments",
+     option_value : "results",
 
-     option_name : "comments_"+this.id,
+     option_name : "results_"+this.id,
 
-     options_label : ["Allow Comments", "Moderated Comments", "No comments allowed"],
-
+     options_label : ["No Results", "Only Percents", "All Data"],
 
 });
