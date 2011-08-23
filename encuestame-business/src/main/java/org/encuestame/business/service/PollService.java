@@ -63,13 +63,15 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
         final String commentOption, final Boolean notification) throws EnMeExpcetion{
+        final UserAccount user = getUserAccount(getUserPrincipalUsername());
         Assert.notNull(answers);
+        Assert.notNull(user);
         Assert.notNull(questionName);
         final Poll pollDomain = new Poll();
         try {
             final QuestionBean questionBean = new QuestionBean();
             questionBean.setQuestionName(questionName);
-            final Question question = createQuestion(questionBean, getUserAccount(getUserPrincipalUsername()));
+            final Question question = createQuestion(questionBean, user);
             log.debug("question found : {"+question);
             log.debug("answers found : {"+answers.length);
             if (question == null) {
@@ -78,12 +80,15 @@ public class PollService extends AbstractSurveyService implements IPollService{
                   throw new EnMeNoResultsFoundException("answers are required to create Poll");
             }
             else{
+            //TODO: move hash to util.
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
             final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
-            pollDomain.setPollOwner(getUserAccount(getUserPrincipalUsername()));
+            pollDomain.setPollOwner(user);
             pollDomain.setCreatedAt(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
             pollDomain.setQuestion(question);
+            pollDomain.setPollCompleted(Boolean.FALSE);
+            pollDomain.setEditorOwner(user);
             pollDomain.setShowResults(showResults);
             pollDomain.setShowComments(commentOpt);
             pollDomain.setNotifications(notification);

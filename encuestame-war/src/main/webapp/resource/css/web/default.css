@@ -331,6 +331,10 @@ div.defaultSectionTitle{
     background-color: #A6B4BF !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
 }
 
+.default-dark-color {
+    color: #A6B4BF !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
+}
+
 .default-background-dark-color-sub {
     background-color: #595959; /**A6A5A5 **/
 }
