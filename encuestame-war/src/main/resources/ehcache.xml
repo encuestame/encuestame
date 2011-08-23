@@ -37,9 +37,7 @@
                             has reached the maxInMemory limit.
 
      -->
-    <defaultCache maxElementsInMemory="1000" eternal="false"
-        timeToIdleSeconds="3600" timeToLiveSeconds="0" overflowToDisk="false"
-        memoryStoreEvictionPolicy="LFU" />
+    <defaultCache eternal="true" maxElementsInMemory="100" overflowToDisk="false" />
 
     <!-- Cache Directory. -->
 
@@ -58,9 +56,9 @@
 
     <!-- Domain Cached. -->
 
-    <cache name="userAccountById" maxElementsInMemory="10" eternal="true"
+    <cache name="userAccountById" maxElementsInMemory="10" eternal="false"
         overflowToDisk="false" />
-    <cache name="userByUsername" maxElementsInMemory="10" eternal="true"
+    <cache name="userByUsername" maxElementsInMemory="10" eternal="false"
         overflowToDisk="false" />
     <cache name="org.encuestame.persistence.domain.security.UserAccount"
         maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
@@ -73,6 +71,13 @@
         name="org.encuestame.persistence.domain.security.UserAccount.followers"
         maxElementsInMemory="450" eternal="false" timeToLiveSeconds="600"
         overflowToDisk="true" />
+    <cache name="query.user.by.username"
+            maxElementsInMemory="60"
+            eternal="false"
+            overflowToDisk="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+        />
     <cache
         name="org.encuestame.persistence.domain.security.UserAccount.projects"
         maxElementsInMemory="450" eternal="false" timeToLiveSeconds="600"
@@ -119,4 +124,8 @@
     <cache name="org.encuestame.persistence.domain.HashTagHits"
         maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="300"
         timeToLiveSeconds="600" overflowToDisk="true" />
+
+    <!-- Spring ehcache annotations -->
+    <cache name="searchUserByUsername" maxElementsInMemory="10" eternal="false" overflowToDisk="false" />
+
 </ehcache>

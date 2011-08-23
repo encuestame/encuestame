@@ -155,6 +155,9 @@ dojo.declare(
               dojo.publish("/encuestame/tweetpoll/autosave");
             });
 
+            /*
+             * replace by encuestame.org.core.shared.options.DateToClose.
+             */
             //scheduled
             this.scheduleWidget = dijit.byId("schedule");
             this.scheduleWidget.onChange = dojo.hitch(this, function(event){
@@ -200,8 +203,14 @@ dojo.declare(
                 this.tweetPoll.options.captcha = event;
                 dojo.publish("/encuestame/tweetpoll/autosave");
             });
+            /*
+             * end warning.
+             */
 
             //Limit Votes
+            /*
+             * this code should be replace by encuestame.org.core.shared.options.LimitVotes.
+             */
             this.limitVotesWidget = dijit.byId("limitVotes");
             this.limitVotesWidget.onChange = dojo.hitch(this, function(event){
                 console.debug("limitVotesWidget", event);
@@ -219,8 +228,14 @@ dojo.declare(
               this.tweetPoll.options.maxLimitVotes = this.limitNumbersWidget.get("value");
               dojo.publish("/encuestame/tweetpoll/autosave");
             });
+            /*
+             * end warning.
+             */
 
             //Allow Repeated Votes.
+            /*
+             * this code should be replace by encuestame.org.core.shared.options.RepeatedVotes.
+             */
             this.ipWidget = dijit.byId("ip");
             this.ipWidget.onChange = dojo.hitch(this, function(event){
                 console.debug("ipWidget", event);
@@ -238,6 +253,9 @@ dojo.declare(
               this.tweetPoll.options.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
               dojo.publish("/encuestame/tweetpoll/autosave");
             });
+            /*
+             * end warning.
+             */
 
             //report
             this.resumeWidget = dijit.byId("resume");

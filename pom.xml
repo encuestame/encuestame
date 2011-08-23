@@ -54,8 +54,9 @@
         <hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
         <hibernate.search.version>3.3.0.Final</hibernate.search.version>
         <hibernate.validator>4.0.2.GA</hibernate.validator>
-        <ehcache.version>2.4.1</ehcache.version>
+        <ehcache.version>2.4.4</ehcache.version>
 	<ehcache-web.version>2.0.3</ehcache-web.version>
+	<ehcache.spring.annotations>1.1.3</ehcache.spring.annotations>
         <!-- JSON -->
         <jackson.version>1.8.3</jackson.version>
         <!-- Lucene Version -->
@@ -100,7 +101,6 @@
         <jpa-api>2.0-cr-1</jpa-api>
         <easymock>3.0</easymock>
         <mail>1.4</mail>
-        <ehcache.spring.annotations>1.1.3</ehcache.spring.annotations>
         <xmlunit>1.1</xmlunit>
         <json-simple>1.1</json-simple>
         <javax.validation>1.0.0.GA</javax.validation>
@@ -122,7 +122,7 @@
         <comet.version>2.3.1</comet.version>
         <!-- Plugin Version -->
         <surefire.version>2.9</surefire.version>
-        <maven-clover2-plugin>3.0.0</maven-clover2-plugin>
+        <maven-clover2-plugin>3.0.5</maven-clover2-plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
         <maven-antrun-plugin>1.4</maven-antrun-plugin>
@@ -212,7 +212,7 @@
 
     <!-- Repositories -->
     <repositories>
-        <!-- Jboss Repository -->
+        <!-- Jboss Repository 
         <repository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Maven Repository Group</name>
@@ -226,7 +226,7 @@
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
             </snapshots>
-        </repository>
+        </repository>-->
         <repository>
             <id>repository.jboss.com</id>
             <name>Jboss Repository for Maven</name>
@@ -1060,6 +1060,12 @@
                 <artifactId>spring-security-openid</artifactId>
                 <version>${spring.security.version}</version>
                 <scope>compile</scope>
+		<exclusions>
+	           <exclusion>
+        		<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+		   </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>

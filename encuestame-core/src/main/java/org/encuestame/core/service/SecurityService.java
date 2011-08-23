@@ -32,11 +32,9 @@ import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.FollowOperations;
-import org.encuestame.core.util.PictureType;
 import org.encuestame.core.util.Profile;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -59,6 +57,8 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.googlecode.ehcache.annotations.Cacheable;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -137,6 +137,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param username username
      * @return {@link UserAccountBean}
      */
+    @Cacheable(cacheName = "searchUserByUsername")
     public UserAccountBean searchUserByUsername(final String username) {
         final UserAccount userDomain = getAccountDao().getUserByUsername(username);
         UserAccountBean user = null;
