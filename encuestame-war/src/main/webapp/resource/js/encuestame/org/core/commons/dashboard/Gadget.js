@@ -42,6 +42,8 @@ dojo.declare(
 
         dashboardId  : null,
 
+        _widgetInside : null,
+
         /*
          * Post create.
          */
@@ -76,8 +78,9 @@ dojo.declare(
         _initialize : function() {
              var load = dojo.hitch(this, function(data) {
                  if (data.success) {
-                     var widget = this._loadGadget(this.data.gadget_name, {});
-                     widget.placeAt(this._content);
+                     this._widgetInside = this._loadGadget(this.data.gadget_name, {gadgetId : this.data.id});
+                     this._widgetInside.placeAt(this._content);
+                     this._widgetInside.startup();
                      this._setTitle(this.data.gadget_name); //TODO: the title should be more specific.
                  }
              });
@@ -94,8 +97,10 @@ dojo.declare(
             var params = { gadgetId: this.data.id, dashboardId: this.dashboardId};
             var load = dojo.hitch(this, function(data) {
                 if (data.success) {
-                    //this.destroyRecursive(true);
-                    dojo.destroy(this.domNode);
+                   console.info("REMOVING gadgetId", this.data.id);
+                   dojo.publish("/encuestame/dashboard/gadget/unsubscribe", [this.data.id]);
+                   this._widgetInside.destroyRecursive(true);
+                   this.destroyRecursive(true);
                 }
             });
             var error = function(error) {
@@ -104,7 +109,12 @@ dojo.declare(
             encuestame.service.xhrGet(encuestame.service.gadget.remove, params, load, error);
        },
 
-
+         /**
+          *
+          * @param type
+          * @param params
+          * @returns
+          */
         _loadGadget : function(type, params) {
             console.debug("load gadget", type);
             if (type == "stream") {

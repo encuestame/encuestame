@@ -51,6 +51,15 @@ public interface IDashboardService {
     Dashboard getDashboardbyId(final Long boardId) throws EnMeNoResultsFoundException;
 
     /**
+     * Mark as selected {@link Dashboard}.
+     * @param dashBoardId dasboard id.
+     * @throws EnMeNoResultsFoundException
+     */
+    Dashboard markAsSelectedDasboard(
+            final  Long dashBoardId)
+            throws EnMeNoResultsFoundException;
+
+    /**
      * Retrieve favourites dashboards.
      * @param userId
      * @param maxResults
@@ -79,57 +88,57 @@ public interface IDashboardService {
             final Integer maxResults,
             final Integer start)throws EnMeExpcetion;
 
-	/**
-	 * Create dashboard.
-	 * @param dashboardBean
-	 * @param user
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	Dashboard createDashboard(final DashboardBean dashboardBean) throws EnMeNoResultsFoundException;
+    /**
+     * Create dashboard.
+     * @param dashboardBean
+     * @param user
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Dashboard createDashboard(final DashboardBean dashboardBean) throws EnMeNoResultsFoundException;
 
-	/**
-	 * Remove gadget.
-	 * @param gadgetId
-	 * @throws EnMeGadgetNotFoundException
-	 */
-	void removeGadget(final Long gadgetId, final Long dashboardId) throws EnMeNoResultsFoundException;
+    /**
+     * Remove gadget.
+     * @param gadgetId
+     * @throws EnMeGadgetNotFoundException
+     */
+    void removeGadget(final Long gadgetId, final Long dashboardId) throws EnMeNoResultsFoundException;
 
-	/**
-	 * Get dashboards by keyword.
-	 * @param keyword
-	 * @param username
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	List<Dashboard> getDashboardsbyKeyword(final String keyword,
-			final Integer maxResults,
-			final Integer start) throws EnMeExpcetion;
+    /**
+     * Get dashboards by keyword.
+     * @param keyword
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<Dashboard> getDashboardsbyKeyword(final String keyword,
+            final Integer maxResults,
+            final Integer start) throws EnMeExpcetion;
 
-	/**
-	 * Get gadgets by dashboard.
-	 * @param dashboardId
-	 * @param username
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	List<Gadget> getGadgetsbyDashboard(final Long dashboardId)throws EnMeNoResultsFoundException;
+    /**
+     * Get gadgets by dashboard.
+     * @param dashboardId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<Gadget> getGadgetsbyDashboard(final Long dashboardId)throws EnMeNoResultsFoundException;
 
-	/**
-	 * Get gadget properties.
-	 * @param gadgetId
-	 * @return
-	 * @throws EnMeGadgetNotFoundException
-	 */
-	List<GadgetProperties> getPropertiesbyGadget(final Long gadgetId) throws EnMeGadgetNotFoundException;
+    /**
+     * Get gadget properties.
+     * @param gadgetId
+     * @return
+     * @throws EnMeGadgetNotFoundException
+     */
+    List<GadgetProperties> getPropertiesbyGadget(final Long gadgetId) throws EnMeGadgetNotFoundException;
 
-	/**
-	 * Get all gadgets available.
-	 * @return
-	 */
-	List<GadgetBean> getAllGadgetsAvailable(final Long boardId) throws EnMeNoResultsFoundException;
+    /**
+     * Get all gadgets available.
+     * @return
+     */
+    List<GadgetBean> getAllGadgetsAvailable(final Long boardId) throws EnMeNoResultsFoundException;
 
 
     /**
@@ -163,15 +172,15 @@ public interface IDashboardService {
      * @throws EnMeNoResultsFoundException
      */
 
-	void moveGadget(final Long gadgetId, final Long boardId, final Integer position, final Integer column) throws EnMeNoResultsFoundException;
+    void moveGadget(final Long gadgetId, final Long boardId, final Integer position, final Integer column) throws EnMeNoResultsFoundException;
 
-	/**
-	 * Update dashboard.
-	 * @param boardId
-	 * @param boardBean
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	Dashboard updateDashboard(final Long boardId, final DashboardBean boardBean) throws EnMeNoResultsFoundException;
+    /**
+     * Update dashboard.
+     * @param boardId
+     * @param boardBean
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Dashboard updateDashboard(final Long boardId, final DashboardBean boardBean) throws EnMeNoResultsFoundException;
 
 }

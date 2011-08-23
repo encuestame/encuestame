@@ -22,6 +22,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Dashboard domain.
@@ -31,6 +33,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
  */
 @Entity
 @Table(name = "dashboard")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Dashboard {
 
     /** Dashboard Id. **/
@@ -56,6 +59,9 @@ public class Dashboard {
 
     /** {@link UserAccount} **/
     private UserAccount userBoard;
+
+    /** Selected by default.  **/
+    private Boolean selectedByDefault = false;
 
     /**
     * @return the boardId
@@ -178,5 +184,20 @@ public class Dashboard {
     */
     public void setUserBoard(final UserAccount userBoard) {
         this.userBoard = userBoard;
+    }
+
+    /**
+     * @return the selectedByDefault
+     */
+    @Column(name = "dashboard_selected")
+    public Boolean getSelectedByDefault() {
+        return selectedByDefault;
+    }
+
+    /**
+     * @param selectedByDefault the selectedByDefault to set
+     */
+    public void setSelectedByDefault(final Boolean selectedByDefault) {
+        this.selectedByDefault = selectedByDefault;
     }
 }

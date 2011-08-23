@@ -62,6 +62,9 @@ dojo.declare(
             dialog.show();
         },
 
+        /*
+         * open layout.
+         */
         _openLayout : function(event){
             dojo.stopEvent(event);
             var dialog = this._createDialog(this.layoutWidget.domNode);
@@ -126,10 +129,27 @@ dojo.declare(
             dojo.byId("stateSelect_"+this.id).appendChild(this._addComboWidget.domNode);
             this._addComboWidget.onChange = dojo.hitch(this, function(value) {
                 //TODO: item is null when check id null values.
-                console.debug(this._addComboWidget);
-                this.loadDashBoard({dashboardId: (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]),
-                     name: this._addComboWidget.get('value')});
+                var id = (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]);
+                if (id) {
+                    this._markAsSelected(id);
+                    this.loadDashBoard({dashboardId: id,
+                         name: this._addComboWidget.get('value')});
+                }
             });
+        },
+
+        /*
+         * mark as selected dasboard
+         * @id dasboard id.
+         */
+        _markAsSelected : function(id){
+            var load = dojo.hitch(this, function(data) {
+               console.debug(data);
+            });
+            var error = function(error) {
+                console.error("error", error);
+            };
+            encuestame.service.xhrGet(encuestame.service.dashboard.select, {id : id}, load, error);
         },
 
         /**
@@ -181,11 +201,17 @@ dojo.declare(
         /*
          * create new dashboard.
          */
-        _createNewDashBoard : function(data) {
-            console.debug("_createNewDashBoard", data);
-            this.dashboardWidget = new encuestame.org.core.commons.dashboard.Dashboard({dashboard: data });
+        _createDashBoard : function(data) {
+            console.debug("_createDashBoard", data);
+            if (this.dashboardWidget == null) {
+                this.clean();
+                this.dashboardWidget = new encuestame.org.core.commons.dashboard.Dashboard({dashboard: data });
+                this.dashboardWidget.startup();
+                dojo.publish("/encuestame/dashboard/insert", [this.dashboardWidget.domNode]);
+            } else {
+                this.dashboardWidget.dashboard = data;
+            }
             this.dashboardWidget.initialize();
-            dojo.publish("/encuestame/dashboard/insert", [this.dashboardWidget.domNode]);
             return this.dashboardWidget;
         },
 
@@ -193,8 +219,7 @@ dojo.declare(
          *
          */
         loadDashBoard : function(data) {
-            this.clean();
-            this._createNewDashBoard(data);
+            this._createDashBoard(data);
         },
 
 
@@ -206,9 +231,10 @@ dojo.declare(
                 /*
                  * TODO: issues on try to remove this widget. destroyRecursive don't seems work properly.
                  */
+                this.dashboardWidget.destroyLayout();
                 this.dashboardWidget.destroyRecursive(true);
-                dojo.destroy(this.dashboardWidget.layoutWidget);
-                dojo.destroy(this.dashboardWidget);
+                //dojo.destroy(this.dashboardWidget.layoutWidget);
+                //dojo.destroy(this.dashboardWidget);
             }
             if(this._dasboard){
                 dojo.empty(this._dasboard);

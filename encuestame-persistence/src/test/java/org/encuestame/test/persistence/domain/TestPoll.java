@@ -19,6 +19,7 @@ import java.util.Date;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.test.config.AbstractBase;
@@ -40,7 +41,11 @@ public class TestPoll extends AbstractBase {
     private QuestionPattern questionPattern;
 
     /** {@link Account}.**/
-    Account user;
+    private Account user;
+
+    /** {@link UserAccount} **/
+    private UserAccount userAcc;
+
     /**
      * Test Poll.
      */
@@ -50,7 +55,7 @@ public class TestPoll extends AbstractBase {
         poll.setCreatedAt(new Date());
         poll.setQuestion(createQuestion("Do you eat pizza", "yesNo"));
         poll.setPollHash("HASH");
-        poll.setPollOwner(createAccount());
+        poll.setPollOwner(createUserAccount("diana", createAccount()));
         poll.setPollCompleted(true);
         getiPoll().saveOrUpdate(poll);
         assertNotNull(poll.getPollId());
@@ -64,14 +69,14 @@ public class TestPoll extends AbstractBase {
 
     public void testPollResult(){
         final PollResult pollResult = new PollResult();
-        this.user = createUser("testEncuesta", "testEncuesta123");
+        this.user = createAccount();
+        this.userAcc = createUserAccount("diana", this.user);
         pollResult.setAnswer(createQuestionAnswer("Si", createQuestion("Do you like eat vigoron?","yesNo"), "ABC"));
         pollResult.setIpaddress("127.0.0.1");
-        pollResult.setPoll(createPoll(new Date(), this.question, "FDK125", user, Boolean.TRUE, Boolean.TRUE));
+        pollResult.setPoll(createPoll(new Date(), this.question, "FDK125", userAcc, Boolean.TRUE, Boolean.TRUE));
         pollResult.setVotationDate(new Date());
         getiPoll().saveOrUpdate(pollResult);
         assertNotNull(pollResult.getPollResultId());
-
     }
 
 }

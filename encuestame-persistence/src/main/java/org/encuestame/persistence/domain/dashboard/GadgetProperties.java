@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Widget properties.
@@ -29,6 +31,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
  */
 @Entity
 @Table(name = "gadget_properties")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class GadgetProperties {
 
     /** Widget preference id. **/

@@ -40,13 +40,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TestCommentService extends AbstractSpringSecurityContext {
 
-	@Autowired
-	private ICommentService commentsOperationsService;
+    @Autowired
+    private ICommentService commentsOperationsService;
 
-	/** {@link Comment} **/
-	private Comment comment;
+    /** {@link Comment} **/
+    private Comment comment;
 
-	  /** Max Results. **/
+      /** Max Results. **/
     private Integer MAX_RESULTS = 10;
 
     /** Start Results. **/
@@ -55,9 +55,9 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     private TweetPoll tweetPoll;
 
 
-	@Before
-	public void initService(){
-		final Question question = createQuestion("Why the sky is blue?","html");
+    @Before
+    public void initService(){
+        final Question question = createQuestion("Why the sky is blue?","html");
         this.tweetPoll = createTweetPollPublicated(true, true, new Date(), getSpringSecurityLoggedUserAccount(), question);
         // First comment on Tweetpoll
 		this.comment = createDefaultTweetPollComment("My first tweetPoll comment", tweetPoll, getSpringSecurityLoggedUserAccount());

@@ -460,6 +460,11 @@ encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
 };
 
+encuestame.service.list.poll = {};
+encuestame.service.list.create = encuestame.contextWidget()+"/api/poll/create.json";
+encuestame.service.list.publish = encuestame.contextWidget()+"/api/poll/publish.json";
+
+
 encuestame.service.list.votes = {};
 encuestame.service.list.getTweetPollVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/"+username+"/tweetpoll/"+id+"/votes.json";
@@ -524,6 +529,7 @@ encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/str
 encuestame.service.dashboard = {};
 encuestame.service.dashboard.create = encuestame.contextWidget()+"/api/common/dashboard/create-dashboard.json";
 encuestame.service.dashboard.list = encuestame.contextWidget()+"/api/common/dashboard/list.json";
+encuestame.service.dashboard.select = encuestame.contextWidget()+"/api/common/dashboard/select.json";
 encuestame.service.gadget = {};
 encuestame.service.gadget.directory = encuestame.contextWidget()+"/api/common/gadgets/directory.json";
 encuestame.service.gadget.list = encuestame.contextWidget()+"/api/common/gadgets/list.json";

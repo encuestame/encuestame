@@ -16,14 +16,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.PollDao;
-import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.hibernate.HibernateException;
 
 /**
  * {@link PollDao} Interface.
- * @author Morales,Diana Paola paola@encuestame.org
+ * @author Morales,Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
  * @version $Id: $
  */
@@ -38,12 +38,12 @@ public interface IPoll extends IBaseDao {
 
      /**
       * Find All Polls by User Id.
-      * @param userId
+      * @param userAcc
       * @param maxResults
       * @param start
       * @return
       */
-     public List<Poll> findAllPollByUserId(final Long userId, final Integer maxResults, final Integer start);
+     List<Poll> findAllPollByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start);
 
      /**
       * Find All Poll.
@@ -62,12 +62,12 @@ public interface IPoll extends IBaseDao {
      /**
       * Get Polls by question keyword.
       * @param keywordQuestion
-      * @param UserId
+      * @param userAcc
       * @param maxResults
       * @param start
       * @return
       */
-      List<Poll> getPollsByQuestionKeyword(final String keywordQuestion, final Long UserId,
+     List<Poll> getPollsByQuestionKeyword(final String keywordQuestion, final UserAccount userAcc,
              final Integer maxResults,
              final Integer start);
 
@@ -80,18 +80,18 @@ public interface IPoll extends IBaseDao {
 
      /**
       * Poll Folder.
-      * @param secUser {@link Account}.
+      * @param secUser {@link UserAccount}.
       * @return list of folders.
       */
-     List<PollFolder> getPollFolderBySecUser(final Account secUser);
+     List<PollFolder> getPollFolderBySecUser(final UserAccount secUser);
 
      /**
       * Get Polls by Folder.
-      * @param Account
+      * @param userAcc
       * @param folder
       * @return
       */
-     List<Poll> getPollsByPollFolder(final Account userId, final PollFolder folder);
+     List<Poll> getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder);
 
      /**
       * Get Polls by Folder Id.
@@ -99,41 +99,41 @@ public interface IPoll extends IBaseDao {
       * @param folder
       * @return
       */
-     List<Poll> getPollsByPollFolderId(final Long userId, final PollFolder folder);
+     List<Poll> getPollsByPollFolderId(final UserAccount userId, final PollFolder folder);
 
      /**
       * Get PollFolder By User.
       * @param pollFolderId
-      * @param userId
+      * @param userAcc
       * @return
       */
-     PollFolder getPollFolderByIdandUser(final Long pollFolderId, final Long userId);
+     PollFolder getPollFolderByIdandUser(final Long pollFolderId, final UserAccount userAcc);
 
      /**
       * Get Poll by User.
       * @param pollId
-      * @param userId
+      * @param userAcc
       * @return
       */
-     Poll getPollByIdandUserId(final Long pollId, Long userId);
+     Poll getPollByIdandUserId(final Long pollId, UserAccount userAcc);
 
      /**
       * Get polls by creation date.
       * @param date
-      * @param userId
+      * @param userAcc
       * @param maxResults
       * @param start
       * @return
       */
-     List<Poll> getPollByIdandCreationDate(final Date date, final Long userId,
+     List<Poll> getPollByIdandCreationDate(final Date date, final UserAccount userAcc,
             final Integer maxResults, final Integer start );
 
      /**
       * Retrieve polls by userId.
-      * @param userId
+      * @param userAcc
       * @param maxResults
       * @param start
       * @return
       */
-     List<Poll> retrievePollsByUserId(final Long userId, final Integer maxResults, final Integer start);
+     List<Poll> retrievePollsByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start);
 }

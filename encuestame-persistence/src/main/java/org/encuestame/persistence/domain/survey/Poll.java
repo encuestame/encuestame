@@ -29,7 +29,9 @@ import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Poll Domain.
@@ -41,13 +43,14 @@ import org.encuestame.persistence.domain.security.Account;
 @Entity
 @Table(name = "poll",
     uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Poll extends AbstractSurvey {
     private Long pollId;
     private Boolean pollCompleted;
     private Date createdAt;
     private String pollHash;
     private Question question;
-    private Account pollOwner;
+    private UserAccount pollOwner;
     private Date endDate;
     private Boolean publish;
     private Boolean closeNotification;
@@ -140,14 +143,14 @@ public class Poll extends AbstractSurvey {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "uid", nullable = false)
-    public Account getPollOwner() {
+    public UserAccount getPollOwner() {
         return pollOwner;
     }
 
     /**
      * @param pollOwner the pollOwner to set
      */
-    public void setPollOwner(final Account pollOwner) {
+    public void setPollOwner(final UserAccount pollOwner) {
         this.pollOwner = pollOwner;
     }
 

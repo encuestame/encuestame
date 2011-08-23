@@ -29,7 +29,7 @@ div.web-header div.logo {
 }
 
 div.web-header div.logoEncuestame {
-    background-image: url(../images/logos/encuestame_logoalone.png);
+    background-image: url(../../images/logos/encuestame_logoalone.png);
     background-repeat: no-repeat;
 }
 
@@ -1232,7 +1232,7 @@ div.web-tweetpoll-wrapper {
     margin-bottom: 5em;
 }
 
-div.web-tweetpoll-wrapper div.spaceBlock {
+div.spaceBlock {
     margin-bottom: 20px !important;
 }
 
@@ -1240,7 +1240,7 @@ div.web-tweetpoll-wrapper div.spaceBlockTop {
     margin-top: 80px !important;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section {
+div.web-tweetpoll-section {
     background-color: #F6F6F6;
     border: 1px solid #E5E5E5;
     margin: 0 auto;
@@ -1252,7 +1252,7 @@ div.web-tweetpoll-wrapper div.web-tweetpoll-section {
     border-radius: 10px 10px 10px 10px;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section div.web-tweetpoll-section-title {
+div.web-tweetpoll-section div.web-tweetpoll-section-title {
  /** #737373 D7D7D7 #8EA5B7  */
   color: #FFFFFF;
   font-size: 125%;
@@ -1260,15 +1260,15 @@ div.web-tweetpoll-wrapper div.web-tweetpoll-section div.web-tweetpoll-section-ti
   font-weight: bold;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section .space{
+div.web-tweetpoll-section .space{
     padding: 10px;
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section .info{
+div.web-tweetpoll-section .info{
 
 }
 
-div.web-tweetpoll-wrapper div.web-tweetpoll-section .counterGlobal {
+div.web-tweetpoll-section .counterGlobal {
     -webkit-border-radius: 100px 100px 100px 100px;
     -moz-border-radius: 100px 100px 100px 100px;
     border-radius: 100px 100px 100px 100px;
@@ -1311,7 +1311,7 @@ div.web-tweetpoll-wrapper .socialBlock {
     border-top: 1px solid;
 }
 
-div.web-tweetpoll-wrapper div.tweetPollPublishButton {
+div.tweetPollPublishButton {
     background-color: #EBEBEB;
     margin: auto 65px;
     padding: 10px;
@@ -1518,7 +1518,7 @@ div.addAnswers div.options {
 }
 
 div.options .saveButton {
-    background-image: "url(../images/icons/add.png)";
+    background-image: "url(../../images/icons/add.png)";
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
@@ -1827,7 +1827,7 @@ div.publishWrapper div.itemPublish .check {
 div.publishWrapper div.itemPublish .account {
     display: inline-block;
     width: 200px;
-    background-image: url(../images/icons/twitter-logo-small.png);
+    background-image: url(../../images/icons/twitter-logo-small.png);
     background-repeat: no-repeat;
     padding-left: 44px;
     width: 200px;
@@ -2861,4 +2861,186 @@ div.web-settings-account-row .info-block {
 
 div.web-settings-account .data{
      margin-left: 150px;
+}
+
+/* publish support */
+
+div.web-publish-support{
+    min-width: 500px;
+    min-height: 500px;
+}
+
+div.web-publish-support .sidebar{
+    float: left;
+    width: 185px;
+}
+
+div.web-publish-support .title{
+    font-size: 140%;
+    padding: 10px;
+    font-weight: bold;
+}
+
+div.web-publish-support .title h2{
+    margin: 0px;
+}
+
+div.web-publish-support .sub-section{
+    overflow: auto;
+}
+
+div.web-publish-support .wrapper{
+    overflow: auto;
+}
+
+div.web-publish-support .detail {
+  margin-left: 170px;
+  padding: 15px;
+}
+
+div.web-publish-support ul.menu {
+  background: none repeat scroll 0 0 #F4F4F4;
+  height: 335px;
+  padding: 5px;
+}
+
+div.web-publish-support ul.menu li {
+  border-bottom: 1px dotted #DEDEDE;
+  border-top: 1px solid #FFFFFF;
+  border-width: 1px;
+  font-size: 130%;
+  list-style: none outside none;
+  padding: 10px;
+  width: 150px;
+  cursor: pointer;
+}
+
+div.web-publish-support ul.menu li:hover{
+    background-color: #A4BCCB;
+    color: white;
+}
+
+div.web-publish-support ul.menu li a:hover{
+    color: white;
+}
+
+div.web-publish-support .footer-section {
+  background-color: #F4F4F4;
+  border-top: 2px solid #D7D7D7;
+  min-height: 40px;
+  padding: 20px 50px 0px 10px;
+  text-align: right;
+  width: auto;
+}
+
+div.web-publish-support div.web-support-panel-item-title {
+  background-color: #F2F2F2;
+  border-bottom: 1px dotted #DEDEDE;
+  color: #7D7D7D;
+  cursor: pointer;
+  font-size: 130%;
+  padding: 13px;
+  text-transform: capitalize;
+  width: auto;
+}
+
+div.web-publish-support div.web-support-panel-item-content{
+  min-height: 200px !important;
+  padding: 5px;
+}
+
+
+div.web-support-embebed{
+    padding: 15px;
+    font-size: 12px;
+}
+
+div.web-support-embebed .emebed-title {
+  color: #000000;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 26px;
+  padding: 0 0 5px;
+}
+
+div.web-support-embebed .embebed-des{
+   color: #666666;
+   font-size: 12px;
+   line-height: 18px;
+}
+
+div.web-support-embebed textarea {
+  color: #000000;
+  font-family: courier;
+  font-size: 120%;
+  height: 100px;
+  margin-top: 0;
+  padding: 6px;
+  width: 520px;
+}
+
+/** poll */
+
+div.web-poll-wrapper{
+    padding: 10px;
+    margin: 0 auto;
+    padding: 35px 0;
+    width: auto;
+}
+
+div.web-poll-wrapper div.web-poll-question{
+    min-height: 60px;
+}
+
+div.web-poll-wrapper ul.web-poll-answers{
+
+}
+
+div.web-poll-wrapper ul.web-poll-answers li{
+    list-style: none;
+    padding: 5px;
+}
+
+div.web-poll-wrapper .web-tweetpoll-section{
+    width: auto;
+    margin: auto 0;
+}
+
+
+/** paterns **/
+
+.web-pattern{
+
+}
+
+.single-response{
+
+}
+
+.single-response .single-response-handle {
+  float: left;
+  margin-right: 10px;
+  margin-top: 7px;
+}
+
+.single-response .single-response-input{
+    margin-left: 10px;
+}
+
+/* folder selection */
+div.folder-selection{
+    padding: 0px;
+}
+
+div.folder-selection div.folder-selection-label {
+  color: #848282;
+  float: left;
+  font-size: 120%;
+  font-weight: normal;
+  margin-right: 3px;
+  margin-top: 2px;
+}
+
+div.folder-selection  div.folder-selection-combo{
+    margin-left: 45px;
 }

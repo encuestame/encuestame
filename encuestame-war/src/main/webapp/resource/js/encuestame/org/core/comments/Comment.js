@@ -5,6 +5,7 @@ dojo.require("dijit._Widget");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.core.shared.utils.AccountPicture');
 
 dojo.declare(
         "encuestame.org.core.comments.Comment",

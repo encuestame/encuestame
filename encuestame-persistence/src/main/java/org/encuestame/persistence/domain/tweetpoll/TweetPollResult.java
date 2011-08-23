@@ -27,6 +27,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractGeoPoint;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -42,6 +44,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="TweetPollResult")
 @Table(name = "tweetpoll_result")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TweetPollResult extends AbstractGeoPoint{
 
     private Long tweetPollResultId;

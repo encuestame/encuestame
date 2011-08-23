@@ -1,3 +1,58 @@
-<div class="pollWrapper">
-    dsadsa
+<div class="web-poll-wrapper">
+    <div class="web-poll-question">
+         <div class="web-tweetpoll-section spaceBlock">
+            <div class="web-tweetpoll-section-title default-background-dark-color">Poll Question</div>
+             <div class="space">
+                 <div id="question" dojoAttachPoint="_question" class="question web-poll-question"></div>
+                 <div dojoAttachPoint="_folder"></div>
+            </div>
+        </div>
+
+         <div class="web-tweetpoll-section spaceBlock">
+            <div class="web-tweetpoll-section-title default-background-dark-color">Build your answers</div>
+             <div class="space">
+                 <ul class="web-poll-answers"  dojoAttachPoint="_source">
+                    <li class="dojoDndItem">
+                        <div dojoType="encuestame.org.core.commons.questions.patterns.SingleResponse" dndEnabled="true"></div>
+                    </li>
+                    <li class="dojoDndItem">
+                        <div dojoType="encuestame.org.core.commons.questions.patterns.SingleResponse" dndEnabled="true"></div>
+                    </li>
+                    <li class="dojoDndItem">
+                        <div dojoType="encuestame.org.core.commons.questions.patterns.SingleResponse" dndEnabled="true"></div>
+                    </li>
+                    <li class="dojoDndItem">
+                        <div dojoType="encuestame.org.core.commons.questions.patterns.SingleResponse" dndEnabled="true"></div>
+                    </li>
+                 </ul>
+              </div>
+         </div>
+
+         <div class="web-tweetpoll-section spaceBlock">
+            <div class="web-tweetpoll-section-title default-background-dark-color">Poll Options</div>
+             <div class="space">
+                 <div>
+                 <div dojoType="encuestame.org.core.shared.options.CheckSingleOption"
+                      value="multiples"
+                      label="Allow multiple selection"></div>
+                  <div>
+                       <div dojoType="encuestame.org.core.shared.options.RepeatedVotes"></div>
+                       <div dojoType="encuestame.org.core.shared.options.LimitVotes"></div>
+                       <div dojoType="encuestame.org.core.shared.options.CommentsOptions"></div>
+                       <div dojoType="encuestame.org.core.shared.options.DateToClose"></div>
+                       <div dojoType="encuestame.org.core.shared.options.ResultsOptions"></div>
+                  </div>
+             </div>
+         </div>
+
+          <div class="tweetPollPublishButton" style="text-align: right;">
+               <button dojoAttachPoint="_publish"
+                       dojoType="dijit.form.Button"
+                       type="button"
+                       name="submitButtonTwo"
+                       value="Submit">
+                       Create Poll
+               </button>
+          </div>
+    </div>
 </div>

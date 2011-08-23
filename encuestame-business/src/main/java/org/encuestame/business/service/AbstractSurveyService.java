@@ -151,6 +151,14 @@ public class AbstractSurveyService extends AbstractChartService {
         return answer;
     }
 
+    public QuestionAnswer createAnswers(final Question question){
+    	 final QuestionAnswer answer = new QuestionAnswer();
+    	  answer.setQuestions(question);
+    	  answer.setColor(PictureUtils.getRandomHexColor());
+    	  this.getQuestionDao().saveOrUpdate(answer);
+    	return answer;
+    }
+
     /**
      * Retrieve {@link QuestionAnswer} by Id.
      * @param id

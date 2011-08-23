@@ -1,6 +1,7 @@
-<script type="text/javascript">
-    dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollList");
-</script>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<enme:require>
+encuestame.org.core.commons.tweetPoll.TweetPollList
+</enme:require>
 <div id="web-tweetpoll-wrapper">
     <div class="web-tweetpoll-menu default-background-dark-color">
         <a href="<%=request.getContextPath()%>/user/tweetpoll/new">

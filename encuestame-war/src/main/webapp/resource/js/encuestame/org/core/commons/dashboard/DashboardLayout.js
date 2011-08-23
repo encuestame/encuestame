@@ -70,7 +70,8 @@ dojo.declare(
          * Load layout
          * @param layout layout to load.
          */
-        loadLayout : function(layout /*string layout*/){
+        loadLayout : function(layout /*string layout*/) {
+            this.cleanLayout();
             var node = null;
             if (layout == this._type[0]) {
                 this._layout.appendChild(this._createLayoutAAA(this.gadgets));
@@ -84,10 +85,24 @@ dojo.declare(
                 this._layout.appendChild(this._createLayoutAAA(this.gadgets));
             } else {
                 //error.
+                console.error("no layout");
             }
             if(node != null){
                 this._layout.appendChild(node);
             }
+        },
+
+        /*
+         *
+         */
+        cleanLayout : function() {
+            console.debug("cleaning gadgets _widgetsGadgets...", this._listColumns);
+            dojo.forEach(this._listColumns, dojo.hitch(this, function(widget) {
+                console.debug("cleaning gadgets...", widget);
+                widget.cleanColumn();
+                widget.destroyRecursive(true);
+            }));
+            this._listColumns = [];
         },
 
         /*
@@ -121,7 +136,6 @@ dojo.declare(
          * create layout AAA.
          */
         _createLayoutAAA : function(gadgets) {
-            this._listColumns = [1, 2, 3];
             var wrapper = document.createElement("div");
             wrapper.appendChild(this._createColumn("1", "a1_"+this.id, gadgets).domNode);
             wrapper.appendChild(this._createColumn("2", "a2_"+this.id, gadgets).domNode);
@@ -144,14 +158,15 @@ dojo.declare(
          *
          */
         _createColumn : function(i, id, gadgets){
-            var widget = new encuestame.org.core.commons.dashboard.LayoutColumn(
+             var widget = new encuestame.org.core.commons.dashboard.LayoutColumn(
                                 {
                                     id : id,
                                     column : i,
                                     gadgets : gadgets,
                                     dashboard : this.dashboard
                                 }, "ul");
-                        this._listColumns.push(widget);
+             this._listColumns.push(widget);
+             widget.startup();
             return widget;
         }
     }
@@ -172,6 +187,7 @@ dojo.declare(
 
             column : "1",
 
+            _gadgets : 0,
 
             dashboard : null,
 
@@ -199,14 +215,26 @@ dojo.declare(
              *
              */
             postCreate : function() {
-                if(this.gadgets.length == 0){
-                    //this._addEmtpyContent(this._info);
-                    //dojo.addClass(this._ul, "empty-text");
-                } else {
-                    //dojo.empty(this._info);
-                }
+                console.debug("init _widgetsGadgets", this._widgetsGadgets);
                 this._addDndSupport();
                 this._addGadgets();
+            },
+
+            /*
+             *
+             */
+            cleanColumn : function() {
+                //this.sourceDndWidget.destroy();
+                console.debug("cleanColumn ...  "+this.column , this._gadgets);
+                console.debug("cleanColumn ... "+this.column , this.sourceDndWidget);
+                if(this._gadgets > 0) {
+                    dojo.forEach(this._widgetsGadgets, dojo.hitch(this, function(widget) {
+                        //console.debug("cleaning gadgets...", widget);
+                        widget._widgetInside.destroyRecursive(true);
+                        widget.destroyRecursive(true);
+                    }));
+                }
+                this._widgetsGadgets = [];
             },
 
             /*
@@ -225,25 +253,26 @@ dojo.declare(
              */
             _createGadget : function(data /* gadget info*/) {
                 var gatget = new encuestame.org.core.commons.dashboard.Gadget({data : data, dashboardId: this.dashboard.id});
+                gatget.startup();
                 return gatget;
             },
-
 
             /*
              *
              */
             _addGadgets : function(){
               var itemArray = [];
-              console.debug("Adding Gadgets -->", this.gadgets.length);
+              console.debug("Column "+this.column+" Adding Gadgets -->", this.gadgets.length);
               dojo.forEach(this.gadgets, dojo.hitch(this, function(item) {
-                  //console.debug(item.gadget_column, this.column);
-                  if(item.gadget_column == parseInt(this.column)){
+                  console.debug(item.gadget_column, parseInt(this.column));
+                  if (item.gadget_column == parseInt(this.column)) {
                       var widget = this._createGadget(item);
                       this._widgetsGadgets.push(widget);
                       itemArray.push(widget.domNode);
+                      this._gadgets++;
                   }
               }));
-              //console.debug("this.sourceDndWidget", this.sourceDndWidget);
+              console.debug("Column "+this.column+" Adding Gadgets -->", this._widgetsGadgets.length);
               this.sourceDndWidget.insertNodes(false, itemArray);
             },
 
