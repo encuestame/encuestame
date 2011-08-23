@@ -1,5 +1,6 @@
- /************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+/*
+ ***********************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -8,11 +9,10 @@
  * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
- */
+*/
 package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -49,7 +50,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 17/05/2010 19:35:36
  * @version $Id:$
  */
-public class TestPollService extends AbstractServiceBase{
+public class TestPollService extends AbstractSpringSecurityContext{
 
      /** {@link Account} **/
     private Account user;
@@ -87,12 +88,12 @@ public class TestPollService extends AbstractServiceBase{
         this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        this.poll = createPoll(new Date(), this.question, "FDK125", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.userAccount.getAccount());
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
         createDefaultEmails("dianmorales@gmail.com", this.emailList);
-        this.folder = createPollFolder("folder 1", this.userAccount);
+        this.folder = createPollFolder("folder 1", getSpringSecurityLoggedUserAccount());
         this.poll.setPollFolder(folder);
      }
 
@@ -105,12 +106,17 @@ public class TestPollService extends AbstractServiceBase{
      * Test createPoll.
      * @throws Exception exception
      */
-    //@Test
+    @Test
     public void testcreatePoll() throws Exception{
         final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
-        //this.pollService.createPoll(unitPoll, this.userAccount.getUsername(), this.question);
+        final String[] answers = new String[3];
+        answers[0] = "answer One";
+        answers[0] = "answer Two";
+        answers[0] = "answer Three";
+        final Poll myPoll = this.pollService.createPoll("", answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE);
+        Assert.assertNotNull(myPoll);
     }
 
     /**

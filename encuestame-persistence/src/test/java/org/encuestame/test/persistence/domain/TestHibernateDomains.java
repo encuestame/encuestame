@@ -14,6 +14,7 @@ package org.encuestame.test.persistence.domain;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -46,6 +47,8 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
@@ -485,5 +488,26 @@ public class TestHibernateDomains extends AbstractBase{
      	 comments.setUser(user);
     	 comments.setTweetPoll(tpoll);
     	 getCommentsOperations().saveOrUpdate(comments);
+     }
+
+     /** Test Poll. **/
+     public void testPoll(){
+    	 final Poll poll = new Poll();
+    	 final Question question = createQuestion("Where do you live?", "");
+    	 final UserAccount user = createUserAccount("diana", createAccount());
+    	 final PollFolder pollFolder = createPollFolder("My polls", user);
+    	 poll.setPollCompleted(null);
+    	 poll.setCreatedAt(Calendar.getInstance().getTime());
+    	 poll.setPollHash("dkslw253");
+    	 poll.setQuestion(question);
+    	 poll.setPollOwner(user);
+    	 poll.setEndDate(null);
+    	 poll.setPublish(Boolean.TRUE);
+    	 poll.setCloseNotification(Boolean.FALSE);
+    	 poll.setShowVotes(Boolean.TRUE);
+    	 poll.setPollFolder(pollFolder);
+    	 poll.setUpdatedDate(null);
+    	 getiPoll().saveOrUpdate(poll);
+    	 System.out.println("Poll Id------>" + poll.getPollId());
      }
 }

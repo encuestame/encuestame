@@ -46,9 +46,9 @@ public interface IPoll extends IBaseDao {
      List<Poll> findAllPollByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start);
 
      /**
-      * Find All Poll.
-      * @return list of all poll
-      * @throws HibernateException hibernate
+      * Retrieve Poll by id.
+      * @param pollId
+      * @return
       */
      Poll getPollById(final Long pollId);
 
@@ -102,7 +102,7 @@ public interface IPoll extends IBaseDao {
      List<Poll> getPollsByPollFolderId(final UserAccount userId, final PollFolder folder);
 
      /**
-      * Get PollFolder By User.
+      * Get PollFolder By poll id and user.
       * @param pollFolderId
       * @param userAcc
       * @return
@@ -110,7 +110,7 @@ public interface IPoll extends IBaseDao {
      PollFolder getPollFolderByIdandUser(final Long pollFolderId, final UserAccount userAcc);
 
      /**
-      * Get Poll by User.
+      * Get Poll by id and user.
       * @param pollId
       * @param userAcc
       * @return

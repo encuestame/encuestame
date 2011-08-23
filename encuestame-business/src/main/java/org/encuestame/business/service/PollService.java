@@ -92,8 +92,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setShowResults(showResults);
             pollDomain.setShowComments(commentOpt);
             pollDomain.setNotifications(notification);
+            System.out.println("TOTL ANSWERS ---> " + answers.length );
             for (int row = 0; row < answers.length; row++) {
                  final String answersText = answers[row];
+                 System.out.println("ANSWERS ---> " + answers[row] );
                  Assert.notNull(answersText);
                  createAnswers(question, answersText.trim());
             }
