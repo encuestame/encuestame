@@ -27,10 +27,10 @@
                  </ul>
               </div>
               <div class="section-botton-wrapper">
-                  <div dojoType="encuestame.org.core.shared.options.CheckSingleOption"
+                  <div id="multiple" dojoType="encuestame.org.core.shared.options.CheckSingleOption"
                          value="multiples" class="sub-option"
                          label="Allow multiple selection"></div>
-                  <div dojoType="encuestame.org.core.shared.options.CheckSingleOption"
+                  <div id="allow-add" dojoType="encuestame.org.core.shared.options.CheckSingleOption"
                          value="add"  class="sub-option"
                          label="Allow add new responses"></div>
               </div>
@@ -41,13 +41,13 @@
                  <div class="section-option-wrapper">
                       <div class="section-default">
                            <h2 class="default-background-dark-color">Poll Limits</h2>
-                           <div dojoType="encuestame.org.core.shared.options.RepeatedVotes" class="space"></div>
-                           <div dojoType="encuestame.org.core.shared.options.LimitVotes" class="space"></div>
-                           <div dojoType="encuestame.org.core.shared.options.DateToClose" class="space"></div>
+                           <div id="repeated" dojoType="encuestame.org.core.shared.options.RepeatedVotes" class="space"></div>
+                           <div id="limit" dojoType="encuestame.org.core.shared.options.LimitVotes" class="space"></div>
+                           <div id="close" dojoType="encuestame.org.core.shared.options.DateToClose" class="space"></div>
                       </div>
                       <div class="section-default">
                            <h2 class="default-background-dark-color">Comments</h2>
-                           <div dojoType="encuestame.org.core.shared.options.CommentsOptions" class="space"></div>
+                           <div id="comments" dojoType="encuestame.org.core.shared.options.CommentsOptions" class="space"></div>
                       </div>
                       <div class="section-default">
                             <h2 class="default-background-dark-color">Results</h2>

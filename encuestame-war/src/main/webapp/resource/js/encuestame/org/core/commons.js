@@ -461,8 +461,8 @@ encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
 };
 
 encuestame.service.list.poll = {};
-encuestame.service.list.create = encuestame.contextWidget()+"/api/poll/create.json";
-encuestame.service.list.publish = encuestame.contextWidget()+"/api/poll/publish.json";
+encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/poll/create.json";
+encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/poll/publish.json";
 
 
 encuestame.service.list.votes = {};

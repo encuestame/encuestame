@@ -146,7 +146,7 @@ public class PollJsonController extends AbstractJsonController{
 
 
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/poll/{actionType}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "api/poll/{actionType}.json", method = RequestMethod.POST)
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
@@ -163,9 +163,9 @@ public class PollJsonController extends AbstractJsonController{
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                if ("create".equals(actionType)) {
-            	   final Poll poll = getPollService().createPoll(questionName, answers, showResults,
-            	    		         showComments, notification);
-            	   final PollBean pollBean = getPollService().convertPolltoBean(poll);
+                   final Poll poll = getPollService().createPoll(questionName, answers, showResults,
+                                     showComments, notification);
+                   final PollBean pollBean = getPollService().convertPolltoBean(poll);
                    jsonResponse.put("pollBean", "pollBean");
                    setItemResponse(jsonResponse);
                    getPollService().createPollNotification(poll);

@@ -42,6 +42,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * Poll Service.
@@ -61,21 +62,24 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * Create Poll.
      */
     public Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
-    		final String commentOption, final Boolean notification) throws EnMeExpcetion{
-    	final Poll pollDomain = new Poll();
+        final String commentOption, final Boolean notification) throws EnMeExpcetion{
+        Assert.notNull(answers);
+        Assert.notNull(questionName);
+        final Poll pollDomain = new Poll();
         try {
-        	final QuestionBean questionBean = new QuestionBean();
+            final QuestionBean questionBean = new QuestionBean();
             questionBean.setQuestionName(questionName);
-        	final Question question = createQuestion(questionBean, getUserAccount(getUserPrincipalUsername()));
+            final Question question = createQuestion(questionBean, getUserAccount(getUserPrincipalUsername()));
             log.debug("question found : {"+question);
+            log.debug("answers found : {"+answers.length);
             if (question == null) {
                 throw new EnMeNoResultsFoundException("question not found");
-            } else if (answers.length  == 0 ){
-            	  throw new EnMeNoResultsFoundException("answers are required to create Poll");
+            } else if (answers.length  == 0 ) {
+                  throw new EnMeNoResultsFoundException("answers are required to create Poll");
             }
             else{
-        	String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
-        	CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
+            final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
+            final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
             pollDomain.setPollOwner(getUserAccount(getUserPrincipalUsername()));
             pollDomain.setCreatedAt(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -83,13 +87,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setShowResults(showResults);
             pollDomain.setShowComments(commentOpt);
             pollDomain.setNotifications(notification);
-            QuestionAnswer questionAnswer;
-            //TODO: to review next code, probably is possible reutilize
             for (int row = 0; row < answers.length; row++) {
-            	questionAnswer = createAnswers(question);
-                questionAnswer.setAnswer(answers[row]);
-                questionAnswer.setQuestions(question);
-                getQuestionDao().saveOrUpdate(questionAnswer);
+                 final String answersText = answers[row];
+                 Assert.notNull(answersText);
+                 createAnswers(question, answersText.trim());
             }
             this.getPollDao().saveOrUpdate(pollDomain);
             }
@@ -99,16 +100,16 @@ public class PollService extends AbstractSurveyService implements IPollService{
         return pollDomain;
     }
 
-	/*
-	 *
-	 */
+    /*
+     *
+     */
     public PollBean convertPolltoBean(final Poll poll){
-    	final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
-    	final String url = this.createUrlPollAccess(poll);
-    	final String shortUrl = SocialUtils.getTinyUrl(url);
-    	pollBean.setUrl(url);
-  	    pollBean.setShortUrl(shortUrl);
-    	return pollBean;
+        final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
+        final String url = this.createUrlPollAccess(poll);
+        final String shortUrl = SocialUtils.getTinyUrl(url);
+        pollBean.setUrl(url);
+          pollBean.setShortUrl(shortUrl);
+        return pollBean;
     }
 
     /**
@@ -151,7 +152,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             throw new EnMeExpcetion("keyword is missing");
         } else {
             polls = getPollDao().getPollsByQuestionKeyword(keywordQuestion,
-            		getUserAccount(getUserPrincipalUsername()), maxResults, start);
+                    getUserAccount(getUserPrincipalUsername()), maxResults, start);
         }
         log.info("search keyword polls size "+polls.size());
         return null;
@@ -200,9 +201,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeNoResultsFoundException
      */
     public List<PollBean> listPollbyQuestionKeyword(final String keyword, final Integer maxResults,
-    		final Integer start) throws EnMeNoResultsFoundException {
+            final Integer start) throws EnMeNoResultsFoundException {
         final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword,getUserAccount(getUserPrincipalUsername()),
-        		maxResults, start);
+                maxResults, start);
         return ConvertDomainBean.convertSetToPollBean(polls);
     }
 
@@ -240,7 +241,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws UnsupportedEncodingException
      */
     private String createUrlPollAccess(final Poll poll) {
-    	StringBuffer urlBuffer = new StringBuffer("/poll/");
+        StringBuffer urlBuffer = new StringBuffer("/poll/");
         urlBuffer.append(poll.getPollHash());
         urlBuffer.append("/");
         urlBuffer.append(poll.getPollId());
@@ -408,7 +409,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeNoResultsFoundException
      */
     public List<PollBean> getPollsbyDate(final Date date, final Integer maxResults,
-    		final Integer start) throws EnMeNoResultsFoundException{
+            final Integer start) throws EnMeNoResultsFoundException{
         List<Poll> pollList = new ArrayList<Poll>();
         if (date !=null){
             pollList = getPollDao().getPollByIdandCreationDate(date, getUserAccount(getUserPrincipalUsername()), maxResults, start);
