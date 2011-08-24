@@ -22,7 +22,6 @@ import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.CommentsSocialOptions;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -148,7 +147,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         long lastDislikeVote = comment.getDislikeVote();
         lastDislikeVote += this.VOTE_VALUE;
         comment.setDislikeVote(lastDislikeVote);
-
+        getCommentsOperations().saveOrUpdate(comment);
     }
 
     /**
@@ -159,5 +158,6 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         long lastLikeVote = comment.getLikeVote();
         lastLikeVote += this.VOTE_VALUE;
         comment.setDislikeVote(lastLikeVote);
+        getCommentsOperations().saveOrUpdate(comment);
     }
 }

@@ -111,10 +111,39 @@ dojo.declare(
         /*
          *
          */
-        _validatePoll : function(event){
+        _validatePoll : function(event) {
             dojo.stopEvent(event);
             var valid = false;
-            var params = { questionName : "xxxxxx", listAnswers : ["abc", "dvbc", "dfg"]};
+            /*
+             * options : {
+                        multiples : true,
+                        allow_add_response : true,
+                        repeated_votes : {
+                            allow : true,
+                            number : 123
+                        },
+                        limit : {
+                            limit : true,
+                            number : 231
+                        },
+                        close : {
+                            close : true,
+                            time : "",
+                            date : ""
+                                },
+                        comments : "allow",
+                        results : "all",
+                        folder : 1,
+                    }
+             */
+            var params = {
+                    questionName : this._questionWidget.getQuestion(),
+                    listAnswers : ["response 1", "response 2", "response 3"],
+                    };
+            if (repeated_votes){
+                dojo.mixin(params, {repeated_votes : 123});
+            }
+            //ir agregado mas elementos.
             valid = true;
             if (valid) {
                 this.createPoll(params);
