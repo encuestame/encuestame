@@ -19,7 +19,19 @@ dojo.declare(
         postCreate : function(){
             if (this.dndEnabled) {
                 dojo.addClass(this._handle, "dojoDndHandle");
-                //add class dojoDndHandle
+            }
+        },
+
+        /*
+         * response.
+         */
+        getResponse : function() {
+            if (this._single) {
+                var response =  dijit.byId(this._single).get('value');
+                console.debug("getResponse", response);
+                return response;
+            } else {
+                return null;
             }
         }
 });

@@ -28,7 +28,7 @@ dojo.declare(
 
         postCreate : function(){
             this.questionWidget = dijit.byId(this._question);
-            this.questionWidget = this.questionWidget.get('value', this.defaultValue);
+            //this.questionWidget = this.questionWidget.get('value', this.defaultValue);
             if (this.enableEvents) {
                 dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, this.onKeyUp));
                 this.questionWidget.onChange = dojo.hitch(this, this.onChange);
