@@ -32,7 +32,6 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
@@ -113,9 +112,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
         unitPoll.setQuestionBean(question);
         final String[] answers = new String[3];
         answers[0] = "answer One";
-        answers[0] = "answer Two";
-        answers[0] = "answer Three";
+        answers[1] = "answer Two";
+        answers[2] = "answer Three";
         final Poll myPoll = this.pollService.createPoll("", answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE);
+        // System.out.println("My Poll ID ---> " + myPoll.getPollId());
         Assert.assertNotNull(myPoll);
     }
 
@@ -123,20 +123,20 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test getPollsByFolder.
      * @throws EnMeNoResultsFoundException
      */
-    //@Test
+    @Test
     //TODO: ignore for now.
     public void testgetPollsByFolder() throws EnMeNoResultsFoundException{
-     /*   getiPoll().saveOrUpdate(this.poll);
+        getiPoll().saveOrUpdate(this.poll);
         List<PollBean> polls = this.pollService.getPollsByFolder(ConvertDomainBean
-                              .convertFolderToBeanFolder(folder), this.userAccount.getUsername());
-        assertEquals(polls.size(), 1);*/
+                              .convertFolderToBeanFolder(folder));
+        assertEquals(1, polls.size());
     }
 
     /**
      * Test retrieveFolderPoll.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test
+    @Test
     public void testretrieveFolderPoll() throws EnMeNoResultsFoundException{
         List<FolderBean> folders = this.pollService.retrieveFolderPoll();
         assertEquals(folders.size(), 1);
@@ -146,22 +146,22 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test createPollFolder.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test
+    @Test
     public void testcreatePollFolder() throws EnMeNoResultsFoundException{
-        /* this.pollService.createPollFolder("folder 2", this.userAccount.getUsername());
-         List<FolderBean> folders = this.pollService.retrieveFolderPoll();
-         assertEquals(folders.size(), 2);*/
+       this.pollService.createPollFolder("folder 2");
+       List<FolderBean> folders = this.pollService.retrieveFolderPoll();
+       assertEquals(folders.size(), 1);
     }
 
     /**
      * Test updateFolderName.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test
+    @Test
     public void testupdateFolderName() throws EnMeNoResultsFoundException{
         this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.userAccount.getUsername());
         final PollFolder folder = this.getiPoll().getPollFolderById(this.folder.getId());
-         assertEquals(folder.getFolderName(), "newFolderName");
+        assertEquals(folder.getFolderName(), "newFolderName");
     }
 
     /**
@@ -178,7 +178,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Remove Poll Folder.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test()
+    @Test
     public void testremovePollFolder() throws EnMeNoResultsFoundException{
         this.poll.setPollFolder(null);
         getiPoll().saveOrUpdate(this.poll);
@@ -191,11 +191,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test Find Polls By User.
      * @throws EnMeNoResultsFoundException
      **/
-    //@Test
+    @Test
     public void testFindAllPollByUserId() throws EnMeNoResultsFoundException{
         List<PollBean> unitPoll =  new ArrayList<PollBean>();
-        /*unitPoll = pollService.listPollByUser(this.userAccount.getUsername(), 5, 0);
-         assertEquals("should be equals",1, unitPoll.size());*/
+        unitPoll = pollService.listPollByUser(5, 0);
+        assertEquals("should be equals",1, unitPoll.size());
     }
 
     /**

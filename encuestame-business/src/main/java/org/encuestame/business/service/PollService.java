@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,7 +30,6 @@ import org.encuestame.persistence.domain.CommentOptions;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -39,8 +39,8 @@ import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.UnitLists;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -92,10 +92,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setShowResults(showResults);
             pollDomain.setShowComments(commentOpt);
             pollDomain.setNotifications(notification);
-            System.out.println("TOTL ANSWERS ---> " + answers.length );
             for (int row = 0; row < answers.length; row++) {
                  final String answersText = answers[row];
-                 System.out.println("ANSWERS ---> " + answers[row] );
                  Assert.notNull(answersText);
                  createAnswers(question, answersText.trim());
             }

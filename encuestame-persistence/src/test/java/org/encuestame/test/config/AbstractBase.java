@@ -377,7 +377,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @param geoPointDao geoPointDao
      */
-    public void setGeoPointDao(IGeoPoint geoPointDao) {
+    public void setGeoPointDao(final IGeoPoint geoPointDao) {
         this.geoPointDao = geoPointDao;
     }
 
@@ -1203,11 +1203,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Account secUsers,
             final String folderName,
             final GeoPointFolder locationFolder){
+    	final UserAccount userAcc = createUserAccount("Juan", secUsers);
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
         geoPointFolder.setFolderName(folderName);
         geoPointFolder.setUsers(secUsers);
         geoPointFolder.setSubLocationFolder(locationFolder);
+        geoPointFolder.setCreatedAt(Calendar.getInstance().getTime());
+        geoPointFolder.setCreatedBy(userAcc);
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         return geoPointFolder;
     }

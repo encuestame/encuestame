@@ -290,10 +290,13 @@ public class TestHibernateDomains extends AbstractBase{
      */
      @Test
      public void testLocationFolder(){
+    	 final Account account = createAccount();
          final GeoPointFolder geoPointFolder = new GeoPointFolder();
          geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
          geoPointFolder.setFolderName("test folder");
-         geoPointFolder.setUsers(createAccount());
+         geoPointFolder.setUsers(account);
+         geoPointFolder.setCreatedAt(Calendar.getInstance().getTime());
+         geoPointFolder.setCreatedBy(createUserAccount("juan carlos", account));
          getGeoPointDao().saveOrUpdate(geoPointFolder);
      }
 
