@@ -25,28 +25,61 @@ dojo.require("encuestame.org.core.shared.utils.Avatar");
  */
 dojo.declare("encuestame.org.core.commons.support.DnD", null, {
 
+        /*
+         *
+         */
         node : null,
 
+        /*
+         *
+         */
         sourceDndWidget : null,
 
+        /*
+         *
+         */
         accept : [],
 
+        /*
+         *
+         */
         copyOnly : false,
 
+        /*
+         *
+         */
         selfCopy : false,
 
+        /*
+         *
+         */
         selfAccept : true,
 
+        /*
+         *
+         */
         withHandles : true,
 
+        /*
+         *
+         */
         autoSync : true,
 
+        /*
+         *
+         */
         isSource : true,
 
+        /*
+         *
+         */
         constructor: function() {
             this.node = null;
         },
 
+        /*
+         *
+         */
         enableDndSupport : function(node, customCreator) {
             this.node = node;
             var params = {
@@ -56,8 +89,8 @@ dojo.declare("encuestame.org.core.commons.support.DnD", null, {
                         selfAccept: this.selfAccept,
                         withHandles : this.withHandles,
                         autoSync : this.autoSync,
-                        isSource : this.isSource,
-                        creator: this.dndNodeCreator
+                        isSource : this.isSource
+                        //creator: this.dndNodeCreator
                         };
             if (customCreator) {
                 //dojo.mixin(params, { creator: this.dndNodeCreator});
@@ -87,6 +120,25 @@ dojo.declare("encuestame.org.core.commons.support.DnD", null, {
                 }
         },
 
+        /*
+         *
+         */
+        addItems : function(array){
+             this.sourceDndWidget.insertNodes(false, itemArray);
+        },
+
+        /*
+         *
+         */
+        addItem : function(node) {
+            var itemArray = [];
+            itemArray.push(node);
+               this.sourceDndWidget.insertNodes(false, itemArray);
+       },
+
+        /*
+         *
+         */
         _dndAction : function(){
              dojo.forEach(this.sourceDndWidget.getSelectedNodes(), dojo.hitch(this, function(item) {
                  console.debug("DND item", item);

@@ -64,6 +64,12 @@ dojo.declare(
          */
         _questionWidget : null,
 
+        _default_answers : 4,
+
+        _min_answer_allowed : 2,
+
+        _answer_widget_array : [],
+
         /*
          *
          */
@@ -79,8 +85,41 @@ dojo.declare(
             if (this._folder) {
                 this._folder.appendChild(this._folderWidget.domNode);
             }
-            dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
             this.enableDndSupport(this._source, true);
+            //add default answers.
+            for (var i= 0; i <= this._default_answers; i++) {
+                 var li = this._newAnswer({ dndEnabled : true});
+                 this.addItem(li);
+            }
+            dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
+            dojo.connect(this._addNew, "onclick", dojo.hitch(this, this._addAnswer));
+        },
+
+        /**
+         *
+         * @param event
+         */
+        _addAnswer : function(event) {
+            dojo.stopEvent(event);
+            console.info("_addAnswer", this.sourceDndWidget.getSelectedNodes());
+            var li = this._newAnswer({ dndEnabled : true});
+            this.addItem(li);
+        },
+
+
+        /**
+         *
+         * @returns {encuestame.org.core.commons.questions.patterns.SingleResponse}
+         */
+        _newAnswer : function(params){
+            params = params == null ? {} : params;
+            var li = dojo.create("li");
+            dojo.addClass(li, "dojoDndItem");
+            var answer = new encuestame.org.core.commons.questions.patterns.SingleResponse(params);
+            this._answer_widget_array.push(answer);
+            li.appendChild(answer.domNode);
+            console.info("_newAnswer", li);
+            return li;
         },
 
 
@@ -111,10 +150,61 @@ dojo.declare(
         /*
          *
          */
-        _validatePoll : function(event){
+        _validatePoll : function(event) {
             dojo.stopEvent(event);
             var valid = false;
-            var params = { questionName : "xxxxxx", listAnswers : ["abc", "dvbc", "dfg"]};
+            /*
+             * options : {
+                        multiples : true,
+                        allow_add_response : true,
+                        repeated_votes : {
+                            allow : true,
+                            number : 123
+                        },
+                        limit : {
+                            limit : true,
+                            number : 231
+                        },
+                        close : {
+                            close : true,
+                            time : "",
+                            date : ""
+                                },
+                        comments : "allow",
+                        results : "all",
+                        folder : 1,
+                    }
+             */
+            var params = {
+                    questionName : "",
+                    listAnswers : [],
+                    };
+            //check question.
+            if (this._questionWidget.getQuestion() != "" &&
+                this._questionWidget.getQuestion() != null) {
+                valid = true;
+                dojo.mixin(params, { questionName : this._questionWidget.getQuestion()});
+            }
+
+            //catching answers.
+            dojo.forEach(this._answer_widget_array,
+                    dojo.hitch(this,function(item) {
+                    if(item != null){
+                        var response = item.getResponse();
+                        console.debug("_answer_widget_array params", response);
+                        if (response != null && response != "") {
+                            var newArray = params.listAnswers;
+                            newArray.push(response.trim());
+                            dojo.mixin(params, { listAnswers : newArray});
+                        }
+                    }
+            }));
+            console.debug("required params", params);
+            var repeated_votes = dijit.byId("repeated");
+            if (repeated_votes.checked){
+                dojo.mixin(params, {repeated_votes : repeated_votes.items});
+            }
+            //ir agregado mas elementos.
             valid = true;
             if (valid) {
                 this.createPoll(params);
