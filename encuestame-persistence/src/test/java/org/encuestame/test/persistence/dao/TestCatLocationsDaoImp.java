@@ -82,7 +82,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * getLocationFolders.
      */
-    @Test
+    //@Test
     public void testGetLocationFolders(){
         createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Managua", null);
         createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Ocotal", null);
@@ -93,7 +93,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * Test for getLocationFoldersByLocationFolderId.
      */
-    @Test
+    //@Test
     public void testGetLocationFoldersByLocationFolderId(){
         final GeoPointFolder geoPointFolder = createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Condega", null);
         createGeoPointFolder(GeoPointFolderType.GROUPING, this.userPrimary, "Wiwili", geoPointFolder);
@@ -105,7 +105,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * Test getLocationByFolder.
      */
-    @Test
+    //@Test
     public void testGetLocationByFolder(){
         final GeoPointFolder geoPointFolder = createGeoPointFolder(GeoPointFolderType.GROUPING,
                                                     this.userPrimary, "Matagalpa", null);
@@ -118,7 +118,7 @@ public class TestCatLocationsDaoImp extends AbstractBase{
     /**
      * Test getLocationFolderByIdAndUserId.
      */
-    @Test
+    //@Test
     public void testGetLocationFolderByIdAndUserId(){
         final GeoPointFolder geoPointFolder = createGeoPointFolder(GeoPointFolderType.GROUPING,
                 this.userPrimary, "Carazo", null);

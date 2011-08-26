@@ -1,5 +1,6 @@
- /************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+/*
+ ***********************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -8,13 +9,13 @@
  * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
- */
+*/
 package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
@@ -49,7 +50,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 17/05/2010 19:35:36
  * @version $Id:$
  */
-public class TestPollService extends AbstractServiceBase{
+public class TestPollService extends AbstractSpringSecurityContext{
 
      /** {@link Account} **/
     private Account user;
@@ -78,6 +79,12 @@ public class TestPollService extends AbstractServiceBase{
     /** {@link PollFolder}. **/
     private PollFolder folder;
 
+    /** **/
+    private Integer MAX_RESULTS = 10;
+
+    /** **/
+    private Integer START = 0;
+
     /**
      * Init.
      */
@@ -87,12 +94,18 @@ public class TestPollService extends AbstractServiceBase{
         this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        /////
+        final Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
+        final Date yesterdayDate= calendarDate.getTime();
+        /////////
+
+        this.poll = createPoll(yesterdayDate, this.question, "FDK125", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.userAccount.getAccount());
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
         createDefaultEmails("dianmorales@gmail.com", this.emailList);
-        this.folder = createPollFolder("folder 1", this.userAccount);
+        this.folder = createPollFolder("folder 1", getSpringSecurityLoggedUserAccount());
         this.poll.setPollFolder(folder);
      }
 
@@ -105,32 +118,38 @@ public class TestPollService extends AbstractServiceBase{
      * Test createPoll.
      * @throws Exception exception
      */
-    //@Test
+    @Test
     public void testcreatePoll() throws Exception{
         final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
         unitPoll.setQuestionBean(question);
-        //this.pollService.createPoll(unitPoll, this.userAccount.getUsername(), this.question);
+        final String[] answers = new String[3];
+        answers[0] = "answer One";
+        answers[1] = "answer Two";
+        answers[2] = "answer Three";
+        final Poll myPoll = this.pollService.createPoll("", answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE);
+        // System.out.println("My Poll ID ---> " + myPoll.getPollId());
+        Assert.assertNotNull(myPoll);
     }
 
     /**
      * Test getPollsByFolder.
      * @throws EnMeNoResultsFoundException
      */
-    //@Test
+    @Test
     //TODO: ignore for now.
     public void testgetPollsByFolder() throws EnMeNoResultsFoundException{
-     /*   getiPoll().saveOrUpdate(this.poll);
+        getiPoll().saveOrUpdate(this.poll);
         List<PollBean> polls = this.pollService.getPollsByFolder(ConvertDomainBean
-                              .convertFolderToBeanFolder(folder), this.userAccount.getUsername());
-        assertEquals(polls.size(), 1);*/
+                              .convertFolderToBeanFolder(folder));
+        assertEquals(1, polls.size());
     }
 
     /**
      * Test retrieveFolderPoll.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test
+    @Test
     public void testretrieveFolderPoll() throws EnMeNoResultsFoundException{
         List<FolderBean> folders = this.pollService.retrieveFolderPoll();
         assertEquals(folders.size(), 1);
@@ -140,22 +159,22 @@ public class TestPollService extends AbstractServiceBase{
      * Test createPollFolder.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test
+    @Test
     public void testcreatePollFolder() throws EnMeNoResultsFoundException{
-        /* this.pollService.createPollFolder("folder 2", this.userAccount.getUsername());
-         List<FolderBean> folders = this.pollService.retrieveFolderPoll();
-         assertEquals(folders.size(), 2);*/
+       this.pollService.createPollFolder("folder 2");
+       List<FolderBean> folders = this.pollService.retrieveFolderPoll();
+       assertEquals(folders.size(), 1);
     }
 
     /**
      * Test updateFolderName.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test
+    @Test
     public void testupdateFolderName() throws EnMeNoResultsFoundException{
         this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.userAccount.getUsername());
         final PollFolder folder = this.getiPoll().getPollFolderById(this.folder.getId());
-         assertEquals(folder.getFolderName(), "newFolderName");
+        assertEquals(folder.getFolderName(), "newFolderName");
     }
 
     /**
@@ -172,7 +191,7 @@ public class TestPollService extends AbstractServiceBase{
      * Remove Poll Folder.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test()
+    @Test
     public void testremovePollFolder() throws EnMeNoResultsFoundException{
         this.poll.setPollFolder(null);
         getiPoll().saveOrUpdate(this.poll);
@@ -185,11 +204,11 @@ public class TestPollService extends AbstractServiceBase{
      * Test Find Polls By User.
      * @throws EnMeNoResultsFoundException
      **/
-    //@Test
+    @Test
     public void testFindAllPollByUserId() throws EnMeNoResultsFoundException{
         List<PollBean> unitPoll =  new ArrayList<PollBean>();
-        /*unitPoll = pollService.listPollByUser(this.userAccount.getUsername(), 5, 0);
-         assertEquals("should be equals",1, unitPoll.size());*/
+        unitPoll = pollService.listPollByUser(5, 0);
+        assertEquals("should be equals",1, unitPoll.size());
     }
 
     /**
@@ -197,12 +216,12 @@ public class TestPollService extends AbstractServiceBase{
      * @throws EnMeNoResultsFoundException
      **/
     //FIXME:
-    //@Test
+    @Test
     public void testListPollbyQuestionKeyword() throws EnMeNoResultsFoundException{
         List<PollBean> unitPollList = new ArrayList<PollBean>();
         final String keyword = "Why";
-      /*  unitPollList = pollService.listPollbyQuestionKeyword(this.userAccount.getUsername(), keyword, 5, 0);
-        assertEquals("should be equals",1, unitPollList.size());*/
+        unitPollList = pollService.listPollbyQuestionKeyword(keyword, 5, 0);
+        assertEquals("should be equals",1, unitPollList.size());
 
     }
 
@@ -210,7 +229,7 @@ public class TestPollService extends AbstractServiceBase{
      * Test Update Question Poll.
      * @throws EnMeExpcetion
      */
-    //@Test
+   // @Test
     public void testUpdateQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the tooth are white";
          final List<QuestionAnswerBean> answers;
@@ -230,7 +249,7 @@ public class TestPollService extends AbstractServiceBase{
      */
 
     //@Test
-    //@ExpectedException(EnMeExpcetion.class)
+   // @ExpectedException(EnMeExpcetion.class)
     public void testUpdateNullQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the sea is blue";
          final List<QuestionAnswerBean> answers;
@@ -243,7 +262,7 @@ public class TestPollService extends AbstractServiceBase{
          pollService.updateQuestionPoll(unitQuestion);
      }
 
-    //@Test
+   // @Test
     public void testCreateUrlPoll(){
            final String hashUrl="3456DS";
          /*  final String testUrl= pollService.createUrlPoll(URLPOLL, hashUrl, this.userAccount.getCompleteName());
@@ -258,5 +277,19 @@ public class TestPollService extends AbstractServiceBase{
          pollService.publicPollByList(urlPoll, emailUnitList);
          pollService.publicPollByList(urlPoll, new UnitLists());
          assertEquals(1, 1);*/
+    }
+
+    @Test
+    public void testGetPollsbyDate() throws EnMeNoResultsFoundException{
+    	final Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
+        final Date yesterdayDate= calendarDate.getTime();
+        System.out.println("Fecha a buscar ---> " + yesterdayDate);
+    	final List<PollBean> pbean = this.pollService.getPollsbyDate(yesterdayDate, this.MAX_RESULTS, this.START);
+        System.out.println("POLLBEAN Size ---> " + pbean.size());
+        for (PollBean pollBean : pbean) {
+        	 System.out.println(" poll name and Id--> " + pollBean.getQuestionBean().getQuestionName() + "ID -->" + pollBean.getId());
+		}
+
     }
 }

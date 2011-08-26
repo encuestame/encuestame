@@ -15,12 +15,11 @@ package org.encuestame.persistence.dao.imp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.survey.PollResult;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -46,22 +45,18 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
              setSessionFactory(sessionFactory);
     }
 
-    /**
-     * Find All Polls.
-     *
-     * @return list of all Poll
-     * @throws HibernateException
-     *             hibernate
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#findAll()
      */
     @SuppressWarnings("unchecked")
     public List<Poll> findAll() throws HibernateException {
          return getHibernateTemplate().find("FROM Poll");
     }
 
-    /**
-     * List of Poll Folder by User.
-     * @param secUser {@link Account}.
-     * @return list of folders.
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollFolderBySecUser(org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
     public List<PollFolder> getPollFolderBySecUser(final UserAccount secUser){
@@ -70,11 +65,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
           return getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     * Get Polls by Folder.
-     * @param secUser
-     * @param folder
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolder(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder){
@@ -84,11 +77,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-    /**
-     * Get Polls by Folder.
-     * @param secUser
-     * @param folder
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollsByPollFolderId(org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.survey.PollFolder)
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsByPollFolderId(final UserAccount userId, final PollFolder folder){
@@ -99,14 +90,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
-     /**
-      * List All Polls by UserId.
-      * @param userId
-      * @param maxResults
-      * @param start
-      * @return
+     /*
+      * (non-Javadoc)
+      * @see org.encuestame.persistence.dao.IPoll#findAllPollByUserId(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
       */
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public List<Poll> findAllPollByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         //criteria.createAlias("pollOwner","pollOwner");
@@ -116,34 +104,26 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
-    /**
-     * Retrieve Poll by id.
-     *
-     * @param pollId
-     *            Poll id
-     * @return {@link Poll}
-     * @throws HibernateException
-     *             hibernate expcetion
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long)
      */
     public Poll getPollById(final Long pollId) throws HibernateException {
         return (Poll) getHibernateTemplate().get(Poll.class, pollId);
     }
 
 
-    /**
-     * GetPoll Folder ById.
-     * @param folderId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollFolderById(java.lang.Long)
      */
     public PollFolder getPollFolderById(final Long folderId){
         return getHibernateTemplate().get(PollFolder.class, folderId);
     }
 
-    /**
-     * Retrieve Results Poll by PollId.
-     * @param pollId Poll id
-     * @return {@link PollResult}
-     * @throws HibernateException hibernate expcetion
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrieveResultPolls(java.lang.Long, java.lang.Long)
      */
     @SuppressWarnings("unchecked")
     public List<Object[]> retrieveResultPolls(final Long pollId,
@@ -158,13 +138,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
     }
 
-     /**
-      * Retrieve Polls by Question Keyword.
-      * @param keywordQuestion
-      * @param UserId
-      * @param maxResults
-      * @param start
-      * @return
+     /*
+      * (non-Javadoc)
+      * @see org.encuestame.persistence.dao.IPoll#getPollsByQuestionKeyword(java.lang.String, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
       */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsByQuestionKeyword(final String keywordQuestion, final UserAccount userAcc,
@@ -177,11 +153,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
-    /**
-     * Get Poll by PollId and UserId.
-     * @param pollId
-     * @param userId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollByIdandUserId(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
     public Poll getPollByIdandUserId(final Long pollId, UserAccount userAcc){
@@ -191,11 +165,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /**
-     * Get Poll Folder by PollId and UserId
-     * @param pollFolderId
-     * @param userId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollFolderByIdandUser(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
     public PollFolder getPollFolderByIdandUser(final Long pollFolderId, final UserAccount userAcc){
@@ -205,11 +177,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return (PollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /**
-     *
-     * @param date
-     * @param userId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollByIdandCreationDate(java.util.Date, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollByIdandCreationDate(final Date date, final UserAccount userAcc,
@@ -220,12 +190,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
-    /**
-     * Retrieve polls by userId.
-     * @param userId
-     * @param maxResults
-     * @param start
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrievePollsByUserId(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
     public List<Poll> retrievePollsByUserId(final UserAccount userAcc,

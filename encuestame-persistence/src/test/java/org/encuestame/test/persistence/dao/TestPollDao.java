@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-20011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -35,7 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test Poll Dao.
- * @author Morales,Diana Paola paola@encuestame.org
+ * @author Morales,Diana Paola paolaATencuestame.org
  * @since  March 16, 2009
  * @version $Id: $
  */
@@ -58,28 +58,32 @@ public class TestPollDao extends AbstractBase {
     /** {@link Question} **/
     private Question question;
 
+    /** {@link PollFolder} **/
     private PollFolder pollFolder;
 
-     /**
-     * Before.
-     */
+    /** Max Results**/
+    private Integer MAX_RESULTS = 10;
+
+    /** **/
+    private Integer START = 0;
+
+     /** Before.
+     * @throws EnMeNoResultsFoundException
+     **/
     @Before
-    public void initService(){
+    public void initService() throws EnMeNoResultsFoundException{
         this.user = createUser("testEncuesta", "testEncuesta123");
         this.secUserSecondary = createUserAccount("diana", this.user);
-        this.question = createQuestion("Why the roses are red?","html");
-        // createQuestionPattern("html");
+        this.question = createQuestion("Why the roses are red?", "html");
         this.poll = createPoll(new Date(), this.question, "FDK125", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         this.pollFolder = createPollFolder("My First Poll Folder", this.secUserSecondary);
-
+        addPollToFolder(this.pollFolder.getId(), this.secUserSecondary, this.poll.getPollId());
     }
 
-     /**
-      * Test retrievePollsByUserId.
-      **/
+     /** Test retrievePollsByUserId. **/
     @Test
     public void testFindAllPollByUserId(){
-        final List<Poll> pollList = getiPoll().findAllPollByUserId(this.secUserSecondary,5,0);
+        final List<Poll> pollList = getiPoll().findAllPollByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 1, pollList.size());
     }
 
@@ -102,7 +106,7 @@ public class TestPollDao extends AbstractBase {
         createQuestionAnswer("No", quest, "2020");
         createPollResults(qansw, this.poll);
         createPollResults(qansw, this.poll);
-        final List<Object[]> polli = getiPoll().retrieveResultPolls(this.poll.getPollId(),qansw.getQuestionAnswerId());
+        final List<Object[]> polli = getiPoll().retrieveResultPolls(this.poll.getPollId(), qansw.getQuestionAnswerId());
         final Iterator<Object[]> iterator = polli.iterator();
         while (iterator.hasNext()) {
             final Object[] objects = iterator.next();
@@ -138,7 +142,7 @@ public class TestPollDao extends AbstractBase {
     public void testGetPollsByQuestionKeyword(){
         assertNotNull(this.poll);
         final String keywordQuestion = "roses";
-        final List<Poll> listPoll = getiPoll().getPollsByQuestionKeyword(keywordQuestion, this.secUserSecondary, 5, 0);
+        final List<Poll> listPoll = getiPoll().getPollsByQuestionKeyword(keywordQuestion, this.secUserSecondary, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 1, listPoll.size());
     }
 
@@ -176,6 +180,7 @@ public class TestPollDao extends AbstractBase {
      */
     @Test
     public void testGetPollByIdandCreationDate(){
+    	final Question question2 = createQuestion("Why the sky is blue?", "html");
         final Calendar calendarDate = Calendar.getInstance();
         calendarDate.add(Calendar.DAY_OF_WEEK,-1);
         final Date yesterdayDate= calendarDate.getTime();
@@ -183,7 +188,29 @@ public class TestPollDao extends AbstractBase {
         final Date todayDate = calendarDate2.getTime();
         createPoll(yesterdayDate, this.question, "FDK135", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         createPoll(todayDate, this.question, "FDK456", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
-        final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.secUserSecondary, 10,0);
-       //assertEquals("Should be equals", 2, pollList.size());
+        final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.secUserSecondary, this.MAX_RESULTS, this.START);
+        assertEquals("Should be equals", 2, pollList.size());
+    }
+
+    @Test
+    public void testRetrievePollsByUserId(){
+    	final Question question2 =  createQuestion("Why the sea is blue?","html");
+    	createPoll(new Date(), question2, "FDK126", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
+    	final List<Poll> pollbyUser = getiPoll().retrievePollsByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
+    	assertEquals("Should be equals", 2, pollbyUser.size());
+    }
+
+    @Test
+    public void testGetPollFolderBySecUser(){
+    	createPollFolder("My Second Poll Folder", this.secUserSecondary);
+    	createPollFolder("My Third Poll Folder", this.secUserSecondary);
+    	final List<PollFolder> pollFolderbyUser = getiPoll().getPollFolderBySecUser(this.secUserSecondary);
+    	assertEquals("Should be equals", 3, pollFolderbyUser.size());
+    }
+
+    @Test
+    public void testPollsByPollFolder(){
+    	final List<Poll> pollsbyFolder = getiPoll().getPollsByPollFolder(this.secUserSecondary, this.pollFolder);
+    	assertEquals("Should be equals", 1, pollsbyFolder.size());
     }
 }

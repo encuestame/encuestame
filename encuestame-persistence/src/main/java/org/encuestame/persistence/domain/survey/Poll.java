@@ -243,6 +243,8 @@ public class Poll extends AbstractSurvey {
     /**
     * @return the updatedDate
     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_date", nullable = true)
     public Date getUpdatedDate() {
         return updatedDate;
     }
