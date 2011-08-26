@@ -32,6 +32,7 @@ dojo.require('encuestame.org.core.shared.options.CommentsOptions');
 dojo.require('encuestame.org.core.shared.options.DateToClose');
 dojo.require('encuestame.org.core.shared.options.ResultsOptions');
 dojo.require('encuestame.org.core.shared.options.CheckSingleOption');
+dojo.require('encuestame.org.core.commons.support.ActionDialogHandler');
 
 /**
  *
@@ -39,7 +40,8 @@ dojo.require('encuestame.org.core.shared.options.CheckSingleOption');
 dojo.declare(
     "encuestame.org.core.commons.poll.Poll",
     [dijit._Widget, dijit._Templated,
-        encuestame.org.core.commons.support.DnD],{
+        encuestame.org.core.commons.support.DnD,
+        encuestame.org.core.commons.support.ActionDialogHandler],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/poll.html"),
 
         widgetsInTemplate: true,
@@ -127,7 +129,6 @@ dojo.declare(
          *
          */
         _createPoll : function(params) {
-           console.debug("params", params);
            var load = dojo.hitch(this, function(data) {
                this._createDialogSupport();
                this._openSuccessMessage();
@@ -135,7 +136,6 @@ dojo.declare(
            var error = dojo.hitch(this, function(error) {
                this._openFailureMessage(error);
            });
-           console.debug("_createPoll", params);
            encuestame.service.xhrPostParam(
                    encuestame.service.list.poll.create, params, load, error);
         },
@@ -152,7 +152,7 @@ dojo.declare(
          */
         _validatePoll : function(event) {
             dojo.stopEvent(event);
-            var valid = false;
+            var valid = { status : false , message : null};
             /*
              * options : {
                         multiples : true,
@@ -176,37 +176,78 @@ dojo.declare(
                     }
              */
             var params = {
-                    questionName : "",
-                    listAnswers : [],
-                    };
-            //check question.
+                            questionName : "",
+                            listAnswers : [],
+                         };
+
             if (this._questionWidget.getQuestion() != "" &&
                 this._questionWidget.getQuestion() != null) {
-                valid = true;
+                valid.status = true;
                 dojo.mixin(params, { questionName : this._questionWidget.getQuestion()});
+            } else {
+                valid.status = false;
             }
 
-            //catching answers.
+            var c = 0;
             dojo.forEach(this._answer_widget_array,
                     dojo.hitch(this,function(item) {
-                    if(item != null){
+                    if (item != null) {
+                         console.debug("_answer_widget_item", item);
                         var response = item.getResponse();
                         console.debug("_answer_widget_array params", response);
                         if (response != null && response != "") {
                             var newArray = params.listAnswers;
                             newArray.push(response.trim());
                             dojo.mixin(params, { listAnswers : newArray});
+                            c++;
                         }
                     }
             }));
-            console.debug("required params", params);
-            var repeated_votes = dijit.byId("repeated");
-            if (repeated_votes.checked){
-                dojo.mixin(params, {repeated_votes : repeated_votes.items});
+
+            if (c < this._min_answer_allowed) {
+                valid.status = false;
+                valid.message = "Please enter at least 2 answers.";
+                console.info("error", valid);
+                this.showErrorMessage(valid.message);
+                c = 0;
+            } else {
+                valid.status = true;
             }
-            //ir agregado mas elementos.
-            valid = true;
-            if (valid) {
+
+            var repeated_votes = dijit.byId("repeated");
+            console.info("repeated_votes params", repeated_votes.getOptions().checked);
+            if (repeated_votes.getOptions().checked){
+                dojo.mixin(params, {repeated_votes : repeated_votes.getOptions().items});
+            }
+
+            var limit_votes = dijit.byId("limit");
+            console.info("limit_votes params", limit_votes.getOptions().checked);
+            if (limit_votes.getOptions().checked) {
+                dojo.mixin(params, {limit_votes : limit_votes.getOptions().items});
+            }
+
+            var close = dijit.byId("close");
+            console.info("limit_votes params", limit_votes.getOptions().checked);
+            if (close.getOptions().checked){
+                dojo.mixin(params, {close_time : close.getOptions().time});
+                dojo.mixin(params, {close_date : close.getOptions().date});
+            }
+
+            var comments = dijit.byId("comments");
+            if (comments.getResponse() != null) {
+                dojo.mixin(params, {comments : comments.getResponse()});
+            }
+
+            var results = dijit.byId("results");
+            if (results.getResponse() != null) {
+                dojo.mixin(params, {results : results.getResponse()});
+            }
+
+            dojo.mixin(params, {multiple : dijit.byId('multiple').getValue().checked});
+            dojo.mixin(params, {allow_add : dijit.byId('allow-add').getValue().checked});
+            dojo.mixin(params, {folder_name : this._folderWidget.getSelected()});
+
+            if (valid.status) {
                 this.createPoll(params);
             }
         },

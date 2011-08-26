@@ -29,7 +29,9 @@ dojo.declare(
 
      option_value : "comments",
 
-     option_name : "comments_"+this.id,
+     _default_selected_item : 1,
+
+     option_name : "comments_",
 
      options_label : ["Allow Comments", "Moderated Comments", "No comments allowed"],
 

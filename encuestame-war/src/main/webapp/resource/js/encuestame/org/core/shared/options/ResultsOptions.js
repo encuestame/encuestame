@@ -29,7 +29,7 @@ dojo.declare(
 
      option_value : "results",
 
-     option_name : "results_"+this.id,
+     option_name : "results_",
 
      options_label : ["No Results", "Only Percents", "All Data"],
 

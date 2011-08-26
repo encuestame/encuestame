@@ -28,7 +28,6 @@ dojo.declare(
         getResponse : function() {
             if (this._single) {
                 var response =  dijit.byId(this._single).get('value');
-                console.debug("getResponse", response);
                 return response;
             } else {
                 return null;

@@ -14,6 +14,7 @@ dojo.provide("encuestame.org.core.shared.options.AbstractOptionSelect");
 
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
+dojo.require("dijit.form.Form");
 dojo.require("dijit.form.RadioButton");
 dojo.require('encuestame.org.core.commons');
 dojo.require('encuestame.org.core.shared.utils.ContextSupport');
@@ -38,7 +39,9 @@ dojo.declare(
 
      option_value : "value",
 
-     option_name : "value_"+this.id,
+     option_name : "value_comments",
+
+     _default_selected_item : 1,
 
      _widgets_list : [],
 
@@ -48,24 +51,49 @@ dojo.declare(
      widgetsInTemplate: true,
 
      /*
+     *
+     */
+    postMixInProperties: function() {
+        var newName = this.option_name + "_" + this.id;
+        this.option_name = newName;
+        console.info("postMixInProperties",	 this.option_name);
+    },
+
+     /*
       *
       */
      postCreate : function() {
          dojo.forEach(this.options_label,
-             dojo.hitch(this,function(item) {
-             console.info(item);
-                   this._createOption(item);
+             dojo.hitch(this,function(label, index) {
+                var selected = false;
+                 if (index == this._default_selected_item) {
+                     selected = true;
+                }
+                this._createOption(label, selected);
              }));
+     },
+
+     /*
+      *
+      */
+     getResponse : function(){
+         var form = dijit.byId('options_form_'+this.id);
+         if (form) {
+             var value = form.attr('value');
+             return value[this.option_name];
+         } else {
+             return null;
+         }
      },
 
      /*
       * create option.
       */
-     _createOption : function(title){
+     _createOption : function(title, selected){
          var div = dojo.create("div");
          dojo.addClass(div, "space-option");
          var radioOne = new dijit.form.RadioButton({
-             checked: false,
+             checked: selected,
              value: this.option_value,
              name: this.option_name,
          });

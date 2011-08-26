@@ -84,6 +84,13 @@ dojo.declare(
       /*
        *
        */
+      getSelected : function(){
+         return this._addComboWidget.attr('value');
+      },
+
+      /*
+       *
+       */
       _buildCombo : function(){
           console.info("_buildCombo");
           this._addComboWidget = new dijit.form.ComboBox({
