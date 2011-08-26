@@ -15,6 +15,7 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +79,12 @@ public class TestPollService extends AbstractSpringSecurityContext{
     /** {@link PollFolder}. **/
     private PollFolder folder;
 
+    /** **/
+    private Integer MAX_RESULTS = 10;
+
+    /** **/
+    private Integer START = 0;
+
     /**
      * Init.
      */
@@ -87,7 +94,13 @@ public class TestPollService extends AbstractSpringSecurityContext{
         this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
         this.questionPattern = createQuestionPattern("html");
-        this.poll = createPoll(new Date(), this.question, "FDK125", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
+        /////
+        final Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
+        final Date yesterdayDate= calendarDate.getTime();
+        /////////
+
+        this.poll = createPoll(yesterdayDate, this.question, "FDK125", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.userAccount.getAccount());
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
@@ -203,12 +216,12 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * @throws EnMeNoResultsFoundException
      **/
     //FIXME:
-    //@Test
+    @Test
     public void testListPollbyQuestionKeyword() throws EnMeNoResultsFoundException{
         List<PollBean> unitPollList = new ArrayList<PollBean>();
         final String keyword = "Why";
-      /*  unitPollList = pollService.listPollbyQuestionKeyword(this.userAccount.getUsername(), keyword, 5, 0);
-        assertEquals("should be equals",1, unitPollList.size());*/
+        unitPollList = pollService.listPollbyQuestionKeyword(keyword, 5, 0);
+        assertEquals("should be equals",1, unitPollList.size());
 
     }
 
@@ -216,7 +229,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test Update Question Poll.
      * @throws EnMeExpcetion
      */
-    //@Test
+   // @Test
     public void testUpdateQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the tooth are white";
          final List<QuestionAnswerBean> answers;
@@ -236,7 +249,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      */
 
     //@Test
-    //@ExpectedException(EnMeExpcetion.class)
+   // @ExpectedException(EnMeExpcetion.class)
     public void testUpdateNullQuestionPoll() throws EnMeExpcetion{
          final String expectedResponse = "Why the sea is blue";
          final List<QuestionAnswerBean> answers;
@@ -249,7 +262,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
          pollService.updateQuestionPoll(unitQuestion);
      }
 
-    //@Test
+   // @Test
     public void testCreateUrlPoll(){
            final String hashUrl="3456DS";
          /*  final String testUrl= pollService.createUrlPoll(URLPOLL, hashUrl, this.userAccount.getCompleteName());
@@ -264,5 +277,19 @@ public class TestPollService extends AbstractSpringSecurityContext{
          pollService.publicPollByList(urlPoll, emailUnitList);
          pollService.publicPollByList(urlPoll, new UnitLists());
          assertEquals(1, 1);*/
+    }
+
+    @Test
+    public void testGetPollsbyDate() throws EnMeNoResultsFoundException{
+    	final Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
+        final Date yesterdayDate= calendarDate.getTime();
+        System.out.println("Fecha a buscar ---> " + yesterdayDate);
+    	final List<PollBean> pbean = this.pollService.getPollsbyDate(yesterdayDate, this.MAX_RESULTS, this.START);
+        System.out.println("POLLBEAN Size ---> " + pbean.size());
+        for (PollBean pollBean : pbean) {
+        	 System.out.println(" poll name and Id--> " + pollBean.getQuestionBean().getQuestionName() + "ID -->" + pollBean.getId());
+		}
+
     }
 }

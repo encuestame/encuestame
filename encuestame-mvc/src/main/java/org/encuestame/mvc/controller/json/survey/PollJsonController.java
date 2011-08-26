@@ -15,6 +15,7 @@ package org.encuestame.mvc.controller.json.survey;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -103,7 +104,7 @@ public class PollJsonController extends AbstractJsonController{
       }
 
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/poll/searchby{type}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/poll/searchby-{type}.json", method = RequestMethod.GET)
     public ModelMap countUsersByGroup(
               @RequestParam(value = "pollId", required = false) Long pollId,
               @RequestParam(value = "keyword", required = false) String keyword,
@@ -117,10 +118,9 @@ public class PollJsonController extends AbstractJsonController{
               try {
                 log.debug("pollId "+pollId);
                 log.debug("keyword "+keyword);
-                log.debug("maxResults "+maxResults);
                 log.debug("start "+start);
                 log.debug("folderId "+folderId);
-                log.debug("date "+date);
+                System.out.println("date "+date);
                 log.debug("type "+type);
                   final Map<String, Object> sucess = new HashMap<String, Object>();
                   if("keyword".equals(type)){
@@ -133,7 +133,8 @@ public class PollJsonController extends AbstractJsonController{
                  }
                   else if("date".equals(type)) {
                     log.debug("search polls by date ---> "+ date);
-                    sucess.put("pollsByDate", getPollService().getPollsbyDate(date, maxResults, start));
+                    List<PollBean> pbean = getPollService().getPollsbyDate(date, maxResults, start);
+                    sucess.put("pollsByDate", pbean);
                     setItemResponse(sucess);
                   }
               } catch (Exception e) {
@@ -145,8 +146,8 @@ public class PollJsonController extends AbstractJsonController{
         }
 
 
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/poll/{actionType}.json", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/api/poll/{actionType}.json", method = RequestMethod.POST)
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
@@ -165,8 +166,9 @@ public class PollJsonController extends AbstractJsonController{
                if ("create".equals(actionType)) {
                    final Poll poll = getPollService().createPoll(questionName, answers, showResults,
                                      showComments, notification);
+
                    final PollBean pollBean = getPollService().convertPolltoBean(poll);
-                   jsonResponse.put("pollBean", "pollBean");
+                   jsonResponse.put("pollBean", pollBean);
                    setItemResponse(jsonResponse);
                    getPollService().createPollNotification(poll);
                }

@@ -19,15 +19,15 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
+import junit.framework.Assert;
+
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -37,38 +37,6 @@ import org.junit.Test;
  * @version $Id:$
  */
 public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
-
-    /** {@link Poll}. **/
-    private Poll poll;
-
-    /** {@link Question}. **/
-    private Question question;
-
-    private Calendar calendarDate;
-
-    private Date yesterdayDate;
-
-    @Before
-    public void initService(){
-        this.calendarDate = Calendar.getInstance();
-        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
-        this.yesterdayDate= calendarDate.getTime();
-        final Calendar calendarDate2 = Calendar.getInstance();
-        final Date todayDate = calendarDate2.getTime();
-        this.question = createQuestion("Where are you from?", "");
-        this.poll = createPoll(yesterdayDate, question, getSpringSecurityLoggedUserAccount(), true, true);
-    }
-
-    /**
-     * Test search polls by date.
-     * @throws ServletException
-     * @throws IOException
-     */
-    @Test
-    @Ignore //TODO: peding 1.1.37
-    public void testCountUsersByGroup() throws ServletException, IOException{
-        Assert.assertEquals(retrieveItemsbyDate("date", this.yesterdayDate, 10, 0 ).intValue(), 1);
-    }
 
     /**
      *  Run retrieve polls by date.
@@ -80,15 +48,32 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    public Integer retrieveItemsbyDate(final String actionType, final Date date,
-                final Integer maxResults, final Integer start) throws ServletException, IOException{
-        initService("/api/survey/poll/searchPollby"+actionType+".json", MethodJson.GET);
-        setParameter("maxResults", maxResults.toString());
-        setParameter("start", start.toString());
-        setParameter("date", date.toString());
+    @Test
+    public void retrieveItemsbyDate() throws ServletException, IOException{
+    	final Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
+        final Date yesterdayDate= calendarDate.getTime();
+        initService("/api/poll/searchby-date.json", MethodJson.GET);
+        setParameter("maxResults", "10");
+        setParameter("start", "0");
+        setParameter("date", yesterdayDate.toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray polls = (JSONArray) success.get("pollsByDate");
-        return polls.size();
+       //System.out.println("My Poll size--> " + polls.size());
+    }
+
+    @Test
+    public void createPoll() throws ServletException, IOException{
+    	initService("/api/poll/create.json", MethodJson.POST);
+    	 setParameter("questionName", "Who is the winner");
+         setParameter("listAnswers", "yes");
+         setParameter("showResults", "true");
+         setParameter("showComments", "true");
+         setParameter("notification", "true");
+         final JSONObject response = callJsonService();
+         final JSONObject success = getSucess(response);
+         final JSONObject pollBean = (JSONObject) success.get("pollBean");
+         Assert.assertNotNull(pollBean.get("id"));
     }
 }

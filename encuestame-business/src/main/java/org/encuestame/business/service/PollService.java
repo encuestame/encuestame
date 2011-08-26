@@ -259,7 +259,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#createPollNotification(org.encuestame.persistence.domain.survey.Poll)
      */
-    public void createPollNotification(final Poll poll) {
+    public void createPollNotification(final Poll poll) throws EnMeNoResultsFoundException {
         createNotification(NotificationEnum.POLL_PUBLISHED,
                 getMessageProperties("notification.poll.publish"),
                 this.createUrlPollAccess(poll), false);
@@ -418,7 +418,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         List<Poll> pollList = new ArrayList<Poll>();
         if (date !=null){
             pollList = getPollDao().getPollByIdandCreationDate(date, getUserAccount(getUserPrincipalUsername()), maxResults, start);
-            log.debug("SIZE ----->"+ pollList.size());
+            System.out.println("SIZE ----->"+ pollList.size());
         }
         else{
             throw new EnMeNoResultsFoundException("Date not found");

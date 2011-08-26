@@ -203,8 +203,9 @@ public interface IPollService extends IMasterSurveyService{
     /**
      * Create Poll published Notification.
      * @param tweetPoll
+     * @throws EnMeNoResultsFoundException
      */
-    void createPollNotification(final Poll poll);
+    void createPollNotification(final Poll poll) throws EnMeNoResultsFoundException;
 
     /**
      * Convert poll to short tiny url.
