@@ -278,7 +278,7 @@ public class TestUserDao extends AbstractBase {
      */
     @Test
     public void testGetTotalPollByUser(){
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.account, Boolean.TRUE, Boolean.TRUE);
+        this.poll = createPoll(new Date(), this.question, "FDK125", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         final List<Long> polls = getAccountDao().getTotalPollByUser(this.account.getUid());
         assertEquals("Should be equals", 1, polls.size());
     }
@@ -427,8 +427,7 @@ public class TestUserDao extends AbstractBase {
         createTweetPollSavedPublishedSTatus(tweetPoll, "12346", this.socialAccount, "hello encuestame 1");
         createTweetPollSavedPublishedSTatus(tweetPoll, "12347", this.socialAccount, "hello encuestame 2");
         createTweetPollSavedPublishedSTatus(tweetPoll, "12348", this.socialAccount, "hello encuestame 3");
-        final HashMap<String, Long> d = getAccountDao().getSocialAccountStats(this.socialAccount);
-        System.out.println(d);
+        getAccountDao().getSocialAccountStats(this.socialAccount);
     }
 
     /**

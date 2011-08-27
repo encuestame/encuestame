@@ -62,6 +62,12 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /** **/
     private Date updatedDate;
 
+    /** **/
+    private String url;
+
+    /** **/
+    private String shortUrl;
+
     @Deprecated
     private String pollUser;
 
@@ -205,4 +211,32 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(final String url) {
+		this.url = url;
+	}
+
+	/**
+	 * @return the shortUrl
+	 */
+	public String getShortUrl() {
+		return shortUrl;
+	}
+
+	/**
+	 * @param shortUrl the shortUrl to set
+	 */
+	public void setShortUrl(final String shortUrl) {
+		this.shortUrl = shortUrl;
+	}
 }

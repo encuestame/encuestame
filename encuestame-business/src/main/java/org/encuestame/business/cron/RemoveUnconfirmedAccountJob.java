@@ -39,8 +39,10 @@ public class RemoveUnconfirmedAccountJob {
      */
     private static final Log log = LogFactory.getLog(RemoveUnconfirmedAccountJob.class);
 
+    /**
+     *
+     */
     public RemoveUnconfirmedAccountJob() {
-        // TODO Auto-generated constructor stub
         log.debug("Unconfirmed Account Const");
     }
 

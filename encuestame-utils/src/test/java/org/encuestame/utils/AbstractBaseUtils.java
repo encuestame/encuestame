@@ -306,31 +306,4 @@ public abstract class AbstractBaseUtils extends TestCase{
          return unitPollComplete;
 
      }
-
-     /**
-      * Create dashboard bean.
-      * @param dashboardName
-      * @param dashboardDesc
-      * @param favorite
-      * @param layout
-      * @param sequence
-      * @param counter
-      * @return
-      */
-     public DashboardBean createDashboardBean(
-    		 final String dashboardName,
-    		 final String dashboardDesc,
-    		 final Boolean favorite,
-    		 final String layout,
-    		 final Integer sequence,
-    		 final Integer counter){
-    	 final DashboardBean dashboardBean = new DashboardBean();
-    	 dashboardBean.setDashboardName(dashboardName);
-    	 dashboardBean.setDashboardDesc(dashboardDesc);
-    	 dashboardBean.setFavorite(favorite);
-    	 dashboardBean.setLayout(layout);
-    	 dashboardBean.setSequence(sequence);
-    	 dashboardBean.setFavoriteCounter(counter);
-    	 return dashboardBean;
-     }
 }

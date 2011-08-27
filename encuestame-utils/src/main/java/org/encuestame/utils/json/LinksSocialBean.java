@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * Description.
+ * Link social bean.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 11, 2011
  */

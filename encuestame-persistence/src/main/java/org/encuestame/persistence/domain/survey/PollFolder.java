@@ -20,6 +20,8 @@ import javax.persistence.Table;
 
 import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.AbstractFolder;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 
@@ -33,6 +35,7 @@ import org.hibernate.search.annotations.Indexed;
 @Entity
 @Table(name = "poll_folder")
 @Indexed(index="PollFolder")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PollFolder extends AbstractFolder implements IFolder{
      private Long id;
 

@@ -66,7 +66,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                                   getUserPrincipalUsername()));
                    setItemResponse(sucess);
                } else if("poll".equals(actionType)){
-                   sucess.put("folder", getPollService().createPollFolder(folderName, getUserPrincipalUsername()));
+                   sucess.put("folder", getPollService().createPollFolder(folderName));
                    setItemResponse(sucess);
                } else if("survey".equals(actionType)){
                    sucess.put("folder", getSurveyService().createSurveyFolder(folderName, getUserPrincipalUsername()));
@@ -199,7 +199,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                      getTweetPollService().addTweetPollToFolder(folderId, getUserPrincipalUsername(), itemId);
                      setSuccesResponse();
                  } else if("poll".equals(actionType)){
-                     getPollService().addPollToFolder(folderId,  getUserPrincipalUsername(), itemId);
+                     getPollService().addPollToFolder(folderId, itemId);
                      setSuccesResponse();
                  } else if("survey".equals(actionType)){
                      getSurveyService().addSurveyToFolder(folderId, getUserPrincipalUsername(), itemId);
@@ -229,23 +229,27 @@ public class FolderJsonServiceController extends AbstractJsonController{
     @RequestMapping(value = "/api/survey/folder/{actionType}/list.json", method = RequestMethod.GET)
     public ModelMap retrieveItemsbyFolder(
              @PathVariable String actionType,
+             @RequestParam(value = "store", required = false) Boolean store,
              HttpServletRequest request,
              HttpServletResponse response) {
-             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            log.debug("type:{ "+actionType);
-            try {
+             store = store == null ? false : store;
+             log.debug("type:{ "+actionType);
+             try {
                 if ("poll".equals(actionType)) {
-                    //FolderBean fbean = new FolderBean(folderId);
-                    //list =  getPollService().getPollsByFolder(fbean, getUserPrincipalUsername());
-                    //jsonResponse.put("folders", list);
-                    //setItemResponse(jsonResponse);
-                    jsonResponse.put("folders", ListUtils.EMPTY_LIST);
+                    if(store){
+                        setItemReadStoreResponse("name","id", getPollService().retrieveFolderPoll());
+                    } else {
+                        setSingleResponse("folders", getPollService().retrieveFolderPoll());
+                    }
                 } else if("tweetpoll".equals(actionType)) {
-                    jsonResponse.put("folders", getTweetPollService().getFolders());
+                    if(store){
+                        setItemReadStoreResponse("name", "id", getTweetPollService().getFolders());
+                    } else {
+                        setSingleResponse("folders", getTweetPollService().getFolders());
+                    }
                 } else if ("survey".equals(actionType)) {
-                    jsonResponse.put("folders", ListUtils.EMPTY_LIST);
+                    setSingleResponse("folders", ListUtils.EMPTY_LIST);
                 }
-                setItemResponse(jsonResponse);
             } catch (Exception e) {
                log.error(e);
                e.printStackTrace();

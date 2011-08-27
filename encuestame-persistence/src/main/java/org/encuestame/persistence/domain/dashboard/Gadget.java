@@ -12,10 +12,6 @@
  */
 package org.encuestame.persistence.domain.dashboard;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,16 +19,20 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
- * Widget domain.
+ * Gadget domain.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 27, 2011
  */
 @Entity
 @Table(name = "gadget")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Gadget {
 
     /** Widget id.**/
@@ -42,10 +42,22 @@ public class Gadget {
     private String gadgetName;
 
     /** Widget type**/
-    private GadgetType gadgetType;
+    private GadgetType gadgetType = GadgetType.ACTIVITY_STREAM;
+
+    /** Gadget color. **/
+    private String gadgetColor;
+
+    /** Column Number **/
+    private Integer gadgetColumn;
+
+    /** Gadget position **/
+    private Integer gadgetPosition;
 
     /** {@link Dashboard} **/
-    private Set<Dashboard> dashboard = new HashSet<Dashboard>();
+    private Dashboard dashboard;
+
+    /** Availability gadget**/
+    private Boolean status;
 
     /**
     * @return the widgetId
@@ -83,7 +95,7 @@ public class Gadget {
     * @return the widgetType
     */
     @Column(name = "gadgetType", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     public GadgetType getGadgetType() {
         return gadgetType;
     }
@@ -95,18 +107,78 @@ public class Gadget {
         this.gadgetType = gadgetType;
     }
 
-	/**
-	 * @return the dashboard
-	 */
-    @ManyToMany(cascade = CascadeType.ALL)
-	public Set<Dashboard> getDashboard() {
-		return dashboard;
-	}
+    /**
+     * @return the gadgetColor
+     */
+    @Column(name = "gadgetColor", nullable = true)
+    public String getGadgetColor() {
+        return gadgetColor;
+    }
 
-	/**
-	 * @param dashboard the dashboard to set
-	 */
-	public void setDashboard(final Set<Dashboard> dashboard) {
-		this.dashboard = dashboard;
-	}
+    /**
+     * @param gadgetColor the gadgetColor to set
+     */
+    public void setGadgetColor(final String gadgetColor) {
+        this.gadgetColor = gadgetColor;
+    }
+
+    /**
+     * @return the column
+     */
+    @Column(name = "gadgetColumn", nullable = false)
+    public Integer getGadgetColumn() {
+        return gadgetColumn;
+    }
+
+    /**
+     * @param column the column to set
+     */
+    public void setGadgetColumn(final Integer gadgetColumn) {
+        this.gadgetColumn = gadgetColumn;
+    }
+
+    /**
+     * @return the position
+     */
+    @Column(name = "gadgetPosition", nullable = true)
+    public Integer getGadgetPosition() {
+        return gadgetPosition;
+    }
+
+    /**
+     * @param position the position to set
+     */
+    public void setGadgetPosition(final Integer gadgetPosition) {
+        this.gadgetPosition = gadgetPosition;
+    }
+
+    /**
+     * @return the dashboard
+     */
+    @ManyToOne()
+    public Dashboard getDashboard() {
+        return dashboard;
+    }
+
+    /**
+     * @param dashboard the dashboard to set
+     */
+    public void setDashboard(final Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+
+    /**
+     * @return the status
+     */
+    @Column(name = "status", nullable = true)
+    public Boolean getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(final Boolean status) {
+        this.status = status;
+    }
 }

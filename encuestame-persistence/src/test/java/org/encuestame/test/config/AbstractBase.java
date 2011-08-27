@@ -20,6 +20,7 @@ import java.util.Random;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
+import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
 import org.encuestame.persistence.dao.IDashboardDao;
@@ -45,6 +46,7 @@ import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.Client;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EnMePermission;
@@ -59,6 +61,7 @@ import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.dashboard.GadgetType;
 import org.encuestame.persistence.domain.dashboard.LayoutEnum;
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -169,6 +172,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /** {@link Notification}. **/
     @Autowired
     private INotification notificationDao;
+
+    /** {@link CommentsOperations} **/
+    @Autowired
+    private CommentsOperations commentsOperations;
 
       /** Activate Notifications.**/
     private Boolean activateNotifications = false;
@@ -370,7 +377,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @param geoPointDao geoPointDao
      */
-    public void setGeoPointDao(IGeoPoint geoPointDao) {
+    public void setGeoPointDao(final IGeoPoint geoPointDao) {
         this.geoPointDao = geoPointDao;
     }
 
@@ -425,7 +432,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Poll createPoll(final Date createdAt,
             final Question question,
-            final Account secUser,
+            final UserAccount secUser,
             final Boolean pollCompleted,
             final Boolean pollPublish
             ){
@@ -454,7 +461,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Date createdDate,
             final Question question,
             final String hash,
-            final Account secUsers,
+            final UserAccount secUsers,
             final Boolean pollCompleted,
             final Boolean published){
         final Poll poll = new Poll();
@@ -578,12 +585,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createSecondaryUserGroup(name, name.replace(" ", "")+"."+RandomStringUtils.randomNumeric(6)+"@users.com", secUser, group);
     }
 
+    public GadgetProperties createGadgetProperties(final String name, final String value,
+            final Gadget gadget,
+            final UserAccount user){
+        final GadgetProperties properties = new GadgetProperties();
+        properties.setGadgetPropName(name);
+        properties.setGadgetPropValue(value);
+        properties.setUserAccount(user);
+        properties.setGadget(gadget);
+        getDashboardDao().saveOrUpdate(properties);
+        return properties;
+    }
+
     /**
      * Create gadget default.
      * @return
      */
-    public Gadget createGadgetDefault(){
-        return this.createGadget("default");
+    public Gadget createGadgetDefault(final Dashboard board){
+        return this.createGadget("default", board);
     }
 
     /**
@@ -592,10 +611,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param type
      * @return
      */
-    public Gadget createGadget(final String name){
+    public Gadget createGadget(final String name, final Dashboard board){
         final Gadget gadget = new Gadget();
         gadget.setGadgetName(name);
-        gadget.setGadgetType(GadgetType.TWEETPOLLS);
+        gadget.setGadgetType(GadgetType.getGadgetType("stream"));
+        gadget.setGadgetColumn(2);
+        gadget.setGadgetColor("default");
+        gadget.setGadgetPosition(0);
+        gadget.setDashboard(board);
         getDashboardDao().saveOrUpdate(gadget);
         return gadget;
     }
@@ -607,7 +630,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userAcc
      * @return
      */
-    public Dashboard createDashboard(final String boardName,  final Boolean favorite, final UserAccount userAcc){
+    public Dashboard createDashboard(final String boardName, final Boolean favorite, final UserAccount userAcc){
         final Dashboard board = new Dashboard();
         board.setPageBoardName(boardName);
           board.setDescription("");
@@ -1180,11 +1203,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Account secUsers,
             final String folderName,
             final GeoPointFolder locationFolder){
+    	final UserAccount userAcc = createUserAccount("Juan", secUsers);
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
         geoPointFolder.setFolderName(folderName);
         geoPointFolder.setUsers(secUsers);
         geoPointFolder.setSubLocationFolder(locationFolder);
+        geoPointFolder.setCreatedAt(Calendar.getInstance().getTime());
+        geoPointFolder.setCreatedBy(userAcc);
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         return geoPointFolder;
     }
@@ -1540,9 +1566,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeNoResultsFoundException{
+    public Poll addPollToFolder(final Long folderId, final UserAccount userAccount, final Long pollId) throws EnMeNoResultsFoundException{
         final PollFolder pfolder = getiPoll().getPollFolderById(folderId);
-        final Poll poll = getiPoll().getPollByIdandUserId(pollId, userId);
+        final Poll poll = getiPoll().getPollByIdandUserId(pollId, userAccount);
         poll.setPollFolder(pfolder);
         getiPoll().saveOrUpdate(poll);
         return poll;
@@ -1811,4 +1837,85 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public void setDashboardDao(final IDashboardDao dashboardDao) {
         this.dashboardDao = dashboardDao;
     }
+
+	/**
+	 * @return the commentsOperationsDao
+	 */
+	public CommentsOperations getCommentsOperations() {
+		return commentsOperations;
+	}
+
+	/**
+	 * @param commentsOperationsDao the commentsOperationsDao to set
+	 */
+	public void setCommentsOperations(final CommentsOperations commentsOperations) {
+		this.commentsOperations = commentsOperations;
+	}
+
+	/**
+	 * Create comment.
+	 * @param comm
+	 * @param likeVote
+	 * @param tpoll
+	 * @param survey
+	 * @param poll
+	 * @return
+	 */
+	public Comment createComment(
+			final String comm,
+			final Long likeVote,
+			final TweetPoll tpoll,
+			final Survey survey,
+			final Poll poll,
+			final UserAccount user,
+			final Long dislikeVote){
+	       final Comment comment = new Comment();
+	       comment.setComment(comm);
+	       comment.setCreatedAt(new Date());
+	       comment.setLikeVote(likeVote);
+	       comment.setDislikeVote(dislikeVote);
+	       comment.setPoll(poll);
+	       comment.setParentId(null);
+	       comment.setSurvey(survey);
+	       comment.setTweetPoll(tpoll);
+	       comment.setUser(user);
+	       getCommentsOperations().saveOrUpdate(comment);
+	       return comment;
+	    }
+
+	/**
+	 * Create default tweetPoll comment.
+	 * @param tpoll
+	 * @return
+	 */
+	public Comment createDefaultTweetPollComment(
+			final String comment,
+			final TweetPoll tpoll,
+			final UserAccount userAcc){
+		return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
+	}
+
+	/**
+	 * Create default poll comment.
+	 * @param poll
+	 * @return
+	 */
+	public Comment createDefaultPollComment(
+			final String comment,
+			final Poll poll,
+			final UserAccount userAcc){
+		return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
+	}
+
+	/**
+	 * Create default survey comment.
+	 * @param survey
+	 * @return
+	 */
+	public Comment createDefaultSurveyComment(
+			final String comment,
+			final Survey survey,
+			final UserAccount userAcc){
+		return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
+	}
 }

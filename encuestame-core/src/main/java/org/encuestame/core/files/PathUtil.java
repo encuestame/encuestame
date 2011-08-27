@@ -12,10 +12,15 @@ public class PathUtil {
      */
     public static String signIn = "/user/signin";
 
+    public static String DEFAUL_PICTURE_PREFIX = "file_";
+
     /**
      * Profile Images Folder.
      */
     public static final String profile = "/profile";
+
+
+    public static String DEFAULT_SOCIAL_CALLBACK_PATH = "/social/back/";
 
     /**
      * Upload Folder.

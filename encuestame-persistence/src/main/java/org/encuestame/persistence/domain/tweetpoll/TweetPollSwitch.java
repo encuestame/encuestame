@@ -29,6 +29,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
 /**
@@ -41,6 +43,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 
 @Entity
 @Table(name = "tweetpoll_switch")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TweetPollSwitch {
 
     /**

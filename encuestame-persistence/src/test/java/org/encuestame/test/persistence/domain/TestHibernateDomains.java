@@ -14,9 +14,11 @@ package org.encuestame.test.persistence.domain;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.EmailList;
@@ -45,11 +47,14 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
 
@@ -236,7 +241,7 @@ public class TestHibernateDomains extends AbstractBase{
     /**
     * Test Survey Format Domain.
     **/
- @Test
+    @Test
      public void testSurveyFormat(){
          final SurveyFormat surveyformat = new SurveyFormat();
          surveyformat.setDateCreated(new Date());
@@ -285,10 +290,13 @@ public class TestHibernateDomains extends AbstractBase{
      */
      @Test
      public void testLocationFolder(){
+         final Account account = createAccount();
          final GeoPointFolder geoPointFolder = new GeoPointFolder();
          geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
          geoPointFolder.setFolderName("test folder");
-         geoPointFolder.setUsers(createAccount());
+         geoPointFolder.setUsers(account);
+         geoPointFolder.setCreatedAt(Calendar.getInstance().getTime());
+         geoPointFolder.setCreatedBy(createUserAccount("juan carlos", account));
          getGeoPointDao().saveOrUpdate(geoPointFolder);
      }
 
@@ -446,19 +454,62 @@ public class TestHibernateDomains extends AbstractBase{
      @Test
      public void testGadget(){
         final Gadget gadget = new Gadget();
+        final UserAccount user = createUserAccount("diana paola", createAccount());
         gadget.setGadgetName("Notifications");
-        gadget.setGadgetType(GadgetType.TWEETPOLLS);
+        gadget.setGadgetType(GadgetType.ACTIVITY_STREAM);
+        gadget.setGadgetColor("blue");
+        gadget.setGadgetColumn(1);
+        gadget.setGadgetPosition(1);
+        gadget.setDashboard(createDashboardDefault(user));
         getDashboardDao().saveOrUpdate(gadget);
      }
 
      /** Gadget Properties **/
      @Test
      public void testGadgetProperties(){
+         final UserAccount user = createUserAccount("diana paola", createAccount());
+         final Dashboard board = createDashboardDefault(user);
          final GadgetProperties gadgetProp = new GadgetProperties();
          gadgetProp.setGadgetPropName("maxResults");
          gadgetProp.setGadgetPropValue("10");
-         gadgetProp.setUserAccount(createUserAccount("diana paola", createAccount()));
-         gadgetProp.setGadget(createGadgetDefault());
+         gadgetProp.setUserAccount(user);
+         gadgetProp.setGadget(createGadgetDefault(board));
          getDashboardDao().saveOrUpdate(gadgetProp);
+     }
+
+     /** Test Comments **/
+     @Test
+     public void testComments(){
+         final Comment comments = new Comment();
+         final UserAccount user = createUserAccount("diana", createAccount());
+         final Question question = createQuestion("Who I am?", "");
+         final TweetPoll tpoll = createPublishedTweetPoll(user.getAccount(), question);
+         comments.setComment("First comment");
+         comments.setCreatedAt(new Date());
+         comments.setLikeVote(1L);
+         comments.setDislikeVote(2L);
+          comments.setUser(user);
+         comments.setTweetPoll(tpoll);
+         getCommentsOperations().saveOrUpdate(comments);
+     }
+
+     /** Test Poll. **/
+     public void testPoll(){
+         final Poll poll = new Poll();
+         final Question question = createQuestion("Where do you live?", "");
+         final UserAccount user = createUserAccount("diana", createAccount());
+         final PollFolder pollFolder = createPollFolder("My polls", user);
+         poll.setPollCompleted(null);
+         poll.setCreatedAt(Calendar.getInstance().getTime());
+         poll.setPollHash(RandomStringUtils.randomAlphanumeric(5));
+         poll.setQuestion(question);
+         poll.setPollOwner(user);
+         poll.setEndDate(null);
+         poll.setPublish(Boolean.TRUE);
+         poll.setCloseNotification(Boolean.FALSE);
+         poll.setShowVotes(Boolean.TRUE);
+         poll.setPollFolder(pollFolder);
+         poll.setUpdatedDate(null);
+         getiPoll().saveOrUpdate(poll);
      }
 }

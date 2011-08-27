@@ -68,7 +68,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/tweetpoll.atom", method = RequestMethod.GET)
     public String tweetPollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, "tweetPolls"));
@@ -100,7 +100,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/tweetpoll.rss", method = RequestMethod.GET)
     public String tweetPollRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
                 model.addAttribute("items", this.getItemRssFeed(username, request, "tweetPolls"));
@@ -133,7 +133,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/profile.rss", method = RequestMethod.GET)
     public String profileRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
                 final List<Item> globalItems = new ArrayList<Item>();
@@ -158,7 +158,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/profile.atom", method = RequestMethod.GET)
     public String profileAtom(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, "profiles"));
@@ -179,7 +179,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/survey.atom", method = RequestMethod.GET)
     public String surveyAtom(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, "surveys"));
@@ -211,7 +211,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/survey.rss", method = RequestMethod.GET)
     public String surveyRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
                 model.addAttribute("items", this.getItemRssFeed(username, request, "surveys"));
@@ -243,7 +243,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/polls.atom", method = RequestMethod.GET)
     public String pollAtom(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, "polls"));
@@ -276,7 +276,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/polls.rss", method = RequestMethod.GET)
     public String pollRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
                 model.addAttribute("items", this.getItemRssFeed(username, request, "polls"));
@@ -309,7 +309,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/projects.atom", method = RequestMethod.GET)
     public String projectAtom(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed(username, request, "projects"));
@@ -342,7 +342,7 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/projects.rss", method = RequestMethod.GET)
     public String projectRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(username);
+        final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
                 model.addAttribute("items", this.getItemRssFeed(username, request, "projects"));
@@ -376,7 +376,7 @@ public class SyndicationController extends AbstractFeedController {
     public String frontendAtom(
         Model model,
         HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername("");//TODO: remove
+        final UserAccount secUserSecondary = findByUsername("");//TODO: remove
         if(secUserSecondary != null){
             try {
                 model.addAttribute("items", this.getEntryAtomFeed("", request, "frontend"));
@@ -399,7 +399,7 @@ public class SyndicationController extends AbstractFeedController {
     public String frontendRss(
             Model model,
             HttpServletRequest request) {
-        final UserAccount secUserSecondary = getByUsername(""); //TODO: remove
+        final UserAccount secUserSecondary = findByUsername(""); //TODO: remove
         if(secUserSecondary != null){
              try {
                 model.addAttribute("items", this.getItemRssFeed("", request, "frontend")); //TODO: remove

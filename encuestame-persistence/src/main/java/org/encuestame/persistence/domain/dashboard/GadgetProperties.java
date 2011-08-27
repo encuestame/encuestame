@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Widget properties.
@@ -29,6 +31,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
  */
 @Entity
 @Table(name = "gadget_properties")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class GadgetProperties {
 
     /** Widget preference id. **/
@@ -74,7 +77,7 @@ public class GadgetProperties {
     /**
     * @param prefName the prefName to set
     */
-    public void setGadgetPropName(String gadgetPropName) {
+    public void setGadgetPropName(final String gadgetPropName) {
         this.gadgetPropName = gadgetPropName;
     }
 
@@ -89,7 +92,7 @@ public class GadgetProperties {
     /**
     * @param prefValue the prefValue to set
     */
-    public void setGadgetPropValue(String gadgetPropValue) {
+    public void setGadgetPropValue(final String gadgetPropValue) {
         this.gadgetPropValue = gadgetPropValue;
     }
 

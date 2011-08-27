@@ -46,7 +46,20 @@ import org.springframework.mail.MailSendException;
  */
 public interface SecurityOperations extends ServiceOperations {
 
+    /**
+     * Get {@link UserAccount} by Username.
+     * @param username username
+     * @return user domain
+     * @throws EnMeNoResultsFoundException exception
+     */
+    UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @return
+     */
      String getDefaultUserPermission();
+
     /**f
      * Load list of users.
      * @return list of users with groups and permission
@@ -354,8 +367,7 @@ public interface SecurityOperations extends ServiceOperations {
      */
     void upadteAccountProfile(
             final org.encuestame.core.util.Profile property,
-            final String value,
-            final String username) throws EnMeNoResultsFoundException;
+            final String value) throws EnMeNoResultsFoundException;
 
     /**
      * Update Account Profile.
@@ -437,16 +449,6 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     UserAccountBean getUserAccountbyCode(final String inviteCode) throws EnMeNoResultsFoundException;
-
-
-    /**
-     *
-     * @param limit
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    List<Notification> loadNotificationByUserAndLimit(final Integer limit, final Integer start,
-            final Boolean onlyUnread) throws EnMeNoResultsFoundException;
 
     /**
      * Remove unconfirmed account.

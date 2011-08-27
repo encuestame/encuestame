@@ -288,7 +288,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
         } catch (Exception e) {
             log.error("Error creating TweetlPoll:{"+e);
-            e.printStackTrace();
             throw new EnMeExpcetion(e);
         }
     }
@@ -474,8 +473,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     /**
      *
      * @param tweetPoll
+     * @throws EnMeNoResultsFoundException
      */
-    public void createTweetPollNotification(final TweetPoll tweetPoll) {
+    public void createTweetPollNotification(final TweetPoll tweetPoll) throws EnMeNoResultsFoundException {
         createNotification(NotificationEnum.TWEETPOLL_PUBLISHED,
                 getMessageProperties("notification.tweetpoll.created"),
                 this.createTweetPollUrlAccess(tweetPoll), false);

@@ -372,8 +372,9 @@ public interface ITweetPollService extends IMasterSurveyService{
      /**
      *
      * @param tweetPoll
+     * @throws EnMeNoResultsFoundException
      */
-     void createTweetPollNotification(final TweetPoll tweetPoll);
+     void createTweetPollNotification(final TweetPoll tweetPoll) throws EnMeNoResultsFoundException;
 
      /**
       * Return tweetpoll total votes.

@@ -35,19 +35,18 @@ import org.encuestame.core.util.FollowOperations;
 import org.encuestame.core.util.Profile;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
 import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.json.SocialAccountBean;
-import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -58,6 +57,8 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.googlecode.ehcache.annotations.Cacheable;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -136,6 +137,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param username username
      * @return {@link UserAccountBean}
      */
+    @Cacheable(cacheName = "searchUserByUsername")
     public UserAccountBean searchUserByUsername(final String username) {
         final UserAccount userDomain = getAccountDao().getUserByUsername(username);
         UserAccountBean user = null;
@@ -835,16 +837,21 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     public void upadteAccountProfile(
             final Profile property,
-            final String value,
-            final String username) throws EnMeNoResultsFoundException{
-        final UserAccount account = getUserAccount(username);
+            final String value) throws EnMeNoResultsFoundException{
+        log.debug("updating accoutn profile :"+property+" whith value "+value);
+        final UserAccount account = getUserAccount(getUserPrincipalUsername());
         if(Profile.USERNAME.equals(property)){
             account.setUsername(value.trim());
             //TODO: we need update authorities
         } else if(Profile.EMAIL.equals(property)){
             account.setUserEmail(value.trim());
-        }
-        getAccountDao().saveOrUpdate(account);
+       } else if(Profile.PICTURE.equals(property)){
+           PictureSource picture = PictureSource.findPictureSource(value);
+           if (picture != null) {
+               account.setPictureSource(picture);
+           }
+       }
+        getAccountDao().merge(account);
     }
 
     /**
@@ -1063,7 +1070,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 throw new EnMeNoResultsFoundException("confirmation code not found");
             }
         }
-        singUp = ConvertDomainBean.convertBasicSecondaryUserToSignUpBean(userAcc);
+        singUp = ConvertDomainBean.convertUserAccountToSignUpBean(userAcc);
         getMailService().sendNotificationStatusAccount(singUp, "User status");
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
@@ -1100,23 +1107,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
 
     /* Social Account SignIn Connect. * */
-
-
-   /**
-    *
-    * @param limit
-    * @return
- * @throws EnMeNoResultsFoundException
-    */
-   public List<Notification> loadNotificationByUserAndLimit(
-           final Integer limit,
-           final Integer start,
-           final Boolean onlyUnread) throws EnMeNoResultsFoundException {
-        final List<Notification> notifications = getNotificationDao()
-                .loadNotificationByUserAndLimit(
-                        getUserAccount(getUserPrincipalUsername()).getAccount(), limit, start, onlyUnread);
-        return notifications;
-   }
 
     /*
      * (non-Javadoc)

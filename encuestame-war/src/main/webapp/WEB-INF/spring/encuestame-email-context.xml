@@ -28,6 +28,8 @@
          <value>
             resource.loader=class
             class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            input.encoding=UTF-8
+            output.encoding=UTF-8
          </value>
       </property>
    </bean>

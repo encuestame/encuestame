@@ -19,13 +19,43 @@ package org.encuestame.persistence.domain.dashboard;
  */
 public enum GadgetType {
 
-	/** Gadget type for polls**/
-	POLL,
+    /** **/
+    ACTIVITY_STREAM,
 
-	/** Gadget type for surveys**/
-	SURVEYS,
+    /** Gadget type for surveys**/
+    COMMENTS,
 
-	/** Gadget type for tweetPolls**/
-	TWEETPOLLS
+    /** Gadget type for tweetPolls**/
+    TWEETPOLLS_VOTES,
 
+    /**
+     * Constructor.
+     */
+    GadgetType(){
+
+    };
+
+    /**
+     * Get gadget type by string
+     * @param gadgetType
+     * @return
+     */
+    public static GadgetType getGadgetType(final String gadgetType) {
+        if (null == gadgetType) { return null; }
+        else if (gadgetType.equalsIgnoreCase("STREAM")) { return ACTIVITY_STREAM; }
+        else if (gadgetType.equalsIgnoreCase("COMMENTS")) { return COMMENTS; }
+        else if (gadgetType.equalsIgnoreCase("TWEETPOLLSVOTES")) { return TWEETPOLLS_VOTES; }
+        else return null;
+    }
+
+    /**
+     * To String.
+     */
+    public String toString() {
+        String gadget = "STREAM";
+        if (this == ACTIVITY_STREAM) { gadget = "STREAM".toLowerCase(); }
+        else if (this == COMMENTS) { gadget = "COMMENTS".toLowerCase(); }
+        else if (this == TWEETPOLLS_VOTES) { gadget = "TWEETPOLLSVOTES".toLowerCase(); }
+        return gadget;
+    }
 }

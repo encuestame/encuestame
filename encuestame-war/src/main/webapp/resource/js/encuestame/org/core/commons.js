@@ -386,20 +386,20 @@ encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
     //validate form param.
     formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
-    var defaultError = function(error, ioargs){
+    var defaultError = function(error, ioargs) {
         console.error("default error ", error);
     };
-    if(error == null){
+    if (error == null){
       error = defaultError;
     }
     console.debug("Form POST ", form);
-    if(load == null || url == null || form == null){
+    if (load == null || url == null || form == null){
         console.error("error params required.");
     } else {
         var xhrArgs = {
             url: url,
             postData: dojo.objectToQuery(form),
-            handleAs: "text",
+            handleAs: "json",
             //headers: { "Content-Type": "application/json", "Accept": "application/json" },
             load: load,
             preventCache: true,
@@ -425,7 +425,14 @@ encuestame.service.list.changeStatusNotification = encuestame.contextWidget()+"/
 encuestame.service.list.removeNotification = encuestame.contextWidget()+"/api/remove-notification.json";
 encuestame.service.list.userInfo = encuestame.contextWidget()+"/api/admon/user-info.json";
 encuestame.service.list.createUser = encuestame.contextWidget()+"/api/admon/create-user.json";
+encuestame.service.list.profile = {};
+encuestame.service.list.profile.my = encuestame.contextWidget()+"/api/settings/profile/my.json";
 encuestame.service.list.upgradeProfile = encuestame.contextWidget()+"/api/user/profile/upgrade.json";
+//settings update
+encuestame.service.list.updateProfile = encuestame.contextWidget()+"/api/settings/profile/update.json";
+encuestame.service.list.updateUsername = encuestame.contextWidget()+"/api/settings/profile/username/update.json";
+encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/profile/email/update.json";
+encuestame.service.list.updatePicture = encuestame.contextWidget()+"/api/settings/profile/picture/update.json";
 
 encuestame.service.list.listPermissions = encuestame.contextWidget()+"/api/admon/list-permissions.json";
 encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/admon/list-user-permissions.json";
@@ -453,6 +460,11 @@ encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
 };
 
+encuestame.service.list.poll = {};
+encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/poll/create.json";
+encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/poll/publish.json";
+
+
 encuestame.service.list.votes = {};
 encuestame.service.list.getTweetPollVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/"+username+"/tweetpoll/"+id+"/votes.json";
@@ -466,12 +478,6 @@ encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/u
 encuestame.service.list.updateCreate = encuestame.contextWidget()+"/api/groups/removeGroup.json";
 encuestame.service.list.loadGroups = encuestame.contextWidget()+"/api/groups/groups.json";
 encuestame.service.list.assingGroups = encuestame.contextWidget()+"/api/admon/groups/assingToUser.json";
-
-//settings update
-encuestame.service.list.updateProfile = encuestame.contextWidget()+"/api/settings/profile/update.json";
-encuestame.service.list.updateUsername = encuestame.contextWidget()+"/api/settings/profile/username/update.json";
-encuestame.service.list.updateEmail = encuestame.contextWidget()+"/api/settings/profile/email/update.json";
-encuestame.service.list.myProfile = encuestame.contextWidget()+"/api/admon/info-profile.json";
 
 encuestame.service.list.checkProfile = encuestame.contextWidget()+"/api/user/account/validate.json";
 
@@ -520,7 +526,17 @@ encuestame.service.folder.list = function(type) {
     return  encuestame.contextWidget()+"/api/survey/folder/"+type+"/list.json";
 };
 encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
-encuestame.service.stream = encuestame.contextWidget()+"/api/common/frontend/stream.json";
+encuestame.service.dashboard = {};
+encuestame.service.dashboard.create = encuestame.contextWidget()+"/api/common/dashboard/create-dashboard.json";
+encuestame.service.dashboard.list = encuestame.contextWidget()+"/api/common/dashboard/list.json";
+encuestame.service.dashboard.select = encuestame.contextWidget()+"/api/common/dashboard/select.json";
+encuestame.service.gadget = {};
+encuestame.service.gadget.directory = encuestame.contextWidget()+"/api/common/gadgets/directory.json";
+encuestame.service.gadget.list = encuestame.contextWidget()+"/api/common/gadgets/list.json";
+encuestame.service.gadget.move = encuestame.contextWidget()+"/api/common/dashboard/move-gadget.json";
+encuestame.service.gadget.add = encuestame.contextWidget()+"/api/common/gadgets/add.json";
+encuestame.service.gadget.load = encuestame.contextWidget()+"/api/common/dashboard/gadget/load.json";
+encuestame.service.gadget.remove = encuestame.contextWidget()+"/api/common/dashboard/gadget/remove.json";
 
 //short url service.
 //encuestame.service.short = {};
@@ -564,7 +580,8 @@ encuestame.constants.messageCodes = {
     "010" : "Password is okay.",
     "011" : "Password could be more secure.",
     "016" : "Don't worry, you can change it later.",
-    "020" : ""
+    "020" : "",
+    "021" : "Drag your gadget here !!"
 };
 
 encuestame.constants.version = { version : "1.1.37"};

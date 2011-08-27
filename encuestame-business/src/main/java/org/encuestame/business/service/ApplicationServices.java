@@ -17,6 +17,8 @@ import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.service.imp.IApplicationServices;
 import org.encuestame.core.service.imp.IChartService;
+import org.encuestame.core.service.imp.ICommentService;
+import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.service.imp.IPollService;
@@ -25,6 +27,7 @@ import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.core.service.imp.StreamOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +70,12 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /** {@link SearchServiceOperations}. **/
     @Autowired
     private SearchServiceOperations searchService;
+    @Autowired
+    private IDashboardService dashboardService;
+    @Autowired
+    private StreamOperations streamOperations;
+    @Autowired
+    private ICommentService commentService;
 
     /**
      * @return the securityService
@@ -206,5 +215,47 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
      */
     public void setSearchService(SearchServiceOperations searchService) {
         this.searchService = searchService;
+    }
+
+    /**
+     * @return the dashboardService
+     */
+    public IDashboardService getDashboardService() {
+        return dashboardService;
+    }
+
+    /**
+     * @param dashboardService the dashboardService to set
+     */
+    public void setDashboardService(final IDashboardService dashboardService) {
+        this.dashboardService = dashboardService;
+    }
+
+    /**
+     * @return the streamOperations
+     */
+    public StreamOperations getStreamOperations() {
+        return streamOperations;
+    }
+
+    /**
+     * @param streamOperations the streamOperations to set
+     */
+    public void setStreamOperations(final StreamOperations streamOperations) {
+        this.streamOperations = streamOperations;
+    }
+
+    /**
+     * @return the commentService
+     */
+    public ICommentService getCommentService() {
+        return commentService;
+    }
+
+    /**
+     * @param commentService the commentService to set
+     */
+    public void setCommentService(final ICommentService commentService) {
+        this.commentService = commentService;
     }
 }
