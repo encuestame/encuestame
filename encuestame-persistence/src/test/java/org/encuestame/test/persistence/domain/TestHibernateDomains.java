@@ -290,7 +290,7 @@ public class TestHibernateDomains extends AbstractBase{
      */
      @Test
      public void testLocationFolder(){
-    	 final Account account = createAccount();
+         final Account account = createAccount();
          final GeoPointFolder geoPointFolder = new GeoPointFolder();
          geoPointFolder.setFolderType(GeoPointFolderType.GROUPING);
          geoPointFolder.setFolderName("test folder");
@@ -480,37 +480,36 @@ public class TestHibernateDomains extends AbstractBase{
      /** Test Comments **/
      @Test
      public void testComments(){
-    	 final Comment comments = new Comment();
-    	 final UserAccount user = createUserAccount("diana", createAccount());
-    	 final Question question = createQuestion("Who I am?", "");
-    	 final TweetPoll tpoll = createPublishedTweetPoll(user.getAccount(), question);
-    	 comments.setComment("First comment");
-    	 comments.setCreatedAt(new Date());
-    	 comments.setLikeVote(1L);
-    	 comments.setDislikeVote(2L);
-     	 comments.setUser(user);
-    	 comments.setTweetPoll(tpoll);
-    	 getCommentsOperations().saveOrUpdate(comments);
+         final Comment comments = new Comment();
+         final UserAccount user = createUserAccount("diana", createAccount());
+         final Question question = createQuestion("Who I am?", "");
+         final TweetPoll tpoll = createPublishedTweetPoll(user.getAccount(), question);
+         comments.setComment("First comment");
+         comments.setCreatedAt(new Date());
+         comments.setLikeVote(1L);
+         comments.setDislikeVote(2L);
+          comments.setUser(user);
+         comments.setTweetPoll(tpoll);
+         getCommentsOperations().saveOrUpdate(comments);
      }
 
      /** Test Poll. **/
      public void testPoll(){
-    	 final Poll poll = new Poll();
-    	 final Question question = createQuestion("Where do you live?", "");
-    	 final UserAccount user = createUserAccount("diana", createAccount());
-    	 final PollFolder pollFolder = createPollFolder("My polls", user);
-    	 poll.setPollCompleted(null);
-    	 poll.setCreatedAt(Calendar.getInstance().getTime());
-    	 poll.setPollHash("dkslw253");
-    	 poll.setQuestion(question);
-    	 poll.setPollOwner(user);
-    	 poll.setEndDate(null);
-    	 poll.setPublish(Boolean.TRUE);
-    	 poll.setCloseNotification(Boolean.FALSE);
-    	 poll.setShowVotes(Boolean.TRUE);
-    	 poll.setPollFolder(pollFolder);
-    	 poll.setUpdatedDate(null);
-    	 getiPoll().saveOrUpdate(poll);
-    	 System.out.println("Poll Id------>" + poll.getPollId());
+         final Poll poll = new Poll();
+         final Question question = createQuestion("Where do you live?", "");
+         final UserAccount user = createUserAccount("diana", createAccount());
+         final PollFolder pollFolder = createPollFolder("My polls", user);
+         poll.setPollCompleted(null);
+         poll.setCreatedAt(Calendar.getInstance().getTime());
+         poll.setPollHash(RandomStringUtils.randomAlphanumeric(5));
+         poll.setQuestion(question);
+         poll.setPollOwner(user);
+         poll.setEndDate(null);
+         poll.setPublish(Boolean.TRUE);
+         poll.setCloseNotification(Boolean.FALSE);
+         poll.setShowVotes(Boolean.TRUE);
+         poll.setPollFolder(pollFolder);
+         poll.setUpdatedDate(null);
+         getiPoll().saveOrUpdate(poll);
      }
 }

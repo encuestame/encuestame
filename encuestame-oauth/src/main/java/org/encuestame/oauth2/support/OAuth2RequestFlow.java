@@ -101,7 +101,6 @@ public class OAuth2RequestFlow {
             authorizeUrl.append(scope);
         }
         log.debug("Authorize Url "+authorizeUrl.toString() + " for "+this.provider.name());
-        System.out.println("Authorize Url "+authorizeUrl.toString() + " for "+this.provider.name());
         return authorizeUrl.toString();
     }
 

@@ -110,11 +110,11 @@ public class SimpleHttpLoader implements HttpLoader {
             Method connectTimeoutMethod = connection.getClass().getMethod("setConnectTimeout", new Class[]{ Integer.class });
             if (readTimeoutMethod != null) {
                 readTimeoutMethod.invoke(connection, new Object[]{ new Integer(10000) });
-                System.out.println("Set timeout.");
+                //System.out.println("Set timeout.");
             }
             if (connectTimeoutMethod != null) {
                 connectTimeoutMethod.invoke(connection, new Object[]{ new Integer(10000) });
-                System.out.println("Set timeout.");
+                //System.out.println("Set timeout.");
             }
         }
         catch (Exception e) {
