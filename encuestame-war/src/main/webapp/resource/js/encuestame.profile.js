@@ -77,6 +77,7 @@ dependencies ={
                 "encuestame.org.core.shared.utils.StandBy",
                 "encuestame.org.core.commons.panel.PanelBar",
                 "encuestame.org.core.shared.utils.FoldersActions",
+                "encuestame.org.core.commons.support.ActionDialogHandler",
                 //mobile
                 "encuestame.org.mobile.notifications.NotificationList",
                 "encuestame.org.mobile.tweetPoll.TweetPollList",
