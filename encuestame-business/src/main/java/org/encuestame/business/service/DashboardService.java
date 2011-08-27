@@ -151,7 +151,6 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
             } else {
                 gadgets = getDashboardDao().getGadgetbyKeyword(keyword, maxResults, start);
                 gadgetBean.addAll(ConvertDomainBean.convertListGadgetToBean(gadgets));
-                System.out.println("------------"+gadgets.size());
             }
             log.info("search keyword Gadgets size "+gadgets.size());
             return gadgetBean;

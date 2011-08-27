@@ -152,7 +152,7 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject response2 = callJsonService();
         final JSONObject success2 = getSucess(response2);
         JSONArray listNotification2 = (JSONArray) success2.get("notifications");
-        System.out.println(listNotification2);
+        //System.out.println(listNotification2);
         Assert.assertNotNull(listNotification2);
         Assert.assertEquals(listNotification2.size(), 2);
     }
@@ -170,7 +170,7 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
        final JSONObject response3 = callJsonService();
        final JSONObject success3 = getSucess(response3);
        JSONObject listNotification3 = (JSONObject) success3.get("notifications");
-       System.out.println(listNotification3);
+       //System.out.println(listNotification3);
        Assert.assertNotNull(listNotification3);
    }
 }

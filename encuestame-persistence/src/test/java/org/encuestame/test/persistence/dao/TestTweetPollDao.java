@@ -263,11 +263,8 @@ public class TestTweetPollDao  extends AbstractBase{
         final Integer limit = 3;
 
         final Calendar calendar = Calendar.getInstance();
-        System.out.println("PRIMER CALENDAR--"+ calendar.getTime());
         calendar.set(Calendar.SECOND, -15);
         final Calendar calendar2 = Calendar.getInstance();
-        System.out.println("SECOND CALENDAR--"+ calendar2.getTime());
-
         final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
         assertEquals("Should be equals", 1, tweetPolls.size());
         final HashTag hashtag2 = createHashTag("paola");
@@ -341,14 +338,7 @@ public class TestTweetPollDao  extends AbstractBase{
         getTweetPoll().saveOrUpdate(tweetPoll1);
         getTweetPoll().saveOrUpdate(tweetPoll2);
 
-
-
         final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtagRated");
-        System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
-
-        for (TweetPoll tweetPoll : tweetPolls2) {
-             System.out.println(" TWEET ID --> " + tweetPoll.getTweetPollId() + "VOTES TweetPoll -->" + tweetPoll.getNumbervotes());
-        }
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 

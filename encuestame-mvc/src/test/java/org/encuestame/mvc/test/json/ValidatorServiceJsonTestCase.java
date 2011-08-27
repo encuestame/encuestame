@@ -110,6 +110,6 @@ public class ValidatorServiceJsonTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject sucess = getSucess(response);
         Assert.assertEquals(sucess.get("valid").toString(), "false");
         Assert.assertEquals(sucess.get("msg").toString(), "A username is required!");
-        System.out.println(sucess);
+        //System.out.println(sucess);
     }
 }

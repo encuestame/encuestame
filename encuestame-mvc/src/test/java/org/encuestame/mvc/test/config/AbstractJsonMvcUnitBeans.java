@@ -214,7 +214,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      * @param response
      * @return
      */
-    public String getErrorsMessage(final JSONObject response){
+    public String getErrorsMessage(final JSONObject response) {
         final String error = (String) this.getErrors(response).get("message");
         Assert.assertNotNull(error);
         return error;

@@ -47,65 +47,65 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class CommentJsonController extends AbstractJsonController {
 
-	/** Log. **/
-	private Logger log = Logger.getLogger(this.getClass());
+    /** Log. **/
+    private Logger log = Logger.getLogger(this.getClass());
 
-	/**  Limit of results by default. **/
+    /**  Limit of results by default. **/
     private final static Integer LIMIT_DEFAULT = 10;
 
 
-	/**
-	 * Get comments by tweetPoll.
-	 * @param tweetPollId
-	 * @param max
-	 * @param start
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value = "/api/survey/tweetpoll/comments.json", method = RequestMethod.GET)
-	public ModelMap getCommentsbyTweetPoll(
-			@RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
-			@RequestParam(value = "max", required = false) Integer max,
-			@RequestParam(value = "start", required = false) Integer start,
-			HttpServletRequest request, HttpServletResponse response) {
-		try {
-			final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
-					tweetPollId);
-			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+    /**
+     * Get comments by tweetPoll.
+     * @param tweetPollId
+     * @param max
+     * @param start
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/api/survey/tweetpoll/comments.json", method = RequestMethod.GET)
+    public ModelMap getCommentsbyTweetPoll(
+            @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            @RequestParam(value = "max", required = false) Integer max,
+            @RequestParam(value = "start", required = false) Integer start,
+            HttpServletRequest request, HttpServletResponse response) {
+        try {
+            final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
+                    tweetPollId);
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 
-			List<Comment> comments = new ArrayList<Comment>();
-			List<CommentBean> commentBean = new ArrayList<CommentBean>();
-			if (tweetPoll == null) {
-				setError("tweetpoll not found", response);
-			} else {
-				comments = getCommentService().getCommentsbyTweetPoll(tweetPollId,
-						max, start);
-			}
-			commentBean = ConvertDomainBean.convertListCommentDomainToBean(comments);
-			jsonResponse.put("comments", commentBean);
-			setItemResponse(jsonResponse);
-		} catch (Exception e) {
-			// TODO: handle exception
-			log.error(e);
-			e.printStackTrace();
-			setError(e.getMessage(), response);
-		}
-		return returnData();
-	}
+            List<Comment> comments = new ArrayList<Comment>();
+            List<CommentBean> commentBean = new ArrayList<CommentBean>();
+            if (tweetPoll == null) {
+                setError("tweetpoll not found", response);
+            } else {
+                comments = getCommentService().getCommentsbyTweetPoll(tweetPollId,
+                        max, start);
+            }
+            commentBean = ConvertDomainBean.convertListCommentDomainToBean(comments);
+            jsonResponse.put("comments", commentBean);
+            setItemResponse(jsonResponse);
+        } catch (Exception e) {
+            // TODO: handle exception
+            log.error(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 
-	/**
-	 * Get comments by keyword.
-	 * @param limit
-	 * @param keyword
-	 * @param excludes
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws JsonGenerationException
-	 * @throws JsonMappingException
-	 * @throws IOException
-	 */
+    /**
+     * Get comments by keyword.
+     * @param limit
+     * @param keyword
+     * @param excludes
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @RequestMapping(value = "/api/common/comment/search.json", method = RequestMethod.GET)
     public ModelMap getComments(
             @RequestParam(value = "limit", required = false) Integer limit,
@@ -125,9 +125,9 @@ public class CommentJsonController extends AbstractJsonController {
                     jsonResponse.put("comments", ListUtils.EMPTY_LIST);
                     setItemResponse(jsonResponse);
                 } else {
-                	final List<CommentBean> comments = getCommentService().getCommentsbyKeyword(keyword, limit, null);
-                	jsonResponse.put("comments", comments);
-         			setItemResponse(jsonResponse);
+                    final List<CommentBean> comments = getCommentService().getCommentsbyKeyword(keyword, limit, null);
+                    jsonResponse.put("comments", comments);
+                     setItemResponse(jsonResponse);
                 }
             } catch (Exception e) {
                  log.error(e);
@@ -155,7 +155,7 @@ public class CommentJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
-            	CommentsSocialOptions socialOpt =  CommentsSocialOptions.getCommentsSocialOptions(option);
+                CommentsSocialOptions socialOpt =  CommentsSocialOptions.getCommentsSocialOptions(option);
                 getCommentService().voteCommentSocialOption(commentId, socialOpt);
                 setSuccesResponse();
             } catch (Exception e) {

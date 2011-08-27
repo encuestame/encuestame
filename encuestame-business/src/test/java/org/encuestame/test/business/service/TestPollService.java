@@ -103,18 +103,12 @@ public class TestPollService extends AbstractSpringSecurityContext{
         this.poll = createPoll(yesterdayDate, this.question, "FDK125", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.userAccount.getAccount());
         createDefaultListEmail(this.user, "default");
-        this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
-        createDefaultEmails("dianmorales@gmail.com", this.emailList);
-        System.out.println("USuARIO Logeado ---> " + getSpringSecurityLoggedUserAccount());
+        this.emails = createDefaultEmails("paola@demo.com", this.emailList);
+        createDefaultEmails("dianmorales@demo.com", this.emailList);
         this.folder = createPollFolder("folder 1", getSpringSecurityLoggedUserAccount());
         this.poll.setPollFolder(folder);
 
      }
-
-    @Test
-    public void test(){
-        System.out.println("------");
-    }
 
     /**
      * Test createPoll.
@@ -283,15 +277,12 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
     @Test
     public void testGetPollsbyDate() throws EnMeNoResultsFoundException{
-    	final Calendar calendarDate = Calendar.getInstance();
+        final Calendar calendarDate = Calendar.getInstance();
         calendarDate.add(Calendar.DAY_OF_WEEK,-1);
         final Date yesterdayDate= calendarDate.getTime();
-        System.out.println("Fecha a buscar ---> " + yesterdayDate);
-    	final List<PollBean> pbean = this.pollService.getPollsbyDate(yesterdayDate, this.MAX_RESULTS, this.START);
-        System.out.println("POLLBEAN Size ---> " + pbean.size());
+        final List<PollBean> pbean = this.pollService.getPollsbyDate(yesterdayDate, this.MAX_RESULTS, this.START);
         for (PollBean pollBean : pbean) {
-        	 System.out.println(" poll name and Id--> " + pollBean.getQuestionBean().getQuestionName() + "ID -->" + pollBean.getId());
-		}
-
+             log.debug(" poll name and Id--> " + pollBean.getQuestionBean().getQuestionName() + "ID -->" + pollBean.getId());
+        }
     }
 }

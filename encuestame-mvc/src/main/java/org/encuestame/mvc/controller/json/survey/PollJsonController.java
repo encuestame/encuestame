@@ -120,7 +120,7 @@ public class PollJsonController extends AbstractJsonController{
                 log.debug("keyword "+keyword);
                 log.debug("start "+start);
                 log.debug("folderId "+folderId);
-                System.out.println("date "+date);
+                //System.out.println("date "+date);
                 log.debug("type "+type);
                   final Map<String, Object> sucess = new HashMap<String, Object>();
                   if("keyword".equals(type)){
