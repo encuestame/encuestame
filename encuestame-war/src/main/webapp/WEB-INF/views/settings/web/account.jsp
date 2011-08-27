@@ -1,19 +1,20 @@
-<script type="text/javascript">
-    dojo.require("dijit.layout.TabContainer");
-    dojo.require("dijit.layout.ContentPane");
-    dojo.require("encuestame.org.core.shared.utils.AccountPicture");
-    dojo.require("encuestame.org.core.commons.profile.Profile");
-    dojo.require("encuestame.org.core.commons.profile.UploadProfilePicture");
-</script>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<enme:require>
+dijit.layout.TabContainer
+dijit.layout.ContentPane
+encuestame.org.core.shared.utils.AccountPicture
+encuestame.org.core.commons.profile.Profile
+encuestame.org.core.commons.profile.UploadProfilePicture
+</enme:require>
 <div class="defaultMarginWrapper">
     <h1>Settings Configuration</h1>
-    </br>
+    <br/>
     <div style="width: 900px; height: 500px;">
         <div dojoType="dijit.layout.TabContainer"
             style="width: 100%; height: 100%;">
             <div dojoType="dijit.layout.ContentPane" title="Your Account"
                 selected="true">
-                <div dojoType="encuestame.org.core.commons.profile.Profile"></div>
+                 <enme:widget type="encuestame.org.core.commons.profile.Profile"></enme:widget>
             </div>
             <div dojoType="dijit.layout.ContentPane" title="Picture" style="border: 0 none;">
                  <div dojoType="encuestame.org.core.commons.profile.UploadProfilePicture" source="" username="${username}"></div>

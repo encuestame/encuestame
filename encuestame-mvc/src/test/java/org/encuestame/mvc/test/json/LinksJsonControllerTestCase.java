@@ -73,12 +73,12 @@ public class LinksJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         initService("/api/public/social/links/published.json", MethodJson.GET);
         setParameter("id", tweetPoll.getTweetPollId().toString());
         setParameter("type", "TWEETPOLL");
-        System.out.println("*************************");
+        //System.out.println("*************************");
         final Map<String, Object> success = getSuccess();
-        System.out.println(success);
-        System.out.println(success.get("links"));
+        //System.out.println(success);
+        //System.out.println(success.get("links"));
         List d = (List) success.get("links");
-        System.out.println(d.size());
+        //System.out.println(d.size());
         Assert.assertEquals(d.size(), 0);
     }
 }

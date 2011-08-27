@@ -331,6 +331,10 @@ div.defaultSectionTitle{
     background-color: #A6B4BF !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
 }
 
+.default-dark-color {
+    color: #A6B4BF !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
+}
+
 .default-background-dark-color-sub {
     background-color: #595959; /**A6A5A5 **/
 }
@@ -468,4 +472,74 @@ div.subHeader {
     padding: 4px;
     margin: 1px;
     color: #FFF;
+}
+
+div.web-default-menu {
+  background: none repeat scroll 0 0 #EFEFEF;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 0 2px #CCCCCC inset;
+  height: 44px;
+}
+
+div.web-default-menu ul {
+  margin: 0;
+  padding: 0;
+}
+
+div.web-default-menu li {
+  background: none repeat scroll 0 0 transparent;
+  float: left;
+  height: 44px;
+  list-style: none outside none;
+}
+div.web-default-menu  li.first {
+  padding: 0 2px 0 5px;
+}
+
+.question .questionTextBox{
+    float: left;
+    width: 90%;
+}
+
+.question .questionTextBox input{
+    padding: 4px;
+    font-size: 130%;
+/*     -moz-box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset;
+    -webkit-box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset;
+    box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset; */
+}
+
+.question .dijitTextBox {
+    padding: 3px;
+    font-size: 130%;
+}
+
+.question .dijitTextArea {
+    padding: 3px;
+    font-size: 130%;
+}
+
+.heading-title{
+    width: 100%;
+    margin-top: 40px;
+    overflow: auto;
+}
+
+.heading-title H1 {
+  color: #C53436;
+  float: left;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 24px;
+  margin: 0;
+  padding: 0 8px;
+}
+
+/**
+  This class to increase size on dijitTextBox
+*/
+.input-d .dijitTextBox {
+    padding: 3px;
+    font-size: 130%;
+    width: 850px;
 }

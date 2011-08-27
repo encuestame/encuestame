@@ -48,10 +48,6 @@ public class TestFrontEndDao extends AbstractBase {
         this.secondary = createUserAccount("paola", createAccount());
         this.hashTag = createHashTag("software");
         this.hashTagHit = createHashTagHit(hashTag, ipAddress, this.secondary);
-      /*  System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
-        System.out.println("hashTagHit IP --->"+ hashTagHit.getIpAddress());
-        System.out.println("hashTagHit ID --->"+ hashTagHit.getHitId());
-        System.out.println("hashTagHit tag ID--->"+ hashTagHit.getHashTagId().getHashTagId());*/
     }
 
     /** Test Get hash tags by ip.**/

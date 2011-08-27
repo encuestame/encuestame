@@ -66,6 +66,7 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 
 import twitter4j.TwitterException;
@@ -148,6 +149,21 @@ public class AbstractSurveyService extends AbstractChartService {
         this.getQuestionDao().saveOrUpdate(answer);
         answerBean.setAnswerId(answer.getQuestionAnswerId());
         log.debug("QuestionAnswer created:{"+answerBean.toString());
+        return answer;
+    }
+
+    /**
+     *
+     * @param question
+     * @return
+     */
+    public QuestionAnswer createAnswers(final Question question, final String answerText){
+         final QuestionAnswer answer = new QuestionAnswer();
+          answer.setQuestions(question);
+          answer.setAnswer(answerText);
+          answer.setQuestions(question);;
+          answer.setColor(PictureUtils.getRandomHexColor());
+          this.getQuestionDao().saveOrUpdate(answer);
         return answer;
     }
 

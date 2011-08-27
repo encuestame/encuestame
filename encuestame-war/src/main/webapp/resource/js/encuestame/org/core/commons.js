@@ -386,20 +386,20 @@ encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
     //validate form param.
     formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
-    var defaultError = function(error, ioargs){
+    var defaultError = function(error, ioargs) {
         console.error("default error ", error);
     };
-    if(error == null){
+    if (error == null){
       error = defaultError;
     }
     console.debug("Form POST ", form);
-    if(load == null || url == null || form == null){
+    if (load == null || url == null || form == null){
         console.error("error params required.");
     } else {
         var xhrArgs = {
             url: url,
             postData: dojo.objectToQuery(form),
-            handleAs: "text",
+            handleAs: "json",
             //headers: { "Content-Type": "application/json", "Accept": "application/json" },
             load: load,
             preventCache: true,
@@ -459,6 +459,11 @@ encuestame.service.list.tweetpoll.answer = {};
 encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
 };
+
+encuestame.service.list.poll = {};
+encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/poll/create.json";
+encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/poll/publish.json";
+
 
 encuestame.service.list.votes = {};
 encuestame.service.list.getTweetPollVotes = function(username, id){

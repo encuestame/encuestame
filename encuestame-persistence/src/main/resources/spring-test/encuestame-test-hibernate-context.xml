@@ -172,28 +172,4 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation"  value="classpath:spring-test/test-ehcache.xml"/>
     </bean>
-
-    <!-- ehcache configuration
-
-    <ehcache:config configLocation="classpath:ehcache.xml" />
-
-     -->
-    <!-- Question Dao
-    <ehcache:annotations>
-
-        <ehcache:caching id="retrieveQuestionsByName" cacheName="questionCache" />
-        <ehcache:caching id="retrieveQuestionById" cacheName="questionCache" />
-        <ehcache:caching id="retrieveAnswerById" cacheName="questionCache" />
-        <ehcache:flushing id="createQuestion" cacheNames="questionCache" />
-    </ehcache:annotations>
-    -->
-    <!-- Permission Dao
-    <ehcache:annotations>
-
-        <ehcache:caching id="loadAllPermissions" cacheName="permissionCache" />
-        <ehcache:caching id="loadPermission" cacheName="permissionCache" />
-        <ehcache:caching id="getPermissionById" cacheName="permissionCache" />
-        <ehcache:flushing id="createPermission" cacheNames="permissionCache" />
-    </ehcache:annotations>
-    -->
 </beans>

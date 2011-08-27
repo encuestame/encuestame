@@ -15,4 +15,10 @@
         <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}poll-list.jsp" />
     </definition>
 
+     <definition name="poll/new" extends="page">
+        <put-attribute name="title" value="New Poll | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}new.jsp" />
+    </definition>
+
 </tiles-definitions>

@@ -51,7 +51,7 @@ public class SocialAccountsJsonControllerTestCase extends AbstractJsonMvcUnitBea
           initService("/api/common/social/accounts.json", MethodJson.GET);
           setParameter("provider", "twitter");
           final org.json.simple.JSONObject response = callJsonService();
-          System.out.println(response);
+          //System.out.println(response);
           //{"error":{},"success":{"items":[],"label":"socialAccounts","identifier":"id"}}
           org.json.simple.JSONArray list = (org.json.simple.JSONArray) getSucess(response).get("items");
           Assert.assertEquals(list.size(), 2);

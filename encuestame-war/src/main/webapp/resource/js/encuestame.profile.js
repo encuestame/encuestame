@@ -16,13 +16,16 @@ dependencies ={
                 "encuestame.org.core.commons.tweetPoll.Answers",
                 "encuestame.org.core.comments.Comment",
                 "encuestame.org.core.commons.poll.Poll",
+                "encuestame.org.core.commons.poll.PollNavigate",
                 "encuestame.org.core.commons.dialog.Info",
+                "encuestame.org.core.shared.utils.FolderSelect",
                 "encuestame.org.core.commons.dashboard.GadgetDirectory",
                 "encuestame.org.core.commons.social.SocialAccounts",
                 "encuestame.org.core.commons.dashboard.Dashboard",
                 "encuestame.org.core.commons.dashboard.DashboardLayout",
                 "encuestame.org.core.commons.dashboard.DashboardWrapper",
                 "encuestame.org.core.commons.dashboard.Gadget",
+                "encuestame.org.core.shared.utils.FolderOperations",
                 "encuestame.org.core.shared.utils.Avatar",
                 "encuestame.org.core.commons.dashboard.chart.DashboardPie",
                 "encuestame.org.core.commons.dashboard.chart.DashboardLine",
@@ -88,7 +91,27 @@ dependencies ={
                 "encuestame.org.core.gadget.Gadget",
                 "encuestame.org.core.gadget.Activity",
                 "encuestame.org.core.gadget.Comments",
-                "encuestame.org.core.gadget.TweetPollVotes"
+                "encuestame.org.core.gadget.TweetPollVotes",
+                //options
+                "encuestame.org.core.shared.utils.PublishSupport",
+                "encuestame.org.core.shared.options.RepeatedVotes",
+                "encuestame.org.core.shared.options.ConstrainNumberPicker",
+                "encuestame.org.core.shared.options.LimitVotes",
+                "encuestame.org.core.shared.options.CommentsOptions",
+                "encuestame.org.core.shared.options.DateToClose",
+                "encuestame.org.core.shared.options.Scheduled",
+                "encuestame.org.core.shared.options.ResultsOptions",
+                "encuestame.org.core.shared.options.AbstractOptionSelect",
+                "encuestame.org.core.shared.options.CheckSingleOption",
+
+                //patterns
+                "encuestame.org.core.commons.questions.Question",
+                "encuestame.org.core.commons.questions.patterns.SingleResponse",
+                "encuestame.org.core.commons.questions.patterns.AbstractPattern",
+                "encuestame.org.core.shared.publish.PublishSupport",
+                "encuestame.org.core.shared.utils.ContextSupport",
+                "encuestame.org.core.commons.support.DnD",
+                "encuestame.org.core.shared.utils.Icon"
                 ]
             }
           /*,

@@ -166,7 +166,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      */
     public Map<String, Object> callMapJsonService() throws ServletException, IOException{
         final String responseAsString = this.callStringService();
-        System.out.println(responseAsString);
+        //System.out.println(responseAsString);
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
         return JSONUtils.convertJsonToObject(responseAsString);
@@ -214,7 +214,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      * @param response
      * @return
      */
-    public String getErrorsMessage(final JSONObject response){
+    public String getErrorsMessage(final JSONObject response) {
         final String error = (String) this.getErrors(response).get("message");
         Assert.assertNotNull(error);
         return error;

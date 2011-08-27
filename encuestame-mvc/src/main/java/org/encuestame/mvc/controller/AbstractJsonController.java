@@ -12,7 +12,6 @@
  */
 package org.encuestame.mvc.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -24,13 +23,8 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
-import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.web.UserAccountBean;
-import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.ModelMap;
@@ -210,6 +204,17 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
             builder.append("/");
         }
         return builder.toString();
+    }
+
+    /**
+     *
+     * @param label
+     * @param object
+     */
+    public void setSingleResponse(final String label, Object object){
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        jsonResponse.put(label, object);
+        setItemResponse(jsonResponse);
     }
 
     /**

@@ -164,10 +164,6 @@ public class TestDashboardDao extends AbstractBase {
     public void testRetrievePropertiesbyGadget(){
         final List<GadgetProperties> properties = getDashboardDao().retrievePropertiesbyGadget(this.gadget.getGadgetId());
         assertEquals("Should be equals", 3, properties.size());
-        /*for (GadgetProperties gadgetProperties : properties) {
-            System.out.println("----" + gadgetProperties.getGadgetPropName());
-            System.out.println("----" + gadgetProperties.getGadgetPropValue());
-        }*/
     }
 
     /**
