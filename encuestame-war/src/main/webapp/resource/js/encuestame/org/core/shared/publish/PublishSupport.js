@@ -38,7 +38,16 @@ dojo.declare("encuestame.org.core.shared.publish.PublishSupport", [
 
     messageClass : "succesfully",
 
+    item : { id: null, name : null , url : null },
+
     dialogContext : null,
+
+    /*
+     *
+     */
+    postMixInProperties: function(){
+        this.message = "Your "+this.context+" <b>"+this.item.name+"</b> has been created successfully.";
+    },
 
     /*
      *
@@ -47,9 +56,11 @@ dojo.declare("encuestame.org.core.shared.publish.PublishSupport", [
         this.initializeSocial(false);
         this.initializeEmail(true);
         this.initializeEmbebed(true);
+        //console.info("ITEM", this.item);
         dojo.connect(this._close, "onClick", dojo.hitch(this, function(){
-            console.info("closing dialog..", this.dialogContext);
-            this.dialogContext.hide(); //TODO: destroy dialog after close.
+            //console.info("closing dialog..", this.dialogContext);
+            //this.dialogContext.hide(); //TODO: destroy dialog after close.
+            document.location.href = encuestame.contextDefault+"/user/"+this.context+"/list";
         }));
     },
 
@@ -85,17 +96,30 @@ dojo.declare("encuestame.org.core.shared.publish.PublishSupport", [
     },
 
     initializeEmail : function(defaultDisplayHide){
-        var email = new encuestame.org.core.shared.publish.PublishEmailSupport({context : this.context});
+        var email = new encuestame.org.core.shared.publish.PublishEmailSupport(
+                {
+                    context : this.context,
+                    itemId : this.item.id
+                }
+                );
         this._createWipePanel(email, defaultDisplayHide, "Email");
     },
 
     initializeSocial : function(defaultDisplayHide){
-        var social = new encuestame.org.core.shared.publish.PublishSocialSupport({context : this.context});
+        var social = new encuestame.org.core.shared.publish.PublishSocialSupport({
+            context : this.context,
+            itemId : this.item.id
+        });
         this._createWipePanel(social, defaultDisplayHide, "Social Networks");
     },
 
     initializeEmbebed : function(defaultDisplayHide){
-        var embebed = new encuestame.org.core.shared.publish.PublishEmbebedSupport({context : this.context});
+        var embebed = new encuestame.org.core.shared.publish.PublishEmbebedSupport(
+            {
+                context : this.context,
+                itemId : this.item.id,
+                name : this.item.name
+            });
         this._createWipePanel(embebed, defaultDisplayHide, "Javascript");
     }
 });
@@ -122,7 +146,7 @@ dojo.declare("encuestame.org.core.shared.publish.PublishPanelItem", [
 
     postCreate : function(){
         this._content.appendChild(this.contentWidget.domNode);
-        this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._content, 300, 300);
+        this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._content, 300, 200);
         dojo.connect(this._title, "onclick", dojo.hitch(this, this._onClickItem));
         dojo.subscribe("/encuestame/support/panel/remote/select", this, "remoteClick");
         dojo.subscribe("/encuestame/support/panel/unselect", this, "unselect");
@@ -175,7 +199,6 @@ dojo.declare("encuestame.org.core.shared.publish.PublishPanelItem", [
 });
 
 
-
 dojo.declare(
         "encuestame.org.core.shared.publish.PublishSocialSupport",
         [dijit._Widget, dijit._Templated,
@@ -190,6 +213,8 @@ dojo.declare(
         context : "",
 
         _socialWidget : null,
+
+        itemId : null,
 
         /*
         *
@@ -221,6 +246,40 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
+        itemId : null,
+
+        name : null,
+
+        _domain : null,
+
+        _pollPath : "/poll/",
+
+        postMixInProperties: function(){
+            this._domain = config.domain;
+        },
+
+        postCreate : function(){
+            this._buildJavascriptEmbebed();
+        },
+
+        _buildJsUrl : function(){
+            return this._domain+this._pollPath+this.itemId+".js";
+        },
+
+        _buildUrl : function(){
+            return this._domain+this._pollPath+this.itemId+"/";
+        },
+
+        /*
+         * <script type="text/javascript" charset="utf-8" src="http://demo.encuestame.org/poll/5439680.js"></script>
+         * <noscript><a href="http://demo.encuestame.org/poll/5439680/">My New Poll</a></noscript>
+         */
+        _buildJavascriptEmbebed : function(){
+            var script = "<script type=\"text/javascript\" charset=\"utf-8\" src=\""+this._buildJsUrl()+"\"></script>";
+            var noscript = "<noscript><a href=\""+this._buildUrl()+"\">"+this.name+"</a></noscript>";
+            this._textarea.value = script + noscript;
+        }
+
 });
 
 dojo.declare(
@@ -231,5 +290,7 @@ dojo.declare(
         templatePath : dojo.moduleUrl("encuestame.org.core.shared.publish", "templates/emailSupport.html"),
 
         widgetsInTemplate: true,
+
+        itemId : null,
 
 });

@@ -2906,6 +2906,7 @@ div.web-publish-support .detail {
 
 div.web-publish-support ul.menu {
   background: none repeat scroll 0 0 #F4F4F4;
+  border-right: 1px solid #D9D9D9;
   height: 335px;
   padding: 5px;
 }
@@ -2914,11 +2915,11 @@ div.web-publish-support ul.menu li {
   border-bottom: 1px dotted #DEDEDE;
   border-top: 1px solid #FFFFFF;
   border-width: 1px;
-  font-size: 130%;
-  list-style: none outside none;
-  padding: 10px;
-  width: 150px;
   cursor: pointer;
+  font-size: 110%;
+  list-style: none outside none;
+  padding: 4px;
+  width: 173px;
 }
 
 div.web-publish-support ul.menu li:hover{
@@ -2944,14 +2945,14 @@ div.web-publish-support div.web-support-panel-item-title {
   border-bottom: 1px dotted #DEDEDE;
   color: #7D7D7D;
   cursor: pointer;
-  font-size: 130%;
-  padding: 13px;
+  font-size: 115%;
+  padding: 6px;
   text-transform: capitalize;
   width: auto;
 }
 
 div.web-publish-support div.web-support-panel-item-content{
-  min-height: 200px !important;
+  min-height: 150px !important;
   padding: 5px;
 }
 

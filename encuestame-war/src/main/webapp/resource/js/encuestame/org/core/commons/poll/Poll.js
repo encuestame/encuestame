@@ -103,7 +103,7 @@ dojo.declare(
          */
         _addAnswer : function(event) {
             dojo.stopEvent(event);
-            console.info("_addAnswer", this.sourceDndWidget.getSelectedNodes());
+            //console.info("_addAnswer", this.sourceDndWidget.getSelectedNodes());
             var li = this._newAnswer({ dndEnabled : true});
             this.addItem(li);
         },
@@ -120,7 +120,7 @@ dojo.declare(
             var answer = new encuestame.org.core.commons.questions.patterns.SingleResponse(params);
             this._answer_widget_array.push(answer);
             li.appendChild(answer.domNode);
-            console.info("_newAnswer", li);
+            //console.info("_newAnswer", li);
             return li;
         },
 
@@ -130,8 +130,11 @@ dojo.declare(
          */
         _createPoll : function(params) {
            var load = dojo.hitch(this, function(data) {
-               this._createDialogSupport();
-               this._openSuccessMessage();
+               var pollBean = data.success.pollBean;
+               if (pollBean != null) {
+                   this._createDialogSupport();
+                   this._openSuccessMessage(pollBean);
+               }
            });
            var error = dojo.hitch(this, function(error) {
                this._openFailureMessage(error);
@@ -192,9 +195,9 @@ dojo.declare(
             dojo.forEach(this._answer_widget_array,
                     dojo.hitch(this,function(item) {
                     if (item != null) {
-                         console.debug("_answer_widget_item", item);
+                         //console.debug("_answer_widget_item", item);
                         var response = item.getResponse();
-                        console.debug("_answer_widget_array params", response);
+                        //console.debug("_answer_widget_array params", response);
                         if (response != null && response != "") {
                             var newArray = params.listAnswers;
                             newArray.push(response.trim());
@@ -215,7 +218,7 @@ dojo.declare(
             }
 
             var repeated_votes = dijit.byId("repeated");
-            console.info("repeated_votes params", repeated_votes.getOptions().checked);
+            //console.info("repeated_votes params", repeated_votes.getOptions().checked);
             if (repeated_votes.getOptions().checked){
                 dojo.mixin(params, {repeated_votes : repeated_votes.getOptions().items});
             }
@@ -227,7 +230,7 @@ dojo.declare(
             }
 
             var close = dijit.byId("close");
-            console.info("limit_votes params", limit_votes.getOptions().checked);
+            //console.info("limit_votes params", limit_votes.getOptions().checked);
             if (close.getOptions().checked){
                 dojo.mixin(params, {close_time : close.getOptions().time});
                 dojo.mixin(params, {close_date : close.getOptions().date});
@@ -259,12 +262,13 @@ dojo.declare(
         /*
          *
          */
-        _openSuccessMessage : function(){
-            var div = dojo.create('div');
+        _openSuccessMessage : function(pollBean){
+            //var div = dojo.create('div');
             //social widget.
             var publishWidget = new encuestame.org.core.shared.publish.PublishSupport(
                     {
-                        context:this.context,
+                        context: this.context,
+                        item : { id: pollBean.id, name : pollBean.questionBean.question_name , url : pollBean.shortUrl },
                         dialogContext : this._dialogPublish
                     });
             this._dialogPublish.containerNode.appendChild(publishWidget.domNode);
@@ -282,6 +286,9 @@ dojo.declare(
          *
          */
         _createDialogSupport : function(){
-            this._dialogPublish = new encuestame.org.core.commons.dialog.Dialog({ style :"width: 850px; heigth:400px;"});
+            this._dialogPublish = new encuestame.org.core.commons.dialog.Dialog(
+                    {
+                        style :"width: 850px; heigth:400px;"
+                    });
         }
 });

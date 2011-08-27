@@ -180,7 +180,7 @@ public class TestPollDao extends AbstractBase {
      */
     @Test
     public void testGetPollByIdandCreationDate(){
-        final Question question2 = createQuestion("Why the sky is blue?", "html");
+        createQuestion("Why the sky is blue?", "html");
         final Calendar calendarDate = Calendar.getInstance();
         calendarDate.add(Calendar.DAY_OF_WEEK,-1);
         final Date yesterdayDate= calendarDate.getTime();
