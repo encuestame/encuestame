@@ -189,7 +189,7 @@ public class TestPollDao extends AbstractBase {
         createPoll(yesterdayDate, this.question, "FDK135", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         createPoll(todayDate, this.question, "FDK456", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.secUserSecondary, this.MAX_RESULTS, this.START);
-        assertEquals("Should be equals", 1, pollList.size());
+        assertEquals("Should be equals", 2, pollList.size());
     }
 
     @Test

@@ -313,6 +313,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         pollFolder.setCreatedBy(getUserAccount(getUserPrincipalUsername()));
         pollFolder.setCreatedAt(Calendar.getInstance().getTime());
         pollFolder.setFolderName(folderName);
+        pollFolder.setUsers(getUserAccount(getUserPrincipalUsername()).getAccount());
         this.getPollDao().saveOrUpdate(pollFolder);
         return ConvertDomainBean.convertFolderToBeanFolder(pollFolder);
     }
@@ -418,7 +419,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
         List<Poll> pollList = new ArrayList<Poll>();
         if (date !=null){
             pollList = getPollDao().getPollByIdandCreationDate(date, getUserAccount(getUserPrincipalUsername()), maxResults, start);
-            System.out.println("SIZE ----->"+ pollList.size());
         }
         else{
             throw new EnMeNoResultsFoundException("Date not found");

@@ -105,8 +105,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
         createDefaultListEmail(this.user, "default");
         this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
         createDefaultEmails("dianmorales@gmail.com", this.emailList);
+        System.out.println("USuARIO Logeado ---> " + getSpringSecurityLoggedUserAccount());
         this.folder = createPollFolder("folder 1", getSpringSecurityLoggedUserAccount());
         this.poll.setPollFolder(folder);
+
      }
 
     @Test
@@ -163,7 +165,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
     public void testcreatePollFolder() throws EnMeNoResultsFoundException{
        this.pollService.createPollFolder("folder 2");
        List<FolderBean> folders = this.pollService.retrieveFolderPoll();
-       assertEquals(folders.size(), 1);
+       assertEquals(folders.size(), 2);
     }
 
     /**
