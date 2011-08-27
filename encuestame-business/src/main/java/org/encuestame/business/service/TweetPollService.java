@@ -288,7 +288,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
         } catch (Exception e) {
             log.error("Error creating TweetlPoll:{"+e);
-            e.printStackTrace();
             throw new EnMeExpcetion(e);
         }
     }

@@ -42,7 +42,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "poll",
-    uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
+       uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Poll extends AbstractSurvey {
     private Long pollId;
@@ -79,7 +79,7 @@ public class Poll extends AbstractSurvey {
     /**
      * @return the pollCompleted
      */
-    @Column(name = "completed", nullable = false)
+    @Column(name = "poll_completed", nullable = false)
     public Boolean getPollCompleted() {
         return pollCompleted;
     }
@@ -211,7 +211,7 @@ public class Poll extends AbstractSurvey {
      *
      * @return showVotes Show Results Indicator
      */
-    @Column(name = "show_results", nullable = true)
+    @Column(name = "poll_show_results", nullable = true)
     public Boolean getShowVotes() {
         return showVotes;
     }
