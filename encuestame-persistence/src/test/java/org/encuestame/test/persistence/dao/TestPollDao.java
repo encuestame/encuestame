@@ -180,7 +180,7 @@ public class TestPollDao extends AbstractBase {
      */
     @Test
     public void testGetPollByIdandCreationDate(){
-    	final Question question2 = createQuestion("Why the sky is blue?", "html");
+        final Question question2 = createQuestion("Why the sky is blue?", "html");
         final Calendar calendarDate = Calendar.getInstance();
         calendarDate.add(Calendar.DAY_OF_WEEK,-1);
         final Date yesterdayDate= calendarDate.getTime();
@@ -189,28 +189,28 @@ public class TestPollDao extends AbstractBase {
         createPoll(yesterdayDate, this.question, "FDK135", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         createPoll(todayDate, this.question, "FDK456", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.secUserSecondary, this.MAX_RESULTS, this.START);
-        assertEquals("Should be equals", 2, pollList.size());
+        assertEquals("Should be equals", 1, pollList.size());
     }
 
     @Test
     public void testRetrievePollsByUserId(){
-    	final Question question2 =  createQuestion("Why the sea is blue?","html");
-    	createPoll(new Date(), question2, "FDK126", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
-    	final List<Poll> pollbyUser = getiPoll().retrievePollsByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
-    	assertEquals("Should be equals", 2, pollbyUser.size());
+        final Question question2 =  createQuestion("Why the sea is blue?","html");
+        createPoll(new Date(), question2, "FDK126", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
+        final List<Poll> pollbyUser = getiPoll().retrievePollsByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
+        assertEquals("Should be equals", 2, pollbyUser.size());
     }
 
     @Test
     public void testGetPollFolderBySecUser(){
-    	createPollFolder("My Second Poll Folder", this.secUserSecondary);
-    	createPollFolder("My Third Poll Folder", this.secUserSecondary);
-    	final List<PollFolder> pollFolderbyUser = getiPoll().getPollFolderBySecUser(this.secUserSecondary);
-    	assertEquals("Should be equals", 3, pollFolderbyUser.size());
+        createPollFolder("My Second Poll Folder", this.secUserSecondary);
+        createPollFolder("My Third Poll Folder", this.secUserSecondary);
+        final List<PollFolder> pollFolderbyUser = getiPoll().getPollFolderBySecUser(this.secUserSecondary);
+        assertEquals("Should be equals", 3, pollFolderbyUser.size());
     }
 
     @Test
     public void testPollsByPollFolder(){
-    	final List<Poll> pollsbyFolder = getiPoll().getPollsByPollFolder(this.secUserSecondary, this.pollFolder);
-    	assertEquals("Should be equals", 1, pollsbyFolder.size());
+        final List<Poll> pollsbyFolder = getiPoll().getPollsByPollFolder(this.secUserSecondary, this.pollFolder);
+        assertEquals("Should be equals", 1, pollsbyFolder.size());
     }
 }
