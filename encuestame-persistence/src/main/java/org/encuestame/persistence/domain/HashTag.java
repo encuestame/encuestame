@@ -31,6 +31,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -46,6 +48,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="HashTag")
 @Table(name = "hash_tags")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HashTag {
 
     /** Hash Tag Id. **/
@@ -120,7 +123,7 @@ public class HashTag {
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tweetpoll_hashtags",
-    		   joinColumns = {@JoinColumn(name = "hastag_id")},
+               joinColumns = {@JoinColumn(name = "hastag_id")},
                inverseJoinColumns = {@JoinColumn(name = "tweetpoll_id")})
     public Set<TweetPoll> getTweetPoll() {
         return tweetPoll;

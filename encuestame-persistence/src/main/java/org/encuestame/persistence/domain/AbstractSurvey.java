@@ -23,7 +23,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
@@ -139,7 +138,10 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     private Boolean showResults;
 
-    private showComments showComments;
+    /**
+     * Show Comments Option.
+     */
+    private CommentOptions showComments;
 
    /**
     * Number votes for Survey and Poll.
@@ -150,16 +152,6 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Number Hits or visits
      */
     private Integer hits;
-
-    /**
-     * Show Comments Option.
-     */
-    public enum showComments {
-        /** Restrict Comments. **/
-        RESTRICT,
-        /** Approve Comments. **/
-        APPROVE
-    }
 
     /**
      * Show Option- Additional Info in Questions
@@ -366,7 +358,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the customFinalMessage
      */
     @Column(name = "custom_final_message")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     public CustomFinalMessage getCustomFinalMessage() {
         return customFinalMessage;
     }
@@ -382,7 +374,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the multipleResponse
      */
     @Column(name = "multiple_response")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     public MultipleResponse getMultipleResponse() {
         return multipleResponse;
     }
@@ -409,20 +401,22 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     }
 
     /**
-     * @return the showComments
-     */
-    public showComments getShowComments() {
-        return showComments;
-    }
+	 * @return the showComments
+	 */
+	public CommentOptions getShowComments() {
+		return showComments;
+	}
 
-    /**
-     * @param showComments the showComments to set
-     */
-    public void setShowComments(showComments showComments) {
-        this.showComments = showComments;
-    }
+	/**
+	 * @param showComments the showComments to set
+	 */
+	@Column(name = "comment_Option")
+    @Enumerated(EnumType.ORDINAL)
+	public void setShowComments(CommentOptions showComments) {
+		this.showComments = showComments;
+	}
 
-    /**
+	/**
      * @return the showAdditionalInfo
      */
     public Boolean getShowAdditionalInfo() {

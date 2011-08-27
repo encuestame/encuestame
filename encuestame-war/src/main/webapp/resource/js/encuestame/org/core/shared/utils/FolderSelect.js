@@ -38,6 +38,11 @@ dojo.declare(
       widgetsInTemplate: true,
 
       /*
+       * label.
+       */
+      label : "Folder",
+
+      /*
        *
        */
       _addComboStoreWidget : null,
@@ -74,6 +79,13 @@ dojo.declare(
               start : 0
               };
           this._callFolderService(load, params, this.getAction("list"), true);
+      },
+
+      /*
+       *
+       */
+      getSelected : function(){
+         return this._addComboWidget.attr('value');
       },
 
       /*

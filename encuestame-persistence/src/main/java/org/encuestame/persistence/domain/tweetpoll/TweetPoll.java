@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +36,8 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * TweetPoll Domain.
@@ -44,6 +47,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
 
 @Entity
 @Table(name = "tweetPoll")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TweetPoll extends AbstractGeoPoint{
 
     private Long tweetPollId;
@@ -379,7 +384,7 @@ public class TweetPoll extends AbstractGeoPoint{
      */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tweetpoll_hashtags",
-    		   joinColumns = {@JoinColumn(name = "tweetpoll_id")},
+               joinColumns = {@JoinColumn(name = "tweetpoll_id")},
                inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
     public Set<HashTag> getHashTags() {
         return hashTags;

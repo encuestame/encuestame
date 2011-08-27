@@ -377,7 +377,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @param geoPointDao geoPointDao
      */
-    public void setGeoPointDao(IGeoPoint geoPointDao) {
+    public void setGeoPointDao(final IGeoPoint geoPointDao) {
         this.geoPointDao = geoPointDao;
     }
 
@@ -432,7 +432,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Poll createPoll(final Date createdAt,
             final Question question,
-            final Account secUser,
+            final UserAccount secUser,
             final Boolean pollCompleted,
             final Boolean pollPublish
             ){
@@ -461,7 +461,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Date createdDate,
             final Question question,
             final String hash,
-            final Account secUsers,
+            final UserAccount secUsers,
             final Boolean pollCompleted,
             final Boolean published){
         final Poll poll = new Poll();
@@ -1203,11 +1203,14 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Account secUsers,
             final String folderName,
             final GeoPointFolder locationFolder){
+    	final UserAccount userAcc = createUserAccount("Juan", secUsers);
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
         geoPointFolder.setFolderName(folderName);
         geoPointFolder.setUsers(secUsers);
         geoPointFolder.setSubLocationFolder(locationFolder);
+        geoPointFolder.setCreatedAt(Calendar.getInstance().getTime());
+        geoPointFolder.setCreatedBy(userAcc);
         getGeoPointDao().saveOrUpdate(geoPointFolder);
         return geoPointFolder;
     }
@@ -1563,9 +1566,9 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public Poll addPollToFolder(final Long folderId, final Long userId, final Long pollId) throws EnMeNoResultsFoundException{
+    public Poll addPollToFolder(final Long folderId, final UserAccount userAccount, final Long pollId) throws EnMeNoResultsFoundException{
         final PollFolder pfolder = getiPoll().getPollFolderById(folderId);
-        final Poll poll = getiPoll().getPollByIdandUserId(pollId, userId);
+        final Poll poll = getiPoll().getPollByIdandUserId(pollId, userAccount);
         poll.setPollFolder(pfolder);
         getiPoll().saveOrUpdate(poll);
         return poll;
@@ -1864,11 +1867,13 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final TweetPoll tpoll,
 			final Survey survey,
 			final Poll poll,
-			final UserAccount user){
+			final UserAccount user,
+			final Long dislikeVote){
 	       final Comment comment = new Comment();
 	       comment.setComment(comm);
 	       comment.setCreatedAt(new Date());
 	       comment.setLikeVote(likeVote);
+	       comment.setDislikeVote(dislikeVote);
 	       comment.setPoll(poll);
 	       comment.setParentId(null);
 	       comment.setSurvey(survey);
@@ -1887,7 +1892,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final String comment,
 			final TweetPoll tpoll,
 			final UserAccount userAcc){
-		return this.createComment(comment, null, tpoll, null, null, userAcc);
+		return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
 	}
 
 	/**
@@ -1899,7 +1904,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final String comment,
 			final Poll poll,
 			final UserAccount userAcc){
-		return this.createComment(comment, null, null, null, poll, userAcc);
+		return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
 	}
 
 	/**
@@ -1911,6 +1916,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final String comment,
 			final Survey survey,
 			final UserAccount userAcc){
-		return this.createComment(comment, null, null, survey, null, userAcc);
+		return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
 	}
 }

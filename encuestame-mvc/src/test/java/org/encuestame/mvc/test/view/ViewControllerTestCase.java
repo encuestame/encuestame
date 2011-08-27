@@ -19,15 +19,15 @@ import java.util.Date;
 import junit.framework.Assert;
 
 import org.bouncycastle.util.test.TestFailedException;
+import org.encuestame.mvc.controller.AdmonController;
+import org.encuestame.mvc.controller.DashBoardController;
+import org.encuestame.mvc.controller.HomeController;
+import org.encuestame.mvc.controller.PollController;
+import org.encuestame.mvc.controller.SignInController;
+import org.encuestame.mvc.controller.SurveyController;
+import org.encuestame.mvc.controller.TweetPollController;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
-import org.encuestame.mvc.view.AdmonController;
-import org.encuestame.mvc.view.DashBoardController;
-import org.encuestame.mvc.view.HomeController;
-import org.encuestame.mvc.view.SignInController;
-import org.encuestame.mvc.view.PollController;
-import org.encuestame.mvc.view.SurveyController;
-import org.encuestame.mvc.view.TweetPollController;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -158,7 +158,8 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          */
         @Test
         public void testPollController() throws Exception {
-            final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"), createAccount(), true, true);
+            final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"),
+            		createUserAccount("diana", createAccount()), true, true);
             //"/user/signin
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/poll/"+poll.getPollId());
             final ModelAndView mav = handlerAdapter.handle(request, response,

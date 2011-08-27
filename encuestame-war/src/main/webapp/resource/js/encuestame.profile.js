@@ -92,12 +92,26 @@ dependencies ={
                 "encuestame.org.core.gadget.Activity",
                 "encuestame.org.core.gadget.Comments",
                 "encuestame.org.core.gadget.TweetPollVotes",
+                //options
+                "encuestame.org.core.shared.utils.PublishSupport",
+                "encuestame.org.core.shared.options.RepeatedVotes",
+                "encuestame.org.core.shared.options.ConstrainNumberPicker",
+                "encuestame.org.core.shared.options.LimitVotes",
+                "encuestame.org.core.shared.options.CommentsOptions",
+                "encuestame.org.core.shared.options.DateToClose",
+                "encuestame.org.core.shared.options.Scheduled",
+                "encuestame.org.core.shared.options.ResultsOptions",
+                "encuestame.org.core.shared.options.AbstractOptionSelect",
+                "encuestame.org.core.shared.options.CheckSingleOption",
+
                 //patterns
                 "encuestame.org.core.commons.questions.Question",
                 "encuestame.org.core.commons.questions.patterns.SingleResponse",
                 "encuestame.org.core.commons.questions.patterns.AbstractPattern",
                 "encuestame.org.core.shared.publish.PublishSupport",
                 "encuestame.org.core.shared.utils.ContextSupport",
+                "encuestame.org.core.commons.support.DnD",
+                "encuestame.org.core.shared.utils.Icon"
                 ]
             }
           /*,

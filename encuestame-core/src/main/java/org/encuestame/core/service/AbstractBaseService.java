@@ -307,15 +307,16 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param additional
      * @param urlReference
      * @return
+     * @throws EnMeNoResultsFoundException
      */
     public Notification createNotification(
             final NotificationEnum description,
             final String additional,
             final String urlReference,
-            final Boolean group){
+            final Boolean group) throws EnMeNoResultsFoundException{
         final Notification notification = new Notification();
         notification.setDescription(description);
-        notification.setAccount(getUserAccountonSecurityContext().getAccount());
+        notification.setAccount(getUserAccount(getUserPrincipalUsername()).getAccount());
         notification.setAdditionalDescription(additional);
         notification.setUrlReference(urlReference);
         notification.setCreated(Calendar.getInstance().getTime());

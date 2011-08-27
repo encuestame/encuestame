@@ -25,6 +25,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -41,6 +43,7 @@ import org.hibernate.search.annotations.Store;
 @Entity
 @Indexed(index="HashTagHits")
 @Table(name = "hash_tags_hits")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HashTagHits {
 
     /** Hash Tag Id. **/

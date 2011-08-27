@@ -45,6 +45,6 @@ public class TestWidgetUtils extends AbstractMvcUnitBeans {
     @Test
     public void testGetBlackListIp() throws EnMeExpcetion{
         final List<String> blackList = WidgetUtil.getBlackListIP("properties-test/test-blacklist.inc");
-        System.out.println("black list size --->"+blackList.size());
+        //System.out.println("black list size --->"+blackList.size());
     }
 }
