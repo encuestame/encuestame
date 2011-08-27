@@ -13,6 +13,22 @@ body.public-body {
     background-color: #E8E8E8;
 }
 
+.heading-title{
+    width: 100%;
+    margin-top: 40px;
+    overflow: auto;
+}
+
+.heading-title H1 {
+  color: #C53436;
+  float: left;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 24px;
+  margin: 0;
+  padding: 0 8px;
+}
+
 div.web-header {
     width: auto;
     padding: 0 5px;
