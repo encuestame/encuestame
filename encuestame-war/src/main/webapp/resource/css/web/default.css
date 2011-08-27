@@ -420,14 +420,13 @@ div.updateProfile .pictureProfileNew{
     width: 400px;'
 }
 
-div.updateProfile .pictureProfileNew .class{
+/* div.updateProfile .pictureProfileNew .class{
     position: relative;
     height: 100%;
     width: auto;
     opacity: 0;
     -moz-opacity: 0;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-}
+} */
 
 div.updateProfile .profileItem{
     padding: 5px;
@@ -492,47 +491,9 @@ div.web-default-menu li {
   height: 44px;
   list-style: none outside none;
 }
+
 div.web-default-menu  li.first {
-  padding: 0 2px 0 5px;
-}
-
-.question .questionTextBox{
-    float: left;
-    width: 90%;
-}
-
-.question .questionTextBox input{
-    padding: 4px;
-    font-size: 130%;
-/*     -moz-box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset;
-    -webkit-box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset;
-    box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset; */
-}
-
-.question .dijitTextBox {
-    padding: 3px;
-    font-size: 130%;
-}
-
-.question .dijitTextArea {
-    padding: 3px;
-    font-size: 130%;
-}
-
-.heading-title{
-    width: 100%;
-    margin-top: 40px;
-    overflow: auto;
-}
-
-.heading-title H1 {
-  color: #C53436;
-  float: left;
-  font-size: 24px;
-  font-weight: normal;
-  line-height: 24px;
-  margin: 0;
-  padding: 0 8px;
+  padding: 0px 2px 0px 5px;
 }
 
 /**
