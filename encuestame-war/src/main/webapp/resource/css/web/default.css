@@ -426,7 +426,6 @@ div.updateProfile .pictureProfileNew .class{
     width: auto;
     opacity: 0;
     -moz-opacity: 0;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
 
 div.updateProfile .profileItem{
@@ -504,9 +503,6 @@ div.web-default-menu  li.first {
 .question .questionTextBox input{
     padding: 4px;
     font-size: 130%;
-/*     -moz-box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset;
-    -webkit-box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset;
-    box-shadow: 0 0 0 #0B739B, 0 1px 5px #BAB9B9 inset; */
 }
 
 .question .dijitTextBox {

@@ -2302,7 +2302,7 @@ div.profilePanel li{
     padding: 6px 15px;
 }
 div.profilePanel li:hover{
-    background-color: "#5F5F5F";
+    background-color: #5F5F5F;
 }
 
 div.profilePanel li a:link{
@@ -2518,7 +2518,7 @@ div.livePanel .final{
     background-color: #E8E8E8;
 }
 div.livePanel .final a:link{
-    color: "#000";
+    color: #000;
 }
 
 div.openLivePanel{
