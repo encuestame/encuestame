@@ -35,7 +35,7 @@ import org.junit.Test;
 
 /**
  * {@link FolderJsonServiceController} Test Case.
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since Apr 20, 2011
  */
 public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {

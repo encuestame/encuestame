@@ -27,8 +27,6 @@ public class IncludeResource extends TagSupport {
 
     private String type = "";
 
-
-
     /**
      * @param type the type to set
      */
@@ -63,5 +61,4 @@ public class IncludeResource extends TagSupport {
         }
         return EVAL_PAGE;
     }
-
 }

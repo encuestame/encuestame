@@ -28,7 +28,6 @@ import org.junit.Test;
 
 /**
  * Test {@link JsonUsersController}.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since 25/07/2011
  */
