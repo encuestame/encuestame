@@ -2,7 +2,6 @@ package org.encuestame.core.test.integration;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertThat;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,17 +10,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.Resource;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.core.integration.gateway.EmailGateway;
 import org.encuestame.core.integration.gateway.TwitterGateway;
 import org.encuestame.core.test.config.AbstractIntegrationConfig;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.integration.Message;
 import org.springframework.integration.MessageChannel;
 import org.springframework.integration.MessageHeaders;

@@ -54,7 +54,6 @@ public class PollController extends AbstractBaseOperations {
             return "poll/detail";
         } catch (EnMePollNotFoundException e) {
             log.error(e);
-            e.printStackTrace();
             return "404";
         }
     }

@@ -12,7 +12,6 @@
  */
 package org.encuestame.persistence.dao.imp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IProjectDao;

@@ -3,10 +3,7 @@ package org.encuestame.test.business.service;
 import java.io.File;
 import java.io.IOException;
 
-import org.encuestame.business.search.AttachmentIndex;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.encuestame.utils.web.UnitAttachment;
-import org.junit.Before;
 import org.junit.Test;
 
 public class TestSearchService extends AbstractServiceBase {

@@ -1,9 +1,7 @@
 package org.encuestame.core.integration.transformer;
 
-import java.io.IOException;
 import java.util.StringTokenizer;
 
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.UrlValidator;

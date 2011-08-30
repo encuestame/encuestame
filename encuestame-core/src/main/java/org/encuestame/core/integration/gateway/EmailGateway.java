@@ -12,7 +12,6 @@
  */
 package org.encuestame.core.integration.gateway;
 
-import org.springframework.integration.annotation.Gateway;
 
 /**
  * Spring Integration email gateway.

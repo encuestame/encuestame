@@ -13,7 +13,6 @@
 package org.encuestame.mvc.test.json;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 
