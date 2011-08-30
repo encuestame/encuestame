@@ -13,7 +13,6 @@
 package org.encuestame.test.business.utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +24,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.encuestame.social.api.support.BuzzProfile;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -35,8 +33,6 @@ import org.junit.Test;
  */
 //@Ignore
 public class JSONUtilTestCase extends TestCase {
-
-
 
     @Test
     public void testJson() throws JsonParseException, JsonMappingException, IOException{
