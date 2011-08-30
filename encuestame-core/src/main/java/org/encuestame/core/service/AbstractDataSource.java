@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -54,7 +54,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
  * Abstract Data Services.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since April 27, 2009
  * @version $Id: DataSource.java 478 2010-04-07 03:39:10Z dianmorales $
  */
@@ -514,17 +514,17 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
         this.dashboardDao = dashboardDao;
     }
 
-	/**
-	 * @return the commentsOperations
-	 */
-	public CommentsOperations getCommentsOperations() {
-		return commentsOperations;
-	}
+    /**
+     * @return the commentsOperations
+     */
+    public CommentsOperations getCommentsOperations() {
+        return commentsOperations;
+    }
 
-	/**
-	 * @param commentsOperations the commentsOperations to set
-	 */
-	public void setCommentsOperations(final CommentsOperations commentsOperations) {
-		this.commentsOperations = commentsOperations;
-	}
+    /**
+     * @param commentsOperations the commentsOperations to set
+     */
+    public void setCommentsOperations(final CommentsOperations commentsOperations) {
+        this.commentsOperations = commentsOperations;
+    }
 }

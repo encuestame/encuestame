@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,7 +14,6 @@ package org.encuestame.core.util;
 
 /**
  * Validations Utils.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 13, 2010 7:06:15 PM
  * @version $Id: $

@@ -23,7 +23,6 @@ import org.encuestame.utils.web.notification.UtilNotification;
 
 /**
  * Implementation for stream operations.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since 12/08/2011
  */

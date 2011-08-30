@@ -25,7 +25,6 @@ import org.springframework.security.core.AuthenticationException;
  * <p>
  * This provider could be used to re-login and in signup process.
  * </p>
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 17, 2011
  */
