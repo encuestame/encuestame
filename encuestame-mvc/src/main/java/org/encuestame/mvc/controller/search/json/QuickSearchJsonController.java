@@ -70,7 +70,6 @@ public class QuickSearchJsonController extends AbstractJsonController {
             log.debug("GlobalSearchItem results " + results.size());
             //setItemReadStoreResponse("itemSearchTitle", "id", results);
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
             setError(e.getMessage(), response);
         }

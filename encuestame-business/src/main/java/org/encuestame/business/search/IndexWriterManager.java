@@ -65,13 +65,10 @@ public class IndexWriterManager implements IIndexWriter {
             Assert.notNull(this.indexWriter);
         } catch (CorruptIndexException e) {
             log.fatal(e);
-            e.printStackTrace();
         } catch (LockObtainFailedException e) {
             log.fatal(e);
-            e.printStackTrace();
         } catch (IOException e) {
             log.fatal(e);
-            e.printStackTrace();
         }
     }
 

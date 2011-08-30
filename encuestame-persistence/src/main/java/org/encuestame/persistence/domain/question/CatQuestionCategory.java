@@ -24,8 +24,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.search.annotations.DocumentId;
-
 /**
  * QuestionLibrary.
  *

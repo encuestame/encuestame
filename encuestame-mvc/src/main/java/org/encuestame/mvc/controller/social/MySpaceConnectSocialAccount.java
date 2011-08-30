@@ -67,9 +67,8 @@ public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
         try {
             return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
         } catch (EnMeOAuthSecurityException e) {
-               e.printStackTrace();
-                log.error(e);
-                return null;
+            log.error(e);
+            return null;
         }
     }
 
@@ -92,7 +91,6 @@ public class MySpaceConnectSocialAccount extends AbstractAccountConnect {
             log.error("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
             return "connect/account";
         } catch (EnMeOAuthSecurityException e) {
-             e.printStackTrace();
              log.error(e);
            return "connect/account";
         }

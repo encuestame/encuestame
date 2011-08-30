@@ -60,7 +60,6 @@ public class IdenticaConnectSocialAccount extends AbstractAccountConnect {
         try {
             return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
         } catch (EnMeOAuthSecurityException e) {
-            e.printStackTrace();
             log.error(e);
             return null;
         }

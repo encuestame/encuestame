@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.CommentsSocialOptions;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;

@@ -23,7 +23,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.survey.Survey;
-import org.hibernate.search.annotations.Indexed;
 
 /**
  * Questions Dependence Surveys.

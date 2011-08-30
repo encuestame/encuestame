@@ -200,7 +200,6 @@ public class SignInController extends AbstractSocialController{
                  return "redirect:/user/signin";
             } catch (Exception e) {
                  log.fatal("OAuth Exception:{"+e.getMessage());
-                 e.printStackTrace();
                  RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
                  return "redirect:/user/signin";
             }

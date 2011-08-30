@@ -297,7 +297,6 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -321,7 +320,6 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -344,7 +342,6 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -369,7 +366,6 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

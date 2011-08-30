@@ -16,14 +16,15 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+
 import javax.net.ssl.HttpsURLConnection;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.social.SocialProvider;

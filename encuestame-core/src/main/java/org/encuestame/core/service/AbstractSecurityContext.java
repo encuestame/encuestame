@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -138,12 +138,11 @@ public abstract class AbstractSecurityContext {
      * @return
      */
     public Boolean checkIPinBlackList(final String ip){
-        System.out.println("IP in Checking --->" + ip);
+        log.debug("checking ip in blackList --->" + ip);
         Boolean bannedIp = Boolean.FALSE;
         try {
             if(ip!=null){
                 final List<String> blackList = WidgetUtil.getBlackListIP("blacklist.inc");
-                System.out.println("Black List size -----> "+ blackList.size());
                 for (String ipItem : blackList) {
                     if(ipItem.equals(ip)){
                         bannedIp = Boolean.TRUE;
@@ -152,8 +151,7 @@ public abstract class AbstractSecurityContext {
             }
         } catch (EnMeExpcetion e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.out.println("ERRORR----->"+e);
+            log.error(e);
         }
         return bannedIp;
     }

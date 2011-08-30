@@ -13,16 +13,12 @@
 package org.encuestame.core.security;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
 import org.encuestame.core.security.service.EnMeSocialAccountUserService;
 import org.encuestame.core.security.token.EnMeSecurityToken;
-import org.encuestame.core.security.token.SocialAuthenticationToken;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * {@link UserAccount} Authentication Provider.

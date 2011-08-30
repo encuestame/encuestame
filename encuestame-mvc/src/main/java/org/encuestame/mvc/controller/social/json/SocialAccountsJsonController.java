@@ -104,7 +104,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             setItemReadStoreResponse("socialAccounts", "id", accounts);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -136,7 +135,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
              log.debug("Social providers enabled "+providers.size());
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

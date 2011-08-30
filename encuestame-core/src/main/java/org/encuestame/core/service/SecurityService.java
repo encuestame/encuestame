@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -399,7 +399,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             try{
                 getAccountDao().saveOrUpdate(retrievedUser);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.debug(e);
                 throw new EnMeExpcetion(e.getMessage());
             }
     }
@@ -1120,7 +1120,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         log.debug("Before date ----->" + expireDate.getTime());
 
         final List<UserAccount> accountWithoutConfirmation = getAccountDao().getUserAccountsbyStatus(status, expireDate.getTime(), currentDate.getTime());
-        System.out.println("Account without confirmation --->"+ accountWithoutConfirmation.size());
+        log.debug("Account without confirmation --->"+ accountWithoutConfirmation.size());
         for (UserAccount userAcc  : accountWithoutConfirmation) {
             final Account ownerAccount = getAccountDao().getUserById(userAcc.getAccount().getUid());
             log.debug("User account id ----> " + userAcc.getUid());

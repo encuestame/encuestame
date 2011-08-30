@@ -12,13 +12,10 @@
  */
 package org.encuestame.core.security.token;
 
-import java.util.Collection;
-
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 
 /**
  * EnMe Security Token.

@@ -85,13 +85,10 @@ public class FileUploadController extends AbstractBaseOperations {
                 //I suggest store ID on user account table, to retrieve easily future profile image.
                 //BUG 102
             } catch (IllegalStateException e) {
-                e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             } catch (IOException e) {
-                e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             } catch (EnMeNoResultsFoundException e) {
-                e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             }
             // Save the file here

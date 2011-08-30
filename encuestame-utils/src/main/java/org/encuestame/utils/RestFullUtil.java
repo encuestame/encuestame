@@ -40,7 +40,6 @@ public class RestFullUtil {
             toReturn = URLEncoder.encode(toReturn, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             toReturn = input;
-            e.printStackTrace();
         }
         return toReturn;
     }

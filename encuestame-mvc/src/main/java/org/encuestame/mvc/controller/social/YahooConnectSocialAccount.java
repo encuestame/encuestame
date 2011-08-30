@@ -69,7 +69,6 @@ public class YahooConnectSocialAccount extends AbstractAccountConnect {
         try {
             return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
         } catch (EnMeOAuthSecurityException e) {
-              e.printStackTrace();
                log.error(e);
                return null;
         }
@@ -88,7 +87,7 @@ public class YahooConnectSocialAccount extends AbstractAccountConnect {
             //System.out.println("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
             return "connect/account";
         } catch (EnMeOAuthSecurityException e) {
-              e.printStackTrace();
+            log.debug(e);
                return null;
         }
     }

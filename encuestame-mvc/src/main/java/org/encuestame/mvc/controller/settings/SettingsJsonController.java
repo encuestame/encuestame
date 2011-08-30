@@ -131,7 +131,6 @@ public class SettingsJsonController extends AbstractJsonController{
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
             //throw new JsonGenerationException(e.getMessage());
         }

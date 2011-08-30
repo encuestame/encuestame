@@ -26,8 +26,6 @@ import org.cometd.bayeux.server.ServerSession;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.encuestame.core.util.JSONUtils;
-import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.CommentBean;
 
 /**
@@ -58,7 +56,6 @@ public class CommentsStreamService extends AbstractCometService {
             log.debug("CommentsStreamService.comments size .."+comments.size());
             output.put("comments", JSONUtils.convertObjectToJsonString(comments));
         } catch (Exception e) {
-             e.printStackTrace();
              output.put("comments", ListUtils.EMPTY_LIST);
              log.fatal("cometd: username invalid "+e);
         }

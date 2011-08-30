@@ -88,7 +88,6 @@ public class CommentJsonController extends AbstractJsonController {
         } catch (Exception e) {
             // TODO: handle exception
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -131,7 +130,6 @@ public class CommentJsonController extends AbstractJsonController {
                 }
             } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
                  setError(e.getMessage(), response);
             }
             return returnData();
@@ -160,7 +158,6 @@ public class CommentJsonController extends AbstractJsonController {
                 setSuccesResponse();
             } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
                  setError(e.getMessage(), response);
             }
             return returnData();

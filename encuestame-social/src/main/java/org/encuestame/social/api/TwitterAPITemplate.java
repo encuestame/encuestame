@@ -173,7 +173,6 @@ public class TwitterAPITemplate extends AbstractSocialAPISupport implements Twit
         try {
             return this.updateTwitterStatus(tweet);
         } catch (TwitterException e) {
-            e.printStackTrace();
             log.error(e);
             return null;
         }

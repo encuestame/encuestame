@@ -100,7 +100,6 @@ public class HashTagController extends AbstractBaseOperations{
             }
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             return "pageNotFound";
         }
         return "tag/detail";
