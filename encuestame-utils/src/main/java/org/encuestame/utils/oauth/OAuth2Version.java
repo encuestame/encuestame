@@ -14,6 +14,8 @@ package org.encuestame.utils.oauth;
 
 /**
  * Enum encapsulating the differences between the various versions of the OAuth2 specification.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 public enum OAuth2Version {
 

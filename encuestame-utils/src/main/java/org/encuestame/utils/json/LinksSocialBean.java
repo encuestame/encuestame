@@ -26,9 +26,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LinksSocialBean implements Serializable {
 
-    /**
-     *
-     */
+    /** **/
     private static final long serialVersionUID = -466651445270622763L;
 
     @JsonProperty(value = "link_url")

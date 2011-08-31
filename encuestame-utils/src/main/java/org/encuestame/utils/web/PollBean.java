@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,8 +20,7 @@ import org.encuestame.utils.json.QuestionBean;
 
 /**
  * Unit Poll Bean.
- *
- * @author Morales, Diana Paola paola@encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
  * @version $Id: $
  */
@@ -212,31 +211,31 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
         this.updatedDate = updatedDate;
     }
 
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
 
-	/**
-	 * @param url the url to set
-	 */
-	public void setUrl(final String url) {
-		this.url = url;
-	}
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(final String url) {
+        this.url = url;
+    }
 
-	/**
-	 * @return the shortUrl
-	 */
-	public String getShortUrl() {
-		return shortUrl;
-	}
+    /**
+     * @return the shortUrl
+     */
+    public String getShortUrl() {
+        return shortUrl;
+    }
 
-	/**
-	 * @param shortUrl the shortUrl to set
-	 */
-	public void setShortUrl(final String shortUrl) {
-		this.shortUrl = shortUrl;
-	}
+    /**
+     * @param shortUrl the shortUrl to set
+     */
+    public void setShortUrl(final String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
 }

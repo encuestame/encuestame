@@ -25,9 +25,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TweetItemPublishedResponse implements Serializable{
 
-    /**
-     *
-     */
+    /** **/
     private static final long serialVersionUID = 5660565898832615803L;
 
     @JsonProperty(value = "tweet_id")

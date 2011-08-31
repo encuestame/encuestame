@@ -15,8 +15,7 @@ package org.encuestame.utils;
 import java.util.Date;
 
 /**
- * Description.
- *
+ * Tweet published metadata.
  * @author Picado, Juan juanATencuestame.org
  * @since May 10, 2011
  */
