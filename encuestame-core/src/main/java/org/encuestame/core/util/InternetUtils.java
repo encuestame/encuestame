@@ -31,7 +31,7 @@ public class InternetUtils {
 
     protected static Logger log = Logger.getLogger(InternetUtils.class);
 
-    private final static Integer TIMEOUT = 5000;
+    private static final Integer TIMEOUT = 5000;
 
     /**
      * Ping hostname.

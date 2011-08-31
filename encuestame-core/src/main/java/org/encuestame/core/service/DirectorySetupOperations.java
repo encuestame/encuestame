@@ -30,13 +30,13 @@ public class DirectorySetupOperations {
     private static Logger log = Logger
             .getLogger(DirectorySetupOperations.class);
     /** Default root directory name. */
-    private final static String DEFAULT_ROOT_FOLDER = "encuestame";
+    private static final String DEFAULT_ROOT_FOLDER = "encuestame";
     /** Default picture directory name. **/
-    private final static String PICTURES_DEFAULT_FOLDER = "pictures";
+    private static final String PICTURES_DEFAULT_FOLDER = "pictures";
     /** Default profiles directory name. **/
-    private final static String PROFILES_DEFAULT_FOLDER = "profiles";
+    private static final String PROFILES_DEFAULT_FOLDER = "profiles";
     /** Default indexes directory name. **/
-    private final static String INDEXES_DEFAULT_FOLDER = "indexes";
+    private static final String INDEXES_DEFAULT_FOLDER = "indexes";
 
     /**
      * Constructor.

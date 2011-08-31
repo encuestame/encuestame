@@ -51,9 +51,9 @@ public class HashTagsJsonController extends AbstractJsonController{
     /**
      * Limit of results by default.
      */
-    private final static Integer LIMIT_DEFAULT = 10;
+    private static final Integer LIMIT_DEFAULT = 10;
 
-    private final static Integer CLOUD_LIMIT_DEFAULT = 20;
+    private static final Integer CLOUD_LIMIT_DEFAULT = 20;
 
      /**
      * Get List of Users.

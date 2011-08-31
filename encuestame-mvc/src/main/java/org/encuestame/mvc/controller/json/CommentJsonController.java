@@ -50,7 +50,7 @@ public class CommentJsonController extends AbstractJsonController {
     private Logger log = Logger.getLogger(this.getClass());
 
     /**  Limit of results by default. **/
-    private final static Integer LIMIT_DEFAULT = 10;
+    private static final Integer LIMIT_DEFAULT = 10;
 
 
     /**

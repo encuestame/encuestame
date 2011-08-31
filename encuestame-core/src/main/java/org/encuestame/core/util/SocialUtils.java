@@ -46,38 +46,38 @@ public class SocialUtils {
     /**
      * TinyUrl rest url.
      */
-    public final static String TINY_URL = "http://tinyurl.com/api-create.php";
+    public static final String TINY_URL = "http://tinyurl.com/api-create.php";
 
     /**
      * Google Url short url.
      */
-    public final static String GOOGLE_SHORT_URL = "https://www.googleapis.com/urlshortener/v1/url";
+    public static final String GOOGLE_SHORT_URL = "https://www.googleapis.com/urlshortener/v1/url";
 
     /**
      * Google url stats.
      */
-    public final static String GOOGLE_SHORT_URL_STATS = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=$1&projection=FULL";
+    public static final String GOOGLE_SHORT_URL_STATS = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=$1&projection=FULL";
 
     /**
      * Bity short url api.
      */
-    public final static String BITLY_SHORT_URL = "http://api.bit.ly/shorten";
+    public static final String BITLY_SHORT_URL = "http://api.bit.ly/shorten";
 
     /**
      * Facebook scopes.
      */
-    public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
+    public static final String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
 
     /**
      * Twitter limit.
      */
-    public final static Integer TWITTER_LIMIT = 140;
+    public static final Integer TWITTER_LIMIT = 140;
 
     /**
      * Twitter authentictation error.
      * TODO: move to {@link SocialUtils}.
      */
-    public final static int TWITTER_AUTH_ERROR = 401;
+    public static final int TWITTER_AUTH_ERROR = 401;
 
     /**
      * Get Google Stats from google short url.

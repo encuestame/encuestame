@@ -28,7 +28,7 @@ public class EmailUtils {
      * @param email email
      * @return boolean
      */
-    public final static boolean validateEmail(String email) {
+    public static final boolean validateEmail(String email) {
         // Set the email pattern string
         final Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
         // Match the given string with the pattern

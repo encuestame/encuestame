@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public class ThumbnailGeneratorEngineImpl implements ThumbnailGeneratorEngine {
 
-    private final static Logger log = Logger
+    private static final Logger log = Logger
             .getLogger(ThumbnailGeneratorEngineImpl.class);
 
     private String generatedExtension;

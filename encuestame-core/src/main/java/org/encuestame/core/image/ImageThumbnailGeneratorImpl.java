@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
  */
 public class ImageThumbnailGeneratorImpl implements ThumbnailGenerator {
 
-    private final static Logger log = Logger.getLogger(ImageThumbnailGeneratorImpl.class);
+    private static final Logger log = Logger.getLogger(ImageThumbnailGeneratorImpl.class);
 
     /**
      *
