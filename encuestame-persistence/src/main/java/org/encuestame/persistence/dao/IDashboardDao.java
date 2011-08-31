@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -26,105 +26,105 @@ import org.encuestame.persistence.domain.security.UserAccount;
  */
 public interface IDashboardDao extends IBaseDao {
 
-	/**
-	 * Get dashboard by id.
-	 * @param boardId
-	 * @return
-	 */
-	Dashboard getDashboardbyId(final Long boardId);
+    /**
+     * Get dashboard by id.
+     * @param boardId
+     * @return
+     */
+    Dashboard getDashboardbyId(final Long boardId);
 
-	/**
-	 * Retrieve dashboards by id and user.
-	 * @param userBoard
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 */
-	List<Dashboard> retrieveDashboardsbyUser(final UserAccount userAcc, final Integer maxResults,
-	        final Integer start);
+    /**
+     * Retrieve dashboards by id and user.
+     * @param userBoard
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Dashboard> retrieveDashboardsbyUser(final UserAccount userAcc, final Integer maxResults,
+            final Integer start);
 
-	/**
-	 * Retrieve favorites dashboards.
-	 * @param userId
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 */
-	List<Dashboard> retrieveFavouritesDashboards(
-				final UserAccount userAcc,
-	            final Integer maxResults,
-	            final Integer start);
+    /**
+     * Retrieve favorites dashboards.
+     * @param userId
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Dashboard> retrieveFavouritesDashboards(
+                final UserAccount userAcc,
+                final Integer maxResults,
+                final Integer start);
 
-	/**
-	 * Get gadget by id.
-	 * @param gadgetId
-	 * @param board
-	 * @return
-	 */
-	Gadget getGadgetbyIdandBoard(final Long gadgetId, final Dashboard board);
+    /**
+     * Get gadget by id.
+     * @param gadgetId
+     * @param board
+     * @return
+     */
+    Gadget getGadgetbyIdandBoard(final Long gadgetId, final Dashboard board);
 
-	/**
-	 * Get gadget by id.
-	 * @param gadgetId
-	 * @return
-	 */
-	Gadget getGadgetbyId(final Long gadgetId);
+    /**
+     * Get gadget by id.
+     * @param gadgetId
+     * @return
+     */
+    Gadget getGadgetbyId(final Long gadgetId);
 
-	/**
-	 * Get gadget by keyword.
-	 * @param keyword
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 */
-	List<Gadget> getGadgetbyKeyword(final String keyword, final Integer maxResults, final Integer start);
+    /**
+     * Get gadget by keyword.
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Gadget> getGadgetbyKeyword(final String keyword, final Integer maxResults, final Integer start);
 
-	/**
-	 * Get all dashboards.
-	 * @param boardId
-	 * @param userAccId
-	 * @return
-	 */
-	Dashboard getDashboardbyIdandUser(final Long boardId, final UserAccount userAcc);
+    /**
+     * Get all dashboards.
+     * @param boardId
+     * @param userAccId
+     * @return
+     */
+    Dashboard getDashboardbyIdandUser(final Long boardId, final UserAccount userAcc);
 
-	/**
-	 * Retrieve dashboard by keyword.
-	 * @param keyword
-	 * @param userId
-	 * @param maxResults
-	 * @param start
-	 * @return
-	 */
-	List<Dashboard> retrieveDashboardbyKeyword(final String keyword,
-			final UserAccount userAcc,
-			final Integer maxResults,
-			final Integer start);
+    /**
+     * Retrieve dashboard by keyword.
+     * @param keyword
+     * @param userId
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Dashboard> retrieveDashboardbyKeyword(final String keyword,
+            final UserAccount userAcc,
+            final Integer maxResults,
+            final Integer start);
 
-	/**
-	 * Retrieve properties by gadget.
-	 * @param gadgetId
-	 * @return
-	 */
-	List<GadgetProperties> retrievePropertiesbyGadget(final Long gadgetId);
+    /**
+     * Retrieve properties by gadget.
+     * @param gadgetId
+     * @return
+     */
+    List<GadgetProperties> retrievePropertiesbyGadget(final Long gadgetId);
 
-	/**
-	 * Retrieve gadgets by dashboard.
-	 * @param boardId
-	 * @return
-	 */
-	List<Gadget> retrieveGadgetsbyDashboard(final Long boardId);
+    /**
+     * Retrieve gadgets by dashboard.
+     * @param boardId
+     * @return
+     */
+    List<Gadget> retrieveGadgetsbyDashboard(final Long boardId);
 
-	/**
-	 * Retrieve Gadgets by type.
-	 * @param gadgetType
-	 * @return
-	 */
-	List<Gadget> retrieveGadgetsbyType(final GadgetType gadgetType);
+    /**
+     * Retrieve Gadgets by type.
+     * @param gadgetType
+     * @return
+     */
+    List<Gadget> retrieveGadgetsbyType(final GadgetType gadgetType);
 
-	/**
-	 * Retrieve gadgets by status.
-	 * @param status
-	 * @return
-	 */
-	List<Gadget> retrieveGadgets(final Dashboard dashboard);
+    /**
+     * Retrieve gadgets by status.
+     * @param status
+     * @return
+     */
+    List<Gadget> retrieveGadgets(final Dashboard dashboard);
 }

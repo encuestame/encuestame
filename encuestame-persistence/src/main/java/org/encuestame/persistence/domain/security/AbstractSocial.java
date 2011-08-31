@@ -20,7 +20,7 @@ import javax.persistence.MappedSuperclass;
 import org.encuestame.persistence.domain.social.SocialProvider;
 
 /**
- *
+ * Abstract Social.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 23, 2011
  */

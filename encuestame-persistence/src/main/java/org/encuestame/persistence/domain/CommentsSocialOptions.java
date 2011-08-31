@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -19,36 +19,36 @@ package org.encuestame.persistence.domain;
  */
 public enum CommentsSocialOptions {
 
-	/** **/
-	LIKE_VOTE,
+    /** **/
+    LIKE_VOTE,
 
-	/** **/
-	DISLIKE_VOTE,
+    /** **/
+    DISLIKE_VOTE,
 
-	CommentsSocialOptions(){
-	};
+    CommentsSocialOptions(){
+    };
 
-	/**
-	 * To string.
-	 */
-	public String toString() {
-		String option = "";
-		if (this == LIKE_VOTE) { option = "LIKE_VOTE"; }
-		else if (this == DISLIKE_VOTE) { option = "DISLIKE_VOTE"; }
-	return option;
-	}
+    /**
+     * To string.
+     */
+    public String toString() {
+        String option = "";
+        if (this == LIKE_VOTE) { option = "LIKE_VOTE"; }
+        else if (this == DISLIKE_VOTE) { option = "DISLIKE_VOTE"; }
+    return option;
+    }
 
-	/**
-	 * Get comments social options.
-	 * @param option
-	 * @return
-	 */
-	public static CommentsSocialOptions getCommentsSocialOptions(final String option) {
-	    if (null == option) { return null; }
-	     else if (option.equalsIgnoreCase("LIKE_VOTE")) { return  LIKE_VOTE; }
-	     else if (option.equalsIgnoreCase("DISLIKE_VOTE")) { return  DISLIKE_VOTE; }
-	     else
-	return null;
-	}
+    /**
+     * Get comments social options.
+     * @param option
+     * @return
+     */
+    public static CommentsSocialOptions getCommentsSocialOptions(final String option) {
+        if (null == option) { return null; }
+         else if (option.equalsIgnoreCase("LIKE_VOTE")) { return  LIKE_VOTE; }
+         else if (option.equalsIgnoreCase("DISLIKE_VOTE")) { return  DISLIKE_VOTE; }
+         else
+    return null;
+    }
 
 }
