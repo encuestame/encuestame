@@ -17,6 +17,8 @@ import java.util.Date;
 
 /**
  * Model class representing a Identica user's profile information.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 public class IdentiCaProfile implements Serializable {
     private static final long serialVersionUID = 1L;

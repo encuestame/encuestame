@@ -17,6 +17,8 @@ import java.util.Map;
 
 /**
  * Carries optional metadata pertaining to a Twitter status update.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 public class IdenticaStatusDetails {
     private Float latitude;

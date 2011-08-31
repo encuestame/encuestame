@@ -21,6 +21,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Model class containing a user's LinkedIn profile information.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 @XmlRootElement(name = "person")
 public class LinkedInProfile implements Serializable {

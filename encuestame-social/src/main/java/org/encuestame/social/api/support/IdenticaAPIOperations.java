@@ -13,7 +13,7 @@
 package org.encuestame.social.api.support;
 
 /**
- * Description.
+ * Identica API operations.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 21, 2011
  */
