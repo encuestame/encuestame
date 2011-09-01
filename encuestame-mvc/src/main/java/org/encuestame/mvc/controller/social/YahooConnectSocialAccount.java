@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.mvc.controller.social;
 
 import javax.inject.Inject;
@@ -69,7 +81,6 @@ public class YahooConnectSocialAccount extends AbstractAccountConnect {
         try {
             return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
         } catch (EnMeOAuthSecurityException e) {
-              e.printStackTrace();
                log.error(e);
                return null;
         }
@@ -88,7 +99,7 @@ public class YahooConnectSocialAccount extends AbstractAccountConnect {
             //System.out.println("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
             return "connect/account";
         } catch (EnMeOAuthSecurityException e) {
-              e.printStackTrace();
+            log.debug(e);
                return null;
         }
     }

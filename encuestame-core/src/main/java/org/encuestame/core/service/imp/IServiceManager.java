@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,7 +16,7 @@ import org.springframework.context.MessageSource;
 
 /**
  * Interface to Service Manager.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 26/04/2009 20:12:31
  * @version $Id$
  */
@@ -26,23 +26,23 @@ public interface IServiceManager{
      * Getter {@link IApplicationServices}.
      * @return {@link IApplicationServices}
      */
-    public IApplicationServices getApplicationServices();
+    IApplicationServices getApplicationServices();
 
     /**
      * Setter.
      * @param applicationServices {@link IApplicationServices}
      */
-    public void setApplicationServices(IApplicationServices applicationServices);
+    void setApplicationServices(IApplicationServices applicationServices);
 
     /**
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public MessageSource getMessageSource();
+    MessageSource getMessageSource();
 
     /**
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
-    public void setMessageSource(MessageSource messageSource);
+    void setMessageSource(MessageSource messageSource);
 }

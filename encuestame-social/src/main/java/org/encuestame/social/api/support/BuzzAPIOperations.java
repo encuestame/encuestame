@@ -13,7 +13,7 @@
 package org.encuestame.social.api.support;
 
 /**
- *
+ * Buzz API operations.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 20, 2011
  */

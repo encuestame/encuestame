@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,6 @@ import static org.custommonkey.xmlunit.XMLAssert.assertXpathExists;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,6 @@ import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.mvc.view.TweetPollAtomFeedView;
 import org.encuestame.mvc.view.TweetPollRssFeedView;
-import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.json.TweetPollBean;
 import org.jdom.Document;

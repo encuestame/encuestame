@@ -63,7 +63,6 @@ public class IndexerManager {
                     numIndexed = this.index(file);
             } catch (Exception e) {
                     log.fatal("Initialize Index Exception --->"+e);
-                    e.printStackTrace();
             }
             long end = System.currentTimeMillis();
             log.debug("Indexing " + numIndexed + " files took " + (end - start)

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -54,10 +54,11 @@ import org.junit.Test;
     /**
     * Test Unit Beans.
     *
-    * @author Morales, Diana Paola paola@encuestame.org
+    * @author Morales, Diana Paola paolaATencuestame.org
     * @since 13/03/2010 16:18:10
     * @version $Id: $
     **/
+    @SuppressWarnings("deprecation")
     public class TestUnitBeans extends AbstractBaseUtils {
 
     /**
@@ -631,18 +632,18 @@ import org.junit.Test;
      */
     @Test
     public void testDashboardBean(){
-    	final DashboardBean boardBean = new DashboardBean();
-    	boardBean.setDashboardName("My Dashboard");
-    	boardBean.setDashboardDesc("My First Dashboard");
-    	boardBean.setFavorite(Boolean.TRUE);
-    	boardBean.setLayout("AAA");
-    	boardBean.setSequence(1);
-    	boardBean.setFavoriteCounter(5);
-    	//boardBean.setSecUser(create)
-    	 assertNotNull(boardBean.getDashboardName());
-    	 assertNotNull(boardBean.getDashboardDesc());
-    	 assertNotNull(boardBean.getFavorite());
-    	 assertNotNull(boardBean.getLayout());
-    	 assertNotNull(boardBean.getSequence());
+        final DashboardBean boardBean = new DashboardBean();
+        boardBean.setDashboardName("My Dashboard");
+        boardBean.setDashboardDesc("My First Dashboard");
+        boardBean.setFavorite(Boolean.TRUE);
+        boardBean.setLayout("AAA");
+        boardBean.setSequence(1);
+        boardBean.setFavoriteCounter(5);
+        //boardBean.setSecUser(create)
+         assertNotNull(boardBean.getDashboardName());
+         assertNotNull(boardBean.getDashboardDesc());
+         assertNotNull(boardBean.getFavorite());
+         assertNotNull(boardBean.getLayout());
+         assertNotNull(boardBean.getSequence());
     }
 }

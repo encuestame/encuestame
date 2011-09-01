@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.test.business.social;
 
 import java.io.IOException;
@@ -13,18 +25,15 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-import org.apache.poi.poifs.storage.ListManagedBlock;
-import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.FacebookAPITemplate;
+import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
 import org.encuestame.social.api.support.LinkedInProfile;
-import org.jfree.util.Log;
 import org.junit.Ignore;
-import org.junit.Test;
 
 /**
- *
+ * Social API test case.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 20, 2011
  */

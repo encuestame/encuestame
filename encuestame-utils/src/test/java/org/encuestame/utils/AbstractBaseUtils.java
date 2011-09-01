@@ -1,24 +1,39 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.utils;
 
 import java.util.Date;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
-import org.encuestame.utils.web.DashboardBean;
+import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
-import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
-import org.encuestame.utils.web.UserAccountBean;
 
-import junit.framework.TestCase;
-
+/**
+ * Abstract base utils.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
+ */
 public abstract class AbstractBaseUtils extends TestCase{
     /**
     * Create Project Bean.

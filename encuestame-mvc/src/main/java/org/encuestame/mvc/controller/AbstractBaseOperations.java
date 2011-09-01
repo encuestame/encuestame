@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
@@ -53,14 +52,11 @@ import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
@@ -69,7 +65,6 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -83,7 +78,6 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 13, 2010 10:41:38 PM
  */
-@SuppressWarnings("deprecation")
 public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 
      private Logger log = Logger.getLogger(this.getClass());
@@ -353,8 +347,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             stringValue = getServiceManager().getMessageSource().getMessage(
                     message, args, getLocale(request));
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace(); //TODO: ENCUESTAME-223 - OPEN
+            log.error(e);  //TODO: ENCUESTAME-223 - OPEN
         }
         return stringValue;
     }

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -25,18 +25,18 @@ import org.springframework.stereotype.Repository;
 
 /**
  * SurveyFormat Dao.
- * @author Morales Urbina, Diana paola@encuestame.org
+ * @author Morales Urbina, Diana paolaATencuestame.org
  * @since November 10, 2009
  * @version $Id$
  */
 @Repository("surveyFormatDaoImp")
 public class SurveyFormatDao extends AbstractHibernateDaoSupport implements ISurveyFormatDao{
 
-	@Autowired
-	public SurveyFormatDao(SessionFactory sessionFactory) {
-	 		setSessionFactory(sessionFactory);
+    @Autowired
+    public SurveyFormatDao(SessionFactory sessionFactory) {
+             setSessionFactory(sessionFactory);
     }
-	
+
      /**
      * Get User By Id.
      * @param idSidFormat idSidFormat

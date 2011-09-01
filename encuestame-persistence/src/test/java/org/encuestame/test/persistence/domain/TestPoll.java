@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -27,7 +27,7 @@ import org.junit.Test;
 
 /**
  * Test Poll.
- * @author Morales,Diana Paola paola@encuestame.org
+ * @author Morales,Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
  * @version $Id: $
  */

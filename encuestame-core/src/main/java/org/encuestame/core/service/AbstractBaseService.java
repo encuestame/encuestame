@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -58,7 +58,7 @@ import twitter4j.http.AccessToken;
 
 /**
  * Service.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 22/05/2009 1:02:45
  */
 @Service
@@ -99,7 +99,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             throw new EnMeNoResultsFoundException("hashtag [" + hashTag
                     + "] not found");
         } else {
-             System.out.println("getHashTag "+hashTag);
+            log.debug("getHashTag "+hashTag);
             return hashTag;
         }
     }
@@ -217,8 +217,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             stringValue = getMessageSourceFactoryBean().getMessage(
                     message, args, getLocale(request));
         } catch (Exception e) {
-            log.error(e);
-            e.printStackTrace(); //TODO: ENCUESTAME-223 - OPEN
+            log.error(e);  //TODO: ENCUESTAME-223 - OPEN
         }
         return stringValue;
     }

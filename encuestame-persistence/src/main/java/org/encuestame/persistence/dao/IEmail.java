@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,53 +21,53 @@ import org.encuestame.persistence.domain.EmailSubscribe;
 
 /**
  * Email Catalog Interface.
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since  June 20, 2010
  * @version $Id: $
  */
 public interface IEmail extends IBaseDao {
 
-     /**
-      * Find Email List By User Id.
-      * @param userId
-      * @return
-      */
-    public List<EmailList> findListbyUser(final Long userId);
+    /**
+    * Find Email List By User Id.
+    * @param userId
+    * @return
+    */
+    List<EmailList> findListbyUser(final Long userId);
 
-
-     /**
-      * Find Emails by Email ListId.
-      * @param emailListId
-      * @return
-      */
-    public List<Email> findEmailsByListId(final Long emailListId);
-
-     /**
-      * Find All Email List.
-      * @return
-      */
-    public List<EmailList> findAllEmailList();
-
-     /**
-      * Find Email List by Keyword.
-      * @param keyword
-      * @param userId
-      * @return
-      */
-    public List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId);
 
     /**
-     * Find Emails by Keyword.
-     * @param keyword
-     * @param userId
-     * @return
-     */
-    public List<Email> getEmailsByKeyword(final String keyword, final Long userId);
+    * Find Emails by Email ListId.
+    * @param emailListId
+    * @return
+    */
+    List<Email> findEmailsByListId(final Long emailListId);
 
     /**
-     *
-     * @param code
-     * @return
-     */
-    public EmailSubscribe getSubscribeAccount(final String code);
+    * Find All Email List.
+    * @return
+    */
+    List<EmailList> findAllEmailList();
+
+    /**
+    * Find Email List by Keyword.
+    * @param keyword
+    * @param userId
+    * @return
+    */
+    List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId);
+
+    /**
+    * Find Emails by Keyword.
+    * @param keyword
+    * @param userId
+    * @return
+    */
+    List<Email> getEmailsByKeyword(final String keyword, final Long userId);
+
+    /**
+    *
+    * @param code
+    * @return
+    */
+    EmailSubscribe getSubscribeAccount(final String code);
 }

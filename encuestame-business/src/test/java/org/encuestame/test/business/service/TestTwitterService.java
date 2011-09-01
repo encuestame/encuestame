@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,11 +13,6 @@
 
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.IOException;
-
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -25,20 +20,12 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.social.api.TwitterAPITemplate;
 import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.encuestame.test.config.AbstractBaseUnitBeans;
-import org.encuestame.utils.TweetPublishedMetadata;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import twitter4j.Status;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.User;
 
 /**
  * {@link TwitterAPIOperations} test case.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Feb 13, 2010 5:05:12 PM
  * @version $Id$
  */

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -37,7 +37,7 @@ import org.junit.Test;
 
 /**
  * Test {@link TweetPollDao}..
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Mar 13, 2010 11:57:17 PM
  * @version $Id: change to one dolar simbol
  */

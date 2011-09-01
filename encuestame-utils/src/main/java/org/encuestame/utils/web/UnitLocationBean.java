@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,12 +14,10 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
-
-
 /**
  * Unit Location Bean.
- * @author Picado, Juan juan@encuestame.org
- * @since 26/05/2009 12:40:46
+ * @author Picado, Juan juanATencuestame.org
+ * @since May 26 2009 12:40:46
  */
 public class UnitLocationBean extends AbstractUnitLocation implements Serializable{
 

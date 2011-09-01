@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -23,12 +23,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.survey.Survey;
-import org.hibernate.search.annotations.Indexed;
 
 /**
  * Questions Dependence Surveys.
- *
- * @author Morales Urbina, Diana paola@encuestame.org
+ * @author Morales Urbina, Diana paolaATencuestame.org
  * @since August 10, 2010
  * @version $Id: $
  */

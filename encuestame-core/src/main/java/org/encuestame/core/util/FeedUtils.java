@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -38,7 +38,7 @@ public class FeedUtils {
      * @param title
      * @return
      */
-    public final static Link createLink(final String url, final String title){
+    public static final Link createLink(final String url, final String title){
         Link link = new Link();
         link.setHref(url);
         link.setTitle(title);
@@ -53,7 +53,7 @@ public class FeedUtils {
      * @param slugName
      * @return
      */
-    public final static String createUrlFeed(final String url, final String code, final Long id, final String slugName){
+    public static final String createUrlFeed(final String url, final String code, final Long id, final String slugName){
         StringBuffer urlString = new StringBuffer(url);
         urlString.append(code);
         urlString.append(id);
@@ -68,7 +68,7 @@ public class FeedUtils {
      * @param tweetPollDate
      * @return
      */
-    public final static String formattedDate(final String format, final Date tweetPollDate){
+    public static final String formattedDate(final String format, final Date tweetPollDate){
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
         String dateToFormat = formatDate.format(tweetPollDate);
         return dateToFormat;
@@ -80,7 +80,7 @@ public class FeedUtils {
      * @param domain
      * @return
      */
-    public final static List<Item> convertTweetPollBeanToItemRSS(final List<TweetPollBean> tpBean, final String domain){
+    public static final List<Item> convertTweetPollBeanToItemRSS(final List<TweetPollBean> tpBean, final String domain){
         List<Item> entries = new ArrayList<Item>(tpBean.size());
         for (TweetPollBean content : tpBean) {
             String urlTweetPoll = FeedUtils.createUrlFeed(domain, "/tweetpoll/", content.getId(),
@@ -98,7 +98,7 @@ public class FeedUtils {
      * @param domain
      * @return
      */
-    public final static List<Entry> convertTweetPollBeanToEntryAtom(final List<TweetPollBean> tpBean, final String domain){
+    public static final List<Entry> convertTweetPollBeanToEntryAtom(final List<TweetPollBean> tpBean, final String domain){
         List<Entry> entries = new ArrayList<Entry>(tpBean.size());
         for (TweetPollBean content : tpBean) {
             String urlTweet = FeedUtils.createUrlFeed(domain, "/tweetpoll/", content.getId(),
@@ -116,7 +116,7 @@ public class FeedUtils {
      * @param domain
      * @return
      */
-    public final static List<Item> convertPollBeanToItemRSS(final List<PollBean> pollBean, final String domain){
+    public static final List<Item> convertPollBeanToItemRSS(final List<PollBean> pollBean, final String domain){
         List<Item> entries = new ArrayList<Item>(pollBean.size());
         for (PollBean content : pollBean) {
             String urlPoll = FeedUtils.createUrlFeed(domain, "/poll/", content.getId(),
@@ -136,7 +136,7 @@ public class FeedUtils {
      * @param urlLink
      * @return
      */
-    public final static Item convertBeanToRSSItem(final Date createdAt,
+    public static final Item convertBeanToRSSItem(final Date createdAt,
             final String questionName, final Date pubDate , final String url){
         final Item item = new Item();
         final String formatDate = FeedUtils.formattedDate("yyyy-MM-dd", createdAt);
@@ -154,7 +154,7 @@ public class FeedUtils {
      * @param urlLink
      * @return
      */
-    public final static Entry convertBeanToAtomEntry(final Date createdAt,
+    public static final Entry convertBeanToAtomEntry(final Date createdAt,
             final String questionName, final Date pubDate, final String urlLink){
         final Entry entry = new Entry();
         final String formatDate = FeedUtils.formattedDate("yyyy-MM-dd", createdAt);

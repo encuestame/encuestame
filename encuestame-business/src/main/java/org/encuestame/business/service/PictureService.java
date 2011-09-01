@@ -24,7 +24,6 @@ import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.util.PictureType;
-import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
 import org.encuestame.utils.PictureUtils;

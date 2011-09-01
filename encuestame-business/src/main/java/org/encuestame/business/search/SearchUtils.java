@@ -167,7 +167,7 @@ public class SearchUtils {
            XWPFWordExtractor wde = new XWPFWordExtractor(wd);
            bodyText = wde.getText();
        } catch (Exception e) {
-           e.printStackTrace();
+           log.debug(e);
        }
        Document doc = SearchUtils.addFields(file, bodyText);
        return doc;

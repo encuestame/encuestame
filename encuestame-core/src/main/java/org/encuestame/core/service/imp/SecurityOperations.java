@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -15,10 +15,8 @@ package org.encuestame.core.service.imp;
 import java.util.Collection;
 import java.util.List;
 
-import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -29,7 +27,6 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.json.SocialAccountBean;
-import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -40,7 +37,7 @@ import org.springframework.mail.MailSendException;
 
 /**
  * Interface for Security Service.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 27/04/2009  11:35:01
  * @version $Id$
  */
@@ -77,7 +74,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      * @throws IllegalSocialActionException
      */
-    public void changeStateSocialAccount(
+    void changeStateSocialAccount(
             final Long accountId,
             final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException;
 

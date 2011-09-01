@@ -16,7 +16,10 @@ import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 
 /**
- * A service interface for the OAuth 1 flow.
+ * Oauth 1 service interface.
+ * Service interface for the OAuth 1 flow.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 public interface OAuth1RestOperations {
 

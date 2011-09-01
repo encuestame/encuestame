@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -52,7 +52,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * TweetPoll Json Controller.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 2, 2010 10:11:07 PM
  */
@@ -106,7 +105,6 @@ public class TweetPollJsonController extends AbstractJsonController {
             setItemResponse(jsonResponse);
         } catch (EnMeExpcetion e) {
              log.error(e);
-             e.printStackTrace();
              setError(e.getMessage(), response);
         }
 
@@ -143,7 +141,6 @@ public class TweetPollJsonController extends AbstractJsonController {
             setItemResponse(jsonResponse);
         } catch (EnMeExpcetion e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -206,7 +203,6 @@ public class TweetPollJsonController extends AbstractJsonController {
             }
         } catch (EnMeExpcetion e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -333,7 +329,6 @@ public class TweetPollJsonController extends AbstractJsonController {
         }
         catch (Exception e) {
                 log.error(e);
-                e.printStackTrace();
                 setError(e.getMessage(), response);
         }
         return returnData();

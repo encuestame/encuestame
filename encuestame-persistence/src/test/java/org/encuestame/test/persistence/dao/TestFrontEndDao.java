@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -24,9 +24,10 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
+
 /**
  * Test {@link FrontEndDao}..
- * @author Morales Urbina, Diana paola AT encuestame.org
+ * @author Morales Urbina, Diana paolaATencuestame.org
  * @since January 06, 2011
  * @version $Id: $
  */

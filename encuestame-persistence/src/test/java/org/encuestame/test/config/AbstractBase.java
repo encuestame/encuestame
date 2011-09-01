@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -105,7 +105,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * Base Class to Test Cases.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since October 15, 2009
  */
 
@@ -1203,7 +1203,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Account secUsers,
             final String folderName,
             final GeoPointFolder locationFolder){
-    	final UserAccount userAcc = createUserAccount("Juan", secUsers);
+        final UserAccount userAcc = createUserAccount("Juan", secUsers);
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
         geoPointFolder.setFolderName(folderName);
@@ -1838,84 +1838,84 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.dashboardDao = dashboardDao;
     }
 
-	/**
-	 * @return the commentsOperationsDao
-	 */
-	public CommentsOperations getCommentsOperations() {
-		return commentsOperations;
-	}
+    /**
+     * @return the commentsOperationsDao
+     */
+    public CommentsOperations getCommentsOperations() {
+        return commentsOperations;
+    }
 
-	/**
-	 * @param commentsOperationsDao the commentsOperationsDao to set
-	 */
-	public void setCommentsOperations(final CommentsOperations commentsOperations) {
-		this.commentsOperations = commentsOperations;
-	}
+    /**
+     * @param commentsOperationsDao the commentsOperationsDao to set
+     */
+    public void setCommentsOperations(final CommentsOperations commentsOperations) {
+        this.commentsOperations = commentsOperations;
+    }
 
-	/**
-	 * Create comment.
-	 * @param comm
-	 * @param likeVote
-	 * @param tpoll
-	 * @param survey
-	 * @param poll
-	 * @return
-	 */
-	public Comment createComment(
-			final String comm,
-			final Long likeVote,
-			final TweetPoll tpoll,
-			final Survey survey,
-			final Poll poll,
-			final UserAccount user,
-			final Long dislikeVote){
-	       final Comment comment = new Comment();
-	       comment.setComment(comm);
-	       comment.setCreatedAt(new Date());
-	       comment.setLikeVote(likeVote);
-	       comment.setDislikeVote(dislikeVote);
-	       comment.setPoll(poll);
-	       comment.setParentId(null);
-	       comment.setSurvey(survey);
-	       comment.setTweetPoll(tpoll);
-	       comment.setUser(user);
-	       getCommentsOperations().saveOrUpdate(comment);
-	       return comment;
-	    }
+    /**
+     * Create comment.
+     * @param comm
+     * @param likeVote
+     * @param tpoll
+     * @param survey
+     * @param poll
+     * @return
+     */
+    public Comment createComment(
+            final String comm,
+            final Long likeVote,
+            final TweetPoll tpoll,
+            final Survey survey,
+            final Poll poll,
+            final UserAccount user,
+            final Long dislikeVote){
+           final Comment comment = new Comment();
+           comment.setComment(comm);
+           comment.setCreatedAt(new Date());
+           comment.setLikeVote(likeVote);
+           comment.setDislikeVote(dislikeVote);
+           comment.setPoll(poll);
+           comment.setParentId(null);
+           comment.setSurvey(survey);
+           comment.setTweetPoll(tpoll);
+           comment.setUser(user);
+           getCommentsOperations().saveOrUpdate(comment);
+           return comment;
+        }
 
-	/**
-	 * Create default tweetPoll comment.
-	 * @param tpoll
-	 * @return
-	 */
-	public Comment createDefaultTweetPollComment(
-			final String comment,
-			final TweetPoll tpoll,
-			final UserAccount userAcc){
-		return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
-	}
+    /**
+     * Create default tweetPoll comment.
+     * @param tpoll
+     * @return
+     */
+    public Comment createDefaultTweetPollComment(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc){
+        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
+    }
 
-	/**
-	 * Create default poll comment.
-	 * @param poll
-	 * @return
-	 */
-	public Comment createDefaultPollComment(
-			final String comment,
-			final Poll poll,
-			final UserAccount userAcc){
-		return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
-	}
+    /**
+     * Create default poll comment.
+     * @param poll
+     * @return
+     */
+    public Comment createDefaultPollComment(
+            final String comment,
+            final Poll poll,
+            final UserAccount userAcc){
+        return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
+    }
 
-	/**
-	 * Create default survey comment.
-	 * @param survey
-	 * @return
-	 */
-	public Comment createDefaultSurveyComment(
-			final String comment,
-			final Survey survey,
-			final UserAccount userAcc){
-		return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
-	}
+    /**
+     * Create default survey comment.
+     * @param survey
+     * @return
+     */
+    public Comment createDefaultSurveyComment(
+            final String comment,
+            final Survey survey,
+            final UserAccount userAcc){
+        return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
+    }
 }

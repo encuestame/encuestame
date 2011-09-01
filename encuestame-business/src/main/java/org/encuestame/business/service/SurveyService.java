@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -31,7 +31,6 @@ import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.social.api.TwitterAPITemplate;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.json.FolderBean;

@@ -18,7 +18,7 @@ import org.encuestame.utils.TweetPublishedMetadata;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Description.
+ * Facebook API operations.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 22, 2011
  */

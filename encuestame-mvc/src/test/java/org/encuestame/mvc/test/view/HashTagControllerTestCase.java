@@ -18,8 +18,6 @@ import org.encuestame.mvc.controller.HashTagController;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
-import org.encuestame.persistence.domain.security.Account;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

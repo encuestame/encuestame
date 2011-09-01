@@ -15,8 +15,6 @@ package org.encuestame.social.api.support;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.social.SocialUserProfile;
 
-
-
 /**
  * Define basic social operations.
  * @author Picado, Juan juanATencuestame.org

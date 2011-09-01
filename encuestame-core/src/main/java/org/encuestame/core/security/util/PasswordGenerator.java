@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,26 +13,26 @@
 package org.encuestame.core.security.util;
 /**
  * Password Generator.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 21/05/2009 13:41:09
  * @version $Id$
  **/
 public class PasswordGenerator {
 
     /** Numbers. **/
-    public final static String numbers = "0123456789";
+    public static final String numbers = "0123456789";
     /** Capitals. **/
-    public final static String capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     /** LowerCase. **/
-    public final static String lowercase = "abcdefghijklmnopqrstuvwxyz";
+    public static final String lowercase = "abcdefghijklmnopqrstuvwxyz";
     /** Symbols. **/
-    public final static String specials = "��%&@%=[]?�{}#~,.*+$!";
+    public static final String specials = "��%&@%=[]?�{}#~,.*+$!";
 
     /**
      * Pin Number.
      * @return
      */
-    public final static String getPinNumber() {
+    public static final String getPinNumber() {
         return getPassword(numbers, 4);
     }
 
@@ -40,7 +40,7 @@ public class PasswordGenerator {
      * Especial Password.
      * @return
      */
-    public final static String getEspecialPassword() {
+    public static final String getEspecialPassword() {
         return getPassword(numbers + capitals + lowercase + specials, 12);
     }
 
@@ -49,7 +49,7 @@ public class PasswordGenerator {
      * @param e password lenght.
      * @return
      */
-    public final static String getEspecialPassword(Integer e) {
+    public static final String getEspecialPassword(Integer e) {
         return getPassword(numbers + capitals + lowercase + specials, e);
     }
 
@@ -57,7 +57,7 @@ public class PasswordGenerator {
      * Get Default Password. 8 Characters
      * @return
      */
-    public final static String getPassword() {
+    public static final String getPassword() {
         return getPassword(8);
     }
 
@@ -66,7 +66,7 @@ public class PasswordGenerator {
      * @param length length
      * @return
      */
-    public final static String getPassword(int length) {
+    public static final String getPassword(int length) {
         return getPassword(numbers + capitals + capitals, length);
     }
 
@@ -76,7 +76,7 @@ public class PasswordGenerator {
      * @param length length.
      * @return
      */
-    public final static String getPassword(String key, int length) {
+    public static final String getPassword(String key, int length) {
         String pswd = "";
 
         for (int i = 0; i < length; i++) {
@@ -91,7 +91,7 @@ public class PasswordGenerator {
      * @param lenght lenght
      * @return
      */
-    public final static String getNumericPassword(int lenght) {
+    public static final String getNumericPassword(int lenght) {
         return getPassword(numbers, lenght);
     }
 }

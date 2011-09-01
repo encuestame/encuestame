@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,12 +16,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
+
 import org.encuestame.business.service.DashboardService;
 import org.encuestame.core.service.imp.IDashboardService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
-import org.encuestame.persistence.domain.dashboard.LayoutEnum;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
