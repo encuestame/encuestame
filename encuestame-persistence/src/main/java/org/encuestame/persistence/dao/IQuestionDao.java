@@ -40,7 +40,7 @@ public interface IQuestionDao extends IBaseDao {
      * @return List of {@link Question}
      * @throws HibernateException exception
      */
-    public List<Question> loadAllQuestions();
+    List<Question> loadAllQuestions();
 
     /**
      * Load All Questions Patron.

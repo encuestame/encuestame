@@ -256,7 +256,7 @@ public interface IAccountDao extends IBaseDao {
     * @param account
     * @return
     */
-    public SocialAccount createSocialAccount(
+    SocialAccount createSocialAccount(
             final String socialAccountId,
             final String token,
             final String tokenSecret,

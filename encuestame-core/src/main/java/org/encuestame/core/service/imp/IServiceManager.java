@@ -26,23 +26,23 @@ public interface IServiceManager{
      * Getter {@link IApplicationServices}.
      * @return {@link IApplicationServices}
      */
-    public IApplicationServices getApplicationServices();
+    IApplicationServices getApplicationServices();
 
     /**
      * Setter.
      * @param applicationServices {@link IApplicationServices}
      */
-    public void setApplicationServices(IApplicationServices applicationServices);
+    void setApplicationServices(IApplicationServices applicationServices);
 
     /**
      * Getter.
      * @return {@link MessageSourceFactoryBean}
      */
-    public MessageSource getMessageSource();
+    MessageSource getMessageSource();
 
     /**
      * Setter.
      * @param messageSource {@link MessageSourceFactoryBean}
      */
-    public void setMessageSource(MessageSource messageSource);
+    void setMessageSource(MessageSource messageSource);
 }

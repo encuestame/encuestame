@@ -27,38 +27,38 @@ public interface IApplicationServices  extends ServiceOperations {
      * Getter.
      * @return {@link SecurityOperations}
      */
-    public SecurityOperations getSecurityService();
+    SecurityOperations getSecurityService();
 
     /**
      * Setter.
      * @param securityService {@link SecurityOperations}
      */
-    public void setSecurityService(SecurityOperations securityService);
+    void setSecurityService(SecurityOperations securityService);
 
     /**
      * @return the surveyService
      */
-    public ISurveyService getSurveyService();
+    ISurveyService getSurveyService();
 
     /**
      * @param surveyService the surveyService to set
      */
-    public void setSurveyService(ISurveyService surveyService);
+    void setSurveyService(ISurveyService surveyService);
 
     /**
      * @return the pollService
      */
-    public IPollService getPollService();
+    IPollService getPollService();
 
     /**
      * @param pollService the pollService to set
      */
-    public void setPollService(IPollService pollService);
+    void setPollService(IPollService pollService);
 
     /**
      * @return the tweetPollService
      */
-    public ITweetPollService getTweetPollService();
+    ITweetPollService getTweetPollService();
 
     /**
      * @param tweetPollService the tweetPollService to set

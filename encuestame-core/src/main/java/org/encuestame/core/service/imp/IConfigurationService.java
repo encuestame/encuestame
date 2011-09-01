@@ -20,14 +20,14 @@ package org.encuestame.core.service.imp;
  */
 public interface IConfigurationService {
 
-        /**
-         * Getter Domain Url.
-         * @return
-         */
-        public String getDomainUrl();
+    /**
+     * Getter Domain Url.
+     * @return
+     */
+    String getDomainUrl();
 
-        /**
-         * @param domainUrl the domainUrl to set
-         */
-        public void setDomainUrl(final String domainUrl);
+    /**
+     * @param domainUrl the domainUrl to set
+     */
+    void setDomainUrl(final String domainUrl);
 }

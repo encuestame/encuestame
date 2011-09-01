@@ -74,7 +74,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      * @throws IllegalSocialActionException
      */
-    public void changeStateSocialAccount(
+    void changeStateSocialAccount(
             final Long accountId,
             final String action) throws EnMeNoResultsFoundException, IllegalSocialActionException;
 

@@ -27,47 +27,47 @@ import org.encuestame.persistence.domain.EmailSubscribe;
  */
 public interface IEmail extends IBaseDao {
 
-     /**
-      * Find Email List By User Id.
-      * @param userId
-      * @return
-      */
-    public List<EmailList> findListbyUser(final Long userId);
+    /**
+    * Find Email List By User Id.
+    * @param userId
+    * @return
+    */
+    List<EmailList> findListbyUser(final Long userId);
 
-
-     /**
-      * Find Emails by Email ListId.
-      * @param emailListId
-      * @return
-      */
-    public List<Email> findEmailsByListId(final Long emailListId);
-
-     /**
-      * Find All Email List.
-      * @return
-      */
-    public List<EmailList> findAllEmailList();
-
-     /**
-      * Find Email List by Keyword.
-      * @param keyword
-      * @param userId
-      * @return
-      */
-    public List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId);
 
     /**
-     * Find Emails by Keyword.
-     * @param keyword
-     * @param userId
-     * @return
-     */
-    public List<Email> getEmailsByKeyword(final String keyword, final Long userId);
+    * Find Emails by Email ListId.
+    * @param emailListId
+    * @return
+    */
+    List<Email> findEmailsByListId(final Long emailListId);
 
     /**
-     *
-     * @param code
-     * @return
-     */
-    public EmailSubscribe getSubscribeAccount(final String code);
+    * Find All Email List.
+    * @return
+    */
+    List<EmailList> findAllEmailList();
+
+    /**
+    * Find Email List by Keyword.
+    * @param keyword
+    * @param userId
+    * @return
+    */
+    List<EmailList> getListEmailsByKeyword(final String keyword, final Long userId);
+
+    /**
+    * Find Emails by Keyword.
+    * @param keyword
+    * @param userId
+    * @return
+    */
+    List<Email> getEmailsByKeyword(final String keyword, final Long userId);
+
+    /**
+    *
+    * @param code
+    * @return
+    */
+    EmailSubscribe getSubscribeAccount(final String code);
 }

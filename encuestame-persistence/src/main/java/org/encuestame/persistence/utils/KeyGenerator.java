@@ -24,7 +24,7 @@ public interface KeyGenerator {
      * Get the length, in bytes, of keys created by this generator.
      * Most unique keys are at least 8 bytes in length.
      */
-    public int getKeyLength();
+    int getKeyLength();
 
     /**
      * Generate a new key.

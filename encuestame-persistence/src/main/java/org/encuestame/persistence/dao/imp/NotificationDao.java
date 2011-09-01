@@ -82,7 +82,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    private final Long retrieveCountNotification(final Account account, final String query){
+    private Long retrieveCountNotification(final Account account, final String query){
         Long resultsSize = 0L;
         final List<Object> list =  getHibernateTemplate().findByNamedParam("select count(*) from Notification "
                 +" WHERE account =:user", "user", account);

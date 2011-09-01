@@ -38,6 +38,6 @@ public interface ServiceOperations{
      * @param propertieId propertieId
      * @return value of propertie
      */
-    public String getMessageProperties(String propertieId);
+    String getMessageProperties(String propertieId);
 
 }

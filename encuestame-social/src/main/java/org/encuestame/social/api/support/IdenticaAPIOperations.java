@@ -20,5 +20,5 @@ package org.encuestame.social.api.support;
 public interface IdenticaAPIOperations extends SocialAPIOperations {
 
 
-    public IdentiCaProfile getUserProfile();
+       IdentiCaProfile getUserProfile();
 }

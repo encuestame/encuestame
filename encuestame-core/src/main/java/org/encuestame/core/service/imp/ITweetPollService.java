@@ -76,7 +76,7 @@ public interface ITweetPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-   public TweetPollSwitch createTweetPollQuestionAnswer(
+   TweetPollSwitch createTweetPollQuestionAnswer(
            final QuestionAnswerBean answerBean, final TweetPoll tp)
            throws EnMeNoResultsFoundException;
 
@@ -94,7 +94,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return {@link TweetPoll}
      * @throws EnMeNoResultsFoundException
      */
-    public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException;
+    TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException;
 
     /**
     * Get {@link TweetPoll} by id and slug name.

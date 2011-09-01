@@ -35,11 +35,11 @@ public interface InstallerOperations {
      * Check database connection.
      * @return 1 if connection is successfull.
      */
-    public int checkDatabaseConection();
+    int checkDatabaseConection();
 
     /**
      * Verify several tables if database are installed.
      * @return
      */
-    public boolean checkIfDatabaseIsInstalled();
+    boolean checkIfDatabaseIsInstalled();
 }

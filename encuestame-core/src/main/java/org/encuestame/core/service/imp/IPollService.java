@@ -104,7 +104,7 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-    public FolderBean updateFolderName(final Long folderId,
+    FolderBean updateFolderName(final Long folderId,
           final String newFolderName,
           final String username) throws EnMeNoResultsFoundException;
 
@@ -122,9 +122,9 @@ public interface IPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-  List<PollBean> getPollsByFolder(final FolderBean folder) throws EnMeNoResultsFoundException;
+    List<PollBean> getPollsByFolder(final FolderBean folder) throws EnMeNoResultsFoundException;
 
-      /**
+    /**
     *
     * @param keywordQuestion
     * @param maxResults

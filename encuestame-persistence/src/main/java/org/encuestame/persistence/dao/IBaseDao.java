@@ -27,7 +27,7 @@ public interface IBaseDao {
      * @param domain domain
      * @throws HibernateException exception
      */
-    public void saveOrUpdate(final Object domain);
+    void saveOrUpdate(final Object domain);
 
     /**
      *
@@ -41,6 +41,6 @@ public interface IBaseDao {
      * @param domain domain
      * @throws HibernateException  exception
      */
-    public void delete(final Object domain);
+    void delete(final Object domain);
 
 }
