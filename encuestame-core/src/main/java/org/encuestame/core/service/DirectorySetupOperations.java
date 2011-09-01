@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.core.service;
 
 import java.io.File;
@@ -18,13 +30,13 @@ public class DirectorySetupOperations {
     private static Logger log = Logger
             .getLogger(DirectorySetupOperations.class);
     /** Default root directory name. */
-    private final static String DEFAULT_ROOT_FOLDER = "encuestame";
+    private static final String DEFAULT_ROOT_FOLDER = "encuestame";
     /** Default picture directory name. **/
-    private final static String PICTURES_DEFAULT_FOLDER = "pictures";
+    private static final String PICTURES_DEFAULT_FOLDER = "pictures";
     /** Default profiles directory name. **/
-    private final static String PROFILES_DEFAULT_FOLDER = "profiles";
+    private static final String PROFILES_DEFAULT_FOLDER = "profiles";
     /** Default indexes directory name. **/
-    private final static String INDEXES_DEFAULT_FOLDER = "indexes";
+    private static final String INDEXES_DEFAULT_FOLDER = "indexes";
 
     /**
      * Constructor.

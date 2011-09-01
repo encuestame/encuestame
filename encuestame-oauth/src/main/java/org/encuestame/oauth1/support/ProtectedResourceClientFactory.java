@@ -16,7 +16,11 @@ import org.springframework.http.client.CommonsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Factory for RestTemplate instances that execute requests for resources protected by the OAuth 1 protocol.
+ * ProtectedResourceClientFactory
+ * Factory for RestTemplate instances that execute requests
+ * for resources protected by the OAuth 1 protocol.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 public class ProtectedResourceClientFactory {
 

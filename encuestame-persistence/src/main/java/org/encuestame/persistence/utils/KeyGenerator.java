@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -24,7 +24,7 @@ public interface KeyGenerator {
      * Get the length, in bytes, of keys created by this generator.
      * Most unique keys are at least 8 bytes in length.
      */
-    public int getKeyLength();
+    int getKeyLength();
 
     /**
      * Generate a new key.

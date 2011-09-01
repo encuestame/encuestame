@@ -20,7 +20,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Description.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since May 1, 2011
  */

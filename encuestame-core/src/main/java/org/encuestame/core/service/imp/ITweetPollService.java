@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -36,7 +36,7 @@ import org.encuestame.utils.web.UnitTweetPollResult;
 
 /**
  * Tweet Poll Service.
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since  April 02, 2010
  * @version $Id: $
  */
@@ -76,7 +76,7 @@ public interface ITweetPollService extends IMasterSurveyService{
     * @return
     * @throws EnMeNoResultsFoundException
     */
-   public TweetPollSwitch createTweetPollQuestionAnswer(
+   TweetPollSwitch createTweetPollQuestionAnswer(
            final QuestionAnswerBean answerBean, final TweetPoll tp)
            throws EnMeNoResultsFoundException;
 
@@ -94,7 +94,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @return {@link TweetPoll}
      * @throws EnMeNoResultsFoundException
      */
-    public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException;
+    TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException;
 
     /**
     * Get {@link TweetPoll} by id and slug name.

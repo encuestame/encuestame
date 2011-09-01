@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,14 +16,15 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+
 import javax.net.ssl.HttpsURLConnection;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.domain.social.SocialProvider;
@@ -31,6 +32,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.util.Assert;
+
 /**
  * Social Util Helpers.
  * @author Picado, Juan juanATencuestame.org
@@ -44,38 +46,38 @@ public class SocialUtils {
     /**
      * TinyUrl rest url.
      */
-    public final static String TINY_URL = "http://tinyurl.com/api-create.php";
+    public static final String TINY_URL = "http://tinyurl.com/api-create.php";
 
     /**
      * Google Url short url.
      */
-    public final static String GOOGLE_SHORT_URL = "https://www.googleapis.com/urlshortener/v1/url";
+    public static final String GOOGLE_SHORT_URL = "https://www.googleapis.com/urlshortener/v1/url";
 
     /**
      * Google url stats.
      */
-    public final static String GOOGLE_SHORT_URL_STATS = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=$1&projection=FULL";
+    public static final String GOOGLE_SHORT_URL_STATS = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=$1&projection=FULL";
 
     /**
      * Bity short url api.
      */
-    public final static String BITLY_SHORT_URL = "http://api.bit.ly/shorten";
+    public static final String BITLY_SHORT_URL = "http://api.bit.ly/shorten";
 
     /**
      * Facebook scopes.
      */
-    public final static String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
+    public static final String FACEBOOK_SCOPE = "email,read_stream,publish_stream,user_status,user_location,offline_access";
 
     /**
      * Twitter limit.
      */
-    public final static Integer TWITTER_LIMIT = 140;
+    public static final Integer TWITTER_LIMIT = 140;
 
     /**
      * Twitter authentictation error.
      * TODO: move to {@link SocialUtils}.
      */
-    public final static int TWITTER_AUTH_ERROR = 401;
+    public static final int TWITTER_AUTH_ERROR = 401;
 
     /**
      * Get Google Stats from google short url.

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,14 +18,12 @@ import java.util.Date;
 
 /**
  * Unit Use rBean.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 27/04/2009
  */
 public class UserAccountBean implements Serializable {
 
-    /**
-     *
-     */
+    /** **/
     private static final long serialVersionUID = -4738463192806706221L;
     private Long id;
     private String email;

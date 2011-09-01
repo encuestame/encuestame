@@ -99,7 +99,6 @@ public class DatabaseInstall implements InstallDatabaseOperations {
           }
 
         } catch (IOException e) {
-            e.printStackTrace();
             log.fatal("Error con create database "+e);
         }
     }

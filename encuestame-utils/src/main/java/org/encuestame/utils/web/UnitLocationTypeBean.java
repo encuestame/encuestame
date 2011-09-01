@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,11 +12,10 @@
  */
 package org.encuestame.utils.web;
 
-
 /**
- * Description.
- * @author Morales, Diana Paola paola@encuestame.org
- * @since 10/12/2009 16:15:07
+ * Unit location type bean.
+ * @author Morales, Diana Paola paolaATencuestame.org
+ * @since December 10 2009 16:15:07
  * @version $Id$
  **/
 public class UnitLocationTypeBean {

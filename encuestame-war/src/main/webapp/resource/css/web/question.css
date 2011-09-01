@@ -1,8 +1,18 @@
-@charset "ISO-8859-1";
+.question .dijitTextBox {
+    padding: 3px;
+    font-size: 130%;
+}
 
+.question .dijitTextArea {
+    padding: 3px;
+    font-size: 130%;
+}
 
-.questionBox {
-	width: 40%;
-	border: 1px solid gray;
-	padding: 5px;
+.question .questionTextBox{
+    float: left;
+    width: 90%;
+}
+.question .questionTextBox input{
+    padding: 4px;
+    font-size: 130%;
 }

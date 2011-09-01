@@ -51,7 +51,6 @@ public class IndexFSDirectory implements DirectoryIndexStore {
             }
         } catch (IOException e) {
             log.fatal("Directory not found where save data");
-            e.printStackTrace();
             //do action
             //System.getProperty("user.home");
         }

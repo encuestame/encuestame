@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -95,13 +95,13 @@ public class SearchController extends AbstractBaseOperations {
            getSearchService().quickSearch(keyword, "", 0, 50, types);
        } catch (EnMeNoResultsFoundException e) {
            // TODO Auto-generated catch block
-           e.printStackTrace();
+           log.error(e);
        } catch (IOException e) {
            // TODO Auto-generated catch block
-           e.printStackTrace();
+           log.error(e);
        } catch (ParseException e) {
            // TODO Auto-generated catch block
-           e.printStackTrace();
+           log.error(e);
        }
        log.debug("search get");
        return "search";

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 /**
  * Email Utils.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 21/05/2009 13:41:09
  * @version $Id$
  */
@@ -28,7 +28,7 @@ public class EmailUtils {
      * @param email email
      * @return boolean
      */
-    public final static boolean validateEmail(String email) {
+    public static final boolean validateEmail(String email) {
         // Set the email pattern string
         final Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
         // Match the given string with the pattern

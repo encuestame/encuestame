@@ -27,7 +27,6 @@ import org.encuestame.utils.exception.EnMeGenericException;
 
 /**
  * Picture Utils.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 3, 2011
  */

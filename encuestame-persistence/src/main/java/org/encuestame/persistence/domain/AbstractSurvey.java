@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -27,13 +27,10 @@ import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * Abstract Survey.
- *
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 21, 2010
  * @version $Id: $
  */
-
-
 @MappedSuperclass
 public abstract class AbstractSurvey extends AbstractGeoPoint {
 
@@ -401,22 +398,22 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     }
 
     /**
-	 * @return the showComments
-	 */
-	public CommentOptions getShowComments() {
-		return showComments;
-	}
+     * @return the showComments
+     */
+    public CommentOptions getShowComments() {
+        return showComments;
+    }
 
-	/**
-	 * @param showComments the showComments to set
-	 */
-	@Column(name = "comment_Option")
+    /**
+     * @param showComments the showComments to set
+     */
+    @Column(name = "comment_Option")
     @Enumerated(EnumType.ORDINAL)
-	public void setShowComments(CommentOptions showComments) {
-		this.showComments = showComments;
-	}
+    public void setShowComments(CommentOptions showComments) {
+        this.showComments = showComments;
+    }
 
-	/**
+    /**
      * @return the showAdditionalInfo
      */
     public Boolean getShowAdditionalInfo() {

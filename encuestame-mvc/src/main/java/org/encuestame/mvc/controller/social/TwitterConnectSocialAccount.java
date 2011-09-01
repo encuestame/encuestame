@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -79,7 +79,6 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
         try {
             return auth1RequestProvider.buildOAuth1AuthorizeUrl(scope, request, httpRequest);
         } catch (EnMeOAuthSecurityException e) {
-           e.printStackTrace();
            log.error(e);
            return null;
         }
@@ -104,13 +103,10 @@ public class TwitterConnectSocialAccount extends AbstractAccountConnect {
             this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
         } catch (EnMeOAuthSecurityException e1) {
             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
-            e1.printStackTrace();
         } catch (EnMeExistPreviousConnectionException e1) {
             RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
-            e1.printStackTrace();
         } catch (Exception e) {
             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
-            e.printStackTrace();
         }
         return this.redirect+"#provider="+SocialProvider.TWITTER.toString().toLowerCase()+"&refresh=true&successful=true";
     }

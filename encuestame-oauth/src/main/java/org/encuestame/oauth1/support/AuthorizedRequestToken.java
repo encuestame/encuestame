@@ -20,7 +20,10 @@ import org.encuestame.utils.oauth.OAuth1Token;
  * This is typically achieved by the user clicking "Allow" over at the provider's site.
  * The service provider returns a Verifier string in the authorization callback that must also
  * be submitted in the access token request.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
+
 public class AuthorizedRequestToken {
 
     private final OAuth1Token requestToken;

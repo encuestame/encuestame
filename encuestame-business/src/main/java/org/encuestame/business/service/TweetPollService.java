@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -542,7 +542,6 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                          metadata.getTweetId(), socialAccount.getSocialAccountName(), socialAccount.getAccounType()), Boolean.TRUE);
              } catch (Exception e) {
                  log.error("Error publish tweet:{"+e);
-                 e.printStackTrace();
                  //change status to failed
                  publishedStatus.setStatus(Status.FAILED);
                  //store error descrition

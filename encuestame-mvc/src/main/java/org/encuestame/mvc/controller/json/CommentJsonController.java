@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -40,7 +40,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Comment Json Controller.
- *
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since August 17, 2011
  */
@@ -51,7 +50,7 @@ public class CommentJsonController extends AbstractJsonController {
     private Logger log = Logger.getLogger(this.getClass());
 
     /**  Limit of results by default. **/
-    private final static Integer LIMIT_DEFAULT = 10;
+    private static final Integer LIMIT_DEFAULT = 10;
 
 
     /**
@@ -88,7 +87,6 @@ public class CommentJsonController extends AbstractJsonController {
         } catch (Exception e) {
             // TODO: handle exception
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -131,7 +129,6 @@ public class CommentJsonController extends AbstractJsonController {
                 }
             } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
                  setError(e.getMessage(), response);
             }
             return returnData();
@@ -160,7 +157,6 @@ public class CommentJsonController extends AbstractJsonController {
                 setSuccesResponse();
             } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
                  setError(e.getMessage(), response);
             }
             return returnData();

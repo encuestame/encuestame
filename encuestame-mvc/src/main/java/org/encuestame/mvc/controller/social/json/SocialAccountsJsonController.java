@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 /**
  * Social Account Json Service.
  * @author Picado, Juan juanATencuestame.org
@@ -104,7 +103,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             setItemReadStoreResponse("socialAccounts", "id", accounts);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -136,7 +134,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
              log.debug("Social providers enabled "+providers.size());
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

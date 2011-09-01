@@ -19,6 +19,4 @@ package org.encuestame.core.exception;
  */
 public class ExceptionDefinitionBean {
 
-
-
 }

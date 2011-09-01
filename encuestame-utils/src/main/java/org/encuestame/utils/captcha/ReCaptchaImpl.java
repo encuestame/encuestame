@@ -15,7 +15,6 @@
  */
 package org.encuestame.utils.captcha;
 
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Properties;

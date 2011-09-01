@@ -141,10 +141,8 @@ public class TweetPollCometService extends AbstractCometService {
             }
         } catch (EnMeExpcetion e) {
             log.error(e);
-            e.printStackTrace();
         } catch (ParseException e) {
              log.error(e);
-            e.printStackTrace();
         }
         log.debug("tweetPoll content:{"+outPutMessage);
         remote.deliver(getServerSession(), message.getChannel(), outPutMessage, null);

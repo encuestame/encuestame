@@ -26,6 +26,8 @@ import org.springframework.http.client.ClientHttpResponse;
 /**
  * Request factory that signs RestTemplate requests with an OAuth 1 Authorization header.
  * Internally used for Spring 3.0 compatibility only.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 class OAuth1RequestFactory implements ClientHttpRequestFactory {
 

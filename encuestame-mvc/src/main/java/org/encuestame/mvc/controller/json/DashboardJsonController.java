@@ -1,6 +1,6 @@
  /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -297,7 +297,6 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -321,7 +320,6 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -344,7 +342,6 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -369,7 +366,6 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

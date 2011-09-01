@@ -113,7 +113,6 @@ public class ReIndexAttachmentsJob {
                 log.debug("Nothing to index... ");
             }
         } catch (Exception e) {
-            e.printStackTrace();
             log.fatal("Index on reindex: "+e);
         }
     }
