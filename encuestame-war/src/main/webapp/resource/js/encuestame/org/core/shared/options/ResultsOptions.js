@@ -31,6 +31,6 @@ dojo.declare(
 
      option_name : "results_",
 
-     options_label : ["No Results", "Only Percents", "All Data"],
+     options_label : ["No Results", "Only Percents", "All Data"]
 
 });

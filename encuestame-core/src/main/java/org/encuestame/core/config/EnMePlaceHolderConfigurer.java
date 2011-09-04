@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -39,6 +40,9 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * JVM encuestame path param.
      */
     private static String overwriteJvmParam = "encuestame.custom.config";
+
+
+    private ConfigurationManager configurationManager;
 
     /**
      * List of Properties.
@@ -58,7 +62,14 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     protected void processProperties(
             ConfigurableListableBeanFactory beanFactory, Properties props)
             throws BeansException {
-
+        try {
+            this.configurationManager = new ConfigurationManager();
+            System.out.println("#############################################");
+            System.out.println(configurationManager.getProperty("database.version"));
+            System.out.println("#############################################");
+        } catch (Exception e1) {
+            log.fatal("encuestame xml config not found");
+        }
         //get form system property enviroment out file path.
         final String enviromentPropertyFile = System.getProperty(overwriteJvmParam);
         File customEncuestameFile;
