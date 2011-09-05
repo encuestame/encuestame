@@ -32,6 +32,7 @@ import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Front End Service.
@@ -107,7 +108,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     if(maxResults == null){
         maxResults = this.MAX_RESULTS;
     }
-    log.debug("Max Results "+maxResults);
     final List<Poll> items = new ArrayList<Poll>();
     if(period == null ){
         throw new EnMeSearchException("search params required.");
@@ -145,7 +145,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         if(maxResults == null){
             maxResults = this.MAX_RESULTS;
         }
-        log.debug("Max Results HashTag -----> "+maxResults);
         final List<HashTag> tags = getHashTagDao().getHashTags(maxResults, start, tagCriteria);
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
         return hashBean;
@@ -245,6 +244,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             if (hashHit != null) {
                 hitCount = tag.getHits() + hitCount;
                 tag.setHits(hitCount);
+                getFrontEndDao().saveOrUpdate(tag);
                 register = true;
             }
         }
@@ -259,6 +259,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @return
      * @throws EnMeNoResultsFoundException
      */
+    @Transactional(readOnly = false)
     private HashTagHits newHashTagHit(
             final HashTag tag,
             final Date hitDate,
@@ -267,8 +268,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setHitDate(hitDate);
         tagHitsDomain.setHashTag(tag);
         tagHitsDomain.setIpAddress(ipAddress);
-        tagHitsDomain.setUserAccount(getUserAccount(getUserPrincipalUsername()));
-        this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
+        getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }
 }
