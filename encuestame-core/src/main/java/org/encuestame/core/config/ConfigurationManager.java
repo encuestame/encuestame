@@ -38,7 +38,7 @@ public class ConfigurationManager {
     /**
      *
      */
-    private static String defaultPath = "classpath:encuestame-config.xml";
+    private static String defaultPath = "encuestame-config.xml";
 
     /**
      * configuration store file.
@@ -53,10 +53,6 @@ public class ConfigurationManager {
      */
     public ConfigurationManager(final String path) throws ConfigurationException, IOException {
          Resource res = new ClassPathResource(path);
-         log.debug("-----------------------------------------------");
-         log.debug("-----"+path);
-         log.debug("-----"+res.getFile());
-         log.debug("-----------------------------------------------");
          ConfigurationManager.xmlConfiguration = new XMLConfiguration(res.getFile());
          xmlConfiguration.setAutoSave(true);
          xmlConfiguration.setReloadingStrategy(new FileChangedReloadingStrategy());
@@ -70,10 +66,6 @@ public class ConfigurationManager {
      */
     public ConfigurationManager() throws IOException, ConfigurationException {
         Resource res = new ClassPathResource(ConfigurationManager.defaultPath);
-        log.debug("-----------------------------------------------");
-        log.debug("-----"+defaultPath);
-        log.debug("-----"+res.getFile());
-        log.debug("-----------------------------------------------");
         this.setXmlConfiguration(new XMLConfiguration(res.getFile()));
         xmlConfiguration.setAutoSave(true);
         xmlConfiguration.setReloadingStrategy(new FileChangedReloadingStrategy());
@@ -101,6 +93,14 @@ public class ConfigurationManager {
      */
     public void setXmlConfiguration(XMLConfiguration xmlConfiguration) {
         this.xmlConfiguration = xmlConfiguration;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static Float getDatabaseVersion(){
+        return xmlConfiguration.getFloat("database.version");
     }
 
     /**

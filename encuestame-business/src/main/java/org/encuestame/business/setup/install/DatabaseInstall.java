@@ -204,9 +204,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     private int getVersionDatabaseFromProperty() {
         int version = 0;
-        if (EnMePlaceHolderConfigurer
-                .getIntegerProperty("encuestame.database.version") == null) {
-            log.error("Encuestame Version Property is null, this is wrong !!");
+        if (EnMePlaceHolderConfigurer.getConfigurationManager().getDatabaseVersion() == null) {
+            log.error("Encuestame Database Version Property is null, this is wrong !!");
         } else {
             version = EnMePlaceHolderConfigurer.getIntegerProperty(
                     "encuestame.database.version").intValue();
