@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
+import org.eclipse.jdt.internal.compiler.ast.AllocationExpression;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -28,9 +29,11 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,6 +93,22 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
 
         }
         return results;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
+     */
+    public List<HomeBean> getFrontEndItems(final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException{
+        final List<HomeBean> allItems = new ArrayList<HomeBean>();
+        final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(period, start, maxResults, request);
+        allItems.addAll(ConvertDomainBean.convertTweetPollListToHomeBean(tweetPollItems));
+        final List<PollBean> pollItems = this.searchItemsByPoll(period, start, maxResults);
+        allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
+        return allItems;
     }
 
     /**

@@ -18,6 +18,7 @@ import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
@@ -101,4 +102,17 @@ public interface IFrontEndService extends ServiceOperations {
      */
     Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException;
 
+    /**
+     * Get frontEnd items.
+     * @param period
+     * @param start
+     * @param maxResults
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    List<HomeBean> getFrontEndItems(final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException;
 }
