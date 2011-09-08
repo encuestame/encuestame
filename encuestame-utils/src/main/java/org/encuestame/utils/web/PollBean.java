@@ -16,6 +16,8 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.json.QuestionBean;
 
 /**
@@ -32,48 +34,80 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     private static final long serialVersionUID = 7022698996782621900L;
 
     /***/
+    @JsonProperty(value = "id")
     private Long id;
 
     /***/
+    @JsonProperty(value = "completedPoll")
     private Boolean completedPoll;
 
     /***/
+    @JsonProperty(value = "creationDate")
     private Date creationDate;
 
     /***/
+    @JsonProperty(value = "question")
     private QuestionBean questionBean = new QuestionBean();
 
     /***/
+    @JsonProperty(value = "finishDate")
     private Date finishDate;
 
     /***/
+    @JsonProperty(value = "publishPoll")
     private Boolean publishPoll;
 
     /***/
+    @JsonProperty(value = "closeNotification")
     private Boolean closeNotification;
 
     /***/
+    @JsonProperty(value = "showResultsPoll")
     private Boolean showResultsPoll;
 
     /***/
+    @JsonProperty(value = "hashPoll")
     private String hashPoll;
 
     /** **/
+    @JsonProperty(value = "updatedDate")
     private Date updatedDate;
 
     /** **/
+    @JsonProperty(value = "url")
     private String url;
 
     /** **/
+    @JsonProperty(value = "shortUrl")
     private String shortUrl;
 
     @Deprecated
     private String pollUser;
 
+    /** **/
+    @JsonProperty(value = "userId")
+    private Long userId;
+
+    /** **/
+    @JsonProperty(value = "ownerUsername")
+    private String ownerUsername;
+
+    /** **/
+    @JsonProperty(value = "relativeTime")
+    private String relativeTime;
+
+    /** **/
+    @JsonProperty(value = "totalVotes")
+    private Long totalVotes;
+
+    /** **/
+    @JsonProperty(value = "itemType")
+    private String itemType;
 
     /**
      * @return the id
      */
+    @JsonIgnore
     public final Long getId() {
         return id;
     }
@@ -88,6 +122,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the completedPoll
      */
+    @JsonIgnore
     public final Boolean getCompletedPoll() {
         return completedPoll;
     }
@@ -102,6 +137,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the creationDate
      */
+    @JsonIgnore
     public final Date getCreationDate() {
         return creationDate;
     }
@@ -116,6 +152,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the questionBean
      */
+    @JsonIgnore
     public final QuestionBean getQuestionBean() {
         return questionBean;
     }
@@ -130,6 +167,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the finishDate
      */
+    @JsonIgnore
     public Date getFinishDate() {
         return finishDate;
     }
@@ -144,6 +182,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the publishPoll
      */
+    @JsonIgnore
     public Boolean getPublishPoll() {
         return publishPoll;
     }
@@ -158,6 +197,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the closeNotification
      */
+    @JsonIgnore
     public Boolean getCloseNotification() {
         return closeNotification;
     }
@@ -172,6 +212,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the showResultsPoll
      */
+    @JsonIgnore
     public Boolean getShowResultsPoll() {
         return showResultsPoll;
     }
@@ -186,6 +227,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the hashPoll
      */
+    @JsonIgnore
     public String getHashPoll() {
         return hashPoll;
     }
@@ -200,6 +242,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
     * @return the updatedDate
     */
+    @JsonIgnore
     public Date getUpdatedDate() {
         return updatedDate;
     }
@@ -214,6 +257,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the url
      */
+    @JsonIgnore
     public String getUrl() {
         return url;
     }
@@ -228,6 +272,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the shortUrl
      */
+    @JsonIgnore
     public String getShortUrl() {
         return shortUrl;
     }
@@ -237,5 +282,80 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
      */
     public void setShortUrl(final String shortUrl) {
         this.shortUrl = shortUrl;
+    }
+
+    /**
+     * @return the userId
+     */
+    @JsonIgnore
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(final Long userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * @return the ownerUsername
+     */
+    @JsonIgnore
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    /**
+     * @param ownerUsername the ownerUsername to set
+     */
+    public void setOwnerUsername(final String ownerUsername) {
+        this.ownerUsername = ownerUsername;
+    }
+
+    /**
+     * @return the relativeTime
+     */
+    @JsonIgnore
+    public String getRelativeTime() {
+        return relativeTime;
+    }
+
+    /**
+     * @param relativeTime the relativeTime to set
+     */
+    public void setRelativeTime(final String relativeTime) {
+        this.relativeTime = relativeTime;
+    }
+
+    /**
+     * @return the totalVotes
+     */
+    @JsonIgnore
+    public Long getTotalVotes() {
+        return totalVotes;
+    }
+
+    /**
+     * @param totalVotes the totalVotes to set
+     */
+    public void setTotalVotes(final Long totalVotes) {
+        this.totalVotes = totalVotes;
+    }
+
+    /**
+     * @return the itemType
+     */
+    @JsonIgnore
+    public String getItemType() {
+        return itemType;
+    }
+
+    /**
+     * @param itemType the itemType to set
+     */
+    public void setItemType(final String itemType) {
+        this.itemType = itemType;
     }
 }

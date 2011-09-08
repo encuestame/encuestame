@@ -177,6 +177,11 @@
         <url-pattern>/social/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>OpenSessionInViewFilter</filter-name>
+        <url-pattern>/tag/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
      <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/home</url-pattern>
@@ -288,10 +293,10 @@
         <url-pattern>/activity/*</url-pattern>
     </servlet-mapping>
 
-    <error-page>
+<!--     <error-page>
         <error-code>500</error-code>
         <location>/500page.jsp</location>
-    </error-page>
+    </error-page> -->
 
     <welcome-file-list>
         <welcome-file>home</welcome-file>

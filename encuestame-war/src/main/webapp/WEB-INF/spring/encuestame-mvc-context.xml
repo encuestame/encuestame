@@ -21,6 +21,7 @@
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
        <property name="mappings">
          <value>
+            /setup=flowController
          </value>
        </property>
        <property name="defaultHandler" ref="urlFilenameViewController"/>
@@ -68,21 +69,20 @@
 
   <mvc:resources mapping="/resources/**" location="/resource/" cache-period="31556926" order="0"/>
 
-
   <!--
-    Dispatches requests mapped to flows to FlowHandler implementations
+    Dispatches requests mapped to flows to FlowHandler implementations-->
    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
     <property name="flowExecutor" ref="flowExecutor" />
   </bean>
-  -->
+
 
     <!-- Maps request paths to flows in the flowRegistry;
-        e.g. a path of /hotels/booking looks for a flow with id "hotels/booking"
+        e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
         <property name="order" value="1"/>
     </bean>
-     -->
+
 
     <!-- Create Cookie Default Locale-->
 

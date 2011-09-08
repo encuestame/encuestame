@@ -95,7 +95,7 @@ dojo.declare(
          var radioOne = new dijit.form.RadioButton({
              checked: selected,
              value: this.option_value,
-             name: this.option_name,
+             name: this.option_name
          });
          this._widgets_list.push(radioOne);
          div.appendChild(radioOne.domNode);
@@ -110,5 +110,5 @@ dojo.declare(
          label.setAttribute("for", radioOne.id);
          div.appendChild(label);
          this._options.appendChild(div);
-     },
+     }
 });

@@ -96,6 +96,7 @@
         <commons-digester>1.8</commons-digester>
         <commons-beanutils>1.7.0</commons-beanutils>
         <commons-httpclient>3.1</commons-httpclient>
+	<configuration.version>1.6</configuration.version>
         <c3p0>0.9.0</c3p0>
         <jsr250-api>1.0</jsr250-api>
         <jpa-api>2.0-cr-1</jpa-api>
@@ -1486,6 +1487,11 @@
 		<groupId>org.json</groupId>
 		<artifactId>json</artifactId>
 		<version>20090211</version>
+	    </dependency>
+	    <dependency>
+		 <groupId>commons-configuration</groupId>
+		 <artifactId>commons-configuration</artifactId>
+		 <version>${configuration.version}</version>
 	    </dependency>
         </dependencies>
     </dependencyManagement>

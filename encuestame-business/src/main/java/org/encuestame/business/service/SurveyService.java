@@ -37,7 +37,7 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitSurvey;
+import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -247,7 +247,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param surveyBean
      * @throws EnMeExpcetion
      */
-    public void createSurvey(final UnitSurvey surveyBean) throws EnMeExpcetion{
+    public void createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion{
         try {
             final Survey surveyDomain = new Survey();
             surveyDomain.setTicket(surveyBean.getTicket());

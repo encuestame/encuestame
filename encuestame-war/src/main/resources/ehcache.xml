@@ -41,7 +41,7 @@
 
     <!-- Cache Directory. -->
 
-    <diskStore path="java.io.tmpdir" />
+    <diskStore path="${user.home}/encuestame-store/cache/" />
 
     <!-- Web Cache -->
 

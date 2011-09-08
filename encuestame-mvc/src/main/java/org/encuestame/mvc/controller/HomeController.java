@@ -66,7 +66,7 @@ public class HomeController extends AbstractBaseOperations {
             final IFrontEndService service = getFrontService();
             try {
                 if (view.isEmpty()) {
-                    model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
+                    model.addAttribute("items", service.getFrontEndItems(period, 0 ,MAX_ITEMS, request));
                 } else {
                     if ("tweetpoll".equals(view)){
                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
