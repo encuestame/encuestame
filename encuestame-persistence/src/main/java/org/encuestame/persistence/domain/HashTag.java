@@ -61,7 +61,7 @@ public class HashTag {
     private Long hits;
 
     /** Last time updated. **/
-    private Date updatedDate = Calendar.getInstance().getTime();
+    private Date updatedDate =  Calendar.getInstance().getTime();
 
     /** {@link TweetPoll} **/
     private Set<TweetPoll> tweetPoll = new HashSet<TweetPoll>();
@@ -156,7 +156,7 @@ public class HashTag {
      */
     @Temporal(TemporalType.TIMESTAMP)
     @Field(index=Index.TOKENIZED, store=Store.YES)
-    @Column(name = "hashtag_updated_date", nullable = false)
+    @Column(name = "hashtag_updated_date", nullable = true)
     public Date getUpdatedDate() {
         return updatedDate;
     }

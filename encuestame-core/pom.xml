@@ -44,6 +44,7 @@
                 <directory>src/main/resources/</directory>
                 <includes>
                     <include>spring-test/*.*</include>
+                    <include>org/**/*.*</include>
                     <include>properties-test/*.*</include>
                 </includes>
                 <filtering>true</filtering>
@@ -368,11 +369,9 @@
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+        </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>local-project-repo</id>
-            <url>file:${basedir}/../lib/repository</url>
-        </repository>
-    </repositories>
 </project>

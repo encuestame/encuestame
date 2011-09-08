@@ -135,6 +135,6 @@ dojo.declare(
                 encuestame.activity.cometd.startBatch();
                 encuestame.activity.cometd.publish(this.getUrl(), {});
                 encuestame.activity.cometd.endBatch();
-            },
+            }
 
     });

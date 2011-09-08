@@ -10,10 +10,10 @@
     <property name="ignoreResourceNotFound" value="true"/>
     <property name="locations">
         <list>
-          <value>classpath:/org/encuestame/business/config/encuestame-config.properties</value>
+          <value>classpath:/org/encuestame/core/config/encuestame-config.properties</value>
           <value>classpath:email-config.properties</value>
           <value>classpath:encuestame-config-custom.properties</value>
-          <value>classpath:version.properties</value>
+          <value>classpath:/org/encuestame/core/config/version.properties</value>
         </list>
     </property>
     <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>

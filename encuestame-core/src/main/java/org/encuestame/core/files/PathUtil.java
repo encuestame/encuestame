@@ -50,6 +50,11 @@ public class PathUtil {
     public static final String accounts = "/accounts";
 
     /**
+    *
+    */
+   public static String configFileName = "encuestame-config.xml";
+
+    /**
      *
      */
     public static final String account = "/account";

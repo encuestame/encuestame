@@ -58,6 +58,6 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.gadget.ActivityItem",
         [encuestame.org.core.commons.notifications.NotificationItem],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.gadget", "template/activityItem.html"),
+            templatePath: dojo.moduleUrl("encuestame.org.core.gadget", "template/activityItem.html")
 
 });

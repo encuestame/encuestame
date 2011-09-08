@@ -14,13 +14,10 @@ package org.encuestame.business.setup;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
-import org.encuestame.business.setup.install.TypeDatabase;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.core.service.imp.MailServiceOperations;
-import org.encuestame.core.util.InternetUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -72,11 +69,11 @@ public class ApplicationStartup implements StartupProcess {
     public void startProcess() throws EnMeStartupException {
         // check if root directory exist
         try {
-            // verify directory structure.
-            if (!DirectorySetupOperations.checkIfExistRootDirectory()) {
-                log.info("EnMe: Root directory is missing");
+            if (DirectorySetupOperations.checkInstallationFolder()) {
                 DirectorySetupOperations.createRootFolder();
             }
+            DirectorySetupOperations.validateInternalStructureDirectory(true);
+            DirectorySetupOperations.createConfileFile();
             // if email notification is enabled.
             if (EnMePlaceHolderConfigurer.getBooleanProperty(
                     "setup.email.notification").booleanValue()) {
@@ -91,22 +88,23 @@ public class ApplicationStartup implements StartupProcess {
                 mailService.sendStartUpNotification(startupMessage.toString());
             }
             // check internet connection
-            if (EnMePlaceHolderConfigurer.getBooleanProperty(
-                    "setup.check.network").booleanValue()) {
-                notifyInternetConnection();
-            }
+            //if (EnMePlaceHolderConfigurer.getBooleanProperty(
+            //        "setup.check.network").booleanValue()) {
+            //    notifyInternetConnection();
+            //}
             // check database
-            if (install != null) {
-                install.initializeDatabase(TypeDatabase
-                        .getTypeDatabaseByString(EnMePlaceHolderConfigurer
-                                .getProperty("datasource.database")));
-            } else {
-                log.fatal("Install operations is not available");
-                throw new EnmeFailOperation(
-                        "Install operations is not available");
-            }
-        } catch (EnmeFailOperation e) {
-            log.fatal("Error on Start Up " + e.getMessage());
+            //if (this.install != null) {
+            //    final String typeDatabase = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("database.type");
+            //    this.install.initializeDatabase(TypeDatabase
+            //            .getTypeDatabaseByString(typeDatabase));
+            //} else {
+            //   log.fatal("Install operations is not available");
+            //    throw new EnmeFailOperation(
+            //            "Install operations is not available");
+            //}
+        } catch (Exception e) {
+            log.fatal("Error on Start Up: " + e.getMessage());
+            e.printStackTrace();
             throw new EnMeStartupException(e);
         }
     }
@@ -114,21 +112,21 @@ public class ApplicationStartup implements StartupProcess {
     /**
      * Check if exist internet connection. Send pings to popular websites.
      */
-    private void notifyInternetConnection() {
-        log.info("Checking your internet connection");
-        boolean twitter = InternetUtils.pingTwitter();
-        boolean facebook = InternetUtils.pingFacebook();
-        boolean google = InternetUtils.pingGoogle();
-        if (twitter || facebook || google) {
-            log.info("## -------------------------------------------- ##");
-            log.info("## -- EnMe: Your internet connection is OK !!-- ##");
-            log.info("## -------------------------------------------- ##");
-        } else {
-            log.info("## -------------------------------------------------------------- ##");
-            log.info("## -- EnMe: Check your network, internet connection is missing -- ##");
-            log.info("## -------------------------------------------------------------- ##");
-        }
-    }
+//    private void notifyInternetConnection() {
+//        log.info("Checking your internet connection");
+//        boolean twitter = InternetUtils.pingTwitter();
+//        boolean facebook = InternetUtils.pingFacebook();
+//        boolean google = InternetUtils.pingGoogle();
+//        if (twitter || facebook || google) {
+//            log.info("## -------------------------------------------- ##");
+//            log.info("## -- EnMe: Your internet connection is OK !!-- ##");
+//            log.info("## -------------------------------------------- ##");
+//        } else {
+//            log.info("## -------------------------------------------------------------- ##");
+//            log.info("## -- EnMe: Check your network, internet connection is missing -- ##");
+//            log.info("## -------------------------------------------------------------- ##");
+//        }
+//    }
 
     /**
      * Set {@link InstallDatabaseOperations}.
