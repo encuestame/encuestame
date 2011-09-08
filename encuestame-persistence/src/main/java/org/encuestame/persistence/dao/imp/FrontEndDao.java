@@ -21,8 +21,11 @@ import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
 import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollHits;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollHits;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -223,4 +226,38 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         });
         return searchResult;
     }
+
+    public List<Hit> getHitsByIp(final String ipAddress, final Long id, final String searchHitby){
+         log.debug("searching item hits by ipAddress ---> "+ipAddress);
+         @SuppressWarnings({ "unchecked", "rawtypes" })
+         List<Hit> searchResult = (List) getHibernateTemplate().execute(new HibernateCallback() {
+                     public Object doInHibernate(org.hibernate.Session session) {
+                         List<Hit> searchResult = new ArrayList<Hit>();
+                         final Criteria criteria = session.createCriteria(Hit.class);
+                         if(searchHitby.equals("")){
+                             criteria.createAlias("tweetPoll","tweetPoll");
+                             criteria.add(Restrictions.eq("tweetPoll.tweetPollId", id));
+                         }
+                         else if(searchHitby.equals("")){
+                             criteria.createAlias("poll","poll");
+                             criteria.add(Restrictions.eq("poll.pollId", id));
+                         }
+                         else if(searchHitby.equals("")){
+                             criteria.createAlias("survey","survey");
+                             criteria.add(Restrictions.eq("survey.sid", id));
+                         }
+                         else{
+                             log.warn("");
+                         }
+
+
+                         searchResult = (List<Hit>) fetchPhraseFullText(ipAddress, "ipAddress", Hit.class,
+                         criteria, new SimpleAnalyzer());
+                         log.debug("total hits results ---> "+searchResult.size());
+                         return searchResult;
+                         }
+         });
+         return searchResult;
+    }
+
 }

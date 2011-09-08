@@ -13,9 +13,13 @@
 package org.encuestame.core.service.imp;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
@@ -87,7 +91,7 @@ public interface IFrontEndService extends ServiceOperations {
     List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
 
     /**
-     *
+     * Check previous hashTag hit.
      * @param ipAddress
      * @return
      */
@@ -115,4 +119,37 @@ public interface IFrontEndService extends ServiceOperations {
             final Integer start,
             Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException;
+
+    /**
+     * Register poll hits.
+     * @param poll
+     * @param ip
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Boolean registerPollHit(final Poll poll, final String ip) throws EnMeNoResultsFoundException;
+
+    /**
+     * Register tweetPoll hit
+     * @param tweetPoll
+     * @param ip
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Boolean registerTweetPollHit(final TweetPoll tweetPoll, final String ip) throws EnMeNoResultsFoundException;
+
+    /**
+     * Check previous poll hit.
+     * @param ipAddress
+     * @return
+     */
+    Boolean checkPreviousPollHit(final String ipAddress);
+
+    /**
+     * Check previous tweetPoll hit.
+     * @param ipAddress
+     * @return
+     */
+    Boolean checkPreviousTweetPollHit(final String ipAddress);
+
 }

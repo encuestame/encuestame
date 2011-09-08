@@ -145,7 +145,7 @@ public class TweetPoll extends AbstractGeoPoint{
      private Integer numbervotes;
 
      /** Number Hits or visits **/
-     private Integer hits;
+     private Long hits;
 
      /** TweetPoll Folder. **/
      private TweetPollFolder tweetPollFolder;
@@ -441,14 +441,14 @@ public class TweetPoll extends AbstractGeoPoint{
      * @return the hits
      */
     @Column(name = "hits")
-    public Integer getHits() {
+    public Long getHits() {
         return hits;
     }
 
     /**
      * @param hits the hits to set
      */
-    public void setHits(Integer hits) {
+    public void setHits(Long hits) {
         this.hits = hits;
     }
 

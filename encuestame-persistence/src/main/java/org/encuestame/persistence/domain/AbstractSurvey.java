@@ -148,7 +148,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Number Hits or visits
      */
-    private Integer hits;
+    private Long hits;
 
     /**
      * Show Option- Additional Info in Questions
@@ -483,14 +483,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the hits
      */
     @Column(name = "hits")
-    public Integer getHits() {
+    public Long getHits() {
         return hits;
     }
 
     /**
      * @param hits the hits to set
      */
-    public void setHits(Integer hits) {
+    public void setHits(Long hits) {
         this.hits = hits;
     }
 

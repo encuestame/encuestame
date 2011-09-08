@@ -783,7 +783,7 @@ public class ConvertDomainBean {
         unitSurvey.setClosedQuota(survey.getClosedQuota());
         unitSurvey.setShowResults(survey.getShowResults());
         unitSurvey.setNumbervotes(survey.getNumbervotes());
-        unitSurvey.setHits(survey.getHits());
+       // unitSurvey.setHits(survey.getHits());
         unitSurvey.setAdditionalInfo(survey.getAdditionalInfo());
         unitSurvey.setShowAdditionalInfo(survey.getShowAdditionalInfo());
         unitSurvey.setNotifications(survey.getNotifications());

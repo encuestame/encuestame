@@ -269,7 +269,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             surveyDomain.setClosedQuota(surveyBean.getClosedQuota());
             surveyDomain.setShowResults(surveyBean.getShowResults());
             surveyDomain.setNumbervotes(surveyBean.getNumbervotes());
-            surveyDomain.setHits(surveyBean.getHits());
+            // surveyDomain.setHits(surveyBean.getHits());
             surveyDomain.setAdditionalInfo(surveyBean.getAdditionalInfo());
             surveyDomain.setShowAdditionalInfo(surveyBean.getShowAdditionalInfo());
             surveyDomain.setNotifications(surveyBean.getNotifications());

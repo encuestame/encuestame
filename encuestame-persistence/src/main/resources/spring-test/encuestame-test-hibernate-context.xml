@@ -86,6 +86,7 @@
                 <value>org.encuestame.persistence.domain.dashboard.Gadget</value>
                 <value>org.encuestame.persistence.domain.dashboard.GadgetProperties</value>
                 <value>org.encuestame.persistence.domain.Comment</value>
+                <value>org.encuestame.persistence.domain.Hit</value>
                 <value>org.encuestame.persistence.domain.tweetpoll.TweetPollHits</value>
                 <value>org.encuestame.persistence.domain.survey.PollHits</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyHits</value>
