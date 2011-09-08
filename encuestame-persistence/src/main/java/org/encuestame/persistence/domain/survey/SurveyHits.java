@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.domain.survey;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +35,10 @@ import org.hibernate.search.annotations.Indexed;
  */
 
 @Entity
-@Table(name = "tweetPoll_Folder")
+@Table(name = "survey_hits")
+@Indexed(index="SurveyHits")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SurveyHits extends AbstractHit {
 
 
@@ -48,6 +52,8 @@ public class SurveyHits extends AbstractHit {
      * @return the id
      */
     @Id
+    @DocumentId
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "survey_hit_id", unique = true, nullable = true)
     public Long getId() {
         return id;

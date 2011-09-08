@@ -12,18 +12,19 @@
  */
 package org.encuestame.persistence.domain.survey;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.encuestame.persistence.domain.AbstractHit;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Indexed;
 
 /**
  * Poll hits.
@@ -33,6 +34,9 @@ import org.hibernate.search.annotations.DocumentId;
 
 @Entity
 @Table(name = "poll_hits")
+@Indexed(index="PollHits")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PollHits extends AbstractHit{
 
     /** Id. **/
