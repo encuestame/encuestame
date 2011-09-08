@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
+import org.eclipse.jdt.internal.compiler.ast.AllocationExpression;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -28,10 +29,13 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Front End Service.
@@ -91,6 +95,22 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return results;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
+     */
+    public List<HomeBean> getFrontEndItems(final String period,
+            final Integer start,
+            Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException{
+        final List<HomeBean> allItems = new ArrayList<HomeBean>();
+        final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(period, start, maxResults, request);
+        allItems.addAll(ConvertDomainBean.convertTweetPollListToHomeBean(tweetPollItems));
+        final List<PollBean> pollItems = this.searchItemsByPoll(period, start, maxResults);
+        allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
+        return allItems;
+    }
+
     /**
      * Search items by poll.
      * @param period
@@ -107,7 +127,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     if(maxResults == null){
         maxResults = this.MAX_RESULTS;
     }
-    log.debug("Max Results "+maxResults);
     final List<Poll> items = new ArrayList<Poll>();
     if(period == null ){
         throw new EnMeSearchException("search params required.");
@@ -145,7 +164,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         if(maxResults == null){
             maxResults = this.MAX_RESULTS;
         }
-        log.debug("Max Results HashTag -----> "+maxResults);
         final List<HashTag> tags = getHashTagDao().getHashTags(maxResults, start, tagCriteria);
         hashBean.addAll(ConvertDomainBean.convertListHashTagsToBean(tags));
         return hashBean;
@@ -245,6 +263,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             if (hashHit != null) {
                 hitCount = tag.getHits() + hitCount;
                 tag.setHits(hitCount);
+                getFrontEndDao().saveOrUpdate(tag);
                 register = true;
             }
         }
@@ -259,6 +278,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @return
      * @throws EnMeNoResultsFoundException
      */
+    @Transactional(readOnly = false)
     private HashTagHits newHashTagHit(
             final HashTag tag,
             final Date hitDate,
@@ -267,8 +287,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setHitDate(hitDate);
         tagHitsDomain.setHashTag(tag);
         tagHitsDomain.setIpAddress(ipAddress);
-        tagHitsDomain.setUserAccount(getUserAccount(getUserPrincipalUsername()));
-        this.getFrontEndDao().saveOrUpdate(tagHitsDomain);
+        getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
     }
 }

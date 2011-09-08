@@ -53,6 +53,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -76,7 +77,7 @@ import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
-import org.encuestame.utils.web.UnitSurvey;
+import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 
@@ -759,8 +760,8 @@ public class ConvertDomainBean {
      * @param survey
      * @return
      */
-    public static final UnitSurvey convertSurveyDomaintoBean(final Survey survey){
-        final UnitSurvey unitSurvey = new UnitSurvey();
+    public static final SurveyBean convertSurveyDomaintoBean(final Survey survey){
+        final SurveyBean unitSurvey = new SurveyBean();
         unitSurvey.setSid(survey.getSid());
         unitSurvey.setTicket(survey.getTicket());
         unitSurvey.setStartDate(survey.getStartDate());
@@ -914,4 +915,65 @@ public class ConvertDomainBean {
        }
        return commentsBean;
      }
+
+   /**
+    * Convert TweetPollBean List to Home Bean.
+    * @param tweetPollBean
+    * @return
+    */
+    public static final List<HomeBean> convertTweetPollListToHomeBean(final List<TweetPollBean> items){
+       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
+       for (TweetPollBean tweetPollBean : items) {
+           listFrontEndItems.add(ConvertDomainBean.convertTweetPollToHomeBean(tweetPollBean));
+        }
+   return listFrontEndItems;
+   }
+
+  /**
+   * Convert {@link TweetPollBean} to {@link HomeBean}.
+   * @param tweetBean
+   * @return
+   */
+   public static final HomeBean convertTweetPollToHomeBean(final TweetPollBean tweetBean){
+       final HomeBean homeBean = new HomeBean();
+       homeBean.setId(tweetBean.getId());
+       homeBean.setCreateDate(tweetBean.getCreateDate());
+       homeBean.setQuestionBean(tweetBean.getQuestionBean());
+       homeBean.setRelativeTime(tweetBean.getRelativeTime());
+       homeBean.setTotalVotes(tweetBean.getTotalVotes());
+       homeBean.setUserId(tweetBean.getUserId());
+       homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
+       homeBean.setItemType("tweetPoll");
+       return homeBean;
+   }
+
+   /**
+    * Convert PollBean List to Home Bean.
+    * @param PollBean
+    * @return
+    */
+   public static final List<HomeBean> convertPollListToHomeBean(final List<PollBean> items){
+       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
+       for (PollBean pollBean : items) {
+           listFrontEndItems.add(ConvertDomainBean.convertPollToHomeBean(pollBean));
+        }
+   return listFrontEndItems;
+   }
+
+  /**
+   * Convert {@link PollBean} to {@link HomeBean}.
+   * @param pollBean
+   * @return
+   */
+   public static final HomeBean convertPollToHomeBean(final PollBean pollBean){
+       final HomeBean homeBean = new HomeBean();
+       homeBean.setId(pollBean.getId());
+       homeBean.setQuestionBean(pollBean.getQuestionBean());
+       homeBean.setOwnerUsername(pollBean.getOwnerUsername());
+       homeBean.setCreatedDateAt(pollBean.getCreationDate());
+       homeBean.setTotalVotes(pollBean.getTotalVotes());
+       homeBean.setRelativeTime(pollBean.getRelativeTime());
+       homeBean.setItemType("poll");
+       return homeBean;
+   }
 }
