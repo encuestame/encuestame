@@ -13,11 +13,16 @@
 package org.encuestame.core.service;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 /**
  * Directory Operations.
@@ -30,7 +35,7 @@ public class DirectorySetupOperations {
     private static Logger log = Logger
             .getLogger(DirectorySetupOperations.class);
     /** Default root directory name. */
-    private static final String DEFAULT_ROOT_FOLDER = "encuestame";
+    private static final String DEFAULT_ROOT_FOLDER = "encuestame-store";
     /** Default picture directory name. **/
     private static final String PICTURES_DEFAULT_FOLDER = "pictures";
     /** Default profiles directory name. **/
@@ -51,9 +56,28 @@ public class DirectorySetupOperations {
     public static boolean checkIfExistRootDirectory() throws EnmeFailOperation {
         final File rootDir = new File(DirectorySetupOperations.getRootDirectory());
         log.debug("EnMe: Root directory: " + rootDir);
-        DirectorySetupOperations.validateInternalStructureDirectory(rootDir,
-                Boolean.TRUE);
         return rootDir.exists();
+    }
+
+    /**
+     * Create config file.
+     * encuestame-config.xml
+     * @throws IOException
+     */
+    public static void createConfileFile() throws IOException {
+        log.debug("createConfileFile");
+        final StringBuffer config = new StringBuffer(getRootDirectory());
+        config.append(PathUtil.configFileName);
+        final File configFile = new File(config.toString());
+        if (!configFile.exists()) {
+            final Resource resource = new ClassPathResource("encuestame-config-sample.xml");
+            log.debug("createConfileFile resource"+resource);
+            log.debug("createConfileFile configFile"+configFile.getAbsolutePath());
+            final File sourceFile = resource.getFile();
+            log.debug("createConfileFile sourceFile"+sourceFile.getAbsolutePath());
+            EnMeUtils.copy(sourceFile, configFile);
+            EnMePlaceHolderConfigurer.getConfigurationManager().reloadConfigFile();
+        }
     }
 
     /**
@@ -124,11 +148,11 @@ public class DirectorySetupOperations {
      * @return real path of roor directory.
      */
     public static String getRootDirectory() {
-        String root = EnMePlaceHolderConfigurer
-                .getProperty("encuestame.home");
-        if (root != null) {
+        String root = EnMePlaceHolderConfigurer.getProperty("encuestame.home");
+        if (root == null) {
             root = System.getProperty("user.home")+ "/" + DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
         }
+        log.debug("root directory: "+root);
         if (!root.endsWith("/")) {
             root = root + "/";
         }
@@ -188,16 +212,26 @@ public class DirectorySetupOperations {
      *             exception on try to create directory.
      */
     public static void createRootFolder() throws EnmeFailOperation {
-        final File rootFolder = new File(
-                DirectorySetupOperations.getRootDirectory());
-        boolean success = rootFolder.mkdirs();
-        log.info("created root folder");
-        if (success && rootFolder.canWrite() && rootFolder.isDirectory()) {
-            DirectorySetupOperations.validateInternalStructureDirectory(rootFolder,
-                    true);
-        } else {
-            throw new EnmeFailOperation("EnMe: not able to create ROOT folder");
+        final File rootFolder = new File(DirectorySetupOperations.getRootDirectory());
+        if (!rootFolder.exists()) {
+            boolean success = rootFolder.mkdirs();
+            log.info("created root folder");
+            if (success && rootFolder.canWrite() && rootFolder.isDirectory()) {
+                //TODO:
+            } else {
+                throw new EnmeFailOperation("EnMe: not able to create ROOT folder");
+            }
         }
+    }
+
+    /**
+     * Check the installation folder.
+     * @return
+     */
+    public static Boolean checkInstallationFolder(){
+        final File rootFolder = new File(DirectorySetupOperations.getRootDirectory());
+        log.debug("checkInstallationFolder "+rootFolder.exists());
+        return rootFolder.exists();
     }
 
     /**
@@ -205,7 +239,8 @@ public class DirectorySetupOperations {
      * @param rootFolder {@link File} reference or root directory.
      * @throws EnMeStartupException
      */
-    private static void validateInternalStructureDirectory(final File rootFolder, final boolean createIfNoExist) throws EnmeFailOperation {
+    public static void validateInternalStructureDirectory(final boolean createIfNoExist) throws EnmeFailOperation {
+            log.debug("EnMe: validateInternalStructureDirectory."+createIfNoExist);
             if (!DirectorySetupOperations.checkIfIndexedDirectoryExist(createIfNoExist)) {
                 log.debug("EnMe: index folder not found, creating one...");
             }

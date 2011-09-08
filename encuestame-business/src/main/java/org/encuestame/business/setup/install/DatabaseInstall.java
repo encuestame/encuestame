@@ -166,13 +166,14 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @see org.encuestame.business.setup.install.InstallDatabaseOperations#
      * initializeDatabase()
      */
+    @SuppressWarnings("unused")
     public void initializeDatabase(final TypeDatabase installDatabase)
             throws EnmeFailOperation {
         setDatabaseType(installDatabase);
-        log.debug("Check Database Conection..");
+        log.debug("check Database conection..");
         // verify database connection.
         //if (this.installerOperations.checkDatabaseConection() == 1) {
-        if (Boolean.TRUE) {
+        if (true) { //TODO: temp, comment bellow.
             if (this.checkDatabase()) {
                 //get current version of database.
                 log.debug("Database is installed ... checking version");
@@ -182,9 +183,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
                     //start database upgrade.
                     log.info("EnMe : Upgrading database...");
                     this.upgradeDatabase(getVersionDatabaseFromProperty());
-                // if not, should be equals. Never less.
+                   // if not, should be equals. Never less.
                 } else {
-                    //TODO:
                     log.info("EnMe : Database Already up-to-date");
                 }
             } else {
@@ -192,8 +192,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
             }
         } else {
             log.fatal("EnMe: No database conectionm check your properties");
-            throw new EnmeFailOperation(
-                    "EnMe: No database conectionm check your properties");
+            throw new EnmeFailOperation("EnMe: No database conectionm check your properties");
         }
     }
 
@@ -201,16 +200,15 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * Get database version stored on property file.
      *
      * @return
+     * @throws EnmeFailOperation
      */
-    private int getVersionDatabaseFromProperty() {
-        int version = 0;
-        if (EnMePlaceHolderConfigurer.getConfigurationManager().getDatabaseVersion() == null) {
-            log.error("Encuestame Database Version Property is null, this is wrong !!");
-        } else {
-            version = EnMePlaceHolderConfigurer.getIntegerProperty(
-                    "encuestame.database.version").intValue();
+    private int getVersionDatabaseFromProperty() throws EnmeFailOperation {
+        final Integer ver = EnMePlaceHolderConfigurer.getConfigurationManager().getDatabaseVersion();
+        if (ver == null) {
+            log.fatal("database version is missing.");
+            throw new EnmeFailOperation("database version is missing");
         }
-        return version;
+        return ver;
     }
 
     /**

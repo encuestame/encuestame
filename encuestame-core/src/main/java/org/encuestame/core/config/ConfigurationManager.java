@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.config;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.configuration.ConfigurationException;
@@ -19,8 +20,8 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.service.DirectorySetupOperations;
 
 /**
  * Configuration Manager.
@@ -36,11 +37,6 @@ public class ConfigurationManager {
     private static Log log = LogFactory.getLog(ConfigurationManager.class);
 
     /**
-     *
-     */
-    private static String defaultPath = "encuestame-config.xml";
-
-    /**
      * configuration store file.
      */
     private static XMLConfiguration xmlConfiguration = null;
@@ -51,12 +47,22 @@ public class ConfigurationManager {
      * @throws ConfigurationException
      * @throws IOException
      */
-    public ConfigurationManager(final String path) throws ConfigurationException, IOException {
-         Resource res = new ClassPathResource(path);
-         ConfigurationManager.xmlConfiguration = new XMLConfiguration(res.getFile());
-         xmlConfiguration.setAutoSave(true);
-         xmlConfiguration.setReloadingStrategy(new FileChangedReloadingStrategy());
+    public ConfigurationManager(final File file) throws ConfigurationException, IOException {
+        this.createConfiguration(file);
     }
+
+    /**
+     *
+     * @param file
+     * @throws ConfigurationException
+     * @throws IOException
+     */
+    public ConfigurationManager(final String path) throws ConfigurationException, IOException {
+        final File file = new File(path.toString());
+        if (file.exists()) {
+            this.createConfiguration(file);
+        }
+   }
 
     /**
      * Constructor.
@@ -65,17 +71,55 @@ public class ConfigurationManager {
      * @throws ConfigurationException
      */
     public ConfigurationManager() throws IOException, ConfigurationException {
-        Resource res = new ClassPathResource(ConfigurationManager.defaultPath);
-        this.setXmlConfiguration(new XMLConfiguration(res.getFile()));
-        xmlConfiguration.setAutoSave(true);
-        xmlConfiguration.setReloadingStrategy(new FileChangedReloadingStrategy());
+        final File file = new File(buildConfigFilePath());
+        if (file.exists()) {
+            this.createConfiguration(file);
+        }
+    }
+
+    private String buildConfigFilePath(){
+        final StringBuffer stringBuffer = new StringBuffer(DirectorySetupOperations.getRootDirectory());
+        stringBuffer.append(PathUtil.configFileName);
+        return stringBuffer.toString();
+    }
+
+    /**
+     *
+     * @param file
+     * @throws ConfigurationException
+     */
+    @SuppressWarnings("static-access")
+    private void createConfiguration(final File file) throws ConfigurationException{
+        log.debug("createConfiguration "+file.exists());
+        if (file.exists()) {
+            log.debug("createConfiguration.......... "+file);
+            this.xmlConfiguration = new XMLConfiguration(file);
+            this.xmlConfiguration.setAutoSave(true);
+            this.xmlConfiguration.setReloadingStrategy(new FileChangedReloadingStrategy());
+        }
+    }
+
+    /**
+     * @throws ConfigurationException
+     *
+     */
+    public void reloadConfigFile(){
+        log.debug("reloadConfigFile");
+        final File file = new File(buildConfigFilePath());
+        try {
+            this.createConfiguration(file);
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+            log.fatal(e);
+            log.fatal("not able to reload configuration manager");
+        }
     }
 
     /**
      *
      * @param property
      */
-    public static String getProperty(final String property) {
+    public String getProperty(final String property) {
         return xmlConfiguration.getString(property);
     }
 
@@ -99,8 +143,8 @@ public class ConfigurationManager {
      *
      * @return
      */
-    public static Float getDatabaseVersion(){
-        return xmlConfiguration.getFloat("database.version");
+    public Integer getDatabaseVersion(){
+        return xmlConfiguration.getInt("database.version");
     }
 
     /**

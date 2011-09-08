@@ -70,7 +70,7 @@ public class InstallerDao extends JdbcDaoSupport implements InstallerOperations 
         boolean success = false;
         final List<String> requiredTables = new ArrayList<String>();
         requiredTables.add("account");
-        requiredTables.add("app_version");
+        //requiredTables.add("app_version");
         requiredTables.add("permission");
         requiredTables.add("useraccount");
         requiredTables.add("tweetpoll");

@@ -22,8 +22,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.service.DirectorySetupOperations;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -45,6 +48,7 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      */
     private static ConfigurationManager configurationManager;
 
+
     /**
      * List of Properties.
      */
@@ -64,10 +68,9 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
             ConfigurableListableBeanFactory beanFactory, Properties props)
             throws BeansException {
         try {
-            this.configurationManager = new ConfigurationManager();
+            EnMePlaceHolderConfigurer.configurationManager = new ConfigurationManager();
         } catch (Exception e1) {
-            log.fatal("encuestame xml config not found");
-            //TODO: actions ...
+            e1.printStackTrace();
         }
         //get form system property enviroment out file path.
         final String enviromentPropertyFile = System.getProperty(overwriteJvmParam);
@@ -123,7 +126,8 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * The xml configuration manager.
      * @return
      */
-    public static ConfigurationManager getConfigurationManager(){
+    public static ConfigurationManager getConfigurationManager() {
+        log.debug("getConfigurationManager() "+configurationManager);
         return configurationManager;
     }
 
