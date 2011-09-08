@@ -648,7 +648,6 @@ public class ConvertDomainBean {
         return locationFolder;
     }
 
-
     /**
      * Convert {@link UnitLocationFolder} to {@link UtilTreeNode}.
      * @param unitLocationSubFolder List {@link UnitLocationFolder}.

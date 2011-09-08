@@ -16,9 +16,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.AllocationExpression;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -33,7 +34,6 @@ import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.SurveyBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

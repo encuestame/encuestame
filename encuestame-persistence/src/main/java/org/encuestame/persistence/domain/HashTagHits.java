@@ -12,7 +12,6 @@
  */
 package org.encuestame.persistence.domain;
 
-import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,16 +21,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.Store;
 
 /**
  * Hash Tags Hits.
@@ -43,19 +38,19 @@ import org.hibernate.search.annotations.Store;
 @Indexed(index="HashTagHits")
 @Table(name = "hash_tags_hits")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class HashTagHits {
+public class HashTagHits extends AbstractHit {
 
     /** Hash Tag Id. **/
     private Long id;
 
-    /** Tag String.**/
-    private Date hitDate;
+   /* *//** Tag String.**//*
+    private Date hitDate;*/
 
     /** Hash**/
     private HashTag hashTag;
 
-    /** Ip address**/
-    private String ipAddress;
+   /* *//** Ip address**//*
+    private String ipAddress;*/
 
     /** {@link UserAccount} **/
     private UserAccount userAccount;
@@ -78,21 +73,21 @@ public class HashTagHits {
         this.id = id;
     }
 
-    /**
+/*    *//**
     * @return the hitDate
-    */
+    *//*
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "hits_date", nullable = false)
     public Date getHitDate() {
         return hitDate;
     }
 
-    /**
+    *//**
     * @param hitDate the hitDate to set
-    */
+    *//*
     public void setHitDate(final Date hitDate) {
         this.hitDate = hitDate;
-    }
+    }*/
 
     /**
     * @return the hashTagId
@@ -109,22 +104,22 @@ public class HashTagHits {
         this.hashTag = hashTag;
     }
 
-    /**
+   /* *//**
     * @return the ipAddress
-    */
+    *//*
     @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "hits_ip_address", nullable = false, length = 100)
     public String getIpAddress() {
         return ipAddress;
     }
 
-    /**
+    *//**
     * @param ipAddress the ipAddress to set
-    */
+    *//*
     public void setIpAddress(final String ipAddress) {
         this.ipAddress = ipAddress;
     }
-
+*/
     /**
     * @return the userAccount
     */
