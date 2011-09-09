@@ -60,22 +60,18 @@ public class EnMeContext extends ContextLoaderListener implements ServletContext
 
         WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
 
-        log.info("**********************************************");
-        log.info("*         ENCUESTAME IS RUNNING              *");
-        log.info("*         http://www.encuestame.org          *");
-        log.info("**********************************************");
-
         final StartupProcess startup = (StartupProcess) ctx.getBean("applicationStartup");
         try {
-            startup.startProcess();
+           startup.startProcess();
         } catch (EnMeStartupException e) {
+           e.printStackTrace();
            log.fatal("EnMe: Error on stat encuestame context");
            throw new IllegalStateException("EnMe: Error on stat encuestame context : "+e.getMessage());
         }
-
-        //log.info("******************************* "+install);
-        //install.install();
-        log.info("*******************************");
+        log.info("**********************************************");
+        log.info("*     ENCUESTAME IS RUNNING SUCCESSFULLY      *");
+        log.info("*        http://www.encuestame.org           *");
+        log.info("**********************************************");
     }
 
     @Override

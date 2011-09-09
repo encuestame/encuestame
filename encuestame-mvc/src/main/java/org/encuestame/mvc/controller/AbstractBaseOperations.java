@@ -80,6 +80,9 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  */
 public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 
+     /**
+      *
+      */
      private Logger log = Logger.getLogger(this.getClass());
 
      /**

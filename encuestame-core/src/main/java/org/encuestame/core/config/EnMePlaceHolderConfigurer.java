@@ -22,8 +22,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.service.DirectorySetupOperations;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -39,6 +42,12 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * JVM encuestame path param.
      */
     private static String overwriteJvmParam = "encuestame.custom.config";
+
+    /**
+     *
+     */
+    private static ConfigurationManager configurationManager;
+
 
     /**
      * List of Properties.
@@ -58,7 +67,11 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     protected void processProperties(
             ConfigurableListableBeanFactory beanFactory, Properties props)
             throws BeansException {
-
+        try {
+            EnMePlaceHolderConfigurer.configurationManager = new ConfigurationManager();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
         //get form system property enviroment out file path.
         final String enviromentPropertyFile = System.getProperty(overwriteJvmParam);
         File customEncuestameFile;
@@ -108,6 +121,35 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     public static String getProperty(final String name) {
         return propertiesMap.get(name);
     }
+
+    /**
+     * The xml configuration manager.
+     * @return
+     */
+    public static ConfigurationManager getConfigurationManager() {
+        log.debug("getConfigurationManager() "+configurationManager);
+        return configurationManager;
+    }
+
+    /**
+     * Return int param of {@link ConfigurationManager}.
+     * @param param
+     * @return
+     */
+    public static Integer getParamConfigurationManager(final String param){
+        return configurationManager.getIntProperty(param);
+    }
+
+    /**
+    * Return string param of {@link ConfigurationManager}.
+    * @param param
+    * @return
+    */
+   public static String getStringParamConfigurationManager(final String param){
+       return configurationManager.getProperty(param);
+   }
+
+   //TODO: boolean param on configuration Manager.
 
     /**
      * Get boolean property.

@@ -5,23 +5,27 @@
 
     <var name="signUpBean" class="org.encuestame.utils.security.SignUpBean" />
 
-    <view-state id="signup" model="signUpBean">
+    <view-state id="setup" model="signUpBean">
         <binder>
             <binding property="username" />
             <binding property="email" />
             <binding property="captcha" />
         </binder>
-        <transition on="saveUser" to="findFriends" validate="true" history="discard">
+        <transition on="upgrade" to="findFriends" validate="true" history="discard">
+               <evaluate expression="securityService.singupUser(signUpBean)" result="flowScope.userAccount"
+                         result-type="org.encuestame.utils.web.UserAccountBean"/>
+        </transition>
+        <transition on="install" to="findFriends" validate="true" history="discard">
                <evaluate expression="securityService.singupUser(signUpBean)" result="flowScope.userAccount"
                          result-type="org.encuestame.utils.web.UserAccountBean"/>
         </transition>
     </view-state>
 
-    <view-state id="findFriends" model="signUpBean">
+    <view-state id="upgrade" model="signUpBean">
         <transition on="next" to="profile" history="discard" />
     </view-state>
 
-    <view-state id="profile" model="signUpBean">
+    <view-state id="install" model="signUpBean">
         <transition on="next" to="isActivated" history="discard" />
     </view-state>
 

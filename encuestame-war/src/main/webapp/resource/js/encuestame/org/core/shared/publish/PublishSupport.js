@@ -229,11 +229,7 @@ dojo.declare(
                      enableEasyAddAccount : true
                  }
             );
-        },
-
-        initializeSocialNetworks : function(){},
-        initializeEmailSupport : function(){},
-        initializeEmbebedSuport : function(){},
+        }
 
 });
 
@@ -291,6 +287,6 @@ dojo.declare(
 
         widgetsInTemplate: true,
 
-        itemId : null,
+        itemId : null
 
 });
