@@ -17,11 +17,11 @@
    <!-- Tiles Configuration -->
    <import resource="encuestame-tiles-context.xml"/>
 
-   <!-- Define url mappings to web flow controller.  -->
+   <!-- Define url mappings to web flow controller.
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
        <property name="mappings">
          <value>
-            /setup=flowController
+
          </value>
        </property>
        <property name="defaultHandler" ref="urlFilenameViewController"/>
@@ -33,7 +33,7 @@
         </list>
     </property>
        <property name="order" value="1"/>
-    </bean>
+    </bean>-->
 
   <!-- Maps request paths to @Controller classes;
        e.g. a path of /signup looks for a controller named SignUpController -->
@@ -57,16 +57,13 @@
   <!-- Controller Views -->
   <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
-  <bean id="flowController" class="org.springframework.webflow.mvc.servlet.FlowController">
-    <property name="flowExecutor" ref="flowExecutor"/>
-  </bean>
-
   <!-- Dispatches requests mapped to
     org.springframework.web.servlet.mvc.Controller implementations
     required to render urlFilenameViewController.
     -->
   <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
+  <!-- Resources -->
   <mvc:resources mapping="/resources/**" location="/resource/" cache-period="31556926" order="0"/>
 
   <!--
@@ -80,12 +77,18 @@
         e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
-        <property name="order" value="1"/>
+        <property name="order" value="0"/>
+         <property name="interceptors">
+            <list>
+                <ref bean="mobileInterceptor"/>
+                <ref bean="enMeInterceptor"/>
+                <ref bean="openSessionInViewInterceptor"/>
+            </list>
+        </property>
     </bean>
 
 
     <!-- Create Cookie Default Locale-->
-
     <bean id="localeResolver"
            class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
            <property name="cookieName" value="enme-locale" />

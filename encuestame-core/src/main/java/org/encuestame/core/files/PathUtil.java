@@ -24,6 +24,8 @@ public class PathUtil {
      */
     public static String signIn = "/user/signin";
 
+    public static String setup = "/setup";
+
     public static String DEFAUL_PICTURE_PREFIX = "file_";
 
     /**

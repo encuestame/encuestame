@@ -127,7 +127,7 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * @return
      */
     public static ConfigurationManager getConfigurationManager() {
-        log.debug("getConfigurationManager() "+configurationManager);
+        log.debug("getConfigurationManager() "+configurationManager.getXmlConfiguration().getFile().getAbsolutePath());
         return configurationManager;
     }
 
