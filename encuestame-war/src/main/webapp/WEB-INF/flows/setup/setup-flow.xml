@@ -6,6 +6,9 @@
     <var name="administrator" class="org.encuestame.core.config.AdministratorProfile" />
 
     <view-state id="setup">
+        <on-entry>
+            <evaluate  expression="setupService.checkStatus()" result="flowScope.status"></evaluate>
+        </on-entry>
         <transition on="upgrade-submit" to="upgrade-setup" />
         <transition on="install-submit" to="install-setup" />
     </view-state>
@@ -35,8 +38,9 @@
             <binding property="password" />
             <binding property="confirmPassword" />
             <binding property="email" />
+            <binding property="confirmEmail" />
         </binder>
-        <transition on="create-user" to="review-admon">
+        <transition on="create-user" to="review-admon" validate="true">
             <evaluate expression="setupService.createUserAdministration(administrator)" result="flowScope.admon">
             </evaluate>
         </transition>

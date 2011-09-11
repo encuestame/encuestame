@@ -14,7 +14,12 @@ package org.encuestame.core.config;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
+import javax.validation.constraints.NotNull;
+
+import org.encuestame.core.annotations.FieldMatch;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.binding.validation.ValidationContext;
@@ -24,20 +29,58 @@ import org.springframework.binding.validation.ValidationContext;
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 10, 2011
  */
+@FieldMatch.List({
+    @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
+    @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
+})
 public class AdministratorProfile implements Serializable{
 
     /**
-     *
+     * Serial.
      */
     private static final long serialVersionUID = -8947758116702889573L;
 
+    /**
+     * Useraname.
+     */
+    @NotNull
+    @NotEmpty
+    @Length(min = 6, max = 25)
     private String username;
 
+    /**
+     * Password.
+     */
+    @NotNull
+    @NotEmpty
+    @Length(min = 6, max = 16)
     private String password;
 
+    /**
+     * Password confirmation.
+     */
+    @NotNull
+    @NotEmpty
+    @Length(min = 6, max = 16)
     private String confirmPassword;
 
+    /**
+     * Email.
+     */
+    @Email
+    @NotNull
+    @NotEmpty
+    @Length(min = 3, max = 150)
     private String email;
+
+    /**
+     * Email confirmation.
+     */
+    @Email
+    @NotNull
+    @NotEmpty
+    @Length(min = 3, max = 150)
+    private String confirmEmail;
 
     /**
      * @return the username
@@ -100,16 +143,16 @@ public class AdministratorProfile implements Serializable{
     }
 
     /**
-     *
-     * @param validationContext
+     * @return the confirmEmail
      */
-    public void validateinstallAdmon(ValidationContext context){
-        System.out.println("=============== VALIDATE =============");
-        MessageContext messages = context.getMessageContext();
-        if (!password.equals(confirmPassword)) {
-            messages.addMessage(new MessageBuilder().error().source("checkinDate").
-                defaultText("Passwors should be equals.").build());
-        }
-        System.out.println("=============== VALIDATE =============");
+    public String getConfirmEmail() {
+        return confirmEmail;
+    }
+
+    /**
+     * @param confirmEmail the confirmEmail to set
+     */
+    public void setConfirmEmail(final String confirmEmail) {
+        this.confirmEmail = confirmEmail;
     }
 }

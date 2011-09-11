@@ -60,6 +60,10 @@ public class SetupService extends AbstractBaseService implements
         this.install = install;
     }
 
+    /**
+     *
+     * @return
+     */
     private String getTypeDatabase() {
         final String typeDatabase = EnMePlaceHolderConfigurer
                 .getConfigurationManager().getProperty("database.type");
@@ -109,6 +113,25 @@ public class SetupService extends AbstractBaseService implements
         return this.install.getScriptLog();
     }
 
+    /**
+     * Check status version.
+     * @return the status.
+     */
+    public String checkStatus() {
+        //TODO: replace by ENUMs
+        String status = "install";
+        final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");
+        final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
+        if(installedVersion != null) {
+            float f1 = Float.valueOf(currentVersion);
+            float f2 = Float.valueOf(installedVersion);
+            if (f2 < f1) {
+                status = "upgrade";
+            }
+        }
+        return status;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -119,8 +142,11 @@ public class SetupService extends AbstractBaseService implements
     @Override
     public UserAccountBean createUserAdministration(
             AdministratorProfile administratorProfile) {
-        log.debug("CREATE ADMON");
-        return new UserAccountBean();
+        log.debug("===============CREATE ADMON==============");
+        UserAccountBean account = new UserAccountBean();
+        account.setUsername(administratorProfile.getUsername());
+        account.setEmail(administratorProfile.getEmail());
+        return account;
     }
 
     /**
@@ -145,9 +171,13 @@ public class SetupService extends AbstractBaseService implements
      * @see org.encuestame.core.service.SetupOperations#removeTables()
      */
     @Override
-    public Boolean removeTables() {
-        // TODO Auto-generated method stub
-        return null;
+    public void removeTables() {
+         try {
+             this.install.dropAll();
+         } catch (Exception e) {
+             log.fatal(e);
+             RequestSessionMap.setErrorMessage(e.getMessage());
+         }
     }
 
     /*
@@ -161,7 +191,6 @@ public class SetupService extends AbstractBaseService implements
         } catch (Exception e) {
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
-            e.printStackTrace();
         }
     }
 }

@@ -61,4 +61,10 @@ public interface InstallDatabaseOperations {
      */
     void installDemoData() throws IOException;
 
+    /**
+     *
+     * @throws IOException
+     */
+    void dropAll() throws IOException;
+
 }

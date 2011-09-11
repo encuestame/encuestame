@@ -24,6 +24,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
 
     private final String INDEX = "index.sql";
     private final String ALTER = "alter.sql";
+    private final String DROP = "drop.sql";
     private final String TABLES = "tables.sql";
     private final String INSTALL = "install.sql";
     private final String DEMO = "demo.sql";
@@ -240,5 +241,13 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     public void setScriptLog(StringBuffer scriptLog) {
         this.scriptLog = scriptLog;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void dropAll() throws IOException {
+        this.installScript(this.buildTableScript(this.DROP));
     }
 }

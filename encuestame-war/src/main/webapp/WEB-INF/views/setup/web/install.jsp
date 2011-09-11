@@ -1,6 +1,13 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="defaultMarginWrapper">
-     <p>state: ${state}</p>
+        <div class="setup-description">
+        <h1>
+            Step 2: <span>Create Database</span>
+        </h1>
+        <p>
+           Description of step.
+        </p>
+    </div>
      <c:if test="${not empty message}">
         <div class="${message.infoType.css}">${message.message}</div>
     </c:if>

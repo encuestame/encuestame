@@ -10,19 +10,16 @@
     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
 </head>
-<body class="claro">
-     <div id="mainWrapper">
-        <div id="header">
+<body>
+     <div id="mainWrapper" class="web-setup-wrapper enme-auto-center" style="overflow: hidden;">
+        <div>
             <tiles:insertAttribute name="header" />
         </div>
         <div id="content-container" class="enme-auto-center">
-            <div id="enme-content" class="enme-auto-center">
+            <div id="enme-content" class="enme-auto-center web-setup-content">
                 <tiles:insertAttribute name="content"/>
             </div>
         </div>
-     </div>
-     <div id="footer">
-          <tiles:insertAttribute name="footer" />
      </div>
 </body>
 </html>
