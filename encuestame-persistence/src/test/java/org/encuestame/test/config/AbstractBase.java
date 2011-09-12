@@ -56,6 +56,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
@@ -1822,6 +1823,67 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        tagHits.setUserAccount(userAcc);
        getHashTagDao().saveOrUpdate(tagHits);
        return tagHits;
+    }
+
+    /**
+     * Create hit new.
+     * @param tweetPoll
+     * @param poll
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    public Hit createHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag hashTag,
+            final String ipAddress){
+        final Hit hit = new Hit();
+        hit.setHitDate(Calendar.getInstance().getTime());
+        hit.setIpAddress(ipAddress);
+        hit.setPoll(poll);
+        hit.setSurvey(survey);
+        hit.setTweetPoll(tweetPoll);
+        hit.setHashTag(hashTag);
+        getFrontEndDao().saveOrUpdate(hit);
+        return hit;
+    }
+
+    /**
+     * Create TweetPoll hit.
+     * @param tweetPoll
+     * @param ipAddress
+     * @return
+     */
+    public Hit createTweetPollHit(final TweetPoll tweetPoll, final String ipAddress){
+        return this.createHit(tweetPoll, null, null, null, ipAddress);
+    }
+
+    /**
+     * Create Poll hit.
+     * @param poll
+     * @param ipAddress
+     * @return
+     */
+    public Hit createPollHit(final Poll poll, final String ipAddress){
+        return this.createHit(null, poll, null, null, ipAddress);
+    }
+
+    /**
+     * Create survey hit.
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    public Hit createSurveyHit(final Survey survey, final String ipAddress){
+        return this.createHit(null, null, survey, null, ipAddress);
+    }
+
+    /**
+     * Create HashTag hit.
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    public Hit createHashTagHit(final HashTag tag, final String ipAddress){
+        return this.createHit(null, null, null, tag, ipAddress);
     }
 
     /**

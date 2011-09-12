@@ -20,6 +20,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
@@ -42,13 +43,21 @@ public class TestFrontEndDao extends AbstractBase {
     /** {@link UserAccount}. **/
     private UserAccount secondary;
 
+    /** {@link Hit} **/
+    private Hit hit;
+
     final String ipAddress = "192.168.1.1";
 
     @Before
     public void initData(){
         this.secondary = createUserAccount("paola", createAccount());
         this.hashTag = createHashTag("software");
-        this.hashTagHit = createHashTagHit(hashTag, ipAddress, this.secondary);
+        final String ipAddress2 = "192.168.1.2";
+        final String ipAddress3 = "192.168.1.3";
+        //this.hashTagHit = createHashTagHit(hashTag, ipAddress, this.secondary);
+        this.hit = createHashTagHit(hashTag, ipAddress);
+        createHashTagHit(hashTag, ipAddress2);
+        createHashTagHit(hashTag, ipAddress3);
     }
 
     /** Test Get hash tags by ip.**/
@@ -63,4 +72,18 @@ public class TestFrontEndDao extends AbstractBase {
         //assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
         //assertEquals("Should be equals", hitsbyIp.size(),1);
     }
+
+   @Test
+   public void testGetHitsByIpandType(){
+       assertNotNull(this.hashTag);
+       flushIndexes();
+       final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(ipAddress, this.hashTag.getHashTagId(), "hashTag");
+       //System.out.print("size hashTag hit---> "+ hitsbyIp.size());
+       assertNotNull(hitsbyIp);
+       assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
+       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), null);
+       assertEquals("total hits should be equals", 3, totalHits.intValue());
+       //System.out.print("total hit count by hash tag---> "+ totalHits);
+   }
+
 }

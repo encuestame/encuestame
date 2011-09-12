@@ -12,8 +12,6 @@
  */
 package org.encuestame.core.search;
 
-import org.encuestame.persistence.domain.dashboard.LayoutEnum;
-
 /**
  * Type search result.
  * @author Picado, Juan juanATencuestame.org

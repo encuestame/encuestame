@@ -67,6 +67,9 @@ public class Hit {
     /** {@link Survey} **/
     private Survey survey;
 
+    /** {@link HashTag} **/
+    private HashTag hashTag;
+
 
     /**
      * @return the id
@@ -162,5 +165,20 @@ public class Hit {
      */
     public void setSurvey(Survey survey) {
         this.survey = survey;
+    }
+
+    /**
+     * @return the hashTag
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public HashTag getHashTag() {
+        return hashTag;
+    }
+
+    /**
+     * @param hashTag the hashTag to set
+     */
+    public void setHashTag(HashTag hashTag) {
+        this.hashTag = hashTag;
     }
 }
