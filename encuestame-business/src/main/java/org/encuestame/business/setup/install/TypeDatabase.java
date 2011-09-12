@@ -18,6 +18,7 @@ public enum TypeDatabase {
     public static TypeDatabase getTypeDatabaseByString(final String database) {
         if (null == database) { return HSQLDB; }
         else if (database.equalsIgnoreCase("oracle")) { return ORACLE; }
+        else if (database.equalsIgnoreCase("hsqldb")) { return HSQLDB; }
         else if (database.equalsIgnoreCase("mysql")) { return MYSQL; }
         else if (database.equalsIgnoreCase("postgres")) { return POSTGRES; }
         else if (database.equalsIgnoreCase("mssql")) { return MSSQL; }

@@ -148,6 +148,14 @@ public class ConfigurationManager {
     }
 
     /**
+    *
+    * @return
+    */
+   public String getInstalledVersion(){
+       return xmlConfiguration.getString("version");
+   }
+
+    /**
      * @return the xmlConfiguration
      */
     public XMLConfiguration getXmlConfiguration() {

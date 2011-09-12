@@ -24,10 +24,19 @@ public class DatabaseInstall implements InstallDatabaseOperations {
 
     private final String INDEX = "index.sql";
     private final String ALTER = "alter.sql";
+    private final String DROP = "drop.sql";
     private final String TABLES = "tables.sql";
     private final String INSTALL = "install.sql";
     private final String DEMO = "demo.sql";
 
+    /**
+     *
+     */
+    private StringBuffer scriptLog = new StringBuffer();
+
+    /**
+     *
+     */
     @Autowired
     private InstallerOperations installerOperations;
 
@@ -38,7 +47,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @throws IOException
      */
     private String[] getScripts(final String scriptFilePath) throws IOException {
-        log.trace("scriptFilePath "+scriptFilePath);
+        log.debug("scriptFilePath "+scriptFilePath);
         return SqlScriptParser.readScript(scriptFilePath);
     }
 
@@ -79,8 +88,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @see org.encuestame.business.setup.install.InstallDatabaseOperations#
      * installDatabase()
      */
-    public void installDatabase() {
-        try {
+    public void installDatabase() throws IOException {
+          this.scriptLog = new StringBuffer();
           // First step: Install Tables
           log.info("Creating tables...");
           this.installScript(this.buildTableScript(this.TABLES));
@@ -92,15 +101,15 @@ public class DatabaseInstall implements InstallDatabaseOperations {
           this.installScript(this.buildTableScript(this.INDEX));
           // Fourth step: install required data.
           this.installScript(this.buildTableScript(this.INSTALL));
-          // Six step : demo data if is enabled.
-          if(EnMePlaceHolderConfigurer
-                                .getBooleanProperty("setup.installation.demo").booleanValue()){
-             this.installScript(this.buildTableScript(this.DEMO));
-          }
+    }
 
-        } catch (IOException e) {
-            log.fatal("Error con create database "+e);
-        }
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.setup.install.InstallDatabaseOperations#installDemoData()
+     */
+    public void installDemoData() throws IOException{
+        // Six step : demo data if is enabled.
+        this.installScript(this.buildTableScript(this.DEMO));
     }
 
     /**
@@ -110,10 +119,11 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     private void installScript(final String sqlLocation) throws IOException{
         final String[] scripts = this.getScripts(sqlLocation);
-        log.trace("scripts size ... " + scripts.length);
+        log.debug("scripts size ... " + scripts.length);
         for (int i = 0; i < scripts.length; i++) {
             final String script = scripts[i];
-            log.trace("script to execute ... " + script);
+            log.debug("script to execute ... " + script);
+            scriptLog.append(script);
             installerOperations.executeSql(script);
         }
     }
@@ -168,7 +178,7 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     @SuppressWarnings("unused")
     public void initializeDatabase(final TypeDatabase installDatabase)
-            throws EnmeFailOperation {
+            throws EnmeFailOperation, IOException {
         setDatabaseType(installDatabase);
         log.debug("check Database conection..");
         // verify database connection.
@@ -216,5 +226,28 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     public void setDatabaseType(TypeDatabase databaseType) {
         this.databaseType = databaseType;
+    }
+
+    /**
+     * @return the scriptLog
+     */
+    public String getScriptLog() {
+        log.debug("SQL "+scriptLog.toString().length());
+        return scriptLog.toString();
+    }
+
+    /**
+     * @param scriptLog the scriptLog to set
+     */
+    public void setScriptLog(StringBuffer scriptLog) {
+        this.scriptLog = scriptLog;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void dropAll() throws IOException {
+        this.installScript(this.buildTableScript(this.DROP));
     }
 }

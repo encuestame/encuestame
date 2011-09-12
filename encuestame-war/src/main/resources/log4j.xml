@@ -74,7 +74,11 @@
     </logger>
 
     <logger name="org.springframework.web">
-        <level value="warn" />
+        <level value="debug" />
+    </logger>
+
+    <logger name="org.springframework.webflow">
+        <level value="debug" />
     </logger>
 
     <logger name="org.apache.http">

@@ -1,6 +1,8 @@
 
 package org.encuestame.business.setup.install;
 
+import java.io.IOException;
+
 import org.encuestame.persistence.exception.EnmeFailOperation;
 
 /**
@@ -12,14 +14,18 @@ public interface InstallDatabaseOperations {
 
     /**
      * Start process to install database.
+     * @throws IOException
      */
-    void installDatabase();
+    void installDatabase() throws IOException;
 
     /**
      * Start process to upgrade database.
      * @param version
      */
     void upgradeDatabase(int version);
+
+
+    String getScriptLog();
 
     /**
      * Check If database exist;
@@ -45,7 +51,20 @@ public interface InstallDatabaseOperations {
      * Initialize operations.
      * @param installDatabase
      * @throws EnmeFailOperation
+     * @throws IOException
      */
-    void initializeDatabase(final TypeDatabase installDatabase) throws EnmeFailOperation;
+    void initializeDatabase(final TypeDatabase installDatabase) throws EnmeFailOperation, IOException;
+
+    /**
+     *
+     * @throws IOException
+     */
+    void installDemoData() throws IOException;
+
+    /**
+     *
+     * @throws IOException
+     */
+    void dropAll() throws IOException;
 
 }
