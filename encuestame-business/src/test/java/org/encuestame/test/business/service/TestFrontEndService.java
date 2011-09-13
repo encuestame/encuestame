@@ -78,9 +78,11 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     @Test
     public void testCheckPreviousHashTagHit(){
         flushIndexes();
-        final Boolean previousRecord = getFrontEndService().checkPreviousHashTagHit(this.ipAddress);
+        final Boolean previousRecord = getFrontEndService().checkPreviousHit(this.ipAddress, this.hashTag.getHashTagId(), "hashTag");
+        //checkPreviousHashTagHit(this.ipAddress);
         //System.out.println("Previous record exists? --> "+ previousRecord + "IP" + this.ipAddress);
-        final Boolean previousRecord2 = getFrontEndService().checkPreviousHashTagHit(this.ipAddress2);
+        final Boolean previousRecord2 = getFrontEndService().checkPreviousHit(ipAddress2, this.hashTag.getHashTagId(), "hashTag");
+        //checkPreviousHashTagHit(this.ipAddress2);
         //System.out.println("Previous record exists 2? --> "+ previousRecord2 + "IP" + this.ipAddress2);
     }
 

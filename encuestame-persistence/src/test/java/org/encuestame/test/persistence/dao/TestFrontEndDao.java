@@ -73,7 +73,7 @@ public class TestFrontEndDao extends AbstractBase {
         //assertEquals("Should be equals", hitsbyIp.size(),1);
     }
 
-   @Test
+   //@Test
    public void testGetHitsByIpandType(){
        assertNotNull(this.hashTag);
        flushIndexes();

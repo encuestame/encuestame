@@ -90,6 +90,7 @@
                 <value>org.encuestame.persistence.domain.tweetpoll.TweetPollHits</value>
                 <value>org.encuestame.persistence.domain.survey.PollHits</value>
                 <value>org.encuestame.persistence.domain.survey.SurveyHits</value>
+                <value>org.encuestame.persistence.domain.tweetpoll.TweetPollRate</value>
             </list>
         </property>
         <property name="hibernateProperties">

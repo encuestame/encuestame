@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -121,35 +122,24 @@ public interface IFrontEndService extends ServiceOperations {
             final HttpServletRequest request) throws EnMeSearchException;
 
     /**
-     * Register poll hits.
-     * @param poll
-     * @param ip
+     * Check previous item hit.
+     * @param ipAddress
+     * @param id
+     * @param searchHitby
      * @return
-     * @throws EnMeNoResultsFoundException
      */
-    Boolean registerPollHit(final Poll poll, final String ip) throws EnMeNoResultsFoundException;
+    Boolean checkPreviousHit(final String ipAddress, final Long id, final String searchHitby);
 
     /**
-     * Register tweetPoll hit
+     * Register hit.
      * @param tweetPoll
+     * @param poll
+     * @param survey
+     * @param tag
      * @param ip
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    Boolean registerTweetPollHit(final TweetPoll tweetPoll, final String ip) throws EnMeNoResultsFoundException;
-
-    /**
-     * Check previous poll hit.
-     * @param ipAddress
-     * @return
-     */
-    Boolean checkPreviousPollHit(final String ipAddress);
-
-    /**
-     * Check previous tweetPoll hit.
-     * @param ipAddress
-     * @return
-     */
-    Boolean checkPreviousTweetPollHit(final String ipAddress);
-
+    Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
+            final String ip) throws EnMeNoResultsFoundException;
 }

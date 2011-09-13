@@ -12,11 +12,30 @@
  */
 package org.encuestame.core.cron;
 
+import org.encuestame.persistence.dao.IFrontEndDao;
+
 /**
  * Calculate relevance.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 07, 2011
  */
 public class CalculateRelevance {
+
+    private IFrontEndDao frontEndDao;
+
+    /**
+     * @return the frontEndDao
+     */
+    public IFrontEndDao getFrontEndDao() {
+        return frontEndDao;
+    }
+
+    /**
+     * @param frontEndDao the frontEndDao to set
+     */
+    public void setFrontEndDao(IFrontEndDao frontEndDao) {
+        this.frontEndDao = frontEndDao;
+    }
+
 
 }

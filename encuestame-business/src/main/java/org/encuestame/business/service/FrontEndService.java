@@ -26,10 +26,10 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.PollHits;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollHits;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
@@ -191,7 +191,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @param limit
      * @return
      */
-    @SuppressWarnings("unchecked")
     public List<TweetPollBean> getTweetPollsbyHashTagId(
             final Long hashTagId,
             final Integer limit,
@@ -210,6 +209,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#checkPreviousHashTagHit(java.lang.String)
      */
+    @Deprecated
     public Boolean checkPreviousHashTagHit(final String ipAddress){
         boolean tagHit = false;
         final List<HashTagHits> hashTag = getFrontEndDao().getHashTagsHitByIp(ipAddress);
@@ -229,54 +229,70 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return tagHit;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IFrontEndService#checkPreviousTweetPollHit(java.lang.String)
-     */
-    public Boolean checkPreviousTweetPollHit(final String ipAddress){
+    public Boolean checkPreviousHit(final String ipAddress, final Long id, final String searchHitby){
         boolean hit = false;
-        final List<TweetPollHits> tweetPollHits = new ArrayList<TweetPollHits>();
+        final List<Hit> hitList = getFrontEndDao().getHitsByIpAndType(ipAddress, id, searchHitby);
         try {
-            if(tweetPollHits.size() == 1){
-                if(tweetPollHits.get(0).getIpAddress().equals(ipAddress)){
+            if(hitList.size() == 1){
+                if(hitList.get(0).getIpAddress().equals(ipAddress)){
                     hit = true;
                 }
              }
-            else if(tweetPollHits.size() > 1){
+            else if(hitList.size() > 1){
                 log.warn("");
             }
         } catch (Exception e) {
+            // TODO: handle exception
             log.error(e);
         }
         return hit;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IFrontEndService#checkPreviousPollHit(java.lang.String)
-     */
-    public Boolean checkPreviousPollHit(final String ipAddress){
-        boolean hit = false;
-        final List<PollHits> pollHits = new ArrayList<PollHits>();
-        try {
-            if(pollHits.size() == 1){
-                if(pollHits.get(0).getIpAddress().equals(ipAddress)){
-                    hit = true;
-                }
-             }
-            else if(pollHits.size() > 1){
-                log.warn("");
+
+    public Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
+            final String ip) throws EnMeNoResultsFoundException{
+        final Hit hit ;
+        Long hitCount = 1L;
+        Boolean register = false;
+        // HashTag
+        if (ip != null){
+            if (tag != null){
+                hit = this.newHashTagHit(tag, ip);
+                hitCount = tag.getHits() + hitCount;
+                tag.setHits(hitCount);
+                getFrontEndDao().saveOrUpdate(tag);
+                register = true;
             }
-        } catch (Exception e) {
-            log.error(e);
+            else if(tweetPoll != null){
+                hit = this.newTweetPollHit(tweetPoll, ip);
+                hitCount = tweetPoll.getHits() + hitCount;
+                tweetPoll.setHits(hitCount);
+                getFrontEndDao().saveOrUpdate(tweetPoll);
+                register = true;
+            }
+            else if(poll != null){
+                 hit = this.newPollHit(poll, ip);
+                 hitCount = poll.getHits() + hitCount;
+                 poll.setHits(hitCount);
+                 getFrontEndDao().saveOrUpdate(poll);
+                 register = true;
+            }
+            else if(survey != null ){
+                 hit = this.newSurveyHit(survey, ip);
+                 hitCount = survey.getHits() + hitCount;
+                 survey.setHits(hitCount);
+                 getFrontEndDao().saveOrUpdate(survey);
+                 register = true;
+            }
         }
-        return hit;
+        return register;
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#registerHashTagHit(org.encuestame.persistence.domain.HashTag, java.lang.String)
      */
+    @Deprecated
     public Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException{
         final HashTagHits hashHit ;
         Long hitCount = 1L;
@@ -293,46 +309,61 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return register;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IFrontEndService#registerTweetPollHit(org.encuestame.persistence.domain.tweetpoll.TweetPoll, java.lang.String)
-     */
-    public Boolean registerTweetPollHit(final TweetPoll tweetPoll, final String ip) throws EnMeNoResultsFoundException{
-        final TweetPollHits tweetPollHits ;
-        Long hitCount = 1L;
-        Boolean register = false;
-        if ((ip != null) || (tweetPoll != null)) {
-            tweetPollHits = this.newTweetPollHit(tweetPoll, Calendar.getInstance().getTime(), ip);
-            if (tweetPollHits != null) {
-                hitCount = tweetPoll.getHits() + hitCount;
-                tweetPoll.setHits(hitCount);
-                getFrontEndDao().saveOrUpdate(tweetPoll);
-                register = true;
-            }
-        }
-        return register;
+
+
+    @Transactional(readOnly = false)
+    private Hit newHitItem(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
+            final String ipAddress) {
+        final Hit hitItem = new Hit();
+        hitItem.setHitDate(Calendar.getInstance().getTime());
+        hitItem.setHashTag(tag);
+        hitItem.setIpAddress(ipAddress);
+        hitItem.setTweetPoll(tweetPoll);
+        hitItem.setPoll(poll);
+        hitItem.setSurvey(survey);
+        getFrontEndDao().saveOrUpdate(hitItem);
+        return hitItem;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IFrontEndService#registerPollHit(org.encuestame.persistence.domain.survey.Poll, java.lang.String)
+    /**
+     * New tweet poll hit item.
+     * @param tweetPoll
+     * @param ipAddress
+     * @return
      */
-    public Boolean registerPollHit(final Poll poll, final String ip) throws EnMeNoResultsFoundException{
-        final PollHits pollHits ;
-        Long hitCount = 1L;
-        Boolean register = false;
-        if ((ip != null) || (poll != null)) {
-            pollHits = this.newPollHit(poll, Calendar.getInstance().getTime(), ip);
-            if (pollHits != null) {
-                hitCount = poll.getHits() + hitCount;
-                poll.setHits(hitCount);
-                getFrontEndDao().saveOrUpdate(poll);
-                register = true;
-            }
-        }
-        return register;
+    private Hit newTweetPollHit(final TweetPoll tweetPoll, final String ipAddress){
+        return this.newHitItem(tweetPoll, null, null, null, ipAddress);
     }
 
+    /**
+     * New poll hit item.
+     * @param poll
+     * @param ipAddress
+     * @return
+     */
+    private Hit newPollHit(final Poll poll, final String ipAddress){
+        return this.newHitItem(null, poll, null, null, ipAddress);
+    }
+
+    /**
+     * New hash tag hit item.
+     * @param tag
+     * @param ipAddress
+     * @return
+     */
+    private Hit newHashTagHit(final HashTag tag, final String ipAddress){
+        return this.newHitItem(null, null, null, tag, ipAddress);
+    }
+
+    /**
+     * New survey hit item.
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    private Hit newSurveyHit(final Survey survey, final String ipAddress){
+        return this.newHitItem(null, null, survey, null, ipAddress);
+    }
     /**
      * New hash tag hit.
      * @param tagName
@@ -341,6 +372,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * @return
      * @throws EnMeNoResultsFoundException
      */
+    @Deprecated
     @Transactional(readOnly = false)
     private HashTagHits newHashTagHit(
             final HashTag tag,
@@ -352,47 +384,5 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setIpAddress(ipAddress);
         getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
-    }
-
-    /**
-     * New poll hit.
-     * @param poll
-     * @param hitDate
-     * @param ipAddress
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    @Transactional(readOnly = false)
-    private PollHits newPollHit(
-            final Poll poll,
-            final Date hitDate,
-            final String ipAddress) throws EnMeNoResultsFoundException {
-        final PollHits pollHitDomain = new PollHits();
-        pollHitDomain.setHitDate(hitDate);
-        pollHitDomain.setPoll(poll);
-        pollHitDomain.setIpAddress(ipAddress);
-        getFrontEndDao().saveOrUpdate(pollHitDomain);
-        return pollHitDomain;
-    }
-
-    /**
-     * New Tweetpoll hit.
-     * @param tweetPoll
-     * @param hitDate
-     * @param ipAddress
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    @Transactional(readOnly = false)
-    private TweetPollHits newTweetPollHit(
-            final TweetPoll tweetPoll,
-            final Date hitDate,
-            final String ipAddress) throws EnMeNoResultsFoundException {
-        final TweetPollHits tweetPollHitsDomain = new TweetPollHits();
-        tweetPollHitsDomain.setHitDate(hitDate);
-        tweetPollHitsDomain.setTweetPoll(tweetPoll);
-        tweetPollHitsDomain.setIpAddress(ipAddress);
-        getFrontEndDao().saveOrUpdate(tweetPollHitsDomain);
-        return tweetPollHitsDomain;
     }
 }
