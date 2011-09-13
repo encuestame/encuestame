@@ -13,6 +13,8 @@
 package org.encuestame.business.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
@@ -122,7 +124,7 @@ public class SetupService extends AbstractBaseService implements
         String status = "install";
         final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
-        if(installedVersion != null) {
+        if (installedVersion != null) {
             float f1 = Float.valueOf(currentVersion);
             float f2 = Float.valueOf(installedVersion);
             if (f2 < f1) {
@@ -192,5 +194,33 @@ public class SetupService extends AbstractBaseService implements
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#loadInstallParameters()
+     */
+    @Override
+    public List<String> loadInstallParameters() {
+        final List<String> parameters = new ArrayList<String>();
+        parameters.add(this.createParameter("database", EnMePlaceHolderConfigurer.getProperty("datasource.database")));
+        parameters.add(this.createParameter("jdbc-url", EnMePlaceHolderConfigurer.getProperty("datasource.urldb")));
+        parameters.add(this.createParameter("jdbc-driver", EnMePlaceHolderConfigurer.getProperty("datasource.classname")));
+        parameters.add(this.createParameter("username", EnMePlaceHolderConfigurer.getProperty("datasource.userbd")));
+        parameters.add(this.createParameter("password", EnMePlaceHolderConfigurer.getProperty("datasource.pass")));
+        parameters.add(this.createParameter("dialect", EnMePlaceHolderConfigurer.getProperty("datasource.dialect")));
+        return parameters;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String createParameter(final String value, final String paramValue){
+        final StringBuffer param = new StringBuffer();
+        param.append(value);
+        param.append(" : ");
+        param.append(paramValue);
+        return param.toString();
     }
 }

@@ -18,6 +18,9 @@
     </view-state>
 
     <view-state id="install-setup">
+        <on-entry>
+            <evaluate expression="setupService.loadInstallParameters()" result="flowScope.sqlparam"></evaluate>
+        </on-entry>
         <transition on="create">
             <evaluate expression="setupService.installDatabase()"
                 result="flowScope.state" result-type="java.lang.String"></evaluate>

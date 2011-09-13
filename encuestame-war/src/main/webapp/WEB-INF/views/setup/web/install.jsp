@@ -1,12 +1,22 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="defaultMarginWrapper">
-        <div class="setup-description">
+     <div class="setup-description">
         <h1>
             Step 2: <span>Create Database</span>
         </h1>
         <p>
            Description of step.
         </p>
+
+       <div>
+            <b>Remember your database parameters:</b>
+       </div>
+       <ul>
+           <c:forEach items="${sqlparam}" var="p">
+              <li><c:out value="${p}" /></li>
+           </c:forEach>
+       </ul>
+
     </div>
      <c:if test="${not empty message}">
         <div class="${message.infoType.css}">${message.message}</div>
