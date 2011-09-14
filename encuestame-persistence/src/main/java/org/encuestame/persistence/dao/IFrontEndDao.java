@@ -14,6 +14,7 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -106,5 +107,15 @@ public interface IFrontEndDao extends IBaseDao{
      * @return
      */
     Long getTotalHitsbyType(final Long id, final String searchtype);
+
+    /**
+     * Get access rate by item.
+     * @param ipAddress
+     * @param itemId
+     * @param searchHitby
+     * @return
+     */
+    List<AccessRate> getAccessRatebyItem(final String ipAddress,
+            final Long itemId, final String searchHitby);
 
 }

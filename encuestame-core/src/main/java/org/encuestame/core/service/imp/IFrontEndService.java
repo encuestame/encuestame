@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -142,4 +143,27 @@ public interface IFrontEndService extends ServiceOperations {
      */
     Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
             final String ip) throws EnMeNoResultsFoundException;
+
+    /**
+     * Register access rate.
+     * @param type
+     * @param itemId
+     * @param ipAddress
+     * @param rate
+     * @throws EnMeNoResultsFoundException
+     */
+    public void registerAccessRate(
+            final TypeSearchResult type,
+            final Long itemId,
+            final String ipAddress,
+            final Boolean rate) throws EnMeNoResultsFoundException;
+
+    /**
+     * check item rate.
+     * @param itemId
+     * @param ipAddress
+     * @param searchby
+     * @return
+     */
+    Boolean checkItemRate(final Long itemId, final String ipAddress, final String searchby);
 }

@@ -21,6 +21,7 @@ import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -231,70 +232,107 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getHitsByIpAndType(java.lang.String, java.lang.Long, java.lang.String)
      */
-    public List<Hit> getHitsByIpAndType(final String ipAddress, final Long id, final String searchHitby){
-         log.debug("searching item hits by ipAddress ---> "+ipAddress);
-         @SuppressWarnings({ "unchecked", "rawtypes" })
-         List<Hit> searchResult = (List) getHibernateTemplate().execute(new HibernateCallback() {
-                     public Object doInHibernate(org.hibernate.Session session) {
-                         List<Hit> searchResult = new ArrayList<Hit>();
-                         final Criteria criteria = session.createCriteria(Hit.class);
-                         if(searchHitby.equals("tweetPoll")){
-                             criteria.createAlias("tweetPoll","tweetPoll");
-                             criteria.add(Restrictions.eq("tweetPoll.tweetPollId", id));
-                         }
-                         else if(searchHitby.equals("poll")){
-                             criteria.createAlias("poll","poll");
-                             criteria.add(Restrictions.eq("poll.pollId", id));
-                         }
-                         else if(searchHitby.equals("survey")){
-                             criteria.createAlias("survey","survey");
-                             criteria.add(Restrictions.eq("survey.sid", id));
-                         }
-                         else if(searchHitby.equals("hashTag")){
-                             criteria.createAlias("hashTag","hashTag");
-                             criteria.add(Restrictions.eq("hashTag.hashTagId", id));
-                         }
-                         else{
-                             log.warn("");
-                         }
-                         searchResult = (List<Hit>) fetchPhraseFullText(ipAddress, "ipAddress", Hit.class,
-                         criteria, new SimpleAnalyzer());
-                         log.debug("total hits results ---> "+searchResult.size());
-                         return searchResult;
-                         }
-         });
-         return searchResult;
+    public List<Hit> getHitsByIpAndType(final String ipAddress, final Long id,
+            final String searchHitby) {
+        log.debug("searching item hits by ipAddress ---> " + ipAddress);
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        List<Hit> searchResult = (List) getHibernateTemplate().execute(
+                new HibernateCallback() {
+                    public Object doInHibernate(org.hibernate.Session session) {
+                        List<Hit> searchResult = new ArrayList<Hit>();
+                        final Criteria criteria = session
+                                .createCriteria(Hit.class);
+                        if (searchHitby.equals("tweetPoll")) {
+                            criteria.createAlias("tweetPoll", "tweetPoll");
+                            criteria.add(Restrictions.eq(
+                                    "tweetPoll.tweetPollId", id));
+                        } else if (searchHitby.equals("poll")) {
+                            criteria.createAlias("poll", "poll");
+                            criteria.add(Restrictions.eq("poll.pollId", id));
+                        } else if (searchHitby.equals("survey")) {
+                            criteria.createAlias("survey", "survey");
+                            criteria.add(Restrictions.eq("survey.sid", id));
+                        } else if (searchHitby.equals("hashTag")) {
+                            criteria.createAlias("hashTag", "hashTag");
+                            criteria.add(Restrictions.eq("hashTag.hashTagId",
+                                    id));
+                        } else {
+                            log.warn("");
+                        }
+                        searchResult = (List<Hit>) fetchPhraseFullText(
+                                ipAddress, "ipAddress", Hit.class, criteria,
+                                new SimpleAnalyzer());
+                        log.debug("total hits results ---> "
+                                + searchResult.size());
+                        return searchResult;
+                    }
+                });
+        return searchResult;
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getTotalHitsbyType(java.lang.Long, java.lang.String)
      */
-    public final Long getTotalHitsbyType(final Long id, final String searchHitby){
+    public final Long getTotalHitsbyType(final Long id, final String searchHitby) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
         criteria.setProjection(Projections.rowCount());
-        if(searchHitby.equals("tweetPoll")){
+        if (searchHitby.equals("tweetPoll")) {
+            criteria.createAlias("tweetPoll", "tweetPoll");
+            criteria.add(Restrictions.eq("tweetPoll.tweetPollId", id));
+        } else if (searchHitby.equals("poll")) {
+            criteria.createAlias("poll", "poll");
+            criteria.add(Restrictions.eq("poll.pollId", id));
+        } else if (searchHitby.equals("survey")) {
+            criteria.createAlias("survey", "survey");
+            criteria.add(Restrictions.eq("survey.sid", id));
+        } else if (searchHitby.equals("hashTag")) {
             criteria.createAlias("hashTag", "hashTag");
             criteria.add(Restrictions.eq("hashTag.hashTagId", id));
-        }
-        else if(searchHitby.equals("poll")){
-            criteria.createAlias("poll","poll");
-            criteria.add(Restrictions.eq("poll.pollId", id));
-        }
-        else if(searchHitby.equals("survey")){
-            criteria.createAlias("survey","survey");
-            criteria.add(Restrictions.eq("survey.sid", id));
-        }
-        else if(searchHitby.equals("hashTag")){
-            criteria.createAlias("hashTag","hashTag");
-            criteria.add(Restrictions.eq("hashTag.hashTagId", id));
-        }
-        else{
+        } else {
             log.warn("");
         }
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
-        log.debug("Retrieve total hits by  "+ searchHitby + "--->"+ results.size());
+        log.debug("Retrieve total hits by  " + searchHitby + "--->"
+                + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
-        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IFrontEndDao#getAccessRatebyItem(java.lang.String, java.lang.Long, java.lang.String)
+     */
+    public List<AccessRate> getAccessRatebyItem(final String ipAddress,
+            final Long itemId, final String searchHitby) {
+        System.out
+                .println("searching item vote by ipAddress ---> " + ipAddress);
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        List<AccessRate> searchResult = (List) getHibernateTemplate().execute(
+                new HibernateCallback() {
+                    public Object doInHibernate(org.hibernate.Session session) {
+                        List<AccessRate> searchResult = new ArrayList<AccessRate>();
+                        final Criteria criteria = session
+                                .createCriteria(AccessRate.class);
+                        if (searchHitby.equals("tweetPoll")) {
+                            criteria.createAlias("tweetPoll", "tweetPoll");
+                            criteria.add(Restrictions.eq(
+                                    "tweetPoll.tweetPollId", itemId));
+                        } else if (searchHitby.equals("survey")) {
+                            criteria.createAlias("survey", "survey");
+                            criteria.add(Restrictions.eq("survey.sid", itemId));
+                        } else if (searchHitby.equals("poll")) {
+                            criteria.createAlias("poll", "poll");
+                            criteria.add(Restrictions.eq("poll.pollId", itemId));
+                        } else {
+                            log.warn("");
+                        }
+                        searchResult = (List<AccessRate>) fetchPhraseFullText(
+                                ipAddress, "ipAddress", AccessRate.class,
+                                criteria, new SimpleAnalyzer());
+                        return searchResult;
+                    }
+                });
+        return searchResult;
+    }
 }

@@ -18,18 +18,19 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.Client;
-import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -49,11 +50,11 @@ import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
@@ -512,4 +513,20 @@ public class TestHibernateDomains extends AbstractBase{
          poll.setUpdatedDate(null);
          getiPoll().saveOrUpdate(poll);
      }
+
+     /** Test item vote. **/
+     @Test
+     public void testRate(){
+         final Question question = createQuestion("Who will win the Champions League match today?", "");
+         final Account account = createAccount();
+         final UserAccount user = createUserAccount("carlos", account);
+         final TweetPoll tpoll = createPublishedTweetPoll(account, question);
+         final AccessRate rateItem = new AccessRate();
+         rateItem.setRate(Boolean.TRUE);
+         rateItem.setUser(user);
+         rateItem.setTweetPoll(tpoll);
+         rateItem.setPoll(null);
+         rateItem.setSurvey(null);
+         rateItem.setUpdatedDate(Calendar.getInstance().getTime());
+         }
 }

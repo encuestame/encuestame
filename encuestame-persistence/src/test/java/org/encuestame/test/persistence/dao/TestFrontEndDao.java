@@ -15,13 +15,17 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.FrontEndDao;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,4 +90,23 @@ public class TestFrontEndDao extends AbstractBase {
        //System.out.print("total hit count by hash tag---> "+ totalHits);
    }
 
+    /**
+     * Test get access rateby item.
+     */
+    @Test
+    public void testGetAccessRatebyItem() {
+        this.secondary = createUserAccount("jhon", createAccount());
+        final Question question = createQuestion("question1",
+                secondary.getAccount());
+        final TweetPoll tweet = createPublishedTweetPoll(
+                secondary.getAccount(), question, Calendar.getInstance()
+                        .getTime());
+        final String ipAddress = "192.168.1.19";
+        createTweetPollRate(Boolean.TRUE, tweet, ipAddress);
+        flushIndexes();
+        final List<AccessRate> tpRate = getFrontEndDao().getAccessRatebyItem(
+                ipAddress, tweet.getTweetPollId(), "tweetPoll");
+        assertNotNull(tpRate);
+        assertEquals("Should be equals", 1, tpRate.size());
+    }
 }

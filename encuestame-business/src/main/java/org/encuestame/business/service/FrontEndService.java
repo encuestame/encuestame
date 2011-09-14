@@ -20,10 +20,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
@@ -229,6 +231,10 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return tagHit;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#checkPreviousHit(java.lang.String, java.lang.Long, java.lang.String)
+     */
     public Boolean checkPreviousHit(final String ipAddress, final Long id, final String searchHitby){
         boolean hit = false;
         final List<Hit> hitList = getFrontEndDao().getHitsByIpAndType(ipAddress, id, searchHitby);
@@ -248,7 +254,10 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return hit;
     }
 
-
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#registerHit(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Poll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.HashTag, java.lang.String)
+     */
     public Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
             final String ip) throws EnMeNoResultsFoundException{
         final Hit hit ;
@@ -309,7 +318,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return register;
     }
 
-
+    /**
+     * New hit item.
+     * @param tweetPoll
+     * @param poll
+     * @param survey
+     * @param tag
+     * @param ipAddress
+     * @return
+     */
 
     @Transactional(readOnly = false)
     private Hit newHitItem(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
@@ -384,5 +401,134 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         tagHitsDomain.setIpAddress(ipAddress);
         getFrontEndDao().saveOrUpdate(tagHitsDomain);
         return tagHitsDomain;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#registerAccessRate(org.encuestame.core.search.TypeSearchResult, java.lang.Long, java.lang.String, java.lang.Boolean)
+     */
+    public void registerAccessRate(final TypeSearchResult type,
+            final Long itemId, final String ipAddress, final Boolean rate)
+            throws EnMeNoResultsFoundException {
+        final AccessRate itemRate;
+        Long rateCount = 1L;
+        Boolean register = false;
+        if (ipAddress != null) {
+            if (type.equals(TypeSearchResult.TWEETPOLL)) {
+                final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(
+                        itemId);
+                itemRate = this.newTweetPollAccessRate(tweetPoll, ipAddress,
+                        rate);
+                // tpoll.getLikeVote();
+                // rateCount = tweetPoll.getHits() + rateCount;
+                // tweetPoll.setHits(rateCount);
+                getFrontEndDao().saveOrUpdate(tweetPoll);
+                register = true;
+            } else if (type.equals(TypeSearchResult.POLL)) {
+                final Poll poll = getPollDao().getPollById(itemId);
+                itemRate = this.newPollAccessRate(poll, ipAddress, rate);
+                rateCount = poll.getHits() + rateCount;
+                poll.setHits(rateCount);
+                getFrontEndDao().saveOrUpdate(poll);
+                register = true;
+            } else if (type.equals(TypeSearchResult.SURVEY)) {
+                final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(
+                        itemId, null);
+                itemRate = this.newSurveyAccessRate(survey, ipAddress, rate);
+                rateCount = survey.getHits() + rateCount;
+                survey.setHits(rateCount);
+                getFrontEndDao().saveOrUpdate(survey);
+                register = true;
+            }
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.IFrontEndService#checkItemRate(java.lang
+     * .Long, java.lang.String, java.lang.String)
+     */
+    public Boolean checkItemRate(final Long itemId, final String ipAddress,
+            final String searchby) {
+        boolean votehit = false;
+        final List<AccessRate> voteList = getFrontEndDao().getAccessRatebyItem(
+                ipAddress, itemId, searchby);
+        try {
+            if (voteList.size() == 1) {
+                if (voteList.get(0).getIpAddress().equals(ipAddress)) {
+                    votehit = true;
+                }
+            } else if (voteList.size() > 1) {
+                log.warn("");
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            log.error(e);
+        }
+        return votehit;
+    }
+
+    /**
+     * New access rate item.
+     *
+     * @param tweetPoll
+     * @param poll
+     * @param survey
+     * @param ipAddress
+     * @param rate
+     * @return
+     */
+    @Transactional(readOnly = false)
+    private AccessRate newAccessRateItem(final TweetPoll tweetPoll,
+            final Poll poll, final Survey survey, final String ipAddress,
+            final Boolean rate) {
+        final AccessRate itemRate = new AccessRate();
+        itemRate.setTweetPoll(tweetPoll);
+        itemRate.setPoll(poll);
+        itemRate.setSurvey(survey);
+        itemRate.setRate(rate);
+        itemRate.setUser(null);
+        getTweetPollDao().saveOrUpdate(itemRate);
+        return itemRate;
+    }
+
+    /**
+     * New TweetPoll access rate.
+     *
+     * @param tweetPoll
+     * @param ipAddress
+     * @param rate
+     * @return
+     */
+    private AccessRate newTweetPollAccessRate(final TweetPoll tweetPoll,
+            final String ipAddress, final Boolean rate) {
+        return this.newAccessRateItem(tweetPoll, null, null, ipAddress, rate);
+    }
+
+    /**
+     * New Poll access rate.
+     *
+     * @param poll
+     * @param ipAddress
+     * @param rate
+     * @return
+     */
+    private AccessRate newPollAccessRate(final Poll poll,
+            final String ipAddress, final Boolean rate) {
+        return this.newAccessRateItem(null, poll, null, ipAddress, rate);
+    }
+
+    /**
+     * New Survey access rate.
+     * @param survey
+     * @param ipAddress
+     * @param rate
+     * @return
+     */
+    private AccessRate newSurveyAccessRate(final Survey survey,
+            final String ipAddress, final Boolean rate) {
+        return this.newAccessRateItem(null, null, survey, ipAddress, rate);
     }
 }

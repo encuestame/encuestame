@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
@@ -32,7 +33,6 @@ import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.joda.time.DateMidnight;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -258,7 +258,6 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      *
      */
-    @SuppressWarnings("unchecked")
     public void testgetTweetpollByHashTagName(){
         assertNotNull(this.tweetPoll);
         final Integer limit = 3;
@@ -342,5 +341,4 @@ public class TestTweetPollDao  extends AbstractBase{
         final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtagRated");
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
-
 }

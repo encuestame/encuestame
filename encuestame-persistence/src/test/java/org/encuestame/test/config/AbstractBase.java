@@ -42,6 +42,7 @@ import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.DashboardDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
+import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.Attachment;
@@ -59,6 +60,7 @@ import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -1979,5 +1981,62 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Survey survey,
             final UserAccount userAcc){
         return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
+    }
+
+    /**
+     * Create access rate item.
+     * @param rate
+     * @param tpoll
+     * @param survey
+     * @param poll
+     * @param user
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createAccessRateItem(final Boolean rate, final TweetPoll tpoll, final Survey survey, final Poll poll,
+            final UserAccount user, final String ipAddress){
+        final AccessRate vote = new AccessRate();
+        vote.setRate(rate);
+        vote.setTweetPoll(tpoll);
+        vote.setPoll(poll);
+        vote.setSurvey(survey);
+        vote.setUser(user);
+        vote.setIpAddress(ipAddress);
+        vote.setUpdatedDate(Calendar.getInstance().getTime());
+        getTweetPoll().saveOrUpdate(vote);
+        return vote;
+    }
+
+    /**
+     * Create tweetpoll access rate.
+     * @param rate
+     * @param tweetPoll
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createTweetPollRate(final Boolean rate, final TweetPoll tweetPoll, final String ipAddress){
+        return this.createAccessRateItem(rate, tweetPoll, null, null, null, ipAddress);
+    }
+
+    /**
+     * Create poll access rate.
+     * @param rate
+     * @param tweetPoll
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createPollRate(final Boolean rate, final Poll poll, final String ipAddress){
+        return this.createAccessRateItem(rate, null, null, poll, null, ipAddress);
+    }
+
+    /**
+     * Create survey rate.
+     * @param rate
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createSurveyRate(final Boolean rate, final Survey survey, final String ipAddress){
+        return this.createAccessRateItem(rate, null, survey, null, null, ipAddress);
     }
 }
