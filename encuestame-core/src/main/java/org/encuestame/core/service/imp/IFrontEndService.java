@@ -16,12 +16,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
@@ -151,19 +153,22 @@ public interface IFrontEndService extends ServiceOperations {
      * @param ipAddress
      * @param rate
      * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
      */
     public void registerAccessRate(
             final TypeSearchResult type,
             final Long itemId,
             final String ipAddress,
-            final Boolean rate) throws EnMeNoResultsFoundException;
+            final Boolean rate) throws EnMeNoResultsFoundException, EnMeExpcetion;
 
     /**
-     * check item rate.
-     * @param itemId
+     * Get access rate item.
      * @param ipAddress
+     * @param itemId
      * @param searchby
      * @return
+     * @throws EnMeExpcetion
      */
-    Boolean checkItemRate(final Long itemId, final String ipAddress, final String searchby);
+    List<AccessRate> getAccessRateItem(final String ipAddress,
+            final Long itemId, final TypeSearchResult searchby)  throws EnMeExpcetion;
 }

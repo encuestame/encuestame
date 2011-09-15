@@ -19,8 +19,8 @@ import java.util.Map;
 
 import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitAttachment;

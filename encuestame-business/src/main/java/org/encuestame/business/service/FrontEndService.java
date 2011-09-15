@@ -20,7 +20,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -29,15 +28,18 @@ import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,6 +57,10 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
 
     /** Max Results. **/
     private final Integer MAX_RESULTS = 15;
+
+    /** **/
+    @Autowired
+    private TweetPollService tweetPollService;
 
     /**
      * Search Items By tweetPoll.
@@ -409,65 +415,82 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public void registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
-            throws EnMeNoResultsFoundException {
-        final AccessRate itemRate;
-        Long rateCount = 1L;
-        Boolean register = false;
+            throws EnMeExpcetion {
         if (ipAddress != null) {
             if (type.equals(TypeSearchResult.TWEETPOLL)) {
-                final TweetPoll tweetPoll = getTweetPollDao().getTweetPollById(
-                        itemId);
-                itemRate = this.newTweetPollAccessRate(tweetPoll, ipAddress,
+                final TweetPoll tweetPoll = this.getTweetPoll(itemId);
+                this.checkExistTweetPollPreviousRecord(tweetPoll, ipAddress,
                         rate);
-                // tpoll.getLikeVote();
-                // rateCount = tweetPoll.getHits() + rateCount;
-                // tweetPoll.setHits(rateCount);
-                getFrontEndDao().saveOrUpdate(tweetPoll);
-                register = true;
-            } else if (type.equals(TypeSearchResult.POLL)) {
-                final Poll poll = getPollDao().getPollById(itemId);
-                itemRate = this.newPollAccessRate(poll, ipAddress, rate);
-                rateCount = poll.getHits() + rateCount;
-                poll.setHits(rateCount);
-                getFrontEndDao().saveOrUpdate(poll);
-                register = true;
-            } else if (type.equals(TypeSearchResult.SURVEY)) {
-                final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(
-                        itemId, null);
-                itemRate = this.newSurveyAccessRate(survey, ipAddress, rate);
-                rateCount = survey.getHits() + rateCount;
-                survey.setHits(rateCount);
-                getFrontEndDao().saveOrUpdate(survey);
-                register = true;
             }
         }
     }
 
+    /**
+     * Check exist tweetPoll previous record.
+     * @param tpoll
+     * @param ipAddress
+     * @param option
+     * @throws EnMeExpcetion
+     */
+    private void checkExistTweetPollPreviousRecord(final TweetPoll tpoll,
+            final String ipAddress, final Boolean option) throws EnMeExpcetion {
+        List<AccessRate> rateList = this.getAccessRateItem(ipAddress,
+                tpoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+        if (rateList.size() == 1) {
+            for (AccessRate accessRate : rateList) {
+                if (accessRate.getRate() == option) {
+                    log.warn("");
+                } else {
+                    accessRate.setRate(option);
+                    this.setTweetPollSocialOption(option, tpoll);
+                }
+            }
+        } else {
+            this.newTweetPollAccessRate(tpoll, ipAddress, option);
+        }
+    }
+
+    /**
+     * Set tweetpoll social options.
+     *
+     * @param socialOption
+     * @param tpoll
+     * @return
+     */
+    private TweetPoll setTweetPollSocialOption(final Boolean socialOption,
+            final TweetPoll tpoll) {
+        long valueSocialVote = 1L;
+
+        if (socialOption) {
+            valueSocialVote = tpoll.getLikeVote() + valueSocialVote;
+            tpoll.setLikeVote(valueSocialVote);
+            tpoll.setDislikeVote(tpoll.getDislikeVote() == 0 ? 0 : tpoll
+                    .getLikeVote() - valueSocialVote);
+            getFrontEndDao().saveOrUpdate(tpoll);
+        } else {
+            valueSocialVote = tpoll.getDislikeVote() + valueSocialVote;
+            tpoll.setLikeVote(tpoll.getLikeVote() == 0 ? 0 : tpoll
+                    .getLikeVote() - valueSocialVote);
+            tpoll.setDislikeVote(valueSocialVote);
+            getFrontEndDao().saveOrUpdate(tpoll);
+        }
+        return tpoll;
+    }
+
     /*
      * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#checkItemRate(java.lang
-     * .Long, java.lang.String, java.lang.String)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getAccessRateItem(java.lang.String, java.lang.Long, org.encuestame.persistence.domain.TypeSearchResult)
      */
-    public Boolean checkItemRate(final Long itemId, final String ipAddress,
-            final String searchby) {
-        boolean votehit = false;
-        final List<AccessRate> voteList = getFrontEndDao().getAccessRatebyItem(
-                ipAddress, itemId, searchby);
-        try {
-            if (voteList.size() == 1) {
-                if (voteList.get(0).getIpAddress().equals(ipAddress)) {
-                    votehit = true;
-                }
-            } else if (voteList.size() > 1) {
-                log.warn("");
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            log.error(e);
+    public List<AccessRate> getAccessRateItem(final String ipAddress,
+            final Long itemId, final TypeSearchResult searchby)
+            throws EnMeExpcetion {
+        final List<AccessRate> itemAccessList = getFrontEndDao()
+                .getAccessRatebyItem(ipAddress, itemId, searchby);
+
+        if (itemAccessList.size() > 1) {
+            throw new EnMeExpcetion("");
         }
-        return votehit;
+        return itemAccessList;
     }
 
     /**
@@ -530,5 +553,29 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     private AccessRate newSurveyAccessRate(final Survey survey,
             final String ipAddress, final Boolean rate) {
         return this.newAccessRateItem(null, null, survey, ipAddress, rate);
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private TweetPoll getTweetPoll(final Long id) throws EnMeNoResultsFoundException{
+        return getTweetPollService().getTweetPollById(id);
+    }
+
+    /**
+     * @return the tweetPollService
+     */
+    public TweetPollService getTweetPollService() {
+        return tweetPollService;
+    }
+
+    /**
+     * @param tweetPollService the tweetPollService to set
+     */
+    public void setTweetPollService(TweetPollService tweetPollService) {
+        this.tweetPollService = tweetPollService;
     }
 }

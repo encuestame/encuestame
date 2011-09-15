@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -105,7 +106,7 @@ public class TestFrontEndDao extends AbstractBase {
         createTweetPollRate(Boolean.TRUE, tweet, ipAddress);
         flushIndexes();
         final List<AccessRate> tpRate = getFrontEndDao().getAccessRatebyItem(
-                ipAddress, tweet.getTweetPollId(), "tweetPoll");
+                ipAddress, tweet.getTweetPollId(), TypeSearchResult.TWEETPOLL);
         assertNotNull(tpRate);
         assertEquals("Should be equals", 1, tpRate.size());
     }

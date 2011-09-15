@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 
@@ -116,6 +117,6 @@ public interface IFrontEndDao extends IBaseDao{
      * @return
      */
     List<AccessRate> getAccessRatebyItem(final String ipAddress,
-            final Long itemId, final String searchHitby);
+            final Long itemId, final TypeSearchResult searchHitby);
 
 }

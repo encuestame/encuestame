@@ -24,6 +24,7 @@ import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.Criteria;
@@ -304,7 +305,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @see org.encuestame.persistence.dao.IFrontEndDao#getAccessRatebyItem(java.lang.String, java.lang.Long, java.lang.String)
      */
     public List<AccessRate> getAccessRatebyItem(final String ipAddress,
-            final Long itemId, final String searchHitby) {
+            final Long itemId, final TypeSearchResult searchbyType) {
         System.out
                 .println("searching item vote by ipAddress ---> " + ipAddress);
         @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -314,14 +315,14 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
                         List<AccessRate> searchResult = new ArrayList<AccessRate>();
                         final Criteria criteria = session
                                 .createCriteria(AccessRate.class);
-                        if (searchHitby.equals("tweetPoll")) {
+                        if (searchbyType.equals(TypeSearchResult.TWEETPOLL)) {
                             criteria.createAlias("tweetPoll", "tweetPoll");
                             criteria.add(Restrictions.eq(
                                     "tweetPoll.tweetPollId", itemId));
-                        } else if (searchHitby.equals("survey")) {
+                        } else if (searchbyType.equals(TypeSearchResult.SURVEY)) {
                             criteria.createAlias("survey", "survey");
                             criteria.add(Restrictions.eq("survey.sid", itemId));
-                        } else if (searchHitby.equals("poll")) {
+                        } else if (searchbyType.equals(TypeSearchResult.POLL)) {
                             criteria.createAlias("poll", "poll");
                             criteria.add(Restrictions.eq("poll.pollId", itemId));
                         } else {
