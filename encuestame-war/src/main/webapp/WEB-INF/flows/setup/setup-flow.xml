@@ -20,6 +20,7 @@
     <view-state id="install-setup">
         <on-entry>
             <evaluate expression="setupService.loadInstallParameters()" result="flowScope.sqlparam"></evaluate>
+            <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
         </on-entry>
         <transition on="create">
             <evaluate expression="setupService.installDatabase()"

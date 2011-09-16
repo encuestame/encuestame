@@ -58,12 +58,12 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @return
      */
     private String buildTableScript(final String typeScript) {
-        log.debug("Database Type"+this.databaseType.name());
+        log.debug("Database Type: "+this.databaseType.name());
         final StringBuilder builder = new StringBuilder(this.SQLPATH);
         builder.append(this.databaseType.name().toLowerCase());
         builder.append("/install/");
         builder.append(typeScript);
-        log.debug("Build sql script " + builder.toString());
+        log.debug("Build sql script: " + builder.toString());
         return builder.toString();
     }
 
@@ -170,6 +170,16 @@ public class DatabaseInstall implements InstallDatabaseOperations {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
+    private String getTypeDatabase() {
+        final String typeDatabase = EnMePlaceHolderConfigurer
+                .getConfigurationManager().getProperty("database.type");
+        return typeDatabase;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -179,7 +189,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     @SuppressWarnings("unused")
     public void initializeDatabase(final TypeDatabase installDatabase)
             throws EnmeFailOperation, IOException {
-        setDatabaseType(installDatabase);
+        //TODO: remove parameters.
+        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
         log.debug("check Database conection..");
         // verify database connection.
         //if (this.installerOperations.checkDatabaseConection() == 1) {
@@ -248,6 +259,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     @Override
     public void dropAll() throws IOException {
+        log.info("Drop all tables");
+        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
         this.installScript(this.buildTableScript(this.DROP));
     }
 }

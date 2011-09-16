@@ -49,6 +49,9 @@ public class SetupService extends AbstractBaseService implements
     @Autowired
     private InstallDatabaseOperations install;
 
+    /**
+     *
+     */
     @Autowired
     private SecurityOperations securityOperations;
 
@@ -66,6 +69,7 @@ public class SetupService extends AbstractBaseService implements
      *
      * @return
      */
+    @Deprecated
     private String getTypeDatabase() {
         final String typeDatabase = EnMePlaceHolderConfigurer
                 .getConfigurationManager().getProperty("database.type");
@@ -89,7 +93,19 @@ public class SetupService extends AbstractBaseService implements
             e.printStackTrace();
             return "fail";
         }
-        return "ok";
+        return "ok"; //TODO: replace by enum in the future.
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#checkDatabase()
+     */
+    public Boolean checkDatabase() {
+        log.info("******** check database **********");
+        final boolean check = this.install.checkDatabase();
+        log.info("******** "+check+" **********");
+        log.info("******** check database **********");
+        return check;
     }
 
     /*
@@ -177,6 +193,7 @@ public class SetupService extends AbstractBaseService implements
          try {
              this.install.dropAll();
          } catch (Exception e) {
+             e.printStackTrace();
              log.fatal(e);
              RequestSessionMap.setErrorMessage(e.getMessage());
          }

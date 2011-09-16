@@ -25,4 +25,6 @@ public interface SetupOperations {
 
     java.util.List<String> loadInstallParameters();
 
+    Boolean checkDatabase();
+
 }
