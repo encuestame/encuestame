@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
@@ -572,6 +573,60 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
     /**
+     *
+     * @return
+     */
+    private Account createDefaultAccount(){
+        final Account account = new Account();
+        account.setCreatedAccount(Calendar.getInstance().getTime());
+        account.setEnabled(Boolean.TRUE);
+        getAccountDao().saveOrUpdate(account);
+        return account;
+    }
+
+    private String generateRandomPassword(final String defaultPassword){
+         final String password = defaultPassword == null ? EnMePasswordUtils
+                 .createRandomPassword(EnMePasswordUtils.DEFAULT_LENGTH_PASSWORD)
+                 : defaultPassword;
+          return password;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.SecurityOperations#createAdministrationUser(org.encuestame.core.config.AdministratorProfile)
+     */
+    public UserAccountBean createAdministrationUser(
+            final AdministratorProfile administratorProfile){
+        final Account account = this.createDefaultAccount();
+        //create directory account.
+        createDirectoryAccount(account);
+        //create first user account.
+        final UserAccount userAccount = new UserAccount();
+        userAccount.setUsername(administratorProfile.getUsername());
+        //generate password.
+        final String password = this.generateRandomPassword(administratorProfile.getPassword());
+        userAccount.setPassword(encodingPassword(password));
+        //invite code
+        userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
+        userAccount.setAccount(account);
+        userAccount.setUserStatus(Boolean.TRUE);
+        userAccount.setUserEmail(administratorProfile.getEmail());
+        userAccount.setCompleteName(administratorProfile.getUsername());
+        getAccountDao().saveOrUpdate(userAccount);
+        //default permissions.
+        final Set<Permission> permissions = new HashSet<Permission>();
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
+        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
+        this.assingPermission(userAccount, permissions);
+        if (log.isDebugEnabled()) {
+            log.debug("new user "+userAccount.getUsername());
+            log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
+        }
+        SecurityUtils.authenticate(userAccount);
+        return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAccount);
+    }
+
+    /**
      * SingUp User.
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
@@ -579,10 +634,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public UserAccount singupUser(final SignUpBean singUpBean){
         log.debug("singupUser "+singUpBean.toString());
         //create account/
-        final Account account = new Account();
-        account.setCreatedAccount(Calendar.getInstance().getTime());
-        account.setEnabled(Boolean.TRUE);
-        getAccountDao().saveOrUpdate(account);
+        final Account account = this.createDefaultAccount();
         //create directory account.
         createDirectoryAccount(account);
         //create first user account.
@@ -611,7 +663,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
-        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_OWNER));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));

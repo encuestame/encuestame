@@ -161,9 +161,7 @@ public class SetupService extends AbstractBaseService implements
     public UserAccountBean createUserAdministration(
             AdministratorProfile administratorProfile) {
         log.debug("===============CREATE ADMON==============");
-        UserAccountBean account = new UserAccountBean();
-        account.setUsername(administratorProfile.getUsername());
-        account.setEmail(administratorProfile.getEmail());
+        final UserAccountBean account = this.securityOperations.createAdministrationUser(administratorProfile);
         return account;
     }
 

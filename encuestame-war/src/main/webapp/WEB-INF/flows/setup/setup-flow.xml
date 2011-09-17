@@ -19,17 +19,25 @@
 
     <view-state id="install-setup">
         <on-entry>
-            <evaluate expression="setupService.loadInstallParameters()" result="flowScope.sqlparam"></evaluate>
             <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
+            <evaluate expression="setupService.loadInstallParameters()" result="flowScope.sqlparam"></evaluate>
         </on-entry>
-        <transition on="create">
+        <transition on="create" to="demo-install">
             <evaluate expression="setupService.installDatabase()"
-                result="flowScope.state" result-type="java.lang.String"></evaluate>
-            <evaluate expression="setupService.getScriptLog()" result="flowScope.sql"></evaluate>
+                      result="flowScope.state" result-type="java.lang.String"></evaluate>
+<!--             <evaluate expression="setupService.getScriptLog()" result="flowScope.sql"></evaluate> -->
         </transition>
+        <transition on="demo" to="demo-install"></transition>
         <transition on="reinstall">
             <evaluate expression="setupService.removeTables()" result="flowScope.removed"></evaluate>
+            <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
         </transition>
+    </view-state>
+
+    <view-state id="demo-install">
+        <on-entry>
+            <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
+        </on-entry>
         <transition on="yes" to="installAdmon">
             <evaluate expression="setupService.demoInstall()"></evaluate>
         </transition>
