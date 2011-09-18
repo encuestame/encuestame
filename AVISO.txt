@@ -1,0 +1,55 @@
+AVISO.txt
+
+SITIO PRINCIPAL
+
+http://www.encuestame.org
+
+INFORMACION ADICIONAL
+
+ * Bug Tracking
+   http://issues.encuestame.org
+
+ * Wiki
+   http://wiki.encuestame.org
+
+ * Continuous Integration
+   http://ci.encuestame.org
+
+ * Estadisticas de Commits
+   http://stats.encuestame.org/git/
+
+ * Métricas
+   http://metrics.encuestame.org
+
+ * Página oficial de twitter
+   http://www.twitter.com/encuestame
+
+ * Página de Facebook
+   https://www.facebook.com/pages/encuestame/80467777529
+
+ * Sitio de Demostración
+   http://demo.encuestame.org
+
+ * Repositorio de Código Navegable
+   http://code.encuestame.org
+
+ * Repositorios de código y Descargas
+   http://github.com/encuestame
+   http://code.google.com/p/encuestame/
+   http://sourceforge.net/projects/encuestame/
+
+
+CONTACTO 
+
+* infoATencuestame.org
+* Ubicación: Madrid, ESP.
+
+COMMITERS:
+
+* Diana Paola Morales Urbina
+  http://es.linkedin.com/in/dianmorales
+  http://twitter.com/#!/dianmora
+* Juan Carlos Picado Herrera
+  http://es.linkedin.com/in/juancarlospicadoherrera
+  http://twitter.com/#!/jotadeveloper
+

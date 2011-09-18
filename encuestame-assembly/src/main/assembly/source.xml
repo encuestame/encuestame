@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+	<id>source</id>
+	<formats>
+		<format>zip</format>
+		<format>tar.gz</format>
+		<format>tar.bz2</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<outputDirectory>encuestame-${pom.version}-source
+			</outputDirectory>
+			<directory>${project.basedir}/../</directory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<excludes>
+				<exclude>bin/**</exclude>
+				<exclude>lib/**</exclude>
+				<exclude>dist/**</exclude>
+				<exclude>dojo/**</exclude>
+				<exclude>dojo/**</exclude>
+				<exclude>**/target/**</exclude>
+				<exclude>**/._*</exclude>
+				<exclude>**/.*</exclude>
+				<exclude>**/.git/**</exclude>
+				<exclude>**/._*/**</exclude>
+				<exclude>**/*.log/**</exclude>
+				<exclude>**/*.log.*/**</exclude>
+				<exclude>**/.repository/**</exclude>
+				<exclude>**/.classpath</exclude>
+				<exclude>**/.project</exclude>
+				<exclude>**/.settings/**</exclude>
+				<exclude>**/.clover/**</exclude>
+				<exclude>encuestame-war/src/main/webapp/resource/js/dojo/**</exclude>
+				<exclude>encuestame-war/src/main/webapp/resource/js/dijit/**</exclude>
+				<exclude>encuestame-war/src/main/webapp/resource/js/dojox/**</exclude>
+			</excludes>
+		</fileSet>
+	</fileSets>
+</assembly>
