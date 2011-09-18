@@ -10,9 +10,9 @@
              <div class="${message.infoType.css}">${message.message}</div>
         </c:if>
         <c:if test="${existDatabase}">
-            <p>The database selected is exist previously.</p>
+            <div class="warning">The database selected is exist previously. Please delete all content at the database selected.</div>
             <form:form method="post">
-                 <input type="submit" name="_eventId_reinstall" value="Remove Old Tables" />
+                 <input type="submit" name="_eventId_try-again" value="Try Again." />
             </form:form>
       </c:if>
       <c:if test="${existDatabase != true}">

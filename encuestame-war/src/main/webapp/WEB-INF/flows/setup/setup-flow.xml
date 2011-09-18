@@ -7,7 +7,7 @@
 
     <view-state id="setup">
         <on-entry>
-            <evaluate  expression="setupService.checkStatus()" result="flowScope.status"></evaluate>
+            <evaluate expression="setupService.checkStatus()" result="flowScope.status"></evaluate>
         </on-entry>
         <transition on="upgrade-submit" to="upgrade-setup" />
         <transition on="install-submit" to="install-setup" />
@@ -19,20 +19,50 @@
 
     <view-state id="install-setup">
         <on-entry>
-            <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
-            <evaluate expression="setupService.loadInstallParameters()" result="flowScope.sqlparam"></evaluate>
+<!--             <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate> -->
+            <evaluate expression="setupService.loadInstallParameters()"
+                result="flowScope.sqlparam"></evaluate>
         </on-entry>
-        <transition on="create" to="demo-install">
-            <evaluate expression="setupService.installDatabase()"
-                      result="flowScope.state" result-type="java.lang.String"></evaluate>
-<!--             <evaluate expression="setupService.getScriptLog()" result="flowScope.sql"></evaluate> -->
-        </transition>
-        <transition on="demo" to="demo-install"></transition>
-        <transition on="reinstall">
-            <evaluate expression="setupService.removeTables()" result="flowScope.removed"></evaluate>
+        <on-render>
             <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
+        </on-render>
+        <transition on="create" to="create-tables"/>
+        <transition on="demo" to="demo-install"></transition>
+        <transition on="try-again" to="try-again"></transition>
+        <transition on="reinstall" to="remove-tables">
         </transition>
     </view-state>
+
+    <action-state id="try-again">
+        <evaluate expression="setupService.checkDatabase()" result="flowScope.databaseStatus"/>
+        <transition to="try-again-decision" />
+    </action-state>
+
+    <decision-state id="try-again-decision">
+        <if then="install-setup" test="flowScope.databaseStatus == true" />
+        <if then="install-setup" test="flowScope.databaseStatus == false" else="displayError"/>
+    </decision-state>
+
+    <action-state id="remove-tables">
+        <evaluate expression="setupService.removeTables()" result="flowScope.removed"/>
+        <transition to="check-removed-tables-state" />
+    </action-state>
+
+    <decision-state id="check-removed-tables-state">
+        <if then="install-setup" test="flowScope.removed == true" />
+        <if then="displayError" test="flowScope.removed == false" else="displayError"/>
+    </decision-state>
+
+    <action-state id="create-tables">
+        <evaluate expression="setupService.installDatabase()" result="flowScope.state"
+            result-type="java.lang.String" />
+        <transition to="check-tables-state" />
+    </action-state>
+
+    <decision-state id="check-tables-state">
+        <if then="demo-install" test="flowScope.state == 'ok'" />
+        <if then="install-setup" test="flowScope.state == 'fail'" else="install-setup"/>
+    </decision-state>
 
     <view-state id="demo-install">
         <on-entry>
@@ -41,7 +71,7 @@
         <transition on="yes" to="installAdmon">
             <evaluate expression="setupService.demoInstall()"></evaluate>
         </transition>
-        <transition on="no" to="installAdmon"/>
+        <transition on="no" to="installAdmon" />
     </view-state>
 
     <view-state id="installAdmon" model="administrator">
@@ -53,29 +83,50 @@
             <binding property="confirmEmail" />
         </binder>
         <transition on="create-user" to="review-admon" validate="true">
-            <evaluate expression="setupService.createUserAdministration(administrator)" result="flowScope.admon">
+            <evaluate expression="setupService.createUserAdministration(administrator)"
+                      result="flowScope.admon">
             </evaluate>
         </transition>
     </view-state>
 
     <view-state id="editAdmon">
-        <transition on="save-user" to="review-admon"/>
-        <transition on="cancel-user" to="review-admon"/>
+        <transition on="save-user" to="review-admon" />
+        <transition on="cancel-user" to="review-admon" />
     </view-state>
 
     <view-state id="review-admon">
-        <transition on="valid-user" to="install-check"/>
-        <transition on="edit-user" to="editAdmon"/>
+        <transition on="valid-user" to="install-check">
+            <evaluate expression="setupService.validateInstall()"></evaluate>
+        </transition>
+        <!-- <transition on="edit-user" to="editAdmon" /> TODO: wish list. -->
     </view-state>
 
     <view-state id="install-check">
-        <transition on="finish" to="home"></transition>
+<!--         <secured attributes="ENCUESTAME_ADMIN" match="all"/> -->
+        <transition on="customize" to="add-social-networks"></transition> <!-- TODO: future. -->
+        <transition on="finish" to="finish-state"></transition>
         <transition on-exception="java.lang.Exception" to="displayError"></transition>
     </view-state>
 
-    <view-state id="displayError"></view-state>
+    <!-- TODO: future. -->
+    <view-state id="add-social-networks">
+<!--         <secured attributes="ENCUESTAME_ADMIN"/> -->
+        <transition on="socialAdd" to="socialAdd"></transition>
+    </view-state>
 
-    <end-state id="home" view="externalRedirect:contextRelative:/home">
-    </end-state>
+    <subflow-state id="socialAdd" subflow="social-network">
+        <transition on="added" to="add-social-networks"></transition>
+    </subflow-state>
+    <!-- TODO: future. -->
+
+    <view-state id="finish-state">
+        <!-- display all configuration and finish message. -->
+<!--         <secured attributes="ENCUESTAME_ADMIN"/> -->
+        <transition on="home" to="home"></transition>
+    </view-state>
+
+    <view-state id="displayError"/>
+
+    <end-state id="home" view="externalRedirect:contextRelative:/home"/>
 
 </flow>

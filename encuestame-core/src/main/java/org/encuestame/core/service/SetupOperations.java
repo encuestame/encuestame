@@ -11,7 +11,7 @@ public interface SetupOperations {
 
     String installDatabase() throws EnmeFailOperation, IOException;
 
-    void removeTables();
+    Boolean removeTables();
 
     void demoInstall();
 
@@ -20,6 +20,8 @@ public interface SetupOperations {
     String getSQLExecuted();
 
     String checkStatus();
+
+    void validateInstall();
 
     UserAccountBean createUserAdministration(final AdministratorProfile administratorProfile);
 

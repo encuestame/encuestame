@@ -30,7 +30,7 @@
                         <li>Install demo data</li>
                         <li>Create administration user</li>
                         <li>Check your installation</li>
-                        <li>Configure your enviroment</li>
+                        <li>Customize your System</li>
                         <li>Finish</li>
                     </ol>
                 </div>

@@ -156,18 +156,6 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     }
 
     /**
-     * Get {@link UserAccount} by Id.
-     * @param userId user id.
-     * @return
-     * @see user getUserAccount(id);
-     * @deprecated should be use getUserAccount.
-     */
-    @Deprecated
-    public final UserAccount getUser(final Long  userId){
-        return getAccountDao().getUserAccountById(userId);
-    }
-
-    /**
      * Find {@link UserAccount} by UserName
      * @param username user name
      * @return {@link UserAccount}

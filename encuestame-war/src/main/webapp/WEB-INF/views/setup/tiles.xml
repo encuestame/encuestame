@@ -38,6 +38,11 @@
         <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}check.jsp" />
     </definition>
 
+    <definition name="finish-state" extends="setupPage">
+        <put-attribute name="title" value="Install Finished | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}finish.jsp" />
+    </definition>
+
     <definition name="review-admon" extends="setupPage">
         <put-attribute name="title" value="Review Administration User | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}review.jsp" />

@@ -149,18 +149,21 @@ public class SecurityUtils {
      */
     public static void authenticate(final UserAccount account){
         final EnMeUserAccountDetails details = SecurityUtils.convertUserAccountToUserDetails(account, true);
-        final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
-        .convertEnMePermission(account.getSecUserPermissions());
+        //log.debug("+++++++++++ authenticate +++++++++++++");
+        //final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
+        //.convertEnMePermission(account.getSecUserPermissions());
         final EnMeSecurityToken securityToken = new EnMeSecurityToken(account);
          //clear the context.
         SecurityContextHolder.clearContext();
         //set new authentication.
         SecurityContextHolder.getContext().setAuthentication(securityToken);
         if (log.isInfoEnabled()) {
-            log.info("Username " + account.getUsername() + " is logged at "
+            log.info("{authenticate} Username " + account.getUsername() + " is logged at "
                     + new Date());
             log.debug("created EnMeUserAccountDetails" +details);
+            //log.debug("created EnMeUserAccountDetails" +details.getAuthorities());
         }
+        //log.debug("+++++++++++ end authenticate +++++++++++++");
     }
 
     /**

@@ -25,10 +25,18 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 public class EnMeSecurityToken extends AbstractAuthenticationToken {
 
     /**
-     *
+     * Serial.
      */
     private static final long serialVersionUID = 7648924296863041359L;
+
+    /**
+     *
+     */
     private final Object principal;
+
+    /**
+     * {@link UserAccount}.
+     */
     private UserAccount userAccount;
 
     /**
