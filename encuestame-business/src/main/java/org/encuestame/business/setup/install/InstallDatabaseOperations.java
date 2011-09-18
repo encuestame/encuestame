@@ -4,6 +4,7 @@ package org.encuestame.business.setup.install;
 import java.io.IOException;
 
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.utils.TypeDatabase;
 
 /**
  * Install database operations.

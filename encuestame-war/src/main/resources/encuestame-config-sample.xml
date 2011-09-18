@@ -4,14 +4,12 @@
     <database>
         <version>1</version>
         <last-update></last-update>
-        <type>HSQLDB</type>
     </database>
     <updates>
         <remote-check>false</remote-check>
         <security-updates>true</security-updates>
     </updates>
     <install>
-        <uuid></uuid>
         <date></date>
         <path></path>
     </install>

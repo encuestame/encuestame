@@ -1,20 +1,25 @@
 
-package org.encuestame.business.setup.install;
+package org.encuestame.persistence.utils;
 
 
 /**
- * Define type of database install suported by encuestame.
+ * Define type of database install supported by encuestame.
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 21, 2011
  */
 public enum TypeDatabase {
-    ORACLE, MYSQL, POSTGRES, MSSQL, DERBY, HSQLDB, DB2,
+        ORACLE, MYSQL, POSTGRES, MSSQL, DERBY, HSQLDB, DB2,
 
     /**
      * Constructor.
      */
     TypeDatabase(){};
 
+    /**
+     * Return the database selected.
+     * @param database type of database
+     * @return
+     */
     public static TypeDatabase getTypeDatabaseByString(final String database) {
         if (null == database) { return HSQLDB; }
         else if (database.equalsIgnoreCase("oracle")) { return ORACLE; }
