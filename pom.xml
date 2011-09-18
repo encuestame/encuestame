@@ -4,7 +4,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.1.39-SNAPSHOT</version>
+    <version>1.140-SNAPSHOT</version>
     <name>encuestame</name>
     <description>
     encuestame is a open source webapp java survey system build
@@ -25,7 +25,7 @@
         <!-- Java version -->
         <java-version>1.6</java-version>
         <!-- encuestame version -->
-        <encuestame.version>1.1.39-SNAPSHOT</encuestame.version>
+        <encuestame.version>1.140-SNAPSHOT</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
         <spring.version>3.0.5.RELEASE</spring.version>
         <env>development</env>

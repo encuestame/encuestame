@@ -14,6 +14,7 @@ package org.encuestame.core.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
@@ -146,6 +147,14 @@ public class ConfigurationManager {
     public Integer getDatabaseVersion(){
         return xmlConfiguration.getInt("database.version");
     }
+
+    /**
+    *
+    * @return
+    */
+   public String getInstalledVersion(){
+       return xmlConfiguration.getString("version");
+   }
 
     /**
      * @return the xmlConfiguration

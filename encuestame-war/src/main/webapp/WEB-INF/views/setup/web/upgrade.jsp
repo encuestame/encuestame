@@ -1,3 +1,3 @@
 <div class="defaultMarginWrapper">
-    <h3>setup</h3>
+    <h3>upgrade</h3>
 </div>

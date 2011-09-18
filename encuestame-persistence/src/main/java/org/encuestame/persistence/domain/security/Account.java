@@ -41,7 +41,6 @@ public class Account{
     /** User Id. **/
     private Long uid;
 
-
     /**
      * Define if account is enabled.
      * by default is enabled.

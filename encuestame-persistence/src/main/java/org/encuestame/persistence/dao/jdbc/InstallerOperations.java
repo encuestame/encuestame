@@ -12,6 +12,8 @@
  */
 package org.encuestame.persistence.dao.jdbc;
 
+import org.springframework.dao.DataAccessException;
+
 /**
  * Have a installation support.
  * @author Picado, Juan juanATencuestame.org
@@ -23,7 +25,7 @@ public interface InstallerOperations {
      * Start database installations.
      * @param sql
      */
-    void executeSql(String sql);
+    void executeSql(String sql) throws DataAccessException;
 
 
     /**
