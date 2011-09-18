@@ -1,4 +1,9 @@
-<%@page import="org.encuestame.core.security.util.WidgetUtil"%>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<script type="text/javascript">
+         dojo.require("dijit.dijit");
+         dojo.require("dojo.parser");
+         dojo.require("dojo.io.script");
+</script>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"
         djConfig="parseOnLoad: true, useCommentedJson:true, isDebug: false"></script>
 <script type="text/javascript">

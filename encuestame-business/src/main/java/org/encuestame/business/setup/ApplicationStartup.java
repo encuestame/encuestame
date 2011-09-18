@@ -36,12 +36,6 @@ public class ApplicationStartup implements StartupProcess {
     private static boolean started = false;
 
     /**
-     * Install database operations.
-     */
-    @Autowired
-    private InstallDatabaseOperations install;
-
-    /**
      * Mail service provider.
      */
     @Autowired
@@ -128,13 +122,6 @@ public class ApplicationStartup implements StartupProcess {
 //        }
 //    }
 
-    /**
-     * Set {@link InstallDatabaseOperations}.
-     * @param install the install to set
-     */
-    public void setInstall(final InstallDatabaseOperations install) {
-        this.install = install;
-    }
 
     /*
      * (non-Javadoc)

@@ -9,6 +9,94 @@ body.public-body {
     max-width: 1100px;
 }
 
+.web-setup-wrapper{
+    border: 1px solid #EEE;
+    padding: 10px;
+    font-size: 110%;
+    -moz-box-shadow: 0 0px 9px #888888;
+    -webkit-box-shadow: 0 0px 9px #888888;
+    box-shadow: 0 0px 9px #888888;
+}
+
+.web-setup-wrapper a{
+    color: #F1721F;
+}
+
+.web-setup-wrapper div.web-setup-header {
+  background-color: #F1721F;
+  border-bottom: 3px solid #888888;
+  color: #FFFFFF;
+  font-size: 110%;
+  font-weight: bold;
+  margin: 15px 5px 5px;
+  padding: 9px;
+  width: auto;
+}
+
+.web-setup-wrapper div.web-setup-header h1{
+    margin: 0;
+}
+
+.web-setup-wrapper div.web-setup-content {
+  padding: 10px;
+  width: 100%;
+}
+
+.web-setup-wrapper div.setup-description h1{
+    font-weight: bold;
+     color: #F1721F;
+}
+
+.web-setup-wrapper div.setup-description h1 span{
+
+}
+
+.web-setup-content .setup-form{
+    padding: 10px;
+}
+
+.web-setup-wrapper .setup-form div.row{
+  margin-bottom: 3px;
+  margin-top: 3px;
+  padding: 8px;
+}
+
+.web-setup-wrapper .setup-form div .label {
+  color: #8B8B8B;
+  float: left;
+  font-size: 110%;
+  font-weight: bold;
+  min-width: 145px;
+}
+.web-setup-wrapper .setup-form div.row span{
+    float: right;
+    margin-right: 430px;
+}
+
+.web-setup-wrapper .setup-form div.row span.errors{
+    padding: 2px;
+    color: #E35757;
+}
+
+.web-setup-wrapper .setup-form div input[type="text"], .web-setup-wrapper .setup-form div input[type="password"] {
+    height: 20px;
+    width: 275px;
+    font-size: 16px;
+    font-weight: normal;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 4px 2px;
+    border: 1px solid #AAAAAA;
+}
+
+.web-setup-wrapper .setup-form div.row .inputError{
+    border: 1px solid #E35757;
+    background-color: #F9E5E5;
+}
+
+/** header **/
+
 #header {
     background-color: #E8E8E8;
 }

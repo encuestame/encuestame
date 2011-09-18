@@ -3,44 +3,130 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="signUpBean" class="org.encuestame.utils.security.SignUpBean" />
+    <var name="administrator" class="org.encuestame.core.config.AdministratorProfile" />
 
-    <view-state id="setup" model="signUpBean">
-        <binder>
-            <binding property="username" />
-            <binding property="email" />
-            <binding property="captcha" />
-        </binder>
-        <transition on="upgrade" to="findFriends" validate="true" history="discard">
-               <evaluate expression="securityService.singupUser(signUpBean)" result="flowScope.userAccount"
-                         result-type="org.encuestame.utils.web.UserAccountBean"/>
+    <view-state id="setup">
+        <on-entry>
+            <evaluate expression="setupService.checkStatus()" result="flowScope.status"></evaluate>
+        </on-entry>
+        <transition on="upgrade-submit" to="upgrade-setup" />
+        <transition on="install-submit" to="install-setup" />
+    </view-state>
+
+    <view-state id="upgrade-setup">
+        <transition on="next" to="dashboard" history="discard" />
+    </view-state>
+
+    <view-state id="install-setup">
+        <on-entry>
+<!--             <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate> -->
+            <evaluate expression="setupService.loadInstallParameters()"
+                result="flowScope.sqlparam"></evaluate>
+        </on-entry>
+        <on-render>
+            <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
+        </on-render>
+        <transition on="create" to="create-tables"/>
+        <transition on="demo" to="demo-install"></transition>
+        <transition on="try-again" to="try-again"></transition>
+        <transition on="reinstall" to="remove-tables">
         </transition>
-        <transition on="install" to="findFriends" validate="true" history="discard">
-               <evaluate expression="securityService.singupUser(signUpBean)" result="flowScope.userAccount"
-                         result-type="org.encuestame.utils.web.UserAccountBean"/>
-        </transition>
     </view-state>
 
-    <view-state id="upgrade" model="signUpBean">
-        <transition on="next" to="profile" history="discard" />
-    </view-state>
-
-    <view-state id="install" model="signUpBean">
-        <transition on="next" to="isActivated" history="discard" />
-    </view-state>
-
-     <view-state id="noActivated" model="signUpBean">
-        <transition on="review" to="isActivated" history="discard" />
-    </view-state>
-
-    <action-state id="isActivated">
-        <evaluate expression="securityService.isActivated(signUpBean)" />
-        <transition on="yes" to="dashboard">
-        </transition>
-        <transition on="no" to="noActivated" />
+    <action-state id="try-again">
+        <evaluate expression="setupService.checkDatabase()" result="flowScope.databaseStatus"/>
+        <transition to="try-again-decision" />
     </action-state>
 
-    <end-state id="dashboard" view="externalRedirect:contextRelative:/account/dashboard.do"></end-state>
+    <decision-state id="try-again-decision">
+        <if then="install-setup" test="flowScope.databaseStatus == true" />
+        <if then="install-setup" test="flowScope.databaseStatus == false" else="displayError"/>
+    </decision-state>
 
+    <action-state id="remove-tables">
+        <evaluate expression="setupService.removeTables()" result="flowScope.removed"/>
+        <transition to="check-removed-tables-state" />
+    </action-state>
+
+    <decision-state id="check-removed-tables-state">
+        <if then="install-setup" test="flowScope.removed == true" />
+        <if then="displayError" test="flowScope.removed == false" else="displayError"/>
+    </decision-state>
+
+    <action-state id="create-tables">
+        <evaluate expression="setupService.installDatabase()" result="flowScope.state"
+            result-type="java.lang.String" />
+        <transition to="check-tables-state" />
+    </action-state>
+
+    <decision-state id="check-tables-state">
+        <if then="demo-install" test="flowScope.state == 'ok'" />
+        <if then="install-setup" test="flowScope.state == 'fail'" else="install-setup"/>
+    </decision-state>
+
+    <view-state id="demo-install">
+        <on-entry>
+            <evaluate expression="setupService.checkDatabase()" result="flowScope.existDatabase"></evaluate>
+        </on-entry>
+        <transition on="yes" to="installAdmon">
+            <evaluate expression="setupService.demoInstall()"></evaluate>
+        </transition>
+        <transition on="no" to="installAdmon" />
+    </view-state>
+
+    <view-state id="installAdmon" model="administrator">
+        <binder>
+            <binding property="username" />
+            <binding property="password" />
+            <binding property="confirmPassword" />
+            <binding property="email" />
+            <binding property="confirmEmail" />
+        </binder>
+        <transition on="create-user" to="review-admon" validate="true">
+            <evaluate expression="setupService.createUserAdministration(administrator)"
+                      result="flowScope.admon">
+            </evaluate>
+        </transition>
+    </view-state>
+
+    <view-state id="editAdmon">
+        <transition on="save-user" to="review-admon" />
+        <transition on="cancel-user" to="review-admon" />
+    </view-state>
+
+    <view-state id="review-admon">
+        <transition on="valid-user" to="install-check">
+            <evaluate expression="setupService.validateInstall()"></evaluate>
+        </transition>
+        <!-- <transition on="edit-user" to="editAdmon" /> TODO: wish list. -->
+    </view-state>
+
+    <view-state id="install-check">
+<!--         <secured attributes="ENCUESTAME_ADMIN" match="all"/> -->
+        <transition on="customize" to="add-social-networks"></transition> <!-- TODO: future. -->
+        <transition on="finish" to="finish-state"></transition>
+        <transition on-exception="java.lang.Exception" to="displayError"></transition>
+    </view-state>
+
+    <!-- TODO: future. -->
+    <view-state id="add-social-networks">
+<!--         <secured attributes="ENCUESTAME_ADMIN"/> -->
+        <transition on="socialAdd" to="socialAdd"></transition>
+    </view-state>
+
+    <subflow-state id="socialAdd" subflow="social-network">
+        <transition on="added" to="add-social-networks"></transition>
+    </subflow-state>
+    <!-- TODO: future. -->
+
+    <view-state id="finish-state">
+        <!-- display all configuration and finish message. -->
+<!--         <secured attributes="ENCUESTAME_ADMIN"/> -->
+        <transition on="home" to="home"></transition>
+    </view-state>
+
+    <view-state id="displayError"/>
+
+    <end-state id="home" view="externalRedirect:contextRelative:/home"/>
 
 </flow>

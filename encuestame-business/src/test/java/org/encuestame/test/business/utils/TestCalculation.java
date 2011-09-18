@@ -13,7 +13,7 @@
 
 package org.encuestame.test.business.utils;
 
-import java.text.DecimalFormat;
+import org.junit.Test;
 
 import junit.framework.TestCase;
 
@@ -22,11 +22,15 @@ import junit.framework.TestCase;
  */
 public class TestCalculation extends TestCase {
 
-    public void testPercent(){
-        double total = 200;
-        double actual = 123;
-        double result = ((actual/total));
-        DecimalFormat percent2 = new DecimalFormat("#0.00%");
-        String st2 = percent2.format(result);
+    @Test
+    public void testPercent1(){
+        String a = "1.212";
+        String b = "1.3321";
+        float f1 = Float.valueOf(a);
+        float f2 = Float.valueOf(b);
+        //System.out.println(f1);
+        //System.out.println(f2);
+        //System.out.println(f1 > f2);
+        //System.out.println(f1 < f2);
     }
 }
