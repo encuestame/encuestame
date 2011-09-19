@@ -24,6 +24,7 @@ target/
 encuestame-war/src/main/webapp/resource/static/
 */.settings
 *DEADJOE*
+encuestame-war/encuestame-webapp.log*
 encuestame-war/src/main/webapp/resource/js/dijit/
 encuestame-war/src/main/webapp/resource/js/dojox/
 encuestame-war/src/main/webapp/resource/js/dojo/

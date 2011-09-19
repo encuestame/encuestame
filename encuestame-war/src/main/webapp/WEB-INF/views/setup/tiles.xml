@@ -23,6 +23,11 @@
         <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}install.jsp" />
     </definition>
 
+    <definition name="demo-install" extends="setupPage">
+        <put-attribute name="title" value="Demo Install Data | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}demo.jsp" />
+    </definition>
+
     <definition name="installAdmon" extends="setupPage">
         <put-attribute name="title" value="Create User Administration | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}admon.jsp" />
@@ -31,6 +36,11 @@
     <definition name="install-check" extends="setupPage">
         <put-attribute name="title" value="Check Install | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}check.jsp" />
+    </definition>
+
+    <definition name="finish-state" extends="setupPage">
+        <put-attribute name="title" value="Install Finished | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}finish.jsp" />
     </definition>
 
     <definition name="review-admon" extends="setupPage">

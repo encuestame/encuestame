@@ -15,6 +15,7 @@ package org.encuestame.core.service.imp;
 import java.util.Collection;
 import java.util.List;
 
+import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
@@ -452,4 +453,12 @@ public interface SecurityOperations extends ServiceOperations {
      * @param status
      */
     void removeUnconfirmedAccount(final Boolean status);
+
+    /**
+     * Create administration user profile.
+     * @param administratorProfile {@link AdministratorProfile}.
+     * @return
+     */
+    UserAccountBean createAdministrationUser(
+            final AdministratorProfile administratorProfile);
 }

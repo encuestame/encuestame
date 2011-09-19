@@ -7,35 +7,69 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.utils.TypeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *
+ * Database install support.
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 19, 2011
  */
 public class DatabaseInstall implements InstallDatabaseOperations {
 
+    /**
+     *  Log.
+     */
     private static Log log = LogFactory.getLog(DatabaseInstall.class);
 
+    /**
+     * {@link TypeDatabase}.
+     */
     private TypeDatabase databaseType = null;
 
+    /**
+     * The path of all sql scripts.
+     * TODO: move to PathUtils?
+     */
     private final String SQLPATH = "/org/encuestame/business/sqlscripts/";
 
+    /**
+     * Index file, contains INDEX SQL sequence.
+     */
     private final String INDEX = "index.sql";
+
+    /**
+     * Alter file, contains ALTER SQL sequence.
+     */
     private final String ALTER = "alter.sql";
+
+    /**
+     * Drop file, contains DROP SQL sequence.
+     */
     private final String DROP = "drop.sql";
+
+    /**
+     * Tables file, contains CREATE TABLE SQL sequence.
+     */
     private final String TABLES = "tables.sql";
+
+    /**
+     * Index file, contains required data.
+     */
     private final String INSTALL = "install.sql";
+
+    /**
+     * Demo file, contain a list o executions to create demo data.
+     */
     private final String DEMO = "demo.sql";
 
     /**
-     *
+     * Script log, useful to display all script executed.
      */
     private StringBuffer scriptLog = new StringBuffer();
 
     /**
-     *
+     * {@link InstallerOperations}.
      */
     @Autowired
     private InstallerOperations installerOperations;
@@ -58,12 +92,12 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      * @return
      */
     private String buildTableScript(final String typeScript) {
-        log.debug("Database Type"+this.databaseType.name());
+        log.debug("Database Type: "+this.databaseType.name());
         final StringBuilder builder = new StringBuilder(this.SQLPATH);
         builder.append(this.databaseType.name().toLowerCase());
         builder.append("/install/");
         builder.append(typeScript);
-        log.debug("Build sql script " + builder.toString());
+        log.debug("Build sql script: " + builder.toString());
         return builder.toString();
     }
 
@@ -170,6 +204,16 @@ public class DatabaseInstall implements InstallDatabaseOperations {
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
+    private String getTypeDatabase() {
+        final String typeDatabase = EnMePlaceHolderConfigurer
+                .getProperty("datasource.database");
+        return typeDatabase;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -179,7 +223,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
     @SuppressWarnings("unused")
     public void initializeDatabase(final TypeDatabase installDatabase)
             throws EnmeFailOperation, IOException {
-        setDatabaseType(installDatabase);
+        //TODO: remove parameters.
+        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
         log.debug("check Database conection..");
         // verify database connection.
         //if (this.installerOperations.checkDatabaseConection() == 1) {
@@ -248,6 +293,8 @@ public class DatabaseInstall implements InstallDatabaseOperations {
      */
     @Override
     public void dropAll() throws IOException {
+        log.info("Drop all tables");
+        setDatabaseType(TypeDatabase.getTypeDatabaseByString(this.getTypeDatabase()));
         this.installScript(this.buildTableScript(this.DROP));
     }
 }

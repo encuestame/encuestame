@@ -17,7 +17,7 @@
                             <li><b>Easy of Install -</b> here you are, just follow the instructions</li>
                             <li><b>100% Free -</b> free for all, even for comercial use</li>
                             <li><b>Web Based 2.0 - </b> a rich user interface</li>
-                            <li><b>OAuth Support - </b> user your platform with third party app</li>
+                            <li><b>OAuth Support - </b> use your platform with third party app</li>
                             <li><b>Social Network's' more popular -</b> Facebook, Google Buzz, Twitter, IdentCa, Yahoo and more.</li>
                        </ul>
                     </p>
@@ -30,7 +30,7 @@
                         <li>Install demo data</li>
                         <li>Create administration user</li>
                         <li>Check your installation</li>
-                        <li>Configure your enviroment</li>
+                        <li>Customize your System</li>
                         <li>Finish</li>
                     </ol>
                 </div>

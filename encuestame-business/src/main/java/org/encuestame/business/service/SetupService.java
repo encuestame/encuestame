@@ -13,17 +13,24 @@
 package org.encuestame.business.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
-import org.encuestame.business.setup.install.TypeDatabase;
 import org.encuestame.core.config.AdministratorProfile;
+import org.encuestame.core.config.ConfigurationManager;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.SetupOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.utils.TypeDatabase;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +42,7 @@ import org.springframework.stereotype.Service;
  * @since Sep 9, 2011
  */
 @Service(value = "setupService")
-public class SetupService extends AbstractBaseService implements
-        SetupOperations {
+public class SetupService extends AbstractBaseService implements  SetupOperations {
 
     /** Log. **/
     private Logger log = Logger.getLogger(this.getClass());
@@ -47,6 +53,9 @@ public class SetupService extends AbstractBaseService implements
     @Autowired
     private InstallDatabaseOperations install;
 
+    /**
+     *
+     */
     @Autowired
     private SecurityOperations securityOperations;
 
@@ -64,10 +73,24 @@ public class SetupService extends AbstractBaseService implements
      *
      * @return
      */
+    @Deprecated
     private String getTypeDatabase() {
         final String typeDatabase = EnMePlaceHolderConfigurer
                 .getConfigurationManager().getProperty("database.type");
         return typeDatabase;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#validateInstall()
+     */
+    public void validateInstall() {
+        log.debug("validateInstall ------------");
+        final ConfigurationManager config = EnMePlaceHolderConfigurer.getConfigurationManager();
+        log.debug("validateInstall ------------"+config.getXmlConfiguration().getBasePath());
+        config.getXmlConfiguration().addProperty("install.date", DateUtil.getCurrentFormatedDate());
+        config.getXmlConfiguration().addProperty("install.uuid", RandomStringUtils.randomAlphanumeric(50));
+        log.debug("validateInstall ------------");
     }
 
     /**
@@ -87,7 +110,19 @@ public class SetupService extends AbstractBaseService implements
             e.printStackTrace();
             return "fail";
         }
-        return "ok";
+        return "ok"; //TODO: replace by enum in the future.
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#checkDatabase()
+     */
+    public Boolean checkDatabase() {
+        log.info("******** check database **********");
+        final boolean check = this.install.checkDatabase();
+        log.info("******** "+check+" **********");
+        log.info("******** check database **********");
+        return check;
     }
 
     /*
@@ -122,7 +157,7 @@ public class SetupService extends AbstractBaseService implements
         String status = "install";
         final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
-        if(installedVersion != null) {
+        if (installedVersion != null) {
             float f1 = Float.valueOf(currentVersion);
             float f2 = Float.valueOf(installedVersion);
             if (f2 < f1) {
@@ -143,9 +178,7 @@ public class SetupService extends AbstractBaseService implements
     public UserAccountBean createUserAdministration(
             AdministratorProfile administratorProfile) {
         log.debug("===============CREATE ADMON==============");
-        UserAccountBean account = new UserAccountBean();
-        account.setUsername(administratorProfile.getUsername());
-        account.setEmail(administratorProfile.getEmail());
+        final UserAccountBean account = this.securityOperations.createAdministrationUser(administratorProfile);
         return account;
     }
 
@@ -171,12 +204,15 @@ public class SetupService extends AbstractBaseService implements
      * @see org.encuestame.core.service.SetupOperations#removeTables()
      */
     @Override
-    public void removeTables() {
+    public Boolean removeTables() {
          try {
              this.install.dropAll();
+             return true;
          } catch (Exception e) {
+             e.printStackTrace();
              log.fatal(e);
              RequestSessionMap.setErrorMessage(e.getMessage());
+             return false;
          }
     }
 
@@ -192,5 +228,33 @@ public class SetupService extends AbstractBaseService implements
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#loadInstallParameters()
+     */
+    @Override
+    public List<String> loadInstallParameters() {
+        final List<String> parameters = new ArrayList<String>();
+        parameters.add(this.createParameter("database", EnMePlaceHolderConfigurer.getProperty("datasource.database")));
+        parameters.add(this.createParameter("jdbc-url", EnMePlaceHolderConfigurer.getProperty("datasource.urldb")));
+        parameters.add(this.createParameter("jdbc-driver", EnMePlaceHolderConfigurer.getProperty("datasource.classname")));
+        parameters.add(this.createParameter("username", EnMePlaceHolderConfigurer.getProperty("datasource.userbd")));
+        parameters.add(this.createParameter("password", EnMePlaceHolderConfigurer.getProperty("datasource.pass")));
+        parameters.add(this.createParameter("dialect", EnMePlaceHolderConfigurer.getProperty("datasource.dialect")));
+        return parameters;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String createParameter(final String value, final String paramValue){
+        final StringBuffer param = new StringBuffer();
+        param.append(value);
+        param.append(" : ");
+        param.append(paramValue);
+        return param.toString();
     }
 }
