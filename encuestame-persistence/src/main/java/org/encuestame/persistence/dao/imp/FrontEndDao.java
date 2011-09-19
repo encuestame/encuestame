@@ -306,8 +306,6 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      */
     public List<AccessRate> getAccessRatebyItem(final String ipAddress,
             final Long itemId, final TypeSearchResult searchbyType) {
-        System.out
-                .println("searching item vote by ipAddress ---> " + ipAddress);
         @SuppressWarnings({ "unchecked", "rawtypes" })
         List<AccessRate> searchResult = (List) getHibernateTemplate().execute(
                 new HibernateCallback() {
@@ -326,7 +324,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
                             criteria.createAlias("poll", "poll");
                             criteria.add(Restrictions.eq("poll.pollId", itemId));
                         } else {
-                            log.warn("");
+                            log.error(" Search access rate result type undefined " + searchbyType);
                         }
                         searchResult = (List<AccessRate>) fetchPhraseFullText(
                                 ipAddress, "ipAddress", AccessRate.class,

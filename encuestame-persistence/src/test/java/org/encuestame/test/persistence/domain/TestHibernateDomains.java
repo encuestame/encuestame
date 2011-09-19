@@ -423,7 +423,7 @@ public class TestHibernateDomains extends AbstractBase{
      }
 
      /** HashTag hits domain. **/
-     @Test
+     //@Test
      public void testHashTagHits(){
         final Date hitDate = new Date();
         final String ipAddress = "";

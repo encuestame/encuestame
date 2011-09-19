@@ -152,23 +152,11 @@ public interface IFrontEndService extends ServiceOperations {
      * @param itemId
      * @param ipAddress
      * @param rate
-     * @throws EnMeNoResultsFoundException
-     * @throws EnMeExpcetion
-     */
-    public void registerAccessRate(
-            final TypeSearchResult type,
-            final Long itemId,
-            final String ipAddress,
-            final Boolean rate) throws EnMeNoResultsFoundException, EnMeExpcetion;
-
-    /**
-     * Get access rate item.
-     * @param ipAddress
-     * @param itemId
-     * @param searchby
      * @return
      * @throws EnMeExpcetion
      */
-    List<AccessRate> getAccessRateItem(final String ipAddress,
-            final Long itemId, final TypeSearchResult searchby)  throws EnMeExpcetion;
+    public AccessRate registerAccessRate(final TypeSearchResult type,
+            final Long itemId, final String ipAddress, final Boolean rate)
+            throws EnMeExpcetion;
+
 }

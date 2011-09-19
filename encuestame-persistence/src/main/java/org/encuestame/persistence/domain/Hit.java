@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.domain;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Cacheable;
@@ -56,7 +57,7 @@ public class Hit {
     private TweetPoll tweetPoll;
 
     /** **/
-    private Date hitDate;
+    private Date hitDate = Calendar.getInstance().getTime();
 
     /** **/
     private String ipAddress;
