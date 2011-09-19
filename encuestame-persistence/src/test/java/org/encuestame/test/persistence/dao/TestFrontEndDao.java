@@ -21,7 +21,6 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.question.Question;
@@ -42,9 +41,6 @@ public class TestFrontEndDao extends AbstractBase {
     /** {@link HashTag} **/
     private HashTag hashTag;
 
-    /** {@link HashTagHits} **/
-    private HashTagHits hashTagHit;
-
     /** {@link UserAccount}. **/
     private UserAccount secondary;
 
@@ -59,7 +55,6 @@ public class TestFrontEndDao extends AbstractBase {
         this.hashTag = createHashTag("software");
         final String ipAddress2 = "192.168.1.2";
         final String ipAddress3 = "192.168.1.3";
-        //this.hashTagHit = createHashTagHit(hashTag, ipAddress, this.secondary);
         this.hit = createHashTagHit(hashTag, ipAddress);
         createHashTagHit(hashTag, ipAddress2);
         createHashTagHit(hashTag, ipAddress3);
@@ -67,28 +62,30 @@ public class TestFrontEndDao extends AbstractBase {
 
     /** Test Get hash tags by ip.**/
    @Test
-    public void testGetHashTagsHitByIp(){
-       System.out.println("----------------");
-        //assertNotNull(this.hashTagHit);
-        //flushIndexes();
-        //final List<HashTagHits> hitsbyIp = getFrontEndDao().getHashTagsHitByIp(this.ipAddress);
-       // System.out.print("SIZE HASHTAG hit---> "+ hitsbyIp.size());
-        //assertNotNull(hitsbyIp);
-        //assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
-        //assertEquals("Should be equals", hitsbyIp.size(),1);
+    public void testGetHashTagsHitByIp() {
+        assertNotNull(this.hit);
+        flushIndexes();
+        final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
+                this.ipAddress, this.hashTag.getHashTagId(),
+                TypeSearchResult.HASHTAG);
+        assertNotNull(hitsbyIp);
+        assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(),
+                this.ipAddress);
+        assertEquals("Should be equals", hitsbyIp.size(), 1);
     }
 
-   //@Test
+   @Test
    public void testGetHitsByIpandType(){
        assertNotNull(this.hashTag);
        flushIndexes();
-       final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(ipAddress, this.hashTag.getHashTagId(), "hashTag");
-       //System.out.print("size hashTag hit---> "+ hitsbyIp.size());
+       final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
+               ipAddress,
+               this.hashTag.getHashTagId(),
+               TypeSearchResult.HASHTAG);
        assertNotNull(hitsbyIp);
        assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
-       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), null);
+       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG);
        assertEquals("total hits should be equals", 3, totalHits.intValue());
-       //System.out.print("total hit count by hash tag---> "+ totalHits);
    }
 
     /**

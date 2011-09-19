@@ -22,7 +22,6 @@ import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
 import org.encuestame.persistence.domain.AccessRate;
-import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -208,33 +207,12 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         this.hashTagDao = hashTagDao;
     }
 
-    /**
-     * Get hash tags hits by Ip.
-     * @param ipAddress
-     * @return
-     */
-     public List<HashTagHits> getHashTagsHitByIp(final String ipAddress){
-        log.debug("search by ipAddress ---> "+ipAddress);
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        List<HashTagHits> searchResult = (List) getHibernateTemplate().execute(new HibernateCallback() {
-                    public Object doInHibernate(org.hibernate.Session session) {
-                        List<HashTagHits> searchResult = new ArrayList<HashTagHits>();
-                        final Criteria criteria = session.createCriteria(HashTagHits.class);
-                        searchResult = (List<HashTagHits>) fetchPhraseFullText(ipAddress, "ipAddress", HashTagHits.class,
-                        criteria, new SimpleAnalyzer());
-                        log.debug("total results ---> "+searchResult.size());
-                        return searchResult;
-                        }
-        });
-        return searchResult;
-    }
-
     /*
      * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IFrontEndDao#getHitsByIpAndType(java.lang.String, java.lang.Long, java.lang.String)
+     * @see org.encuestame.persistence.dao.IFrontEndDao#getHitsByIpAndType(java.lang.String, java.lang.Long, org.encuestame.persistence.domain.TypeSearchResult)
      */
     public List<Hit> getHitsByIpAndType(final String ipAddress, final Long id,
-            final String searchHitby) {
+            final TypeSearchResult searchHitby) {
         log.debug("searching item hits by ipAddress ---> " + ipAddress);
         @SuppressWarnings({ "unchecked", "rawtypes" })
         List<Hit> searchResult = (List) getHibernateTemplate().execute(
@@ -243,22 +221,22 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
                         List<Hit> searchResult = new ArrayList<Hit>();
                         final Criteria criteria = session
                                 .createCriteria(Hit.class);
-                        if (searchHitby.equals("tweetPoll")) {
+                        if (searchHitby.equals(TypeSearchResult.TWEETPOLL)) {
                             criteria.createAlias("tweetPoll", "tweetPoll");
                             criteria.add(Restrictions.eq(
                                     "tweetPoll.tweetPollId", id));
-                        } else if (searchHitby.equals("poll")) {
+                        } else if (searchHitby.equals(TypeSearchResult.POLL)) {
                             criteria.createAlias("poll", "poll");
                             criteria.add(Restrictions.eq("poll.pollId", id));
-                        } else if (searchHitby.equals("survey")) {
+                        } else if (searchHitby.equals(TypeSearchResult.SURVEY)) {
                             criteria.createAlias("survey", "survey");
                             criteria.add(Restrictions.eq("survey.sid", id));
-                        } else if (searchHitby.equals("hashTag")) {
+                        } else if (searchHitby.equals(TypeSearchResult.HASHTAG)) {
                             criteria.createAlias("hashTag", "hashTag");
                             criteria.add(Restrictions.eq("hashTag.hashTagId",
                                     id));
                         } else {
-                            log.warn("");
+                            log.error(" Search hit result type undefined " + searchHitby);
                         }
                         searchResult = (List<Hit>) fetchPhraseFullText(
                                 ipAddress, "ipAddress", Hit.class, criteria,
@@ -275,23 +253,23 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getTotalHitsbyType(java.lang.Long, java.lang.String)
      */
-    public final Long getTotalHitsbyType(final Long id, final String searchHitby) {
+    public final Long getTotalHitsbyType(final Long id, final TypeSearchResult searchHitby) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
         criteria.setProjection(Projections.rowCount());
-        if (searchHitby.equals("tweetPoll")) {
+        if (searchHitby.equals(TypeSearchResult.TWEETPOLL)) {
             criteria.createAlias("tweetPoll", "tweetPoll");
             criteria.add(Restrictions.eq("tweetPoll.tweetPollId", id));
-        } else if (searchHitby.equals("poll")) {
+        } else if (searchHitby.equals(TypeSearchResult.POLL)) {
             criteria.createAlias("poll", "poll");
             criteria.add(Restrictions.eq("poll.pollId", id));
-        } else if (searchHitby.equals("survey")) {
+        } else if (searchHitby.equals(TypeSearchResult.SURVEY)) {
             criteria.createAlias("survey", "survey");
             criteria.add(Restrictions.eq("survey.sid", id));
-        } else if (searchHitby.equals("hashTag")) {
+        } else if (searchHitby.equals(TypeSearchResult.HASHTAG)) {
             criteria.createAlias("hashTag", "hashTag");
             criteria.add(Restrictions.eq("hashTag.hashTagId", id));
         } else {
-            log.warn("");
+            log.error(" Search hit result type undefined " + searchHitby);
         }
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);

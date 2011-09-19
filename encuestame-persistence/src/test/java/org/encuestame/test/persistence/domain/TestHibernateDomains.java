@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
@@ -28,9 +29,7 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -421,22 +420,6 @@ public class TestHibernateDomains extends AbstractBase{
         getHashTagDao().saveOrUpdate(tag);
         assertNotNull(tag.getHashTagId());
      }
-
-     /** HashTag hits domain. **/
-     //@Test
-     public void testHashTagHits(){
-        final Date hitDate = new Date();
-        final String ipAddress = "";
-        final String tagName = "programmer";
-        final HashTagHits tagHits = new HashTagHits();
-        tagHits.setHitDate(hitDate);
-        tagHits.setIpAddress(ipAddress);
-        tagHits.setUserAccount(createUserAccount("juan carlos", createAccount()));
-        tagHits.setHashTag(createHashTag(tagName));
-        getHashTagDao().saveOrUpdate(tagHits);
-        assertNotNull(tagHits.getHashTag());
-     }
-
      /** Dashboard domain. **/
      @Test
      public void testDashboard(){

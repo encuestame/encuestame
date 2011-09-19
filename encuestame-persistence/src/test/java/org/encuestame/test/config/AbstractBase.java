@@ -45,6 +45,7 @@ import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Comment;
@@ -56,11 +57,9 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
-import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -1807,24 +1806,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         publishedStatus.setPublicationDateTweet(new Date());
         getTweetPoll().saveOrUpdate(publishedStatus);
         return publishedStatus;
-    }
-
-
-    /**
-     * Create hash tag hit by ip.
-     * @param hashTagName
-     * @param ipAddress
-     * @return
-     */
-    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress, final UserAccount userAcc){
-       final Date hitDate = new Date();
-       final HashTagHits tagHits = new HashTagHits();
-       tagHits.setHitDate(hitDate);
-       tagHits.setIpAddress(ipAddress);
-       tagHits.setHashTag(hashTag);
-       tagHits.setUserAccount(userAcc);
-       getHashTagDao().saveOrUpdate(tagHits);
-       return tagHits;
     }
 
     /**

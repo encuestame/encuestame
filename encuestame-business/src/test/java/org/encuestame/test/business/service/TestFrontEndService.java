@@ -20,7 +20,6 @@ import org.encuestame.business.service.FrontEndService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -29,6 +28,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.web.HashTagBean;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,67 +45,62 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     /** {@link HashTag} **/
     private HashTag hashTag;
 
-    /** {@link HashTagHits} **/
-    private HashTagHits hashTagHit;
-
     /** {@link UserAccount}. **/
     private UserAccount secondary;
 
     /** ip address. **/
     final String ipAddress = "192.168.1.1";
 
-    final String ipAddress2 = "192.168.1.2";
-
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
 
-    //@Before
+    @Before
     public void initData(){
         this.secondary = createUserAccount("paola", createAccount());
-        this.hashTagHit = createHashTagHit(hashTag, this.ipAddress, this.secondary);
+        this.hashTag = createHashTag("hardware",50L);
+        createHashTagHit(hashTag, this.ipAddress);
         final Question question = createQuestion("Who I am?", "");
         createQuestionAnswer("yes", question, "12345");
         createQuestionAnswer("no", question, "12346");
         this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
-        this.hashTag = createHashTag("hardware",50L);
         final HashTag hashTag2 = createHashTag("programmer",80L);
         this.tweetPoll.getHashTags().add(hashTag);
         this.tweetPoll.getHashTags().add(hashTag2);
         getTweetPoll().saveOrUpdate(this.tweetPoll);
-
-        //System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
     }
 
     /**
-     *
+     * Test check previous hashtag hits.
      */
     @Test
     public void testCheckPreviousHashTagHit(){
-        System.out.println("------------------- ");
-       /* flushIndexes();
-        final Boolean previousRecord = getFrontEndService().checkPreviousHit(this.ipAddress, this.hashTag.getHashTagId(), "hashTag");
-        checkPreviousHashTagHit(this.ipAddress);
-        System.out.println("Previous record exists? --> "+ previousRecord + "IP" + this.ipAddress);
-        final Boolean previousRecord2 = getFrontEndService().checkPreviousHit(ipAddress2, this.hashTag.getHashTagId(), "hashTag");
-        checkPreviousHashTagHit(this.ipAddress2);
-        System.out.println("Previous record exists 2? --> "+ previousRecord2 + "IP" + this.ipAddress2);*/
+        final String ipAddress2 = "192.168.1.2";
+        flushIndexes();
+        final Boolean previousRecord = getFrontEndService().checkPreviousHit(this.ipAddress,
+                this.hashTag.getHashTagId(),
+                TypeSearchResult.HASHTAG);
+        Assert.assertTrue(previousRecord);
+        final Boolean previousRecord2 = getFrontEndService().checkPreviousHit(
+                ipAddress2,
+                this.hashTag.getHashTagId(), TypeSearchResult.HASHTAG);
+        Assert.assertFalse(previousRecord2);
     }
 
     /**
      *
      * @throws EnMeNoResultsFoundException
      */
-   // @Test
+    @Test
     public void testRegisterHashTagHit() throws EnMeNoResultsFoundException{
-        //System.out.println(" previous tag hit --> "+ this.hashTag.getHits());
-        final Boolean registerHit = getFrontEndService().registerHashTagHit(this.hashTag, this.ipAddress);
-        getFrontEndService().registerHashTagHit(this.hashTag, this.ipAddress2);
+        final Boolean registerHit = getFrontEndService().registerHit(
+                null, null, null, this.hashTag, this.ipAddress);
+        Assert.assertTrue(registerHit);
     }
 
     /**
      * Test Get hash tags
      */
-    //@Test
+    @Test
     public void testGetHashTags(){
 
         /** Hash Tags **/
@@ -169,10 +164,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         getTweetPoll().saveOrUpdate(this.tweetPoll);
 
         final List<HashTagBean> hashBean = getFrontEndService().getHashTags(30, 0, "");
-        System.out.println(" Hash Bean size --> "+hashBean.size());
-        for (HashTagBean hashTagBean : hashBean) {
-           // System.out.println(" Hash Bean size --> "+hashTagBean.getSize());
-        }
+        Assert.assertEquals("Should be equals", hashBean.size(), 7);
     }
 
     /**
@@ -182,7 +174,6 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
      */
     @Test
     public void testRegisterAccessRateVotedLike() throws EnMeNoResultsFoundException, EnMeExpcetion{
-         this.secondary = createUserAccount("paola", createAccount());
          final Question question = createQuestion("Who are you?", "");
          final TweetPoll tp = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
          final String ipAddress = "192.168.1.81";
@@ -202,6 +193,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
                  tp.getTweetPollId(),
                  ipAddress2,
                  Boolean.TRUE);
+         Assert.assertNotNull(rate2);
 
          // I don't like it vote.
          final AccessRate rate3 = getFrontEndService().registerAccessRate(
@@ -209,6 +201,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
                  tp.getTweetPollId(),
                  ipAddress,
                  Boolean.FALSE);
+         Assert.assertNotNull(rate3);
     }
 
     /**

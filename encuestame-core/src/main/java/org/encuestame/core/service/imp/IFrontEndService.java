@@ -92,23 +92,9 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
-
-    /**
-     * Check previous hashTag hit.
-     * @param ipAddress
-     * @return
-     */
-    Boolean checkPreviousHashTagHit(final String ipAddress);
-
-    /**
-     * Register hashTag hits.
-     * @param tag
-     * @param ipAddress
-     * @param username
-     * @throws EnMeNoResultsFoundException
-     */
-    Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException;
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId,
+            final Integer limit, final String filter,
+            final HttpServletRequest request);
 
     /**
      * Get frontEnd items.
@@ -131,7 +117,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @param searchHitby
      * @return
      */
-    Boolean checkPreviousHit(final String ipAddress, final Long id, final String searchHitby);
+    Boolean checkPreviousHit(final String ipAddress, final Long id, final TypeSearchResult searchHitby);
 
     /**
      * Register hit.
@@ -158,5 +144,4 @@ public interface IFrontEndService extends ServiceOperations {
     public AccessRate registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
             throws EnMeExpcetion;
-
 }

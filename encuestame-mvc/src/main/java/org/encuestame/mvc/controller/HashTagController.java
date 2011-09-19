@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -85,16 +86,10 @@ public class HashTagController extends AbstractBaseOperations {
         final HashTag tag;
         try {
             tag = getFrontService().getHashTagItem(name);
-            // Search HashTag hits.
-            boolean hashTagVisite = getFrontService().checkPreviousHit(IP, tag.getHashTagId(), "hashTag");
-            //checkPreviousHashTagHit(  IP);
-            // TODO: Check that previous hash Tag hit has been visited the same
-            // day.
+            boolean hashTagVisite = getFrontService().checkPreviousHit(IP, tag.getHashTagId(), TypeSearchResult.HASHTAG);
+            // TODO: Check that previous hash Tag hit has been visited the same day.
             if (!hashTagVisite) {
                 getFrontService().registerHit(null, null, null, tag, IP);
-                log.debug("*********************************************************");
-                log.debug("Register hashtag Hit");
-                //getFrontService().registerHashTagHit(tag, IP);
             }
             final List<TweetPollBean> tweetPollbyTags = getFrontService()
                     .getTweetPollsbyHashTagId(tag.getHashTagId(),
@@ -103,7 +98,6 @@ public class HashTagController extends AbstractBaseOperations {
                     .getTweetPollsbyHashTagId(tag.getHashTagId(),
                             LIMIT_HASHTAG, "hashtagRated", request);
             if (tag == null) {
-                log.debug("*************************************>>>>> tag is Null"+tag);
                 return "pageNotFound";
             } else {
                 final HashTagBean bean =  ConvertDomainBean.convertHashTagDomain(tag);
@@ -113,7 +107,6 @@ public class HashTagController extends AbstractBaseOperations {
             }
         } catch (Exception e) {
             log.error(e);
-            log.debug("*************************************>>>>> Error");
             return "pageNotFound";
         }
         return "tag/detail";

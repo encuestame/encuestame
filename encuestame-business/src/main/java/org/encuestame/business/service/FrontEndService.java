@@ -14,7 +14,6 @@ package org.encuestame.business.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,6 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -214,35 +212,12 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return tweetPollBean;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IFrontEndService#checkPreviousHashTagHit(java.lang.String)
-     */
-    @Deprecated
-    public Boolean checkPreviousHashTagHit(final String ipAddress){
-        boolean tagHit = false;
-        final List<HashTagHits> hashTag = getFrontEndDao().getHashTagsHitByIp(ipAddress);
-        try {
-            if(hashTag.size() == 1){
-                if(hashTag.get(0).getIpAddress().equals(ipAddress)){
-                    tagHit = true;
-                }
-             }
-            else if(hashTag.size() > 1){
-                log.warn("");
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-            log.error(e);
-        }
-        return tagHit;
-    }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#checkPreviousHit(java.lang.String, java.lang.Long, java.lang.String)
      */
-    public Boolean checkPreviousHit(final String ipAddress, final Long id, final String searchHitby){
+    public Boolean checkPreviousHit(final String ipAddress, final Long id, final TypeSearchResult searchHitby){
         boolean hit = false;
         final List<Hit> hitList = getFrontEndDao().getHitsByIpAndType(ipAddress, id, searchHitby);
         try {
@@ -299,27 +274,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                  survey.setHits(hitCount);
                  getFrontEndDao().saveOrUpdate(survey);
                  register = true;
-            }
-        }
-        return register;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IFrontEndService#registerHashTagHit(org.encuestame.persistence.domain.HashTag, java.lang.String)
-     */
-    @Deprecated
-    public Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException{
-        final HashTagHits hashHit ;
-        Long hitCount = 1L;
-        Boolean register = false;
-        if ((ip != null) || (tag != null)) {
-            hashHit = this.newHashTagHit(tag, Calendar.getInstance().getTime(), ip);
-            if (hashHit != null) {
-                hitCount = tag.getHits() + hitCount;
-                tag.setHits(hitCount);
-                getFrontEndDao().saveOrUpdate(tag);
-                register = true;
             }
         }
         return register;
@@ -387,27 +341,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     private Hit newSurveyHit(final Survey survey, final String ipAddress){
         return this.newHitItem(null, null, survey, null, ipAddress);
-    }
-    /**
-     * New hash tag hit.
-     * @param tagName
-     * @param hitDate
-     * @param ipAddress
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    @Deprecated
-    @Transactional(readOnly = false)
-    private HashTagHits newHashTagHit(
-            final HashTag tag,
-            final Date hitDate,
-            final String ipAddress) throws EnMeNoResultsFoundException {
-        final HashTagHits tagHitsDomain = new HashTagHits();
-        tagHitsDomain.setHitDate(hitDate);
-        tagHitsDomain.setHashTag(tag);
-        tagHitsDomain.setIpAddress(ipAddress);
-        getFrontEndDao().saveOrUpdate(tagHitsDomain);
-        return tagHitsDomain;
     }
 
     /*
