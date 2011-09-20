@@ -1684,6 +1684,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     *
+     * @param hashTagName
+     * @param hits
+     * @return
+     */
+    public HashTag createHashTag(final String hashTagName, final Long hits, final Long size){
+        final HashTag hastag = this.createHashTag(hashTagName);
+        hastag.setHits(hits);
+        hastag.setSize(size);
+        hastag.setUpdatedDate(new Date());
+        getHashTagDao().saveOrUpdate(hastag);
+        return hastag;
+    }
+
+
+    /**
      * @return the notification
      */
     public INotification getNotification() {

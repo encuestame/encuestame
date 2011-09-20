@@ -53,6 +53,9 @@ public class HashTagsJsonController extends AbstractJsonController{
      */
     private static final Integer LIMIT_DEFAULT = 10;
 
+    /**
+     * Limit of cloud results.
+     */
     private static final Integer CLOUD_LIMIT_DEFAULT = 20;
 
      /**
@@ -115,8 +118,9 @@ public class HashTagsJsonController extends AbstractJsonController{
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final IFrontEndService service = getFrontService();
              final List<HashTagBean> hashTagList;
-             if(limit == null){
-                 hashTagList = service.getHashTags(CLOUD_LIMIT_DEFAULT, 0, "hashTagsCloud"); // TODO: Add to file properties limit to show hashtags.
+             if (limit == null) {
+                 hashTagList = service.getHashTags(CLOUD_LIMIT_DEFAULT, 0, "hashTagsCloud");
+                 // TODO: Add to file properties limit to show hashtags.
              } else {
                 hashTagList = service.getHashTags(limit, 0, "hashTagsCloud");
              }
@@ -128,8 +132,7 @@ public class HashTagsJsonController extends AbstractJsonController{
             log.error(e);
             setError(e.getMessage(), response);
         }
-                return returnData();
-
+        return returnData();
     }
 
 }

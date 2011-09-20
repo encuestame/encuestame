@@ -152,16 +152,16 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
 
     /**
      * Get hashTags
-     * @param maxResults
-     * @param start
-     * @return
+     * @param maxResults the max results to display
+     * @param start to pagination propose.
+     * @return List of {@link HashTagBean}
      */
     public List<HashTagBean> getHashTags(
               Integer maxResults,
               final Integer start,
-              final String tagCriteria){
+              final String tagCriteria) {
         final List<HashTagBean> hashBean = new ArrayList<HashTagBean>();
-        if(maxResults == null){
+        if (maxResults == null) {
             maxResults = this.MAX_RESULTS;
         }
         final List<HashTag> tags = getHashTagDao().getHashTags(maxResults, start, tagCriteria);
