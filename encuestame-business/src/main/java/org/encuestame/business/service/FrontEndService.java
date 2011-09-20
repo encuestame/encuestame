@@ -227,7 +227,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                 }
              }
             else if(hitList.size() > 1){
-                log.warn("");
+                log.error("List cant'be greater than one");
             }
         } catch (Exception e) {
             // TODO: handle exception
