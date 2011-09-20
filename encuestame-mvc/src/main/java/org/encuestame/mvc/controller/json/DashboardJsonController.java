@@ -286,13 +286,14 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @RequestMapping(value = "/api/common/dashboard/move-gadget.json", method = RequestMethod.GET)
     public ModelMap moveGadget(
-            @RequestParam(value = "gadgetId", required = true) Long gadgetId,
-            @RequestParam(value = "position", required = true) Integer position,
-            @RequestParam(value = "column", required = true) Integer column,
-            @RequestParam(value = "dashboardId", required = true) Long dashboardId,
+            @RequestParam(value = "gadgetId", required = false) Long gadgetId,
+            @RequestParam(value = "position", required = false) Integer position,
+            @RequestParam(value = "column", required = false) Integer column,
+            @RequestParam(value = "dashboardId", required = false) Long dashboardId,
             HttpServletRequest request,
-            HttpServletResponse response){
+            HttpServletResponse response) {
         try {
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             getDashboardService().moveGadget(gadgetId, dashboardId, position, column);
             setSuccesResponse();
         } catch (Exception e) {
