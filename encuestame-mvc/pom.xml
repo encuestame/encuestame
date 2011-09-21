@@ -217,10 +217,6 @@
             <artifactId>rome-fetcher</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
@@ -350,14 +346,37 @@
             <artifactId>easymock</artifactId>
         </dependency>
         <!-- Spring WebFlow -->
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-binding</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>org.springframework.webflow</artifactId>
-            </dependency>
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>org.springframework.webflow</artifactId>
+        </dependency>
+<!--         <dependency> -->
+<!--             <groupId>org.apache.cactus</groupId> -->
+<!--             <artifactId>cactus.core.framework</artifactId> -->
+<!--         </dependency> -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty7.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-client</artifactId>
+            <version>${jetty7.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>${jetty7.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>${jetty7.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <filters>
@@ -378,6 +397,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar.plugin}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -403,10 +423,10 @@
     </build>
 
 
-    <repositories>
-        <repository>
-            <id>local-project-repo</id>
-            <url>file:${basedir}/../lib/repository</url>
-        </repository>
-    </repositories>
+<!--     <repositories> -->
+<!--         <repository> -->
+<!--             <id>local-project-repo</id> -->
+<!--             <url>file:${basedir}/../lib/repository</url> -->
+<!--         </repository> -->
+<!--     </repositories> -->
 </project>

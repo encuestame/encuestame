@@ -44,7 +44,7 @@ CONTACTO
 * infoATencuestame.org
 * Ubicación: Madrid, ESP.
 
-COMMITERS:
+COMMITTERS:
 
 * Diana Paola Morales Urbina
   http://es.linkedin.com/in/dianmorales

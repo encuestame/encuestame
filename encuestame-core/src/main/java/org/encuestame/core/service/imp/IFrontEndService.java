@@ -13,9 +13,17 @@
 package org.encuestame.core.service.imp;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.TypeSearchResult;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
@@ -84,23 +92,9 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
-
-    /**
-     *
-     * @param ipAddress
-     * @return
-     */
-    Boolean checkPreviousHashTagHit(final String ipAddress);
-
-    /**
-     * Register hashTag hits.
-     * @param tag
-     * @param ipAddress
-     * @param username
-     * @throws EnMeNoResultsFoundException
-     */
-    Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException;
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId,
+            final Integer limit, final String filter,
+            final HttpServletRequest request);
 
     /**
      * Get frontEnd items.
@@ -115,4 +109,39 @@ public interface IFrontEndService extends ServiceOperations {
             final Integer start,
             Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException;
+
+    /**
+     * Check previous item hit.
+     * @param ipAddress
+     * @param id
+     * @param searchHitby
+     * @return
+     */
+    Boolean checkPreviousHit(final String ipAddress, final Long id, final TypeSearchResult searchHitby);
+
+    /**
+     * Register hit.
+     * @param tweetPoll
+     * @param poll
+     * @param survey
+     * @param tag
+     * @param ip
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
+            final String ip) throws EnMeNoResultsFoundException;
+
+    /**
+     * Register access rate.
+     * @param type
+     * @param itemId
+     * @param ipAddress
+     * @param rate
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public AccessRate registerAccessRate(final TypeSearchResult type,
+            final Long itemId, final String ipAddress, final Boolean rate)
+            throws EnMeExpcetion;
 }

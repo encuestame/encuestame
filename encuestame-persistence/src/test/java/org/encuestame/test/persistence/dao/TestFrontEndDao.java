@@ -15,12 +15,17 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.FrontEndDao;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.TypeSearchResult;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,11 +41,11 @@ public class TestFrontEndDao extends AbstractBase {
     /** {@link HashTag} **/
     private HashTag hashTag;
 
-    /** {@link HashTagHits} **/
-    private HashTagHits hashTagHit;
-
     /** {@link UserAccount}. **/
     private UserAccount secondary;
+
+    /** {@link Hit} **/
+    private Hit hit;
 
     final String ipAddress = "192.168.1.1";
 
@@ -48,18 +53,58 @@ public class TestFrontEndDao extends AbstractBase {
     public void initData(){
         this.secondary = createUserAccount("paola", createAccount());
         this.hashTag = createHashTag("software");
-        this.hashTagHit = createHashTagHit(hashTag, ipAddress, this.secondary);
+        final String ipAddress2 = "192.168.1.2";
+        final String ipAddress3 = "192.168.1.3";
+        this.hit = createHashTagHit(hashTag, ipAddress);
+        createHashTagHit(hashTag, ipAddress2);
+        createHashTagHit(hashTag, ipAddress3);
     }
 
     /** Test Get hash tags by ip.**/
-    @Test
-    public void testGetHashTagsHitByIp(){
-        assertNotNull(this.hashTagHit);
+   @Test
+    public void testGetHashTagsHitByIp() {
+        assertNotNull(this.hit);
         flushIndexes();
-        final List<HashTagHits> hitsbyIp = getFrontEndDao().getHashTagsHitByIp(this.ipAddress);
-       // System.out.print("SIZE HASHTAG hit---> "+ hitsbyIp.size());
+        final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
+                this.ipAddress, this.hashTag.getHashTagId(),
+                TypeSearchResult.HASHTAG);
         assertNotNull(hitsbyIp);
-        assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
-        assertEquals("Should be equals", hitsbyIp.size(),1);
+        assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(),
+                this.ipAddress);
+        assertEquals("Should be equals", hitsbyIp.size(), 1);
+    }
+
+   @Test
+   public void testGetHitsByIpandType(){
+       assertNotNull(this.hashTag);
+       flushIndexes();
+       final List<Hit> hitsbyIp = getFrontEndDao().getHitsByIpAndType(
+               ipAddress,
+               this.hashTag.getHashTagId(),
+               TypeSearchResult.HASHTAG);
+       assertNotNull(hitsbyIp);
+       assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
+       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG);
+       assertEquals("total hits should be equals", 3, totalHits.intValue());
+   }
+
+    /**
+     * Test get access rateby item.
+     */
+    @Test
+    public void testGetAccessRatebyItem() {
+        this.secondary = createUserAccount("jhon", createAccount());
+        final Question question = createQuestion("question1",
+                secondary.getAccount());
+        final TweetPoll tweet = createPublishedTweetPoll(
+                secondary.getAccount(), question, Calendar.getInstance()
+                        .getTime());
+        final String ipAddress = "192.168.1.19";
+        createTweetPollRate(Boolean.TRUE, tweet, ipAddress);
+        flushIndexes();
+        final List<AccessRate> tpRate = getFrontEndDao().getAccessRatebyItem(
+                ipAddress, tweet.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+        assertNotNull(tpRate);
+        assertEquals("Should be equals", 1, tpRate.size());
     }
 }

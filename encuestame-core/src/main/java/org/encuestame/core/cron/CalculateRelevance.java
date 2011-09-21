@@ -10,14 +10,32 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
+package org.encuestame.core.cron;
 
-package org.encuestame.mvc.controller;
+import org.encuestame.persistence.dao.IFrontEndDao;
 
 /**
- * Report view controller.
- * @author Picado, Juan juanATencuestame.org
- * @since Mar 11, 2010 9:22:44 PM
+ * Calculate relevance.
+ * @author Morales, Diana Paola paolaATencuestame.org
+ * @since September 07, 2011
  */
-public class ReportController  extends AbstractBaseOperations {
+public class CalculateRelevance {
+
+    private IFrontEndDao frontEndDao;
+
+    /**
+     * @return the frontEndDao
+     */
+    public IFrontEndDao getFrontEndDao() {
+        return frontEndDao;
+    }
+
+    /**
+     * @param frontEndDao the frontEndDao to set
+     */
+    public void setFrontEndDao(IFrontEndDao frontEndDao) {
+        this.frontEndDao = frontEndDao;
+    }
+
 
 }

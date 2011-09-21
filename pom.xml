@@ -79,7 +79,10 @@
         <portlet.version>2.0</portlet.version>
         <!-- Test -->
         <junit.version>4.8.1</junit.version>
+		<cactus.version>1.8.1</cactus.version>
+		<!-- Site Path -->
         <apache>file:///var/www/encuestame</apache>
+		<!-- Jetty -->
         <jetty.default.port>8080</jetty.default.port>
         <jetty.default.ssl.port>8443</jetty.default.ssl.port>
         <!-- JDBC Drivers Version -->
@@ -97,7 +100,7 @@
         <commons-digester>1.8</commons-digester>
         <commons-beanutils>1.7.0</commons-beanutils>
         <commons-httpclient>3.1</commons-httpclient>
-	<configuration.version>1.6</configuration.version>
+		<configuration.version>1.6</configuration.version>
         <c3p0>0.9.0</c3p0>
         <jsr250-api>1.0</jsr250-api>
         <jpa-api>2.0-cr-1</jpa-api>
@@ -115,7 +118,7 @@
         <cglib-nodep>2.2</cglib-nodep>
         <aspectjrt>1.6.0</aspectjrt>
         <jaxen>1.1.1</jaxen>
-	<javassist>3.12.1.GA</javassist>
+		<javassist>3.12.1.GA</javassist>
         <javax.inject>1</javax.inject>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
         <dojo.version>1.6.1</dojo.version>
@@ -125,13 +128,16 @@
         <!-- Plugin Version -->
         <surefire.version>2.9</surefire.version>
         <maven-clover2-plugin>3.0.5</maven-clover2-plugin>
+		<maven-jar.plugin>2.3.2</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
         <maven-antrun-plugin>1.4</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
+		<cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
         <maven-javadoc-plugin>2.8</maven-javadoc-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
+		<maven-javadoc-plugin>2.8</maven-javadoc-plugin>
         <findbugs-maven-plugin>1.2</findbugs-maven-plugin>
         <taglist-maven-plugin>2.4</taglist-maven-plugin>
         <maven-checkstyle-plugin>2.5</maven-checkstyle-plugin>
@@ -617,6 +623,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
+				<version>${cobertura.maven.plugin}</version>
                 <configuration>
                     <formats>
                         <format>html</format>
@@ -635,6 +642,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin}</version>
                 <configuration>
                     <links>
                         <link>http://java.sun.com/j2se/1.6.0/docs/api</link>
@@ -1479,21 +1487,26 @@
                 <artifactId>javax.inject</artifactId>
                 <version>${javax.inject}</version>
             </dependency>
-	    <dependency>
-                <groupId>javassist</groupId>
-                <artifactId>javassist</artifactId>
-                <version>${javassist}</version>
-            </dependency>
-	    <dependency>
-		<groupId>org.json</groupId>
-		<artifactId>json</artifactId>
-		<version>20090211</version>
-	    </dependency>
-	    <dependency>
-		 <groupId>commons-configuration</groupId>
-		 <artifactId>commons-configuration</artifactId>
-		 <version>${configuration.version}</version>
-	    </dependency>
+			<dependency>
+					<groupId>javassist</groupId>
+					<artifactId>javassist</artifactId>
+					<version>${javassist}</version>
+				</dependency>
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>20090211</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>${configuration.version}</version>
+			</dependency>
+	   <!-- <dependency>
+				<groupId>org.apache.cactus</groupId>
+				<artifactId>cactus.core.framework</artifactId>
+				<version>${cactus.version}</version>
+			</dependency> -->
         </dependencies>
     </dependencyManagement>
 </project>

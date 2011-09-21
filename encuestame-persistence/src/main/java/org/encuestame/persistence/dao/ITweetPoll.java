@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -257,6 +258,4 @@ public interface ITweetPoll extends IBaseDao{
     * @return
     */
    List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll);
-
-
 }

@@ -81,11 +81,12 @@
                 <value>org.encuestame.persistence.domain.survey.PollFolder</value>
                 <value>org.encuestame.persistence.domain.notifications.Notification</value>
                 <value>org.encuestame.persistence.domain.Attachment</value>
-                <value>org.encuestame.persistence.domain.HashTagHits</value>
                 <value>org.encuestame.persistence.domain.dashboard.Dashboard</value>
                 <value>org.encuestame.persistence.domain.dashboard.Gadget</value>
                 <value>org.encuestame.persistence.domain.dashboard.GadgetProperties</value>
                 <value>org.encuestame.persistence.domain.Comment</value>
+                <value>org.encuestame.persistence.domain.Hit</value>
+                <value>org.encuestame.persistence.domain.AccessRate</value>
             </list>
         </property>
         <property name="hibernateProperties">
