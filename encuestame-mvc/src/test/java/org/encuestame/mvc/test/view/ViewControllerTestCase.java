@@ -53,6 +53,9 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         @Autowired
         private PollController pollController2;
 
+        @Autowired
+        private DashBoardController dashBoardController;
+
         private TweetPollSwitch tpswitch;
 
         @Before
@@ -99,7 +102,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          */
         @Test
         public void testDashBoardController() throws Exception {
-            DashBoardController controller = new DashBoardController();
+            DashBoardController controller = this.dashBoardController;
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/dashboard");
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);

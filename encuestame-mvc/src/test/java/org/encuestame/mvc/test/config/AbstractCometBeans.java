@@ -10,14 +10,24 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
+package org.encuestame.mvc.test.config;
 
-package org.encuestame.mvc.controller;
+import org.junit.Before;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
- * Report view controller.
+ * Abstract mvc unit beans.
  * @author Picado, Juan juanATencuestame.org
- * @since Mar 11, 2010 9:22:44 PM
+ * @since April 10, 2011
  */
-public class ReportController  extends AbstractBaseOperations {
+@ContextConfiguration(locations = {
+        "classpath:spring-test/encuestame-test-comet-context.xml"})
+public abstract class AbstractCometBeans extends AbstractMvcUnitBeans {
 
+    /**
+     *
+     */
+    @Before
+    public void setUp2() {
+    }
 }
