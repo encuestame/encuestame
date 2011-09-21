@@ -14,7 +14,9 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.AccessRate;
+import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 
@@ -83,10 +85,30 @@ public interface IFrontEndDao extends IBaseDao{
     List<TweetPoll> getTweetPollFrontEndAllTime(final Integer start, final Integer maxResults);
 
     /**
-     * Get hashTag by ip address.
+     * Get hits by ip and type.
      * @param ipAddress
+     * @param id
+     * @param searchHitby
      * @return
      */
-    List<HashTagHits> getHashTagsHitByIp(final String ipAddress);
+    List<Hit> getHitsByIpAndType(final String ipAddress, final Long id, final TypeSearchResult searchHitby);
+
+    /**
+     * Get hits by type.
+     * @param id
+     * @param searchtype
+     * @return
+     */
+    Long getTotalHitsbyType(final Long id, final TypeSearchResult searchtype);
+
+    /**
+     * Get access rate by item.
+     * @param ipAddress
+     * @param itemId
+     * @param searchHitby
+     * @return
+     */
+    List<AccessRate> getAccessRatebyItem(final String ipAddress,
+            final Long itemId, final TypeSearchResult searchHitby);
 
 }

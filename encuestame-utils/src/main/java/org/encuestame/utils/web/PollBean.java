@@ -84,26 +84,6 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     @Deprecated
     private String pollUser;
 
-    /** **/
-    @JsonProperty(value = "userId")
-    private Long userId;
-
-    /** **/
-    @JsonProperty(value = "ownerUsername")
-    private String ownerUsername;
-
-    /** **/
-    @JsonProperty(value = "relativeTime")
-    private String relativeTime;
-
-    /** **/
-    @JsonProperty(value = "totalVotes")
-    private Long totalVotes;
-
-    /** **/
-    @JsonProperty(value = "itemType")
-    private String itemType;
-
     /**
      * @return the id
      */
@@ -282,80 +262,5 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
      */
     public void setShortUrl(final String shortUrl) {
         this.shortUrl = shortUrl;
-    }
-
-    /**
-     * @return the userId
-     */
-    @JsonIgnore
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(final Long userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * @return the ownerUsername
-     */
-    @JsonIgnore
-    public String getOwnerUsername() {
-        return ownerUsername;
-    }
-
-    /**
-     * @param ownerUsername the ownerUsername to set
-     */
-    public void setOwnerUsername(final String ownerUsername) {
-        this.ownerUsername = ownerUsername;
-    }
-
-    /**
-     * @return the relativeTime
-     */
-    @JsonIgnore
-    public String getRelativeTime() {
-        return relativeTime;
-    }
-
-    /**
-     * @param relativeTime the relativeTime to set
-     */
-    public void setRelativeTime(final String relativeTime) {
-        this.relativeTime = relativeTime;
-    }
-
-    /**
-     * @return the totalVotes
-     */
-    @JsonIgnore
-    public Long getTotalVotes() {
-        return totalVotes;
-    }
-
-    /**
-     * @param totalVotes the totalVotes to set
-     */
-    public void setTotalVotes(final Long totalVotes) {
-        this.totalVotes = totalVotes;
-    }
-
-    /**
-     * @return the itemType
-     */
-    @JsonIgnore
-    public String getItemType() {
-        return itemType;
-    }
-
-    /**
-     * @param itemType the itemType to set
-     */
-    public void setItemType(final String itemType) {
-        this.itemType = itemType;
     }
 }

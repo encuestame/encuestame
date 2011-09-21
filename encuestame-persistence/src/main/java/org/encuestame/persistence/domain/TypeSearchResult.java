@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.search;
+package org.encuestame.persistence.domain;
 
 /**
  * Type search result.

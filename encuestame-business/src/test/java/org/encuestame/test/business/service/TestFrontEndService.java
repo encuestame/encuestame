@@ -14,13 +14,17 @@ package org.encuestame.test.business.service;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.encuestame.business.service.FrontEndService;
 import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.web.HashTagBean;
@@ -41,16 +45,11 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     /** {@link HashTag} **/
     private HashTag hashTag;
 
-    /** {@link HashTagHits} **/
-    private HashTagHits hashTagHit;
-
     /** {@link UserAccount}. **/
     private UserAccount secondary;
 
     /** ip address. **/
     final String ipAddress = "192.168.1.1";
-
-    final String ipAddress2 = "192.168.1.2";
 
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
@@ -58,30 +57,33 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     @Before
     public void initData(){
         this.secondary = createUserAccount("paola", createAccount());
-        this.hashTagHit = createHashTagHit(hashTag, this.ipAddress, this.secondary);
+        this.hashTag = createHashTag("hardware",50L);
+        createHashTagHit(hashTag, this.ipAddress);
         final Question question = createQuestion("Who I am?", "");
         createQuestionAnswer("yes", question, "12345");
         createQuestionAnswer("no", question, "12346");
         this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
-        this.hashTag = createHashTag("hardware",50L);
         final HashTag hashTag2 = createHashTag("programmer",80L);
         this.tweetPoll.getHashTags().add(hashTag);
         this.tweetPoll.getHashTags().add(hashTag2);
         getTweetPoll().saveOrUpdate(this.tweetPoll);
-
-        //System.out.println("hashTag ID --->"+ hashTag.getHashTagId());
     }
 
     /**
-     *
+     * Test check previous hashtag hits.
      */
     @Test
     public void testCheckPreviousHashTagHit(){
+        final String ipAddress2 = "192.168.1.2";
         flushIndexes();
-        final Boolean previousRecord = getFrontEndService().checkPreviousHashTagHit(this.ipAddress);
-        //System.out.println("Previous record exists? --> "+ previousRecord + "IP" + this.ipAddress);
-        final Boolean previousRecord2 = getFrontEndService().checkPreviousHashTagHit(this.ipAddress2);
-        //System.out.println("Previous record exists 2? --> "+ previousRecord2 + "IP" + this.ipAddress2);
+        final Boolean previousRecord = getFrontEndService().checkPreviousHit(this.ipAddress,
+                this.hashTag.getHashTagId(),
+                TypeSearchResult.HASHTAG);
+        Assert.assertTrue(previousRecord);
+        final Boolean previousRecord2 = getFrontEndService().checkPreviousHit(
+                ipAddress2,
+                this.hashTag.getHashTagId(), TypeSearchResult.HASHTAG);
+        Assert.assertFalse(previousRecord2);
     }
 
     /**
@@ -90,9 +92,9 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
      */
     @Test
     public void testRegisterHashTagHit() throws EnMeNoResultsFoundException{
-        //System.out.println(" previous tag hit --> "+ this.hashTag.getHits());
-        final Boolean registerHit = getFrontEndService().registerHashTagHit(this.hashTag, this.ipAddress);
-        getFrontEndService().registerHashTagHit(this.hashTag, this.ipAddress2);
+        final Boolean registerHit = getFrontEndService().registerHit(
+                null, null, null, this.hashTag, this.ipAddress);
+        Assert.assertTrue(registerHit);
     }
 
     /**
@@ -162,10 +164,44 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         getTweetPoll().saveOrUpdate(this.tweetPoll);
 
         final List<HashTagBean> hashBean = getFrontEndService().getHashTags(30, 0, "");
-        System.out.println(" Hash Bean size --> "+hashBean.size());
-        for (HashTagBean hashTagBean : hashBean) {
-           // System.out.println(" Hash Bean size --> "+hashTagBean.getSize());
-        }
+        Assert.assertEquals("Should be equals", hashBean.size(), 7);
+    }
+
+    /**
+     * Test vote and register access rate.
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testRegisterAccessRateVotedLike() throws EnMeNoResultsFoundException, EnMeExpcetion{
+         final Question question = createQuestion("Who are you?", "");
+         final TweetPoll tp = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), question);
+         final String ipAddress = "192.168.1.81";
+         flushIndexes();
+         // I like it vote.
+         final AccessRate rate = getFrontEndService().registerAccessRate(
+                 TypeSearchResult.TWEETPOLL,
+                 tp.getTweetPollId(),
+                 ipAddress,
+                 Boolean.TRUE);
+         Assert.assertNotNull(rate);
+
+         // I like it vote again.
+         String ipAddress2 = "192.168.1.82";
+         final AccessRate rate2 = getFrontEndService().registerAccessRate(
+                 TypeSearchResult.TWEETPOLL,
+                 tp.getTweetPollId(),
+                 ipAddress2,
+                 Boolean.TRUE);
+         Assert.assertNotNull(rate2);
+
+         // I don't like it vote.
+         final AccessRate rate3 = getFrontEndService().registerAccessRate(
+                 TypeSearchResult.TWEETPOLL,
+                 tp.getTweetPollId(),
+                 ipAddress,
+                 Boolean.FALSE);
+         Assert.assertNotNull(rate3);
     }
 
     /**

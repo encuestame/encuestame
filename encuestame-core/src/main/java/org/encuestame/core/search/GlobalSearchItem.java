@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.search;
 
+import org.encuestame.persistence.domain.TypeSearchResult;
+
 /**
  * Represent a global search item on results list.
  * @author Picado, Juan juanATencuestame.org

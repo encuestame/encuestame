@@ -67,7 +67,6 @@ public class Survey extends AbstractSurvey {
     /****/
     private SurveyFolder surveysfolder;
 
-
     /**
      * @return sid
      */
@@ -218,5 +217,4 @@ public class Survey extends AbstractSurvey {
     public void setSurveysfolder(SurveyFolder surveysfolder) {
         this.surveysfolder = surveysfolder;
     }
-
 }
