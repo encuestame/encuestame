@@ -12,7 +12,15 @@
  */
 package org.encuestame.core.cron;
 
+import java.util.Calendar;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.IFrontEndDao;
+import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Calculate relevance.
@@ -21,7 +29,41 @@ import org.encuestame.persistence.dao.IFrontEndDao;
  */
 public class CalculateRelevance {
 
+     /** Log. **/
+    private Logger log = Logger.getLogger(this.getClass());
+
+    @Autowired
+    private ITweetPoll tweetPollDao;
+
     private IFrontEndDao frontEndDao;
+
+    /**
+     * Calculate relevance.
+     */
+    public void calculateRelevance() {
+        log.info("************ Start calculate relevance item **************");
+        final Calendar dateFrom = Calendar.getInstance();
+        dateFrom.add(Calendar.DATE, -5);
+        final Calendar datebefore = Calendar.getInstance();
+        dateFrom.add(Calendar.DATE, -5);
+        final Calendar todayDate = Calendar.getInstance();
+
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetPolls(50,
+                0, dateFrom.getTime());
+        for (TweetPoll tweetPoll : tweetPolls) {
+            long likeVote = tweetPoll.getLikeVote();
+            long dislikeVote = tweetPoll.getDislikeVote();
+            long hits = tweetPoll.getHits();
+            long maxVotebyUser = getTweetPollDao()
+                    .getMaxTweetPollLikeVotesbyUser(
+                            tweetPoll.getEditorOwner().getUid(),
+                            datebefore.getTime(), todayDate.getTime());
+            long relevance = EnMeUtils.calculateRelevance(likeVote,
+                    dislikeVote, maxVotebyUser, hits);
+            tweetPoll.setRelevance(relevance);
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        }
+    }
 
     /**
      * @return the frontEndDao
@@ -38,4 +80,18 @@ public class CalculateRelevance {
     }
 
 
+    /**
+     * @return the tweetPollDao
+     */
+    public ITweetPoll getTweetPollDao() {
+        return tweetPollDao;
+    }
+
+
+    /**
+     * @param tweetPollDao the tweetPollDao to set
+     */
+    public void setTweetPollDao(final ITweetPoll tweetPollDao) {
+        this.tweetPollDao = tweetPollDao;
+    }
 }
