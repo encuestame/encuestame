@@ -126,13 +126,15 @@ public class EnMeUtils {
         float dislikeVotes = Float.valueOf(totalDislikeVote);
         float numberHits = Float.valueOf(totalHits);
         float maxLikeVotes = Float.valueOf(maxVotebyUser);
+        double relevance;
 
-        final double likeValueScore = EnMeUtils.SCORE_BASE * (likeVotes)
-                / (maxLikeVotes);
+        final double likeValueScore = EnMeUtils.SCORE_BASE * ((likeVotes) / (maxLikeVotes));
+        log.debug(" Like value Score  ----- >  " + likeValueScore);
         final double dislikeValueScore = (EnMeUtils.SCORE_BASE
                 * ((dislikeVotes / maxLikeVotes)) * EnMeUtils.PENALTY_VALUE);
-        double relevance = (likeValueScore - dislikeValueScore) + numberHits;
-        log.debug(" Relevance value ------------> " + Math.round(relevance));
+        log.debug(" DisLike value Score  ----- >  " + dislikeValueScore);
+        relevance = (likeValueScore - dislikeValueScore) + numberHits;
+        log.debug(" RELEVANCE *******************************>  " + Math.round(relevance));
         return Math.round(relevance);
     }
 }
