@@ -135,10 +135,12 @@ div.web-header div.logo {
 div.web-header div.logoEncuestame {
     background-image: url(../../images/logos/encuestame_logoalone.png);
     background-repeat: no-repeat;
+    background-color: #EBE9E9;
 }
 
 div.web-header div.web-header-wrapper {
     padding: 5px;
+    background-color: #EBE9E9;
 }
 
 div.web-header span {
