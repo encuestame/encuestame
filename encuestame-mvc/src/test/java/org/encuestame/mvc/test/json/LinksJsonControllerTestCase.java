@@ -26,8 +26,8 @@ import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
 import org.junit.Test;
 

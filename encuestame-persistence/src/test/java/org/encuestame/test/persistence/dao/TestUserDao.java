@@ -27,13 +27,13 @@ import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
 import org.junit.Test;
 

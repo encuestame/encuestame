@@ -12,22 +12,21 @@
  */
 package org.encuestame.core.test.config;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.Iterator;
+
+import junit.framework.TestCase;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
-import org.encuestame.core.config.ConfigurationManager;
+import org.encuestame.core.config.XMLConfigurationFileSupport;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import junit.framework.TestCase;
-
 /**
- * Test for {@link ConfigurationManager}.
+ * Test for {@link XMLConfigurationFileSupport}.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 4, 2011
  */
@@ -43,14 +42,32 @@ public class XmlConfigurationText extends TestCase{
         //System.out.println(configurationManager.getIntProperty("encuestame.database.version"));
         XMLConfiguration xmlConfiguration = null;
         try {
-            Resource  res = new ClassPathResource("properties-test/encuestame-config.xml");
-            System.out.println(res.getFilename());
-            System.out.println(res.getFile().getAbsolutePath());
+            Resource  res = new ClassPathResource("properties-test/encuestame-test-config.xml");
+            //System.out.println(res.getFilename());
+            //System.out.println(res.getFile().getAbsolutePath());
             xmlConfiguration = new XMLConfiguration(res.getFile());
-            System.out.println(xmlConfiguration.getString("encuestame.database.version"));
-            System.out.println(xmlConfiguration.getString("database.version"));
+            //System.out.println(xmlConfiguration.getString("encuestame.database.version"));
+            //System.out.println(xmlConfiguration.getString("database.version"));
             xmlConfiguration.setAutoSave(true);
             xmlConfiguration.addProperty("juan", "juan");
+
+            //System.out.println(xmlConfiguration.getString("administration"));
+            //System.out.println(xmlConfiguration.getString("version"));
+
+
+            //System.out.println(xmlConfiguration.getRootElementName());
+            //System.out.println(xmlConfiguration.getKeys());
+            final Iterator i = xmlConfiguration.getKeys();
+            while (i.hasNext()) {
+                Object object = (Object) i.next();
+                System.out.println(object);
+            }
+
+            //System.out.println(xmlConfiguration.getList("social-networks.social-network.social-network-name"));
+            //System.out.println(xmlConfiguration.getList("social-networks.social-network.social-network-name").size());
+            //System.out.println(xmlConfiguration.getList("social-networks"));
+            //System.out.println(xmlConfiguration.getList("social-networks").size());
+
         } catch (ConfigurationException e) {
 
             e.printStackTrace();

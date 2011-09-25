@@ -90,8 +90,10 @@
             <xs:element name="social-network-name"/>
             <xs:element name="consumer-secret"/>
             <xs:element name="consumer-key"/>
+            <xs:element name="type-provider" type="xs:string"
             <xs:element name="url-access-token"/>
             <xs:element name="url-request-token"/>
+            <xs:element name="url-authorize" minOccurs="0"/>
             <xs:element name="api-id" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
