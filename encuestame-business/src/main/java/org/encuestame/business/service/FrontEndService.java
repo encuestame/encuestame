@@ -15,6 +15,8 @@ package org.encuestame.business.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -108,14 +110,16 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
      */
-    public List<HomeBean> getFrontEndItems(final String period,
-            final Integer start,
-            Integer maxResults,
-            final HttpServletRequest request) throws EnMeSearchException{
-        final List<HomeBean> allItems = new ArrayList<HomeBean>();
-        final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(period, start, maxResults, request);
-        allItems.addAll(ConvertDomainBean.convertTweetPollListToHomeBean(tweetPollItems));
-        final List<PollBean> pollItems = this.searchItemsByPoll(period, start, maxResults);
+    public Set<HomeBean> getFrontEndItems(final String period,
+            final Integer start, Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException {
+        final Set<HomeBean> allItems = new TreeSet<HomeBean>();
+        final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
+                period, start, maxResults, request);
+        allItems.addAll(ConvertDomainBean
+                .convertTweetPollListToHomeBean(tweetPollItems));
+        final List<PollBean> pollItems = this.searchItemsByPoll(period, start,
+                maxResults);
         allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
         return allItems;
     }
@@ -529,5 +533,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public void setTweetPollService(TweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
+
     }
+
 }

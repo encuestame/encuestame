@@ -532,6 +532,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
         this.answerSwitchBeans = answerSwitchBeans;
 
     }
+
     /**
     * @return the updateDate
     */
@@ -569,5 +570,4 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
                 + ", resumeLiveResults=" + resumeLiveResults + ", results="
                 + results + "]";
     }
-
 }

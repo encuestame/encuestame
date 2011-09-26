@@ -23,7 +23,7 @@ import org.encuestame.utils.web.AbstractUnitSurvey;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 06, 2011
  */
-public class HomeBean extends AbstractUnitSurvey implements Serializable {
+public class HomeBean extends AbstractUnitSurvey implements Serializable{
 
     /** Serial. **/
     private static final long serialVersionUID = 2543644253906482885L;

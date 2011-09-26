@@ -560,6 +560,7 @@ public class ConvertDomainBean {
                     ? null
                     : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
         }
+        unitTweetPoll.setRelevance(tweetPoll.getRelevance());
         return unitTweetPoll;
     }
 
@@ -923,7 +924,9 @@ public class ConvertDomainBean {
     public static final List<HomeBean> convertTweetPollListToHomeBean(final List<TweetPollBean> items){
        final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
        for (TweetPollBean tweetPollBean : items) {
+           if(tweetPollBean.getRelevance()!=0){
            listFrontEndItems.add(ConvertDomainBean.convertTweetPollToHomeBean(tweetPollBean));
+           }
         }
    return listFrontEndItems;
    }
@@ -935,14 +938,15 @@ public class ConvertDomainBean {
    */
    public static final HomeBean convertTweetPollToHomeBean(final TweetPollBean tweetBean){
        final HomeBean homeBean = new HomeBean();
-       homeBean.setId(tweetBean.getId());
-       homeBean.setCreateDate(tweetBean.getCreateDate());
-       homeBean.setQuestionBean(tweetBean.getQuestionBean());
-       homeBean.setRelativeTime(tweetBean.getRelativeTime());
-       homeBean.setTotalVotes(tweetBean.getTotalVotes());
-       homeBean.setUserId(tweetBean.getUserId());
-       homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
-       homeBean.setItemType("tweetPoll");
+           homeBean.setId(tweetBean.getId());
+           homeBean.setCreateDate(tweetBean.getCreateDate());
+           homeBean.setQuestionBean(tweetBean.getQuestionBean());
+           homeBean.setRelativeTime(tweetBean.getRelativeTime());
+           homeBean.setTotalVotes(tweetBean.getTotalVotes());
+           homeBean.setUserId(tweetBean.getUserId());
+           homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
+           homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean.getItemType().toString());
+           homeBean.setRelevance(tweetBean.getRelevance());
        return homeBean;
    }
 
@@ -972,7 +976,7 @@ public class ConvertDomainBean {
        homeBean.setCreatedDateAt(pollBean.getCreationDate());
        homeBean.setTotalVotes(pollBean.getTotalVotes());
        homeBean.setRelativeTime(pollBean.getRelativeTime());
-       homeBean.setItemType("poll");
+       homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
        return homeBean;
    }
 }
