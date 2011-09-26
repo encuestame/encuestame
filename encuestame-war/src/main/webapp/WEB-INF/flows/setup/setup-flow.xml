@@ -102,8 +102,8 @@
     </view-state>
 
     <view-state id="install-check">
-<!--         <secured attributes="ENCUESTAME_ADMIN" match="all"/> -->
-        <transition on="customize" to="add-social-networks"></transition> <!-- TODO: future. -->
+        <!--<secured attributes="ENCUESTAME_ADMIN" match="all"/> -->
+        <transition on="customize" to="finish-state"></transition> <!-- TODO: future. -->
         <transition on="finish" to="finish-state"></transition>
         <transition on-exception="java.lang.Exception" to="displayError"></transition>
     </view-state>
