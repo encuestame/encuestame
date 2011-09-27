@@ -14,10 +14,11 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Survey;
+import org.hibernate.HibernateException;
 
 /**
  * Interface to implement Survey Dao.
@@ -106,4 +107,14 @@ public interface ISurvey extends IBaseDao{
     * @return
     */
     List<Long> getTotalSurveyByOwner(final Long userId);
+
+    /**
+     * Get survey by id.
+     * @param surveyId
+     * @return
+     * @throws HibernateException
+     */
+    Survey getSurveyById(final Long surveyId) throws HibernateException;
+
+
 }
