@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"
+        djConfig="parseOnLoad: true, useCommentedJson:true, isDebug: false"></script>
 <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
          dojo.require("dojo.io.script");
 </script>
-<script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"
-        djConfig="parseOnLoad: true, useCommentedJson:true, isDebug: false"></script>
 <script type="text/javascript">
         var config = {
             contextPath: '<%=request.getContextPath()%>',

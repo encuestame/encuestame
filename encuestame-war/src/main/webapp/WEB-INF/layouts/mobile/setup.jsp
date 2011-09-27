@@ -8,18 +8,22 @@
     </title>
     <%@ include file="/WEB-INF/jsp/includes/meta.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
-    <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
+    <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp" %>
 </head>
-<body>
-     <div id="mainWrapper" class="web-setup-wrapper enme-auto-center" style="overflow: hidden;">
-        <div>
+<body class="mobile claro">
+     <div id="mainWrapper">
+        <div id="header">
             <tiles:insertAttribute name="header" />
         </div>
-        <div id="content-container" class="enme-auto-center">
-            <div id="enme-content" class="enme-auto-center web-setup-content">
+        <div id="content-container">
+            <div id="mobile-enme-content">
+                <tiles:insertAttribute name="menu" ignore="true" />
                 <tiles:insertAttribute name="content"/>
             </div>
         </div>
+     </div>
+     <div id="footer">
+          <tiles:insertAttribute name="footer" />
      </div>
 </body>
 </html>
