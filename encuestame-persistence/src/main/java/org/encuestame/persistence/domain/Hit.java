@@ -12,19 +12,24 @@
  */
 package org.encuestame.persistence.domain;
 
+import java.util.Calendar;
 import java.util.Date;
+
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.encuestame.persistence.domain.security.UserAccount;
+
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
@@ -34,84 +39,91 @@ import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
 
 /**
- * Hash Tags Hits.
+ * Hits.
  * @author Morales, Diana Paola paolaATencuestame.org
- * @since Jul 23, 2010 11:49:56 PM
+ * @since September 08, 2011
  */
-
 @Entity
-@Indexed(index="HashTagHits")
-@Table(name = "hash_tags_hits")
+@Table(name = "hits")
+@Indexed(index="hits")
+@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class HashTagHits {
+public class Hit {
 
-    /** Hash Tag Id. **/
+    /** Id. **/
     private Long id;
 
-    /** Tag String.**/
-    private Date hitDate;
+    /** {@link TweetPoll} **/
+    private TweetPoll tweetPoll;
 
-    /** Hash**/
-    private HashTag hashTag;
+    /** **/
+    private Date hitDate = Calendar.getInstance().getTime();
 
-    /** Ip address**/
+    /** **/
     private String ipAddress;
 
-    /** {@link UserAccount} **/
-    private UserAccount userAccount;
+    /** {@link Poll} **/
+    private Poll poll;
+
+    /** {@link Survey} **/
+    private Survey survey;
+
+    /** {@link HashTag} **/
+    private HashTag hashTag;
+
 
     /**
-    * @return the hitId
-    */
+     * @return the id
+     */
     @Id
     @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "hashtag_hits_id", unique = true, nullable = false)
+    @Column(name = "hit_id", unique = true, nullable = false)
     public Long getId() {
         return id;
     }
 
     /**
-    * @param hitId the hitId to set
-    */
+     * @param id the id to set
+     */
     public void setId(final Long id) {
         this.id = id;
     }
 
     /**
-    * @return the hitDate
-    */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "hits_date", nullable = false)
+     * @return the tweetPoll
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public TweetPoll getTweetPoll() {
+        return tweetPoll;
+    }
+
+    /**
+     * @param tweetPoll the tweetPoll to set
+     */
+    public void setTweetPoll(final TweetPoll tweetPoll) {
+        this.tweetPoll = tweetPoll;
+    }
+
+    /**
+     * @return the hitDate
+     */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_at")
     public Date getHitDate() {
         return hitDate;
     }
 
     /**
-    * @param hitDate the hitDate to set
-    */
+     * @param hitDate the hitDate to set
+     */
     public void setHitDate(final Date hitDate) {
         this.hitDate = hitDate;
     }
 
     /**
-    * @return the hashTagId
-    */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    public HashTag getHashTag() {
-        return hashTag;
-    }
-
-    /**
-    * @param hashTagId the hashTagId to set
-    */
-    public void setHashTag(final HashTag hashTag) {
-        this.hashTag = hashTag;
-    }
-
-    /**
-    * @return the ipAddress
-    */
+     * @return the ipAddress
+     */
     @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "hits_ip_address", nullable = false, length = 100)
     public String getIpAddress() {
@@ -119,25 +131,55 @@ public class HashTagHits {
     }
 
     /**
-    * @param ipAddress the ipAddress to set
-    */
+     * @param ipAddress the ipAddress to set
+     */
     public void setIpAddress(final String ipAddress) {
         this.ipAddress = ipAddress;
     }
 
+
     /**
-    * @return the userAccount
-    */
+     * @return the poll
+     */
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "hits_user_account")
-    public UserAccount getUserAccount() {
-        return userAccount;
+    public Poll getPoll() {
+        return poll;
     }
 
     /**
-    * @param userAccount the userAccount to set
-    */
-    public void setUserAccount(final UserAccount userAccount) {
-        this.userAccount = userAccount;
+     * @param poll the poll to set
+     */
+    public void setPoll(final Poll poll) {
+        this.poll = poll;
+    }
+
+    /**
+     * @return the survey
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    /**
+     * @param survey the survey to set
+     */
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
+
+    /**
+     * @return the hashTag
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public HashTag getHashTag() {
+        return hashTag;
+    }
+
+    /**
+     * @param hashTag the hashTag to set
+     */
+    public void setHashTag(HashTag hashTag) {
+        this.hashTag = hashTag;
     }
 }

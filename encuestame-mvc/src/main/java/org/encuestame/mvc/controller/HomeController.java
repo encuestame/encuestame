@@ -44,6 +44,10 @@ public class HomeController extends AbstractBaseOperations {
 
     /** Items max results. **/
     private final Integer MAX_ITEMS = 10;
+
+    /** **/
+    private final String SHOW_ALL_RESULTS = "all";
+
     /**
     * Home Controller.
     *
@@ -62,7 +66,7 @@ public class HomeController extends AbstractBaseOperations {
         } else {
             final String view = filterValue(request.getParameter("view"));
             String period = filterValue(request.getParameter("period"));
-            period = (period == null ? "all" : period);
+            period = (period.isEmpty() ? SHOW_ALL_RESULTS : period);
             final IFrontEndService service = getFrontService();
             try {
                 if (view.isEmpty()) {

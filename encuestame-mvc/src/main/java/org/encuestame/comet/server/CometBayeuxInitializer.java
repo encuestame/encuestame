@@ -106,6 +106,7 @@ public class CometBayeuxInitializer implements DestructionAwareBeanPostProcessor
      */
     @Bean(initMethod = "start", destroyMethod = "stop", name="bayeux")
     public BayeuxServer bayeuxServer() {
+         System.out.println("------SERVER COMET --- ");
         BayeuxServerImpl bean = new BayeuxServerImpl();
         bean.setOption(BayeuxServerImpl.LOG_LEVEL, "0");
         //http://cometdaily.com/2009/03/27/cometd-acknowledged-message-extension/

@@ -148,7 +148,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Number Hits or visits
      */
-    private Integer hits;
+    private Long hits;
 
     /**
      * Show Option- Additional Info in Questions
@@ -169,6 +169,15 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Survey or Poll Name.
      */
     private String name;
+
+    /** **/
+    private Long relevance;
+
+    /** Like option**/
+    private Long likeVote = 0L;
+
+    /** Unlike **/
+    private Long dislikeVote = 0L;
 
     /**
      * @return the customMessage.
@@ -474,14 +483,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the hits
      */
     @Column(name = "hits")
-    public Integer getHits() {
+    public Long getHits() {
         return hits;
     }
 
     /**
      * @param hits the hits to set
      */
-    public void setHits(Integer hits) {
+    public void setHits(Long hits) {
         this.hits = hits;
     }
 
@@ -514,5 +523,48 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     public void setEditorOwner(final UserAccount editorOwner) {
         this.editorOwner = editorOwner;
+    }
+
+    /**
+     * @return the relevance
+     */
+    @Column(name = "relevance", nullable = true)
+    public Long getRelevance() {
+        return relevance;
+    }
+
+    /**
+     * @param relevance the relevance to set
+     */
+    public void setRelevance(final Long relevance) {
+        this.relevance = relevance;
+    }
+
+    /**
+     * @return the likeVote
+     */
+    public Long getLikeVote() {
+        return likeVote;
+    }
+
+    /**
+     * @param likeVote the likeVote to set
+     */
+    public void setLikeVote(final Long likeVote) {
+        this.likeVote = likeVote;
+    }
+
+    /**
+     * @return the dislikeVote
+     */
+    public Long getDislikeVote() {
+        return dislikeVote;
+    }
+
+    /**
+     * @param dislikeVote the dislikeVote to set
+     */
+    public void setDislikeVote(final Long dislikeVote) {
+        this.dislikeVote = dislikeVote;
     }
 }

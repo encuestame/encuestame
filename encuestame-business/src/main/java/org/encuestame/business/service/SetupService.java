@@ -15,34 +15,32 @@ package org.encuestame.business.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
-import org.encuestame.business.setup.install.TypeDatabase;
 import org.encuestame.core.config.AdministratorProfile;
-import org.encuestame.core.config.ConfigurationManager;
+import org.encuestame.core.config.XMLConfigurationFileSupport;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.SetupOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.utils.TypeDatabase;
 import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Description.
- *
+ * Define all setup operations.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 9, 2011
  */
 @Service(value = "setupService")
-public class SetupService extends AbstractBaseService implements  SetupOperations {
+public class SetupService extends AbstractBaseService implements SetupOperations {
 
     /** Log. **/
     private Logger log = Logger.getLogger(this.getClass());
@@ -86,7 +84,7 @@ public class SetupService extends AbstractBaseService implements  SetupOperation
      */
     public void validateInstall() {
         log.debug("validateInstall ------------");
-        final ConfigurationManager config = EnMePlaceHolderConfigurer.getConfigurationManager();
+        final XMLConfigurationFileSupport config = EnMePlaceHolderConfigurer.getConfigurationManager();
         log.debug("validateInstall ------------"+config.getXmlConfiguration().getBasePath());
         config.getXmlConfiguration().addProperty("install.date", DateUtil.getCurrentFormatedDate());
         config.getXmlConfiguration().addProperty("install.uuid", RandomStringUtils.randomAlphanumeric(50));
@@ -256,5 +254,35 @@ public class SetupService extends AbstractBaseService implements  SetupOperation
         param.append(" : ");
         param.append(paramValue);
         return param.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#addNewSocialNetworkConfiguration()
+     */
+    @Override
+    public void addNewSocialNetworkConfiguration() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#removeSocialNetworkConfiguration()
+     */
+    @Override
+    public void removeSocialNetworkConfiguration() {
+        // TODO Auto-generated method stub
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.SetupOperations#listAllNetworkConfigurationSocial()
+     */
+    @Override
+    public List<SocialNetworkBean> listAllNetworkConfigurationSocial() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

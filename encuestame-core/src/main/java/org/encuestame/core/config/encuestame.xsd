@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns="http://www.encuestame.org/schema/config"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.encuestame.org/schema/config" elementFormDefault="qualified" version="1.0">
+    <xs:element name="encuestame-configuration">
+        <xs:annotation>
+            <xs:documentation>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice>
+                <xs:element name="information" minOccurs="0">
+                    <xs:complexType>
+                        <xs:choice>
+                            <xs:element name="metatags" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence maxOccurs="unbounded">
+                                        <xs:element name="metatag" type="metatag-info"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="description-site" minOccurs="0"/>
+                            <xs:element name="release-notes" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence maxOccurs="unbounded">
+                                        <xs:element name="notes" type="release-note"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:choice>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="administration">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="users" type="user" minOccurs="0"/>
+                            <xs:element name="configuration">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="social-networks" type="social-network" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="operations">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="install">
+                                <xs:complexType>
+                                    <xs:choice>
+                                        <xs:element name="uuid" minOccurs="0"/>
+                                        <xs:element name="date" minOccurs="0"/>
+                                        <xs:element name="path" minOccurs="0"/>
+                                    </xs:choice>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="database">
+                                <xs:complexType>
+                                    <xs:choice>
+                                        <xs:element name="version" type="xs:string"/>
+                                        <xs:element name="last-update" minOccurs="0"/>
+                                    </xs:choice>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="update">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="url-check-update"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+            <xs:attribute name="version"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="user">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="username"/>
+            <xs:element name="date-added"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="social-network">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="social-network-name"/>
+            <xs:element name="consumer-secret"/>
+            <xs:element name="consumer-key"/>
+            <xs:element name="type-provider" type="xs:string"
+            <xs:element name="url-access-token"/>
+            <xs:element name="url-request-token"/>
+            <xs:element name="url-authorize" minOccurs="0"/>
+            <xs:element name="api-id" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="metatag-info">
+        <xs:sequence>
+            <xs:element name="name"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="release-note">
+        <xs:sequence>
+            <xs:element name="version"/>
+            <xs:element name="description"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

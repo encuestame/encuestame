@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -27,10 +28,10 @@
         <!-- encuestame version -->
         <encuestame.version>1.140-SNAPSHOT</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
-        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.version>3.0.6.RELEASE</spring.version>
         <env>development</env>
         <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
-        <spring.security.version>3.1.0.RC2</spring.security.version>
+        <spring.security.version>3.1.0.RC3</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.0.0.RC2</spring-integration-core>
         <spring-oauth.version>1.0.0.BUILD-SNAPSHOT</spring-oauth.version>
@@ -78,7 +79,10 @@
         <portlet.version>2.0</portlet.version>
         <!-- Test -->
         <junit.version>4.8.1</junit.version>
+		<cactus.version>1.8.1</cactus.version>
+		<!-- Site Path -->
         <apache>file:///var/www/encuestame</apache>
+		<!-- Jetty -->
         <jetty.default.port>8080</jetty.default.port>
         <jetty.default.ssl.port>8443</jetty.default.ssl.port>
         <!-- JDBC Drivers Version -->
@@ -114,7 +118,7 @@
         <cglib-nodep>2.2</cglib-nodep>
         <aspectjrt>1.6.0</aspectjrt>
         <jaxen>1.1.1</jaxen>
-	<javassist>3.12.1.GA</javassist>
+		<javassist>3.12.1.GA</javassist>
         <javax.inject>1</javax.inject>
         <!-- Dojo http://www.mahieu.org/?p=3 -->
         <dojo.version>1.6.1</dojo.version>
@@ -124,13 +128,16 @@
         <!-- Plugin Version -->
         <surefire.version>2.9</surefire.version>
         <maven-clover2-plugin>3.0.5</maven-clover2-plugin>
+		<maven-jar.plugin>2.3.2</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
         <maven-antrun-plugin>1.4</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
+		<cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
         <maven-javadoc-plugin>2.8</maven-javadoc-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
+		<maven-javadoc-plugin>2.8</maven-javadoc-plugin>
         <findbugs-maven-plugin>1.2</findbugs-maven-plugin>
         <taglist-maven-plugin>2.4</taglist-maven-plugin>
         <maven-checkstyle-plugin>2.5</maven-checkstyle-plugin>
@@ -616,6 +623,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
+				<version>${cobertura.maven.plugin}</version>
                 <configuration>
                     <formats>
                         <format>html</format>
@@ -634,6 +642,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin}</version>
                 <configuration>
                     <links>
                         <link>http://java.sun.com/j2se/1.6.0/docs/api</link>
@@ -1478,21 +1487,26 @@
                 <artifactId>javax.inject</artifactId>
                 <version>${javax.inject}</version>
             </dependency>
-	    <dependency>
-                <groupId>javassist</groupId>
-                <artifactId>javassist</artifactId>
-                <version>${javassist}</version>
-            </dependency>
-	    <dependency>
-		<groupId>org.json</groupId>
-		<artifactId>json</artifactId>
-		<version>20090211</version>
-	    </dependency>
-	    <dependency>
-		 <groupId>commons-configuration</groupId>
-		 <artifactId>commons-configuration</artifactId>
-		 <version>${configuration.version}</version>
-	    </dependency>
+			<dependency>
+					<groupId>javassist</groupId>
+					<artifactId>javassist</artifactId>
+					<version>${javassist}</version>
+				</dependency>
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>20090211</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-configuration</groupId>
+				<artifactId>commons-configuration</artifactId>
+				<version>${configuration.version}</version>
+			</dependency>
+	   <!-- <dependency>
+				<groupId>org.apache.cactus</groupId>
+				<artifactId>cactus.core.framework</artifactId>
+				<version>${cactus.version}</version>
+			</dependency> -->
         </dependencies>
     </dependencyManagement>
 </project>

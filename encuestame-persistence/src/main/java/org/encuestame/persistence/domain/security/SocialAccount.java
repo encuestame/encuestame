@@ -27,6 +27,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.utils.social.TypeAuth;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
@@ -129,22 +130,6 @@ public class SocialAccount extends AbstractSocial {
 
     /** Verfied. **/
     private Boolean verfied = false;
-
-    /**
-     */
-    public enum TypeAuth {
-
-    /**
-     * OAuth1 protocol.
-     */
-    OAUTH1,
-
-    /**
-     * OAuth2 protocol
-     */
-    OAUTH2
-
-    };
 
     /**
      */

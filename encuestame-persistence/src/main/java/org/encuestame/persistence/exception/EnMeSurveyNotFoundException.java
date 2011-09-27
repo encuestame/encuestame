@@ -10,14 +10,26 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-
-package org.encuestame.mvc.controller;
+package org.encuestame.persistence.exception;
 
 /**
- * Report view controller.
- * @author Picado, Juan juanATencuestame.org
- * @since Mar 11, 2010 9:22:44 PM
+ * Tweet poll not found exception.
+ * @author Morales, Diana Paola paolaATencuestame.org
+ * @since
  */
-public class ReportController  extends AbstractBaseOperations {
+public class EnMeSurveyNotFoundException extends EnMeNoResultsFoundException {
 
+    /** Serial. **/
+    private static final long serialVersionUID = -2093492355883958077L;
+
+    /**
+     * Constructor.
+     */
+    public EnMeSurveyNotFoundException() {
+        super("user not found");
+    }
+
+    public EnMeSurveyNotFoundException(String message) {
+        super(message);
+    }
 }

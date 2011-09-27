@@ -30,9 +30,7 @@
 </head>
 <body class="claro">
      <div id="mainWrapper">
-        <div id="header">
-            <tiles:insertAttribute name="header" />
-        </div>
+        <tiles:insertAttribute name="header" ignore="true" />
         <div id="content-container" class="enme-auto-center">
             <div id="enme-content" class="enme-auto-center">
                 <tiles:insertAttribute name="menu" ignore="true" />

@@ -22,11 +22,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.encuestame.core.files.PathUtil;
-import org.encuestame.core.service.DirectorySetupOperations;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -46,7 +43,7 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     /**
      *
      */
-    private static ConfigurationManager configurationManager;
+    private static XMLConfigurationFileSupport configurationManager;
 
 
     /**
@@ -68,7 +65,7 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
             ConfigurableListableBeanFactory beanFactory, Properties props)
             throws BeansException {
         try {
-            EnMePlaceHolderConfigurer.configurationManager = new ConfigurationManager();
+            EnMePlaceHolderConfigurer.configurationManager = new XMLConfigurationFileSupport();
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -126,13 +123,13 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * The xml configuration manager.
      * @return
      */
-    public static ConfigurationManager getConfigurationManager() {
+    public static XMLConfigurationFileSupport getConfigurationManager() {
         //log.debug("getConfigurationManager() "+configurationManager.getXmlConfiguration().getFile().getAbsolutePath());
         return configurationManager;
     }
 
     /**
-     * Return int param of {@link ConfigurationManager}.
+     * Return int param of {@link XMLConfigurationFileSupport}.
      * @param param
      * @return
      */
@@ -141,7 +138,7 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     }
 
     /**
-    * Return string param of {@link ConfigurationManager}.
+    * Return string param of {@link XMLConfigurationFileSupport}.
     * @param param
     * @return
     */

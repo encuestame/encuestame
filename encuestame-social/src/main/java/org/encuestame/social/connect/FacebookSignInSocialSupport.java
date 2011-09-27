@@ -12,12 +12,12 @@
  */
 package org.encuestame.social.connect;
 
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.support.FacebookAPIOperations;
 import org.encuestame.social.api.support.SocialAPIOperations;
 import org.encuestame.social.connect.service.ConnectOperations;
 import org.encuestame.utils.oauth.AccessGrant;
+import org.encuestame.utils.social.SocialProvider;
 
 /**
  * Facebook. Social Service.

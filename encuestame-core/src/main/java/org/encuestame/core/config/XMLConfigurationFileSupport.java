@@ -14,7 +14,7 @@ package org.encuestame.core.config;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
@@ -23,19 +23,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.utils.social.SocialNetworkBean;
 
 /**
- * Configuration Manager.
+ * Provide support to modify default xml config file.
  *
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 4, 2011
  */
-public class ConfigurationManager {
+public class XMLConfigurationFileSupport {
 
     /**
      * Log.
      */
-    private static Log log = LogFactory.getLog(ConfigurationManager.class);
+    private static Log log = LogFactory
+            .getLog(XMLConfigurationFileSupport.class);
 
     /**
      * configuration store file.
@@ -48,7 +50,8 @@ public class ConfigurationManager {
      * @throws ConfigurationException
      * @throws IOException
      */
-    public ConfigurationManager(final File file) throws ConfigurationException, IOException {
+    public XMLConfigurationFileSupport(final File file)
+            throws ConfigurationException, IOException {
         this.createConfiguration(file);
     }
 
@@ -58,12 +61,13 @@ public class ConfigurationManager {
      * @throws ConfigurationException
      * @throws IOException
      */
-    public ConfigurationManager(final String path) throws ConfigurationException, IOException {
+    public XMLConfigurationFileSupport(final String path)
+            throws ConfigurationException, IOException {
         final File file = new File(path.toString());
         if (file.exists()) {
             this.createConfiguration(file);
         }
-   }
+    }
 
     /**
      * Constructor.
@@ -71,15 +75,17 @@ public class ConfigurationManager {
      * @throws IOException
      * @throws ConfigurationException
      */
-    public ConfigurationManager() throws IOException, ConfigurationException {
+    public XMLConfigurationFileSupport() throws IOException,
+            ConfigurationException {
         final File file = new File(buildConfigFilePath());
         if (file.exists()) {
             this.createConfiguration(file);
         }
     }
 
-    private String buildConfigFilePath(){
-        final StringBuffer stringBuffer = new StringBuffer(DirectorySetupOperations.getRootDirectory());
+    private String buildConfigFilePath() {
+        final StringBuffer stringBuffer = new StringBuffer(
+                DirectorySetupOperations.getRootDirectory());
         stringBuffer.append(PathUtil.configFileName);
         return stringBuffer.toString();
     }
@@ -89,14 +95,16 @@ public class ConfigurationManager {
      * @param file
      * @throws ConfigurationException
      */
-    @SuppressWarnings("static-access")
-    private void createConfiguration(final File file) throws ConfigurationException{
-        log.debug("createConfiguration "+file.exists());
+    private void createConfiguration(final File file)
+            throws ConfigurationException {
+        log.debug("createConfiguration " + file.exists());
         if (file.exists()) {
-            log.debug("createConfiguration.......... "+file);
-            this.xmlConfiguration = new XMLConfiguration(file);
-            this.xmlConfiguration.setAutoSave(true);
-            this.xmlConfiguration.setReloadingStrategy(new FileChangedReloadingStrategy());
+            log.debug("createConfiguration.... " + file);
+            XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(
+                    file);
+            XMLConfigurationFileSupport.xmlConfiguration.setAutoSave(true);
+            XMLConfigurationFileSupport.xmlConfiguration
+                    .setReloadingStrategy(new FileChangedReloadingStrategy());
         }
     }
 
@@ -104,7 +112,7 @@ public class ConfigurationManager {
      * @throws ConfigurationException
      *
      */
-    public void reloadConfigFile(){
+    public void reloadConfigFile() {
         log.debug("reloadConfigFile");
         final File file = new File(buildConfigFilePath());
         try {
@@ -137,24 +145,49 @@ public class ConfigurationManager {
      *            the xmlConfiguration to set
      */
     public void setXmlConfiguration(XMLConfiguration xmlConfiguration) {
-        this.xmlConfiguration = xmlConfiguration;
+        XMLConfigurationFileSupport.xmlConfiguration = xmlConfiguration;
+    }
+
+    /**
+     *
+     * @param networkBean
+     */
+    public void addNewSocialNetworkConfiguration(final SocialNetworkBean networkBean) {
+          //XMLConfigurationFileSupport.xmlConfiguration
+    }
+
+    /**
+     *
+     * @param socialNetworkName
+     */
+    public void removeSocialNetworkConfiguration(final String socialNetworkName) {
+        // TODO Auto-generated method stub
     }
 
     /**
      *
      * @return
      */
-    public Integer getDatabaseVersion(){
+    public List<SocialNetworkBean> listAllNetworkConfigurationSocial() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Integer getDatabaseVersion() {
         return xmlConfiguration.getInt("database.version");
     }
 
     /**
-    *
-    * @return
-    */
-   public String getInstalledVersion(){
-       return xmlConfiguration.getString("version");
-   }
+     *
+     * @return
+     */
+    public String getInstalledVersion() {
+        return xmlConfiguration.getString("version");
+    }
 
     /**
      * @return the xmlConfiguration

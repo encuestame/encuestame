@@ -1,0 +1,55 @@
+NOTICE.txt
+
+PRINCIPAL SITE
+
+http://www.encuestame.org
+
+ADITIONAL INFO
+
+ * Bug Tracking
+   http://issues.encuestame.org
+
+ * Wiki
+   http://wiki.encuestame.org
+
+ * Continuous Integration
+   http://ci.encuestame.org
+
+ * Git Stats
+   http://stats.encuestame.org/git/
+
+ * Metrics
+   http://metrics.encuestame.org
+
+ * Twitter Page
+   http://www.twitter.com/encuestame
+
+ * Facebook Page
+   https://www.facebook.com/pages/encuestame/80467777529
+
+ * Demo Site
+   http://demo.encuestame.org
+
+ * Browse Source Code
+   http://code.encuestame.org
+
+ * Source code repository and Downloads
+   http://github.com/encuestame
+   http://code.google.com/p/encuestame/
+   http://sourceforge.net/projects/encuestame/
+
+
+CONTACT 
+
+* infoATencuestame.org
+* Location: Madrid, ESP.
+
+COMMITTERS:
+
+* Diana Paola Morales Urbina
+  http://es.linkedin.com/in/dianmorales
+  http://twitter.com/#!/dianmora
+* Juan Carlos Picado Herrera
+  http://es.linkedin.com/in/juancarlospicadoherrera
+  http://twitter.com/#!/jotadeveloper
+

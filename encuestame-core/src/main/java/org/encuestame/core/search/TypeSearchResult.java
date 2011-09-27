@@ -18,5 +18,41 @@ package org.encuestame.core.search;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG,
+
+    TypeSearchResult(){
+
+    };
+
+    /**
+     * To String.
+     */
+    public String toString() {
+        String type = "";
+        if (this == TWEETPOLL) { type = "TWEETPOLL"; }
+        else if (this == PROFILE) { type = "PROFILE"; }
+        else if (this == POLL) { type = "POLL"; }
+        else if (this == SURVEY) { type = "SURVEY"; }
+        else if (this == ATTACHMENT) { type = "ATTACHMENT"; }
+        else if (this == QUESTION) { type = "QUESTION"; }
+        else if (this == HASHTAG) { type = "HASHTAG"; }
+        return type;
+    }
+
+    /**
+     *
+     * @param layout
+     * @return
+     */
+    public static TypeSearchResult getTypeSearchResult(final String type) {
+        if (null == type) { return null; }
+        else if (type.equalsIgnoreCase("TWEETPOLL")) { return TWEETPOLL; }
+        else if (type.equalsIgnoreCase("PROFILE")) { return PROFILE; }
+        else if (type.equalsIgnoreCase("POLL")) { return POLL; }
+        else if (type.equalsIgnoreCase("SURVEY")) { return SURVEY; }
+        else if (type.equalsIgnoreCase("ATTACHMENT")) { return ATTACHMENT; }
+        else if (type.equalsIgnoreCase("QUESTION")) { return QUESTION; }
+        else if (type.equalsIgnoreCase("HASHTAG")) { return HASHTAG; }
+        else return null;
+    }
 }

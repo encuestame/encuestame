@@ -178,5 +178,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
                +" from Survey where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#getSurveyById(java.lang.Long)
+     */
+    public Survey getSurveyById(final Long surveyId) throws HibernateException {
+        return (Survey) getHibernateTemplate().get(Survey.class, surveyId);
+    }
 }
 

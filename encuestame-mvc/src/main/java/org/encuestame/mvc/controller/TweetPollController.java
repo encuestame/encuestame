@@ -25,6 +25,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -269,10 +270,16 @@ public class TweetPollController extends AbstractSocialController {
             @PathVariable String slug) {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
+        final String ipAddress = getIpClient();
         try {
             slug = filterValue(slug);
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);
             this.checkTweetPollStatus(tweetPoll);
+            boolean tweetPollVisite = getFrontService().checkPreviousHit(ipAddress, tweetPoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+            // TODO: Check that previous hash Tag hit has been visited the same day.
+            if (!tweetPollVisite) {
+                getFrontService().registerHit(tweetPoll, null, null, null, ipAddress);
+            }
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
             final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());
             model.addAttribute("hashtags", ConvertDomainBean.convertListHashTagsToBean(hashtagsBean));

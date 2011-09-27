@@ -145,13 +145,22 @@ public class TweetPoll extends AbstractGeoPoint{
      private Integer numbervotes;
 
      /** Number Hits or visits **/
-     private Integer hits;
+     private Long hits = 0L;
 
      /** TweetPoll Folder. **/
      private TweetPollFolder tweetPollFolder;
 
      /** Set Item as Favourite. **/
      private Boolean favourites = false;
+
+     /** **/
+     private Long relevance;
+
+     /** Like option**/
+     private Long likeVote = 0L;
+
+     /** Unlike **/
+     private Long dislikeVote = 0L;
 
     /**
      * @return the tweetPollId
@@ -432,14 +441,14 @@ public class TweetPoll extends AbstractGeoPoint{
      * @return the hits
      */
     @Column(name = "hits")
-    public Integer getHits() {
+    public Long getHits() {
         return hits;
     }
 
     /**
      * @param hits the hits to set
      */
-    public void setHits(Integer hits) {
+    public void setHits(Long hits) {
         this.hits = hits;
     }
 
@@ -583,6 +592,49 @@ public class TweetPoll extends AbstractGeoPoint{
      */
     public void setDateLimited(Date dateLimited) {
         this.dateLimited = dateLimited;
+    }
+
+    /**
+     * @return the relevance
+     */
+    public Long getRelevance() {
+        return relevance;
+    }
+
+    /**
+     * @param relevance the relevance to set
+     */
+    @Column(name = "relevance", nullable = true)
+    public void setRelevance(final Long relevance) {
+        this.relevance = relevance;
+    }
+
+    /**
+     * @return the likeVote
+     */
+    public Long getLikeVote() {
+        return likeVote;
+    }
+
+    /**
+     * @param likeVote the likeVote to set
+     */
+    public void setLikeVote(final Long likeVote) {
+        this.likeVote = likeVote;
+    }
+
+    /**
+     * @return the dislikeVote
+     */
+    public Long getDislikeVote() {
+        return dislikeVote;
+    }
+
+    /**
+     * @param dislikeVote the dislikeVote to set
+     */
+    public void setDislikeVote(final Long dislikeVote) {
+        this.dislikeVote = dislikeVote;
     }
 
     /* (non-Javadoc)

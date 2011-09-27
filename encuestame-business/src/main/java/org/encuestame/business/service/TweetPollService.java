@@ -1052,4 +1052,3 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
       return linksBean;
     }
 }
-

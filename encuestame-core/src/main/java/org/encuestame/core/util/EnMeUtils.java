@@ -34,7 +34,12 @@ public class EnMeUtils {
 
 
     private static final int BASE = 2;
+
     private static final int MIN_SIZE = 12;
+
+    private static final long SCORE_BASE = 24;
+
+    private static final long PENALTY_VALUE = 3;
 
     /**
      * Calculate percent.
@@ -99,4 +104,37 @@ public class EnMeUtils {
             in.close();
             out.close();
         }
+
+    /**
+     * Calculate relevance value.
+     * <p>
+     * The relevance value is calculated based on the follower parameters received:
+     *  Total like votes
+     *  Number dislike votes
+     *  Total hits number
+     *  Maximum like vote value received by user.
+     * </p>
+     * @param totalLikeVote
+     * @param totalDislikeVote
+     * @param totalHits
+     * @param maxVotebyUser
+     * @return
+     */
+    public static long calculateRelevance(long totalLikeVote,
+            long totalDislikeVote, long totalHits, final long maxVotebyUser) {
+        float likeVotes = Float.valueOf(totalLikeVote);
+        float dislikeVotes = Float.valueOf(totalDislikeVote);
+        float numberHits = Float.valueOf(totalHits);
+        float maxLikeVotes = Float.valueOf(maxVotebyUser);
+        double relevance;
+
+        final double likeValueScore = EnMeUtils.SCORE_BASE * ((likeVotes) / (maxLikeVotes));
+        log.debug(" Like value Score  ----- >  " + likeValueScore);
+        final double dislikeValueScore = (EnMeUtils.SCORE_BASE
+                * ((dislikeVotes / maxLikeVotes)) * EnMeUtils.PENALTY_VALUE);
+        log.debug(" DisLike value Score  ----- >  " + dislikeValueScore);
+        relevance = (likeValueScore - dislikeValueScore) + numberHits;
+        log.debug(" RELEVANCE *******************************>  " + Math.round(relevance));
+        return Math.round(relevance);
+    }
 }

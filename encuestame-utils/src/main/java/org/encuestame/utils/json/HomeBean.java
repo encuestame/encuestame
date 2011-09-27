@@ -13,7 +13,6 @@
 package org.encuestame.utils.json;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -24,7 +23,7 @@ import org.encuestame.utils.web.AbstractUnitSurvey;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 06, 2011
  */
-public class HomeBean extends AbstractUnitSurvey implements Serializable {
+public class HomeBean extends AbstractUnitSurvey implements Serializable{
 
     /** Serial. **/
     private static final long serialVersionUID = 2543644253906482885L;
@@ -37,24 +36,6 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable {
 
     @JsonProperty(value = "userId")
     private Long userId;
-
-    @JsonProperty(value = "ownerUsername")
-    private String ownerUsername;
-
-    @JsonProperty(value = "createDate")
-    private String createDate;
-
-    @JsonProperty(value = "relativeTime")
-    private String relativeTime;
-
-    @JsonProperty(value = "totalVotes")
-    private Long totalVotes;
-
-    @JsonProperty(value = "itemType")
-    private String itemType;
-
-    @JsonProperty(value = "createdDateAt")
-    private Date createdDateAt;
 
     /**
      * @return the id
@@ -99,94 +80,5 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable {
      */
     public void setUserId(final Long userId) {
         this.userId = userId;
-    }
-
-    /**
-     * @return the ownerUsername
-     */
-    @JsonIgnore
-    public String getOwnerUsername() {
-        return ownerUsername;
-    }
-
-    /**
-     * @param ownerUsername the ownerUsername to set
-     */
-    public void setOwnerUsername(final String ownerUsername) {
-        this.ownerUsername = ownerUsername;
-    }
-
-    /**
-     * @return the createDate
-     */
-    @JsonIgnore
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    /**
-     * @param createDate the createDate to set
-     */
-    public void setCreateDate(final String createDate) {
-        this.createDate = createDate;
-    }
-
-    /**
-     * @return the relativeTime
-     */
-    @JsonIgnore
-    public String getRelativeTime() {
-        return relativeTime;
-    }
-
-    /**
-     * @param relativeTime the relativeTime to set
-     */
-    public void setRelativeTime(final String relativeTime) {
-        this.relativeTime = relativeTime;
-    }
-
-    /**
-     * @return the totalVotes
-     */
-    @JsonIgnore
-    public Long getTotalVotes() {
-        return totalVotes;
-    }
-
-    /**
-     * @param totalVotes the totalVotes to set
-     */
-    public void setTotalVotes(final Long totalVotes) {
-        this.totalVotes = totalVotes;
-    }
-
-    /**
-     * @return the itemType
-     */
-    @JsonIgnore
-    public String getItemType() {
-        return itemType;
-    }
-
-    /**
-     * @param itemType the itemType to set
-     */
-    public void setItemType(final String itemType) {
-        this.itemType = itemType;
-    }
-
-    /**
-     * @return the createdDateAt
-     */
-    public Date getCreatedDateAt() {
-        return createdDateAt;
-    }
-
-    /**
-     * @param createdDateAt the createdDateAt to set
-     */
-    public void setCreatedDateAt(final Date createdDateAt) {
-        this.createdDateAt = createdDateAt;
     }
 }
