@@ -81,7 +81,7 @@
                 </bean>
                 <bean id="calculateRelevanceReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="calculateRelevanceInvokingJobDetail" />
-                    <property name="cronExpression" value="0 0/2 * * * ?" />
+                    <property name="cronExpression" value="0 0 12 * * ?" />
                     <!--    Fire at 11pm (noon) every day -->
                 </bean>
                  <!-- Remove unconfirmed expired accounts -->

@@ -136,4 +136,23 @@ public interface IPoll extends IBaseDao {
       * @return
       */
      List<Poll> retrievePollsByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start);
+
+     /**
+      * Get max poll like votes by user.
+      * @param userId
+      * @param dateFrom
+      * @param dateTo
+      * @return
+      */
+     Long getMaxPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo);
+
+     /**
+      *
+      * @param maxResults
+      * @param start
+      * @param range
+      * @return
+      */
+     List<Poll> getPolls(final Integer maxResults,
+             final Integer start, final Date range);
 }
