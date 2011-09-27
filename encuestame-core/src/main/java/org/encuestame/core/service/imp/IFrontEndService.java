@@ -31,6 +31,7 @@ import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.SurveyBean;
 
 /**
  * Implementation for Front End Service.
@@ -144,4 +145,17 @@ public interface IFrontEndService extends ServiceOperations {
     public AccessRate registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
             throws EnMeExpcetion;
+
+    /**
+     * Search items by survey.
+     * @param period
+     * @param start
+     * @param maxResults
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    public List<SurveyBean> searchItemsBySurvey(final String period,
+            final Integer start, Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException;
 }

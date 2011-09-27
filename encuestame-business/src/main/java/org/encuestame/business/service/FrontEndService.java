@@ -39,6 +39,7 @@ import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,6 +107,43 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return results;
     }
 
+    public List<SurveyBean> searchItemsBySurvey(final String period,
+            final Integer start, Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException {
+        final List<SurveyBean> results = new ArrayList<SurveyBean>();
+        if (maxResults == null) {
+            maxResults = this.MAX_RESULTS;
+        }
+        log.debug("Max Results " + maxResults);
+        final List<Survey> items = new ArrayList<Survey>();
+        if (period == null) {
+            throw new EnMeSearchException("search params required.");
+        } else {
+            final SearchPeriods periodSelected = SearchPeriods
+                    .getPeriodString(period);
+            if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast24(start,
+                        maxResults));
+            } else if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast24(start,
+                        maxResults));
+            } else if (periodSelected.equals(SearchPeriods.SEVENDAYS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast7Days(start,
+                        maxResults));
+            } else if (periodSelected.equals(SearchPeriods.THIRTYDAYS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast30Days(
+                        start, maxResults));
+            } else if (periodSelected.equals(SearchPeriods.ALLTIME)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndAllTime(start,
+                        maxResults));
+            }
+            log.debug("TweetPoll " + items.size());
+            results.addAll(ConvertDomainBean.convertListSurveyToBean(items));
+        }
+        return results;
+    }
+
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
@@ -121,6 +159,9 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         final List<PollBean> pollItems = this.searchItemsByPoll(period, start,
                 maxResults);
         allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
+        final List<SurveyBean> surveyItems = this.searchItemsBySurvey(period,
+                start, maxResults, request);
+        allItems.addAll(ConvertDomainBean.convertSurveyListToHomeBean(surveyItems));
         return allItems;
     }
 
@@ -533,7 +574,5 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public void setTweetPollService(TweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
-
     }
-
 }

@@ -784,12 +784,26 @@ public class ConvertDomainBean {
         unitSurvey.setClosedQuota(survey.getClosedQuota());
         unitSurvey.setShowResults(survey.getShowResults());
         unitSurvey.setNumbervotes(survey.getNumbervotes());
-       // unitSurvey.setHits(survey.getHits());
+        //unitSurvey.setHits(survey.getHits());
         unitSurvey.setAdditionalInfo(survey.getAdditionalInfo());
         unitSurvey.setShowAdditionalInfo(survey.getShowAdditionalInfo());
         unitSurvey.setNotifications(survey.getNotifications());
         unitSurvey.setName(survey.getName());
+        unitSurvey.setRelevance(survey.getRelevance());
         return unitSurvey;}
+
+    /**
+     * Convert List survey domain to bean.
+     * @param surveyList
+     * @return
+     */
+    public static final List<SurveyBean> convertListSurveyToBean(final List<Survey> surveyList){
+        final List<SurveyBean> surveyBeanList = new LinkedList<SurveyBean>();
+        for (Survey survey : surveyList) {
+            surveyBeanList.add(ConvertDomainBean.convertSurveyDomaintoBean(survey));
+        }
+        return surveyBeanList;
+    }
 
     /**
      * Convert Dashboard bean to dashboard domain.
@@ -977,6 +991,37 @@ public class ConvertDomainBean {
        homeBean.setTotalVotes(pollBean.getTotalVotes());
        homeBean.setRelativeTime(pollBean.getRelativeTime());
        homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
+       return homeBean;
+   }
+
+   /**
+    * Convert SurveyBean List to Home Bean.
+    * @param items
+    * @return
+    */
+   public static final List<HomeBean> convertSurveyListToHomeBean(final List<SurveyBean> items){
+       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
+       for (SurveyBean surveyBean : items) {
+           listFrontEndItems.add(ConvertDomainBean.convertSurveyToHomeBean(surveyBean));
+        }
+   return listFrontEndItems;
+   }
+
+   /**
+    * Convert {@link SurveyBean} to {@link HomeBean}.
+    * @param pollBean
+    * @return
+    */
+   public static final HomeBean convertSurveyToHomeBean(final SurveyBean surveyBean){
+       // TODO: ENCUESTAME-312
+       final HomeBean homeBean = new HomeBean();
+       homeBean.setId(surveyBean.getSid());
+       homeBean.setQuestionBean(null);
+       homeBean.setOwnerUsername(null);
+       homeBean.setCreatedDateAt(null);
+       homeBean.setTotalVotes(null);
+       homeBean.setRelativeTime(null);
+       homeBean.setItemType(null);
        return homeBean;
    }
 }
