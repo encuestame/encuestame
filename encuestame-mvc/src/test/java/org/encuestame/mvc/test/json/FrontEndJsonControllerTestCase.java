@@ -74,7 +74,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject success = getSucess(response);
         final JSONArray items = (JSONArray) success.get("gadgets");
         Assert.assertNotNull(items);
-        Assert.assertEquals(items.size(), 3);
+        Assert.assertEquals(items.size(), 6);
         final JSONObject gadget = (JSONObject) items.get(0);
         final String gadgetId = (String) gadget.get("id");
         //add gadgets to dashboard
