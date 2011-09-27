@@ -28,7 +28,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;

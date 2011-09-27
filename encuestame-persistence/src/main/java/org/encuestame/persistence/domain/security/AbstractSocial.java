@@ -17,7 +17,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider;
 
 /**
  * Abstract Social.

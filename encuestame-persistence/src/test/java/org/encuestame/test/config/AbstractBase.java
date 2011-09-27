@@ -78,9 +78,7 @@ import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
@@ -97,6 +95,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.social.SocialProvider;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1429,7 +1428,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         socialAccount.setRealName("real name"+String.valueOf(randomNum));
         socialAccount.setApplicationKey(RandomUtils.nextLong(new Random(50)));
         socialAccount.setRefreshToken("refresh_token_"+RandomStringUtils.randomAlphanumeric(10));
-        socialAccount.setType(TypeAuth.OAUTH1);
+        socialAccount.setType(org.encuestame.utils.social.TypeAuth.OAUTH1);
         getAccountDao().saveOrUpdate(socialAccount);
         return socialAccount;
      }

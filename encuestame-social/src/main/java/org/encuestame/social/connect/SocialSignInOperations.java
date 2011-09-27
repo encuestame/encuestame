@@ -14,10 +14,10 @@ package org.encuestame.social.connect;
 
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.oauth.AccessGrant;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
 
 /**

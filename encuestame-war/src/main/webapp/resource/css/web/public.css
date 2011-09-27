@@ -9,7 +9,8 @@ body.public-body {
     max-width: 1100px;
 }
 
-.web-setup-wrapper{
+div.web-setup-wrapper{
+    margin-top: 20px;
     border: 1px solid #EEE;
     padding: 10px;
     font-size: 110%;
@@ -135,10 +136,12 @@ div.web-header div.logo {
 div.web-header div.logoEncuestame {
     background-image: url(../../images/logos/encuestame_logoalone.png);
     background-repeat: no-repeat;
+    background-color: #EBE9E9;
 }
 
 div.web-header div.web-header-wrapper {
     padding: 5px;
+    background-color: #EBE9E9;
 }
 
 div.web-header span {

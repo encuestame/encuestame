@@ -26,7 +26,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * @since Jul 31, 2010 8:19:51 AM
  * @version $Id:$
  */
-public abstract class AbstractUnitSurvey implements Serializable{
+public abstract class AbstractUnitSurvey implements Serializable , Comparable<AbstractUnitSurvey> {
 
     /**
      * Serial.
@@ -57,10 +57,6 @@ public abstract class AbstractUnitSurvey implements Serializable{
     @JsonProperty(value = "itemType")
     private String itemType;
 
-    /** Relevance. **/
-    @JsonProperty(value = "relevance")
-    private Long relevance;
-
     /** **/
     @JsonProperty(value = "likeVote")
     private Long likeVote;
@@ -74,6 +70,10 @@ public abstract class AbstractUnitSurvey implements Serializable{
 
     @JsonProperty(value = "createdDateAt")
     private Date createdDateAt;
+
+    /** Relevance. **/
+    @JsonProperty(value = "relevance")
+    private Long relevance;
 
     /**
      * @return the hashTags
@@ -164,20 +164,6 @@ public abstract class AbstractUnitSurvey implements Serializable{
         this.itemType = itemType;
     }
 
-    /**
-     * @return the relevance
-     */
-    @JsonIgnore
-    public Long getRelevance() {
-        return relevance;
-    }
-
-    /**
-     * @param relevance the relevance to set
-     */
-    public void setRelevance(final Long relevance) {
-        this.relevance = relevance;
-    }
 
     /**
      * @return the likeVote
@@ -237,5 +223,25 @@ public abstract class AbstractUnitSurvey implements Serializable{
      */
     public void setCreatedDateAt(final Date createdDateAt) {
         this.createdDateAt = createdDateAt;
+    }
+
+    @JsonIgnore
+    public Long getRelevance() {
+        return relevance;
+    }
+
+    /**
+     * @param relevance the relevance to set
+     */
+    public void setRelevance(final Long relevance) {
+        this.relevance = relevance;
+    }
+
+    /**
+     * @return the relevance
+     */
+    public int compareTo(AbstractUnitSurvey o) {
+         return Float.compare(o.getRelevance()== null ? 0 : o.getRelevance()  ,
+                 this.getRelevance()== null ? 0 : this.getRelevance());
     }
 }

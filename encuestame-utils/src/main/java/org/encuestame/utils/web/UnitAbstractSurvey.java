@@ -16,6 +16,8 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * Unit Abstract Survey.
  * @author Morales Urbina, Diana paolaATencuestame.org
@@ -166,6 +168,9 @@ public abstract class UnitAbstractSurvey implements Serializable {
      * Survey or Poll Name.
      */
     private String name;
+
+    /** **/
+    private Long relevance;
 
     /**
      * @return the customMessage
@@ -482,4 +487,17 @@ public abstract class UnitAbstractSurvey implements Serializable {
         return serialVersionUID;
     }
 
+    /**
+     * @return the relevance
+     */
+    public Long getRelevance() {
+        return relevance;
+    }
+
+    /**
+     * @param relevance the relevance to set
+     */
+    public void setRelevance(final Long relevance) {
+        this.relevance = relevance;
+    }
 }

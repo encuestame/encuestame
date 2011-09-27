@@ -21,7 +21,7 @@ import junit.framework.Assert;
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
 import org.junit.Test;
 

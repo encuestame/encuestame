@@ -13,7 +13,7 @@
 package org.encuestame.core.security.service;
 
 import org.encuestame.core.exception.EnMeNoSuchAccountConnectionException;
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**

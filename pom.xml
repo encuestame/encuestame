@@ -28,10 +28,10 @@
         <!-- encuestame version -->
         <encuestame.version>1.140-SNAPSHOT</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
-        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.version>3.0.6.RELEASE</spring.version>
         <env>development</env>
         <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
-        <spring.security.version>3.1.0.RC2</spring.security.version>
+        <spring.security.version>3.1.0.RC3</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.0.0.RC2</spring-integration-core>
         <spring-oauth.version>1.0.0.BUILD-SNAPSHOT</spring-oauth.version>
@@ -100,7 +100,7 @@
         <commons-digester>1.8</commons-digester>
         <commons-beanutils>1.7.0</commons-beanutils>
         <commons-httpclient>3.1</commons-httpclient>
-		<configuration.version>1.6</configuration.version>
+	<configuration.version>1.6</configuration.version>
         <c3p0>0.9.0</c3p0>
         <jsr250-api>1.0</jsr250-api>
         <jpa-api>2.0-cr-1</jpa-api>

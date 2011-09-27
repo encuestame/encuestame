@@ -145,7 +145,7 @@ public class TweetPoll extends AbstractGeoPoint{
      private Integer numbervotes;
 
      /** Number Hits or visits **/
-     private Long hits;
+     private Long hits = 0L;
 
      /** TweetPoll Folder. **/
      private TweetPollFolder tweetPollFolder;

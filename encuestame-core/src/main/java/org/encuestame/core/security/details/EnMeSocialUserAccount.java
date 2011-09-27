@@ -15,7 +15,7 @@ package org.encuestame.core.security.details;
 import java.util.Collection;
 
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider;
 import org.springframework.security.core.GrantedAuthority;
 
 /**

@@ -15,9 +15,9 @@ package org.encuestame.social.connect.service;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.social.connect.SocialSignInOperations;
 import org.encuestame.utils.oauth.AccessGrant;
+import org.encuestame.utils.social.SocialProvider;
 
 /**
  * Connect operations support.

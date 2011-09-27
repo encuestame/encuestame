@@ -25,6 +25,7 @@ import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -112,6 +113,14 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
 
+    @SuppressWarnings("unchecked")
+    public final List<Survey> getSurveyFrontEnd(final Integer period, final Integer start, final Integer maxResults, final Integer firstResult){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+        criteria.createAlias("question", "question");
+        // TODO: Complete method, adding criteria params
+        return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
     /**
      * Search Items By Tag.
      * @param tag
@@ -192,6 +201,43 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
     public final List<Poll> getPollFrontEndAllTime(final Integer start, final Integer maxResults){
         return this.getPollFrontEnd(this.PERIOD_ALL , start, maxResults, this.WITHOUT_FIRST_RESULTS);
     }
+
+    /**
+     * Get TweetPoll Last 24 Hours.
+     * @param maxResults max results
+     * @return list of tweetPoll.
+     */
+    public final List<Survey> getSurveyFrontEndLast24(final Integer start, final Integer maxResults){
+        return this.getSurveyFrontEnd(this.PERIOD_24, start, maxResults, this.WITHOUT_FIRST_RESULTS);
+    }
+
+    /**
+     * Get TweetPoll Last 7 Days
+     * @param maxResults max results
+     * @return list of tweetPoll.
+     */
+    public final List<Survey> getSurveyFrontEndLast7Days(final Integer start, final Integer maxResults) {
+        return this.getSurveyFrontEnd(this.PERIOD_7_DAYS , start, maxResults, this.WITHOUT_FIRST_RESULTS);
+    }
+
+    /**
+     * Get TweetPoll Last 30 Days
+     * @param maxResults max results
+     * @return list of tweetPoll.
+     */
+    public final List<Survey> getSurveyFrontEndLast30Days(final Integer start, final Integer maxResults){
+        return this.getSurveyFrontEnd(this.PERIOD_30_DAYS , start, maxResults, this.WITHOUT_FIRST_RESULTS);
+    }
+
+    /**
+     * Get TweetPoll all time.
+     * @param maxResults max results
+     * @return list of tweetPoll.
+     */
+    public final List<Survey> getSurveyFrontEndAllTime(final Integer start, final Integer maxResults){
+        return this.getSurveyFrontEnd(this.PERIOD_ALL , start, maxResults, this.WITHOUT_FIRST_RESULTS);
+    }
+
 
     /**
      * @return the hashTagDao

@@ -42,7 +42,6 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -61,6 +60,7 @@ import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.social.TypeAuth;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
@@ -560,6 +560,7 @@ public class ConvertDomainBean {
                     ? null
                     : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
         }
+        unitTweetPoll.setRelevance(tweetPoll.getRelevance());
         return unitTweetPoll;
     }
 
@@ -783,12 +784,26 @@ public class ConvertDomainBean {
         unitSurvey.setClosedQuota(survey.getClosedQuota());
         unitSurvey.setShowResults(survey.getShowResults());
         unitSurvey.setNumbervotes(survey.getNumbervotes());
-       // unitSurvey.setHits(survey.getHits());
+        //unitSurvey.setHits(survey.getHits());
         unitSurvey.setAdditionalInfo(survey.getAdditionalInfo());
         unitSurvey.setShowAdditionalInfo(survey.getShowAdditionalInfo());
         unitSurvey.setNotifications(survey.getNotifications());
         unitSurvey.setName(survey.getName());
+        unitSurvey.setRelevance(survey.getRelevance());
         return unitSurvey;}
+
+    /**
+     * Convert List survey domain to bean.
+     * @param surveyList
+     * @return
+     */
+    public static final List<SurveyBean> convertListSurveyToBean(final List<Survey> surveyList){
+        final List<SurveyBean> surveyBeanList = new LinkedList<SurveyBean>();
+        for (Survey survey : surveyList) {
+            surveyBeanList.add(ConvertDomainBean.convertSurveyDomaintoBean(survey));
+        }
+        return surveyBeanList;
+    }
 
     /**
      * Convert Dashboard bean to dashboard domain.
@@ -923,7 +938,9 @@ public class ConvertDomainBean {
     public static final List<HomeBean> convertTweetPollListToHomeBean(final List<TweetPollBean> items){
        final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
        for (TweetPollBean tweetPollBean : items) {
+           if(tweetPollBean.getRelevance()!=0){
            listFrontEndItems.add(ConvertDomainBean.convertTweetPollToHomeBean(tweetPollBean));
+           }
         }
    return listFrontEndItems;
    }
@@ -935,14 +952,15 @@ public class ConvertDomainBean {
    */
    public static final HomeBean convertTweetPollToHomeBean(final TweetPollBean tweetBean){
        final HomeBean homeBean = new HomeBean();
-       homeBean.setId(tweetBean.getId());
-       homeBean.setCreateDate(tweetBean.getCreateDate());
-       homeBean.setQuestionBean(tweetBean.getQuestionBean());
-       homeBean.setRelativeTime(tweetBean.getRelativeTime());
-       homeBean.setTotalVotes(tweetBean.getTotalVotes());
-       homeBean.setUserId(tweetBean.getUserId());
-       homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
-       homeBean.setItemType("tweetPoll");
+           homeBean.setId(tweetBean.getId());
+           homeBean.setCreateDate(tweetBean.getCreateDate());
+           homeBean.setQuestionBean(tweetBean.getQuestionBean());
+           homeBean.setRelativeTime(tweetBean.getRelativeTime());
+           homeBean.setTotalVotes(tweetBean.getTotalVotes());
+           homeBean.setUserId(tweetBean.getUserId());
+           homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
+           homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean.getItemType().toString());
+           homeBean.setRelevance(tweetBean.getRelevance());
        return homeBean;
    }
 
@@ -972,7 +990,38 @@ public class ConvertDomainBean {
        homeBean.setCreatedDateAt(pollBean.getCreationDate());
        homeBean.setTotalVotes(pollBean.getTotalVotes());
        homeBean.setRelativeTime(pollBean.getRelativeTime());
-       homeBean.setItemType("poll");
+       homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
+       return homeBean;
+   }
+
+   /**
+    * Convert SurveyBean List to Home Bean.
+    * @param items
+    * @return
+    */
+   public static final List<HomeBean> convertSurveyListToHomeBean(final List<SurveyBean> items){
+       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
+       for (SurveyBean surveyBean : items) {
+           listFrontEndItems.add(ConvertDomainBean.convertSurveyToHomeBean(surveyBean));
+        }
+   return listFrontEndItems;
+   }
+
+   /**
+    * Convert {@link SurveyBean} to {@link HomeBean}.
+    * @param pollBean
+    * @return
+    */
+   public static final HomeBean convertSurveyToHomeBean(final SurveyBean surveyBean){
+       // TODO: ENCUESTAME-312
+       final HomeBean homeBean = new HomeBean();
+       homeBean.setId(surveyBean.getSid());
+       homeBean.setQuestionBean(null);
+       homeBean.setOwnerUsername(null);
+       homeBean.setCreatedDateAt(null);
+       homeBean.setTotalVotes(null);
+       homeBean.setRelativeTime(null);
+       homeBean.setItemType(null);
        return homeBean;
    }
 }

@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.oauth2.support.OAuth2Parameters;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.oauth1.support.OAuth1RequestFlow;
 import org.encuestame.oauth2.support.OAuth2RequestFlow;
 import org.encuestame.social.api.GoogleBuzzAPITemplate;
@@ -33,6 +32,7 @@ import org.encuestame.social.api.support.LinkedInProfile;
 import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
 
 /**

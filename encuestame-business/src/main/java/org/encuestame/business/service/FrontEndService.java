@@ -15,6 +15,8 @@ package org.encuestame.business.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,11 +34,13 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +64,13 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     /** **/
     @Autowired
     private TweetPollService tweetPollService;
+
+    /** **/
+    @Autowired
+    private PollService pollService;
+
+    @Autowired
+    private SurveyService surveyService;
 
     /**
      * Search Items By tweetPoll.
@@ -104,19 +115,61 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return results;
     }
 
+    public List<SurveyBean> searchItemsBySurvey(final String period,
+            final Integer start, Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException {
+        final List<SurveyBean> results = new ArrayList<SurveyBean>();
+        if (maxResults == null) {
+            maxResults = this.MAX_RESULTS;
+        }
+        log.debug("Max Results " + maxResults);
+        final List<Survey> items = new ArrayList<Survey>();
+        if (period == null) {
+            throw new EnMeSearchException("search params required.");
+        } else {
+            final SearchPeriods periodSelected = SearchPeriods
+                    .getPeriodString(period);
+            if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast24(start,
+                        maxResults));
+            } else if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast24(start,
+                        maxResults));
+            } else if (periodSelected.equals(SearchPeriods.SEVENDAYS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast7Days(start,
+                        maxResults));
+            } else if (periodSelected.equals(SearchPeriods.THIRTYDAYS)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndLast30Days(
+                        start, maxResults));
+            } else if (periodSelected.equals(SearchPeriods.ALLTIME)) {
+                items.addAll(getFrontEndDao().getSurveyFrontEndAllTime(start,
+                        maxResults));
+            }
+            log.debug("TweetPoll " + items.size());
+            results.addAll(ConvertDomainBean.convertListSurveyToBean(items));
+        }
+        return results;
+    }
+
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
      */
-    public List<HomeBean> getFrontEndItems(final String period,
-            final Integer start,
-            Integer maxResults,
-            final HttpServletRequest request) throws EnMeSearchException{
-        final List<HomeBean> allItems = new ArrayList<HomeBean>();
-        final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(period, start, maxResults, request);
-        allItems.addAll(ConvertDomainBean.convertTweetPollListToHomeBean(tweetPollItems));
-        final List<PollBean> pollItems = this.searchItemsByPoll(period, start, maxResults);
+    public Set<HomeBean> getFrontEndItems(final String period,
+            final Integer start, Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException {
+        final Set<HomeBean> allItems = new TreeSet<HomeBean>();
+        final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
+                period, start, maxResults, request);
+        allItems.addAll(ConvertDomainBean
+                .convertTweetPollListToHomeBean(tweetPollItems));
+        final List<PollBean> pollItems = this.searchItemsByPoll(period, start,
+                maxResults);
         allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
+        final List<SurveyBean> surveyItems = this.searchItemsBySurvey(period,
+                start, maxResults, request);
+        allItems.addAll(ConvertDomainBean.convertSurveyListToHomeBean(surveyItems));
         return allItems;
     }
 
@@ -227,7 +280,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                 }
              }
             else if(hitList.size() > 1){
-                log.warn("");
+                log.error("List cant'be greater than one");
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -360,6 +413,24 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                 recordAccessRate = this.checkExistTweetPollPreviousRecord(tweetPoll, ipAddress,
                         rate);
             }
+            // Poll Acces rate item.
+            if (type.equals(TypeSearchResult.POLL)) {
+                // Find poll by itemId.
+                final Poll poll = this.getPoll(itemId);
+                Assert.assertNotNull(poll);
+                // Check if exist a previous poll access record.
+                recordAccessRate = this.checkExistPollPreviousRecord(poll, ipAddress,
+                        rate);
+            }
+            // Survey Access rate item.
+            if (type.equals(TypeSearchResult.SURVEY)) {
+                // Find survey by itemId.
+                final Survey survey = this.getSurvey(itemId);
+                Assert.assertNotNull(survey);
+                // Check if exist a previous survey access record.
+                recordAccessRate = this.checkExistSurveyPreviousRecord(survey, ipAddress,
+                        rate);
+            }
         }
         return recordAccessRate;
     }
@@ -406,6 +477,89 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     }
 
     /**
+     * Check exist Poll previous record.
+     * @param poll
+     * @param ipAddress
+     * @param option
+     * @return
+     * @throws EnMeExpcetion
+     */
+    private AccessRate checkExistPollPreviousRecord(final Poll poll,
+            final String ipAddress, final Boolean option) throws EnMeExpcetion {
+        // Search record by poll in access Rate domain.
+        List<AccessRate> rateList = this.getAccessRateItem(ipAddress,
+                poll.getPollId(), TypeSearchResult.POLL);
+        final AccessRate accessRate;
+        if (rateList.size() > 1) {
+            throw new EnMeExpcetion("Access rate list found coudn't be greater than one ");
+        } else if (rateList.size() == 1) {
+            // Get first element from access rate list
+            accessRate = rateList.get(0);
+            //Check if the option selected is the same that you have registered
+            if (accessRate.getRate() == option) {
+                log.warn("The option was previously selected " + accessRate.getRate());
+            } else {
+                // We proceed to update the record in the table access Rate.
+                accessRate.setRate(option);
+                // Update the value in the fields of TweetPoll
+                final Poll pollItem = this.setPollSocialOption(option,
+                        poll);
+                // Save access rate record.
+                getFrontEndDao().saveOrUpdate(accessRate);
+            }
+
+        } else {
+            // Otherwise, create access rate record.
+            accessRate = this.newPollAccessRate(poll, ipAddress, option);
+            // update poll record.
+            final Poll pollItem = this.setPollSocialOption(option,
+                    poll);
+        }
+        return accessRate;
+    }
+
+    /**
+     * Check exist Survey previous record.
+     * @param survey
+     * @param ipAddress
+     * @param option
+     * @return
+     * @throws EnMeExpcetion
+     */
+    private AccessRate checkExistSurveyPreviousRecord(final Survey survey,
+            final String ipAddress, final Boolean option) throws EnMeExpcetion {
+        // Search record by survey in access Rate domain.
+        List<AccessRate> rateList = this.getAccessRateItem(ipAddress,
+                survey.getSid(), TypeSearchResult.SURVEY);
+        final AccessRate accessRate;
+        if (rateList.size() > 1) {
+            throw new EnMeExpcetion("Access rate list found coudn't be greater than one ");
+        } else if (rateList.size() == 1) {
+            // Get first element from access rate list
+            accessRate = rateList.get(0);
+            //Check if the option selected is the same that you have registered
+            if (accessRate.getRate() == option) {
+                log.warn("The option was previously selected " + accessRate.getRate());
+            } else {
+                // We proceed to update the record in the table access Rate.
+                accessRate.setRate(option);
+                // Update the value in the fields of survey
+                final Survey surveyItem = this.setSurveySocialOption(option, survey);
+                // Save access rate record.
+                getFrontEndDao().saveOrUpdate(accessRate);
+            }
+
+        } else {
+            // Otherwise, create access rate record.
+            accessRate = this.newSurveyAccessRate(survey, ipAddress, option);
+            // update poll record.
+            final Survey surveyItem = this.setSurveySocialOption(option,
+                    survey);
+        }
+        return accessRate;
+    }
+
+    /**
      * Set tweetpoll social options.
      * @param socialOption
      * @param tpoll
@@ -430,6 +584,60 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             getTweetPollDao().saveOrUpdate(tpoll);
         }
         return tpoll;
+    }
+
+    /**
+     * Set Poll social option.
+     * @param socialOption
+     * @param poll
+     * @return
+     */
+    private Poll setPollSocialOption(final Boolean socialOption, final Poll poll) {
+        long valueSocialVote = 1L;
+        long optionValue;
+        // If the user has voted like.
+        if (socialOption) {
+            valueSocialVote = poll.getLikeVote() + valueSocialVote;
+            poll.setLikeVote(valueSocialVote);
+            optionValue = poll.getLikeVote() - valueSocialVote;
+            poll.setDislikeVote(poll.getDislikeVote() == 0 ? 0 : optionValue);
+            getTweetPollDao().saveOrUpdate(poll);
+        } else {
+            valueSocialVote = poll.getDislikeVote() + valueSocialVote;
+            optionValue = poll.getLikeVote() - valueSocialVote;
+            poll.setLikeVote(poll.getLikeVote() == 0 ? 0 : optionValue);
+            poll.setDislikeVote(valueSocialVote);
+            getTweetPollDao().saveOrUpdate(poll);
+        }
+        return poll;
+    }
+
+    /**
+     * Set Survey social option.
+     * @param socialOption
+     * @param survey
+     * @return
+     */
+    private Survey setSurveySocialOption(final Boolean socialOption,
+            final Survey survey) {
+        long valueSocialVote = 1L;
+        long optionValue;
+        // If the user has voted like.
+        if (socialOption) {
+            valueSocialVote = survey.getLikeVote() + valueSocialVote;
+            survey.setLikeVote(valueSocialVote);
+            optionValue = survey.getLikeVote() - valueSocialVote;
+            survey.setDislikeVote(survey.getDislikeVote() == 0 ? 0
+                    : optionValue);
+            getTweetPollDao().saveOrUpdate(survey);
+        } else {
+            valueSocialVote = survey.getDislikeVote() + valueSocialVote;
+            optionValue = survey.getLikeVote() - valueSocialVote;
+            survey.setLikeVote(survey.getLikeVote() == 0 ? 0 : optionValue);
+            survey.setDislikeVote(valueSocialVote);
+            getTweetPollDao().saveOrUpdate(survey);
+        }
+        return survey;
     }
 
     /*
@@ -518,6 +726,26 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     }
 
     /**
+     * Get survey by id.
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private Survey getSurvey(final Long id) throws EnMeNoResultsFoundException{
+        return getSurveyService().getSurveyById(id);
+    }
+
+    /**
+     * Get Poll by id.
+     * @param id
+     * @return
+     * @throws EnMePollNotFoundException
+     */
+    private Poll getPoll(final Long id) throws EnMePollNotFoundException{
+        return getPollService().getPollById(id);
+    }
+
+    /**
      * @return the tweetPollService
      */
     public TweetPollService getTweetPollService() {
@@ -529,5 +757,33 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     public void setTweetPollService(TweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
+    }
+
+    /**
+     * @return the pollService
+     */
+    public PollService getPollService() {
+        return pollService;
+    }
+
+    /**
+     * @param pollService the pollService to set
+     */
+    public void setPollService(final PollService pollService) {
+        this.pollService = pollService;
+    }
+
+    /**
+     * @return the surveyService
+     */
+    public SurveyService getSurveyService() {
+        return surveyService;
+    }
+
+    /**
+     * @param surveyService the surveyService to set
+     */
+    public void setSurveyService(final SurveyService surveyService) {
+        this.surveyService = surveyService;
     }
 }

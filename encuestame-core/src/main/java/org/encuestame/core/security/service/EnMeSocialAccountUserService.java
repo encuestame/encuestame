@@ -18,8 +18,8 @@ import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.SocialAccountConnectionException;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 

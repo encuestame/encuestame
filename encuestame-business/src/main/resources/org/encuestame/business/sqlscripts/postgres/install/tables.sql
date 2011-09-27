@@ -1,27 +1,15 @@
---
--- PostgreSQL database dump
---
 
--- Started on 2011-09-10 13:33:11 CEST
+CREATE TABLE access_rate (
+    rateid bigint NOT NULL,
+    ipaddress character varying(255) NOT NULL,
+    rate boolean,
+    created_at date,
+    poll_poll_id bigint,
+    survey_sid bigint,
+    tweetpoll_tweet_poll_id bigint,
+    user_uid bigint
+);
 
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = off;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET escape_string_warning = off;
-
-SET search_path = public, pg_catalog;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
---
--- TOC entry 1631 (class 1259 OID 50479)
--- Dependencies: 3
--- Name: account; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
 
 CREATE TABLE account (
     uid bigint NOT NULL,
@@ -30,12 +18,10 @@ CREATE TABLE account (
 );
 
 
-ALTER TABLE public.account OWNER TO postgres;
-
 --
--- TOC entry 1632 (class 1259 OID 50484)
+-- TOC entry 1635 (class 1259 OID 83981)
 -- Dependencies: 3
--- Name: application; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: application; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE application (
@@ -51,12 +37,10 @@ CREATE TABLE application (
 );
 
 
-ALTER TABLE public.application OWNER TO postgres;
-
 --
--- TOC entry 1633 (class 1259 OID 50492)
+-- TOC entry 1636 (class 1259 OID 83989)
 -- Dependencies: 3
--- Name: application_connection; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: application_connection; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE application_connection (
@@ -69,12 +53,10 @@ CREATE TABLE application_connection (
 );
 
 
-ALTER TABLE public.application_connection OWNER TO postgres;
-
 --
--- TOC entry 1634 (class 1259 OID 50500)
+-- TOC entry 1637 (class 1259 OID 83997)
 -- Dependencies: 3
--- Name: attachment; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: attachment; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE attachment (
@@ -85,12 +67,10 @@ CREATE TABLE attachment (
 );
 
 
-ALTER TABLE public.attachment OWNER TO postgres;
-
 --
--- TOC entry 1635 (class 1259 OID 50505)
+-- TOC entry 1638 (class 1259 OID 84002)
 -- Dependencies: 3
--- Name: client; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: client; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE client (
@@ -107,12 +87,10 @@ CREATE TABLE client (
 );
 
 
-ALTER TABLE public.client OWNER TO postgres;
-
 --
--- TOC entry 1636 (class 1259 OID 50513)
+-- TOC entry 1639 (class 1259 OID 84010)
 -- Dependencies: 3
--- Name: comments; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE comments (
@@ -129,12 +107,10 @@ CREATE TABLE comments (
 );
 
 
-ALTER TABLE public.comments OWNER TO postgres;
-
 --
--- TOC entry 1637 (class 1259 OID 50521)
+-- TOC entry 1640 (class 1259 OID 84018)
 -- Dependencies: 3
--- Name: dashboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: dashboard; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE dashboard (
@@ -150,12 +126,10 @@ CREATE TABLE dashboard (
 );
 
 
-ALTER TABLE public.dashboard OWNER TO postgres;
-
 --
--- TOC entry 1638 (class 1259 OID 50529)
+-- TOC entry 1641 (class 1259 OID 84026)
 -- Dependencies: 3
--- Name: email; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: email; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE email (
@@ -168,12 +142,10 @@ CREATE TABLE email (
 );
 
 
-ALTER TABLE public.email OWNER TO postgres;
-
 --
--- TOC entry 1639 (class 1259 OID 50539)
+-- TOC entry 1642 (class 1259 OID 84036)
 -- Dependencies: 3
--- Name: emaillist; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: emaillist; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE emaillist (
@@ -186,12 +158,10 @@ CREATE TABLE emaillist (
 );
 
 
-ALTER TABLE public.emaillist OWNER TO postgres;
-
 --
--- TOC entry 1640 (class 1259 OID 50547)
+-- TOC entry 1643 (class 1259 OID 84044)
 -- Dependencies: 3
--- Name: emailsubscribe; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: emailsubscribe; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE emailsubscribe (
@@ -202,12 +172,10 @@ CREATE TABLE emailsubscribe (
 );
 
 
-ALTER TABLE public.emailsubscribe OWNER TO postgres;
-
 --
--- TOC entry 1641 (class 1259 OID 50552)
+-- TOC entry 1644 (class 1259 OID 84049)
 -- Dependencies: 3
--- Name: gadget; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: gadget; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE gadget (
@@ -222,12 +190,10 @@ CREATE TABLE gadget (
 );
 
 
-ALTER TABLE public.gadget OWNER TO postgres;
-
 --
--- TOC entry 1642 (class 1259 OID 50560)
+-- TOC entry 1645 (class 1259 OID 84057)
 -- Dependencies: 3
--- Name: gadget_properties; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: gadget_properties; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE gadget_properties (
@@ -239,12 +205,10 @@ CREATE TABLE gadget_properties (
 );
 
 
-ALTER TABLE public.gadget_properties OWNER TO postgres;
-
 --
--- TOC entry 1643 (class 1259 OID 50568)
+-- TOC entry 1646 (class 1259 OID 84065)
 -- Dependencies: 3
--- Name: geopoint; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: geopoint; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE geopoint (
@@ -263,12 +227,10 @@ CREATE TABLE geopoint (
 );
 
 
-ALTER TABLE public.geopoint OWNER TO postgres;
-
 --
--- TOC entry 1644 (class 1259 OID 50576)
+-- TOC entry 1647 (class 1259 OID 84073)
 -- Dependencies: 3
--- Name: geopoint_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: geopoint_folder; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE geopoint_folder (
@@ -283,12 +245,10 @@ CREATE TABLE geopoint_folder (
 );
 
 
-ALTER TABLE public.geopoint_folder OWNER TO postgres;
-
 --
--- TOC entry 1645 (class 1259 OID 50584)
+-- TOC entry 1648 (class 1259 OID 84081)
 -- Dependencies: 3
--- Name: geopoint_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: geopoint_type; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE geopoint_type (
@@ -299,12 +259,10 @@ CREATE TABLE geopoint_type (
 );
 
 
-ALTER TABLE public.geopoint_type OWNER TO postgres;
-
 --
--- TOC entry 1646 (class 1259 OID 50589)
+-- TOC entry 1649 (class 1259 OID 84086)
 -- Dependencies: 3
--- Name: group_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: group_permission; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE group_permission (
@@ -313,12 +271,10 @@ CREATE TABLE group_permission (
 );
 
 
-ALTER TABLE public.group_permission OWNER TO postgres;
-
 --
--- TOC entry 1647 (class 1259 OID 50594)
+-- TOC entry 1650 (class 1259 OID 84091)
 -- Dependencies: 3
--- Name: groups; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: groups; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE groups (
@@ -331,12 +287,10 @@ CREATE TABLE groups (
 );
 
 
-ALTER TABLE public.groups OWNER TO postgres;
-
 --
--- TOC entry 1648 (class 1259 OID 50602)
+-- TOC entry 1651 (class 1259 OID 84099)
 -- Dependencies: 3
--- Name: groups_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: groups_permission; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE groups_permission (
@@ -345,12 +299,10 @@ CREATE TABLE groups_permission (
 );
 
 
-ALTER TABLE public.groups_permission OWNER TO postgres;
-
 --
--- TOC entry 1649 (class 1259 OID 50607)
+-- TOC entry 1652 (class 1259 OID 84104)
 -- Dependencies: 3
--- Name: hash_tags; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: hash_tags; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE hash_tags (
@@ -362,29 +314,10 @@ CREATE TABLE hash_tags (
 );
 
 
-ALTER TABLE public.hash_tags OWNER TO postgres;
-
 --
--- TOC entry 1650 (class 1259 OID 50612)
+-- TOC entry 1693 (class 1259 OID 84877)
 -- Dependencies: 3
--- Name: hash_tags_hits; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE hash_tags_hits (
-    hashtag_hits_id bigint NOT NULL,
-    hits_date timestamp without time zone NOT NULL,
-    hits_ip_address character varying(100) NOT NULL,
-    hashtag_hash_tag_id bigint,
-    hits_user_account bigint
-);
-
-
-ALTER TABLE public.hash_tags_hits OWNER TO postgres;
-
---
--- TOC entry 1690 (class 1259 OID 51351)
--- Dependencies: 3
--- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE hibernate_sequence
@@ -395,12 +328,27 @@ CREATE SEQUENCE hibernate_sequence
     CACHE 1;
 
 
-ALTER TABLE public.hibernate_sequence OWNER TO postgres;
+--
+-- TOC entry 1653 (class 1259 OID 84109)
+-- Dependencies: 3
+-- Name: hits; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hits (
+    hit_id bigint NOT NULL,
+    created_at date,
+    hits_ip_address character varying(100) NOT NULL,
+    hashtag_hash_tag_id bigint,
+    poll_poll_id bigint,
+    survey_sid bigint,
+    tweetpoll_tweet_poll_id bigint
+);
+
 
 --
--- TOC entry 1651 (class 1259 OID 50617)
+-- TOC entry 1654 (class 1259 OID 84114)
 -- Dependencies: 3
--- Name: notification; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: notification; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE notification (
@@ -415,12 +363,10 @@ CREATE TABLE notification (
 );
 
 
-ALTER TABLE public.notification OWNER TO postgres;
-
 --
--- TOC entry 1652 (class 1259 OID 50625)
+-- TOC entry 1655 (class 1259 OID 84122)
 -- Dependencies: 3
--- Name: permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: permission; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE permission (
@@ -430,12 +376,10 @@ CREATE TABLE permission (
 );
 
 
-ALTER TABLE public.permission OWNER TO postgres;
-
 --
--- TOC entry 1653 (class 1259 OID 50633)
+-- TOC entry 1656 (class 1259 OID 84130)
 -- Dependencies: 3
--- Name: poll; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: poll; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE poll (
@@ -450,9 +394,11 @@ CREATE TABLE poll (
     custom_final_message integer,
     custom_message boolean,
     custom_start_message character varying(255),
-    hits integer,
+    dislikevote bigint,
+    hits bigint,
     ip_protection character varying(255),
     ip_restrictions boolean,
+    likevote bigint,
     multiple_response integer,
     name character varying(255),
     notifications boolean,
@@ -460,6 +406,7 @@ CREATE TABLE poll (
     optional_title character varying(255),
     password_protection character varying(255),
     password_restrictions boolean,
+    relevance bigint,
     showadditionalinfo boolean,
     showcomments integer,
     show_progress_bar boolean,
@@ -479,12 +426,10 @@ CREATE TABLE poll (
 );
 
 
-ALTER TABLE public.poll OWNER TO postgres;
-
 --
--- TOC entry 1654 (class 1259 OID 50643)
+-- TOC entry 1657 (class 1259 OID 84140)
 -- Dependencies: 3
--- Name: poll_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: poll_folder; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE poll_folder (
@@ -497,12 +442,10 @@ CREATE TABLE poll_folder (
 );
 
 
-ALTER TABLE public.poll_folder OWNER TO postgres;
-
 --
--- TOC entry 1655 (class 1259 OID 50648)
+-- TOC entry 1658 (class 1259 OID 84145)
 -- Dependencies: 3
--- Name: poll_result; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: poll_result; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE poll_result (
@@ -514,12 +457,10 @@ CREATE TABLE poll_result (
 );
 
 
-ALTER TABLE public.poll_result OWNER TO postgres;
-
 --
--- TOC entry 1656 (class 1259 OID 50653)
+-- TOC entry 1659 (class 1259 OID 84150)
 -- Dependencies: 3
--- Name: project; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: project; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE project (
@@ -539,12 +480,10 @@ CREATE TABLE project (
 );
 
 
-ALTER TABLE public.project OWNER TO postgres;
-
 --
--- TOC entry 1657 (class 1259 OID 50661)
+-- TOC entry 1660 (class 1259 OID 84158)
 -- Dependencies: 3
--- Name: project_geopoint; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: project_geopoint; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE project_geopoint (
@@ -553,12 +492,10 @@ CREATE TABLE project_geopoint (
 );
 
 
-ALTER TABLE public.project_geopoint OWNER TO postgres;
-
 --
--- TOC entry 1658 (class 1259 OID 50666)
+-- TOC entry 1661 (class 1259 OID 84163)
 -- Dependencies: 3
--- Name: project_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: project_group; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE project_group (
@@ -567,12 +504,10 @@ CREATE TABLE project_group (
 );
 
 
-ALTER TABLE public.project_group OWNER TO postgres;
-
 --
--- TOC entry 1659 (class 1259 OID 50671)
+-- TOC entry 1662 (class 1259 OID 84168)
 -- Dependencies: 3
--- Name: project_locations; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: project_locations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE project_locations (
@@ -581,12 +516,10 @@ CREATE TABLE project_locations (
 );
 
 
-ALTER TABLE public.project_locations OWNER TO postgres;
-
 --
--- TOC entry 1660 (class 1259 OID 50676)
+-- TOC entry 1663 (class 1259 OID 84173)
 -- Dependencies: 3
--- Name: question_category; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: question_category; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE question_category (
@@ -595,12 +528,10 @@ CREATE TABLE question_category (
 );
 
 
-ALTER TABLE public.question_category OWNER TO postgres;
-
 --
--- TOC entry 1661 (class 1259 OID 50681)
+-- TOC entry 1664 (class 1259 OID 84178)
 -- Dependencies: 3
--- Name: question_category_questions; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: question_category_questions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE question_category_questions (
@@ -609,12 +540,10 @@ CREATE TABLE question_category_questions (
 );
 
 
-ALTER TABLE public.question_category_questions OWNER TO postgres;
-
 --
--- TOC entry 1662 (class 1259 OID 50686)
+-- TOC entry 1665 (class 1259 OID 84183)
 -- Dependencies: 3
--- Name: question_collection; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: question_collection; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE question_collection (
@@ -625,12 +554,10 @@ CREATE TABLE question_collection (
 );
 
 
-ALTER TABLE public.question_collection OWNER TO postgres;
-
 --
--- TOC entry 1663 (class 1259 OID 50691)
+-- TOC entry 1666 (class 1259 OID 84188)
 -- Dependencies: 3
--- Name: question_dependence_survey; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: question_dependence_survey; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE question_dependence_survey (
@@ -639,12 +566,10 @@ CREATE TABLE question_dependence_survey (
 );
 
 
-ALTER TABLE public.question_dependence_survey OWNER TO postgres;
-
 --
--- TOC entry 1664 (class 1259 OID 50696)
+-- TOC entry 1667 (class 1259 OID 84193)
 -- Dependencies: 3
--- Name: question_relations; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: question_relations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE question_relations (
@@ -653,12 +578,10 @@ CREATE TABLE question_relations (
 );
 
 
-ALTER TABLE public.question_relations OWNER TO postgres;
-
 --
--- TOC entry 1665 (class 1259 OID 50701)
+-- TOC entry 1668 (class 1259 OID 84198)
 -- Dependencies: 3
--- Name: questions; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE questions (
@@ -674,12 +597,10 @@ CREATE TABLE questions (
 );
 
 
-ALTER TABLE public.questions OWNER TO postgres;
-
 --
--- TOC entry 1666 (class 1259 OID 50709)
+-- TOC entry 1669 (class 1259 OID 84206)
 -- Dependencies: 3
--- Name: questions_answers; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: questions_answers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE questions_answers (
@@ -695,12 +616,10 @@ CREATE TABLE questions_answers (
 );
 
 
-ALTER TABLE public.questions_answers OWNER TO postgres;
-
 --
--- TOC entry 1667 (class 1259 OID 50717)
+-- TOC entry 1670 (class 1259 OID 84214)
 -- Dependencies: 3
--- Name: questions_dependencies; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: questions_dependencies; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE questions_dependencies (
@@ -712,12 +631,10 @@ CREATE TABLE questions_dependencies (
 );
 
 
-ALTER TABLE public.questions_dependencies OWNER TO postgres;
-
 --
--- TOC entry 1668 (class 1259 OID 50728)
+-- TOC entry 1671 (class 1259 OID 84225)
 -- Dependencies: 3
--- Name: questions_pattern; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: questions_pattern; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE questions_pattern (
@@ -731,12 +648,10 @@ CREATE TABLE questions_pattern (
 );
 
 
-ALTER TABLE public.questions_pattern OWNER TO postgres;
-
 --
--- TOC entry 1669 (class 1259 OID 50736)
+-- TOC entry 1672 (class 1259 OID 84233)
 -- Dependencies: 3
--- Name: social_account; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: social_account; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE social_account (
@@ -768,12 +683,10 @@ CREATE TABLE social_account (
 );
 
 
-ALTER TABLE public.social_account OWNER TO postgres;
-
 --
--- TOC entry 1670 (class 1259 OID 50748)
+-- TOC entry 1673 (class 1259 OID 84245)
 -- Dependencies: 3
--- Name: survey_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_folder; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_folder (
@@ -786,12 +699,10 @@ CREATE TABLE survey_folder (
 );
 
 
-ALTER TABLE public.survey_folder OWNER TO postgres;
-
 --
--- TOC entry 1671 (class 1259 OID 50753)
+-- TOC entry 1674 (class 1259 OID 84250)
 -- Dependencies: 3
--- Name: survey_format; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_format; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_format (
@@ -801,12 +712,10 @@ CREATE TABLE survey_format (
 );
 
 
-ALTER TABLE public.survey_format OWNER TO postgres;
-
 --
--- TOC entry 1672 (class 1259 OID 50758)
+-- TOC entry 1675 (class 1259 OID 84255)
 -- Dependencies: 3
--- Name: survey_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_group; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_group (
@@ -816,12 +725,10 @@ CREATE TABLE survey_group (
 );
 
 
-ALTER TABLE public.survey_group OWNER TO postgres;
-
 --
--- TOC entry 1673 (class 1259 OID 50763)
+-- TOC entry 1676 (class 1259 OID 84260)
 -- Dependencies: 3
--- Name: survey_group_format; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_group_format; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_group_format (
@@ -830,12 +737,10 @@ CREATE TABLE survey_group_format (
 );
 
 
-ALTER TABLE public.survey_group_format OWNER TO postgres;
-
 --
--- TOC entry 1674 (class 1259 OID 50768)
+-- TOC entry 1677 (class 1259 OID 84265)
 -- Dependencies: 3
--- Name: survey_group_project; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_group_project; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_group_project (
@@ -844,12 +749,10 @@ CREATE TABLE survey_group_project (
 );
 
 
-ALTER TABLE public.survey_group_project OWNER TO postgres;
-
 --
--- TOC entry 1675 (class 1259 OID 50773)
+-- TOC entry 1678 (class 1259 OID 84270)
 -- Dependencies: 3
--- Name: survey_pagination; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_pagination; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_pagination (
@@ -860,12 +763,10 @@ CREATE TABLE survey_pagination (
 );
 
 
-ALTER TABLE public.survey_pagination OWNER TO postgres;
-
 --
--- TOC entry 1676 (class 1259 OID 50778)
+-- TOC entry 1679 (class 1259 OID 84275)
 -- Dependencies: 3
--- Name: survey_result; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_result; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_result (
@@ -875,12 +776,10 @@ CREATE TABLE survey_result (
 );
 
 
-ALTER TABLE public.survey_result OWNER TO postgres;
-
 --
--- TOC entry 1677 (class 1259 OID 50783)
+-- TOC entry 1680 (class 1259 OID 84280)
 -- Dependencies: 3
--- Name: survey_section; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_section; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_section (
@@ -889,12 +788,10 @@ CREATE TABLE survey_section (
 );
 
 
-ALTER TABLE public.survey_section OWNER TO postgres;
-
 --
--- TOC entry 1678 (class 1259 OID 50788)
+-- TOC entry 1681 (class 1259 OID 84285)
 -- Dependencies: 3
--- Name: survey_section_questions; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: survey_section_questions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_section_questions (
@@ -903,12 +800,10 @@ CREATE TABLE survey_section_questions (
 );
 
 
-ALTER TABLE public.survey_section_questions OWNER TO postgres;
-
 --
--- TOC entry 1679 (class 1259 OID 50793)
+-- TOC entry 1682 (class 1259 OID 84290)
 -- Dependencies: 3
--- Name: surveys; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: surveys; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE surveys (
@@ -923,9 +818,11 @@ CREATE TABLE surveys (
     custom_final_message integer,
     custom_message boolean,
     custom_start_message character varying(255),
-    hits integer,
+    dislikevote bigint,
+    hits bigint,
     ip_protection character varying(255),
     ip_restrictions boolean,
+    likevote bigint,
     multiple_response integer,
     name character varying(255),
     notifications boolean,
@@ -933,6 +830,7 @@ CREATE TABLE surveys (
     optional_title character varying(255),
     password_protection character varying(255),
     password_restrictions boolean,
+    relevance bigint,
     showadditionalinfo boolean,
     showcomments integer,
     show_progress_bar boolean,
@@ -949,12 +847,10 @@ CREATE TABLE surveys (
 );
 
 
-ALTER TABLE public.surveys OWNER TO postgres;
-
 --
--- TOC entry 1680 (class 1259 OID 50801)
+-- TOC entry 1683 (class 1259 OID 84298)
 -- Dependencies: 3
--- Name: tweetpoll; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: tweetpoll; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tweetpoll (
@@ -969,13 +865,16 @@ CREATE TABLE tweetpoll (
     create_date timestamp without time zone,
     limit_with_date boolean,
     date_limited timestamp without time zone,
+    dislikevote bigint,
     favourite boolean,
-    hits integer,
+    hits bigint,
+    likevote bigint,
     limit_votes integer,
     limits_votes_enabled boolean,
     max_repeated_votes integer,
     numbervotes integer,
     publish boolean,
+    relevance bigint,
     result_notification boolean,
     resume_live_results boolean,
     resume_tweetpoll_dashboard boolean,
@@ -989,12 +888,10 @@ CREATE TABLE tweetpoll (
 );
 
 
-ALTER TABLE public.tweetpoll OWNER TO postgres;
-
 --
--- TOC entry 1681 (class 1259 OID 50806)
+-- TOC entry 1684 (class 1259 OID 84303)
 -- Dependencies: 3
--- Name: tweetpoll_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: tweetpoll_folder; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tweetpoll_folder (
@@ -1007,12 +904,10 @@ CREATE TABLE tweetpoll_folder (
 );
 
 
-ALTER TABLE public.tweetpoll_folder OWNER TO postgres;
-
 --
--- TOC entry 1683 (class 1259 OID 50819)
+-- TOC entry 1686 (class 1259 OID 84316)
 -- Dependencies: 3
--- Name: tweetpoll_hashtags; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: tweetpoll_hashtags; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tweetpoll_hashtags (
@@ -1021,12 +916,10 @@ CREATE TABLE tweetpoll_hashtags (
 );
 
 
-ALTER TABLE public.tweetpoll_hashtags OWNER TO postgres;
-
 --
--- TOC entry 1684 (class 1259 OID 50824)
+-- TOC entry 1687 (class 1259 OID 84321)
 -- Dependencies: 3
--- Name: tweetpoll_result; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: tweetpoll_result; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tweetpoll_result (
@@ -1039,12 +932,10 @@ CREATE TABLE tweetpoll_result (
 );
 
 
-ALTER TABLE public.tweetpoll_result OWNER TO postgres;
-
 --
--- TOC entry 1682 (class 1259 OID 50811)
+-- TOC entry 1685 (class 1259 OID 84308)
 -- Dependencies: 3
--- Name: tweetpoll_save_published_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: tweetpoll_save_published_status; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tweetpoll_save_published_status (
@@ -1060,12 +951,10 @@ CREATE TABLE tweetpoll_save_published_status (
 );
 
 
-ALTER TABLE public.tweetpoll_save_published_status OWNER TO postgres;
-
 --
--- TOC entry 1685 (class 1259 OID 50829)
+-- TOC entry 1688 (class 1259 OID 84326)
 -- Dependencies: 3
--- Name: tweetpoll_switch; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: tweetpoll_switch; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tweetpoll_switch (
@@ -1078,12 +967,10 @@ CREATE TABLE tweetpoll_switch (
 );
 
 
-ALTER TABLE public.tweetpoll_switch OWNER TO postgres;
-
 --
--- TOC entry 1686 (class 1259 OID 50839)
+-- TOC entry 1689 (class 1259 OID 84336)
 -- Dependencies: 3
--- Name: useraccount; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: useraccount; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE useraccount (
@@ -1107,12 +994,10 @@ CREATE TABLE useraccount (
 );
 
 
-ALTER TABLE public.useraccount OWNER TO postgres;
-
 --
--- TOC entry 1687 (class 1259 OID 50853)
+-- TOC entry 1690 (class 1259 OID 84350)
 -- Dependencies: 3
--- Name: useraccount_followers; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: useraccount_followers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE useraccount_followers (
@@ -1121,12 +1006,10 @@ CREATE TABLE useraccount_followers (
 );
 
 
-ALTER TABLE public.useraccount_followers OWNER TO postgres;
-
 --
--- TOC entry 1688 (class 1259 OID 50858)
+-- TOC entry 1691 (class 1259 OID 84355)
 -- Dependencies: 3
--- Name: useraccount_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: useraccount_permission; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE useraccount_permission (
@@ -1135,12 +1018,10 @@ CREATE TABLE useraccount_permission (
 );
 
 
-ALTER TABLE public.useraccount_permission OWNER TO postgres;
-
 --
--- TOC entry 1689 (class 1259 OID 50863)
+-- TOC entry 1692 (class 1259 OID 84360)
 -- Dependencies: 3
--- Name: useraccount_project; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Name: useraccount_project; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE useraccount_project (

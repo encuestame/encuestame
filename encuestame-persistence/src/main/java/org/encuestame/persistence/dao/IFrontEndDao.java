@@ -18,6 +18,7 @@ import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 
 /**
@@ -111,4 +112,36 @@ public interface IFrontEndDao extends IBaseDao{
     List<AccessRate> getAccessRatebyItem(final String ipAddress,
             final Long itemId, final TypeSearchResult searchHitby);
 
+
+    /**
+     * Get Survey Last 30 Days.
+     * @param start
+     * @param maxResults
+     * @return
+     */
+    List<Survey> getSurveyFrontEndLast30Days(final Integer start, final Integer maxResults);
+
+    /**
+     * Get Survey Last 7 Days.
+     * @param start
+     * @param maxResults
+     * @return
+     */
+    List<Survey> getSurveyFrontEndLast7Days(final Integer start, final Integer maxResults);
+
+    /**
+     * Get Survey Last 24 Hours.
+     * @param start
+     * @param maxResults
+     * @return
+     */
+    List<Survey> getSurveyFrontEndLast24(final Integer start, final Integer maxResults);
+
+    /**
+     * Get Survey on All Time.
+     * @param start
+     * @param maxResults
+     * @return
+     */
+    List<Survey> getSurveyFrontEndAllTime(final Integer start, final Integer maxResults);
 }
