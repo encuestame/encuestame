@@ -49,4 +49,13 @@ public class EnMeUtilsTestCase extends TestCase {
         final double calc8 = EnMeUtils.calculateSizeTag(79, 85, 0);
         assertEquals(calc8, 18D);
      }
+
+    /**
+     * Test Calculate item relevance.
+     */
+    @Test
+    public void testCalculateRelevance(){
+        final long relevance = EnMeUtils.calculateRelevance(35, 5, 20, 45);
+        assertEquals(relevance, 31);
+    }
 }

@@ -12,9 +12,18 @@
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>
     <bean id="removeAccountJob" class="org.encuestame.business.cron.RemoveUnconfirmedAccountJob"/>
+    <bean id="calculateRelevance" class="org.encuestame.core.cron.CalculateRelevance"/>
 
     <bean id="calculateInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="calculateHashTagSize"/>
+        <property name="targetMethod" value="calculate"/>
+        <property name="concurrent">
+            <value>false</value>
+        </property>
+    </bean>
+
+    <bean id="calculateRelevanceInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="calculateRelevance"/>
         <property name="targetMethod" value="calculate"/>
         <property name="concurrent">
             <value>false</value>
@@ -67,6 +76,11 @@
                 </bean> -->
                 <bean id="calculateReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="calculateInvokingJobDetail" />
+                    <property name="cronExpression" value="0 0 12 * * ?" />
+                    <!--    Fire at 11pm (noon) every day -->
+                </bean>
+                <bean id="calculateRelevanceReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
+                    <property name="jobDetail" ref="calculateRelevanceInvokingJobDetail" />
                     <property name="cronExpression" value="0 0 12 * * ?" />
                     <!--    Fire at 11pm (noon) every day -->
                 </bean>

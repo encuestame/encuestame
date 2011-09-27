@@ -33,6 +33,7 @@ import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.joda.time.DateMidnight;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -340,5 +341,107 @@ public class TestTweetPollDao  extends AbstractBase{
 
         final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtagRated");
         assertEquals("Should be equals", 3, tweetPolls2.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testGetMaxTweetPollLikeVotes() {
+
+        final Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.DATE, -1);
+
+        final Calendar calendar2 = Calendar.getInstance();
+        calendar2.add(Calendar.DATE, -2);
+
+        final Calendar calendar3 = Calendar.getInstance();
+        calendar3.add(Calendar.DATE, -8);
+
+        final Calendar todayDate = Calendar.getInstance();
+
+        final Calendar dateFrom = Calendar.getInstance();
+        dateFrom.add(Calendar.DATE, -5);
+
+        // System.out.println("Date From -->"+ dateFrom.getTime() + " \n");
+        // System.out.println("Today date -->"+ todayDate.getTime() + " \n");
+
+        // **** First tweetPoll **//
+        this.secondary = createUserAccount("jhon", createAccount());
+        final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("question1", secondary.getAccount()),
+                calendar1.getTime());
+        tweetPoll1.setLikeVote(25L);
+        tweetPoll1.setEditorOwner(this.secondary);
+        getTweetPoll().saveOrUpdate(tweetPoll1);
+
+        // **** Second tweetPoll **//
+        final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("question2", secondary.getAccount()),
+                calendar2.getTime());
+        tweetPoll2.setLikeVote(35L);
+        tweetPoll2.setEditorOwner(this.secondary);
+        getTweetPoll().saveOrUpdate(tweetPoll2);
+
+        // **** Third tweetPoll **//
+        final TweetPoll tweetPoll3 = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("question3", secondary.getAccount()),
+                calendar3.getTime());
+        tweetPoll3.setLikeVote(45L);
+        tweetPoll3.setEditorOwner(this.secondary);
+        getTweetPoll().saveOrUpdate(tweetPoll3);
+
+        // Get Max value
+        final Long maxValueLike = getTweetPoll()
+                .getMaxTweetPollLikeVotesbyUser(this.secondary.getUid(),
+                        dateFrom.getTime(), todayDate.getTime());
+
+        System.out.println("Max tweetPoll like vote : " + maxValueLike);
+        Assert.assertNotNull(maxValueLike);
+    }
+
+    /**
+    * Test get tweetPolls.
+    */
+    @Test
+    public void testGetTweetPolls(){
+        final Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.DATE, -1);
+
+        final Calendar calendar2 = Calendar.getInstance();
+        calendar2.add(Calendar.DATE, -2);
+
+        final Calendar calendar3 = Calendar.getInstance();
+        calendar3.add(Calendar.DATE, -8);
+
+        final Calendar todayDate = Calendar.getInstance();
+
+        final Calendar dateFrom = Calendar.getInstance();
+        dateFrom.add(Calendar.DATE, -5);
+
+        // **** First tweetPoll **//
+        this.secondary = createUserAccount("jhon", createAccount());
+        final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("question1", secondary.getAccount()),
+                calendar1.getTime());
+        tweetPoll1.setLikeVote(25L);
+        tweetPoll1.setEditorOwner(this.secondary);
+        getTweetPoll().saveOrUpdate(tweetPoll1);
+
+        // **** Second tweetPoll **//
+        final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("question2", secondary.getAccount()),
+                todayDate.getTime());
+        tweetPoll2.setLikeVote(35L);
+        tweetPoll2.setEditorOwner(this.secondary);
+        getTweetPoll().saveOrUpdate(tweetPoll2);
+
+        final List<TweetPoll> tpList = getTweetPoll().getTweetPolls(30, 0, calendar2.getTime());
+        Assert.assertEquals("Should be", 2, tpList.size());
     }
 }
