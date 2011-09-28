@@ -1,1149 +1,1278 @@
+-- phpMyAdmin SQL Dump
+-- version 3.3.10deb1
+-- http://www.phpmyadmin.net
 --
--- PostgreSQL database dump
---
-
--- Started on 2011-09-10 13:33:11 CEST
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = off;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET escape_string_warning = off;
-
-SET search_path = public, pg_catalog;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
---
--- TOC entry 1631 (class 1259 OID 50479)
--- Dependencies: 3
--- Name: account; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE account (
-    uid bigint NOT NULL,
-    account_created_date timestamp without time zone NOT NULL,
-    account_enabled boolean
-);
-
-
-ALTER TABLE public.account OWNER TO postgres;
-
---
--- TOC entry 1632 (class 1259 OID 50484)
--- Dependencies: 3
--- Name: application; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE application (
-    application_id bigint NOT NULL,
-    api_key character varying(255),
-    callback_url character varying(255),
-    description character varying(255),
-    icon_url character varying(255),
-    name character varying(255),
-    secret character varying(255),
-    slug character varying(255),
-    account_uid bigint
-);
-
-
-ALTER TABLE public.application OWNER TO postgres;
-
---
--- TOC entry 1633 (class 1259 OID 50492)
--- Dependencies: 3
--- Name: application_connection; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE application_connection (
-    connection_id bigint NOT NULL,
-    access_token character varying(255),
-    api_key character varying(255),
-    secret character varying(255),
-    account_uid bigint,
-    application_application_id bigint
-);
-
-
-ALTER TABLE public.application_connection OWNER TO postgres;
-
---
--- TOC entry 1634 (class 1259 OID 50500)
--- Dependencies: 3
--- Name: attachment; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE attachment (
-    attachment_id bigint NOT NULL,
-    filename character varying(255) NOT NULL,
-    uploaddate timestamp without time zone,
-    project_id bigint NOT NULL
-);
-
-
-ALTER TABLE public.attachment OWNER TO postgres;
-
---
--- TOC entry 1635 (class 1259 OID 50505)
--- Dependencies: 3
--- Name: client; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE client (
-    client_id bigint NOT NULL,
-    description character varying(255),
-    email character varying(255),
-    facebook character varying(255),
-    fax character varying(255),
-    name character varying(255) NOT NULL,
-    telephone character varying(255),
-    twitter character varying(255),
-    url character varying(255),
-    project_id bigint
-);
-
-
-ALTER TABLE public.client OWNER TO postgres;
-
---
--- TOC entry 1636 (class 1259 OID 50513)
--- Dependencies: 3
--- Name: comments; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
+-- Host: localhost
+-- Generation Time: Sep 28, 2011 at 12:52 PM
+-- Server version: 5.1.54
+-- PHP Version: 5.3.5-1ubuntu7.2
 
-CREATE TABLE comments (
-    commentid bigint NOT NULL,
-    comment character varying(2000) NOT NULL,
-    created_at date,
-    dislikevote bigint,
-    likevote bigint,
-    parentid bigint,
-    pollid bigint,
-    sid bigint,
-    tweetpollid bigint,
-    uid bigint NOT NULL
-);
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
-ALTER TABLE public.comments OWNER TO postgres;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- TOC entry 1637 (class 1259 OID 50521)
--- Dependencies: 3
--- Name: dashboard; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Database: `encuestame_core`
 --
 
-CREATE TABLE dashboard (
-    dashboardid bigint NOT NULL,
-    sequence integer,
-    description character varying(255),
-    favorite boolean,
-    favorite_counter integer,
-    dashboardname character varying(255) NOT NULL,
-    dashboad_layout integer,
-    dashboard_selected boolean,
-    userboard_uid bigint
-);
+-- --------------------------------------------------------
 
-
-ALTER TABLE public.dashboard OWNER TO postgres;
-
 --
--- TOC entry 1638 (class 1259 OID 50529)
--- Dependencies: 3
--- Name: email; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `access_rate`
 --
-
-CREATE TABLE email (
-    email_id bigint NOT NULL,
-    created_at timestamp without time zone,
-    email character varying(255) NOT NULL,
-    emailaccount character varying(255),
-    subscribed boolean NOT NULL,
-    id_list bigint
-);
 
+CREATE TABLE IF NOT EXISTS `access_rate` (
+  `rateId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ipAddress` varchar(255) NOT NULL,
+  `rate` bit(1) DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `poll_poll_id` bigint(20) DEFAULT NULL,
+  `survey_sid` bigint(20) DEFAULT NULL,
+  `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
+  `user_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`rateId`),
+  UNIQUE KEY `rateId` (`rateId`),
+  KEY `FKC2760EDB63976E9` (`poll_poll_id`),
+  KEY `FKC2760EDBE4669675` (`user_uid`),
+  KEY `FKC2760EDB51153812` (`survey_sid`),
+  KEY `FKC2760EDB953C854B` (`tweetPoll_tweet_poll_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.email OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1639 (class 1259 OID 50539)
--- Dependencies: 3
--- Name: emaillist; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `account`
 --
 
-CREATE TABLE emaillist (
-    id_list bigint NOT NULL,
-    createdat timestamp without time zone,
-    descripcionlist character varying(255),
-    list_name character varying(255),
-    liststate character varying(255),
-    uid bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `account` (
+  `uid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `account_created_date` datetime NOT NULL,
+  `account_enabled` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `uid` (`uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.emaillist OWNER TO postgres;
-
 --
--- TOC entry 1640 (class 1259 OID 50547)
--- Dependencies: 3
--- Name: emailsubscribe; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `application`
 --
 
-CREATE TABLE emailsubscribe (
-    id_subscribe bigint NOT NULL,
-    hashcode character varying(255) NOT NULL,
-    email_id bigint NOT NULL,
-    id_list bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `application` (
+  `application_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `api_key` varchar(255) DEFAULT NULL,
+  `callback_url` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `icon_url` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `secret` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `account_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`application_id`),
+  UNIQUE KEY `application_id` (`application_id`),
+  KEY `FK5CA405505ECE45A2` (`account_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.emailsubscribe OWNER TO postgres;
-
 --
--- TOC entry 1641 (class 1259 OID 50552)
--- Dependencies: 3
--- Name: gadget; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `application_connection`
 --
-
-CREATE TABLE gadget (
-    gadgetid bigint NOT NULL,
-    gadgetcolor character varying(255),
-    gadgetcolumn integer NOT NULL,
-    gadgetname character varying(255) NOT NULL,
-    gadgetposition integer,
-    gadgettype integer NOT NULL,
-    status boolean,
-    dashboard_dashboardid bigint
-);
 
+CREATE TABLE IF NOT EXISTS `application_connection` (
+  `connection_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `access_token` varchar(255) DEFAULT NULL,
+  `api_key` varchar(255) DEFAULT NULL,
+  `secret` varchar(255) DEFAULT NULL,
+  `account_uid` bigint(20) DEFAULT NULL,
+  `application_application_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`connection_id`),
+  UNIQUE KEY `connection_id` (`connection_id`),
+  KEY `FK73D5D2D27E933D7` (`account_uid`),
+  KEY `FK73D5D2D4402BE26` (`application_application_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.gadget OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1642 (class 1259 OID 50560)
--- Dependencies: 3
--- Name: gadget_properties; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `attachment`
+--
+
+CREATE TABLE IF NOT EXISTS `attachment` (
+  `attachment_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) NOT NULL,
+  `uploadDate` datetime DEFAULT NULL,
+  `project_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`attachment_id`),
+  UNIQUE KEY `attachment_id` (`attachment_id`),
+  KEY `FK8AF75923225A055` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client`
+--
+
+CREATE TABLE IF NOT EXISTS `client` (
+  `client_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `fax` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `telephone` varchar(255) DEFAULT NULL,
+  `twitter` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `project_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`client_id`),
+  UNIQUE KEY `client_id` (`client_id`),
+  KEY `FKAF12F3CB225A055` (`project_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
 --
-
-CREATE TABLE gadget_properties (
-    propertyid bigint NOT NULL,
-    gadget_prop_name character varying(255) NOT NULL,
-    gadget_prop_value character varying(255) NOT NULL,
-    gadget_gadgetid bigint,
-    useraccount_uid bigint
-);
-
-
-ALTER TABLE public.gadget_properties OWNER TO postgres;
-
---
--- TOC entry 1643 (class 1259 OID 50568)
--- Dependencies: 3
--- Name: geopoint; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `comments`
 --
 
-CREATE TABLE geopoint (
-    locate_id bigint NOT NULL,
-    lat real,
-    lng real,
-    accuracy integer,
-    address character varying(255),
-    country_code character varying(255),
-    country_name character varying(255),
-    description character varying(255),
-    location_status character varying(255),
-    account_uid bigint,
-    geopointfolder_locate_folder_id bigint,
-    loc_id_type bigint
-);
+CREATE TABLE IF NOT EXISTS `comments` (
+  `commentId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `comment` longtext NOT NULL,
+  `created_at` date DEFAULT NULL,
+  `dislikeVote` bigint(20) DEFAULT NULL,
+  `likeVote` bigint(20) DEFAULT NULL,
+  `parentId` bigint(20) DEFAULT NULL,
+  `pollId` bigint(20) DEFAULT NULL,
+  `sid` bigint(20) DEFAULT NULL,
+  `tweetPollId` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`commentId`),
+  UNIQUE KEY `commentId` (`commentId`),
+  KEY `FKDC17DDF4F44558E9` (`uid`),
+  KEY `FKDC17DDF4793D9E77` (`sid`),
+  KEY `FKDC17DDF4CE12CAE8` (`pollId`),
+  KEY `FKDC17DDF4D9AA8E98` (`tweetPollId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.geopoint OWNER TO postgres;
-
 --
--- TOC entry 1644 (class 1259 OID 50576)
--- Dependencies: 3
--- Name: geopoint_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `dashboard`
 --
-
-CREATE TABLE geopoint_folder (
-    locate_folder_id bigint NOT NULL,
-    created_at date,
-    foldername character varying(255) NOT NULL,
-    folder_status integer,
-    type character varying(255),
-    createdby_uid bigint,
-    uid bigint NOT NULL,
-    sublocationfolder_locate_folder_id bigint
-);
 
+CREATE TABLE IF NOT EXISTS `dashboard` (
+  `dashboardId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `sequence` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `favorite` bit(1) DEFAULT NULL,
+  `favorite_counter` int(11) DEFAULT NULL,
+  `dashboardName` varchar(255) NOT NULL,
+  `dashboad_layout` int(11) DEFAULT NULL,
+  `dashboard_selected` bit(1) DEFAULT NULL,
+  `userBoard_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`dashboardId`),
+  UNIQUE KEY `dashboardId` (`dashboardId`),
+  KEY `FKC18AEA949229BCA5` (`userBoard_uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-ALTER TABLE public.geopoint_folder OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1645 (class 1259 OID 50584)
--- Dependencies: 3
--- Name: geopoint_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `email`
 --
 
-CREATE TABLE geopoint_type (
-    loc_id_type bigint NOT NULL,
-    description character varying(255),
-    level integer,
-    users_uid bigint
-);
-
-
-ALTER TABLE public.geopoint_type OWNER TO postgres;
-
+CREATE TABLE IF NOT EXISTS `email` (
+  `email_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `emailAccount` varchar(255) DEFAULT NULL,
+  `subscribed` bit(1) NOT NULL,
+  `id_list` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`email_id`),
+  UNIQUE KEY `email_id` (`email_id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `FK5C24B9CED78E617` (`id_list`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
 --
--- TOC entry 1646 (class 1259 OID 50589)
--- Dependencies: 3
--- Name: group_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `emailList`
 --
-
-CREATE TABLE group_permission (
-    sec_id_permission bigint NOT NULL,
-    sec_id_group bigint NOT NULL
-);
-
-
-ALTER TABLE public.group_permission OWNER TO postgres;
 
+CREATE TABLE IF NOT EXISTS `emailList` (
+  `id_list` bigint(20) NOT NULL AUTO_INCREMENT,
+  `createdAt` datetime DEFAULT NULL,
+  `descripcionList` varchar(255) DEFAULT NULL,
+  `list_name` varchar(255) DEFAULT NULL,
+  `listState` varchar(255) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_list`),
+  UNIQUE KEY `id_list` (`id_list`),
+  KEY `FK7E5F425A2B2A6AB4` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emailSubscribe`
+--
+
+CREATE TABLE IF NOT EXISTS `emailSubscribe` (
+  `id_subscribe` bigint(20) NOT NULL AUTO_INCREMENT,
+  `hashCode` varchar(255) NOT NULL,
+  `email_id` bigint(20) NOT NULL,
+  `id_list` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_subscribe`),
+  UNIQUE KEY `id_subscribe` (`id_subscribe`),
+  KEY `FK4B85010EED78E617` (`id_list`),
+  KEY `FK4B85010EE824035` (`email_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gadget`
 --
--- TOC entry 1647 (class 1259 OID 50594)
--- Dependencies: 3
--- Name: groups; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
-
-CREATE TABLE groups (
-    group_id bigint NOT NULL,
-    des_info character varying(255),
-    name character varying(50),
-    type character varying(255),
-    id_state bigint,
-    account_uid bigint
-);
-
 
-ALTER TABLE public.groups OWNER TO postgres;
-
+CREATE TABLE IF NOT EXISTS `gadget` (
+  `gadgetId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `gadgetColor` varchar(255) DEFAULT NULL,
+  `gadgetColumn` int(11) NOT NULL,
+  `gadgetName` varchar(255) NOT NULL,
+  `gadgetPosition` int(11) DEFAULT NULL,
+  `gadgetType` int(11) NOT NULL,
+  `status` bit(1) DEFAULT NULL,
+  `dashboard_dashboardId` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`gadgetId`),
+  UNIQUE KEY `gadgetId` (`gadgetId`),
+  KEY `FKB549144CB975B5F9` (`dashboard_dashboardId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
 --
--- TOC entry 1648 (class 1259 OID 50602)
--- Dependencies: 3
--- Name: groups_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `gadget_properties`
 --
-
-CREATE TABLE groups_permission (
-    sec_id_group bigint NOT NULL,
-    sec_id_permission bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `gadget_properties` (
+  `propertyId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `gadget_prop_name` varchar(255) NOT NULL,
+  `gadget_prop_value` varchar(255) NOT NULL,
+  `gadget_gadgetId` bigint(20) DEFAULT NULL,
+  `userAccount_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`propertyId`),
+  UNIQUE KEY `propertyId` (`propertyId`),
+  KEY `FK866B6706369F8B2C` (`userAccount_uid`),
+  KEY `FK866B670629091B05` (`gadget_gadgetId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-ALTER TABLE public.groups_permission OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1649 (class 1259 OID 50607)
--- Dependencies: 3
--- Name: hash_tags; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `geoPoint`
 --
 
-CREATE TABLE hash_tags (
-    hash_tag_id bigint NOT NULL,
-    tag character varying(255),
-    hits bigint,
-    size bigint,
-    hashtag_updated_date timestamp without time zone
-);
+CREATE TABLE IF NOT EXISTS `geoPoint` (
+  `locate_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL,
+  `accuracy` int(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `country_code` varchar(255) DEFAULT NULL,
+  `country_name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `location_status` varchar(255) DEFAULT NULL,
+  `account_uid` bigint(20) DEFAULT NULL,
+  `geoPointFolder_locate_folder_id` bigint(20) DEFAULT NULL,
+  `loc_id_type` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`locate_id`),
+  UNIQUE KEY `locate_id` (`locate_id`),
+  KEY `FK6C73C0BFBD91661D` (`loc_id_type`),
+  KEY `FK6C73C0BF5ECE45A2` (`account_uid`),
+  KEY `FK6C73C0BF34EF9A43` (`geoPointFolder_locate_folder_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.hash_tags OWNER TO postgres;
-
 --
--- TOC entry 1650 (class 1259 OID 50612)
--- Dependencies: 3
--- Name: hash_tags_hits; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `geoPoint_folder`
 --
-
-CREATE TABLE hash_tags_hits (
-    hashtag_hits_id bigint NOT NULL,
-    hits_date timestamp without time zone NOT NULL,
-    hits_ip_address character varying(100) NOT NULL,
-    hashtag_hash_tag_id bigint,
-    hits_user_account bigint
-);
 
+CREATE TABLE IF NOT EXISTS `geoPoint_folder` (
+  `locate_folder_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` date DEFAULT NULL,
+  `folderName` varchar(255) NOT NULL,
+  `folder_status` int(11) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `createdBy_uid` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  `subLocationFolder_locate_folder_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`locate_folder_id`),
+  UNIQUE KEY `locate_folder_id` (`locate_folder_id`),
+  KEY `FKF4A1D3EE2B2A6AB4` (`uid`),
+  KEY `FKF4A1D3EE6EF241E9` (`createdBy_uid`),
+  KEY `FKF4A1D3EE6E4ED46D` (`subLocationFolder_locate_folder_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.hash_tags_hits OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1690 (class 1259 OID 51351)
--- Dependencies: 3
--- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Table structure for table `geoPoint_type`
 --
 
-CREATE SEQUENCE hibernate_sequence
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
+CREATE TABLE IF NOT EXISTS `geoPoint_type` (
+  `loc_id_type` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `users_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`loc_id_type`),
+  UNIQUE KEY `loc_id_type` (`loc_id_type`),
+  KEY `FK514326BA4075E3FD` (`users_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.hibernate_sequence OWNER TO postgres;
-
 --
--- TOC entry 1651 (class 1259 OID 50617)
--- Dependencies: 3
--- Name: notification; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `groups`
 --
 
-CREATE TABLE notification (
-    notification_id bigint NOT NULL,
-    additional_description character varying(255) NOT NULL,
-    created timestamp without time zone NOT NULL,
-    description character varying(255) NOT NULL,
-    group_notification boolean,
-    readed boolean NOT NULL,
-    reference character varying(255),
-    uid bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `groups` (
+  `group_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `des_info` varchar(255) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `id_state` bigint(20) DEFAULT NULL,
+  `account_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`group_id`),
+  UNIQUE KEY `group_id` (`group_id`),
+  KEY `FKB63DD9D45ECE45A2` (`account_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.notification OWNER TO postgres;
-
 --
--- TOC entry 1652 (class 1259 OID 50625)
--- Dependencies: 3
--- Name: permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `groups_permission`
 --
-
-CREATE TABLE permission (
-    id_permission bigint NOT NULL,
-    permission character varying(255),
-    description character varying(255)
-);
 
+CREATE TABLE IF NOT EXISTS `groups_permission` (
+  `sec_id_group` bigint(20) NOT NULL,
+  `sec_id_permission` bigint(20) NOT NULL,
+  PRIMARY KEY (`sec_id_group`,`sec_id_permission`),
+  KEY `FK7F1951A45895AFF` (`sec_id_group`),
+  KEY `FK7F1951A43ADB63D` (`sec_id_permission`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.permission OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1653 (class 1259 OID 50633)
--- Dependencies: 3
--- Name: poll; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `group_permission`
 --
 
-CREATE TABLE poll (
-    poll_id bigint NOT NULL,
-    lat real,
-    lng real,
-    additionalinfo character varying(255),
-    closeafterdate boolean,
-    close_after_quota boolean,
-    close_date timestamp without time zone,
-    closed_quota integer,
-    custom_final_message integer,
-    custom_message boolean,
-    custom_start_message character varying(255),
-    hits integer,
-    ip_protection character varying(255),
-    ip_restrictions boolean,
-    multiple_response integer,
-    name character varying(255),
-    notifications boolean,
-    numbervotes integer,
-    optional_title character varying(255),
-    password_protection character varying(255),
-    password_restrictions boolean,
-    showadditionalinfo boolean,
-    showcomments integer,
-    show_progress_bar boolean,
-    showresults boolean,
-    close_notification boolean,
-    created_at timestamp without time zone NOT NULL,
-    end_date timestamp without time zone,
-    poll_completed boolean NOT NULL,
-    poll_hash character varying(255) NOT NULL,
-    publish_poll boolean,
-    poll_show_results boolean,
-    update_date timestamp without time zone,
-    editor bigint,
-    poll_folder bigint,
-    uid bigint NOT NULL,
-    qid bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `group_permission` (
+  `sec_id_permission` bigint(20) NOT NULL,
+  `sec_id_group` bigint(20) NOT NULL,
+  PRIMARY KEY (`sec_id_permission`,`sec_id_group`),
+  KEY `FK362E6F8F45895AFF` (`sec_id_group`),
+  KEY `FK362E6F8F43ADB63D` (`sec_id_permission`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.poll OWNER TO postgres;
-
 --
--- TOC entry 1654 (class 1259 OID 50643)
--- Dependencies: 3
--- Name: poll_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `hash_tags`
 --
 
-CREATE TABLE poll_folder (
-    pollfolderid bigint NOT NULL,
-    created_at date,
-    foldername character varying(255) NOT NULL,
-    folder_status integer,
-    createdby_uid bigint,
-    uid bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `hash_tags` (
+  `hash_tag_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(255) DEFAULT NULL,
+  `hits` bigint(20) DEFAULT NULL,
+  `size` bigint(20) DEFAULT NULL,
+  `hashtag_updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`hash_tag_id`),
+  UNIQUE KEY `hash_tag_id` (`hash_tag_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=182 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.poll_folder OWNER TO postgres;
-
 --
--- TOC entry 1655 (class 1259 OID 50648)
--- Dependencies: 3
--- Name: poll_result; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `hash_tags_hits`
 --
 
-CREATE TABLE poll_result (
-    poll_resultid bigint NOT NULL,
-    ip_address character varying(255) NOT NULL,
-    votation_date timestamp without time zone NOT NULL,
-    q_answer_id bigint NOT NULL,
-    poll_id bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `hash_tags_hits` (
+  `hashtag_hits_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `hits_date` datetime NOT NULL,
+  `hits_ip_address` varchar(100) NOT NULL,
+  `hashTag_hash_tag_id` bigint(20) DEFAULT NULL,
+  `hits_user_account` bigint(20) DEFAULT NULL,
+  `hitDate` datetime DEFAULT NULL,
+  `ipAddress` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`hashtag_hits_id`),
+  UNIQUE KEY `hashtag_hits_id` (`hashtag_hits_id`),
+  KEY `FK58554DB538A08F1` (`hits_user_account`),
+  KEY `FK58554DB519AA125` (`hashTag_hash_tag_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hits`
+--
+
+CREATE TABLE IF NOT EXISTS `hits` (
+  `hit_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` date DEFAULT NULL,
+  `hits_ip_address` varchar(100) NOT NULL,
+  `hashTag_hash_tag_id` bigint(20) DEFAULT NULL,
+  `poll_poll_id` bigint(20) DEFAULT NULL,
+  `survey_sid` bigint(20) DEFAULT NULL,
+  `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`hit_id`),
+  UNIQUE KEY `hit_id` (`hit_id`),
+  KEY `FK30DF4019AA125` (`hashTag_hash_tag_id`),
+  KEY `FK30DF4063976E9` (`poll_poll_id`),
+  KEY `FK30DF4051153812` (`survey_sid`),
+  KEY `FK30DF40953C854B` (`tweetPoll_tweet_poll_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE IF NOT EXISTS `notification` (
+  `notification_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `additional_description` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `group_notification` bit(1) DEFAULT NULL,
+  `readed` bit(1) NOT NULL,
+  `reference` varchar(255) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`notification_id`),
+  UNIQUE KEY `notification_id` (`notification_id`),
+  KEY `FK237A88EB2B2A6AB4` (`uid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission`
+--
+
+CREATE TABLE IF NOT EXISTS `permission` (
+  `id_permission` bigint(20) NOT NULL AUTO_INCREMENT,
+  `permission` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_permission`),
+  UNIQUE KEY `id_permission` (`id_permission`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll`
+--
+
+CREATE TABLE IF NOT EXISTS `poll` (
+  `poll_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL,
+  `additionalInfo` varchar(255) DEFAULT NULL,
+  `closeAfterDate` bit(1) DEFAULT NULL,
+  `close_after_quota` bit(1) DEFAULT NULL,
+  `close_date` datetime DEFAULT NULL,
+  `closed_quota` int(11) DEFAULT NULL,
+  `custom_final_message` int(11) DEFAULT NULL,
+  `custom_message` bit(1) DEFAULT NULL,
+  `custom_start_message` varchar(255) DEFAULT NULL,
+  `hits` int(11) DEFAULT NULL,
+  `ip_protection` varchar(255) DEFAULT NULL,
+  `ip_restrictions` bit(1) DEFAULT NULL,
+  `multiple_response` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `notifications` bit(1) DEFAULT NULL,
+  `numbervotes` int(11) DEFAULT NULL,
+  `optional_title` varchar(255) DEFAULT NULL,
+  `password_protection` varchar(255) DEFAULT NULL,
+  `password_restrictions` bit(1) DEFAULT NULL,
+  `showAdditionalInfo` bit(1) DEFAULT NULL,
+  `showComments` int(11) DEFAULT NULL,
+  `show_progress_bar` bit(1) DEFAULT NULL,
+  `showResults` bit(1) DEFAULT NULL,
+  `close_notification` bit(1) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `poll_completed` bit(1) NOT NULL,
+  `poll_hash` varchar(255) NOT NULL,
+  `publish_poll` bit(1) DEFAULT NULL,
+  `poll_show_results` bit(1) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `editor` bigint(20) DEFAULT NULL,
+  `poll_folder` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  `qid` bigint(20) NOT NULL,
+  `dislikeVote` bigint(20) DEFAULT NULL,
+  `likeVote` bigint(20) DEFAULT NULL,
+  `relevance` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`poll_id`),
+  UNIQUE KEY `poll_id` (`poll_id`),
+  UNIQUE KEY `poll_hash` (`poll_hash`),
+  KEY `FK3497BFF44558E9` (`uid`),
+  KEY `FK3497BF89452CCA` (`poll_folder`),
+  KEY `FK3497BF50FE71F5` (`qid`),
+  KEY `FK3497BFA64FB606` (`editor`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll_folder`
+--
+
+CREATE TABLE IF NOT EXISTS `poll_folder` (
+  `pollFolderId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` date DEFAULT NULL,
+  `folderName` varchar(255) NOT NULL,
+  `folder_status` int(11) DEFAULT NULL,
+  `createdBy_uid` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`pollFolderId`),
+  UNIQUE KEY `pollFolderId` (`pollFolderId`),
+  KEY `FKC5911CEE2B2A6AB4` (`uid`),
+  KEY `FKC5911CEE6EF241E9` (`createdBy_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.poll_result OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1656 (class 1259 OID 50653)
--- Dependencies: 3
--- Name: project; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `poll_hits`
 --
-
-CREATE TABLE project (
-    project_id bigint NOT NULL,
-    hide_project boolean,
-    notify_members boolean,
-    priority character varying(255),
-    date_finish timestamp without time zone NOT NULL,
-    date_start timestamp without time zone NOT NULL,
-    description character varying(600),
-    project_info text,
-    project_name character varying(255) NOT NULL,
-    project_status character varying(255),
-    published boolean,
-    lead_uid bigint,
-    users_uid bigint
-);
 
+CREATE TABLE IF NOT EXISTS `poll_hits` (
+  `poll_hit_id` bigint(20) NOT NULL,
+  `hitDate` datetime DEFAULT NULL,
+  `ipAddress` varchar(255) DEFAULT NULL,
+  `poll_poll_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`poll_hit_id`),
+  UNIQUE KEY `poll_hit_id` (`poll_hit_id`),
+  KEY `FKF76AFFC063976E9` (`poll_poll_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.project OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1657 (class 1259 OID 50661)
--- Dependencies: 3
--- Name: project_geopoint; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `poll_result`
 --
 
-CREATE TABLE project_geopoint (
-    cat_id_project bigint NOT NULL,
-    cat_id_loc bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `poll_result` (
+  `poll_resultId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ip_address` varchar(255) NOT NULL,
+  `votation_date` datetime NOT NULL,
+  `q_answer_id` bigint(20) NOT NULL,
+  `poll_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`poll_resultId`),
+  UNIQUE KEY `poll_resultId` (`poll_resultId`),
+  KEY `FKD981C89DDDD118B5` (`q_answer_id`),
+  KEY `FKD981C89DF0ED6769` (`poll_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.project_geopoint OWNER TO postgres;
-
 --
--- TOC entry 1658 (class 1259 OID 50666)
--- Dependencies: 3
--- Name: project_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `project`
 --
-
-CREATE TABLE project_group (
-    sec_id_group bigint NOT NULL,
-    cat_id_project bigint NOT NULL
-);
-
 
-ALTER TABLE public.project_group OWNER TO postgres;
+CREATE TABLE IF NOT EXISTS `project` (
+  `project_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `hide_project` bit(1) DEFAULT NULL,
+  `notify_members` bit(1) DEFAULT NULL,
+  `priority` varchar(255) DEFAULT NULL,
+  `date_finish` datetime NOT NULL,
+  `date_start` datetime NOT NULL,
+  `description` longtext,
+  `project_info` longtext,
+  `project_name` varchar(255) NOT NULL,
+  `project_status` varchar(255) DEFAULT NULL,
+  `published` bit(1) DEFAULT NULL,
+  `lead_uid` bigint(20) DEFAULT NULL,
+  `users_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`project_id`),
+  UNIQUE KEY `project_id` (`project_id`),
+  KEY `FKED904B19514C1986` (`lead_uid`),
+  KEY `FKED904B194075E3FD` (`users_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- TOC entry 1659 (class 1259 OID 50671)
--- Dependencies: 3
--- Name: project_locations; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
---
+-- --------------------------------------------------------
 
-CREATE TABLE project_locations (
-    cat_id_loc bigint NOT NULL,
-    cat_id_project bigint NOT NULL
-);
+--
+-- Table structure for table `project_geoPoint`
+--
 
+CREATE TABLE IF NOT EXISTS `project_geoPoint` (
+  `cat_id_project` bigint(20) NOT NULL,
+  `cat_id_loc` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`cat_id_loc`),
+  KEY `FK2599132584536452` (`cat_id_project`),
+  KEY `FK2599132535313189` (`cat_id_loc`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.project_locations OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1660 (class 1259 OID 50676)
--- Dependencies: 3
--- Name: question_category; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `project_group`
 --
 
-CREATE TABLE question_category (
-    qcategory bigint NOT NULL,
-    category character varying(18)
-);
+CREATE TABLE IF NOT EXISTS `project_group` (
+  `sec_id_group` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`sec_id_group`),
+  KEY `FKC7652DD945895AFF` (`sec_id_group`),
+  KEY `FKC7652DD984536452` (`cat_id_project`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.question_category OWNER TO postgres;
-
 --
--- TOC entry 1661 (class 1259 OID 50681)
--- Dependencies: 3
--- Name: question_category_questions; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `project_locations`
 --
-
-CREATE TABLE question_category_questions (
-    question_category_qcategory bigint NOT NULL,
-    questionlibrary_qid bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `project_locations` (
+  `cat_id_loc` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_loc`,`cat_id_project`),
+  KEY `FK242951B884536452` (`cat_id_project`),
+  KEY `FK242951B835313189` (`cat_id_loc`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.question_category_questions OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1662 (class 1259 OID 50686)
--- Dependencies: 3
--- Name: question_collection; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `questions`
 --
 
-CREATE TABLE question_collection (
-    id_q_colection bigint NOT NULL,
-    creation_date timestamp without time zone NOT NULL,
-    des_coleccion character varying(255) NOT NULL,
-    uid bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `questions` (
+  `qid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `question_created_date` datetime DEFAULT NULL,
+  `question_hits` bigint(20) DEFAULT NULL,
+  `qid_key` varchar(255) DEFAULT NULL,
+  `question` varchar(255) NOT NULL,
+  `shared_question` bit(1) DEFAULT NULL,
+  `question_slug` varchar(255) NOT NULL,
+  `uid` bigint(20) NOT NULL,
+  `id_question_pattern` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`qid`),
+  UNIQUE KEY `qid` (`qid`),
+  KEY `FK95C5414D2B2A6AB4` (`uid`),
+  KEY `FK95C5414D84133D82` (`id_question_pattern`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.question_collection OWNER TO postgres;
-
 --
--- TOC entry 1663 (class 1259 OID 50691)
--- Dependencies: 3
--- Name: question_dependence_survey; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `questions_answers`
 --
 
-CREATE TABLE question_dependence_survey (
-    question_dependence_survey bigint NOT NULL,
-    sid bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `questions_answers` (
+  `q_answer_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `answer` varchar(255) NOT NULL,
+  `answerType` int(11) DEFAULT NULL,
+  `color` varchar(255) NOT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `short_url_provider` int(11) DEFAULT NULL,
+  `answer_hash` varchar(255) DEFAULT NULL,
+  `answer_url` varchar(255) DEFAULT NULL,
+  `id_question_answer` bigint(20) NOT NULL,
+  PRIMARY KEY (`q_answer_id`),
+  UNIQUE KEY `q_answer_id` (`q_answer_id`),
+  KEY `FK539703837E6C7BBC` (`id_question_answer`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.question_dependence_survey OWNER TO postgres;
-
 --
--- TOC entry 1664 (class 1259 OID 50696)
--- Dependencies: 3
--- Name: question_relations; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `questions_dependencies`
 --
-
-CREATE TABLE question_relations (
-    question_id bigint NOT NULL,
-    id_q_colection bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `questions_dependencies` (
+  `question_dependenceId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `descriptionDependence` varchar(255) NOT NULL,
+  `questionId_from` bigint(20) NOT NULL,
+  `questionId_to` bigint(20) NOT NULL,
+  `q_answer_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_dependenceId`),
+  UNIQUE KEY `question_dependenceId` (`question_dependenceId`),
+  UNIQUE KEY `descriptionDependence` (`descriptionDependence`),
+  UNIQUE KEY `questionId_from` (`questionId_from`),
+  UNIQUE KEY `questionId_to` (`questionId_to`),
+  KEY `FK92E86ADBDDD118B5` (`q_answer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.question_relations OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1665 (class 1259 OID 50701)
--- Dependencies: 3
--- Name: questions; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `questions_pattern`
 --
 
-CREATE TABLE questions (
-    qid bigint NOT NULL,
-    question_created_date timestamp without time zone,
-    question_hits bigint,
-    qid_key character varying(255),
-    question character varying(255) NOT NULL,
-    shared_question boolean,
-    question_slug character varying(255) NOT NULL,
-    uid bigint NOT NULL,
-    id_question_pattern bigint
-);
+CREATE TABLE IF NOT EXISTS `questions_pattern` (
+  `pattenr_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `des_qid` varchar(255) DEFAULT NULL,
+  `finallity_patter` varchar(255) DEFAULT NULL,
+  `label_qid` varchar(255) NOT NULL,
+  `level_patter` int(11) DEFAULT NULL,
+  `template_patron` varchar(255) DEFAULT NULL,
+  `type_pattern` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`pattenr_id`),
+  UNIQUE KEY `pattenr_id` (`pattenr_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.questions OWNER TO postgres;
-
 --
--- TOC entry 1666 (class 1259 OID 50709)
--- Dependencies: 3
--- Name: questions_answers; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `question_category`
 --
 
-CREATE TABLE questions_answers (
-    q_answer_id bigint NOT NULL,
-    answer character varying(255) NOT NULL,
-    answertype integer,
-    color character varying(255) NOT NULL,
-    created_date timestamp without time zone,
-    short_url_provider integer,
-    answer_hash character varying(255),
-    answer_url character varying(255),
-    id_question_answer bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `question_category` (
+  `qCategory` bigint(20) NOT NULL AUTO_INCREMENT,
+  `category` varchar(18) DEFAULT NULL,
+  PRIMARY KEY (`qCategory`),
+  UNIQUE KEY `qCategory` (`qCategory`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.questions_answers OWNER TO postgres;
-
 --
--- TOC entry 1667 (class 1259 OID 50717)
--- Dependencies: 3
--- Name: questions_dependencies; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `question_category_questions`
 --
-
-CREATE TABLE questions_dependencies (
-    question_dependenceid bigint NOT NULL,
-    descriptiondependence character varying(255) NOT NULL,
-    questionid_from bigint NOT NULL,
-    questionid_to bigint NOT NULL,
-    q_answer_id bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `question_category_questions` (
+  `question_category_qCategory` bigint(20) NOT NULL,
+  `questionLibrary_qid` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_category_qCategory`,`questionLibrary_qid`),
+  KEY `FK2FFE1845B10E79BE` (`question_category_qCategory`),
+  KEY `FK2FFE18457A068CB` (`questionLibrary_qid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.questions_dependencies OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1668 (class 1259 OID 50728)
--- Dependencies: 3
--- Name: questions_pattern; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `question_collection`
 --
 
-CREATE TABLE questions_pattern (
-    pattenr_id bigint NOT NULL,
-    des_qid character varying(255),
-    finallity_patter character varying(255),
-    label_qid character varying(255) NOT NULL,
-    level_patter integer,
-    template_patron character varying(255),
-    type_pattern character varying(255)
-);
+CREATE TABLE IF NOT EXISTS `question_collection` (
+  `id_q_colection` bigint(20) NOT NULL AUTO_INCREMENT,
+  `creation_date` datetime NOT NULL,
+  `des_coleccion` varchar(255) NOT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_q_colection`),
+  UNIQUE KEY `id_q_colection` (`id_q_colection`),
+  KEY `FKB4097C972B2A6AB4` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_dependence_survey`
+--
+
+CREATE TABLE IF NOT EXISTS `question_dependence_survey` (
+  `question_dependence_survey` bigint(20) NOT NULL AUTO_INCREMENT,
+  `sid` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_dependence_survey`),
+  UNIQUE KEY `question_dependence_survey` (`question_dependence_survey`),
+  KEY `FKBB424D49793D9E77` (`sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_relations`
+--
+
+CREATE TABLE IF NOT EXISTS `question_relations` (
+  `question_id` bigint(20) NOT NULL,
+  `id_q_colection` bigint(20) NOT NULL,
+  PRIMARY KEY (`question_id`,`id_q_colection`),
+  KEY `FK217954DE893521DA` (`id_q_colection`),
+  KEY `FK217954DE8A76A0BD` (`question_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `social_account`
+--
+
+CREATE TABLE IF NOT EXISTS `social_account` (
+  `social_account_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `oauth_token` varchar(255) DEFAULT NULL,
+  `type_account` int(11) DEFAULT NULL,
+  `oauth_app_key` bigint(20) DEFAULT NULL,
+  `oauth2_expires` varchar(255) DEFAULT NULL,
+  `picture_profile_url` varchar(255) DEFAULT NULL,
+  `public_profile_url` varchar(255) DEFAULT NULL,
+  `oauth_refresh_token` varchar(255) DEFAULT NULL,
+  `oauth_secret_token` varchar(255) DEFAULT NULL,
+  `social_profile_id` varchar(255) NOT NULL,
+  `added_account_date` datetime NOT NULL,
+  `default_selected` bit(1) DEFAULT NULL,
+  `description_profile` varchar(255) DEFAULT NULL,
+  `social_account_email` varchar(255) DEFAULT NULL,
+  `picture_url` varchar(255) DEFAULT NULL,
+  `picture_thumbnail_url` varchar(255) DEFAULT NULL,
+  `profile_url` varchar(255) DEFAULT NULL,
+  `real_name` varchar(255) DEFAULT NULL,
+  `social_account_name` varchar(255) NOT NULL,
+  `social_support` int(11) DEFAULT NULL,
+  `type_auth` varchar(255) DEFAULT NULL,
+  `upgraded_credentials_last_date` datetime NOT NULL,
+  `account_verified` bit(1) DEFAULT NULL,
+  `account_uid` bigint(20) DEFAULT NULL,
+  `userOwner_uid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`social_account_id`),
+  UNIQUE KEY `social_account_id` (`social_account_id`),
+  UNIQUE KEY `social_profile_id` (`social_profile_id`),
+  UNIQUE KEY `social_account_name` (`social_account_name`),
+  KEY `FK50078B5B5ECE45A2` (`account_uid`),
+  KEY `FK50078B5BF2F411F2` (`userOwner_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surveys`
+--
 
+CREATE TABLE IF NOT EXISTS `surveys` (
+  `sid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL,
+  `additionalInfo` varchar(255) DEFAULT NULL,
+  `closeAfterDate` bit(1) DEFAULT NULL,
+  `close_after_quota` bit(1) DEFAULT NULL,
+  `close_date` datetime DEFAULT NULL,
+  `closed_quota` int(11) DEFAULT NULL,
+  `custom_final_message` int(11) DEFAULT NULL,
+  `custom_message` bit(1) DEFAULT NULL,
+  `custom_start_message` varchar(255) DEFAULT NULL,
+  `hits` int(11) DEFAULT NULL,
+  `ip_protection` varchar(255) DEFAULT NULL,
+  `ip_restrictions` bit(1) DEFAULT NULL,
+  `multiple_response` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `notifications` bit(1) DEFAULT NULL,
+  `numbervotes` int(11) DEFAULT NULL,
+  `optional_title` varchar(255) DEFAULT NULL,
+  `password_protection` varchar(255) DEFAULT NULL,
+  `password_restrictions` bit(1) DEFAULT NULL,
+  `showAdditionalInfo` bit(1) DEFAULT NULL,
+  `showComments` int(11) DEFAULT NULL,
+  `show_progress_bar` bit(1) DEFAULT NULL,
+  `showResults` bit(1) DEFAULT NULL,
+  `complete` varchar(2) DEFAULT NULL,
+  `date_interview` date DEFAULT NULL,
+  `end_date` datetime NOT NULL,
+  `start_date` datetime NOT NULL,
+  `ticket` int(11) NOT NULL,
+  `editor` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  `id_sid_format` bigint(20) NOT NULL,
+  `survey_folder` bigint(20) DEFAULT NULL,
+  `dislikeVote` bigint(20) DEFAULT NULL,
+  `likeVote` bigint(20) DEFAULT NULL,
+  `relevance` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`sid`),
+  UNIQUE KEY `sid` (`sid`),
+  KEY `FK919144592B2A6AB4` (`uid`),
+  KEY `FK91914459A3C7A06A` (`survey_folder`),
+  KEY `FK91914459B1A6912C` (`id_sid_format`),
+  KEY `FK91914459A64FB606` (`editor`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.questions_pattern OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1669 (class 1259 OID 50736)
--- Dependencies: 3
--- Name: social_account; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_folder`
 --
 
-CREATE TABLE social_account (
-    social_account_id bigint NOT NULL,
-    oauth_token character varying(255),
-    type_account integer,
-    oauth_app_key bigint,
-    oauth2_expires character varying(255),
-    picture_profile_url character varying(255),
-    public_profile_url character varying(255),
-    oauth_refresh_token character varying(255),
-    oauth_secret_token character varying(255),
-    social_profile_id character varying(255) NOT NULL,
-    added_account_date timestamp without time zone NOT NULL,
-    default_selected boolean,
-    description_profile character varying(255),
-    social_account_email character varying(255),
-    picture_url character varying(255),
-    picture_thumbnail_url character varying(255),
-    profile_url character varying(255),
-    real_name character varying(255),
-    social_account_name character varying(255) NOT NULL,
-    social_support integer,
-    type_auth character varying(255),
-    upgraded_credentials_last_date timestamp without time zone NOT NULL,
-    account_verified boolean,
-    account_uid bigint,
-    userowner_uid bigint
-);
+CREATE TABLE IF NOT EXISTS `survey_folder` (
+  `survey_folderId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` date DEFAULT NULL,
+  `folderName` varchar(255) NOT NULL,
+  `folder_status` int(11) DEFAULT NULL,
+  `createdBy_uid` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`survey_folderId`),
+  UNIQUE KEY `survey_folderId` (`survey_folderId`),
+  KEY `FK7EF958F32B2A6AB4` (`uid`),
+  KEY `FK7EF958F36EF241E9` (`createdBy_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.social_account OWNER TO postgres;
-
 --
--- TOC entry 1670 (class 1259 OID 50748)
--- Dependencies: 3
--- Name: survey_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_format`
 --
 
-CREATE TABLE survey_folder (
-    survey_folderid bigint NOT NULL,
-    created_at date,
-    foldername character varying(255) NOT NULL,
-    folder_status integer,
-    createdby_uid bigint,
-    uid bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `survey_format` (
+  `id_sid_format` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_created` datetime DEFAULT NULL,
+  `name` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`id_sid_format`),
+  UNIQUE KEY `id_sid_format` (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.survey_folder OWNER TO postgres;
-
 --
--- TOC entry 1671 (class 1259 OID 50753)
--- Dependencies: 3
--- Name: survey_format; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_group`
 --
-
-CREATE TABLE survey_format (
-    id_sid_format bigint NOT NULL,
-    date_created timestamp without time zone,
-    name character varying(60)
-);
 
+CREATE TABLE IF NOT EXISTS `survey_group` (
+  `sg_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_create` datetime DEFAULT NULL,
+  `group_name` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`sg_id`),
+  UNIQUE KEY `sg_id` (`sg_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.survey_format OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1672 (class 1259 OID 50758)
--- Dependencies: 3
--- Name: survey_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_group_format`
 --
 
-CREATE TABLE survey_group (
-    sg_id bigint NOT NULL,
-    date_create timestamp without time zone,
-    group_name character varying(60)
-);
+CREATE TABLE IF NOT EXISTS `survey_group_format` (
+  `sg_id` bigint(20) NOT NULL,
+  `id_sid_format` bigint(20) NOT NULL,
+  PRIMARY KEY (`id_sid_format`,`sg_id`),
+  KEY `FKB4DF867C310E993C` (`sg_id`),
+  KEY `FKB4DF867CB1A6912C` (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.survey_group OWNER TO postgres;
-
 --
--- TOC entry 1673 (class 1259 OID 50763)
--- Dependencies: 3
--- Name: survey_group_format; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_group_project`
 --
-
-CREATE TABLE survey_group_format (
-    sg_id bigint NOT NULL,
-    id_sid_format bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `survey_group_project` (
+  `id_sid_format` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`id_sid_format`),
+  KEY `FKFD028D3484536452` (`cat_id_project`),
+  KEY `FKFD028D34B75F3482` (`id_sid_format`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.survey_group_format OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1674 (class 1259 OID 50768)
--- Dependencies: 3
--- Name: survey_group_project; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_hits`
 --
 
-CREATE TABLE survey_group_project (
-    id_sid_format bigint NOT NULL,
-    cat_id_project bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `survey_hits` (
+  `survey_hit_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `hitDate` datetime DEFAULT NULL,
+  `ipAddress` varchar(255) DEFAULT NULL,
+  `survey_sid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`survey_hit_id`),
+  UNIQUE KEY `survey_hit_id` (`survey_hit_id`),
+  KEY `FK234C790551153812` (`survey_sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.survey_group_project OWNER TO postgres;
-
 --
--- TOC entry 1675 (class 1259 OID 50773)
--- Dependencies: 3
--- Name: survey_pagination; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_pagination`
 --
-
-CREATE TABLE survey_pagination (
-    pagination_id bigint NOT NULL,
-    pagenumber integer,
-    sid bigint NOT NULL,
-    ssid bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `survey_pagination` (
+  `pagination_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `pageNumber` int(11) DEFAULT NULL,
+  `sid` bigint(20) NOT NULL,
+  `ssid` bigint(20) NOT NULL,
+  PRIMARY KEY (`pagination_id`),
+  UNIQUE KEY `pagination_id` (`pagination_id`),
+  KEY `FKBEC9A99F793D9E77` (`sid`),
+  KEY `FKBEC9A99F1359B877` (`ssid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-ALTER TABLE public.survey_pagination OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1676 (class 1259 OID 50778)
--- Dependencies: 3
--- Name: survey_result; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_result`
 --
 
-CREATE TABLE survey_result (
-    rid bigint NOT NULL,
-    resp character varying(255) NOT NULL,
-    survey_id bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `survey_result` (
+  `rid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `resp` varchar(255) NOT NULL,
+  `survey_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`rid`),
+  UNIQUE KEY `rid` (`rid`),
+  KEY `FK92EA04A2EB8D35C9` (`survey_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.survey_result OWNER TO postgres;
-
 --
--- TOC entry 1677 (class 1259 OID 50783)
--- Dependencies: 3
--- Name: survey_section; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_section`
 --
 
-CREATE TABLE survey_section (
-    ssid bigint NOT NULL,
-    desc_section character varying(255)
-);
+CREATE TABLE IF NOT EXISTS `survey_section` (
+  `ssid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `desc_section` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ssid`),
+  UNIQUE KEY `ssid` (`ssid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.survey_section OWNER TO postgres;
-
 --
--- TOC entry 1678 (class 1259 OID 50788)
--- Dependencies: 3
--- Name: survey_section_questions; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `survey_section_questions`
 --
-
-CREATE TABLE survey_section_questions (
-    survey_section_ssid bigint NOT NULL,
-    questionsection_qid bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `survey_section_questions` (
+  `survey_section_ssid` bigint(20) NOT NULL,
+  `questionSection_qid` bigint(20) NOT NULL,
+  PRIMARY KEY (`survey_section_ssid`,`questionSection_qid`),
+  KEY `FK12354ECE11057E56` (`survey_section_ssid`),
+  KEY `FK12354ECE4E3A9DF5` (`questionSection_qid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.survey_section_questions OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1679 (class 1259 OID 50793)
--- Dependencies: 3
--- Name: surveys; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `tweetPoll`
 --
 
-CREATE TABLE surveys (
-    sid bigint NOT NULL,
-    lat real,
-    lng real,
-    additionalinfo character varying(255),
-    closeafterdate boolean,
-    close_after_quota boolean,
-    close_date timestamp without time zone,
-    closed_quota integer,
-    custom_final_message integer,
-    custom_message boolean,
-    custom_start_message character varying(255),
-    hits integer,
-    ip_protection character varying(255),
-    ip_restrictions boolean,
-    multiple_response integer,
-    name character varying(255),
-    notifications boolean,
-    numbervotes integer,
-    optional_title character varying(255),
-    password_protection character varying(255),
-    password_restrictions boolean,
-    showadditionalinfo boolean,
-    showcomments integer,
-    show_progress_bar boolean,
-    showresults boolean,
-    complete character varying(2),
-    date_interview date,
-    end_date timestamp without time zone NOT NULL,
-    start_date timestamp without time zone NOT NULL,
-    ticket integer NOT NULL,
-    editor bigint,
-    uid bigint NOT NULL,
-    id_sid_format bigint NOT NULL,
-    survey_folder bigint
-);
+CREATE TABLE IF NOT EXISTS `tweetPoll` (
+  `tweet_poll_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL,
+  `allow_live_results` bit(1) DEFAULT NULL,
+  `allow_repeated_votes` bit(1) DEFAULT NULL,
+  `captcha` bit(1) DEFAULT NULL,
+  `close_notification` bit(1) DEFAULT NULL,
+  `completed` bit(1) NOT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `limit_with_date` bit(1) DEFAULT NULL,
+  `date_limited` datetime DEFAULT NULL,
+  `favourite` bit(1) DEFAULT NULL,
+  `hits` int(11) DEFAULT NULL,
+  `limit_votes` int(11) DEFAULT NULL,
+  `limits_votes_enabled` bit(1) DEFAULT NULL,
+  `max_repeated_votes` int(11) DEFAULT NULL,
+  `numberVotes` int(11) DEFAULT NULL,
+  `publish` bit(1) DEFAULT NULL,
+  `result_notification` bit(1) DEFAULT NULL,
+  `resume_live_results` bit(1) DEFAULT NULL,
+  `resume_tweetpoll_dashboard` bit(1) DEFAULT NULL,
+  `schedule_date_tweet` datetime DEFAULT NULL,
+  `schedule` bit(1) DEFAULT NULL,
+  `last_date_updated` datetime DEFAULT NULL,
+  `editor` bigint(20) DEFAULT NULL,
+  `qid` bigint(20) NOT NULL,
+  `uid` bigint(20) NOT NULL,
+  `tweetPollFolderId` bigint(20) DEFAULT NULL,
+  `dislikeVote` bigint(20) DEFAULT NULL,
+  `likeVote` bigint(20) DEFAULT NULL,
+  `relevance` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`tweet_poll_id`),
+  UNIQUE KEY `tweet_poll_id` (`tweet_poll_id`),
+  KEY `FKA65B1D02B2A6AB4` (`uid`),
+  KEY `FKA65B1D0D9BA7E54` (`tweetPollFolderId`),
+  KEY `FKA65B1D050FE71F5` (`qid`),
+  KEY `FKA65B1D0A64FB606` (`editor`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.surveys OWNER TO postgres;
-
 --
--- TOC entry 1680 (class 1259 OID 50801)
--- Dependencies: 3
--- Name: tweetpoll; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `tweetPoll_Folder`
 --
 
-CREATE TABLE tweetpoll (
-    tweet_poll_id bigint NOT NULL,
-    lat real,
-    lng real,
-    allow_live_results boolean,
-    allow_repeated_votes boolean,
-    captcha boolean,
-    close_notification boolean,
-    completed boolean NOT NULL,
-    create_date timestamp without time zone,
-    limit_with_date boolean,
-    date_limited timestamp without time zone,
-    favourite boolean,
-    hits integer,
-    limit_votes integer,
-    limits_votes_enabled boolean,
-    max_repeated_votes integer,
-    numbervotes integer,
-    publish boolean,
-    result_notification boolean,
-    resume_live_results boolean,
-    resume_tweetpoll_dashboard boolean,
-    schedule_date_tweet timestamp without time zone,
-    schedule boolean,
-    last_date_updated timestamp without time zone,
-    editor bigint,
-    qid bigint NOT NULL,
-    uid bigint NOT NULL,
-    tweetpollfolderid bigint
-);
+CREATE TABLE IF NOT EXISTS `tweetPoll_Folder` (
+  `tweetPollFolderId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` date DEFAULT NULL,
+  `folderName` varchar(255) NOT NULL,
+  `folder_status` int(11) DEFAULT NULL,
+  `createdBy_uid` bigint(20) DEFAULT NULL,
+  `uid` bigint(20) NOT NULL,
+  PRIMARY KEY (`tweetPollFolderId`),
+  UNIQUE KEY `tweetPollFolderId` (`tweetPollFolderId`),
+  KEY `FKA027A9DD2B2A6AB4` (`uid`),
+  KEY `FKA027A9DD6EF241E9` (`createdBy_uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.tweetpoll OWNER TO postgres;
-
 --
--- TOC entry 1681 (class 1259 OID 50806)
--- Dependencies: 3
--- Name: tweetpoll_folder; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `tweetpoll_hashtags`
 --
-
-CREATE TABLE tweetpoll_folder (
-    tweetpollfolderid bigint NOT NULL,
-    created_at date,
-    foldername character varying(255) NOT NULL,
-    folder_status integer,
-    createdby_uid bigint,
-    uid bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `tweetpoll_hashtags` (
+  `tweetpoll_id` bigint(20) NOT NULL,
+  `hastag_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`hastag_id`,`tweetpoll_id`),
+  KEY `FKF8C717D6286705D7` (`tweetpoll_id`),
+  KEY `FKF8C717D6DA98FFE1` (`hastag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.tweetpoll_folder OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1683 (class 1259 OID 50819)
--- Dependencies: 3
--- Name: tweetpoll_hashtags; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `tweetPoll_hits`
 --
 
-CREATE TABLE tweetpoll_hashtags (
-    tweetpoll_id bigint NOT NULL,
-    hastag_id bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `tweetPoll_hits` (
+  `tweetpoll_hit_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `hitDate` datetime DEFAULT NULL,
+  `ipAddress` varchar(255) DEFAULT NULL,
+  `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`tweetpoll_hit_id`),
+  UNIQUE KEY `tweetpoll_hit_id` (`tweetpoll_hit_id`),
+  KEY `FK1EDC884F953C854B` (`tweetPoll_tweet_poll_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.tweetpoll_hashtags OWNER TO postgres;
-
 --
--- TOC entry 1684 (class 1259 OID 50824)
--- Dependencies: 3
--- Name: tweetpoll_result; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `tweetpoll_result`
 --
 
-CREATE TABLE tweetpoll_result (
-    tweetpoll_resultid bigint NOT NULL,
-    lat real,
-    lng real,
-    ip_vote character varying(100) NOT NULL,
-    tweet_date_response timestamp without time zone NOT NULL,
-    tweetpoll_switch_id bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `tweetpoll_result` (
+  `tweetpoll_resultId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL,
+  `ip_vote` varchar(100) NOT NULL,
+  `tweet_date_response` datetime NOT NULL,
+  `tweetpoll_switch_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`tweetpoll_resultId`),
+  UNIQUE KEY `tweetpoll_resultId` (`tweetpoll_resultId`),
+  KEY `FK8749C18CB9D39F98` (`tweetpoll_switch_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.tweetpoll_result OWNER TO postgres;
-
 --
--- TOC entry 1682 (class 1259 OID 50811)
--- Dependencies: 3
--- Name: tweetpoll_save_published_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `tweetPoll_save_published_status`
 --
-
-CREATE TABLE tweetpoll_save_published_status (
-    status_save_poll_id bigint NOT NULL,
-    type character varying(255),
-    status_description character varying(255),
-    publication_date_tweet timestamp without time zone,
-    status integer,
-    tweet_content character varying(255),
-    tweet_id character varying(255),
-    socialaccount_social_account_id bigint,
-    tweetpoll_tweet_poll_id bigint
-);
 
+CREATE TABLE IF NOT EXISTS `tweetPoll_save_published_status` (
+  `status_save_poll_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) DEFAULT NULL,
+  `status_description` varchar(255) DEFAULT NULL,
+  `publication_date_tweet` datetime DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `tweet_content` varchar(255) DEFAULT NULL,
+  `tweet_id` varchar(255) DEFAULT NULL,
+  `socialAccount_social_account_id` bigint(20) DEFAULT NULL,
+  `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`status_save_poll_id`),
+  UNIQUE KEY `status_save_poll_id` (`status_save_poll_id`),
+  KEY `FKD499A4B65239D117` (`socialAccount_social_account_id`),
+  KEY `FKD499A4B6953C854B` (`tweetPoll_tweet_poll_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
-ALTER TABLE public.tweetpoll_save_published_status OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1685 (class 1259 OID 50829)
--- Dependencies: 3
--- Name: tweetpoll_switch; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `tweetpoll_switch`
 --
 
-CREATE TABLE tweetpoll_switch (
-    tweetpoll_switch_id bigint NOT NULL,
-    tweet_code character varying(255) NOT NULL,
-    last_date_updated timestamp without time zone NOT NULL,
-    short_url character varying(255),
-    q_answer_id bigint NOT NULL,
-    tweet_poll_id bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `tweetpoll_switch` (
+  `tweetpoll_switch_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tweet_code` varchar(255) NOT NULL,
+  `last_date_updated` datetime NOT NULL,
+  `short_url` varchar(255) DEFAULT NULL,
+  `q_answer_id` bigint(20) NOT NULL,
+  `tweet_poll_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`tweetpoll_switch_id`),
+  UNIQUE KEY `tweetpoll_switch_id` (`tweetpoll_switch_id`),
+  UNIQUE KEY `tweet_code` (`tweet_code`),
+  KEY `FK89F7B0A3550299A` (`tweet_poll_id`),
+  KEY `FK89F7B0A3DDD118B5` (`q_answer_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.tweetpoll_switch OWNER TO postgres;
-
 --
--- TOC entry 1686 (class 1259 OID 50839)
--- Dependencies: 3
--- Name: useraccount; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `userAccount`
 --
-
-CREATE TABLE useraccount (
-    uid bigint NOT NULL,
-    lat real,
-    lng real,
-    name character varying(50),
-    date_new timestamp without time zone,
-    invite_code character varying(255),
-    last_ip_logged character varying(255),
-    last_time_logged timestamp without time zone,
-    password character varying(255) NOT NULL,
-    picture_source integer,
-    shared_profile boolean,
-    email character varying(150) NOT NULL,
-    userprofilepicture character varying(255),
-    status boolean,
-    username character varying(30) NOT NULL,
-    account_uid bigint,
-    groupid bigint
-);
 
+CREATE TABLE IF NOT EXISTS `userAccount` (
+  `uid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `lat` float DEFAULT NULL,
+  `lng` float DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `date_new` datetime DEFAULT NULL,
+  `invite_code` varchar(255) DEFAULT NULL,
+  `last_ip_logged` varchar(255) DEFAULT NULL,
+  `last_time_logged` datetime DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `picture_source` int(11) DEFAULT NULL,
+  `shared_profile` bit(1) DEFAULT NULL,
+  `email` varchar(150) NOT NULL,
+  `userProfilePicture` varchar(255) DEFAULT NULL,
+  `status` bit(1) DEFAULT NULL,
+  `username` varchar(30) NOT NULL,
+  `account_uid` bigint(20) DEFAULT NULL,
+  `groupId` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  UNIQUE KEY `uid` (`uid`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `username_2` (`username`,`email`),
+  KEY `FKA7D56BE25ECE45A2` (`account_uid`),
+  KEY `FKA7D56BE2B8EB1450` (`groupId`),
+  KEY `emailIndex` (`email`),
+  KEY `usernameIndex` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
-ALTER TABLE public.useraccount OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1687 (class 1259 OID 50853)
--- Dependencies: 3
--- Name: useraccount_followers; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `userAccount_followers`
 --
 
-CREATE TABLE useraccount_followers (
-    uid bigint NOT NULL,
-    uid_follower bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `userAccount_followers` (
+  `uid` bigint(20) NOT NULL,
+  `uid_follower` bigint(20) NOT NULL,
+  PRIMARY KEY (`uid`,`uid_follower`),
+  KEY `FK7F1957F8F44558E9` (`uid`),
+  KEY `FK7F1957F8E53FBC6` (`uid_follower`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-ALTER TABLE public.useraccount_followers OWNER TO postgres;
-
 --
--- TOC entry 1688 (class 1259 OID 50858)
--- Dependencies: 3
--- Name: useraccount_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `userAccount_permission`
 --
-
-CREATE TABLE useraccount_permission (
-    sec_id_secondary bigint NOT NULL,
-    sec_id_permission bigint NOT NULL
-);
 
+CREATE TABLE IF NOT EXISTS `userAccount_permission` (
+  `sec_id_secondary` bigint(20) NOT NULL,
+  `sec_id_permission` bigint(20) NOT NULL,
+  PRIMARY KEY (`sec_id_permission`,`sec_id_secondary`),
+  KEY `FKBE01CE4C43ADB63D` (`sec_id_permission`),
+  KEY `FKBE01CE4C5F77A117` (`sec_id_secondary`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE public.useraccount_permission OWNER TO postgres;
+-- --------------------------------------------------------
 
 --
--- TOC entry 1689 (class 1259 OID 50863)
--- Dependencies: 3
--- Name: useraccount_project; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
+-- Table structure for table `userAccount_project`
 --
 
-CREATE TABLE useraccount_project (
-    sec_id_secondary bigint NOT NULL,
-    cat_id_project bigint NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `userAccount_project` (
+  `sec_id_secondary` bigint(20) NOT NULL,
+  `cat_id_project` bigint(20) NOT NULL,
+  PRIMARY KEY (`cat_id_project`,`sec_id_secondary`),
+  KEY `FKFBC45BBC84536452` (`cat_id_project`),
+  KEY `FKFBC45BBC5F77A117` (`sec_id_secondary`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
