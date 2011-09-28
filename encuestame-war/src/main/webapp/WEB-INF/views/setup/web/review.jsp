@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="defaultMarginWrapper">
+<%@ include file="/WEB-INF/jsp/includes/setup/setup_init.jsp"%>
     <div class="setup-description">
         <c:if test="${not empty message}">
             <div class="${message.infoType.css}">${message.message}</div>
@@ -21,4 +21,4 @@
             </form:form>
         </div>
     </div>
-</div>
+<%@ include file="/WEB-INF/jsp/includes/setup/setup_finish.jsp"%>

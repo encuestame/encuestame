@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="defaultMarginWrapper">
+<%@ include file="/WEB-INF/jsp/includes/setup/setup_init.jsp"%>
 <h2>Create Administration User</h2>
 <form:form modelAttribute="administrator">
     <div>
@@ -25,4 +25,4 @@
         <input type="submit" id="saveUser" name="_eventId_create-user" value="Save User"/>
     </div>
 </form:form>
-</div>
+<%@ include file="/WEB-INF/jsp/includes/setup/setup_finish.jsp"%>

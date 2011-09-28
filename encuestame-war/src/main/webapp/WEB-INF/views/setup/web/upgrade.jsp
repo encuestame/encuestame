@@ -1,3 +1,3 @@
-<div class="defaultMarginWrapper">
+<%@ include file="/WEB-INF/jsp/includes/setup/setup_init.jsp"%>
     <h3>upgrade</h3>
-</div>
+<%@ include file="/WEB-INF/jsp/includes/setup/setup_init.jsp"%>
