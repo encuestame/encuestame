@@ -14,33 +14,43 @@ div.web-setup-wrapper{
     border: 1px solid #EEE;
     padding: 10px;
     font-size: 110%;
-    -moz-box-shadow: 0 0px 9px #888888;
-    -webkit-box-shadow: 0 0px 9px #888888;
-    box-shadow: 0 0px 9px #888888;
+    -moz-box-shadow: 1px 4px 3px 0px #888888;
+    -webkit-box-shadow: 1px 4px 3px 0px #888888;
+    box-shadow: 1px 4px 3px 0px #888888;
+}
+
+div.web-setup-wrapper div.web-setup-header-into{
+    background-color: #F1721F;
+  border-bottom: 3px solid #888888;
+  color: #FFFFFF;
+  font-size: 110%;
+  font-weight: bold;
+  margin: 15px 5px 5px;
+  padding: 20px;
+  width: auto;
+}
+
+div.web-setup-wrapper div.web-setup-header-into div.web-setup-header{
+
+}
+
+div.web-setup-wrapper div.web-setup-header-into div.web-setup-title{
+  font-size: 18px;
+  color: #FFF;
+}
+
+div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
+  color: #000;
+  font-size: 13px;
 }
 
 .web-setup-wrapper a{
     color: #F1721F;
 }
 
-.web-setup-wrapper div.web-setup-header {
-  background-color: #F1721F;
-  border-bottom: 3px solid #888888;
-  color: #FFFFFF;
-  font-size: 110%;
-  font-weight: bold;
-  margin: 15px 5px 5px;
-  padding: 9px;
-  width: auto;
-}
-
-.web-setup-wrapper div.web-setup-header h1{
-    margin: 0;
-}
-
 .web-setup-wrapper div.web-setup-content {
   padding: 10px;
-  width: 100%;
+  width: auto;
 }
 
 .web-setup-wrapper div.setup-description h1{
@@ -54,6 +64,7 @@ div.web-setup-wrapper{
 
 .web-setup-content .setup-form{
     padding: 10px;
+    width: auto;
 }
 
 .web-setup-wrapper .setup-form div.row{

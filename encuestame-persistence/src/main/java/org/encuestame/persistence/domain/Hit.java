@@ -48,7 +48,7 @@ import org.hibernate.search.annotations.Store;
 @Indexed(index="hits")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Hit {
+public class Hit { //TODO: Create superMapped class with Access rate.
 
     /** Id. **/
     private Long id;
