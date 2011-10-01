@@ -13,12 +13,10 @@
 package org.encuestame.core.cron;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.EnMeUtils;
-import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -45,24 +43,33 @@ public class CalculateRelevance {
 
     @Autowired
     private ISurvey surveyDao;
+
+    /** **/
+    //private Integer MAX_RESULTS = 50;
+
+    /** **/
+    private Integer START_RESULTS = 0;
+
     /**
      * Calculate relevance.
      */
     public void calculate() {
         log.info("************ Start calculate relevance item **************");
-        final Calendar dateFrom = Calendar.getInstance();
+
+        // Unused code to search items by date range.
+       /* final Calendar dateFrom = Calendar.getInstance();
         dateFrom.add(Calendar.DATE, -5);
         final Calendar datebefore = Calendar.getInstance();
         datebefore.add(Calendar.DATE, -5);
-        final Calendar todayDate = Calendar.getInstance();
+        final Calendar todayDate = Calendar.getInstance();*/
 
-        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetPolls(50,
-                0, dateFrom.getTime());
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetPolls(null,
+                START_RESULTS, null);
         log.info("Total tweetpolls -------------" + tweetPolls.size());
 
-        final List<Poll> polls = getPollDao().getPolls(50,
-                0, dateFrom.getTime());
-        this.processItems(tweetPolls, polls, null, datebefore, todayDate);
+        final List<Poll> polls = getPollDao().getPolls(null,
+                START_RESULTS, null);
+        this.processItems(tweetPolls, polls, null, null, null);
     }
 
     /**

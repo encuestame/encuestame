@@ -116,7 +116,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
     @SuppressWarnings("unchecked")
     public final List<Survey> getSurveyFrontEnd(final Integer period, final Integer start, final Integer maxResults, final Integer firstResult){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
-        criteria.createAlias("question", "question");
+         //criteria.createAlias("question", "question");
         // TODO: Complete method, adding criteria params
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }

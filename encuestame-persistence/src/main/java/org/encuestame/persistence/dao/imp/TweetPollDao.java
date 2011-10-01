@@ -477,7 +477,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.setProjection(Projections.max("likeVote"));
         criteria.createAlias("editorOwner", "editorOwner");
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
-        criteria.add(Restrictions.between("createDate", dateFrom, dateTo));
+        //criteria.add(Restrictions.between("createDate", dateFrom, dateTo));
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -493,7 +493,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
-        criteria.add(Restrictions.gt("createDate", range));
+        //criteria.add(Restrictions.gt("createDate", range));
         criteria.addOrder(Order.desc("createDate"));
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }

@@ -560,7 +560,7 @@ public class ConvertDomainBean {
                     ? null
                     : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
         }
-        unitTweetPoll.setRelevance(tweetPoll.getRelevance());
+        unitTweetPoll.setRelevance(tweetPoll.getRelevance() == null ? 0L : tweetPoll.getRelevance());
         return unitTweetPoll;
     }
 
@@ -938,9 +938,10 @@ public class ConvertDomainBean {
     public static final List<HomeBean> convertTweetPollListToHomeBean(final List<TweetPollBean> items){
        final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
        for (TweetPollBean tweetPollBean : items) {
-           if(tweetPollBean.getRelevance()!=0){
-           listFrontEndItems.add(ConvertDomainBean.convertTweetPollToHomeBean(tweetPollBean));
-           }
+            if (tweetPollBean.getRelevance() != 0) {
+                listFrontEndItems.add(ConvertDomainBean
+                        .convertTweetPollToHomeBean(tweetPollBean));
+            }
         }
    return listFrontEndItems;
    }
