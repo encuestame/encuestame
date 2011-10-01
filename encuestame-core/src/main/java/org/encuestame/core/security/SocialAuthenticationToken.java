@@ -14,13 +14,12 @@ package org.encuestame.core.security;
 
 import java.util.Collection;
 
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
  * Description.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since May 1, 2011
  */

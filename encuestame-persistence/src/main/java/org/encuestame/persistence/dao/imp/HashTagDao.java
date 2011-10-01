@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -65,7 +65,6 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
         criteria.add(Restrictions.eq("hashTag", hashTag) );
         final List<HashTag> results = getHibernateTemplate().findByCriteria(criteria);
-        log.debug("hashtag by :"+hashTag+ " size:"+results.size());
         if (results.size() >= 1) {
             return results.get(0); //TODO: it's possible repeated HashTags?
         } else {
@@ -84,7 +83,6 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                     final String tagCriteria){
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
         if (tagCriteria.equals("hashTagsCloud")) {
-            log.debug("getCurrentMidnightDate() "+getCurrentdMidnightDate());
             criteria.add(Restrictions.gt("size", 12L));
             criteria.add(Restrictions.gt("updatedDate", getCurrentdMidnightDate()));
             criteria.addOrder(Order.desc("size"));

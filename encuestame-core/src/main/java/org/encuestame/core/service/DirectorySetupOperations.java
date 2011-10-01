@@ -1,11 +1,28 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.core.service;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.exception.EnMeStartupException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 /**
  * Directory Operations.
@@ -18,13 +35,13 @@ public class DirectorySetupOperations {
     private static Logger log = Logger
             .getLogger(DirectorySetupOperations.class);
     /** Default root directory name. */
-    private final static String DEFAULT_ROOT_FOLDER = "encuestame";
+    private static final String DEFAULT_ROOT_FOLDER = "encuestame-store";
     /** Default picture directory name. **/
-    private final static String PICTURES_DEFAULT_FOLDER = "pictures";
+    private static final String PICTURES_DEFAULT_FOLDER = "pictures";
     /** Default profiles directory name. **/
-    private final static String PROFILES_DEFAULT_FOLDER = "profiles";
+    private static final String PROFILES_DEFAULT_FOLDER = "profiles";
     /** Default indexes directory name. **/
-    private final static String INDEXES_DEFAULT_FOLDER = "indexes";
+    private static final String INDEXES_DEFAULT_FOLDER = "indexes";
 
     /**
      * Constructor.
@@ -39,9 +56,28 @@ public class DirectorySetupOperations {
     public static boolean checkIfExistRootDirectory() throws EnmeFailOperation {
         final File rootDir = new File(DirectorySetupOperations.getRootDirectory());
         log.debug("EnMe: Root directory: " + rootDir);
-        DirectorySetupOperations.validateInternalStructureDirectory(rootDir,
-                Boolean.TRUE);
         return rootDir.exists();
+    }
+
+    /**
+     * Create config file.
+     * encuestame-config.xml
+     * @throws IOException
+     */
+    public static void createConfileFile() throws IOException {
+        log.debug("createConfileFile");
+        final StringBuffer config = new StringBuffer(getRootDirectory());
+        config.append(PathUtil.configFileName);
+        final File configFile = new File(config.toString());
+        if (!configFile.exists()) {
+            final Resource resource = new ClassPathResource("encuestame-config-sample.xml");
+            log.debug("createConfileFile resource"+resource);
+            log.debug("createConfileFile configFile"+configFile.getAbsolutePath());
+            final File sourceFile = resource.getFile();
+            log.debug("createConfileFile sourceFile"+sourceFile.getAbsolutePath());
+            EnMeUtils.copy(sourceFile, configFile);
+            EnMePlaceHolderConfigurer.getConfigurationManager().reloadConfigFile();
+        }
     }
 
     /**
@@ -112,11 +148,11 @@ public class DirectorySetupOperations {
      * @return real path of roor directory.
      */
     public static String getRootDirectory() {
-        String root = EnMePlaceHolderConfigurer
-                .getProperty("encuestame.home");
-        if (root != null) {
+        String root = EnMePlaceHolderConfigurer.getProperty("encuestame.home");
+        if (root == null) {
             root = System.getProperty("user.home")+ "/" + DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
         }
+        log.debug("root directory: "+root);
         if (!root.endsWith("/")) {
             root = root + "/";
         }
@@ -176,16 +212,26 @@ public class DirectorySetupOperations {
      *             exception on try to create directory.
      */
     public static void createRootFolder() throws EnmeFailOperation {
-        final File rootFolder = new File(
-                DirectorySetupOperations.getRootDirectory());
-        boolean success = rootFolder.mkdirs();
-        log.info("created root folder");
-        if (success && rootFolder.canWrite() && rootFolder.isDirectory()) {
-            DirectorySetupOperations.validateInternalStructureDirectory(rootFolder,
-                    true);
-        } else {
-            throw new EnmeFailOperation("EnMe: not able to create ROOT folder");
+        final File rootFolder = new File(DirectorySetupOperations.getRootDirectory());
+        if (!rootFolder.exists()) {
+            boolean success = rootFolder.mkdirs();
+            log.info("created root folder");
+            if (success && rootFolder.canWrite() && rootFolder.isDirectory()) {
+                //TODO:
+            } else {
+                throw new EnmeFailOperation("EnMe: not able to create ROOT folder");
+            }
         }
+    }
+
+    /**
+     * Check the installation folder.
+     * @return
+     */
+    public static Boolean checkInstallationFolder(){
+        final File rootFolder = new File(DirectorySetupOperations.getRootDirectory());
+        log.debug("checkInstallationFolder "+rootFolder.exists());
+        return rootFolder.exists();
     }
 
     /**
@@ -193,7 +239,8 @@ public class DirectorySetupOperations {
      * @param rootFolder {@link File} reference or root directory.
      * @throws EnMeStartupException
      */
-    private static void validateInternalStructureDirectory(final File rootFolder, final boolean createIfNoExist) throws EnmeFailOperation {
+    public static void validateInternalStructureDirectory(final boolean createIfNoExist) throws EnmeFailOperation {
+            log.debug("EnMe: validateInternalStructureDirectory."+createIfNoExist);
             if (!DirectorySetupOperations.checkIfIndexedDirectoryExist(createIfNoExist)) {
                 log.debug("EnMe: index folder not found, creating one...");
             }

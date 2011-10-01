@@ -29,7 +29,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This job calculate every day the size of each hashgtag in the database.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 19, 2011
  */

@@ -33,6 +33,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequest;
 
+/**
+ * Oauth 1 utils.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
+ */
 public class OAuth1Utils {
 
     /**

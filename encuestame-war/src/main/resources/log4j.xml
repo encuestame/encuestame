@@ -66,7 +66,7 @@
     </logger>
 
     <logger name="org.springframework.context">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.jdbc">
@@ -74,6 +74,10 @@
     </logger>
 
     <logger name="org.springframework.web">
+        <level value="warn" />
+    </logger>
+
+    <logger name="org.springframework.webflow">
         <level value="warn" />
     </logger>
 

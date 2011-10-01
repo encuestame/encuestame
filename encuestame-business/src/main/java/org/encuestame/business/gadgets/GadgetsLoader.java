@@ -33,12 +33,12 @@ public class GadgetsLoader {
     /**
      *
      */
-    final static List<Properties> directory = new ArrayList<Properties>();
+    static final List<Properties> directory = new ArrayList<Properties>();
 
     /**
      *
      */
-    final static HashMap<String, Properties> mapDirectory = new HashMap<String, Properties>();
+    static final HashMap<String, Properties> mapDirectory = new HashMap<String, Properties>();
 
     /**
      *

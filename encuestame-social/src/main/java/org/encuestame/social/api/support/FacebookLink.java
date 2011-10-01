@@ -14,6 +14,8 @@ package org.encuestame.social.api.support;
 
 /**
  * Model class representing a link to be posted to a users Facebook wall.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 public class FacebookLink {
     private final String link;

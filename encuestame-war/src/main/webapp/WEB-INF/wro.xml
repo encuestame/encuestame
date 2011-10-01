@@ -14,8 +14,10 @@
     <css>/resource/css/web/section.css</css>
     <css>/resource/css/web/table.css</css>
     <css>/resource/css/web/user.css</css>
+    <css>/resource/css/common.css</css>
   </group>
   <group name='mobile'>
     <css>/resource/css/mobile/default.css</css>
+    <css>/resource/css/common.css</css>
   </group>
 </groups>

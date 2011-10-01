@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -61,7 +61,7 @@ public class HashTag {
     private Long hits;
 
     /** Last time updated. **/
-    private Date updatedDate = Calendar.getInstance().getTime();
+    private Date updatedDate =  Calendar.getInstance().getTime();
 
     /** {@link TweetPoll} **/
     private Set<TweetPoll> tweetPoll = new HashSet<TweetPoll>();
@@ -156,7 +156,7 @@ public class HashTag {
      */
     @Temporal(TemporalType.TIMESTAMP)
     @Field(index=Index.TOKENIZED, store=Store.YES)
-    @Column(name = "hashtag_updated_date", nullable = false)
+    @Column(name = "hashtag_updated_date", nullable = true)
     public Date getUpdatedDate() {
         return updatedDate;
     }

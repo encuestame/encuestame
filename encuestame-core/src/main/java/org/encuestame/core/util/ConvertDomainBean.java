@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -42,7 +42,6 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -53,6 +52,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -60,6 +60,7 @@ import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.social.TypeAuth;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
@@ -76,7 +77,7 @@ import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
-import org.encuestame.utils.web.UnitSurvey;
+import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 
@@ -559,6 +560,7 @@ public class ConvertDomainBean {
                     ? null
                     : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
         }
+        unitTweetPoll.setRelevance(tweetPoll.getRelevance() == null ? 0L : tweetPoll.getRelevance());
         return unitTweetPoll;
     }
 
@@ -646,7 +648,6 @@ public class ConvertDomainBean {
         locationFolder.setType(geoPointFolder.getFolderType().GROUPING.name());
         return locationFolder;
     }
-
 
     /**
      * Convert {@link UnitLocationFolder} to {@link UtilTreeNode}.
@@ -759,8 +760,8 @@ public class ConvertDomainBean {
      * @param survey
      * @return
      */
-    public static final UnitSurvey convertSurveyDomaintoBean(final Survey survey){
-        final UnitSurvey unitSurvey = new UnitSurvey();
+    public static final SurveyBean convertSurveyDomaintoBean(final Survey survey){
+        final SurveyBean unitSurvey = new SurveyBean();
         unitSurvey.setSid(survey.getSid());
         unitSurvey.setTicket(survey.getTicket());
         unitSurvey.setStartDate(survey.getStartDate());
@@ -783,12 +784,26 @@ public class ConvertDomainBean {
         unitSurvey.setClosedQuota(survey.getClosedQuota());
         unitSurvey.setShowResults(survey.getShowResults());
         unitSurvey.setNumbervotes(survey.getNumbervotes());
-        unitSurvey.setHits(survey.getHits());
+        //unitSurvey.setHits(survey.getHits());
         unitSurvey.setAdditionalInfo(survey.getAdditionalInfo());
         unitSurvey.setShowAdditionalInfo(survey.getShowAdditionalInfo());
         unitSurvey.setNotifications(survey.getNotifications());
         unitSurvey.setName(survey.getName());
+        unitSurvey.setRelevance(survey.getRelevance());
         return unitSurvey;}
+
+    /**
+     * Convert List survey domain to bean.
+     * @param surveyList
+     * @return
+     */
+    public static final List<SurveyBean> convertListSurveyToBean(final List<Survey> surveyList){
+        final List<SurveyBean> surveyBeanList = new LinkedList<SurveyBean>();
+        for (Survey survey : surveyList) {
+            surveyBeanList.add(ConvertDomainBean.convertSurveyDomaintoBean(survey));
+        }
+        return surveyBeanList;
+    }
 
     /**
      * Convert Dashboard bean to dashboard domain.
@@ -914,4 +929,100 @@ public class ConvertDomainBean {
        }
        return commentsBean;
      }
+
+   /**
+    * Convert TweetPollBean List to Home Bean.
+    * @param tweetPollBean
+    * @return
+    */
+    public static final List<HomeBean> convertTweetPollListToHomeBean(final List<TweetPollBean> items){
+       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
+       for (TweetPollBean tweetPollBean : items) {
+            if (tweetPollBean.getRelevance() != 0) {
+                listFrontEndItems.add(ConvertDomainBean
+                        .convertTweetPollToHomeBean(tweetPollBean));
+            }
+        }
+   return listFrontEndItems;
+   }
+
+  /**
+   * Convert {@link TweetPollBean} to {@link HomeBean}.
+   * @param tweetBean
+   * @return
+   */
+   public static final HomeBean convertTweetPollToHomeBean(final TweetPollBean tweetBean){
+       final HomeBean homeBean = new HomeBean();
+           homeBean.setId(tweetBean.getId());
+           homeBean.setCreateDate(tweetBean.getCreateDate());
+           homeBean.setQuestionBean(tweetBean.getQuestionBean());
+           homeBean.setRelativeTime(tweetBean.getRelativeTime());
+           homeBean.setTotalVotes(tweetBean.getTotalVotes());
+           homeBean.setUserId(tweetBean.getUserId());
+           homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
+           homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean.getItemType().toString());
+           homeBean.setRelevance(tweetBean.getRelevance());
+       return homeBean;
+   }
+
+   /**
+    * Convert PollBean List to Home Bean.
+    * @param PollBean
+    * @return
+    */
+   public static final List<HomeBean> convertPollListToHomeBean(final List<PollBean> items){
+       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
+       for (PollBean pollBean : items) {
+           listFrontEndItems.add(ConvertDomainBean.convertPollToHomeBean(pollBean));
+        }
+   return listFrontEndItems;
+   }
+
+  /**
+   * Convert {@link PollBean} to {@link HomeBean}.
+   * @param pollBean
+   * @return
+   */
+   public static final HomeBean convertPollToHomeBean(final PollBean pollBean){
+       final HomeBean homeBean = new HomeBean();
+       homeBean.setId(pollBean.getId());
+       homeBean.setQuestionBean(pollBean.getQuestionBean());
+       homeBean.setOwnerUsername(pollBean.getOwnerUsername());
+       homeBean.setCreatedDateAt(pollBean.getCreationDate());
+       homeBean.setTotalVotes(pollBean.getTotalVotes());
+       homeBean.setRelativeTime(pollBean.getRelativeTime());
+       homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
+       return homeBean;
+   }
+
+   /**
+    * Convert SurveyBean List to Home Bean.
+    * @param items
+    * @return
+    */
+   public static final List<HomeBean> convertSurveyListToHomeBean(final List<SurveyBean> items){
+       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
+       for (SurveyBean surveyBean : items) {
+           listFrontEndItems.add(ConvertDomainBean.convertSurveyToHomeBean(surveyBean));
+        }
+   return listFrontEndItems;
+   }
+
+   /**
+    * Convert {@link SurveyBean} to {@link HomeBean}.
+    * @param pollBean
+    * @return
+    */
+   public static final HomeBean convertSurveyToHomeBean(final SurveyBean surveyBean){
+       // TODO: ENCUESTAME-312
+       final HomeBean homeBean = new HomeBean();
+       homeBean.setId(surveyBean.getSid());
+       homeBean.setQuestionBean(null);
+       homeBean.setOwnerUsername(null);
+       homeBean.setCreatedDateAt(null);
+       homeBean.setTotalVotes(null);
+       homeBean.setRelativeTime(null);
+       homeBean.setItemType(null);
+       return homeBean;
+   }
 }

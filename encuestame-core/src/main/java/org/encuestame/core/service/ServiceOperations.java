@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,11 +12,10 @@
  */
 package org.encuestame.core.service;
 
-import org.springframework.context.MessageSource;
 
 /**
  * Service Interface.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 29/11/2009 21:47:14
  * @version $Id$
  */
@@ -39,6 +38,6 @@ public interface ServiceOperations{
      * @param propertieId propertieId
      * @return value of propertie
      */
-    public String getMessageProperties(String propertieId);
+    String getMessageProperties(String propertieId);
 
 }

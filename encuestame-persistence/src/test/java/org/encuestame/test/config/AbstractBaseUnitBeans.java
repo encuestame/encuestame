@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -39,7 +39,7 @@ import org.encuestame.utils.web.UserAccountBean;
 
 /**
  * Abstract Base Unit Beans.
- * @author Morales Urbina, Diana paola@encuestame.org
+ * @author Morales Urbina, Diana paolaATencuestame.org
  * @since 19/04/2010 20:54:56
  */
 
@@ -422,20 +422,20 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @return
       */
      public DashboardBean createDashboardBean(
-    		 final String dashboardName,
-    		 final String dashboardDesc,
-    		 final Boolean favorite,
-    		 final LayoutEnum layout,
-    		 final Integer sequence,
-    		 final Integer counter){
-    	 final DashboardBean dashboardBean = new DashboardBean();
-    	 dashboardBean.setDashboardName(dashboardName);
-    	 dashboardBean.setDashboardDesc(dashboardDesc);
-    	 dashboardBean.setFavorite(favorite);
-    	 dashboardBean.setLayout(layout.toString());
-    	 dashboardBean.setSequence(sequence);
-    	 dashboardBean.setFavoriteCounter(counter);
-    	 return dashboardBean;
+             final String dashboardName,
+             final String dashboardDesc,
+             final Boolean favorite,
+             final LayoutEnum layout,
+             final Integer sequence,
+             final Integer counter){
+         final DashboardBean dashboardBean = new DashboardBean();
+         dashboardBean.setDashboardName(dashboardName);
+         dashboardBean.setDashboardDesc(dashboardDesc);
+         dashboardBean.setFavorite(favorite);
+         dashboardBean.setLayout(layout.toString());
+         dashboardBean.setSequence(sequence);
+         dashboardBean.setFavoriteCounter(counter);
+         return dashboardBean;
      }
 
      /**
@@ -448,13 +448,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @return
       */
      public CommentBean createCommentBean(final String comment,
-    		 final Date createdAt, final Long userId, final Long tweetPollId, final Long pollId){
-    	 final CommentBean commentBean = new CommentBean();
-    	 commentBean.setComment(comment);
-    	 commentBean.setCreatedAt(createdAt);
-    	 commentBean.setUserAccountId(userId);
-    	 commentBean.setTweetPoll(tweetPollId);
-    	 commentBean.setPollId(pollId);
-    	 return commentBean;
+             final Date createdAt, final Long userId, final Long tweetPollId, final Long pollId){
+         final CommentBean commentBean = new CommentBean();
+         commentBean.setComment(comment);
+         commentBean.setCreatedAt(createdAt);
+         commentBean.setUserAccountId(userId);
+         commentBean.setTweetPoll(tweetPollId);
+         commentBean.setPollId(pollId);
+         return commentBean;
      }
 }

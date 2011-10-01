@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -18,17 +18,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.GeoPointType;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Client;
-import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EnMePermission;
-import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPoint;
+import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
@@ -49,11 +49,11 @@ import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Test;
@@ -420,22 +420,6 @@ public class TestHibernateDomains extends AbstractBase{
         getHashTagDao().saveOrUpdate(tag);
         assertNotNull(tag.getHashTagId());
      }
-
-     /** HashTag hits domain. **/
-     @Test
-     public void testHashTagHits(){
-        final Date hitDate = new Date();
-        final String ipAddress = "";
-        final String tagName = "programmer";
-        final HashTagHits tagHits = new HashTagHits();
-        tagHits.setHitDate(hitDate);
-        tagHits.setIpAddress(ipAddress);
-        tagHits.setUserAccount(createUserAccount("juan carlos", createAccount()));
-        tagHits.setHashTag(createHashTag(tagName));
-        getHashTagDao().saveOrUpdate(tagHits);
-        assertNotNull(tagHits.getHashTag());
-     }
-
      /** Dashboard domain. **/
      @Test
      public void testDashboard(){
@@ -512,4 +496,20 @@ public class TestHibernateDomains extends AbstractBase{
          poll.setUpdatedDate(null);
          getiPoll().saveOrUpdate(poll);
      }
+
+     /** Test item vote. **/
+     @Test
+     public void testRate(){
+         final Question question = createQuestion("Who will win the Champions League match today?", "");
+         final Account account = createAccount();
+         final UserAccount user = createUserAccount("carlos", account);
+         final TweetPoll tpoll = createPublishedTweetPoll(account, question);
+         final AccessRate rateItem = new AccessRate();
+         rateItem.setRate(Boolean.TRUE);
+         rateItem.setUser(user);
+         rateItem.setTweetPoll(tpoll);
+         rateItem.setPoll(null);
+         rateItem.setSurvey(null);
+         rateItem.setUpdatedDate(Calendar.getInstance().getTime());
+         }
 }

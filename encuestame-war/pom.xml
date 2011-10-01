@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.1.39-SNAPSHOT</version>
+        <version>1.140-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
@@ -678,6 +678,10 @@
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-snowball</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
         </dependency>
         <dependency>
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>

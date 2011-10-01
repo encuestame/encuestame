@@ -42,7 +42,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 @Named
 @Singleton
-@Service("notificationService")
+@Service("tweetPollCometService")
 public class TweetPollCometService extends AbstractCometService {
 
     /**
@@ -59,6 +59,7 @@ public class TweetPollCometService extends AbstractCometService {
     @Listener("/service/tweetpoll/autosave")
     @SuppressWarnings("unchecked")
     public void processAutoSave(final ServerSession remote, final ServerMessage.Mutable message) {
+        System.out.println("--------- TweetPoll COMMET AUTOSAVE ----------");
         log.debug("--------- TweetPoll COMMET AUTOSAVE ----------");
         final Map<String, Object> inputMessage = message.getDataAsMap();
         Map<String, Object> outPutMessage = new HashedMap();
@@ -141,10 +142,8 @@ public class TweetPollCometService extends AbstractCometService {
             }
         } catch (EnMeExpcetion e) {
             log.error(e);
-            e.printStackTrace();
         } catch (ParseException e) {
              log.error(e);
-            e.printStackTrace();
         }
         log.debug("tweetPoll content:{"+outPutMessage);
         remote.deliver(getServerSession(), message.getChannel(), outPutMessage, null);

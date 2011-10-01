@@ -25,7 +25,10 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
 
 /**
+ * OAuth2RequestFactory
  * Request factory that signs RestTemplate requests with an OAuth 2 Authorization header.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 class OAuth2RequestFactory implements ClientHttpRequestFactory {
 

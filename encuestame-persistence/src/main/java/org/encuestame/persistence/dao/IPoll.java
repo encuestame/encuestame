@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -136,4 +136,23 @@ public interface IPoll extends IBaseDao {
       * @return
       */
      List<Poll> retrievePollsByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start);
+
+     /**
+      * Get max poll like votes by user.
+      * @param userId
+      * @param dateFrom
+      * @param dateTo
+      * @return
+      */
+     Long getMaxPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo);
+
+     /**
+      *
+      * @param maxResults
+      * @param start
+      * @param range
+      * @return
+      */
+     List<Poll> getPolls(final Integer maxResults,
+             final Integer start, final Date range);
 }

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -82,7 +82,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    private final Long retrieveCountNotification(final Account account, final String query){
+    private Long retrieveCountNotification(final Account account, final String query){
         Long resultsSize = 0L;
         final List<Object> list =  getHibernateTemplate().findByNamedParam("select count(*) from Notification "
                 +" WHERE account =:user", "user", account);

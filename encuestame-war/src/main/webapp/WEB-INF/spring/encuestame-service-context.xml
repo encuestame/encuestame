@@ -9,6 +9,7 @@
 
   <!-- Scans for application @Components to deploy -->
   <context:component-scan base-package="org.encuestame.business.service" />
+  <context:component-scan base-package="org.encuestame.business.setup" />
   <context:component-scan base-package="org.encuestame.core.service" />
   <context:component-scan base-package="org.encuestame.social.connect.service" />
 
@@ -17,10 +18,10 @@
 
  <!-- Message Resources -->
     <bean id="messageSource"
-        class="org.springframework.context.support.ResourceBundleMessageSource">
-          <property name="basename">
-              <value>messages</value>
-          </property>
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+         <property name="basename" value="/WEB-INF/messages/messages" />
+          <property name="defaultEncoding" value="UTF-8"/>
+          <property name="cacheSeconds" value="1"/>
     </bean>
 
     <!-- Startup Support -->

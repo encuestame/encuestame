@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition name="setup" extends="page">
+         <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}setup.jsp" />
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Setup | encuestame" />
+    </definition>
+
+    <definition name="upgrade-setup" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Upgrade Database | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}upgrade.jsp" />
+    </definition>
+
+    <definition name="displayError" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Error on Install | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}error.jsp" />
+    </definition>
+
+    <definition name="install-setup" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Install Database | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}install.jsp" />
+    </definition>
+
+    <definition name="demo-install" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Demo Install Data | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}demo.jsp" />
+    </definition>
+
+    <definition name="installAdmon" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Create User Administration | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}admon.jsp" />
+    </definition>
+
+    <definition name="install-check" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Check Install | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}check.jsp" />
+    </definition>
+
+    <definition name="finish-state" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Install Finished | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}finish.jsp" />
+    </definition>
+
+    <definition name="review-admon" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Review Administration User | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}review.jsp" />
+    </definition>
+
+    <definition name="editAdmon" extends="page">
+        <put-attribute name="header" expression="/WEB-INF/layouts/${currentDevice.mobile ? 'mobile/' : 'standard/'}setup/header.jsp" />
+        <put-attribute name="title" value="Review Administration User | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/setup/${currentDevice.mobile ? 'mobile/' : 'web/'}edit.jsp" />
+    </definition>
+
+</tiles-definitions>

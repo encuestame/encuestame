@@ -1,4 +1,3 @@
-<%@ page session="false" %>
 <%@page import="org.encuestame.core.security.util.WidgetUtil"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
@@ -25,20 +24,12 @@
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
-         // Load the basic mobile widgetry and support code.
-         //dojo.require("dojox.mobile");
-         // Load the lightweight parser.  dojo.parser can also be used, but it requires much more code to be loaded.
-         //dojo.require("dojox.mobile.parser");
-         // Load the compat layer if the incoming browser isn't webkit based
-         //dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
     </script>
 </head>
 <body>
 <body class="mobile claro">
      <div id="mainWrapper">
-        <div id="header">
-            <tiles:insertAttribute name="header" />
-        </div>
+        <tiles:insertAttribute name="header" ignore="true" />
         <div id="content-container">
             <div id="mobile-enme-content">
                 <tiles:insertAttribute name="menu" ignore="true" />

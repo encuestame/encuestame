@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -33,7 +33,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Survey Dao.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since June 01, 2009
  * @version $Id$
  */
@@ -178,5 +178,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
                +" from Survey where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#getSurveyById(java.lang.Long)
+     */
+    public Survey getSurveyById(final Long surveyId) throws HibernateException {
+        return (Survey) getHibernateTemplate().get(Survey.class, surveyId);
+    }
 }
 

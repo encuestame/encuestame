@@ -1,6 +1,6 @@
  /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -286,18 +286,18 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @RequestMapping(value = "/api/common/dashboard/move-gadget.json", method = RequestMethod.GET)
     public ModelMap moveGadget(
-            @RequestParam(value = "gadgetId", required = true) Long gadgetId,
-            @RequestParam(value = "position", required = true) Integer position,
-            @RequestParam(value = "column", required = true) Integer column,
-            @RequestParam(value = "dashboardId", required = true) Long dashboardId,
+            @RequestParam(value = "gadgetId", required = false) Long gadgetId,
+            @RequestParam(value = "position", required = false) Integer position,
+            @RequestParam(value = "column", required = false) Integer column,
+            @RequestParam(value = "dashboardId", required = false) Long dashboardId,
             HttpServletRequest request,
-            HttpServletResponse response){
+            HttpServletResponse response) {
         try {
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             getDashboardService().moveGadget(gadgetId, dashboardId, position, column);
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -321,7 +321,6 @@ public class DashboardJsonController extends AbstractJsonController {
             setSuccesResponse();
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -344,7 +343,6 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -369,7 +367,6 @@ public class DashboardJsonController extends AbstractJsonController {
              setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

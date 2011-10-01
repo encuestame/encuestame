@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,12 +16,13 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.json.QuestionBean;
 
 /**
  * Unit Poll Bean.
- *
- * @author Morales, Diana Paola paola@encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
  * @version $Id: $
  */
@@ -33,48 +34,60 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     private static final long serialVersionUID = 7022698996782621900L;
 
     /***/
+    @JsonProperty(value = "id")
     private Long id;
 
     /***/
+    @JsonProperty(value = "completedPoll")
     private Boolean completedPoll;
 
     /***/
+    @JsonProperty(value = "creationDate")
     private Date creationDate;
 
     /***/
+    @JsonProperty(value = "question")
     private QuestionBean questionBean = new QuestionBean();
 
     /***/
+    @JsonProperty(value = "finishDate")
     private Date finishDate;
 
     /***/
+    @JsonProperty(value = "publishPoll")
     private Boolean publishPoll;
 
     /***/
+    @JsonProperty(value = "closeNotification")
     private Boolean closeNotification;
 
     /***/
+    @JsonProperty(value = "showResultsPoll")
     private Boolean showResultsPoll;
 
     /***/
+    @JsonProperty(value = "hashPoll")
     private String hashPoll;
 
     /** **/
+    @JsonProperty(value = "updatedDate")
     private Date updatedDate;
 
     /** **/
+    @JsonProperty(value = "url")
     private String url;
 
     /** **/
+    @JsonProperty(value = "shortUrl")
     private String shortUrl;
 
     @Deprecated
     private String pollUser;
 
-
     /**
      * @return the id
      */
+    @JsonIgnore
     public final Long getId() {
         return id;
     }
@@ -89,6 +102,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the completedPoll
      */
+    @JsonIgnore
     public final Boolean getCompletedPoll() {
         return completedPoll;
     }
@@ -103,6 +117,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the creationDate
      */
+    @JsonIgnore
     public final Date getCreationDate() {
         return creationDate;
     }
@@ -117,6 +132,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the questionBean
      */
+    @JsonIgnore
     public final QuestionBean getQuestionBean() {
         return questionBean;
     }
@@ -131,6 +147,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the finishDate
      */
+    @JsonIgnore
     public Date getFinishDate() {
         return finishDate;
     }
@@ -145,6 +162,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the publishPoll
      */
+    @JsonIgnore
     public Boolean getPublishPoll() {
         return publishPoll;
     }
@@ -159,6 +177,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the closeNotification
      */
+    @JsonIgnore
     public Boolean getCloseNotification() {
         return closeNotification;
     }
@@ -173,6 +192,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the showResultsPoll
      */
+    @JsonIgnore
     public Boolean getShowResultsPoll() {
         return showResultsPoll;
     }
@@ -187,6 +207,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
      * @return the hashPoll
      */
+    @JsonIgnore
     public String getHashPoll() {
         return hashPoll;
     }
@@ -201,6 +222,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     /**
     * @return the updatedDate
     */
+    @JsonIgnore
     public Date getUpdatedDate() {
         return updatedDate;
     }
@@ -212,31 +234,33 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
         this.updatedDate = updatedDate;
     }
 
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @return the url
+     */
+    @JsonIgnore
+    public String getUrl() {
+        return url;
+    }
 
-	/**
-	 * @param url the url to set
-	 */
-	public void setUrl(final String url) {
-		this.url = url;
-	}
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(final String url) {
+        this.url = url;
+    }
 
-	/**
-	 * @return the shortUrl
-	 */
-	public String getShortUrl() {
-		return shortUrl;
-	}
+    /**
+     * @return the shortUrl
+     */
+    @JsonIgnore
+    public String getShortUrl() {
+        return shortUrl;
+    }
 
-	/**
-	 * @param shortUrl the shortUrl to set
-	 */
-	public void setShortUrl(final String shortUrl) {
-		this.shortUrl = shortUrl;
-	}
+    /**
+     * @param shortUrl the shortUrl to set
+     */
+    public void setShortUrl(final String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
 }

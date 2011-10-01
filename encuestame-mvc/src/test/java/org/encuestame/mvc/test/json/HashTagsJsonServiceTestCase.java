@@ -32,7 +32,6 @@ import org.springframework.test.annotation.Repeat;
  */
 public class HashTagsJsonServiceTestCase extends AbstractJsonMvcUnitBeans{
 
-
     /**
      * Test /api/common/hashtags.json.
      * @throws IOException
@@ -41,7 +40,7 @@ public class HashTagsJsonServiceTestCase extends AbstractJsonMvcUnitBeans{
     @Test
     @Repeat(5)
     public void testgetHashTags() throws ServletException, IOException{
-        /* createHashTag("Nicaragua");
+         createHashTag("Nicaragua");
          createHashTag("Spain");
          createHashTag("Java");
          createHashTag("Condega");
@@ -56,8 +55,7 @@ public class HashTagsJsonServiceTestCase extends AbstractJsonMvcUnitBeans{
          Assert.assertEquals(testHashTags("10", "n*").intValue(), 1);
          Assert.assertEquals(testHashTags("10", "s*").intValue(), 1);
          Assert.assertEquals(testHashTags("10", "spa*").intValue(), 1);
-         Assert.assertEquals(testHashTags("10", "nicaragua").intValue(), 1);*/
-        //System.out.println("Getting hash tags");
+         Assert.assertEquals(testHashTags("10", "nicaragua").intValue(), 1);
     }
 
     /**
@@ -80,5 +78,69 @@ public class HashTagsJsonServiceTestCase extends AbstractJsonMvcUnitBeans{
         Assert.assertEquals(label , "hashTagName");
         Assert.assertEquals(identifier , "id");
         return items.size();
+    }
+
+    /**
+     * Test Cloud Json Service.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    @Repeat(5)
+    public void testgetCloud() throws ServletException, IOException{
+         createHashTag("DELL", 500L, 10L);
+         createHashTag("Spain", 2345L, 23L);
+         createHashTag("Pozuelo de Alarcon", 2434L, 43L);
+         createHashTag("Pozuelo", 432432L, 23L);
+         createHashTag("Condega", 2L, 23L);
+         createHashTag("Esteli", 4L, 23L);
+         flushIndexes();
+         Assert.assertEquals(testCloudHashTags("10").intValue(), 5);
+         createHashTag("Esteli", 4L, 0L);
+         Assert.assertEquals(testCloudHashTags("10").intValue(), 5);
+         createHashTag("Jota", 44L, 10L);
+         Assert.assertEquals(testCloudHashTags("4").intValue(), 4);
+         Assert.assertEquals(testCloudHashTags("2").intValue(), 2);
+         Assert.assertEquals(testCloudHashTags("1").intValue(), 1);
+         Assert.assertEquals(testCloudHashTags("0").intValue(), 5);
+    }
+
+    /**
+     * Call to Cloud HashTag JSON Service.
+     * @param limit limit of results.
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    private Integer testCloudHashTags(final String limit) throws ServletException, IOException {
+        initService("/api/common/hashtags/cloud.json", MethodJson.GET);
+        setParameter("limit", limit);
+        final JSONObject response = callJsonService();
+        // {"error":{},"success":{"cloud":[]}}
+        final JSONObject success = getSucess(response);
+        final JSONArray items = (JSONArray) success.get("cloud");
+        Assert.assertNotNull(items);
+        return items.size();
+    }
+
+    /**
+     * Test cloud json service whith out limit param.
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testCloudHashTagsWithoutLimit() throws ServletException, IOException {
+        createHashTag("DELL", 500L, 10L);
+        createHashTag("Spain", 2345L, 23L);
+        createHashTag("Pozuelo de Alarcon", 2434L, 43L);
+        flushIndexes();
+        initService("/api/common/hashtags/cloud.json", MethodJson.GET);
+        final JSONObject response = callJsonService();
+        // {"error":{},"success":{"cloud":[]}}
+        final JSONObject success = getSucess(response);
+        final JSONArray items = (JSONArray) success.get("cloud");
+        Assert.assertNotNull(items);
+        Assert.assertEquals(items.size(), 2);
     }
 }

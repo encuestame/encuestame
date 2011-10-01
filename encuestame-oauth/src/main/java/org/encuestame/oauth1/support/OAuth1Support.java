@@ -34,6 +34,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.util.UriTemplate;
 
 /**
+ * Oauth 1 support.
  * OAuth1 implementation that uses REST-template to make the OAuth calls.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 22, 2011

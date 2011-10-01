@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -26,9 +26,9 @@ import org.encuestame.business.search.IndexWriterManager;
 import org.encuestame.business.search.IndexerFile;
 import org.encuestame.business.search.UtilConvertToSearchItems;
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.domain.Attachment;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UnitAttachment;
@@ -147,7 +147,7 @@ public class SearchService extends AbstractIndexService implements
                 IndexerFile.addToIndex(attachmentBean, this.indexWriter);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                log.error(e);
             }
             long end = System.currentTimeMillis();
             log.debug("Indexing " + "numIndexed "+ " files took " + (end - start)

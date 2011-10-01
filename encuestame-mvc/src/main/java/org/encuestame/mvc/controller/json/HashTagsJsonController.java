@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -51,9 +51,12 @@ public class HashTagsJsonController extends AbstractJsonController{
     /**
      * Limit of results by default.
      */
-    private final static Integer LIMIT_DEFAULT = 10;
+    private static final Integer LIMIT_DEFAULT = 10;
 
-    private final static Integer CLOUD_LIMIT_DEFAULT = 20;
+    /**
+     * Limit of cloud results.
+     */
+    private static final Integer CLOUD_LIMIT_DEFAULT = 20;
 
      /**
      * Get List of Users.
@@ -92,7 +95,6 @@ public class HashTagsJsonController extends AbstractJsonController{
                 }
             } catch (Exception e) {
                  log.error(e);
-                 e.printStackTrace();
                  setError(e.getMessage(), response);
             }
             return returnData();
@@ -116,8 +118,9 @@ public class HashTagsJsonController extends AbstractJsonController{
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final IFrontEndService service = getFrontService();
              final List<HashTagBean> hashTagList;
-             if(limit == null){
-                 hashTagList = service.getHashTags(CLOUD_LIMIT_DEFAULT, 0, "hashTagsCloud"); // TODO: Add to file properties limit to show hashtags.
+             if (limit == null) {
+                 hashTagList = service.getHashTags(CLOUD_LIMIT_DEFAULT, 0, "hashTagsCloud");
+                 // TODO: Add to file properties limit to show hashtags.
              } else {
                 hashTagList = service.getHashTags(limit, 0, "hashTagsCloud");
              }
@@ -127,11 +130,9 @@ public class HashTagsJsonController extends AbstractJsonController{
          catch (Exception e) {
             // TODO: handle exception
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
-                return returnData();
-
+        return returnData();
     }
 
 }

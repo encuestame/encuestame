@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,7 @@ import org.encuestame.mvc.controller.AbstractBaseOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Description Class.
+ * Abstract security controller.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 14, 2010 8:44:12 PM
  * @version Id:

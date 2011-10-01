@@ -197,25 +197,6 @@ a:hover{
   width: 395px;
 }
 
-.warning{
-    background-color: #F3F085;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
-}
-
-.success{
-    background-color: #B1ECB1;
-    max-width: 50%;
-    padding: 4px;
-    color: #358852;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-   /* border-top: 1px solid #00FF59;
-    border-bottom: 1px solid #00FF59;*/
-}
-
 .success-message{
     color: #358852;
     padding: 2px;

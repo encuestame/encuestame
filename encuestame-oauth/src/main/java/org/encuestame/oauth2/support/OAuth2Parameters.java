@@ -12,7 +12,7 @@
  */
 package org.encuestame.oauth2.support;
 
-import org.encuestame.persistence.domain.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider;
 
 /**
  * Description.

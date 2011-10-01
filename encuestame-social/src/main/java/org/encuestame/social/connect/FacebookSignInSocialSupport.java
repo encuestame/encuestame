@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -12,16 +12,15 @@
  */
 package org.encuestame.social.connect;
 
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.social.api.FacebookAPITemplate;
 import org.encuestame.social.api.support.FacebookAPIOperations;
 import org.encuestame.social.api.support.SocialAPIOperations;
 import org.encuestame.social.connect.service.ConnectOperations;
 import org.encuestame.utils.oauth.AccessGrant;
+import org.encuestame.utils.social.SocialProvider;
 
 /**
  * Facebook. Social Service.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 25, 2010 5:57:35 PM
  */

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * User profile view controller.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 2, 2011
  */

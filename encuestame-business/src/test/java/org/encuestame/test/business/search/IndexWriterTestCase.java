@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,14 +20,11 @@ import java.util.List;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.store.Directory;
 import org.encuestame.business.search.IndexWriterManager;
 import org.encuestame.business.search.IndexerManager;
 import org.encuestame.business.search.SearchAttachmentManager;
 import org.encuestame.core.service.imp.IIndexWriter;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
-import org.hibernate.search.jpa.Search;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

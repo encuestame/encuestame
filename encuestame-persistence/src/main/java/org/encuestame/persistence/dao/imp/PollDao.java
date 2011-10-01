@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,11 +20,13 @@ import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -32,8 +34,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Poll Dao.
- *
- * @author Morales,Diana Paola paola@encuestame.org
+ * @author Morales,Diana Paola paolaATencuestame.org
  * @since March 15, 2009
  * @version $Id: $
  */
@@ -203,5 +204,35 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
          criteria.add(Restrictions.eq("pollOwner", userAcc));
          criteria.addOrder(Order.desc("createdAt"));
          return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getMaxPollLikeVotesbyUser(java.lang.Long, java.util.Date, java.util.Date)
+     */
+    public Long getMaxPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.setProjection(Projections.max("likeVote"));
+        criteria.createAlias("pollOwner", "pollOwner");
+        criteria.add(Restrictions.eq("pollOwner.uid", userId));
+        criteria.add(Restrictions.between("createdAt", dateFrom, dateTo));
+        @SuppressWarnings("unchecked")
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPolls(java.lang.Integer, java.lang.Integer, java.util.Date)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> getPolls(final Integer maxResults,
+            final Integer start, final Date range) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(Poll.class);
+        criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+        criteria.add(Restrictions.gt("createdAt", range));
+        criteria.addOrder(Order.desc("createdAt"));
+        return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 }

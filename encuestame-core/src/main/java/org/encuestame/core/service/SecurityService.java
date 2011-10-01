@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.security.util.EnMePasswordUtils;
@@ -33,7 +34,6 @@ import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.FollowOperations;
 import org.encuestame.core.util.Profile;
-import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
@@ -41,13 +41,13 @@ import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
@@ -60,15 +60,9 @@ import org.springframework.stereotype.Service;
 
 import com.googlecode.ehcache.annotations.Cacheable;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.User;
-import twitter4j.http.AccessToken;
-
 /**
- * Security Bean Service.
- * @author Picado, Juan juan@encuestame.org
+ * Security Service Implementation.
+ * @author Picado, Juan juanATencuestame.org
  * @since 27/04/2009 11:35:01
  */
 @Service
@@ -125,7 +119,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param group group
      */
     public void assingGroupToUser(final UserAccountBean user, final UnitGroupBean group){
-        // SecUsers userD = getUser(user.getUsername());
+        //SecUsers userD = getUser(user.getUsername());
         // SecPermission perD = loadPermission(permission.getPermission());
         //assingGroup(user, group);
         //TODO: ????/ emtpy??
@@ -295,6 +289,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
              }
         } catch (Exception e) {
             // TODO: handle exception Group no pertenece a usuario
+            e.printStackTrace();
+            log.error(e);
         }
         return counterUsers;
     }
@@ -399,7 +395,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             try{
                 getAccountDao().saveOrUpdate(retrievedUser);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.debug(e);
                 throw new EnMeExpcetion(e.getMessage());
             }
     }
@@ -515,7 +511,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final Long groupId,
             final Long userId,
             final String username) throws EnMeNoResultsFoundException {
-        final UserAccount userAccount = getUser(userId); //TODO: I need confirm this user perhaps same group of logged user.
+        final UserAccount userAccount = getUserAccount(userId); //TODO: I need confirm this user perhaps same group of logged user.
         //search group by group id and owner user id.
         final Group group = getGroupDao().getGroupById(groupId, getUserAccount(username).getAccount());
         if(group == null){
@@ -572,6 +568,81 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
     /**
+     *
+     * @return
+     */
+    private Account createDefaultAccount(){
+        final Account account = new Account();
+        account.setCreatedAccount(Calendar.getInstance().getTime());
+        account.setEnabled(Boolean.TRUE);
+        getAccountDao().saveOrUpdate(account);
+        return account;
+    }
+
+    /**
+     * Generate a random password if default password is null.
+     * @param defaultPassword default password.
+     * @return
+     */
+    private String generateRandomPassword(final String defaultPassword){
+         final String password = defaultPassword == null ? EnMePasswordUtils
+                 .createRandomPassword(EnMePasswordUtils.DEFAULT_LENGTH_PASSWORD)
+                 : defaultPassword;
+          return password;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.SecurityOperations#createAdministrationUser(org.encuestame.core.config.AdministratorProfile)
+     */
+    public UserAccountBean createAdministrationUser(
+            final AdministratorProfile administratorProfile) {
+        log.debug("----------- create administration user ---------");
+        final UserAccount userAccount = new UserAccount();
+        try{
+            final Account account = this.createDefaultAccount();
+            // create directory account.
+            // this.createDirectoryAccount(account);
+            // create first user account.
+            userAccount.setUsername(administratorProfile.getUsername());
+            // generate password.
+            final String password = this
+                    .generateRandomPassword(administratorProfile.getPassword());
+            userAccount.setPassword(encodingPassword(password));
+            // invite code
+            userAccount.setEnjoyDate(Calendar.getInstance().getTime()); // current
+                                                                        // date
+            userAccount.setAccount(account);
+            userAccount.setUserStatus(Boolean.TRUE);
+            userAccount.setUserEmail(administratorProfile.getEmail());
+            userAccount.setCompleteName(administratorProfile.getUsername());
+            getAccountDao().saveOrUpdate(userAccount);
+            log.debug("administration user ----> "+userAccount.toString());
+            // default permissions.
+            final Set<Permission> permissions = new HashSet<Permission>();
+            permissions
+                    .add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
+            permissions
+                    .add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
+            this.assingPermission(userAccount, permissions);
+            log.debug("administration user ----> Adding Security label");
+            SecurityUtils.authenticate(userAccount);
+            if (log.isDebugEnabled()) {
+                log.debug("new user " + userAccount.getUsername());
+                log.debug("Get Authoritie Name:{ "
+                        + SecurityContextHolder.getContext()
+                                .getAuthentication().getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e);
+        }
+        final UserAccountBean bean = ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAccount);
+        log.debug("------ administration return ----> userBean "+bean.toString());
+        return bean;
+    }
+
+    /**
      * SingUp User.
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
@@ -579,10 +650,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public UserAccount singupUser(final SignUpBean singUpBean){
         log.debug("singupUser "+singUpBean.toString());
         //create account/
-        final Account account = new Account();
-        account.setCreatedAccount(Calendar.getInstance().getTime());
-        account.setEnabled(Boolean.TRUE);
-        getAccountDao().saveOrUpdate(account);
+        final Account account = this.createDefaultAccount();
         //create directory account.
         createDirectoryAccount(account);
         //create first user account.
@@ -611,7 +679,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         //default permissions.
         final Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
-        permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_OWNER));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
@@ -657,23 +724,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     }
 
     /**
-     * Set Spring Authentication
-     * @param username
-     * @param password
-     * @deprecated use {@link SecurityUtils}.
-     */
-    @Deprecated
-    private void setSpringSecurityAuthentication(
-            final String username,
-            final String password,
-            final Set<Permission> permissions){
-//         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
-//         Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(permissions);
-//         SecurityContextHolder.getContext().setAuthentication(
-//                 new UsernamePasswordAuthenticationToken(username, String.valueOf(password), authorities));
-    }
-
-    /**
      * Load domain permission.
      * @param permission permission
      * @return permission domain
@@ -688,8 +738,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      */
     @SuppressWarnings("unchecked")
     public List<UnitPermission> loadPermissions(){
+        @SuppressWarnings("rawtypes")
         final Set permissionCollection = new HashSet(getPermissionDao().findAllPermissions());
-        final List arrayPermission = new ArrayList<UnitPermission>(ConvertDomainBean.convertSetToUnitPermission(permissionCollection));
+        final List<UnitPermission> arrayPermission = new ArrayList<UnitPermission>(ConvertDomainBean.convertSetToUnitPermission(permissionCollection));
         return arrayPermission;
     }
 
@@ -902,58 +953,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
     }
 
-    /**
-     * Verify OAuth Credentials
-     * @param token token stored
-     * @param secretToken secret Token
-     * @param pin pin
-     * @return
-     * @throws TwitterException
-     */
-    public Boolean verifyCredentials(final String token,
-                                     final String tokenSecret,
-                                     final String consumerKey,
-                                     final String consumerSecret,
-                final String pin){
-        Boolean verified = false;
-        log.debug("verifyCredentials OAuth");
-        log.debug("Token {"+token);
-        log.debug("secretToken {"+tokenSecret);
-        log.debug("pin {"+pin);
-        log.debug("consumerKey {"+consumerKey);
-        log.debug("consumerSecret {"+consumerSecret);
-        Twitter twitter = null;
-        try {
-             twitter = new TwitterFactory().getInstance();
-            if(token == null || token.isEmpty()){
-                verified = false;
-            } else {
-                log.debug("Exist Previous Token.");
-                final AccessToken accessToken = new AccessToken(token, tokenSecret);
-                log.debug("Created Token "+accessToken);
-                twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
-                log.debug("Verifying Credentials");
-                final User user = twitter.verifyCredentials();
-                log.debug("Verifying Credentials User "+user);
-                if (user != null) {
-                    log.debug("Verify OAuth User " + user.getId());
-                    verified = true;
-                }
-            }
-        } catch (TwitterException te) {
-            log.error("Twitter Error "+te.getMessage());
-            if (SocialUtils.TWITTER_AUTH_ERROR == te.getStatusCode()) {
-                log.error("Twitter Error "+te.getStatusCode());
-                verified = false;
-            } else {
-                log.error(te);
-            }
-            log.error("Verify OAuth Error " + te.getLocalizedMessage());
-        }
-        log.debug("verified "+verified);
-        return verified;
-    }
-
     /*
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.SecurityOperations#addNewSocialAccount(java.lang.String, java.lang.String, org.encuestame.core.social.SocialUserProfile, org.encuestame.persistence.domain.social.SocialProvider)
@@ -1120,7 +1119,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         log.debug("Before date ----->" + expireDate.getTime());
 
         final List<UserAccount> accountWithoutConfirmation = getAccountDao().getUserAccountsbyStatus(status, expireDate.getTime(), currentDate.getTime());
-        System.out.println("Account without confirmation --->"+ accountWithoutConfirmation.size());
+        log.debug("Account without confirmation --->"+ accountWithoutConfirmation.size());
         for (UserAccount userAcc  : accountWithoutConfirmation) {
             final Account ownerAccount = getAccountDao().getUserById(userAcc.getAccount().getUid());
             log.debug("User account id ----> " + userAcc.getUid());

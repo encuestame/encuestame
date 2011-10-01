@@ -16,6 +16,8 @@ import java.io.Serializable;
 
 /**
  * Model class containing a Facebook user's profile information.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 @SuppressWarnings("serial")
 public class FacebookProfile implements Serializable {

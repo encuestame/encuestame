@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,6 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 import org.apache.commons.httpclient.HttpException;
-import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.junit.Test;
 

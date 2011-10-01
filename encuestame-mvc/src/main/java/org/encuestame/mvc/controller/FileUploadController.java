@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -85,13 +85,10 @@ public class FileUploadController extends AbstractBaseOperations {
                 //I suggest store ID on user account table, to retrieve easily future profile image.
                 //BUG 102
             } catch (IllegalStateException e) {
-                e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             } catch (IOException e) {
-                e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             } catch (EnMeNoResultsFoundException e) {
-                e.printStackTrace();
                 log.error("File uploaded failed:" + orgName);
             }
             // Save the file here

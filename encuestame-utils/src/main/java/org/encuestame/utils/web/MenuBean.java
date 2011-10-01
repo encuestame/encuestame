@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,11 +14,10 @@ package org.encuestame.utils.web;
 
 import org.apache.log4j.Logger;
 
-
 /**
  * Menu Bean.
- * @author Picado, Juan juan@encuestame.org
- * @since  27/05/2009 12:49:52
+ * @author Picado, Juan juanATencuestame.org
+ * @since  May 27 2009 12:49:52
  * @version $Id$
  **/
 public class MenuBean {

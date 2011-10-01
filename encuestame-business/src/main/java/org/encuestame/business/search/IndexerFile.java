@@ -261,7 +261,7 @@ public class IndexerFile {
              pdDoc = new PDDocument(cosDoc);
          } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            log.error(e);
         }
          finally {
               if( pdDoc == null ) {

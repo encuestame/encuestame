@@ -40,7 +40,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
  * Description.
  * @author Picado, Juan juanATencuestame.org
@@ -53,6 +52,9 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
 
         @Autowired
         private PollController pollController2;
+
+        @Autowired
+        private DashBoardController dashBoardController;
 
         private TweetPollSwitch tpswitch;
 
@@ -100,7 +102,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          */
         @Test
         public void testDashBoardController() throws Exception {
-            DashBoardController controller = new DashBoardController();
+            DashBoardController controller = this.dashBoardController;
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/dashboard");
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
@@ -159,7 +161,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         @Test
         public void testPollController() throws Exception {
             final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"),
-            		createUserAccount("diana", createAccount()), true, true);
+                    createUserAccount("diana", createAccount()), true, true);
             //"/user/signin
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/poll/"+poll.getPollId());
             final ModelAndView mav = handlerAdapter.handle(request, response,

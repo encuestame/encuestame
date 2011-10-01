@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.RestFullUtil;

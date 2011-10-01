@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
@@ -28,19 +27,19 @@ import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.oauth.OAuth1Token;
+import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * {@link AccountDaoImp} Test Case.
- * @author Morales, Diana Paola paola@encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since October 27, 2009
  */
 public class TestUserDao extends AbstractBase {

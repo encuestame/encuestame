@@ -26,7 +26,6 @@ import org.encuestame.utils.json.TweetItemPublishedResponse;
  */
 public class ConvertDomainToJson {
 
-
     /**
      *
      * @param savedPublishedStatus

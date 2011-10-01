@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -26,19 +26,19 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
-import org.encuestame.social.api.TwitterAPITemplate;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeSurveyNotFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
-import org.encuestame.utils.web.UnitSurvey;
+import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -248,7 +248,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @param surveyBean
      * @throws EnMeExpcetion
      */
-    public void createSurvey(final UnitSurvey surveyBean) throws EnMeExpcetion{
+    public void createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion{
         try {
             final Survey surveyDomain = new Survey();
             surveyDomain.setTicket(surveyBean.getTicket());
@@ -270,7 +270,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             surveyDomain.setClosedQuota(surveyBean.getClosedQuota());
             surveyDomain.setShowResults(surveyBean.getShowResults());
             surveyDomain.setNumbervotes(surveyBean.getNumbervotes());
-            surveyDomain.setHits(surveyBean.getHits());
+            // surveyDomain.setHits(surveyBean.getHits());
             surveyDomain.setAdditionalInfo(surveyBean.getAdditionalInfo());
             surveyDomain.setShowAdditionalInfo(surveyBean.getShowAdditionalInfo());
             surveyDomain.setNotifications(surveyBean.getNotifications());
@@ -406,4 +406,36 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             throw new EnMeNoResultsFoundException("Survey folder not found");
         }
    }
+
+    /**
+     * Get survey by id and user.
+     * @param surveyId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public Survey getSurvey(final Long surveyId, final String username) throws EnMeNoResultsFoundException {
+        Survey survey = null;
+        if (username != null) {
+            survey = getSurveyDaoImp()
+                    .getSurveyByIdandUserId(surveyId, getUserAccount(username).getAccount().getUid());
+        } else {
+            survey = getSurveyDaoImp().getSurveyById(surveyId);
+        }
+        if (survey == null) {
+            log.error("survey invalid with this id "+surveyId);
+            throw new EnMeSurveyNotFoundException("tweet poll invalid with this id "+surveyId);
+        }
+        return survey;
+    }
+
+    /**
+     * Get survey.
+     * @param surveyId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public Survey getSurveyById(final Long surveyId) throws EnMeNoResultsFoundException{
+        return this.getSurvey(surveyId, getUserPrincipalUsername());
+    }
 }

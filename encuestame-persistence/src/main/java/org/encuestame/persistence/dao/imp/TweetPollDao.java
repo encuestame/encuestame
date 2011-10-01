@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -46,7 +46,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * TweetPoll Dao Implementation.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Feb 17, 2010 8:26:57 PM
  */
 @Repository("tweetPollDao")
@@ -466,5 +466,35 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Restrictions.isNotNull("tweetId"));
         criteria.add(Restrictions.eq("status", Status.SUCCESS));
         return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getMaxTweetPollLikeVotesbyUser(java.lang.Long, java.util.Date, java.util.Date)
+     */
+    public Long getMaxTweetPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo) {
+        DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.setProjection(Projections.max("likeVote"));
+        criteria.createAlias("editorOwner", "editorOwner");
+        criteria.add(Restrictions.eq("editorOwner.uid", userId));
+        //criteria.add(Restrictions.between("createDate", dateFrom, dateTo));
+        @SuppressWarnings("unchecked")
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPolls(java.lang.Integer, java.lang.Integer, java.util.Date)
+     */
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> getTweetPolls(final Integer maxResults,
+            final Integer start, final Date range) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPoll.class);
+        criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        //criteria.add(Restrictions.gt("createDate", range));
+        criteria.addOrder(Order.desc("createDate"));
+        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 }

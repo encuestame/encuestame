@@ -1,3 +1,15 @@
+/*
+ ************************************************************************************
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * encuestame Development Team.
+ * Licensed under the Apache Software License version 2.0
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to  in writing,  software  distributed
+ * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+ * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+ * specific language governing permissions and limitations under the License.
+ ************************************************************************************
+ */
 package org.encuestame.mvc.controller.search.json;
 
 import java.io.IOException;
@@ -11,14 +23,20 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.core.search.TypeSearchResult;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Quick search json controller.
+ * @author Picado, Juan juanATencuestame.org
+ * @since Dec 5, 2010 10:32:22 PM
+ * @version $Id:$
+ */
 @Controller
 public class QuickSearchJsonController extends AbstractJsonController {
 
@@ -70,7 +88,6 @@ public class QuickSearchJsonController extends AbstractJsonController {
             log.debug("GlobalSearchItem results " + results.size());
             //setItemReadStoreResponse("itemSearchTitle", "id", results);
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
             setError(e.getMessage(), response);
         }

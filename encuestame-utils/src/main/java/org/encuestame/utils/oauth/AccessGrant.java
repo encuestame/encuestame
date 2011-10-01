@@ -19,6 +19,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * OAuth2 access token.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 @SuppressWarnings("serial")
 @JsonIgnoreProperties(ignoreUnknown = true)

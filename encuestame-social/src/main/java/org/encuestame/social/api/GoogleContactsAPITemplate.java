@@ -27,7 +27,6 @@ import org.encuestame.utils.social.SocialUserProfile;
 
 /**
  * Google Contacts API template.
- *
  * @author Picado, Juan juanATencuestame.org
  * @since 29/07/2011
  */

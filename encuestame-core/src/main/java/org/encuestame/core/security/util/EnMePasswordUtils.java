@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -17,7 +17,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 /**
  * Password Utils.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since 19/12/2009 22:37:32
  * @version $Id$
  */
@@ -33,7 +33,7 @@ public class EnMePasswordUtils {
      * @param length
      * @return
      */
-    public final static String createRandomPassword(final int length){
+    public static final String createRandomPassword(final int length){
         return PasswordGenerator.getPassword(length);
     }
 
@@ -42,7 +42,7 @@ public class EnMePasswordUtils {
      * @param password password
      * @return password encrypt
      */
-    public final static String encryptPassworD(final String password) {
+    public static final String encryptPassworD(final String password) {
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return passwordEncryptor.encryptPassword(password);
     }
@@ -54,7 +54,7 @@ public class EnMePasswordUtils {
      * @param encryptedPassword encrypted password
      * @return if correct true and if not false
      */
-    public final static Boolean checkPassword(final String inputPassword, final String encryptedPassword ){
+    public static final Boolean checkPassword(final String inputPassword, final String encryptedPassword ){
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         if (passwordEncryptor.checkPassword(inputPassword, encryptedPassword)) {
             // correct

@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -25,6 +25,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -45,7 +46,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Tweet Poll Controller support.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Mar 6, 2010 10:58:02 AM
  */
 
@@ -269,10 +270,16 @@ public class TweetPollController extends AbstractSocialController {
             @PathVariable String slug) {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
+        final String ipAddress = getIpClient();
         try {
             slug = filterValue(slug);
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);
             this.checkTweetPollStatus(tweetPoll);
+            boolean tweetPollVisite = getFrontService().checkPreviousHit(ipAddress, tweetPoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+            // TODO: Check that previous hash Tag hit has been visited the same day.
+            if (!tweetPollVisite) {
+                getFrontService().registerHit(tweetPoll, null, null, null, ipAddress);
+            }
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
             final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());
             model.addAttribute("hashtags", ConvertDomainBean.convertListHashTagsToBean(hashtagsBean));
@@ -282,11 +289,9 @@ public class TweetPollController extends AbstractSocialController {
             return "tweetpoll/detail";
         } catch (EnMeTweetPollNotFoundException e) {
             log.error(e);
-            e.printStackTrace();
             return "404";
         } catch (EnMeNoResultsFoundException e) {
              log.error(e);
-             e.printStackTrace();
              return "404";
         }
     }

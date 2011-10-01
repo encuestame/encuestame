@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -28,8 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Home or FrontEnd Controller.
- *
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Mar 6, 2010 10:58:02 AM
  */
 @Controller
@@ -45,6 +44,10 @@ public class HomeController extends AbstractBaseOperations {
 
     /** Items max results. **/
     private final Integer MAX_ITEMS = 10;
+
+    /** **/
+    private final String SHOW_ALL_RESULTS = "all";
+
     /**
     * Home Controller.
     *
@@ -63,11 +66,11 @@ public class HomeController extends AbstractBaseOperations {
         } else {
             final String view = filterValue(request.getParameter("view"));
             String period = filterValue(request.getParameter("period"));
-            period = (period == null ? "all" : period);
+            period = (period.isEmpty() ? SHOW_ALL_RESULTS : period);
             final IFrontEndService service = getFrontService();
             try {
                 if (view.isEmpty()) {
-                    model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
+                    model.addAttribute("items", service.getFrontEndItems(period, 0 ,MAX_ITEMS, request));
                 } else {
                     if ("tweetpoll".equals(view)){
                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));

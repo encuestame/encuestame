@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,14 +13,25 @@
 package org.encuestame.core.service.imp;
 
 import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.TypeSearchResult;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.SurveyBean;
 
 /**
  * Implementation for Front End Service.
@@ -83,22 +94,68 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer limit, final String filter, final HttpServletRequest request);
+    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId,
+            final Integer limit, final String filter,
+            final HttpServletRequest request);
 
     /**
-     *
+     * Get frontEnd items.
+     * @param period
+     * @param start
+     * @param maxResults
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    Set<HomeBean> getFrontEndItems(final String period, final Integer start,
+            Integer maxResults, final HttpServletRequest request)
+            throws EnMeSearchException;
+
+    /**
+     * Check previous item hit.
      * @param ipAddress
+     * @param id
+     * @param searchHitby
      * @return
      */
-    Boolean checkPreviousHashTagHit(final String ipAddress);
+    Boolean checkPreviousHit(final String ipAddress, final Long id, final TypeSearchResult searchHitby);
 
     /**
-     * Register hashTag hits.
+     * Register hit.
+     * @param tweetPoll
+     * @param poll
+     * @param survey
      * @param tag
-     * @param ipAddress
-     * @param username
+     * @param ip
+     * @return
      * @throws EnMeNoResultsFoundException
      */
-    Boolean registerHashTagHit(final HashTag tag, final String ip) throws EnMeNoResultsFoundException;
+    Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
+            final String ip) throws EnMeNoResultsFoundException;
 
+    /**
+     * Register access rate.
+     * @param type
+     * @param itemId
+     * @param ipAddress
+     * @param rate
+     * @return
+     * @throws EnMeExpcetion
+     */
+    public AccessRate registerAccessRate(final TypeSearchResult type,
+            final Long itemId, final String ipAddress, final Boolean rate)
+            throws EnMeExpcetion;
+
+    /**
+     * Search items by survey.
+     * @param period
+     * @param start
+     * @param maxResults
+     * @param request
+     * @return
+     * @throws EnMeSearchException
+     */
+    public List<SurveyBean> searchItemsBySurvey(final String period,
+            final Integer start, Integer maxResults,
+            final HttpServletRequest request) throws EnMeSearchException;
 }

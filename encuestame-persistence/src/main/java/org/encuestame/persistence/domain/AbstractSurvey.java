@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -27,13 +27,10 @@ import org.encuestame.persistence.domain.security.UserAccount;
 
 /**
  * Abstract Survey.
- *
- * @author Morales, Diana Paola paola AT encuestame.org
+ * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 21, 2010
  * @version $Id: $
  */
-
-
 @MappedSuperclass
 public abstract class AbstractSurvey extends AbstractGeoPoint {
 
@@ -151,7 +148,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Number Hits or visits
      */
-    private Integer hits;
+    private Long hits;
 
     /**
      * Show Option- Additional Info in Questions
@@ -172,6 +169,15 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Survey or Poll Name.
      */
     private String name;
+
+    /** **/
+    private Long relevance;
+
+    /** Like option**/
+    private Long likeVote = 0L;
+
+    /** Unlike **/
+    private Long dislikeVote = 0L;
 
     /**
      * @return the customMessage.
@@ -401,22 +407,22 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     }
 
     /**
-	 * @return the showComments
-	 */
-	public CommentOptions getShowComments() {
-		return showComments;
-	}
+     * @return the showComments
+     */
+    public CommentOptions getShowComments() {
+        return showComments;
+    }
 
-	/**
-	 * @param showComments the showComments to set
-	 */
-	@Column(name = "comment_Option")
+    /**
+     * @param showComments the showComments to set
+     */
+    @Column(name = "comment_Option")
     @Enumerated(EnumType.ORDINAL)
-	public void setShowComments(CommentOptions showComments) {
-		this.showComments = showComments;
-	}
+    public void setShowComments(CommentOptions showComments) {
+        this.showComments = showComments;
+    }
 
-	/**
+    /**
      * @return the showAdditionalInfo
      */
     public Boolean getShowAdditionalInfo() {
@@ -477,14 +483,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the hits
      */
     @Column(name = "hits")
-    public Integer getHits() {
+    public Long getHits() {
         return hits;
     }
 
     /**
      * @param hits the hits to set
      */
-    public void setHits(Integer hits) {
+    public void setHits(Long hits) {
         this.hits = hits;
     }
 
@@ -517,5 +523,48 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     public void setEditorOwner(final UserAccount editorOwner) {
         this.editorOwner = editorOwner;
+    }
+
+    /**
+     * @return the relevance
+     */
+    @Column(name = "relevance", nullable = true)
+    public Long getRelevance() {
+        return relevance;
+    }
+
+    /**
+     * @param relevance the relevance to set
+     */
+    public void setRelevance(final Long relevance) {
+        this.relevance = relevance;
+    }
+
+    /**
+     * @return the likeVote
+     */
+    public Long getLikeVote() {
+        return likeVote;
+    }
+
+    /**
+     * @param likeVote the likeVote to set
+     */
+    public void setLikeVote(final Long likeVote) {
+        this.likeVote = likeVote;
+    }
+
+    /**
+     * @return the dislikeVote
+     */
+    public Long getDislikeVote() {
+        return dislikeVote;
+    }
+
+    /**
+     * @param dislikeVote the dislikeVote to set
+     */
+    public void setDislikeVote(final Long dislikeVote) {
+        this.dislikeVote = dislikeVote;
     }
 }

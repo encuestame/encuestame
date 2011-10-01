@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -42,8 +42,10 @@ import org.encuestame.persistence.dao.imp.ClientDao;
 import org.encuestame.persistence.dao.imp.DashboardDao;
 import org.encuestame.persistence.dao.imp.EmailDao;
 import org.encuestame.persistence.dao.imp.FrontEndDao;
+import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Comment;
@@ -55,7 +57,7 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagHits;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.Status;
@@ -76,9 +78,7 @@ import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Group.Type;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
-import org.encuestame.persistence.domain.security.SocialAccount.TypeAuth;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
@@ -95,6 +95,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.social.SocialProvider;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +106,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * Base Class to Test Cases.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since October 15, 2009
  */
 
@@ -1203,7 +1204,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Account secUsers,
             final String folderName,
             final GeoPointFolder locationFolder){
-    	final UserAccount userAcc = createUserAccount("Juan", secUsers);
+        final UserAccount userAcc = createUserAccount("Juan", secUsers);
         final GeoPointFolder geoPointFolder = new GeoPointFolder();
         geoPointFolder.setFolderType(type);
         geoPointFolder.setFolderName(folderName);
@@ -1427,7 +1428,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         socialAccount.setRealName("real name"+String.valueOf(randomNum));
         socialAccount.setApplicationKey(RandomUtils.nextLong(new Random(50)));
         socialAccount.setRefreshToken("refresh_token_"+RandomStringUtils.randomAlphanumeric(10));
-        socialAccount.setType(TypeAuth.OAUTH1);
+        socialAccount.setType(org.encuestame.utils.social.TypeAuth.OAUTH1);
         getAccountDao().saveOrUpdate(socialAccount);
         return socialAccount;
      }
@@ -1684,6 +1685,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     *
+     * @param hashTagName
+     * @param hits
+     * @return
+     */
+    public HashTag createHashTag(final String hashTagName, final Long hits, final Long size){
+        final HashTag hastag = this.createHashTag(hashTagName);
+        hastag.setHits(hits);
+        hastag.setSize(size);
+        hastag.setUpdatedDate(new Date());
+        getHashTagDao().saveOrUpdate(hastag);
+        return hastag;
+    }
+
+
+    /**
      * @return the notification
      */
     public INotification getNotification() {
@@ -1806,22 +1823,65 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return publishedStatus;
     }
 
-
     /**
-     * Create hash tag hit by ip.
-     * @param hashTagName
+     * Create hit new.
+     * @param tweetPoll
+     * @param poll
+     * @param survey
      * @param ipAddress
      * @return
      */
-    public HashTagHits createHashTagHit(final HashTag hashTag, final String ipAddress, final UserAccount userAcc){
-       final Date hitDate = new Date();
-       final HashTagHits tagHits = new HashTagHits();
-       tagHits.setHitDate(hitDate);
-       tagHits.setIpAddress(ipAddress);
-       tagHits.setHashTag(hashTag);
-       tagHits.setUserAccount(userAcc);
-       getHashTagDao().saveOrUpdate(tagHits);
-       return tagHits;
+    public Hit createHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag hashTag,
+            final String ipAddress){
+        final Hit hit = new Hit();
+        hit.setHitDate(Calendar.getInstance().getTime());
+        hit.setIpAddress(ipAddress);
+        hit.setPoll(poll);
+        hit.setSurvey(survey);
+        hit.setTweetPoll(tweetPoll);
+        hit.setHashTag(hashTag);
+        getFrontEndDao().saveOrUpdate(hit);
+        return hit;
+    }
+
+    /**
+     * Create TweetPoll hit.
+     * @param tweetPoll
+     * @param ipAddress
+     * @return
+     */
+    public Hit createTweetPollHit(final TweetPoll tweetPoll, final String ipAddress){
+        return this.createHit(tweetPoll, null, null, null, ipAddress);
+    }
+
+    /**
+     * Create Poll hit.
+     * @param poll
+     * @param ipAddress
+     * @return
+     */
+    public Hit createPollHit(final Poll poll, final String ipAddress){
+        return this.createHit(null, poll, null, null, ipAddress);
+    }
+
+    /**
+     * Create survey hit.
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    public Hit createSurveyHit(final Survey survey, final String ipAddress){
+        return this.createHit(null, null, survey, null, ipAddress);
+    }
+
+    /**
+     * Create HashTag hit.
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    public Hit createHashTagHit(final HashTag tag, final String ipAddress){
+        return this.createHit(null, null, null, tag, ipAddress);
     }
 
     /**
@@ -1838,84 +1898,141 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         this.dashboardDao = dashboardDao;
     }
 
-	/**
-	 * @return the commentsOperationsDao
-	 */
-	public CommentsOperations getCommentsOperations() {
-		return commentsOperations;
-	}
+    /**
+     * @return the commentsOperationsDao
+     */
+    public CommentsOperations getCommentsOperations() {
+        return commentsOperations;
+    }
 
-	/**
-	 * @param commentsOperationsDao the commentsOperationsDao to set
-	 */
-	public void setCommentsOperations(final CommentsOperations commentsOperations) {
-		this.commentsOperations = commentsOperations;
-	}
+    /**
+     * @param commentsOperationsDao the commentsOperationsDao to set
+     */
+    public void setCommentsOperations(final CommentsOperations commentsOperations) {
+        this.commentsOperations = commentsOperations;
+    }
 
-	/**
-	 * Create comment.
-	 * @param comm
-	 * @param likeVote
-	 * @param tpoll
-	 * @param survey
-	 * @param poll
-	 * @return
-	 */
-	public Comment createComment(
-			final String comm,
-			final Long likeVote,
-			final TweetPoll tpoll,
-			final Survey survey,
-			final Poll poll,
-			final UserAccount user,
-			final Long dislikeVote){
-	       final Comment comment = new Comment();
-	       comment.setComment(comm);
-	       comment.setCreatedAt(new Date());
-	       comment.setLikeVote(likeVote);
-	       comment.setDislikeVote(dislikeVote);
-	       comment.setPoll(poll);
-	       comment.setParentId(null);
-	       comment.setSurvey(survey);
-	       comment.setTweetPoll(tpoll);
-	       comment.setUser(user);
-	       getCommentsOperations().saveOrUpdate(comment);
-	       return comment;
-	    }
+    /**
+     * Create comment.
+     * @param comm
+     * @param likeVote
+     * @param tpoll
+     * @param survey
+     * @param poll
+     * @return
+     */
+    public Comment createComment(
+            final String comm,
+            final Long likeVote,
+            final TweetPoll tpoll,
+            final Survey survey,
+            final Poll poll,
+            final UserAccount user,
+            final Long dislikeVote){
+           final Comment comment = new Comment();
+           comment.setComment(comm);
+           comment.setCreatedAt(new Date());
+           comment.setLikeVote(likeVote);
+           comment.setDislikeVote(dislikeVote);
+           comment.setPoll(poll);
+           comment.setParentId(null);
+           comment.setSurvey(survey);
+           comment.setTweetPoll(tpoll);
+           comment.setUser(user);
+           getCommentsOperations().saveOrUpdate(comment);
+           return comment;
+        }
 
-	/**
-	 * Create default tweetPoll comment.
-	 * @param tpoll
-	 * @return
-	 */
-	public Comment createDefaultTweetPollComment(
-			final String comment,
-			final TweetPoll tpoll,
-			final UserAccount userAcc){
-		return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
-	}
+    /**
+     * Create default tweetPoll comment.
+     * @param tpoll
+     * @return
+     */
+    public Comment createDefaultTweetPollComment(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc){
+        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
+    }
 
-	/**
-	 * Create default poll comment.
-	 * @param poll
-	 * @return
-	 */
-	public Comment createDefaultPollComment(
-			final String comment,
-			final Poll poll,
-			final UserAccount userAcc){
-		return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
-	}
+    /**
+     * Create default poll comment.
+     * @param poll
+     * @return
+     */
+    public Comment createDefaultPollComment(
+            final String comment,
+            final Poll poll,
+            final UserAccount userAcc){
+        return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
+    }
 
-	/**
-	 * Create default survey comment.
-	 * @param survey
-	 * @return
-	 */
-	public Comment createDefaultSurveyComment(
-			final String comment,
-			final Survey survey,
-			final UserAccount userAcc){
-		return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
-	}
+    /**
+     * Create default survey comment.
+     * @param survey
+     * @return
+     */
+    public Comment createDefaultSurveyComment(
+            final String comment,
+            final Survey survey,
+            final UserAccount userAcc){
+        return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
+    }
+
+    /**
+     * Create access rate item.
+     * @param rate
+     * @param tpoll
+     * @param survey
+     * @param poll
+     * @param user
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createAccessRateItem(final Boolean rate, final TweetPoll tpoll, final Survey survey, final Poll poll,
+            final UserAccount user, final String ipAddress){
+        final AccessRate vote = new AccessRate();
+        vote.setRate(rate);
+        vote.setTweetPoll(tpoll);
+        vote.setPoll(poll);
+        vote.setSurvey(survey);
+        vote.setUser(user);
+        vote.setIpAddress(ipAddress);
+        vote.setUpdatedDate(Calendar.getInstance().getTime());
+        getTweetPoll().saveOrUpdate(vote);
+        return vote;
+    }
+
+    /**
+     * Create tweetpoll access rate.
+     * @param rate
+     * @param tweetPoll
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createTweetPollRate(final Boolean rate, final TweetPoll tweetPoll, final String ipAddress){
+        return this.createAccessRateItem(rate, tweetPoll, null, null, null, ipAddress);
+    }
+
+    /**
+     * Create poll access rate.
+     * @param rate
+     * @param tweetPoll
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createPollRate(final Boolean rate, final Poll poll, final String ipAddress){
+        return this.createAccessRateItem(rate, null, null, poll, null, ipAddress);
+    }
+
+    /**
+     * Create survey rate.
+     * @param rate
+     * @param survey
+     * @param ipAddress
+     * @return
+     */
+    public AccessRate createSurveyRate(final Boolean rate, final Survey survey, final String ipAddress){
+        return this.createAccessRateItem(rate, null, survey, null, null, ipAddress);
+    }
 }

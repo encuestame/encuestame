@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -16,10 +16,11 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * Unit Abstract Survey.
- *
- * @author Morales Urbina, Diana paola AT encuestame.org
+ * @author Morales Urbina, Diana paolaATencuestame.org
  * @since November 8, 2010
  * @version $Id: $
  */
@@ -167,6 +168,9 @@ public abstract class UnitAbstractSurvey implements Serializable {
      * Survey or Poll Name.
      */
     private String name;
+
+    /** **/
+    private Long relevance;
 
     /**
      * @return the customMessage
@@ -483,4 +487,17 @@ public abstract class UnitAbstractSurvey implements Serializable {
         return serialVersionUID;
     }
 
+    /**
+     * @return the relevance
+     */
+    public Long getRelevance() {
+        return relevance;
+    }
+
+    /**
+     * @param relevance the relevance to set
+     */
+    public void setRelevance(final Long relevance) {
+        this.relevance = relevance;
+    }
 }

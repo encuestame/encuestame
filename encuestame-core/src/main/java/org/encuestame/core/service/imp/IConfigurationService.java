@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -20,14 +20,14 @@ package org.encuestame.core.service.imp;
  */
 public interface IConfigurationService {
 
-        /**
-         * Getter Domain Url.
-         * @return
-         */
-        public String getDomainUrl();
+    /**
+     * Getter Domain Url.
+     * @return
+     */
+    String getDomainUrl();
 
-        /**
-         * @param domainUrl the domainUrl to set
-         */
-        public void setDomainUrl(final String domainUrl);
+    /**
+     * @param domainUrl the domainUrl to set
+     */
+    void setDomainUrl(final String domainUrl);
 }

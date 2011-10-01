@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2010 encuestame: system online surveys Copyright (C) 2010
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -29,7 +29,7 @@ import org.hibernate.HibernateException;
 
 /**
  * Interface to {@link TweetPollDao}.
- * @author Picado, Juan juan@encuestame.org
+ * @author Picado, Juan juanATencuestame.org
  * @since Feb 17, 2010 8:27:20 PM
  * @version $Id: change to one dolar simbol
  */
@@ -258,5 +258,23 @@ public interface ITweetPoll extends IBaseDao{
     */
    List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll);
 
+   /**
+    * Get max tweetPoll like votes by user.
+    * @param userId
+    * @param dateFrom
+    * @param searchByType
+    * @return
+    */
+   Long getMaxTweetPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo);
+
+   /**
+    * Get tweetPolls.
+    * @param maxResults
+    * @param start
+    * @param range
+    * @return
+    */
+    List<TweetPoll> getTweetPolls(final Integer maxResults,
+            final Integer start, final Date range);
 
 }

@@ -18,7 +18,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A model class containing a list of a user's connections on LinkedIn.
+ *  A model class containing a list of a user's connections on LinkedIn.
+ * @author Picado, Juan juanATencuestame.org
+ * @since
  */
 @XmlRootElement(name = "connections")
 public class LinkedInConnections {

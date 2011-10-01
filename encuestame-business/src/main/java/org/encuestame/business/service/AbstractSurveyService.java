@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2009
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -36,7 +36,6 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -61,12 +60,12 @@ import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 
 import twitter4j.TwitterException;
@@ -455,7 +454,6 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on Twitter 2 ...... "+published.getTweetId());
             } catch (Exception e) {
                 log.error(e);
-                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.IDENTICA)) {
             log.debug("Publish on IDENTICA");
@@ -470,7 +468,6 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on Identica...... "+published);
             } catch (Exception e) {
                 log.error(e);
-                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.FACEBOOK)) {
             log.debug("Publish on FACEBOOK");
@@ -490,7 +487,6 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 2");
             } catch (Exception e) {
                 log.error(e);
-                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.LINKEDIN)) {
             log.debug("Publish on LinkedIn");
@@ -508,7 +504,6 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on LinkedIn 2...... "+published);
             } catch (Exception e) {
                 log.error(e);
-                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.GOOGLE_BUZZ)) {
             BuzzAPIOperations buzzInAPIOperations = new GoogleBuzzAPITemplate(socialAccount);
@@ -521,7 +516,6 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on LinkedIn...... "+published);
             } catch (Exception e) {
                 log.error(e);
-                e.printStackTrace();
             }
         }
         if (published != null) {

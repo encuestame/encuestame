@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2009 encuestame: system online surveys Copyright (C) 2009
+ * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,16 +13,14 @@
 package org.encuestame.utils.web;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.utils.json.QuestionBean;
 
-
 /**
  * Unit Survey Section.
- * @author Picado, Juan juan@encuestame.org
- * @since 01/06/2009 15:21:31
+ * @author Picado, Juan juanATencuestame.org
+ * @since June 01 2009 15:21:31
  * @version $Id$
  **/
 public class UnitSurveySection{

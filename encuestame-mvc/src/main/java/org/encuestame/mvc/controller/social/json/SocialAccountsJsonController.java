@@ -24,10 +24,10 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.social.SocialProvider;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
 import org.encuestame.utils.json.SocialAccountBean;
+import org.encuestame.utils.social.SocialProvider;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 /**
  * Social Account Json Service.
@@ -104,7 +103,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             setItemReadStoreResponse("socialAccounts", "id", accounts);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -136,7 +134,6 @@ public class SocialAccountsJsonController extends AbstractJsonController {
              log.debug("Social providers enabled "+providers.size());
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
