@@ -22,13 +22,15 @@
                     <div class="release-notes"></div>
                 </div>
                 <div class="default-rigth-aling">
-                    <button class="btn-default" type="submit" name="_eventId_upgrade-submit" value="Upgrade" ></button>
+                    <button class="btn-default" type="submit" name="_eventId_upgrade-submit" value="Upgrade" >
+                        <spring:message code="setup.step1.update.button"></spring:message>
+                    </button>
                 </div>
             </c:if>
         </c:if>
         <c:if test="${status == null}">
-            <h3 class="error">Oh oh ! Something wrong on (installation /
-                upgrade) process.</h3>
+            <h3 class="error">
+            <spring:message code="setup.upgrade.fail"></spring:message>.</h3>
         </c:if>
     </form:form>
 <%@ include file="/WEB-INF/jsp/includes/setup/setup_finish.jsp"%>

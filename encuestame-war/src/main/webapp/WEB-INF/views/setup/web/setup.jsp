@@ -5,7 +5,6 @@
                     <c:if test="${status == 'install'}">
                         <div class="setup-description">
                             <%@ include file="/WEB-INF/jsp/includes/setup/setup_step1.jsp"%>
-                            <spring:message code="secure.email.notvalid"></spring:message>
                         </div>
                         <div class="default-rigth-aling">
                             <button type="submit" name="_eventId_install-submit"
@@ -24,13 +23,16 @@
                         </div>
                         <div class="default-rigth-aling">
                             <button type="submit" name="_eventId_upgrade-submit"
-                                value="Upgrade" class="btn-default" ></button>
+                                    class="btn-default" >
+                                <spring:message code="setup.step1.update.button"></spring:message>
+                            </button>
                         </div>
                     </c:if>
                 </c:if>
                 <c:if test="${status == null}">
-                    <h3 class="error">Oh oh ! Something wrong on (installation /
-                        upgrade) process.</h3>
+                    <h3 class="error">
+                    <spring:message code="setup.upgrade.fail"></spring:message>
+                    </h3>
                 </c:if>
             </form:form>
 <%@ include file="/WEB-INF/jsp/includes/setup/setup_finish.jsp"%>
