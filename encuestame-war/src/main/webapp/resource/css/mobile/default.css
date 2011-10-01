@@ -518,12 +518,16 @@ div.mobile-profile-wrapper .rss li {
 
 /** setup **/
 
+div.mobile-setup-content{
+    padding: 10px;
+}
+
 div.mobile-setup-header{
   background-color: #F1721F;
   border-bottom: 3px solid #888888;
   color: #FFFFFF;
   font-weight: bold;
-  padding: 6px;
+  padding: 5px;
   width: auto;
 }
 

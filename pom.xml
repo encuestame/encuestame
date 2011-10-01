@@ -540,6 +540,12 @@
                 <env>jpicado</env>
             </properties>
         </profile>
+	 <profile>
+            <id>mysql</id>
+            <properties>
+                <env>mysql</env>
+            </properties>
+        </profile>
         <profile>
             <id>dmorales</id>
             <properties>
