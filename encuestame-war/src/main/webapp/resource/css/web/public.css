@@ -40,7 +40,7 @@ div.web-setup-wrapper{
 
 .web-setup-wrapper div.web-setup-content {
   padding: 10px;
-  width: 100%;
+  width: auto;
 }
 
 .web-setup-wrapper div.setup-description h1{
@@ -54,6 +54,7 @@ div.web-setup-wrapper{
 
 .web-setup-content .setup-form{
     padding: 10px;
+    width: auto;
 }
 
 .web-setup-wrapper .setup-form div.row{

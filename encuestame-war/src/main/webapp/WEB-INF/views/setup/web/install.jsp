@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/setup/setup_init.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/setup/web/setup_init.jsp"%>
     <div class="setup-description">
         <h1>
              Step 2: <span>Create Database</span>

@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<%@ include file="/WEB-INF/jsp/includes/setup/setup_init.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/setup/web/setup_init.jsp"%>
 <h2>Create Administration User</h2>
 <form:form modelAttribute="administrator">
     <div>
