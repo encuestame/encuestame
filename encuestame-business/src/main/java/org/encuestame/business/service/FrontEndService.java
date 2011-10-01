@@ -159,6 +159,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
     public Set<HomeBean> getFrontEndItems(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
+        // Sorted list based comparable interface
         final Set<HomeBean> allItems = new TreeSet<HomeBean>();
         final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
                 period, start, maxResults, request);
@@ -170,6 +171,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         final List<SurveyBean> surveyItems = this.searchItemsBySurvey(period,
                 start, maxResults, request);
         allItems.addAll(ConvertDomainBean.convertSurveyListToHomeBean(surveyItems));
+        log.debug("Home bean list size :" + allItems.size());
         return allItems;
     }
 
@@ -460,7 +462,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                 // We proceed to update the record in the table access Rate.
                 accessRate.setRate(option);
                 // Update the value in the fields of TweetPoll
-                final TweetPoll tp = this.setTweetPollSocialOption(option,
+                this.setTweetPollSocialOption(option,
                         tpoll);
                 // Save access rate record.
                 getFrontEndDao().saveOrUpdate(accessRate);
@@ -470,7 +472,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             // Otherwise, create access rate record.
             accessRate = this.newTweetPollAccessRate(tpoll, ipAddress, option);
             // update tweetPoll record.
-            final TweetPoll tp = this.setTweetPollSocialOption(option,
+            this.setTweetPollSocialOption(option,
                     tpoll);
         }
         return accessRate;
@@ -502,7 +504,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                 // We proceed to update the record in the table access Rate.
                 accessRate.setRate(option);
                 // Update the value in the fields of TweetPoll
-                final Poll pollItem = this.setPollSocialOption(option,
+                this.setPollSocialOption(option,
                         poll);
                 // Save access rate record.
                 getFrontEndDao().saveOrUpdate(accessRate);
@@ -512,7 +514,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             // Otherwise, create access rate record.
             accessRate = this.newPollAccessRate(poll, ipAddress, option);
             // update poll record.
-            final Poll pollItem = this.setPollSocialOption(option,
+             this.setPollSocialOption(option,
                     poll);
         }
         return accessRate;
@@ -544,7 +546,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
                 // We proceed to update the record in the table access Rate.
                 accessRate.setRate(option);
                 // Update the value in the fields of survey
-                final Survey surveyItem = this.setSurveySocialOption(option, survey);
+                this.setSurveySocialOption(option, survey);
                 // Save access rate record.
                 getFrontEndDao().saveOrUpdate(accessRate);
             }
@@ -553,7 +555,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             // Otherwise, create access rate record.
             accessRate = this.newSurveyAccessRate(survey, ipAddress, option);
             // update poll record.
-            final Survey surveyItem = this.setSurveySocialOption(option,
+            this.setSurveySocialOption(option,
                     survey);
         }
         return accessRate;
