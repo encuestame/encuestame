@@ -36,6 +36,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -470,5 +471,21 @@ public class PollService extends AbstractSurveyService implements IPollService{
          log.info("Polls size "+ polls.size());
          final List<PollBean> pollBean = ConvertDomainBean.convertSetToPollBean(polls);
         return pollBean;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#getPolls(java.lang.Integer, java.lang.Integer, java.util.Date)
+     */
+    public List<Poll> getPolls(final Integer maxResults,
+            final Integer start, final Date range)
+            throws EnMeTweetPollNotFoundException, EnMePollNotFoundException {
+        final List<Poll> polls = getPollDao().getPolls(
+                maxResults, start, range);
+        if (polls.size() == 0) {
+            throw new EnMePollNotFoundException(
+                    "Polls not found to proccess");
+        }
+        return polls;
     }
 }

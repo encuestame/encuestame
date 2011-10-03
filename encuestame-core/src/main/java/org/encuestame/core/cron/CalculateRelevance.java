@@ -12,17 +12,16 @@
  */
 package org.encuestame.core.cron;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.encuestame.core.util.EnMeUtils;
-import org.encuestame.persistence.dao.IPoll;
-import org.encuestame.persistence.dao.ISurvey;
-import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -36,13 +35,13 @@ public class CalculateRelevance {
     private Logger log = Logger.getLogger(this.getClass());
 
     @Autowired
-    private ITweetPoll tweetPollDao;
+    private IFrontEndService frontEndService;
 
     @Autowired
-    private IPoll pollDao;
+    private ITweetPollService tweetPollService;
 
     @Autowired
-    private ISurvey surveyDao;
+    private IPollService pollService;
 
     /** **/
     //private Integer MAX_RESULTS = 50;
@@ -52,8 +51,10 @@ public class CalculateRelevance {
 
     /**
      * Calculate relevance.
+     * @throws EnMePollNotFoundException
+     * @throws EnMeTweetPollNotFoundException
      */
-    public void calculate() {
+    public void calculate() throws EnMeTweetPollNotFoundException, EnMePollNotFoundException {
         log.info("************ Start calculate relevance item **************");
 
         // Unused code to search items by date range.
@@ -63,129 +64,55 @@ public class CalculateRelevance {
         datebefore.add(Calendar.DATE, -5);
         final Calendar todayDate = Calendar.getInstance();*/
 
-        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetPolls(null,
-                START_RESULTS, null);
+        final List<TweetPoll> tweetPolls = getTweetPollService().getTweetPolls(
+                null, START_RESULTS, null);
         log.info("Total tweetpolls -------------" + tweetPolls.size());
 
-        final List<Poll> polls = getPollDao().getPolls(null,
-                START_RESULTS, null);
-        this.processItems(tweetPolls, polls, null, null, null);
+        final List<Poll> polls = getPollService().getPolls(null, START_RESULTS,
+                null);
+        getFrontEndService().processItemstoCalculateRelevance(tweetPolls,
+                polls, null, null, null);
     }
 
     /**
-     * Process items
-     * @param tweetPollList
-     * @param pollList
-     * @param surveyList
-     * @param datebefore
-     * @param todayDate
+     * @return the frontEndService
      */
-    private void processItems(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
-            final Calendar datebefore, final Calendar todayDate) {
-        long likeVote;
-        long dislikeVote;
-        long hits;
-        long maxVotebyUser;
-        long relevance;
-        for (TweetPoll tweetPoll : tweetPollList) {
-            likeVote = tweetPoll.getLikeVote() == null ? 0 : tweetPoll
-                    .getLikeVote();
-            dislikeVote = tweetPoll.getDislikeVote() == null ? 0
-                    : tweetPoll.getDislikeVote();
-            hits = tweetPoll.getHits() == null ? 0 : tweetPoll.getHits();
-            maxVotebyUser = getTweetPollDao()
-                    .getMaxTweetPollLikeVotesbyUser(
-                            tweetPoll.getEditorOwner().getUid(),
-                            datebefore.getTime(), todayDate.getTime());
-            relevance = EnMeUtils.calculateRelevance(likeVote,
-                    dislikeVote, maxVotebyUser, hits);
-            log.info("*******************************");
-            log.info("******* Resume of Process *****");
-            log.info("-------------------------------");
-            log.info("|  Total like votes : " + likeVote + "            |");
-            log.info("|  Total dislike votes : " + dislikeVote
-                    + "            |");
-            log.info("|  Total hits : " + hits + "            |");
-            log.info("|  Max like vote by user : " + maxVotebyUser
-                    + "           |");
-            log.info("|  Relevance : " + relevance + "       |");
-            log.info("-------------------------------");
-            log.info("*******************************");
-            log.info("************ Finished Start Relevance calculate job **************");
-            tweetPoll.setRelevance(relevance);
-            getTweetPollDao().saveOrUpdate(tweetPoll);
-        }
-
-        for (Poll poll : pollList) {
-            likeVote = poll.getLikeVote() == null ? 0 : poll
-                    .getLikeVote();
-            dislikeVote = poll.getDislikeVote() == null ? 0
-                    : poll.getDislikeVote();
-            hits = poll.getHits() == null ? 0 : poll.getHits();
-            maxVotebyUser = getPollDao()
-                    .getMaxPollLikeVotesbyUser(
-                            poll.getEditorOwner().getUid(),
-                            datebefore.getTime(), todayDate.getTime());
-            relevance = EnMeUtils.calculateRelevance(likeVote,
-                    dislikeVote, maxVotebyUser, hits);
-            log.info("*******************************");
-            log.info("******* Resume of Process *****");
-            log.info("-------------------------------");
-            log.info("|  Total like votes : " + likeVote + "            |");
-            log.info("|  Total dislike votes : " + dislikeVote
-                    + "            |");
-            log.info("|  Total hits : " + hits + "            |");
-            log.info("|  Max like vote by user : " + maxVotebyUser
-                    + "           |");
-            log.info("|  Relevance : " + relevance + "       |");
-            log.info("-------------------------------");
-            log.info("*******************************");
-            log.info("************ Finished Start Relevance calculate job **************");
-            poll.setRelevance(relevance);
-            getTweetPollDao().saveOrUpdate(poll);
-        }
+    public IFrontEndService getFrontEndService() {
+        return frontEndService;
     }
 
     /**
-     * @return the tweetPollDao
+     * @param frontEndService the frontEndService to set
      */
-    public ITweetPoll getTweetPollDao() {
-        return tweetPollDao;
-    }
-
-
-    /**
-     * @param tweetPollDao the tweetPollDao to set
-     */
-    public void setTweetPollDao(final ITweetPoll tweetPollDao) {
-        this.tweetPollDao = tweetPollDao;
+    public void setFrontEndService(final IFrontEndService frontEndService) {
+        this.frontEndService = frontEndService;
     }
 
     /**
-     * @return the pollDao
+     * @return the tweetPollService
      */
-    public IPoll getPollDao() {
-        return pollDao;
+    public ITweetPollService getTweetPollService() {
+        return tweetPollService;
     }
 
     /**
-     * @param pollDao the pollDao to set
+     * @param tweetPollService the tweetPollService to set
      */
-    public void setPollDao(final IPoll pollDao) {
-        this.pollDao = pollDao;
+    public void setTweetPollService(final ITweetPollService tweetPollService) {
+        this.tweetPollService = tweetPollService;
     }
 
     /**
-     * @return the surveyDao
+     * @return the pollService
      */
-    public ISurvey getSurveyDao() {
-        return surveyDao;
+    public IPollService getPollService() {
+        return pollService;
     }
 
     /**
-     * @param surveyDao the surveyDao to set
+     * @param pollService the pollService to set
      */
-    public void setSurveyDao(final ISurvey surveyDao) {
-        this.surveyDao = surveyDao;
+    public void setPollService(final IPollService pollService) {
+        this.pollService = pollService;
     }
 }

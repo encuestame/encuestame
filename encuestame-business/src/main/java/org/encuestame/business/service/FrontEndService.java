@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
@@ -725,6 +726,74 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     private TweetPoll getTweetPoll(final Long id) throws EnMeNoResultsFoundException{
         return getTweetPollService().getTweetPollById(id);
+    }
+
+    /**
+     * Get Relevance value by item.
+     * @param likeVote
+     * @param dislikeVote
+     * @param hits
+     * @param maxVotebyUser
+     * @return
+     */
+    private long getRelevanceValue(final long likeVote, final long dislikeVote,
+            final long hits, long maxVotebyUser) {
+        final long relevanceValue = EnMeUtils.calculateRelevance(likeVote,
+                dislikeVote, maxVotebyUser, hits);
+        log.info("*******************************");
+        log.info("******* Resume of Process *****");
+        log.info("-------------------------------");
+        log.info("|  Total like votes : " + likeVote + "            |");
+        log.info("|  Total dislike votes : " + dislikeVote + "            |");
+        log.info("|  Total hits : " + hits + "            |");
+        log.info("|  Max like vote by user : " + maxVotebyUser + "           |");
+        log.info("|  Relevance : " + relevanceValue + "       |");
+        log.info("-------------------------------");
+        log.info("*******************************");
+        log.info("************ Finished Start Relevance calculate job **************");
+        return relevanceValue;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#processItemstoCalculateRelevance(java.util.List, java.util.List, java.util.List, java.util.Calendar, java.util.Calendar)
+     */
+    public void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
+            final Calendar datebefore, final Calendar todayDate) {
+        long likeVote;
+        long dislikeVote;
+        long hits;
+        long maxVotebyUser;
+        long relevance;
+        for (TweetPoll tweetPoll : tweetPollList) {
+            likeVote = tweetPoll.getLikeVote() == null ? 0 : tweetPoll
+                    .getLikeVote();
+            dislikeVote = tweetPoll.getDislikeVote() == null ? 0
+                    : tweetPoll.getDislikeVote();
+            hits = tweetPoll.getHits() == null ? 0 : tweetPoll.getHits();
+            maxVotebyUser = getTweetPollDao()
+                    .getMaxTweetPollLikeVotesbyUser(
+                            tweetPoll.getEditorOwner().getUid(),
+                            datebefore.getTime(), todayDate.getTime());
+            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, maxVotebyUser);
+            tweetPoll.setRelevance(relevance);
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        }
+
+        for (Poll poll : pollList) {
+            likeVote = poll.getLikeVote() == null ? 0 : poll
+                    .getLikeVote();
+            dislikeVote = poll.getDislikeVote() == null ? 0
+                    : poll.getDislikeVote();
+            hits = poll.getHits() == null ? 0 : poll.getHits();
+            maxVotebyUser = getPollDao()
+                    .getMaxPollLikeVotesbyUser(
+                            poll.getEditorOwner().getUid(),
+                            datebefore.getTime(), todayDate.getTime());
+            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, maxVotebyUser);
+            poll.setRelevance(relevance);
+            getTweetPollDao().saveOrUpdate(poll);
+        }
     }
 
     /**
