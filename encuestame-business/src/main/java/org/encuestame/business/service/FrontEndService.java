@@ -25,6 +25,7 @@ import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.core.util.FrontEndItemsComparator;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
@@ -106,13 +107,14 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             } else if(periodSelected.equals(SearchPeriods.ALLTIME)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(start, maxResults));
             }
-            log.debug("TweetPoll "+items.size());
+
             results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
             for (TweetPollBean tweetPoll : results) {
                 tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
             }
 
         }
+        log.debug("Search Items by TweetPoll: "+results.size());
         return results;
     }
 
@@ -157,21 +159,27 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
      */
+    @SuppressWarnings("unchecked")
     public Set<HomeBean> getFrontEndItems(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
         // Sorted list based comparable interface
-        final Set<HomeBean> allItems = new TreeSet<HomeBean>();
+        @SuppressWarnings("rawtypes")
+        final Set allItems = new TreeSet(new FrontEndItemsComparator());
         final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
                 period, start, maxResults, request);
+        log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
         allItems.addAll(ConvertDomainBean
                 .convertTweetPollListToHomeBean(tweetPollItems));
         final List<PollBean> pollItems = this.searchItemsByPoll(period, start,
                 maxResults);
+        log.debug("FrontEnd Poll items size  :" + pollItems.size());
         allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
         final List<SurveyBean> surveyItems = this.searchItemsBySurvey(period,
                 start, maxResults, request);
-        allItems.addAll(ConvertDomainBean.convertSurveyListToHomeBean(surveyItems));
+        log.debug("FrontEnd Survey items size  :" + surveyItems.size());
+        allItems.addAll(ConvertDomainBean
+                .convertSurveyListToHomeBean(surveyItems));
         log.debug("Home bean list size :" + allItems.size());
         return allItems;
     }
@@ -771,16 +779,15 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             dislikeVote = tweetPoll.getDislikeVote() == null ? 0
                     : tweetPoll.getDislikeVote();
             hits = tweetPoll.getHits() == null ? 0 : tweetPoll.getHits();
+            final Long userId = tweetPoll.getEditorOwner().getUid();
             maxVotebyUser = getTweetPollDao()
-                    .getMaxTweetPollLikeVotesbyUser(
-                            tweetPoll.getEditorOwner().getUid(),
-                            datebefore.getTime(), todayDate.getTime());
+                  .getMaxTweetPollLikeVotesbyUser(userId);
             relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, maxVotebyUser);
             tweetPoll.setRelevance(relevance);
             getTweetPollDao().saveOrUpdate(tweetPoll);
         }
 
-        for (Poll poll : pollList) {
+        /*for (Poll poll : pollList) {
             likeVote = poll.getLikeVote() == null ? 0 : poll
                     .getLikeVote();
             dislikeVote = poll.getDislikeVote() == null ? 0
@@ -793,7 +800,7 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, maxVotebyUser);
             poll.setRelevance(relevance);
             getTweetPollDao().saveOrUpdate(poll);
-        }
+        }*/
     }
 
     /**

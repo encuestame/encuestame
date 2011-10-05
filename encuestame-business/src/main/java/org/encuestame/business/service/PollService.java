@@ -479,7 +479,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public List<Poll> getPolls(final Integer maxResults,
             final Integer start, final Date range)
-            throws EnMeTweetPollNotFoundException, EnMePollNotFoundException {
+            throws EnMePollNotFoundException {
         final List<Poll> polls = getPollDao().getPolls(
                 maxResults, start, range);
         if (polls.size() == 0) {

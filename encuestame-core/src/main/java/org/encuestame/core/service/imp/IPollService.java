@@ -225,5 +225,5 @@ public interface IPollService extends IMasterSurveyService{
      */
     List<Poll> getPolls(final Integer maxResults,
             final Integer start, final Date range)
-            throws EnMeTweetPollNotFoundException, EnMePollNotFoundException;
+            throws EnMePollNotFoundException;
 }

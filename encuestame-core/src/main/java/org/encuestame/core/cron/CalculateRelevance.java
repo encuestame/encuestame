@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.cron;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -54,22 +55,38 @@ public class CalculateRelevance {
      * @throws EnMePollNotFoundException
      * @throws EnMeTweetPollNotFoundException
      */
-    public void calculate() throws EnMeTweetPollNotFoundException, EnMePollNotFoundException {
+    public void calculate() {
         log.info("************ Start calculate relevance item **************");
 
         // Unused code to search items by date range.
-       /* final Calendar dateFrom = Calendar.getInstance();
-        dateFrom.add(Calendar.DATE, -5);
-        final Calendar datebefore = Calendar.getInstance();
-        datebefore.add(Calendar.DATE, -5);
-        final Calendar todayDate = Calendar.getInstance();*/
+        /*
+         * final Calendar dateFrom = Calendar.getInstance();
+         * dateFrom.add(Calendar.DATE, -5); final Calendar datebefore =
+         * Calendar.getInstance(); datebefore.add(Calendar.DATE, -5); final
+         * Calendar todayDate = Calendar.getInstance();
+         */
 
-        final List<TweetPoll> tweetPolls = getTweetPollService().getTweetPolls(
-                null, START_RESULTS, null);
-        log.info("Total tweetpolls -------------" + tweetPolls.size());
+        List<TweetPoll> tweetPolls = new ArrayList<TweetPoll>();
 
-        final List<Poll> polls = getPollService().getPolls(null, START_RESULTS,
-                null);
+        List<Poll> polls = new ArrayList<Poll>();
+
+        try {
+            tweetPolls = getTweetPollService().getTweetPolls(50, START_RESULTS,
+                    null);
+            log.debug("Total tweetpolls to process -------------"
+                    + tweetPolls.size());
+        } catch (EnMeTweetPollNotFoundException e) {
+            log.error("TweetPolls not found");
+        }
+
+        try {
+            polls = getPollService().getPolls(null, START_RESULTS, null);
+
+        } catch (EnMePollNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         getFrontEndService().processItemstoCalculateRelevance(tweetPolls,
                 polls, null, null, null);
     }

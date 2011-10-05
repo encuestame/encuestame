@@ -472,12 +472,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getMaxTweetPollLikeVotesbyUser(java.lang.Long, java.util.Date, java.util.Date)
      */
-    public Long getMaxTweetPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo) {
+    public Long getMaxTweetPollLikeVotesbyUser(final Long userId) {
         DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
         criteria.setProjection(Projections.max("likeVote"));
         criteria.createAlias("editorOwner", "editorOwner");
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
-        //criteria.add(Restrictions.between("createDate", dateFrom, dateTo));
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));

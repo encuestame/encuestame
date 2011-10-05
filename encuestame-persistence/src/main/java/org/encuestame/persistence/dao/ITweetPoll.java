@@ -261,11 +261,9 @@ public interface ITweetPoll extends IBaseDao{
    /**
     * Get max tweetPoll like votes by user.
     * @param userId
-    * @param dateFrom
-    * @param searchByType
     * @return
     */
-   Long getMaxTweetPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo);
+   Long getMaxTweetPollLikeVotesbyUser(final Long userId);
 
    /**
     * Get tweetPolls.

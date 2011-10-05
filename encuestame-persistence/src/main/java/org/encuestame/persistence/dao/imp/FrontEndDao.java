@@ -30,6 +30,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,9 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             criteria.add(Restrictions.between("createDate", startDate, endDate));
         }
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE)); //should be published
+        criteria.add(Restrictions.gt("relevance", 0L));
+        criteria.addOrder(Order.desc("relevance"));
+        criteria.addOrder(Order.desc("createDate"));
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
@@ -108,7 +112,10 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             hi.add(Calendar.DAY_OF_YEAR, -period);
             criteria.add(Restrictions.between("createdAt", Calendar.getInstance().getTime(), hi.getTime()));
         }
+        criteria.add(Restrictions.gt("relevance", 0L));
+        criteria.addOrder(Order.desc("relevance"));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
+        criteria.addOrder(Order.desc("createdAt"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
