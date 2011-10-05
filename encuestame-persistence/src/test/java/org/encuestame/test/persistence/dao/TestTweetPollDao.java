@@ -396,8 +396,7 @@ public class TestTweetPollDao  extends AbstractBase{
 
         // Get Max value
         final Long maxValueLike = getTweetPoll()
-                .getMaxTweetPollLikeVotesbyUser(this.secondary.getUid(),
-                        dateFrom.getTime(), todayDate.getTime());
+                .getMaxTweetPollLikeVotesbyUser(this.secondary.getUid());
 
         System.out.println("Max tweetPoll like vote : " + maxValueLike);
         Assert.assertNotNull(maxValueLike);

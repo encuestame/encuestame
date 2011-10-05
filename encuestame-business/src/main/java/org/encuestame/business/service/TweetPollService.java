@@ -1051,4 +1051,20 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
       return linksBean;
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPolls(java.lang.Integer, java.lang.Integer, java.util.Date)
+     */
+    public List<TweetPoll> getTweetPolls(final Integer maxResults,
+            final Integer start, final Date range)
+            throws EnMeTweetPollNotFoundException {
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetPolls(
+                maxResults, start, range);
+        if (tweetPolls.size() == 0) {
+            throw new EnMeTweetPollNotFoundException(
+                    "TweetPolls not found to proccess");
+        }
+        return tweetPolls;
+    }
 }

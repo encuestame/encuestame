@@ -213,4 +213,17 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      */
     PollBean convertPolltoBean(final Poll poll);
+
+    /**
+     * Get published polls.
+     * @param maxResults
+     * @param start
+     * @param range
+     * @return
+     * @throws EnMeTweetPollNotFoundException
+     * @throws EnMePollNotFoundException
+     */
+    List<Poll> getPolls(final Integer maxResults,
+            final Integer start, final Date range)
+            throws EnMePollNotFoundException;
 }
