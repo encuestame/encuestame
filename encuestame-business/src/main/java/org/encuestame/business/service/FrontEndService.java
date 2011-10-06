@@ -90,7 +90,8 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         if(maxResults == null){
             maxResults = this.MAX_RESULTS;
         }
-        log.debug("Max Results "+maxResults);
+        log.debug("Max Results: "+maxResults);
+        log.debug("Period Results: "+period);
         final List<TweetPoll> items = new ArrayList<TweetPoll>();
         if (period == null ) {
             throw new EnMeSearchException("search params required.");
@@ -107,7 +108,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             } else if(periodSelected.equals(SearchPeriods.ALLTIME)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(start, maxResults));
             }
-
             results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
             for (TweetPollBean tweetPoll : results) {
                 tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
@@ -118,6 +118,9 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         return results;
     }
 
+    /**
+     *
+     */
     public List<SurveyBean> searchItemsBySurvey(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
@@ -197,11 +200,11 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             Integer maxResults)
             throws EnMeSearchException{
     final List<PollBean> results = new ArrayList<PollBean>();
-    if(maxResults == null){
+    if (maxResults == null) {
         maxResults = this.MAX_RESULTS;
     }
     final List<Poll> items = new ArrayList<Poll>();
-    if(period == null ){
+    if (period == null ) {
         throw new EnMeSearchException("search params required.");
     } else {
         final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
@@ -219,7 +222,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         log.debug("Poll "+items.size());
         results.addAll(ConvertDomainBean.convertListToPollBean((items)));
     }
-
     return results;
     }
 
