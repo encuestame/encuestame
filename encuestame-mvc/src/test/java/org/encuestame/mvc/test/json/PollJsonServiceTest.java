@@ -82,7 +82,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
         final JSONObject yesterdaySuccess = getSucess(yesterdayResponse);
         final JSONArray yesterdayPolls = (JSONArray) yesterdaySuccess
                 .get("pollsByDate");
-        Assert.assertEquals("Should be equals ", yesterdayPolls.size(), 1);
+        Assert.assertEquals("Should be equals ", yesterdayPolls.size(), 2);
 
     }
 

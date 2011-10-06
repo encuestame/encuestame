@@ -29,6 +29,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,17 +68,21 @@ public class TestPollDao extends AbstractBase {
     /** **/
     private Integer START = 0;
 
+    private Calendar myDate = Calendar.getInstance();
+
      /** Before.
      * @throws EnMeNoResultsFoundException
      **/
     @Before
     public void initService() throws EnMeNoResultsFoundException{
+
         this.user = createUser("testEncuesta", "testEncuesta123");
         this.secUserSecondary = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?", "html");
-        this.poll = createPoll(new Date(), this.question, "FDK125", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
+        this.poll = createPoll(myDate.getTime(), this.question, "FDK125", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
         this.pollFolder = createPollFolder("My First Poll Folder", this.secUserSecondary);
         addPollToFolder(this.pollFolder.getId(), this.secUserSecondary, this.poll.getPollId());
+        //System.out.println("Poll created at ----> " + this.poll.getCreatedAt());
     }
 
      /** Test retrievePollsByUserId. **/
@@ -178,18 +183,21 @@ public class TestPollDao extends AbstractBase {
     /**
      * Test Get Polls by creation date.
      */
-    //@Test
-    public void testGetPollByIdandCreationDate(){
-        createQuestion("Why the sky is blue?", "html");
-        final Calendar calendarDate = Calendar.getInstance();
-        calendarDate.add(Calendar.DAY_OF_WEEK,-1);
-        final Date yesterdayDate= calendarDate.getTime();
-        final Calendar calendarDate2 = Calendar.getInstance();
-        final Date todayDate = calendarDate2.getTime();
-        createPoll(yesterdayDate, this.question, "FDK135", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
-        createPoll(todayDate, this.question, "FDK456", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
-        final List<Poll> pollList = getiPoll().getPollByIdandCreationDate(todayDate, this.secUserSecondary, this.MAX_RESULTS, this.START);
-        assertEquals("Should be equals", 1, pollList.size());
+    @Test
+    public void testGetPollByUserIdDate(){
+        final Calendar yesterdayDate = Calendar.getInstance();
+        yesterdayDate.add(Calendar.DAY_OF_WEEK, -1);
+        final Date yesterday = yesterdayDate.getTime();
+        // Second Poll
+        createPoll(new Date(), this.question, "FDK115", this.secUserSecondary,
+                Boolean.TRUE, Boolean.TRUE);
+        // Third Poll
+        createPoll(yesterday, this.question, "FDK195", this.secUserSecondary,
+                Boolean.TRUE, Boolean.TRUE);
+        Assert.assertNotNull(this.poll);
+        final List<Poll> pollList = getiPoll().getPollByUserIdDate(yesterday,
+                this.secUserSecondary, this.MAX_RESULTS, this.START);
+        assertEquals("Should be equals", 3, pollList.size());
     }
 
     @Test

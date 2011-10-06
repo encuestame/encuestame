@@ -36,7 +36,6 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
-import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -419,7 +418,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final Integer start) throws EnMeNoResultsFoundException{
         List<Poll> pollList = new ArrayList<Poll>();
         if (date !=null){
-            pollList = getPollDao().getPollByIdandCreationDate(date, getUserAccount(getUserPrincipalUsername()), maxResults, start);
+            pollList = getPollDao().getPollByUserIdDate(date, getUserAccount(getUserPrincipalUsername()), maxResults, start);
         }
         else{
             throw new EnMeNoResultsFoundException("Date not found");
