@@ -81,7 +81,11 @@ dojo.declare(
        */
       _createFolder : function(data) {
           var folder = new encuestame.org.core.shared.utils.FoldersItemAction(
-                  {folderId: data.id, name : data.name, folderParentWidget: this});
+                  { folderId: data.id,
+                    name : data.name,
+                    folderContext : this.folderContext,
+                    folderParentWidget: this
+                   });
           return folder;
       }
 });
@@ -124,7 +128,6 @@ dojo.declare(
                };
                var name = dijit.byId(this._name);
                if (name != null) {
-                   console.debug("inline on change", name);
                    /*
                     * TODO: on change event issues, review.
                     */
@@ -135,11 +138,10 @@ dojo.declare(
                            this._update(name.get('value'));
                        }
                    });
-                   console.debug("inline on change 2", name);
                } else {
                    console.error("inline error");
                }
-               console.debug("widget inline", name);
+               this.inherited(arguments);
         },
 
         /*

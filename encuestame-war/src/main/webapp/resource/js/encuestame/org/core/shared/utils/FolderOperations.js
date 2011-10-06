@@ -19,7 +19,9 @@ dojo.require("dijit._Widget");
 dojo.require("dijit.InlineEditBox");
 dojo.require('encuestame.org.core.commons');
 
-
+/**
+ * This is a abstract class to provide folder support.
+ */
 dojo.declare(
     "encuestame.org.core.shared.utils.FolderOperations",
     [dijit._Widget, dijit._Templated],{
@@ -47,7 +49,7 @@ dojo.declare(
         /*
          *
          */
-        postCreate : function(){
+        postCreate : function() {
              if (this.folderContext != null) {
                  this._ready = true;
              } else {
@@ -66,8 +68,9 @@ dojo.declare(
             });
             dojo.mixin(params, { store : enableStorFormat });
             if (this._ready) {
+                var url = this._getContextUrlService(this._actions[action]);
                 encuestame.service.xhrGet(
-                           this._getContextUrlService(this._actions[action]),
+                           url,
                            params,
                            load,
                            error);
@@ -83,9 +86,9 @@ dojo.declare(
         /*
          * get action.
          */
-        getAction : function(action){
+        getAction : function(action) {
             var position = dojo.indexOf(this._actions, action);
-            console.info("getAction", position);
+            console.info("getAction position", position);
             if (position == -1) {
                 console.error("invalid action");
             } else {
@@ -96,7 +99,7 @@ dojo.declare(
         /*
          * get service by context.
          */
-        _getContextUrlService : function(type){
+        _getContextUrlService : function(type) {
            if (this.folderContext == this._context[0]) {
                return this._serviceAction(type, this._context[0]);
            } else if (this.folderContext == this._context[1]) {
@@ -122,5 +125,4 @@ dojo.declare(
                return encuestame.service.folder.remove(context);
            }
         }
-
 });
