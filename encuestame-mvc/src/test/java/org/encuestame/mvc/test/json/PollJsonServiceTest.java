@@ -19,12 +19,13 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
-import junit.framework.Assert;
-
 import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -45,33 +46,62 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    //@Test
+    @Test
     public void retrieveItemsbyDate() throws ServletException, IOException{
-        final Calendar calendarDate = Calendar.getInstance();
-        calendarDate.add(Calendar.DAY_OF_WEEK, -1);
-        final Date yesterdayDate= calendarDate.getTime();
+        // Search poll published today.
+        final Date todayDate = new Date();
+        final Question question = createQuestion(
+                "What is your favourite movie", "pattern");
+        final Poll poll = createPoll(todayDate, question,
+                getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
+                Boolean.TRUE);
+        Assert.assertNotNull(poll);
         initService("/api/poll/searchby-date.json", MethodJson.GET);
         setParameter("maxResults", "10");
         setParameter("start", "0");
-        setParameter("date", yesterdayDate.toString());
+        setParameter("date", todayDate.toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray polls = (JSONArray) success.get("pollsByDate");
-       //System.out.println("My Poll size--> " + polls.size());
+        Assert.assertEquals("Should be equals ", polls.size(), 1);
+
+        // Search poll published yesterday.
+
+        final Calendar calendarDate = Calendar.getInstance();
+        calendarDate.add(Calendar.DAY_OF_WEEK, -1);
+        final Date yesterday = calendarDate.getTime();
+        final Poll yesterdayPoll = createPoll(calendarDate.getTime(), question,
+                getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
+                Boolean.TRUE);
+        Assert.assertNotNull(yesterdayPoll);
+        initService("/api/poll/searchby-date.json", MethodJson.GET);
+        setParameter("maxResults", "10");
+        setParameter("start", "0");
+        setParameter("date", yesterday.toString());
+        final JSONObject yesterdayResponse = callJsonService();
+        final JSONObject yesterdaySuccess = getSucess(yesterdayResponse);
+        final JSONArray yesterdayPolls = (JSONArray) yesterdaySuccess
+                .get("pollsByDate");
+        Assert.assertEquals("Should be equals ", yesterdayPolls.size(), 1);
+
     }
 
+    /**
+     * Create poll json.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test
     public void createPoll() throws ServletException, IOException{
-        System.out.println("---------");
-       // initService("/api/poll/create.json", MethodJson.POST);
-       // setParameter("questionName", "Who is the winner");
-       // setParameter("listAnswers", "yes");
-       // setParameter("showResults", "true");
-       // setParameter("showComments", "true");
-       // setParameter("notification", "true");
-       // final JSONObject response = callJsonService();
-       //  final JSONObject success = getSucess(response);
-       //  final JSONObject pollBean = (JSONObject) success.get("pollBean");
-       //  Assert.assertNotNull(pollBean.get("id"));
+        initService("/api/poll/create.json", MethodJson.POST);
+        setParameter("questionName", "Who is the winner");
+        setParameter("listAnswers", "yes");
+        setParameter("showResults", "true");
+        setParameter("showComments", "true");
+        setParameter("notification", "true");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONObject pollBean = (JSONObject) success.get("pollBean");
+        Assert.assertNotNull(pollBean.get("id"));
     }
 }
