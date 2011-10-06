@@ -230,9 +230,21 @@ public class PollService extends AbstractSurveyService implements IPollService{
     public void updateAnswersPoll( ){
     }
 
-    public void updateQuestionPoll(QuestionBean unitQuestionPoll)
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#updateQuestionPoll(java.lang.Long, org.encuestame.persistence.domain.question.Question)
+     */
+    public PollBean updateQuestionPoll(final Long pollId, final Question question)
             throws EnMeExpcetion {
-        // TODO Auto-generated method stub
+          final Poll poll = this.getPollById(pollId);
+          if(poll == null) {
+              throw new EnMeNoResultsFoundException("Poll not found");
+          }
+          else{
+              poll.setQuestion(question) ;
+              getPollDao().saveOrUpdate(poll);
+          }
+           return ConvertDomainBean.convertPollDomainToBean(poll);
 
     }
 
@@ -265,12 +277,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
                 this.createUrlPollAccess(poll), false);
     }
 
-    /**
-     *
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#publicPollByList(org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.web.UnitLists)
      */
     @SuppressWarnings("unused")
-    public void publicPollByList(String urlPoll, UnitLists emailList) {
+    public void publicPollByList(final Poll poll, final UnitLists emailList) {
         final List<Email> emailsList = getEmailListsDao().findEmailsByListId(emailList.getId());
+        final String urlPoll = this.createUrlPollAccess(poll);
         if(emailList !=null){
                  for (Email emails : emailsList) {
                    getMailService().send(emails.getEmail(),"New Poll", urlPoll);
