@@ -15,6 +15,7 @@ package org.encuestame.core.service.imp;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -68,18 +69,21 @@ public interface IPollService extends IMasterSurveyService{
     List<PollBean> listPollByUser(final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 
     /**
-    * Update Question Poll.
-    * @param unitQuestionPoll
-    * @throws EnMeExpcetion exception
-    */
-    void updateQuestionPoll(final QuestionBean unitQuestionPoll) throws EnMeExpcetion;
+     * Update Question Poll.
+     * @param pollId
+     * @param question
+     * @return
+     * @throws EnMeExpcetion
+     */
+    PollBean updateQuestionPoll(final Long pollId, final Question question)
+    throws EnMeExpcetion;
 
     /**
     * Public Poll by List.
-    * @param urlPoll
+    * @param Poll
     * @param emailList
     */
-    void publicPollByList(final String urlPoll , final UnitLists emailList);
+    void publicPollByList(final Poll Poll , final UnitLists emailList);
 
     /**
     * Remove PollFolder.
@@ -213,4 +217,17 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      */
     PollBean convertPolltoBean(final Poll poll);
+
+    /**
+     * Get published polls.
+     * @param maxResults
+     * @param start
+     * @param range
+     * @return
+     * @throws EnMeTweetPollNotFoundException
+     * @throws EnMePollNotFoundException
+     */
+    List<Poll> getPolls(final Integer maxResults,
+            final Integer start, final Date range)
+            throws EnMePollNotFoundException;
 }

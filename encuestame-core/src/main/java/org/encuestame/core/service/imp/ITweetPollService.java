@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.service.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -402,4 +403,14 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @throws EnMeNoResultsFoundException
       */
      List<FolderBean> getFolders() throws EnMeNoResultsFoundException;
+
+     /**
+      * Get published tweetPolls.
+      * @param maxResults
+      * @param start
+      * @param range
+      * @return
+      */
+     List<TweetPoll> getTweetPolls(final Integer maxResults,
+             final Integer start, final Date range) throws EnMeTweetPollNotFoundException;
 }

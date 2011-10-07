@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.service.imp;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -158,4 +159,15 @@ public interface IFrontEndService extends ServiceOperations {
     public List<SurveyBean> searchItemsBySurvey(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException;
+
+    /**
+     * Process items to calculate relevance on home page.
+     * @param tweetPollList
+     * @param pollList
+     * @param surveyList
+     * @param datebefore
+     * @param todayDate
+     */
+    public void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
+            final Calendar datebefore, final Calendar todayDate);
 }

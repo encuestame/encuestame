@@ -34,6 +34,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.joda.time.DateMidnight;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -69,9 +70,9 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Before.
      */
-    //@Before
+    @Before
     public void initData(){
-      this.secondary = createUserAccount("jhon", createAccount());
+      this.secondary = createUserAccount("jhonny", createAccount());
       final Question question = createQuestion("Who I am?", "");
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
@@ -96,15 +97,15 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Test
     public void testRetrieveTweetsPollSwitch(){
-        System.out.println("----------");
-        //final TweetPollSwitch pollSwitch = getTweetPoll().retrieveTweetsPollSwitch(this.pollSwitch1.getCodeTweet());
-        //assertNotNull(pollSwitch);
+        //System.out.println("----------");
+        final TweetPollSwitch pollSwitch = getTweetPoll().retrieveTweetsPollSwitch(this.pollSwitch1.getCodeTweet());
+        assertNotNull(pollSwitch);
     }
 
     /**
      * Test getResultsByTweetPoll.
      */
-   // @Test
+    @Test
     public void testgetResultsByTweetPoll(){
         final List<Object[]> results = getTweetPoll().getResultsByTweetPoll(tweetPoll, this.questionsAnswers1);
         assertEquals("Should be equals", 1,  results.size());
@@ -115,22 +116,23 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Get Total Votes by TweetPoll
      */
-    //@Test
+    @Test
     public void testgetTotalVotesByTweetPoll(){
         final List<Object[]>  pollSwitchs = getTweetPoll().getTotalVotesByTweetPoll(this.tweetPoll.getTweetPollId());
         assertEquals("Should be equals", 2, pollSwitchs.size());
     }
 
-    //@Test
-    public void testgetVotesByAnswer(){
-        final Long d = getTweetPoll().getTotalVotesByTweetPollId(this.tweetPoll.getTweetPollId());
+    @Test
+    public void testgetVotesByTweetPollId(){
+        final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollId(this.tweetPoll.getTweetPollId());
+        assertEquals("Should be equals", 4, totalVotes.intValue());
     }
 
 
     /**
      * Test Get TweetPoll by TweetPoll Id and User.
      */
-    //@Test
+    @Test
     public void testGetTweetPollByIdandUserId(){
         assertNotNull(tweetPoll);
         assertNotNull(secondary);
@@ -142,7 +144,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Get TweetPoll Folder by FolderId and User.
      */
-    //@Test
+    @Test
     public void testGetTweetPollFolderByIdandUser(){
         assertNotNull(this.tweetPollFolder);
         final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderByIdandUser(this.tweetPollFolder.getId(), secondary.getAccount());
@@ -152,7 +154,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Get TweetPoll Folder by folderId.
      */
-    //@Test
+    @Test
     public void testGetTweetPollFolderById(){
         assertNotNull(tweetPollFolder);
         final TweetPollFolder tpf = getTweetPoll().getTweetPollFolderById(this.tweetPollFolder.getId());
@@ -162,7 +164,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Retrieve TweetPoll Folder by User.
      */
-    //@Test
+    @Test
     public void testRetrieveTweetPollFolderByUserId(){
         assertNotNull(tweetPollFolder);
         assertNotNull(secondary);
@@ -174,7 +176,7 @@ public class TestTweetPollDao  extends AbstractBase{
      * Test Retrieve TweetPoll by Folder.
      * @throws EnMeNoResultsFoundException
      */
-    //@Test
+    @Test
     public void testRetrieveTweetPollByFolder() throws EnMeNoResultsFoundException {
         final Long user = this.secondary.getAccount().getUid();
         assertNotNull(tweetPollFolder);
@@ -188,7 +190,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Retrieve Tweets By User.
      */
-    //@Test
+    @Test
     public void testRetrieveTweetsByUserId(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
@@ -200,7 +202,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Retrieve Tweets by
      */
-    //@Test
+    @Test
     public void testRetrieveTweetsByQuestionName(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
@@ -213,7 +215,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Retrieve TweetPoll Today.
      */
-    //@Test
+    @Test
     public void testRetrieveTweetPollToday(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
@@ -222,7 +224,7 @@ public class TestTweetPollDao  extends AbstractBase{
         assertEquals("Should be equals", 1, tweetsToday.size());
     }
 
-    //@Test
+    @Test
     public void testRetrieveTweetPollByDate(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
@@ -235,7 +237,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      * Test Retrieve TweetPoll Last Week
      */
-    //@Test
+    @Test
     public void testRetrieveFavouritesTweetPoll(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
@@ -247,7 +249,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      *
      */
-    //@Test
+    @Test
     public void testRetrieveScheduledTweetPoll(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
@@ -259,6 +261,7 @@ public class TestTweetPollDao  extends AbstractBase{
     /**
      *
      */
+    @Test
     public void testgetTweetpollByHashTagName(){
         assertNotNull(this.tweetPoll);
         final Integer limit = 3;
@@ -308,7 +311,7 @@ public class TestTweetPollDao  extends AbstractBase{
     }
 
 
-    //@Test
+    @Test
     public void testgetTweetpollByTop(){
         assertNotNull(this.tweetPoll);
         final Integer limit = 4;
@@ -396,10 +399,9 @@ public class TestTweetPollDao  extends AbstractBase{
 
         // Get Max value
         final Long maxValueLike = getTweetPoll()
-                .getMaxTweetPollLikeVotesbyUser(this.secondary.getUid(),
-                        dateFrom.getTime(), todayDate.getTime());
+                .getMaxTweetPollLikeVotesbyUser(this.secondary.getUid());
 
-        System.out.println("Max tweetPoll like vote : " + maxValueLike);
+        //System.out.println("Max tweetPoll like vote : " + maxValueLike);
         Assert.assertNotNull(maxValueLike);
     }
 
@@ -442,6 +444,6 @@ public class TestTweetPollDao  extends AbstractBase{
         getTweetPoll().saveOrUpdate(tweetPoll2);
 
         final List<TweetPoll> tpList = getTweetPoll().getTweetPolls(30, 0, calendar2.getTime());
-        Assert.assertEquals("Should be", 2, tpList.size());
+        Assert.assertEquals("Should be", 3, tpList.size());
     }
 }

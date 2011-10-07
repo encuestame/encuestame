@@ -24,6 +24,8 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.core.util.FrontEndItemsComparator;
 import org.encuestame.persistence.dao.SearchPeriods;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
@@ -88,7 +90,8 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         if(maxResults == null){
             maxResults = this.MAX_RESULTS;
         }
-        log.debug("Max Results "+maxResults);
+        log.debug("Max Results: "+maxResults);
+        log.debug("Period Results: "+period);
         final List<TweetPoll> items = new ArrayList<TweetPoll>();
         if (period == null ) {
             throw new EnMeSearchException("search params required.");
@@ -105,16 +108,19 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             } else if(periodSelected.equals(SearchPeriods.ALLTIME)) {
                 items.addAll(getFrontEndDao().getTweetPollFrontEndAllTime(start, maxResults));
             }
-            log.debug("TweetPoll "+items.size());
             results.addAll(ConvertDomainBean.convertListToTweetPollBean(items));
             for (TweetPollBean tweetPoll : results) {
                 tweetPoll = convertTweetPollRelativeTime(tweetPoll, request);
             }
 
         }
+        log.debug("Search Items by TweetPoll: "+results.size());
         return results;
     }
 
+    /**
+     *
+     */
     public List<SurveyBean> searchItemsBySurvey(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
@@ -156,21 +162,27 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getFrontEndItems(java.lang.String, java.lang.Integer, java.lang.Integer, javax.servlet.http.HttpServletRequest)
      */
+    @SuppressWarnings("unchecked")
     public Set<HomeBean> getFrontEndItems(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
         // Sorted list based comparable interface
-        final Set<HomeBean> allItems = new TreeSet<HomeBean>();
+        @SuppressWarnings("rawtypes")
+        final Set allItems = new TreeSet(new FrontEndItemsComparator());
         final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
                 period, start, maxResults, request);
+        log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
         allItems.addAll(ConvertDomainBean
                 .convertTweetPollListToHomeBean(tweetPollItems));
         final List<PollBean> pollItems = this.searchItemsByPoll(period, start,
                 maxResults);
+        log.debug("FrontEnd Poll items size  :" + pollItems.size());
         allItems.addAll(ConvertDomainBean.convertPollListToHomeBean(pollItems));
         final List<SurveyBean> surveyItems = this.searchItemsBySurvey(period,
                 start, maxResults, request);
-        allItems.addAll(ConvertDomainBean.convertSurveyListToHomeBean(surveyItems));
+        log.debug("FrontEnd Survey items size  :" + surveyItems.size());
+        allItems.addAll(ConvertDomainBean
+                .convertSurveyListToHomeBean(surveyItems));
         log.debug("Home bean list size :" + allItems.size());
         return allItems;
     }
@@ -188,11 +200,11 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
             Integer maxResults)
             throws EnMeSearchException{
     final List<PollBean> results = new ArrayList<PollBean>();
-    if(maxResults == null){
+    if (maxResults == null) {
         maxResults = this.MAX_RESULTS;
     }
     final List<Poll> items = new ArrayList<Poll>();
-    if(period == null ){
+    if (period == null ) {
         throw new EnMeSearchException("search params required.");
     } else {
         final SearchPeriods periodSelected = SearchPeriods.getPeriodString(period);
@@ -210,7 +222,6 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
         log.debug("Poll "+items.size());
         results.addAll(ConvertDomainBean.convertListToPollBean((items)));
     }
-
     return results;
     }
 
@@ -725,6 +736,73 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      */
     private TweetPoll getTweetPoll(final Long id) throws EnMeNoResultsFoundException{
         return getTweetPollService().getTweetPollById(id);
+    }
+
+    /**
+     * Get Relevance value by item.
+     * @param likeVote
+     * @param dislikeVote
+     * @param hits
+     * @param maxVotebyUser
+     * @return
+     */
+    private long getRelevanceValue(final long likeVote, final long dislikeVote,
+            final long hits, long maxVotebyUser) {
+        final long relevanceValue = EnMeUtils.calculateRelevance(likeVote,
+                dislikeVote, maxVotebyUser, hits);
+        log.info("*******************************");
+        log.info("******* Resume of Process *****");
+        log.info("-------------------------------");
+        log.info("|  Total like votes : " + likeVote + "            |");
+        log.info("|  Total dislike votes : " + dislikeVote + "            |");
+        log.info("|  Total hits : " + hits + "            |");
+        log.info("|  Max like vote by user : " + maxVotebyUser + "           |");
+        log.info("|  Relevance : " + relevanceValue + "       |");
+        log.info("-------------------------------");
+        log.info("*******************************");
+        log.info("************ Finished Start Relevance calculate job **************");
+        return relevanceValue;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#processItemstoCalculateRelevance(java.util.List, java.util.List, java.util.List, java.util.Calendar, java.util.Calendar)
+     */
+    public void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
+            final Calendar datebefore, final Calendar todayDate) {
+        long likeVote;
+        long dislikeVote;
+        long hits;
+        long maxVotebyUser;
+        long relevance;
+        for (TweetPoll tweetPoll : tweetPollList) {
+            likeVote = tweetPoll.getLikeVote() == null ? 0 : tweetPoll
+                    .getLikeVote();
+            dislikeVote = tweetPoll.getDislikeVote() == null ? 0
+                    : tweetPoll.getDislikeVote();
+            hits = tweetPoll.getHits() == null ? 0 : tweetPoll.getHits();
+            final Long userId = tweetPoll.getEditorOwner().getUid();
+            maxVotebyUser = getTweetPollDao()
+                  .getMaxTweetPollLikeVotesbyUser(userId);
+            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, maxVotebyUser);
+            tweetPoll.setRelevance(relevance);
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+        }
+
+        /*for (Poll poll : pollList) {
+            likeVote = poll.getLikeVote() == null ? 0 : poll
+                    .getLikeVote();
+            dislikeVote = poll.getDislikeVote() == null ? 0
+                    : poll.getDislikeVote();
+            hits = poll.getHits() == null ? 0 : poll.getHits();
+            maxVotebyUser = getPollDao()
+                    .getMaxPollLikeVotesbyUser(
+                            poll.getEditorOwner().getUid(),
+                            datebefore.getTime(), todayDate.getTime());
+            relevance = this.getRelevanceValue(likeVote, dislikeVote, hits, maxVotebyUser);
+            poll.setRelevance(relevance);
+            getTweetPollDao().saveOrUpdate(poll);
+        }*/
     }
 
     /**

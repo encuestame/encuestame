@@ -20,7 +20,6 @@ import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -180,14 +179,14 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IPoll#getPollByIdandCreationDate(java.util.Date, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
+     * @see org.encuestame.persistence.dao.IPoll#getPollByUserIdDate(java.util.Date, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollByIdandCreationDate(final Date date, final UserAccount userAcc,
+    public List<Poll> getPollByUserIdDate(final Date date, final UserAccount userAcc,
             final Integer maxResults, final Integer start ){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("pollOwner", userAcc));
-        criteria.add(Restrictions.eq("createdAt", date));
+        criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -231,8 +230,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(Poll.class);
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        criteria.add(Restrictions.gt("createdAt", range));
-        criteria.addOrder(Order.desc("createdAt"));
+        //criteria.add(Restrictions.gt("createdAt", range));
+        //criteria.addOrder(Order.desc("createdAt"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 }

@@ -13,6 +13,7 @@
 package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,10 +40,12 @@ import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitLists;
+import org.hibernate.HibernateException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.ExpectedException;
 
  /**
  * Test for {@link PollService}.
@@ -177,7 +180,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * test removePollFolder.
      * @throws EnMeNoResultsFoundException exception
      */
-    //@Test(expected = HibernateException.class)
+    @Test(expected = HibernateException.class)
     public void testremovePollFolderBatchUpdateException() throws EnMeNoResultsFoundException{
         final long id = this.folder.getId();
         this.pollService.removePollFolder(id);
@@ -225,54 +228,20 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test Update Question Poll.
      * @throws EnMeExpcetion
      */
-   // @Test
+    @Test
     public void testUpdateQuestionPoll() throws EnMeExpcetion{
-         final String expectedResponse = "Why the tooth are white";
-         final List<QuestionAnswerBean> answers;
-         final QuestionPatternBean patternBean;
-         answers = new ArrayList<QuestionAnswerBean>();
-         answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
-         answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));
-         patternBean = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.html");
-         final QuestionBean unitQuestion = createUnitQuestion(this.question.getQid(), expectedResponse, 1L, this.user.getUid(), answers, patternBean);
-         pollService.updateQuestionPoll(unitQuestion);
-         assertEquals(this.question.getQuestion(), expectedResponse);
+        final Question newQuestion = createQuestion("Why the tooth are white", "pattern");
+        final PollBean pb = pollService.updateQuestionPoll(this.poll.getPollId(), newQuestion);
+        assertEquals(newQuestion.getQuestion(), pb.getQuestionBean().getQuestionName());
      }
 
-    /**
-     * Test Update Question Poll.
-     * @throws EnMeExpcetion
-     */
 
-    //@Test
-   // @ExpectedException(EnMeExpcetion.class)
-    public void testUpdateNullQuestionPoll() throws EnMeExpcetion{
-         final String expectedResponse = "Why the sea is blue";
-         final List<QuestionAnswerBean> answers;
-         final QuestionPatternBean patternBean;
-         answers = new ArrayList<QuestionAnswerBean>();
-         answers.add(createAnswersBean("ZXCVB", "Yes", this.question.getQid()));
-         answers.add(createAnswersBean("ASDFG", "No", this.question.getQid()));
-         patternBean = createPatternBean("radio.class", "radio buttons", "2", "Yes/No", "template.html");
-         final QuestionBean unitQuestion = createUnitQuestion(1L,"Why the sea is blue", 1L, this.user.getUid(), answers, patternBean);
-         pollService.updateQuestionPoll(unitQuestion);
-     }
-
-   // @Test
-    public void testCreateUrlPoll(){
-           final String hashUrl="3456DS";
-         /*  final String testUrl= pollService.createUrlPoll(URLPOLL, hashUrl, this.userAccount.getCompleteName());
-           assertNotNull(testUrl);*/
-    }
-
-    //@Test(timeout=80000)
+    @Test(timeout=80000)
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(),
                         new Date(), this.emailList.getListName(), this.userAccount.getUid());
-      /*   final String urlPoll = pollService.createUrlPoll(URLPOLL, "DS56727", this.userAccount.getCompleteName());
-         pollService.publicPollByList(urlPoll, emailUnitList);
-         pollService.publicPollByList(urlPoll, new UnitLists());
-         assertEquals(1, 1);*/
+         pollService.publicPollByList(this.poll, emailUnitList);
+         assertEquals(1, 1);
     }
 
     @Test

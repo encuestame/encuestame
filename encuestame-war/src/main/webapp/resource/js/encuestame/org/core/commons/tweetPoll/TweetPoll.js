@@ -445,7 +445,7 @@ dojo.declare(
         /*
          * show error message.
          */
-        _showErrorMessage : function(errorMessage){
+        _showErrorMessage : function(errorMessage) {
             this.dialogWidget = new dijit.Dialog({
                 content: errorMessage,
                 style: "width: 700px",
@@ -462,16 +462,20 @@ dojo.declare(
                      "id" : this.tweetPoll.tweetPollId,
                      "twitterAccounts" : this.socialWidget.getSocialAccounts()
             };
-            console.debug("params", params);
-            var load = dojo.hitch(this, function(data){
+            var load = dojo.hitch(this, function(data) {
                 //TODO: DISABLE COMET AUTOSAVE;
+                var socialArray = [];
+                if ("success" in data) {
+                    socialArray = data.success.socialPublish;
+                }
                 this.autosave = false;
-                this.tweetPollPublishWidget.process(dojo.fromJson(data));
+                this.tweetPollPublishWidget.process(socialArray);
             });
-            var error = function(error) {
+            var error = dojo.hitch(this, function(error) {
+                console.info("error", error);
                 this.autosave = true;
                 this._showErrorMessage(error.message);
-            };
+            });
             encuestame.service.xhrPostParam(
                     encuestame.service.list.publishTweetPoll, params, load, error);
         },
@@ -744,14 +748,14 @@ dojo.declare(
             /*
              * process date published.
              */
-            process: function(data){
-                console.debug("tweetPollPublishWidget process", data);
-                if(data){
+            process: function(socialPublish){
+                console.debug("tweetPollPublishWidget process", socialPublish);
+                if (socialPublish) {
                     this._hideProcessingMessage();
                     dojo.empty(this._container);
                     dojo.empty(this._message);
                     console.debug("show accoutns", this._socialAccounts);
-                    dojo.forEach(data.success.socialPublish,
+                    dojo.forEach(socialPublish,
                             dojo.hitch(this,function(tweet) {
                                 console.debug("socialPublish", tweet);
                                 var row = this._buildTweetProcessView(tweet);
