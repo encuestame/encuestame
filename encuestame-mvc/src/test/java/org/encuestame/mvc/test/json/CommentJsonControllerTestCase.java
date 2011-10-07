@@ -56,7 +56,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
-    //@Test
+    @Test
     public void testGetCommentsbyUnknownTweetPoll() throws ServletException, IOException {
         initService("/api/survey/tweetpoll/comments.json", MethodJson.GET);
         setParameter("tweetPollId", "1");
