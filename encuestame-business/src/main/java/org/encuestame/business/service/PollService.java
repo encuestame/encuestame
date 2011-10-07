@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.CommentOptions;
 import org.encuestame.persistence.domain.Email;
@@ -88,6 +89,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPollHash(hashPoll);
             pollDomain.setQuestion(question);
             pollDomain.setPollCompleted(Boolean.FALSE);
+            pollDomain.setHits(EnMeUtils.RATE_DEFAULT);
+            pollDomain.setRelevance(EnMeUtils.RATE_DEFAULT);
+            pollDomain.setLikeVote(EnMeUtils.LIKE_DEFAULT);
+            pollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
             pollDomain.setEditorOwner(user);
             pollDomain.setShowResults(showResults);
             pollDomain.setShowComments(commentOpt);
