@@ -226,6 +226,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setEditorOwner(getUserAccountonSecurityContext());
         tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
         tweetPollDomain.setPublishTweetPoll(Boolean.FALSE);
+        tweetPollDomain.setRelevance(EnMeUtils.RATE_DEFAULT);
+        tweetPollDomain.setHits(EnMeUtils.VOTE_DEFAULT);
+        tweetPollDomain.setLikeVote(EnMeUtils.LIKE_DEFAULT);
+        tweetPollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
         tweetPollDomain.setCreateDate(Calendar.getInstance().getTime());
         tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());

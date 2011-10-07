@@ -134,8 +134,8 @@ dojo.declare(
         /*
          * reload counter
          */
-        _reloadCounter : function(){
-            var counter = this._reloadCounter();
+        _reloadCounter : function() {
+            var counter = this._countSelected();
             this._counter.innerHTML = counter;
         },
 
@@ -220,11 +220,14 @@ dojo.declare(
 
         selected : false,
 
+        /**
+         * post create cycle.
+         */
         postCreate : function(){
             this._accountProviderIcon.src = encuestame.social.shortPicture(this.account.type_account);
-            dojo.connect(this.domNode, "onclick", this, dojo.hitch(this, function(){
-                //console.debug("pick account ", this.account);
-                //console.debug("pick account ", this.selected);
+            dojo.connect(this.domNode, "onclick", this, dojo.hitch(this, function() {
+                console.debug("pick account ", this.account);
+                console.debug("pick account ", this.selected);
                 this.selected = !this.selected;
                 if (this.selected) {
                     this.markAsSelected();
@@ -234,7 +237,7 @@ dojo.declare(
                 dojo.publish("/encuestame/social/picker/counter/reload");
             }));
             //mark as selected default items.
-            if(this.account.default_selected){
+            if (this.account.default_selected) {
                 this.selected = true;
                 this.markAsSelected();
             }

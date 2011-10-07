@@ -41,6 +41,14 @@ public class EnMeUtils {
 
     private static final long PENALTY_VALUE = 3;
 
+    public static final long RATE_DEFAULT = 1;
+
+    public static final long VOTE_DEFAULT = 1;
+
+    public static final long LIKE_DEFAULT = 1;
+
+    public static final long DISLIKE_DEFAULT = 1;
+
     /**
      * Calculate percent.
      * @param total

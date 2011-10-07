@@ -2148,7 +2148,7 @@ div.web-folder-wrapper .web-folder-item span:hover{
 }
 
 div.web-folder-wrapper .web-folder-item .icon-folder {
-  background-image: url("../images/icons/enme_folder.png");
+  background-image: url("../../images/icons/enme_folder.png");
   background-repeat: no-repeat;
   display: inline-block;
   height: 16px;
