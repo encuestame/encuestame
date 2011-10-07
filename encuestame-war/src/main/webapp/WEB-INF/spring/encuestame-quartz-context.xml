@@ -66,28 +66,28 @@
                  <!--  Reindex domains -->
                  <bean id="cronReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingInvokingJobDetail" />
-                    <property name="cronExpression" value="0 15 10 ? * MON-FRI" />
+                    <property name="cronExpression" value="${cron.reindex}" />
                     <!-- Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday -->
                 </bean>
                 <!-- Reindex attachments
                 <bean id="attachmentsReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="reindexingAttachmentsJobDetail" />
-                    <property name="cronExpression" value="0 15 10 * * ? *" />
+                    <property name="cronExpression" value="${cron.attachment}" />
                 </bean> -->
                 <bean id="calculateReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="calculateInvokingJobDetail" />
-                    <property name="cronExpression" value="0 0 12 * * ?" />
+                    <property name="cronExpression" value="${cron.calculateReindex}" />
                     <!--    Fire at 11pm (noon) every day -->
                 </bean>
                 <bean id="calculateRelevanceReindex" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="calculateRelevanceInvokingJobDetail" />
-                    <property name="cronExpression" value="0 0 12 * * ?" />
+                    <property name="cronExpression" value="${cron.calculateRelevane}" />
                     <!--    Fire at 11pm (noon) every day -->
                 </bean>
                  <!-- Remove unconfirmed expired accounts -->
                 <bean id="removeUnconfirmedAccount" class="org.springframework.scheduling.quartz.CronTriggerBean">
                     <property name="jobDetail" ref="removeAccountJobDetail" />
-                    <property name="cronExpression" value="0 0 12 * * ?" />
+                    <property name="cronExpression" value="${cron.removeUnconfirmedAccount}" />
                     <!--    Fire at 12pm (noon) every day -->
                 </bean>
             </list>

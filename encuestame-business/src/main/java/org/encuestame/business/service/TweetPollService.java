@@ -226,6 +226,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setEditorOwner(getUserAccountonSecurityContext());
         tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
         tweetPollDomain.setPublishTweetPoll(Boolean.FALSE);
+        tweetPollDomain.setRelevance(EnMeUtils.RATE_DEFAULT);
+        tweetPollDomain.setHits(EnMeUtils.VOTE_DEFAULT);
+        tweetPollDomain.setLikeVote(EnMeUtils.LIKE_DEFAULT);
+        tweetPollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
         tweetPollDomain.setCreateDate(Calendar.getInstance().getTime());
         tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setScheduleTweetPoll(tweetPollBean.getSchedule());
@@ -1050,5 +1054,21 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
        }
 
       return linksBean;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPolls(java.lang.Integer, java.lang.Integer, java.util.Date)
+     */
+    public List<TweetPoll> getTweetPolls(final Integer maxResults,
+            final Integer start, final Date range)
+            throws EnMeTweetPollNotFoundException {
+        final List<TweetPoll> tweetPolls = getTweetPollDao().getTweetPolls(
+                maxResults, start, range);
+        if (tweetPolls.size() == 0) {
+            throw new EnMeTweetPollNotFoundException(
+                    "TweetPolls not found to proccess");
+        }
+        return tweetPolls;
     }
 }

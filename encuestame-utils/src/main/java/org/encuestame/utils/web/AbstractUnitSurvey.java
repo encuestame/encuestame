@@ -46,7 +46,7 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
     private String ownerUsername;
 
     /** **/
-    @JsonProperty(value = "likeVote")
+    @JsonProperty(value = "relativeTime")
     private String relativeTime;
 
     /** **/

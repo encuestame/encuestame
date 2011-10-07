@@ -935,16 +935,15 @@ public class ConvertDomainBean {
     * @param tweetPollBean
     * @return
     */
-    public static final List<HomeBean> convertTweetPollListToHomeBean(final List<TweetPollBean> items){
-       final List<HomeBean> listFrontEndItems = new ArrayList<HomeBean>();
-       for (TweetPollBean tweetPollBean : items) {
-            if (tweetPollBean.getRelevance() != 0) {
-                listFrontEndItems.add(ConvertDomainBean
-                        .convertTweetPollToHomeBean(tweetPollBean));
-            }
+    public static final List<HomeBean> convertTweetPollListToHomeBean(
+            final List<TweetPollBean> items) {
+        final List<HomeBean> listFrontEndTweetPollItems = new ArrayList<HomeBean>();
+        for (TweetPollBean tweetPollBean : items) {
+            listFrontEndTweetPollItems.add(ConvertDomainBean
+                    .convertTweetPollToHomeBean(tweetPollBean));
         }
-   return listFrontEndItems;
-   }
+        return listFrontEndTweetPollItems;
+    }
 
   /**
    * Convert {@link TweetPollBean} to {@link HomeBean}.

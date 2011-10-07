@@ -41,6 +41,14 @@ public class EnMeUtils {
 
     private static final long PENALTY_VALUE = 3;
 
+    public static final long RATE_DEFAULT = 1;
+
+    public static final long VOTE_DEFAULT = 1;
+
+    public static final long LIKE_DEFAULT = 1;
+
+    public static final long DISLIKE_DEFAULT = 1;
+
     /**
      * Calculate percent.
      * @param total
@@ -127,6 +135,7 @@ public class EnMeUtils {
         float numberHits = Float.valueOf(totalHits);
         float maxLikeVotes = Float.valueOf(maxVotebyUser);
         double relevance;
+        final long roundRelevance;
 
         final double likeValueScore = EnMeUtils.SCORE_BASE * ((likeVotes) / (maxLikeVotes));
         log.debug(" Like value Score  ----- >  " + likeValueScore);
@@ -134,7 +143,8 @@ public class EnMeUtils {
                 * ((dislikeVotes / maxLikeVotes)) * EnMeUtils.PENALTY_VALUE);
         log.debug(" DisLike value Score  ----- >  " + dislikeValueScore);
         relevance = (likeValueScore - dislikeValueScore) + numberHits;
-        log.debug(" RELEVANCE *******************************>  " + Math.round(relevance));
-        return Math.round(relevance);
+        roundRelevance = Math.round(relevance);
+        log.debug(" RELEVANCE *******************************>  " + roundRelevance);
+        return roundRelevance;
     }
 }
