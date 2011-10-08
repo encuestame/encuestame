@@ -69,6 +69,18 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return (TweetPoll) getHibernateTemplate().get(TweetPoll.class, tweetPollId);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getPublicTweetPollById(java.lang.Long)
+     */
+    @SuppressWarnings("unchecked")
+	public TweetPoll getPublicTweetPollById(final Long tweetPollId) {
+    	 final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+    	 criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
+         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+         return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
     /**
      * Retrieve Tweets Poll by User Id.
      * @param userId userId
@@ -333,7 +345,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      */
     public Long getTotalVotesByTweetPollId(final Long tweetPollId){
         Long totalvotes = 0L;
-        final List<TweetPollSwitch> answers = this.getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId)); // Type YES-NO
+        // Type YES-NO
+        final List<TweetPollSwitch> answers = this.getListAnswesByTweetPoll(this.getTweetPollById(tweetPollId));
         for (TweetPollSwitch tweetPollSwitch : answers) {
             final List<Long> answerResult = this.getVotesByAnswer(tweetPollSwitch); // Count
             for (Long objects : answerResult) {
@@ -382,13 +395,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         return getHibernateTemplate().get(TweetPollFolder.class, folderId);
     }
 
-    /**
-     * Get TweetPoll Folder By Id and UserId.
-     * @param folderId
-     * @param userId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollFolderByIdandUser(java.lang.Long, org.encuestame.persistence.domain.security.Account)
      */
-
     @SuppressWarnings("unchecked")
     public TweetPollFolder getTweetPollFolderByIdandUser(final Long folderId, final Account account) {
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
@@ -398,11 +408,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
          return (TweetPollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /**
-     * Get TweetPoll Folder By Id and UserId.
-     * @param folderId
-     * @param userId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollByIdandUserId(java.lang.Long, java.lang.Long)
      */
     @SuppressWarnings("unchecked")
     public TweetPoll getTweetPollByIdandUserId(final Long tweetPollId, final Long userId){
@@ -412,13 +420,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
          return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
-    /**
-     * Get {@link TweetPoll} by id, userid and slug name.
-     * @param tweetPollId tweet poll id.
-     * @param userId user id.
-     * @param slugName slug name.
-     * @return
-     * @throws UnsupportedEncodingException
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollByIdandSlugName(java.lang.Long, java.lang.String)
      */
     @SuppressWarnings("unchecked")
     public TweetPoll getTweetPollByIdandSlugName(final Long tweetPollId, final String slugName) throws UnsupportedEncodingException {

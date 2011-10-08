@@ -15,47 +15,51 @@ dojo.declare(
 
           widgetsInTemplate: true,
 
-          type : "",
+          data : null,
 
           /**
            *
            */
           postCreate : function() {
-              this.loadComments({});
+        	  if (this.data) {
+        		  try {
+        			  this._fillComment();
+        		  } catch (err) {
+        			  console.error("error on fill comment", err);
+        		  } finally {
+        			 //something could be happend.
+        		  }
+        	  }
           },
 
           /*
-           * load all comments.
-			  error: {},
-			  success: {
-			    comments: [
-			      {
-			        id: 1,
-			        comment: "xxxxxx",
-			        created_at: "2011-06-29",
-			        likeVote: 432,
-			        dislike_vote: 31,
-			        item_id: 101,
-			        type: "TWEETPOLL",
-			        uid: 4,
-			        parent_id: null
-			      }
-			    ]
-			  }
+           *
            */
-          loadComments : function(params) {
-                  var load = dojo.hitch(this, function(data) {
-                      //dojo.empty(this._items);
-                      var itemArray = [];
-                      dojo.forEach(
-                              data.success.tweetPolls,
-                              dojo.hitch(this, function(data, index) {
-                                 console.info("comment", data);
-                      }));
-                  });
-                  var error = function(error) {
-                      console.debug("error", error);
-                  };
-                  encuestame.service.xhrGet(encuestame.service.comments.list, params, load, error);
+          _fillComment : function() {
+        	  //set user link
+        	  if (this._commented_by) {
+        		  var a = dojo.create("a");
+        		  var commentedBy = (this.data.commented_by == null ? this.data.commented_username : this.data.commented_by);
+        		  a.innerHTML = commentedBy;
+        		  a.href = encuestame.utilities.usernameLink(this.data.commented_username);
+        		  a.target = "_blank";
+        		  this._commented_by.appendChild(a);
+        	  }
+        	  //set content.
+        	  /*
+        	   * in the future the content could be formated by HTML.
+        	   */
+        	  if (this._comment_content) {
+        		  var p = dojo.create("p");
+        		  p.innerHTML = this.data.comment;
+        		  this._comment_content.appendChild(p);
+        	  }
+        	  //set date
+        	  if(this._comment_content_date){
+        		  var date = dojo.create("a");
+        		  date.innerHTML = this.data.created_at;
+        		  date.href = "#"; //TODO: future inprovments
+        		  this._comment_content_date.appendChild(date);
+        	  }
           }
     });

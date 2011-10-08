@@ -120,6 +120,23 @@ encuestame.error = {};
 encuestame.error.debug = true;
 encuestame.error.dialog = null;
 
+encuestame.utilities = {};
+
+/*
+ * create a username profile link.
+ */
+encuestame.utilities.usernameLink = function(username) {
+	var url = encuestame.contextDefault;
+	if (username) {
+		url = url.concat("/profile/");
+		url = url.concat(username);
+		return url;
+	} else {
+		url = url.concat("/404");
+		return url;
+	}
+};
+
 /*
  * clear dialog.
  */
@@ -468,7 +485,9 @@ encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/poll/pub
  * Comment Services.
  */
 encuestame.service.comments = {};
-encuestame.service.comments.list = "/api/common/comment/comments.json";
+encuestame.service.comments.list = function(type) {
+    return encuestame.contextWidget()+"/api/common/comment/comments/"+ type +".json";
+};
 encuestame.service.comments.search = "/api/common/comment/search.json";
 encuestame.service.comments.like = "/api/common/comment/like_vote.json";
 encuestame.service.comments.dislike = "/api/common/comment/dislike_vote.json";
@@ -593,7 +612,8 @@ encuestame.constants.messageCodes = {
     "011" : "Password could be more secure.",
     "016" : "Don't worry, you can change it later.",
     "020" : "",
-    "021" : "Drag your gadget here !!"
+    "021" : "Drag your gadget here !!",
+    "022" : "Be the first to comment on this publication."
 };
 
 encuestame.constants.version = { version : "1.1.37"};

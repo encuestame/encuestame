@@ -1011,6 +1011,21 @@ div.comments div.comment-wrapper div.comment div.comment-image {
     width: 45px;
 }
 
+div.comments div.comment-wrapper .comments-no-content {
+  border: 1px solid #E0E0E0;
+  clear: both;
+  color: #A09F9D;
+  font-size: 18px;
+  padding: 25px;
+  text-align: center;
+  width: auto;
+}
+
+div.comments div.comment-form {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
 div.comments div.comment-wrapper div.comment div.comment-data {
     float: left;
     width: 980px;

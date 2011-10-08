@@ -934,11 +934,10 @@ public class ConvertDomainBean {
     	   set = true;
        }
        commentBean.setId(id);
-       // parent id should be hide is not exist.
-       if (commentDomain.getParentId() != null) {
-    	   commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
-       }
+       commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
        commentBean.setUserAccountId(commentDomain.getUser() == null ? null : commentDomain.getUser().getUid());
+       commentBean.setCommentedBy(commentDomain.getUser().getCompleteName());
+       commentBean.setCommentedByUsername(commentDomain.getUser().getUsername());
        return commentBean;
    }
 

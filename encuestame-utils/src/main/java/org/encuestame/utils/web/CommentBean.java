@@ -15,6 +15,7 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonGetter;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -60,8 +61,21 @@ public class CommentBean implements Serializable{
     private String type;
 
     /** **/
+    @JsonIgnore
     @JsonProperty(value = "uid")
     private Long userAccountId;
+
+    /**
+     * Commented By.
+     */
+    @JsonProperty(value = "commented_by")
+    private String commentedBy;
+
+    /**
+     * Commented By.
+     */
+    @JsonProperty(value = "commented_username")
+    private String commentedByUsername;
 
     /** **/
     @JsonProperty(value = "parent_id")
@@ -183,7 +197,7 @@ public class CommentBean implements Serializable{
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -198,7 +212,37 @@ public class CommentBean implements Serializable{
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
+	}
+
+	/**
+	 * @return the commentedBy
+	 */
+	@JsonIgnore
+	public String getCommentedBy() {
+		return commentedBy;
+	}
+
+	/**
+	 * @param commentedBy the commentedBy to set
+	 */
+	public void setCommentedBy(final String commentedBy) {
+		this.commentedBy = commentedBy;
+	}
+
+	/**
+	 * @return the commentedByUsername
+	 */
+	@JsonIgnore
+	public String getCommentedByUsername() {
+		return commentedByUsername;
+	}
+
+	/**
+	 * @param commentedByUsername the commentedByUsername to set
+	 */
+	public void setCommentedByUsername(final String commentedByUsername) {
+		this.commentedByUsername = commentedByUsername;
 	}
 }

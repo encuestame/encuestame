@@ -77,6 +77,6 @@
    </c:if>
    <div class="web-tweetpoll-comments">
        <div class="titleTweetPollSection extraMargin">Comments</div>
-      <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll"></div>
+      <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </div>
 </div>

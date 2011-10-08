@@ -58,7 +58,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     //@Test
     public void testGetCommentsbyUnknownTweetPoll() throws ServletException, IOException {
-        initService("/api/common/comment/tweetpoll/comments.json", MethodJson.GET);
+        initService("/api/common/comment/comments/tweetpoll.json", MethodJson.GET);
         setParameter("id", "1");
         final JSONObject response = callJsonService();
         final String error = getErrorsMessage(response);
@@ -72,7 +72,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void testGetCommentsbyTweetPoll() throws ServletException, IOException {
-        initService("/api/common/comment/tweetpoll/	comments.json", MethodJson.GET);
+        initService("/api/common/comment/comments/tweetpoll.json", MethodJson.GET);
         setParameter("id", this.tweetPoll.getTweetPollId().toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);

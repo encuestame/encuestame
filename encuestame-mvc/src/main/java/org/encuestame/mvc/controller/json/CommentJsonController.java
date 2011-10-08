@@ -64,7 +64,7 @@ public class CommentJsonController extends AbstractJsonController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/api/common/comment/{type}/comments.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/comment/comments/{type}.json", method = RequestMethod.GET)
     public ModelMap getCommentsbyTweetPoll(
             @PathVariable String type,
             @RequestParam(value = "id", required = true) Long itemId,
@@ -81,6 +81,7 @@ public class CommentJsonController extends AbstractJsonController {
             setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
