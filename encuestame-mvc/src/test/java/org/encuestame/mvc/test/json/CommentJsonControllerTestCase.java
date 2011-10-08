@@ -17,11 +17,11 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 import junit.framework.Assert;
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -58,7 +58,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     //@Test
     public void testGetCommentsbyUnknownTweetPoll() throws ServletException, IOException {
-        initService("/api/survey/tweetpoll/comments.json", MethodJson.GET);
+        initService("/api/common/comment/comments.json", MethodJson.GET);
         setParameter("tweetPollId", "1");
         final JSONObject response = callJsonService();
         final String error = getErrorsMessage(response);
@@ -72,7 +72,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void testGetCommentsbyTweetPoll() throws ServletException, IOException {
-        initService("/api/survey/tweetpoll/comments.json", MethodJson.GET);
+        initService("/api/common/comment/comments.json", MethodJson.GET);
         setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);

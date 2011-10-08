@@ -18,13 +18,13 @@ import junit.framework.Assert;
 
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.chart.TweetPollJsonDataChart;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;

@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Hit;
-import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
  * Implementation for FrontEnd Dao.

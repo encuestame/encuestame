@@ -21,13 +21,13 @@ import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.CommentsSocialOptions;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
@@ -40,10 +40,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService extends AbstractBaseService implements ICommentService{
 
-    /** Log. **/
+    /**
+     * Log.
+     **/
     private Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * Default value for a single vote.
+     */
     private Long VOTE_VALUE = 1L;
+
+
+    //public List<Comment> getComments(final )
 
     /*
      * (non-Javadoc)

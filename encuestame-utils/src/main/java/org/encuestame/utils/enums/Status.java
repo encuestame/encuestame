@@ -10,14 +10,21 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.core.util;
+package org.encuestame.utils.enums;
 
 /**
- * Follow Operations
+ * Status Enum.
  * @author Picado, Juan juanATencuestame.org
- * @since Jan 23, 2011 9:53:53 AM
+ * @since May 15, 2010 9:31:19 PM
+ * @version $Id: $
  */
-public enum FollowOperations{
-    FOLLOW,
-    UNFOLLOW
+public enum Status {
+    /** Active. **/
+    ACTIVE,
+    /** Inactive. **/
+    INACTIVE,
+   /** success status */
+    SUCCESS,
+
+    FAILED
 }

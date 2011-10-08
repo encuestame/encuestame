@@ -26,12 +26,12 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.tweetpoll.Status;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.enums.Status;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -355,7 +355,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     public List<TweetPollFolder> retrieveTweetPollFolderByAccount(final Account account){
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
         criteria.add(Restrictions.eq("users", account));
-        criteria.add(Restrictions.eq("status", org.encuestame.persistence.domain.Status.ACTIVE));
+        criteria.add(Restrictions.eq("status", org.encuestame.utils.enums.Status.ACTIVE));
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
@@ -393,7 +393,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
     public TweetPollFolder getTweetPollFolderByIdandUser(final Long folderId, final Account account) {
          final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollFolder.class);
          criteria.add(Restrictions.eq("users", account));
-         criteria.add(Restrictions.eq("status", org.encuestame.persistence.domain.Status.ACTIVE));
+         criteria.add(Restrictions.eq("status", org.encuestame.utils.enums.Status.ACTIVE));
          criteria.add(Restrictions.eq("id", folderId));
          return (TweetPollFolder) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }

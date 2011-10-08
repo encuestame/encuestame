@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain;
+package org.encuestame.utils.enums;
 
 /**
  * Comments Options Enumeration

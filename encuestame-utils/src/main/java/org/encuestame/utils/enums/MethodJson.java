@@ -10,17 +10,16 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain;
+package org.encuestame.utils.enums;
 
 /**
- * Status Enum.
+ * Method Json.
  * @author Picado, Juan juanATencuestame.org
- * @since May 15, 2010 9:31:19 PM
- * @version $Id: $
+ * @since Oct 24, 2010 4:45:30 PM
+ * @version $Id:$
  */
-public enum Status {
-    /** Active. **/
-    ACTIVE,
-    /** Inactive. **/
-    INACTIVE
+public enum MethodJson {
+    GET,
+    POST,
+    PUT
 }

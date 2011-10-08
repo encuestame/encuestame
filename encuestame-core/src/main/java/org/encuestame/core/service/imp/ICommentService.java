@@ -15,11 +15,11 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.CommentsSocialOptions;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 

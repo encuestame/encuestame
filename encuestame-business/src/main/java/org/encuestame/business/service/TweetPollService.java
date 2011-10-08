@@ -28,13 +28,11 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.tweetpoll.Status;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
@@ -46,6 +44,8 @@ import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -786,7 +786,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollFolderDomain.setUsers(getUserAccount(username).getAccount());
         tweetPollFolderDomain.setCreatedAt(new Date());
         tweetPollFolderDomain.setCreatedBy(getUserAccount(getUserPrincipalUsername()));
-        tweetPollFolderDomain.setStatus(org.encuestame.persistence.domain.Status.ACTIVE);
+        tweetPollFolderDomain.setStatus(org.encuestame.utils.enums.Status.ACTIVE);
         tweetPollFolderDomain.setFolderName(folderName);
         this.getTweetPollDao().saveOrUpdate(tweetPollFolderDomain);
         return ConvertDomainBean.convertFolderToBeanFolder(tweetPollFolderDomain);
@@ -1008,7 +1008,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void checkTweetPollCompleteStatus(final TweetPoll tweetPoll) {
         boolean next = true;
         log.debug("checkTweetPollCompleteStatus tweetPoll.getLimitVotesEnabled() "+tweetPoll.getLimitVotesEnabled());
-        if (tweetPoll.getLimitVotesEnabled()) {
+        boolean votesEnabled = tweetPoll.getLimitVotesEnabled() == null ? false : tweetPoll.getLimitVotesEnabled();
+        if (votesEnabled) {
             long limitVotes = tweetPoll.getLimitVotes() == null ? 0 : tweetPoll.getLimitVotes();
             if (limitVotes <= this.getTweetPollTotalVotes(tweetPoll)) {
                 log.debug("checkTweetPollCompleteStatus limis vote");

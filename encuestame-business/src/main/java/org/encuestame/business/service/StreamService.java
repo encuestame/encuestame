@@ -23,11 +23,11 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.stereotype.Service;
 

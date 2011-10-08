@@ -24,6 +24,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.enums.CommentOptions;
 
 /**
  * Abstract Survey.

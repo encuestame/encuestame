@@ -15,9 +15,9 @@ import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 import junit.framework.Assert;
 
 import org.encuestame.mvc.controller.HashTagController;
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.utils.enums.MethodJson;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
