@@ -65,14 +65,16 @@
    <div class="web-tweetpoll-social-links">
        <div dojoType="encuestame.org.core.commons.social.LinksPublished" itemId="${tweetpoll.id}" type="TWEETPOLL"></div>
    </div>
-   <div class="web-tweetpoll-hashtags">
-       <div class="titleTweetPollSection extraMargin">HashTag Refered</div>
-       <c:forEach items="${hashtags}" var="h">
-               <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
-                url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
-                hashTagName="${h.hashTagName}"></span>
-       </c:forEach>
-   </div>
+   <c:if test="${!empty hashtags}">
+       <div class="web-tweetpoll-hashtags">
+           <div class="titleTweetPollSection extraMargin">HashTag Refered</div>
+               <c:forEach items="${hashtags}" var="h">
+                       <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                        url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
+                        hashTagName="${h.hashTagName}"></span>
+               </c:forEach>
+       </div>
+   </c:if>
    <div class="web-tweetpoll-comments">
        <div class="titleTweetPollSection extraMargin">Comments</div>
       <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll"></div>

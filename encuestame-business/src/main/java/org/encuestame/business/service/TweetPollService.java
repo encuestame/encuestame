@@ -590,6 +590,19 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return this.getTweetPollById(tweetPollId, getUserPrincipalUsername());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollPublishedById(java.lang.Long)
+     */
+    public TweetPoll getTweetPollPublishedById(final Long tweetPollId) throws EnMeNoResultsFoundException{
+		final TweetPoll tweetPoll = this.getTweetPollById(tweetPollId);
+		if (!tweetPoll.getPublishTweetPoll()) {
+			throw new EnMeNoResultsFoundException("tweetpoll [" + tweetPollId
+					+ "] is not published");
+		}
+		return tweetPoll;
+    }
+
 
     /**
      *

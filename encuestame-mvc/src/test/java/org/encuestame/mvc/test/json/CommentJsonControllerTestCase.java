@@ -58,8 +58,8 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     //@Test
     public void testGetCommentsbyUnknownTweetPoll() throws ServletException, IOException {
-        initService("/api/common/comment/comments.json", MethodJson.GET);
-        setParameter("tweetPollId", "1");
+        initService("/api/common/comment/tweetpoll/comments.json", MethodJson.GET);
+        setParameter("id", "1");
         final JSONObject response = callJsonService();
         final String error = getErrorsMessage(response);
         Assert.assertEquals(error, "tweet poll invalid with this id 1");
@@ -72,8 +72,8 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void testGetCommentsbyTweetPoll() throws ServletException, IOException {
-        initService("/api/common/comment/comments.json", MethodJson.GET);
-        setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
+        initService("/api/common/comment/tweetpoll/	comments.json", MethodJson.GET);
+        setParameter("id", this.tweetPoll.getTweetPollId().toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray comments = (JSONArray) success.get("comments");

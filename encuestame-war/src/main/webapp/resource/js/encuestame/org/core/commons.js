@@ -464,7 +464,19 @@ encuestame.service.list.poll = {};
 encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/poll/create.json";
 encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/poll/publish.json";
 
+/**
+ * Comment Services.
+ */
+encuestame.service.comments = {};
+encuestame.service.comments.list = "/api/common/comment/comments.json";
+encuestame.service.comments.search = "/api/common/comment/search.json";
+encuestame.service.comments.like = "/api/common/comment/like_vote.json";
+encuestame.service.comments.dislike = "/api/common/comment/dislike_vote.json";
+encuestame.service.comments.create = "/api/common/comment/create.json";
 
+/**
+ * Vote services.
+ */
 encuestame.service.list.votes = {};
 encuestame.service.list.getTweetPollVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/"+username+"/tweetpoll/"+id+"/votes.json";

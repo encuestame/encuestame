@@ -51,25 +51,21 @@ public class CommentBean implements Serializable{
     private Long dislikeVote;
 
     /** **/
-    @JsonProperty(value = "poll_id")
-    private Long pollId;
+    @JsonProperty(value = "item_id")
+    private Long id;
+
+
+    /** Type of Comment */
+    @JsonProperty(value = "type")
+    private String type;
 
     /** **/
-    @JsonProperty(value = "user_id")
+    @JsonProperty(value = "uid")
     private Long userAccountId;
-
-    /** **/
-    @JsonProperty(value = "tweetPoll_id")
-    private Long tweetPoll;
 
     /** **/
     @JsonProperty(value = "parent_id")
     private Long parentId;
-
-    /** **/
-    @JsonProperty(value = "survey_id")
-    private Long surveyId;
-
     /**
      * @return the commentId
      */
@@ -146,21 +142,6 @@ public class CommentBean implements Serializable{
     }
 
     /**
-     * @return the pollId
-     */
-    @JsonIgnore
-    public Long getPollId() {
-        return pollId;
-    }
-
-    /**
-     * @param pollId the pollId to set
-     */
-    public void setPollId(final Long pollId) {
-        this.pollId = pollId;
-    }
-
-    /**
      * @return the userAccountId
      */
     @JsonIgnore
@@ -175,20 +156,6 @@ public class CommentBean implements Serializable{
         this.userAccountId = userAccountId;
     }
 
-    /**
-     * @return the tweetPoll
-     */
-    @JsonIgnore
-    public Long getTweetPoll() {
-        return tweetPoll;
-    }
-
-    /**
-     * @param tweetPoll the tweetPoll to set
-     */
-    public void setTweetPoll(final Long tweetPoll) {
-        this.tweetPoll = tweetPoll;
-    }
 
     /**
      * @return the parentId
@@ -205,18 +172,33 @@ public class CommentBean implements Serializable{
         this.parentId = parentId;
     }
 
-    /**
-     * @return the surveyId
-     */
+	/**
+	 * @return the id
+	 */
     @JsonIgnore
-    public Long getSurveyId() {
-        return surveyId;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    /**
-     * @param surveyId the surveyId to set
-     */
-    public void setSurveyId(final Long surveyId) {
-        this.surveyId = surveyId;
-    }
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the type
+	 */
+	@JsonIgnore
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
 }

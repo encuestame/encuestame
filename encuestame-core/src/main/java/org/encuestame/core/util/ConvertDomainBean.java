@@ -51,6 +51,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.ProfileUserAccount;
@@ -551,16 +552,16 @@ public class ConvertDomainBean {
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
-        unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? 0L : Long.valueOf(tweetPoll.getNumbervotes()));
+        unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN : Long.valueOf(tweetPoll.getNumbervotes()));
         unitTweetPoll.setCreatedDateAt(tweetPoll.getCreateDate());
         unitTweetPoll.setLimitVotesDate(tweetPoll.getDateLimit() == null ? false : tweetPoll.getDateLimit());
         unitTweetPoll.setUpdateDate(tweetPoll.getUpdatedDate());
-        if(tweetPoll.getDateLimit() != null && tweetPoll.getDateLimited() != null) {
+        if (tweetPoll.getDateLimit() != null && tweetPoll.getDateLimited() != null) {
             unitTweetPoll.setDateToLimit(tweetPoll.getDateLimited() == null
                     ? null
                     : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
         }
-        unitTweetPoll.setRelevance(tweetPoll.getRelevance() == null ? 0L : tweetPoll.getRelevance());
+        unitTweetPoll.setRelevance(tweetPoll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT : tweetPoll.getRelevance());
         return unitTweetPoll;
     }
 
@@ -900,19 +901,44 @@ public class ConvertDomainBean {
      * @param commentDomain
      * @return
      */
-   public static final CommentBean convertCommentDomainToBean(final Comment commentDomain){
+   public static final CommentBean convertCommentDomainToBean(final Comment commentDomain) {
        final CommentBean commentBean = new CommentBean();
        Assert.assertNotNull(commentDomain);
        commentBean.setCommentId(commentDomain.getCommentId());
        commentBean.setComment(commentDomain.getComment());
        commentBean.setCreatedAt(commentDomain.getCreatedAt());
-       commentBean.setDislikeVote(commentDomain.getDislikeVote() == null ? null : commentDomain.getDislikeVote());
-       commentBean.setLikeVote(commentDomain.getLikeVote() == null ? null : commentDomain.getLikeVote());
-       commentBean.setPollId(commentDomain.getPoll() == null ? null : commentDomain.getPoll().getPollId());
-       commentBean.setTweetPoll(commentDomain.getTweetPoll() == null ? null : commentDomain.getTweetPoll().getTweetPollId());
-       commentBean.setSurveyId(commentDomain.getSurvey() == null ? null : commentDomain.getSurvey().getSid());
-       commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
-       commentBean.setUserAccountId(commentDomain.getUser().getUid());
+		commentBean
+				.setDislikeVote(commentDomain.getDislikeVote() == null ? EnMeUtils.VOTE_MIN
+						: commentDomain.getDislikeVote());
+		commentBean
+				.setLikeVote(commentDomain.getLikeVote() == null ? EnMeUtils.VOTE_MIN
+						: commentDomain.getLikeVote());
+       long id = 0;
+       boolean set = false;
+       /*
+        * is possible refactor this part? ..
+        */
+       if (commentDomain.getPoll() != null && !set) {
+    	   id = commentDomain.getPoll().getPollId();
+    	   commentBean.setType(TypeSearchResult.POLL.toString());
+    	   set = true;
+       }
+       if (commentDomain.getTweetPoll() != null && !set) {
+    	   id = commentDomain.getTweetPoll().getTweetPollId();
+    	   commentBean.setType(TypeSearchResult.TWEETPOLL.toString());
+    	   set = true;
+       }
+       if (commentDomain.getSurvey() != null && !set) {
+    	   id = commentDomain.getSurvey().getSid();
+    	   commentBean.setType(TypeSearchResult.SURVEY.toString());
+    	   set = true;
+       }
+       commentBean.setId(id);
+       // parent id should be hide is not exist.
+       if (commentDomain.getParentId() != null) {
+    	   commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
+       }
+       commentBean.setUserAccountId(commentDomain.getUser() == null ? null : commentDomain.getUser().getUid());
        return commentBean;
    }
 
