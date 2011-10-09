@@ -891,12 +891,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String value) throws EnMeNoResultsFoundException{
         log.debug("updating accoutn profile :"+property+" whith value "+value);
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-        if(Profile.USERNAME.equals(property)){
+        if (Profile.USERNAME.equals(property)) {
             account.setUsername(value.trim());
             //TODO: we need update authorities
-        } else if(Profile.EMAIL.equals(property)){
+        } else if (Profile.EMAIL.equals(property)) {
             account.setUserEmail(value.trim());
-       } else if(Profile.PICTURE.equals(property)){
+       } else if (Profile.PICTURE.equals(property)) {
            PictureSource picture = PictureSource.findPictureSource(value);
            if (picture != null) {
                account.setPictureSource(picture);

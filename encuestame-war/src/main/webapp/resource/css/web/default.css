@@ -325,16 +325,17 @@ div.defaultSectionTitle {
     width: auto;
 }
 
-.default-sidebar-menu{
-    font-size: 130%;
-    padding: 5px;
-    color: #FFF;
+.default-sidebar-menu {
+  color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 5px;
 }
 
 .default-sidebar-menu-sub{
   background-color: #595959; /**A6A5A5 **/
   color: #FFFFFF;
-  font-size: 121%;
+  font-size: 100%;
   min-height: 21px;
   padding: 4px 1px 1px 6px;
 }

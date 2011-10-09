@@ -58,7 +58,7 @@ public class JsonPermissionController  extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-permissions.json", method = RequestMethod.GET)
     public ModelMap getPermissions(
             HttpServletRequest request,
