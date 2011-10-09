@@ -8,15 +8,13 @@
   dojo.require("encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer");
 </script>
 <div class="web-tweetpoll-detail ">
-   <div class="question defaultSectionTitle">
-        ${tweetpoll.questionBean.questionName}
-   </div>
    <div class="web-tweetpoll-info">
         <div id="info" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail"
-             <c:if test="${tweetpoll.limitVotesDate}">
+            <c:if test="${tweetpoll.limitVotesDate}">
                 date="${tweetpoll.dateToLimit}"
             </c:if>
              votes="${tweetpoll.totalVotes}"
+             question=" ${tweetpoll.questionBean.questionName}"
              hits="${tweetpoll.hits}"
              completed="${tweetpoll.completed}"
              owner="${tweetpoll.ownerUsername}"
@@ -74,6 +72,7 @@
         </div>
    </div>
    <div class="web-tweetpoll-social-links">
+           <div class="titleTweetPollSection">Social Links Refered</div>
        <div dojoType="encuestame.org.core.commons.social.LinksPublished" itemId="${tweetpoll.id}" type="TWEETPOLL"></div>
    </div>
    <c:if test="${!empty hashtags}">
@@ -87,7 +86,7 @@
        </div>
    </c:if>
    <div class="web-tweetpoll-comments">
-       <div class="titleTweetPollSection extraMargin">Comments</div>
+      <div class="titleTweetPollSection extraMargin">Comments</div>
       <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </div>
 </div>

@@ -17,7 +17,6 @@ dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail",
     [dijit._Widget, dijit._Templated],{
-
         /*
          *
          */
@@ -34,9 +33,16 @@ dojo.declare(
          * owner
          */
         owner : "",
-        //tweetpoll id
-        tweetPollid : null,
 
+        /*
+         * question name.
+         */
+        question : "",
+
+        /*
+         * tweetpoll id
+         */
+        tweetPollid : null,
         /*
          *
          */
@@ -76,6 +82,9 @@ dojo.declare(
             if (this._hits) {
                 console.info("hits dom", this._hits);
                 this._hits.innerHTML = encuestame.utilities.shortAmmount(this.hits);
+            }
+            if (this._question_title) {
+                this._question_title.innerHTML = this.question;
             }
             if(!this.completed) {
                 if (this.date != null) {
