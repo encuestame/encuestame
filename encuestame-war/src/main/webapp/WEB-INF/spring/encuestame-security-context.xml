@@ -89,6 +89,7 @@
         <security:intercept-url pattern="/api/survey/**/*"    access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/chart/**/*"   access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/groups/**/*"  access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/common/comment/comments/**/*"  access="permitAll"  />
         <security:intercept-url pattern="/api/notifications/**/*"  access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/resources/**" access="permitAll"/>
     </security:http>

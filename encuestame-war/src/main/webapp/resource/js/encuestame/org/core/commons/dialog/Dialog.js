@@ -75,6 +75,6 @@ dojo.declare(
             this._set("open", false);
             this._afterHide();
             return this._fadeOutDeferred;
-        },
+        }
 });
 

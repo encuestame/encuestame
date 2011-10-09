@@ -8,14 +8,14 @@
   dojo.require("encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer");
 </script>
 <div class="web-tweetpoll-detail ">
-   <div class="question defaultSectionTitle">
-        ${tweetpoll.questionBean.questionName}
-   </div>
    <div class="web-tweetpoll-info">
         <div id="info" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail"
-             <c:if test="${tweetpoll.limitVotesDate}">
+            <c:if test="${tweetpoll.limitVotesDate}">
                 date="${tweetpoll.dateToLimit}"
             </c:if>
+             votes="${tweetpoll.totalVotes}"
+             question=" ${tweetpoll.questionBean.questionName}"
+             hits="${tweetpoll.hits}"
              completed="${tweetpoll.completed}"
              owner="${tweetpoll.ownerUsername}"
              tweetPollid="${tweetpoll.id}"></div>
@@ -28,15 +28,24 @@
                  username="${tweetpoll.ownerUsername}"></div>
         </div>
         <div class="web-tweetpoll-answer-answer">
-            <table style="margin-top: 15px; width: 590px; float: right;"
+            <h2>Answers</h2>
+            <table style="margin-top: 15px; width: 100%; float: right;"
                 class="web-tweetpoll-answer-table" cellspacing="0">
                 <thead>
                     <tr>
-                        <th class="header-table-answer"></th>
-                        <th class="header-table-answer">Link to Vote</th>
-                        <th class="header-table-answer">Count</th>
-                        <th class="header-table-answer">Percent</th>
-                        <th class="header-table-answer"></th>
+                        <th></th>
+                        <th>
+                            <span class="header-table-answer">Link to Vote</span>
+                        </th>
+                        <th>
+                            <span class="header-table-answer">Count</span>
+                        </th>
+                        <th>
+                            <span class="header-table-answer">Percent</span>
+                        </th>
+                        <th>
+                            <span class="header-table-answer"></span>
+                        </th>
                     </tr>
                     <tr>
                         <th class="header-table-answer-emtpy"></th>
@@ -63,18 +72,21 @@
         </div>
    </div>
    <div class="web-tweetpoll-social-links">
+           <div class="titleTweetPollSection">Social Links Refered</div>
        <div dojoType="encuestame.org.core.commons.social.LinksPublished" itemId="${tweetpoll.id}" type="TWEETPOLL"></div>
    </div>
-   <div class="web-tweetpoll-hashtags">
-       <div class="titleTweetPollSection extraMargin">HashTag Refered</div>
-       <c:forEach items="${hashtags}" var="h">
-               <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
-                url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
-                hashTagName="${h.hashTagName}"></span>
-       </c:forEach>
-   </div>
+   <c:if test="${!empty hashtags}">
+       <div class="web-tweetpoll-hashtags">
+           <div class="titleTweetPollSection extraMargin">HashTag Refered</div>
+               <c:forEach items="${hashtags}" var="h">
+                       <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                        url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
+                        hashTagName="${h.hashTagName}"></span>
+               </c:forEach>
+       </div>
+   </c:if>
    <div class="web-tweetpoll-comments">
-       <div class="titleTweetPollSection extraMargin">Comments</div>
-      <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll"></div>
+      <div class="titleTweetPollSection extraMargin">Comments</div>
+      <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </div>
 </div>

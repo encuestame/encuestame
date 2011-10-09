@@ -124,9 +124,9 @@ public class TestCommentService extends AbstractSpringSecurityContext {
     }
 
     @Test
-    public void testGetCommentsbyTweetPoll() throws EnMeTweetPollNotFoundException{
+    public void testGetCommentsbyTweetPoll() throws EnMeNoResultsFoundException{
         final List<Comment> comments = getCommentsOperationsService().getCommentsbyTweetPoll(
-                this.tweetPoll.getTweetPollId(), this.MAX_RESULTS, this.START);
+                this.tweetPoll, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 4, comments.size());
     }
 

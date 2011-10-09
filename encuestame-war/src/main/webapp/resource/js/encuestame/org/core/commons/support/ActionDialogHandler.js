@@ -75,7 +75,5 @@ dojo.declare("encuestame.org.core.commons.support.ActionDialogHandler", null, {
         showSuccessMessage : function(successMessage){
             this.dialogHandlerWidget.content = successMessage;
             this.dialogHandlerWidget.show();
-        },
-
-
+        }
 });

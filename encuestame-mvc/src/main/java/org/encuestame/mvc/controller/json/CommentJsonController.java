@@ -27,8 +27,9 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.CommentsSocialOptions;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -58,35 +59,29 @@ public class CommentJsonController extends AbstractJsonController {
      * @param tweetPollId
      * @param max
      * @param start
+     * @param type
      * @param request
      * @param response
      * @return
      */
-    @RequestMapping(value = "/api/survey/tweetpoll/comments.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/common/comment/comments/{type}.json", method = RequestMethod.GET)
     public ModelMap getCommentsbyTweetPoll(
-            @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            @PathVariable String type,
+            @RequestParam(value = "id", required = true) Long itemId,
             @RequestParam(value = "max", required = false) Integer max,
             @RequestParam(value = "start", required = false) Integer start,
             HttpServletRequest request, HttpServletResponse response) {
         try {
-            final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(
-                    tweetPollId);
-            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-
-            List<Comment> comments = new ArrayList<Comment>();
-            List<CommentBean> commentBean = new ArrayList<CommentBean>();
-            if (tweetPoll == null) {
-                setError("tweetpoll not found", response);
-            } else {
-                comments = getCommentService().getCommentsbyTweetPoll(tweetPollId,
-                        max, start);
-            }
-            commentBean = ConvertDomainBean.convertListCommentDomainToBean(comments);
+			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+			final List<Comment> comments = getCommentService().getComments(
+					TypeSearchResult.getTypeSearchResult(type), itemId, max,
+					start);
+			final List<CommentBean> commentBean = ConvertDomainBean.convertListCommentDomainToBean(comments);
             jsonResponse.put("comments", commentBean);
             setItemResponse(jsonResponse);
         } catch (Exception e) {
-            // TODO: handle exception
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -173,8 +168,7 @@ public class CommentJsonController extends AbstractJsonController {
              final CommentBean bean = new CommentBean();
              bean.setComment(mycomment);
              bean.setCreatedAt(new Date());
-             bean.setTweetPoll(tweetPollId);
-
+             bean.setId(tweetPollId);
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Comment comment = getCommentService().createComment(bean);
              jsonResponse.put("comment", comment);

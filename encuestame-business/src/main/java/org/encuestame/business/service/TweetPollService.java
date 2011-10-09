@@ -28,13 +28,11 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.tweetpoll.Status;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
@@ -46,6 +44,8 @@ import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -569,10 +569,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          return publishedStatus;
     }
 
-    /**
-     * Vote on TweetPoll.
-     * @param pollSwitch {@link TweetPollSwitch}
-     * @param ip ip
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.business.service.AbstractSurveyService#tweetPollVote(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch, java.lang.String)
      */
     public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip){
         final TweetPollResult pollResult = new TweetPollResult();
@@ -591,14 +590,24 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     }
 
 
-    /**
-     *
-     * @param tweetPollId
-     * @param username
-     * @param slug
-     * @return
-     * @throws EnMeNoResultsFoundException
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollPublishedById(java.lang.Long)
      */
+    public TweetPoll getTweetPollPublishedById(final Long tweetPollId) throws EnMeNoResultsFoundException{
+		final TweetPoll tweetPoll = getTweetPollDao().getPublicTweetPollById(tweetPollId);
+		if (!tweetPoll.getPublishTweetPoll()) {
+			throw new EnMeNoResultsFoundException("tweetpoll [" + tweetPollId
+					+ "] is not published");
+		}
+		return tweetPoll;
+    }
+
+
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollByIdSlugName(java.lang.Long, java.lang.String)
+    */
     public TweetPoll getTweetPollByIdSlugName(final Long tweetPollId, final String slug) throws EnMeNoResultsFoundException {
         TweetPoll tweetPoll;
         try {
@@ -614,9 +623,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return tweetPoll;
     }
 
-    /*
-     *
-     */
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollById(java.lang.Long, java.lang.String)
+	 */
     public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException {
         TweetPoll tweetPoll = null;
         if (username != null) {
@@ -786,7 +796,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollFolderDomain.setUsers(getUserAccount(username).getAccount());
         tweetPollFolderDomain.setCreatedAt(new Date());
         tweetPollFolderDomain.setCreatedBy(getUserAccount(getUserPrincipalUsername()));
-        tweetPollFolderDomain.setStatus(org.encuestame.persistence.domain.Status.ACTIVE);
+        tweetPollFolderDomain.setStatus(org.encuestame.utils.enums.Status.ACTIVE);
         tweetPollFolderDomain.setFolderName(folderName);
         this.getTweetPollDao().saveOrUpdate(tweetPollFolderDomain);
         return ConvertDomainBean.convertFolderToBeanFolder(tweetPollFolderDomain);
@@ -1008,7 +1018,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public void checkTweetPollCompleteStatus(final TweetPoll tweetPoll) {
         boolean next = true;
         log.debug("checkTweetPollCompleteStatus tweetPoll.getLimitVotesEnabled() "+tweetPoll.getLimitVotesEnabled());
-        if (tweetPoll.getLimitVotesEnabled()) {
+        boolean votesEnabled = tweetPoll.getLimitVotesEnabled() == null ? false : tweetPoll.getLimitVotesEnabled();
+        if (votesEnabled) {
             long limitVotes = tweetPoll.getLimitVotes() == null ? 0 : tweetPoll.getLimitVotes();
             if (limitVotes <= this.getTweetPollTotalVotes(tweetPoll)) {
                 log.debug("checkTweetPollCompleteStatus limis vote");

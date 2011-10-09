@@ -22,11 +22,11 @@ import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
-import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
 import org.junit.Test;
 

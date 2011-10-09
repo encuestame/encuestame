@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.security.SecurityUtils;
-import org.encuestame.persistence.domain.EnMePermission;
+import org.encuestame.utils.enums.EnMePermission;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

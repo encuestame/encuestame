@@ -14,8 +14,8 @@ package org.encuestame.persistence.dao;
 
 import java.util.List;
 
-import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.Group;
 
 /**
  * Interface to implement Sec Group Dao.

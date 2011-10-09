@@ -10,16 +10,14 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller.json;
+package org.encuestame.utils.enums;
 
 /**
- * Method Json.
+ * Follow Operations
  * @author Picado, Juan juanATencuestame.org
- * @since Oct 24, 2010 4:45:30 PM
- * @version $Id:$
+ * @since Jan 23, 2011 9:53:53 AM
  */
-public enum MethodJson {
-    GET,
-    POST,
-    PUT
+public enum FollowOperations{
+    FOLLOW,
+    UNFOLLOW
 }

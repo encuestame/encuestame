@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.enums.Status;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Store;

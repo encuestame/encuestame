@@ -26,9 +26,9 @@ import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.springframework.stereotype.Service;
 
