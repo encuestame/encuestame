@@ -45,31 +45,6 @@ public class XMLConfigurationFileSupport {
     private static XMLConfiguration xmlConfiguration = null;
 
     /**
-     *
-     * @param path
-     * @throws ConfigurationException
-     * @throws IOException
-     */
-    public XMLConfigurationFileSupport(final File file)
-            throws ConfigurationException, IOException {
-        this.createConfiguration(file);
-    }
-
-    /**
-     *
-     * @param file
-     * @throws ConfigurationException
-     * @throws IOException
-     */
-    public XMLConfigurationFileSupport(final String path)
-            throws ConfigurationException, IOException {
-        final File file = new File(path.toString());
-        if (file.exists()) {
-            this.createConfiguration(file);
-        }
-    }
-
-    /**
      * Constructor.
      *
      * @throws IOException
@@ -77,12 +52,26 @@ public class XMLConfigurationFileSupport {
      */
     public XMLConfigurationFileSupport() throws IOException,
             ConfigurationException {
-        final File file = new File(buildConfigFilePath());
-        if (file.exists()) {
-            this.createConfiguration(file);
-        }
+        this.createConfigurationFile();
     }
 
+    /**
+     *
+     * @throws ConfigurationException
+     */
+    private void createConfigurationFile(){
+        final File file = new File(buildConfigFilePath());
+            try {
+                this.reloadConfiguration(file);
+            } catch (ConfigurationException e) {
+                log.fatal(e);
+            }
+    }
+
+    /**
+     *
+     * @return
+     */
     private String buildConfigFilePath() {
         final StringBuffer stringBuffer = new StringBuffer(
                 DirectorySetupOperations.getRootDirectory());
@@ -95,17 +84,15 @@ public class XMLConfigurationFileSupport {
      * @param file
      * @throws ConfigurationException
      */
-    private void createConfiguration(final File file)
+    private void reloadConfiguration(final File file)
             throws ConfigurationException {
         log.debug("createConfiguration " + file.exists());
-        if (file.exists()) {
-            log.debug("createConfiguration.... " + file);
-            XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(
-                    file);
-            XMLConfigurationFileSupport.xmlConfiguration.setAutoSave(true);
-            XMLConfigurationFileSupport.xmlConfiguration
-                    .setReloadingStrategy(new FileChangedReloadingStrategy());
-        }
+        log.debug("createConfiguration.... " + file);
+        XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(
+                file);
+        XMLConfigurationFileSupport.xmlConfiguration.setAutoSave(true);
+        XMLConfigurationFileSupport.xmlConfiguration
+                .setReloadingStrategy(new FileChangedReloadingStrategy());
     }
 
     /**
@@ -116,7 +103,7 @@ public class XMLConfigurationFileSupport {
         log.debug("reloadConfigFile");
         final File file = new File(buildConfigFilePath());
         try {
-            this.createConfiguration(file);
+            this.reloadConfiguration(file);
         } catch (ConfigurationException e) {
             e.printStackTrace();
             log.fatal(e);
@@ -129,7 +116,10 @@ public class XMLConfigurationFileSupport {
      * @param property
      */
     public String getProperty(final String property) {
-        return xmlConfiguration.getString(property);
+        if (XMLConfigurationFileSupport.xmlConfiguration == null) {
+            createConfigurationFile();
+        }
+        return XMLConfigurationFileSupport.xmlConfiguration.getString(property);
     }
 
     /**
