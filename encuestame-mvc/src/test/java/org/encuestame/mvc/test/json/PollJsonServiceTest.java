@@ -26,6 +26,7 @@ import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -47,6 +48,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
      * @throws IOException
      */
     @Test
+    @Ignore
     public void retrieveItemsbyDate() throws ServletException, IOException{
         // Search poll published today.
         final Date todayDate = new Date();

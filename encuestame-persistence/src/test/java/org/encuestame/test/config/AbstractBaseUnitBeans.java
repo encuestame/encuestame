@@ -453,8 +453,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          commentBean.setComment(comment);
          commentBean.setCreatedAt(createdAt);
          commentBean.setUserAccountId(userId);
-         commentBean.setTweetPoll(tweetPollId);
-         commentBean.setPollId(pollId);
+         commentBean.setId(tweetPollId);
          return commentBean;
      }
 }

@@ -4,7 +4,7 @@
     <div class="powered">
         Powered By <a href="http://www.encuestame.org" target="_blank">Encuestame</a>
     </div>
-    <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
+    Build: <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
 <!--     <div class="errorDialog"> -->
 <!--         <div id="sessionHandler"></div> -->
 <!--         <div id="errorHandler"></div> -->
