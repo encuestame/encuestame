@@ -67,6 +67,8 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Boolean allowRepeatedVotes;
     @JsonProperty(value = "totalVotes")
     private Long totalVotes;
+    @JsonProperty(value = "hits")
+    private Long hits;
     @JsonProperty(value = "relativeTime")
     private String relativeTime;
     @JsonProperty(value = "maxRepeatedVotes")
@@ -81,6 +83,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Boolean limitVotesDate;
     @JsonProperty(value = "dateToLimit")
     private String dateToLimit;
+    @JsonProperty(value = "update_date")
     private Date updateDate;
 
     /** Required Captcha to Vote. **/
@@ -548,26 +551,30 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
         this.updateDate = updateDate;
     }
 
+    /**
+     * @return the hits
+     */
+    @JsonIgnore
+    public Long getHits() {
+        return hits;
+    }
+
+    /**
+     * @param hits the hits to set
+     */
+    public void setHits(Long hits) {
+        this.hits = hits;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "TweetPollBean [id=" + id + ", questionBean=" + questionBean
-                + ", closeNotification=" + closeNotification
-                + ", resultNotification=" + resultNotification
-                + ", publishPoll=" + publishPoll + ", scheduleDate="
-                + scheduleDate + ", allowLiveResults=" + allowLiveResults
-                + ", schedule=" + schedule + ", completed=" + completed
-                + ", favourites=" + favourites + ", userId=" + userId
-                + ", tweetUrl=" + tweetUrl + ", createDate=" + createDate
-                + ", allowRepeatedVotes=" + allowRepeatedVotes
-                + ", totalVotes=" + totalVotes + ", relativeTime="
-                + relativeTime + ", maxRepeatedVotes=" + maxRepeatedVotes
-                + ", limitVotesEnabled=" + limitVotesEnabled
-                + ", resumeTweetPollDashBoard=" + resumeTweetPollDashBoard
-                + ", captcha=" + captcha + ", limitVotes=" + limitVotes
-                + ", resumeLiveResults=" + resumeLiveResults + ", results="
-                + results + "]";
+        return "TweetPollBean [id=" + id + ", publishPoll=" + publishPoll
+                + ", completed=" + completed + ", userId=" + userId
+                + ", createDate=" + createDate + ", totalVotes=" + totalVotes
+                + ", hits=" + hits + ", captcha=" + captcha + "]";
     }
+
 }

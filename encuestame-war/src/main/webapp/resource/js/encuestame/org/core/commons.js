@@ -126,15 +126,31 @@ encuestame.utilities = {};
  * create a username profile link.
  */
 encuestame.utilities.usernameLink = function(username) {
-	var url = encuestame.contextDefault;
-	if (username) {
-		url = url.concat("/profile/");
-		url = url.concat(username);
-		return url;
-	} else {
-		url = url.concat("/404");
-		return url;
-	}
+    var url = encuestame.contextDefault;
+    if (username) {
+        url = url.concat("/profile/");
+        url = url.concat(username);
+        return url;
+    } else {
+        url = url.concat("/404");
+        return url;
+    }
+};
+
+/*
+ * Short a long number to short number description.
+ * Eg: 3,500 = 3,5K
+ */
+encuestame.utilities.shortAmmount = function(quantity) {
+    if(typeof quantity === "number"){
+        var text = quantity.toString();
+        text = text.concat("K"); //TODO: create the logic.
+        console.info("short ammount", text);
+        return text;
+    } else {
+        throw new Error("invalid number");
+    }
+
 };
 
 /*

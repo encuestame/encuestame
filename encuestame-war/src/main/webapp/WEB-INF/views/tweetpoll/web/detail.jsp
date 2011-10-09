@@ -16,6 +16,8 @@
              <c:if test="${tweetpoll.limitVotesDate}">
                 date="${tweetpoll.dateToLimit}"
             </c:if>
+             votes="${tweetpoll.totalVotes}"
+             hits="${tweetpoll.hits}"
              completed="${tweetpoll.completed}"
              owner="${tweetpoll.ownerUsername}"
              tweetPollid="${tweetpoll.id}"></div>
@@ -28,15 +30,24 @@
                  username="${tweetpoll.ownerUsername}"></div>
         </div>
         <div class="web-tweetpoll-answer-answer">
-            <table style="margin-top: 15px; width: 590px; float: right;"
+            <h2>Answers</h2>
+            <table style="margin-top: 15px; width: 100%; float: right;"
                 class="web-tweetpoll-answer-table" cellspacing="0">
                 <thead>
                     <tr>
-                        <th class="header-table-answer"></th>
-                        <th class="header-table-answer">Link to Vote</th>
-                        <th class="header-table-answer">Count</th>
-                        <th class="header-table-answer">Percent</th>
-                        <th class="header-table-answer"></th>
+                        <th></th>
+                        <th>
+                            <span class="header-table-answer">Link to Vote</span>
+                        </th>
+                        <th>
+                            <span class="header-table-answer">Count</span>
+                        </th>
+                        <th>
+                            <span class="header-table-answer">Percent</span>
+                        </th>
+                        <th>
+                            <span class="header-table-answer"></span>
+                        </th>
                     </tr>
                     <tr>
                         <th class="header-table-answer-emtpy"></th>

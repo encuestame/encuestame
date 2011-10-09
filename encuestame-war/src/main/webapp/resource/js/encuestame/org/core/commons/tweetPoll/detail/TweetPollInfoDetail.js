@@ -17,23 +17,54 @@ dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail",
     [dijit._Widget, dijit._Templated],{
+
+        /*
+         *
+         */
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll.detail", "templates/tweetPollInfoDetail.html"),
-        //widget
+        /*
+         * widget
+         */
         widgetsInTemplate: true,
-        //date
+        /*
+         * date
+         */
         date : "",
-        //owner
+        /*
+         * owner
+         */
         owner : "",
         //tweetpoll id
         tweetPollid : null,
 
+        /*
+         *
+         */
         completed : false,
 
-        //context path.
+        /*
+         *
+         */
+        votes : 0,
+
+        /*
+         *
+         */
+        hits : 0,
+
+        /*
+         *
+         */
         contextPath : encuestame.contextDefault,
 
+        /*
+         *
+         */
         countdownWidget : null,
 
+        /*
+         *
+         */
         statusWidget : null,
 
         /*
@@ -42,6 +73,10 @@ dojo.declare(
         postCreate : function() {
             console.debug("this.date", this.date);
             this.statusWidget = dijit.byId("status_"+this.id);
+            if (this._hits) {
+                console.info("hits dom", this._hits);
+                this._hits.innerHTML = encuestame.utilities.shortAmmount(this.hits);
+            }
             if(!this.completed) {
                 if (this.date != null) {
                     this.date = new Date(this.date);
@@ -56,12 +91,16 @@ dojo.declare(
                             seconds : this.date.getSeconds()
                         }
                     });
-                    dojo.byId("countdown_"+this.id).appendChild(this.countdownWidget.domNode);
-                    this.countdownWidget.countdown();
-                    this.countdownWidget.timeOffAction = dojo.hitch(this, function() {
-                        this.completed = true;
-                        this._completeTweetPoll();
-                    });
+                    //countdown widget initialize.
+                    var countdown = dojo.byId("countdown_"+this.id);
+                    if (countdown){
+                        countdown.appendChild(this.countdownWidget.domNode);
+                        this.countdownWidget.countdown();
+                        this.countdownWidget.timeOffAction = dojo.hitch(this, function() {
+                            this.completed = true;
+                            this._completeTweetPoll();
+                        });
+                    }
                 }
             } else {
                 this._completeTweetPoll();

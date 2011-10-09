@@ -1,19 +1,23 @@
 <div class="web-tweetPoll-info-detail">
    <div class="info">
+        <div class="votes-tweetpoll-detail">
+            <div class="votes-detail-high" dojoAttachPoint="_votes">34.4K</div>
+            <div class="votes-detail-small-title" dojoAttachPoint="_votes">Hits</div>
+            <div class="hits-detail-small" dojoAttachPoint="_hits_small">2343</div>
+        </div>
         <div class="picture">
-            <a dojoType="encuestame.org.core.shared.utils.AccountPicture" username=${owner}></a>
+            <a dojoType="encuestame.org.core.shared.utils.AccountPicture"
+            picture_width="67"
+            picture_height="67"
+            username=${owner}></a>
         </div>
         <div class="data">
-            <ul>
-                <li>
-                    <label>Started: </label>
-                    ${date}
-                </li>
-                <li>
-                    <label>Hits: </label>
-                    1465
-                </li>
-            </ul>
+<!--             <ul> -->
+<!--                 <li> -->
+<!--                     <label>Started: </label> -->
+<!--                     <span>${date}</span> -->
+<!--                 </li> -->
+<!--             </ul> -->
         </div>
    </div>
    <div class="data">

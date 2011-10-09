@@ -550,6 +550,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setFavourites(tweetPoll.getFavourites() == null ? false : tweetPoll.getFavourites());
         unitTweetPoll.setCompleted(tweetPoll.getCompleted() == null ? false : tweetPoll.getCompleted());
         unitTweetPoll.setQuestionBean(convertQuestionsToBean(tweetPoll.getQuestion()));
+        unitTweetPoll.setHits(tweetPoll.getHits() == null ? EnMeUtils.VOTE_MIN : tweetPoll.getHits());
         unitTweetPoll.setAllowRepeatedVotes(tweetPoll.getAllowRepatedVotes() == null ? false : tweetPoll.getAllowRepatedVotes());
         unitTweetPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(tweetPoll.getHashTags())));
         unitTweetPoll.setTotalVotes(tweetPoll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN : Long.valueOf(tweetPoll.getNumbervotes()));
@@ -907,31 +908,31 @@ public class ConvertDomainBean {
        commentBean.setCommentId(commentDomain.getCommentId());
        commentBean.setComment(commentDomain.getComment());
        commentBean.setCreatedAt(commentDomain.getCreatedAt());
-		commentBean
-				.setDislikeVote(commentDomain.getDislikeVote() == null ? EnMeUtils.VOTE_MIN
-						: commentDomain.getDislikeVote());
-		commentBean
-				.setLikeVote(commentDomain.getLikeVote() == null ? EnMeUtils.VOTE_MIN
-						: commentDomain.getLikeVote());
+        commentBean
+                .setDislikeVote(commentDomain.getDislikeVote() == null ? EnMeUtils.VOTE_MIN
+                        : commentDomain.getDislikeVote());
+        commentBean
+                .setLikeVote(commentDomain.getLikeVote() == null ? EnMeUtils.VOTE_MIN
+                        : commentDomain.getLikeVote());
        long id = 0;
        boolean set = false;
        /*
         * is possible refactor this part? ..
         */
        if (commentDomain.getPoll() != null && !set) {
-    	   id = commentDomain.getPoll().getPollId();
-    	   commentBean.setType(TypeSearchResult.POLL.toString());
-    	   set = true;
+           id = commentDomain.getPoll().getPollId();
+           commentBean.setType(TypeSearchResult.POLL.toString());
+           set = true;
        }
        if (commentDomain.getTweetPoll() != null && !set) {
-    	   id = commentDomain.getTweetPoll().getTweetPollId();
-    	   commentBean.setType(TypeSearchResult.TWEETPOLL.toString());
-    	   set = true;
+           id = commentDomain.getTweetPoll().getTweetPollId();
+           commentBean.setType(TypeSearchResult.TWEETPOLL.toString());
+           set = true;
        }
        if (commentDomain.getSurvey() != null && !set) {
-    	   id = commentDomain.getSurvey().getSid();
-    	   commentBean.setType(TypeSearchResult.SURVEY.toString());
-    	   set = true;
+           id = commentDomain.getSurvey().getSid();
+           commentBean.setType(TypeSearchResult.SURVEY.toString());
+           set = true;
        }
        commentBean.setId(id);
        commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());

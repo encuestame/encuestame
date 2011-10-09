@@ -77,7 +77,13 @@ dojo.declare(
        */
       _printNoCommentsText : function() {
           console.info("No comments");
-          dojo.addClass(this._comment_wrapper, "");
+          if (this._items) {
+              var div = dojo.create("div");
+              dojo.addClass(div, "comments-no-content");
+              div.innerHTML = encuestame.constants.messageCodes["022"];
+              //dojo.place(this._items. div);
+              this._items.appendChild(div);
+          }
       }
 });
 
