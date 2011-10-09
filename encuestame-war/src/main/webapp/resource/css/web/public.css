@@ -11,7 +11,7 @@ body.public-body {
 
 div.web-setup-wrapper{
     margin-top: 20px;
-    border: 1px solid #EEE;
+    border: 1px solid #EEEEEE;
     padding: 10px;
     font-size: 110%;
     -moz-box-shadow: 1px 4px 3px 0px #888888;
@@ -503,7 +503,7 @@ div.web-form-wrapper .signup-form {
     display: none;
     color: #FFF;
     background-color: #39568C;
-    z-index: 10px;
+    z-index: 10;
 }
 
 #web-signup-wrapper div.sidetip p {
@@ -885,7 +885,7 @@ div.web-tweetpoll-detail div.web-tweetpoll-social-links {
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links {
-    padding: opx;
+    padding: 0px;
 }
 
 div.web-tweetpoll-detail .titleTweetPollSection {
@@ -1355,7 +1355,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     -webkit-border-radius: 0px 0px 5px 5px;
     border-radius: 0px 0px 5px 5px;
     border: 1px solid #DCDCDC;
-    background-color: #DCDCD;
+    background-color: #DCDCDC;
     overflow: auto;
 }
 
@@ -1399,7 +1399,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     margin-left: 5px;
     float: left;
     padding: 2px;
-    width: 40;
+    width: 40px;
 }
 
 /** Create tweetpoll. **/
@@ -1701,13 +1701,14 @@ div.addAnswers div.options {
 }
 
 div.options .saveButton {
-    background-image: "url(../../images/icons/add.png)";
+    background-image: url(../../images/icons/add.png);
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
 }
 
-. addButton { margin-left : 8px;
+.addButton {
+    margin-left : 8px;
     border: 1px solid #BCBCBC;
     min-width: 100px;
     padding: 4px;
@@ -1897,8 +1898,8 @@ div.wrapperHashTagItems div.addNewHashTag .label {
 div.wrapperHashTagItems div.addNewHashTag .inputClass {
     padding: 5px;
     border: 1px solid #BCBCBC;
-    color: #808080; 9
-    C9C9C font-size: 12px;
+    color: #808080;
+    font-size: 12px;
     width: 60%;
 }
 
@@ -1950,12 +1951,12 @@ div.publishWrapper {
 }
 
 div.publishWrapper .rich-table {
-    background-color: #EEEEE;
+    background-color: #EEEEEE;
     width: 100%;
 }
 
 div.publishWrapper table {
-    background-color: #EEEEE;
+    background-color: #EEEEEE;
 }
 
 /*
@@ -2448,7 +2449,6 @@ div.profilePanel{
     background-color: #444444;
     right: 0px;
     top: 30px;
-    z-index: 5px;
     zoom: 1;
     -moz-box-shadow: 1px 2px 3px #888888;
     -webkit-box-shadow: 1px 2px 3px #888888;
@@ -2534,7 +2534,7 @@ div.menuWrapper .item a {
 }
 
 div..menuWrapper .item a:visited {
-    color: white;
+    color: #FFFFFF;
 }
 
 div..menuWrapper .item a:hover,.menuWrapper .item .current {
@@ -2546,7 +2546,7 @@ div..menuWrapper .item a:hover,.menuWrapper .item .current {
 }
 
 #profile_menu {
-    background: #aaaaaa;
+    background-color: #AAAAAA;
     border: solid 1px #666666;
     width: 400px;
     padding: 10px;
@@ -2561,7 +2561,7 @@ div..menuWrapper .item a:hover,.menuWrapper .item .current {
     -moz-border-radius: 0px 0px 10px 10px;
     border-radius: 0px 0px 10px 10px;
     right: 120px !important;
-    top:37px;
+    top: 37px;
 }
 
 #profile_menu li {
@@ -2923,7 +2923,7 @@ div.web-layout ul.column{
   padding: 0;
   width: 330px;
   min-height: 286px;
-  padding: 0 0 -1.2em 1%;
+ /* padding: 0 0 -1.2em 1%; */
 }
 
 div.aaa {
