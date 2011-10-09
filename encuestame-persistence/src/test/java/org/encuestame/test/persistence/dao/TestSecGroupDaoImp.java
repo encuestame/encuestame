@@ -19,8 +19,8 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;

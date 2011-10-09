@@ -270,15 +270,13 @@ a:hover{
 }
 
 
-div.defaultSectionTitle{
-     font-size: 140%;
-    font-weight: bold;
-    margin-bottom: 4px;
-    margin-bottom: 5px;
-    background-color: #3E6D8E;
-    color: #FFF;
-    padding: 5px;
-
+div.defaultSectionTitle {
+  background-color: #3E6D8E;
+  color: #FFFFFF;
+  font-size: 155%;
+  font-weight: bold;
+  margin-bottom: 5px;
+  padding: 10px;
 }
 
 /** content container **/

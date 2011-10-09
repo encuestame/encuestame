@@ -44,7 +44,7 @@ dojo.declare(
           dojo.addOnLoad(dojo.hitch(this, function(){
               this.loadTimer();
           }));
-          this.montharray = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"); //TOD: move to common
+          this.montharray = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"); //TODO: move to common
       },
 
       loadTimer : function() {
@@ -89,6 +89,35 @@ dojo.declare(
           var todayh = today.getHours();
           var todaymin = today.getMinutes();
           var todaysec = today.getSeconds();
+
+          /*
+           *
+           *
+           * Optimized string contact.
+          var todaystring = this.montharray[todaym];
+          todaystring = todaystring.concat(" ");
+          todaystring = todaystring.concat(todayd);
+          todaystring = todaystring.concat(" ");
+          todaystring = todaystring.concat(todayy);
+          todaystring = todaystring.concat(" ");
+          todaystring = todaystring.concat(todayh);
+          todaystring = todaystring.concat(" ");
+          todaystring = todaystring.concat(todaymin);
+          todaystring = todaystring.concat(" ");
+          todaystring = todaystring.concat(todaysec);
+
+          var futurestring = this.montharray[themonth - 1];
+          futurestring = futurestring.concat(" ");
+          futurestring = futurestring.concat(theday);
+          futurestring = futurestring.concat(" ");
+          futurestring = futurestring.concat(this.theyear);
+          futurestring = futurestring.concat(" ");
+          futurestring = futurestring.concat(thehour);
+          futurestring = futurestring.concat(" ");
+          futurestring = futurestring.concat(theminute);
+          futurestring = futurestring.concat(" ");
+          futurestring = futurestring.concat(thesecconds);
+           */
           var todaystring = this.montharray[todaym]+" "+todayd+", "+todayy+" "+todayh+":"+todaymin+":"+todaysec;
           var futurestring = this.montharray[themonth-1]+" "+theday+", "+this.theyear+" "+thehour+":"+theminute+":"+thesecconds;
           //console.debug(todaystring, futurestring);

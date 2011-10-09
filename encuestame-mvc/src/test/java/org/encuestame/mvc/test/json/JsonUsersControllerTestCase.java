@@ -19,9 +19,9 @@ import javax.servlet.ServletException;
 import junit.framework.Assert;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.security.json.JsonUsersController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
+import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Test;

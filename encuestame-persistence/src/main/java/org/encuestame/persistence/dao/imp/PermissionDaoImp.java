@@ -15,8 +15,8 @@ package org.encuestame.persistence.dao.imp;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IPermissionDao;
-import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Permission;
+import org.encuestame.utils.enums.EnMePermission;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;

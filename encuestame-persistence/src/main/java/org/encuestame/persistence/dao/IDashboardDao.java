@@ -16,8 +16,8 @@ import java.util.List;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
-import org.encuestame.persistence.domain.dashboard.GadgetType;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.enums.GadgetType;
 
 /**
  * Dashboard Interface.

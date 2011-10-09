@@ -32,10 +32,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
+import org.encuestame.utils.enums.Status;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;

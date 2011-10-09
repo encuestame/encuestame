@@ -1,5 +1,5 @@
 
-package org.encuestame.persistence.utils;
+package org.encuestame.utils.enums;
 
 
 /**

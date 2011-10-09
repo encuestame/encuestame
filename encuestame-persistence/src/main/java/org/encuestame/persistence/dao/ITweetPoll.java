@@ -45,6 +45,13 @@ public interface ITweetPoll extends IBaseDao{
     TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException;
 
     /**
+     * Get published tweetpoll by id.
+     * @param tweetPollId
+     * @return
+     */
+    TweetPoll getPublicTweetPollById(final Long tweetPollId);
+
+    /**
      * Retrieve Tweets Poll by User Id.
      * @param userId userId
      * @return list of tweet pools.

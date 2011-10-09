@@ -17,7 +17,6 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.survey.FolderJsonServiceController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
@@ -27,6 +26,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;

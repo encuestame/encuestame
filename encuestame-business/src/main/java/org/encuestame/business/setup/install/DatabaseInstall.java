@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.persistence.dao.jdbc.InstallerOperations;
 import org.encuestame.persistence.exception.EnmeFailOperation;
-import org.encuestame.persistence.utils.TypeDatabase;
+import org.encuestame.utils.enums.TypeDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

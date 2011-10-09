@@ -15,9 +15,9 @@ package org.encuestame.test.business.security;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.enums.EnMePermission;
 import org.junit.Before;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;

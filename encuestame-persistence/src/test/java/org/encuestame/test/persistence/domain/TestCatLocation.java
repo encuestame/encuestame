@@ -15,8 +15,8 @@ package org.encuestame.test.persistence.domain;
 import static org.junit.Assert.assertNotNull;
 
 import org.encuestame.persistence.domain.GeoPoint;
-import org.encuestame.persistence.domain.Status;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.Status;
 import org.junit.Test;
 
 /**

@@ -50,9 +50,9 @@ dojo.declare(
          */
         _reloadAnswerInfo : function(id, data /*[votes, percent]*/) {
             if(this.aId == id){
-                console.debug("_reloadAnswerInfo", id);
-                console.debug("_reloadAnswerInfo", this.aId);
-                console.debug("_reloadAnswerInfo", data);
+                //console.debug("_reloadAnswerInfo", id);
+                //console.debug("_reloadAnswerInfo", this.aId);
+                //console.debug("_reloadAnswerInfo", data);
                 this._reloadValues(data[0], data[1]);
             }
         },
