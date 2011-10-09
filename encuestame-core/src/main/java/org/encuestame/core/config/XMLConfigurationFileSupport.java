@@ -87,7 +87,7 @@ public class XMLConfigurationFileSupport {
     private void reloadConfiguration(final File file)
             throws ConfigurationException {
         log.debug("createConfiguration " + file.exists());
-        log.debug("createConfiguration.... " + file);
+        log.debug("createConfiguration.... " + file.getAbsolutePath());
         XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(
                 file);
         XMLConfigurationFileSupport.xmlConfiguration.setAutoSave(true);
@@ -134,7 +134,7 @@ public class XMLConfigurationFileSupport {
      * @param xmlConfiguration
      *            the xmlConfiguration to set
      */
-    public void setXmlConfiguration(XMLConfiguration xmlConfiguration) {
+    public void setXmlConfiguration(final XMLConfiguration xmlConfiguration) {
         XMLConfigurationFileSupport.xmlConfiguration = xmlConfiguration;
     }
 

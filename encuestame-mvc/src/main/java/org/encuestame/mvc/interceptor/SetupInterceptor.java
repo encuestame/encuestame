@@ -62,6 +62,8 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
         log.debug("Context Path URI "+ (arg0.getRequestURI().equals(path.toString())));
         if (!arg0.getRequestURI().toString().equals(path.toString())) {
             final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
+            log.debug("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +
+            EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFileName());
             log.debug("intalled.uuid:->"+uuid);
             if (uuid == null || uuid == "") {
                      log.debug("system not installed ...");
