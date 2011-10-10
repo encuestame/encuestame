@@ -43,7 +43,7 @@
 
     <diskStore path="${user.home}/encuestame-store/cache/" />
 
-    <!-- Web Cache -->
+    <!-- Web Cache-->
 
     <cache name="SimplePageCachingFilter"
            maxElementsInMemory="10000"
@@ -53,6 +53,7 @@
            timeToIdleSeconds="300"
            timeToLiveSeconds="600"
            memoryStoreEvictionPolicy="LFU"/>
+
 
     <!-- Domain Cached. -->
 

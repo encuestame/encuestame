@@ -149,6 +149,7 @@ public class DirectorySetupOperations {
      */
     public static String getRootDirectory() {
         String root = EnMePlaceHolderConfigurer.getProperty("encuestame.home");
+        log.debug("getRootDirectory "+root);
         if (root == null) {
             root = System.getProperty("user.home")+ "/" + DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
         }

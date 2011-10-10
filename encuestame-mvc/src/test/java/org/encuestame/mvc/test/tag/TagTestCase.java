@@ -1,4 +1,4 @@
-package org.encuestame.mvc.tag;
+package org.encuestame.mvc.test.tag;
 
 import javax.servlet.jsp.JspException;
 

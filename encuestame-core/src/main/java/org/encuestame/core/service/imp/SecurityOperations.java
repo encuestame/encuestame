@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.service.ServiceOperations;
-import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -26,6 +25,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -364,7 +364,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     void upadteAccountProfile(
-            final org.encuestame.core.util.Profile property,
+            final org.encuestame.utils.enums.Profile property,
             final String value) throws EnMeNoResultsFoundException;
 
     /**
@@ -408,7 +408,7 @@ public interface SecurityOperations extends ServiceOperations {
     */
     void followOperations(final UserAccount userAcc,
             final String myUsername, final String followerUser,
-            final org.encuestame.core.util.FollowOperations operation) throws EnMeNoResultsFoundException;
+            final org.encuestame.utils.enums.FollowOperations operation) throws EnMeNoResultsFoundException;
 
     /**
      * Check if exist {@link SocialAccount} with unique social profile social id.

@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.search;
 
-import org.encuestame.persistence.domain.TypeSearchResult;
+import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
  * Represent a global search item on results list.

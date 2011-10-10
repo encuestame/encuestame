@@ -30,6 +30,7 @@ import javax.persistence.Table;
 import javax.persistence.CascadeType;
 
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.utils.enums.Status;
 
 /**
  * GeoPoint.

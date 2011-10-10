@@ -32,9 +32,6 @@ import org.encuestame.core.security.util.EnMePasswordUtils;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.FollowOperations;
-import org.encuestame.core.util.Profile;
-import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -45,6 +42,9 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.persistence.exception.IllegalSocialActionException;
+import org.encuestame.utils.enums.EnMePermission;
+import org.encuestame.utils.enums.FollowOperations;
+import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -891,12 +891,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String value) throws EnMeNoResultsFoundException{
         log.debug("updating accoutn profile :"+property+" whith value "+value);
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-        if(Profile.USERNAME.equals(property)){
+        if (Profile.USERNAME.equals(property)) {
             account.setUsername(value.trim());
             //TODO: we need update authorities
-        } else if(Profile.EMAIL.equals(property)){
+        } else if (Profile.EMAIL.equals(property)) {
             account.setUserEmail(value.trim());
-       } else if(Profile.PICTURE.equals(property)){
+       } else if (Profile.PICTURE.equals(property)) {
            PictureSource picture = PictureSource.findPictureSource(value);
            if (picture != null) {
                account.setPictureSource(picture);

@@ -325,7 +325,7 @@ dojo.declare(
                                         gadgetId : parseInt(gid),
                                         position : 1,
                                         column   : this.column,
-                                        dashboardId : this.dashboard.id,
+                                        dashboardId : this.dashboard.id
                                        });
                               }
                         }));

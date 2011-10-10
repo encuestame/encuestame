@@ -10,37 +10,39 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.persistence.domain.tweetpoll;
+package org.encuestame.utils.enums;
 
 /**
- * Status.
+ * Notification Enumeration
  * @author Picado, Juan juanATencuestame.org
- * @since May 23, 2011
+ * @since Sep 18, 2010 7:14:20 PM
+ * @version $Id:$
  */
-public enum Status {
+public enum NotificationEnum {
 
-        /**
-         * failed status.
-         */
-        FAILED,
-        /**
-         * tweet send sucessfull
-         */
-        SUCCESS,
+    TWEETPOLL_PUBLISHED,
 
-        /**
-         * tweet reprogramed.
-         */
-        RE_SCHEDULED,
+    TWEETPOL_REMOVED,
 
-        /**
-         * re-sended
-         */
-        RE_SEND,
-        /**
-         * on standby
-         */
-        STAND_BY,
+    TWEETPOL_CREATED,
 
-        Status(){};
+    PROJECT_CREATED,
+
+    PROJECT_UPDATED,
+
+    LOCATION_NEW,
+
+    LOCATION_FOLDER_NEW,
+
+    LOCATION_GMAP_UPDATED,
+
+    LOCATION_GMAP_CHANGED_NAME,
+
+    SOCIAL_MESSAGE_PUBLISHED,
+
+    POLL_PUBLISHED,
+
+    POLL_REMOVED,
+
+    POLL_CREATED,
 }

@@ -22,8 +22,8 @@ import junit.framework.Assert;
 
 import org.custommonkey.xmlunit.XMLUnit;
 import org.encuestame.core.util.JSONUtils;
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.MethodJson;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;

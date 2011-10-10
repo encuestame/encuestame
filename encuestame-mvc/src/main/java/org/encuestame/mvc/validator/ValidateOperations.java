@@ -88,7 +88,7 @@ public class ValidateOperations {
      * @param username
      * @return
      */
-    public Boolean validateUsername(final String username, final UserAccount userLogged){
+    public Boolean validateUsername(final String username, final UserAccount userLogged) {
         final UserAccount user = getUser(username);
         return this.validateUsername(username, user, userLogged);
     }
@@ -103,26 +103,28 @@ public class ValidateOperations {
     public Boolean validateUsername(final String username, final UserAccount user, final UserAccount userLogged){
         log.debug("validating username... ");
         boolean valid = false;
-        if (username == null){
+        if (username == null) {
+            log.warn("username is null");
             valid = false;
-        } else if(username.length() >= MIN_USERNAME_LENGTH){
-            log.debug("fect user by username "+user);
+        } else if(username.length() >= MIN_USERNAME_LENGTH) {
+            log.debug("fect user by username: "+user);
             if (user == null) {
                 log.debug("username is valid..");
                 getMessages().put("username", "username is available");
                 valid = true;
             } else if(userLogged != null && userLogged.getUsername().equals(username)){
-                valid = true;
+                log.debug("it's your current username");
                 getMessages().put("username", "it's your current username");
+                valid = true;
             } else if (username.equals(user.getUsername())) {
                 log.debug("username already exist");
                 getMessages().put("username", "username already exist");
-            }
-            else {
+            } else {
                 log.debug("username not valid");
                 getMessages().put("username", "username not valid");
             }
         } else {
+            log.debug("username is not valid");
             getMessages().put("username", "username not valid");
         }
         return valid;

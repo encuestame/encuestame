@@ -15,9 +15,9 @@ package org.encuestame.core.service.imp;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.encuestame.core.util.PictureType;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.enums.PictureType;
 import org.encuestame.utils.exception.EnMeGenericException;
 
 /**
