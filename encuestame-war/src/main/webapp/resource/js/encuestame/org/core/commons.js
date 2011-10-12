@@ -142,10 +142,20 @@ encuestame.utilities.usernameLink = function(username) {
  * Eg: 3,500 = 3,5K
  */
 encuestame.utilities.shortAmmount = function(quantity) {
-    if(typeof quantity === "number"){
+    if (typeof quantity === "number") {
+        quantity = ( quantity < 0 ? 0  : quantity);
+        console.debug("short quantity", quantity);
         var text = quantity.toString();
-        text = text.concat("K"); //TODO: create the logic.
-        console.info("short ammount", text);
+        console.debug("short ammount", text);
+        // 5634 --> 5634k
+        if (quantity > 1000) {
+            var quantityReduced = Math.round(quantity / 100);
+            console.debug("short quantityReduced", quantityReduced);
+            text = quantityReduced.toString();
+            text = text.concat("K");
+        } else {
+
+        }
         return text;
     } else {
         throw new Error("invalid number");

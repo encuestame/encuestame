@@ -2515,7 +2515,7 @@ div.menuWrapper{
      padding-top: 3px;
      width: 100%;
      min-height: 33px;
-     overflow: auto;
+     overflow: hidden;
 }
 
 div.menuWrapper .item {
