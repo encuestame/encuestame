@@ -222,7 +222,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setCaptcha(tweetPollBean.getCaptcha());
         tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setLimitVotes(tweetPollBean.getLimitVotes());
-        tweetPollDomain.setTweetOwner(getAccountDao().getUserById(tweetPollBean.getUserId()));
+        UserAccount acc = null;
+        try {
+            acc = getUserAccount(getUserPrincipalUsername());
+        } catch (EnMeNoResultsFoundException e) {
+           log.error("User not found");
+        }
+        tweetPollDomain.setTweetOwner(acc.getAccount());
         tweetPollDomain.setEditorOwner(getUserAccountonSecurityContext());
         tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
         tweetPollDomain.setPublishTweetPoll(Boolean.FALSE);
@@ -595,12 +601,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollPublishedById(java.lang.Long)
      */
     public TweetPoll getTweetPollPublishedById(final Long tweetPollId) throws EnMeNoResultsFoundException{
-		final TweetPoll tweetPoll = getTweetPollDao().getPublicTweetPollById(tweetPollId);
-		if (!tweetPoll.getPublishTweetPoll()) {
-			throw new EnMeNoResultsFoundException("tweetpoll [" + tweetPollId
-					+ "] is not published");
-		}
-		return tweetPoll;
+        final TweetPoll tweetPoll = getTweetPollDao().getPublicTweetPollById(tweetPollId);
+        if (!tweetPoll.getPublishTweetPoll()) {
+            throw new EnMeNoResultsFoundException("tweetpoll [" + tweetPollId
+                    + "] is not published");
+        }
+        return tweetPoll;
     }
 
 
@@ -623,10 +629,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return tweetPoll;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollById(java.lang.Long, java.lang.String)
-	 */
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollById(java.lang.Long, java.lang.String)
+     */
     public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException {
         TweetPoll tweetPoll = null;
         if (username != null) {

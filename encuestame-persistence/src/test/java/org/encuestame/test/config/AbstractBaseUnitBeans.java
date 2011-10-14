@@ -161,35 +161,109 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         return unitTweetPoll;
      }
 
-     /**
-      * Helper
-      * Create Unit Tweet Poll Publicated
-      * @param publicationDateTweet
-      * @param publishPoll
-      * @param tweetUrl
-      * @param userId
-      * @param questionBean
-      * @param userTwitterAccount
-      * @return
-      */
-      public TweetPollBean createUnitTweetPollPublicated(
-             final Date publicationDateTweet,
-             final Boolean publishPoll,
-             final String tweetUrl,
-             final Long userId,
-             final QuestionBean questionBean,
-             final String userTwitterAccount
+    /**
+     * Helper Create Unit Tweet Poll Publicated.
+     *
+     * @param publicationDateTweet
+     * @param publishPoll
+     * @param tweetUrl
+     * @param userId
+     * @param questionBean
+     * @param userTwitterAccount
+     * @param captcha
+     * @param allowLiveResults
+     * @param resultNotification
+     * @param limitVotes
+     * @param relevance
+     * @param hits
+     * @param likeVote
+     * @param dislikeVote
+     * @param createDate
+     * @param scheduleDate
+     * @param updateDate
+     * @param dateToLimit
+     * @return
+     */
+    public TweetPollBean createUnitTweetPollPublicated(
+            final Date publicationDateTweet, final Boolean publishPoll,
+            final String tweetUrl, final Long userId,
+            final QuestionBean questionBean, final String userTwitterAccount,
+            final Boolean captcha, final Boolean allowLiveResults,
+            final Boolean resultNotification, final Integer limitVotes,
+            final Long relevance, final Long hits, final Long likeVote,
+            final Long dislikeVote, final String createDate,
+            final Date scheduleDate, final Date updateDate,
+            final String dateToLimit) {
+        TweetPollBean unitTweetPoll = new TweetPollBean();
+        unitTweetPoll.getCloseNotification();
+        unitTweetPoll.setCaptcha(captcha);
+        unitTweetPoll.setAllowLiveResults(allowLiveResults);
+        unitTweetPoll.setLimitVotes(limitVotes);
+        unitTweetPoll.setResultNotification(resultNotification);
+        unitTweetPoll.setRelevance(relevance);
+        unitTweetPoll.setHits(hits);
+        unitTweetPoll.setLikeVote(likeVote);
+        unitTweetPoll.setDislikeVote(dislikeVote);
+        unitTweetPoll.setCreateDate(createDate);
+        unitTweetPoll.setScheduleDate(scheduleDate);
+        unitTweetPoll.setUpdateDate(updateDate);
+        unitTweetPoll.setDateToLimit(dateToLimit);
+        unitTweetPoll.setUpdateDate(updateDate);
+        unitTweetPoll.setUserId(userId);
+        unitTweetPoll.setPublishPoll(publishPoll);
+        unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null,
+                null));
+        unitTweetPoll.setResults(null);
+        unitTweetPoll.setTweetUrl(tweetUrl);
 
-             ){
-     TweetPollBean unitTweetPoll = new TweetPollBean();
-     unitTweetPoll.setUserId(userId);
-     unitTweetPoll.setPublishPoll(publishPoll);
-     unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));
-     unitTweetPoll.setResults(null);
-     unitTweetPoll.setTweetUrl(tweetUrl);
-   //  unitTweetPoll.setTwitterUserAccount(null);
-     return unitTweetPoll;
-     }
+        // unitTweetPoll.setTwitterUserAccount(null);
+        return unitTweetPoll;
+    }
+
+    /**
+     * Helper Create Unit Tweet Poll Publicated.
+     * @param publicationDateTweet
+     * @param publishPoll
+     * @param tweetUrl
+     * @param userId
+     * @param questionBean
+     * @param userTwitterAccount
+     * @return
+     */
+    public TweetPollBean createUnitTweetPollPublicated(
+            final Date publicationDateTweet, final Boolean publishPoll,
+            final String tweetUrl, final Long userId,
+            final QuestionBean questionBean, final String userTwitterAccount) {
+        TweetPollBean unitTweetPoll = new TweetPollBean();
+        unitTweetPoll.setUserId(userId);
+        unitTweetPoll.setPublishPoll(publishPoll);
+        unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null,
+                null));
+        unitTweetPoll.setResults(null);
+        unitTweetPoll.setTweetUrl(tweetUrl);
+
+        // unitTweetPoll.setTwitterUserAccount(null);
+        return unitTweetPoll;
+      }
+
+    /**
+     * Helper Create Unit TweetPoll.
+     *
+     * @param publishPoll
+     * @param tweetUrl
+     * @param userId
+     * @param questionBean
+     * @return
+     */
+    public TweetPollBean createUnitTweetPoll(final Boolean publishPoll,
+            final String tweetUrl, final Long userId,
+            final QuestionBean questionBean) {
+        final TweetPollBean tpBean = this.createUnitTweetPollPublicated(
+                new Date(), publishPoll, tweetUrl, userId, questionBean, "",
+                Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, null, 1L, 1L, 1L,
+                1L, null, null, null, null);
+        return tpBean;
+    }
 
      /**
       *
