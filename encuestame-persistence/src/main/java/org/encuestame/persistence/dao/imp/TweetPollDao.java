@@ -74,9 +74,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @see org.encuestame.persistence.dao.ITweetPoll#getPublicTweetPollById(java.lang.Long)
      */
     @SuppressWarnings("unchecked")
-	public TweetPoll getPublicTweetPollById(final Long tweetPollId) {
-    	 final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
-    	 criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
+    public TweetPoll getPublicTweetPollById(final Long tweetPollId) {
+         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+         criteria.add(Restrictions.eq("tweetPollId", tweetPollId));
          criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
          return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
@@ -105,6 +105,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
      * @return
      */
     @SuppressWarnings("unchecked")
+    //TODO: migrate search to Hibernate Search.
     public List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId,
             final Integer maxResults,
             final Integer start){

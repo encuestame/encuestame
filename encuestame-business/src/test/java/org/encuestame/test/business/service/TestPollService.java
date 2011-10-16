@@ -211,20 +211,6 @@ public class TestPollService extends AbstractSpringSecurityContext{
     }
 
     /**
-     * Test List Polls by Question Keyword.
-     * @throws EnMeNoResultsFoundException
-     **/
-    //FIXME:
-    @Test
-    public void testListPollbyQuestionKeyword() throws EnMeNoResultsFoundException{
-        List<PollBean> unitPollList = new ArrayList<PollBean>();
-        final String keyword = "Why";
-        unitPollList = pollService.listPollbyQuestionKeyword(keyword, 5, 0);
-        assertEquals("should be equals",1, unitPollList.size());
-
-    }
-
-    /**
      * Test Update Question Poll.
      * @throws EnMeExpcetion
      */

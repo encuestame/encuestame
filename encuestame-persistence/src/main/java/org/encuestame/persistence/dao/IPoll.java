@@ -25,7 +25,6 @@ import org.hibernate.HibernateException;
  * {@link PollDao} Interface.
  * @author Morales,Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
- * @version $Id: $
  */
 public interface IPoll extends IBaseDao {
 
@@ -157,6 +156,44 @@ public interface IPoll extends IBaseDao {
       * @return List of {@link Poll}.
       */
      List<Poll> retrieveFavouritesPoll(
+             final Long userId,
+             final Integer maxResults,
+             final Integer start);
+
+     /**
+      *
+      * @param userId
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<Poll> retrievePollToday(
+             final Long userId,
+              final Integer maxResults,
+              final Integer start);
+
+     /**
+      *
+      * @param userId
+      * @param initDate
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<Poll> retrievePollByDate(
+             final Long userId,
+             final Date initDate,
+             final Integer maxResults,
+             final Integer start);
+
+     /**
+      *
+      * @param userId
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<Poll> retrievePollLastWeek(
              final Long userId,
              final Integer maxResults,
              final Integer start);

@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
-import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -38,8 +37,11 @@ import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitLists;
 import org.springframework.stereotype.Service;
@@ -58,6 +60,42 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * Log.
      */
     private Log log = LogFactory.getLog(this.getClass());
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#filterPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start,
+            final TypeSearchResult searchResult)
+            throws EnMeNoResultsFoundException, EnMeExpcetion {
+        final List<PollBean> list = new ArrayList<PollBean>();
+        if (TypeSearch.KEYWORD.name().equals(typeSearch)) {
+            list.addAll(this.searchPollByKeyword(keyword, max, start));
+        }
+//        } else if (TypeSearch.ALL.name().equals(typeSearch)) {
+//            list.addAll(this.getTweetsPollsByUserName(
+//                    getUserPrincipalUsername(), max, start));
+//        } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
+//            list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
+//                    max, start));
+//        } else if (TypeSearch.LASTWEEK.name().equals(typeSearch)) {
+//            list.addAll(this.searchTweetsPollsLastWeek(
+//                    getUserPrincipalUsername(), max, start));
+//        } else if (TypeSearch.FAVOURITES.name().equals(typeSearch)) {
+//            list.addAll(this.searchTweetsPollFavourites(
+//                    getUserPrincipalUsername(), max, start));
+//        } else if (TypeSearch.SCHEDULED.name().equals(typeSearch)) {
+//
+//            list.addAll(this.searchTweetsPollScheduled(
+//                    getUserPrincipalUsername(), max, start));
+//        } else {
+//            list.addAll(this.getTweetsPollsByUserName(
+//                    getUserPrincipalUsername(), max, start));
+//        }
+        return list;
+    }
 
     /**
      * Create Poll.
@@ -150,15 +188,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final Integer start) throws EnMeExpcetion{
         log.info("search keyword Poll  "+keywordQuestion);
         List<Poll> polls = new ArrayList<Poll>();
-        if(keywordQuestion == null){
-            throw new EnMeExpcetion("keyword is missing");
+        if (keywordQuestion == null) {
+            throw new EnMeExpcetion("keyword is mandatory");
         } else {
             polls = getPollDao().getPollsByQuestionKeyword(keywordQuestion,
                     getUserAccount(getUserPrincipalUsername()), maxResults, start);
         }
         log.info("search keyword polls size "+polls.size());
-        return null;
-           //   return this.setTweetPollListAnswers(polls);
+        return ConvertDomainBean.convertListToPollBean(polls);
        }
 
     /**
@@ -193,20 +230,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
              unitPoll.add(ConvertDomainBean.convertPollDomainToBean(poll));
         }
         return unitPoll;
-    }
-
-    /**
-     * List Poll by Question Keyword.
-     * @param currentUser currentUser
-     * @param keyword QuestionKeyword
-     * @return {@link PollBean}
-     * @throws EnMeNoResultsFoundException
-     */
-    public List<PollBean> listPollbyQuestionKeyword(final String keyword, final Integer maxResults,
-            final Integer start) throws EnMeNoResultsFoundException {
-        final List<Poll> polls = getPollDao().getPollsByQuestionKeyword(keyword,getUserAccount(getUserPrincipalUsername()),
-                maxResults, start);
-        return ConvertDomainBean.convertSetToPollBean(polls);
     }
 
     /**

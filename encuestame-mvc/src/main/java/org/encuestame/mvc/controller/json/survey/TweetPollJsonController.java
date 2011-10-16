@@ -87,8 +87,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
-            @SuppressWarnings("unchecked")
-            final List<TweetPollBean> list = (List<TweetPollBean>) filterByItemsByType(
+            final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
                     TypeSearch.getSearchString(typeSearch), keyword, max,
                     start, TypeSearchResult.TWEETPOLL);
             jsonResponse.put("tweetPolls", list);

@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
@@ -45,6 +46,8 @@ import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -85,6 +88,40 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         start);
          log.info("tweetPoll size: "+tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#filterTweetPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<TweetPollBean> filterTweetPollByItemsByType(final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start,
+            final TypeSearchResult searchResult)
+            throws EnMeNoResultsFoundException, EnMeExpcetion {
+        final List<TweetPollBean> list = new ArrayList<TweetPollBean>();
+        if (TypeSearch.KEYWORD.name().equals(typeSearch)) {
+            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword, max, start));
+        } else if (TypeSearch.ALL.name().equals(typeSearch)) {
+            list.addAll(this.getTweetsPollsByUserName(
+                    getUserPrincipalUsername(), max, start));
+        } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
+            list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
+                    max, start));
+        } else if (TypeSearch.LASTWEEK.name().equals(typeSearch)) {
+            list.addAll(this.searchTweetsPollsLastWeek(
+                    getUserPrincipalUsername(), max, start));
+        } else if (TypeSearch.FAVOURITES.name().equals(typeSearch)) {
+            list.addAll(this.searchTweetsPollFavourites(
+                    getUserPrincipalUsername(), max, start));
+        } else if (TypeSearch.SCHEDULED.name().equals(typeSearch)) {
+
+            list.addAll(this.searchTweetsPollScheduled(
+                    getUserPrincipalUsername(), max, start));
+        } else {
+            list.addAll(this.getTweetsPollsByUserName(
+                    getUserPrincipalUsername(), max, start));
+        }
+        return list;
     }
 
     /**
@@ -133,6 +170,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         if(keyword == null){
            throw new EnMeExpcetion("keyword is missing");
         } else {
+            //TODO: migrate search to Hibernate Search.
             tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getPrimaryUser(username), maxResults, start);
         }
         log.info("search keyword tweetPoll size "+tweetPolls.size());

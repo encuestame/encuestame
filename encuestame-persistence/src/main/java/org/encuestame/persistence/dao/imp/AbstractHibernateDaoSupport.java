@@ -107,7 +107,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       */
      public List<?> filterByMaxorStart(final DetachedCriteria criteria, final Integer maxResults,
              final Integer start){
-          List<?> results = new ArrayList();
+          @SuppressWarnings("rawtypes")
+        List<?> results = new ArrayList();
           if(maxResults != null && start != null){
               results = getHibernateTemplate().findByCriteria(criteria, start, maxResults);
           } else {
@@ -148,7 +149,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
     public List<?> fetchMultiFieldQueryParserFullText(
             final String keyword,
             final String[] fields,
-            final Class<?> clazz, final Criteria criteria,
+            final Class<?> clazz,
+            final Criteria criteria,
             final Analyzer analyzer) {
         final MultiFieldQueryParser parser = new MultiFieldQueryParser(
                 version, fields, analyzer);

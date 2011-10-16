@@ -12,8 +12,6 @@
  */
 package org.encuestame.persistence.domain.survey;
 
-import java.util.Date;
-
 import javax.mail.Folder;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,21 +22,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 /**
  * Poll Domain.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since March 15, 2010
  */
+@Indexed(index="Poll")
 @Entity
 @Table(name = "poll",
        uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
@@ -80,6 +79,7 @@ public class Poll extends AbstractSurvey {
      * @return the poll_id
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "poll_id", unique = true, nullable = true)
     public Long getPollId() {
@@ -129,6 +129,7 @@ public class Poll extends AbstractSurvey {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "qid", nullable = false)
+    @IndexedEmbedded
     public Question getQuestion() {
         return question;
     }
