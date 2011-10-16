@@ -181,10 +181,10 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     private Long relevance;
 
     /** Like option**/
-    private Long likeVote = 0L;
+    private Long likeVote;
 
     /** Unlike **/
-    private Long dislikeVote = 0L;
+    private Long dislikeVote;
 
     /**
      * Mark as favourites.

@@ -128,7 +128,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPollHash(hashPoll);
             pollDomain.setQuestion(question);
             pollDomain.setPollCompleted(Boolean.FALSE);
-            pollDomain.setHits(EnMeUtils.RATE_DEFAULT);
+            pollDomain.setHits(EnMeUtils.HIT_DEFAULT);
             pollDomain.setRelevance(EnMeUtils.RATE_DEFAULT);
             pollDomain.setLikeVote(EnMeUtils.LIKE_DEFAULT);
             pollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
@@ -139,6 +139,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setShowComments(commentOpt);
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
+            pollDomain.setPublish(Boolean.TRUE);
             for (int row = 0; row < answers.length; row++) {
                  final String answersText = answers[row];
                  Assert.notNull(answersText);

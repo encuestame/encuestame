@@ -256,7 +256,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tweetPollDomain.setCaptcha(tweetPollBean.getCaptcha());
         tweetPollDomain.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPollDomain.setLimitVotes(tweetPollBean.getLimitVotes());
-        tweetPollDomain.setTweetOwner(getAccountDao().getUserById(tweetPollBean.getUserId()));
+        UserAccount acc = null;
+        try {
+            acc = getUserAccount(getUserPrincipalUsername());
+        } catch (EnMeNoResultsFoundException e) {
+           log.error("User not found");
+        }
+        tweetPollDomain.setTweetOwner(acc.getAccount());
         tweetPollDomain.setEditorOwner(getUserAccountonSecurityContext());
         tweetPollDomain.setResultNotification(tweetPollBean.getResultNotification());
         tweetPollDomain.setPublishTweetPoll(Boolean.FALSE);
