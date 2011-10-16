@@ -85,7 +85,6 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "start", required = false)Integer start,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
-
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
             @SuppressWarnings("unchecked")

@@ -20,7 +20,6 @@ import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -68,7 +67,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsByPollFolder(final UserAccount userAcc, final PollFolder folder){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.add(Restrictions.eq("pollOwner", userAcc));
+        criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("pollFolder", folder));
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -80,8 +79,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsByPollFolderId(final UserAccount userId, final PollFolder folder){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.createAlias("pollOwner", "pollOwner");
-        //criteria.add(Restrictions.eq("pollOwner.uid", userId));
+        criteria.createAlias("editorOwner", "editorOwner");
+        //criteria.add(Restrictions.eq("editorOwner.uid", userId));
         criteria.add(Restrictions.eq("pollFolder", folder));
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -93,10 +92,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     @SuppressWarnings("unchecked")
     public List<Poll> findAllPollByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        //criteria.createAlias("pollOwner","pollOwner");
-        criteria.add(Restrictions.eq("pollOwner", userAcc));
+        //criteria.createAlias("editorOwner","editorOwner");
+        criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("startDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -144,7 +143,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("question", "questionAlias");
         criteria.add(Restrictions.like("questionAlias.question", keywordQuestion , MatchMode.ANYWHERE));
-        criteria.add(Restrictions.eq("pollOwner", userAcc));
+        criteria.add(Restrictions.eq("editorOwner", userAcc));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -155,7 +154,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     @SuppressWarnings("unchecked")
     public Poll getPollById(final Long pollId, UserAccount userAcc){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.add(Restrictions.eq("pollOwner", userAcc));
+        criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("pollId", pollId));
         return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
@@ -180,8 +179,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     public List<Poll> getPollByUserIdDate(final Date date, final UserAccount userAcc,
             final Integer maxResults, final Integer start ){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        criteria.add(Restrictions.eq("pollOwner", userAcc));
-        criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
+        criteria.add(Restrictions.eq("editorOwner", userAcc));
+        criteria.add(Restrictions.between("startDate", date, getNextDayMidnightDate()));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -195,8 +194,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Integer start){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
          criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-         criteria.add(Restrictions.eq("pollOwner", userAcc));
-         criteria.addOrder(Order.desc("createdAt"));
+         criteria.add(Restrictions.eq("editorOwner", userAcc));
+         criteria.addOrder(Order.desc("startDate"));
          return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -207,9 +206,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     public Long getMaxPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo) {
         DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.setProjection(Projections.max("likeVote"));
-        criteria.createAlias("pollOwner", "pollOwner");
-        criteria.add(Restrictions.eq("pollOwner.uid", userId));
-        criteria.add(Restrictions.between("createdAt", dateFrom, dateTo));
+        criteria.createAlias("editorOwner", "editorOwner");
+        criteria.add(Restrictions.eq("editorOwner.uid", userId));
+        criteria.add(Restrictions.between("startDate", dateFrom, dateTo));
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
         return (Long) (results.get(0) == null ? 0 : results.get(0));
@@ -225,19 +224,25 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(Poll.class);
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        //criteria.add(Restrictions.gt("createdAt", range));
-        //criteria.addOrder(Order.desc("createdAt"));
+        //criteria.add(Restrictions.gt("startDate", range));
+        //criteria.addOrder(Order.desc("startDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
-    public List<TweetPoll> retrieveFavouritesTweetPoll(
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrieveFavouritesPoll(java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> retrieveFavouritesPoll(
             final Long userId,
             final Integer maxResults,
-            final Integer start){
-        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
-        criteria.createAlias("tweetOwner","tweetOwner");
+            final Integer start) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.createAlias("editorOwner","editorOwner");
         criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
-        criteria.add(Restrictions.eq("tweetOwner.id", userId));
-        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
+        criteria.add(Restrictions.eq("editorOwner.id", userId));
+        return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 }

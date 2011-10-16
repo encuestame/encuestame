@@ -628,7 +628,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return endDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = false, length = 0)
+    @Column(name = "end_date", nullable = true, length = 0)
     public Date getEndDate() {
         return this.endDate;
     }

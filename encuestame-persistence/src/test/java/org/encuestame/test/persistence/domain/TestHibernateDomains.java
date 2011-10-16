@@ -486,14 +486,14 @@ public class TestHibernateDomains extends AbstractBase{
          poll.setPollCompleted(null);
          poll.setStartDate(Calendar.getInstance().getTime());
          poll.setEndDate(Calendar.getInstance().getTime());
-         poll.setUpdatedDate(Calendar.getInstance().getTime()));
+         poll.setUpdatedDate(Calendar.getInstance().getTime());
          poll.setPollHash(RandomStringUtils.randomAlphanumeric(5));
          poll.setQuestion(question);
-         poll.setPollOwner(user);
+         poll.setEditorOwner(user);
          poll.setPublish(Boolean.TRUE);
          poll.setPollFolder(pollFolder);
          poll.setUpdatedDate(null);
-         getiPoll().saveOrUpdate(poll);
+         getPollDao().saveOrUpdate(poll);
      }
 
      /** Test item vote. **/

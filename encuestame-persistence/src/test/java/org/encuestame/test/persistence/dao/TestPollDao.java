@@ -88,7 +88,7 @@ public class TestPollDao extends AbstractBase {
      /** Test retrievePollsByUserId. **/
     @Test
     public void testFindAllPollByUserId(){
-        final List<Poll> pollList = getiPoll().findAllPollByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
+        final List<Poll> pollList = getPollDao().findAllPollByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 1, pollList.size());
     }
 
@@ -97,7 +97,7 @@ public class TestPollDao extends AbstractBase {
     **/
     @Test
     public void testGetPollById(){
-        final Poll getpoll = getiPoll().getPollById(this.poll.getPollId());
+        final Poll getpoll = getPollDao().getPollById(this.poll.getPollId());
         assertNotNull(getpoll);
     }
 
@@ -111,7 +111,7 @@ public class TestPollDao extends AbstractBase {
         createQuestionAnswer("No", quest, "2020");
         createPollResults(qansw, this.poll);
         createPollResults(qansw, this.poll);
-        final List<Object[]> polli = getiPoll().retrieveResultPolls(this.poll.getPollId(), qansw.getQuestionAnswerId());
+        final List<Object[]> polli = getPollDao().retrieveResultPolls(this.poll.getPollId(), qansw.getQuestionAnswerId());
         final Iterator<Object[]> iterator = polli.iterator();
         while (iterator.hasNext()) {
             final Object[] objects = iterator.next();
@@ -125,7 +125,7 @@ public class TestPollDao extends AbstractBase {
     @Test
     public void testGetPollFolderByIdandUser(){
         assertNotNull(pollFolder);
-        final PollFolder pfolder = getiPoll().getPollFolderByIdandUser(this.pollFolder.getId(), this.secUserSecondary);
+        final PollFolder pfolder = getPollDao().getPollFolderByIdandUser(this.pollFolder.getId(), this.secUserSecondary);
         assertEquals("Should be equals", this.pollFolder.getId(), pfolder.getId());
      }
 
@@ -135,7 +135,7 @@ public class TestPollDao extends AbstractBase {
     @Test
     public void testGetPollByIdandUserId(){
         assertNotNull(this.poll);
-        final Poll poll = getiPoll().getPollById(this.poll.getPollId(), this.secUserSecondary);
+        final Poll poll = getPollDao().getPollById(this.poll.getPollId(), this.secUserSecondary);
         assertNotNull(poll);
         assertEquals("Should be equals", this.poll.getPollId(), poll.getPollId());
     }
@@ -147,14 +147,14 @@ public class TestPollDao extends AbstractBase {
     public void testGetPollsByQuestionKeyword(){
         assertNotNull(this.poll);
         final String keywordQuestion = "roses";
-        final List<Poll> listPoll = getiPoll().getPollsByQuestionKeyword(keywordQuestion, this.secUserSecondary, this.MAX_RESULTS, this.START);
+        final List<Poll> listPoll = getPollDao().getPollsByQuestionKeyword(keywordQuestion, this.secUserSecondary, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 1, listPoll.size());
     }
 
     @Test
     public void testGetPollFolderById(){
         assertNotNull(this.pollFolder);
-        final PollFolder pollFolder = getiPoll().getPollFolderById(this.pollFolder.getId());
+        final PollFolder pollFolder = getPollDao().getPollFolderById(this.pollFolder.getId());
         assertEquals("Should be equals", this.pollFolder.getId(), pollFolder.getId());
     }
 
@@ -168,7 +168,7 @@ public class TestPollDao extends AbstractBase {
          assertNotNull(poll);
          final Poll addPoll = addPollToFolder(this.pollFolder.getId(), this.secUserSecondary, this.poll.getPollId());
          assertNotNull(addPoll);
-         final List<Poll> pfolder = getiPoll().getPollsByPollFolderId(this.secUserSecondary, this.pollFolder);
+         final List<Poll> pfolder = getPollDao().getPollsByPollFolderId(this.secUserSecondary, this.pollFolder);
          assertEquals("Should be equals", 1, pfolder.size());
     }
 
@@ -187,7 +187,7 @@ public class TestPollDao extends AbstractBase {
         createPoll(yesterday, this.question, "FDK195", this.secUserSecondary,
                 Boolean.TRUE, Boolean.TRUE);
         Assert.assertNotNull(this.poll);
-        final List<Poll> pollList = getiPoll().getPollByUserIdDate(yesterday,
+        final List<Poll> pollList = getPollDao().getPollByUserIdDate(yesterday,
                 this.secUserSecondary, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 3, pollList.size());
     }
@@ -196,7 +196,7 @@ public class TestPollDao extends AbstractBase {
     public void testRetrievePollsByUserId(){
         final Question question2 =  createQuestion("Why the sea is blue?","html");
         createPoll(new Date(), question2, "FDK126", this.secUserSecondary, Boolean.TRUE, Boolean.TRUE);
-        final List<Poll> pollbyUser = getiPoll().retrievePollsByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
+        final List<Poll> pollbyUser = getPollDao().retrievePollsByUserId(this.secUserSecondary, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 2, pollbyUser.size());
     }
 
@@ -204,13 +204,13 @@ public class TestPollDao extends AbstractBase {
     public void testGetPollFolderBySecUser(){
         createPollFolder("My Second Poll Folder", this.secUserSecondary);
         createPollFolder("My Third Poll Folder", this.secUserSecondary);
-        final List<PollFolder> pollFolderbyUser = getiPoll().getPollFolderByUserAccount(this.secUserSecondary);
+        final List<PollFolder> pollFolderbyUser = getPollDao().getPollFolderByUserAccount(this.secUserSecondary);
         assertEquals("Should be equals", 3, pollFolderbyUser.size());
     }
 
     @Test
     public void testPollsByPollFolder(){
-        final List<Poll> pollsbyFolder = getiPoll().getPollsByPollFolder(this.secUserSecondary, this.pollFolder);
+        final List<Poll> pollsbyFolder = getPollDao().getPollsByPollFolder(this.secUserSecondary, this.pollFolder);
         assertEquals("Should be equals", 1, pollsbyFolder.size());
     }
 }

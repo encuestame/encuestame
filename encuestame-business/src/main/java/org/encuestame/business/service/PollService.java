@@ -84,7 +84,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             //TODO: move hash to util.
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
             final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
-            pollDomain.setPollOwner(user);
+            pollDomain.setEditorOwner(user);
             pollDomain.setStartDate(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
             pollDomain.setQuestion(question);

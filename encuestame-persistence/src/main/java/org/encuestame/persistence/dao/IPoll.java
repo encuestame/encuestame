@@ -148,4 +148,16 @@ public interface IPoll extends IBaseDao {
       */
      List<Poll> getPolls(final Integer maxResults,
              final Integer start, final Date range);
+
+     /**
+      * Retrieve poll mark as favorites.
+      * @param userId user id
+      * @param maxResults max of results.
+      * @param start point start results.
+      * @return List of {@link Poll}.
+      */
+     List<Poll> retrieveFavouritesPoll(
+             final Long userId,
+             final Integer maxResults,
+             final Integer start);
 }

@@ -45,6 +45,7 @@ import org.encuestame.persistence.dao.imp.FrontEndDao;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.PollDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
+import org.encuestame.persistence.domain.AbstractSurvey.CustomFinalMessage;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.Attachment;
 import org.encuestame.persistence.domain.Client;
@@ -164,7 +165,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     /** {@link PollDao}. **/
     @Autowired
-    private IPoll iPoll;
+    private IPoll pollDao;
 
     /** {@link EmailDao}. **/
     @Autowired
@@ -399,15 +400,15 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     /**
      * @return {@link Poll}
      */
-    public IPoll getiPoll() {
-        return iPoll;
+    public IPoll getPollDao() {
+        return pollDao;
     }
 
     /**
      * @param poll the iPoll to set
      */
-    public void setiPoll(final IPoll poll) {
-        this.iPoll = poll;
+    public void setPollDao(final IPoll poll) {
+        this.pollDao = poll;
     }
 
     /**
@@ -433,19 +434,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Poll createPoll(final Date createdAt,
             final Question question,
-            final UserAccount secUser,
+            final UserAccount userAccount,
             final Boolean pollCompleted,
             final Boolean pollPublish
             ){
         final String pollHash = RandomStringUtils.randomAlphabetic(18);
         final Poll poll = new Poll();
-        poll.setCreatedAt(createdAt);
+        poll.setStartDate(createdAt);
         poll.setQuestion(question);
         poll.setPollHash(pollHash);         //should be unique
-        poll.setPollOwner(secUser);
+        poll.setEditorOwner(userAccount);
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
-        getiPoll().saveOrUpdate(poll);
+        getPollDao().saveOrUpdate(poll);
         return poll;
 
     }
@@ -462,17 +463,28 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Date createdDate,
             final Question question,
             final String hash,
-            final UserAccount secUsers,
+            final UserAccount userAccount,
             final Boolean pollCompleted,
             final Boolean published){
         final Poll poll = new Poll();
-        poll.setCreatedAt(createdDate);
+        poll.setStartDate(createdDate);
+        poll.setCloseAfterDate(true);
+        poll.setAdditionalInfo("additional");
+        poll.setClosedDate(new Date());
+        poll.setClosedQuota(100);
+        poll.setCustomFinalMessage(CustomFinalMessage.FINALMESSAGE);
+        poll.setCustomMessage(true);
+        poll.setDislikeVote(300L);
+        poll.setLikeVote(560L);
+        poll.setEndDate(new Date());
+        poll.setFavourites(true);
+        poll.setNumbervotes(600L);
         poll.setQuestion(question);
         poll.setPollHash(hash);
-        poll.setPollOwner(secUsers);
+        poll.setEditorOwner(userAccount);
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(published);
-        getiPoll().saveOrUpdate(poll);
+        getPollDao().saveOrUpdate(poll);
         return poll;
 
     }
@@ -489,7 +501,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         pollRes.setIpaddress("127.0.0.1");
         pollRes.setPoll(poll);
         pollRes.setVotationDate(new Date());
-        getiPoll().saveOrUpdate(pollRes);
+        getPollDao().saveOrUpdate(pollRes);
         return pollRes;
 
     }
@@ -1506,7 +1518,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         folder.setUsers(users.getAccount());
         folder.setStatus(Status.ACTIVE);
         folder.setCreatedBy(users);
-        getiPoll().saveOrUpdate(folder);
+        getPollDao().saveOrUpdate(folder);
         return folder;
     }
 
@@ -1568,10 +1580,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @throws EnMeNoResultsFoundException
      */
     public Poll addPollToFolder(final Long folderId, final UserAccount userAccount, final Long pollId) throws EnMeNoResultsFoundException{
-        final PollFolder pfolder = getiPoll().getPollFolderById(folderId);
-        final Poll poll = getiPoll().getPollById(pollId, userAccount);
+        final PollFolder pfolder = getPollDao().getPollFolderById(folderId);
+        final Poll poll = getPollDao().getPollById(pollId, userAccount);
         poll.setPollFolder(pfolder);
-        getiPoll().saveOrUpdate(poll);
+        getPollDao().saveOrUpdate(poll);
         return poll;
     }
 

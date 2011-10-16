@@ -184,7 +184,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    @Deprecated
+    //@Deprecated
     public TweetPoll createTweetPoll(
             final String question,
             String[] hashtags,
@@ -214,27 +214,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         return getTweetPollService().createTweetPoll(tweetPollBean,
                 tweetPollBean.getQuestionBean().getQuestionName(),
                 getUserAccount());
-    }
-
-    /**
-     * Update tweetpoll
-     * @param tweetPoll {@link TweetPoll}
-     * @param question list of questions.
-     * @param hashtags
-     * @param answers
-     * @param user
-     * @return
-     * @throws EnMeExpcetion
-     */
-    @Deprecated
-    public TweetPoll updateTweetPoll(
-         final Long tweetPollId,
-         final String question,
-         final String[] hashtags,
-         final Long[] answers) throws EnMeExpcetion{
-         final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
-         //return getTweetPollService().updateTweetPoll(tweetPollId, question, answers, hashtagsList);
-         return null;
     }
 
     /**
@@ -618,92 +597,93 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    }
 
    /**
-    *
-    * @param typeSearch
-    * @param keyword
-    * @param max
-    * @param start
-    * @param searchResult
-    * @return
+    * Retrieve a list of poll / tweetpoll / survey by range or keyword parameters.
+    * @param typeSearch {@link TypeSearch}.
+    * @param keyword keyword (not required)
+    * @param max max of results
+    * @param start point to start (ideal to pagination)
+    * @param searchResult {@link TypeSearchResult}.
+    * @return list of items filtered.
     * @throws EnMeNoResultsFoundException
     * @throws EnMeExpcetion
     * TODO: Survey ENCUESTAME-337 ENCUESTAME-338
     */
     @SuppressWarnings("unchecked")
-    public List filterByItemsByType(final TypeSearch typeSearch,
+    public List<?> filterByItemsByType(
+            final TypeSearch typeSearch,
             String keyword, Integer max, Integer start,
             final TypeSearchResult searchResult)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
         @SuppressWarnings("rawtypes")
         final List list = new ArrayList();
         if (TypeSearch.KEYWORD.name().equals(typeSearch)) {
-            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+            if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                 list.addAll(getTweetPollService().searchTweetsPollsByKeyWord(
                         getUserPrincipalUsername(), keyword, max, start));
-            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+            } else if (searchResult.equals(TypeSearchResult.POLL)) {
                 list.add(getPollService().listPollbyQuestionKeyword(keyword,
                         max, start));
-            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+            } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                 list.add(ListUtils.EMPTY_LIST);
             }
         } else if (TypeSearch.ALL.name().equals(typeSearch)) {
-            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+            if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                 list.addAll(getTweetPollService().getTweetsPollsByUserName(
                         getUserPrincipalUsername(), max, start));
-            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+            } else if (searchResult.equals(TypeSearchResult.POLL)) {
                 list.add(getPollService().listPollbyQuestionKeyword(keyword,
                         max, start));
-            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+            } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                 list.add(ListUtils.EMPTY_LIST);
             }
         } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
-            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+            if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                 list.addAll(getTweetPollService().searchTweetsPollsToday(
                         getUserPrincipalUsername(), max, start));
-            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+            } else if (searchResult.equals(TypeSearchResult.POLL)) {
                 list.add(getPollService().listPollbyQuestionKeyword(keyword,
                         max, start));
-            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+            } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                 list.add(ListUtils.EMPTY_LIST);
             }
         } else if (TypeSearch.LASTWEEK.name().equals(typeSearch)) {
-            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+            if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                 list.addAll(getTweetPollService().searchTweetsPollsLastWeek(
                         getUserPrincipalUsername(), max, start));
-            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+            } else if (searchResult.equals(TypeSearchResult.POLL)) {
                 list.add(getPollService().listPollbyQuestionKeyword(keyword,
                         max, start));
-            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+            } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                 list.add(ListUtils.EMPTY_LIST);
             }
         } else if (TypeSearch.FAVOURITES.name().equals(typeSearch)) {
-            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+            if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                 list.addAll(getTweetPollService().searchTweetsPollFavourites(
                         getUserPrincipalUsername(), max, start));
-            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+            } else if (searchResult.equals(TypeSearchResult.POLL)) {
                 list.add(getPollService().listPollbyQuestionKeyword(keyword,
                         max, start));
-            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+            } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                 list.add(ListUtils.EMPTY_LIST);
             }
         } else if (TypeSearch.SCHEDULED.name().equals(typeSearch)) {
-            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+            if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                 list.addAll(getTweetPollService().searchTweetsPollScheduled(
                         getUserPrincipalUsername(), max, start));
-            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+            } else if (searchResult.equals(TypeSearchResult.POLL)) {
                 list.add(getPollService().listPollbyQuestionKeyword(keyword,
                         max, start));
-            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+            } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                 list.add(ListUtils.EMPTY_LIST);
             }
         } else {
-            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+            if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
                 list.addAll(getTweetPollService().getTweetsPollsByUserName(
                         getUserPrincipalUsername(), max, start));
-            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+            } else if (searchResult.equals(TypeSearchResult.POLL)) {
                 list.add(getPollService().listPollbyQuestionKeyword(keyword,
                         max, start));
-            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+            } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
                 list.add(ListUtils.EMPTY_LIST);
             }
         }

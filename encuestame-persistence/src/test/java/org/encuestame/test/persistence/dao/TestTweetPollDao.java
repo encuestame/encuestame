@@ -89,7 +89,7 @@ public class TestTweetPollDao  extends AbstractBase{
       createTweetPollResult(pollSwitch2, "192.168.0.3");
       createTweetPollResult(pollSwitch2, "192.168.0.4");
       this.tweetPollFolder = createTweetPollFolder("First TweetPoll Folder", secondary);
-      tweetPoll.setNumbervotes(65);
+      tweetPoll.setNumbervotes(65L);
     }
 
     /**
@@ -328,7 +328,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final TweetPoll tweetPoll1 = createPublishedTweetPoll(
                 secondary.getAccount(),
                 createQuestion("question1", secondary.getAccount()), calendar.getTime());
-        tweetPoll1.setNumbervotes(25);
+        tweetPoll1.setNumbervotes(25L);
         tweetPoll1.getHashTags().add(this.hashTag1);
 
         final Calendar calendar2 = Calendar.getInstance();
@@ -336,7 +336,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final TweetPoll tweetPoll2 = createPublishedTweetPoll(
                 secondary.getAccount(),
                 createQuestion("question2", secondary.getAccount()), calendar2.getTime());
-        tweetPoll2.setNumbervotes(45);
+        tweetPoll2.setNumbervotes(45L);
         tweetPoll2.getHashTags().add(this.hashTag1);
 
         getTweetPoll().saveOrUpdate(tweetPoll1);

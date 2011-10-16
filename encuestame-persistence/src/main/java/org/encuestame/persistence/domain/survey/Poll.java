@@ -66,11 +66,6 @@ public class Poll extends AbstractSurvey {
     private Question question;
 
     /**
-     * The owner of the poll.
-     */
-    private UserAccount pollOwner;
-
-    /**
      * Define if poll has been published.
      */
     private Boolean publish;
@@ -143,22 +138,6 @@ public class Poll extends AbstractSurvey {
      */
     public void setQuestion(final Question question) {
         this.question = question;
-    }
-
-    /**
-     * @return the pollOwner
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "uid", nullable = false)
-    public UserAccount getPollOwner() {
-        return pollOwner;
-    }
-
-    /**
-     * @param pollOwner the pollOwner to set
-     */
-    public void setPollOwner(final UserAccount pollOwner) {
-        this.pollOwner = pollOwner;
     }
 
     /**

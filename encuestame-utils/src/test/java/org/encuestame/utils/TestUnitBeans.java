@@ -44,7 +44,6 @@ import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
-import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;

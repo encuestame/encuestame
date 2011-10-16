@@ -138,7 +138,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
     @Test
     //TODO: ignore for now.
     public void testgetPollsByFolder() throws EnMeNoResultsFoundException{
-        getiPoll().saveOrUpdate(this.poll);
+        getPollDao().saveOrUpdate(this.poll);
         List<PollBean> polls = this.pollService.getPollsByFolder(ConvertDomainBean
                               .convertFolderToBeanFolder(folder));
         assertEquals(1, polls.size());
@@ -172,7 +172,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
     @Test
     public void testupdateFolderName() throws EnMeNoResultsFoundException{
         this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.userAccount.getUsername());
-        final PollFolder folder = this.getiPoll().getPollFolderById(this.folder.getId());
+        final PollFolder folder = this.getPollDao().getPollFolderById(this.folder.getId());
         assertEquals(folder.getFolderName(), "newFolderName");
     }
 
@@ -193,10 +193,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
     @Test
     public void testremovePollFolder() throws EnMeNoResultsFoundException{
         this.poll.setPollFolder(null);
-        getiPoll().saveOrUpdate(this.poll);
+        getPollDao().saveOrUpdate(this.poll);
         final long id = this.folder.getId();
         this.pollService.removePollFolder(id);
-        Assert.assertNull(getiPoll().getPollFolderById(id));
+        Assert.assertNull(getPollDao().getPollFolderById(id));
     }
 
     /**

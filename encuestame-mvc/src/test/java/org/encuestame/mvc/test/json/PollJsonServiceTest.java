@@ -93,7 +93,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    @Test
+    //@Test
     public void createPoll() throws ServletException, IOException{
         initService("/api/poll/create.json", MethodJson.POST);
         setParameter("questionName", "Who is the winner");
