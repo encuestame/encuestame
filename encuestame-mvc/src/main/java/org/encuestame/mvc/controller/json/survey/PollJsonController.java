@@ -27,6 +27,10 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -73,7 +77,17 @@ public class PollJsonController extends AbstractJsonController{
             @RequestParam(value = "start", required = false)Integer start,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
-
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        try{
+            final List<PollBean> list = (List<PollBean>) getPollService().filterPollByItemsByType(
+                     TypeSearch.getSearchString(typeSearch), keyword, max,
+                     start);
+             jsonResponse.put("poll", list);
+             setItemResponse(jsonResponse);
+        } catch (EnMeExpcetion e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+       }
         return returnData();
      }
 

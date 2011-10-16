@@ -67,16 +67,17 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @see org.encuestame.core.service.imp.IPollService#filterPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
     public List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
-            String keyword, Integer max, Integer start,
-            final TypeSearchResult searchResult)
+            String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
         final List<PollBean> list = new ArrayList<PollBean>();
         if (TypeSearch.KEYWORD.name().equals(typeSearch)) {
             list.addAll(this.searchPollByKeyword(keyword, max, start));
+        } else if (TypeSearch.BYOWNER.name().equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
+                    .findAllPollByEditorOwner(
+                            getUserAccount(getUserPrincipalUsername()), max,
+                            start)));
         }
-//        } else if (TypeSearch.ALL.name().equals(typeSearch)) {
-//            list.addAll(this.getTweetsPollsByUserName(
-//                    getUserPrincipalUsername(), max, start));
 //        } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
 //            list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
 //                    max, start));
@@ -133,6 +134,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
             pollDomain.setNumbervotes(EnMeUtils.VOTE_MIN);
             pollDomain.setEditorOwner(user);
+            pollDomain.setAccountItem(user.getAccount());
             pollDomain.setShowResults(showResults);
             pollDomain.setShowComments(commentOpt);
             pollDomain.setPublish(Boolean.TRUE);
@@ -225,7 +227,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 
     public List<PollBean> listPollByUser(final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException{
         final List<PollBean> unitPoll = new ArrayList<PollBean>();
-        final List<Poll> polls = getPollDao().findAllPollByUserId(getUserAccount(getUserPrincipalUsername()), maxResults, start);
+        final List<Poll> polls = getPollDao().findAllPollByEditorOwner(getUserAccount(getUserPrincipalUsername()), maxResults, start);
          for (Poll poll : polls) {
              unitPoll.add(ConvertDomainBean.convertPollDomainToBean(poll));
         }

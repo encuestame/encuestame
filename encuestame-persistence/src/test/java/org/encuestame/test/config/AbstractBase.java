@@ -444,6 +444,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setQuestion(question);
         poll.setPollHash(pollHash);         //should be unique
         poll.setEditorOwner(userAccount);
+        poll.setAccountItem(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
         getPollDao().saveOrUpdate(poll);
@@ -482,6 +483,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setQuestion(question);
         poll.setPollHash(hash);
         poll.setEditorOwner(userAccount);
+        poll.setAccountItem(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(published);
         getPollDao().saveOrUpdate(poll);

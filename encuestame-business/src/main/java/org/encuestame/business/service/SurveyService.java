@@ -397,9 +397,9 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @throws EnMeNoResultsFoundException
      */
     public void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeNoResultsFoundException{
-        final SurveyFolder surveyFolder = this.getSurveysFolderByFolderIdandUser(folderId, getPrimaryUser(username));
+        final SurveyFolder surveyFolder = this.getSurveysFolderByFolderIdandUser(folderId, getUserAccountId(username));
         if(surveyFolder!=null) {
-            final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, getPrimaryUser(username));
+            final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, getUserAccountId(username));
             survey.setSurveysfolder(surveyFolder);
             getSurveyDaoImp().saveOrUpdate(survey);
             } else {

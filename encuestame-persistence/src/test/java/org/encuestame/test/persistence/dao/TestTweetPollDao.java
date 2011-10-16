@@ -219,18 +219,19 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetPollToday(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getAccount().getUid();
-        final List<TweetPoll> tweetsToday = getTweetPoll().retrieveTweetPollToday(userId, 5, 0);
+        final List<TweetPoll> tweetsToday = getTweetPoll().retrieveTweetPollToday(this.secondary.getAccount(), 5, 0);
         assertEquals("Should be equals", 1, tweetsToday.size());
     }
 
+    /**
+     *
+     */
     @Test
     public void testRetrieveTweetPollByDate(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getAccount().getUid();
         final DateMidnight initDate = new DateMidnight();
-        final List<TweetPoll> tweetsByDate = getTweetPoll().retrieveTweetPollByDate(userId, initDate.toDate(), 5, 0);
+        final List<TweetPoll> tweetsByDate = getTweetPoll().retrieveTweetPollByDate(this.secondary.getAccount(), initDate.toDate(), 5, 0);
         assertEquals("Should be equals", 1, tweetsByDate.size());
     }
 
@@ -241,8 +242,7 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveFavouritesTweetPoll(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final Long userId = this.secondary.getAccount().getUid();
-        final List<TweetPoll> favouritesTweets = getTweetPoll().retrieveFavouritesTweetPoll(userId, 5, 0);
+        final List<TweetPoll> favouritesTweets = getTweetPoll().retrieveFavouritesTweetPoll(this.secondary.getAccount(), 5, 0);
         assertEquals("Should be equals", 1, favouritesTweets.size());
     }
 

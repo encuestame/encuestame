@@ -226,7 +226,6 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeExpcetion
      */
     List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
-            String keyword, Integer max, Integer start,
-            final TypeSearchResult searchResult)
+            String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion;
 }

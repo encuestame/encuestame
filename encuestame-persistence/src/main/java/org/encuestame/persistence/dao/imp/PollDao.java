@@ -19,10 +19,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -30,7 +30,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -43,7 +42,6 @@ import org.springframework.stereotype.Repository;
  * Poll Dao.
  * @author Morales,Diana Paola paolaATencuestame.org
  * @since March 15, 2009
- * @version $Id: $
  */
 @Repository("pollDao")
 public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
@@ -98,10 +96,31 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
       * @see org.encuestame.persistence.dao.IPoll#findAllPollByUserId(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
       */
     @SuppressWarnings("unchecked")
-    public List<Poll> findAllPollByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start){
+    public List<Poll> findAllPollByEditorOwner(
+            final UserAccount userAcc,
+            final Integer maxResults,
+            final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-        //criteria.createAlias("editorOwner","editorOwner");
         criteria.add(Restrictions.eq("editorOwner", userAcc));
+        criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+        criteria.addOrder(Order.desc("startDate"));
+        return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /**
+     * Retrieve poll by {@link Account}.
+     * @param userAcc
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Poll> findAllPollByAccount(
+            final Account account,
+            final Integer maxResults,
+            final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.add(Restrictions.eq("accountItem", account));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
         criteria.addOrder(Order.desc("startDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);

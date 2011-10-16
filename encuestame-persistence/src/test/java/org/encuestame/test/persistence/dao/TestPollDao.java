@@ -87,7 +87,7 @@ public class TestPollDao extends AbstractBase {
      /** Test retrievePollsByUserId. **/
     @Test
     public void testFindAllPollByUserId(){
-        final List<Poll> pollList = getPollDao().findAllPollByUserId(this.userAccount, this.MAX_RESULTS, this.START);
+        final List<Poll> pollList = getPollDao().findAllPollByEditorOwner(this.userAccount, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 1, pollList.size());
     }
 

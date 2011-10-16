@@ -35,7 +35,7 @@ public interface IPoll extends IBaseDao {
       * @param start
       * @return
       */
-     List<Poll> findAllPollByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start);
+     List<Poll> findAllPollByEditorOwner(final UserAccount userAcc, final Integer maxResults, final Integer start);
 
      /**
       * Retrieve Poll by id.

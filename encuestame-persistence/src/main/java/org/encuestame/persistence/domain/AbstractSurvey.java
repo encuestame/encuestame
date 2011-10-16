@@ -23,6 +23,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.enums.CommentOptions;
 
@@ -48,6 +50,11 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Define which user create this tweetPoll.
      */
     private UserAccount editorOwner;
+
+    /**
+     * Define the account owner of the item.
+     */
+    private Account accountItem;
 
     /**
      * Multiple Responses.
@@ -655,5 +662,21 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     */
     public void setUpdatedDate(final Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    /**
+     * @return the accountItem
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "owner_id")
+    public Account getAccountItem() {
+        return accountItem;
+    }
+
+    /**
+     * @param accountItem the accountItem to set
+     */
+    public void setAccountItem(final Account accountItem) {
+        this.accountItem = accountItem;
     }
 }

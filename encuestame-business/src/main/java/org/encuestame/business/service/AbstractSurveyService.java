@@ -631,7 +631,7 @@ public class AbstractSurveyService extends AbstractChartService {
         final List<QuestionBean> unitQuestionBean = new ArrayList<QuestionBean>();
         final List<Question> questionsList = getQuestionDao().retrieveIndexQuestionsByKeyword(
                 questionKeyword,
-                getPrimaryUser(username), null, null);
+                getUserAccountId(username), null, null);
         log.info("listSuggestQuestion "+questionsList.size());
         for (Question question : questionsList) {
             unitQuestionBean.add(ConvertDomainBean.convertQuestionsToBean(question));
