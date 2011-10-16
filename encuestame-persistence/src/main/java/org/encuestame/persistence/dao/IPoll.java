@@ -29,13 +29,6 @@ import org.hibernate.HibernateException;
  */
 public interface IPoll extends IBaseDao {
 
-      /**
-     * Find All Poll.
-     * @return list of all poll
-     * @throws HibernateException hibernate
-     */
-     List<Poll> findAll();
-
      /**
       * Find All Polls by User Id.
       * @param userAcc
@@ -83,7 +76,7 @@ public interface IPoll extends IBaseDao {
       * @param secUser {@link UserAccount}.
       * @return list of folders.
       */
-     List<PollFolder> getPollFolderBySecUser(final UserAccount secUser);
+     List<PollFolder> getPollFolderByUserAccount(final UserAccount secUser);
 
      /**
       * Get Polls by Folder.
@@ -115,7 +108,7 @@ public interface IPoll extends IBaseDao {
       * @param userAcc
       * @return
       */
-     Poll getPollByIdandUserId(final Long pollId, UserAccount userAcc);
+     Poll getPollById(final Long pollId, UserAccount userAcc);
 
      /**
       * Get polls by creation date.

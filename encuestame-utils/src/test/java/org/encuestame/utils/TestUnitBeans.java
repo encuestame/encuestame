@@ -130,18 +130,6 @@ import org.junit.Test;
     }
 
     /**
-     * Test {@link TweetPollBean}.
-     */
-    @Test
-    public void testUnitTweetPollResults(){
-        final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
-        tweetPollResult.setResults(1L);
-        tweetPollResult.setAnswersBean(new QuestionAnswerBean());
-        assertNotNull(tweetPollResult.getResults());
-        assertNotNull(tweetPollResult.getAnswersBean());
-    }
-
-    /**
      * Unit Tweet Poll.
      */
     @Test

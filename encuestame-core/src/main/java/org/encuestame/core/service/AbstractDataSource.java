@@ -129,9 +129,8 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      * @throws EnMeNoResultsFoundException exception
      */
     public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
-        final UserAccount userAccount = getUserAccountonSecurityContext() == null
-              ? findUserByUserName(username) : getUserAccountonSecurityContext();
-        if(userAccount == null){
+        final UserAccount userAccount =  this.findUserByUserName(username);
+        if (userAccount == null) {
             throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.

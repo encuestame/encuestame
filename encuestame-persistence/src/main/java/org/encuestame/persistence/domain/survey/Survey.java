@@ -50,12 +50,6 @@ public class Survey extends AbstractSurvey {
     private Integer ticket;
 
     /****/
-    private Date startDate;
-
-    /****/
-    private Date endDate;
-
-    /****/
     private Date dateInterview;
 
     /****/
@@ -116,37 +110,6 @@ public class Survey extends AbstractSurvey {
         this.ticket = ticket;
     }
 
-    /**
-     * @return startDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date", nullable = false, length = 0)
-    public Date getStartDate() {
-        return this.startDate;
-    }
-
-    /**
-     * @param startDate startDate
-     */
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    /**
-     * @return endDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = false, length = 0)
-    public Date getEndDate() {
-        return this.endDate;
-    }
-
-    /**
-     * @param endDate endDate
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
 
     /**
      * @return dateInterview

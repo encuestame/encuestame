@@ -212,13 +212,6 @@ public interface IPollService extends IMasterSurveyService{
     void createPollNotification(final Poll poll) throws EnMeNoResultsFoundException;
 
     /**
-     * Convert poll to short tiny url.
-     * @param poll
-     * @return
-     */
-    PollBean convertPolltoBean(final Poll poll);
-
-    /**
      * Get published polls.
      * @param maxResults
      * @param start
@@ -227,7 +220,5 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeTweetPollNotFoundException
      * @throws EnMePollNotFoundException
      */
-    List<Poll> getPolls(final Integer maxResults,
-            final Integer start, final Date range)
-            throws EnMePollNotFoundException;
+    List<Poll> getPollsByRange(final Integer maxResults, final Integer start, final Date range);
 }

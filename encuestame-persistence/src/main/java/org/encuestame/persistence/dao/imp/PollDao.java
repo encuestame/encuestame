@@ -20,6 +20,7 @@ import org.encuestame.persistence.dao.IPoll;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -40,6 +41,10 @@ import org.springframework.stereotype.Repository;
 @Repository("pollDao")
 public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
+    /**
+     * Constructor.
+     * @param sessionFactory
+     */
     @Autowired
     public PollDao(SessionFactory sessionFactory) {
              setSessionFactory(sessionFactory);
@@ -47,21 +52,12 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IPoll#findAll()
-     */
-    @SuppressWarnings("unchecked")
-    public List<Poll> findAll() throws HibernateException {
-         return getHibernateTemplate().find("FROM Poll");
-    }
-
-    /*
-     * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollFolderBySecUser(org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
-    public List<PollFolder> getPollFolderBySecUser(final UserAccount secUser){
+    public List<PollFolder> getPollFolderByUserAccount(final UserAccount userAccount){
           final DetachedCriteria criteria = DetachedCriteria.forClass(PollFolder.class);
-          criteria.add(Restrictions.eq("createdBy", secUser));
+          criteria.add(Restrictions.eq("createdBy", userAccount));
           return getHibernateTemplate().findByCriteria(criteria);
     }
 
@@ -112,7 +108,6 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return (Poll) getHibernateTemplate().get(Poll.class, pollId);
     }
 
-
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollFolderById(java.lang.Long)
@@ -158,7 +153,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollByIdandUserId(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
-    public Poll getPollByIdandUserId(final Long pollId, UserAccount userAcc){
+    public Poll getPollById(final Long pollId, UserAccount userAcc){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("pollOwner", userAcc));
         criteria.add(Restrictions.eq("pollId", pollId));
@@ -233,5 +228,16 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         //criteria.add(Restrictions.gt("createdAt", range));
         //criteria.addOrder(Order.desc("createdAt"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    public List<TweetPoll> retrieveFavouritesTweetPoll(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
+        criteria.createAlias("tweetOwner","tweetOwner");
+        criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
+        criteria.add(Restrictions.eq("tweetOwner.id", userId));
+        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 }

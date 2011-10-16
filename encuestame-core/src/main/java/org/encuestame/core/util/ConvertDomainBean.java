@@ -1,5 +1,6 @@
 /*
  ************************************************************************************
+
  * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
@@ -588,13 +589,11 @@ public class ConvertDomainBean {
         final PollBean unitPoll = new PollBean();
         unitPoll.setId(poll.getPollId());
         unitPoll.setCompletedPoll(poll.getPollCompleted());
-        unitPoll.setCreationDate(poll.getCreatedAt());
+        unitPoll.setCreationDate(poll.getStartDate());
         unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll.getQuestion()));
-        unitPoll.setCloseNotification(poll.getCloseNotification());
         unitPoll.setPublishPoll(poll.getPublish());
-        unitPoll.setShowResultsPoll(poll.getShowVotes());
-        unitPoll.setFinishDate(poll.getEndDate());
         unitPoll.setUpdatedDate(poll.getUpdatedDate());
+        //TODO: ENCUESTAME-340
        return unitPoll;
     }
 

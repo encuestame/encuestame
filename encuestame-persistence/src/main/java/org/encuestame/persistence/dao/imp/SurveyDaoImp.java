@@ -40,6 +40,10 @@ import org.springframework.stereotype.Repository;
 @Repository("surveyDaoImp")
 public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey {
 
+    /**
+     *
+     * @param sessionFactory
+     */
     @Autowired
     public SurveyDaoImp(SessionFactory sessionFactory) {
              setSessionFactory(sessionFactory);

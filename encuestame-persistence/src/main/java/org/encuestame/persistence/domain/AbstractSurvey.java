@@ -30,7 +30,6 @@ import org.encuestame.utils.enums.CommentOptions;
  * Abstract Survey.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 21, 2010
- * @version $Id: $
  */
 @MappedSuperclass
 public abstract class AbstractSurvey extends AbstractGeoPoint {
@@ -144,7 +143,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
    /**
     * Number votes for Survey and Poll.
     */
-    private Integer numbervotes;
+    private Long numbervotes;
 
     /**
      * Number Hits or visits
@@ -179,6 +178,26 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
 
     /** Unlike **/
     private Long dislikeVote = 0L;
+
+    /**
+     * Mark as favourites.
+     */
+    private Boolean favourites = false;
+
+    /**
+     * Date init of survey.
+     * **/
+    private Date startDate;
+
+    /**
+     * Update Date
+     */
+    private Date updatedDate;
+
+    /**
+     * End date of survey.
+     ***/
+    private Date endDate;
 
     /**
      * @return the customMessage.
@@ -396,6 +415,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the showResults
      */
+    @Column(name = "show_results")
     public Boolean getShowResults() {
         return showResults;
     }
@@ -403,7 +423,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param showResults the showResults to set
      */
-    public void setShowResults(Boolean showResults) {
+    public void setShowResults(final Boolean showResults) {
         this.showResults = showResults;
     }
 
@@ -419,7 +439,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     @Column(name = "comment_Option")
     @Enumerated(EnumType.ORDINAL)
-    public void setShowComments(CommentOptions showComments) {
+    public void setShowComments(final CommentOptions showComments) {
         this.showComments = showComments;
     }
 
@@ -440,6 +460,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the additionalInfo
      */
+    @Column(name = "additional_info")
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -447,13 +468,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param additionalInfo the additionalInfo to set
      */
-    public void setAdditionalInfo(String additionalInfo) {
+    public void setAdditionalInfo(final String additionalInfo) {
         this.additionalInfo = additionalInfo;
     }
 
     /**
      * @return the notifications
      */
+    @Column(name = "notifications")
     public Boolean getNotifications() {
         return notifications;
     }
@@ -461,7 +483,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param notifications the notifications to set
      */
-    public void setNotifications(Boolean notifications) {
+    public void setNotifications(final Boolean notifications) {
         this.notifications = notifications;
     }
 
@@ -469,14 +491,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the numbervotes
      */
     @Column(name = "numbervotes")
-    public Integer getNumbervotes() {
+    public Long getNumbervotes() {
         return numbervotes;
     }
 
     /**
      * @param numbervotes the numbervotes to set
      */
-    public void setNumbervotes(Integer numbervotes) {
+    public void setNumbervotes(final Long numbervotes) {
         this.numbervotes = numbervotes;
     }
 
@@ -491,7 +513,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param hits the hits to set
      */
-    public void setHits(Long hits) {
+    public void setHits(final Long hits) {
         this.hits = hits;
     }
 
@@ -506,7 +528,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param name the name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -544,6 +566,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the likeVote
      */
+    @Column(name = "like_vote", nullable = true)
     public Long getLikeVote() {
         return likeVote;
     }
@@ -558,6 +581,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the dislikeVote
      */
+    @Column(name = "dislike_vote", nullable = true)
     public Long getDislikeVote() {
         return dislikeVote;
     }
@@ -567,5 +591,69 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     public void setDislikeVote(final Long dislikeVote) {
         this.dislikeVote = dislikeVote;
+    }
+
+    /**
+     * @return the favourites
+     */
+    @Column(name = "favourites", nullable = true)
+    public Boolean getFavourites() {
+        return favourites;
+    }
+
+    /**
+     * @param favourites the favourites to set
+     */
+    public void setFavourites(final Boolean favourites) {
+        this.favourites = favourites;
+    }
+
+    /**
+     * @return startDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_date", nullable = false, length = 0)
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * @param startDate startDate
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @return endDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", nullable = false, length = 0)
+    public Date getEndDate() {
+        return this.endDate;
+    }
+
+    /**
+     * @param endDate endDate
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+
+    /**
+    * @return the updatedDate
+    */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_date", nullable = true)
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+    * @param updatedDate the updatedDate to set
+    */
+    public void setUpdatedDate(final Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }

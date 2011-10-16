@@ -33,7 +33,6 @@ import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
-import org.encuestame.utils.web.UnitTweetPollResult;
 
 /**
  * Tweet Poll Service.
@@ -181,7 +180,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Get Results By {@link TweetPoll}.
      * @param tweetPollId tweetPoll Id
-     * @return list of {@link UnitTweetPollResult}
      */
     List<TweetPollResultsBean> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
 
@@ -421,6 +419,6 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param range
       * @return
       */
-     List<TweetPoll> getTweetPolls(final Integer maxResults,
-             final Integer start, final Date range) throws EnMeTweetPollNotFoundException;
+     List<TweetPoll> getTweetPollsbyRange(final Integer maxResults,
+             final Integer start, final Date range);
 }

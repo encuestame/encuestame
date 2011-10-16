@@ -14,6 +14,7 @@ package org.encuestame.persistence.domain.survey;
 
 import java.util.Date;
 
+import javax.mail.Folder;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,25 +38,48 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * Poll Domain.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since March 15, 2010
- * @version $Id: $
  */
 @Entity
 @Table(name = "poll",
        uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Poll extends AbstractSurvey {
+
+    /**
+     * Id.
+     */
     private Long pollId;
+
+    /**
+     * Define if poll has been completed.
+     */
     private Boolean pollCompleted;
-    private Date createdAt;
+
+    /**
+     * Unique hash.
+     */
     private String pollHash;
+
+    /**
+     * {@link Question} related with this poll.
+     */
     private Question question;
+
+    /**
+     * The owner of the poll.
+     */
     private UserAccount pollOwner;
-    private Date endDate;
+
+    /**
+     * Define if poll has been published.
+     */
     private Boolean publish;
-    private Boolean closeNotification;
-    private Boolean showVotes;
+
+    /**
+     * {@link Folder}.
+     */
     private PollFolder pollFolder;
-    private Date updatedDate;
+
 
     /**
      * @return the poll_id
@@ -88,22 +112,6 @@ public class Poll extends AbstractSurvey {
      */
     public void setPollCompleted(final Boolean pollCompleted) {
         this.pollCompleted = pollCompleted;
-    }
-
-    /**
-     * @return the createdAt
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * @param createdAt the createdAt to set
-     */
-    public void setCreatedAt(final Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
@@ -155,24 +163,6 @@ public class Poll extends AbstractSurvey {
 
     /**
      *
-     * @return endDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = true)
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    /**
-     *
-     * @param endDate Finish Date
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    /**
-     *
      * @return publish Publish Poll Indicator
      */
 
@@ -190,40 +180,6 @@ public class Poll extends AbstractSurvey {
     }
 
     /**
-     *
-     * @return closeNotification
-     */
-    @Column(name = "close_notification", nullable = true)
-    public Boolean getCloseNotification() {
-        return closeNotification;
-    }
-
-    /**
-     *
-     * @param closeNotification closeNotification Indicator to set
-     */
-    public void setCloseNotification(Boolean closeNotification) {
-        this.closeNotification = closeNotification;
-    }
-
-    /**
-     *
-     * @return showVotes Show Results Indicator
-     */
-    @Column(name = "poll_show_results", nullable = true)
-    public Boolean getShowVotes() {
-        return showVotes;
-    }
-
-    /**
-     *
-     * @param showVotes the showVotes option to set
-     */
-    public void setShowVotes(Boolean showVotes) {
-        this.showVotes = showVotes;
-    }
-
-    /**
      * @return the pollFolder
      */
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -237,21 +193,5 @@ public class Poll extends AbstractSurvey {
      */
     public void setPollFolder(PollFolder pollFolder) {
         this.pollFolder = pollFolder;
-    }
-
-    /**
-    * @return the updatedDate
-    */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date", nullable = true)
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    /**
-    * @param updatedDate the updatedDate to set
-    */
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
     }
 }

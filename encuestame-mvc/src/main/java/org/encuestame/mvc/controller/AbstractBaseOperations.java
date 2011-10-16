@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
@@ -60,6 +61,8 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -68,6 +71,7 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -612,4 +616,97 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    public Boolean isSocialSignInUpEnabled(){
        return EnMePlaceHolderConfigurer.getBooleanProperty("application.social.signin.enabled");
    }
+
+   /**
+    *
+    * @param typeSearch
+    * @param keyword
+    * @param max
+    * @param start
+    * @param searchResult
+    * @return
+    * @throws EnMeNoResultsFoundException
+    * @throws EnMeExpcetion
+    * TODO: Survey ENCUESTAME-337 ENCUESTAME-338
+    */
+    @SuppressWarnings("unchecked")
+    public List filterByItemsByType(final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start,
+            final TypeSearchResult searchResult)
+            throws EnMeNoResultsFoundException, EnMeExpcetion {
+        @SuppressWarnings("rawtypes")
+        final List list = new ArrayList();
+        if (TypeSearch.KEYWORD.name().equals(typeSearch)) {
+            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+                list.addAll(getTweetPollService().searchTweetsPollsByKeyWord(
+                        getUserPrincipalUsername(), keyword, max, start));
+            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+                list.add(getPollService().listPollbyQuestionKeyword(keyword,
+                        max, start));
+            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+                list.add(ListUtils.EMPTY_LIST);
+            }
+        } else if (TypeSearch.ALL.name().equals(typeSearch)) {
+            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+                list.addAll(getTweetPollService().getTweetsPollsByUserName(
+                        getUserPrincipalUsername(), max, start));
+            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+                list.add(getPollService().listPollbyQuestionKeyword(keyword,
+                        max, start));
+            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+                list.add(ListUtils.EMPTY_LIST);
+            }
+        } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
+            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+                list.addAll(getTweetPollService().searchTweetsPollsToday(
+                        getUserPrincipalUsername(), max, start));
+            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+                list.add(getPollService().listPollbyQuestionKeyword(keyword,
+                        max, start));
+            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+                list.add(ListUtils.EMPTY_LIST);
+            }
+        } else if (TypeSearch.LASTWEEK.name().equals(typeSearch)) {
+            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+                list.addAll(getTweetPollService().searchTweetsPollsLastWeek(
+                        getUserPrincipalUsername(), max, start));
+            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+                list.add(getPollService().listPollbyQuestionKeyword(keyword,
+                        max, start));
+            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+                list.add(ListUtils.EMPTY_LIST);
+            }
+        } else if (TypeSearch.FAVOURITES.name().equals(typeSearch)) {
+            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+                list.addAll(getTweetPollService().searchTweetsPollFavourites(
+                        getUserPrincipalUsername(), max, start));
+            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+                list.add(getPollService().listPollbyQuestionKeyword(keyword,
+                        max, start));
+            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+                list.add(ListUtils.EMPTY_LIST);
+            }
+        } else if (TypeSearch.SCHEDULED.name().equals(typeSearch)) {
+            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+                list.addAll(getTweetPollService().searchTweetsPollScheduled(
+                        getUserPrincipalUsername(), max, start));
+            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+                list.add(getPollService().listPollbyQuestionKeyword(keyword,
+                        max, start));
+            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+                list.add(ListUtils.EMPTY_LIST);
+            }
+        } else {
+            if (typeSearch.equals(TypeSearchResult.TWEETPOLL)) {
+                list.addAll(getTweetPollService().getTweetsPollsByUserName(
+                        getUserPrincipalUsername(), max, start));
+            } else if (typeSearch.equals(TypeSearchResult.POLL)) {
+                list.add(getPollService().listPollbyQuestionKeyword(keyword,
+                        max, start));
+            } else if (typeSearch.equals(TypeSearchResult.SURVEY)) {
+                list.add(ListUtils.EMPTY_LIST);
+            }
+        }
+        return list;
+    }
 }
