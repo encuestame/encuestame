@@ -1,4 +1,3 @@
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta charset="utf-8">
 <meta name="description" content="encuestame survey system" />
-<meta name="keywords"
-    content="survey, twitter, social, open source, etc, etc" />
+<meta name="keywords" content="survey, twitter, social, open source, etc, etc" />

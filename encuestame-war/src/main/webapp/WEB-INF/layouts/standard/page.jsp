@@ -1,20 +1,18 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
     <title>
         <tiles:insertAttribute name="title" defaultValue="encuestame" />
     </title>
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-    <meta name="description" content="encuestame survey system" />
-    <meta name="keywords" content="survey, twitter, social, open source, etc, etc" />
+    <%@ include file="/WEB-INF/jsp/includes/meta.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
          dojo.require("dojo.io.script");
+         dojo.require("encuestame.org.core.commons");
          dojo.require("encuestame.org.core.commons.search.SearchMenu");
          dojo.require("encuestame.org.core.commons.error.ErrorSessionHandler");
          dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
