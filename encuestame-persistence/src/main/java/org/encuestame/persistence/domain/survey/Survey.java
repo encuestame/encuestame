@@ -64,6 +64,18 @@ public class Survey extends AbstractSurvey {
     private Project project;
 
     /**
+     * Date init of survey.
+     * **/
+    private Date startDate;
+
+
+    /**
+     * Show progress bar.
+     */
+     private Boolean showProgressBar;
+
+
+    /**
      * @return sid
      */
     @Id
@@ -180,6 +192,37 @@ public class Survey extends AbstractSurvey {
      */
     public void setProject(final Project project) {
         this.project = project;
+    }
+
+    /**
+     * @return startDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_date", nullable = false, length = 0)
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * @param startDate startDate
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @return the showProgressBar.
+     */
+    @Column(name = "show_progress_bar")
+    public Boolean getShowProgressBar() {
+        return showProgressBar;
+    }
+
+    /**
+     * @param showProgressBar the showProgressBar to set.
+     */
+    public void setShowProgressBar(final Boolean showProgressBar) {
+        this.showProgressBar = showProgressBar;
     }
 
 }
