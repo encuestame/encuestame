@@ -19,6 +19,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -466,7 +467,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         final PollBean unitPoll = new PollBean();
         unitPoll.setCloseNotification(closeNotification);
         unitPoll.setCompletedPoll(completedPoll);
-        unitPoll.setCreationDate(creationDate);
+        unitPoll.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(creationDate));
         unitPoll.setFinishDate(finishDate);
         unitPoll.setHashPoll(hashPoll);
         unitPoll.setPublishPoll(publishPoll);

@@ -483,7 +483,7 @@ public class TestHibernateDomains extends AbstractBase{
          final UserAccount user = createUserAccount("diana", createAccount());
          final PollFolder pollFolder = createPollFolder("My polls", user);
          poll.setPollCompleted(null);
-         poll.setStartDate(Calendar.getInstance().getTime());
+         poll.setCreatedAt(Calendar.getInstance().getTime());
          poll.setEndDate(Calendar.getInstance().getTime());
          poll.setUpdatedDate(Calendar.getInstance().getTime());
          poll.setPollHash(RandomStringUtils.randomAlphanumeric(5));

@@ -440,7 +440,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             ){
         final String pollHash = RandomStringUtils.randomAlphabetic(18);
         final Poll poll = new Poll();
-        poll.setStartDate(createdAt);
+        poll.setCreatedAt(createdAt);
         poll.setQuestion(question);
         poll.setPollHash(pollHash);         //should be unique
         poll.setEditorOwner(userAccount);
@@ -468,7 +468,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Boolean pollCompleted,
             final Boolean published){
         final Poll poll = new Poll();
-        poll.setStartDate(createdDate);
+        poll.setCreatedAt(createdDate);
         poll.setCloseAfterDate(true);
         poll.setAdditionalInfo("additional");
         poll.setClosedDate(new Date());

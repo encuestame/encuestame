@@ -527,9 +527,10 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public List<SurveyBean> searchSurveysFavourites(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion {
-        return this.setSurveyListAnswers(
-                getSurveyDaoImp().retrieveFavouritesTweetPoll(
-                        getAccount(username), maxResults, start), Boolean.TRUE);
+//        return this.setSurveyListAnswers(
+//                getSurveyDaoImp().retrieveFavouritesTweetPoll(
+//                        getAccount(username), maxResults, start), Boolean.TRUE);
+        return null;
     }
 
     /*
@@ -538,10 +539,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public List<SurveyBean> searchTweetsPollScheduled(final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion {
-        return this.setSurveyListAnswers(
-                getSurveyDaoImp().retrieveScheduledTweetPoll(
-                        getUserAccountId(username), maxResults, start),
-                Boolean.TRUE);
+//        return this.setSurveyListAnswers(
+//                getSurveyDaoImp().retrieveScheduledTweetPoll(
+//                        getUserAccountId(username), maxResults, start),
+//                Boolean.TRUE);
+        return null;
     }
 
     /*
