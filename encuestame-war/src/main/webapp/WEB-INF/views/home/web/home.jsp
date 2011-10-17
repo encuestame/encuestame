@@ -54,7 +54,7 @@ encuestame.org.core.shared.utils.AccountPicture
                                 </div>
                             </div>
                              <div class="views">
-                               50 <spring:message code="home.item.views" />
+                               ${item.hits} <spring:message code="home.item.views" />
                             </div>
                         </div>
                 </div>

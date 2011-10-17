@@ -43,7 +43,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
 
     /***/
     @JsonProperty(value = "creationDate")
-    private Date creationDate;
+    private String creationDate;
 
     /***/
     @JsonProperty(value = "question")
@@ -81,8 +81,7 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     @JsonProperty(value = "shortUrl")
     private String shortUrl;
 
-    @Deprecated
-    private String pollUser;
+
 
     /**
      * @return the id
@@ -118,14 +117,14 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
      * @return the creationDate
      */
     @JsonIgnore
-    public final Date getCreationDate() {
+    public final String getCreationDate() {
         return creationDate;
     }
 
     /**
      * @param creationDate the creationDate to set
      */
-    public final void setCreationDate(final Date creationDate) {
+    public final void setCreationDate(final String creationDate) {
         this.creationDate = creationDate;
     }
 

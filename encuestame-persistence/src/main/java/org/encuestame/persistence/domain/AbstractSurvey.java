@@ -13,12 +13,16 @@
 package org.encuestame.persistence.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -86,11 +90,6 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Custom Multiple Response.
      */
     private MultipleResponse multipleResponse;
-
-    /**
-     * Show progress bar.
-     */
-     private Boolean showProgressBar;
 
      /**
       * Optional title.
@@ -192,11 +191,6 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     private Boolean favourites = false;
 
     /**
-     * Date init of survey.
-     * **/
-    private Date startDate;
-
-    /**
      * Update Date
      */
     private Date updatedDate;
@@ -205,6 +199,16 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * End date of survey.
      ***/
     private Date endDate;
+
+    /**
+     * Survey created at.
+     ***/
+    private Date createdAt;
+
+    /**
+     * Hash Tags.
+     **/
+    private Set<HashTag> hashTags = new HashSet<HashTag>();
 
     /**
      * @return the customMessage.
@@ -234,21 +238,6 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     public void setCustomStartMessages(final String customStartMessages) {
         this.customStartMessages = customStartMessages;
-    }
-
-    /**
-     * @return the showProgressBar.
-     */
-    @Column(name = "show_progress_bar")
-    public Boolean getShowProgressBar() {
-        return showProgressBar;
-    }
-
-    /**
-     * @param showProgressBar the showProgressBar to set.
-     */
-    public void setShowProgressBar(final Boolean showProgressBar) {
-        this.showProgressBar = showProgressBar;
     }
 
     /**
@@ -616,22 +605,6 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     }
 
     /**
-     * @return startDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date", nullable = false, length = 0)
-    public Date getStartDate() {
-        return this.startDate;
-    }
-
-    /**
-     * @param startDate startDate
-     */
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    /**
      * @return endDate
      */
     @Temporal(TemporalType.TIMESTAMP)
@@ -678,5 +651,39 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     public void setAccountItem(final Account accountItem) {
         this.accountItem = accountItem;
+    }
+
+    /**
+     * @return the createdAt
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "createdAt")
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(final Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the hashTags
+     */
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "poll_hashtags",
+               joinColumns = {@JoinColumn(name = "poll_id")},
+               inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
+    public Set<HashTag> getHashTags() {
+        return hashTags;
+    }
+
+    /**
+     * @param hashTags the hashTags to set
+     */
+    public void setHashTags(Set<HashTag> hashTags) {
+        this.hashTags = hashTags;
     }
 }

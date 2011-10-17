@@ -13,10 +13,13 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ISurvey;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
@@ -26,6 +29,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -189,5 +193,115 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     public Survey getSurveyById(final Long surveyId) throws HibernateException {
         return (Survey) getHibernateTemplate().get(Survey.class, surveyId);
     }
-}
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveybyQuestionName(java.lang.String, java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    //TODO: migrate search to Hibernate Search.
+    public List<Survey> retrieveSurveybyQuestionName(final String keyWord, final Long userId,
+            final Integer maxResults,
+            final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+        criteria.createAlias("editorOwner","editorOwner");
+        criteria.add(Restrictions.eq("editorOwner.uid", userId));
+        return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyByDate(org.encuestame.persistence.domain.security.Account, java.util.Date, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Survey> retrieveSurveyByDate(
+            final Account account,
+            final Date initDate,
+            final Integer maxResults,
+            final Integer start){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+         criteria.createAlias("tweetOwner","tweetOwner");
+         criteria.add(Restrictions.between("createDate", initDate, getNextDayMidnightDate()));
+         criteria.add(Restrictions.eq("tweetOwner", account));
+         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyToday(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
+     */
+    public List<Survey> retrieveSurveyToday(
+            final Account account,
+            final Integer maxResults,
+            final Integer start){
+       final Calendar cal = Calendar.getInstance();
+       cal.set(Calendar.HOUR_OF_DAY, 0);
+       cal.set(Calendar.MINUTE, 0);
+       cal.set(Calendar.SECOND, 0);
+       cal.set(Calendar.MILLISECOND,0);
+       return retrieveSurveyByDate(account, cal.getTime(), maxResults, start);
+   }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyLastWeek(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
+     */
+    public List<Survey> retrieveSurveyLastWeek(
+            final Account account,
+            final Integer maxResults,
+            final Integer start){
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_YEAR, -7);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND,0);
+        return retrieveSurveyByDate(account, cal.getTime(), maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveFavouritesSurvey(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Survey> retrieveFavouritesSurvey(
+            final Account account,
+            final Integer maxResults,
+            final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+        criteria.createAlias("editorOwner","editorOwner");
+        criteria.add(Restrictions.eq("editorOwner", account));
+        return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveScheduledSurvey(java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Survey> retrieveScheduledSurvey(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+        criteria.createAlias("editorOwner","editorOwner");
+        criteria.add(Restrictions.eq("editorOwner.uid", userId));
+        return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyByUserId(java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Survey> retrieveSurveyByUserId(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+         criteria.createAlias("editorOwner","editorOwner");
+         criteria.add(Restrictions.eq("editorOwner.uid", userId));
+         criteria.addOrder(Order.desc("createdAt"));
+         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+}

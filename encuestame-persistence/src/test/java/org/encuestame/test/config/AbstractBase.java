@@ -1310,15 +1310,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        survey.setEndDate(endDate);
        survey.setSecUsers(secUsers);
        survey.setStartDate(startDate);
-       survey.setSurveyFormat(surveyFormat);
        survey.setTicket(3);
        survey.setTicket(2);
        getSurveyDaoImp().saveOrUpdate(survey);
        return survey;
    }
-
-
-
 
     /**
      * Create Default List Email.
