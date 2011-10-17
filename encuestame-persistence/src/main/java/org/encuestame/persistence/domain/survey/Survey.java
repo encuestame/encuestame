@@ -27,6 +27,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 
 /**
@@ -57,6 +59,9 @@ public class Survey extends AbstractSurvey {
 
     /****/
     private SurveyFolder surveysfolder;
+
+    /** {@link HashTag} **/
+    private Project project;
 
     /**
      * @return sid
@@ -161,4 +166,20 @@ public class Survey extends AbstractSurvey {
     public void setSurveysfolder(SurveyFolder surveysfolder) {
         this.surveysfolder = surveysfolder;
     }
+
+    /**
+     * @return the project
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Project getProject() {
+        return project;
+    }
+
+    /**
+     * @param project the project to set
+     */
+    public void setProject(final Project project) {
+        this.project = project;
+    }
+
 }
