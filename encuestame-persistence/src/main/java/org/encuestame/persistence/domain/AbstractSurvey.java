@@ -207,6 +207,11 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     private Date endDate;
 
     /**
+     * Survey created at.
+     ***/
+    private Date createdAt;
+
+    /**
      * @return the customMessage.
      */
     @Column(name = "custom_message")
@@ -679,4 +684,21 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     public void setAccountItem(final Account accountItem) {
         this.accountItem = accountItem;
     }
+
+    /**
+     * @return the createdAt
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "createdAt")
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(final Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }
