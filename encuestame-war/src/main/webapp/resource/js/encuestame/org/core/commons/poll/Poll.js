@@ -66,10 +66,19 @@ dojo.declare(
          */
         _questionWidget : null,
 
+        /*
+         *
+         */
         _default_answers : 4,
 
+        /*
+         *
+         */
         _min_answer_allowed : 2,
 
+        /*
+         *
+         */
         _answer_widget_array : [],
 
         /*

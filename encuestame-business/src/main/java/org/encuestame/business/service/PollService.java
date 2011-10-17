@@ -38,10 +38,8 @@ import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.TypeSearch;
-import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitLists;
 import org.springframework.stereotype.Service;
@@ -66,13 +64,19 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#filterPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
-    public List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
+    public List<PollBean> filterPollByItemsByType(
+            final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
+        log.debug("filterPollByItemsByType");
+        log.debug("--> "+typeSearch);
+        log.debug("--> "+keyword);
+        log.debug("--> "+max);
+        log.debug("--> "+start);
         final List<PollBean> list = new ArrayList<PollBean>();
-        if (TypeSearch.KEYWORD.name().equals(typeSearch)) {
+        if (TypeSearch.KEYWORD.equals(typeSearch)) {
             list.addAll(this.searchPollByKeyword(keyword, max, start));
-        } else if (TypeSearch.BYOWNER.name().equals(typeSearch)) {
+        } else if (TypeSearch.BYOWNER.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
                     .findAllPollByEditorOwner(
                             getUserAccount(getUserPrincipalUsername()), max,
@@ -95,6 +99,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
 //            list.addAll(this.getTweetsPollsByUserName(
 //                    getUserPrincipalUsername(), max, start));
 //        }
+        log.debug("Poll Search Items : "+list.size());
         return list;
     }
 
@@ -189,7 +194,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      */
     public List<PollBean> searchPollByKeyword(final String keywordQuestion, final Integer maxResults,
         final Integer start) throws EnMeExpcetion{
-        log.info("search keyword Poll  "+keywordQuestion);
+        log.debug("search keyword Poll  "+keywordQuestion);
         List<Poll> polls = new ArrayList<Poll>();
         if (keywordQuestion == null) {
             throw new EnMeExpcetion("keyword is mandatory");
@@ -197,7 +202,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             polls = getPollDao().getPollsByQuestionKeyword(keywordQuestion,
                     getUserAccount(getUserPrincipalUsername()), maxResults, start);
         }
-        log.info("search keyword polls size "+polls.size());
+        log.debug("search keyword polls size "+polls.size());
         return ConvertDomainBean.convertListToPollBean(polls);
        }
 

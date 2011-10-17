@@ -99,7 +99,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     public List<Poll> findAllPollByEditorOwner(
             final UserAccount userAcc,
             final Integer maxResults,
-            final Integer start){
+            final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
