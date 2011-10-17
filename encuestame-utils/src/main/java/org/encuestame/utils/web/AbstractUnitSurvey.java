@@ -53,6 +53,12 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
     @JsonProperty(value = "totalVotes")
     private Long totalVotes;
 
+    /**
+     * Hits.
+     */
+    @JsonProperty(value = "hits")
+    private Long hits;
+
     /** **/
     @JsonProperty(value = "itemType")
     private String itemType;
@@ -235,6 +241,23 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
      */
     public void setRelevance(final Long relevance) {
         this.relevance = relevance;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @JsonIgnore
+    public Long getHits() {
+        return hits;
+    }
+
+    /**
+     *
+     * @param hits
+     */
+    public void setHits(final Long hits) {
+        this.hits = hits;
     }
 
     /**

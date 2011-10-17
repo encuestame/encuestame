@@ -982,6 +982,7 @@ public class ConvertDomainBean {
            homeBean.setQuestionBean(tweetBean.getQuestionBean());
            homeBean.setRelativeTime(tweetBean.getRelativeTime());
            homeBean.setTotalVotes(tweetBean.getTotalVotes());
+           homeBean.setHits(tweetBean.getHits() == null ? 0L : tweetBean.getHits());
            homeBean.setUserId(tweetBean.getUserId());
            homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
            homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean.getItemType().toString());
@@ -1014,6 +1015,7 @@ public class ConvertDomainBean {
        homeBean.setOwnerUsername(pollBean.getOwnerUsername());
        homeBean.setCreatedDateAt(pollBean.getCreationDate());
        homeBean.setTotalVotes(pollBean.getTotalVotes());
+       homeBean.setHits(pollBean.getHits() == null ? 0L : pollBean.getHits());
        homeBean.setRelativeTime(pollBean.getRelativeTime());
        homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
        return homeBean;
@@ -1044,6 +1046,7 @@ public class ConvertDomainBean {
        homeBean.setQuestionBean(null);
        homeBean.setOwnerUsername(null);
        homeBean.setCreatedDateAt(null);
+       homeBean.setHits(null);
        homeBean.setTotalVotes(null);
        homeBean.setRelativeTime(null);
        homeBean.setItemType(null);
