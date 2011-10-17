@@ -279,7 +279,6 @@ public class TestHibernateDomains extends AbstractBase{
          surveys.setEndDate(new Date());
          surveys.setDateInterview(new Date());
          surveys.setComplete("y");
-         surveys.setSurveyFormat(createSurveyFormat("Schools",new Date()));
          //surveys.setSurveysfolder(createSurveyFolders());
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());

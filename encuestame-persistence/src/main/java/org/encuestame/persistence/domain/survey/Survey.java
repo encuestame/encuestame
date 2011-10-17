@@ -56,9 +56,6 @@ public class Survey extends AbstractSurvey {
     private String complete;
 
     /****/
-    private SurveyFormat surveyFormat;
-
-    /****/
     private SurveyFolder surveysfolder;
 
     /**
@@ -140,22 +137,6 @@ public class Survey extends AbstractSurvey {
      */
     public void setComplete(String complete) {
         this.complete = complete;
-    }
-
-    /**
-     * @return the surveyFormat
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_sid_format", nullable = false)
-    public SurveyFormat getSurveyFormat() {
-        return surveyFormat;
-    }
-
-    /**
-     * @param surveyFormat the surveyFormat to set
-     */
-    public void setSurveyFormat(SurveyFormat surveyFormat) {
-        this.surveyFormat = surveyFormat;
     }
 
     /**
