@@ -47,9 +47,11 @@ public class EnMeUtils {
 
     public static final long VOTE_MIN = 1;
 
-    public static final long LIKE_DEFAULT = 1;
+    public static final long LIKE_DEFAULT = 0;
 
-    public static final long DISLIKE_DEFAULT = 1;
+    public static final long DISLIKE_DEFAULT = 0;
+
+    public static final long HIT_DEFAULT = 1;
 
     /**
      * Calculate percent.

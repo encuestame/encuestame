@@ -29,9 +29,11 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -50,7 +52,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Jun 5, 2010 3:36:43 PM
  * @version $Id:$
  */
-public class TestTweetPollService  extends AbstractServiceBase{
+public class TestTweetPollService  extends AbstractSpringSecurityContext{
     /**
      * {@link TweetPollService}.
      */
@@ -256,5 +258,37 @@ public class TestTweetPollService  extends AbstractServiceBase{
      */
     public void setTweetPollService(final ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
+    }
+
+    /**
+     * Test Validate ip before tweetPoll vote.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testValidateIp() throws EnMeExpcetion{
+        final String ipVote = "192.168.1.14";
+        final TweetPollBean myTpBean = createUnitTweetPoll(Boolean.TRUE,
+                "tweetPollUrl", getSpringSecurityLoggedUserAccount().getUid(),
+                questionBean);
+        final TweetPoll myTweetPoll = tweetPollService.createTweetPoll(
+                myTpBean, "What is your favourite city?",
+                getSpringSecurityLoggedUserAccount());
+        final Question myQuestion = createQuestion(
+                "What is your favourite city", "pattern");
+
+        final QuestionAnswerBean qAnswerBean = createAnswersBean("26354",
+                "Yes", myQuestion.getQid());
+        final QuestionAnswerBean qAnswerBean2 = createAnswersBean("26355",
+                "No", myQuestion.getQid());
+
+        final TweetPollSwitch pollSwitch = tweetPollService
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll);
+        final TweetPollSwitch pollSwitch2 = tweetPollService
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll);
+
+        tweetPollService.tweetPollVote(pollSwitch, ipVote);
+        //tweetPollService.tweetPollVote(pollSwitch2, ipVote);
+        final TweetPollResult result = tweetPollService.validateTweetPollIP(ipVote, myTweetPoll);
+        assertEquals("Should be equals", ipVote , result.getIpVote());
     }
 }

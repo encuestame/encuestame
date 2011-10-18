@@ -27,6 +27,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.Account;
 
 /**
@@ -50,22 +52,28 @@ public class Survey extends AbstractSurvey {
     private Integer ticket;
 
     /****/
-    private Date startDate;
-
-    /****/
-    private Date endDate;
-
-    /****/
     private Date dateInterview;
 
     /****/
     private String complete;
 
     /****/
-    private SurveyFormat surveyFormat;
-
-    /****/
     private SurveyFolder surveysfolder;
+
+    /** {@link HashTag} **/
+    private Project project;
+
+    /**
+     * Date init of survey.
+     * **/
+    private Date startDate;
+
+
+    /**
+     * Show progress bar.
+     */
+     private Boolean showProgressBar;
+
 
     /**
      * @return sid
@@ -116,37 +124,6 @@ public class Survey extends AbstractSurvey {
         this.ticket = ticket;
     }
 
-    /**
-     * @return startDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date", nullable = false, length = 0)
-    public Date getStartDate() {
-        return this.startDate;
-    }
-
-    /**
-     * @param startDate startDate
-     */
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    /**
-     * @return endDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = false, length = 0)
-    public Date getEndDate() {
-        return this.endDate;
-    }
-
-    /**
-     * @param endDate endDate
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
 
     /**
      * @return dateInterview
@@ -180,22 +157,6 @@ public class Survey extends AbstractSurvey {
     }
 
     /**
-     * @return the surveyFormat
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_sid_format", nullable = false)
-    public SurveyFormat getSurveyFormat() {
-        return surveyFormat;
-    }
-
-    /**
-     * @param surveyFormat the surveyFormat to set
-     */
-    public void setSurveyFormat(SurveyFormat surveyFormat) {
-        this.surveyFormat = surveyFormat;
-    }
-
-    /**
      * @param ticket the ticket to set
      */
     public void setTicket(Integer ticket) {
@@ -217,4 +178,51 @@ public class Survey extends AbstractSurvey {
     public void setSurveysfolder(SurveyFolder surveysfolder) {
         this.surveysfolder = surveysfolder;
     }
+
+    /**
+     * @return the project
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Project getProject() {
+        return project;
+    }
+
+    /**
+     * @param project the project to set
+     */
+    public void setProject(final Project project) {
+        this.project = project;
+    }
+
+    /**
+     * @return startDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_date", nullable = false, length = 0)
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * @param startDate startDate
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @return the showProgressBar.
+     */
+    @Column(name = "show_progress_bar")
+    public Boolean getShowProgressBar() {
+        return showProgressBar;
+    }
+
+    /**
+     * @param showProgressBar the showProgressBar to set.
+     */
+    public void setShowProgressBar(final Boolean showProgressBar) {
+        this.showProgressBar = showProgressBar;
+    }
+
 }

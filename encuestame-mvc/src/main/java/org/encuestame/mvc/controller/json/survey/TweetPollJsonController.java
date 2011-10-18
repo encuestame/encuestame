@@ -40,6 +40,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -84,31 +85,17 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "start", required = false)Integer start,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
-        List<TweetPollBean> list = new ArrayList<TweetPollBean>();
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
-            if(TypeSearch.KEYWORD.name().equals(typeSearch)) {
-                list = getTweetPollService().searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword, max, start);
-            } else if(TypeSearch.ALL.name().equals(typeSearch)) {
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername(), max, start);
-            } else if(TypeSearch.LASTDAY.name().equals(typeSearch)){
-                list = getTweetPollService().searchTweetsPollsToday(getUserPrincipalUsername(), max, start);
-            } else if(TypeSearch.LASTWEEK.name().equals(typeSearch)) {
-                list = getTweetPollService().searchTweetsPollsLastWeek(getUserPrincipalUsername(), max, start);
-            } else if(TypeSearch.FAVOURITES.name().equals(typeSearch)) {
-                list = getTweetPollService().searchTweetsPollFavourites(getUserPrincipalUsername(), max, start);
-            } else if(TypeSearch.SCHEDULED.name().equals(typeSearch)) {
-                list = getTweetPollService().searchTweetsPollScheduled(getUserPrincipalUsername(), max, start);
-            } else {
-                list = getTweetPollService().getTweetsPollsByUserName(getUserPrincipalUsername(), max, start);
-            }
+            final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
+                    TypeSearch.getSearchString(typeSearch), keyword, max,
+                    start, TypeSearchResult.TWEETPOLL);
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
         } catch (EnMeExpcetion e) {
              log.error(e);
              setError(e.getMessage(), response);
         }
-
         return returnData();
     }
 

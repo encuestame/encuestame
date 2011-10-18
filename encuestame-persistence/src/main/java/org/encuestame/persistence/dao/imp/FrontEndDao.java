@@ -110,12 +110,12 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         if(period != null){
             final Calendar hi = Calendar.getInstance();
             hi.add(Calendar.DAY_OF_YEAR, -period);
-            criteria.add(Restrictions.between("createdAt", Calendar.getInstance().getTime(), hi.getTime()));
+            criteria.add(Restrictions.between("startDate", Calendar.getInstance().getTime(), hi.getTime()));
         }
         criteria.add(Restrictions.gt("relevance", 0L));
         criteria.addOrder(Order.desc("relevance"));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE)); //should be published
-        criteria.addOrder(Order.desc("createdAt"));
+        criteria.addOrder(Order.desc("startDate"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }

@@ -24,8 +24,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -63,7 +66,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/poll/search.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/poll/search.json", method = RequestMethod.GET)
     public ModelMap searchPolls(
             @RequestParam(value = "typeSearch", required = true) String typeSearch,
             @RequestParam(value = "keyword", required = false) String keyword,
@@ -72,6 +75,19 @@ public class PollJsonController extends AbstractJsonController{
             @RequestParam(value = "start", required = false)Integer start,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        try{
+            log.debug("/api/survey/poll/search.json");
+            final List<PollBean> list = (List<PollBean>) getPollService().filterPollByItemsByType(
+                     TypeSearch.getSearchString(typeSearch), keyword, max,
+                     start);
+             jsonResponse.put("poll", list);
+             log.debug("/api/survey/poll/search.json "+jsonResponse);
+             setItemResponse(jsonResponse);
+        } catch (EnMeExpcetion e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+       }
         return returnData();
      }
 
@@ -86,7 +102,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/poll/remove.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/poll/remove.json", method = RequestMethod.GET)
     public ModelMap deleteGroup(
             @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,
@@ -102,8 +118,24 @@ public class PollJsonController extends AbstractJsonController{
           return returnData();
       }
 
+    /**
+     *
+     * @param pollId
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @param folderId
+     * @param date
+     * @param type
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/poll/searchby-{type}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/poll/searchby-{type}.json", method = RequestMethod.GET)
     public ModelMap countUsersByGroup(
               @RequestParam(value = "pollId", required = false) Long pollId,
               @RequestParam(value = "keyword", required = false) String keyword,
@@ -144,8 +176,25 @@ public class PollJsonController extends AbstractJsonController{
         }
 
 
-
-    @RequestMapping(value = "/api/poll/{actionType}.json", method = RequestMethod.POST)
+    /**
+     *
+     * @param questionName
+     * @param answers
+     * @param showResults
+     * @param showComments
+     * @param notification
+     * @param limitVote
+     * @param closeAfter
+     * @param blockIp
+     * @param actionType
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/survey/poll/{actionType}.json", method = RequestMethod.POST)
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
@@ -164,8 +213,7 @@ public class PollJsonController extends AbstractJsonController{
                if ("create".equals(actionType)) {
                    final Poll poll = getPollService().createPoll(questionName, answers, showResults,
                                      showComments, notification);
-
-                   final PollBean pollBean = getPollService().convertPolltoBean(poll);
+                   final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
                    jsonResponse.put("pollBean", pollBean);
                    setItemResponse(jsonResponse);
                    getPollService().createPollNotification(poll);

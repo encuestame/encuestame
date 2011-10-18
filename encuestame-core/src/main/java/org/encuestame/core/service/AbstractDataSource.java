@@ -45,6 +45,7 @@ import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -129,9 +130,8 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      * @throws EnMeNoResultsFoundException exception
      */
     public final UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException {
-        final UserAccount userAccount = getUserAccountonSecurityContext() == null
-              ? findUserByUserName(username) : getUserAccountonSecurityContext();
-        if(userAccount == null){
+        final UserAccount userAccount =  this.findUserByUserName(username);
+        if (userAccount == null) {
             throw new EnMeNoResultsFoundException(" user not found {"+username+"}");
         } else {
             //TODO: we can add others validations, like is disabled, banned or the account is expired.
@@ -179,8 +179,18 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
      * @return
      * @throws EnMeNoResultsFoundException exception
      */
-    public final Long getPrimaryUser(final String username) throws EnMeNoResultsFoundException{
-        return getUserAccount(username).getAccount().getUid();
+    public final Long getUserAccountId(final String username) throws EnMeNoResultsFoundException{
+        return getAccount(username).getUid();
+     }
+
+    /**
+     * Get {@link Account}.
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public Account getAccount(final String username) throws EnMeNoResultsFoundException{
+        return getUserAccount(username).getAccount();
      }
 
     /**

@@ -152,12 +152,17 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     public String checkStatus() {
         //TODO: replace by ENUMs
+        log.debug("Check Version Status");
         String status = "install";
         final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");
+        log.debug("Current Version : "+currentVersion);
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
+        log.debug("Installed Version : "+installedVersion);
         if (installedVersion != null) {
             float f1 = Float.valueOf(currentVersion);
+            log.debug("Current Version : "+f1);
             float f2 = Float.valueOf(installedVersion);
+            log.debug("Installed Version : "+f2);
             if (f2 < f1) {
                 status = "upgrade";
             }

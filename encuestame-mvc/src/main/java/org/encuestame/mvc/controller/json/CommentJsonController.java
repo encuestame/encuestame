@@ -13,13 +13,14 @@
 package org.encuestame.mvc.controller.json;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
@@ -27,7 +28,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
@@ -72,11 +72,11 @@ public class CommentJsonController extends AbstractJsonController {
             @RequestParam(value = "start", required = false) Integer start,
             HttpServletRequest request, HttpServletResponse response) {
         try {
-			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-			final List<Comment> comments = getCommentService().getComments(
-					TypeSearchResult.getTypeSearchResult(type), itemId, max,
-					start);
-			final List<CommentBean> commentBean = ConvertDomainBean.convertListCommentDomainToBean(comments);
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            final List<Comment> comments = getCommentService().getComments(
+                    TypeSearchResult.getTypeSearchResult(type), itemId, max,
+                    start);
+            final List<CommentBean> commentBean = ConvertDomainBean.convertListCommentDomainToBean(comments);
             jsonResponse.put("comments", commentBean);
             setItemResponse(jsonResponse);
         } catch (Exception e) {

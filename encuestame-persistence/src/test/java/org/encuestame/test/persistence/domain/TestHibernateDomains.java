@@ -279,7 +279,6 @@ public class TestHibernateDomains extends AbstractBase{
          surveys.setEndDate(new Date());
          surveys.setDateInterview(new Date());
          surveys.setComplete("y");
-         surveys.setSurveyFormat(createSurveyFormat("Schools",new Date()));
          //surveys.setSurveysfolder(createSurveyFolders());
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());
@@ -485,16 +484,15 @@ public class TestHibernateDomains extends AbstractBase{
          final PollFolder pollFolder = createPollFolder("My polls", user);
          poll.setPollCompleted(null);
          poll.setCreatedAt(Calendar.getInstance().getTime());
+         poll.setEndDate(Calendar.getInstance().getTime());
+         poll.setUpdatedDate(Calendar.getInstance().getTime());
          poll.setPollHash(RandomStringUtils.randomAlphanumeric(5));
          poll.setQuestion(question);
-         poll.setPollOwner(user);
-         poll.setEndDate(null);
+         poll.setEditorOwner(user);
          poll.setPublish(Boolean.TRUE);
-         poll.setCloseNotification(Boolean.FALSE);
-         poll.setShowVotes(Boolean.TRUE);
          poll.setPollFolder(pollFolder);
          poll.setUpdatedDate(null);
-         getiPoll().saveOrUpdate(poll);
+         getPollDao().saveOrUpdate(poll);
      }
 
      /** Test item vote. **/

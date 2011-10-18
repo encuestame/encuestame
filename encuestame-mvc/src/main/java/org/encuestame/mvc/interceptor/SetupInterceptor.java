@@ -20,6 +20,7 @@ import org.encuestame.business.setup.StartupProcess;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 /**
  * Setup interceptor.
@@ -61,10 +62,13 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
         log.debug("Context Path URI "+ (arg0.getRequestURI().equals(path.toString())));
         if (!arg0.getRequestURI().toString().equals(path.toString())) {
             final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
+            log.debug("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +
+            EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFileName());
             log.debug("intalled.uuid:->"+uuid);
             if (uuid == null || uuid == "") {
                      log.debug("system not installed ...");
-                     arg1.sendRedirect(arg0.getContextPath()+"/setup");
+                     final ModelAndView modelAndView = new ModelAndView("redirect:/setup");
+                     throw new ModelAndViewDefiningException(modelAndView);
             } else {
                 log.info("Encuestame Install Info:");
                 log.info("Version:			");

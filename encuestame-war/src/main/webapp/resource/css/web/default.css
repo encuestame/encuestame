@@ -274,7 +274,6 @@ div.defaultSectionTitle {
   background-color: #3E6D8E;
   color: #FFFFFF;
   font-size: 155%;
-  font-weight: bold;
   margin-bottom: 5px;
   padding: 10px;
 }
@@ -296,6 +295,10 @@ div.defaultSectionTitle {
     width: 50%;
     margin-top: 3em;
     padding: 25px;
+}
+
+.default-background-color{
+    background-color: #F8F8F8;
 }
 
 .defaultDisplayBlock{
@@ -325,16 +328,17 @@ div.defaultSectionTitle {
     width: auto;
 }
 
-.default-sidebar-menu{
-    font-size: 130%;
-    padding: 5px;
-    color: #FFF;
+.default-sidebar-menu {
+  color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 5px;
 }
 
 .default-sidebar-menu-sub{
   background-color: #595959; /**A6A5A5 **/
   color: #FFFFFF;
-  font-size: 121%;
+  font-size: 100%;
   min-height: 21px;
   padding: 4px 1px 1px 6px;
 }

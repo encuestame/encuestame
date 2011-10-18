@@ -142,10 +142,20 @@ encuestame.utilities.usernameLink = function(username) {
  * Eg: 3,500 = 3,5K
  */
 encuestame.utilities.shortAmmount = function(quantity) {
-    if(typeof quantity === "number"){
+    if (typeof quantity === "number") {
+        quantity = ( quantity < 0 ? 0  : quantity);
+        console.debug("short quantity", quantity);
         var text = quantity.toString();
-        text = text.concat("K"); //TODO: create the logic.
-        console.info("short ammount", text);
+        console.debug("short ammount", text);
+        // 5634 --> 5634k
+        if (quantity > 1000) {
+            var quantityReduced = Math.round(quantity / 100);
+            console.debug("short quantityReduced", quantityReduced);
+            text = quantityReduced.toString();
+            text = text.concat("K");
+        } else {
+
+        }
         return text;
     } else {
         throw new Error("invalid number");
@@ -494,8 +504,9 @@ encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
 };
 
 encuestame.service.list.poll = {};
-encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/poll/create.json";
-encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/poll/publish.json";
+encuestame.service.list.listPoll = encuestame.contextWidget()+"/api/survey/poll/search.json";
+encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/survey/poll/create.json";
+encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/survey/poll/publish.json";
 
 /**
  * Comment Services.

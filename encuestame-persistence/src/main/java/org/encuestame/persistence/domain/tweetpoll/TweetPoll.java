@@ -38,6 +38,9 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 /**
  * TweetPoll Domain.
@@ -45,6 +48,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @since February 13, 2009
  */
 
+@Indexed(index="TweetPoll")
 @Entity
 @Table(name = "tweetPoll")
 @Cacheable
@@ -142,10 +146,10 @@ public class TweetPoll extends AbstractGeoPoint{
     /**
      * Number votes for Survey and Poll.
      **/
-     private Integer numbervotes;
+     private Long numbervotes = 1L;
 
      /** Number Hits or visits **/
-     private Long hits = 0L;
+     private Long hits = 1L;
 
      /** TweetPoll Folder. **/
      private TweetPollFolder tweetPollFolder;
@@ -166,6 +170,7 @@ public class TweetPoll extends AbstractGeoPoint{
      * @return the tweetPollId
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "tweet_poll_id", unique = true, nullable = false)
     public Long getTweetPollId() {
@@ -250,6 +255,7 @@ public class TweetPoll extends AbstractGeoPoint{
      * @return the question
      */
     @ManyToOne(cascade = CascadeType.MERGE)
+    @IndexedEmbedded
     @JoinColumn(name = "qid", nullable = false)
     public Question getQuestion() {
         return question;
@@ -426,14 +432,14 @@ public class TweetPoll extends AbstractGeoPoint{
      * @return the numbervotes
      */
     @Column(name = "numberVotes")
-    public Integer getNumbervotes() {
+    public Long getNumbervotes() {
         return numbervotes;
     }
 
     /**
      * @param numbervotes the numbervotes to set
      */
-    public void setNumbervotes(Integer numbervotes) {
+    public void setNumbervotes(Long numbervotes) {
         this.numbervotes = numbervotes;
     }
 

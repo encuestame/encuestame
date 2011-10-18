@@ -768,8 +768,12 @@ public class FrontEndService extends AbstractBaseService implements IFrontEndSer
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#processItemstoCalculateRelevance(java.util.List, java.util.List, java.util.List, java.util.Calendar, java.util.Calendar)
      */
-    public void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
-            final Calendar datebefore, final Calendar todayDate) {
+    public void processItemstoCalculateRelevance(
+            final List<TweetPoll> tweetPollList,
+            final List<Poll> pollList,
+            final List<Survey> surveyList,
+            final Calendar datebefore,
+            final Calendar todayDate) {
         long likeVote;
         long dislikeVote;
         long hits;

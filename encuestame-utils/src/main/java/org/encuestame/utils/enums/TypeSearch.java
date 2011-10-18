@@ -25,7 +25,8 @@ public enum TypeSearch {
     FAVOURITES,
     SCHEDULED,
     ALL,
-
+    BYOWNER,
+    FOLDER,
     TypeSearch(){
         //Constructor.
     };
@@ -37,6 +38,8 @@ public enum TypeSearch {
         String permission = "LASTDAY";
         if (this == LASTDAY) { permission = "LASTDAY"; }
         else if (this == KEYWORD) { permission = "KEYWORD"; }
+        else if (this == BYOWNER) { permission = "BYOWNER"; }
+        else if (this == FOLDER) { permission = "FOLDER"; }
         else if (this == LASTWEEK) { permission = "LASTWEEK"; }
         else if (this == FAVOURITES) { permission = "FAVOURITES"; }
         else if (this == SCHEDULED) { permission = "SCHEDULED"; }
@@ -53,7 +56,9 @@ public enum TypeSearch {
         if (null == search) { return LASTDAY; }
         else if (search.equalsIgnoreCase("LASTDAY")) { return LASTDAY; }
         else if (search.equalsIgnoreCase("KEYWORD")) { return KEYWORD; }
+        else if (search.equalsIgnoreCase("BYOWNER")) { return BYOWNER; }
         else if (search.equalsIgnoreCase("LASTWEEK")) { return LASTWEEK; }
+        else if (search.equalsIgnoreCase("FOLDER")) { return FOLDER; }
         else if (search.equalsIgnoreCase("FAVOURITES")) { return FAVOURITES; }
         else if (search.equalsIgnoreCase("SCHEDULED")) { return SCHEDULED; }
         else if (search.equalsIgnoreCase("ALL")) { return ALL; }

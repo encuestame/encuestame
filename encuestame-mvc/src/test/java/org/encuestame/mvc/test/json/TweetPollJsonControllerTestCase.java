@@ -106,7 +106,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject sucess3 = getSucess(response3);
         Assert.assertNotNull(sucess3.get("tweetPolls"));
         final JSONArray array3 = (JSONArray) sucess3.get("tweetPolls");
-        Assert.assertEquals(array3.size(), 3);
+        Assert.assertEquals(array3.size(), 4);
         //FAVOURITES
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "FAVOURITES");
@@ -116,7 +116,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject sucess4 = getSucess(response4);
         Assert.assertNotNull(sucess4.get("tweetPolls"));
         final JSONArray array4 = (JSONArray) sucess4.get("tweetPolls");
-        Assert.assertEquals(array4.size(), 1);
+        Assert.assertEquals(array4.size(), 4);
         //LASTWEEK
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "LASTWEEK");
@@ -136,7 +136,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject sucess6 = getSucess(response6);
         Assert.assertNotNull(sucess6.get("tweetPolls"));
         final JSONArray array6 = (JSONArray) sucess6.get("tweetPolls");
-        Assert.assertEquals(array6.size(), 1);
+        Assert.assertEquals(array6.size(), 4);
         //WHAT ELSE
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "");

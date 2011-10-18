@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
@@ -60,6 +61,8 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -68,6 +71,7 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -180,7 +184,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    @Deprecated
+    //@Deprecated
     public TweetPoll createTweetPoll(
             final String question,
             String[] hashtags,
@@ -210,27 +214,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         return getTweetPollService().createTweetPoll(tweetPollBean,
                 tweetPollBean.getQuestionBean().getQuestionName(),
                 getUserAccount());
-    }
-
-    /**
-     * Update tweetpoll
-     * @param tweetPoll {@link TweetPoll}
-     * @param question list of questions.
-     * @param hashtags
-     * @param answers
-     * @param user
-     * @return
-     * @throws EnMeExpcetion
-     */
-    @Deprecated
-    public TweetPoll updateTweetPoll(
-         final Long tweetPollId,
-         final String question,
-         final String[] hashtags,
-         final Long[] answers) throws EnMeExpcetion{
-         final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
-         //return getTweetPollService().updateTweetPoll(tweetPollId, question, answers, hashtagsList);
-         return null;
     }
 
     /**

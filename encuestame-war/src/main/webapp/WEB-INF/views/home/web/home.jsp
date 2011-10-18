@@ -54,7 +54,7 @@ encuestame.org.core.shared.utils.AccountPicture
                                 </div>
                             </div>
                              <div class="views">
-                               50 <spring:message code="home.item.views" />
+                               ${item.hits} <spring:message code="home.item.views" />
                             </div>
                         </div>
                 </div>
@@ -97,7 +97,10 @@ encuestame.org.core.shared.utils.AccountPicture
                 </div>
           </div>
         </c:forEach>
-        <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
+        <c:if test="${!empty items}">
+            <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
+        </c:if>
+
         </div>
     </div>
     <div class="web-left-wrapper">

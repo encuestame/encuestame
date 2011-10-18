@@ -44,7 +44,6 @@ import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
-import org.encuestame.utils.web.UnitTweetPollResult;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
@@ -127,18 +126,6 @@ import org.junit.Test;
         assertNotNull(userBean.getUsername());
         assertEquals(userBean.getListGroups().size(), 0);
         assertEquals(userBean.getListPermission().size(), 0);
-    }
-
-    /**
-     * Test {@link TweetPollBean}.
-     */
-    @Test
-    public void testUnitTweetPollResults(){
-        final UnitTweetPollResult tweetPollResult = new UnitTweetPollResult();
-        tweetPollResult.setResults(1L);
-        tweetPollResult.setAnswersBean(new QuestionAnswerBean());
-        assertNotNull(tweetPollResult.getResults());
-        assertNotNull(tweetPollResult.getAnswersBean());
     }
 
     /**
@@ -241,7 +228,7 @@ import org.junit.Test;
         final PollBean poll = new PollBean();
         poll.setId(1L);
         poll.setCompletedPoll(true);
-        poll.setCreationDate(new Date());
+        poll.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(new Date()));
         poll.setQuestionBean(new QuestionBean());
         poll.setFinishDate(new Date());
         poll.setPublishPoll(true);
@@ -252,7 +239,7 @@ import org.junit.Test;
         assertNotNull(poll.getHashTags());
         assertNotNull(poll.getQuestionBean());
         assertNotNull(poll.getCompletedPoll());
-        assertNotNull(poll.getCreationDate());
+        //assertNotNull(poll.getCreationDate());
         assertNotNull(poll.getFinishDate());
         assertNotNull(poll.getPublishPoll());
         assertNotNull(poll.getCloseNotification());

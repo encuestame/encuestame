@@ -14,7 +14,6 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -53,6 +52,12 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
     @JsonProperty(value = "totalVotes")
     private Long totalVotes;
 
+    /**
+     * Hits.
+     */
+    @JsonProperty(value = "hits")
+    private Long hits;
+
     /** **/
     @JsonProperty(value = "itemType")
     private String itemType;
@@ -68,12 +73,13 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
     @JsonProperty(value = "createDate")
     private String createDate;
 
-    @JsonProperty(value = "createdDateAt")
-    private Date createdDateAt;
-
     /** Relevance. **/
     @JsonProperty(value = "relevance")
     private Long relevance;
+
+    /** Favorite. **/
+    @JsonProperty(value = "favorite")
+    private Boolean favorite;
 
     /**
      * @return the hashTags
@@ -195,6 +201,7 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
         this.dislikeVote = dislikeVote;
     }
 
+
     /**
      * @return the createDate
      */
@@ -210,21 +217,6 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
         this.createDate = createDate;
     }
 
-    /**
-     * @return the createdDateAt
-     */
-    @JsonIgnore
-    public Date getCreatedDateAt() {
-        return createdDateAt;
-    }
-
-    /**
-     * @param createdDateAt the createdDateAt to set
-     */
-    public void setCreatedDateAt(final Date createdDateAt) {
-        this.createdDateAt = createdDateAt;
-    }
-
     @JsonIgnore
     public Long getRelevance() {
         return relevance;
@@ -235,6 +227,38 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
      */
     public void setRelevance(final Long relevance) {
         this.relevance = relevance;
+    }
+
+    /**
+     * @return the favorite
+     */
+    @JsonIgnore
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    /**
+     * @param favorite the favorite to set
+     */
+    public void setFavorite(final Boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @JsonIgnore
+    public Long getHits() {
+        return hits;
+    }
+
+    /**
+     *
+     * @param hits
+     */
+    public void setHits(final Long hits) {
+        this.hits = hits;
     }
 
     /**

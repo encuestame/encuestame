@@ -170,7 +170,7 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       List<TweetPoll> retrieveTweetPollToday(
-                final Long userId,
+                final Account account,
                 final Integer maxResults,
                 final Integer start);
 
@@ -180,7 +180,8 @@ public interface ITweetPoll extends IBaseDao{
        * @param userId
        * @return
        */
-      List<TweetPoll> retrieveTweetPollLastWeek(final Long userId,
+      List<TweetPoll> retrieveTweetPollLastWeek(
+              final Account account,
               final Integer maxResults,
               final Integer start);
 
@@ -202,7 +203,7 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       List<TweetPoll> retrieveFavouritesTweetPoll(
-              final Long userId,
+              final Account account,
               final Integer maxResults,
               final Integer start);
 
@@ -222,7 +223,10 @@ public interface ITweetPoll extends IBaseDao{
       * @param start
       * @return
       */
-     List<TweetPoll> retrieveTweetPollByDate(final Long userId, final Date initDate, final Integer maxResults,
+     List<TweetPoll> retrieveTweetPollByDate(
+             final Account account,
+             final Date initDate,
+             final Integer maxResults,
              final Integer start);
 
     /**

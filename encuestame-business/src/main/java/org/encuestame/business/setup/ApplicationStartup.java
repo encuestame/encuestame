@@ -63,8 +63,8 @@ public class ApplicationStartup implements StartupProcess {
     public void startProcess() throws EnMeStartupException {
         // check if root directory exist
         try {
-            if (DirectorySetupOperations.checkInstallationFolder()) {
-                DirectorySetupOperations.createRootFolder();
+            if (!DirectorySetupOperations.isHomeDirectoryValid()) {
+                throw new EnMeStartupException("home folder is missing");
             }
             DirectorySetupOperations.validateInternalStructureDirectory(true);
             DirectorySetupOperations.createConfileFile();

@@ -15,6 +15,7 @@
  */
 package org.encuestame.utils.captcha;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -26,8 +27,8 @@ import org.encuestame.utils.captcha.http.SimpleHttpLoader;
 public class ReCaptchaImpl implements ReCaptcha {
 
     public static final String PROPERTY_THEME = "theme";
+    public static final String ENCODE = "UTF-8";
     public static final String PROPERTY_TABINDEX = "tabindex";
-
     public static final String HTTP_SERVER = "http://www.google.com/recaptcha/api";
     public static final String HTTPS_SERVER = "https://www.google.com/recaptcha/api";
     public static final String VERIFY_URL = "http://www.google.com/recaptcha/api/verify";
@@ -60,12 +61,27 @@ public class ReCaptchaImpl implements ReCaptcha {
 
     public ReCaptchaResponse checkAnswer(String remoteAddr, String challenge, String response) {
 
-        String postParameters = "privatekey=" + URLEncoder.encode(privateKey) + "&remoteip=" + URLEncoder.encode(remoteAddr) +
-            "&challenge=" + URLEncoder.encode(challenge) + "&response=" + URLEncoder.encode(response);
+
+        StringBuffer postParameters = new StringBuffer("privatekey=");
+        try {
+            postParameters.append("privatekey=");
+            postParameters.append(URLEncoder.encode(privateKey, ENCODE));
+            postParameters.append("&remoteip=");
+            postParameters.append(URLEncoder.encode(remoteAddr, ENCODE));
+            postParameters.append("&challenge=");
+            postParameters.append(URLEncoder.encode(challenge, ENCODE));
+            postParameters.append("&response=");
+            postParameters.append(URLEncoder.encode(response, ENCODE));
+        } catch (UnsupportedEncodingException e) {
+            postParameters = new StringBuffer("");
+        }
+
+        //final String postParameters = "privatekey=" + URLEncoder.encode(privateKey,ENCODE) + "&remoteip=" + URLEncoder.encode(remoteAddr,ENCODE) +
+        //    "&challenge=" + URLEncoder.encode(challenge,ENCODE) + "&response=" + URLEncoder.encode(response,ENCODE);
 
         final String message;
         try {
-            message = httpLoader.httpPost(verifyUrl, postParameters);
+            message = httpLoader.httpPost(verifyUrl, postParameters.toString());
 
             if (message == null) {
                 return new ReCaptchaResponse(false, "recaptcha-not-reachable");

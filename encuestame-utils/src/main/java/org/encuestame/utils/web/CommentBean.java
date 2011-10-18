@@ -15,7 +15,6 @@ package org.encuestame.utils.web;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonGetter;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -186,63 +185,63 @@ public class CommentBean implements Serializable{
         this.parentId = parentId;
     }
 
-	/**
-	 * @return the id
-	 */
+    /**
+     * @return the id
+     */
     @JsonIgnore
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the type
-	 */
-	@JsonIgnore
-	public String getType() {
-		return type;
-	}
+    /**
+     * @return the type
+     */
+    @JsonIgnore
+    public String getType() {
+        return type;
+    }
 
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(final String type) {
-		this.type = type;
-	}
+    /**
+     * @param type the type to set
+     */
+    public void setType(final String type) {
+        this.type = type;
+    }
 
-	/**
-	 * @return the commentedBy
-	 */
-	@JsonIgnore
-	public String getCommentedBy() {
-		return commentedBy;
-	}
+    /**
+     * @return the commentedBy
+     */
+    @JsonIgnore
+    public String getCommentedBy() {
+        return commentedBy;
+    }
 
-	/**
-	 * @param commentedBy the commentedBy to set
-	 */
-	public void setCommentedBy(final String commentedBy) {
-		this.commentedBy = commentedBy;
-	}
+    /**
+     * @param commentedBy the commentedBy to set
+     */
+    public void setCommentedBy(final String commentedBy) {
+        this.commentedBy = commentedBy;
+    }
 
-	/**
-	 * @return the commentedByUsername
-	 */
-	@JsonIgnore
-	public String getCommentedByUsername() {
-		return commentedByUsername;
-	}
+    /**
+     * @return the commentedByUsername
+     */
+    @JsonIgnore
+    public String getCommentedByUsername() {
+        return commentedByUsername;
+    }
 
-	/**
-	 * @param commentedByUsername the commentedByUsername to set
-	 */
-	public void setCommentedByUsername(final String commentedByUsername) {
-		this.commentedByUsername = commentedByUsername;
-	}
+    /**
+     * @param commentedByUsername the commentedByUsername to set
+     */
+    public void setCommentedByUsername(final String commentedByUsername) {
+        this.commentedByUsername = commentedByUsername;
+    }
 }

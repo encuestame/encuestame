@@ -13,7 +13,6 @@
 package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,16 +35,13 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitLists;
 import org.hibernate.HibernateException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 
  /**
  * Test for {@link PollService}.
@@ -138,7 +134,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
     @Test
     //TODO: ignore for now.
     public void testgetPollsByFolder() throws EnMeNoResultsFoundException{
-        getiPoll().saveOrUpdate(this.poll);
+        getPollDao().saveOrUpdate(this.poll);
         List<PollBean> polls = this.pollService.getPollsByFolder(ConvertDomainBean
                               .convertFolderToBeanFolder(folder));
         assertEquals(1, polls.size());
@@ -172,7 +168,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
     @Test
     public void testupdateFolderName() throws EnMeNoResultsFoundException{
         this.pollService.updateFolderName(this.folder.getId(), "newFolderName", this.userAccount.getUsername());
-        final PollFolder folder = this.getiPoll().getPollFolderById(this.folder.getId());
+        final PollFolder folder = this.getPollDao().getPollFolderById(this.folder.getId());
         assertEquals(folder.getFolderName(), "newFolderName");
     }
 
@@ -193,10 +189,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
     @Test
     public void testremovePollFolder() throws EnMeNoResultsFoundException{
         this.poll.setPollFolder(null);
-        getiPoll().saveOrUpdate(this.poll);
+        getPollDao().saveOrUpdate(this.poll);
         final long id = this.folder.getId();
         this.pollService.removePollFolder(id);
-        Assert.assertNull(getiPoll().getPollFolderById(id));
+        Assert.assertNull(getPollDao().getPollFolderById(id));
     }
 
     /**
@@ -208,20 +204,6 @@ public class TestPollService extends AbstractSpringSecurityContext{
         List<PollBean> unitPoll =  new ArrayList<PollBean>();
         unitPoll = pollService.listPollByUser(5, 0);
         assertEquals("should be equals",1, unitPoll.size());
-    }
-
-    /**
-     * Test List Polls by Question Keyword.
-     * @throws EnMeNoResultsFoundException
-     **/
-    //FIXME:
-    @Test
-    public void testListPollbyQuestionKeyword() throws EnMeNoResultsFoundException{
-        List<PollBean> unitPollList = new ArrayList<PollBean>();
-        final String keyword = "Why";
-        unitPollList = pollService.listPollbyQuestionKeyword(keyword, 5, 0);
-        assertEquals("should be equals",1, unitPollList.size());
-
     }
 
     /**

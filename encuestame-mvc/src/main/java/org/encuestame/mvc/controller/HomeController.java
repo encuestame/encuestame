@@ -72,9 +72,9 @@ public class HomeController extends AbstractBaseOperations {
                 if (view.isEmpty()) {
                     model.addAttribute("items", service.getFrontEndItems(period, 0 , MAX_ITEMS, request));
                 } else {
-                    if ("tweetpoll".equals(view)){
+                    if ("tweetpoll".equals(view)) {
                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
-                    } else if("poll".equals(view)){
+                    } else if("poll".equals(view)) {
                         model.addAttribute("items", service.searchItemsByPoll(period, 0 ,MAX_ITEMS));
                     } else if("survey".equals(view)){
                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));

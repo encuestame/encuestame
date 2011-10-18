@@ -6,5 +6,5 @@
         <a href="<%=request.getContextPath()%>/user/poll/new">
         <img src="<%=request.getContextPath()%>/resources/images/icons/enme-add.png" alt="+" /> New Poll</a>
     </div>
-    <div dojoType="encuestame.org.core.commons.poll.PollNavigate" contextPath="<%=request.getContextPath()%>"></div>
+    <div dojoType="encuestame.org.core.commons.poll.PollNavigate"></div>
 </div>

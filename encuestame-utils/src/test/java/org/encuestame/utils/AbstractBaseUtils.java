@@ -17,6 +17,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -203,7 +204,7 @@ public abstract class AbstractBaseUtils extends TestCase{
             final QuestionBean questionBean){
         final PollBean unitPoll = new PollBean();
         unitPoll.setCompletedPoll(completedPoll);
-        unitPoll.setCreationDate(creationDate);
+        unitPoll.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(creationDate));
         unitPoll.setId(id);
         unitPoll.setQuestionBean(questionBean);
         return unitPoll;
@@ -311,7 +312,7 @@ public abstract class AbstractBaseUtils extends TestCase{
          final PollBean unitPollComplete = new PollBean();
          unitPollComplete.setCloseNotification(closeNotification);
          unitPollComplete.setCompletedPoll(completedPoll);
-         unitPollComplete.setCreationDate(creationDate);
+         unitPollComplete.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(creationDate));
          unitPollComplete.setFinishDate(finishDate);
          unitPollComplete.setHashTags(hashTags);
          unitPollComplete.setId(idPoll);

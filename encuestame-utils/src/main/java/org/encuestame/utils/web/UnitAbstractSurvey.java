@@ -132,7 +132,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
    /**
     * Number votes for Survey and Poll.
     */
-    private Integer numbervotes;
+    private Long numbervotes;
 
     /**
      * Number Hits or visits
@@ -399,14 +399,14 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the numbervotes
      */
-    public Integer getNumbervotes() {
+    public Long getNumbervotes() {
         return numbervotes;
     }
 
     /**
      * @param numbervotes the numbervotes to set
      */
-    public void setNumbervotes(Integer numbervotes) {
+    public void setNumbervotes(final Long numbervotes) {
         this.numbervotes = numbervotes;
     }
 

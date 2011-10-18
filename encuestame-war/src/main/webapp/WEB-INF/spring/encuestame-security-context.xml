@@ -74,7 +74,7 @@
         <security:intercept-url pattern="/user/forgot/**" access="permitAll" />
         <security:intercept-url pattern="/activity/**" access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
-        <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_ADMIN')" />
+        <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_OWNER')" />
         <security:intercept-url pattern="/settings/**/*" access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/**/*"  access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/tweetpoll"  access="hasAnyRole('ENCUESTAME_USER','ENCUESTAME_EDITOR')" />
