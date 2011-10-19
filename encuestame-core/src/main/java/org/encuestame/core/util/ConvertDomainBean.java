@@ -592,7 +592,9 @@ public class ConvertDomainBean {
         unitPoll.setCreationDate(DateUtil.DOJO_DATE_FORMAT.format(poll.getCreatedAt()));
         unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll.getQuestion()));
         unitPoll.setPublishPoll(poll.getPublish());
-        unitPoll.setUpdatedDate(poll.getUpdatedDate());
+        if(poll.getUpdatedDate() != null){
+             unitPoll.setUpdatedDate(poll.getUpdatedDate());
+        }
         unitPoll.setTotalVotes(poll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN : Long.valueOf(poll.getNumbervotes()));
         unitPoll.setLikeVote(poll.getLikeVote() == null ? EnMeUtils.LIKE_DEFAULT : Long.valueOf(poll.getLikeVote()));
         unitPoll.setDislikeVote(poll.getDislikeVote() == null ? EnMeUtils.DISLIKE_DEFAULT : Long.valueOf(poll.getDislikeVote()));

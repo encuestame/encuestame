@@ -29,7 +29,6 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.security.Account;
 
 /**
  * Surveys.
@@ -44,9 +43,6 @@ public class Survey extends AbstractSurvey {
 
     /****/
     private Long sid;
-
-    /****/
-    private Account secUsers;
 
     /****/
     private Integer ticket;
@@ -68,6 +64,11 @@ public class Survey extends AbstractSurvey {
      * **/
     private Date startDate;
 
+    /** Scheduled Survey. **/
+    private Boolean scheduleSurvey;
+
+    /** Scheduled Date. **/
+    private Date scheduleDate;
 
     /**
      * Show progress bar.
@@ -91,22 +92,6 @@ public class Survey extends AbstractSurvey {
      */
     public void setSid(Long sid) {
         this.sid = sid;
-    }
-
-    /**
-     * @return secUsers
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "uid", nullable = false)
-    public Account getSecUsers() {
-        return this.secUsers;
-    }
-
-    /**
-     * @param secUsers secUsers
-     */
-    public void setSecUsers(Account secUsers) {
-        this.secUsers = secUsers;
     }
 
     /**
@@ -225,4 +210,34 @@ public class Survey extends AbstractSurvey {
         this.showProgressBar = showProgressBar;
     }
 
+    /**
+     * @return the scheduleSurvey
+     */
+    @Column(name = "is_Schedule", nullable = true)
+    public Boolean getScheduleSurvey() {
+        return scheduleSurvey;
+    }
+
+    /**
+     * @param scheduleSurvey the scheduleSurvey to set
+     */
+    public void setScheduleSurvey(final Boolean scheduleSurvey) {
+        this.scheduleSurvey = scheduleSurvey;
+    }
+
+    /**
+     * @return the scheduleDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "schedule_date_survey", nullable = true)
+    public Date getScheduleDate() {
+        return scheduleDate;
+    }
+
+    /**
+     * @param scheduleDate the scheduleDate to set
+     */
+    public void setScheduleDate(final Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
 }

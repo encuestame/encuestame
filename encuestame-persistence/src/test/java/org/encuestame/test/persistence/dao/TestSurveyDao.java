@@ -15,6 +15,7 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.encuestame.persistence.domain.security.Account;
@@ -52,6 +53,13 @@ public class TestSurveyDao extends AbstractBase {
     private SurveyPagination surveyPag;
 
     private Survey survey;
+
+    private Integer MAX_RESULTS = 10;
+
+    private Integer START_RESULTS = 0;
+
+    private Calendar myDate = Calendar.getInstance();
+
 
     @Before
     public void initData(){
@@ -174,5 +182,81 @@ public class TestSurveyDao extends AbstractBase {
          assertEquals("Should be equals", 1, allSurveyFolder.size());
     }
 
+    /**
+     *
+     */
+    @Test
+    public void testRetrieveSurveyByDate(){
+        createDefaultSurvey(user, "My Survey", this.myDate.getTime());
+        final List<Survey> surveyList = getSurveyDaoImp().retrieveSurveyByDate(this.user, this.myDate.getTime(), this.MAX_RESULTS, this.START_RESULTS);
+        assertEquals("Should be equals", 1, surveyList.size());
+    }
 
+    /**
+     *
+     */
+    @Test
+    public void testRetrieveSurveyToday() {
+        final Calendar otherHourDate = Calendar.getInstance();
+        otherHourDate.add(Calendar.HOUR, 3);
+        createDefaultSurvey(user, "My First Survey", this.myDate.getTime());
+        createDefaultSurvey(user, "My Second Survey", otherHourDate.getTime());
+        final List<Survey> surveyToday = getSurveyDaoImp().retrieveSurveyToday(
+                this.user, this.MAX_RESULTS, this.START_RESULTS);
+        assertEquals("Should be equals", 2, surveyToday.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testRetrieveSurveyLastWeek(){
+        final Calendar myLastWeekDate = Calendar.getInstance();
+        myLastWeekDate.add(Calendar.DATE, -8);
+        createDefaultSurvey(user, "My Second Survey", myLastWeekDate.getTime());
+        final List<Survey> surveyToday = getSurveyDaoImp()
+                .retrieveSurveyLastWeek(this.user, this.MAX_RESULTS,
+                        this.START_RESULTS);
+        for (Survey survey : surveyToday) {
+                 System.out.println("Name   ---> " + survey.getName());
+                 System.out.println("Fecha   ---> " + survey.getCreatedAt());
+                 System.out.println(" ------------------  ");
+
+        }
+        assertEquals("Should be equals", 1, surveyToday.size());
+    }
+
+    @Test
+    public void testRetrieveSurveyLastYear(){
+        final Calendar myLastYearDate = Calendar.getInstance();
+        myLastYearDate.add(Calendar.YEAR, -1);
+        myLastYearDate.add(Calendar.DATE, -2);
+        final Calendar fecha = Calendar.getInstance();
+        fecha.add(Calendar.YEAR, -3);
+        System.out.println("Fecha 1 ---> " + this.myDate.getTime());
+        System.out.println("Fecha 2 ---> " + fecha.getTime());
+
+        createDefaultSurvey(user, "My First Survey", fecha.getTime());
+        createDefaultSurvey(user, "My Second Survey", myLastYearDate.getTime());
+        final List<Survey> surveyToday = getSurveyDaoImp()
+                .retrieveSurveyLastYear(this.user, this.MAX_RESULTS,
+                        this.START_RESULTS);
+        assertEquals("Should be equals", 1, surveyToday.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testRetrieveFavouritesSurvey(){
+        final Survey mySurvey = createDefaultSurvey(user, "My First Survey",
+                this.myDate.getTime());
+        mySurvey.setEditorOwner(this.secondaryUser);
+        mySurvey.setFavorites(Boolean.TRUE);
+        getSurveyDaoImp().saveOrUpdate(mySurvey);
+        final List<Survey> favoriteSurveys = getSurveyDaoImp()
+                .retrieveFavoritesSurvey(this.secondaryUser, this.MAX_RESULTS,
+                        this.START_RESULTS);
+        assertEquals("Should be equals", 1, favoriteSurveys.size());
+    }
 }

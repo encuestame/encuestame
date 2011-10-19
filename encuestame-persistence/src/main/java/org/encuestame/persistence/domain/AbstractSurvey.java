@@ -58,7 +58,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Define the account owner of the item.
      */
-    private Account accountItem;
+    private Account owner;
 
     /**
      * Multiple Responses.
@@ -188,7 +188,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Mark as favourites.
      */
-    private Boolean favourites = false;
+    private Boolean favorites = false;
 
     /**
      * Update Date
@@ -593,15 +593,15 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the favourites
      */
     @Column(name = "favourites", nullable = true)
-    public Boolean getFavourites() {
-        return favourites;
+    public Boolean getFavorites() {
+        return favorites;
     }
 
     /**
      * @param favourites the favourites to set
      */
-    public void setFavourites(final Boolean favourites) {
-        this.favourites = favourites;
+    public void setFavorites(final Boolean favorites) {
+        this.favorites = favorites;
     }
 
     /**
@@ -642,15 +642,15 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "owner_id")
-    public Account getAccountItem() {
-        return accountItem;
+    public Account getOwner() {
+        return owner;
     }
 
     /**
      * @param accountItem the accountItem to set
      */
-    public void setAccountItem(final Account accountItem) {
-        this.accountItem = accountItem;
+    public void setOwner(final Account owner) {
+        this.owner = owner;
     }
 
     /**
