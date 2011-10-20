@@ -212,36 +212,25 @@ public class TestSurveyDao extends AbstractBase {
     @Test
     public void testRetrieveSurveyLastWeek(){
         final Calendar myLastWeekDate = Calendar.getInstance();
-        myLastWeekDate.add(Calendar.DATE, -8);
+        myLastWeekDate.add(Calendar.DATE, -3);
+        // Second Survey created 3 days before today's date.
         createDefaultSurvey(user, "My Second Survey", myLastWeekDate.getTime());
-        final List<Survey> surveyToday = getSurveyDaoImp()
+        final List<Survey> surveylastWeek = getSurveyDaoImp()
                 .retrieveSurveyLastWeek(this.user, this.MAX_RESULTS,
                         this.START_RESULTS);
-        for (Survey survey : surveyToday) {
-                 System.out.println("Name   ---> " + survey.getName());
-                 System.out.println("Fecha   ---> " + survey.getCreatedAt());
-                 System.out.println(" ------------------  ");
-
-        }
-        assertEquals("Should be equals", 1, surveyToday.size());
+        assertEquals("Should be equals", 1, surveylastWeek.size());
     }
 
     @Test
     public void testRetrieveSurveyLastYear(){
         final Calendar myLastYearDate = Calendar.getInstance();
         myLastYearDate.add(Calendar.YEAR, -1);
-        myLastYearDate.add(Calendar.DATE, -2);
-        final Calendar fecha = Calendar.getInstance();
-        fecha.add(Calendar.YEAR, -3);
-        System.out.println("Fecha 1 ---> " + this.myDate.getTime());
-        System.out.println("Fecha 2 ---> " + fecha.getTime());
-
-        createDefaultSurvey(user, "My First Survey", fecha.getTime());
+        myLastYearDate.add(Calendar.DATE, 3);
         createDefaultSurvey(user, "My Second Survey", myLastYearDate.getTime());
-        final List<Survey> surveyToday = getSurveyDaoImp()
+        final List<Survey> surveyLastYear = getSurveyDaoImp()
                 .retrieveSurveyLastYear(this.user, this.MAX_RESULTS,
                         this.START_RESULTS);
-        assertEquals("Should be equals", 1, surveyToday.size());
+        assertEquals("Should be equals", 1, surveyLastYear.size());
     }
 
     /**

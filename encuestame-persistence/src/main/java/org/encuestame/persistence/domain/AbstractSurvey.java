@@ -592,7 +592,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the favourites
      */
-    @Column(name = "favourites", nullable = true)
+    @Column(name = "favorites", nullable = true)
     public Boolean getFavorites() {
         return favorites;
     }

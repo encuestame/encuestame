@@ -220,6 +220,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Date initDate,
             final Integer maxResults,
             final Integer start){
+         System.out.println("FECHA INICIO --->" + initDate);
+         System.out.println("FECHA FIN MID --->" + getNextDayMidnightDate());
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.createAlias("owner","owner");
          criteria.add(Restrictions.between("createdAt", initDate, getNextDayMidnightDate()));
@@ -252,7 +254,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Integer maxResults,
             final Integer start){
         final Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DATE, -7);
+        cal.add(Calendar.DATE, -7);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
@@ -269,7 +271,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Integer maxResults,
             final Integer start){
         final Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, -1);
+        cal.add(Calendar.YEAR, -1);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
