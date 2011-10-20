@@ -52,8 +52,8 @@ public class SurveyBean extends UnitAbstractSurvey implements Serializable {
     @JsonProperty(value = "complete")
     private String complete;
 
-    @JsonProperty(value = "id")
-    private UserAccountBean unitUserBean;
+    @JsonProperty(value = "ownerUsername")
+    private String ownerUsername;
 
     /**
      * @return the sid
@@ -146,17 +146,16 @@ public class SurveyBean extends UnitAbstractSurvey implements Serializable {
     }
 
     /**
-     * @return the unitUserBean
+     * @return the ownerUsername
      */
-    @JsonIgnore
-    public UserAccountBean getUnitUserBean() {
-        return unitUserBean;
+    public String getOwnerUsername() {
+        return ownerUsername;
     }
 
     /**
-     * @param unitUserBean the unitUserBean to set
+     * @param ownerUsername the ownerUsername to set
      */
-    public void setUnitUserBean(final UserAccountBean unitUserBean) {
-        this.unitUserBean = unitUserBean;
+    public void setOwnerUsername(final String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 }

@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.TypeSearch;
@@ -218,4 +219,12 @@ public interface ISurveyService extends IMasterSurveyService {
     List<SurveyBean> getSurveysByUserName(final String username,
             final Integer maxResults, final Integer start)
             throws EnMeNoResultsFoundException;
+
+    /**
+     * Create new survey.
+     * @param surveyBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    Survey createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion;
  }

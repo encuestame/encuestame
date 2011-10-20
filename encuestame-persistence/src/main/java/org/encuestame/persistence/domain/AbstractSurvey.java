@@ -547,7 +547,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the relevance
      */
-    @Column(name = "relevance", nullable = true)
+    @Column(name = "relevance")
     public Long getRelevance() {
         return relevance;
     }
@@ -562,7 +562,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the likeVote
      */
-    @Column(name = "like_vote", nullable = true)
+    @Column(name = "like_vote")
     public Long getLikeVote() {
         return likeVote;
     }
@@ -577,7 +577,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the dislikeVote
      */
-    @Column(name = "dislike_vote", nullable = true)
+    @Column(name = "dislike_vote")
     public Long getDislikeVote() {
         return dislikeVote;
     }
@@ -592,7 +592,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the favourites
      */
-    @Column(name = "favorites", nullable = true)
+    @Column(name = "favorites")
     public Boolean getFavorites() {
         return favorites;
     }
@@ -608,7 +608,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return endDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = true, length = 0)
+    @Column(name = "end_date", length = 0)
     public Date getEndDate() {
         return this.endDate;
     }
@@ -625,7 +625,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     * @return the updatedDate
     */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date", nullable = true)
+    @Column(name = "update_date")
     public Date getUpdatedDate() {
         return updatedDate;
     }
