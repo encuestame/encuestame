@@ -433,7 +433,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param showComments the showComments to set
      */
-    @Column(name = "comment_Option")
+    @Column(name = "comment_option")
     @Enumerated(EnumType.ORDINAL)
     public void setShowComments(final CommentOptions showComments) {
         this.showComments = showComments;
@@ -486,7 +486,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the numbervotes
      */
-    @Column(name = "numbervotes")
+    @Column(name = "number_votes")
     public Long getNumbervotes() {
         return numbervotes;
     }
@@ -657,7 +657,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * @return the createdAt
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     public Date getCreatedAt() {
         return createdAt;
     }

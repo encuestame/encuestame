@@ -24,7 +24,6 @@ import org.encuestame.utils.json.QuestionBean;
  * Unit Poll Bean.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
- * @version $Id: $
  */
 public class PollBean extends AbstractUnitSurvey implements Serializable{
 
@@ -38,11 +37,11 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     private Long id;
 
     /***/
-    @JsonProperty(value = "completedPoll")
+    @JsonProperty(value = "completed_poll")
     private Boolean completedPoll;
 
     /***/
-    @JsonProperty(value = "creationDate")
+    @JsonProperty(value = "creation_date")
     private String creationDate;
 
     /***/
@@ -50,27 +49,24 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     private QuestionBean questionBean = new QuestionBean();
 
     /***/
-    @JsonProperty(value = "finishDate")
+    @JsonProperty(value = "finish_date")
     private Date finishDate;
 
     /***/
-    @JsonProperty(value = "publishPoll")
+    @JsonProperty(value = "published")
     private Boolean publishPoll;
 
     /***/
-    @JsonProperty(value = "closeNotification")
+    @JsonProperty(value = "close_notification")
     private Boolean closeNotification;
 
     /***/
-    @JsonProperty(value = "showResultsPoll")
+    @JsonProperty(value = "show_resultsPoll")
     private Boolean showResultsPoll;
 
-    /***/
-    @JsonProperty(value = "hashPoll")
-    private String hashPoll;
 
     /** **/
-    @JsonProperty(value = "updatedDate")
+    @JsonProperty(value = "updated_date")
     private Date updatedDate;
 
     /** **/
@@ -78,10 +74,8 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     private String url;
 
     /** **/
-    @JsonProperty(value = "shortUrl")
+    @JsonProperty(value = "short_url")
     private String shortUrl;
-
-
 
     /**
      * @return the id
@@ -201,21 +195,6 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
      */
     public void setShowResultsPoll(Boolean showResultsPoll) {
         this.showResultsPoll = showResultsPoll;
-    }
-
-    /**
-     * @return the hashPoll
-     */
-    @JsonIgnore
-    public String getHashPoll() {
-        return hashPoll;
-    }
-
-    /**
-     * @param hashPoll the hashPoll to set
-     */
-    public void setHashPoll(String hashPoll) {
-        this.hashPoll = hashPoll;
     }
 
     /**

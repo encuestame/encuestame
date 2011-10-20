@@ -23,7 +23,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * Abstract Unit Survey.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 31, 2010 8:19:51 AM
- * @version $Id:$
  */
 public abstract class AbstractUnitSurvey implements Serializable , Comparable<AbstractUnitSurvey> {
 
@@ -34,22 +33,19 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
 
 
     /** List of HashTags. **/
+    @JsonProperty(value = "hashtags")
     private List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
 
     /** **/
-    @JsonProperty(value = "userId")
-    private Long userId;
-
-    /** **/
-    @JsonProperty(value = "ownerUsername")
+    @JsonProperty(value = "owner_username")
     private String ownerUsername;
 
     /** **/
-    @JsonProperty(value = "relativeTime")
+    @JsonProperty(value = "relative_time")
     private String relativeTime;
 
     /** **/
-    @JsonProperty(value = "totalVotes")
+    @JsonProperty(value = "total_votes")
     private Long totalVotes;
 
     /**
@@ -59,18 +55,18 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
     private Long hits;
 
     /** **/
-    @JsonProperty(value = "itemType")
+    @JsonProperty(value = "item_type")
     private String itemType;
 
     /** **/
-    @JsonProperty(value = "likeVote")
+    @JsonProperty(value = "like_votes")
     private Long likeVote;
 
     /** **/
-    @JsonProperty(value = "dislike_vote")
+    @JsonProperty(value = "dislike_votes")
     private Long dislikeVote;
 
-    @JsonProperty(value = "createDate")
+    @JsonProperty(value = "create_date")
     private String createDate;
 
     /** Relevance. **/
@@ -84,6 +80,7 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
     /**
      * @return the hashTags
      */
+    @JsonIgnore
     public final List<HashTagBean> getHashTags() {
         return hashTags;
     }
@@ -93,21 +90,6 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
      */
     public final void setHashTags(List<HashTagBean> hashTags) {
         this.hashTags = hashTags;
-    }
-
-    /**
-     * @return the userId
-     */
-    @JsonIgnore
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId the userId to set
-     */
-    public void setUserId(final Long userId) {
-        this.userId = userId;
     }
 
     /**

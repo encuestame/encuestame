@@ -2,20 +2,37 @@ dojo.provide("encuestame.org.core.commons.poll.PollNavigate");
 
 dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+dojo.require("encuestame.org.core.shared.utils.FilterList");
+dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
 
 dojo.declare(
     "encuestame.org.core.commons.poll.PollNavigate",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
+    [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.shared.utils.FilterList],{
 
         /*
          *
          */
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/pollNavigate.html"),
 
-
+        /*
+         *
+         */
         _rows : {},
 
+        /*
+         *
+         */
+        property : "poll",
+
+        /*
+         *
+         */
         _cache_items : [],
+
+        /*
+         * default parameters.
+         */
+        _params : { typeSearch : "ALL", keyword : null, max : null, start : 0},
 
         /*
          *
@@ -24,7 +41,7 @@ dojo.declare(
             var def = new dojo.Deferred();
             try {
                 //def.then(this.jota1);
-                def.then(this._callServiceSearch);
+                def.then(dojo.hitch(this, this._callServiceSearch));
                 def.then(this._printRows);
                 def.callback(true);
             } catch(e) {
@@ -36,13 +53,28 @@ dojo.declare(
          *
          */
         _callServiceSearch : function() {
-            var load = dojo.hitch(this, function(data){
-                console.info("Data", data);
-            });
-            var error = function(error) {
-                console.debug("error", error);
-            };
-            encuestame.service.xhrGet(encuestame.service.list.listPoll, {typeSearch : "BYOWNER"}, load, error);
+            //this._params = {};
+            dojo.hitch(this, this.loadItems(encuestame.service.list.listPoll));
+        },
+
+
+        /*
+         * customize service params.
+         */
+        getParams : function() {
+            return this._params;
+        },
+
+        getUrl : function(){
+            return encuestame.service.list.listPoll;
+        },
+
+
+        /*
+         * process item.
+         */
+        processItem : function(/** poll data**/  data, /** position **/ index){
+            console.info(data);
         },
 
         /*
