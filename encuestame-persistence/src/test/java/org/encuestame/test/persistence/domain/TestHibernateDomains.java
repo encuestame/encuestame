@@ -273,7 +273,7 @@ public class TestHibernateDomains extends AbstractBase{
      @Test
      public void testSurveys(){
          final Survey surveys = new Survey();
-         surveys.setSecUsers(createAccount());
+         surveys.setOwner(createAccount());
          surveys.setTicket(1);
          surveys.setStartDate(new Date());
          surveys.setEndDate(new Date());
@@ -359,7 +359,9 @@ public class TestHibernateDomains extends AbstractBase{
      //@Test
      public void testQuestionDependenceSurvey(){
          final QuestionDependenceSurvey questionDepSurvey = new QuestionDependenceSurvey();
-         questionDepSurvey.setSurvey(createSurvey("", new Date(), new Date(), createAccount(), new Date(), createSurveyFormat("Schools",new Date()),"FirstSurvey"));
+         final SurveyFormat mySurveyFormat =  createSurveyFormat("Schools",new Date());
+         final Survey mySurvey = createSurvey("", new Date(), new Date(), createAccount(), new Date(),mySurveyFormat,"FirstSurvey", new Date());
+         questionDepSurvey.setSurvey(mySurvey);
          getQuestionDaoImp().saveOrUpdate(questionDepSurvey);
          assertNotNull(questionDepSurvey.getQuestionDependenceId());
      }

@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.ISurvey;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
@@ -64,7 +65,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             throws HibernateException {
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.add(Restrictions.like("name", searchString, MatchMode.ANYWHERE));
-         criteria.add(Restrictions.eq("secUsers.uid", userId));
+         criteria.add(Restrictions.eq("owner.uid", userId));
         return getHibernateTemplate().findByCriteria(criteria);
 
     }
@@ -88,7 +89,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     @SuppressWarnings("unchecked")
     public List<Survey> retrieveSurveyByFolder(final Long userId, final Long folderId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
-        criteria.add(Restrictions.eq("secUsers.uid", userId));
+        criteria.add(Restrictions.eq("owner.uid", userId));
         criteria.add(Restrictions.eq("surveysfolder.id", folderId));
         return getHibernateTemplate().findByCriteria(criteria);
    }
@@ -171,7 +172,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     @SuppressWarnings("unchecked")
     public Survey getSurveyByIdandUserId(final Long surveyId, final Long userId){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
-         criteria.add(Restrictions.eq("secUsers.uid", userId));
+         criteria.add(Restrictions.eq("owner.uid", userId));
          criteria.add(Restrictions.eq("sid", surveyId));
          return (Survey) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
@@ -219,10 +220,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Date initDate,
             final Integer maxResults,
             final Integer start){
+         System.out.println("FECHA INICIO --->" + initDate);
+         System.out.println("FECHA FIN MID --->" + getNextDayMidnightDate());
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
-         criteria.createAlias("tweetOwner","tweetOwner");
-         criteria.add(Restrictions.between("createDate", initDate, getNextDayMidnightDate()));
-         criteria.add(Restrictions.eq("tweetOwner", account));
+         criteria.createAlias("owner","owner");
+         criteria.add(Restrictions.between("createdAt", initDate, getNextDayMidnightDate()));
+         criteria.add(Restrictions.eq("owner", account));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -251,7 +254,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Integer maxResults,
             final Integer start){
         final Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_YEAR, -7);
+        cal.add(Calendar.DATE, -7);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
@@ -261,16 +264,51 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.ISurvey#retrieveFavouritesSurvey(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyLastYear(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
+     */
+    public List<Survey> retrieveSurveyLastYear(
+            final Account account,
+            final Integer maxResults,
+            final Integer start){
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND,0);
+        return retrieveSurveyByDate(account, cal.getTime(), maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyLastDay(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer)
+     */
+    public List<Survey> retrieveSurveyLastDay(
+            final Account account,
+            final Integer maxResults,
+            final Integer start){
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_WEEK, -1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND,0);
+        return retrieveSurveyByDate(account, cal.getTime(), maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveFavoritesSurvey(org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<Survey> retrieveFavouritesSurvey(
-            final Account account,
+    public List<Survey> retrieveFavoritesSurvey(
+            final UserAccount userAccount,
             final Integer maxResults,
             final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
         criteria.createAlias("editorOwner","editorOwner");
-        criteria.add(Restrictions.eq("editorOwner", account));
+        criteria.add(Restrictions.eq("editorOwner", userAccount));
+        criteria.add(Restrictions.eq("favorites", Boolean.TRUE));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -285,6 +323,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
         criteria.createAlias("editorOwner","editorOwner");
+        criteria.add(Restrictions.eq("scheduleSurvey", Boolean.TRUE));
+        criteria.add(Restrictions.isNotNull("scheduleDate"));
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
