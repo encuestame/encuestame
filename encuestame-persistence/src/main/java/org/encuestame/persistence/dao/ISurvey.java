@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
@@ -170,13 +171,13 @@ public interface ISurvey extends IBaseDao{
 
     /**
      * Retrieve favourites survey.
-     * @param account
+     * @param userAccount
      * @param maxResults
      * @param start
      * @return
      */
-    List<Survey> retrieveFavouritesSurvey(
-            final Account account,
+    List<Survey> retrieveFavoritesSurvey(
+            final UserAccount userAccount,
             final Integer maxResults,
             final Integer start);
 
@@ -200,6 +201,30 @@ public interface ISurvey extends IBaseDao{
      * @return
      */
     List<Survey> retrieveSurveyLastWeek(
+            final Account account,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve surveys back from last year.
+     * @param account
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyLastYear(
+            final Account account,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve surveys back from last day.
+     * @param account
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyLastDay(
             final Account account,
             final Integer maxResults,
             final Integer start);

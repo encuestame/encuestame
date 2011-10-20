@@ -58,7 +58,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Define the account owner of the item.
      */
-    private Account accountItem;
+    private Account owner;
 
     /**
      * Multiple Responses.
@@ -188,7 +188,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Mark as favourites.
      */
-    private Boolean favourites = false;
+    private Boolean favorites = false;
 
     /**
      * Update Date
@@ -433,7 +433,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param showComments the showComments to set
      */
-    @Column(name = "comment_Option")
+    @Column(name = "comment_option")
     @Enumerated(EnumType.ORDINAL)
     public void setShowComments(final CommentOptions showComments) {
         this.showComments = showComments;
@@ -486,7 +486,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the numbervotes
      */
-    @Column(name = "numbervotes")
+    @Column(name = "number_votes")
     public Long getNumbervotes() {
         return numbervotes;
     }
@@ -592,16 +592,16 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the favourites
      */
-    @Column(name = "favourites", nullable = true)
-    public Boolean getFavourites() {
-        return favourites;
+    @Column(name = "favorites", nullable = true)
+    public Boolean getFavorites() {
+        return favorites;
     }
 
     /**
      * @param favourites the favourites to set
      */
-    public void setFavourites(final Boolean favourites) {
-        this.favourites = favourites;
+    public void setFavorites(final Boolean favorites) {
+        this.favorites = favorites;
     }
 
     /**
@@ -642,22 +642,22 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "owner_id")
-    public Account getAccountItem() {
-        return accountItem;
+    public Account getOwner() {
+        return owner;
     }
 
     /**
      * @param accountItem the accountItem to set
      */
-    public void setAccountItem(final Account accountItem) {
-        this.accountItem = accountItem;
+    public void setOwner(final Account owner) {
+        this.owner = owner;
     }
 
     /**
      * @return the createdAt
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     public Date getCreatedAt() {
         return createdAt;
     }

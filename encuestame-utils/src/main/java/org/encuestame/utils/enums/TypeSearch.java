@@ -53,7 +53,7 @@ public enum TypeSearch {
      * @return
      */
     public static TypeSearch getSearchString(final String search) {
-        if (null == search) { return LASTDAY; }
+        if (null == search) { return null; }
         else if (search.equalsIgnoreCase("LASTDAY")) { return LASTDAY; }
         else if (search.equalsIgnoreCase("KEYWORD")) { return KEYWORD; }
         else if (search.equalsIgnoreCase("BYOWNER")) { return BYOWNER; }
@@ -62,6 +62,6 @@ public enum TypeSearch {
         else if (search.equalsIgnoreCase("FAVOURITES")) { return FAVOURITES; }
         else if (search.equalsIgnoreCase("SCHEDULED")) { return SCHEDULED; }
         else if (search.equalsIgnoreCase("ALL")) { return ALL; }
-        else return LASTDAY;
+        else return null;
     }
 }

@@ -139,7 +139,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setDislikeVote(EnMeUtils.DISLIKE_DEFAULT);
             pollDomain.setNumbervotes(EnMeUtils.VOTE_MIN);
             pollDomain.setEditorOwner(user);
-            pollDomain.setAccountItem(user.getAccount());
+            pollDomain.setOwner(user.getAccount());
             pollDomain.setShowResults(showResults);
             pollDomain.setShowComments(commentOpt);
             pollDomain.setPublish(Boolean.TRUE);

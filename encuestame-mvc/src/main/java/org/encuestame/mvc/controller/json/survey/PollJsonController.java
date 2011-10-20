@@ -78,6 +78,11 @@ public class PollJsonController extends AbstractJsonController{
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try{
             log.debug("/api/survey/poll/search.json");
+            log.debug("/api/survey/poll/search.json "+typeSearch);
+            log.debug("/api/survey/poll/search.json "+max);
+            log.debug("/api/survey/poll/search.json "+keyword);
+            log.debug("/api/survey/poll/search.json "+pollFolderId);
+            log.debug("/api/survey/poll/search.json "+start);
             final List<PollBean> list = (List<PollBean>) getPollService().filterPollByItemsByType(
                      TypeSearch.getSearchString(typeSearch), keyword, max,
                      start);

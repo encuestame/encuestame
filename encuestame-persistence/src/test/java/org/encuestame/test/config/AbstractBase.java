@@ -444,7 +444,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setQuestion(question);
         poll.setPollHash(pollHash);         //should be unique
         poll.setEditorOwner(userAccount);
-        poll.setAccountItem(userAccount.getAccount());
+        poll.setOwner(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
         getPollDao().saveOrUpdate(poll);
@@ -478,12 +478,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setDislikeVote(300L);
         poll.setLikeVote(560L);
         poll.setEndDate(new Date());
-        poll.setFavourites(true);
+        poll.setFavorites(true);
         poll.setNumbervotes(600L);
         poll.setQuestion(question);
         poll.setPollHash(hash);
         poll.setEditorOwner(userAccount);
-        poll.setAccountItem(userAccount.getAccount());
+        poll.setOwner(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(published);
         getPollDao().saveOrUpdate(poll);
@@ -1280,8 +1280,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public Survey createDefaultSurvey(final Account secUsers ){
-        return this.createSurvey("", new Date(), new Date(), secUsers, new Date(), createDefaultSurveyFormat(),"FirstSurvey");
+        return this.createSurvey("", new Date(), new Date(), secUsers,
+                new Date(), createDefaultSurveyFormat(), "FirstSurvey", null);
      }
+
+    /**
+     *
+     * @param secUsers
+     * @param createdAt
+     * @return
+     */
+    public Survey createDefaultSurvey(final Account secUsers, final String surveyName, final Date createdAt){
+        return this.createSurvey("", new Date(), new Date(), secUsers,
+                new Date(), createDefaultSurveyFormat(), surveyName, createdAt);
+     }
+
 
     /**
      * Create {@link Survey}
@@ -1300,18 +1313,18 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
            final Account secUsers,
            final Date startDate,
            final SurveyFormat surveyFormat,
-           final String name
-
+           final String name,
+           final Date createdAt
            ){
        final Survey survey = new Survey();
        survey.setName(name);
        survey.setComplete(complete);
        survey.setDateInterview(dateInterview);
        survey.setEndDate(endDate);
-       survey.setSecUsers(secUsers);
+       survey.setOwner(secUsers);
        survey.setStartDate(startDate);
        survey.setTicket(3);
-       survey.setTicket(2);
+       survey.setCreatedAt(createdAt);
        getSurveyDaoImp().saveOrUpdate(survey);
        return survey;
    }
