@@ -469,7 +469,6 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         unitPoll.setCompletedPoll(completedPoll);
         unitPoll.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(creationDate));
         unitPoll.setFinishDate(finishDate);
-        unitPoll.setHashPoll(hashPoll);
         unitPoll.setPublishPoll(publishPoll);
         unitPoll.setQuestionBean(questionBean);
         unitPoll.setShowResultsPoll(showResultsPoll);
