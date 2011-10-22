@@ -1,5 +1,6 @@
 dojo.provide("encuestame.org.core.shared.utils.FilterList");
 
+dojo.require("dojo.hash");
 dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
 
 /*
@@ -16,7 +17,7 @@ dojo.declare("encuestame.org.core.shared.utils.FilterList",
     /*
      *
      */
-    currentSearch : "ALL",
+    currentSearch : "BYOWNER",
 
     /*
      *
@@ -42,9 +43,8 @@ dojo.declare("encuestame.org.core.shared.utils.FilterList",
         this.currentSearch = "ALL";
         this._changeHash(this.currentSearch);
         this.resetPagination();
-        this.loadTweetPolls({typeSearch : "ALL"});
         console.debug(event);
-        dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
+        dojo.publish("/encuestame/filter/list/call", [this.currentSearch]);
     },
 
     /*
@@ -59,11 +59,10 @@ dojo.declare("encuestame.org.core.shared.utils.FilterList",
      */
     _searchByAccount : function(event){
         dojo.stopEvent(event);
-        this.currentSearch = "ALL";
+        this.currentSearch = "BYOWNER";
         this._changeHash(this.currentSearch);
         this.resetPagination();
-        this.loadTweetPolls({typeSearch : "ALL"});
-        dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
+        dojo.publish("/encuestame/filter/list/call", [this.currentSearch]);
     },
 
     /*
@@ -74,8 +73,7 @@ dojo.declare("encuestame.org.core.shared.utils.FilterList",
         this.currentSearch = "FAVOURITES";
         this._changeHash(this.currentSearch);
         this.resetPagination();
-        this.loadTweetPolls({typeSearch : "FAVOURITES"});
-        dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
+        dojo.publish("/encuestame/filter/list/call", [this.currentSearch]);
     },
 
     /*
@@ -86,8 +84,7 @@ dojo.declare("encuestame.org.core.shared.utils.FilterList",
         this.currentSearch = "SCHEDULED";
         this._changeHash(this.currentSearch);
         this.resetPagination();
-        this.loadTweetPolls({typeSearch : "SCHEDULED"});
-        dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
+        dojo.publish("/encuestame/filter/list/call", [this.currentSearch]);
     },
 
     /*
@@ -98,8 +95,7 @@ dojo.declare("encuestame.org.core.shared.utils.FilterList",
         this.currentSearch = "LASTDAY";
         this._changeHash(this.currentSearch);
         this.resetPagination();
-        this.loadTweetPolls({typeSearch : "LASTDAY"});
-        dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
+        dojo.publish("/encuestame/filter/list/call", [this.currentSearch]);
     },
 
     /*
@@ -110,7 +106,6 @@ dojo.declare("encuestame.org.core.shared.utils.FilterList",
         this.currentSearch = "LASTWEEK";
         this._changeHash(this.currentSearch);
         this.resetPagination();
-        this.loadTweetPolls({typeSearch : "LASTWEEK"});
-        dojo.publish("/encuestame/tweetpoll/list/updateOptions", [event.currentTarget]);
+        dojo.publish("/encuestame/filter/list/call", [this.currentSearch]);
     }
 });
