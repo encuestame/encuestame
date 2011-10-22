@@ -245,14 +245,34 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         RANDOM_QUESTION_KEY = rInteger;
     }
 
-    /**
-     * Create Survey.
-     * @param surveyBean
-     * @throws EnMeExpcetion
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#createSurvey(org.encuestame.utils.web.SurveyBean)
      */
-    public void createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion{
+    public Survey createSurvey(final SurveyBean surveyBean)
+            throws EnMeExpcetion {
         try {
-            final Survey surveyDomain = new Survey();
+            final Survey surveyDomain = this.newSurvey(surveyBean);
+            if (surveyBean.getHashTags().size() > 0) {
+                surveyDomain.getHashTags().addAll(
+                        retrieveListOfHashTags(surveyBean.getHashTags()));
+                log.debug("Update Hash Tag");
+                getSurveyDaoImp().saveOrUpdate(surveyDomain);
+            }
+            return surveyDomain;
+
+        } catch (Exception e) {
+            log.error("Error creating Survey:{" + e);
+            throw new EnMeExpcetion(e);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#newSurvey(org.encuestame.utils.web.SurveyBean)
+     */
+    private Survey newSurvey(final SurveyBean surveyBean){
+         final Survey surveyDomain = new Survey();
             surveyDomain.setTicket(surveyBean.getTicket());
             surveyDomain.setStartDate(surveyBean.getStartDate());
             surveyDomain.setEndDate(surveyBean.getEndDate());
@@ -272,17 +292,14 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             surveyDomain.setClosedQuota(surveyBean.getClosedQuota());
             surveyDomain.setShowResults(surveyBean.getShowResults());
             surveyDomain.setNumbervotes(surveyBean.getNumbervotes());
-            // surveyDomain.setHits(surveyBean.getHits());
+            surveyDomain.setHits(surveyBean.getHits());
             surveyDomain.setAdditionalInfo(surveyBean.getAdditionalInfo());
             surveyDomain.setShowAdditionalInfo(surveyBean.getShowAdditionalInfo());
             surveyDomain.setNotifications(surveyBean.getNotifications());
             surveyDomain.setName(surveyBean.getName());
             getSurveyDaoImp().saveOrUpdate(surveyDomain);
             surveyBean.setSid(surveyBean.getSid());
-        } catch (Exception e) {
-             log.error("Error Creating Survey "+e.getMessage());
-             throw new EnMeExpcetion(e);
-        }
+        return surveyDomain;
     }
 
 

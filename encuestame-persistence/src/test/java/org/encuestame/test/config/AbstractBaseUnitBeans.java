@@ -29,6 +29,7 @@ import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -529,5 +530,21 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          commentBean.setUserAccountId(userId);
          commentBean.setId(tweetPollId);
          return commentBean;
+     }
+
+     /**
+      *
+      * @param surveyName
+      * @param ownerUsername
+      * @param createdAt
+      * @return
+      */
+     public SurveyBean createSurveyBean(final String surveyName, final String ownerUsername, final Date createdAt) {
+         final SurveyBean surveyBean = new SurveyBean();
+         surveyBean.setTicket(1);
+         surveyBean.setOwnerUsername(ownerUsername);
+         surveyBean.setName(surveyName);
+         surveyBean.setCreatedAt(createdAt);
+         return surveyBean;
      }
 }

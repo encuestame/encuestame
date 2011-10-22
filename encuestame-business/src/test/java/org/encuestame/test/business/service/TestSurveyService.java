@@ -16,23 +16,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.core.service.imp.ISurveyService;
-import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -46,14 +48,11 @@ import org.springframework.test.annotation.ExpectedException;
  * @version $Id$
  */
 
-public class TestSurveyService  extends AbstractServiceBase{
+public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** {@link AbstractSurveyService} */
     @Autowired
     private ISurveyService surveyService;
-
-    @Autowired
-    private org.encuestame.core.service.imp.MailServiceOperations mailService;
 
     /** {@link Question} */
     private Question question;
@@ -73,6 +72,9 @@ public class TestSurveyService  extends AbstractServiceBase{
 
     /** {@link QuestionPatternBean}**/
     private QuestionPatternBean patternBean;
+
+    /** Creation date of the survey. **/
+    private Calendar mySurveyDate = Calendar.getInstance();
 
      /**
      *
@@ -229,6 +231,18 @@ public class TestSurveyService  extends AbstractServiceBase{
     }
 
     /**
+     * Test search surveys by today date.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchSurveysToday() throws EnMeExpcetion {
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+        final Survey mySurvey = surveyService.createSurvey(surveyBean);
+    }
+
+    /**
      * @param surveyService the surveyService to set
      */
     public void setSurveyService(final ISurveyService surveyService) {
@@ -246,12 +260,4 @@ public class TestSurveyService  extends AbstractServiceBase{
     public QuestionPattern getPattern() {
         return pattern;
     }
-
-    /**
-     * @param mailServiceImpl the mailServiceImpl to set
-     */
-    public void setMailServiceImpl(final MailServiceOperations mailServiceImpl) {
-        this.mailService = mailServiceImpl;
-    }
-
 }
