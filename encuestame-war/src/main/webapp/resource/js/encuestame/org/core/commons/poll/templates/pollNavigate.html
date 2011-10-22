@@ -1,8 +1,8 @@
 <div id="web-poll-navigate">
     <div id="tweetListContent" class="tweetListContent">
         <aside style="float: left; width: 200px;">
-            <div class="web-tweetpoll-options">
-                <div class="web-tweetpoll-sidebar-panel">
+            <div class="web-sidebar-options">
+                <div class="web-filter-sidebar-panel">
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount"
                         type="ACCOUNT">
                         <span>By Account</span>
@@ -50,7 +50,8 @@
                     | <a href="#">Order Options</a> | <a href="#">Social
                         Network Options </a> | <a href="#">Votes Options</a>
                 </nav>
-                <div dojoAttachPoint="_items"></div>
+                <div dojoAttachPoint="_items" class="web-list-rows"></div>
+                <div dojoAttachPoint="_item" class="web-row-detail"></div>
             </div>
         </article>
     </div>

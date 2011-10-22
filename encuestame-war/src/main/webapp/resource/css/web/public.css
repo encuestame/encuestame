@@ -1118,17 +1118,118 @@ div.panel-bar-item div.panel-bar-item-title {
     font-weight: bold;
     padding: 8px;
 }
-/** poll */
+/** poll **/
 
-#web-poll-navigate{
+
+#web-poll-wrapper{
     -webkit-border-radius: 2px 2px 0px 0px;
     -moz-border-radius: 2px 2px 0px 0px;
     border-radius: 2px 2px 0px 0px;
-    /*-moz-box-shadow: 0px 1px 2px #888;
-    -webkit-box-shadow: 0px 1px 2px #888;
-    box-shadow: 0px 1px 2px #888;*/
     border: 1px solid #D7D7D7;
     margin-top: 29px;
+    overflow: auto;
+}
+
+div.web-filter-sidebar-panel{
+
+}}
+
+div.web-filter-sidebar-panel div.optionItem {
+  border-bottom: 1px solid #EEEEEE;
+  clear: both;
+  float: left;
+  font-size: 12px;
+  padding: 7px;
+  width: 171px;
+}
+
+div.web-filter-sidebar-panel div.optionItemSelected {
+    background-color: #6F6F6F;
+    color: #FFF;
+}
+
+div.web-filter-sidebar-panel div.optionItem:hover {
+    background-color: #6F6F6F;
+    color: #FFF;
+    cursor: pointer;
+}
+
+div.web-filter-sidebar-panel div.optionItem span {
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+div.web-filter-sidebar-panel div.optionItem span:hover{
+    color: #FFF !important;
+}
+
+.web-item-row {
+  border-bottom: 1px dotted #E3E3E3;
+  cursor: pointer;
+  min-height: 25px;
+  overflow: auto;
+  padding: 7px;
+}
+
+.web-item-row .web-item-row-section {
+  float: left;
+  min-width: 30px;
+  padding: 2px;
+  margin-left: 5px;
+  margin-right: 5px
+}
+
+.web-item-row .nav-menu:hover{
+    opacity : 1;
+}
+
+.web-item-row .nav-menu {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    opacity : 0;
+    padding: 2px 0 0;
+}
+
+.web-item-row .web-item-row-section-input {
+  padding: 10px;
+}
+
+.web-item-row .web-item-row-section-title{
+    width: 650px;
+    max-width: 650px;
+}
+
+.web-item-row  .web-item-row-section-votes{
+    width: 60px;
+}
+
+.web-item-row .web-item-row-section-votes .web-item-row-section-votes-number {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.web-item-row .web-item-row-section-votes .web-item-row-section-votes-title {
+  color: #989898;
+  text-align: right;
+}
+
+.web-item-row  .web-item-row-section-date{
+     width: 60px;
+     text-align: right;
+     color: #989898;
+}
+
+.web-item-row .web-item-row-section-options {
+
+}
+
+.web-item-row .web-item-row-section-title h3{
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
 }
 
 /** TweetPoll **/
@@ -1136,9 +1237,6 @@ div.panel-bar-item div.panel-bar-item-title {
     -webkit-border-radius: 2px 2px 0px 0px;
     -moz-border-radius: 2px 2px 0px 0px;
     border-radius: 2px 2px 0px 0px;
-    /*-moz-box-shadow: 0px 1px 2px #888;
-    -webkit-box-shadow: 0px 1px 2px #888;
-    box-shadow: 0px 1px 2px #888;*/
     border: 1px solid #D7D7D7;
     margin-top: 29px;
 }
@@ -1192,8 +1290,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
     margin-right: 0px;
 }
 
-div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel
-    {
+div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel {
 
 }
 
@@ -1223,8 +1320,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
     text-decoration: none;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover{
     color: #FFF !important;
 }
 
@@ -1236,10 +1332,10 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:ho
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
-    float: left;
-    width: 912px;
+  border-left: 1px solid #C2BEC2;
+  float: left;
+  width: 912px;
 }
-
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
   min-height: 20px;
   padding: 8px 0 3px 10px;
@@ -2211,11 +2307,10 @@ div.web-folder-wrapper .folder-menu {
 div.web-folder-wrapper .web-folder-item{
     padding: 4px;
     border: 1px dotted #EEE;
-    width: auto;
     clear: both;
     padding-left: 13px;
     overflow: auto;
-    max-width: 165px;
+    width: auto;
 }
 
 div.web-folder-wrapper .web-folder-item:hover {
