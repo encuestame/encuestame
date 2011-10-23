@@ -6,6 +6,7 @@ dojo.require("encuestame.org.core.shared.utils.FoldersActions");;
 dojo.require("encuestame.org.core.shared.utils.FilterList");
 dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
 dojo.require("encuestame.org.core.shared.utils.DropDownMenuSelect");
+dojo.require("encuestame.org.core.shared.utils.More");
 
 dojo.require("dijit.form.CheckBox");
 
@@ -42,7 +43,7 @@ dojo.declare(
         /*
          * default parameters.
          */
-        _params : { typeSearch : "BYOWNER", keyword : null, max : null, start : 0},
+        _params : { typeSearch : "BYOWNER", keyword : null, max : 10, start : 0},
 
         /*
          *
@@ -58,8 +59,13 @@ dojo.declare(
             } catch(e) {
                def.errback(new Error("load poll failed."));
             }
+            //enable folder support.
             if (this.folder_support && this._folder) {
                this.enableFolderSupport();
+            }
+            //enable more support.
+            if (this.enable_more_support) {
+                this.enableMoreSupport(this._params.start, this._params.max, this._more);
             }
         },
 
@@ -76,6 +82,13 @@ dojo.declare(
             console.info("_callFilterList", typeSearch);
             console.info("_callFilterList", this._params);
             this._callServiceSearch();
+        },
+
+        /*
+         *
+         */
+        _afterEach : function() {
+            //var more = new encuestame.org.core.shared.utils.More();
         },
 
         /*

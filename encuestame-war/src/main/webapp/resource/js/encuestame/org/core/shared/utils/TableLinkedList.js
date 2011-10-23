@@ -1,5 +1,8 @@
 dojo.provide("encuestame.org.core.shared.utils.TableLinkedList");
 
+
+dojo.require("encuestame.org.core.shared.utils.More");
+
 /**
  *
  */
@@ -21,9 +24,37 @@ dojo.declare("encuestame.org.core.shared.utils.TableLinkedList", null, {
     folder_scope : null,
 
     /*
+     * enable
+     */
+    enable_more_items : true,
+
+    /*
      *
      */
     property : null,
+
+    /*
+     * more widget reference.
+     */
+    more_widget : null,
+
+    /*
+     *
+     */
+    enable_more_support : true,
+
+    /*
+     * enable the more support, this retrieve next X items from provide service.
+     */
+    enableMoreSupport : function(/** start list value **/ start, /** max values **/ max, /** node to append **/ node) {
+        if (node) {
+            var pagination = {_start : start, _maxResults : max };
+            this.more_widget = new encuestame.org.core.shared.utils.More({
+                        pagination: pagination
+            });
+            dojo.place(this.more_widget.domNode, node);
+        }
+    },
 
 
     enableFolderSupport : function(){
@@ -50,6 +81,7 @@ dojo.declare("encuestame.org.core.shared.utils.TableLinkedList", null, {
                         this.items_array.push(this.processItem(data, index));
                     }
                 }));
+                this._afterEach();
             } else {
                 console.warn("no success");
             }
@@ -58,6 +90,12 @@ dojo.declare("encuestame.org.core.shared.utils.TableLinkedList", null, {
         console.info("url", url);
         console.info("this.getParams", this.getParams());
         encuestame.service.xhrGet(url, this.getParams(), load, error);
+    },
+
+    /*
+     *
+     */
+    _afterEach : function(){
     },
 
     /*

@@ -2300,6 +2300,11 @@ div.web-folder-wrapper {
     width: 100%;
 }
 
+div.web-folder-wrapper .web-folder-wrapper-item{
+    max-height: 300px;
+    overflow: auto;
+}
+
 div.web-folder-wrapper .folder-title{
 }
 
