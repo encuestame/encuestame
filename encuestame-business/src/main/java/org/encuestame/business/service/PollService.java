@@ -155,6 +155,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             this.getPollDao().saveOrUpdate(pollDomain);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            log.equals(e);
             throw new EnMeExpcetion(e);
         }
         return pollDomain;

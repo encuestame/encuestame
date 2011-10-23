@@ -1120,27 +1120,31 @@ div.panel-bar-item div.panel-bar-item-title {
 }
 /** poll **/
 
+div.web-sub-menu{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 
 #web-poll-wrapper{
     -webkit-border-radius: 2px 2px 0px 0px;
     -moz-border-radius: 2px 2px 0px 0px;
     border-radius: 2px 2px 0px 0px;
     border: 1px solid #D7D7D7;
-    margin-top: 29px;
+    min-height: 500px;
     overflow: auto;
+    margin-top: 30px;
 }
 
-div.web-filter-sidebar-panel{
-
-}}
+div.web-filter-sidebar-panel {
+  background-color: #F9F9F9;
+}
 
 div.web-filter-sidebar-panel div.optionItem {
   border-bottom: 1px solid #EEEEEE;
   clear: both;
-  float: left;
   font-size: 12px;
   padding: 7px;
-  width: 171px;
+  width: auto;
 }
 
 div.web-filter-sidebar-panel div.optionItemSelected {
@@ -3410,4 +3414,56 @@ div.section-option-wrapper div.section-default .space-option {
 div.link-published-space{
   padding: 5px;
 }
+
+/** drop down menu **/
+
+div.drop-down-menu-select{
+
+}
+
+div.drop-down-menu-select-title {
+  background: none repeat scroll 0 0 #6C6D6F;
+  border-radius: 13px 13px 13px 13px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 0 15px 2px;
+  text-shadow: 0 1px 1px #002537;
+  width: 100px;
+  cursor: pointer;
+}
+
+div.drop-down-menu-select-title:hover .sub-menu {
+    display: inline-block;
+    position: absolute;
+}
+
+.sub-menu {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #C4C4C4;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  display: none;
+  margin-left: -15px;
+  margin-top: 0;
+  padding: 8px;
+  text-shadow: none;
+  width: 110px;
+}
+
+.sub-menu li {
+  border-bottom: 1px dotted #EAEAEA;
+  display: block;
+  height: 22px;
+  list-style-type: none;
+  padding: 8px 0;
+  width: 100px;
+}
+
+.sub-menu li img {
+    margin-right: .5em;
+}
+
+.sub-menu li:hover {
+    border-bottom: 1px dotted #bababa;
 }

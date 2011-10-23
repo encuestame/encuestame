@@ -5,6 +5,7 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require("encuestame.org.core.shared.utils.FoldersActions");;
 dojo.require("encuestame.org.core.shared.utils.FilterList");
 dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
+dojo.require("encuestame.org.core.shared.utils.DropDownMenuSelect");
 
 dojo.require("dijit.form.CheckBox");
 

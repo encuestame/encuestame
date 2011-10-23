@@ -104,6 +104,10 @@ dependencies ={
                 "encuestame.org.core.shared.options.ResultsOptions",
                 "encuestame.org.core.shared.options.AbstractOptionSelect",
                 "encuestame.org.core.shared.options.CheckSingleOption",
+                "encuestame.org.core.shared.utils.DropDownMenuSelect",
+                "encuestame.org.core.shared.utils.FilterList",
+                "encuestame.org.main.EnmeMainLayoutWidget",
+                "encuestame.org.core.commons.poll.PollNavigate"
 
                 //patterns
                 "encuestame.org.core.commons.questions.Question",
