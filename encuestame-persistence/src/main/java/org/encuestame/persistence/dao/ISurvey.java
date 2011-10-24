@@ -127,7 +127,7 @@ public interface ISurvey extends IBaseDao{
      * @param start
      * @return
      */
-    List<Survey> retrieveSurveybyQuestionName(final String keyWord, final Long userId,
+    List<Survey> retrieveSurveybyName(final String keyWord, final Long userId,
             final Integer maxResults,
             final Integer start);
 

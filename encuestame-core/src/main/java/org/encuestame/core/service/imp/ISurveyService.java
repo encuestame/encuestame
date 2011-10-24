@@ -17,10 +17,9 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Survey;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearch;
-import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
@@ -147,8 +146,7 @@ public interface ISurveyService extends IMasterSurveyService {
      * @throws EnMeExpcetion
      */
     List<SurveyBean> filterSurveyItemsByType(final TypeSearch typeSearch,
-            String keyword, Integer max, Integer start,
-            final TypeSearchResult searchResult)
+            String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion;
 
     /**
@@ -203,17 +201,6 @@ public interface ISurveyService extends IMasterSurveyService {
      * @param maxResults
      * @param start
      * @return
-     * @throws EnMeExpcetion
-     */
-    List<SurveyBean> searchTweetsPollScheduled(final String username,
-            final Integer maxResults, final Integer start) throws EnMeExpcetion;
-
-    /**
-     *
-     * @param username
-     * @param maxResults
-     * @param start
-     * @return
      * @throws EnMeNoResultsFoundException
      */
     List<SurveyBean> getSurveysByUserName(final String username,
@@ -227,4 +214,16 @@ public interface ISurveyService extends IMasterSurveyService {
      * @throws EnMeExpcetion
      */
     Survey createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion;
+
+    /**
+     * Search surveys by keyword name.
+     * @param keyWord
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SurveyBean> searchSurveysbyKeywordName(final String keyWord, final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion;
  }
