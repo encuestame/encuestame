@@ -241,4 +241,12 @@ public interface ISurvey extends IBaseDao{
             final Long userId,
             final Integer maxResults,
             final Integer start);
+
+    /**
+     * Retrieve surveys by UserAccount.
+     * @param account
+     * @return
+     */
+    List<SurveyFolder> retrieveSurveyFolderByUserAccount(
+            final UserAccount account);
 }
