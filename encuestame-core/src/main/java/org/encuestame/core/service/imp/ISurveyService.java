@@ -226,4 +226,16 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     List<SurveyBean> searchSurveysbyKeywordName(final String keyWord, final String username,
             final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     * Search surveys by Account.
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<SurveyBean> getSurveysByAccount(final String username,
+            final Integer maxResults, final Integer start)
+            throws EnMeNoResultsFoundException;
  }

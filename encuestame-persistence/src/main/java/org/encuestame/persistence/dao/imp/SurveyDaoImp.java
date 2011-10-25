@@ -343,4 +343,20 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          criteria.addOrder(Order.desc("createdAt"));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyByAccount(java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Survey> retrieveSurveyByAccount(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+         criteria.createAlias("owner","owner");
+         criteria.add(Restrictions.eq("owner.uid", userId));
+         criteria.addOrder(Order.desc("createdAt"));
+         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
 }

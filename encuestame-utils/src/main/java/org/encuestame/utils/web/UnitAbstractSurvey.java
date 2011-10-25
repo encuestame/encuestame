@@ -105,12 +105,12 @@ public abstract class UnitAbstractSurvey implements Serializable {
 
      /**
       * Password Protection.
-      */ 
+      */
     private String passProtection;
 
     /**
      * IP Restictions.
-     */ 
+     */
     private String IpProtection;
 
     /**
@@ -204,7 +204,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     private Date createdAt;
 
     /** Like option**/
-    @JsonProperty(value = "created_at")
+    @JsonProperty(value = "likeVote")
     private Long likeVote;
 
     /** Unlike **/
