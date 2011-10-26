@@ -29,6 +29,8 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Surveys.
@@ -39,6 +41,7 @@ import org.encuestame.persistence.domain.Project;
  */
 @Entity
 @Table(name = "surveys")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Survey extends AbstractSurvey {
 
     /****/

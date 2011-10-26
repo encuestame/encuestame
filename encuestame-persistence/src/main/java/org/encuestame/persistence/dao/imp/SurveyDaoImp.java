@@ -201,11 +201,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      */
     @SuppressWarnings("unchecked")
     //TODO: migrate search to Hibernate Search.
-    public List<Survey> retrieveSurveybyQuestionName(final String keyWord, final Long userId,
+    public List<Survey> retrieveSurveybyName(final String keyWord, final Long userId,
             final Integer maxResults,
             final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
         criteria.createAlias("editorOwner","editorOwner");
+        criteria.add(Restrictions.like("name", keyWord, MatchMode.ANYWHERE));
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -339,6 +340,22 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.createAlias("editorOwner","editorOwner");
          criteria.add(Restrictions.eq("editorOwner.uid", userId));
+         criteria.addOrder(Order.desc("createdAt"));
+         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyByAccount(java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Survey> retrieveSurveyByAccount(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+         criteria.createAlias("owner","owner");
+         criteria.add(Restrictions.eq("owner.uid", userId));
          criteria.addOrder(Order.desc("createdAt"));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }

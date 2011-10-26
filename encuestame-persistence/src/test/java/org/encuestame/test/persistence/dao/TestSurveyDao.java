@@ -248,4 +248,15 @@ public class TestSurveyDao extends AbstractBase {
                         this.START_RESULTS);
         assertEquals("Should be equals", 1, favoriteSurveys.size());
     }
+
+    @Test
+    public void testSearchbySurveyName() {
+        final String keyWord = "Last";
+        final Survey mySurvey = createDefaultSurvey(user, "My Last Survey",
+                this.myDate.getTime());
+        final List<Survey> surveyResult = getSurveyDaoImp()
+                .retrieveSurveybyName(keyWord, this.secondaryUser.getUid(),
+                        this.MAX_RESULTS, this.START_RESULTS);
+       // assertEquals("Should be equals", 1, surveyResult.size());
+    }
 }

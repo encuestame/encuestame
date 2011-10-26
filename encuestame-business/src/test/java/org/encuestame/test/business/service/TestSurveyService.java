@@ -27,10 +27,10 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -75,6 +75,12 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** Creation date of the survey. **/
     private Calendar mySurveyDate = Calendar.getInstance();
+
+    /** Max value to show items**/
+    private Integer MAX_RESULTS = 10;
+
+    /** Start value **/
+    private Integer START_RESULTS = 0;
 
      /**
      *
@@ -239,8 +245,110 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-        final Survey mySurvey = surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean);
+        final String mykeyword = "";
+        final List<SurveyBean> surveyBeanList = surveyService.filterSurveyItemsByType(
+                TypeSearch.LASTDAY, mykeyword, this.MAX_RESULTS,
+                this.START_RESULTS);
+        assertEquals("should be equals", 1, surveyBeanList.size());
     }
+
+    /**
+     * Test search surveys from last week.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchSurveysLastWeek() throws EnMeExpcetion {
+        mySurveyDate.add(Calendar.DATE, -3);
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+        surveyService.createSurvey(surveyBean);
+        final List<SurveyBean> surveyBeanList = surveyService
+                .searchSurveysLastWeek(getUsernameLogged(), this.MAX_RESULTS,
+                        this.START_RESULTS);
+       assertEquals("should be equals", 1, surveyBeanList.size());
+    }
+
+    /**
+     * Test search all surveys by owner.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchAllSurveys() throws EnMeExpcetion {
+        final Calendar lastMonth = Calendar.getInstance();
+        lastMonth.add(Calendar.MONTH, -1);
+
+        final Calendar lastWeek = Calendar.getInstance();
+        lastWeek.add(Calendar.DATE, -8);
+
+        // First Survey Bean created today .
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+
+        // Second Survey Bean created last month.
+        final SurveyBean surveyBean2 = createSurveyBean("My Second survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                lastMonth.getTime());
+
+        // Third Survey Bean created 3 days ago.
+        final SurveyBean surveyBean3 = createSurveyBean("My Third survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                lastWeek.getTime());
+
+        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean2);
+        surveyService.createSurvey(surveyBean3);
+
+        final String mykeyword = "";
+        final List<SurveyBean> surveyBeanList = surveyService
+                .filterSurveyItemsByType(TypeSearch.ALL, mykeyword,
+                        this.MAX_RESULTS, this.START_RESULTS);
+        assertEquals("should be equals", 3, surveyBeanList.size());
+    }
+
+    /**
+     * Test search favorite surveys.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchFavoriteSurveys() throws EnMeExpcetion {
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+        surveyBean.setFavorites(Boolean.TRUE);
+        surveyService.createSurvey(surveyBean);
+        final List<SurveyBean> surveyBeanList = surveyService
+                .searchSurveysFavourites(getUsernameLogged(), this.MAX_RESULTS,
+                        this.START_RESULTS);
+      assertEquals("should be equals", 1, surveyBeanList.size());
+    }
+
+    /**
+     * Test search surveys by Name
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchbySurveyName() throws EnMeExpcetion {
+        final String keyWord = "first";
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+
+        final SurveyBean surveyBean2 = createSurveyBean("My Second survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+          surveyService.createSurvey(surveyBean);
+           surveyService.createSurvey(surveyBean2);
+        final List<SurveyBean> surveyBeanList = surveyService
+                .searchSurveysbyKeywordName(keyWord,
+                        getSpringSecurityLoggedUserAccount().getUsername(),
+                        this.MAX_RESULTS, this.START_RESULTS);
+        assertEquals("should be equals", 1, surveyBeanList.size());
+    }
+
+
 
     /**
      * @param surveyService the surveyService to set
