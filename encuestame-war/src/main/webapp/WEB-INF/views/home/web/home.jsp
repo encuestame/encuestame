@@ -47,7 +47,7 @@ encuestame.org.core.shared.utils.AccountPicture
                         <div class="stats">
                             <div class="vote">
                                 <div>
-                                    <span class="count"><strong>${item.totalVotes}</strong></span>
+                                    <span class="count"><strong>${item.relevance}</strong></span>
                                     <div class="viewcount">
                                          <spring:message code="home.item.votes" />
                                     </div>
@@ -60,7 +60,7 @@ encuestame.org.core.shared.utils.AccountPicture
                 </div>
                 <div class="content">
                     <div class="title">
-                         <a href="<%=request.getContextPath()%>/tweetpoll/${item.id}/${item.questionBean.slugName}">${item.questionBean.questionName}</a>
+                         <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">${item.questionBean.questionName}</a>
                     </div>
                     <div class="bottom">
                        <div class="options">

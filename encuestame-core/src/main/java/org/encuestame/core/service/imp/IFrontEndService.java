@@ -14,7 +14,6 @@ package org.encuestame.core.service.imp;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -108,7 +107,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeSearchException
      */
-    Set<HomeBean> getFrontEndItems(final String period, final Integer start,
+    List<HomeBean> getFrontEndItems(final String period, final Integer start,
             Integer maxResults, final HttpServletRequest request)
             throws EnMeSearchException;
 
