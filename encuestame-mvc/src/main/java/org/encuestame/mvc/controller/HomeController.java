@@ -43,7 +43,7 @@ public class HomeController extends AbstractBaseOperations {
     private final Integer MAX_HASHTAG = 80;
 
     /** Items max results. **/
-    private final Integer MAX_ITEMS = 10;
+    private final Integer MAX_ITEMS = 100;
 
     /** **/
     private final String SHOW_ALL_RESULTS = "all";

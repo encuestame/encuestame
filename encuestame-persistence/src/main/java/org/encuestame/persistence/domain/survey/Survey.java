@@ -29,6 +29,8 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * Surveys.
@@ -39,6 +41,7 @@ import org.encuestame.persistence.domain.Project;
  */
 @Entity
 @Table(name = "surveys")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Survey extends AbstractSurvey {
 
     /****/
@@ -95,22 +98,6 @@ public class Survey extends AbstractSurvey {
     }
 
     /**
-     * @return ticket
-     */
-    @Column(name = "ticket", nullable = false)
-    public int getTicket() {
-        return this.ticket;
-    }
-
-    /**
-     * @param ticket ticket
-     */
-    public void setTicket(int ticket) {
-        this.ticket = ticket;
-    }
-
-
-    /**
      * @return dateInterview
      */
     @Temporal(TemporalType.DATE)
@@ -139,6 +126,14 @@ public class Survey extends AbstractSurvey {
      */
     public void setComplete(String complete) {
         this.complete = complete;
+    }
+
+    /**
+     * @return the ticket
+     */
+    @Column(name = "ticket")
+    public Integer getTicket() {
+        return ticket;
     }
 
     /**
@@ -183,7 +178,7 @@ public class Survey extends AbstractSurvey {
      * @return startDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date", nullable = false, length = 0)
+    @Column(name = "start_date", length = 0)
     public Date getStartDate() {
         return this.startDate;
     }
@@ -213,7 +208,7 @@ public class Survey extends AbstractSurvey {
     /**
      * @return the scheduleSurvey
      */
-    @Column(name = "is_Schedule", nullable = true)
+    @Column(name = "is_Schedule")
     public Boolean getScheduleSurvey() {
         return scheduleSurvey;
     }
@@ -229,7 +224,7 @@ public class Survey extends AbstractSurvey {
      * @return the scheduleDate
      */
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "schedule_date_survey", nullable = true)
+    @Column(name = "schedule_date_survey")
     public Date getScheduleDate() {
         return scheduleDate;
     }

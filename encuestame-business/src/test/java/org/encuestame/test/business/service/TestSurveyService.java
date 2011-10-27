@@ -16,23 +16,29 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.core.service.imp.ISurveyService;
-import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -46,14 +52,11 @@ import org.springframework.test.annotation.ExpectedException;
  * @version $Id$
  */
 
-public class TestSurveyService  extends AbstractServiceBase{
+public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** {@link AbstractSurveyService} */
     @Autowired
     private ISurveyService surveyService;
-
-    @Autowired
-    private org.encuestame.core.service.imp.MailServiceOperations mailService;
 
     /** {@link Question} */
     private Question question;
@@ -74,6 +77,18 @@ public class TestSurveyService  extends AbstractServiceBase{
     /** {@link QuestionPatternBean}**/
     private QuestionPatternBean patternBean;
 
+    /** Creation date of the survey. **/
+    private Calendar mySurveyDate = Calendar.getInstance();
+
+    /** Max value to show items**/
+    private Integer MAX_RESULTS = 10;
+
+    /** Start value **/
+    private Integer START_RESULTS = 0;
+
+    /** **/
+    private String myUsername;
+
      /**
      *
      */
@@ -93,6 +108,7 @@ public class TestSurveyService  extends AbstractServiceBase{
                     "radio buttons", "2", "Yes/No", "template.php");
          questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
                     this.answers, patternBean);
+         this.myUsername = getSpringSecurityLoggedUserAccount().getUsername();
     }
 
     /**
@@ -229,6 +245,150 @@ public class TestSurveyService  extends AbstractServiceBase{
     }
 
     /**
+     * Test search surveys by today date.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchSurveysToday() throws EnMeExpcetion {
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+        surveyService.createSurvey(surveyBean);
+        final String mykeyword = "";
+        final List<SurveyBean> surveyBeanList = surveyService.filterSurveyItemsByType(
+                TypeSearch.LASTDAY, mykeyword, this.MAX_RESULTS,
+                this.START_RESULTS);
+        assertEquals("should be equals", 1, surveyBeanList.size());
+    }
+
+    /**
+     * Test search surveys from last week.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchSurveysLastWeek() throws EnMeExpcetion {
+        mySurveyDate.add(Calendar.DATE, -3);
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+        surveyService.createSurvey(surveyBean);
+        final List<SurveyBean> surveyBeanList = surveyService
+                .searchSurveysLastWeek(getUsernameLogged(), this.MAX_RESULTS,
+                        this.START_RESULTS);
+       assertEquals("should be equals", 1, surveyBeanList.size());
+    }
+
+    /**
+     * Test search all surveys by owner.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchAllSurveys() throws EnMeExpcetion {
+        final Calendar lastMonth = Calendar.getInstance();
+        lastMonth.add(Calendar.MONTH, -1);
+
+        final Calendar lastWeek = Calendar.getInstance();
+        lastWeek.add(Calendar.DATE, -8);
+
+        // First Survey Bean created today .
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+
+        // Second Survey Bean created last month.
+        final SurveyBean surveyBean2 = createSurveyBean("My Second survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                lastMonth.getTime());
+
+        // Third Survey Bean created 3 days ago.
+        final SurveyBean surveyBean3 = createSurveyBean("My Third survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                lastWeek.getTime());
+
+        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean2);
+        surveyService.createSurvey(surveyBean3);
+
+        final String mykeyword = "";
+        final List<SurveyBean> surveyBeanList = surveyService
+                .filterSurveyItemsByType(TypeSearch.ALL, mykeyword,
+                        this.MAX_RESULTS, this.START_RESULTS);
+        assertEquals("should be equals", 3, surveyBeanList.size());
+    }
+
+    /**
+     * Test search favorite surveys.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchFavoriteSurveys() throws EnMeExpcetion {
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+        surveyBean.setFavorites(Boolean.TRUE);
+        surveyService.createSurvey(surveyBean);
+        final List<SurveyBean> surveyBeanList = surveyService
+                .searchSurveysFavourites(getUsernameLogged(), this.MAX_RESULTS,
+                        this.START_RESULTS);
+      assertEquals("should be equals", 1, surveyBeanList.size());
+    }
+
+    /**
+     * Test search surveys by Name
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testSearchbySurveyName() throws EnMeExpcetion {
+        final String keyWord = "first";
+        final SurveyBean surveyBean = createSurveyBean("My first survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+
+        final SurveyBean surveyBean2 = createSurveyBean("My Second survey",
+                getSpringSecurityLoggedUserAccount().getUsername(),
+                this.mySurveyDate.getTime());
+        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean2);
+        final List<SurveyBean> surveyBeanList = surveyService
+                .searchSurveysbyKeywordName(keyWord,
+                        getSpringSecurityLoggedUserAccount().getUsername(),
+                        this.MAX_RESULTS, this.START_RESULTS);
+        assertEquals("should be equals", 1, surveyBeanList.size());
+    }
+
+    /**
+     * Test create survey folder.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testCreateSurveyFolder() throws EnMeNoResultsFoundException {
+        final FolderBean fbean = surveyService.createSurveyFolder(
+                "My First Folder", getSpringSecurityLoggedUserAccount()
+                        .getUsername());
+        Assert.assertNotNull(fbean);
+    }
+
+    /**
+     * Test get surveys by folder.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testGetSurveysByFolder() throws EnMeExpcetion{
+        final FolderBean fbean = surveyService.createSurveyFolder(
+                "My First Folder", this.myUsername);
+        Assert.assertNotNull(fbean);
+        final SurveyBean mySurveyBean = createSurveyBean("My Second survey",
+                this.myUsername, this.mySurveyDate.getTime());
+        final Survey mySurvey = surveyService.createSurvey(mySurveyBean);
+        surveyService.addSurveyToFolder(fbean.getId(), this.myUsername,
+                mySurvey.getSid());
+        final List<Survey> listSurvey = surveyService.retrieveSurveyByFolder(
+                getSpringSecurityLoggedUserAccount().getAccount().getUid(),
+                fbean.getId());
+        assertEquals("should be equals", 1, listSurvey.size());
+    }
+
+    /**
      * @param surveyService the surveyService to set
      */
     public void setSurveyService(final ISurveyService surveyService) {
@@ -246,12 +406,4 @@ public class TestSurveyService  extends AbstractServiceBase{
     public QuestionPattern getPattern() {
         return pattern;
     }
-
-    /**
-     * @param mailServiceImpl the mailServiceImpl to set
-     */
-    public void setMailServiceImpl(final MailServiceOperations mailServiceImpl) {
-        this.mailService = mailServiceImpl;
-    }
-
 }

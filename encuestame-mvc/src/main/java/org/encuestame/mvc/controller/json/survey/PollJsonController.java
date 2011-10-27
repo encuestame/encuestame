@@ -219,11 +219,13 @@ public class PollJsonController extends AbstractJsonController{
                    final Poll poll = getPollService().createPoll(questionName, answers, showResults,
                                      showComments, notification);
                    final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
+                   log.debug("Poll Bean "+pollBean);
                    jsonResponse.put("pollBean", pollBean);
                    setItemResponse(jsonResponse);
                    getPollService().createPollNotification(poll);
                }
           } catch (Exception e) {
+              e.printStackTrace();
               log.error(e);
               setError(e.getMessage(), response);
           }

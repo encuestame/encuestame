@@ -2,12 +2,18 @@ dojo.provide("encuestame.org.core.commons.poll.PollNavigate");
 
 dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+dojo.require("encuestame.org.core.shared.utils.FoldersActions");;
 dojo.require("encuestame.org.core.shared.utils.FilterList");
 dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
+dojo.require("encuestame.org.core.shared.utils.DropDownMenuSelect");
+dojo.require("encuestame.org.core.shared.utils.More");
+
+dojo.require("dijit.form.CheckBox");
 
 dojo.declare(
     "encuestame.org.core.commons.poll.PollNavigate",
-    [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.shared.utils.FilterList],{
+    [encuestame.org.main.EnmeMainLayoutWidget,
+     encuestame.org.core.shared.utils.FilterList],{
 
         /*
          *
@@ -17,12 +23,17 @@ dojo.declare(
         /*
          *
          */
-        _rows : {},
+        _rows : [],
 
         /*
          *
          */
         property : "poll",
+
+        /*
+         * folder scope.
+         */
+        folder_scope : "poll",
 
         /*
          *
@@ -32,13 +43,14 @@ dojo.declare(
         /*
          * default parameters.
          */
-        _params : { typeSearch : "ALL", keyword : null, max : null, start : 0},
+        _params : { typeSearch : "BYOWNER", keyword : null, max : 10, start : 0},
 
         /*
          *
          */
         postCreate : function() {
             var def = new dojo.Deferred();
+            dojo.subscribe("/encuestame/filter/list/call", this, "_callFilterList");
             try {
                 //def.then(this.jota1);
                 def.then(dojo.hitch(this, this._callServiceSearch));
@@ -47,13 +59,42 @@ dojo.declare(
             } catch(e) {
                def.errback(new Error("load poll failed."));
             }
+            //enable folder support.
+            if (this.folder_support && this._folder) {
+               this.enableFolderSupport();
+            }
+            //enable more support.
+            if (this.enable_more_support) {
+                this.enableMoreSupport(this._params.start, this._params.max, this._more);
+            }
+        },
+
+        _empty : function() {
+            console.debug("empty items");
+            dojo.empty(this._items);
+        },
+
+        /*
+         *
+         */
+        _callFilterList : function(typeSearch) {
+            this._params.typeSearch = typeSearch;
+            console.info("_callFilterList", typeSearch);
+            console.info("_callFilterList", this._params);
+            this._callServiceSearch();
+        },
+
+        /*
+         *
+         */
+        _afterEach : function() {
+            //var more = new encuestame.org.core.shared.utils.More();
         },
 
         /*
          *
          */
         _callServiceSearch : function() {
-            //this._params = {};
             dojo.hitch(this, this.loadItems(encuestame.service.list.listPoll));
         },
 
@@ -75,6 +116,10 @@ dojo.declare(
          */
         processItem : function(/** poll data**/  data, /** position **/ index){
             console.info(data);
+            var row = new encuestame.org.core.commons.poll.PollNavigateItem({ data: data});
+            this._rows.push(row);
+            dojo.place(row.domNode, this._items);
+            console.info("row added");
         },
 
         /*
@@ -85,5 +130,29 @@ dojo.declare(
                   dojo.hitch(this, function(data, index) {
                       this._cache_items.push(data);
              }));
+        }
+});
+
+/**
+ *
+ */
+dojo.declare(
+        "encuestame.org.core.commons.poll.PollNavigateItem", [encuestame.org.main.EnmeMainLayoutWidget],{
+
+        /*
+         *
+         */
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/pollListItem.html"),
+
+        /*
+         *
+         */
+        data : null,
+
+        /*
+         *
+         */
+        postCreate : function() {
+
         }
 });

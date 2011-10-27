@@ -175,6 +175,9 @@ public class TestSurveyDao extends AbstractBase {
         assertEquals("Should be equals", 1, sfolder.size());
     }
 
+    /**
+     * Test retrieve all folders.
+     */
     @Test
     public void testRetrieveAllFolders(){
          assertNotNull(surveyFolder);
@@ -183,7 +186,7 @@ public class TestSurveyDao extends AbstractBase {
     }
 
     /**
-     *
+     * Test retrieve survey by filter date.
      */
     @Test
     public void testRetrieveSurveyByDate(){
@@ -193,7 +196,7 @@ public class TestSurveyDao extends AbstractBase {
     }
 
     /**
-     *
+     * Test retrieve survey created today.
      */
     @Test
     public void testRetrieveSurveyToday() {
@@ -207,7 +210,7 @@ public class TestSurveyDao extends AbstractBase {
     }
 
     /**
-     *
+     * Test retrieve surveys created one week ago.
      */
     @Test
     public void testRetrieveSurveyLastWeek(){
@@ -221,6 +224,9 @@ public class TestSurveyDao extends AbstractBase {
         assertEquals("Should be equals", 1, surveylastWeek.size());
     }
 
+    /**
+     * Test retrieve surveys created one year ago.
+     */
     @Test
     public void testRetrieveSurveyLastYear(){
         final Calendar myLastYearDate = Calendar.getInstance();
@@ -234,7 +240,7 @@ public class TestSurveyDao extends AbstractBase {
     }
 
     /**
-     *
+     * Test retrieve marked as favorite surveys.
      */
     @Test
     public void testRetrieveFavouritesSurvey(){
@@ -247,5 +253,37 @@ public class TestSurveyDao extends AbstractBase {
                 .retrieveFavoritesSurvey(this.secondaryUser, this.MAX_RESULTS,
                         this.START_RESULTS);
         assertEquals("Should be equals", 1, favoriteSurveys.size());
+    }
+
+    /**
+     * Test Search surveys by name.
+     */
+    @Test
+    public void testSearchbySurveyName() {
+        final String keyWord = "Last";
+        final Survey mySurvey = createDefaultSurvey(user, "My Last Survey",
+                this.myDate.getTime());
+        mySurvey.setEditorOwner(this.secondaryUser);
+        getSurveyDaoImp().saveOrUpdate(mySurvey);
+        final List<Survey> surveyResult = getSurveyDaoImp()
+                .retrieveSurveybyName(keyWord, this.secondaryUser.getUid(),
+                        this.MAX_RESULTS, this.START_RESULTS);
+        assertEquals("Should be equals", 1, surveyResult.size());
+    }
+
+    /**
+     * Test get surveys by folder.
+     */
+    @Test
+    public void testGetSurveyFolder() {
+        final SurveyFolder folder = createSurveyFolders("My Folder",
+                this.secondaryUser);
+        final Survey mySurvey = createDefaultSurvey(user, "My Last Survey",
+                this.myDate.getTime());
+        mySurvey.setSurveysfolder(folder);
+        getSurveyDaoImp().saveOrUpdate(mySurvey);
+        final List<Survey> mySurveysByFolder = getSurveyDaoImp()
+                .retrieveSurveyByFolder(this.user.getUid(), folder.getId());
+        assertEquals("Should be equals", 1, mySurveysByFolder.size());
     }
 }
