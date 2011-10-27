@@ -47,9 +47,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonProperty(value = "total_votes")
     private Long totalVotes;
 
-    /**
-     * Hits.
-     */
+    /** Hits. **/
     @JsonProperty(value = "hits")
     private Long hits;
 
@@ -75,6 +73,62 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /** Favorite. **/
     @JsonProperty(value = "favorite")
     private Boolean favorite;
+
+    /** Latitud. **/
+    @JsonProperty(value = "latitude")
+    private Float latitude;
+
+    /** Longitude. **/
+    @JsonProperty(value = "longitude")
+    private Float longitude;
+
+    /** Question additional info. **/
+    @JsonProperty(value = "additional_info")
+    private String additionalInfo;
+
+    /** Show comments. **/
+    @JsonProperty(value = "show_comments")
+    private String showComments;
+
+    /** Show results. **/
+    @JsonProperty(value = "is_show_results")
+    private Boolean isShowResults;
+
+    /** Poll Folder. **/
+    @JsonProperty(value = "folder_id")
+    private Long folderId;
+
+    /** Show Additional Info. **/
+    @JsonProperty(value = "is_show_additional_info")
+    private Boolean isShowAdditionalInfo;
+
+    /** Closing Option. **/
+    @JsonProperty(value = "is_close_after_date")
+    private Boolean isCloseAfterDate;
+
+    /** Closing date**/
+    @JsonProperty(value = "close_date")
+    private String closedDate;
+
+    /** Close after quota.**/
+    @JsonProperty(value = "is_close_after_quota")
+    private Boolean isCloseAfterQuota;
+
+    /** Closing quota .**/
+    @JsonProperty(value = "close_quota")
+    private Integer closedQuota;
+
+    /** Is ip restricted. **/
+    @JsonProperty(value = "is_ip_restricted")
+    private Boolean isIpRestricted;
+
+    /** Ip restricted. **/
+    @JsonProperty(value = "ip_restricted")
+    private String ipRestricted;
+
+    /** Multiple response option. **/
+    @JsonProperty(value = "multiple_response")
+    private String multipleResponse;
 
     /**
      * @return the hashTags
@@ -240,5 +294,208 @@ public abstract class AbstractUnitSurvey implements Serializable {
      */
     public void setHits(final Long hits) {
         this.hits = hits;
+    }
+
+    /**
+     * @return the latitude
+     */
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(final Float latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * @return the longitude
+     */
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(final Float longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
+     * @return the additionalInfo
+     */
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    /**
+     * @param additionalInfo the additionalInfo to set
+     */
+    public void setAdditionalInfo(final String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    /**
+     * @return the showComments
+     */
+    public String getShowComments() {
+        return showComments;
+    }
+
+    /**
+     * @param showComments the showComments to set
+     */
+    public void setShowComments(final String showComments) {
+        this.showComments = showComments;
+    }
+
+    /**
+     * @return the showResults
+     */
+    public Boolean getShowResults() {
+        return isShowResults;
+    }
+
+    /**
+     * @param showResults the showResults to set
+     */
+    public void setIsShowResults(final Boolean isShowResults) {
+        this.isShowResults = isShowResults;
+    }
+
+    /**
+     * @return the folderId
+     */
+    public Long getFolderId() {
+        return folderId;
+    }
+
+    /**
+     * @param folderId the folderId to set
+     */
+    public void setFolderId(final Long folderId) {
+        this.folderId = folderId;
+    }
+
+    /**
+     * @return the showAdditionalInfo
+     */
+    public Boolean getIsShowAdditionalInfo() {
+        return isShowAdditionalInfo;
+    }
+
+    /**
+     * @param showAdditionalInfo the showAdditionalInfo to set
+     */
+    public void setIsShowAdditionalInfo(final Boolean isShowAdditionalInfo) {
+        this.isShowAdditionalInfo = isShowAdditionalInfo;
+    }
+
+    /**
+     * @return the closeAfterDate
+     */
+    public Boolean getIsCloseAfterDate() {
+        return isCloseAfterDate;
+    }
+
+    /**
+     * @param closeAfterDate the closeAfterDate to set
+     */
+    public void setIsCloseAfterDate(final Boolean isCloseAfterDate) {
+        this.isCloseAfterDate = isCloseAfterDate;
+    }
+
+    /**
+     * @return the closedDate
+     */
+    public String getClosedDate() {
+        return closedDate;
+    }
+
+    /**
+     * @param closedDate the closedDate to set
+     */
+    public void setClosedDate(final String closedDate) {
+        this.closedDate = closedDate;
+    }
+
+    /**
+     * @return the isCloseAfterQuota
+     */
+    public Boolean getIsCloseAfterQuota() {
+        return isCloseAfterQuota;
+    }
+
+    /**
+     * @param isCloseAfterQuota the isCloseAfterQuota to set
+     */
+    public void setIsCloseAfterQuota(final Boolean isCloseAfterQuota) {
+        this.isCloseAfterQuota = isCloseAfterQuota;
+    }
+
+    /**
+     * @return the closedQuota
+     */
+    public Integer getClosedQuota() {
+        return closedQuota;
+    }
+
+    /**
+     * @param closedQuota the closedQuota to set
+     */
+    public void setClosedQuota(final Integer closedQuota) {
+        this.closedQuota = closedQuota;
+    }
+
+    /**
+     * @return the isIpRestricted
+     */
+    public Boolean getIsIpRestricted() {
+        return isIpRestricted;
+    }
+
+    /**
+     * @param isIpRestricted the isIpRestricted to set
+     */
+    public void setIsIpRestricted(final Boolean isIpRestricted) {
+        this.isIpRestricted = isIpRestricted;
+    }
+
+    /**
+     * @return the ipRestricted
+     */
+    public String getIpRestricted() {
+        return ipRestricted;
+    }
+
+    /**
+     * @param ipRestricted the ipRestricted to set
+     */
+    public void setIpRestricted(final String ipRestricted) {
+        this.ipRestricted = ipRestricted;
+    }
+
+    /**
+     * @return the multipleResponse
+     */
+    public String getMultipleResponse() {
+        return multipleResponse;
+    }
+
+    /**
+     * @param multipleResponse the multipleResponse to set
+     */
+    public void setMultipleResponse(final String multipleResponse) {
+        this.multipleResponse = multipleResponse;
+    }
+
+    /**
+     * @return the isShowResults
+     */
+    public Boolean getIsShowResults() {
+        return isShowResults;
     }
 }
