@@ -80,6 +80,14 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where users.uid=:userId","userId", userId);
     }
 
+    @SuppressWarnings("unchecked")
+    public List<SurveyFolder> retrieveSurveyFolderByUserAccount(final UserAccount account){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SurveyFolder.class);
+        criteria.add(Restrictions.eq("createdBy", account));
+        criteria.add(Restrictions.eq("status", org.encuestame.utils.enums.Status.ACTIVE));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
     /**
      * Retrieve Surveys by Folder
      * @param userId

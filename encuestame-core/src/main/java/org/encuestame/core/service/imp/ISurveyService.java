@@ -238,4 +238,21 @@ public interface ISurveyService extends IMasterSurveyService {
     List<SurveyBean> getSurveysByAccount(final String username,
             final Integer maxResults, final Integer start)
             throws EnMeNoResultsFoundException;
+
+    /**
+     * Get Survey folders.
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<FolderBean> getFolders() throws EnMeNoResultsFoundException;
+
+    /**
+     * Retrieve surveys by folder.
+     * @param accountId
+     * @param folderId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<Survey> retrieveSurveyByFolder(final Long accountId,
+            final Long folderId) throws EnMeNoResultsFoundException;
  }

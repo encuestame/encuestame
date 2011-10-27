@@ -405,6 +405,24 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#retrieveSurveyByFolder(java.lang.Long, java.lang.Long)
+     */
+    public List<Survey> retrieveSurveyByFolder(final Long accountId,
+            final Long folderId) throws EnMeNoResultsFoundException {
+        final SurveyFolder surveyFolder = this.getSurveyFolder(folderId);
+        List<Survey> surveysByFolder = new ArrayList<Survey>();
+        if (surveyFolder != null) {
+            surveysByFolder = getSurveyDaoImp().retrieveSurveyByFolder(
+                    accountId, folderId);
+        } else {
+            throw new EnMeNoResultsFoundException("Survey folder not found");
+        }
+
+        return surveysByFolder;
+    }
+
     /**
      * Get Survey Folders by Folder Id and User.
      * @param folderId
@@ -433,6 +451,18 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             throw new EnMeNoResultsFoundException("Survey folder not found");
         }
    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#getFolders()
+     */
+    public List<FolderBean> getFolders() throws EnMeNoResultsFoundException {
+        final List<SurveyFolder> surveyFolders = getSurveyDaoImp()
+                .retrieveSurveyFolderByUserAccount(
+                        getUserAccount(getUserPrincipalUsername()));
+        log.debug("List of Folders :" + surveyFolders.size());
+        return ConvertDomainBean.convertListSurveyFolderToBean(surveyFolders);
+    }
 
     /**
      * Get survey by id and user.
