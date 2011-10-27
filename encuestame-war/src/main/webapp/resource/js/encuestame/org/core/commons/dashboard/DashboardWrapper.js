@@ -15,6 +15,7 @@ dojo.require("dijit.form.ValidationTextBox");
 dojo.require("dojo.dnd.Source");
 dojo.require("dojo.data.ItemFileReadStore");
 
+dojo.require("encuestame.org.core.commons.dashboard.DashboardGridContainer");
 dojo.require("encuestame.org.core.commons.dashboard.GadgetDirectory");
 dojo.require("encuestame.org.core.commons.dialog.Info");
 
@@ -41,14 +42,44 @@ dojo.declare(
         /**
          * Post create.
          */
-        postCreate: function() {;
+        postCreate: function() {
+           // subscribe calls
            dojo.subscribe("/encuestame/dashboard/clean", this, "clean");
            dojo.subscribe("/encuestame/dashboard/insert", this, "insert");
-           this._buildDashBoardList();
+           // deferred functions.
+           var def = new dojo.Deferred();
+           def.then(dojo.hitch(this, this._buildDashBoardList));
+           //def.then(dojo.hitch(this, this._displayFavouriteDashboard));
+           def.then(dojo.hitch(this, this._createDashboardButton));
+           // connect behaviours
            dojo.connect(this._gadgets, "onclick", dojo.hitch(this, this._openDirectory));
            dojo.connect(this._layout, "onclick", dojo.hitch(this, this._openLayout));
-           this._createDashboardButton();
-           this.layoutWidget = new encuestame.org.core.commons.dashboard.Layout();
+           // init layout select
+           this.layoutWidget = new encuestame.org.core.commons.dashboard.LayoutSelecter({});
+           def.callback(true);
+        },
+
+        /*
+         *
+         */
+        _displayFavouriteDashboard : function(){
+            if( this._addComboStoreWidget) {
+                dojo.hitch(this, this._addComboStoreWidget.fetch({
+                    query: {favorite : true},
+                    queryOptions: {ignoreCase: true, deep: true},
+                    onComplete: dojo.hitch(this, function(items){
+                        dojo.forEach(items, dojo.hitch(this, function(item, index) {
+                            var dasboardId = this._addComboStoreWidget.getValues(item, "id");
+                            console.info("dashboard id ", dasboardId);
+                            // load favorite dashboard.
+                            this._createDashBoard(dasboardId);
+                        }));
+                    }),
+                    onError: dojo.hitch(this, function(error){
+                        console.debug("error: ", error);
+                    })
+                }));
+            }
         },
 
         /**
@@ -97,17 +128,22 @@ dojo.declare(
         },
 
         /*
-         *
+         * build dashboard combobox list.
          */
-        _buildDashBoardList : function(){
+        _buildDashBoardList : function() {
             var load = dojo.hitch(this, function(data){
-                this._addComboStoreWidget = new dojo.data.ItemFileReadStore({
-                    data: data.success
-                });
-                if (this._addComboWidget == null) {
-                    this._buildCombo();
-                } else {
-                    this._addComboWidget.store = this._addComboStoreWidget;
+                if("success" in data) {
+                    var store = data.success;
+                    this._addComboStoreWidget = new dojo.data.ItemFileReadStore({
+                        data: store
+                    });
+                    if (this._addComboWidget == null) {
+                        this._buildCombo();
+                        //load favorite dashboard by default.
+                        this._displayFavouriteDashboard();
+                    } else {
+                        this._addComboWidget.store = this._addComboStoreWidget;
+                    }
                 }
             });
             var error = function(error) {
@@ -131,9 +167,8 @@ dojo.declare(
                 //TODO: item is null when check id null values.
                 var id = (this._addComboWidget.item.id == null ?  0 : this._addComboWidget.item.id[0]);
                 if (id) {
-                    this._markAsSelected(id);
-                    this.loadDashBoard({dashboardId: id,
-                         name: this._addComboWidget.get('value')});
+                   this._markAsSelected(id);
+                   dojo.publish("/encuestame/dashboard/grid/reload/gadgets", [id]);
                 }
             });
         },
@@ -201,27 +236,17 @@ dojo.declare(
         /*
          * create new dashboard.
          */
-        _createDashBoard : function(data) {
-            console.debug("_createDashBoard", data);
+        _createDashBoard : function(/** dashboard id **/ dashboardId) {
+            console.debug("_createDashBoard", dashboardId);
             if (this.dashboardWidget == null) {
                 this.clean();
-                this.dashboardWidget = new encuestame.org.core.commons.dashboard.Dashboard({dashboard: data });
-                this.dashboardWidget.startup();
-                dojo.publish("/encuestame/dashboard/insert", [this.dashboardWidget.domNode]);
+                this.dashboardWidget = new encuestame.org.core.commons.dashboard.DashboardGridContainer(this._dasboard, dashboardId, 3);
+                this.dashboardWidget.reload();
             } else {
-                this.dashboardWidget.dashboard = data;
+                this.dashboardWidget._loadGadgets(dashboardId);
+                this.dashboardWidget.reload();
             }
-            this.dashboardWidget.initialize();
-            return this.dashboardWidget;
         },
-
-        /**
-         *
-         */
-        loadDashBoard : function(data) {
-            this._createDashBoard(data);
-        },
-
 
         /*
          *
@@ -255,18 +280,44 @@ dojo.declare(
  *
  */
 dojo.declare(
-        "encuestame.org.core.commons.dashboard.Layout",
+        "encuestame.org.core.commons.dashboard.LayoutSelecter",
         [dijit._Widget, dijit._Templated],{
+
+
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/layout.html"),
 
             widgetsInTemplate: true,
 
-            postCreate : function(){
-                // dojo.connect(this.layout-a, "onclick", dojo.hitch(this, this._openDirectory));
-                // dojo.connect(this.layout-aa, "onclick", dojo.hitch(this, this._openDirectory));
-                // dojo.connect(this.layout-ba, "onclick", dojo.hitch(this, this._openDirectory));
-                // dojo.connect(this.layout-ab, "onclick", dojo.hitch(this, this._openDirectory));
-                 //dojo.connect(this.layout-aaa, "onclick", dojo.hitch(this, this._openDirectory));
+            /*
+             *
+             */
+            _selectLayout : function(layout) {
+                console.info("SELECT LAYOUT", layout);
+                if (typeof layout == "string") {
+                    dojo.publish("/encuestame/dashboard/grid/layout", [layout]);
+                }
+            },
+
+            /*
+             *
+             */
+            postCreate : function() {
+                 console.info("layouta", this.layouta);
+                 dojo.connect(this.layouta, "onclick", dojo.hitch(this, function() {
+                     this._selectLayout("A");
+                 }));
+                 dojo.connect(this.layoutaa, "onclick", dojo.hitch(this,function() {
+                     this._selectLayout("AA");
+                 }));
+                 dojo.connect(this.layoutba, "onclick", dojo.hitch(this, function() {
+                     this._selectLayout("BA");
+                 }));
+                 dojo.connect(this.layoutab, "onclick", dojo.hitch(this,function() {
+                     this._selectLayout("AB");
+                 }));
+                 dojo.connect(this.layoutaaa, "onclick", dojo.hitch(this,function() {
+                     this._selectLayout("AAA");
+                 }));
             }
 
 });
