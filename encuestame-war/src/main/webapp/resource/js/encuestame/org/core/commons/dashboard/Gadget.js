@@ -48,18 +48,19 @@ dojo.declare(
          * Post create.
          */
         postCreate: function() {
-            var parent = this;
+            dojo.subscribe("/encuestame/dashboard/gadget/remove", this, "_removeGadget");
+            //var parent = this;
             if (this.data) {
                 console.debug("gadget data",  this.data);
                 if (this.data.id) {
                     this.domNode.setAttribute("gid",  this.data.id);
                     this._initialize();
                 }
-                dojo.connect(this._remove, "onclick", dojo.hitch(this, function(event) {
-                    dojo.stopEvent(event);
-                    parent._removeGadget();
-                    console.info("remove ..... gadget");
-                }));
+                //dojo.connect(this._remove, "onclick", dojo.hitch(this, function(event) {
+                //    dojo.stopEvent(event);
+                //    parent._removeGadget();
+                //    console.info("remove ..... gadget");
+                //}));
             }
         },
 
@@ -81,7 +82,7 @@ dojo.declare(
                      this._widgetInside = this._loadGadget(this.data.gadget_name, {gadgetId : this.data.id});
                      this._widgetInside.placeAt(this._content);
                      this._widgetInside.startup();
-                     this._setTitle(this.data.gadget_name); //TODO: the title should be more specific.
+                     //this._setTitle(this.data.gadget_name); //TODO: the title should be more specific.
                  }
              });
              var error = function(error) {
@@ -93,20 +94,23 @@ dojo.declare(
         /*
          * remove the gadget.
          */
-        _removeGadget : function() {
-            var params = { gadgetId: this.data.id, dashboardId: this.dashboardId};
-            var load = dojo.hitch(this, function(data) {
-                if (data.success) {
-                   console.info("REMOVING gadgetId", this.data.id);
-                   dojo.publish("/encuestame/dashboard/gadget/unsubscribe", [this.data.id]);
-                   this._widgetInside.destroyRecursive(true);
-                   this.destroyRecursive(true);
-                }
-            });
-            var error = function(error) {
-                console.debug("error", error);
-            };
-            encuestame.service.xhrGet(encuestame.service.gadget.remove, params, load, error);
+        _removeGadget : function(controlId) {
+            console.info("REMOVING controlId", controlId);
+            if (controlId == this.data.id) {
+                console.info("REMOVING gadgetId", this.data.id);
+                var params = { gadgetId: this.data.id, dashboardId: this.dashboardId};
+                var load = dojo.hitch(this, function(data) {
+                    if ("success" in data) {
+                       dojo.publish("/encuestame/dashboard/gadget/unsubscribe", [this.data.id]);
+                       this._widgetInside.destroyRecursive(true);
+                       this.destroyRecursive(true);
+                    }
+                });
+                var error = function(error) {
+                    console.debug("error", error);
+                };
+                encuestame.service.xhrGet(encuestame.service.gadget.remove, params, load, error);
+            }
        },
 
          /**

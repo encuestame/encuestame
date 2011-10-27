@@ -170,6 +170,16 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
             content : node
         });
         portlet.gadgetId = gadget.id;
+        portlet.onClose = function(evt) {
+            console.debug("HIDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+            // summary:
+            //		Hides the portlet. Note that it does not
+            //		persist this, so it is up to the client to
+            //		listen to this method and persist the closed state
+            //		in their own way.
+            dojo.publish("/encuestame/dashboard/gadget/remove", [gadget.id]);
+            dojo.style(this.domNode, "display", "none");
+        };
         this.addPortlet(portlet, gadget.gadget_column, gadget.gadget_position);
     },
 

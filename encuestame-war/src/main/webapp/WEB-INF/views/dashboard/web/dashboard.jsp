@@ -12,7 +12,6 @@ encuestame.org.core.gadget.TweetPollVotes
     dojo.require("dojox.widget.FeedPortlet");
     dojo.require("dojox.layout.GridContainer");
     dojo.require("dojox.widget.Calendar");
-    dojo.require("encuestame.org.core.commons.dashboard.DashboardGridLayoutWrapper");
 </script>
 <style type="text/css">
 @import"http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/widget/Portlet/Portlet.css";
@@ -22,6 +21,9 @@ encuestame.org.core.gadget.TweetPollVotes
     border: 2px dashed #99BBE8;
     cursor: default;
     margin-bottom: 5px;
+}
+.gridContainerTable{
+    border: 0px;
 }
 </style>
 <div class="defaultMarginWrapper">
