@@ -137,6 +137,14 @@ encuestame.utilities.usernameLink = function(username) {
     }
 };
 
+encuestame.utilities.randomString = function() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+};
+
 /*
  * Short a long number to short number description.
  * Eg: 3,500 = 3,5K

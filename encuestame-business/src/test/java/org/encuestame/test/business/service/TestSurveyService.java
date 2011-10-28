@@ -20,6 +20,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.persistence.domain.question.Question;
@@ -27,10 +29,12 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -82,6 +86,9 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
     /** Start value **/
     private Integer START_RESULTS = 0;
 
+    /** **/
+    private String myUsername;
+
      /**
      *
      */
@@ -101,6 +108,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
                     "radio buttons", "2", "Yes/No", "template.php");
          questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
                     this.answers, patternBean);
+         this.myUsername = getSpringSecurityLoggedUserAccount().getUsername();
     }
 
     /**
@@ -339,8 +347,8 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean2 = createSurveyBean("My Second survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-          surveyService.createSurvey(surveyBean);
-           surveyService.createSurvey(surveyBean2);
+        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean2);
         final List<SurveyBean> surveyBeanList = surveyService
                 .searchSurveysbyKeywordName(keyWord,
                         getSpringSecurityLoggedUserAccount().getUsername(),
@@ -348,7 +356,37 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         assertEquals("should be equals", 1, surveyBeanList.size());
     }
 
+    /**
+     * Test create survey folder.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testCreateSurveyFolder() throws EnMeNoResultsFoundException {
+        final FolderBean fbean = surveyService.createSurveyFolder(
+                "My First Folder", getSpringSecurityLoggedUserAccount()
+                        .getUsername());
+        Assert.assertNotNull(fbean);
+    }
 
+    /**
+     * Test get surveys by folder.
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testGetSurveysByFolder() throws EnMeExpcetion{
+        final FolderBean fbean = surveyService.createSurveyFolder(
+                "My First Folder", this.myUsername);
+        Assert.assertNotNull(fbean);
+        final SurveyBean mySurveyBean = createSurveyBean("My Second survey",
+                this.myUsername, this.mySurveyDate.getTime());
+        final Survey mySurvey = surveyService.createSurvey(mySurveyBean);
+        surveyService.addSurveyToFolder(fbean.getId(), this.myUsername,
+                mySurvey.getSid());
+        final List<Survey> listSurvey = surveyService.retrieveSurveyByFolder(
+                getSpringSecurityLoggedUserAccount().getAccount().getUid(),
+                fbean.getId());
+        assertEquals("should be equals", 1, listSurvey.size());
+    }
 
     /**
      * @param surveyService the surveyService to set

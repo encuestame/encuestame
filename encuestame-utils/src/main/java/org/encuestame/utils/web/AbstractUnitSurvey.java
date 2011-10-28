@@ -24,13 +24,12 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 31, 2010 8:19:51 AM
  */
-public abstract class AbstractUnitSurvey implements Serializable , Comparable<AbstractUnitSurvey> {
+public abstract class AbstractUnitSurvey implements Serializable {
 
     /**
      * Serial.
      */
     private static final long serialVersionUID = -2162917977567543044L;
-
 
     /** List of HashTags. **/
     @JsonProperty(value = "hashtags")
@@ -241,13 +240,5 @@ public abstract class AbstractUnitSurvey implements Serializable , Comparable<Ab
      */
     public void setHits(final Long hits) {
         this.hits = hits;
-    }
-
-    /**
-     * @return the relevance
-     */
-    public int compareTo(AbstractUnitSurvey o) {
-         return Float.compare(o.getRelevance()== null ? 0 : o.getRelevance()  ,
-                 this.getRelevance()== null ? 0 : this.getRelevance());
     }
 }

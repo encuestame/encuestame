@@ -55,7 +55,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
             final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
         final List<DashboardBean> boardBean = new ArrayList<DashboardBean>();
-        final List<Dashboard> boards = this.getAllDasboard(maxResults,
+        final List<Dashboard> boards = this.getAllDasboardByLoggedUsername(maxResults,
                         start);
         log.info("dashboards list size "+boards.size());
         boardBean.addAll(ConvertDomainBean.convertListDashboardToBean(boards));
@@ -69,7 +69,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    private List<Dashboard> getAllDasboard(final Integer maxResults,
+    private List<Dashboard> getAllDasboardByLoggedUsername(final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException {
         final List<Dashboard> boards = getDashboardDao()
                 .retrieveDashboardsbyUser(
@@ -164,7 +164,12 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
         final Dashboard board = new Dashboard();
             board.setPageBoardName(dashboardBean.getDashboardName());
             board.setDescription(dashboardBean.getDashboardDesc());
-            board.setFavorite(dashboardBean.getFavorite());
+            final List<Dashboard> dashboards = this.getAllDasboardByLoggedUsername(null, 0);
+            for (Dashboard dashboard : dashboards) {
+                dashboard.setFavorite(Boolean.FALSE);
+                getDashboardDao().saveOrUpdate(dashboard);
+            }
+            board.setFavorite(Boolean.TRUE);
             board.setBoardSequence(dashboardBean.getSequence());
             board.setFavoriteCounter(dashboardBean.getFavoriteCounter());
             //board.setGadgetDashboard(gadgetDashboard);
@@ -346,7 +351,7 @@ public class DashboardService extends AbstractBaseService implements IDashboardS
             final  Long dashBoardId)
             throws EnMeNoResultsFoundException {
          final Dashboard board = this.getDashboardById(dashBoardId);
-         final List<Dashboard> listDashboard = this.getAllDasboard(null, null);
+         final List<Dashboard> listDashboard = this.getAllDasboardByLoggedUsername(null, null);
          for (Dashboard dashboard : listDashboard) {
             dashboard.setSelectedByDefault(Boolean.FALSE);
             getDashboardDao().saveOrUpdate(dashboard);

@@ -564,6 +564,7 @@ public class ConvertDomainBean {
                     : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
         }
         unitTweetPoll.setRelevance(tweetPoll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT : tweetPoll.getRelevance());
+        unitTweetPoll.setItemType(TypeSearchResult.TWEETPOLL.toString().toLowerCase());
         return unitTweetPoll;
     }
 
@@ -603,6 +604,7 @@ public class ConvertDomainBean {
         unitPoll.setHits(poll.getHits() == null ? EnMeUtils.VOTE_MIN : poll.getHits());
         unitPoll.setFavorite(poll.getFavorites());
         unitPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
+        unitPoll.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
         return unitPoll;
     }
 
@@ -996,6 +998,7 @@ public class ConvertDomainBean {
            homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
            homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean.getItemType().toString());
            homeBean.setRelevance(tweetBean.getRelevance());
+           homeBean.setItemType(TypeSearchResult.TWEETPOLL.toString().toLowerCase());
        return homeBean;
    }
 
@@ -1027,6 +1030,8 @@ public class ConvertDomainBean {
        homeBean.setHits(pollBean.getHits() == null ? 0L : pollBean.getHits());
        homeBean.setRelativeTime(pollBean.getRelativeTime());
        homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
+       homeBean.setRelevance(pollBean.getRelevance() == null ? 0L : pollBean.getRelevance());
+       homeBean.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
        return homeBean;
    }
 
@@ -1058,7 +1063,7 @@ public class ConvertDomainBean {
        homeBean.setCreateDate(null);
        homeBean.setTotalVotes(null);
        homeBean.setRelativeTime(null);
-       homeBean.setItemType(null);
+       homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase());
        return homeBean;
    }
 }

@@ -208,7 +208,7 @@ public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
     @Test
     public void testRetrieveItemsbyFolder() throws ServletException, IOException{
         Assert.assertEquals("tweetpoll should be ",retrieveItemsbyFolder("tweetpoll").intValue(), 1);
-        Assert.assertEquals("survey should be ", retrieveItemsbyFolder("survey").intValue(), 0);
+        Assert.assertEquals("survey should be ", retrieveItemsbyFolder("survey").intValue(), 1);
         Assert.assertEquals("poll should be ", retrieveItemsbyFolder("poll").intValue(), 1);
     }
 
