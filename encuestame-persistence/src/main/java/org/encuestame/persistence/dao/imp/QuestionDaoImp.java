@@ -23,6 +23,7 @@ import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -231,5 +232,16 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
      */
     public final QuestionPattern loadPatternInfo(final Long patternId) throws HibernateException{
         return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patternId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#getQuestionsbySection(org.encuestame.persistence.domain.survey.SurveySection)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Question> getQuestionsbySection(final SurveySection section){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Question.class);
+        criteria.add(Restrictions.eq("section", section));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 }

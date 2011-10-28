@@ -63,7 +63,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * Remove ALL {@link QuestionAnswer} on {@link TweetPoll}.
      * @param tweetPoll
      */
-    void removeAllQuestionsAnswers(final TweetPoll tweetPoll);
+   // void removeAllQuestionsAnswers(final TweetPoll tweetPoll);
 
     /**
      * Remove {@link QuestionAnswer}.

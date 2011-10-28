@@ -100,7 +100,6 @@ public class QuestionAnswer {
     DEFAULT
     ;}
 
-
     /**
      * @return the questionAnswerId
      */

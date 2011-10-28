@@ -12,19 +12,14 @@
  */
 package org.encuestame.persistence.domain.survey;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.encuestame.persistence.domain.question.Question;
 
 /**
  * SurveySection.
@@ -36,10 +31,14 @@ import org.encuestame.persistence.domain.question.Question;
 @Table(name = "survey_section")
 public class SurveySection {
 
+    /** **/
     private Long ssid;
+
+    /** **/
     private String descSection;
 
-    private Set<Question> questionSection = new HashSet<Question>();
+    /** **/
+    private Survey survey;
 
     /**
      * @return ssid
@@ -74,18 +73,33 @@ public class SurveySection {
     }
 
     /**
+     * @return the survey
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    /**
+     * @param survey the survey to set
+     */
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
+
+    /**
      * @return the questionSection
      */
-    @ManyToMany(cascade=CascadeType.ALL)
+    /*@ManyToMany(cascade=CascadeType.ALL)
     public Set<Question> getQuestionSection() {
         return questionSection;
     }
 
-    /**
+    *//**
      * @param questionSection the questionSection to set
-     */
+     *//*
     public void setQuestionSection(Set<Question> questionSection) {
         this.questionSection = questionSection;
     }
-
+*/
 }

@@ -16,16 +16,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -101,13 +108,13 @@ public class TestSurveyDao extends AbstractBase {
     /**
      * Test Retrieve Questions by Survey Section.
      */
-    @SuppressWarnings("unchecked")
-    @Test
+
+   /* @Test
     public void testRetrieveQuestionsBySurveySection(){
 
         final List questionList = getSurveyDaoImp().retrieveQuestionsBySurveySection(surveySection.getSsid());
         assertEquals("Should be equals", 3, questionList.size());
-     }
+     }*/
 
     @SuppressWarnings("unchecked")
    // @Test
@@ -285,5 +292,68 @@ public class TestSurveyDao extends AbstractBase {
         final List<Survey> mySurveysByFolder = getSurveyDaoImp()
                 .retrieveSurveyByFolder(this.user.getUid(), folder.getId());
         assertEquals("Should be equals", 1, mySurveysByFolder.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testCreateSurvey(){
+
+        // 1- Create Survey Container
+        final Survey mySurvey = createDefaultSurvey(this.user, "My Survey test", new Date());
+        Assert.assertNotNull(mySurvey);
+
+        // 2- Add survey sections
+        final SurveySection section = createDefaultSection("Overview", mySurvey);
+        Assert.assertNotNull(mySurvey);
+
+
+        // 3- Define question pattern.
+        final QuestionPattern pattern = createQuestionPattern("Yes/No");
+        final QuestionPattern pattern2 = createQuestionPattern("textbox");
+        Assert.assertNotNull(pattern);
+        Assert.assertNotNull(pattern2);
+
+        // 4- Add question to survey sections.
+        /** Fist question**/
+        final Question question = addQuestionSection("First Question", pattern, section, this.user);
+        final Question question2 = addQuestionSection("Second Question", pattern2, section, this.user);
+        Assert.assertNotNull(question);
+        Assert.assertNotNull(question2);
+
+        // 5- Add answer to the questions.
+        final QuestionAnswer answerYes = createQuestionAnswer("Yes", question, "123");
+        final QuestionAnswer answerNo = createQuestionAnswer("No", question, "456");
+        final QuestionAnswer answerText = createQuestionAnswer("125", question2, "678");
+        Assert.assertNotNull(answerYes);
+        Assert.assertNotNull(answerNo);
+        Assert.assertNotNull(answerText);
+
+        // 6- Answer the survey.
+        createSurveyResult(answerYes, question, mySurvey);
+        createSurveyResult(answerNo, question, mySurvey);
+        createSurveyResult(answerText, question2, mySurvey);
+
+        // 7- Get responses.
+        final List<SurveyResult> myResponses = getSurveyDaoImp().getSurveyResponseBySurvey(mySurvey, null);
+        assertEquals("Should be equals", 3, myResponses.size());
+
+        final List<SurveyResult> myResponsesByQuestion = getSurveyDaoImp().getSurveyResponseBySurvey(mySurvey, question);
+        assertEquals("Should be equals", 2, myResponsesByQuestion.size());
+    }
+
+    /**
+     * Test get survey sections.
+     */
+    @Test
+    public void testGetSurveySection(){
+        final Survey survey = createDefaultSurvey(this.user, "Survey test",
+                new Date());
+        createDefaultSection("First Section", survey );
+        createDefaultSection("Second Section", survey);
+        final List<SurveySection> surveySections = getSurveyDaoImp()
+                .getSurveySection(survey);
+        assertEquals("Should be equals", 2, surveySections.size());
     }
 }

@@ -609,7 +609,7 @@ public class ConvertDomainBean {
         unitPoll.setIsShowAdditionalInfo(poll.getShowAdditionalInfo());
         unitPoll.setAdditionalInfo(poll.getAdditionalInfo());
         unitPoll.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
-        unitPoll.setShowComments(poll.getShowComments().toString());
+        unitPoll.setShowComments(poll.getShowComments().toString() == null ? null : poll.getShowComments().toString());
         unitPoll.setIsShowResults(poll.getShowResults());
         unitPoll.setFolderId(poll.getPollFolder() == null ? null : poll.getPollFolder().getId());
         unitPoll.setIsCloseAfterDate(poll.getCloseAfterDate());

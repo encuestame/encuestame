@@ -12,19 +12,20 @@
  */
 package org.encuestame.persistence.dao.imp;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ISurvey;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -135,13 +136,13 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     /**
      * Retrieve Questions by Survey Section.
      */
-    @SuppressWarnings("unchecked")
-    public List<SurveySection> retrieveQuestionsBySurveySection(final Long secId){
+
+   /* public List<SurveySection> retrieveQuestionsBySurveySection(final Long secId){
         final SurveySection ssection = this.retrieveSurveySectionById(secId);
-        List questionsSection = new ArrayList(ssection.getQuestionSection());
+        List questionsSection = new ArrayList(ssection.get());
          //final List  quest = ssection.getQuestionSection();
         return questionsSection;
-    }
+    }*/
 
     /**
      * Retrieve Sections by Page in Survey.
@@ -366,5 +367,33 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          criteria.add(Restrictions.eq("owner.uid", userId));
          criteria.addOrder(Order.desc("createdAt"));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#getSurveyResponseBySurvey(org.encuestame.persistence.domain.survey.Survey)
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveyResult> getSurveyResponseBySurvey(final Survey survey, final Question question) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(SurveyResult.class);
+        if (question != null) {
+            criteria.add(Restrictions.eq("question", question));
+            criteria.add(Restrictions.eq("survey", survey));
+        } else {
+            criteria.add(Restrictions.eq("survey", survey));
+        }
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#getSurveySection(org.encuestame.persistence.domain.survey.Survey)
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveySection> getSurveySection(final Survey survey){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SurveySection.class);
+        criteria.add(Restrictions.eq("survey", survey));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 }
