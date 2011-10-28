@@ -2,7 +2,6 @@ dojo.provide("encuestame.org.core.commons");
 
 dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
 dojo.require("encuestame.org.core.commons.error.ErrorHandler");
-dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
 dojo.require("dijit.Dialog");
 dojo.require("dojo.cookie");
 

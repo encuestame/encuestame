@@ -40,8 +40,14 @@ dojo.declare(
          */
         data : null,
 
+        /*
+         *
+         */
         dashboardId  : null,
 
+        /*
+         *
+         */
         _widgetInside : null,
 
         /*
@@ -49,18 +55,12 @@ dojo.declare(
          */
         postCreate: function() {
             dojo.subscribe("/encuestame/dashboard/gadget/remove", this, "_removeGadget");
-            //var parent = this;
             if (this.data) {
                 console.debug("gadget data",  this.data);
                 if (this.data.id) {
                     this.domNode.setAttribute("gid",  this.data.id);
                     this._initialize();
                 }
-                //dojo.connect(this._remove, "onclick", dojo.hitch(this, function(event) {
-                //    dojo.stopEvent(event);
-                //    parent._removeGadget();
-                //    console.info("remove ..... gadget");
-                //}));
             }
         },
 
@@ -82,7 +82,6 @@ dojo.declare(
                      this._widgetInside = this._loadGadget(this.data.gadget_name, {gadgetId : this.data.id});
                      this._widgetInside.placeAt(this._content);
                      this._widgetInside.startup();
-                     //this._setTitle(this.data.gadget_name); //TODO: the title should be more specific.
                  }
              });
              var error = function(error) {
@@ -113,7 +112,7 @@ dojo.declare(
             }
        },
 
-         /**
+         /*
           *
           * @param type
           * @param params
@@ -126,13 +125,10 @@ dojo.declare(
             } else if (type == "comments") {
                 return new encuestame.org.core.gadget.Comments(params);
             }  else {
-                return new encuestame.org.core.gadget.Activity(params);
+               throw new Error("gadget not valid");
             }
         },
 
-        _editConfiguration : function(){},
-        _updateConfiguration : function(){},
-        _minimizeGadget : function(){},
-        _maximizeGadget : function(){}
+        _editConfiguration : function(){}
     }
 );
