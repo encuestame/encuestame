@@ -12,6 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,6 +21,7 @@ import junit.framework.Assert;
 import org.encuestame.business.service.StreamService;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.junit.Before;
@@ -77,9 +79,28 @@ public class TestStreamService extends AbstractSpringSecurityContext {
      */
     @Test
     public void testloadNotificationByUserAndLimit() throws EnMeNoResultsFoundException{
-        List<UtilNotification> loadNotificationByUserAndLimit = this.streamService
+        final List<UtilNotification> loadNotificationByUserAndLimit = this.streamService
                 .loadNotificationByUserAndLimit(10, 0, false, this.request);
         Assert.assertEquals(loadNotificationByUserAndLimit.size(), 1);
     }
 
+    /**
+     * @throws EnMeNoResultsFoundException
+     *
+     */
+    @Test
+    public void testclassifyNotificationList() throws EnMeNoResultsFoundException{
+        final List<UtilNotification> list = this.streamService
+                .retrieveLastNotifications(10, this.request);
+        final HashMap<DateClasificatedEnum, List<UtilNotification>> classify = this.streamService
+                .classifyNotificationList(list);
+        Assert.assertNotNull(classify.get(DateClasificatedEnum.FEW_MONTHS_AGO));
+        Assert.assertNotNull(classify.get(DateClasificatedEnum.TODAY));
+        Assert.assertEquals(classify.get(DateClasificatedEnum.TODAY).size(), 1);
+        Assert.assertNotNull(classify.get(DateClasificatedEnum.LAST_MONTH));
+        Assert.assertNotNull(classify.get(DateClasificatedEnum.LAST_YEAR));
+        Assert.assertNotNull(classify.get(DateClasificatedEnum.LONG_TIME_AGO));
+        Assert.assertNotNull(classify.get(DateClasificatedEnum.THIS_MONTH));
+        Assert.assertNotNull(classify.get(DateClasificatedEnum.THIS_WEEK));
+    }
 }
