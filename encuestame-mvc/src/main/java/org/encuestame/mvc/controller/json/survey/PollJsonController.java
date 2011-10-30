@@ -42,7 +42,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * Poll Json Controller.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 20, 2010 8:16:38 PM
- * @version $Id:$
  */
 @Controller
 public class PollJsonController extends AbstractJsonController{
@@ -108,7 +107,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/remove.json", method = RequestMethod.GET)
-    public ModelMap deleteGroup(
+    public ModelMap deletePoll(
             @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -122,6 +121,24 @@ public class PollJsonController extends AbstractJsonController{
           }
           return returnData();
       }
+
+    /*
+     *
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/poll/detail.json", method = RequestMethod.GET)
+    public ModelMap retrieveDetail(
+            @RequestParam(value = "id", required = true) Long pollId,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            for (int i = 0; i < 50000; i++) {
+                log.debug(i);
+                //TODO: for TEST propose.
+            }
+            setItemResponse(jsonResponse);
+        return returnData();
+    }
 
     /**
      *

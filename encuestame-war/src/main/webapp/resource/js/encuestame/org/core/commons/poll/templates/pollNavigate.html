@@ -1,7 +1,9 @@
 <div id="web-poll-navigate">
+    <div dojoType="dojox.widget.Toaster" duration="10" messageTopic="myMessages" positionDirection="tr-right" id="toasted"></div>
     <div id="tweetListContent" class="tweetListContent">
         <aside style="float: left; width: 200px; border: 1px solid #E6E6E6;">
             <div class="web-sidebar-options">
+                <div id="strapline">ssssssssssssssssss</div>
                 <div class="web-filter-sidebar-panel">
                     <div class="folder-title default-background-dark-color default-sidebar-menu">Filters</div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount"
@@ -56,7 +58,7 @@
                         <div dojoType="encuestame.org.core.shared.utils.DropDownMenuSelect" defaultText="Poll Actions.."></div>
                     </div>
                 </div>
-                <div dojoAttachPoint="_items" class="web-list-rows"></div>
+                <article dojoAttachPoint="_items" class="web-list-rows"></article>
                 <div dojoAttachPoint="_more" class="web-list-more"></div>
                 <div dojoAttachPoint="_item" class="web-row-detail"></div>
 

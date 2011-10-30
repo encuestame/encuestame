@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>
