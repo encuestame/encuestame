@@ -76,12 +76,11 @@ public class PollJsonController extends AbstractJsonController{
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try{
-            log.debug("/api/survey/poll/search.json");
-            log.debug("/api/survey/poll/search.json "+typeSearch);
-            log.debug("/api/survey/poll/search.json "+max);
-            log.debug("/api/survey/poll/search.json "+keyword);
-            log.debug("/api/survey/poll/search.json "+pollFolderId);
-            log.debug("/api/survey/poll/search.json "+start);
+            System.out.println(typeSearch);
+            System.out.println(keyword);
+            System.out.println(max);
+            System.out.println(pollFolderId);
+            System.out.println(start);
             final List<PollBean> list = (List<PollBean>) getPollService().filterPollByItemsByType(
                      TypeSearch.getSearchString(typeSearch), keyword, max,
                      start);
@@ -216,7 +215,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @RequestMapping(value = "/api/survey/poll/{actionType}.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/survey/poll/create.json", method = RequestMethod.POST)
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
@@ -226,21 +225,17 @@ public class PollJsonController extends AbstractJsonController{
             @RequestParam(value = "limitVote", required = false) Boolean limitVote,
             @RequestParam(value = "closeAfter", required = false) Boolean closeAfter,
             @RequestParam(value = "blockIp", required = false) Boolean blockIp,
-
-            @PathVariable String actionType,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-               if ("create".equals(actionType)) {
-                   final Poll poll = getPollService().createPoll(questionName, answers, showResults,
-                                     showComments, notification);
-                   final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
-                   log.debug("Poll Bean "+pollBean);
-                   jsonResponse.put("pollBean", pollBean);
-                   setItemResponse(jsonResponse);
-                   getPollService().createPollNotification(poll);
-               }
+               final Poll poll = getPollService().createPoll(questionName, answers, showResults,
+                                 showComments, notification);
+               final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
+               log.debug("Poll Bean "+pollBean);
+               jsonResponse.put("pollBean", pollBean);
+               setItemResponse(jsonResponse);
+               getPollService().createPollNotification(poll);
           } catch (Exception e) {
               e.printStackTrace();
               log.error(e);

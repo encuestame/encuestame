@@ -176,10 +176,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     private String name;
 
-    /** **/
+    /**
+     * The current relevance of the item.
+     * **/
     private Long relevance;
 
-    /** Like option**/
+    /**
+     * Like option.
+     * **/
     private Long likeVote;
 
     /** Unlike **/
