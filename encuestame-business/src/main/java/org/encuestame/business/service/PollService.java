@@ -82,32 +82,30 @@ public class PollService extends AbstractSurveyService implements IPollService{
                     .findAllPollByEditorOwner(
                             getUserAccount(getUserPrincipalUsername()), max,
                             start)));
-       } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
+       } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(this.
             getPollDao().retrievePollToday(
                                         getUserAccount(getUserPrincipalUsername())
                                                 .getAccount(), max, start,
                                         DateUtil.getNextDayMidnightDate())));
-      } else if (TypeSearch.LASTWEEK.name().equals(typeSearch)) {
+      } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(this
                     .getPollDao().retrievePollLastWeek(
                             getUserAccount(getUserPrincipalUsername())
                                     .getAccount(), max, start,
                             DateUtil.getNextDayMidnightDate())));
-        } else if (TypeSearch.FAVOURITES.name().equals(typeSearch)) {
+        } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
                     .retrieveFavouritesPoll(
                             getUserAccount(getUserPrincipalUsername()), max,
                             start)));
-        } else if (TypeSearch.ALL.name().equals(typeSearch)) {
+        } else if (TypeSearch.ALL.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(this
                     .getPollsByRange(max, start, null)));
         } else {
-            list.addAll(ConvertDomainBean.convertListToPollBean(this
-                    .getPollsByRange(max, start, null)));
+           throw new EnMeExpcetion("operation not valid");
         }
         log.debug("Poll Search Items : "+list.size());
-        System.out.println("Poll Search Items : "+list.size());
         return list;
     }
 

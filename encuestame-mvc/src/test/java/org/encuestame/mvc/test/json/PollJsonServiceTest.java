@@ -65,7 +65,8 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("FAVOURITES", null, "10", "0").size(), 0);
         this.createPoll(
                 "Is Obama the best president of Unite States last 50th years?", new String[]{"Yes", "No"});
-        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "10", "0").size(), 0);
+        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "10", "0").size(), 2);
+        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "1", "0").size(), 2);
     }
 
     /**
@@ -84,14 +85,14 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
          if (keyword != null) {
              setParameter("keyword", keyword);
          }
-         setParameter("typeSearch", "KEYWORD");
+         setParameter("typeSearch", type);
          setParameter("maxResults", max);
          setParameter("start", start);
          final JSONObject yesterdayResponse = callJsonService();
-         //System.out.println("******************************************");
          final JSONObject yesterdaySuccess = getSucess(yesterdayResponse);
          final JSONArray yesterdayPolls = (JSONArray) yesterdaySuccess
                  .get("poll");
+         Assert.assertNotNull(yesterdayPolls);
          return yesterdayPolls;
     }
 

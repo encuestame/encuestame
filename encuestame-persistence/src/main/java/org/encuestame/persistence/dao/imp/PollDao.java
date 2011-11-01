@@ -346,7 +346,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("editorOwner","editorOwner");
-        criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
+        criteria.add(Restrictions.eq("favorites", Boolean.TRUE));
         criteria.add(Restrictions.eq("editorOwner", userAccount));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }

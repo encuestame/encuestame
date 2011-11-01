@@ -76,11 +76,6 @@ public class PollJsonController extends AbstractJsonController{
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try{
-            System.out.println(typeSearch);
-            System.out.println(keyword);
-            System.out.println(max);
-            System.out.println(pollFolderId);
-            System.out.println(start);
             final List<PollBean> list = (List<PollBean>) getPollService().filterPollByItemsByType(
                      TypeSearch.getSearchString(typeSearch), keyword, max,
                      start);
