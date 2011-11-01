@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Remove unconfirmed account Job.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Jul 19, 2011
- * @version $Id:$
  */
 public class RemoveUnconfirmedAccountJob {
 

@@ -59,6 +59,8 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
             dojo.subscribe("/encuestame/dashboard/grid/reload/gadgets", this, "_loadGadgets");
             dojo.subscribe("/encuestame/dashboard/grid/layout", this, "_layout");
             dojo.subscribe("/encuestame/dashboard/add/portlet", this, "_addPortlet");
+            dojo.subscribe("/encuestame/dashboard/gadget/add", this, "_addGadget");
+
             this.gridContainer = new dojox.layout.GridContainer({
             nbZones : 3,
             opacity : .5,
@@ -75,18 +77,18 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
 
 
         // prepare some Content for the Portlet:
-        var portletContent1 = [ dojo.create('div', {
-            innerHTML : 'Some content within the Portlet "dynPortlet1".'
-        }) ];
+       // var portletContent1 = [ dojo.create('div', {
+       //     innerHTML : 'Some content within the Portlet "dynPortlet1".'
+       // }) ];
 
         // create a new Portlet:
-        var portlet1 = new dojox.widget.Portlet({
-            id : 'dynPortlet1',
-            closable : false,
-            dndType : 'Portlet',
-            title : 'Portlet "dynPortlet1"',
-            content : portletContent1
-        });
+       // var portlet1 = new dojox.widget.Portlet({
+       //     id : 'dynPortlet1',
+       //     closable : false,
+       //     dndType : 'Portlet',
+       //    title : 'Portlet "dynPortlet1"',
+       //     content : portletContent1
+       // });
 
         // add the first Portlet to the
         // GridContainer:
@@ -95,16 +97,37 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
     },
 
     /*
+    *
+    */
+   _addGadget : function(dasboardId, name) {
+       console.info("_addGadget", dasboardId);
+       console.info("_addGadget", name);
+       if (dasboardId == this._dasboardId) {
+           var params = {boardId: dasboardId, gadgetId: name};
+           var load = dojo.hitch(this, function(data) {
+               console.info("_addGadget added", data);
+               if ("success" in data) {
+                   console.debug("_addGadget", data);
+                   var gadget = data.success.gadget;
+                   this._createPortlet(this._createGadget(gadget), gadget);
+               }
+           });
+           var error = function(error) {
+               console.debug("error", error);
+           };
+           encuestame.service.xhrGet(encuestame.service.gadget.add, params, load, error);
+       }
+   },
+
+    /*
      * load list of gadgets for this dashboard.
      */
     _loadGadgets : function(dasboardId) {
         this._dasboardId = dasboardId;
         var load = dojo.hitch(this, function(data) {
-            console.debug("_loadGadgets initialize", data.success);
             if ("success" in data) {
                 this._gadgets = data.success.gadgets;
                 this._dashboard = data.success.dashboard;
-                console.info("PRING GADGETS 1");
                 this._printGadgets();
             } else {
                 console.error("error no gadgets");
@@ -120,7 +143,6 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
      *
      */
     _printGadgets : function() {
-        console.info("PRING GADGETS");
         this._removeAllGadgets();
         dojo.forEach(this._gadgets,
                 dojo.hitch(this,function(item) {
@@ -146,6 +168,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
      *
      */
     _createGadget : function(data /* gadget info*/) {
+        console.info("_createGadget", data);
         var gatget = new encuestame.org.core.commons.dashboard.Gadget({data : data, dashboardId: this._dasboardId});
         gatget.startup();
         return gatget;
@@ -171,12 +194,6 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
         });
         portlet.gadgetId = gadget.id;
         portlet.onClose = function(evt) {
-            console.debug("HIDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-            // summary:
-            //		Hides the portlet. Note that it does not
-            //		persist this, so it is up to the client to
-            //		listen to this method and persist the closed state
-            //		in their own way.
             dojo.publish("/encuestame/dashboard/gadget/remove", [gadget.id]);
             dojo.style(this.domNode, "display", "none");
         };
