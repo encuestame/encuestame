@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -167,13 +168,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             final Account account,
             final Integer maxResults,
             final Integer start){
-        final Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_YEAR, -7);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND,0);
-        return retrieveTweetPollByDate(account, cal.getTime(), maxResults, start);
+        return retrieveTweetPollByDate(account,
+                DateUtil.decreaseDateADay(Calendar.getInstance().getTime()),
+                maxResults, start);
     }
 
     /**

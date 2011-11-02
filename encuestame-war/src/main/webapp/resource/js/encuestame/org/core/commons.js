@@ -2,7 +2,6 @@ dojo.provide("encuestame.org.core.commons");
 
 dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
 dojo.require("encuestame.org.core.commons.error.ErrorHandler");
-dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
 dojo.require("dijit.Dialog");
 dojo.require("dojo.cookie");
 
@@ -136,6 +135,32 @@ encuestame.utilities.usernameLink = function(username) {
         return url;
     }
 };
+
+encuestame.utilities.randomString = function() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+};
+
+encuestame.utilities.url = {};
+
+/*
+ * summary :: build hashtag url
+ *    hashtagName : hashtag name;
+ */
+encuestame.utilities.url.hashtag  = function(hashtagName) {
+    if (hashtagName) {
+        var url = encuestame.contextDefault;
+        url = url.concat("/tag/");
+        url = url.concat(hashtagName);
+        url = url.concat("/");
+        return url;
+    } else {
+        throw new Error("hashtag name is required");
+    }
+}
 
 /*
  * Short a long number to short number description.
@@ -507,6 +532,7 @@ encuestame.service.list.poll = {};
 encuestame.service.list.listPoll = encuestame.contextWidget()+"/api/survey/poll/search.json";
 encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/survey/poll/create.json";
 encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/survey/poll/publish.json";
+encuestame.service.list.poll.detail = encuestame.contextWidget()+"/api/survey/poll/detail.json";
 
 /**
  * Comment Services.

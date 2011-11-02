@@ -280,7 +280,7 @@ dojo.declare(
                     var hashtag = new encuestame.org.core.commons.stream.HashTagInfo(
                             {
                              hashTagName: item.hashTagName,
-                             url: encuestame.contextDefault+"/tag/"+item.hashTagName+"/"
+                             url: encuestame.utilities.url.hashtag(item.hashTagName)
                             }
                             );
                     this._hashtags.appendChild(hashtag.domNode);

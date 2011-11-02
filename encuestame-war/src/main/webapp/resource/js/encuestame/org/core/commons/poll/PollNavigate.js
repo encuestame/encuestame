@@ -7,6 +7,13 @@ dojo.require("encuestame.org.core.shared.utils.FilterList");
 dojo.require("encuestame.org.core.shared.utils.TableLinkedList");
 dojo.require("encuestame.org.core.shared.utils.DropDownMenuSelect");
 dojo.require("encuestame.org.core.shared.utils.More");
+dojo.require("encuestame.org.core.commons.support.PanelWipe");
+dojo.require("encuestame.org.core.shared.utils.StandBy");
+
+dojo.require("dijit.InlineEditBox");
+dojo.require("dijit.form.Textarea");
+
+dojo.require("dojox.widget.Toaster");
 
 dojo.require("dijit.form.CheckBox");
 
@@ -67,6 +74,11 @@ dojo.declare(
             if (this.enable_more_support) {
                 this.enableMoreSupport(this._params.start, this._params.max, this._more);
             }
+            dojo.addOnLoad(function() {
+                dojo.connect(dojo.byId('strapline'), 'onclick', function(event) {
+                    dojo.publish('myMessages', [{ message: 'Qwerty', type: "error", duration: 0}])
+                });
+            });
         },
 
         _empty : function() {
@@ -152,7 +164,56 @@ dojo.declare(
         /*
          *
          */
-        postCreate : function() {
+        _standBy : null,
 
-        }
+
+        widget_detail : null,
+
+        /*
+         *
+         */
+        postCreate : function() {
+            console.debug("row data", this.data);
+            var panel = new encuestame.org.core.commons.support.PanelWipe(this._more, null, null);
+            panel.connect(this._edit, dojo.hitch(this, this._callEditInfo));
+            this._standBy = dijit.byId("standby_"+this.id);
+            this.widget_detail = new encuestame.org.core.commons.poll.PollNavigateItemDetail({ data : this.data});
+            dojo.place(this.widget_detail.domNode, this._more);
+        },
+
+        /*
+         *
+         */
+        _callEditInfo : function() {
+            console.info("_callEditInfo");
+            var load = dojo.hitch(this, function(data) {
+                this._standBy.stop();
+                console.info("poll detail", data);
+            });
+            var error = dojo.hitch(this, function(error) {
+                this._standBy.stop();
+                console.debug("error", error);
+            });
+            var params = {
+                    id : this.data.id
+            };
+            this._standBy.startup();
+            this._standBy.start();
+            encuestame.service.xhrGet(encuestame.service.list.poll.detail, params, load, error);
+        },
+});
+
+
+dojo.declare(
+        "encuestame.org.core.commons.poll.PollNavigateItemDetail", [encuestame.org.main.EnmeMainLayoutWidget],{
+
+       /*
+        *
+        */
+       templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/pollListItemDetail.html"),
+
+
+       postCreate : function(){
+
+       }
 });
