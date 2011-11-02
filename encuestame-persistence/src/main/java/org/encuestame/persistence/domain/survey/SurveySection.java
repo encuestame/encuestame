@@ -21,14 +21,24 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+
 /**
  * SurveySection.
  * @author Picado, Juan juanATencuestame.org
  * @since October 17, 2009
  * @version  $Id$
  */
+
 @Entity
 @Table(name = "survey_section")
+@Indexed(index="SurveySection")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SurveySection {
 
     /** **/
@@ -60,6 +70,7 @@ public class SurveySection {
     /**
      * @return descSection
      */
+    @Field(index = Index.TOKENIZED, store = Store.YES)
     @Column(name = "desc_section")
     public String getDescSection() {
         return this.descSection;
