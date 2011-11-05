@@ -22,6 +22,7 @@
          dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
          dojo.require("encuestame.org.core.commons.notifications.Notification");
          dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
+         dojo.require("dojox.widget.Toaster");
          encuestame.activity = new encuestame.org.activity.Activity(true);
      </c:if>
 </script>

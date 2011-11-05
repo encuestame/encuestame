@@ -13,7 +13,41 @@
 dojo.provide("encuestame.org.main.WidgetServices");
 dojo.declare("encuestame.org.main.WidgetServices", null, {
 
-    constructor: function(){
+    // constructor
+    constructor: function(){},
+
+    /*
+     *
+     */
+    _delay_messages : 5000,
+
+    /*
+     *
+     */
+    successMesage : function() {
+        console.info("Successfull message");
+        encuestame.messages.pubish(encuestame.constants.messageCodes["023"], "message", this._delay_messages);
+    },
+
+    /*
+     *
+     */
+    warningMesage : function() {
+        encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "warning", this._delay_messages);
+    },
+
+    /*
+     *
+     */
+    errorMesage : function() {
+        encuestame.messages.pubish(encuestame.constants.errorCodes["023"], "error", this._delay_messages);
+    },
+
+    /*
+     *
+     */
+    fatalMesage : function() {
+        encuestame.messages.pubish(encuestame.constants.errorCodes["023"], "fatal", this._delay_messages);
     }
 
 });

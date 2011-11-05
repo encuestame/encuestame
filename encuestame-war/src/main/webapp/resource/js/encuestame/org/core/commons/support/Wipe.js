@@ -35,13 +35,13 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
          *
          */
         constructor: function(node, duration, heigth) {
-            if (node == null) {
+            //if (node == null) {
                 this.node = node;
                 this.duration == null ? this.duration : duration;
                 this.heigth == null ? this.heigth : heigth;
-            } else {
-                throw new Error("node is required");
-            }
+            //} else {
+            //    throw new Error("node is required");
+            //}
         },
 
         /*
