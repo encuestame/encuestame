@@ -10,4 +10,10 @@
 <!--         <div id="errorHandler"></div> -->
 <!--         <div id="errorConexionHandler"></div> -->
 <!--     </div> -->
+<c:if test="${logged}">
+        <div dojoType="dojox.widget.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
+            messageTopic="/encuestame/message/publish"
+            positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
+            id="toasted"></div>
+    </c:if>
 </div>
