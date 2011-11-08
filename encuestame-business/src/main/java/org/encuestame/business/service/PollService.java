@@ -133,7 +133,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
             else{
             //TODO: move hash to util.
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
+            log.debug("OPTION SHOW COMMENTS GETTED BEFORE---> " +commentOption);
             final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
+            log.debug("OPTION SHOW COMMENTS GETTED ENUM---> " +commentOpt);
             pollDomain.setEditorOwner(user);
             pollDomain.setCreatedAt(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -147,7 +149,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setEditorOwner(user);
             pollDomain.setOwner(user.getAccount());
             pollDomain.setShowResults(showResults);
-            pollDomain.setShowComments(commentOpt);
+
+            pollDomain.setShowComments(commentOpt == null ? null :commentOpt);
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);

@@ -1059,7 +1059,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll) {
       final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
-      final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll);
+      final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll , null, null, TypeSearchResult.TWEETPOLL);
       log.debug("getTweetPollLinks "+links.size());
       for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
           log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
