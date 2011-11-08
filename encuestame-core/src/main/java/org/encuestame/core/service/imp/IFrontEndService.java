@@ -142,7 +142,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeExpcetion
      */
-    public AccessRate registerAccessRate(final TypeSearchResult type,
+    AccessRate registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
             throws EnMeExpcetion;
 
@@ -155,7 +155,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeSearchException
      */
-    public List<SurveyBean> searchItemsBySurvey(final String period,
+    List<SurveyBean> searchItemsBySurvey(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException;
 
@@ -167,6 +167,6 @@ public interface IFrontEndService extends ServiceOperations {
      * @param datebefore
      * @param todayDate
      */
-    public void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
+    void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
             final Calendar datebefore, final Calendar todayDate);
 }
