@@ -30,6 +30,7 @@ public enum TypeSearch {
     ALL,
     BYOWNER,
     FOLDER,
+    DATE,
     TypeSearch(){
         //Constructor.
     };
@@ -49,6 +50,7 @@ public enum TypeSearch {
         else if (this == THISMONTH) { permission = "THISMONTH"; }
         else if (this == LAST365DAYS) { permission = "LAST365DAYS"; }
         else if (this == LAST30DAYS) { permission = "LAST30DAYS"; }
+        else if (this == DATE) { permission = "DATE"; }
         else if (this == ALL) { permission = "ALL"; }
         return permission;
     }
@@ -70,6 +72,7 @@ public enum TypeSearch {
         else if (search.equalsIgnoreCase("THISMONTH")) { return THISMONTH; }
         else if (search.equalsIgnoreCase("LAST365DAYS")) { return LAST365DAYS; }
         else if (search.equalsIgnoreCase("LAST30DAYS")) { return LAST30DAYS; }
+        else if (search.equalsIgnoreCase("DATE")) { return DATE; }
         else if (search.equalsIgnoreCase("ALL")) { return ALL; }
         else return null;
     }

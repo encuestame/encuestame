@@ -189,6 +189,10 @@ public class TestUtilsEnums extends TestCase{
 
         final TypeSearch folderOpt = TypeSearch.getSearchString("FOLDER");
         assertEquals("Should be equals", "FOLDER", folderOpt.toString());
+
+        final TypeSearch dateOpt = TypeSearch.getSearchString("date");
+        assertEquals("Should be equals", "DATE", dateOpt.toString());
+
     }
 
     /**

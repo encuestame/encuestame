@@ -637,7 +637,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public TweetPoll getTweetPollPublishedById(final Long tweetPollId) throws EnMeNoResultsFoundException{
         final TweetPoll tweetPoll = getTweetPollDao().getPublicTweetPollById(tweetPollId);
-        if (!tweetPoll.getPublishTweetPoll()) {
+        if (tweetPoll == null) {
             throw new EnMeNoResultsFoundException("tweetpoll [" + tweetPollId
                     + "] is not published");
         }
