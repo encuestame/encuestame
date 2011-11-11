@@ -20,9 +20,11 @@ import junit.framework.TestCase;
 import org.apache.commons.lang.time.DateUtils;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
@@ -320,6 +322,62 @@ public abstract class AbstractBaseUtils extends TestCase{
          unitPollComplete.setQuestionBean(questionBean);
          unitPollComplete.setShowResultsPoll(showResultsPoll);
          return unitPollComplete;
+     }
 
+     /**
+      * Helper.
+      * Create TweetPoll results bean.
+      * @param anwerId
+      * @param name
+      * @param vote
+      * @return
+      */
+     public TweetPollResultsBean createTweetPollResultsBean(final Long anwerId, final String name, final Long vote){
+         final TweetPollResultsBean tpResultsBean = new TweetPollResultsBean();
+         tpResultsBean.setAnswerId(anwerId);
+         tpResultsBean.setAnswerName(name);
+         tpResultsBean.setColor("#FFFF");
+         tpResultsBean.setPercent("50");
+         tpResultsBean.setVotes(vote);
+         return tpResultsBean;
+     }
+
+     public TweetPollBean createTweetPollBean(){
+         final TweetPollBean tpBean = new TweetPollBean();
+         final Date myDate = new Date();
+         tpBean.setAllowLiveResults(Boolean.TRUE);
+         tpBean.setAllowRepeatedVotes(Boolean.TRUE);
+         tpBean.setAnswerSwitchBeans(null);
+         tpBean.setCaptcha(Boolean.TRUE);
+         tpBean.setCloseNotification(Boolean.TRUE);
+         tpBean.setCompleted(Boolean.TRUE);
+         tpBean.setCreateDate(myDate.toString());
+         tpBean.setDateToLimit(myDate.toString());
+         tpBean.setDislikeVote(780L);
+         tpBean.setFavorite(Boolean.TRUE);
+         tpBean.setHashTags(null);
+         tpBean.setHits(180L);
+         tpBean.setId(null);
+         tpBean.setItemType("TWEETPOLL");
+         tpBean.setLikeVote(400L);
+         tpBean.setLimitVotes(500);
+         tpBean.setLimitVotesEnabled(Boolean.FALSE);
+         tpBean.setMaxRepeatedVotes(2);
+         tpBean.setOwnerUsername("jhonny");
+         tpBean.setPublishPoll(Boolean.TRUE);
+         tpBean.setQuestionBean(null);
+         tpBean.setRelativeTime(null);
+         tpBean.setRelevance(890L);
+         tpBean.setResultNotification(Boolean.TRUE);
+         tpBean.setResults(null);
+         tpBean.setResumeLiveResults(Boolean.TRUE);
+         tpBean.setResumeTweetPollDashBoard(null);
+         tpBean.setSchedule(Boolean.TRUE);
+         tpBean.setScheduleDate(myDate);
+         tpBean.setTotalVotes(503L);
+         tpBean.setTweetUrl(null);
+         tpBean.setUpdateDate(null);
+         tpBean.setUserId(null);
+         return null;
      }
 }

@@ -17,30 +17,37 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+
+import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.json.HomeBean;
+import org.encuestame.utils.json.LinksSocialBean;
+import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.ResumeResultTweetPoll;
 import org.encuestame.utils.json.SocialAccountBean;
+import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.oauth.StandardOAuthSession;
-import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.security.ForgotPasswordBean;
+import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.encuestame.utils.web.DashboardBean;
-import org.encuestame.utils.web.TypeTreeNode;
+import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
+import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
-import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitPermission;
-import org.encuestame.utils.web.PollBean;
-import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
@@ -48,6 +55,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 import org.encuestame.utils.web.notification.UtilNotification;
+import org.junit.Before;
 import org.junit.Test;
 
     /**
@@ -57,8 +65,25 @@ import org.junit.Test;
     * @since 13/03/2010 16:18:10
     * @version $Id: $
     **/
-    @SuppressWarnings("deprecation")
     public class TestUnitBeans extends AbstractBaseUtils {
+
+    /** {@link QuestionAnswerBean}. **/
+    private QuestionAnswerBean questionAnswer;
+
+    /** {@link TweetPollResultsBean}. **/
+    private TweetPollResultsBean tpResultsBean;
+
+    /** {@link TweetPollBean}. **/
+    private TweetPollBean tpBean;
+
+    @Before
+    public void initService(){
+       this.questionAnswer = createUnitAnswerBean(1L, "Yes",
+                "abcd", null);
+       this.tpResultsBean = createTweetPollResultsBean(questionAnswer.getAnswerId(), "Yes", 150L);
+
+       this.tpBean = createTweetPollBean();
+    }
 
     /**
     * Test Unit Answers Bean.
@@ -632,5 +657,110 @@ import org.junit.Test;
          assertNotNull(boardBean.getFavorite());
          assertNotNull(boardBean.getLayout());
          assertNotNull(boardBean.getSequence());
+    }
+
+    /**
+     * Test {@link ProfileUserAccount}.
+     */
+    @Test
+    public void testProfileUserAccount(){
+        final ProfileUserAccount profile = new ProfileUserAccount();
+        profile.setEmail("jhonny@encuestame.org");
+        profile.setLanguage("Sp");
+        profile.setName("Jhonny English");
+        profile.setPrivateProfile(Boolean.TRUE);
+        profile.setUsername("jhonny");
+        assertNotNull(profile);
+    }
+
+    /**
+     * Test {@link FolderBean}
+     */
+    @Test
+    public void testFolderBean(){
+        FolderBean folderBean = new FolderBean();
+        folderBean.setCreateAt(new Date());
+        folderBean.setFolderName("My folder");
+        assertNotNull(folderBean);
+    }
+
+    /**
+     * Test {@link LinksSocialBean}
+     */
+    @Test
+    public void testLinkSocial() {
+        LinksSocialBean linkSocial = new LinksSocialBean();
+        linkSocial.setLink("https:/xxxx.xxxx.xxx");
+        linkSocial.setProvider("TWITTER");
+        assertNotNull(linkSocial);
+    }
+
+    /**
+     * Test {@link HomeBean}.
+     */
+    @Test
+    public void testHomeBean(){
+        final Date myDate = new Date();
+        // QuestionPatternBean
+        QuestionPatternBean qPatternBean = createUnitPatternBean(
+                "TextBoxPattern", "TextBox", "", 1L, "txt", "", "txt", 1,
+                "textBox");
+        assertNotNull(qPatternBean);
+
+        // QuestionAnswerBean
+
+        final QuestionAnswerBean qAnswer2 = createUnitAnswerBean(2L, "No",
+                "defg", null);
+
+        // Add QuestionAnswerBean
+        final List<QuestionAnswerBean> qAnswerBean = new ArrayList<QuestionAnswerBean>();
+        qAnswerBean.add(this.questionAnswer);
+        qAnswerBean.add(qAnswer2);
+
+        // QuestionBean
+        QuestionBean qBean = createUnitQuestionBean(1L, "First question", "1",
+                qAnswerBean, qPatternBean);
+        assertNotNull(qBean);
+
+        // HashTagBeans
+        HashTagBean tagBean1 = createUnitHashTag("Education", 1L);
+        HashTagBean tagBean2 = createUnitHashTag("Health", 2L);
+        HashTagBean tagBean3 = createUnitHashTag("Jobs", 3L);
+
+        // Add HashtagBean
+        final List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
+        hashTags.add(tagBean1);
+        hashTags.add(tagBean2);
+        hashTags.add(tagBean3);
+
+        HomeBean homeBean = new HomeBean();
+        homeBean.setCreateDate(myDate.toString());
+        homeBean.setDislikeVote(150L);
+        homeBean.setFavorite(Boolean.TRUE);
+        homeBean.setHashTags(hashTags);
+        homeBean.setHits(55L);
+        homeBean.setItemType("TWEETPOLL");
+        homeBean.setLikeVote(80L);
+        homeBean.setOwnerUsername("jhonny");
+        homeBean.setQuestionBean(qBean);
+        homeBean.setRelativeTime("");
+        homeBean.setRelevance(40L);
+        homeBean.setTotalVotes(158L);
+        homeBean.setUserId(1L);
+        assertNotNull(homeBean);
+    }
+
+    /**
+     * Test {@link TweetPollAnswerSwitchBean}.
+     */
+    @Test
+    public void testTweetPollAnswerSwitchBean(){
+        TweetPollAnswerSwitchBean tpAnswerSwitch = new TweetPollAnswerSwitchBean();
+        tpAnswerSwitch.setAnswerBean(this.questionAnswer);
+        tpAnswerSwitch.setResultsBean(this.tpResultsBean);
+        tpAnswerSwitch.setShortUrl("");
+        tpAnswerSwitch.setTweetPollBean(this.tpBean);
+        tpAnswerSwitch.setTweetPollId(null);
+        assertNotNull(tpAnswerSwitch);
     }
 }
