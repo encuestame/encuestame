@@ -23,6 +23,8 @@ import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.social.SocialNetworkBean;
+import org.encuestame.utils.social.SocialProvider;
 import org.junit.Test;
 
 /**
@@ -235,5 +237,32 @@ public class TestUtilsEnums extends TestCase{
 
         final Profile realNameOpt = Profile.findProfile("REAL_NAME");
         assertEquals("Should be equals", "completeName", realNameOpt.toString());
+    }
+
+    /**
+     * Test social provider.
+     */
+    @Test
+    public void testSocialProvider(){
+        final SocialProvider twitterProvider = SocialProvider.getProvider("TWITTER");
+        assertEquals("Should be equals", "TWITTER", twitterProvider.toString());
+
+        final SocialProvider facebookProvider = SocialProvider.getProvider("FACEBOOK");
+        assertEquals("Should be equals", "FACEBOOK", facebookProvider.toString());
+
+        final SocialProvider identicaProvider = SocialProvider.getProvider("IDENTICA");
+        assertEquals("Should be equals", "IDENTICA", identicaProvider.toString());
+
+        final SocialProvider linkedinProvider = SocialProvider.getProvider("LINKEDIN");
+        assertEquals("Should be equals", "LINKEDIN", linkedinProvider.toString());
+
+        final SocialProvider mySpaceProvider = SocialProvider.getProvider("YAHOO");
+        assertEquals("Should be equals", "YAHOO", mySpaceProvider.toString());
+
+        final SocialProvider googleBuzzProvider = SocialProvider.getProvider("GOOGLE_BUZZ");
+        assertEquals("Should be equals", "GOOGLEBUZZ", googleBuzzProvider.toString());
+
+        final SocialProvider yahooProvider = SocialProvider.getProvider("MYSPACE");
+        assertEquals("Should be equals", "MYSPACE", yahooProvider.toString());
     }
 }

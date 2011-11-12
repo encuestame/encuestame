@@ -34,6 +34,9 @@ import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.oauth.StandardOAuthSession;
 import org.encuestame.utils.security.ForgotPasswordBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.social.SocialNetworkBean;
+import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.social.SocialUserProfile;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
@@ -88,17 +91,12 @@ public class TestUnitBeans extends AbstractBaseUtils {
 
     @Before
     public void initService(){
-       this.questionAnswer = createUnitAnswerBean(1L, "Yes",
-                "abcd", null);
-       this.tpResultsBean = createTweetPollResultsBean(questionAnswer.getAnswerId(), "Yes", 150L);
 
-       this.tpBean = createTweetPollBean();
+
+
 
        this.myDashboardBean = createDashboardBean("Store all surveys created",
                 "Survey Dash", Boolean.TRUE, 8, "AAA", Boolean.TRUE, 2);
-
-       this.myUserAccBean = createUserAccountBean("Jhonny", "jhonny@encuestame.org");
-
     }
 
     /**
@@ -815,12 +813,16 @@ public class TestUnitBeans extends AbstractBaseUtils {
     @Test
     public void testTweetPollAnswerSwitchBean(){
         TweetPollAnswerSwitchBean tpAnswerSwitch = new TweetPollAnswerSwitchBean();
+        this.questionAnswer = createUnitAnswerBean(1L, "Yes", "abcd", null);
+        this.tpResultsBean = createTweetPollResultsBean(
+                questionAnswer.getAnswerId(), "Yes", 150L);
+        this.tpBean = createTweetPollBean();
         tpAnswerSwitch.setId(2L);
         tpAnswerSwitch.setAnswerBean(this.questionAnswer);
         tpAnswerSwitch.setResultsBean(this.tpResultsBean);
         tpAnswerSwitch.setShortUrl("/twitter/mytweet/question");
         tpAnswerSwitch.setTweetPollBean(this.tpBean);
-        tpAnswerSwitch.setTweetPollId(this.tpBean.getId());
+        tpAnswerSwitch.setTweetPollId(1L);
         assertNotNull(tpAnswerSwitch);
         assertNotNull(tpAnswerSwitch.getId());
         assertNotNull(tpAnswerSwitch.getAnswerBean());
@@ -882,6 +884,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     @Test
     public void testGadgetPropertiesBean(){
         final GadgetPropertiesBean gadgetProperties = new GadgetPropertiesBean();
+        this.myUserAccBean = createUserAccountBean("Jhonny", "jhonny@encuestame.org");
         gadgetProperties.setPropertyId(1L);
         gadgetProperties.setGadgetPropName("my gadget");
         gadgetProperties.setGadgetPropValue("");
@@ -916,5 +919,113 @@ public class TestUnitBeans extends AbstractBaseUtils {
         assertNotNull(myGadgetBean.getGadgetId());
         assertNotNull(myGadgetBean.getGadgetPosition());
         assertNotNull(myGadgetBean.getStatus());
+    }
+
+    /**
+     * Test social user profile.
+     */
+    @Test
+    public void testSocialUserProfile(){
+        final SocialUserProfile socialUserProfile = new SocialUserProfile();
+        socialUserProfile.setContributorsEnabled(Boolean.TRUE);
+        socialUserProfile.setCreatedAt(new Date());
+        socialUserProfile.setDescription("user profile description");
+        socialUserProfile.setEmail("jhonnyATencuestame.org");
+        socialUserProfile.setFavouritesCount(5);
+        socialUserProfile.setFirstName("Jhonny");
+        socialUserProfile.setFollowersCount(5);
+        socialUserProfile.setFollowRequestSent(Boolean.TRUE);
+        socialUserProfile.setFriendsCount(2);
+        socialUserProfile.setGeoEnabled(Boolean.FALSE);
+        socialUserProfile.setHeadline("headline");
+        socialUserProfile.setId("1");
+        socialUserProfile.setIndustry("encuestame,Inc");
+        socialUserProfile.setLang("");
+        socialUserProfile.setLastName("English");
+        socialUserProfile.setListedCount(1);
+        socialUserProfile.setLocation("spain");
+        socialUserProfile.setName("Jhonny");
+        socialUserProfile.setProfileBackgroundColor("#393CCA");
+        socialUserProfile.setProfileBackgroundImageUrl("/images/test.jpg");
+        socialUserProfile.setProfileBackgroundTiled(Boolean.FALSE);
+        socialUserProfile.setProfileImageUrl("/images/profile.jpg");
+        socialUserProfile.setProfileLinkColor("#8B3232");
+        socialUserProfile.setProfileSidebarBorderColor("#39CA51");
+        socialUserProfile.setProfileSidebarFillColor("F0B615");
+        socialUserProfile.setProfileTextColor("060606");
+        socialUserProfile.setProfileUrl("/profile/jhonny");
+        socialUserProfile.setProfileUseBackgroundImage(Boolean.FALSE);
+        socialUserProfile.setProtected(Boolean.TRUE);
+        socialUserProfile.setScreenName("myprofile");
+        socialUserProfile.setShowAllInlineMedia(Boolean.FALSE);
+        socialUserProfile.setStatusesCount(1);
+        socialUserProfile.setTimeZone("GMT");
+        socialUserProfile.setTranslator(Boolean.FALSE);
+        socialUserProfile.setUrl("www.encuestame/profile/jhonny");
+        socialUserProfile.setUsername("jhonny");
+        socialUserProfile.setUtcOffset(0);
+        socialUserProfile.setVerified(Boolean.FALSE);
+
+        assertNotNull(socialUserProfile.isContributorsEnabled());
+        assertNotNull(socialUserProfile.getCreatedAt());
+        assertNotNull(socialUserProfile.getDescription());
+        assertNotNull(socialUserProfile.getEmail());
+        assertNotNull(socialUserProfile.getFavouritesCount());
+        assertNotNull(socialUserProfile.getFirstName());
+        assertNotNull(socialUserProfile.getFollowersCount());
+        assertNotNull(socialUserProfile.isFollowRequestSent());
+        assertNotNull(socialUserProfile.getFriendsCount());
+        assertNotNull(socialUserProfile.isGeoEnabled());
+        assertNotNull(socialUserProfile.getHeadline());
+        assertNotNull(socialUserProfile.getId());
+        assertNotNull(socialUserProfile.getIndustry());
+        assertNotNull(socialUserProfile.getLang());
+        assertNotNull(socialUserProfile.getLastName());
+        assertNotNull(socialUserProfile.getListedCount());
+        assertNotNull(socialUserProfile.getLocation());
+        assertNotNull(socialUserProfile.getName());
+        assertNotNull(socialUserProfile.getProfileBackgroundColor());
+        assertNotNull(socialUserProfile.getProfileBackgroundImageUrl());
+        assertNotNull(socialUserProfile.isProfileBackgroundTiled());
+        assertNotNull(socialUserProfile.getProfileImageUrl());
+        assertNotNull(socialUserProfile.getProfileLinkColor());
+        assertNotNull(socialUserProfile.getProfileSidebarBorderColor());
+        assertNotNull(socialUserProfile.getProfileSidebarFillColor());
+        assertNotNull(socialUserProfile.getProfileTextColor());
+        assertNotNull(socialUserProfile.getProfileUrl());
+        assertNotNull(socialUserProfile.isProfileUseBackgroundImage());
+        assertNotNull(socialUserProfile.isProtected());
+        assertNotNull(socialUserProfile.getScreenName());
+        assertNotNull(socialUserProfile.isShowAllInlineMedia());
+        assertNotNull(socialUserProfile.getStatusesCount());
+        assertNotNull(socialUserProfile.getTimeZone());
+        assertNotNull(socialUserProfile.isTranslator());
+        assertNotNull(socialUserProfile.getUrl());
+        assertNotNull(socialUserProfile.getUsername());
+        assertNotNull(socialUserProfile.getUtcOffset());
+        assertNotNull(socialUserProfile.isVerified());
+    }
+
+    /**
+     * Test social network bean.
+     */
+    @Test
+    public void testSocialNetworkBean(){
+        final SocialNetworkBean socialNetwork = new SocialNetworkBean();
+        socialNetwork.setApiId("dada");
+        socialNetwork.setConsumerKey("consumerKey");
+        socialNetwork.setConsumerSecret("consumerSecret");
+        socialNetwork.setSocialNetworkName("Twitter");
+        socialNetwork.setSocialProvider(SocialProvider.TWITTER);
+        socialNetwork.setUrlAccessToken("urlAccessToken");
+        socialNetwork.setUrlRequestToken("urlRequestToken");
+        assertNotNull(socialNetwork);
+        assertNotNull(socialNetwork.getApiId());
+        assertNotNull(socialNetwork.getConsumerKey());
+        assertNotNull(socialNetwork.getConsumerSecret());
+        assertNotNull(socialNetwork.getSocialNetworkName());
+        assertNotNull(socialNetwork.getSocialProvider());
+        assertNotNull(socialNetwork.getUrlAccessToken());
+        assertNotNull(socialNetwork.getUrlRequestToken());
     }
 }
