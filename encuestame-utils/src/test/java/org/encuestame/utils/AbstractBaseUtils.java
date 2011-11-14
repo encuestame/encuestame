@@ -21,6 +21,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -31,6 +32,7 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationTypeBean;
 import org.encuestame.utils.web.UnitProjectBean;
+import org.encuestame.utils.web.UserAccountBean;
 
 /**
  * Abstract base utils.
@@ -378,6 +380,44 @@ public abstract class AbstractBaseUtils extends TestCase{
          tpBean.setTweetUrl(null);
          tpBean.setUpdateDate(null);
          tpBean.setUserId(null);
-         return null;
+         return tpBean;
      }
+
+     /**
+      * Create dashboard bean.
+      * @param desc
+      * @param name
+      * @param favorite
+      * @param counter
+      * @param layout
+      * @param selected
+      * @param sequence
+      * @return
+      */
+    public DashboardBean createDashboardBean(final String desc,
+            final String name, final Boolean favorite, final Integer counter,
+            final String layout, final Boolean selected, final Integer sequence) {
+        final DashboardBean myDashboard = new DashboardBean();
+        myDashboard.setDashboardDesc(desc);
+        myDashboard.setDashboardName(name);
+        myDashboard.setFavorite(favorite);
+        myDashboard.setFavoriteCounter(counter);
+        myDashboard.setLayout(layout);
+        myDashboard.setSelected(selected);
+        myDashboard.setSequence(sequence);
+        return myDashboard;
+     }
+
+    /**
+     * Create user account bean.
+     * @param name
+     * @param email
+     * @return
+     */
+    public UserAccountBean createUserAccountBean(final String name, final String email){
+        final UserAccountBean userAcc = new UserAccountBean();
+        userAcc.setName(name);
+        userAcc.setEmail(email);
+        return userAcc;
+    }
 }
