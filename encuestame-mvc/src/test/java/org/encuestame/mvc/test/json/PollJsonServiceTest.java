@@ -123,7 +123,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
              setParameter("listAnswers", answers[i]);
          }
          setParameter("showResults", "true");
-         setParameter("showComments", "true");
+         setParameter("showComments", "APPROVE");
          setParameter("notification", "true");
          final JSONObject response = callJsonService();
          final JSONObject success = getSucess(response);

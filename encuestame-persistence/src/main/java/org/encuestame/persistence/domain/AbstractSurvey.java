@@ -31,6 +31,9 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.enums.CommentOptions;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Abstract Survey.
@@ -247,6 +250,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the optionalTitle.
      */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "optional_title")
     public String getOptionalTitle() {
         return optionalTitle;
@@ -520,6 +524,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the name
      */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "name")
     public String getName() {
         return name;

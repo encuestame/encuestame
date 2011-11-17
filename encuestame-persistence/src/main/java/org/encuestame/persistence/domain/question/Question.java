@@ -27,12 +27,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DateBridge;
@@ -102,11 +102,8 @@ public class Question {
      */
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
-    /**
-     * Question Answers.{@link QuestionAnswer}.
-     *
-     */
-    private Set<QuestionAnswer> questionsAnswers = new HashSet<QuestionAnswer>();
+    /** This question belongs to a survey section**/
+    private SurveySection section;
 
     /**
      * @return qid
@@ -224,21 +221,6 @@ public class Question {
     }
 
     /**
-     * @return the questionsAnswers
-     */
-    @OneToMany(mappedBy = "questions", cascade = CascadeType.REMOVE)
-    public Set<QuestionAnswer> getQuestionsAnswers() {
-        return questionsAnswers;
-    }
-
-    /**
-     * @param questionsAnswers the questionsAnswers to set
-     */
-    public void setQuestionsAnswers(final Set<QuestionAnswer> questionsAnswers) {
-        this.questionsAnswers = questionsAnswers;
-    }
-
-    /**
      * @return the createDate
      */
     @Temporal(TemporalType.TIMESTAMP)
@@ -284,5 +266,20 @@ public class Question {
      */
     public void setSlugQuestion(final String slugQuestion) {
         this.slugQuestion = slugQuestion;
+    }
+
+    /**
+     * @return the section
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public SurveySection getSection() {
+        return section;
+    }
+
+    /**
+     * @param section the section to set
+     */
+    public void setSection(final SurveySection section) {
+        this.section = section;
     }
 }
