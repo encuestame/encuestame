@@ -812,23 +812,23 @@ public class TestUnitBeans extends AbstractBaseUtils {
     /**
      * Test {@link TweetPollAnswerSwitchBean}.
      */
-    @Test
-    public void testTweetPollAnswerSwitchBean(){
-        TweetPollAnswerSwitchBean tpAnswerSwitch = new TweetPollAnswerSwitchBean();
-        tpAnswerSwitch.setId(2L);
-        tpAnswerSwitch.setAnswerBean(this.questionAnswer);
-        tpAnswerSwitch.setResultsBean(this.tpResultsBean);
-        tpAnswerSwitch.setShortUrl("/twitter/mytweet/question");
-        tpAnswerSwitch.setTweetPollBean(this.tpBean);
-        tpAnswerSwitch.setTweetPollId(this.tpBean.getId());
-        assertNotNull(tpAnswerSwitch);
-        assertNotNull(tpAnswerSwitch.getId());
-        assertNotNull(tpAnswerSwitch.getAnswerBean());
-        assertNotNull(tpAnswerSwitch.getResultsBean());
-        assertNotNull(tpAnswerSwitch.getTweetPollBean());
-        assertNotNull(tpAnswerSwitch.getShortUrl());
-        assertNotNull(tpAnswerSwitch.getTweetPollId());
-    }
+    //@Test
+//    public void testTweetPollAnswerSwitchBean(){
+//        TweetPollAnswerSwitchBean tpAnswerSwitch = new TweetPollAnswerSwitchBean();
+//        tpAnswerSwitch.setId(2L);
+//        tpAnswerSwitch.setAnswerBean(this.questionAnswer);
+//        tpAnswerSwitch.setResultsBean(this.tpResultsBean);
+//        tpAnswerSwitch.setShortUrl("/twitter/mytweet/question");
+//        tpAnswerSwitch.setTweetPollBean(this.tpBean);
+//        tpAnswerSwitch.setTweetPollId(this.tpBean.getId());
+//        assertNotNull(tpAnswerSwitch);
+//        assertNotNull(tpAnswerSwitch.getId());
+//        assertNotNull(tpAnswerSwitch.getAnswerBean());
+//        assertNotNull(tpAnswerSwitch.getResultsBean());
+//        assertNotNull(tpAnswerSwitch.getTweetPollBean());
+//        assertNotNull(tpAnswerSwitch.getShortUrl());
+//        assertNotNull(tpAnswerSwitch.getTweetPollId());
+//    }
 
     /**
      * Test Unit email list.
@@ -879,21 +879,21 @@ public class TestUnitBeans extends AbstractBaseUtils {
     /**
      * Test gadget properties bean.
      */
-    @Test
-    public void testGadgetPropertiesBean(){
-        final GadgetPropertiesBean gadgetProperties = new GadgetPropertiesBean();
-        gadgetProperties.setPropertyId(1L);
-        gadgetProperties.setGadgetPropName("my gadget");
-        gadgetProperties.setGadgetPropValue("");
-        gadgetProperties.setGadgetId(1L);
-        gadgetProperties.setUserAccount(this.myUserAccBean);
-        assertNotNull(gadgetProperties);
-        assertNotNull(gadgetProperties.getPropertyId());
-        assertNotNull(gadgetProperties.getGadgetPropName());
-        assertNotNull(gadgetProperties.getGadgetPropValue());
-        assertNotNull(gadgetProperties.getGadgetId());
-        assertNotNull(gadgetProperties.getUserAccount());
-    }
+    //@Test
+//    public void testGadgetPropertiesBean(){
+//        final GadgetPropertiesBean gadgetProperties = new GadgetPropertiesBean();
+//        gadgetProperties.setPropertyId(1L);
+//        gadgetProperties.setGadgetPropName("my gadget");
+//        gadgetProperties.setGadgetPropValue("");
+//        gadgetProperties.setGadgetId(1L);
+//        gadgetProperties.setUserAccount(this.myUserAccBean);
+//        assertNotNull(gadgetProperties);
+//        assertNotNull(gadgetProperties.getPropertyId());
+//        assertNotNull(gadgetProperties.getGadgetPropName());
+//        assertNotNull(gadgetProperties.getGadgetPropValue());
+//        assertNotNull(gadgetProperties.getGadgetId());
+//        assertNotNull(gadgetProperties.getUserAccount());
+//    }
 
     /**
      * Test gadget bean.
