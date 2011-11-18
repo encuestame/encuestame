@@ -31,6 +31,10 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Surveys.
@@ -40,6 +44,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @version $Id$
  */
 @Entity
+@Indexed(index="Survey")
 @Table(name = "surveys")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Survey extends AbstractSurvey {
@@ -78,6 +83,8 @@ public class Survey extends AbstractSurvey {
      */
      private Boolean showProgressBar;
 
+     /** Survey slug name**/
+     private String surveySlugName;
 
     /**
      * @return sid
@@ -234,5 +241,21 @@ public class Survey extends AbstractSurvey {
      */
     public void setScheduleDate(final Date scheduleDate) {
         this.scheduleDate = scheduleDate;
+    }
+
+    /**
+     * @return the surveySlugName
+     */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Column(name = "survey_slug_name", nullable = true)
+    public String getSurveySlugName() {
+        return surveySlugName;
+    }
+
+    /**
+     * @param surveySlugName the surveySlugName to set
+     */
+    public void setSurveySlugName(final String surveySlugName) {
+        this.surveySlugName = surveySlugName;
     }
 }

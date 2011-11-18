@@ -83,6 +83,7 @@ import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -91,6 +92,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.LayoutEnum;
@@ -447,6 +449,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setOwner(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
+        poll.setShowComments(CommentOptions.APPROVE);
         getPollDao().saveOrUpdate(poll);
         return poll;
 
@@ -486,6 +489,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setOwner(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(published);
+        poll.setShowComments(CommentOptions.APPROVE);
         getPollDao().saveOrUpdate(poll);
         return poll;
 
@@ -932,6 +936,23 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return questions;
     }
 
+    public Question addQuestionSection(
+            final String question,
+            final QuestionPattern pattern,
+            final SurveySection section,
+            final Account account){
+        final Question questions = new Question();
+        questions.setQidKey("1");
+        questions.setQuestion(question);
+        questions.setSlugQuestion("slug _"+question);
+        questions.setSharedQuestion(Boolean.TRUE);
+        questions.setQuestionPattern(pattern);
+        questions.setAccountQuestion(account);
+        questions.setSection(section);
+        getQuestionDaoImp().saveOrUpdate(questions);
+        return questions;
+    }
+
     /**
      * Create Default Question.
      * @param questionName
@@ -939,7 +960,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Question createDefaultQuestion(final String questionName){
         return this.createQuestion(questionName, "radio");
-
 
     }
 
@@ -1011,6 +1031,23 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
         //log.info("Q "+questionsAnswers.getQuestionAnswerId());
         return questionsAnswers;
+    }
+
+    /**
+     * Save survey responses.
+     * @param answer
+     * @param question
+     * @param survey
+     * @return
+     */
+    public SurveyResult createSurveyResult(final QuestionAnswer answer,
+            final Question question, final Survey survey) {
+        final SurveyResult result = new SurveyResult();
+        result.setAnswer(answer);
+        result.setQuestion(question);
+        result.setSurvey(survey);
+        getSurveyDaoImp().saveOrUpdate(result);
+        return result;
     }
 
     /**
@@ -1240,10 +1277,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String descSection){
         final SurveySection surveySection = new SurveySection();
         surveySection.setDescSection(descSection);
-        getSurveyDaoImp().saveOrUpdate(surveySection);
-        surveySection.getQuestionSection().add(createDefaultQuestion("Why is your favourite movie"));
+      /*  surveySection.getQuestionSection().add(createDefaultQuestion("Why is your favourite movie"));
         surveySection.getQuestionSection().add(createDefaultQuestion("Where do you live"));
-        surveySection.getQuestionSection().add(createDefaultQuestion("What do you do at home"));
+        surveySection.getQuestionSection().add(createDefaultQuestion("What do you do at home"));*/
+        getSurveyDaoImp().saveOrUpdate(surveySection);
+        return surveySection;
+    }
+
+    public SurveySection createDefaultSection(final String name, final Survey survey){
+        final SurveySection surveySection = new SurveySection();
+        surveySection.setDescSection(name);
+        surveySection.setSurvey(survey);
         getSurveyDaoImp().saveOrUpdate(surveySection);
         return surveySection;
     }

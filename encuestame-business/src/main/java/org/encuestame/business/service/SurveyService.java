@@ -337,7 +337,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         question.setQuestion(questionBean.getQuestionName());
         //	question.setQidKey();
         question.setQuestionPattern(question.getQuestionPattern());
-        question.setQuestionsAnswers(question.getQuestionsAnswers());
+       // question.setQuestionsAnswers(question.getQuestionsAnswers());
         question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
        // question.setSharedQuestion();
         this.getQuestionDao().saveOrUpdate(question);

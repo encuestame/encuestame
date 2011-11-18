@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -399,7 +398,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.ITweetPollService#removeAllQuestionsAnswers(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
      */
-    public void removeAllQuestionsAnswers(final TweetPoll tweetPoll){
+   /* public void removeAllQuestionsAnswers(final TweetPoll tweetPoll){
         final Question question = tweetPoll.getQuestion();
         final Set<QuestionAnswer> currentQuestionAnswers = question.getQuestionsAnswers();
         //removing old answers.
@@ -723,7 +722,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final List<TweetPollResultsBean> pollResults = new ArrayList<TweetPollResultsBean>();
         final TweetPoll tweetPoll = getTweetPollById(tweetPollId, null);
         if (log.isDebugEnabled()) {
-            log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
+           // log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
             log.debug("tweetPoll "+tweetPoll);
         }
         for (QuestionAnswer questionsAnswer : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {

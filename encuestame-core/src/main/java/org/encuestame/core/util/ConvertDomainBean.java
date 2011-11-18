@@ -604,7 +604,20 @@ public class ConvertDomainBean {
         unitPoll.setHits(poll.getHits() == null ? EnMeUtils.VOTE_MIN : poll.getHits());
         unitPoll.setFavorite(poll.getFavorites());
         unitPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
+        unitPoll.setLatitude(poll.getLocationLatitude() == null ? 0: poll.getLocationLatitude());
+        unitPoll.setLongitude(poll.getLocationLongitude() == null ? 0: poll.getLocationLongitude());
+        unitPoll.setIsShowAdditionalInfo(poll.getShowAdditionalInfo());
+        unitPoll.setAdditionalInfo(poll.getAdditionalInfo());
         unitPoll.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
+        unitPoll.setShowComments(poll.getShowComments().toString() == null ? null : poll.getShowComments().toString());
+        unitPoll.setIsShowResults(poll.getShowResults());
+        unitPoll.setFolderId(poll.getPollFolder() == null ? null : poll.getPollFolder().getId());
+        unitPoll.setIsCloseAfterDate(poll.getCloseAfterDate());
+        unitPoll.setClosedDate(poll.getClosedDate() == null ? null : DateUtil.DOJO_DATE_FORMAT.format(poll.getClosedDate()));
+        unitPoll.setIsCloseAfterQuota(poll.getCloseAfterquota());
+        unitPoll.setClosedQuota(poll.getClosedQuota() == null ? null : poll.getClosedQuota());
+        unitPoll.setIsIpRestricted(poll.getIpRestriction());
+        unitPoll.setIpRestricted(poll.getIpProtection() == null ? null : poll.getIpProtection());
         return unitPoll;
     }
 
