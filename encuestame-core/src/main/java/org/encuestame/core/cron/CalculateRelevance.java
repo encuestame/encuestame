@@ -75,7 +75,7 @@ public class CalculateRelevance {
         getFrontEndService().processItemstoCalculateRelevance(
                 getTweetPollService().getTweetPollsbyRange(MAX_RESULTS, START_RESULTS,
                         null),
-                getPollService().getPollsByRange(null, START_RESULTS, null),
+                getPollService().getPollsByRange(MAX_RESULTS, START_RESULTS, null),
                 null, null, null);
     }
 

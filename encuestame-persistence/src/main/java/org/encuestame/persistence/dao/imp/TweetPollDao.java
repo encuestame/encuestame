@@ -26,6 +26,8 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
@@ -33,6 +35,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -459,12 +462,27 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.ITweetPoll#getLinksByTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getLinksByTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.enums.TypeSearchResult)
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll) {
+    public List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll, final Survey survey, final Poll poll, final TypeSearchResult itemType) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPollSavedPublishedStatus.class);
-        criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        if(itemType.equals(TypeSearchResult.TWEETPOLL)){
+            criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+         //   criteria.addOrder(Order.desc("tweetPoll.createDate"));
+        }
+        else if(itemType.equals(TypeSearchResult.POLL)){
+            criteria.add(Restrictions.eq("survey", survey));
+         //   criteria.addOrder(Order.desc("survey.createdAt"));
+        }
+        else if (itemType.equals(TypeSearchResult.SURVEY)){
+            criteria.add(Restrictions.eq("poll", poll));
+           // criteria.addOrder(Order.desc("poll.createdAt"));
+        }
+        else {
+            log.error("Item type not valid: "+ itemType);
+        }
+        criteria.addOrder(Order.desc("publicationDateTweet"));
         criteria.add(Restrictions.isNotNull("apiType"));
         criteria.add(Restrictions.isNotNull("tweetId"));
         criteria.add(Restrictions.eq("status", Status.SUCCESS));

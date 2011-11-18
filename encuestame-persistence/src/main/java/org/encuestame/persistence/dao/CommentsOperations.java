@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
 /**
@@ -72,4 +73,12 @@ public interface CommentsOperations extends IBaseDao {
      * @return
      */
     List<Comment> getCommentsbyTweetPoll(final TweetPoll tpoll, final Integer maxResults, final Integer start);
+
+    /**
+     * Get total comments by item.
+     * @param id
+     * @param itemType
+     * @return
+     */
+    Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType);
 }

@@ -55,7 +55,7 @@ public class EnMeUtilsTestCase extends TestCase {
      */
     @Test
     public void testCalculateRelevance(){
-        final long relevance = EnMeUtils.calculateRelevance(35, 5, 20, 45);
-        assertEquals(relevance, 31);
+        final long relevance = EnMeUtils.calculateRelevance(35, 5, 20,  60, 20, 120,150);
+        assertEquals(relevance, 54);
     }
 }

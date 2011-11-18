@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -112,10 +113,12 @@ public class TestCommentDao extends AbstractBase {
         final UserAccount userAcc2 = createUserAccount("anita", createAccount());
         assertNotNull(userAcc2);
         createDefaultTweetPollComment("I was watching tv", this.tpoll, userAcc2);
-        final List<Comment> commentbyTweetPoll = getCommentsOperations().getCommentsbyTweetPoll(tpoll, this.MAX_RESULTS, this.START);
+        final List<Comment> commentbyTweetPoll = getCommentsOperations()
+                .getCommentsbyTweetPoll(tpoll, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 2, commentbyTweetPoll.size());
-        for (Comment comment : commentbyTweetPoll) {
-            // System.out.println("Comments ---> " + comment.getComment());
-        }
+        final Long totalComment = getCommentsOperations()
+                .getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+                        TypeSearchResult.TWEETPOLL);
+        assertEquals("Should be equals", 2, totalComment.intValue());
     }
 }

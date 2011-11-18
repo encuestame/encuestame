@@ -25,7 +25,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.json.HomeBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +68,7 @@ public class FrontEndJsonController extends AbstractJsonController{
                 if (period == null ){
                     throw new EnMeSearchException("search params required.");
                 } else {
-                    final  List<TweetPollBean> itemList = getFrontService().searchItemsByTweetPoll(period, start, maxResults, request);
+                    final  List<HomeBean> itemList = getFrontService().getFrontEndItems(period, start, maxResults, request);
                     jsonResponse.put("frontendItems", itemList);
                     setItemResponse(jsonResponse);
                    }

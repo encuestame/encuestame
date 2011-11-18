@@ -20,9 +20,6 @@ import org.encuestame.core.annotations.FieldMatch;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.binding.message.MessageBuilder;
-import org.springframework.binding.message.MessageContext;
-import org.springframework.binding.validation.ValidationContext;
 
 /**
  * Administrator Profile.
