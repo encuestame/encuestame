@@ -14,6 +14,7 @@
 package org.encuestame.mvc.test.json;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -21,11 +22,15 @@ import javax.servlet.ServletException;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+
+import sun.security.jca.GetInstance;
 
 /**
  * {@link PollJsonServiceTest}
@@ -33,6 +38,12 @@ import org.junit.Test;
  * @since April 25, 2011
  */
 public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
+
+    /** Max results query **/
+    private Integer MAX_RESULTS = 10;
+
+    /** Start results.*/
+    private Integer START_ON = 0;
 
     /**
      * Run retrieve polls by date.
@@ -123,10 +134,114 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
              setParameter("listAnswers", answers[i]);
          }
          setParameter("showResults", "true");
-         setParameter("showComments", "true");
+         setParameter("showComments", "APPROVE");
          setParameter("notification", "true");
          final JSONObject response = callJsonService();
          final JSONObject success = getSucess(response);
          return (JSONObject) success.get("pollBean");
+    }
+
+    /**
+     * Search Polls by Folder.
+     * @param folderId
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    private JSONArray searchPollByFolder(final Long folderId)
+            throws ServletException, IOException {
+        initService("/api/survey/poll/searchby-folder.json", MethodJson.GET);
+        setParameter("folderId", folderId.toString());
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray polls = (JSONArray) success.get("pollsByFolder");
+        return polls;
+    }
+
+    /**
+     * Search polls by keyword question.
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    private JSONArray searchPollByKeyword(final String keyword,
+            final Integer maxResults, final Integer start)
+            throws ServletException, IOException {
+        initService("/api/survey/poll/searchby-keyword.json", MethodJson.GET);
+        setParameter("keyword", keyword);
+        setParameter("maxResults", maxResults.toString());
+        setParameter("start", start.toString());
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray polls = (JSONArray) success.get("pollsbyKey");
+        return polls;
+    }
+
+    /**
+     * Searchs Poll by date.
+     * @param date
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    private JSONArray searchPollByDate(final Date date,
+            final Integer maxResults, final Integer start)
+    throws ServletException, IOException {
+        initService("/api/survey/poll/searchby-date.json", MethodJson.GET);
+        final String convertToStringDate = DateUtil.DOJO_DATE_FORMAT.format(date);
+        setParameter("date", convertToStringDate);
+        setParameter("maxResults", maxResults.toString());
+        setParameter("start", start.toString());
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray polls = (JSONArray) success.get("pollsByDate");
+        return polls;
+    }
+
+    /**
+     * Test Search polls by type (Keyword, folder or date).
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testSearchPollByType() throws ServletException, IOException {
+        final Question question = createQuestion(
+                "What is your favourite season", "pattern");
+        final Poll poll = createPoll(new Date(), question,
+                getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
+                Boolean.TRUE);
+        Assert.assertNotNull(poll);
+        final PollFolder pfolder = createPollFolder("My Polls folder",
+                getSpringSecurityLoggedUserAccount());
+        poll.setPollFolder(pfolder);
+        Assert.assertNotNull(pfolder);
+
+        // Search Poll by folder.
+        Assert.assertNotNull(this.searchPollByFolder(poll.getPollFolder()
+                .getId()));
+        Assert.assertEquals("Should be equals ",
+                this.searchPollByFolder(poll.getPollFolder().getId()).size(), 1);
+
+        // Search Poll by keyword.
+        flushIndexes();
+        Assert.assertNotNull(this.searchPollByKeyword("What", this.MAX_RESULTS, this.START_ON));
+        Assert.assertEquals("Should be equals ",
+                this.searchPollByKeyword("What", this.MAX_RESULTS, this.START_ON).size(), 1);
+
+        // Search Polls by date.
+        final Calendar lastWeek = Calendar.getInstance();
+        lastWeek.add(Calendar.DATE, -7);
+        // Created another poll
+           createPoll(new Date(), question,
+                getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
+                Boolean.TRUE);
+        Assert.assertNotNull(this.searchPollByDate(new Date(), this.MAX_RESULTS, this.START_ON));
+        Assert.assertEquals("Should be equals ",
+                this.searchPollByDate(lastWeek.getTime(), this.MAX_RESULTS, this.START_ON).size(), 2);
     }
 }
