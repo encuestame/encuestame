@@ -152,7 +152,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/searchby-{type}.json", method = RequestMethod.GET)
-    public ModelMap countUsersByGroup(
+    public ModelMap searchPollByType(
               @RequestParam(value = "pollId", required = false) Long pollId,
               @RequestParam(value = "keyword", required = false) String keyword,
               @RequestParam(value = "maxResults", required = false) Integer maxResults,
@@ -171,12 +171,12 @@ public class PollJsonController extends AbstractJsonController{
                 log.debug("type "+type);
                   final Map<String, Object> sucess = new HashMap<String, Object>();
                   if("keyword".equals(type)){
-                      log.debug("Poll Id"+ pollId);
                       sucess.put("pollsbyKey", getPollService().searchPollByKeyword(keyword, maxResults, start));
                       setItemResponse(sucess);
                   } else if ("folder".equals(type)) {
                      log.debug("Folder Id"+ folderId);
                      sucess.put("pollsByFolder", getPollService().searchPollsByFolder(folderId, getUserPrincipalUsername()));
+                     setItemResponse(sucess);
                  }
                   else if("date".equals(type)) {
                     log.debug("search polls by date ---> "+ date);

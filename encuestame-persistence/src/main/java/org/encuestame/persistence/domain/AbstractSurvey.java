@@ -434,6 +434,8 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the showComments
      */
+    @Column(name = "comment_option")
+    @Enumerated(EnumType.ORDINAL)
     public CommentOptions getShowComments() {
         return showComments;
     }
@@ -441,8 +443,6 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param showComments the showComments to set
      */
-    @Column(name = "comment_option")
-    @Enumerated(EnumType.ORDINAL)
     public void setShowComments(final CommentOptions showComments) {
         this.showComments = showComments;
     }

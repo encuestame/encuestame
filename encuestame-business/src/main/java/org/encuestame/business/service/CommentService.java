@@ -46,23 +46,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService extends AbstractBaseService implements ICommentService{
 
-	/**
-	 * Tweetpoll Service.
-	 */
-	@Autowired
-	public ITweetPollService tweetPollService;
+    /**
+     * Tweetpoll Service.
+     */
+    @Autowired
+    public ITweetPollService tweetPollService;
 
-	/**
-	 * Poll Service.
-	 */
-	@Autowired
-	public IPollService pollService;
+    /**
+     * Poll Service.
+     */
+    @Autowired
+    public IPollService pollService;
 
-	/**
-	 * Survey Service.
-	 */
-	@Autowired
-	public ISurveyService surveyService;
+    /**
+     * Survey Service.
+     */
+    @Autowired
+    public ISurveyService surveyService;
 
     /**
      * Log.
@@ -80,25 +80,25 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * @see org.encuestame.core.service.imp.ICommentService#getComments(org.encuestame.utils.enums.TypeSearchResult, java.lang.Long, java.lang.Integer, java.lang.Integer)
      */
     public List<Comment> getComments(
-    		final TypeSearchResult searchResult,
-    		final Long itemId,
-    		final Integer max,
-    		final Integer start) throws EnMeExpcetion{
-    	final List<Comment> comments = new ArrayList<Comment>();
-    	if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
-    		final TweetPoll tweetPoll = getTweetPollService().getTweetPollPublishedById(
-    				itemId);
-    		 comments.addAll(this.getCommentsbyTweetPoll(tweetPoll, max, start));
-    	} else if (searchResult.equals(TypeSearchResult.POLL)) {
-    		final Poll poll = getPollService().getPollById(itemId);
-    		//TODO:
-    	} else if (searchResult.equals(TypeSearchResult.SURVEY)) {
-    		final Survey survey = null;
-    		//TODO:
-    	} else {
-    		throw new EnMeExpcetion("invalid type");
-    	}
-    	return comments;
+            final TypeSearchResult searchResult,
+            final Long itemId,
+            final Integer max,
+            final Integer start) throws EnMeExpcetion{
+        final List<Comment> comments = new ArrayList<Comment>();
+        if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
+            final TweetPoll tweetPoll = getTweetPollService().getTweetPollPublishedById(
+                    itemId);
+             comments.addAll(this.getCommentsbyTweetPoll(tweetPoll, max, start));
+        } else if (searchResult.equals(TypeSearchResult.POLL)) {
+            final Poll poll = getPollService().getPollById(itemId);
+            //TODO:
+        } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
+            final Survey survey = null;
+            //TODO:
+        } else {
+            throw new EnMeExpcetion("invalid type");
+        }
+        return comments;
     }
 
     /*
@@ -212,45 +212,45 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         getCommentsOperations().saveOrUpdate(comment);
     }
 
-	/**
-	 * @return the tweetPollService
-	 */
-	public ITweetPollService getTweetPollService() {
-		return tweetPollService;
-	}
+    /**
+     * @return the tweetPollService
+     */
+    public ITweetPollService getTweetPollService() {
+        return tweetPollService;
+    }
 
-	/**
-	 * @param tweetPollService the tweetPollService to set
-	 */
-	public void setTweetPollService(final ITweetPollService tweetPollService) {
-		this.tweetPollService = tweetPollService;
-	}
+    /**
+     * @param tweetPollService the tweetPollService to set
+     */
+    public void setTweetPollService(final ITweetPollService tweetPollService) {
+        this.tweetPollService = tweetPollService;
+    }
 
-	/**
-	 * @return the pollService
-	 */
-	public IPollService getPollService() {
-		return pollService;
-	}
+    /**
+     * @return the pollService
+     */
+    public IPollService getPollService() {
+        return pollService;
+    }
 
-	/**
-	 * @param pollService the pollService to set
-	 */
-	public void setPollService(final IPollService pollService) {
-		this.pollService = pollService;
-	}
+    /**
+     * @param pollService the pollService to set
+     */
+    public void setPollService(final IPollService pollService) {
+        this.pollService = pollService;
+    }
 
-	/**
-	 * @return the surveyService
-	 */
-	public ISurveyService getSurveyService() {
-		return surveyService;
-	}
+    /**
+     * @return the surveyService
+     */
+    public ISurveyService getSurveyService() {
+        return surveyService;
+    }
 
-	/**
-	 * @param surveyService the surveyService to set
-	 */
-	public void setSurveyService(final ISurveyService surveyService) {
-		this.surveyService = surveyService;
-	}
+    /**
+     * @param surveyService the surveyService to set
+     */
+    public void setSurveyService(final ISurveyService surveyService) {
+        this.surveyService = surveyService;
+    }
 }

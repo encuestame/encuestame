@@ -13,7 +13,6 @@
 package org.encuestame.business.setup;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.core.service.imp.MailServiceOperations;

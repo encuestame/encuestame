@@ -24,9 +24,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.enums.TypeSearch;
-import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
-import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitLists;
 
