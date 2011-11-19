@@ -1,4 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<!--[if lt IE 9]>
+     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 <script>
         dojoConfig = {
                     parseOnLoad: true,
@@ -37,6 +40,6 @@
         };
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js?<%=EnMePlaceHolderConfigurer.getProperty("app.version")%>"></script>
 <%-- <script src="<%=request.getContextPath()%>/resources/js/encuestame/encuestame.js"></script> --%>
 <%=WidgetUtil.getAnalytics("analytics.inc")%>
