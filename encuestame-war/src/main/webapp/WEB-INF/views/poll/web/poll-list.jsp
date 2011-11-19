@@ -1,7 +1,4 @@
-<script type="text/javascript">
-    dojo.require("encuestame.org.core.commons.poll.PollNavigate");
-    dojo.require("encuestame.org.core.shared.utils.DropDownMenuSelect");
-</script>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div id="web-poll-wrapper">
     <div dojoType="encuestame.org.core.commons.poll.PollNavigate"></div>
 </div>

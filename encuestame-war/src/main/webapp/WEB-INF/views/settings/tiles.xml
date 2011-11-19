@@ -7,12 +7,14 @@
         <put-attribute name="title" value="Configuration | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/settings/${currentDevice.mobile ? 'mobile/' : 'web/'}account.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/settings/${currentDevice.mobile ? 'mobile/' : 'web/'}account-js.jsp" />
     </definition>
 
     <definition name="settings/social" extends="page">
         <put-attribute name="title" value="Settings | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/settings/${currentDevice.mobile ? 'mobile/' : 'web/'}settings.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/settings/${currentDevice.mobile ? 'mobile/' : 'web/'}social-js.jsp" />
     </definition>
 
 </tiles-definitions>

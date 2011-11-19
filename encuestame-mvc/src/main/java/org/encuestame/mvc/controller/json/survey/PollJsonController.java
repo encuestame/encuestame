@@ -28,6 +28,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -158,7 +159,7 @@ public class PollJsonController extends AbstractJsonController{
               @RequestParam(value = "maxResults", required = false) Integer maxResults,
               @RequestParam(value = "start", required = false) Integer start,
               @RequestParam(value = "folderId", required = false) Long folderId,
-              @RequestParam(value = "date", required = false) Date date,
+              @RequestParam(value = "date", required = false) String date,
               @PathVariable String type,
               HttpServletRequest request,
               HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -167,7 +168,6 @@ public class PollJsonController extends AbstractJsonController{
                 log.debug("keyword "+keyword);
                 log.debug("start "+start);
                 log.debug("folderId "+folderId);
-                //System.out.println("date "+date);
                 log.debug("type "+type);
                   final Map<String, Object> sucess = new HashMap<String, Object>();
                   if("keyword".equals(type)){
@@ -177,10 +177,9 @@ public class PollJsonController extends AbstractJsonController{
                      log.debug("Folder Id"+ folderId);
                      sucess.put("pollsByFolder", getPollService().searchPollsByFolder(folderId, getUserPrincipalUsername()));
                      setItemResponse(sucess);
-                 }
-                  else if("date".equals(type)) {
+                 } else if("date".equals(type)) {
                     log.debug("search polls by date ---> "+ date);
-                    List<PollBean> pbean = getPollService().getPollsbyDate(date, maxResults, start);
+                    List<PollBean> pbean = getPollService().getPollsbyDate(DateUtil.parseFromDojo(date), maxResults, start);
                     sucess.put("pollsByDate", pbean);
                     setItemResponse(sucess);
                   }
