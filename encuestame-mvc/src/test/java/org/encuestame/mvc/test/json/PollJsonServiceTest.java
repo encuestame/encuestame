@@ -30,8 +30,6 @@ import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-import sun.security.jca.GetInstance;
-
 /**
  * {@link PollJsonServiceTest}
  * @author Morales, Diana Paola paolaATencuestame.org
