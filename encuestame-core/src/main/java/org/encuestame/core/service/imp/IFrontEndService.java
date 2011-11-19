@@ -14,7 +14,6 @@ package org.encuestame.core.service.imp;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -108,7 +107,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeSearchException
      */
-    Set<HomeBean> getFrontEndItems(final String period, final Integer start,
+    List<HomeBean> getFrontEndItems(final String period, final Integer start,
             Integer maxResults, final HttpServletRequest request)
             throws EnMeSearchException;
 
@@ -143,7 +142,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeExpcetion
      */
-    public AccessRate registerAccessRate(final TypeSearchResult type,
+    AccessRate registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
             throws EnMeExpcetion;
 
@@ -156,7 +155,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeSearchException
      */
-    public List<SurveyBean> searchItemsBySurvey(final String period,
+    List<SurveyBean> searchItemsBySurvey(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException;
 
@@ -168,6 +167,6 @@ public interface IFrontEndService extends ServiceOperations {
      * @param datebefore
      * @param todayDate
      */
-    public void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
+    void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
             final Calendar datebefore, final Calendar todayDate);
 }

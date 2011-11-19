@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.PollDao;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -25,16 +26,8 @@ import org.hibernate.HibernateException;
  * {@link PollDao} Interface.
  * @author Morales,Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
- * @version $Id: $
  */
 public interface IPoll extends IBaseDao {
-
-      /**
-     * Find All Poll.
-     * @return list of all poll
-     * @throws HibernateException hibernate
-     */
-     List<Poll> findAll();
 
      /**
       * Find All Polls by User Id.
@@ -43,7 +36,7 @@ public interface IPoll extends IBaseDao {
       * @param start
       * @return
       */
-     List<Poll> findAllPollByUserId(final UserAccount userAcc, final Integer maxResults, final Integer start);
+     List<Poll> findAllPollByEditorOwner(final UserAccount userAcc, final Integer maxResults, final Integer start);
 
      /**
       * Retrieve Poll by id.
@@ -83,7 +76,7 @@ public interface IPoll extends IBaseDao {
       * @param secUser {@link UserAccount}.
       * @return list of folders.
       */
-     List<PollFolder> getPollFolderBySecUser(final UserAccount secUser);
+     List<PollFolder> getPollFolderByUserAccount(final UserAccount secUser);
 
      /**
       * Get Polls by Folder.
@@ -115,7 +108,7 @@ public interface IPoll extends IBaseDao {
       * @param userAcc
       * @return
       */
-     Poll getPollByIdandUserId(final Long pollId, UserAccount userAcc);
+     Poll getPollById(final Long pollId, UserAccount userAcc);
 
      /**
       * Get polls by creation date.
@@ -155,4 +148,59 @@ public interface IPoll extends IBaseDao {
       */
      List<Poll> getPolls(final Integer maxResults,
              final Integer start, final Date range);
+
+     /**
+      * Retrieve poll mark as favorites.
+      * @param userAccount user account
+      * @param maxResults max of results.
+      * @param start point start results.
+      * @return List of {@link Poll}.
+      */
+     List<Poll> retrieveFavouritesPoll(
+             final UserAccount userAccount,
+             final Integer maxResults,
+             final Integer start);
+
+     /**
+      *
+      * @param userId
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<Poll> retrievePollToday(
+             final Account owner,
+             final Integer maxResults,
+             final Integer start,
+             final Date startDate);
+
+     /**
+      * Retrieve poll by date range.
+      * @param owner
+      * @param initDate
+      * @param startDate
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<Poll> retrievePollByDate(
+             final Account owner,
+             final Date initDate,
+             final Date startDate,
+             final Integer maxResults,
+             final Integer start);
+
+     /**
+      *
+      * @param owner
+      * @param maxResults
+      * @param start
+      * @param startDate
+      * @return
+      */
+     List<Poll> retrievePollLastWeek(
+             final Account owner,
+             final Integer maxResults,
+             final Integer start,
+             final Date startDate);
 }

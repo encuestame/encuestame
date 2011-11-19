@@ -16,12 +16,15 @@ import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.SurveyBean;
 
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;
@@ -131,4 +134,125 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeNoResultsFoundException;
 
+    /**
+     *
+     * @param typeSearch
+     * @param keyword
+     * @param max
+     * @param start
+     * @param searchResult
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    List<SurveyBean> filterSurveyItemsByType(final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start)
+            throws EnMeNoResultsFoundException, EnMeExpcetion;
+
+    /**
+     *
+     * @param username
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SurveyBean> searchSurveysByKeyWord(final String username,
+            final String keyword, final Integer maxResults, final Integer start)
+            throws EnMeExpcetion;
+
+    /**
+     *
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SurveyBean> searchSurveysToday(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     *
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SurveyBean> searchSurveysLastWeek(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     *
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SurveyBean> searchSurveysFavourites(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     *
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<SurveyBean> getSurveysByUserName(final String username,
+            final Integer maxResults, final Integer start)
+            throws EnMeNoResultsFoundException;
+
+    /**
+     * Create new survey.
+     * @param surveyBean
+     * @return
+     * @throws EnMeExpcetion
+     */
+    Survey createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion;
+
+    /**
+     * Search surveys by keyword name.
+     * @param keyWord
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<SurveyBean> searchSurveysbyKeywordName(final String keyWord, final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion;
+
+    /**
+     * Search surveys by Account.
+     * @param username
+     * @param maxResults
+     * @param start
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<SurveyBean> getSurveysByAccount(final String username,
+            final Integer maxResults, final Integer start)
+            throws EnMeNoResultsFoundException;
+
+    /**
+     * Get Survey folders.
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<FolderBean> getFolders() throws EnMeNoResultsFoundException;
+
+    /**
+     * Retrieve surveys by folder.
+     * @param accountId
+     * @param folderId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<Survey> retrieveSurveyByFolder(final Long accountId,
+            final Long folderId) throws EnMeNoResultsFoundException;
  }

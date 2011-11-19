@@ -180,24 +180,31 @@ public class SettingsJsonController extends AbstractJsonController{
             bio = bio != null ? filterValue(bio) : null;
             //valid flag.
             boolean valid = true;
-            if (!operations.validateUserEmail(email, account)) {
+            boolean emailValid = operations.validateUserEmail(email, account);
+            log.debug("emailValid " +emailValid);
+            if (!emailValid) {
                 listError.put("username", "username not valid");
                 valid = false;
             }
-            if (!operations.validateUsername(username, account)) {
+            boolean usernameValid = operations.validateUsername(username, account);
+            log.debug("usernameValid " +usernameValid);
+            if (!usernameValid) {
                 listError.put("email", "email not valid");
                valid = false;
             }
+            log.debug("this form is valid? " +valid);
             if (!valid) {
                 log.debug("list errors->" + listError.size());
                 setError(listError, response);
                 valid = false;
             } else {
                 log.debug("updating profile ....");
-                setError("invalid type", response);
+                //setError("invalid type", response);
+                getSecurityService().upadteAccountProfile(bio, language, completeName, username);
             }
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

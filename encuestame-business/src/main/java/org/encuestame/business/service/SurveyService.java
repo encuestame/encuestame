@@ -34,6 +34,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSurveyNotFoundException;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RestFullUtil;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
@@ -243,14 +244,34 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         RANDOM_QUESTION_KEY = rInteger;
     }
 
-    /**
-     * Create Survey.
-     * @param surveyBean
-     * @throws EnMeExpcetion
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#createSurvey(org.encuestame.utils.web.SurveyBean)
      */
-    public void createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion{
+    public Survey createSurvey(final SurveyBean surveyBean)
+            throws EnMeExpcetion {
         try {
-            final Survey surveyDomain = new Survey();
+            final Survey surveyDomain = this.newSurvey(surveyBean);
+            if (surveyBean.getHashTags().size() > 0) {
+                surveyDomain.getHashTags().addAll(
+                        retrieveListOfHashTags(surveyBean.getHashTags()));
+                log.debug("Update Hash Tag");
+                getSurveyDaoImp().saveOrUpdate(surveyDomain);
+            }
+            return surveyDomain;
+
+        } catch (Exception e) {
+            log.error("Error creating Survey:{" + e);
+            throw new EnMeExpcetion(e);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#newSurvey(org.encuestame.utils.web.SurveyBean)
+     */
+    private Survey newSurvey(final SurveyBean surveyBean){
+         final Survey surveyDomain = new Survey();
             surveyDomain.setTicket(surveyBean.getTicket());
             surveyDomain.setStartDate(surveyBean.getStartDate());
             surveyDomain.setEndDate(surveyBean.getEndDate());
@@ -270,17 +291,23 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
             surveyDomain.setClosedQuota(surveyBean.getClosedQuota());
             surveyDomain.setShowResults(surveyBean.getShowResults());
             surveyDomain.setNumbervotes(surveyBean.getNumbervotes());
-            // surveyDomain.setHits(surveyBean.getHits());
+            surveyDomain.setHits(surveyBean.getHits());
             surveyDomain.setAdditionalInfo(surveyBean.getAdditionalInfo());
             surveyDomain.setShowAdditionalInfo(surveyBean.getShowAdditionalInfo());
             surveyDomain.setNotifications(surveyBean.getNotifications());
             surveyDomain.setName(surveyBean.getName());
+            surveyDomain.setCreatedAt(surveyBean.getCreatedAt());
+            surveyDomain.setFavorites(surveyBean.getFavorites());
+            try {
+                surveyDomain.setOwner(getAccount(surveyBean.getOwnerUsername()));
+                surveyDomain.setEditorOwner(getUserAccount(surveyBean.getOwnerUsername()));
+            } catch (EnMeNoResultsFoundException e) {
+                log.debug("Survey user not found");
+            }
+
             getSurveyDaoImp().saveOrUpdate(surveyDomain);
             surveyBean.setSid(surveyBean.getSid());
-        } catch (Exception e) {
-             log.error("Error Creating Survey "+e.getMessage());
-             throw new EnMeExpcetion(e);
-        }
+        return surveyDomain;
     }
 
 
@@ -310,7 +337,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         question.setQuestion(questionBean.getQuestionName());
         //	question.setQidKey();
         question.setQuestionPattern(question.getQuestionPattern());
-        question.setQuestionsAnswers(question.getQuestionsAnswers());
+       // question.setQuestionsAnswers(question.getQuestionsAnswers());
         question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
        // question.setSharedQuestion();
         this.getQuestionDao().saveOrUpdate(question);
@@ -378,6 +405,24 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#retrieveSurveyByFolder(java.lang.Long, java.lang.Long)
+     */
+    public List<Survey> retrieveSurveyByFolder(final Long accountId,
+            final Long folderId) throws EnMeNoResultsFoundException {
+        final SurveyFolder surveyFolder = this.getSurveyFolder(folderId);
+        List<Survey> surveysByFolder = new ArrayList<Survey>();
+        if (surveyFolder != null) {
+            surveysByFolder = getSurveyDaoImp().retrieveSurveyByFolder(
+                    accountId, folderId);
+        } else {
+            throw new EnMeNoResultsFoundException("Survey folder not found");
+        }
+
+        return surveysByFolder;
+    }
+
     /**
      * Get Survey Folders by Folder Id and User.
      * @param folderId
@@ -397,15 +442,27 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @throws EnMeNoResultsFoundException
      */
     public void addSurveyToFolder(final Long folderId, final String username, final Long surveyId) throws EnMeNoResultsFoundException{
-        final SurveyFolder surveyFolder = this.getSurveysFolderByFolderIdandUser(folderId, getPrimaryUser(username));
+        final SurveyFolder surveyFolder = this.getSurveysFolderByFolderIdandUser(folderId, getUserAccountId(username));
         if(surveyFolder!=null) {
-            final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, getPrimaryUser(username));
+            final Survey survey = getSurveyDaoImp().getSurveyByIdandUserId(surveyId, getUserAccountId(username));
             survey.setSurveysfolder(surveyFolder);
             getSurveyDaoImp().saveOrUpdate(survey);
             } else {
             throw new EnMeNoResultsFoundException("Survey folder not found");
         }
    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#getFolders()
+     */
+    public List<FolderBean> getFolders() throws EnMeNoResultsFoundException {
+        final List<SurveyFolder> surveyFolders = getSurveyDaoImp()
+                .retrieveSurveyFolderByUserAccount(
+                        getUserAccount(getUserPrincipalUsername()));
+        log.debug("List of Folders :" + surveyFolders.size());
+        return ConvertDomainBean.convertListSurveyFolderToBean(surveyFolders);
+    }
 
     /**
      * Get survey by id and user.
@@ -437,5 +494,142 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public Survey getSurveyById(final Long surveyId) throws EnMeNoResultsFoundException{
         return this.getSurvey(surveyId, getUserPrincipalUsername());
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#filterSurveyItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<SurveyBean> filterSurveyItemsByType(final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start)
+            throws EnMeNoResultsFoundException, EnMeExpcetion {
+        final List<SurveyBean> list = new ArrayList<SurveyBean>();
+        if (TypeSearch.KEYWORD.equals(typeSearch)) {
+            list.addAll(this.searchSurveysbyKeywordName(getUserPrincipalUsername(), keyword, max, start));
+        } else if (TypeSearch.BYOWNER.name().equals(typeSearch)) {
+            list.addAll(this.getSurveysByUserName(getUserPrincipalUsername(), max, start));
+        } else if (TypeSearch.ALL.equals(typeSearch)) {
+            list.addAll(this.getSurveysByAccount(
+                    getUserPrincipalUsername(), max, start));
+        } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
+            list.addAll(this.searchSurveysToday(getUserPrincipalUsername(),
+                    max, start));
+        } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
+            list.addAll(this.searchSurveysLastWeek(
+                    getUserPrincipalUsername(), max, start));
+        } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
+            list.addAll(this.searchSurveysFavourites(
+                    getUserPrincipalUsername(), max, start));
+        } else {
+            list.addAll(this.getSurveysByUserName(
+                    getUserPrincipalUsername(), max, start));
+        }
+        return list;
+    }
+
+    /**
+     * Add to {@link Survey} domain item to {@link SurveyBean} list.
+     * @param surveyList
+     * @return
+     */
+    private List<SurveyBean> addSurveyDomainItemToSurveyBeanList(
+            final List<Survey> surveyList) {
+        final List<SurveyBean> surveyBean = new ArrayList<SurveyBean>();
+        for (Survey survey : surveyList) {
+            surveyBean.add(ConvertDomainBean.convertSurveyDomaintoBean(survey));
+        }
+        return surveyBean;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysByKeyWord(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<SurveyBean> searchSurveysByKeyWord(final String username,
+            final String keyword, final Integer maxResults, final Integer start)
+            throws EnMeExpcetion {
+        log.info("search keyword survey  " + keyword);
+        List<Survey> surveys = new ArrayList<Survey>();
+        if (keyword == null) {
+            throw new EnMeExpcetion("keyword is missing");
+        } else {
+            // TODO: migrate search to Hibernate Search.
+            surveys = getSurveyDaoImp().retrieveSurveybyName(keyword,
+                    getUserAccountId(username), maxResults, start);
+        }
+        log.info("search keyword surveys size " + surveys.size());
+        return this.addSurveyDomainItemToSurveyBeanList(surveys);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysbyKeywordName(java.lang.String, java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<SurveyBean> searchSurveysbyKeywordName(final String keyWord,
+            final String username, final Integer maxResults, final Integer start)
+            throws EnMeExpcetion {
+        final List<Survey> surveyList = getSurveyDaoImp().retrieveSurveybyName(
+                keyWord, getUserAccount(getUserPrincipalUsername()).getUid(), maxResults, start);
+        return this.addSurveyDomainItemToSurveyBeanList(surveyList);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysToday(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<SurveyBean> searchSurveysToday(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion {
+        final List<Survey> surveyList = getSurveyDaoImp().retrieveSurveyToday(
+                getAccount(username), maxResults, start);
+        return this.addSurveyDomainItemToSurveyBeanList(surveyList);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysLastWeek(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<SurveyBean> searchSurveysLastWeek(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion {
+        final List<Survey> surveyList = getSurveyDaoImp()
+                .retrieveSurveyLastWeek(getAccount(username), maxResults, start);
+        return this.addSurveyDomainItemToSurveyBeanList(surveyList);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#searchSurveysFavourites(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<SurveyBean> searchSurveysFavourites(final String username,
+            final Integer maxResults, final Integer start) throws EnMeExpcetion {
+        final List<Survey> surveyList = getSurveyDaoImp()
+                .retrieveFavoritesSurvey(getUserAccount(username), maxResults,
+                        start);
+        return this.addSurveyDomainItemToSurveyBeanList(surveyList);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#getSurveysByUserName(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<SurveyBean> getSurveysByUserName(final String username,
+            final Integer maxResults, final Integer start)
+            throws EnMeNoResultsFoundException {
+        final List<Survey> surveys = getSurveyDaoImp().retrieveSurveyByUserId(
+                getUserAccount(getUserPrincipalUsername()).getUid(), maxResults, start);
+        log.info("Size surveys by Username : " + surveys.size());
+        return this.addSurveyDomainItemToSurveyBeanList(surveys);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ISurveyService#getSurveysByAccount(java.lang.String, java.lang.Integer, java.lang.Integer)
+     */
+    public List<SurveyBean> getSurveysByAccount(final String username,
+            final Integer maxResults, final Integer start)
+            throws EnMeNoResultsFoundException {
+        final List<Survey> surveys = getSurveyDaoImp().retrieveSurveyByAccount(
+                getUserAccountId(getUserPrincipalUsername()), maxResults, start);
+        log.info("Size surveys by account : " + surveys.size());
+        return this.addSurveyDomainItemToSurveyBeanList(surveys);
     }
 }

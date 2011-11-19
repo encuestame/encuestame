@@ -253,7 +253,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @throws EnMeExpcetion exception
      */
     public Group getGroupbyIdandUser(final Long groupId, final String username) throws EnMeNoResultsFoundException {
-        return getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
+        return getGroupDao().getGroupByIdandUser(groupId, getUserAccountId(username));
     }
 
     /**
@@ -283,7 +283,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public Long getUserbyGroup(final Long groupId, final String username) throws EnMeNoResultsFoundException{
         Long counterUsers = 0L;
         try {
-             final Group group = getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
+             final Group group = getGroupDao().getGroupByIdandUser(groupId, getUserAccountId(username));
              if(group != null){
              counterUsers = getGroupDao().getCountUserbyGroup(groupId);
              }
@@ -303,9 +303,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public List<Object[]> countUsersbyGroups(final Long groupId, final String username){
         List<Object[]> usersbyGroups = null;
           try {
-               final Group group = getGroupDao().getGroupByIdandUser(groupId, getPrimaryUser(username));
+               final Group group = getGroupDao().getGroupByIdandUser(groupId, getUserAccountId(username));
                if(group != null){
-                   usersbyGroups = getGroupDao().countUsersbyGroups(getPrimaryUser(username));
+                   usersbyGroups = getGroupDao().countUsersbyGroups(getUserAccountId(username));
                }
           } catch (Exception e) {
               // TODO: handle exception Group don't belong to user
@@ -820,7 +820,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @throws EnMeNoResultsFoundException
      */
     public List<UnitLists> getListbyUsername(final String username) throws EnMeNoResultsFoundException{
-            return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getPrimaryUser(username)));
+            return ConvertDomainBean.convertEmailListToBean(getEmailListsDao().findListbyUser(getUserAccountId(username)));
     }
 
     /**
@@ -891,12 +891,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String value) throws EnMeNoResultsFoundException{
         log.debug("updating accoutn profile :"+property+" whith value "+value);
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-        if(Profile.USERNAME.equals(property)){
+        if (Profile.USERNAME.equals(property)) {
             account.setUsername(value.trim());
             //TODO: we need update authorities
-        } else if(Profile.EMAIL.equals(property)){
+        } else if (Profile.EMAIL.equals(property)) {
             account.setUserEmail(value.trim());
-       } else if(Profile.PICTURE.equals(property)){
+       } else if (Profile.PICTURE.equals(property)) {
            PictureSource picture = PictureSource.findPictureSource(value);
            if (picture != null) {
                account.setPictureSource(picture);

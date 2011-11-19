@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Hours;
@@ -48,9 +49,14 @@ public class DateUtil {
     public static final String COMPLETE_FORMAT_TIME = "dd/MM/yy hh:mm:ss";
 
     /**
+     * DOJO_FORMAT MMMMM d, yyyy hh:mm:ss
+     */
+    public static final String DOJO_FORMAT = "MMMMM d, yyyy hh:mm:ss";
+
+    /**
      * Dojo date object format.
      */
-    public static final SimpleDateFormat DOJO_DATE_FORMAT = new SimpleDateFormat("MMMMM d, yyyy hh:mm:ss");
+    public static final SimpleDateFormat DOJO_DATE_FORMAT = new SimpleDateFormat(DOJO_FORMAT);
 
     /**
      * yyyy-MM-dd hh:mm:ss
@@ -105,7 +111,50 @@ public class DateUtil {
     public static Date parseDate(final String date, final String format) throws ParseException{
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.parse(date);
-     }
+    }
+
+    /**
+     * Parse string date with dojo format to Date.
+     * @param date dojo string date format.
+     * @return {@link Date}
+     * @throws ParseException
+     */
+    public static Date parseFromDojo(final String date) throws ParseException {
+        return DateUtil.parseDate(date, DateUtil.DOJO_FORMAT);
+    }
+
+    /**
+     *
+     * @param startDate
+     * @return
+     */
+    public static Date decreaseDateAsWeek(final Date startDate){
+        final DateTime endtDate = new DateTime(startDate);
+        endtDate.minusWeeks(1);
+        return endtDate.toDate();
+    }
+
+    /**
+     * Retrieve next day mid night date.
+     * @return {@link Date}
+     */
+    public static Date getNextDayMidnightDate(){
+        DateTime midNight = new DateTime();
+        midNight = midNight.plusDays(1);
+        final DateMidnight midnightDate  = midNight.toDateMidnight();
+        return midnightDate.toDate();
+    }
+
+    /**
+     * Increase a day your date.
+     * @param startDate
+     * @return
+     */
+    public static Date decreaseDateADay(final Date startDate){
+        final DateTime endtDate = new DateTime(startDate);
+        endtDate.minusDays(1);
+        return endtDate.toDate();
+    }
 
     /**
      * Get Seconds Between Dates.

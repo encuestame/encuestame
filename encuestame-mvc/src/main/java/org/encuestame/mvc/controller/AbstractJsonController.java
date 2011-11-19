@@ -85,16 +85,6 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      * Set Error.
      * @param error error.
      */
-    @Deprecated
-    protected void setError(final Object error){
-         this.error.put("message", error);
-         this.sucess =  new HashMap<String, Object>();
-    }
-
-    /**
-     * Set Error.
-     * @param error error.
-     */
     protected void setError(final Object error, final HttpServletResponse response){
          this.error = new HashMap<String, Object>();
          this.error.put("message", error);

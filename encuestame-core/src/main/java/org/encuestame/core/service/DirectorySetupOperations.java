@@ -32,16 +32,15 @@ import org.springframework.core.io.Resource;
 public class DirectorySetupOperations {
 
     /** Log. **/
-    private static Logger log = Logger
-            .getLogger(DirectorySetupOperations.class);
-    /** Default root directory name. */
-    private static final String DEFAULT_ROOT_FOLDER = "encuestame-store";
+    private static Logger log = Logger.getLogger(DirectorySetupOperations.class);
     /** Default picture directory name. **/
     private static final String PICTURES_DEFAULT_FOLDER = "pictures";
     /** Default profiles directory name. **/
     private static final String PROFILES_DEFAULT_FOLDER = "profiles";
     /** Default indexes directory name. **/
     private static final String INDEXES_DEFAULT_FOLDER = "indexes";
+
+    private static final String SAMPLE_CONFIG_FILE = "encuestame-config-sample.xml";
 
     /**
      * Constructor.
@@ -53,9 +52,9 @@ public class DirectorySetupOperations {
      * @return if the directoy exist or not.
      * @throws EnmeFailOperation exception if exist issues on create directory.
      */
-    public static boolean checkIfExistRootDirectory() throws EnmeFailOperation {
-        final File rootDir = new File(DirectorySetupOperations.getRootDirectory());
-        log.debug("EnMe: Root directory: " + rootDir);
+    public static boolean isHomeDirectoryValid() throws EnmeFailOperation {
+        final File rootDir = new File(DirectorySetupOperations.getHomeDirectory());
+        log.debug("EnMe: Home directory: " + rootDir);
         return rootDir.exists();
     }
 
@@ -63,14 +62,15 @@ public class DirectorySetupOperations {
      * Create config file.
      * encuestame-config.xml
      * @throws IOException
+     * @throws EnmeFailOperation
      */
-    public static void createConfileFile() throws IOException {
+    public static void createConfileFile() throws IOException, EnmeFailOperation {
         log.debug("createConfileFile");
-        final StringBuffer config = new StringBuffer(getRootDirectory());
+        final StringBuffer config = new StringBuffer(getHomeDirectory());
         config.append(PathUtil.configFileName);
         final File configFile = new File(config.toString());
         if (!configFile.exists()) {
-            final Resource resource = new ClassPathResource("encuestame-config-sample.xml");
+            final Resource resource = new ClassPathResource(SAMPLE_CONFIG_FILE);
             log.debug("createConfileFile resource"+resource);
             log.debug("createConfileFile configFile"+configFile.getAbsolutePath());
             final File sourceFile = resource.getFile();
@@ -145,14 +145,16 @@ public class DirectorySetupOperations {
 
     /**
      * Get root directory path.
-     * @return real path of roor directory.
+     * @return real path of home directory.
+     * @throws EnmeFailOperation
      */
-    public static String getRootDirectory() {
+    public static String getHomeDirectory() throws EnmeFailOperation {
         String root = EnMePlaceHolderConfigurer.getProperty("encuestame.home");
+        log.debug("getRootDirectory "+root);
         if (root == null) {
-            root = System.getProperty("user.home")+ "/" + DirectorySetupOperations.DEFAULT_ROOT_FOLDER;
+            throw new EnmeFailOperation("home directory not found");
         }
-        log.debug("root directory: "+root);
+
         if (!root.endsWith("/")) {
             root = root + "/";
         }
@@ -163,9 +165,10 @@ public class DirectorySetupOperations {
     /**
      * Get picture directory real path.
      * @return picture path.
+     * @throws EnmeFailOperation
      */
-    public static String getPictureDirectory() {
-        final StringBuffer picture = new StringBuffer(getRootDirectory());
+    public static String getPictureDirectory() throws EnmeFailOperation {
+        final StringBuffer picture = new StringBuffer(getHomeDirectory());
         picture.append(DirectorySetupOperations.PICTURES_DEFAULT_FOLDER);
         log.debug("getPictureDirectory:{ " + picture);
         return picture.toString();
@@ -174,9 +177,10 @@ public class DirectorySetupOperations {
     /**
      * Get profile directory path.
      * @return real path of directory path.
+     * @throws EnmeFailOperation
      */
-    public static String getProfilesDirectory() {
-        final StringBuffer profiles = new StringBuffer(getRootDirectory());
+    public static String getProfilesDirectory() throws EnmeFailOperation {
+        final StringBuffer profiles = new StringBuffer(getHomeDirectory());
         profiles.append(DirectorySetupOperations.PROFILES_DEFAULT_FOLDER);
         log.debug("getProfilesDirectory:{" + profiles);
         return profiles.toString();
@@ -186,8 +190,9 @@ public class DirectorySetupOperations {
      *
      * @param accountId
      * @return
+     * @throws EnmeFailOperation
      */
-    public static String getProfilesDirectory(final String accountId) {
+    public static String getProfilesDirectory(final String accountId) throws EnmeFailOperation {
         final StringBuilder path = new StringBuilder(DirectorySetupOperations.getProfilesDirectory());
         path.append("/");
         path.append(accountId.toString());
@@ -199,39 +204,12 @@ public class DirectorySetupOperations {
     /**
      * Get indexes directory path.
      * @return indexed real path.
+     * @throws EnmeFailOperation
      */
-    public static String getIndexesDirectory() {
-        final String index = getRootDirectory() + DirectorySetupOperations.INDEXES_DEFAULT_FOLDER;
+    public static String getIndexesDirectory() throws EnmeFailOperation {
+        final String index = getHomeDirectory() + DirectorySetupOperations.INDEXES_DEFAULT_FOLDER;
         log.debug("getIndexesDirectory " + index);
         return index;
-    }
-
-    /**
-     * Create root folder and required.
-     * @throws EnmeFailOperation
-     *             exception on try to create directory.
-     */
-    public static void createRootFolder() throws EnmeFailOperation {
-        final File rootFolder = new File(DirectorySetupOperations.getRootDirectory());
-        if (!rootFolder.exists()) {
-            boolean success = rootFolder.mkdirs();
-            log.info("created root folder");
-            if (success && rootFolder.canWrite() && rootFolder.isDirectory()) {
-                //TODO:
-            } else {
-                throw new EnmeFailOperation("EnMe: not able to create ROOT folder");
-            }
-        }
-    }
-
-    /**
-     * Check the installation folder.
-     * @return
-     */
-    public static Boolean checkInstallationFolder(){
-        final File rootFolder = new File(DirectorySetupOperations.getRootDirectory());
-        log.debug("checkInstallationFolder "+rootFolder.exists());
-        return rootFolder.exists();
     }
 
     /**

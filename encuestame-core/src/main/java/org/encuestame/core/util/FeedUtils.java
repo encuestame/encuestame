@@ -147,6 +147,23 @@ public class FeedUtils {
     }
 
     /**
+     *
+     * @param createdAt
+     * @param questionName
+     * @param pubDate
+     * @param url
+     * @return
+     */
+    public static final Item convertBeanToRSSItem(final String createdAt,
+            final String questionName, final Date pubDate , final String url){
+        final Item item = new Item();
+        item.setTitle(String.format("On %s, %s publish", createdAt, questionName));
+        item.setPubDate(pubDate);
+        item.setLink(url);
+        return item;
+    }
+
+    /**
      * Convert bean to Atom entry.
      * @param createdAt
      * @param questionName

@@ -180,7 +180,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    @Deprecated
+    //@Deprecated
     public TweetPoll createTweetPoll(
             final String question,
             String[] hashtags,
@@ -210,27 +210,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         return getTweetPollService().createTweetPoll(tweetPollBean,
                 tweetPollBean.getQuestionBean().getQuestionName(),
                 getUserAccount());
-    }
-
-    /**
-     * Update tweetpoll
-     * @param tweetPoll {@link TweetPoll}
-     * @param question list of questions.
-     * @param hashtags
-     * @param answers
-     * @param user
-     * @return
-     * @throws EnMeExpcetion
-     */
-    @Deprecated
-    public TweetPoll updateTweetPoll(
-         final Long tweetPollId,
-         final String question,
-         final String[] hashtags,
-         final Long[] answers) throws EnMeExpcetion{
-         final List<HashTagBean> hashtagsList = fillListOfHashTagsBean(hashtags);
-         //return getTweetPollService().updateTweetPoll(tweetPollId, question, answers, hashtagsList);
-         return null;
     }
 
     /**

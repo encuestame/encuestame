@@ -23,8 +23,8 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
-import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitLists;
 
@@ -49,16 +49,6 @@ public interface IPollService extends IMasterSurveyService{
      Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
                 final String commentOption, final Boolean notification) throws EnMeExpcetion;
 
-    /**
-     * List Poll by Question.
-     * @param keyword
-     * @param maxResults
-     * @param start
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-     List<PollBean> listPollbyQuestionKeyword(final String keyword, final Integer maxResults,
-                final Integer start) throws EnMeNoResultsFoundException;
    /**
     * List Poll by User Id.
     * @param maxResults
@@ -212,13 +202,6 @@ public interface IPollService extends IMasterSurveyService{
     void createPollNotification(final Poll poll) throws EnMeNoResultsFoundException;
 
     /**
-     * Convert poll to short tiny url.
-     * @param poll
-     * @return
-     */
-    PollBean convertPolltoBean(final Poll poll);
-
-    /**
      * Get published polls.
      * @param maxResults
      * @param start
@@ -227,7 +210,20 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeTweetPollNotFoundException
      * @throws EnMePollNotFoundException
      */
-    List<Poll> getPolls(final Integer maxResults,
-            final Integer start, final Date range)
-            throws EnMePollNotFoundException;
+    List<Poll> getPollsByRange(final Integer maxResults, final Integer start, final Date range);
+
+    /**
+     *
+     * @param typeSearch
+     * @param keyword
+     * @param max
+     * @param start
+     * @param searchResult
+     * @return
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start)
+            throws EnMeNoResultsFoundException, EnMeExpcetion;
 }

@@ -25,6 +25,7 @@ import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -62,7 +63,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         setParameter("id", "1");
         final JSONObject response = callJsonService();
         final String error = getErrorsMessage(response);
-        Assert.assertEquals(error, "tweet poll invalid with this id 1");
+        Assert.assertEquals(error, "tweetpoll [1] is not published");
     }
 
     /**
@@ -138,7 +139,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
          setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
          final JSONObject response = callJsonService();
          final JSONObject success = getSucess(response);
-         final JSONObject dashboard = (JSONObject) success.get("comment");
-         Assert.assertEquals(dashboard.get("comment").toString(), "My Comment");
+         final JSONObject comment = (JSONObject) success.get("comment");
+         Assert.assertEquals(comment.get("comment").toString(), "My Comment");
         }
 }

@@ -37,19 +37,38 @@ public class EnMeUtils {
 
     private static final int MIN_SIZE = 12;
 
-    private static final long SCORE_BASE = 24;
-
-    private static final long PENALTY_VALUE = 3;
-
     public static final long RATE_DEFAULT = 1;
 
     public static final long VOTE_DEFAULT = 1;
 
     public static final long VOTE_MIN = 1;
 
-    public static final long LIKE_DEFAULT = 1;
+    public static final long LIKE_DEFAULT = 0;
 
-    public static final long DISLIKE_DEFAULT = 1;
+    public static final long DISLIKE_DEFAULT = 0;
+
+    public static final long HIT_DEFAULT = 1;
+
+    /** Percentage value for like option vote. **/
+    public static final float LIKE_PERCENTAGE_VALUE = 0.10F;
+
+    /** Percentage value for dislike option vote. **/
+    public static final float DISLIKE_PERCENTAGE_VALUE = 0.20F;
+
+    /** Percentage value for hits received. **/
+    public static final float HITS_PERCENTAGE_VALUE = 0.10F;
+
+    /** Percentage value for hashtag hits received. **/
+    public static final float HASHTAG_HITS_PERCENTAGE_VALUE = 0.05F;
+
+    /** Percentage value for comments received.**/
+    public static final float COMMENTS_PERCENTAGE_VALUE = 0.10F;
+
+    /** Percentage value for social network published.**/
+    public static final float SOCIAL_NETWORK_PERCENTAGE_VALUE = 0.20F;
+
+    /** Percentage value for number votes received.**/
+    public static final float VOTES_PERCENTAGE_VALUE = 0.25F;
 
     /**
      * Calculate percent.
@@ -127,24 +146,26 @@ public class EnMeUtils {
      * @param totalLikeVote
      * @param totalDislikeVote
      * @param totalHits
-     * @param maxVotebyUser
+     * @param totalComments
+     * @param totalSocialAccounts
+     * @param totalnumberVotes
+     * @param totalhashTagHits
      * @return
      */
     public static long calculateRelevance(long totalLikeVote,
-            long totalDislikeVote, long totalHits, final long maxVotebyUser) {
-        float likeVotes = Float.valueOf(totalLikeVote);
-        float dislikeVotes = Float.valueOf(totalDislikeVote);
-        float numberHits = Float.valueOf(totalHits);
-        float maxLikeVotes = Float.valueOf(maxVotebyUser);
+            long totalDislikeVote, long totalHits, final long totalComments,
+            final long totalSocialAccounts, final long totalnumberVotes,
+            final long totalhashTagHits) {
+        double likeVotes = LIKE_PERCENTAGE_VALUE *  totalLikeVote;
+        double dislikeVotes = DISLIKE_PERCENTAGE_VALUE * totalDislikeVote;
+        double numberHits = HITS_PERCENTAGE_VALUE * totalHits;
+        double comments = COMMENTS_PERCENTAGE_VALUE * totalComments;
+        double socialAccounts = SOCIAL_NETWORK_PERCENTAGE_VALUE * totalSocialAccounts;
+        double numberVotes = VOTES_PERCENTAGE_VALUE * totalnumberVotes;
+        double hashTagHits = HASHTAG_HITS_PERCENTAGE_VALUE * totalhashTagHits;
         double relevance;
-        final long roundRelevance;
-
-        final double likeValueScore = EnMeUtils.SCORE_BASE * ((likeVotes) / (maxLikeVotes));
-        log.debug(" Like value Score  ----- >  " + likeValueScore);
-        final double dislikeValueScore = (EnMeUtils.SCORE_BASE
-                * ((dislikeVotes / maxLikeVotes)) * EnMeUtils.PENALTY_VALUE);
-        log.debug(" DisLike value Score  ----- >  " + dislikeValueScore);
-        relevance = (likeValueScore - dislikeValueScore) + numberHits;
+        final long roundRelevance ;
+        relevance =  likeVotes + dislikeVotes + numberHits + comments + socialAccounts + numberVotes +hashTagHits;
         roundRelevance = Math.round(relevance);
         log.debug(" RELEVANCE *******************************>  " + roundRelevance);
         return roundRelevance;

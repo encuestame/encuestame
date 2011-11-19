@@ -14,6 +14,8 @@ package org.encuestame.utils.json;
 
 import java.io.Serializable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.web.AbstractUnitSurvey;
@@ -23,7 +25,7 @@ import org.encuestame.utils.web.AbstractUnitSurvey;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 06, 2011
  */
-public class HomeBean extends AbstractUnitSurvey implements Serializable{
+public class HomeBean extends AbstractUnitSurvey implements Serializable, Comparable<Object>{
 
     /** Serial. **/
     private static final long serialVersionUID = 2543644253906482885L;
@@ -36,6 +38,9 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable{
 
     @JsonProperty(value = "userId")
     private Long userId;
+
+    /** Log **/
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * @return the id
@@ -80,5 +85,23 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable{
      */
     public void setUserId(final Long userId) {
         this.userId = userId;
+    }
+
+    /**
+     * Compare home Bean items.
+     */
+    public int compareTo(Object o) {
+        HomeBean home = (HomeBean) o;
+        log.debug("Home Bean Value: " + home.getRelevance());
+        log.debug("This home bean Value: " + this.getRelevance());
+        int CompareToValue = Float.compare(home.getRelevance() == null ? 0
+                : home.getRelevance(),
+                this.getRelevance() == null ? 0 : this.getRelevance());
+        if (CompareToValue == 0) {
+            return this.getCreateDate().compareTo(home.getCreateDate());
+        } else {
+            log.debug(" Result Home Bean compare: " + CompareToValue);
+            return CompareToValue;
+        }
     }
 }

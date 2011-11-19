@@ -30,6 +30,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.encuestame.core.search.DirectoryIndexStore;
 import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 
 /**
  * Query Search Manager to Lucene Index.
@@ -59,8 +60,9 @@ public class SearchAttachmentManager implements SearchManagerOperation {
 
     /**
     * Constructor.
+     * @throws EnmeFailOperation
     */
-    public SearchAttachmentManager() {
+    public SearchAttachmentManager() throws EnmeFailOperation {
         this.directoryIndex = DirectorySetupOperations.getIndexesDirectory();
     }
 

@@ -17,6 +17,7 @@ dojo.require("dojo.fx");
 dojo.require("dojo.hash");
 dojo.require("dojo.dnd.Source");
 
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
 dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
@@ -26,9 +27,8 @@ dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
 
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollList",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollList.html"),
-        widgetsInTemplate: true,
         url : encuestame.service.list.listTweetPoll,
         listItems : null,
         defaultSearch : "ALL",
@@ -250,7 +250,7 @@ dojo.declare(
  */
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollListItem",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListItem.html"),
         //enable widgets on template.
         widgetsInTemplate: true,
@@ -280,7 +280,7 @@ dojo.declare(
                     var hashtag = new encuestame.org.core.commons.stream.HashTagInfo(
                             {
                              hashTagName: item.hashTagName,
-                             url: encuestame.contextDefault+"/tag/"+item.hashTagName+"/"
+                             url: encuestame.utilities.url.hashtag(item.hashTagName)
                             }
                             );
                     this._hashtags.appendChild(hashtag.domNode);

@@ -12,15 +12,10 @@
  */
 package org.encuestame.core.cron;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
-import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +30,32 @@ public class CalculateRelevance {
      /** Log. **/
     private Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * {@link IFrontEndService}.
+     */
     @Autowired
     private IFrontEndService frontEndService;
 
+    /**
+     *  {@link ITweetPollService}.
+     */
     @Autowired
     private ITweetPollService tweetPollService;
 
+    /**
+     *  {@link IPollService}.
+     */
     @Autowired
     private IPollService pollService;
 
-    /** **/
-    //private Integer MAX_RESULTS = 50;
+    /**
+     * The max of results.
+     * **/
+    private Integer MAX_RESULTS = 50;
 
-    /** **/
+    /**
+     * Start results.
+     *  **/
     private Integer START_RESULTS = 0;
 
     /**
@@ -57,7 +65,6 @@ public class CalculateRelevance {
      */
     public void calculate() {
         log.info("************ Start calculate relevance item **************");
-
         // Unused code to search items by date range.
         /*
          * final Calendar dateFrom = Calendar.getInstance();
@@ -65,30 +72,11 @@ public class CalculateRelevance {
          * Calendar.getInstance(); datebefore.add(Calendar.DATE, -5); final
          * Calendar todayDate = Calendar.getInstance();
          */
-
-        List<TweetPoll> tweetPolls = new ArrayList<TweetPoll>();
-
-        List<Poll> polls = new ArrayList<Poll>();
-
-        try {
-            tweetPolls = getTweetPollService().getTweetPolls(50, START_RESULTS,
-                    null);
-            log.debug("Total tweetpolls to process -------------"
-                    + tweetPolls.size());
-        } catch (EnMeTweetPollNotFoundException e) {
-            log.error("TweetPolls not found");
-        }
-
-        try {
-            polls = getPollService().getPolls(null, START_RESULTS, null);
-
-        } catch (EnMePollNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        getFrontEndService().processItemstoCalculateRelevance(tweetPolls,
-                polls, null, null, null);
+        getFrontEndService().processItemstoCalculateRelevance(
+                getTweetPollService().getTweetPollsbyRange(MAX_RESULTS, START_RESULTS,
+                        null),
+                getPollService().getPollsByRange(MAX_RESULTS, START_RESULTS, null),
+                null, null, null);
     }
 
     /**

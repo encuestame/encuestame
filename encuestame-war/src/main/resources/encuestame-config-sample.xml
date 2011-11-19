@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <encuestame-configuration>
-    <version>1.1.39</version>
+    <version>1.141</version>
     <database>
         <version>1</version>
         <last-update></last-update>

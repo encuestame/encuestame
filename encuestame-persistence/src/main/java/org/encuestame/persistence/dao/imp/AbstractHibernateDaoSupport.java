@@ -29,6 +29,7 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
+import org.encuestame.utils.DateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -107,7 +108,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       */
      public List<?> filterByMaxorStart(final DetachedCriteria criteria, final Integer maxResults,
              final Integer start){
-          List<?> results = new ArrayList();
+          @SuppressWarnings("rawtypes")
+        List<?> results = new ArrayList();
           if(maxResults != null && start != null){
               results = getHibernateTemplate().findByCriteria(criteria, start, maxResults);
           } else {
@@ -121,10 +123,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @return midnight date
      */
     public Date getNextDayMidnightDate(){
-        DateTime midNight = new DateTime();
-        midNight = midNight.plusDays(1);
-        final DateMidnight midnightDate  = midNight.toDateMidnight();
-        return midnightDate.toDate();
+       //TODO: update references with DateUtil.
+       return DateUtil.getNextDayMidnightDate();
     }
 
     /**
@@ -148,7 +148,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
     public List<?> fetchMultiFieldQueryParserFullText(
             final String keyword,
             final String[] fields,
-            final Class<?> clazz, final Criteria criteria,
+            final Class<?> clazz,
+            final Criteria criteria,
             final Analyzer analyzer) {
         final MultiFieldQueryParser parser = new MultiFieldQueryParser(
                 version, fields, analyzer);

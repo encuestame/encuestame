@@ -13,13 +13,12 @@ dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
 dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
 dojo.require("encuestame.org.core.shared.utils.YesNoWidget");
 dojo.require("encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPollListDetail",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollListDetail.html"),
-        //widget
-        widgetsInTemplate: true,
         //data
         data: null,
 
@@ -70,6 +69,7 @@ dojo.declare(
        _setAllowLiveResults : function(){
            var load = dojo.hitch(this, function(data){
                this.data.allowLiveResults = !this.data.allowLiveResults;
+               this.successMesage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.liveResultsTweetPoll));
        },
@@ -77,6 +77,7 @@ dojo.declare(
        _setResumeLiveResults : function(){
            var load = dojo.hitch(this, function(data){
                this.data.resumeLiveResults = !this.data.resumeLiveResults;
+               this.successMesage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.resumeliveResultsTweetPoll));
        },
@@ -84,6 +85,7 @@ dojo.declare(
        _setCaptcha : function(){
            var load = dojo.hitch(this, function(data){
                this.data.captcha = !this.data.captcha;
+               this.successMesage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.captchaTweetPoll));
        },
@@ -91,6 +93,7 @@ dojo.declare(
        _setNotification : function(){
            var load = dojo.hitch(this, function(data){
                this.data.closeNotification = !this.data.closeNotification;
+               this.successMesage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.notificationTweetPoll));
        },
@@ -98,11 +101,13 @@ dojo.declare(
        _setRepeated : function(){
            var load = dojo.hitch(this, function(data){
                this.data.allowRepeatedVotes = !this.data.allowRepeatedVotes;
+               this.successMesage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.repeatedTweetPoll));
        },
 
         error : function(){
+            this.errorMesage();
             console.error("tweetpoll list errorrrrrrrrr ");
         },
 

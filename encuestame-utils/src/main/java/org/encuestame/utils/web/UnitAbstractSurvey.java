@@ -14,8 +14,11 @@
 package org.encuestame.utils.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -34,11 +37,13 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * Use a custom start message.
      */
+    @JsonProperty(value = "custom_message")
     private Boolean customMessage;
 
     /**
      * Custom start message.
      */
+    @JsonProperty(value = "custom_start_messages")
     private String customStartMessages;
 
     /**
@@ -65,32 +70,38 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * Custom Final Message.
      */
+    @JsonProperty(value = "custom_final_message")
     private CustomFinalMessage customFinalMessage;
 
     /**
      * Custom Multiple Response.
      */
+    @JsonProperty(value = "multiple_response")
     private MultipleResponse multipleResponse;
 
     /**
      * Show progress bar.
      */
-     private Boolean showProgressBar;
+    @JsonProperty(value = "show_progress_bar")
+    private Boolean showProgressBar;
 
      /**
       * Optional title.
       */
-     private String optionalTitle;
+    @JsonProperty(value = "optional_title")
+    private String optionalTitle;
 
      /**
       * Password protected to view and take part in the survey.
       */
-     private Boolean passwordRestrictions;
+    @JsonProperty(value = "password_restrictions")
+    private Boolean passwordRestrictions;
 
      /**
       * IP Restriction.
       */
-     private Boolean ipRestriction;
+    @JsonProperty(value = "ip_restriction")
+    private Boolean ipRestriction;
 
      /**
       * Password Protection.
@@ -105,39 +116,48 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * Survey Closing after date.
      */
-     private Boolean closeAfterDate;
+    @JsonProperty(value = "close_after_date")
+    private Boolean closeAfterDate;
 
      /**
       * Close Date.
       */
-     private Date closedDate;
+    @JsonProperty(value = "closed_date")
+    private Date closedDate;
 
      /**
       * Survey Closing after quota.
       */
+    @JsonProperty(value = "close_after_quota")
     private Boolean closeAfterquota;
 
     /**
      * Close Quota.
      */
+    @JsonProperty(value = "closed_quota")
     private Integer closedQuota;
 
     /**
      * Show Results
      */
+    @JsonProperty(value = "show_results")
     private Boolean showResults;
 
+    /** **/
+    @JsonProperty(value = "show_comments")
     private showComments showComments;
 
    /**
     * Number votes for Survey and Poll.
     */
-    private Integer numbervotes;
+    @JsonProperty(value = "number_votes")
+    private Long numbervotes;
 
     /**
      * Number Hits or visits
      */
-    private Integer hits;
+    @JsonProperty(value = "hits")
+    private Long hits;
 
     /**
      * Show Comments Option.
@@ -152,29 +172,57 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * Show Option- Additional Info in Questions
      */
+    @JsonProperty(value = "show_additional_info")
     private Boolean showAdditionalInfo;
 
     /**
      *  Additional Info in Questions.
      */
+    @JsonProperty(value = "additional_info")
     private String additionalInfo;
 
     /**
      * Send Notifications after completed survey or Poll.
      */
+    @JsonProperty(value = "notifications")
     private Boolean notifications;
 
     /**
      * Survey or Poll Name.
      */
+    @JsonProperty(value = "name")
     private String name;
 
     /** **/
+    @JsonProperty(value = "relevance")
     private Long relevance;
+
+    /**
+     * Survey created at.
+     ***/
+    @JsonProperty(value = "created_at")
+    private Date createdAt;
+
+    /** Like option**/
+    @JsonProperty(value = "likeVote")
+    private Long likeVote;
+
+    /** Unlike **/
+    @JsonProperty(value = "dislike_vote")
+    private Long dislikeVote;
+
+    /** Mark as favorites. **/
+    @JsonProperty(value = "favorites")
+    private Boolean favorites;
+
+    /** List of HashTags. **/
+    @JsonProperty(value = "hashtags")
+    private List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
 
     /**
      * @return the customMessage
      */
+    @JsonIgnore
     public Boolean getCustomMessage() {
         return customMessage;
     }
@@ -189,6 +237,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the customStartMessages
      */
+    @JsonIgnore
     public String getCustomStartMessages() {
         return customStartMessages;
     }
@@ -203,6 +252,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the customFinalMessage
      */
+    @JsonIgnore
     public CustomFinalMessage getCustomFinalMessage() {
         return customFinalMessage;
     }
@@ -217,6 +267,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the multipleResponse
      */
+    @JsonIgnore
     public MultipleResponse getMultipleResponse() {
         return multipleResponse;
     }
@@ -231,6 +282,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the showProgressBar
      */
+    @JsonIgnore
     public Boolean getShowProgressBar() {
         return showProgressBar;
     }
@@ -245,6 +297,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the optionalTitle
      */
+    @JsonIgnore
     public String getOptionalTitle() {
         return optionalTitle;
     }
@@ -259,6 +312,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the passwordRestrictions
      */
+    @JsonIgnore
     public Boolean getPasswordRestrictions() {
         return passwordRestrictions;
     }
@@ -273,6 +327,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the ipRestriction
      */
+    @JsonIgnore
     public Boolean getIpRestriction() {
         return ipRestriction;
     }
@@ -287,6 +342,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the passProtection
      */
+    @JsonIgnore
     public String getPassProtection() {
         return passProtection;
     }
@@ -301,6 +357,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the ipProtection
      */
+    @JsonIgnore
     public String getIpProtection() {
         return IpProtection;
     }
@@ -315,6 +372,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the closeAfterDate
      */
+    @JsonIgnore
     public Boolean getCloseAfterDate() {
         return closeAfterDate;
     }
@@ -329,6 +387,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the closedDate
      */
+    @JsonIgnore
     public Date getClosedDate() {
         return closedDate;
     }
@@ -343,6 +402,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the closeAfterquota
      */
+    @JsonIgnore
     public Boolean getCloseAfterquota() {
         return closeAfterquota;
     }
@@ -357,6 +417,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the closedQuota
      */
+    @JsonIgnore
     public Integer getClosedQuota() {
         return closedQuota;
     }
@@ -371,6 +432,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the showResults
      */
+    @JsonIgnore
     public Boolean getShowResults() {
         return showResults;
     }
@@ -385,6 +447,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the showComments
      */
+    @JsonIgnore
     public showComments getShowComments() {
         return showComments;
     }
@@ -399,34 +462,37 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the numbervotes
      */
-    public Integer getNumbervotes() {
+    @JsonIgnore
+    public Long getNumbervotes() {
         return numbervotes;
     }
 
     /**
      * @param numbervotes the numbervotes to set
      */
-    public void setNumbervotes(Integer numbervotes) {
+    public void setNumbervotes(final Long numbervotes) {
         this.numbervotes = numbervotes;
     }
 
     /**
      * @return the hits
      */
-    public Integer getHits() {
+    @JsonIgnore
+    public Long getHits() {
         return hits;
     }
 
     /**
      * @param hits the hits to set
      */
-    public void setHits(Integer hits) {
+    public void setHits(Long hits) {
         this.hits = hits;
     }
 
     /**
      * @return the showAdditionalInfo
      */
+    @JsonIgnore
     public Boolean getShowAdditionalInfo() {
         return showAdditionalInfo;
     }
@@ -441,6 +507,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the additionalInfo
      */
+    @JsonIgnore
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -455,6 +522,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the notifications
      */
+    @JsonIgnore
     public Boolean getNotifications() {
         return notifications;
     }
@@ -469,6 +537,7 @@ public abstract class UnitAbstractSurvey implements Serializable {
     /**
      * @return the name
      */
+    @JsonIgnore
     public String getName() {
         return name;
     }
@@ -481,15 +550,9 @@ public abstract class UnitAbstractSurvey implements Serializable {
     }
 
     /**
-     * @return the serialversionuid
-     */
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    /**
      * @return the relevance
      */
+    @JsonIgnore
     public Long getRelevance() {
         return relevance;
     }
@@ -499,5 +562,79 @@ public abstract class UnitAbstractSurvey implements Serializable {
      */
     public void setRelevance(final Long relevance) {
         this.relevance = relevance;
+    }
+
+    /**
+     * @return the createdAt
+     */
+    @JsonIgnore
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(final Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the likeVote
+     */
+    @JsonIgnore
+    public Long getLikeVote() {
+        return likeVote;
+    }
+
+    /**
+     * @param likeVote the likeVote to set
+     */
+    public void setLikeVote(final Long likeVote) {
+        this.likeVote = likeVote;
+    }
+
+    /**
+     * @return the dislikeVote
+     */
+    @JsonIgnore
+    public Long getDislikeVote() {
+        return dislikeVote;
+    }
+
+    /**
+     * @param dislikeVote the dislikeVote to set
+     */
+    public void setDislikeVote(final Long dislikeVote) {
+        this.dislikeVote = dislikeVote;
+    }
+
+    /**
+     * @return the favorites
+     */
+    @JsonIgnore
+    public Boolean getFavorites() {
+        return favorites;
+    }
+
+    /**
+     * @param favorites the favorites to set
+     */
+    public void setFavorites(final Boolean favorites) {
+        this.favorites = favorites;
+    }
+
+    /**
+     * @return the hashTags
+     */
+    public List<HashTagBean> getHashTags() {
+        return hashTags;
+    }
+
+    /**
+     * @param hashTags the hashTags to set
+     */
+    public void setHashTags(final List<HashTagBean> hashTags) {
+        this.hashTags = hashTags;
     }
 }

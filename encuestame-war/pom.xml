@@ -221,6 +221,8 @@
                                 WEB-INF/lib/*,
                                 WEB-INF/**/*.xml,
                                 WEB-INF/**/*.inc,
+                                WEB-INF/tld/**/*,
+                                WEB-INF/messages/**/*,
                                 resource/static/**/*,
                                 resource/images/**/*,
                                 resource/js/dojo/**/*,
@@ -231,11 +233,16 @@
                                 resource/js/encuestame.profile.js,
                                 resource/js/default.js, <!-- This file is because a issue on Dojo 1.6 with AMD modules. -->
                                 **/*.properties,
+                                **/*.tld,
                                 **/*.class,
                                 **/*.ico,
                                 **/*.xsd,
                                 **/*.jsp
                             </packagingIncludes>
+                            <packagingExcludes>
+                                resource/encuestame-config-custom.properties,
+                                WEB-INF/classes/encuestame-config-custom.properties
+                             </packagingExcludes>
                             <archive>
                                 <manifest>
                                     <addClasspath>true</addClasspath>
@@ -246,6 +253,9 @@
                                <resource>
                                     <directory>${project.build.directory}/dojo-compiled/dojo/</directory>
                                     <targetPath>resource/js</targetPath>
+                                     <excludes>
+                                        <exclude>**/encuestame-config-custom.properties</exclude>
+                                     </excludes>
                                 </resource>
                             </webResources>
                         </configuration>

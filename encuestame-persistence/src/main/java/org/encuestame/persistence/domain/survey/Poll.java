@@ -12,8 +12,7 @@
  */
 package org.encuestame.persistence.domain.survey;
 
-import java.util.Date;
-
+import javax.mail.Folder;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,44 +22,64 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 /**
  * Poll Domain.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since March 15, 2010
- * @version $Id: $
  */
+@Indexed(index="Poll")
 @Entity
 @Table(name = "poll",
        uniqueConstraints = {@UniqueConstraint(columnNames={"poll_hash"})})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Poll extends AbstractSurvey {
+
+    /**
+     * Id.
+     */
     private Long pollId;
+
+    /**
+     * Define if poll has been completed.
+     */
     private Boolean pollCompleted;
-    private Date createdAt;
+
+    /**
+     * Unique hash.
+     */
     private String pollHash;
+
+    /**
+     * {@link Question} related with this poll.
+     */
     private Question question;
-    private UserAccount pollOwner;
-    private Date endDate;
+
+    /**
+     * Define if poll has been published.
+     */
     private Boolean publish;
-    private Boolean closeNotification;
-    private Boolean showVotes;
+
+    /**
+     * {@link Folder}.
+     */
     private PollFolder pollFolder;
-    private Date updatedDate;
+
 
     /**
      * @return the poll_id
      */
     @Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "poll_id", unique = true, nullable = true)
     public Long getPollId() {
@@ -91,22 +110,6 @@ public class Poll extends AbstractSurvey {
     }
 
     /**
-     * @return the createdAt
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * @param createdAt the createdAt to set
-     */
-    public void setCreatedAt(final Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * @return the pollHash
      */
     @Column(name = "poll_hash", nullable = false)
@@ -126,6 +129,7 @@ public class Poll extends AbstractSurvey {
      */
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "qid", nullable = false)
+    @IndexedEmbedded
     public Question getQuestion() {
         return question;
     }
@@ -135,40 +139,6 @@ public class Poll extends AbstractSurvey {
      */
     public void setQuestion(final Question question) {
         this.question = question;
-    }
-
-    /**
-     * @return the pollOwner
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "uid", nullable = false)
-    public UserAccount getPollOwner() {
-        return pollOwner;
-    }
-
-    /**
-     * @param pollOwner the pollOwner to set
-     */
-    public void setPollOwner(final UserAccount pollOwner) {
-        this.pollOwner = pollOwner;
-    }
-
-    /**
-     *
-     * @return endDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = true)
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    /**
-     *
-     * @param endDate Finish Date
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     /**
@@ -190,40 +160,6 @@ public class Poll extends AbstractSurvey {
     }
 
     /**
-     *
-     * @return closeNotification
-     */
-    @Column(name = "close_notification", nullable = true)
-    public Boolean getCloseNotification() {
-        return closeNotification;
-    }
-
-    /**
-     *
-     * @param closeNotification closeNotification Indicator to set
-     */
-    public void setCloseNotification(Boolean closeNotification) {
-        this.closeNotification = closeNotification;
-    }
-
-    /**
-     *
-     * @return showVotes Show Results Indicator
-     */
-    @Column(name = "poll_show_results", nullable = true)
-    public Boolean getShowVotes() {
-        return showVotes;
-    }
-
-    /**
-     *
-     * @param showVotes the showVotes option to set
-     */
-    public void setShowVotes(Boolean showVotes) {
-        this.showVotes = showVotes;
-    }
-
-    /**
      * @return the pollFolder
      */
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -237,21 +173,5 @@ public class Poll extends AbstractSurvey {
      */
     public void setPollFolder(PollFolder pollFolder) {
         this.pollFolder = pollFolder;
-    }
-
-    /**
-    * @return the updatedDate
-    */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date", nullable = true)
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    /**
-    * @param updatedDate the updatedDate to set
-    */
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
     }
 }
