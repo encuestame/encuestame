@@ -15,11 +15,14 @@ package org.encuestame.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.ListUI;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -73,18 +76,30 @@ public class HomeController extends AbstractBaseOperations {
                     model.addAttribute("items", service.getFrontEndItems(period, 0 , MAX_ITEMS, request));
                 } else {
                     if ("tweetpoll".equals(view)) {
-                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
-                    } else if("poll".equals(view)) {
-                        model.addAttribute("items", service.searchItemsByPoll(period, 0 ,MAX_ITEMS));
-                    } else if("survey".equals(view)){
-                        model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
+                        model.addAttribute("items", ConvertDomainBean
+                                .convertTweetPollListToHomeBean(service
+                                        .searchItemsByTweetPoll(period, 0,
+                                                MAX_ITEMS, request)));
+                    } else if ("poll".equals(view)) {
+                        model.addAttribute("items",
+                                ConvertDomainBean
+                                        .convertPollListToHomeBean(service
+                                                .searchItemsByPoll(period, 0,
+                                                        MAX_ITEMS)));
+                    } else if ("survey".equals(view)) {
+                        //TODO: ENCUESTAME-345
+                        model.addAttribute("items", ListUtils.EMPTY_LIST);
                     } else {
-                         model.addAttribute("items", service.searchItemsByTweetPoll(period, 0 ,MAX_ITEMS, request));
+                        model.addAttribute("items", service
+                                .searchItemsByTweetPoll(period, 0, MAX_ITEMS,
+                                        request));
                     }
                 }
+                //TODO: review this code, is used?
                 model.addAttribute("hashTags", service.getHashTags(MAX_HASHTAG, 0, ""));
                 //TODO: search hashtags and other information.
             } catch (EnMeSearchException e) {
+                log.error(e);
                 return "error";
             }
             return "home";

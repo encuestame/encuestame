@@ -1014,6 +1014,7 @@ public class ConvertDomainBean {
            homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean.getItemType().toString());
            homeBean.setRelevance(tweetBean.getRelevance());
            homeBean.setItemType(TypeSearchResult.TWEETPOLL.toString().toLowerCase());
+           homeBean.setHashTags(tweetBean.getHashTags());
        return homeBean;
    }
 
@@ -1047,6 +1048,7 @@ public class ConvertDomainBean {
        homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
        homeBean.setRelevance(pollBean.getRelevance() == null ? 0L : pollBean.getRelevance());
        homeBean.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
+       homeBean.setHashTags(pollBean.getHashTags());
        return homeBean;
    }
 
