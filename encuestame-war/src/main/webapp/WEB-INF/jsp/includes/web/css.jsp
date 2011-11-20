@@ -1,4 +1,5 @@
 <link rel="stylesheet"  href="<c:url value="/resources/css/common.css" />" />
+<link rel="stylesheet"  href="<c:url value="/resources/css/web/layout.css" />" />
 <link rel="stylesheet"  href="<c:url value="/resources/css/reset.css" />" />
 <link rel="stylesheet"  href="<c:url value="/resources/css/web/default.css" />" />
 <link rel="stylesheet"  href="<c:url value="/resources/css/web/user.css" />" />
