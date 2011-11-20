@@ -187,10 +187,11 @@ div.web-header span.search {
     text-align: left;
 }
 
-#web-main-public-line div.categoryMenu {
-    font-size: 120%;
-    margin: 0 1em auto;
-    min-height: 30px;
+#web-main-public-line .categoryMenu {
+  background-color: #F4F4F4;
+  margin: 0 1em auto;
+  overflow: auto;
+  padding: 5px;
 }
 
 #web-main-public-line div.categoryMenu span {
@@ -211,160 +212,150 @@ div.web-header span.search {
 
 }
 
-#web-main-public-line div.web-item-wrapper {
+#web-main-public-line .web-item-wrapper {
     float: left;
-    border: 0px solid rgb(255, 255, 255);
-    width: 78%;
+    width: 860px;
 }
 
-#web-main-public-line div.web-left-wrapper {
+#web-main-public-line .web-left-wrapper {
     float: right;
-    border-left: 1px solid #EEEEEE;
-    margin-bottom: 60px;
     width: 220px;
 }
 
-#web-main-public-line div.web-left-wrapper div.section {
-    margin: 4px;
-    border: 1px solid #EAE6E6;
+#web-main-public-line .web-left-wrapper .section {
+    margin: 4px 4px 10px;
+    /*border: 1px solid #EAE6E6;*/
     min-width: 100%;
     min-height: 150px;
 }
 
-#web-main-public-line div.web-left-wrapper div.section div.link {
+#web-main-public-line .web-left-wrapper .section div.link {
     padding: 1px;
     padding-right: 8px;
     text-align: right;
     font-weight: bold;
 }
 
-#web-main-public-line div.web-left-wrapper div.section div.sectionTitle
-    {
-    font-size: 140%;
-    font-weight: bold;
+#web-main-public-line .web-left-wrapper .section .sectionTitle {
+    font-size: 110%;
     margin-bottom: 4px;
     margin-bottom: 5px;
     background-color: #3E6D8E;
     color: #FFF;
-    padding: 5px;
+    padding: 5px 5px 5px 10px;
 }
 
-div.web-item-wrapper .item {
+.web-item-wrapper .item {
     background: none repeat scroll 0 0 #FFFFFF;
-    border-bottom: 1px dotted #C8C8C8;
+    border-bottom: 1px dotted #EEEBEB;
     clear: both;
     overflow: auto;
-    padding: 4px;
+    padding: 7px;
 }
 
-div.web-item-wrapper .item .img {
+.web-item-wrapper .item .img {
     float: left;
     margin-right: 10px;
     margin-top: 6px;
 }
 
-div.web-item-wrapper .item .content {
+.web-item-wrapper .item .content {
     float: right;
     width: 87%;
     max-width: 750px;
 }
 
-div.web-item-wrapper .item .clear {
+.web-item-wrapper .item .clear {
     clear: both;
     float: none !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
-div.web-item-wrapper .item .stats {
-    background: none repeat scroll 0 0 #EEEEEE;
+.web-item-wrapper .item .stats {
+    background: none repeat scroll 0 0 #F8F8F8;
     margin: 0 0 0 7px;
-    padding: 3px;
-    width: 65px;
+    padding: 10px;
     text-align: center;
 }
 
-div.web-item-wrapper .item .stats .vote {
+.web-item-wrapper .item .stats .vote {
 
 }
 
-div.web-item-wrapper .item .stats .count {
+.web-item-wrapper .item .stats .count {
     font-size: 240%;
-    color: #275296;
 }
 
-div.web-item-wrapper .item .stats .viewcount {
+.web-item-wrapper .item .stats .viewcount {
     color: #6A6A6A;
     font-size: 10px;
 }
 
-div.web-item-wrapper .item .stats .views {
+.web-item-wrapper .item .stats .views {
     color: #B3B3B3;
     font-size: 10px;
 }
 
-div.web-item-wrapper .item .content {
+.web-item-wrapper .item .content {
     float: left;
     padding: 4px;
 }
 
-div.web-item-wrapper .item .content div.title {
-    font-size: 140%;
+.web-item-wrapper .item .content div.title {
+    font-size: 120%;
     font-weight: bold;
     margin-bottom: 5px;
     text-transform: capitalize;
 }
 
-div.web-item-wrapper .item .content div.title a {
+.web-item-wrapper .item .content div.title a {
     color: #275296;
 }
 
-div.web-item-wrapper .item .content div.title a:hover {
+.web-item-wrapper .item .content div.title a:hover {
     color: #275296;
     text-decoration: none;
 }
 
-div.web-item-wrapper .item .content h3 a {
+.web-item-wrapper .item .content h3 a {
     color: #5C8397;
 }
 
-div.web-item-wrapper .item .content .bottom {
-    position: relative;
+.web-item-wrapper .item .content .bottom {
+  position: relative;
+  width: auto;
 }
 
-div.web-item-wrapper .item .content .bottom .share {
+.web-item-wrapper .item .content .bottom .share {
     float: right;
 }
 
-div.web-item-wrapper .item .content .bottom .share .title {
+.web-item-wrapper .item .content .bottom .share .title {
     font-size: 10px;
     color: #CACACA;
 }
 
-div.web-item-wrapper .item .content .bottom .options {
-    background-color: #FCFCFC;
-    clear: both;
-    color: #3E6D8E;
-    float: left;
-    font-size: 90%;
-    margin: 2px 2px 2px 0;
-    overflow: auto;
-    padding: 3px 4px;
-    white-space: nowrap;
-    width: 100%;
+.web-item-wrapper .item .content .bottom .options {
+  background-color: #FCFCFC;
+  clear: both;
+  color: #3E6D8E;
+  font-size: 90%;
+  margin: 2px 2px 2px 0;
+  white-space: nowrap;
 }
 
-div.web-item-wrapper .item .content .bottom .image {
+.web-item-wrapper .item .content .bottom .image {
     float: left;
     margin-right: 6px;
 }
 
-div.web-item-wrapper .item .tags {
+.web-item-wrapper .item .tags {
     padding-top: 5px;
     padding-bottom: 2px;
 }
 
-div.web-item-wrapper .item .tags a:hover {
+.web-item-wrapper .item .tags a:hover {
     color: #FFF;
 }
 
@@ -526,7 +517,7 @@ div.web-form-wrapper .signup-form {
     font-size: 150%;
 }
 
-#web-signup-wrapper .textbox div.section {
+#web-signup-wrapper .textbox .section {
     margin-bottom: 15px;
 }
 
@@ -1631,7 +1622,7 @@ div.web-tweetpoll-wrapper div.tweetPollPublish div.item-padding {
     padding: 0 16px;
 }
 
-div.web-tweetpoll-wrapper div.tweetPollPublish div.section {
+div.web-tweetpoll-wrapper div.tweetPollPublish .section {
     padding: 5px;
 }
 
@@ -3379,22 +3370,22 @@ div.folder-selection  div.folder-selection-combo{
     margin-left: 45px;
 }
 
-div.section-botton-wrapper {
+.section-botton-wrapper {
   margin-left: 40px;
   overflow: auto;
   padding: 5px;
 }
 
-div.section-botton-wrapper .sub-option{
+.section-botton-wrapper .sub-option{
     float: left;
     margin: 15px;
 }
 
-div.section-option-wrapper{
+.section-option-wrapper{
     width: auto;
 }
 
-div.section-option-wrapper div.section-default {
+.section-option-wrapper .section-default {
   border-right: 1px solid #D6D6D6;
   float: left;
   margin: 16px;
@@ -3402,16 +3393,16 @@ div.section-option-wrapper div.section-default {
   padding: 0;
   width: 250px;
 }
-div.section-option-wrapper div.section-default h2{
+.section-option-wrapper .section-default h2{
     margin-bottom: 3px;
     font-size: 14px;
 }
 
-div.section-option-wrapper div.section-default .space{
+.section-option-wrapper .section-default .space{
     margin: 2px;
 }
 
-div.section-option-wrapper div.section-default .space-option {
+.section-option-wrapper .section-default .space-option {
   margin-bottom: 15px;
   margin-top: 15px;
 }
