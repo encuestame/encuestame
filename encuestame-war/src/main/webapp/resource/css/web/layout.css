@@ -9,6 +9,8 @@ body {
     padding: 0;
 }
 
+/** header **/
+
 header#header {
     left: 0;
     min-width: 1040px;
@@ -37,6 +39,77 @@ header#header {
 #header div.search {
     width: 100px;
 }
+
+
+.heading-title{
+    width: 100%;
+    margin-top: 40px;
+    overflow: auto;
+}
+
+.heading-title H1 {
+  color: #C53436;
+  float: left;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 24px;
+  margin: 0;
+  padding: 0 8px;
+}
+
+div.web-header {
+    width: auto;
+    padding: 0 5px;
+    min-height: 40px;
+    background-color: #E8E8E8;
+}
+
+div.web-header-options {
+    float: right;
+}
+
+div.web-header div.logo {
+    width: 128px;
+    float: left;
+}
+
+div.web-header div.logoEncuestame {
+    background-image: url(../../images/logos/encuestame_logoalone.png);
+    background-repeat: no-repeat;
+    background-color: #EBE9E9;
+}
+
+div.web-header div.web-header-wrapper {
+    padding: 5px;
+    background-color: #EBE9E9;
+}
+
+div.web-header span {
+    display: inline-block;
+}
+
+div.web-header span.link {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 4px 4px 3px 0;
+}
+
+div.web-header span.link a {
+    color: #275296;
+    text-decoration: none;
+    font-size: 100%;
+    font-style: italic;
+    font-weight: bold;
+}
+
+div.web-header span.link a:hover {
+    text-decoration: none;
+}
+
+div.web-header span.search {
+
+}
+
 
 #mainWrapper {
     min-width: 1040px;
