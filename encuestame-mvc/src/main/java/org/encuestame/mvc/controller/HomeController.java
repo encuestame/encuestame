@@ -98,6 +98,7 @@ public class HomeController extends AbstractBaseOperations {
                 //TODO: review this code, is used?
                 model.addAttribute("hashTags", service.getHashTags(MAX_HASHTAG, 0, ""));
                 //TODO: search hashtags and other information.
+                //TODO: comments: ENCUESTAME-346
             } catch (EnMeSearchException e) {
                 log.error(e);
                 return "error";

@@ -108,34 +108,33 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 }
 
 #web-main-public-line {
-    margin: 1em auto;
+    margin: 0 auto;
     position: relative;
     text-align: left;
 }
 
 #web-main-public-line .categoryMenu {
-  background-color: #F4F4F4;
-  margin: 0 1em auto;
+  background-color: #444444;
   overflow: auto;
-  padding: 5px;
+  padding: 10px;
+  margin: 0px 0px 0px 15px;
+  border-radius: 0px 0px 5px 5px;
+  -webkit-border-radius: 0px 0px 5px 5px;
+  -moz-border-radius: 0px 0px 5px 5px;
 }
 
-#web-main-public-line div.categoryMenu span {
-    display: inline-block;
-    width: 100px;
-    padding: 4px;
-    background-color: #3E6D8E;
-    text-align: center;
-}
-
-#web-main-public-line div.categoryMenu span a {
-    color: #FFF;
-    font-weight: bold;
+#web-main-public-line .categoryMenu a {
+    color: #FFFFFF;
     font-size: 90%;
 }
 
-#web-main-public-line div.categoryMenu span a:hover {
+#web-main-public-line .categoryMenu a:link {
+    color: #FFFFFF;
+}
 
+#web-main-public-line .categoryMenu a:hover {
+     color: #FFFFFF;
+     text-decoration: none;
 }
 
 #web-main-public-line .web-item-wrapper {
@@ -295,6 +294,14 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
   margin: 2px 2px 2px 0;
   padding: 3px 4px;
   white-space: nowrap;
+}
+
+.tags a:link {
+    color: #12122D;
+}
+
+.tags a:visited {
+    color: #12122D;
 }
 
 .tag:hover {
@@ -1904,7 +1911,6 @@ div.hashTagWrapper {
 }
 
 div.wrapperHashTagItems {
-   padding: 10px 0px;
 }
 
 div.wrapperHashTagItems div.addNewHashTag {
