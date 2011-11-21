@@ -118,6 +118,7 @@ public class HashTagsJsonController extends AbstractJsonController{
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final IFrontEndService service = getFrontService();
              final List<HashTagBean> hashTagList;
+             //TODO: please replace "hashTagsCloud" by ENUM.
              hashTagList = service.getHashTags( limit == null ? CLOUD_LIMIT_DEFAULT : limit , START_DEFAULT, "hashTagsCloud");
              // TODO: ENCUESTAME-347
              jsonResponse.put("cloud", hashTagList);
