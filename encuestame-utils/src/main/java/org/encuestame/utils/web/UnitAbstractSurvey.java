@@ -219,6 +219,10 @@ public abstract class UnitAbstractSurvey implements Serializable {
     @JsonProperty(value = "hashtags")
     private List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
 
+    /** Show total comments received. **/
+    @JsonProperty(value = "total_comments")
+    private Long totalComments;
+
     /**
      * @return the customMessage
      */
@@ -636,5 +640,19 @@ public abstract class UnitAbstractSurvey implements Serializable {
      */
     public void setHashTags(final List<HashTagBean> hashTags) {
         this.hashTags = hashTags;
+    }
+
+    /**
+     * @return the totalComments
+     */
+    public Long getTotalComments() {
+        return totalComments;
+    }
+
+    /**
+     * @param totalComments the totalComments to set
+     */
+    public void setTotalComments(Long totalComments) {
+        this.totalComments = totalComments;
     }
 }
