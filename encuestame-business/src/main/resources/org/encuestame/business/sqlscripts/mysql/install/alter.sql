@@ -1,6 +1,5 @@
---
--- Constraints for dumped tables
 
+--
 -- Constraints for table `access_rate`
 --
 ALTER TABLE `access_rate`
@@ -19,8 +18,8 @@ ALTER TABLE `application`
 -- Constraints for table `application_connection`
 --
 ALTER TABLE `application_connection`
-  ADD CONSTRAINT `FK73D5D2D27E933D7` FOREIGN KEY (`account_uid`) REFERENCES `userAccount` (`uid`),
-  ADD CONSTRAINT `FK73D5D2D4402BE26` FOREIGN KEY (`application_application_id`) REFERENCES `application` (`application_id`);
+  ADD CONSTRAINT `FK73D5D2D4402BE26` FOREIGN KEY (`application_application_id`) REFERENCES `application` (`application_id`),
+  ADD CONSTRAINT `FK73D5D2D27E933D7` FOREIGN KEY (`account_uid`) REFERENCES `userAccount` (`uid`);
 
 --
 -- Constraints for table `attachment`
@@ -38,9 +37,9 @@ ALTER TABLE `client`
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
+  ADD CONSTRAINT `FKDC17DDF4D9AA8E98` FOREIGN KEY (`tweetPollId`) REFERENCES `tweetPoll` (`tweet_poll_id`),
   ADD CONSTRAINT `FKDC17DDF4793D9E77` FOREIGN KEY (`sid`) REFERENCES `surveys` (`sid`),
   ADD CONSTRAINT `FKDC17DDF4CE12CAE8` FOREIGN KEY (`pollId`) REFERENCES `poll` (`poll_id`),
-  ADD CONSTRAINT `FKDC17DDF4D9AA8E98` FOREIGN KEY (`tweetPollId`) REFERENCES `tweetPoll` (`tweet_poll_id`),
   ADD CONSTRAINT `FKDC17DDF4F44558E9` FOREIGN KEY (`uid`) REFERENCES `userAccount` (`uid`);
 
 --
@@ -93,8 +92,8 @@ ALTER TABLE `geoPoint`
 -- Constraints for table `geoPoint_folder`
 --
 ALTER TABLE `geoPoint_folder`
-  ADD CONSTRAINT `FKF4A1D3EE2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
   ADD CONSTRAINT `FKF4A1D3EE6E4ED46D` FOREIGN KEY (`subLocationFolder_locate_folder_id`) REFERENCES `geoPoint_folder` (`locate_folder_id`),
+  ADD CONSTRAINT `FKF4A1D3EE2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
   ADD CONSTRAINT `FKF4A1D3EE6EF241E9` FOREIGN KEY (`createdBy_uid`) REFERENCES `userAccount` (`uid`);
 
 --
@@ -124,13 +123,6 @@ ALTER TABLE `group_permission`
   ADD CONSTRAINT `FK362E6F8F45895AFF` FOREIGN KEY (`sec_id_group`) REFERENCES `groups` (`group_id`);
 
 --
--- Constraints for table `hash_tags_hits`
---
-ALTER TABLE `hash_tags_hits`
-  ADD CONSTRAINT `FK58554DB519AA125` FOREIGN KEY (`hashTag_hash_tag_id`) REFERENCES `hash_tags` (`hash_tag_id`),
-  ADD CONSTRAINT `FK58554DB538A08F1` FOREIGN KEY (`hits_user_account`) REFERENCES `userAccount` (`uid`);
-
---
 -- Constraints for table `hits`
 --
 ALTER TABLE `hits`
@@ -149,30 +141,32 @@ ALTER TABLE `notification`
 -- Constraints for table `poll`
 --
 ALTER TABLE `poll`
+  ADD CONSTRAINT `FK3497BF8E4A448B` FOREIGN KEY (`owner_id`) REFERENCES `account` (`uid`),
   ADD CONSTRAINT `FK3497BF50FE71F5` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`),
   ADD CONSTRAINT `FK3497BF89452CCA` FOREIGN KEY (`poll_folder`) REFERENCES `poll_folder` (`pollFolderId`),
-  ADD CONSTRAINT `FK3497BFA64FB606` FOREIGN KEY (`editor`) REFERENCES `userAccount` (`uid`),
-  ADD CONSTRAINT `FK3497BFF44558E9` FOREIGN KEY (`uid`) REFERENCES `userAccount` (`uid`);
+  ADD CONSTRAINT `FK3497BFA64FB606` FOREIGN KEY (`editor`) REFERENCES `userAccount` (`uid`);
 
 --
 -- Constraints for table `poll_folder`
 --
 ALTER TABLE `poll_folder`
-  ADD CONSTRAINT `FKC5911CEE2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
-  ADD CONSTRAINT `FKC5911CEE6EF241E9` FOREIGN KEY (`createdBy_uid`) REFERENCES `userAccount` (`uid`);
+  ADD CONSTRAINT `FKC5911CEE6EF241E9` FOREIGN KEY (`createdBy_uid`) REFERENCES `userAccount` (`uid`),
+  ADD CONSTRAINT `FKC5911CEE2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`);
 
 --
--- Constraints for table `poll_hits`
+-- Constraints for table `poll_hashtags`
 --
-ALTER TABLE `poll_hits`
-  ADD CONSTRAINT `FKF76AFFC063976E9` FOREIGN KEY (`poll_poll_id`) REFERENCES `poll` (`poll_id`);
+ALTER TABLE `poll_hashtags`
+  ADD CONSTRAINT `FK9D199EA761842F44` FOREIGN KEY (`poll_id`) REFERENCES `surveys` (`sid`),
+  ADD CONSTRAINT `FK9D199EA7DA98FFE1` FOREIGN KEY (`hastag_id`) REFERENCES `hash_tags` (`hash_tag_id`),
+  ADD CONSTRAINT `FK9D199EA7F0ED6769` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`poll_id`);
 
 --
 -- Constraints for table `poll_result`
 --
 ALTER TABLE `poll_result`
-  ADD CONSTRAINT `FKD981C89DDDD118B5` FOREIGN KEY (`q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`),
-  ADD CONSTRAINT `FKD981C89DF0ED6769` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`poll_id`);
+  ADD CONSTRAINT `FKD981C89DF0ED6769` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`poll_id`),
+  ADD CONSTRAINT `FKD981C89DDDD118B5` FOREIGN KEY (`q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`);
 
 --
 -- Constraints for table `project`
@@ -192,8 +186,8 @@ ALTER TABLE `project_geoPoint`
 -- Constraints for table `project_group`
 --
 ALTER TABLE `project_group`
-  ADD CONSTRAINT `FKC7652DD945895AFF` FOREIGN KEY (`sec_id_group`) REFERENCES `groups` (`group_id`),
-  ADD CONSTRAINT `FKC7652DD984536452` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`project_id`);
+  ADD CONSTRAINT `FKC7652DD984536452` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`project_id`),
+  ADD CONSTRAINT `FKC7652DD945895AFF` FOREIGN KEY (`sec_id_group`) REFERENCES `groups` (`group_id`);
 
 --
 -- Constraints for table `project_locations`
@@ -206,8 +200,9 @@ ALTER TABLE `project_locations`
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
+  ADD CONSTRAINT `FK95C5414D84133D82` FOREIGN KEY (`id_question_pattern`) REFERENCES `questions_pattern` (`pattenr_id`),
   ADD CONSTRAINT `FK95C5414D2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
-  ADD CONSTRAINT `FK95C5414D84133D82` FOREIGN KEY (`id_question_pattern`) REFERENCES `questions_pattern` (`pattenr_id`);
+  ADD CONSTRAINT `FK95C5414D39E97991` FOREIGN KEY (`section_ssid`) REFERENCES `survey_section` (`ssid`);
 
 --
 -- Constraints for table `questions_answers`
@@ -244,51 +239,45 @@ ALTER TABLE `question_dependence_survey`
 -- Constraints for table `question_relations`
 --
 ALTER TABLE `question_relations`
-  ADD CONSTRAINT `FK217954DE893521DA` FOREIGN KEY (`id_q_colection`) REFERENCES `question_collection` (`id_q_colection`),
-  ADD CONSTRAINT `FK217954DE8A76A0BD` FOREIGN KEY (`question_id`) REFERENCES `questions` (`qid`);
+  ADD CONSTRAINT `FK217954DE8A76A0BD` FOREIGN KEY (`question_id`) REFERENCES `questions` (`qid`),
+  ADD CONSTRAINT `FK217954DE893521DA` FOREIGN KEY (`id_q_colection`) REFERENCES `question_collection` (`id_q_colection`);
 
 --
 -- Constraints for table `social_account`
 --
 ALTER TABLE `social_account`
-  ADD CONSTRAINT `FK50078B5B5ECE45A2` FOREIGN KEY (`account_uid`) REFERENCES `account` (`uid`),
-  ADD CONSTRAINT `FK50078B5BF2F411F2` FOREIGN KEY (`userOwner_uid`) REFERENCES `userAccount` (`uid`);
+  ADD CONSTRAINT `FK50078B5BF2F411F2` FOREIGN KEY (`userOwner_uid`) REFERENCES `userAccount` (`uid`),
+  ADD CONSTRAINT `FK50078B5B5ECE45A2` FOREIGN KEY (`account_uid`) REFERENCES `account` (`uid`);
 
 --
 -- Constraints for table `surveys`
 --
 ALTER TABLE `surveys`
-  ADD CONSTRAINT `FK919144592B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
+  ADD CONSTRAINT `FK919144598E4A448B` FOREIGN KEY (`owner_id`) REFERENCES `account` (`uid`),
+  ADD CONSTRAINT `FK9191445973FF13B` FOREIGN KEY (`project_project_id`) REFERENCES `project` (`project_id`),
   ADD CONSTRAINT `FK91914459A3C7A06A` FOREIGN KEY (`survey_folder`) REFERENCES `survey_folder` (`survey_folderId`),
-  ADD CONSTRAINT `FK91914459A64FB606` FOREIGN KEY (`editor`) REFERENCES `userAccount` (`uid`),
-  ADD CONSTRAINT `FK91914459B1A6912C` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`);
+  ADD CONSTRAINT `FK91914459A64FB606` FOREIGN KEY (`editor`) REFERENCES `userAccount` (`uid`);
 
 --
 -- Constraints for table `survey_folder`
 --
 ALTER TABLE `survey_folder`
-  ADD CONSTRAINT `FK7EF958F32B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
-  ADD CONSTRAINT `FK7EF958F36EF241E9` FOREIGN KEY (`createdBy_uid`) REFERENCES `userAccount` (`uid`);
+  ADD CONSTRAINT `FK7EF958F36EF241E9` FOREIGN KEY (`createdBy_uid`) REFERENCES `userAccount` (`uid`),
+  ADD CONSTRAINT `FK7EF958F32B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`);
 
 --
 -- Constraints for table `survey_group_format`
 --
 ALTER TABLE `survey_group_format`
-  ADD CONSTRAINT `FKB4DF867C310E993C` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`),
-  ADD CONSTRAINT `FKB4DF867CB1A6912C` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`);
+  ADD CONSTRAINT `FKB4DF867CB1A6912C` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_format` (`id_sid_format`),
+  ADD CONSTRAINT `FKB4DF867C310E993C` FOREIGN KEY (`sg_id`) REFERENCES `survey_group` (`sg_id`);
 
 --
 -- Constraints for table `survey_group_project`
 --
 ALTER TABLE `survey_group_project`
-  ADD CONSTRAINT `FKFD028D3484536452` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`project_id`),
-  ADD CONSTRAINT `FKFD028D34B75F3482` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_group` (`sg_id`);
-
---
--- Constraints for table `survey_hits`
---
-ALTER TABLE `survey_hits`
-  ADD CONSTRAINT `FK234C790551153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`);
+  ADD CONSTRAINT `FKFD028D34B75F3482` FOREIGN KEY (`id_sid_format`) REFERENCES `survey_group` (`sg_id`),
+  ADD CONSTRAINT `FKFD028D3484536452` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`project_id`);
 
 --
 -- Constraints for table `survey_pagination`
@@ -301,43 +290,38 @@ ALTER TABLE `survey_pagination`
 -- Constraints for table `survey_result`
 --
 ALTER TABLE `survey_result`
-  ADD CONSTRAINT `FK92EA04A2EB8D35C9` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`sid`);
+  ADD CONSTRAINT `FK92EA04A251153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`),
+  ADD CONSTRAINT `FK92EA04A246BF7A1C` FOREIGN KEY (`question_qid`) REFERENCES `questions` (`qid`),
+  ADD CONSTRAINT `FK92EA04A2496009B4` FOREIGN KEY (`answer_q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`);
 
 --
--- Constraints for table `survey_section_questions`
+-- Constraints for table `survey_section`
 --
-ALTER TABLE `survey_section_questions`
-  ADD CONSTRAINT `FK12354ECE11057E56` FOREIGN KEY (`survey_section_ssid`) REFERENCES `survey_section` (`ssid`),
-  ADD CONSTRAINT `FK12354ECE4E3A9DF5` FOREIGN KEY (`questionSection_qid`) REFERENCES `questions` (`qid`);
+ALTER TABLE `survey_section`
+  ADD CONSTRAINT `FKFE5AD30051153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`);
 
 --
 -- Constraints for table `tweetPoll`
 --
 ALTER TABLE `tweetPoll`
+  ADD CONSTRAINT `FKA65B1D0A64FB606` FOREIGN KEY (`editor`) REFERENCES `userAccount` (`uid`),
   ADD CONSTRAINT `FKA65B1D02B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
   ADD CONSTRAINT `FKA65B1D050FE71F5` FOREIGN KEY (`qid`) REFERENCES `questions` (`qid`),
-  ADD CONSTRAINT `FKA65B1D0A64FB606` FOREIGN KEY (`editor`) REFERENCES `userAccount` (`uid`),
   ADD CONSTRAINT `FKA65B1D0D9BA7E54` FOREIGN KEY (`tweetPollFolderId`) REFERENCES `tweetPoll_Folder` (`tweetPollFolderId`);
 
 --
 -- Constraints for table `tweetPoll_Folder`
 --
 ALTER TABLE `tweetPoll_Folder`
-  ADD CONSTRAINT `FKA027A9DD2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
-  ADD CONSTRAINT `FKA027A9DD6EF241E9` FOREIGN KEY (`createdBy_uid`) REFERENCES `userAccount` (`uid`);
+  ADD CONSTRAINT `FKA027A9DD6EF241E9` FOREIGN KEY (`createdBy_uid`) REFERENCES `userAccount` (`uid`),
+  ADD CONSTRAINT `FKA027A9DD2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`);
 
 --
 -- Constraints for table `tweetpoll_hashtags`
 --
 ALTER TABLE `tweetpoll_hashtags`
-  ADD CONSTRAINT `FKF8C717D6286705D7` FOREIGN KEY (`tweetpoll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`),
-  ADD CONSTRAINT `FKF8C717D6DA98FFE1` FOREIGN KEY (`hastag_id`) REFERENCES `hash_tags` (`hash_tag_id`);
-
---
--- Constraints for table `tweetPoll_hits`
---
-ALTER TABLE `tweetPoll_hits`
-  ADD CONSTRAINT `FK1EDC884F953C854B` FOREIGN KEY (`tweetPoll_tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`);
+  ADD CONSTRAINT `FKF8C717D6DA98FFE1` FOREIGN KEY (`hastag_id`) REFERENCES `hash_tags` (`hash_tag_id`),
+  ADD CONSTRAINT `FKF8C717D6286705D7` FOREIGN KEY (`tweetpoll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`);
 
 --
 -- Constraints for table `tweetpoll_result`
@@ -349,15 +333,17 @@ ALTER TABLE `tweetpoll_result`
 -- Constraints for table `tweetPoll_save_published_status`
 --
 ALTER TABLE `tweetPoll_save_published_status`
+  ADD CONSTRAINT `FKD499A4B6953C854B` FOREIGN KEY (`tweetPoll_tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`),
+  ADD CONSTRAINT `FKD499A4B651153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`),
   ADD CONSTRAINT `FKD499A4B65239D117` FOREIGN KEY (`socialAccount_social_account_id`) REFERENCES `social_account` (`social_account_id`),
-  ADD CONSTRAINT `FKD499A4B6953C854B` FOREIGN KEY (`tweetPoll_tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`);
+  ADD CONSTRAINT `FKD499A4B663976E9` FOREIGN KEY (`poll_poll_id`) REFERENCES `poll` (`poll_id`);
 
 --
 -- Constraints for table `tweetpoll_switch`
 --
 ALTER TABLE `tweetpoll_switch`
-  ADD CONSTRAINT `FK89F7B0A3550299A` FOREIGN KEY (`tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`),
-  ADD CONSTRAINT `FK89F7B0A3DDD118B5` FOREIGN KEY (`q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`);
+  ADD CONSTRAINT `FK89F7B0A3DDD118B5` FOREIGN KEY (`q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`),
+  ADD CONSTRAINT `FK89F7B0A3550299A` FOREIGN KEY (`tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`);
 
 --
 -- Constraints for table `userAccount`
@@ -377,8 +363,8 @@ ALTER TABLE `userAccount_followers`
 -- Constraints for table `userAccount_permission`
 --
 ALTER TABLE `userAccount_permission`
-  ADD CONSTRAINT `FKBE01CE4C43ADB63D` FOREIGN KEY (`sec_id_permission`) REFERENCES `permission` (`id_permission`),
-  ADD CONSTRAINT `FKBE01CE4C5F77A117` FOREIGN KEY (`sec_id_secondary`) REFERENCES `userAccount` (`uid`);
+  ADD CONSTRAINT `FKBE01CE4C5F77A117` FOREIGN KEY (`sec_id_secondary`) REFERENCES `userAccount` (`uid`),
+  ADD CONSTRAINT `FKBE01CE4C43ADB63D` FOREIGN KEY (`sec_id_permission`) REFERENCES `permission` (`id_permission`);
 
 --
 -- Constraints for table `userAccount_project`
