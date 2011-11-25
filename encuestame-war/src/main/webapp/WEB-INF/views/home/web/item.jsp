@@ -35,7 +35,7 @@
                     <spring:message code="added" />
                     <strong> ${item.relativeTime} | <br> <a
                         href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test#comments">
-                            25 <spring:message code="home.item.comments" /> </a> </strong>
+                            ${item.totalComments} <spring:message code="home.item.comments" /> </a> </strong>
                 </div>
             </div>
             <!-- List of Hashtags -->
