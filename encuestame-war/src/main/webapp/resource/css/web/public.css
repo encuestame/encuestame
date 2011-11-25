@@ -155,7 +155,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 }
 
 #web-main-public-line .web-left-wrapper .section .web-aside-section {
-	min-height: 130px;
+    min-height: 130px;
 }
 
 #web-main-public-line .web-left-wrapper .section div.link {
@@ -182,6 +182,43 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
     overflow: auto;
     padding: 7px;
 }
+
+.web-item-wrapper .item .stats-rating {
+  background-color: #6A6D6F;
+  border-radius: 7px 7px 7px 7px;
+  color: #FFFFFF;
+  float: right;
+  font-size: 120%;
+  font-weight: bold;
+  max-height: 26px;
+  padding: 0;
+}
+
+.web-item-wrapper .item .stats-rating .stats-rating-section {
+  float: left;
+  padding: 2px;
+  width: 65px;
+}
+
+.web-item-wrapper .item  .stats-rating .stats-rating-section .image{
+
+}
+
+.web-item-wrapper .item .stats-rating .stats-rating-section .total {
+  float: left;
+  margin-top: 4px;
+}
+
+.web-item-wrapper .item  .stats-rating .like{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.web-item-wrapper .item  .stats-rating .unlike{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 
 .web-item-wrapper .item .img {
     float: left;
@@ -253,7 +290,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 }
 
 .web-item-wrapper .item .content .bottom {
-  position: relative;
+  float: left;
   width: auto;
 }
 
