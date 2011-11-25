@@ -20,9 +20,9 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -118,6 +118,27 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
           log.debug("Retrieve total comments by  " + itemType + "--->"
                   + results.size());
           return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.CommentsOperations#getTopRatedComments(org.encuestame.utils.enums.CommentsSocialOptions, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Comment> getTopRatedComments(
+            final CommentsSocialOptions socialOption, final Integer timeRange,
+            final Integer maxResults, final Integer startResults) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(Comment.class);
+        criteria.add(Restrictions.between("createdAt",
+                getCommentTimeRange(timeRange), getNextDayMidnightDate()));
+        if (socialOption.equals(CommentsSocialOptions.LIKE_VOTE)) {
+            criteria.addOrder(Order.desc("likeVote"));
+        } else {
+            criteria.addOrder(Order.desc("dislikeVote"));
+        }
+        return (List<Comment>) filterByMaxorStart(criteria, maxResults,
+                startResults);
     }
 
     /*

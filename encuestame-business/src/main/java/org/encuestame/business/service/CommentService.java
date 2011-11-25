@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.service.imp.IPollService;
@@ -73,6 +74,9 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * Default value for a single vote.
      */
     private Long VOTE_VALUE = 1L;
+
+    /** Time Range value by default. **/
+    private Integer TIME_RANGE_VALUE = 1;
 
 
     /*
@@ -171,6 +175,27 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         List<Comment> tweetPollComments = new ArrayList<Comment>();
         tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tweetPoll, maxResults, start);
         return tweetPollComments;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ICommentService#getTopRatedComments(org.encuestame.utils.enums.CommentsSocialOptions, java.lang.Integer, java.lang.Integer)
+     */
+    public List<CommentBean> getTopRatedComments(final CommentsSocialOptions socialCommentOption, final Integer maxResults,
+            final Integer start){
+        final Integer timeRange = EnMePlaceHolderConfigurer
+                .getIntegerProperty("comment.time.range") == null ? this.TIME_RANGE_VALUE
+                : EnMePlaceHolderConfigurer
+                        .getIntegerProperty("comment.time.range");
+
+        log.debug("ENME PROPERTY TIME RANGE ---> " + timeRange);
+        final List<CommentBean> commentBean = new ArrayList<CommentBean>();
+        final List<Comment> topCommentList = getCommentsOperations()
+                .getTopRatedComments(socialCommentOption,
+                        timeRange, maxResults, start);
+        commentBean.addAll(ConvertDomainBean
+                .convertListCommentDomainToBean(topCommentList));
+        return commentBean;
     }
 
     /*
