@@ -107,109 +107,34 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
     background-color: #F9E5E5;
 }
 
-/** header **/
-
-#header {
-    background-color: #E8E8E8;
-}
-
-.heading-title{
-    width: 100%;
-    margin-top: 40px;
-    overflow: auto;
-}
-
-.heading-title H1 {
-  color: #C53436;
-  float: left;
-  font-size: 24px;
-  font-weight: normal;
-  line-height: 24px;
-  margin: 0;
-  padding: 0 8px;
-}
-
-div.web-header {
-    width: auto;
-    padding: 0 5px;
-    min-height: 40px;
-}
-
-div.web-header-options {
-    float: right;
-}
-
-div.web-header div.logo {
-    width: 128px;
-    float: left;
-}
-
-div.web-header div.logoEncuestame {
-    background-image: url(../../images/logos/encuestame_logoalone.png);
-    background-repeat: no-repeat;
-    background-color: #EBE9E9;
-}
-
-div.web-header div.web-header-wrapper {
-    padding: 5px;
-    background-color: #EBE9E9;
-}
-
-div.web-header span {
-    display: inline-block;
-}
-
-div.web-header span.link {
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 4px 4px 3px 0;
-}
-
-div.web-header span.link a {
-    color: #275296;
-    text-decoration: none;
-    font-size: 110%;
-    font-style: italic;
-    font-weight: bold;
-}
-
-div.web-header span.link a:hover {
-    text-decoration: none;
-}
-
-div.web-header span.search {
-
-}
-
 #web-main-public-line {
-    margin: 1em auto;
+    margin: 0 auto;
     position: relative;
     text-align: left;
 }
 
 #web-main-public-line .categoryMenu {
-  background-color: #F4F4F4;
-  margin: 0 1em auto;
+  background-color: #444444;
   overflow: auto;
-  padding: 5px;
+  padding: 10px;
+  margin: 0px 0px 0px 15px;
+  border-radius: 0px 0px 5px 5px;
+  -webkit-border-radius: 0px 0px 5px 5px;
+  -moz-border-radius: 0px 0px 5px 5px;
 }
 
-#web-main-public-line div.categoryMenu span {
-    display: inline-block;
-    width: 100px;
-    padding: 4px;
-    background-color: #3E6D8E;
-    text-align: center;
-}
-
-#web-main-public-line div.categoryMenu span a {
-    color: #FFF;
-    font-weight: bold;
+#web-main-public-line .categoryMenu a {
+    color: #FFFFFF;
     font-size: 90%;
 }
 
-#web-main-public-line div.categoryMenu span a:hover {
+#web-main-public-line .categoryMenu a:link {
+    color: #FFFFFF;
+}
 
+#web-main-public-line .categoryMenu a:hover {
+     color: #FFFFFF;
+     text-decoration: none;
 }
 
 #web-main-public-line .web-item-wrapper {
@@ -229,20 +154,25 @@ div.web-header span.search {
     min-height: 150px;
 }
 
+#web-main-public-line .web-left-wrapper .section .web-aside-section {
+    min-height: 130px;
+}
+
 #web-main-public-line .web-left-wrapper .section div.link {
     padding: 1px;
     padding-right: 8px;
     text-align: right;
-    font-weight: bold;
 }
 
 #web-main-public-line .web-left-wrapper .section .sectionTitle {
-    font-size: 110%;
-    margin-bottom: 4px;
-    margin-bottom: 5px;
-    background-color: #3E6D8E;
-    color: #FFF;
-    padding: 5px 5px 5px 10px;
+  background-color: #444444;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 110%;
+  margin-bottom: 5px;
+  padding: 8px;
 }
 
 .web-item-wrapper .item {
@@ -252,6 +182,43 @@ div.web-header span.search {
     overflow: auto;
     padding: 7px;
 }
+
+.web-item-wrapper .item .stats-rating {
+  background-color: #6A6D6F;
+  border-radius: 7px 7px 7px 7px;
+  color: #FFFFFF;
+  float: right;
+  font-size: 120%;
+  font-weight: bold;
+  max-height: 26px;
+  padding: 0;
+}
+
+.web-item-wrapper .item .stats-rating .stats-rating-section {
+  float: left;
+  padding: 2px;
+  width: 65px;
+}
+
+.web-item-wrapper .item  .stats-rating .stats-rating-section .image{
+
+}
+
+.web-item-wrapper .item .stats-rating .stats-rating-section .total {
+  float: left;
+  margin-top: 4px;
+}
+
+.web-item-wrapper .item  .stats-rating .like{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.web-item-wrapper .item  .stats-rating .unlike{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 
 .web-item-wrapper .item .img {
     float: left;
@@ -323,7 +290,7 @@ div.web-header span.search {
 }
 
 .web-item-wrapper .item .content .bottom {
-  position: relative;
+  float: left;
   width: auto;
 }
 
@@ -369,6 +336,14 @@ div.web-header span.search {
   margin: 2px 2px 2px 0;
   padding: 3px 4px;
   white-space: nowrap;
+}
+
+.tags a:link {
+    color: #12122D;
+}
+
+.tags a:visited {
+    color: #12122D;
 }
 
 .tag:hover {
@@ -1978,7 +1953,6 @@ div.hashTagWrapper {
 }
 
 div.wrapperHashTagItems {
-   padding: 10px 0px;
 }
 
 div.wrapperHashTagItems div.addNewHashTag {
@@ -2630,7 +2604,6 @@ div.menuWrapper{
      padding-top: 3px;
      width: 100%;
      min-height: 33px;
-     overflow: hidden;
 }
 
 div.menuWrapper .item {
@@ -2647,6 +2620,7 @@ div.menuWrapper .item a {
     float: left;
     text-decoration: none;
     color: white;
+    font-weight: normal;
 }
 
 div..menuWrapper .item a:visited {

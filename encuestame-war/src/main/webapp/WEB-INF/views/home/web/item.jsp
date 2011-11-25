@@ -46,9 +46,22 @@
                         hashTagName="${h.hashTagName}"></span>
                 </c:forEach>
             </div>
-<!--             <div class="stats"> -->
-
-<!--             </div> -->
         </div>
+        <div class="stats-rating">
+              <nav>
+                  <div class="stats-rating-section">
+                        <div class="like total">2134</div>
+                        <div class="image">
+                            <img src="<%=request.getContextPath()%>/resources/images/icons/enme_like.png" width="20px" height="20px" />
+                        </div>
+                  </div>
+                  <div class="stats-rating-section">
+                       <div class="unlike total">213</div>
+                        <div class="image">
+                            <img src="<%=request.getContextPath()%>/resources/images/icons/emne_unlike.png" width="20px" height="20px" />
+                       </div>
+                  </div>
+              </nav>
+       </div>
     </div>
 </section>

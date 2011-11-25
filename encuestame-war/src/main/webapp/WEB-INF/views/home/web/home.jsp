@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div id="web-main-public-line" class="enme-auto-center">
     <article class="web-item-wrapper">
-        <nav class="categoryMenu textShadow">
+        <nav class="categoryMenu">
             <%@ include file="nav.jsp"%>
         </nav>
         <article class="items">

@@ -95,6 +95,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
       */
      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
+
+     protected static final Integer START_DEFAULT = 0;
+
      /**
       * {@link ReCaptcha}.
       */
