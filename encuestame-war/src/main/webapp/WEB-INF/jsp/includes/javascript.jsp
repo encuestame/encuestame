@@ -40,7 +40,9 @@
         };
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/raphael-min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js?<%=EnMePlaceHolderConfigurer.getProperty("app.version")%>"></script>
+<script src="<%=request.getContextPath()%>/resources/js/req/raphael-min.js"></script>
+ <c:if test="${!development}">
+    <script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js?<%=EnMePlaceHolderConfigurer.getProperty("app.version")%>"></script>
+</c:if>
 <%-- <script src="<%=request.getContextPath()%>/resources/js/encuestame/encuestame.js"></script> --%>
 <%=WidgetUtil.getAnalytics("analytics.inc")%>

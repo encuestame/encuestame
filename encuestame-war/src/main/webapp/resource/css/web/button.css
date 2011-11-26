@@ -1,7 +1,6 @@
 /* CSS3 BUTTON */
 .btn {
     display: inline-block;
-    background: url(btn.bg.png) repeat-x 0px 0px;
     padding: 5px 10px 6px 10px;
     font-weight: bold;
     border: 1px solid rgba(0, 0, 0, 0.4);
