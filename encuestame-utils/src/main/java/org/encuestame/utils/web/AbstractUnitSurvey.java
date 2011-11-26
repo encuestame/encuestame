@@ -130,6 +130,10 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonProperty(value = "multiple_response")
     private String multipleResponse;
 
+    /** Show total comments received. **/
+    @JsonProperty(value = "total_comments")
+    private Long totalComments;
+
     /**
      * @return the hashTags
      */
@@ -497,5 +501,19 @@ public abstract class AbstractUnitSurvey implements Serializable {
      */
     public Boolean getIsShowResults() {
         return isShowResults;
+    }
+
+    /**
+     * @return the totalComments
+     */
+    public Long getTotalComments() {
+        return totalComments;
+    }
+
+    /**
+     * @param totalComments the totalComments to set
+     */
+    public void setTotalComments(final Long totalComments) {
+        this.totalComments = totalComments;
     }
 }

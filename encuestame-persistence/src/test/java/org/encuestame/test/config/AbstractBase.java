@@ -1995,10 +1995,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Survey survey,
             final Poll poll,
             final UserAccount user,
-            final Long dislikeVote){
+            final Long dislikeVote,
+            final Date createdAt){
            final Comment comment = new Comment();
            comment.setComment(comm);
-           comment.setCreatedAt(new Date());
+           comment.setCreatedAt(createdAt);
            comment.setLikeVote(likeVote);
            comment.setDislikeVote(dislikeVote);
            comment.setPoll(poll);
@@ -2019,7 +2020,26 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String comment,
             final TweetPoll tpoll,
             final UserAccount userAcc){
-        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
+        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , new Date());
+    }
+
+    /**
+     *
+     * @param comment
+     * @param tpoll
+     * @param userAcc
+     * @param likeVote
+     * @param dislikeVote
+     * @return
+     */
+    public Comment createDefaultTweetPollCommentVoted(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc,
+            final Long likeVote,
+            final Long dislikeVote,
+            final Date createdAt){
+        return this.createComment(comment, likeVote, tpoll, null, null, userAcc, dislikeVote, createdAt);
     }
 
     /**
@@ -2031,7 +2051,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String comment,
             final Poll poll,
             final UserAccount userAcc){
-        return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
+        return this.createComment(comment, 0L, null, null, poll, userAcc, 0L , new Date());
     }
 
     /**
@@ -2043,7 +2063,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String comment,
             final Survey survey,
             final UserAccount userAcc){
-        return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
+        return this.createComment(comment, 0L, null, survey, null, userAcc, 0L, new Date());
     }
 
     /**

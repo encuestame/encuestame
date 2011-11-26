@@ -15,7 +15,6 @@ package org.encuestame.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.plaf.ListUI;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
