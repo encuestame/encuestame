@@ -1,6 +1,5 @@
 .btn-default {
     display: inline-block;
-    background: url(btn.bg.png) repeat-x 0px 0px;
     padding:5px 10px 6px 10px;
     font-weight: normal;
     text-shadow: 1px 1px 1px rgba(255,255,255,0.5);

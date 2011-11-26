@@ -342,10 +342,6 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
     color: #12122D;
 }
 
-.tags a:visited {
-    color: #12122D;
-}
-
 .tag:hover {
     color: #F7FBFF;
     background-color: #3E6D8E;
@@ -557,124 +553,101 @@ div.web-form-wrapper .signup-form {
     white-space: nowrap;
 }
 
-/*** login **/
-#web-login-wrapper {
-    margin: 5em auto;
-    width: 45em;
-    z-index: 1;
+
+/** login **/
+
+#web-login-container {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    margin: 0 200px;
+    min-width: 400px;
+    padding-top: 80px;
+    width: 50%;
 }
 
-#web-login-wrapper div.loginTitle {
-    padding-left: 10px;
+#web-login-container .section-wrapper a:link{
+    color: #000 !important;
+    text-decoration: none !important;
 }
 
-#web-login-wrapper div.signIn {
+#web-login-container .section-wrapper {
     margin: 0 auto;
-    padding: 3px;
-    width: 11em;
+    padding-top: 15px;
+    text-align: left;
+    width: 60%;
+    position: relative;
 }
 
-#web-login-wrapper div.field {
-    padding: 10px;
+.login-section-wrapper {
+    background: -moz-linear-gradient(center top, #F0F0F2, #FFFFFF) repeat
+        scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: 0 1px #FFFFFF;
+    display: block;
+    height: 27px;
+    line-height: 27px;
+    margin-top: 6px;
+    position: relative;
+    width: 100%;
 }
 
-#web-login-wrapper div.forgotPassword {
-    font-size: 10px;
-    float: left;
-    margin-left: 100px;
+#web-login-container .section-wrapper label {
+    font-size: 12px;
+    left: 8px;
 }
 
-#web-login-wrapper div.forgotPassword a {
-    color: #000;
-    text-decoration: none;
+.section-shadow-wrapper {
+    text-shadow: 0 1px #FFFFFF;
 }
 
-#web-login-wrapper div.forgotPassword a:hover {
-    color: #000;
-    text-decoration: underline;
+.login-section-wrapper fieldset {
+    left: 10px;
+    position: absolute;
+    right: 10px;
 }
 
-#web-login-wrapper div.field div.label {
-    color: #000;
-    float: left;
-    font-size: 133%;
-    padding-top: 6px;
-    width: 90px;
+#web-login-container .forgot {
+  left: 342px;
+  position: relative;
+  top: -20px;
 }
 
-#web-login-wrapper  input[type="text"] {
-    height: 20px;
-    width: 275px;
-    font-size: 16px;
-    font-weight: normal;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    padding: 4px 2px;
-    border: 1px solid #AAAAAA;
+#web-login-container .signup {
+  left: 225px;
+  position: relative;
+  text-align: left;
+  top: -19px;
 }
 
-#web-login-wrapper div.field div.output label {
-    margin-left: 90px;
+.login-section-wrapper fieldset input {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #7E7E7E;
+    font-size: 13px;
+    font-weight: inherit;
+    height: 19px;
+    line-height: 19px;
+    position: relative;
+    width: 100%;
 }
 
-#web-login-wrapper  input[type="password"] {
-    height: 20px;
-    width: 275px;
-    font-size: 16px;
-    font-weight: normal;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    padding: 4px 2px;
-    border: 1px solid #AAAAAA;
+#web-login-container .loginButtonWrapper {
+  padding-top: 25px;
+  text-align: center;
 }
 
-#web-login-wrapper div.field div.output span a {
-    font-size: 10px;
-    text-decoration: none;
-    padding-left: 5px;
+#web-login-container .web-social-signin {
+
 }
 
-#web-login-wrapper div.buttonGroup {
-    margin-left: 95px;
-    margin-top: 25px;
+#web-login-container .web-social-signin .title {
+  color: #919090;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
-#web-login-wrapper div.web-form-wrapper {
-    float: left;
-    min-width: 440px;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    background-color: #F9F9F9;
-    border: 1px solid #8BA0BC;
-}
-
-#web-login-wrapper div.singup {
-    text-align: center;
-    padding: 10px;
-    font-size: 120%;
-}
-
-#web-login-wrapper div.web-social-signin {
-    border-top: 1px dotted gray;
-    max-width: 400px;
-    min-width: 350px;
-    padding: 10px;
-    margin: 10px;
-}
-
-#web-login-wrapper div.web-social-signin .title {
-    color: #000000;
-    font-size: 100%;
-    font-weight: bold;
-    padding-bottom: 10px;
-}
-
-#web-login-wrapper div.web-social-signin .section {
-    padding: 4px;
-}
+/** form wrapper */
 
 div.web-form-wrapper a.button {
     color: #444;
@@ -1892,10 +1865,6 @@ div.addAnswers div.answerItem div.title .answerItemShortUrl a:link {
     text-decoration: none;
 }
 
-div.addAnswers div.answerItem div.title .answerItemShortUrl a:visited {
-    color: #FFF;
-}
-
 div.addAnswers div.answerItem div.title .answerItemShortUrl a:hover {
     text-decoration: none;
 }
@@ -2007,11 +1976,6 @@ div.wrapperHashTagItems .hashTagItem {
 div.wrapperHashTagItems div.addNewHashTag .hashTagItem a {
     text-decoration: none;
     color: #FFF;
-}
-
-div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:visited {
-    color: #FFF;
-    text-decoration: none;
 }
 
 div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:hover {
@@ -2621,10 +2585,6 @@ div.menuWrapper .item a {
     text-decoration: none;
     color: white;
     font-weight: normal;
-}
-
-div..menuWrapper .item a:visited {
-    color: #FFFFFF;
 }
 
 div..menuWrapper .item a:hover,.menuWrapper .item .current {

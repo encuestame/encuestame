@@ -14,7 +14,7 @@
     <filters>
             <filter>../env/${env}.properties</filter>
        </filters>
-    <finalName>encuestame-${project.version}-beta</finalName>
+    <finalName>encuestame</finalName>
     <plugins>
         <plugin>
            <groupId>org.mortbay.jetty</groupId>
@@ -231,6 +231,7 @@
                                 resource/js/org/**/*,
                                 resource/js/org/**/*,
                                 resource/js/encuestame.profile.js,
+                                resource/js/req/*,
                                 resource/js/default.js, <!-- This file is because a issue on Dojo 1.6 with AMD modules. -->
                                 **/*.properties,
                                 **/*.tld,
