@@ -93,7 +93,7 @@ a:hover{
 /** common classes **/
 
 .error{
-    background-color: #C88080;
+    background-color: #E39393;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -159,7 +159,7 @@ a:hover{
 
 .defaultButton{
    margin-left : 8px;
-   border: 1px solid #BCBCBC;
+   border: 1px solid #C1C1C1;
    min-width: 100px;
    padding: 4px;
    cursor: pointer;
