@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -81,4 +82,16 @@ public interface CommentsOperations extends IBaseDao {
      * @return
      */
     Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType);
+
+    /**
+     * Get top rated comments.
+     * @param socialOption
+     * @param timeRange
+     * @param maxResults
+     * @param startResults
+     * @return
+     */
+    List<Comment> getTopRatedComments(
+            final CommentsSocialOptions socialOption, final Integer timeRange,
+            final Integer maxResults, final Integer startResults);
 }

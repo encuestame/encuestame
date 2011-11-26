@@ -140,7 +140,7 @@
         <property name="publicKey" value="6LeytMUSAAAAAF84VURfI3TmYFEBLMLvyk5-zTxc" />
         <property name="includeNoscript" value="false" />
         <!-- po ssl -->
-        <property name="recaptchaServer" value="https://api-secure.recaptcha.net" />
+        <property name="recaptchaServer" value="http://api-secure.recaptcha.net" />
     </bean>
 
     <!-- Enable OAuth Security. <import resource="encuestame-security-oauth-context.xml"/> -->

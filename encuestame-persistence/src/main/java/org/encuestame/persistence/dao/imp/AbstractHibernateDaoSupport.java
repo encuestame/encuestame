@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -134,6 +135,26 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
     public Date getCurrentdMidnightDate(){
         final DateMidnight midnightDate  = new DateTime().toDateMidnight();
         return midnightDate.toDate();
+    }
+
+    /**
+     * Return the current date.
+     * @return
+     */
+    public Date getCurrentdDateTime(){
+        DateTime currentDate = new DateTime();
+        return currentDate.toDate();
+    }
+
+    /**
+     * Get comment time range.
+     * @param range
+     * @return
+     */
+    public Date getCommentTimeRange(final Integer range){
+        final Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -range);
+        return cal.getTime();
     }
 
     /**

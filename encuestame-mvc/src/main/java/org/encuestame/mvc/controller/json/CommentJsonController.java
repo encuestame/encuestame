@@ -179,4 +179,28 @@ public class CommentJsonController extends AbstractJsonController {
          }
          return returnData();
      }
+
+    @RequestMapping(value = "/api/common/comment/topRated.json", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    public ModelMap getTopRatedComments(
+            @RequestParam(value = "commentOption", required = true) String commentOption,
+            @RequestParam(value = "max", required = false) Integer max,
+            @RequestParam(value = "start", required = false) Integer start,
+            HttpServletRequest request, HttpServletResponse response) {
+        try {
+
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            final List<CommentBean> comments = getCommentService()
+                    .getTopRatedComments(
+                            CommentsSocialOptions
+                                    .getCommentsSocialOptions(commentOption),
+                            max, start);
+            jsonResponse.put("topComments", comments);
+            setItemResponse(jsonResponse);
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }
