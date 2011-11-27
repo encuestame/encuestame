@@ -399,9 +399,18 @@ div.cloud .cloudItem {
 
 /** sign up **/
 #web-signup-wrapper {
-    margin: 5em auto;
+    margin: 5em 10em;
     width: 100%;
     z-index: 1;
+}
+
+#web-signup-wrapper .web-form-singup-container {
+    width: 300px;
+}
+
+#web-signup-wrapper h1{
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 #web-signup-wrapper,#page-container {
@@ -434,6 +443,16 @@ div.web-form-wrapper .signup-form {
     width: 90px;
 }
 
+#web-signup-wrapper .section-signup{
+    margin-top: 20px;
+}
+
+#web-signup-wrapper h3{
+    color: #919090;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
 #web-signup-wrapper div.web-form-wrapper {
 
 }
@@ -443,9 +462,9 @@ div.web-form-wrapper .signup-form {
 }
 
 #web-signup-wrapper div.sidetip {
-    left: 540px;
+    left: 310px;
     position: absolute;
-    width: 149px;
+    width: 100%;
 }
 
 #web-signup-wrapper .section div.tooltip {
@@ -593,8 +612,9 @@ div.web-form-wrapper .signup-form {
 }
 
 #web-login-container .section-wrapper label {
-    font-size: 12px;
-    left: 8px;
+  color: #919090;
+  font-size: 10px;
+  left: 8px;
 }
 
 .section-shadow-wrapper {
@@ -611,6 +631,7 @@ div.web-form-wrapper .signup-form {
   left: 342px;
   position: relative;
   top: -20px;
+  font-size: 10px;
 }
 
 #web-login-container .signup {
@@ -618,6 +639,7 @@ div.web-form-wrapper .signup-form {
   position: relative;
   text-align: left;
   top: -19px;
+  font-size: 10px;
 }
 
 .login-section-wrapper fieldset input {
