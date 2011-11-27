@@ -10,7 +10,7 @@
 
     <files> 
         <file> 
-            <source>../encuestame-war/target/encuestame-${artifact.version}-beta.war</source>
+            <source>../encuestame-war/target/encuestame.war</source>
             <outputDirectory>encuestame-${artifact.version}-release/webapp</outputDirectory>
         </file>
 	<file> 

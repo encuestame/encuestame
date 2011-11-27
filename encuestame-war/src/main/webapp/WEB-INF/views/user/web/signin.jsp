@@ -15,7 +15,6 @@
                      <a href="<c:url value="/user/signup" />">
                        <spring:message code="signin.error.signup" /> <spring:message code="signin.error.free" />
                      </a>
-
                 </div>
             </c:if>
         </div>
@@ -25,7 +24,7 @@
             <label class="section-wrapper" for="j_username">
                  <spring:message code="signin.username" />:
              </label>
-            <div class="login-section-wrapper">
+            <div class="input-design">
                 <fieldset>
                     <input type="text" name="j_username" id="j_username" />
                  </fieldset>
@@ -36,7 +35,7 @@
             <label class="section-wrapper" for="j_password">
                 <spring:message code="signin.password" />:
              </label>
-            <div class="login-section-wrapper">
+            <div class="input-design">
                 <fieldset>
                     <input type="password" name="j_password" id="j_password" />
                 </fieldset>
