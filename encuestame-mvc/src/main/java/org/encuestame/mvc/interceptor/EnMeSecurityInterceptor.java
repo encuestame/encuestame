@@ -105,6 +105,8 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
             log.info("Session Expired");
             request.setAttribute("logged", false);
         }
+        //enable or disable development status
+        request.setAttribute("development", EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.development"));
         //customized logo
         request.setAttribute("logo", this.getCustomizedHeaderLogo());
         return true;

@@ -12,6 +12,9 @@ dojo.declare("encuestame.org.core.commons.validator.EmailValidator",
         [encuestame.org.core.commons.validator.AbstractValidatorWidget], {
     templatePath : dojo.moduleUrl("encuestame.org.core.commons.validator", "templates/emailValidator.html"),
     widgetsInTemplate : true,
+
+    placeholder : "Write your email",
+
     postCreate : function(){
         this.inherited(arguments);
     },

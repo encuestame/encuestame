@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,7 +55,12 @@ import org.hibernate.search.annotations.Store;
   )
 @Indexed(index="UserAccount")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class UserAccount extends AbstractGeoPoint{
+public class UserAccount extends AbstractGeoPoint implements Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -184652572883512949L;
 
     private Long uid;
     private String completeName;

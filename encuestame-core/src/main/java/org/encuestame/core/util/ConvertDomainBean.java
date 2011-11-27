@@ -1015,6 +1015,7 @@ public class ConvertDomainBean {
            homeBean.setRelevance(tweetBean.getRelevance());
            homeBean.setItemType(TypeSearchResult.TWEETPOLL.toString().toLowerCase());
            homeBean.setHashTags(tweetBean.getHashTags());
+           homeBean.setTotalComments(tweetBean.getTotalComments() == null ? null : tweetBean.getTotalComments());
        return homeBean;
    }
 
@@ -1049,6 +1050,7 @@ public class ConvertDomainBean {
        homeBean.setRelevance(pollBean.getRelevance() == null ? 0L : pollBean.getRelevance());
        homeBean.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
        homeBean.setHashTags(pollBean.getHashTags());
+       homeBean.setTotalComments(pollBean.getTotalComments() == null ? null : pollBean.getTotalComments());
        return homeBean;
    }
 
@@ -1080,7 +1082,9 @@ public class ConvertDomainBean {
        homeBean.setCreateDate(null);
        homeBean.setTotalVotes(null);
        homeBean.setRelativeTime(null);
+       homeBean.setTotalComments(null);
        homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase());
+       homeBean.setTotalComments(null);
        return homeBean;
    }
 }

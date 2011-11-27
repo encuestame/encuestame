@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.validator.ValidateOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.security.ForgotPasswordBean;
@@ -85,30 +88,40 @@ public class ForgetPasswordController extends AbstractSecurityController {
                 req.getRemoteAddr(), challenge, response);
         final ValidateOperations validation = new ValidateOperations(
                 getSecurityService());
-        if (validation.validateUserEmail((email == null ? "" : email),
-                getUserAccount())) {
+        final UserAccount userValidate = validation.checkifEmailExist((email == null ? "" : email));
+        if (userValidate == null) {
             result.rejectValue("email", "secure.email.notvalid",
                     new Object[] { user.getEmail() }, "");
         }
-        validation.validateCaptcha(reCaptchaResponse, result);
-        log.info("reCaptchaResponse " + reCaptchaResponse.getErrorMessage());
         log.info("reCaptchaResponse " + reCaptchaResponse.isValid());
+        //validate reCaptcha
+        validation.validateCaptcha(reCaptchaResponse, result);
+        if(reCaptchaResponse.getErrorMessage() != null) {
+            log.fatal("reCaptcha Fatal Error: "+reCaptchaResponse.getErrorMessage());
+        }
         log.info("result.hasErrors() " + result.hasErrors());
         if (result.hasErrors()) {
             return "forgot";
         } else {
             final String password = PasswordGenerator.getPassword(6);
-            // try {
-            // //getSecurityService().renewPassword(unitUserBean, password);
-            // //TODO: refactor this method.
-            // log.debug("foo");
-            // } catch (EnMeExpcetion e) {
-            // log.error("Error Renewd password "+e.getMessage());
-            // return "forgot";
-            // }
+            try {
+                /*
+                 * Stuffs to change;
+                 * 1. user should be to change own password, not auto generate
+                 * 2. instead redirect to sign in page, should be to success page.
+                 */
+                getSecurityService().renewPassword(
+                                ConvertDomainBean
+                                        .convertBasicSecondaryUserToUserBean(userValidate),
+                                password);
+                log.debug("foo");
+            } catch (EnMeExpcetion e) {
+                log.error("Error Renewd password " + e.getMessage());
+                return "forgot";
+            }
             status.setComplete();
-            log.info("password generated " + password);
-            return "redirect:/user/signup";
+            log.info("password generated: " + password);
+            return "redirect:/user/signin";
         }
     }
 }

@@ -108,4 +108,14 @@ public interface ICommentService {
      */
      void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
         HibernateException, EnmeFailOperation;
+
+     /**
+      * Get top rated comments.
+      * @param socialCommentOption
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<CommentBean> getTopRatedComments(final CommentsSocialOptions socialCommentOption, final Integer maxResults,
+             final Integer start);
 }
