@@ -11,8 +11,13 @@ dojo.require("encuestame.org.core.commons.validator.AbstractValidatorWidget");
 dojo.declare("encuestame.org.core.commons.validator.RealNameValidator",
         [encuestame.org.core.commons.validator.AbstractValidatorWidget], {
     templatePath : dojo.moduleUrl("encuestame.org.core.commons.validator", "templates/realNameValidator.html"),
+
     widgetsInTemplate : true,
+
     focusDefault: true,
+
+    placeholder : "Write your Real Name",
+
     postCreate : function(){
         this.inherited(arguments);
     },

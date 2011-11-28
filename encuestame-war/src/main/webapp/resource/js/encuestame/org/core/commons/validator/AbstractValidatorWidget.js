@@ -16,6 +16,7 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
     isValid : false,
     inputTextValue : "",
     toolTip : true,
+    placeholder:"",
     postCreate : function(){
         this.inherited(arguments);
         if (this.focusDefault) {
@@ -24,17 +25,6 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
         if (!this.noEvents) {
             dojo.connect(this._input, "onchange", dojo.hitch(this, function(event) {
                 this._validate(event);
-            }));
-        }
-        dojo.connect(this._input, "onkeydown", dojo.hitch(this, function(event) {
-            this._evaluateShadowMessage(event);
-        }));
-        if(this.toolTip){
-            dojo.connect(this._input, "onfocus", dojo.hitch(this, function(event) {
-                this._showToolTip();
-            }));
-            dojo.connect(this._input, "onblur", dojo.hitch(this, function(event) {
-                this._hideToolTip();
             }));
         }
     },
