@@ -461,4 +461,12 @@ public interface SecurityOperations extends ServiceOperations {
      */
     UserAccountBean createAdministrationUser(
             final AdministratorProfile administratorProfile);
+
+    /**
+     * Get user accounts available.
+     * @param status
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<UserAccount> getUserAccountsAvailable(final Boolean status) throws EnMeNoResultsFoundException;
 }

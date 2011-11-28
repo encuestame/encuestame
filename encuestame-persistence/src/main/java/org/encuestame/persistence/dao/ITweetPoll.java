@@ -20,6 +20,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -292,4 +293,12 @@ public interface ITweetPoll extends IBaseDao{
     List<TweetPoll> getTweetPolls(final Integer maxResults,
             final Integer start, final Date range);
 
+    /**
+     * Get total tweetpolls by user.
+     * @param user
+     * @param publishTweetPoll
+     * @return
+     */
+    Long getTotalTweetPoll(final UserAccount user,
+            final Boolean publishTweetPoll);
 }

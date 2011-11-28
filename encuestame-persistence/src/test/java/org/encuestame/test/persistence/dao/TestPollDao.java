@@ -220,4 +220,17 @@ public class TestPollDao extends AbstractBase {
         final List<Poll> pollsbyFolder = getPollDao().getPollsByPollFolder(this.userAccount, this.pollFolder);
         assertEquals("Should be equals", 1, pollsbyFolder.size());
     }
+
+    /**
+     * Test get total polls by user.
+     */
+    @Test
+    public void testGetTotalPollsbyUser() {
+        final Poll myPoll = createPoll(myDate.getTime(), this.question,
+                "FDK445", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        assertNotNull(myPoll);
+        final Long totalPolls = getPollDao().getTotalPollsbyUser(
+                this.userAccount, Boolean.TRUE);
+       Assert.assertEquals("Should be", 2, totalPolls.intValue());
+    }
 }

@@ -1150,7 +1150,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
              Date publicationDateTweet,
              Boolean completed,
              Account tweetOwner,
-             Question question){
+             Question question,
+             final UserAccount userAccount){
         final TweetPoll tweetPoll = new TweetPoll();
         tweetPoll.setCloseNotification(closeNotification);
         tweetPoll.setResultNotification(resultNotification);
@@ -1163,6 +1164,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setCreateDate(publicationDateTweet);
         tweetPoll.setFavourites(Boolean.TRUE);
         tweetPoll.setTweetOwner(tweetOwner);
+        tweetPoll.setEditorOwner(userAccount);
         getTweetPoll().saveOrUpdate(tweetPoll);
         return tweetPoll;
     }
@@ -1174,11 +1176,28 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link TweetPoll}
      */
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
-       return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question);
+       return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, null);
     }
 
+    /**
+     * Create published {@link TweetPoll}.
+     * @param tweetOwner
+     * @param question
+     * @param dateTweet
+     * @return
+     */
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
-        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question);
+        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, null);
+     }
+
+    /**
+     * Create published {@link TweetPoll}.
+     * @param question
+     * @param user
+     * @return
+     */
+    public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user){
+        return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
     /**
@@ -1188,7 +1207,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link TweetPoll}
      */
     public TweetPoll createNotPublishedTweetPoll(final Account tweetOwner, final Question question){
-       return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question);
+       return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question, null);
     }
 
     /**

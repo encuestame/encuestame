@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.dao.CommentsOperations;
@@ -122,6 +123,8 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
 
     @Autowired
     private CommentsOperations commentsOperations;
+
+    private SecurityOperations securityService;
 
     /**
      * Get {@link UserAccount} by Username.
@@ -525,4 +528,19 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public void setCommentsOperations(final CommentsOperations commentsOperations) {
         this.commentsOperations = commentsOperations;
     }
+
+    /**
+     * @return the securityService
+     */
+    public SecurityOperations getSecurityService() {
+        return securityService;
+    }
+
+    /**
+     * @param securityService the securityService to set
+     */
+    public void setSecurityService(SecurityOperations securityService) {
+        this.securityService = securityService;
+    }
+
 }
