@@ -205,6 +205,15 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     }
 
     /**
+     * Test get user rated top.
+     */
+    //@Test
+    public void testGetUsersRatedTop(){
+        final Question question = createQuestion("Who are you tt?", "");
+        createPublishedTweetPoll(question, this.secondary);
+    }
+
+    /**
     * @return the frontEndService
     */
     public IFrontEndService getFrontEndService() {

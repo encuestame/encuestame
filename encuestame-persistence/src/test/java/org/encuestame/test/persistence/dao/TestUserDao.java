@@ -450,7 +450,7 @@ public class TestUserDao extends AbstractBase {
                final UserAccount uAcc = createUserAccount(Boolean.FALSE, createdAt.getTime(), "diana-"+i, this.account);
                //System.out.println("Account Date ------>"+ uAcc.getEnjoyDate());
         }
-        //create disabled account.
+        //create disabled account.g
         createdAt.add(Calendar.MONTH, +1);
         createUserAccount(Boolean.FALSE, createdAt.getTime() ,"user 2", this.account);
         createdAt.add(Calendar.DATE, +10);
@@ -467,4 +467,15 @@ public class TestUserDao extends AbstractBase {
                }
            }
        }
+
+    /**
+     * Test get userAccounts.
+     */
+    @Test
+    public void testGetUserAccounts() {
+        createUserAccount("user 23", this.account);
+        final List<UserAccount> userAccountList = getAccountDao()
+                .getUserAccounts(Boolean.TRUE);
+        assertEquals("Should be equals", 2, userAccountList.size());
+    }
 }

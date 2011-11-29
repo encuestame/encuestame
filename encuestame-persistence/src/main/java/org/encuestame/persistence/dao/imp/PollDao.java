@@ -391,4 +391,21 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
             final Date startDate) {
         return retrievePollByDate(owner, startDate, DateUtil.decreaseDateAsWeek(startDate), maxResults, start);
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getTotalPollsbyUser(org.encuestame.persistence.domain.security.UserAccount, java.lang.Boolean)
+     */
+    public final Long getTotalPollsbyUser(final UserAccount user,
+            final Boolean publishStatus) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.setProjection(Projections.rowCount());
+        criteria.add(Restrictions.eq("editorOwner", user));
+        criteria.add(Restrictions.eq("publish", publishStatus));
+        @SuppressWarnings("unchecked")
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        log.debug("Retrieve total polls by  " + user.getUsername() + "--->"
+                + results.size());
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
 }

@@ -31,6 +31,7 @@ import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
 
 /**
@@ -169,4 +170,13 @@ public interface IFrontEndService extends ServiceOperations {
      */
     void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
             final Calendar datebefore, final Calendar todayDate);
+
+    /**
+     * Get the list with the users rated top.
+     * @param status
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
+    throws EnMeNoResultsFoundException;
 }

@@ -1130,4 +1130,18 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
            }
         }
    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.SecurityOperations#getUserAccountsAvailable(java.lang.Boolean)
+     */
+    public List<UserAccount> getUserAccountsAvailable(final Boolean status)
+            throws EnMeNoResultsFoundException {
+        final List<UserAccount> userListAvailable = getAccountDao()
+                .getUserAccounts(status);
+        if (userListAvailable.size() == 0) {
+            throw new EnMeNoResultsFoundException("No active user was found");
+        }
+        return userListAvailable;
+    }
 }
