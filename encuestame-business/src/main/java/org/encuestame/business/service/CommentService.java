@@ -17,19 +17,26 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.ICommentService;
+import org.encuestame.core.service.imp.IPollService;
+import org.encuestame.core.service.imp.ISurveyService;
+import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Comment;
-import org.encuestame.persistence.domain.CommentsSocialOptions;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -40,10 +47,63 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentService extends AbstractBaseService implements ICommentService{
 
-    /** Log. **/
+    /**
+     * Tweetpoll Service.
+     */
+    @Autowired
+    public ITweetPollService tweetPollService;
+
+    /**
+     * Poll Service.
+     */
+    @Autowired
+    public IPollService pollService;
+
+    /**
+     * Survey Service.
+     */
+    @Autowired
+    public ISurveyService surveyService;
+
+    /**
+     * Log.
+     **/
     private Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * Default value for a single vote.
+     */
     private Long VOTE_VALUE = 1L;
+
+    /** Time Range value by default. **/
+    private Integer TIME_RANGE_VALUE = 1;
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ICommentService#getComments(org.encuestame.utils.enums.TypeSearchResult, java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    public List<Comment> getComments(
+            final TypeSearchResult searchResult,
+            final Long itemId,
+            final Integer max,
+            final Integer start) throws EnMeExpcetion{
+        final List<Comment> comments = new ArrayList<Comment>();
+        if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
+            final TweetPoll tweetPoll = getTweetPollService().getTweetPollPublishedById(
+                    itemId);
+             comments.addAll(this.getCommentsbyTweetPoll(tweetPoll, max, start));
+        } else if (searchResult.equals(TypeSearchResult.POLL)) {
+            final Poll poll = getPollService().getPollById(itemId);
+            //TODO:
+        } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
+            final Survey survey = null;
+            //TODO:
+        } else {
+            throw new EnMeExpcetion("invalid type");
+        }
+        return comments;
+    }
 
     /*
      * (non-Javadoc)
@@ -109,17 +169,33 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#getCommentsbyTweetPoll(java.lang.Long, java.lang.Integer, java.lang.Integer)
      */
-    public List<Comment> getCommentsbyTweetPoll(final Long tweetPollId,
+    public List<Comment> getCommentsbyTweetPoll(final TweetPoll tweetPoll,
             final Integer maxResults,
-            final Integer start) throws EnMeTweetPollNotFoundException{
+            final Integer start) throws EnMeNoResultsFoundException{
         List<Comment> tweetPollComments = new ArrayList<Comment>();
-        final TweetPoll tpoll = getTweetPollDao().getTweetPollById(tweetPollId);
-        if (tpoll == null){
-            throw new EnMeTweetPollNotFoundException("keyword is missing");
-        }else {
-            tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tpoll, maxResults, start);
-        }
+        tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tweetPoll, maxResults, start);
         return tweetPollComments;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ICommentService#getTopRatedComments(org.encuestame.utils.enums.CommentsSocialOptions, java.lang.Integer, java.lang.Integer)
+     */
+    public List<CommentBean> getTopRatedComments(final CommentsSocialOptions socialCommentOption, final Integer maxResults,
+            final Integer start){
+        final Integer timeRange = EnMePlaceHolderConfigurer
+                .getIntegerProperty("comment.time.range") == null ? this.TIME_RANGE_VALUE
+                : EnMePlaceHolderConfigurer
+                        .getIntegerProperty("comment.time.range");
+
+        log.debug("ENME PROPERTY TIME RANGE ---> " + timeRange);
+        final List<CommentBean> commentBean = new ArrayList<CommentBean>();
+        final List<Comment> topCommentList = getCommentsOperations()
+                .getTopRatedComments(socialCommentOption,
+                        timeRange, maxResults, start);
+        commentBean.addAll(ConvertDomainBean
+                .convertListCommentDomainToBean(topCommentList));
+        return commentBean;
     }
 
     /*
@@ -159,5 +235,47 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         lastLikeVote += this.VOTE_VALUE;
         comment.setDislikeVote(lastLikeVote);
         getCommentsOperations().saveOrUpdate(comment);
+    }
+
+    /**
+     * @return the tweetPollService
+     */
+    public ITweetPollService getTweetPollService() {
+        return tweetPollService;
+    }
+
+    /**
+     * @param tweetPollService the tweetPollService to set
+     */
+    public void setTweetPollService(final ITweetPollService tweetPollService) {
+        this.tweetPollService = tweetPollService;
+    }
+
+    /**
+     * @return the pollService
+     */
+    public IPollService getPollService() {
+        return pollService;
+    }
+
+    /**
+     * @param pollService the pollService to set
+     */
+    public void setPollService(final IPollService pollService) {
+        this.pollService = pollService;
+    }
+
+    /**
+     * @return the surveyService
+     */
+    public ISurveyService getSurveyService() {
+        return surveyService;
+    }
+
+    /**
+     * @param surveyService the surveyService to set
+     */
+    public void setSurveyService(final ISurveyService surveyService) {
+        this.surveyService = surveyService;
     }
 }

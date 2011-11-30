@@ -34,14 +34,15 @@ import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -455,11 +456,18 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     /**
      *
      * @param account
+     * @throws EnmeFailOperation
      */
     public void createDirectoryAccount(final Account account){
-        final File file = new File(DirectorySetupOperations.getProfilesDirectory(account.getUid().toString()));
-        if (!file.exists()) {
-            file.mkdirs();
+        File file;
+        try {
+            file = new File(DirectorySetupOperations.getProfilesDirectory(account.getUid().toString()));
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+        } catch (EnmeFailOperation e) {
+            log.fatal("not able to create user configuration profile");
+            e.printStackTrace();
         }
     }
 

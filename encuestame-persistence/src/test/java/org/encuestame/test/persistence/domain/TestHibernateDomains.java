@@ -23,19 +23,15 @@ import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
-import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Project;
-import org.encuestame.persistence.domain.Status;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
-import org.encuestame.persistence.domain.dashboard.GadgetType;
-import org.encuestame.persistence.domain.dashboard.LayoutEnum;
 import org.encuestame.persistence.domain.question.CatQuestionCategory;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -56,6 +52,10 @@ import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.EnMePermission;
+import org.encuestame.utils.enums.GadgetType;
+import org.encuestame.utils.enums.LayoutEnum;
+import org.encuestame.utils.enums.Status;
 import org.junit.Test;
 
 /**
@@ -273,13 +273,12 @@ public class TestHibernateDomains extends AbstractBase{
      @Test
      public void testSurveys(){
          final Survey surveys = new Survey();
-         surveys.setSecUsers(createAccount());
+         surveys.setOwner(createAccount());
          surveys.setTicket(1);
          surveys.setStartDate(new Date());
          surveys.setEndDate(new Date());
          surveys.setDateInterview(new Date());
          surveys.setComplete("y");
-         surveys.setSurveyFormat(createSurveyFormat("Schools",new Date()));
          //surveys.setSurveysfolder(createSurveyFolders());
          getSurveyDaoImp().saveOrUpdate(surveys);
          assertNotNull(surveys.getSid());
@@ -360,7 +359,9 @@ public class TestHibernateDomains extends AbstractBase{
      //@Test
      public void testQuestionDependenceSurvey(){
          final QuestionDependenceSurvey questionDepSurvey = new QuestionDependenceSurvey();
-         questionDepSurvey.setSurvey(createSurvey("", new Date(), new Date(), createAccount(), new Date(), createSurveyFormat("Schools",new Date()),"FirstSurvey"));
+         final SurveyFormat mySurveyFormat =  createSurveyFormat("Schools",new Date());
+         final Survey mySurvey = createSurvey("", new Date(), new Date(), createAccount(), new Date(),mySurveyFormat,"FirstSurvey", new Date());
+         questionDepSurvey.setSurvey(mySurvey);
          getQuestionDaoImp().saveOrUpdate(questionDepSurvey);
          assertNotNull(questionDepSurvey.getQuestionDependenceId());
      }
@@ -485,16 +486,15 @@ public class TestHibernateDomains extends AbstractBase{
          final PollFolder pollFolder = createPollFolder("My polls", user);
          poll.setPollCompleted(null);
          poll.setCreatedAt(Calendar.getInstance().getTime());
+         poll.setEndDate(Calendar.getInstance().getTime());
+         poll.setUpdatedDate(Calendar.getInstance().getTime());
          poll.setPollHash(RandomStringUtils.randomAlphanumeric(5));
          poll.setQuestion(question);
-         poll.setPollOwner(user);
-         poll.setEndDate(null);
+         poll.setEditorOwner(user);
          poll.setPublish(Boolean.TRUE);
-         poll.setCloseNotification(Boolean.FALSE);
-         poll.setShowVotes(Boolean.TRUE);
          poll.setPollFolder(pollFolder);
          poll.setUpdatedDate(null);
-         getiPoll().saveOrUpdate(poll);
+         getPollDao().saveOrUpdate(poll);
      }
 
      /** Test item vote. **/

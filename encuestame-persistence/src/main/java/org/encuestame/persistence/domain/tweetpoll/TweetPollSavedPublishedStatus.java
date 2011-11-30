@@ -28,6 +28,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.social.SocialProvider;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
@@ -71,6 +74,12 @@ public class TweetPollSavedPublishedStatus {
 
     /** Publication Date Tweet. This date is from twitter after publish. **/
     private Date publicationDateTweet;
+
+    /** {@link Poll} **/
+    private Poll poll;
+
+    /** {@link Survey} **/
+    private Survey survey;
 
     /**
      * @return the id
@@ -214,6 +223,36 @@ public class TweetPollSavedPublishedStatus {
      */
     public void setTweetContent(final String tweetContent) {
         this.tweetContent = tweetContent;
+    }
+
+    /**
+     * @return the poll
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Poll getPoll() {
+        return poll;
+    }
+
+    /**
+     * @param poll the poll to set
+     */
+    public void setPoll(final Poll poll) {
+        this.poll = poll;
+    }
+
+    /**
+     * @return the survey
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    /**
+     * @param survey the survey to set
+     */
+    public void setSurvey(final Survey survey) {
+        this.survey = survey;
     }
 
     /* (non-Javadoc)

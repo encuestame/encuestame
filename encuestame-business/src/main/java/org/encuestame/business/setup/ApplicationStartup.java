@@ -13,7 +13,6 @@
 package org.encuestame.business.setup;
 
 import org.apache.log4j.Logger;
-import org.encuestame.business.setup.install.InstallDatabaseOperations;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.core.service.imp.MailServiceOperations;
@@ -63,8 +62,8 @@ public class ApplicationStartup implements StartupProcess {
     public void startProcess() throws EnMeStartupException {
         // check if root directory exist
         try {
-            if (DirectorySetupOperations.checkInstallationFolder()) {
-                DirectorySetupOperations.createRootFolder();
+            if (!DirectorySetupOperations.isHomeDirectoryValid()) {
+                throw new EnMeStartupException("home folder is missing");
             }
             DirectorySetupOperations.validateInternalStructureDirectory(true);
             DirectorySetupOperations.createConfileFile();

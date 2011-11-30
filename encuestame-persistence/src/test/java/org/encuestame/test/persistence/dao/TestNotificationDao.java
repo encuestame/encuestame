@@ -21,10 +21,10 @@ import junit.framework.Assert;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.junit.Before;
 import org.junit.Test;
 

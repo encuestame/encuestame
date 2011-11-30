@@ -22,6 +22,7 @@ import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.imp.AccountDaoImp;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
@@ -65,29 +66,40 @@ public class ReIndexAttachmentsJob {
     /**
      * Return list of enabled account directories.
      * @return
+     * @throws EnmeFailOperation
      */
-    private List<File> getListOfAccountEnabledDirectories(){
+    private List<File> getListOfAccountEnabledDirectories() {
         final List<File> userDomainAttachmentsLocation = new ArrayList<File>();
-        final List<Long> listOfAccounts = getAccountDao().getAccountsEnabled(Boolean.TRUE);
-        log.debug("listOfAccounts enabled:{"+listOfAccounts.size());
+        final List<Long> listOfAccounts = getAccountDao().getAccountsEnabled(
+                Boolean.TRUE);
+        log.debug("listOfAccounts enabled:{" + listOfAccounts.size());
         for (Long accountId : listOfAccounts) {
-            final StringBuilder path = new StringBuilder(DirectorySetupOperations.getProfilesDirectory());
-            path.append("/");
-            path.append(accountId.toString());
-            path.append("/");
-            log.debug("Path builded "+path.toString());
-            final File accountPath = new File(path.toString());
-            if (accountPath.exists()) {
-                userDomainAttachmentsLocation.add(accountPath);
-            } else {
-                log.warn("Account Id: "+accountId+ " profile propery is missing, enable autocreate to create missings directories");
-                if (this.autoCreateDirectories) {
-                    log.debug("Autocreate enabled: creating folder for profile:{"+accountId);
-                    accountPath.mkdir();
-                    if(accountPath.exists()){
-                        userDomainAttachmentsLocation.add(accountPath);
+            StringBuilder path;
+            try {
+                path = new StringBuilder(
+                        DirectorySetupOperations.getProfilesDirectory());
+                path.append("/");
+                path.append(accountId.toString());
+                path.append("/");
+                log.debug("Path builded " + path.toString());
+                final File accountPath = new File(path.toString());
+                if (accountPath.exists()) {
+                    userDomainAttachmentsLocation.add(accountPath);
+                } else {
+                    log.warn("Account Id: "
+                            + accountId
+                            + " profile propery is missing, enable autocreate to create missings directories");
+                    if (this.autoCreateDirectories) {
+                        log.debug("Autocreate enabled: creating folder for profile:{"
+                                + accountId);
+                        accountPath.mkdir();
+                        if (accountPath.exists()) {
+                            userDomainAttachmentsLocation.add(accountPath);
+                        }
                     }
                 }
+            } catch (EnmeFailOperation e) {
+                log.fatal("error on try to reindex profile folders "+e);
             }
         }
         return userDomainAttachmentsLocation;

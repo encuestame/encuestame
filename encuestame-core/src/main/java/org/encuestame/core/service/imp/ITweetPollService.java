@@ -12,6 +12,7 @@
  */
 package org.encuestame.core.service.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
@@ -26,13 +27,14 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
-import org.encuestame.utils.web.UnitTweetPollResult;
 
 /**
  * Tweet Poll Service.
@@ -61,7 +63,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * Remove ALL {@link QuestionAnswer} on {@link TweetPoll}.
      * @param tweetPoll
      */
-    void removeAllQuestionsAnswers(final TweetPoll tweetPoll);
+   // void removeAllQuestionsAnswers(final TweetPoll tweetPoll);
 
     /**
      * Remove {@link QuestionAnswer}.
@@ -86,6 +88,16 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeTweetPollNotFoundException, EnMeNoResultsFoundException;
+
+
+    /**
+     * Get TweetPoll Published.
+     * @param tweetPollId
+     * @return
+     * @throws EnMeTweetPollNotFoundException
+     * @throws EnMeNoResultsFoundException
+     */
+    TweetPoll getTweetPollPublishedById(final Long tweetPollId) throws EnMeTweetPollNotFoundException, EnMeNoResultsFoundException;
 
     /**
      * Get tweetpoll by id and username
@@ -170,7 +182,6 @@ public interface ITweetPollService extends IMasterSurveyService{
     /**
      * Get Results By {@link TweetPoll}.
      * @param tweetPollId tweetPoll Id
-     * @return list of {@link UnitTweetPollResult}
      */
     List<TweetPollResultsBean> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
 
@@ -226,6 +237,21 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     FolderBean updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param typeSearch
+     * @param keyword
+     * @param max
+     * @param start
+     * @param searchResult
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    List<TweetPollBean> filterTweetPollByItemsByType(final TypeSearch typeSearch,
+            String keyword, Integer max, Integer start,
+            final TypeSearchResult searchResult)
+            throws EnMeNoResultsFoundException, EnMeExpcetion;
 
     /**
      * Delete TweetPoll Folder.
@@ -402,4 +428,14 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @throws EnMeNoResultsFoundException
       */
      List<FolderBean> getFolders() throws EnMeNoResultsFoundException;
+
+     /**
+      * Get published tweetPolls.
+      * @param maxResults
+      * @param start
+      * @param range
+      * @return
+      */
+     List<TweetPoll> getTweetPollsbyRange(final Integer maxResults,
+             final Integer start, final Date range);
 }

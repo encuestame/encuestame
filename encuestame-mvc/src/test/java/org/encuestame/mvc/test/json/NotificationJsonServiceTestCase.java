@@ -16,11 +16,11 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.mvc.controller.json.notifications.NotificationsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.notifications.Notification;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
+import org.encuestame.utils.enums.MethodJson;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;

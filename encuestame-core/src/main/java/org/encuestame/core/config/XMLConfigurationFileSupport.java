@@ -23,6 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.social.SocialNetworkBean;
 
 /**
@@ -45,31 +46,6 @@ public class XMLConfigurationFileSupport {
     private static XMLConfiguration xmlConfiguration = null;
 
     /**
-     *
-     * @param path
-     * @throws ConfigurationException
-     * @throws IOException
-     */
-    public XMLConfigurationFileSupport(final File file)
-            throws ConfigurationException, IOException {
-        this.createConfiguration(file);
-    }
-
-    /**
-     *
-     * @param file
-     * @throws ConfigurationException
-     * @throws IOException
-     */
-    public XMLConfigurationFileSupport(final String path)
-            throws ConfigurationException, IOException {
-        final File file = new File(path.toString());
-        if (file.exists()) {
-            this.createConfiguration(file);
-        }
-    }
-
-    /**
      * Constructor.
      *
      * @throws IOException
@@ -77,15 +53,33 @@ public class XMLConfigurationFileSupport {
      */
     public XMLConfigurationFileSupport() throws IOException,
             ConfigurationException {
-        final File file = new File(buildConfigFilePath());
-        if (file.exists()) {
-            this.createConfiguration(file);
-        }
+        this.createConfigurationFile();
     }
 
-    private String buildConfigFilePath() {
+    /**
+     *
+     * @throws ConfigurationException
+     */
+    private void createConfigurationFile(){
+            try {
+                final File file = new File(buildConfigFilePath());
+                this.reloadConfiguration(file);
+            } catch (ConfigurationException e) {
+                log.fatal(e);
+            } catch (EnmeFailOperation e) {
+                 log.fatal(e);
+                e.printStackTrace();
+            }
+    }
+
+    /**
+     *
+     * @return
+     * @throws EnmeFailOperation
+     */
+    private String buildConfigFilePath() throws EnmeFailOperation {
         final StringBuffer stringBuffer = new StringBuffer(
-                DirectorySetupOperations.getRootDirectory());
+                DirectorySetupOperations.getHomeDirectory());
         stringBuffer.append(PathUtil.configFileName);
         return stringBuffer.toString();
     }
@@ -95,17 +89,15 @@ public class XMLConfigurationFileSupport {
      * @param file
      * @throws ConfigurationException
      */
-    private void createConfiguration(final File file)
+    private void reloadConfiguration(final File file)
             throws ConfigurationException {
         log.debug("createConfiguration " + file.exists());
-        if (file.exists()) {
-            log.debug("createConfiguration.... " + file);
-            XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(
-                    file);
-            XMLConfigurationFileSupport.xmlConfiguration.setAutoSave(true);
-            XMLConfigurationFileSupport.xmlConfiguration
-                    .setReloadingStrategy(new FileChangedReloadingStrategy());
-        }
+        log.debug("createConfiguration.... " + file.getAbsolutePath());
+        XMLConfigurationFileSupport.xmlConfiguration = new XMLConfiguration(
+                file);
+        XMLConfigurationFileSupport.xmlConfiguration.setAutoSave(true);
+        XMLConfigurationFileSupport.xmlConfiguration
+                .setReloadingStrategy(new FileChangedReloadingStrategy());
     }
 
     /**
@@ -114,13 +106,17 @@ public class XMLConfigurationFileSupport {
      */
     public void reloadConfigFile() {
         log.debug("reloadConfigFile");
-        final File file = new File(buildConfigFilePath());
         try {
-            this.createConfiguration(file);
+            final File file = new File(buildConfigFilePath());
+            this.reloadConfiguration(file);
         } catch (ConfigurationException e) {
             e.printStackTrace();
             log.fatal(e);
             log.fatal("not able to reload configuration manager");
+        } catch (EnmeFailOperation e) {
+             e.printStackTrace();
+             log.fatal(e);
+             log.fatal("not able to reload configuration manager");
         }
     }
 
@@ -129,7 +125,10 @@ public class XMLConfigurationFileSupport {
      * @param property
      */
     public String getProperty(final String property) {
-        return xmlConfiguration.getString(property);
+        if (XMLConfigurationFileSupport.xmlConfiguration == null) {
+            createConfigurationFile();
+        }
+        return XMLConfigurationFileSupport.xmlConfiguration.getString(property);
     }
 
     /**
@@ -144,7 +143,7 @@ public class XMLConfigurationFileSupport {
      * @param xmlConfiguration
      *            the xmlConfiguration to set
      */
-    public void setXmlConfiguration(XMLConfiguration xmlConfiguration) {
+    public void setXmlConfiguration(final XMLConfiguration xmlConfiguration) {
         XMLConfigurationFileSupport.xmlConfiguration = xmlConfiguration;
     }
 

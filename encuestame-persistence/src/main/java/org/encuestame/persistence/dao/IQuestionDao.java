@@ -18,6 +18,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 
  /**
@@ -115,4 +116,11 @@ public interface IQuestionDao extends IBaseDao {
     List<Question> retrieveIndexQuestionsByKeyword(final String keyword,
             final Long userId, final String[] fields, final Analyzer analyzer,
             final Integer maxResults, final Integer startOn);
+
+    /**
+     * Get Questions by survey section.
+     * @param section
+     * @return
+     */
+    List<Question> getQuestionsbySection(final SurveySection section);
 }

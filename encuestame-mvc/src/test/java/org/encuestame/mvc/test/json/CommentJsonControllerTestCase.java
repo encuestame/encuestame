@@ -13,15 +13,18 @@
 package org.encuestame.mvc.test.json;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+
 import junit.framework.Assert;
-import org.encuestame.mvc.controller.json.MethodJson;
+
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -58,11 +61,11 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     //@Test
     public void testGetCommentsbyUnknownTweetPoll() throws ServletException, IOException {
-        initService("/api/survey/tweetpoll/comments.json", MethodJson.GET);
-        setParameter("tweetPollId", "1");
+        initService("/api/common/comment/comments/tweetpoll.json", MethodJson.GET);
+        setParameter("id", "1");
         final JSONObject response = callJsonService();
         final String error = getErrorsMessage(response);
-        Assert.assertEquals(error, "tweet poll invalid with this id 1");
+        Assert.assertEquals(error, "tweetpoll [1] is not published");
     }
 
     /**
@@ -72,8 +75,8 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void testGetCommentsbyTweetPoll() throws ServletException, IOException {
-        initService("/api/survey/tweetpoll/comments.json", MethodJson.GET);
-        setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
+        initService("/api/common/comment/comments/tweetpoll.json", MethodJson.GET);
+        setParameter("id", this.tweetPoll.getTweetPollId().toString());
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray comments = (JSONArray) success.get("comments");
@@ -138,7 +141,39 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
          setParameter("tweetPollId", this.tweetPoll.getTweetPollId().toString());
          final JSONObject response = callJsonService();
          final JSONObject success = getSucess(response);
-         final JSONObject dashboard = (JSONObject) success.get("comment");
-         Assert.assertEquals(dashboard.get("comment").toString(), "My Comment");
+         final JSONObject comment = (JSONObject) success.get("comment");
+         Assert.assertEquals(comment.get("comment").toString(), "My Comment");
         }
+
+    /**
+     * Test get top rated comments.
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testGetTopRatedComments() throws ServletException, IOException {
+        final Calendar myCal = Calendar.getInstance();
+        myCal.add(Calendar.DATE, -1);
+        createDefaultTweetPollCommentVoted("first comment", tweetPoll,
+                getSpringSecurityLoggedUserAccount(), 150L, 420L,
+                myCal.getTime());
+        createDefaultTweetPollCommentVoted("second comment", tweetPoll,
+                getSpringSecurityLoggedUserAccount(), 35L, 580L, new Date());
+        myCal.add(Calendar.DATE, -2);
+        createDefaultTweetPollCommentVoted("third comment", tweetPoll,
+                getSpringSecurityLoggedUserAccount(), 325L, 70L,
+                myCal.getTime());
+
+        initService("/api/common/comment/rate/top.json", MethodJson.GET);
+        setParameter("commentOption", "LIKE_VOTE");
+        setParameter("max", "10");
+        setParameter("start", "0");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray comments = (JSONArray) success.get("topComments");
+        System.out.println("COMMENTS JSON TEST-->" + comments.size());
+        Assert.assertEquals(comments.size(), 3);
+
+    }
 }

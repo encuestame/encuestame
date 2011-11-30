@@ -74,7 +74,7 @@
         <security:intercept-url pattern="/user/forgot/**" access="permitAll" />
         <security:intercept-url pattern="/activity/**" access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/user/logout" access="hasRole('ENCUESTAME_USER')"  />
-        <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_ADMIN')" />
+        <security:intercept-url pattern="/admon/**/*"  access="hasRole('ENCUESTAME_OWNER')" />
         <security:intercept-url pattern="/settings/**/*" access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/**/*"  access="hasRole('ENCUESTAME_USER')" />
         <security:intercept-url pattern="/user/tweetpoll"  access="hasAnyRole('ENCUESTAME_USER','ENCUESTAME_EDITOR')" />
@@ -89,6 +89,7 @@
         <security:intercept-url pattern="/api/survey/**/*"    access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/chart/**/*"   access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/api/groups/**/*"  access="hasRole('ENCUESTAME_USER')"  />
+        <security:intercept-url pattern="/api/common/comment/comments/**/*"  access="permitAll"  />
         <security:intercept-url pattern="/api/notifications/**/*"  access="hasRole('ENCUESTAME_USER')"  />
         <security:intercept-url pattern="/resources/**" access="permitAll"/>
     </security:http>
@@ -139,7 +140,7 @@
         <property name="publicKey" value="6LeytMUSAAAAAF84VURfI3TmYFEBLMLvyk5-zTxc" />
         <property name="includeNoscript" value="false" />
         <!-- po ssl -->
-        <property name="recaptchaServer" value="https://api-secure.recaptcha.net" />
+        <property name="recaptchaServer" value="http://api-secure.recaptcha.net" />
     </bean>
 
     <!-- Enable OAuth Security. <import resource="encuestame-security-oauth-context.xml"/> -->

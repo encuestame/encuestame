@@ -11,7 +11,11 @@ dojo.require("encuestame.org.core.commons.validator.AbstractValidatorWidget");
 dojo.declare("encuestame.org.core.commons.validator.UsernameValidator",
         [encuestame.org.core.commons.validator.AbstractValidatorWidget], {
     templatePath : dojo.moduleUrl("encuestame.org.core.commons.validator", "templates/usernameValidator.html"),
+
     widgetsInTemplate : true,
+
+    placeholder : "Write your username",
+
     postCreate : function(){
         this.inherited(arguments);
     },

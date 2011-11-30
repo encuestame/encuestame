@@ -11,6 +11,7 @@
     <definition name="signup" extends="page">
         <put-attribute name="title" value="Sign Up | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}signup.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}signup-js.jsp" />
     </definition>
 
     <definition name="forgot" extends="page">

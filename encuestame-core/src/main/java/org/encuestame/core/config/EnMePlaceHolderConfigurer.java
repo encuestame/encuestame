@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -64,11 +65,6 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
     protected void processProperties(
             ConfigurableListableBeanFactory beanFactory, Properties props)
             throws BeansException {
-        try {
-            EnMePlaceHolderConfigurer.configurationManager = new XMLConfigurationFileSupport();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
         //get form system property enviroment out file path.
         final String enviromentPropertyFile = System.getProperty(overwriteJvmParam);
         File customEncuestameFile;
@@ -107,6 +103,16 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
                     keyStr,
                     parseStringValue(props.getProperty(keyStr), props,
                             new HashSet()));
+        }
+        //TODO: xml configuration file should be outside this context.
+        try {
+            EnMePlaceHolderConfigurer.configurationManager = new XMLConfigurationFileSupport();
+        } catch (ConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 

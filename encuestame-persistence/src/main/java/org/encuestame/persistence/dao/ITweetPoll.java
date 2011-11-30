@@ -20,11 +20,15 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
 /**
@@ -43,6 +47,13 @@ public interface ITweetPoll extends IBaseDao{
      * @throws HibernateException exception
      */
     TweetPoll getTweetPollById(final Long tweetPollId) throws HibernateException;
+
+    /**
+     * Get published tweetpoll by id.
+     * @param tweetPollId
+     * @return
+     */
+    TweetPoll getPublicTweetPollById(final Long tweetPollId);
 
     /**
      * Retrieve Tweets Poll by User Id.
@@ -163,7 +174,7 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       List<TweetPoll> retrieveTweetPollToday(
-                final Long userId,
+                final Account account,
                 final Integer maxResults,
                 final Integer start);
 
@@ -173,7 +184,8 @@ public interface ITweetPoll extends IBaseDao{
        * @param userId
        * @return
        */
-      List<TweetPoll> retrieveTweetPollLastWeek(final Long userId,
+      List<TweetPoll> retrieveTweetPollLastWeek(
+              final Account account,
               final Integer maxResults,
               final Integer start);
 
@@ -195,7 +207,7 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       List<TweetPoll> retrieveFavouritesTweetPoll(
-              final Long userId,
+              final Account account,
               final Integer maxResults,
               final Integer start);
 
@@ -215,7 +227,10 @@ public interface ITweetPoll extends IBaseDao{
       * @param start
       * @return
       */
-     List<TweetPoll> retrieveTweetPollByDate(final Long userId, final Date initDate, final Integer maxResults,
+     List<TweetPoll> retrieveTweetPollByDate(
+             final Account account,
+             final Date initDate,
+             final Integer maxResults,
              final Integer start);
 
     /**
@@ -252,20 +267,21 @@ public interface ITweetPoll extends IBaseDao{
    List<Object[]> getResultsByTweetPoll(final Long tweetPollId, final Long answerId);
 
    /**
-    * Return all links published by {@link TweetPoll}.
+    * Return all links published by {@link TweetPoll}, {@link Survey}, {@link Poll}.
     * @param tweetPoll
+    * @param survey
+    * @param poll
+    * @param itemType
     * @return
     */
-   List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll);
+   public List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll, final Survey survey, final Poll poll, final TypeSearchResult itemType);
 
    /**
     * Get max tweetPoll like votes by user.
     * @param userId
-    * @param dateFrom
-    * @param searchByType
     * @return
     */
-   Long getMaxTweetPollLikeVotesbyUser(final Long userId, final Date dateFrom, final Date dateTo);
+   Long getMaxTweetPollLikeVotesbyUser(final Long userId);
 
    /**
     * Get tweetPolls.
@@ -277,4 +293,12 @@ public interface ITweetPoll extends IBaseDao{
     List<TweetPoll> getTweetPolls(final Integer maxResults,
             final Integer start, final Date range);
 
+    /**
+     * Get total tweetpolls by user.
+     * @param user
+     * @param publishTweetPoll
+     * @return
+     */
+    Long getTotalTweetPoll(final UserAccount user,
+            final Boolean publishTweetPoll);
 }

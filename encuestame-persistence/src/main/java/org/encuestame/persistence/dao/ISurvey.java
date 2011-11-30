@@ -12,11 +12,16 @@
  */
 package org.encuestame.persistence.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 
@@ -47,7 +52,7 @@ public interface ISurvey extends IBaseDao{
     * @param secId
     * @return
     */
-    List<SurveySection> retrieveQuestionsBySurveySection(final Long secId);
+    // List<SurveySection> retrieveQuestionsBySurveySection(final Long secId);
 
     /**
     *
@@ -116,5 +121,148 @@ public interface ISurvey extends IBaseDao{
      */
     Survey getSurveyById(final Long surveyId) throws HibernateException;
 
+    /**
+     * Search surveys by question name.
+     * @param keyWord
+     * @param userId
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveybyName(final String keyWord, final Long userId,
+            final Integer maxResults,
+            final Integer start);
 
+    /**
+     * retrieve survey by date.
+     * @param account
+     * @param initDate
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyByDate(
+            final Account account,
+            final Date initDate,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve survey today
+     * @param account
+     * @param maxResults
+     * @param start
+     * @return
+     */
+     List<Survey> retrieveSurveyToday(
+            final Account account,
+            final Integer maxResults,
+            final Integer start);
+
+     /**
+      * Retrieve survey by user id.
+      * @param userId
+      * @param maxResults
+      * @param start
+      * @return
+      */
+    List<Survey> retrieveSurveyByUserId(
+             final Long userId,
+             final Integer maxResults,
+             final Integer start);
+
+    /**
+     * Retrieve favourites survey.
+     * @param userAccount
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveFavoritesSurvey(
+            final UserAccount userAccount,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve scheduled survey.
+     * @param userId
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveScheduledSurvey(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve survey last Week.
+     * @param account
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyLastWeek(
+            final Account account,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve surveys back from last year.
+     * @param account
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyLastYear(
+            final Account account,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve surveys back from last day.
+     * @param account
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyLastDay(
+            final Account account,
+            final Integer maxResults,
+            final Integer start);
+
+
+    /**
+     * Retrieve Surveys by Account id.
+     * @param userId
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyByAccount(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve surveys by UserAccount.
+     * @param account
+     * @return
+     */
+    List<SurveyFolder> retrieveSurveyFolderByUserAccount(
+            final UserAccount account);
+
+    /**
+     * Get survey responseBySurvey
+     * @param survey
+     * @return
+     */
+    List<SurveyResult> getSurveyResponseBySurvey(final Survey survey, final Question question);
+
+    /**
+     * Get survey sections.
+     * @param survey
+     * @return
+     */
+    List<SurveySection> getSurveySection(final Survey survey);
 }

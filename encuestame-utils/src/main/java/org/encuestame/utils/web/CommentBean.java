@@ -51,25 +51,34 @@ public class CommentBean implements Serializable{
     private Long dislikeVote;
 
     /** **/
-    @JsonProperty(value = "poll_id")
-    private Long pollId;
+    @JsonProperty(value = "item_id")
+    private Long id;
+
+
+    /** Type of Comment */
+    @JsonProperty(value = "type")
+    private String type;
 
     /** **/
-    @JsonProperty(value = "user_id")
+    @JsonIgnore
+    @JsonProperty(value = "uid")
     private Long userAccountId;
 
-    /** **/
-    @JsonProperty(value = "tweetPoll_id")
-    private Long tweetPoll;
+    /**
+     * Commented By.
+     */
+    @JsonProperty(value = "commented_by")
+    private String commentedBy;
+
+    /**
+     * Commented By.
+     */
+    @JsonProperty(value = "commented_username")
+    private String commentedByUsername;
 
     /** **/
     @JsonProperty(value = "parent_id")
     private Long parentId;
-
-    /** **/
-    @JsonProperty(value = "survey_id")
-    private Long surveyId;
-
     /**
      * @return the commentId
      */
@@ -146,21 +155,6 @@ public class CommentBean implements Serializable{
     }
 
     /**
-     * @return the pollId
-     */
-    @JsonIgnore
-    public Long getPollId() {
-        return pollId;
-    }
-
-    /**
-     * @param pollId the pollId to set
-     */
-    public void setPollId(final Long pollId) {
-        this.pollId = pollId;
-    }
-
-    /**
      * @return the userAccountId
      */
     @JsonIgnore
@@ -175,20 +169,6 @@ public class CommentBean implements Serializable{
         this.userAccountId = userAccountId;
     }
 
-    /**
-     * @return the tweetPoll
-     */
-    @JsonIgnore
-    public Long getTweetPoll() {
-        return tweetPoll;
-    }
-
-    /**
-     * @param tweetPoll the tweetPoll to set
-     */
-    public void setTweetPoll(final Long tweetPoll) {
-        this.tweetPoll = tweetPoll;
-    }
 
     /**
      * @return the parentId
@@ -206,17 +186,62 @@ public class CommentBean implements Serializable{
     }
 
     /**
-     * @return the surveyId
+     * @return the id
      */
     @JsonIgnore
-    public Long getSurveyId() {
-        return surveyId;
+    public Long getId() {
+        return id;
     }
 
     /**
-     * @param surveyId the surveyId to set
+     * @param id the id to set
      */
-    public void setSurveyId(final Long surveyId) {
-        this.surveyId = surveyId;
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the type
+     */
+    @JsonIgnore
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(final String type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the commentedBy
+     */
+    @JsonIgnore
+    public String getCommentedBy() {
+        return commentedBy;
+    }
+
+    /**
+     * @param commentedBy the commentedBy to set
+     */
+    public void setCommentedBy(final String commentedBy) {
+        this.commentedBy = commentedBy;
+    }
+
+    /**
+     * @return the commentedByUsername
+     */
+    @JsonIgnore
+    public String getCommentedByUsername() {
+        return commentedByUsername;
+    }
+
+    /**
+     * @param commentedByUsername the commentedByUsername to set
+     */
+    public void setCommentedByUsername(final String commentedByUsername) {
+        this.commentedByUsername = commentedByUsername;
     }
 }

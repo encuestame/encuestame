@@ -1,26 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 3.3.10deb1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Sep 28, 2011 at 12:52 PM
--- Server version: 5.1.54
--- PHP Version: 5.3.5-1ubuntu7.2
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `encuestame_core`
---
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `access_rate`
 --
@@ -42,8 +19,6 @@ CREATE TABLE IF NOT EXISTS `access_rate` (
   KEY `FKC2760EDB953C854B` (`tweetPoll_tweet_poll_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `account`
 --
@@ -54,9 +29,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `account_enabled` bit(1) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `uid` (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `application`
@@ -77,8 +50,6 @@ CREATE TABLE IF NOT EXISTS `application` (
   KEY `FK5CA405505ECE45A2` (`account_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `application_connection`
 --
@@ -96,8 +67,6 @@ CREATE TABLE IF NOT EXISTS `application_connection` (
   KEY `FK73D5D2D4402BE26` (`application_application_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `attachment`
 --
@@ -111,8 +80,6 @@ CREATE TABLE IF NOT EXISTS `attachment` (
   UNIQUE KEY `attachment_id` (`attachment_id`),
   KEY `FK8AF75923225A055` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `client`
@@ -133,8 +100,6 @@ CREATE TABLE IF NOT EXISTS `client` (
   UNIQUE KEY `client_id` (`client_id`),
   KEY `FKAF12F3CB225A055` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `comments`
@@ -157,9 +122,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `FKDC17DDF4793D9E77` (`sid`),
   KEY `FKDC17DDF4CE12CAE8` (`pollId`),
   KEY `FKDC17DDF4D9AA8E98` (`tweetPollId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `dashboard`
@@ -178,9 +141,7 @@ CREATE TABLE IF NOT EXISTS `dashboard` (
   PRIMARY KEY (`dashboardId`),
   UNIQUE KEY `dashboardId` (`dashboardId`),
   KEY `FKC18AEA949229BCA5` (`userBoard_uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `email`
@@ -199,8 +160,6 @@ CREATE TABLE IF NOT EXISTS `email` (
   KEY `FK5C24B9CED78E617` (`id_list`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `emailList`
 --
@@ -217,8 +176,6 @@ CREATE TABLE IF NOT EXISTS `emailList` (
   KEY `FK7E5F425A2B2A6AB4` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `emailSubscribe`
 --
@@ -233,8 +190,6 @@ CREATE TABLE IF NOT EXISTS `emailSubscribe` (
   KEY `FK4B85010EED78E617` (`id_list`),
   KEY `FK4B85010EE824035` (`email_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `gadget`
@@ -252,9 +207,7 @@ CREATE TABLE IF NOT EXISTS `gadget` (
   PRIMARY KEY (`gadgetId`),
   UNIQUE KEY `gadgetId` (`gadgetId`),
   KEY `FKB549144CB975B5F9` (`dashboard_dashboardId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `gadget_properties`
@@ -270,9 +223,7 @@ CREATE TABLE IF NOT EXISTS `gadget_properties` (
   UNIQUE KEY `propertyId` (`propertyId`),
   KEY `FK866B6706369F8B2C` (`userAccount_uid`),
   KEY `FK866B670629091B05` (`gadget_gadgetId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `geoPoint`
@@ -298,8 +249,6 @@ CREATE TABLE IF NOT EXISTS `geoPoint` (
   KEY `FK6C73C0BF34EF9A43` (`geoPointFolder_locate_folder_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `geoPoint_folder`
 --
@@ -320,8 +269,6 @@ CREATE TABLE IF NOT EXISTS `geoPoint_folder` (
   KEY `FKF4A1D3EE6E4ED46D` (`subLocationFolder_locate_folder_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `geoPoint_type`
 --
@@ -335,8 +282,6 @@ CREATE TABLE IF NOT EXISTS `geoPoint_type` (
   UNIQUE KEY `loc_id_type` (`loc_id_type`),
   KEY `FK514326BA4075E3FD` (`users_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `groups`
@@ -354,8 +299,6 @@ CREATE TABLE IF NOT EXISTS `groups` (
   KEY `FKB63DD9D45ECE45A2` (`account_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `groups_permission`
 --
@@ -367,8 +310,6 @@ CREATE TABLE IF NOT EXISTS `groups_permission` (
   KEY `FK7F1951A45895AFF` (`sec_id_group`),
   KEY `FK7F1951A43ADB63D` (`sec_id_permission`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `group_permission`
@@ -382,8 +323,6 @@ CREATE TABLE IF NOT EXISTS `group_permission` (
   KEY `FK362E6F8F43ADB63D` (`sec_id_permission`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `hash_tags`
 --
@@ -396,29 +335,7 @@ CREATE TABLE IF NOT EXISTS `hash_tags` (
   `hashtag_updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`hash_tag_id`),
   UNIQUE KEY `hash_tag_id` (`hash_tag_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=182 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `hash_tags_hits`
---
-
-CREATE TABLE IF NOT EXISTS `hash_tags_hits` (
-  `hashtag_hits_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `hits_date` datetime NOT NULL,
-  `hits_ip_address` varchar(100) NOT NULL,
-  `hashTag_hash_tag_id` bigint(20) DEFAULT NULL,
-  `hits_user_account` bigint(20) DEFAULT NULL,
-  `hitDate` datetime DEFAULT NULL,
-  `ipAddress` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`hashtag_hits_id`),
-  UNIQUE KEY `hashtag_hits_id` (`hashtag_hits_id`),
-  KEY `FK58554DB538A08F1` (`hits_user_account`),
-  KEY `FK58554DB519AA125` (`hashTag_hash_tag_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `hits`
@@ -438,9 +355,7 @@ CREATE TABLE IF NOT EXISTS `hits` (
   KEY `FK30DF4063976E9` (`poll_poll_id`),
   KEY `FK30DF4051153812` (`survey_sid`),
   KEY `FK30DF40953C854B` (`tweetPoll_tweet_poll_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `notification`
@@ -458,9 +373,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   PRIMARY KEY (`notification_id`),
   UNIQUE KEY `notification_id` (`notification_id`),
   KEY `FK237A88EB2B2A6AB4` (`uid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `permission`
@@ -472,9 +385,7 @@ CREATE TABLE IF NOT EXISTS `permission` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_permission`),
   UNIQUE KEY `id_permission` (`id_permission`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `poll`
@@ -484,53 +395,49 @@ CREATE TABLE IF NOT EXISTS `poll` (
   `poll_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `lat` float DEFAULT NULL,
   `lng` float DEFAULT NULL,
-  `additionalInfo` varchar(255) DEFAULT NULL,
+  `additional_info` varchar(255) DEFAULT NULL,
   `closeAfterDate` bit(1) DEFAULT NULL,
   `close_after_quota` bit(1) DEFAULT NULL,
   `close_date` datetime DEFAULT NULL,
   `closed_quota` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `custom_final_message` int(11) DEFAULT NULL,
   `custom_message` bit(1) DEFAULT NULL,
   `custom_start_message` varchar(255) DEFAULT NULL,
-  `hits` int(11) DEFAULT NULL,
+  `dislike_vote` bigint(20) DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `favorites` bit(1) DEFAULT NULL,
+  `hits` bigint(20) DEFAULT NULL,
   `ip_protection` varchar(255) DEFAULT NULL,
   `ip_restrictions` bit(1) DEFAULT NULL,
+  `like_vote` bigint(20) DEFAULT NULL,
   `multiple_response` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `notifications` bit(1) DEFAULT NULL,
-  `numbervotes` int(11) DEFAULT NULL,
+  `number_votes` bigint(20) DEFAULT NULL,
   `optional_title` varchar(255) DEFAULT NULL,
   `password_protection` varchar(255) DEFAULT NULL,
   `password_restrictions` bit(1) DEFAULT NULL,
+  `relevance` bigint(20) DEFAULT NULL,
   `showAdditionalInfo` bit(1) DEFAULT NULL,
-  `showComments` int(11) DEFAULT NULL,
-  `show_progress_bar` bit(1) DEFAULT NULL,
-  `showResults` bit(1) DEFAULT NULL,
-  `close_notification` bit(1) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `end_date` datetime DEFAULT NULL,
+  `comment_option` int(11) DEFAULT NULL,
+  `show_results` bit(1) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
   `poll_completed` bit(1) NOT NULL,
   `poll_hash` varchar(255) NOT NULL,
   `publish_poll` bit(1) DEFAULT NULL,
-  `poll_show_results` bit(1) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
   `editor` bigint(20) DEFAULT NULL,
+  `owner_id` bigint(20) DEFAULT NULL,
   `poll_folder` bigint(20) DEFAULT NULL,
-  `uid` bigint(20) NOT NULL,
   `qid` bigint(20) NOT NULL,
-  `dislikeVote` bigint(20) DEFAULT NULL,
-  `likeVote` bigint(20) DEFAULT NULL,
-  `relevance` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`poll_id`),
   UNIQUE KEY `poll_id` (`poll_id`),
   UNIQUE KEY `poll_hash` (`poll_hash`),
-  KEY `FK3497BFF44558E9` (`uid`),
   KEY `FK3497BF89452CCA` (`poll_folder`),
   KEY `FK3497BF50FE71F5` (`qid`),
-  KEY `FK3497BFA64FB606` (`editor`)
+  KEY `FK3497BFA64FB606` (`editor`),
+  KEY `FK3497BF8E4A448B` (`owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `poll_folder`
@@ -549,23 +456,18 @@ CREATE TABLE IF NOT EXISTS `poll_folder` (
   KEY `FKC5911CEE6EF241E9` (`createdBy_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `poll_hits`
+-- Table structure for table `poll_hashtags`
 --
 
-CREATE TABLE IF NOT EXISTS `poll_hits` (
-  `poll_hit_id` bigint(20) NOT NULL,
-  `hitDate` datetime DEFAULT NULL,
-  `ipAddress` varchar(255) DEFAULT NULL,
-  `poll_poll_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`poll_hit_id`),
-  UNIQUE KEY `poll_hit_id` (`poll_hit_id`),
-  KEY `FKF76AFFC063976E9` (`poll_poll_id`)
+CREATE TABLE IF NOT EXISTS `poll_hashtags` (
+  `poll_id` bigint(20) NOT NULL,
+  `hastag_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`poll_id`,`hastag_id`),
+  KEY `FK9D199EA7DA98FFE1` (`hastag_id`),
+  KEY `FK9D199EA7F0ED6769` (`poll_id`),
+  KEY `FK9D199EA761842F44` (`poll_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `poll_result`
@@ -582,8 +484,6 @@ CREATE TABLE IF NOT EXISTS `poll_result` (
   KEY `FKD981C89DDDD118B5` (`q_answer_id`),
   KEY `FKD981C89DF0ED6769` (`poll_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `project`
@@ -609,8 +509,6 @@ CREATE TABLE IF NOT EXISTS `project` (
   KEY `FKED904B194075E3FD` (`users_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `project_geoPoint`
 --
@@ -622,8 +520,6 @@ CREATE TABLE IF NOT EXISTS `project_geoPoint` (
   KEY `FK2599132584536452` (`cat_id_project`),
   KEY `FK2599132535313189` (`cat_id_loc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `project_group`
@@ -637,8 +533,6 @@ CREATE TABLE IF NOT EXISTS `project_group` (
   KEY `FKC7652DD984536452` (`cat_id_project`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `project_locations`
 --
@@ -650,8 +544,6 @@ CREATE TABLE IF NOT EXISTS `project_locations` (
   KEY `FK242951B884536452` (`cat_id_project`),
   KEY `FK242951B835313189` (`cat_id_loc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `questions`
@@ -667,13 +559,13 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `question_slug` varchar(255) NOT NULL,
   `uid` bigint(20) NOT NULL,
   `id_question_pattern` bigint(20) DEFAULT NULL,
+  `section_ssid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`qid`),
   UNIQUE KEY `qid` (`qid`),
   KEY `FK95C5414D2B2A6AB4` (`uid`),
+  KEY `FK95C5414D39E97991` (`section_ssid`),
   KEY `FK95C5414D84133D82` (`id_question_pattern`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `questions_answers`
@@ -692,9 +584,7 @@ CREATE TABLE IF NOT EXISTS `questions_answers` (
   PRIMARY KEY (`q_answer_id`),
   UNIQUE KEY `q_answer_id` (`q_answer_id`),
   KEY `FK539703837E6C7BBC` (`id_question_answer`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `questions_dependencies`
@@ -714,8 +604,6 @@ CREATE TABLE IF NOT EXISTS `questions_dependencies` (
   KEY `FK92E86ADBDDD118B5` (`q_answer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `questions_pattern`
 --
@@ -732,8 +620,6 @@ CREATE TABLE IF NOT EXISTS `questions_pattern` (
   UNIQUE KEY `pattenr_id` (`pattenr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `question_category`
 --
@@ -744,8 +630,6 @@ CREATE TABLE IF NOT EXISTS `question_category` (
   PRIMARY KEY (`qCategory`),
   UNIQUE KEY `qCategory` (`qCategory`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `question_category_questions`
@@ -758,8 +642,6 @@ CREATE TABLE IF NOT EXISTS `question_category_questions` (
   KEY `FK2FFE1845B10E79BE` (`question_category_qCategory`),
   KEY `FK2FFE18457A068CB` (`questionLibrary_qid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `question_collection`
@@ -775,8 +657,6 @@ CREATE TABLE IF NOT EXISTS `question_collection` (
   KEY `FKB4097C972B2A6AB4` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `question_dependence_survey`
 --
@@ -789,8 +669,6 @@ CREATE TABLE IF NOT EXISTS `question_dependence_survey` (
   KEY `FKBB424D49793D9E77` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `question_relations`
 --
@@ -802,8 +680,6 @@ CREATE TABLE IF NOT EXISTS `question_relations` (
   KEY `FK217954DE893521DA` (`id_q_colection`),
   KEY `FK217954DE8A76A0BD` (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `social_account`
@@ -843,8 +719,6 @@ CREATE TABLE IF NOT EXISTS `social_account` (
   KEY `FK50078B5BF2F411F2` (`userOwner_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `surveys`
 --
@@ -853,49 +727,53 @@ CREATE TABLE IF NOT EXISTS `surveys` (
   `sid` bigint(20) NOT NULL AUTO_INCREMENT,
   `lat` float DEFAULT NULL,
   `lng` float DEFAULT NULL,
-  `additionalInfo` varchar(255) DEFAULT NULL,
+  `additional_info` varchar(255) DEFAULT NULL,
   `closeAfterDate` bit(1) DEFAULT NULL,
   `close_after_quota` bit(1) DEFAULT NULL,
   `close_date` datetime DEFAULT NULL,
   `closed_quota` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `custom_final_message` int(11) DEFAULT NULL,
   `custom_message` bit(1) DEFAULT NULL,
   `custom_start_message` varchar(255) DEFAULT NULL,
-  `hits` int(11) DEFAULT NULL,
+  `dislike_vote` bigint(20) DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `favorites` bit(1) DEFAULT NULL,
+  `hits` bigint(20) DEFAULT NULL,
   `ip_protection` varchar(255) DEFAULT NULL,
   `ip_restrictions` bit(1) DEFAULT NULL,
+  `like_vote` bigint(20) DEFAULT NULL,
   `multiple_response` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `notifications` bit(1) DEFAULT NULL,
-  `numbervotes` int(11) DEFAULT NULL,
+  `number_votes` bigint(20) DEFAULT NULL,
   `optional_title` varchar(255) DEFAULT NULL,
   `password_protection` varchar(255) DEFAULT NULL,
   `password_restrictions` bit(1) DEFAULT NULL,
+  `relevance` bigint(20) DEFAULT NULL,
   `showAdditionalInfo` bit(1) DEFAULT NULL,
-  `showComments` int(11) DEFAULT NULL,
-  `show_progress_bar` bit(1) DEFAULT NULL,
-  `showResults` bit(1) DEFAULT NULL,
+  `comment_option` int(11) DEFAULT NULL,
+  `show_results` bit(1) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
   `complete` varchar(2) DEFAULT NULL,
   `date_interview` date DEFAULT NULL,
-  `end_date` datetime NOT NULL,
-  `start_date` datetime NOT NULL,
-  `ticket` int(11) NOT NULL,
+  `schedule_date_survey` datetime DEFAULT NULL,
+  `is_Schedule` bit(1) DEFAULT NULL,
+  `show_progress_bar` bit(1) DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `survey_slug_name` varchar(255) DEFAULT NULL,
+  `ticket` int(11) DEFAULT NULL,
   `editor` bigint(20) DEFAULT NULL,
-  `uid` bigint(20) NOT NULL,
-  `id_sid_format` bigint(20) NOT NULL,
+  `owner_id` bigint(20) DEFAULT NULL,
+  `project_project_id` bigint(20) DEFAULT NULL,
   `survey_folder` bigint(20) DEFAULT NULL,
-  `dislikeVote` bigint(20) DEFAULT NULL,
-  `likeVote` bigint(20) DEFAULT NULL,
-  `relevance` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`sid`),
   UNIQUE KEY `sid` (`sid`),
-  KEY `FK919144592B2A6AB4` (`uid`),
   KEY `FK91914459A3C7A06A` (`survey_folder`),
-  KEY `FK91914459B1A6912C` (`id_sid_format`),
-  KEY `FK91914459A64FB606` (`editor`)
+  KEY `FK9191445973FF13B` (`project_project_id`),
+  KEY `FK91914459A64FB606` (`editor`),
+  KEY `FK919144598E4A448B` (`owner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `survey_folder`
@@ -914,8 +792,6 @@ CREATE TABLE IF NOT EXISTS `survey_folder` (
   KEY `FK7EF958F36EF241E9` (`createdBy_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `survey_format`
 --
@@ -927,8 +803,6 @@ CREATE TABLE IF NOT EXISTS `survey_format` (
   PRIMARY KEY (`id_sid_format`),
   UNIQUE KEY `id_sid_format` (`id_sid_format`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `survey_group`
@@ -942,8 +816,6 @@ CREATE TABLE IF NOT EXISTS `survey_group` (
   UNIQUE KEY `sg_id` (`sg_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `survey_group_format`
 --
@@ -956,8 +828,6 @@ CREATE TABLE IF NOT EXISTS `survey_group_format` (
   KEY `FKB4DF867CB1A6912C` (`id_sid_format`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `survey_group_project`
 --
@@ -969,24 +839,6 @@ CREATE TABLE IF NOT EXISTS `survey_group_project` (
   KEY `FKFD028D3484536452` (`cat_id_project`),
   KEY `FKFD028D34B75F3482` (`id_sid_format`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `survey_hits`
---
-
-CREATE TABLE IF NOT EXISTS `survey_hits` (
-  `survey_hit_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `hitDate` datetime DEFAULT NULL,
-  `ipAddress` varchar(255) DEFAULT NULL,
-  `survey_sid` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`survey_hit_id`),
-  UNIQUE KEY `survey_hit_id` (`survey_hit_id`),
-  KEY `FK234C790551153812` (`survey_sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `survey_pagination`
@@ -1003,22 +855,21 @@ CREATE TABLE IF NOT EXISTS `survey_pagination` (
   KEY `FKBEC9A99F1359B877` (`ssid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `survey_result`
 --
 
 CREATE TABLE IF NOT EXISTS `survey_result` (
   `rid` bigint(20) NOT NULL AUTO_INCREMENT,
-  `resp` varchar(255) NOT NULL,
-  `survey_id` bigint(20) NOT NULL,
+  `answer_q_answer_id` bigint(20) DEFAULT NULL,
+  `question_qid` bigint(20) DEFAULT NULL,
+  `survey_sid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`rid`),
   UNIQUE KEY `rid` (`rid`),
-  KEY `FK92EA04A2EB8D35C9` (`survey_id`)
+  KEY `FK92EA04A246BF7A1C` (`question_qid`),
+  KEY `FK92EA04A2496009B4` (`answer_q_answer_id`),
+  KEY `FK92EA04A251153812` (`survey_sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `survey_section`
@@ -1027,25 +878,11 @@ CREATE TABLE IF NOT EXISTS `survey_result` (
 CREATE TABLE IF NOT EXISTS `survey_section` (
   `ssid` bigint(20) NOT NULL AUTO_INCREMENT,
   `desc_section` varchar(255) DEFAULT NULL,
+  `survey_sid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ssid`),
-  UNIQUE KEY `ssid` (`ssid`)
+  UNIQUE KEY `ssid` (`ssid`),
+  KEY `FKFE5AD30051153812` (`survey_sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `survey_section_questions`
---
-
-CREATE TABLE IF NOT EXISTS `survey_section_questions` (
-  `survey_section_ssid` bigint(20) NOT NULL,
-  `questionSection_qid` bigint(20) NOT NULL,
-  PRIMARY KEY (`survey_section_ssid`,`questionSection_qid`),
-  KEY `FK12354ECE11057E56` (`survey_section_ssid`),
-  KEY `FK12354ECE4E3A9DF5` (`questionSection_qid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `tweetPoll`
@@ -1063,13 +900,16 @@ CREATE TABLE IF NOT EXISTS `tweetPoll` (
   `create_date` datetime DEFAULT NULL,
   `limit_with_date` bit(1) DEFAULT NULL,
   `date_limited` datetime DEFAULT NULL,
+  `dislikeVote` bigint(20) DEFAULT NULL,
   `favourite` bit(1) DEFAULT NULL,
-  `hits` int(11) DEFAULT NULL,
+  `hits` bigint(20) DEFAULT NULL,
+  `likeVote` bigint(20) DEFAULT NULL,
   `limit_votes` int(11) DEFAULT NULL,
   `limits_votes_enabled` bit(1) DEFAULT NULL,
   `max_repeated_votes` int(11) DEFAULT NULL,
-  `numberVotes` int(11) DEFAULT NULL,
+  `numberVotes` bigint(20) DEFAULT NULL,
   `publish` bit(1) DEFAULT NULL,
+  `relevance` bigint(20) DEFAULT NULL,
   `result_notification` bit(1) DEFAULT NULL,
   `resume_live_results` bit(1) DEFAULT NULL,
   `resume_tweetpoll_dashboard` bit(1) DEFAULT NULL,
@@ -1080,18 +920,13 @@ CREATE TABLE IF NOT EXISTS `tweetPoll` (
   `qid` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL,
   `tweetPollFolderId` bigint(20) DEFAULT NULL,
-  `dislikeVote` bigint(20) DEFAULT NULL,
-  `likeVote` bigint(20) DEFAULT NULL,
-  `relevance` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`tweet_poll_id`),
   UNIQUE KEY `tweet_poll_id` (`tweet_poll_id`),
   KEY `FKA65B1D02B2A6AB4` (`uid`),
   KEY `FKA65B1D0D9BA7E54` (`tweetPollFolderId`),
   KEY `FKA65B1D050FE71F5` (`qid`),
   KEY `FKA65B1D0A64FB606` (`editor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `tweetPoll_Folder`
@@ -1110,8 +945,6 @@ CREATE TABLE IF NOT EXISTS `tweetPoll_Folder` (
   KEY `FKA027A9DD6EF241E9` (`createdBy_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `tweetpoll_hashtags`
 --
@@ -1123,24 +956,6 @@ CREATE TABLE IF NOT EXISTS `tweetpoll_hashtags` (
   KEY `FKF8C717D6286705D7` (`tweetpoll_id`),
   KEY `FKF8C717D6DA98FFE1` (`hastag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tweetPoll_hits`
---
-
-CREATE TABLE IF NOT EXISTS `tweetPoll_hits` (
-  `tweetpoll_hit_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `hitDate` datetime DEFAULT NULL,
-  `ipAddress` varchar(255) DEFAULT NULL,
-  `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`tweetpoll_hit_id`),
-  UNIQUE KEY `tweetpoll_hit_id` (`tweetpoll_hit_id`),
-  KEY `FK1EDC884F953C854B` (`tweetPoll_tweet_poll_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `tweetpoll_result`
@@ -1156,9 +971,7 @@ CREATE TABLE IF NOT EXISTS `tweetpoll_result` (
   PRIMARY KEY (`tweetpoll_resultId`),
   UNIQUE KEY `tweetpoll_resultId` (`tweetpoll_resultId`),
   KEY `FK8749C18CB9D39F98` (`tweetpoll_switch_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `tweetPoll_save_published_status`
@@ -1172,15 +985,17 @@ CREATE TABLE IF NOT EXISTS `tweetPoll_save_published_status` (
   `status` int(11) DEFAULT NULL,
   `tweet_content` varchar(255) DEFAULT NULL,
   `tweet_id` varchar(255) DEFAULT NULL,
+  `poll_poll_id` bigint(20) DEFAULT NULL,
   `socialAccount_social_account_id` bigint(20) DEFAULT NULL,
+  `survey_sid` bigint(20) DEFAULT NULL,
   `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`status_save_poll_id`),
   UNIQUE KEY `status_save_poll_id` (`status_save_poll_id`),
   KEY `FKD499A4B65239D117` (`socialAccount_social_account_id`),
+  KEY `FKD499A4B663976E9` (`poll_poll_id`),
+  KEY `FKD499A4B651153812` (`survey_sid`),
   KEY `FKD499A4B6953C854B` (`tweetPoll_tweet_poll_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `tweetpoll_switch`
@@ -1198,9 +1013,7 @@ CREATE TABLE IF NOT EXISTS `tweetpoll_switch` (
   UNIQUE KEY `tweet_code` (`tweet_code`),
   KEY `FK89F7B0A3550299A` (`tweet_poll_id`),
   KEY `FK89F7B0A3DDD118B5` (`q_answer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `userAccount`
@@ -1233,9 +1046,7 @@ CREATE TABLE IF NOT EXISTS `userAccount` (
   KEY `FKA7D56BE2B8EB1450` (`groupId`),
   KEY `emailIndex` (`email`),
   KEY `usernameIndex` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Table structure for table `userAccount_followers`
@@ -1249,8 +1060,6 @@ CREATE TABLE IF NOT EXISTS `userAccount_followers` (
   KEY `FK7F1957F8E53FBC6` (`uid_follower`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `userAccount_permission`
 --
@@ -1262,8 +1071,6 @@ CREATE TABLE IF NOT EXISTS `userAccount_permission` (
   KEY `FKBE01CE4C43ADB63D` (`sec_id_permission`),
   KEY `FKBE01CE4C5F77A117` (`sec_id_secondary`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `userAccount_project`

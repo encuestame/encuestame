@@ -22,8 +22,8 @@ import junit.framework.Assert;
 
 import org.custommonkey.xmlunit.XMLUnit;
 import org.encuestame.core.util.JSONUtils;
-import org.encuestame.mvc.controller.json.MethodJson;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.MethodJson;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
@@ -151,9 +151,11 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      * @throws IOException
      */
     public JSONObject callJsonService() throws ServletException, IOException{
+        //System.out.println(this.request.getParameterMap());
         final String responseAsString = this.callStringService();
         Assert.assertNotNull(responseAsString);
         log.debug(responseAsString);
+        //System.out.println(responseAsString);
         return (JSONObject) JSONValue.parse(responseAsString);
     }
 
@@ -224,6 +226,7 @@ public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityCon
      * @return
      */
     public JSONObject getSucess(final JSONObject response) {
+        //System.out.println(response);
         Assert.assertNotNull("You need call first callJsonService", this.response);
         if(response.get("success") == null) {
             return new JSONObject();

@@ -22,10 +22,10 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.GeoPointFolderType;
-import org.encuestame.persistence.domain.Status;
-import org.encuestame.persistence.domain.notifications.NotificationEnum;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
@@ -171,7 +171,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
      */
     public List<UnitLocationFolder> retrieveLocationFolderByUser(final String currentUserName) throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertListToUnitLocationFolderBean(getGeoPointDao()
-                                .getLocationFolders(getPrimaryUser(currentUserName)));
+                                .getLocationFolders(getUserAccountId(currentUserName)));
     }
 
     /**
@@ -181,7 +181,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
      */
     public List<UnitLocationFolder> retrieveLocationSubFolderByUser(final Long locationFolderId, final String currentUserName) throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertListToUnitLocationFolderBean(getGeoPointDao()
-                                .getLocationFoldersByLocationFolderId(locationFolderId, getPrimaryUser(currentUserName)));
+                                .getLocationFoldersByLocationFolderId(locationFolderId, getUserAccountId(currentUserName)));
     }
 
     /**
@@ -193,7 +193,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
      */
     public List<UnitLocationBean> retrieveLocationFolderItemsById(final Long locationFolderId, final String username) throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertListToUnitLocationBean(getGeoPointDao()
-                                .getLocationByFolder(locationFolderId, getPrimaryUser(username)));
+                                .getLocationByFolder(locationFolderId, getUserAccountId(username)));
     }
 
     /**
@@ -204,7 +204,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
      */
     public List<UnitLocationBean> retrieveLocationItemsByUsername(final String username) throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertListToUnitLocationBean(getGeoPointDao()
-                                .getLocationByUser(getPrimaryUser(username)));
+                                .getLocationByUser(getUserAccountId(username)));
     }
 
     /**
@@ -227,7 +227,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
      */
     public UnitLocationFolder getFolderLocation(final Long folderLocationId, final String username) throws EnMeNoResultsFoundException{
         return ConvertDomainBean.convertGeoPointFolderDomainToBean(getGeoPointDao()
-                                .getLocationFolderByIdAndUserId(folderLocationId, getPrimaryUser(username)));
+                                .getLocationFolderByIdAndUserId(folderLocationId, getUserAccountId(username)));
     }
 
     /**
@@ -266,7 +266,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
      * @throws EnMeNoResultsFoundException
      */
     private GeoPoint getLocation(final Long locationId, final String username) throws EnMeNoResultsFoundException{
-        return getGeoPointDao().getLocationById(locationId, getPrimaryUser(username));
+        return getGeoPointDao().getLocationById(locationId, getUserAccountId(username));
     }
 
     /**
@@ -277,7 +277,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
      * @throws EnMeNoResultsFoundException
      */
     private GeoPointFolder getLocationFolder(final Long locationFolderId, final String username) throws EnMeNoResultsFoundException{
-        return getGeoPointDao().getLocationFolderByIdAndUserId(locationFolderId, getPrimaryUser(username));
+        return getGeoPointDao().getLocationFolderByIdAndUserId(locationFolderId, getUserAccountId(username));
     }
 
     /**
@@ -370,7 +370,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
         else {
             //TODO: we need remove items on CASCADE.
             final List<GeoPoint> itemsToDelete = getGeoPointDao()
-                                    .getLocationByFolder(locationFolder.getLocationFolderId(), getPrimaryUser(username));
+                                    .getLocationByFolder(locationFolder.getLocationFolderId(), getUserAccountId(username));
             for (GeoPoint geoPoint : itemsToDelete) {
                  getGeoPointDao().delete(geoPoint);
             }

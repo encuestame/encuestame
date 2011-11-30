@@ -308,4 +308,15 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
         return statusUserAccount;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IAccountDao#getUserAccounts(java.lang.Boolean)
+     */
+    public List<UserAccount> getUserAccounts(final Boolean status){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
+        criteria.add(Restrictions.eq("userStatus", status));
+        return (List<UserAccount>) getHibernateTemplate().findByCriteria(criteria);
+    }
+
+
 }

@@ -66,10 +66,19 @@ dojo.declare(
          */
         _questionWidget : null,
 
+        /*
+         *
+         */
         _default_answers : 4,
 
+        /*
+         *
+         */
         _min_answer_allowed : 2,
 
+        /*
+         *
+         */
         _answer_widget_array : [],
 
         /*
@@ -130,10 +139,14 @@ dojo.declare(
          */
         _createPoll : function(params) {
            var load = dojo.hitch(this, function(data) {
+               console.info("create poll", data);
+               if ("success" in data) {
                var pollBean = data.success.pollBean;
-               if (pollBean != null) {
-                   this._createDialogSupport();
-                   this._openSuccessMessage(pollBean);
+               console.info("create poll pollBean ", pollBean);
+                   if (pollBean != null) {
+                       this._createDialogSupport();
+                       this._openSuccessMessage(pollBean);
+                   }
                }
            });
            var error = dojo.hitch(this, function(error) {
@@ -180,7 +193,7 @@ dojo.declare(
              */
             var params = {
                             questionName : "",
-                            listAnswers : [],
+                            listAnswers : []
                          };
 
             if (this._questionWidget.getQuestion() != "" &&
@@ -263,12 +276,15 @@ dojo.declare(
          *
          */
         _openSuccessMessage : function(pollBean){
-            //var div = dojo.create('div');
             //social widget.
             var publishWidget = new encuestame.org.core.shared.publish.PublishSupport(
                     {
                         context: this.context,
-                        item : { id: pollBean.id, name : pollBean.questionBean.question_name , url : pollBean.shortUrl },
+                        item : {
+                            id: pollBean.id,
+                            name : pollBean.question.question_name ,
+                            url : pollBean.shortUrl
+                        },
                         dialogContext : this._dialogPublish
                     });
             this._dialogPublish.containerNode.appendChild(publishWidget.domNode);

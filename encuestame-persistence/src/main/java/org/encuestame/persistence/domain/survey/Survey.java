@@ -27,7 +27,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
-import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Project;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Surveys.
@@ -37,23 +44,16 @@ import org.encuestame.persistence.domain.security.Account;
  * @version $Id$
  */
 @Entity
+@Indexed(index="Survey")
 @Table(name = "surveys")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Survey extends AbstractSurvey {
 
     /****/
     private Long sid;
 
     /****/
-    private Account secUsers;
-
-    /****/
     private Integer ticket;
-
-    /****/
-    private Date startDate;
-
-    /****/
-    private Date endDate;
 
     /****/
     private Date dateInterview;
@@ -62,10 +62,29 @@ public class Survey extends AbstractSurvey {
     private String complete;
 
     /****/
-    private SurveyFormat surveyFormat;
-
-    /****/
     private SurveyFolder surveysfolder;
+
+    /** {@link HashTag} **/
+    private Project project;
+
+    /**
+     * Date init of survey.
+     * **/
+    private Date startDate;
+
+    /** Scheduled Survey. **/
+    private Boolean scheduleSurvey;
+
+    /** Scheduled Date. **/
+    private Date scheduleDate;
+
+    /**
+     * Show progress bar.
+     */
+     private Boolean showProgressBar;
+
+     /** Survey slug name**/
+     private String surveySlugName;
 
     /**
      * @return sid
@@ -83,69 +102,6 @@ public class Survey extends AbstractSurvey {
      */
     public void setSid(Long sid) {
         this.sid = sid;
-    }
-
-    /**
-     * @return secUsers
-     */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "uid", nullable = false)
-    public Account getSecUsers() {
-        return this.secUsers;
-    }
-
-    /**
-     * @param secUsers secUsers
-     */
-    public void setSecUsers(Account secUsers) {
-        this.secUsers = secUsers;
-    }
-
-    /**
-     * @return ticket
-     */
-    @Column(name = "ticket", nullable = false)
-    public int getTicket() {
-        return this.ticket;
-    }
-
-    /**
-     * @param ticket ticket
-     */
-    public void setTicket(int ticket) {
-        this.ticket = ticket;
-    }
-
-    /**
-     * @return startDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date", nullable = false, length = 0)
-    public Date getStartDate() {
-        return this.startDate;
-    }
-
-    /**
-     * @param startDate startDate
-     */
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    /**
-     * @return endDate
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", nullable = false, length = 0)
-    public Date getEndDate() {
-        return this.endDate;
-    }
-
-    /**
-     * @param endDate endDate
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     /**
@@ -180,19 +136,11 @@ public class Survey extends AbstractSurvey {
     }
 
     /**
-     * @return the surveyFormat
+     * @return the ticket
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_sid_format", nullable = false)
-    public SurveyFormat getSurveyFormat() {
-        return surveyFormat;
-    }
-
-    /**
-     * @param surveyFormat the surveyFormat to set
-     */
-    public void setSurveyFormat(SurveyFormat surveyFormat) {
-        this.surveyFormat = surveyFormat;
+    @Column(name = "ticket")
+    public Integer getTicket() {
+        return ticket;
     }
 
     /**
@@ -216,5 +164,98 @@ public class Survey extends AbstractSurvey {
      */
     public void setSurveysfolder(SurveyFolder surveysfolder) {
         this.surveysfolder = surveysfolder;
+    }
+
+    /**
+     * @return the project
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Project getProject() {
+        return project;
+    }
+
+    /**
+     * @param project the project to set
+     */
+    public void setProject(final Project project) {
+        this.project = project;
+    }
+
+    /**
+     * @return startDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_date", length = 0)
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * @param startDate startDate
+     */
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @return the showProgressBar.
+     */
+    @Column(name = "show_progress_bar")
+    public Boolean getShowProgressBar() {
+        return showProgressBar;
+    }
+
+    /**
+     * @param showProgressBar the showProgressBar to set.
+     */
+    public void setShowProgressBar(final Boolean showProgressBar) {
+        this.showProgressBar = showProgressBar;
+    }
+
+    /**
+     * @return the scheduleSurvey
+     */
+    @Column(name = "is_Schedule")
+    public Boolean getScheduleSurvey() {
+        return scheduleSurvey;
+    }
+
+    /**
+     * @param scheduleSurvey the scheduleSurvey to set
+     */
+    public void setScheduleSurvey(final Boolean scheduleSurvey) {
+        this.scheduleSurvey = scheduleSurvey;
+    }
+
+    /**
+     * @return the scheduleDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "schedule_date_survey")
+    public Date getScheduleDate() {
+        return scheduleDate;
+    }
+
+    /**
+     * @param scheduleDate the scheduleDate to set
+     */
+    public void setScheduleDate(final Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
+    }
+
+    /**
+     * @return the surveySlugName
+     */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
+    @Column(name = "survey_slug_name", nullable = true)
+    public String getSurveySlugName() {
+        return surveySlugName;
+    }
+
+    /**
+     * @param surveySlugName the surveySlugName to set
+     */
+    public void setSurveySlugName(final String surveySlugName) {
+        this.surveySlugName = surveySlugName;
     }
 }

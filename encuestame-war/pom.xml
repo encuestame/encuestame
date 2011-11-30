@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.140-SNAPSHOT</version>
+        <version>1.141-SNAPSHOT</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
@@ -14,7 +14,7 @@
     <filters>
             <filter>../env/${env}.properties</filter>
        </filters>
-    <finalName>encuestame-${project.version}-beta</finalName>
+    <finalName>encuestame</finalName>
     <plugins>
         <plugin>
            <groupId>org.mortbay.jetty</groupId>
@@ -221,6 +221,8 @@
                                 WEB-INF/lib/*,
                                 WEB-INF/**/*.xml,
                                 WEB-INF/**/*.inc,
+                                WEB-INF/tld/**/*,
+                                WEB-INF/messages/**/*,
                                 resource/static/**/*,
                                 resource/images/**/*,
                                 resource/js/dojo/**/*,
@@ -229,13 +231,19 @@
                                 resource/js/org/**/*,
                                 resource/js/org/**/*,
                                 resource/js/encuestame.profile.js,
+                                resource/js/req/*,
                                 resource/js/default.js, <!-- This file is because a issue on Dojo 1.6 with AMD modules. -->
                                 **/*.properties,
+                                **/*.tld,
                                 **/*.class,
                                 **/*.ico,
                                 **/*.xsd,
                                 **/*.jsp
                             </packagingIncludes>
+                            <packagingExcludes>
+                                resource/encuestame-config-custom.properties,
+                                WEB-INF/classes/encuestame-config-custom.properties
+                             </packagingExcludes>
                             <archive>
                                 <manifest>
                                     <addClasspath>true</addClasspath>
@@ -246,6 +254,9 @@
                                <resource>
                                     <directory>${project.build.directory}/dojo-compiled/dojo/</directory>
                                     <targetPath>resource/js</targetPath>
+                                     <excludes>
+                                        <exclude>**/encuestame-config-custom.properties</exclude>
+                                     </excludes>
                                 </resource>
                             </webResources>
                         </configuration>

@@ -12,25 +12,26 @@
  */
 package org.encuestame.core.service.imp;
 
+import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.TypeSearchResult;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
 
 /**
@@ -107,7 +108,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeSearchException
      */
-    Set<HomeBean> getFrontEndItems(final String period, final Integer start,
+    List<HomeBean> getFrontEndItems(final String period, final Integer start,
             Integer maxResults, final HttpServletRequest request)
             throws EnMeSearchException;
 
@@ -142,7 +143,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeExpcetion
      */
-    public AccessRate registerAccessRate(final TypeSearchResult type,
+    AccessRate registerAccessRate(final TypeSearchResult type,
             final Long itemId, final String ipAddress, final Boolean rate)
             throws EnMeExpcetion;
 
@@ -155,7 +156,27 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      * @throws EnMeSearchException
      */
-    public List<SurveyBean> searchItemsBySurvey(final String period,
+    List<SurveyBean> searchItemsBySurvey(final String period,
             final Integer start, Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException;
+
+    /**
+     * Process items to calculate relevance on home page.
+     * @param tweetPollList
+     * @param pollList
+     * @param surveyList
+     * @param datebefore
+     * @param todayDate
+     */
+    void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
+            final Calendar datebefore, final Calendar todayDate);
+
+    /**
+     * Get the list with the users rated top.
+     * @param status
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
+    throws EnMeNoResultsFoundException;
 }

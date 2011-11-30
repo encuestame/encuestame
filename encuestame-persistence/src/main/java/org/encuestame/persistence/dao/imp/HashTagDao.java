@@ -39,7 +39,15 @@ import org.springframework.stereotype.Repository;
 @Repository("hashTagDao")
 public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagDao {
 
+	/**
+	 * The min size of hashtag to be displayed on cloud service.
+	 */
+	private final static Long MIN_SIZE_CLOUD = 12L;
 
+	/**
+	 *
+	 * @param sessionFactory
+	 */
     @Autowired
     public HashTagDao(SessionFactory sessionFactory) {
              setSessionFactory(sessionFactory);
@@ -82,9 +90,11 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
                     final Integer start,
                     final String tagCriteria){
         final DetachedCriteria criteria = DetachedCriteria.forClass(HashTag.class);
+        //TODO: please replace "hashTagsCloud" by ENUM.
         if (tagCriteria.equals("hashTagsCloud")) {
-            criteria.add(Restrictions.gt("size", 12L));
-            criteria.add(Restrictions.gt("updatedDate", getCurrentdMidnightDate()));
+            criteria.add(Restrictions.gt("size", MIN_SIZE_CLOUD));
+            //TODO: date?
+            //criteria.add(Restrictions.gl("updatedDate", getCurrentdMidnightDate()));
             criteria.addOrder(Order.desc("size"));
             criteria.addOrder(Order.asc("hashTag"));
         } else {

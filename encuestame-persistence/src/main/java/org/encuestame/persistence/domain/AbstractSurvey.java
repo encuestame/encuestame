@@ -13,23 +13,32 @@
 package org.encuestame.persistence.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.enums.CommentOptions;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Store;
 
 /**
  * Abstract Survey.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since September 21, 2010
- * @version $Id: $
  */
 @MappedSuperclass
 public abstract class AbstractSurvey extends AbstractGeoPoint {
@@ -48,6 +57,11 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Define which user create this tweetPoll.
      */
     private UserAccount editorOwner;
+
+    /**
+     * Define the account owner of the item.
+     */
+    private Account owner;
 
     /**
      * Multiple Responses.
@@ -79,11 +93,6 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      * Custom Multiple Response.
      */
     private MultipleResponse multipleResponse;
-
-    /**
-     * Show progress bar.
-     */
-     private Boolean showProgressBar;
 
      /**
       * Optional title.
@@ -143,7 +152,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
    /**
     * Number votes for Survey and Poll.
     */
-    private Integer numbervotes;
+    private Long numbervotes;
 
     /**
      * Number Hits or visits
@@ -170,14 +179,43 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     private String name;
 
-    /** **/
+    /**
+     * The current relevance of the item.
+     * **/
     private Long relevance;
 
-    /** Like option**/
-    private Long likeVote = 0L;
+    /**
+     * Like option.
+     * **/
+    private Long likeVote;
 
     /** Unlike **/
-    private Long dislikeVote = 0L;
+    private Long dislikeVote;
+
+    /**
+     * Mark as favourites.
+     */
+    private Boolean favorites = false;
+
+    /**
+     * Update Date
+     */
+    private Date updatedDate;
+
+    /**
+     * End date of survey.
+     ***/
+    private Date endDate;
+
+    /**
+     * Survey created at.
+     ***/
+    private Date createdAt;
+
+    /**
+     * Hash Tags.
+     **/
+    private Set<HashTag> hashTags = new HashSet<HashTag>();
 
     /**
      * @return the customMessage.
@@ -210,23 +248,9 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     }
 
     /**
-     * @return the showProgressBar.
-     */
-    @Column(name = "show_progress_bar")
-    public Boolean getShowProgressBar() {
-        return showProgressBar;
-    }
-
-    /**
-     * @param showProgressBar the showProgressBar to set.
-     */
-    public void setShowProgressBar(final Boolean showProgressBar) {
-        this.showProgressBar = showProgressBar;
-    }
-
-    /**
      * @return the optionalTitle.
      */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "optional_title")
     public String getOptionalTitle() {
         return optionalTitle;
@@ -395,6 +419,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the showResults
      */
+    @Column(name = "show_results")
     public Boolean getShowResults() {
         return showResults;
     }
@@ -402,13 +427,15 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param showResults the showResults to set
      */
-    public void setShowResults(Boolean showResults) {
+    public void setShowResults(final Boolean showResults) {
         this.showResults = showResults;
     }
 
     /**
      * @return the showComments
      */
+    @Column(name = "comment_option")
+    @Enumerated(EnumType.ORDINAL)
     public CommentOptions getShowComments() {
         return showComments;
     }
@@ -416,9 +443,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param showComments the showComments to set
      */
-    @Column(name = "comment_Option")
-    @Enumerated(EnumType.ORDINAL)
-    public void setShowComments(CommentOptions showComments) {
+    public void setShowComments(final CommentOptions showComments) {
         this.showComments = showComments;
     }
 
@@ -439,6 +464,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the additionalInfo
      */
+    @Column(name = "additional_info")
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -446,13 +472,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param additionalInfo the additionalInfo to set
      */
-    public void setAdditionalInfo(String additionalInfo) {
+    public void setAdditionalInfo(final String additionalInfo) {
         this.additionalInfo = additionalInfo;
     }
 
     /**
      * @return the notifications
      */
+    @Column(name = "notifications")
     public Boolean getNotifications() {
         return notifications;
     }
@@ -460,22 +487,22 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param notifications the notifications to set
      */
-    public void setNotifications(Boolean notifications) {
+    public void setNotifications(final Boolean notifications) {
         this.notifications = notifications;
     }
 
     /**
      * @return the numbervotes
      */
-    @Column(name = "numbervotes")
-    public Integer getNumbervotes() {
+    @Column(name = "number_votes")
+    public Long getNumbervotes() {
         return numbervotes;
     }
 
     /**
      * @param numbervotes the numbervotes to set
      */
-    public void setNumbervotes(Integer numbervotes) {
+    public void setNumbervotes(final Long numbervotes) {
         this.numbervotes = numbervotes;
     }
 
@@ -490,13 +517,14 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param hits the hits to set
      */
-    public void setHits(Long hits) {
+    public void setHits(final Long hits) {
         this.hits = hits;
     }
 
     /**
      * @return the name
      */
+    @Field(index=Index.TOKENIZED, store=Store.YES)
     @Column(name = "name")
     public String getName() {
         return name;
@@ -505,7 +533,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @param name the name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -528,7 +556,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the relevance
      */
-    @Column(name = "relevance", nullable = true)
+    @Column(name = "relevance")
     public Long getRelevance() {
         return relevance;
     }
@@ -543,6 +571,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the likeVote
      */
+    @Column(name = "like_vote")
     public Long getLikeVote() {
         return likeVote;
     }
@@ -557,6 +586,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * @return the dislikeVote
      */
+    @Column(name = "dislike_vote")
     public Long getDislikeVote() {
         return dislikeVote;
     }
@@ -566,5 +596,103 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     public void setDislikeVote(final Long dislikeVote) {
         this.dislikeVote = dislikeVote;
+    }
+
+    /**
+     * @return the favourites
+     */
+    @Column(name = "favorites")
+    public Boolean getFavorites() {
+        return favorites;
+    }
+
+    /**
+     * @param favourites the favourites to set
+     */
+    public void setFavorites(final Boolean favorites) {
+        this.favorites = favorites;
+    }
+
+    /**
+     * @return endDate
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_date", length = 0)
+    public Date getEndDate() {
+        return this.endDate;
+    }
+
+    /**
+     * @param endDate endDate
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+
+    /**
+    * @return the updatedDate
+    */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_date")
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+    * @param updatedDate the updatedDate to set
+    */
+    public void setUpdatedDate(final Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    /**
+     * @return the accountItem
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "owner_id")
+    public Account getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param accountItem the accountItem to set
+     */
+    public void setOwner(final Account owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * @return the createdAt
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * @param createdAt the createdAt to set
+     */
+    public void setCreatedAt(final Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @return the hashTags
+     */
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "poll_hashtags",
+               joinColumns = {@JoinColumn(name = "poll_id")},
+               inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
+    public Set<HashTag> getHashTags() {
+        return hashTags;
+    }
+
+    /**
+     * @param hashTags the hashTags to set
+     */
+    public void setHashTags(Set<HashTag> hashTags) {
+        this.hashTags = hashTags;
     }
 }

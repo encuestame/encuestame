@@ -15,19 +15,26 @@
  */
 package org.encuestame.utils.captcha;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.encuestame.utils.captcha.http.HttpLoader;
 import org.encuestame.utils.captcha.http.SimpleHttpLoader;
 
 
 public class ReCaptchaImpl implements ReCaptcha {
 
-    public static final String PROPERTY_THEME = "theme";
-    public static final String PROPERTY_TABINDEX = "tabindex";
+    /**
+     * Log.
+     */
+    private Logger log = Logger.getLogger(this.getClass());
 
+    public static final String PROPERTY_THEME = "theme";
+    public static final String ENCODE = "UTF-8";
+    public static final String PROPERTY_TABINDEX = "tabindex";
     public static final String HTTP_SERVER = "http://www.google.com/recaptcha/api";
     public static final String HTTPS_SERVER = "https://www.google.com/recaptcha/api";
     public static final String VERIFY_URL = "http://www.google.com/recaptcha/api/verify";
@@ -39,39 +46,89 @@ public class ReCaptchaImpl implements ReCaptcha {
     private boolean includeNoscript = false;
     private HttpLoader httpLoader = new SimpleHttpLoader();
 
+    /**
+     *
+     * @param privateKey
+     */
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
+
+    /**
+     *
+     * @param publicKey
+     */
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
+
+    /**
+     *
+     * @param recaptchaServer
+     */
     public void setRecaptchaServer(String recaptchaServer) {
         this.recaptchaServer = recaptchaServer;
     }
+
+    /**
+     *
+     * @param includeNoscript
+     */
     public void setIncludeNoscript(boolean includeNoscript) {
         this.includeNoscript = includeNoscript;
     }
+
+    /**
+     *
+     * @param verifyUrl
+     */
     public void setVerifyUrl(String verifyUrl) {
         this.verifyUrl = verifyUrl;
     }
+
+    /**
+     *
+     * @param httpLoader
+     */
     public void setHttpLoader(HttpLoader httpLoader) {
         this.httpLoader  = httpLoader;
     }
 
-    public ReCaptchaResponse checkAnswer(String remoteAddr, String challenge, String response) {
-
-        String postParameters = "privatekey=" + URLEncoder.encode(privateKey) + "&remoteip=" + URLEncoder.encode(remoteAddr) +
-            "&challenge=" + URLEncoder.encode(challenge) + "&response=" + URLEncoder.encode(response);
-
+    /**
+     * Check reCaptcha Answer.
+     */
+    public ReCaptchaResponse checkAnswer(final String remoteAddr, final String challenge, final String response) {
+//        StringBuffer postParameters = new StringBuffer("privatekey=");
+//        try {
+//            postParameters.append("privatekey=");
+//            postParameters.append(URLEncoder.encode(privateKey, ENCODE));
+//            postParameters.append("&remoteip=");
+//            postParameters.append(URLEncoder.encode(remoteAddr, ENCODE));
+//            postParameters.append("&challenge=");
+//            postParameters.append(URLEncoder.encode(challenge, ENCODE));
+//            postParameters.append("&response=");
+//            postParameters.append(URLEncoder.encode(response, ENCODE));
+//        } catch (UnsupportedEncodingException e) {
+//            postParameters = new StringBuffer("");
+//        }
+          String postParameters;
+        try {
+          postParameters = "privatekey=" + URLEncoder.encode(privateKey,ENCODE) + "&remoteip=" + URLEncoder.encode(remoteAddr,ENCODE) +
+            "&challenge=" + URLEncoder.encode(challenge,ENCODE) + "&response=" + URLEncoder.encode(response,ENCODE);
+        } catch (UnsupportedEncodingException e) {
+         postParameters = "";
+       }
+       log.debug("reCaptcha checkAnswer :"+postParameters);
         final String message;
         try {
-            message = httpLoader.httpPost(verifyUrl, postParameters);
-
+            message = httpLoader.httpPost(verifyUrl, postParameters.toString());
+            log.debug("reCaptcha message :"+message);
             if (message == null) {
                 return new ReCaptchaResponse(false, "recaptcha-not-reachable");
             }
         }
         catch (ReCaptchaException networkProblem) {
+            log.error("ReCaptchaException: "+networkProblem);
             return new ReCaptchaResponse(false, "recaptcha-not-reachable");
         }
 
@@ -87,7 +144,7 @@ public class ReCaptchaImpl implements ReCaptcha {
             else
                 errorMessage = "recaptcha4j-missing-error-message";
         }
-
+        log.debug("reCaptcha errorMessage :"+errorMessage);
         return new ReCaptchaResponse(valid, errorMessage);
     }
 

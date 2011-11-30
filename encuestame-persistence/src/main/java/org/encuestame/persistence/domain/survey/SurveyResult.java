@@ -18,9 +18,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 
 /**
  * SurveyResult.
@@ -33,10 +35,17 @@ import javax.persistence.Table;
 @Table(name = "survey_result")
 public class SurveyResult {
 
+    /** **/
     private Long rid;
-    private String resp;
-    //private Set<SurveyResultMod> surveyResultMods = new HashSet<SurveyResultMod>();
-    private Survey surveys = new Survey();
+
+    /** **/
+    private Survey survey;
+
+    /** **/
+    private QuestionAnswer answer;
+
+    /** **/
+    private Question question;
 
     /**
      * @return rid
@@ -51,40 +60,52 @@ public class SurveyResult {
     /**
      * @param rid rid
      */
-    public void setRid(Long rid) {
+    public void setRid(final Long rid) {
         this.rid = rid;
-    }
-
-    /**
-     * @return resp
-     */
-    @Column(name = "resp", nullable = false)
-    public String getResp() {
-        return this.resp;
-    }
-
-    /**
-     * @param resp resp
-     */
-    public void setResp(String resp) {
-        this.resp = resp;
     }
 
     /**
      * @return the surveys
      */
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "survey_id", nullable = false)
-    public Survey getSurveys() {
-        return surveys;
+    public Survey getSurvey() {
+        return survey;
     }
 
     /**
      * @param surveys the surveys to set
      */
-    public void setSurveys(Survey surveys) {
-        this.surveys = surveys;
+    public void setSurvey(final Survey survey) {
+        this.survey = survey;
     }
 
+    /**
+     * @return the answer
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public QuestionAnswer getAnswer() {
+        return answer;
+    }
 
+    /**
+     * @param answer the answer to set
+     */
+    public void setAnswer(final QuestionAnswer answer) {
+        this.answer = answer;
+    }
+
+    /**
+     * @return the question
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Question getQuestion() {
+        return question;
+    }
+
+    /**
+     * @param question the question to set
+     */
+    public void setQuestion(final Question question) {
+        this.question = question;
+    }
 }

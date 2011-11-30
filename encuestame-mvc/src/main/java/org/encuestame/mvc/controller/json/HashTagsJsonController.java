@@ -118,12 +118,9 @@ public class HashTagsJsonController extends AbstractJsonController{
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final IFrontEndService service = getFrontService();
              final List<HashTagBean> hashTagList;
-             if (limit == null) {
-                 hashTagList = service.getHashTags(CLOUD_LIMIT_DEFAULT, 0, "hashTagsCloud");
-                 // TODO: Add to file properties limit to show hashtags.
-             } else {
-                hashTagList = service.getHashTags(limit, 0, "hashTagsCloud");
-             }
+             //TODO: please replace "hashTagsCloud" by ENUM.
+             hashTagList = service.getHashTags( limit == null ? CLOUD_LIMIT_DEFAULT : limit , START_DEFAULT, "hashTagsCloud");
+             // TODO: ENCUESTAME-347
              jsonResponse.put("cloud", hashTagList);
              setItemResponse(jsonResponse);
             }

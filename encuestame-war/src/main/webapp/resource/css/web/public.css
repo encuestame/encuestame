@@ -11,7 +11,7 @@ body.public-body {
 
 div.web-setup-wrapper{
     margin-top: 20px;
-    border: 1px solid #EEE;
+    border: 1px solid #EEEEEE;
     padding: 10px;
     font-size: 110%;
     -moz-box-shadow: 1px 4px 3px 0px #888888;
@@ -107,264 +107,222 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
     background-color: #F9E5E5;
 }
 
-/** header **/
-
-#header {
-    background-color: #E8E8E8;
-}
-
-.heading-title{
-    width: 100%;
-    margin-top: 40px;
-    overflow: auto;
-}
-
-.heading-title H1 {
-  color: #C53436;
-  float: left;
-  font-size: 24px;
-  font-weight: normal;
-  line-height: 24px;
-  margin: 0;
-  padding: 0 8px;
-}
-
-div.web-header {
-    width: auto;
-    padding: 0 5px;
-    min-height: 40px;
-}
-
-div.web-header-options {
-    float: right;
-}
-
-div.web-header div.logo {
-    width: 128px;
-    float: left;
-}
-
-div.web-header div.logoEncuestame {
-    background-image: url(../../images/logos/encuestame_logoalone.png);
-    background-repeat: no-repeat;
-    background-color: #EBE9E9;
-}
-
-div.web-header div.web-header-wrapper {
-    padding: 5px;
-    background-color: #EBE9E9;
-}
-
-div.web-header span {
-    display: inline-block;
-}
-
-div.web-header span.link {
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 4px 4px 3px 0;
-}
-
-div.web-header span.link a {
-    color: #275296;
-    text-decoration: none;
-    font-size: 110%;
-    font-style: italic;
-    font-weight: bold;
-}
-
-div.web-header span.link a:hover {
-    text-decoration: none;
-}
-
-div.web-header span.search {
-
-}
-
 #web-main-public-line {
-    margin: 1em auto;
+    margin: 0 auto;
     position: relative;
     text-align: left;
 }
 
-#web-main-public-line div.categoryMenu {
-    font-size: 120%;
-    margin: 0 1em auto;
-    min-height: 30px;
+#web-main-public-line .categoryMenu {
+  background-color: #444444;
+  overflow: auto;
+  padding: 10px;
+  margin: 0px 0px 0px 15px;
+  border-radius: 0px 0px 5px 5px;
+  -webkit-border-radius: 0px 0px 5px 5px;
+  -moz-border-radius: 0px 0px 5px 5px;
 }
 
-#web-main-public-line div.categoryMenu span {
-    display: inline-block;
-    width: 100px;
-    padding: 4px;
-    background-color: #3E6D8E;
-    text-align: center;
-}
-
-#web-main-public-line div.categoryMenu span a {
-    color: #FFF;
-    font-weight: bold;
+#web-main-public-line .categoryMenu a {
+    color: #FFFFFF;
     font-size: 90%;
 }
 
-#web-main-public-line div.categoryMenu span a:hover {
-
+#web-main-public-line .categoryMenu a:link {
+    color: #FFFFFF;
 }
 
-#web-main-public-line div.web-item-wrapper {
+#web-main-public-line .categoryMenu a:hover {
+     color: #FFFFFF;
+     text-decoration: none;
+}
+
+#web-main-public-line .web-item-wrapper {
     float: left;
-    border: 0px solid rgb(255, 255, 255);
-    width: 78%;
+    width: 860px;
 }
 
-#web-main-public-line div.web-left-wrapper {
+#web-main-public-line .web-left-wrapper {
     float: right;
-    border-left: 1px solid #EEEEEE;
-    margin-bottom: 60px;
     width: 220px;
 }
 
-#web-main-public-line div.web-left-wrapper div.section {
-    margin: 4px;
-    border: 1px solid #EAE6E6;
+#web-main-public-line .web-left-wrapper .section {
+    margin: 4px 4px 10px;
+    /*border: 1px solid #EAE6E6;*/
     min-width: 100%;
     min-height: 150px;
 }
 
-#web-main-public-line div.web-left-wrapper div.section div.link {
+#web-main-public-line .web-left-wrapper .section .web-aside-section {
+    min-height: 130px;
+}
+
+#web-main-public-line .web-left-wrapper .section div.link {
     padding: 1px;
     padding-right: 8px;
     text-align: right;
-    font-weight: bold;
 }
 
-#web-main-public-line div.web-left-wrapper div.section div.sectionTitle
-    {
-    font-size: 140%;
-    font-weight: bold;
-    margin-bottom: 4px;
-    margin-bottom: 5px;
-    background-color: #3E6D8E;
-    color: #FFF;
-    padding: 5px;
+#web-main-public-line .web-left-wrapper .section .sectionTitle {
+  background-color: #444444;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 110%;
+  margin-bottom: 5px;
+  padding: 8px;
 }
 
-div.web-item-wrapper .item {
+.web-item-wrapper .item {
     background: none repeat scroll 0 0 #FFFFFF;
-    border-bottom: 1px dotted #C8C8C8;
+    border-bottom: 1px dotted #EEEBEB;
     clear: both;
     overflow: auto;
-    padding: 4px;
+    padding: 7px;
 }
 
-div.web-item-wrapper .item .img {
+.web-item-wrapper .item .stats-rating {
+  background-color: #6A6D6F;
+  border-radius: 7px 7px 7px 7px;
+  color: #FFFFFF;
+  float: right;
+  font-size: 120%;
+  font-weight: bold;
+  max-height: 26px;
+  padding: 0;
+}
+
+.web-item-wrapper .item .stats-rating .stats-rating-section {
+  float: left;
+  padding: 2px;
+  width: 65px;
+}
+
+.web-item-wrapper .item  .stats-rating .stats-rating-section .image{
+
+}
+
+.web-item-wrapper .item .stats-rating .stats-rating-section .total {
+  float: left;
+  margin-top: 4px;
+}
+
+.web-item-wrapper .item  .stats-rating .like{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.web-item-wrapper .item  .stats-rating .unlike{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.web-item-wrapper .item .img {
     float: left;
     margin-right: 10px;
     margin-top: 6px;
 }
 
-div.web-item-wrapper .item .content {
+.web-item-wrapper .item .content {
     float: right;
     width: 87%;
     max-width: 750px;
 }
 
-div.web-item-wrapper .item .clear {
+.web-item-wrapper .item .clear {
     clear: both;
     float: none !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
-div.web-item-wrapper .item .stats {
-    background: none repeat scroll 0 0 #EEEEEE;
+.web-item-wrapper .item .stats {
+    background: none repeat scroll 0 0 #F8F8F8;
     margin: 0 0 0 7px;
-    padding: 3px;
-    width: 65px;
+    padding: 10px;
     text-align: center;
 }
 
-div.web-item-wrapper .item .stats .vote {
+.web-item-wrapper .item .stats .vote {
 
 }
 
-div.web-item-wrapper .item .stats .count {
+.web-item-wrapper .item .stats .count {
     font-size: 240%;
-    color: #275296;
 }
 
-div.web-item-wrapper .item .stats .viewcount {
+.web-item-wrapper .item .stats .viewcount {
     color: #6A6A6A;
     font-size: 10px;
 }
 
-div.web-item-wrapper .item .stats .views {
+.web-item-wrapper .item .stats .views {
     color: #B3B3B3;
     font-size: 10px;
 }
 
-div.web-item-wrapper .item .content {
+.web-item-wrapper .item .content {
     float: left;
     padding: 4px;
 }
 
-div.web-item-wrapper .item .content div.title {
-    font-size: 140%;
+.web-item-wrapper .item .content div.title {
+    font-size: 120%;
     font-weight: bold;
     margin-bottom: 5px;
     text-transform: capitalize;
 }
 
-div.web-item-wrapper .item .content div.title a {
+.web-item-wrapper .item .content div.title a {
     color: #275296;
 }
 
-div.web-item-wrapper .item .content div.title a:hover {
+.web-item-wrapper .item .content div.title a:hover {
     color: #275296;
     text-decoration: none;
 }
 
-div.web-item-wrapper .item .content h3 a {
+.web-item-wrapper .item .content h3 a {
     color: #5C8397;
 }
 
-div.web-item-wrapper .item .content .bottom {
-    position: relative;
+.web-item-wrapper .item .content .bottom {
+  float: left;
+  width: auto;
 }
 
-div.web-item-wrapper .item .content .bottom .share {
+.web-item-wrapper .item .content .bottom .share {
     float: right;
 }
 
-div.web-item-wrapper .item .content .bottom .share .title {
+.web-item-wrapper .item .content .bottom .share .title {
     font-size: 10px;
     color: #CACACA;
 }
 
-div.web-item-wrapper .item .content .bottom .options {
-    background-color: #FCFCFC;
-    clear: both;
-    color: #3E6D8E;
-    float: left;
-    font-size: 90%;
-    margin: 2px 2px 2px 0;
-    overflow: auto;
-    padding: 3px 4px;
-    white-space: nowrap;
-    width: 100%;
+.web-item-wrapper .item .content .bottom .options {
+  background-color: #FCFCFC;
+  clear: both;
+  color: #3E6D8E;
+  font-size: 90%;
+  margin: 2px 2px 2px 0;
+  white-space: nowrap;
 }
 
-div.web-item-wrapper .item .content .bottom .image {
+.web-item-wrapper .item .content .bottom .image {
     float: left;
     margin-right: 6px;
 }
 
-div.web-item-wrapper .item .tags {
+.web-item-wrapper .item .tags {
     padding-top: 5px;
     padding-bottom: 2px;
 }
 
-div.web-item-wrapper .item .tags a:hover {
+.web-item-wrapper .item .tags a:hover {
     color: #FFF;
 }
 
@@ -378,6 +336,10 @@ div.web-item-wrapper .item .tags a:hover {
   margin: 2px 2px 2px 0;
   padding: 3px 4px;
   white-space: nowrap;
+}
+
+.tags a:link {
+    color: #12122D;
 }
 
 .tag:hover {
@@ -437,9 +399,18 @@ div.cloud .cloudItem {
 
 /** sign up **/
 #web-signup-wrapper {
-    margin: 5em auto;
+    margin: 5em 10em;
     width: 100%;
     z-index: 1;
+}
+
+#web-signup-wrapper .web-form-singup-container {
+    width: 300px;
+}
+
+#web-signup-wrapper h1{
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 #web-signup-wrapper,#page-container {
@@ -472,6 +443,16 @@ div.web-form-wrapper .signup-form {
     width: 90px;
 }
 
+#web-signup-wrapper .section-signup{
+    margin-top: 20px;
+}
+
+#web-signup-wrapper h3{
+    color: #919090;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
 #web-signup-wrapper div.web-form-wrapper {
 
 }
@@ -481,9 +462,9 @@ div.web-form-wrapper .signup-form {
 }
 
 #web-signup-wrapper div.sidetip {
-    left: 540px;
+    left: 310px;
     position: absolute;
-    width: 149px;
+    width: 100%;
 }
 
 #web-signup-wrapper .section div.tooltip {
@@ -503,7 +484,7 @@ div.web-form-wrapper .signup-form {
     display: none;
     color: #FFF;
     background-color: #39568C;
-    z-index: 10px;
+    z-index: 10;
 }
 
 #web-signup-wrapper div.sidetip p {
@@ -526,7 +507,7 @@ div.web-form-wrapper .signup-form {
     font-size: 150%;
 }
 
-#web-signup-wrapper .textbox div.section {
+#web-signup-wrapper .textbox .section {
     margin-bottom: 15px;
 }
 
@@ -591,124 +572,104 @@ div.web-form-wrapper .signup-form {
     white-space: nowrap;
 }
 
-/*** login **/
-#web-login-wrapper {
-    margin: 5em auto;
-    width: 45em;
-    z-index: 1;
+
+/** login **/
+
+#web-login-container {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    margin: 0 200px;
+    min-width: 400px;
+    padding-top: 80px;
+    width: 50%;
 }
 
-#web-login-wrapper div.loginTitle {
-    padding-left: 10px;
+#web-login-container .section-wrapper a:link{
+    color: #000 !important;
+    text-decoration: none !important;
 }
 
-#web-login-wrapper div.signIn {
+#web-login-container .section-wrapper {
     margin: 0 auto;
-    padding: 3px;
-    width: 11em;
+    padding-top: 15px;
+    text-align: left;
+    width: 60%;
+    position: relative;
 }
 
-#web-login-wrapper div.field {
-    padding: 10px;
+.login-section-wrapper {
+    background: -moz-linear-gradient(center top, #F0F0F2, #FFFFFF) repeat
+        scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: 0 1px #FFFFFF;
+    display: block;
+    height: 27px;
+    line-height: 27px;
+    margin-top: 6px;
+    position: relative;
+    width: 100%;
 }
 
-#web-login-wrapper div.forgotPassword {
-    font-size: 10px;
-    float: left;
-    margin-left: 100px;
+#web-login-container .section-wrapper label {
+  color: #919090;
+  font-size: 10px;
+  left: 8px;
 }
 
-#web-login-wrapper div.forgotPassword a {
-    color: #000;
-    text-decoration: none;
+.section-shadow-wrapper {
+    text-shadow: 0 1px #FFFFFF;
 }
 
-#web-login-wrapper div.forgotPassword a:hover {
-    color: #000;
-    text-decoration: underline;
+.login-section-wrapper fieldset {
+    left: 10px;
+    position: absolute;
+    right: 10px;
 }
 
-#web-login-wrapper div.field div.label {
-    color: #000;
-    float: left;
-    font-size: 133%;
-    padding-top: 6px;
-    width: 90px;
+#web-login-container .forgot {
+  left: 342px;
+  position: relative;
+  top: -20px;
+  font-size: 10px;
 }
 
-#web-login-wrapper  input[type="text"] {
-    height: 20px;
-    width: 275px;
-    font-size: 16px;
-    font-weight: normal;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    padding: 4px 2px;
-    border: 1px solid #AAAAAA;
+#web-login-container .signup {
+  left: 225px;
+  position: relative;
+  text-align: left;
+  top: -19px;
+  font-size: 10px;
 }
 
-#web-login-wrapper div.field div.output label {
-    margin-left: 90px;
+.login-section-wrapper fieldset input {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #7E7E7E;
+    font-size: 13px;
+    font-weight: inherit;
+    height: 19px;
+    line-height: 19px;
+    position: relative;
+    width: 100%;
 }
 
-#web-login-wrapper  input[type="password"] {
-    height: 20px;
-    width: 275px;
-    font-size: 16px;
-    font-weight: normal;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    padding: 4px 2px;
-    border: 1px solid #AAAAAA;
+#web-login-container .loginButtonWrapper {
+  padding-top: 25px;
+  text-align: center;
 }
 
-#web-login-wrapper div.field div.output span a {
-    font-size: 10px;
-    text-decoration: none;
-    padding-left: 5px;
+#web-login-container .web-social-signin {
+
 }
 
-#web-login-wrapper div.buttonGroup {
-    margin-left: 95px;
-    margin-top: 25px;
+#web-login-container .web-social-signin .title {
+  color: #919090;
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
-#web-login-wrapper div.web-form-wrapper {
-    float: left;
-    min-width: 440px;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    background-color: #F9F9F9;
-    border: 1px solid #8BA0BC;
-}
-
-#web-login-wrapper div.singup {
-    text-align: center;
-    padding: 10px;
-    font-size: 120%;
-}
-
-#web-login-wrapper div.web-social-signin {
-    border-top: 1px dotted gray;
-    max-width: 400px;
-    min-width: 350px;
-    padding: 10px;
-    margin: 10px;
-}
-
-#web-login-wrapper div.web-social-signin .title {
-    color: #000000;
-    font-size: 100%;
-    font-weight: bold;
-    padding-bottom: 10px;
-}
-
-#web-login-wrapper div.web-social-signin .section {
-    padding: 4px;
-}
+/** form wrapper */
 
 div.web-form-wrapper a.button {
     color: #444;
@@ -740,7 +701,8 @@ div.web-form-wrapper a.button:active span {
 
 /** tweetpoll detail **/
 div.web-tweetpoll-detail {
-    margin-top: 15px;
+  border-left: 1px solid #EFEFEF;
+  border-right: 1px solid #EFEFEF;
 }
 
 div.web-tweetpoll-detail div.question {
@@ -748,30 +710,55 @@ div.web-tweetpoll-detail div.question {
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-info {
-    min-height: 50px;
     background-color: #EDEDED;
-    padding: 6px;
+}
+
+
+div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail {
+  background-color: #665A5A;
+  color: white;
+  float: left;
+  min-height: 20px;
+  min-width: 45px;
+  padding: 3px;
+  text-align: center;
+  width: 75px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-title {
+  color: #A9A9A9;
+  font-size: 17px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-high {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title {
+  color: #BABABA;
+  font-size: 10px;
+}
+
+div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small {
+  font-size: 13px;
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper {
-    padding: 5px;
-    overflow: auto;
+  border-bottom: 1px dotted #BEBEC8;
+  overflow: auto;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-chart
-    {
-    border-right: 1px dotted #C2C1C1;
+div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-chart {
     float: left;
     min-height: 180px;
     width: 400px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer
-    {
-    float: left;
-    min-height: 100px;
-    width: 650px;
-    padding: 10px;
+div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer {
+  float: left;
+  min-height: 100px;
+  width: 600px;
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer div.web-tweetpoll-answers
@@ -784,27 +771,37 @@ div.web-tweetpoll-answer-answer .web-tweetpoll-answer-table {
     width: 590px;
 }
 
-.web-tweetpoll-answer-table .header-table-answer
-    {
-    border: 0 none;
-    color: #000000;
-    font-size: 110%;
-    font-weight: bold;
-    padding-bottom: 5px;
+div.web-tweetpoll-answer-answer thead{
+
+}
+
+div.web-tweetpoll-answer-answer thead tr {
+  background-color: #3E6D8E;
+  padding: 10px;
+}
+
+div.web-tweetpoll-answer-answer .web-tweetpoll-answer-answer thead tr th{
+
+}
+
+.web-tweetpoll-answer-table .header-table-answer {
+  border: 0 none;
+  color: #FFF5F5;
+  font-size: 110%;
+  font-weight: bold;
+  padding-bottom: 10px;
 }
 
 .web-tweetpoll-answer-table th {
-    border-bottom: 1px solid #3E6D8E;
-    color: #3E6D8E;
-    font-size: 11px;
-    line-height: 11px;
-    text-align: center;
-    text-transform: lowercase;
+  border-bottom: 1px solid #3E6D8E;
+  color: #FFFFFF;
+  text-align: center;
+  text-transform: lowercase;
 }
 
 .web-tweetpoll-answer-table td {
-    border-bottom: 1px dotted #3E6D8E;
-    padding: 8px 15px;
+  border-bottom: 1px solid #BBC2C6;
+  padding: 8px 15px;
 }
 
 .web-tweetpoll-answer-table  .answer-poll {
@@ -840,20 +837,24 @@ div.web-tweetpoll-answer-answer .web-tweetpoll-answer-table {
     color: #333333;
 }
 
+div.web-tweetpoll-detail .section-block{
+    background-color: blue;
+}
+
 div.web-tweetpoll-detail div.web-tweetpoll-social-links {
-    padding: 10px;
+    padding: 0px;
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links {
-    padding: 5px;
+    padding: 0px;
 }
 
 div.web-tweetpoll-detail .titleTweetPollSection {
-    font-size: 120%;
-    border-bottom: 2px solid #000;
-    margin-bottom: 5px;
-    font-weight: bold;
-    padding-bottom: 5px;
+  background-color: #3E6D8E;
+  color: #FFFFFF;
+  font-size: 110%;
+  font-weight: bold;
+  padding: 5px;
 }
 
 div.web-tweetpoll-detail .extraMargin {
@@ -892,34 +893,42 @@ div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .link
 }
 
 div.web-tweetpoll-detail div.web-tweetpoll-hashtags {
-    padding: 10px;
     margin-bottom: 15px;
 }
 
 div.web-tweetpoll-detail  div.web-tweetpoll-comments {
-    padding: 10px;
     margin-bottom: 15px;
 }
 
 /* tweetpoll info detail */
 div.web-tweetpoll-detail div.web-tweetPoll-info-detail {
-    overflow: auto;
+  overflow: auto;
+  width: 100%;
+}
+
+div.web-tweetpoll-detail div.web-tweetPoll-info-detail .question-info{
+    float: left;
+    padding-top: 15px;
+}
+
+div.web-tweetpoll-detail div.web-tweetPoll-info-detail .left-info{
+    float: left;
+    width: 150px;
 }
 
 div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info {
-    float: left;
-    padding: 6px;
-    width: 700px;
-    overflow: auto;
+  float: left;
+  max-height: 65px;
+  overflow: hidden;
+  width: 700px;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.picture
-    {
+div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.picture {
     float: left;
+    max-height: 54px;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data
-    {
+div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data {
     float: left;
 }
 
@@ -935,42 +944,38 @@ div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data ul
     padding: 0px !important;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data li
-    {
+div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data li {
     display: block;
 }
 
 div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.data {
-    float: right;
-    margin-left: 10px;
-    width: 200px;
-    margin-right: 20px;
+  float: right;
+  width: 240px;
 }
 
-div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.tweetPollChart
-    {
+div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.tweetPollChart {
     border: 1px dotted #000;
 }
 
 div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.onLive {
-    background-color: #ED9C9C;
-    border: 1px solid #FFFFFF;
-    color: #FFFFFF;
-    padding: 2px;
-    width: 370px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    padding-left: 15px;
+  background-color: #ED9C9C;
+  border: 1px solid #FFFFFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  color: #FFFFFF;
+  margin: 12px;
+  padding: 2px 2px 2px 15px;
+  width: 260px;
 }
 
 /** survey status */
 div.survey-status {
-    font-size: 140%;
-    font-weight: bold;
-    margin: 0;
-    text-align: center;
-    width: 100%;
+  float: left;
+  font-size: 120%;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
 }
 
 div.survey-status .open {
@@ -982,15 +987,14 @@ div.survey-status .close {
 }
 
 div.countdown {
-    background-color: #444444;
-    border: 2px solid #FFFFFF;
-    color: #FFFFFF;
-    font-size: 110%;
-    font-weight: bold;
-    margin: 0;
-    max-height: 16px;
-    text-align: center;
-    width: 100z %;
+  color: #AEAAAA;
+  float: left;
+  font-size: 100%;
+  font-weight: bold;
+  margin: 0 0 0 10px;
+  max-height: 16px;
+  padding: 2px;
+  text-align: center;
 }
 
 div.comments {
@@ -1004,6 +1008,7 @@ div.comments div.comment-wrapper {
 div.comments div.comment-wrapper div.comment {
     padding: 5px;
     clear: both;
+    overflow: auto;
 }
 
 div.comments div.comment-wrapper div.comment div.comment-image {
@@ -1011,9 +1016,29 @@ div.comments div.comment-wrapper div.comment div.comment-image {
     width: 45px;
 }
 
+div.comments div.comment-wrapper .comments-no-content {
+  clear: both;
+  color: #A09F9D;
+  font-size: 18px;
+  padding: 25px;
+  text-align: center;
+  width: auto;
+}
+
+div.comments div.comment-form {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
 div.comments div.comment-wrapper div.comment div.comment-data {
-    float: left;
-    width: 980px;
+  background-color: #F8F8F8;
+  border-radius: 6px 6px 6px 6px;
+  float: left;
+  padding: 5px;
+  width: 90%;
+  height: auto;
+  line-height: normal;
+  border: 1px solid #EFEFEF;
 }
 
 div.comments div.comment-wrapper div.comment div.comment-data div.comment-info-data
@@ -1054,15 +1079,129 @@ div.panel-bar-item div.panel-bar-item-title {
     font-weight: bold;
     padding: 8px;
 }
+/** poll **/
+
+div.web-sub-menu{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#web-poll-wrapper{
+    -webkit-border-radius: 2px 2px 0px 0px;
+    -moz-border-radius: 2px 2px 0px 0px;
+    border-radius: 2px 2px 0px 0px;
+    border: 1px solid #D7D7D7;
+    min-height: 500px;
+    overflow: auto;
+    margin-top: 30px;
+}
+
+div.web-filter-sidebar-panel {
+  background-color: #F9F9F9;
+}
+
+div.web-filter-sidebar-panel div.optionItem {
+  border-bottom: 1px solid #EEEEEE;
+  clear: both;
+  font-size: 12px;
+  padding: 7px;
+  width: auto;
+}
+
+div.web-filter-sidebar-panel div.optionItemSelected {
+    background-color: #6F6F6F;
+    color: #FFF;
+}
+
+div.web-filter-sidebar-panel div.optionItem:hover {
+    background-color: #6F6F6F;
+    color: #FFF;
+    cursor: pointer;
+}
+
+div.web-filter-sidebar-panel div.optionItem span {
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+div.web-filter-sidebar-panel div.optionItem span:hover{
+    color: #FFF !important;
+}
+
+.web-item-row {
+  border-bottom: 1px dotted #E3E3E3;
+  cursor: pointer;
+  min-height: 25px;
+  overflow: auto;
+  padding: 7px;
+}
+
+.web-item-row .web-item-row-section {
+  float: left;
+  min-width: 30px;
+  padding: 2px;
+  margin-left: 5px;
+  margin-right: 5px
+}
+
+.web-item-row .nav-menu:hover{
+    opacity : 1;
+}
+
+.web-item-row .nav-menu {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    opacity : 0;
+    padding: 2px 0 0;
+}
+
+.web-item-row .web-item-row-section-input {
+  padding: 10px;
+}
+
+.web-item-row .web-item-row-section-title{
+    width: 650px;
+    max-width: 650px;
+}
+
+.web-item-row  .web-item-row-section-votes{
+    width: 60px;
+}
+
+.web-item-row .web-item-row-section-votes .web-item-row-section-votes-number {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.web-item-row .web-item-row-section-votes .web-item-row-section-votes-title {
+  color: #989898;
+  text-align: right;
+}
+
+.web-item-row  .web-item-row-section-date{
+     width: 60px;
+     text-align: right;
+     color: #989898;
+}
+
+.web-item-row .web-item-row-section-options {
+
+}
+
+.web-item-row .web-item-row-section-title h3{
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+}
 
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
     -webkit-border-radius: 2px 2px 0px 0px;
     -moz-border-radius: 2px 2px 0px 0px;
     border-radius: 2px 2px 0px 0px;
-    /*-moz-box-shadow: 0px 1px 2px #888;
-    -webkit-box-shadow: 0px 1px 2px #888;
-    box-shadow: 0px 1px 2px #888;*/
     border: 1px solid #D7D7D7;
     margin-top: 29px;
 }
@@ -1070,7 +1209,7 @@ div.panel-bar-item div.panel-bar-item-title {
 /** List TweetPoll **/
 
 #web-tweetpoll-wrapper div.web-tweetpoll-menu {
-  font-size: 112%;
+  font-size: 100%;
   padding: 10px;
 }
 
@@ -1078,7 +1217,7 @@ div.panel-bar-item div.panel-bar-item-title {
     color: #FFF !important;
     font-weight: bold;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 div.web-tweetpoll-wrapper {
@@ -1116,8 +1255,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
     margin-right: 0px;
 }
 
-div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel
-    {
+div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel {
 
 }
 
@@ -1125,7 +1263,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
   border-bottom: 1px solid #EEEEEE;
   clear: both;
   float: left;
-  font-size: 14px;
+  font-size: 12px;
   padding: 7px;
   width: 171px;
 }
@@ -1147,8 +1285,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
     text-decoration: none;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span:hover{
     color: #FFF !important;
 }
 
@@ -1160,12 +1297,13 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:ho
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
-    float: left;
-    width: 912px;
+  border-left: 1px solid #C2BEC2;
+  float: left;
+  width: 912px;
 }
-
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu{
-    min-height: 20px;
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
+  min-height: 20px;
+  padding: 8px 0 3px 10px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {
@@ -1296,7 +1434,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     -webkit-border-radius: 0px 0px 5px 5px;
     border-radius: 0px 0px 5px 5px;
     border: 1px solid #DCDCDC;
-    background-color: #DCDCD;
+    background-color: #FFFFFF;
     overflow: auto;
 }
 
@@ -1340,7 +1478,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     margin-left: 5px;
     float: left;
     padding: 2px;
-    width: 40;
+    width: 150px;
 }
 
 /** Create tweetpoll. **/
@@ -1363,7 +1501,7 @@ div.web-tweetpoll-section {
     border: 1px solid #E5E5E5;
     margin: 0 auto;
     overflow: auto;
-    width: 90%;
+    width: 84%;
     z-index: 5;
     -webkit-border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
@@ -1373,7 +1511,7 @@ div.web-tweetpoll-section {
 div.web-tweetpoll-section div.web-tweetpoll-section-title {
  /** #737373 D7D7D7 #8EA5B7  */
   color: #FFFFFF;
-  font-size: 125%;
+  font-size: 110%;
   padding: 10px;
   font-weight: bold;
 }
@@ -1446,7 +1584,7 @@ div.web-tweetpoll-wrapper div.tweetPollPublish div.item {
     border-right: 1px solid #CCCBCA;
     float: left;
     min-height: 80px;
-    width: 210px;
+    width: 190px;
     margin-bottom: 10px;
 }
 
@@ -1454,7 +1592,7 @@ div.web-tweetpoll-wrapper div.tweetPollPublish div.item-padding {
     padding: 0 16px;
 }
 
-div.web-tweetpoll-wrapper div.tweetPollPublish div.section {
+div.web-tweetpoll-wrapper div.tweetPollPublish .section {
     padding: 5px;
 }
 
@@ -1482,7 +1620,7 @@ div.web-tweetpoll-wrapper div.previewAbsolute {
 div.web-tweetpoll-wrapper div.previewFixed {
     position: fixed !important;
     top: 0px;
-    left: 370px;
+    left: 266px; /* this value should be dinamic */
 }
 
 div.web-tweetpoll-wrapper div.web-tweetpoll-section .tweetThis {
@@ -1642,13 +1780,14 @@ div.addAnswers div.options {
 }
 
 div.options .saveButton {
-    background-image: "url(../../images/icons/add.png)";
+    background-image: url(../../images/icons/add.png);
     padding: 5px;
     border: 1px solid #BCBCBC;
     color: #808080;
 }
 
-. addButton { margin-left : 8px;
+.addButton {
+    margin-left : 8px;
     border: 1px solid #BCBCBC;
     min-width: 100px;
     padding: 4px;
@@ -1696,40 +1835,42 @@ div.addAnswers  div.listAnswerWrapper {
 }
 
 div.addAnswers div.answerItem {
-    -moz-border-radius: 4px 4px 4px 4px;
-    background-color: #9C9C9C;
-    color: #FFFFFF;
-    cursor: pointer;
-    margin-top: 5px;
-    max-width: 89%;
-    font-size: 100%;
-    min-height: 39px;
-    overflow: auto;
-    padding-top: 3px;
-    vertical-align: top;
+  background-color: #9C9C9C;
+  -moz-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 100%;
+  margin-top: 3px;
+  max-width: 89%;
+  min-height: 27px;
+  overflow: auto;
+  padding-top: 3px;
+  vertical-align: top;
 }
 
 div.addAnswers div.answerItem div.title {
-    font-size: 110%;
-    font-weight: bold;
-    color: #FFF;
+  color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 0;
 }
 
 div.addAnswers div.answerItem div.title .answerItemTitle {
-    display: inline-block;
-    margin: 2px;
-    min-width: 39%;
-    padding: 5px;
-    max-width: 50%;
+  display: inline-block;
+  margin: 2px;
+  max-width: 50%;
+  min-width: 39%;
+  padding: 0;
 }
 
 div.addAnswers div.answerItem div.title .answerItemShortUrl {
-    color: red;
-    display: inline-block;
-    float: right;
-    max-width: 40%;
-    overflow: auto;
-    padding: 5px;
+  color: red;
+  display: inline-block;
+  float: right;
+  max-width: 40%;
+  overflow: auto;
+  padding: 0;
 }
 
 div.addAnswers div.answerItem .shortUrlEnter {
@@ -1744,10 +1885,6 @@ div.addAnswers div.answerItem .shortUrlEnter  a {
 
 div.addAnswers div.answerItem div.title .answerItemShortUrl a:link {
     text-decoration: none;
-}
-
-div.addAnswers div.answerItem div.title .answerItemShortUrl a:visited {
-    color: #FFF;
 }
 
 div.addAnswers div.answerItem div.title .answerItemShortUrl a:hover {
@@ -1807,7 +1944,6 @@ div.hashTagWrapper {
 }
 
 div.wrapperHashTagItems {
-   padding: 10px 0px;
 }
 
 div.wrapperHashTagItems div.addNewHashTag {
@@ -1838,8 +1974,8 @@ div.wrapperHashTagItems div.addNewHashTag .label {
 div.wrapperHashTagItems div.addNewHashTag .inputClass {
     padding: 5px;
     border: 1px solid #BCBCBC;
-    color: #808080; 9
-    C9C9C font-size: 12px;
+    color: #808080;
+    font-size: 12px;
     width: 60%;
 }
 
@@ -1864,11 +2000,6 @@ div.wrapperHashTagItems div.addNewHashTag .hashTagItem a {
     color: #FFF;
 }
 
-div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:visited {
-    color: #FFF;
-    text-decoration: none;
-}
-
 div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:hover {
     color: #FFF;
     text-decoration: none;
@@ -1891,12 +2022,12 @@ div.publishWrapper {
 }
 
 div.publishWrapper .rich-table {
-    background-color: #EEEEE;
+    background-color: #EEEEEE;
     width: 100%;
 }
 
 div.publishWrapper table {
-    background-color: #EEEEE;
+    background-color: #EEEEEE;
 }
 
 /*
@@ -2120,6 +2251,11 @@ div.web-folder-wrapper {
     width: 100%;
 }
 
+div.web-folder-wrapper .web-folder-wrapper-item{
+    max-height: 300px;
+    overflow: auto;
+}
+
 div.web-folder-wrapper .folder-title{
 }
 
@@ -2131,11 +2267,10 @@ div.web-folder-wrapper .folder-menu {
 div.web-folder-wrapper .web-folder-item{
     padding: 4px;
     border: 1px dotted #EEE;
-    width: auto;
     clear: both;
     padding-left: 13px;
     overflow: auto;
-    max-width: 165px;
+    width: auto;
 }
 
 div.web-folder-wrapper .web-folder-item:hover {
@@ -2148,7 +2283,7 @@ div.web-folder-wrapper .web-folder-item span:hover{
 }
 
 div.web-folder-wrapper .web-folder-item .icon-folder {
-  background-image: url("../images/icons/enme_folder.png");
+  background-image: url("../../images/icons/enme_folder.png");
   background-repeat: no-repeat;
   display: inline-block;
   height: 16px;
@@ -2160,7 +2295,7 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
 
 div.web-folder-wrapper .web-folder-item .folder-name {
   float: left;
-  font-size: 14px;
+  font-size: 12px;
   max-width: 135px;
   width: 135px;
 }
@@ -2266,7 +2401,7 @@ div.socialAccountPicker div.account{
     border-radius: 4px;
     background-color: #E6E6E6;
     color: #776E6E;
-    font-size: 130%;
+    font-size: 110%;
     border: 0.1em solid #D0CFCF;
     padding: 1px;
     min-width: 200px;
@@ -2293,6 +2428,7 @@ div.socialAccountPicker div.account div.image{
 
 div.socialAccountPicker div.account div.detail{
     float: left;
+    margin-top: 5px;
 }
 
 div.socialAccountPicker div.account div.icon{
@@ -2389,7 +2525,6 @@ div.profilePanel{
     background-color: #444444;
     right: 0px;
     top: 30px;
-    z-index: 5px;
     zoom: 1;
     -moz-box-shadow: 1px 2px 3px #888888;
     -webkit-box-shadow: 1px 2px 3px #888888;
@@ -2455,7 +2590,6 @@ div.menuWrapper{
      padding-top: 3px;
      width: 100%;
      min-height: 33px;
-     overflow: auto;
 }
 
 div.menuWrapper .item {
@@ -2465,17 +2599,14 @@ div.menuWrapper .item {
 }
 
 div.menuWrapper a:hover {
-    background-color: #555555;
+
 }
 
 div.menuWrapper .item a {
     float: left;
     text-decoration: none;
     color: white;
-}
-
-div..menuWrapper .item a:visited {
-    color: white;
+    font-weight: normal;
 }
 
 div..menuWrapper .item a:hover,.menuWrapper .item .current {
@@ -2487,7 +2618,7 @@ div..menuWrapper .item a:hover,.menuWrapper .item .current {
 }
 
 #profile_menu {
-    background: #aaaaaa;
+    background-color: #AAAAAA;
     border: solid 1px #666666;
     width: 400px;
     padding: 10px;
@@ -2502,7 +2633,7 @@ div..menuWrapper .item a:hover,.menuWrapper .item .current {
     -moz-border-radius: 0px 0px 10px 10px;
     border-radius: 0px 0px 10px 10px;
     right: 120px !important;
-    top:37px;
+    top: 37px;
 }
 
 #profile_menu li {
@@ -2669,7 +2800,7 @@ div.livePanel .notificationItem .right{
 }
 
 div.livePanel .notificationItem .right .title{
-    font-size: 110%;
+    font-size: 100%;
 }
 
 div.livePanel .notificationItem .right .description{
@@ -2833,6 +2964,10 @@ div.web-gadget .gad-title{
     font-size: 120%;
 }
 
+div.web-gadget .gad-content{
+   max-height: 200px;
+   overflow: auto;
+}
 
 div.web-layout{
 
@@ -2860,7 +2995,7 @@ div.web-layout ul.column{
   padding: 0;
   width: 330px;
   min-height: 286px;
-  padding: 0 0 -1.2em 1%;
+ /* padding: 0 0 -1.2em 1%; */
 }
 
 div.aaa {
@@ -3191,22 +3326,22 @@ div.folder-selection  div.folder-selection-combo{
     margin-left: 45px;
 }
 
-div.section-botton-wrapper {
+.section-botton-wrapper {
   margin-left: 40px;
   overflow: auto;
   padding: 5px;
 }
 
-div.section-botton-wrapper .sub-option{
+.section-botton-wrapper .sub-option{
     float: left;
     margin: 15px;
 }
 
-div.section-option-wrapper{
+.section-option-wrapper{
     width: auto;
 }
 
-div.section-option-wrapper div.section-default {
+.section-option-wrapper .section-default {
   border-right: 1px solid #D6D6D6;
   float: left;
   margin: 16px;
@@ -3214,16 +3349,73 @@ div.section-option-wrapper div.section-default {
   padding: 0;
   width: 250px;
 }
-div.section-option-wrapper div.section-default h2{
+.section-option-wrapper .section-default h2{
     margin-bottom: 3px;
     font-size: 14px;
 }
 
-div.section-option-wrapper div.section-default .space{
+.section-option-wrapper .section-default .space{
     margin: 2px;
 }
 
-div.section-option-wrapper div.section-default .space-option {
+.section-option-wrapper .section-default .space-option {
   margin-bottom: 15px;
   margin-top: 15px;
+}
+
+div.link-published-space{
+  padding: 5px;
+}
+
+/** drop down menu **/
+
+div.drop-down-menu-select{
+
+}
+
+div.drop-down-menu-select-title {
+  background: none repeat scroll 0 0 #6C6D6F;
+  border-radius: 13px 13px 13px 13px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 0 15px 2px;
+  text-shadow: 0 1px 1px #002537;
+  width: 100px;
+  cursor: pointer;
+}
+
+div.drop-down-menu-select-title:hover .sub-menu {
+    display: inline-block;
+    position: absolute;
+}
+
+.sub-menu {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #C4C4C4;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  display: none;
+  margin-left: -15px;
+  margin-top: 0;
+  padding: 8px;
+  text-shadow: none;
+  width: 110px;
+}
+
+.sub-menu li {
+  border-bottom: 1px dotted #EAEAEA;
+  display: block;
+  height: 22px;
+  list-style-type: none;
+  padding: 8px 0;
+  width: 100px;
+}
+
+.sub-menu li img {
+    margin-right: .5em;
+}
+
+.sub-menu li:hover {
+    border-bottom: 1px dotted #bababa;
 }

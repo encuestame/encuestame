@@ -24,7 +24,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.TypeSearchResult;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,16 +2,6 @@
 @import url("suggest.css");
 @import url("table.css");
 
-html, body {
-    height: 100%;
-}
-
-body {
-    font-family: 'Helvetica Neue','Helvetica','Arial',sans-serif;
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
-}
 
 a{
    text-decoration: none;
@@ -38,39 +28,6 @@ a:hover{
 .spaceOptionColumn{
     padding-left: 5px;
     padding-right: 5px;
-}
-
-#header {
-    background-color: #FFF;
-    border: 0px solid #000;
-    margin-bottom: 0px;
-    width: 100%;
-    height: 41px;
-}
-
-#header span.logo{
-      background-image: url(../../images/logos/encuestame_header.gif);
-      background-repeat: no-repeat;
-      min-height : 20px;
-      display: inline-block;
-      width: 125px;
-}
-
-#header div.search{
-    width: 100px;
-}
-
-#mainWrapper {
-    min-height: 100%;
-    overflow: auto;
-}
-
-#content-container {
-    min-height: 450px;
-}
-
-#content-container #enme-content {
-    margin: 0 auto;
 }
 
 #content-container #enme-content div.errorWrapper {
@@ -121,41 +78,22 @@ a:hover{
     width: 245px;
 }
 
-#footer {
-  background-color: #F7F7F7;
-  color: #666666;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  margin-top: 15px;
-}
-
-#footer .powered{
- float: right;
-}
-
 .center {
  text-align: center;
-}
-
-#footer .footer{
-  font-size: 0.9em;
-  height: 20px;
-  line-height: 20px;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 10px;
-  background-color: #E7E7E7;
 }
 
 .message{
     font-size: 14px;
 }
 
+.textShadow {
+  text-shadow: 0 1px #FFFFFF;
+}
+
 /** common classes **/
 
 .error{
-    background-color: #C88080;
+    background-color: #E39393;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -164,20 +102,6 @@ a:hover{
     padding: 6px;
     margin-top: 5px;
     margin-bottom: 3px;
-}
-
-.defaultForm input {
-  border: 1px solid #CCCCCC;
-  -webkit-border-radius:  4px 4px 4px 4px;
-  -moz-border-radius:  4px 4px 4px 4px;
-  border-radius:  4px 4px 4px 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
-  outline: 0 none;
-  padding: 8px 6px;
-  width: 382px;
-  -moz-box-shadow: 0px 0px 1px #CFCFCF;
-  -webkit-box-shadow: 0x 0px 1px #CFCFCF;
-  box-shadow: 0px 0px 1px #CFCFCF;
 }
 
 .defaultForm button.button {
@@ -194,7 +118,7 @@ a:hover{
   font-weight: bold;
   outline: 0 none;
   padding: 8px 6px;
-  width: 395px;
+  width: 170px;
 }
 
 .success-message{
@@ -221,7 +145,7 @@ a:hover{
 
 .defaultButton{
    margin-left : 8px;
-   border: 1px solid #BCBCBC;
+   border: 1px solid #C1C1C1;
    min-width: 100px;
    padding: 4px;
    cursor: pointer;
@@ -270,15 +194,12 @@ a:hover{
 }
 
 
-div.defaultSectionTitle{
-     font-size: 140%;
-    font-weight: bold;
-    margin-bottom: 4px;
-    margin-bottom: 5px;
-    background-color: #3E6D8E;
-    color: #FFF;
-    padding: 5px;
-
+div.defaultSectionTitle {
+  background-color: #3E6D8E;
+  color: #FFFFFF;
+  font-size: 120%;
+  margin-bottom: 5px;
+  padding: 10px;
 }
 
 /** content container **/
@@ -298,6 +219,10 @@ div.defaultSectionTitle{
     width: 50%;
     margin-top: 3em;
     padding: 25px;
+}
+
+.default-background-color{
+    background-color: #F8F8F8;
 }
 
 .defaultDisplayBlock{
@@ -327,16 +252,17 @@ div.defaultSectionTitle{
     width: auto;
 }
 
-.default-sidebar-menu{
-    font-size: 130%;
-    padding: 5px;
-    color: #FFF;
+.default-sidebar-menu {
+  color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 5px;
 }
 
 .default-sidebar-menu-sub{
   background-color: #595959; /**A6A5A5 **/
   color: #FFFFFF;
-  font-size: 121%;
+  font-size: 100%;
   min-height: 21px;
   padding: 4px 1px 1px 6px;
 }

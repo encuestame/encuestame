@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.image.ThumbnailGeneratorEngine;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -89,6 +90,8 @@ public class FileUploadController extends AbstractBaseOperations {
             } catch (IOException e) {
                 log.error("File uploaded failed:" + orgName);
             } catch (EnMeNoResultsFoundException e) {
+                log.error("File uploaded failed:" + orgName);
+            } catch (EnmeFailOperation e) {
                 log.error("File uploaded failed:" + orgName);
             }
             // Save the file here

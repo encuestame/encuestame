@@ -1,15 +1,27 @@
+--
+-- TOC entry 1633 (class 1259 OID 99424)
+-- Dependencies: 3
+-- Name: access_rate; Type: TABLE; Schema: public; Owner: -
+--
 
 CREATE TABLE access_rate (
     rateid bigint NOT NULL,
     ipaddress character varying(255) NOT NULL,
     rate boolean,
     created_at date,
+    comments_commentid bigint,
     poll_poll_id bigint,
     survey_sid bigint,
     tweetpoll_tweet_poll_id bigint,
     user_uid bigint
 );
 
+
+--
+-- TOC entry 1634 (class 1259 OID 99429)
+-- Dependencies: 3
+-- Name: account; Type: TABLE; Schema: public; Owner: -
+--
 
 CREATE TABLE account (
     uid bigint NOT NULL,
@@ -19,7 +31,7 @@ CREATE TABLE account (
 
 
 --
--- TOC entry 1635 (class 1259 OID 83981)
+-- TOC entry 1635 (class 1259 OID 99434)
 -- Dependencies: 3
 -- Name: application; Type: TABLE; Schema: public; Owner: -
 --
@@ -38,7 +50,7 @@ CREATE TABLE application (
 
 
 --
--- TOC entry 1636 (class 1259 OID 83989)
+-- TOC entry 1636 (class 1259 OID 99442)
 -- Dependencies: 3
 -- Name: application_connection; Type: TABLE; Schema: public; Owner: -
 --
@@ -54,7 +66,7 @@ CREATE TABLE application_connection (
 
 
 --
--- TOC entry 1637 (class 1259 OID 83997)
+-- TOC entry 1637 (class 1259 OID 99450)
 -- Dependencies: 3
 -- Name: attachment; Type: TABLE; Schema: public; Owner: -
 --
@@ -68,7 +80,7 @@ CREATE TABLE attachment (
 
 
 --
--- TOC entry 1638 (class 1259 OID 84002)
+-- TOC entry 1638 (class 1259 OID 99455)
 -- Dependencies: 3
 -- Name: client; Type: TABLE; Schema: public; Owner: -
 --
@@ -88,7 +100,7 @@ CREATE TABLE client (
 
 
 --
--- TOC entry 1639 (class 1259 OID 84010)
+-- TOC entry 1639 (class 1259 OID 99463)
 -- Dependencies: 3
 -- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
@@ -108,7 +120,7 @@ CREATE TABLE comments (
 
 
 --
--- TOC entry 1640 (class 1259 OID 84018)
+-- TOC entry 1640 (class 1259 OID 99471)
 -- Dependencies: 3
 -- Name: dashboard; Type: TABLE; Schema: public; Owner: -
 --
@@ -127,7 +139,7 @@ CREATE TABLE dashboard (
 
 
 --
--- TOC entry 1641 (class 1259 OID 84026)
+-- TOC entry 1641 (class 1259 OID 99479)
 -- Dependencies: 3
 -- Name: email; Type: TABLE; Schema: public; Owner: -
 --
@@ -143,7 +155,7 @@ CREATE TABLE email (
 
 
 --
--- TOC entry 1642 (class 1259 OID 84036)
+-- TOC entry 1642 (class 1259 OID 99489)
 -- Dependencies: 3
 -- Name: emaillist; Type: TABLE; Schema: public; Owner: -
 --
@@ -159,7 +171,7 @@ CREATE TABLE emaillist (
 
 
 --
--- TOC entry 1643 (class 1259 OID 84044)
+-- TOC entry 1643 (class 1259 OID 99497)
 -- Dependencies: 3
 -- Name: emailsubscribe; Type: TABLE; Schema: public; Owner: -
 --
@@ -173,7 +185,7 @@ CREATE TABLE emailsubscribe (
 
 
 --
--- TOC entry 1644 (class 1259 OID 84049)
+-- TOC entry 1644 (class 1259 OID 99502)
 -- Dependencies: 3
 -- Name: gadget; Type: TABLE; Schema: public; Owner: -
 --
@@ -191,7 +203,7 @@ CREATE TABLE gadget (
 
 
 --
--- TOC entry 1645 (class 1259 OID 84057)
+-- TOC entry 1645 (class 1259 OID 99510)
 -- Dependencies: 3
 -- Name: gadget_properties; Type: TABLE; Schema: public; Owner: -
 --
@@ -206,7 +218,7 @@ CREATE TABLE gadget_properties (
 
 
 --
--- TOC entry 1646 (class 1259 OID 84065)
+-- TOC entry 1646 (class 1259 OID 99518)
 -- Dependencies: 3
 -- Name: geopoint; Type: TABLE; Schema: public; Owner: -
 --
@@ -228,7 +240,7 @@ CREATE TABLE geopoint (
 
 
 --
--- TOC entry 1647 (class 1259 OID 84073)
+-- TOC entry 1647 (class 1259 OID 99526)
 -- Dependencies: 3
 -- Name: geopoint_folder; Type: TABLE; Schema: public; Owner: -
 --
@@ -246,7 +258,7 @@ CREATE TABLE geopoint_folder (
 
 
 --
--- TOC entry 1648 (class 1259 OID 84081)
+-- TOC entry 1648 (class 1259 OID 99534)
 -- Dependencies: 3
 -- Name: geopoint_type; Type: TABLE; Schema: public; Owner: -
 --
@@ -260,7 +272,7 @@ CREATE TABLE geopoint_type (
 
 
 --
--- TOC entry 1649 (class 1259 OID 84086)
+-- TOC entry 1649 (class 1259 OID 99539)
 -- Dependencies: 3
 -- Name: group_permission; Type: TABLE; Schema: public; Owner: -
 --
@@ -272,7 +284,7 @@ CREATE TABLE group_permission (
 
 
 --
--- TOC entry 1650 (class 1259 OID 84091)
+-- TOC entry 1650 (class 1259 OID 99544)
 -- Dependencies: 3
 -- Name: groups; Type: TABLE; Schema: public; Owner: -
 --
@@ -288,7 +300,7 @@ CREATE TABLE groups (
 
 
 --
--- TOC entry 1651 (class 1259 OID 84099)
+-- TOC entry 1651 (class 1259 OID 99552)
 -- Dependencies: 3
 -- Name: groups_permission; Type: TABLE; Schema: public; Owner: -
 --
@@ -300,7 +312,7 @@ CREATE TABLE groups_permission (
 
 
 --
--- TOC entry 1652 (class 1259 OID 84104)
+-- TOC entry 1652 (class 1259 OID 99557)
 -- Dependencies: 3
 -- Name: hash_tags; Type: TABLE; Schema: public; Owner: -
 --
@@ -315,7 +327,7 @@ CREATE TABLE hash_tags (
 
 
 --
--- TOC entry 1693 (class 1259 OID 84877)
+-- TOC entry 1693 (class 1259 OID 100371)
 -- Dependencies: 3
 -- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: -
 --
@@ -329,7 +341,7 @@ CREATE SEQUENCE hibernate_sequence
 
 
 --
--- TOC entry 1653 (class 1259 OID 84109)
+-- TOC entry 1653 (class 1259 OID 99562)
 -- Dependencies: 3
 -- Name: hits; Type: TABLE; Schema: public; Owner: -
 --
@@ -346,7 +358,7 @@ CREATE TABLE hits (
 
 
 --
--- TOC entry 1654 (class 1259 OID 84114)
+-- TOC entry 1654 (class 1259 OID 99567)
 -- Dependencies: 3
 -- Name: notification; Type: TABLE; Schema: public; Owner: -
 --
@@ -364,7 +376,7 @@ CREATE TABLE notification (
 
 
 --
--- TOC entry 1655 (class 1259 OID 84122)
+-- TOC entry 1655 (class 1259 OID 99575)
 -- Dependencies: 3
 -- Name: permission; Type: TABLE; Schema: public; Owner: -
 --
@@ -377,7 +389,7 @@ CREATE TABLE permission (
 
 
 --
--- TOC entry 1656 (class 1259 OID 84130)
+-- TOC entry 1656 (class 1259 OID 99583)
 -- Dependencies: 3
 -- Name: poll; Type: TABLE; Schema: public; Owner: -
 --
@@ -386,48 +398,46 @@ CREATE TABLE poll (
     poll_id bigint NOT NULL,
     lat real,
     lng real,
-    additionalinfo character varying(255),
+    additional_info character varying(255),
     closeafterdate boolean,
     close_after_quota boolean,
     close_date timestamp without time zone,
     closed_quota integer,
+    created_at timestamp without time zone,
     custom_final_message integer,
     custom_message boolean,
     custom_start_message character varying(255),
-    dislikevote bigint,
+    dislike_vote bigint,
+    end_date timestamp without time zone,
+    favorites boolean,
     hits bigint,
     ip_protection character varying(255),
     ip_restrictions boolean,
-    likevote bigint,
+    like_vote bigint,
     multiple_response integer,
     name character varying(255),
     notifications boolean,
-    numbervotes integer,
+    number_votes bigint,
     optional_title character varying(255),
     password_protection character varying(255),
     password_restrictions boolean,
     relevance bigint,
     showadditionalinfo boolean,
-    showcomments integer,
-    show_progress_bar boolean,
-    showresults boolean,
-    close_notification boolean,
-    created_at timestamp without time zone NOT NULL,
-    end_date timestamp without time zone,
+    comment_option integer,
+    show_results boolean,
+    update_date timestamp without time zone,
     poll_completed boolean NOT NULL,
     poll_hash character varying(255) NOT NULL,
     publish_poll boolean,
-    poll_show_results boolean,
-    update_date timestamp without time zone,
     editor bigint,
+    owner_id bigint,
     poll_folder bigint,
-    uid bigint NOT NULL,
     qid bigint NOT NULL
 );
 
 
 --
--- TOC entry 1657 (class 1259 OID 84140)
+-- TOC entry 1657 (class 1259 OID 99593)
 -- Dependencies: 3
 -- Name: poll_folder; Type: TABLE; Schema: public; Owner: -
 --
@@ -443,7 +453,19 @@ CREATE TABLE poll_folder (
 
 
 --
--- TOC entry 1658 (class 1259 OID 84145)
+-- TOC entry 1658 (class 1259 OID 99598)
+-- Dependencies: 3
+-- Name: poll_hashtags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE poll_hashtags (
+    poll_id bigint NOT NULL,
+    hastag_id bigint NOT NULL
+);
+
+
+--
+-- TOC entry 1659 (class 1259 OID 99603)
 -- Dependencies: 3
 -- Name: poll_result; Type: TABLE; Schema: public; Owner: -
 --
@@ -458,7 +480,7 @@ CREATE TABLE poll_result (
 
 
 --
--- TOC entry 1659 (class 1259 OID 84150)
+-- TOC entry 1660 (class 1259 OID 99608)
 -- Dependencies: 3
 -- Name: project; Type: TABLE; Schema: public; Owner: -
 --
@@ -481,7 +503,7 @@ CREATE TABLE project (
 
 
 --
--- TOC entry 1660 (class 1259 OID 84158)
+-- TOC entry 1661 (class 1259 OID 99616)
 -- Dependencies: 3
 -- Name: project_geopoint; Type: TABLE; Schema: public; Owner: -
 --
@@ -493,7 +515,7 @@ CREATE TABLE project_geopoint (
 
 
 --
--- TOC entry 1661 (class 1259 OID 84163)
+-- TOC entry 1662 (class 1259 OID 99621)
 -- Dependencies: 3
 -- Name: project_group; Type: TABLE; Schema: public; Owner: -
 --
@@ -505,7 +527,7 @@ CREATE TABLE project_group (
 
 
 --
--- TOC entry 1662 (class 1259 OID 84168)
+-- TOC entry 1663 (class 1259 OID 99626)
 -- Dependencies: 3
 -- Name: project_locations; Type: TABLE; Schema: public; Owner: -
 --
@@ -517,7 +539,7 @@ CREATE TABLE project_locations (
 
 
 --
--- TOC entry 1663 (class 1259 OID 84173)
+-- TOC entry 1664 (class 1259 OID 99631)
 -- Dependencies: 3
 -- Name: question_category; Type: TABLE; Schema: public; Owner: -
 --
@@ -529,7 +551,7 @@ CREATE TABLE question_category (
 
 
 --
--- TOC entry 1664 (class 1259 OID 84178)
+-- TOC entry 1665 (class 1259 OID 99636)
 -- Dependencies: 3
 -- Name: question_category_questions; Type: TABLE; Schema: public; Owner: -
 --
@@ -541,7 +563,7 @@ CREATE TABLE question_category_questions (
 
 
 --
--- TOC entry 1665 (class 1259 OID 84183)
+-- TOC entry 1666 (class 1259 OID 99641)
 -- Dependencies: 3
 -- Name: question_collection; Type: TABLE; Schema: public; Owner: -
 --
@@ -555,7 +577,7 @@ CREATE TABLE question_collection (
 
 
 --
--- TOC entry 1666 (class 1259 OID 84188)
+-- TOC entry 1667 (class 1259 OID 99646)
 -- Dependencies: 3
 -- Name: question_dependence_survey; Type: TABLE; Schema: public; Owner: -
 --
@@ -567,7 +589,7 @@ CREATE TABLE question_dependence_survey (
 
 
 --
--- TOC entry 1667 (class 1259 OID 84193)
+-- TOC entry 1668 (class 1259 OID 99651)
 -- Dependencies: 3
 -- Name: question_relations; Type: TABLE; Schema: public; Owner: -
 --
@@ -579,7 +601,7 @@ CREATE TABLE question_relations (
 
 
 --
--- TOC entry 1668 (class 1259 OID 84198)
+-- TOC entry 1669 (class 1259 OID 99656)
 -- Dependencies: 3
 -- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
@@ -593,12 +615,13 @@ CREATE TABLE questions (
     shared_question boolean,
     question_slug character varying(255) NOT NULL,
     uid bigint NOT NULL,
-    id_question_pattern bigint
+    id_question_pattern bigint,
+    section_ssid bigint
 );
 
 
 --
--- TOC entry 1669 (class 1259 OID 84206)
+-- TOC entry 1670 (class 1259 OID 99664)
 -- Dependencies: 3
 -- Name: questions_answers; Type: TABLE; Schema: public; Owner: -
 --
@@ -617,7 +640,7 @@ CREATE TABLE questions_answers (
 
 
 --
--- TOC entry 1670 (class 1259 OID 84214)
+-- TOC entry 1671 (class 1259 OID 99672)
 -- Dependencies: 3
 -- Name: questions_dependencies; Type: TABLE; Schema: public; Owner: -
 --
@@ -632,7 +655,7 @@ CREATE TABLE questions_dependencies (
 
 
 --
--- TOC entry 1671 (class 1259 OID 84225)
+-- TOC entry 1672 (class 1259 OID 99683)
 -- Dependencies: 3
 -- Name: questions_pattern; Type: TABLE; Schema: public; Owner: -
 --
@@ -649,7 +672,7 @@ CREATE TABLE questions_pattern (
 
 
 --
--- TOC entry 1672 (class 1259 OID 84233)
+-- TOC entry 1673 (class 1259 OID 99691)
 -- Dependencies: 3
 -- Name: social_account; Type: TABLE; Schema: public; Owner: -
 --
@@ -684,7 +707,7 @@ CREATE TABLE social_account (
 
 
 --
--- TOC entry 1673 (class 1259 OID 84245)
+-- TOC entry 1674 (class 1259 OID 99703)
 -- Dependencies: 3
 -- Name: survey_folder; Type: TABLE; Schema: public; Owner: -
 --
@@ -700,7 +723,7 @@ CREATE TABLE survey_folder (
 
 
 --
--- TOC entry 1674 (class 1259 OID 84250)
+-- TOC entry 1675 (class 1259 OID 99708)
 -- Dependencies: 3
 -- Name: survey_format; Type: TABLE; Schema: public; Owner: -
 --
@@ -713,7 +736,7 @@ CREATE TABLE survey_format (
 
 
 --
--- TOC entry 1675 (class 1259 OID 84255)
+-- TOC entry 1676 (class 1259 OID 99713)
 -- Dependencies: 3
 -- Name: survey_group; Type: TABLE; Schema: public; Owner: -
 --
@@ -726,7 +749,7 @@ CREATE TABLE survey_group (
 
 
 --
--- TOC entry 1676 (class 1259 OID 84260)
+-- TOC entry 1677 (class 1259 OID 99718)
 -- Dependencies: 3
 -- Name: survey_group_format; Type: TABLE; Schema: public; Owner: -
 --
@@ -738,7 +761,7 @@ CREATE TABLE survey_group_format (
 
 
 --
--- TOC entry 1677 (class 1259 OID 84265)
+-- TOC entry 1678 (class 1259 OID 99723)
 -- Dependencies: 3
 -- Name: survey_group_project; Type: TABLE; Schema: public; Owner: -
 --
@@ -750,7 +773,7 @@ CREATE TABLE survey_group_project (
 
 
 --
--- TOC entry 1678 (class 1259 OID 84270)
+-- TOC entry 1679 (class 1259 OID 99728)
 -- Dependencies: 3
 -- Name: survey_pagination; Type: TABLE; Schema: public; Owner: -
 --
@@ -764,44 +787,34 @@ CREATE TABLE survey_pagination (
 
 
 --
--- TOC entry 1679 (class 1259 OID 84275)
+-- TOC entry 1680 (class 1259 OID 99733)
 -- Dependencies: 3
 -- Name: survey_result; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_result (
     rid bigint NOT NULL,
-    resp character varying(255) NOT NULL,
-    survey_id bigint NOT NULL
+    answer_q_answer_id bigint,
+    question_qid bigint,
+    survey_sid bigint
 );
 
 
 --
--- TOC entry 1680 (class 1259 OID 84280)
+-- TOC entry 1681 (class 1259 OID 99738)
 -- Dependencies: 3
 -- Name: survey_section; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE survey_section (
     ssid bigint NOT NULL,
-    desc_section character varying(255)
+    desc_section character varying(255),
+    survey_sid bigint
 );
 
 
 --
--- TOC entry 1681 (class 1259 OID 84285)
--- Dependencies: 3
--- Name: survey_section_questions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE survey_section_questions (
-    survey_section_ssid bigint NOT NULL,
-    questionsection_qid bigint NOT NULL
-);
-
-
---
--- TOC entry 1682 (class 1259 OID 84290)
+-- TOC entry 1682 (class 1259 OID 99743)
 -- Dependencies: 3
 -- Name: surveys; Type: TABLE; Schema: public; Owner: -
 --
@@ -810,45 +823,51 @@ CREATE TABLE surveys (
     sid bigint NOT NULL,
     lat real,
     lng real,
-    additionalinfo character varying(255),
+    additional_info character varying(255),
     closeafterdate boolean,
     close_after_quota boolean,
     close_date timestamp without time zone,
     closed_quota integer,
+    created_at timestamp without time zone,
     custom_final_message integer,
     custom_message boolean,
     custom_start_message character varying(255),
-    dislikevote bigint,
+    dislike_vote bigint,
+    end_date timestamp without time zone,
+    favorites boolean,
     hits bigint,
     ip_protection character varying(255),
     ip_restrictions boolean,
-    likevote bigint,
+    like_vote bigint,
     multiple_response integer,
     name character varying(255),
     notifications boolean,
-    numbervotes integer,
+    number_votes bigint,
     optional_title character varying(255),
     password_protection character varying(255),
     password_restrictions boolean,
     relevance bigint,
     showadditionalinfo boolean,
-    showcomments integer,
-    show_progress_bar boolean,
-    showresults boolean,
+    comment_option integer,
+    show_results boolean,
+    update_date timestamp without time zone,
     complete character varying(2),
     date_interview date,
-    end_date timestamp without time zone NOT NULL,
-    start_date timestamp without time zone NOT NULL,
-    ticket integer NOT NULL,
+    schedule_date_survey timestamp without time zone,
+    is_schedule boolean,
+    show_progress_bar boolean,
+    start_date timestamp without time zone,
+    survey_slug_name character varying(255),
+    ticket integer,
     editor bigint,
-    uid bigint NOT NULL,
-    id_sid_format bigint NOT NULL,
+    owner_id bigint,
+    project_project_id bigint,
     survey_folder bigint
 );
 
 
 --
--- TOC entry 1683 (class 1259 OID 84298)
+-- TOC entry 1683 (class 1259 OID 99751)
 -- Dependencies: 3
 -- Name: tweetpoll; Type: TABLE; Schema: public; Owner: -
 --
@@ -872,7 +891,7 @@ CREATE TABLE tweetpoll (
     limit_votes integer,
     limits_votes_enabled boolean,
     max_repeated_votes integer,
-    numbervotes integer,
+    numbervotes bigint,
     publish boolean,
     relevance bigint,
     result_notification boolean,
@@ -889,7 +908,7 @@ CREATE TABLE tweetpoll (
 
 
 --
--- TOC entry 1684 (class 1259 OID 84303)
+-- TOC entry 1684 (class 1259 OID 99756)
 -- Dependencies: 3
 -- Name: tweetpoll_folder; Type: TABLE; Schema: public; Owner: -
 --
@@ -905,7 +924,7 @@ CREATE TABLE tweetpoll_folder (
 
 
 --
--- TOC entry 1686 (class 1259 OID 84316)
+-- TOC entry 1686 (class 1259 OID 99769)
 -- Dependencies: 3
 -- Name: tweetpoll_hashtags; Type: TABLE; Schema: public; Owner: -
 --
@@ -917,7 +936,7 @@ CREATE TABLE tweetpoll_hashtags (
 
 
 --
--- TOC entry 1687 (class 1259 OID 84321)
+-- TOC entry 1687 (class 1259 OID 99774)
 -- Dependencies: 3
 -- Name: tweetpoll_result; Type: TABLE; Schema: public; Owner: -
 --
@@ -933,7 +952,7 @@ CREATE TABLE tweetpoll_result (
 
 
 --
--- TOC entry 1685 (class 1259 OID 84308)
+-- TOC entry 1685 (class 1259 OID 99761)
 -- Dependencies: 3
 -- Name: tweetpoll_save_published_status; Type: TABLE; Schema: public; Owner: -
 --
@@ -946,13 +965,15 @@ CREATE TABLE tweetpoll_save_published_status (
     status integer,
     tweet_content character varying(255),
     tweet_id character varying(255),
+    poll_poll_id bigint,
     socialaccount_social_account_id bigint,
+    survey_sid bigint,
     tweetpoll_tweet_poll_id bigint
 );
 
 
 --
--- TOC entry 1688 (class 1259 OID 84326)
+-- TOC entry 1688 (class 1259 OID 99779)
 -- Dependencies: 3
 -- Name: tweetpoll_switch; Type: TABLE; Schema: public; Owner: -
 --
@@ -968,7 +989,7 @@ CREATE TABLE tweetpoll_switch (
 
 
 --
--- TOC entry 1689 (class 1259 OID 84336)
+-- TOC entry 1689 (class 1259 OID 99789)
 -- Dependencies: 3
 -- Name: useraccount; Type: TABLE; Schema: public; Owner: -
 --
@@ -995,7 +1016,7 @@ CREATE TABLE useraccount (
 
 
 --
--- TOC entry 1690 (class 1259 OID 84350)
+-- TOC entry 1690 (class 1259 OID 99803)
 -- Dependencies: 3
 -- Name: useraccount_followers; Type: TABLE; Schema: public; Owner: -
 --
@@ -1007,7 +1028,7 @@ CREATE TABLE useraccount_followers (
 
 
 --
--- TOC entry 1691 (class 1259 OID 84355)
+-- TOC entry 1691 (class 1259 OID 99809)
 -- Dependencies: 3
 -- Name: useraccount_permission; Type: TABLE; Schema: public; Owner: -
 --
@@ -1019,7 +1040,7 @@ CREATE TABLE useraccount_permission (
 
 
 --
--- TOC entry 1692 (class 1259 OID 84360)
+-- TOC entry 1692 (class 1259 OID 99814)
 -- Dependencies: 3
 -- Name: useraccount_project; Type: TABLE; Schema: public; Owner: -
 --

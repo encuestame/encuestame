@@ -41,7 +41,7 @@ public class TestEmailService extends AbstractServiceBase {
         this.serviceMail.sendInvitation(getProperty("mail.test.email"), "12355");
     }
 
-    @Test
+    @Test(timeout = 30000)
     public void testSendConfirmYourAccountEmail(){
         final String inviteCode = UUID.randomUUID().toString();
         final String captcha = "CaPtCHa";

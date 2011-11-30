@@ -23,10 +23,11 @@ import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.DirectorySetupOperations;
 import org.encuestame.core.service.imp.IPictureService;
-import org.encuestame.core.util.PictureType;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.security.UserAccount.PictureSource;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.enums.PictureType;
 import org.encuestame.utils.exception.EnMeGenericException;
 import org.springframework.stereotype.Service;
 
@@ -48,8 +49,9 @@ public class PictureService extends AbstractBaseService implements IPictureServi
     /**
      * Create Picture Path.
      * @param account Account
+     * @throws EnmeFailOperation
      */
-    public String getPicturePath(final UserAccount account) {
+    public String getPicturePath(final UserAccount account) throws EnmeFailOperation {
         final StringBuilder profilesPicturePath = new StringBuilder();
         if (account != null) {
             profilesPicturePath.append(getAccountUserPicturePath(account));
@@ -74,8 +76,9 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      *
      * @param userAccount
      * @return
+     * @throws EnmeFailOperation
      */
-    public String getAccountUserPicturePath(final UserAccount userAccount){
+    public String getAccountUserPicturePath(final UserAccount userAccount) throws EnmeFailOperation{
         final StringBuffer user = new StringBuffer(DirectorySetupOperations.getPictureDirectory());
         user.append("/");
         user.append(userAccount.getUid());
@@ -90,8 +93,9 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @param account
      * @return
      * @throws IOException
+     * @throws EnmeFailOperation
      */
-    private byte[] getProfilePicture(final PictureType size, final UserAccount account) throws IOException{
+    private byte[] getProfilePicture(final PictureType size, final UserAccount account) throws IOException, EnmeFailOperation{
         final StringBuilder url = new StringBuilder(this.getPicturePath(account));
         url.append("/");
         url.append(PathUtil.DEFAUL_PICTURE_PREFIX);

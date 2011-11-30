@@ -23,9 +23,9 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -58,7 +58,7 @@ public class JsonPermissionController  extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-permissions.json", method = RequestMethod.GET)
     public ModelMap getPermissions(
             HttpServletRequest request,

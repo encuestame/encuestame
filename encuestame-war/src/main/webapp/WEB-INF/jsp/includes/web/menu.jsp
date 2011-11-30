@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="menuWrapper">
+<div class="menuWrapper enme-auto-center">
     <div class="rightSide">
         <c:if test="${logged}">
             <span class="section">

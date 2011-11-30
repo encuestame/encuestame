@@ -24,7 +24,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.persistence.domain.EnMePermission;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -32,7 +31,8 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -50,7 +50,7 @@ import org.springframework.test.annotation.ExpectedException;
  * @since 08/11/2009 11:35:01
  * @version $Id$
  */
-public class TestSecurityService extends AbstractServiceBase{
+public class TestSecurityService extends AbstractSpringSecurityContext{
 
     /** {@link SecurityService}. **/
     @Autowired
@@ -251,7 +251,7 @@ public class TestSecurityService extends AbstractServiceBase{
      */
     @Test
     public void testLoadAllListPermission(){
-         assertEquals("Should be equals", 4, securityService.loadAllListPermission().size());
+         assertEquals("Should be equals", 8, securityService.loadAllListPermission().size());
     }
 
     /**
@@ -686,5 +686,19 @@ public class TestSecurityService extends AbstractServiceBase{
         securityService.removeUnconfirmedAccount(Boolean.FALSE);
         // System.out.println("UserAccount without to set --->"+ msg);
         assertEquals(acc1.getEnabled(), Boolean.FALSE);
+    }
+
+    /**
+     * Test get users account available.
+     * @throws EnMeNoResultsFoundException
+     */
+    //@Test
+    public void testGetUserAccountsAvailable()
+            throws EnMeNoResultsFoundException {
+        createUserAccount("jota", "jota@jota.com", createAccount());
+        getSpringSecurityLoggedUserAccount();
+        final List<UserAccount> accounts = securityService
+                .getUserAccountsAvailable(Boolean.TRUE);
+        assertEquals(accounts.size(), 3);
     }
 }

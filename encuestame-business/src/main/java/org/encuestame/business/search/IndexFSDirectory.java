@@ -21,6 +21,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.encuestame.core.search.DirectoryIndexStore;
 import org.encuestame.core.service.DirectorySetupOperations;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 
 /**
  * Index Directory.
@@ -40,9 +41,9 @@ public class IndexFSDirectory implements DirectoryIndexStore {
     * Get index {@link Directory}
     */
     public IndexFSDirectory() {
-        final String directoryIndexPath = DirectorySetupOperations.getIndexesDirectory();
-        log.debug("Index Directory -->"+ directoryIndexPath);
         try {
+            final String directoryIndexPath = DirectorySetupOperations.getIndexesDirectory();
+            log.debug("Index Directory -->"+ directoryIndexPath);
             if (directoryIndexPath != null) {
                 this.directory = FSDirectory.open(new File(directoryIndexPath));
             } else {
@@ -53,6 +54,8 @@ public class IndexFSDirectory implements DirectoryIndexStore {
             log.fatal("Directory not found where save data");
             //do action
             //System.getProperty("user.home");
+        } catch (EnmeFailOperation e) {
+            log.fatal("index directory not found "+e);
         }
     }
 

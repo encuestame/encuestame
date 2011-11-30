@@ -1,16 +1,16 @@
 <div class="comment">
     <div class="comment-image">
-        <a dojoType="encuestame.org.core.shared.utils.AccountPicture" username="admin"></a>
+        <a dojoType="encuestame.org.core.shared.utils.AccountPicture" username="${data.commented_username}"></a>
     </div>
     <div class="comment-data">
-        <div class="comment-info-data">Rossen Stotch says:</div>
-        <div class="comment-date">Added on <a href="#">Jhon april 10th, 2010</a></div>
-        <div class="comment-body">
-            Test comment Test comment Test comment Test comment Test comment Test comment Test comment Test comment
-            Test comment Test comment Test comment Test comment Test comment Test comment Test comment Test comment
-            Test comment Test comment Test comment Test comment Test comment Test comment Test comment Test comment
-            Test comment Test comment Test comment Test comment Test comment Test comment Test comment Test comment
-            Test comment Test comment Test comment Test comment Test comment Test comment.
+        <div class="comment-info-data">
+            <span dojoAttachPoint="_commented_by"></span>
+            says:</div>
+        <div class="comment-date">
+            Added on:
+            <span class="comment-date" dojoAttachPoint="_comment_content_date"></span>
+        </div>
+        <div class="comment-body" dojoAttachPoint="_comment_content">
         </div>
     </div>
 </div>
