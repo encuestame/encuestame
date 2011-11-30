@@ -251,7 +251,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
      */
     @Test
     public void testLoadAllListPermission(){
-         assertEquals("Should be equals", 4, securityService.loadAllListPermission().size());
+         assertEquals("Should be equals", 8, securityService.loadAllListPermission().size());
     }
 
     /**
