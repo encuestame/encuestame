@@ -158,5 +158,24 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         Assert.assertEquals(items.size(), 2);
     }
 
-
+    /**
+     * Test get users top rated.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testgetUserRatedTop() throws ServletException, IOException {
+        final Question question = createQuestion("abcdefg", "pattern");
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(),
+                getSpringSecurityLoggedUserAccount(), question);
+        createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(),
+                Boolean.TRUE, Boolean.TRUE);
+        initService("/api/common/frontend/topusers.json", MethodJson.GET);
+        setParameter("status", "1");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray items = (JSONArray) success.get("profile");
+        Assert.assertNotNull(items);
+        Assert.assertEquals(items.size(), 1);
+    }
 }
