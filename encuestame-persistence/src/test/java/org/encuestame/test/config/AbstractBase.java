@@ -83,6 +83,7 @@ import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -91,6 +92,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.LayoutEnum;
@@ -447,6 +449,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setOwner(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(pollPublish);
+        poll.setShowComments(CommentOptions.APPROVE);
         getPollDao().saveOrUpdate(poll);
         return poll;
 
@@ -486,6 +489,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         poll.setOwner(userAccount.getAccount());
         poll.setPollCompleted(pollCompleted);
         poll.setPublish(published);
+        poll.setShowComments(CommentOptions.APPROVE);
         getPollDao().saveOrUpdate(poll);
         return poll;
 
@@ -924,10 +928,27 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final Question questions = new Question();
         questions.setQidKey("1");
         questions.setQuestion(question);
-        questions.setSlugQuestion("slug _"+question);
+        questions.setSlugQuestion(question.replace(" ", "-"));
         questions.setSharedQuestion(Boolean.TRUE);
         questions.setQuestionPattern(this.createQuestionPattern(pattern));
         questions.setAccountQuestion(this.createAccount());
+        getQuestionDaoImp().saveOrUpdate(questions);
+        return questions;
+    }
+
+    public Question addQuestionSection(
+            final String question,
+            final QuestionPattern pattern,
+            final SurveySection section,
+            final Account account){
+        final Question questions = new Question();
+        questions.setQidKey("1");
+        questions.setQuestion(question);
+        questions.setSlugQuestion(question.replace(" ", "-"));
+        questions.setSharedQuestion(Boolean.TRUE);
+        questions.setQuestionPattern(pattern);
+        questions.setAccountQuestion(account);
+        questions.setSection(section);
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
     }
@@ -939,7 +960,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Question createDefaultQuestion(final String questionName){
         return this.createQuestion(questionName, "radio");
-
 
     }
 
@@ -1011,6 +1031,23 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         getQuestionDaoImp().saveOrUpdate(questionsAnswers);
         //log.info("Q "+questionsAnswers.getQuestionAnswerId());
         return questionsAnswers;
+    }
+
+    /**
+     * Save survey responses.
+     * @param answer
+     * @param question
+     * @param survey
+     * @return
+     */
+    public SurveyResult createSurveyResult(final QuestionAnswer answer,
+            final Question question, final Survey survey) {
+        final SurveyResult result = new SurveyResult();
+        result.setAnswer(answer);
+        result.setQuestion(question);
+        result.setSurvey(survey);
+        getSurveyDaoImp().saveOrUpdate(result);
+        return result;
     }
 
     /**
@@ -1113,7 +1150,8 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
              Date publicationDateTweet,
              Boolean completed,
              Account tweetOwner,
-             Question question){
+             Question question,
+             final UserAccount userAccount){
         final TweetPoll tweetPoll = new TweetPoll();
         tweetPoll.setCloseNotification(closeNotification);
         tweetPoll.setResultNotification(resultNotification);
@@ -1126,6 +1164,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPoll.setCreateDate(publicationDateTweet);
         tweetPoll.setFavourites(Boolean.TRUE);
         tweetPoll.setTweetOwner(tweetOwner);
+        tweetPoll.setEditorOwner(userAccount);
         getTweetPoll().saveOrUpdate(tweetPoll);
         return tweetPoll;
     }
@@ -1137,11 +1176,28 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link TweetPoll}
      */
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question){
-       return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question);
+       return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, tweetOwner, question, null);
     }
 
+    /**
+     * Create published {@link TweetPoll}.
+     * @param tweetOwner
+     * @param question
+     * @param dateTweet
+     * @return
+     */
     public TweetPoll createPublishedTweetPoll(final Account tweetOwner, final Question question, final Date dateTweet){
-        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question);
+        return createTweetPoll(12345L, false, false, false, true, true, new Date(), dateTweet, false, tweetOwner, question, null);
+     }
+
+    /**
+     * Create published {@link TweetPoll}.
+     * @param question
+     * @param user
+     * @return
+     */
+    public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user){
+        return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
     /**
@@ -1151,7 +1207,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return {@link TweetPoll}
      */
     public TweetPoll createNotPublishedTweetPoll(final Account tweetOwner, final Question question){
-       return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question);
+       return createTweetPoll(null, false, false, false, false, false, new Date(), null, false, tweetOwner, question, null);
     }
 
     /**
@@ -1240,10 +1296,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String descSection){
         final SurveySection surveySection = new SurveySection();
         surveySection.setDescSection(descSection);
-        getSurveyDaoImp().saveOrUpdate(surveySection);
-        surveySection.getQuestionSection().add(createDefaultQuestion("Why is your favourite movie"));
+      /*  surveySection.getQuestionSection().add(createDefaultQuestion("Why is your favourite movie"));
         surveySection.getQuestionSection().add(createDefaultQuestion("Where do you live"));
-        surveySection.getQuestionSection().add(createDefaultQuestion("What do you do at home"));
+        surveySection.getQuestionSection().add(createDefaultQuestion("What do you do at home"));*/
+        getSurveyDaoImp().saveOrUpdate(surveySection);
+        return surveySection;
+    }
+
+    public SurveySection createDefaultSection(final String name, final Survey survey){
+        final SurveySection surveySection = new SurveySection();
+        surveySection.setDescSection(name);
+        surveySection.setSurvey(survey);
         getSurveyDaoImp().saveOrUpdate(surveySection);
         return surveySection;
     }
@@ -1951,10 +2014,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final Survey survey,
             final Poll poll,
             final UserAccount user,
-            final Long dislikeVote){
+            final Long dislikeVote,
+            final Date createdAt){
            final Comment comment = new Comment();
            comment.setComment(comm);
-           comment.setCreatedAt(new Date());
+           comment.setCreatedAt(createdAt);
            comment.setLikeVote(likeVote);
            comment.setDislikeVote(dislikeVote);
            comment.setPoll(poll);
@@ -1975,7 +2039,26 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String comment,
             final TweetPoll tpoll,
             final UserAccount userAcc){
-        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L);
+        return this.createComment(comment, 0L, tpoll, null, null, userAcc, 0L , new Date());
+    }
+
+    /**
+     *
+     * @param comment
+     * @param tpoll
+     * @param userAcc
+     * @param likeVote
+     * @param dislikeVote
+     * @return
+     */
+    public Comment createDefaultTweetPollCommentVoted(
+            final String comment,
+            final TweetPoll tpoll,
+            final UserAccount userAcc,
+            final Long likeVote,
+            final Long dislikeVote,
+            final Date createdAt){
+        return this.createComment(comment, likeVote, tpoll, null, null, userAcc, dislikeVote, createdAt);
     }
 
     /**
@@ -1987,7 +2070,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String comment,
             final Poll poll,
             final UserAccount userAcc){
-        return this.createComment(comment, 0L, null, null, poll, userAcc, 0L);
+        return this.createComment(comment, 0L, null, null, poll, userAcc, 0L , new Date());
     }
 
     /**
@@ -1999,7 +2082,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
             final String comment,
             final Survey survey,
             final UserAccount userAcc){
-        return this.createComment(comment, 0L, null, survey, null, userAcc, 0L);
+        return this.createComment(comment, 0L, null, survey, null, userAcc, 0L, new Date());
     }
 
     /**

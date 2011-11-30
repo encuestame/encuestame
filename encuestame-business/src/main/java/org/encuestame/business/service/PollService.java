@@ -34,6 +34,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
@@ -81,24 +82,29 @@ public class PollService extends AbstractSurveyService implements IPollService{
                     .findAllPollByEditorOwner(
                             getUserAccount(getUserPrincipalUsername()), max,
                             start)));
+       } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(this.
+            getPollDao().retrievePollToday(
+                                        getUserAccount(getUserPrincipalUsername())
+                                                .getAccount(), max, start,
+                                        DateUtil.getNextDayMidnightDate())));
+      } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(this
+                    .getPollDao().retrievePollLastWeek(
+                            getUserAccount(getUserPrincipalUsername())
+                                    .getAccount(), max, start,
+                            DateUtil.getNextDayMidnightDate())));
+        } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
+                    .retrieveFavouritesPoll(
+                            getUserAccount(getUserPrincipalUsername()), max,
+                            start)));
+        } else if (TypeSearch.ALL.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(this
+                    .getPollsByRange(max, start, null)));
+        } else {
+           throw new EnMeExpcetion("operation not valid");
         }
-//        } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
-//            list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
-//                    max, start));
-//        } else if (TypeSearch.LASTWEEK.name().equals(typeSearch)) {
-//            list.addAll(this.searchTweetsPollsLastWeek(
-//                    getUserPrincipalUsername(), max, start));
-//        } else if (TypeSearch.FAVOURITES.name().equals(typeSearch)) {
-//            list.addAll(this.searchTweetsPollFavourites(
-//                    getUserPrincipalUsername(), max, start));
-//        } else if (TypeSearch.SCHEDULED.name().equals(typeSearch)) {
-//
-//            list.addAll(this.searchTweetsPollScheduled(
-//                    getUserPrincipalUsername(), max, start));
-//        } else {
-//            list.addAll(this.getTweetsPollsByUserName(
-//                    getUserPrincipalUsername(), max, start));
-//        }
         log.debug("Poll Search Items : "+list.size());
         return list;
     }
@@ -127,7 +133,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
             else{
             //TODO: move hash to util.
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
+            log.debug("OPTION SHOW COMMENTS GETTED BEFORE---> " +commentOption);
             final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
+            log.debug("OPTION SHOW COMMENTS GETTED ENUM---> " +commentOpt);
             pollDomain.setEditorOwner(user);
             pollDomain.setCreatedAt(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -141,7 +149,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setEditorOwner(user);
             pollDomain.setOwner(user.getAccount());
             pollDomain.setShowResults(showResults);
-            pollDomain.setShowComments(commentOpt);
+
+            pollDomain.setShowComments(commentOpt == null ? null :commentOpt);
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);
@@ -155,6 +164,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             this.getPollDao().saveOrUpdate(pollDomain);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            log.equals(e);
             throw new EnMeExpcetion(e);
         }
         return pollDomain;

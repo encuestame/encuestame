@@ -13,7 +13,6 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +25,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.utils.DateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -321,13 +321,17 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPolls(java.lang.Integer, java.lang.Integer, java.util.Date)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPolls(final Integer maxResults,
-            final Integer start, final Date range) {
+    public List<Poll> getPolls(
+            final Integer maxResults,
+            final Integer start,
+            final Date range) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(Poll.class);
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        //criteria.add(Restrictions.gt("createdAt", range));
-        //criteria.addOrder(Order.desc("createdAt"));
+        if (range != null) {
+            criteria.add(Restrictions.gt("createdAt", range));
+        }
+        criteria.addOrder(Order.desc("createdAt"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -337,13 +341,13 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> retrieveFavouritesPoll(
-            final Long userId,
+            final UserAccount userAccount,
             final Integer maxResults,
             final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("editorOwner","editorOwner");
-        criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
-        criteria.add(Restrictions.eq("editorOwner.id", userId));
+        criteria.add(Restrictions.eq("favorites", Boolean.TRUE));
+        criteria.add(Restrictions.eq("editorOwner", userAccount));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -352,30 +356,27 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#retrievePollToday(java.lang.Long, java.lang.Integer, java.lang.Integer)
      */
     public List<Poll> retrievePollToday(
-            final Long userId,
-             final Integer maxResults,
-             final Integer start){
-        final Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND,0);
-        return retrievePollByDate(userId, cal.getTime(), maxResults, start);
+            final Account owner,
+            final Integer maxResults,
+            final Integer start,
+            final Date startDate){
+        return retrievePollByDate(owner, startDate, DateUtil.decreaseDateADay(startDate), maxResults, start);
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#retrievePollByDate(java.lang.Long, java.util.Date, java.lang.Integer, java.lang.Integer)
      */
+    @SuppressWarnings("unchecked")
     public List<Poll> retrievePollByDate(
-            final Long userId,
+            final Account owner,
             final Date initDate,
+            final Date endDate,
             final Integer maxResults,
             final Integer start){
          final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-         criteria.createAlias("editorOwner","editorOwner");
-         criteria.add(Restrictions.between("createdAt", initDate, getNextDayMidnightDate()));
-         criteria.add(Restrictions.eq("editorOwner.id", userId));
+         criteria.add(Restrictions.between("createdAt", initDate, endDate));
+         criteria.add(Restrictions.eq("owner", owner));
          return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -384,15 +385,27 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#retrievePollLastWeek(java.lang.Long, java.lang.Integer, java.lang.Integer)
      */
     public List<Poll> retrievePollLastWeek(
-            final Long userId,
+            final Account owner,
             final Integer maxResults,
-            final Integer start){
-        final Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_YEAR, -7);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND,0);
-        return retrievePollByDate(userId, cal.getTime(), maxResults, start);
+            final Integer start,
+            final Date startDate) {
+        return retrievePollByDate(owner, startDate, DateUtil.decreaseDateAsWeek(startDate), maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getTotalPollsbyUser(org.encuestame.persistence.domain.security.UserAccount, java.lang.Boolean)
+     */
+    public final Long getTotalPollsbyUser(final UserAccount user,
+            final Boolean publishStatus) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.setProjection(Projections.rowCount());
+        criteria.add(Restrictions.eq("editorOwner", user));
+        criteria.add(Restrictions.eq("publish", publishStatus));
+        @SuppressWarnings("unchecked")
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        log.debug("Retrieve total polls by  " + user.getUsername() + "--->"
+                + results.size());
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
 }

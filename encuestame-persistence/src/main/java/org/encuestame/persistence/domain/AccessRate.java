@@ -74,6 +74,9 @@ public class AccessRate {
     /** **/
     private String ipAddress;
 
+    /** {@link Comment} **/
+    private Comment comments;
+
     /**
      * @return the tweetPollRateId
      */
@@ -205,5 +208,20 @@ public class AccessRate {
      */
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    /**
+     * @return the comments
+     */
+    @ManyToOne(cascade = CascadeType.MERGE)
+    public Comment getComments() {
+        return comments;
+    }
+
+    /**
+     * @param comments the comments to set
+     */
+    public void setComments(final Comment comments) {
+        this.comments = comments;
     }
 }

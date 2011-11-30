@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,14 +25,18 @@ import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.social.SocialProvider;
 import org.joda.time.DateMidnight;
 import org.junit.Assert;
 import org.junit.Before;
@@ -445,5 +450,39 @@ public class TestTweetPollDao  extends AbstractBase{
 
         final List<TweetPoll> tpList = getTweetPoll().getTweetPolls(30, 0, calendar2.getTime());
         Assert.assertEquals("Should be", 3, tpList.size());
+    }
+
+    /**
+     * Test Get total social accounts published.
+     */
+    @Test
+    public void testGetTotalSocialAccountsPublished() {
+        final TweetPoll tp1 = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("question1", secondary.getAccount()), new Date());
+        assertNotNull(tp1);
+        final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+        assertNotNull(socialAccount);
+        final String tweetContent = "Tweet content text";
+        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedSTatus(
+                tp1, " ", socialAccount, tweetContent);
+        tpSaved.setApiType(SocialProvider.TWITTER);
+        getTweetPoll().saveOrUpdate(tpSaved);
+        assertNotNull(tpSaved);
+        final List<TweetPollSavedPublishedStatus> tpsavedPublished = getTweetPoll()
+                .getLinksByTweetPoll(tp1 , null, null, TypeSearchResult.TWEETPOLL);
+        Assert.assertEquals("Should be", 1, tpsavedPublished.size());
+    }
+
+    /**
+     * Test get total tweetpolls by user.
+     */
+    @Test
+    public void testGetTotalTweetPollsbyUser(){
+         final Question question = createQuestion("Who I am?", "");
+         final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+         assertNotNull(tp);
+         final Long totalTweets = getTweetPoll().getTotalTweetPoll(this.secondary, Boolean.TRUE);
+         Assert.assertEquals("Should be", 1, totalTweets.intValue());
     }
 }

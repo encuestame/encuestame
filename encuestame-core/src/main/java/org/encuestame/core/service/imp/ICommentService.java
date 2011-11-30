@@ -31,20 +31,20 @@ import org.hibernate.HibernateException;
  */
 public interface ICommentService {
 
-	/**
-	 *
-	 * @param searchResult
-	 * @param itemId
-	 * @param max
-	 * @param start
-	 * @return
-	 * @throws EnMeExpcetion
-	 */
-	public List<Comment> getComments(
-    		final TypeSearchResult searchResult,
-    		final Long itemId,
-    		final Integer max,
-    		final Integer start) throws EnMeExpcetion;
+    /**
+     *
+     * @param searchResult
+     * @param itemId
+     * @param max
+     * @param start
+     * @return
+     * @throws EnMeExpcetion
+     */
+    List<Comment> getComments(
+            final TypeSearchResult searchResult,
+            final Long itemId,
+            final Integer max,
+            final Integer start) throws EnMeExpcetion;
 
     /**
      * Get comment by id.
@@ -108,4 +108,14 @@ public interface ICommentService {
      */
      void voteCommentSocialOption(final Long commentId, final CommentsSocialOptions vote) throws EnMeNoResultsFoundException,
         HibernateException, EnmeFailOperation;
+
+     /**
+      * Get top rated comments.
+      * @param socialCommentOption
+      * @param maxResults
+      * @param start
+      * @return
+      */
+     List<CommentBean> getTopRatedComments(final CommentsSocialOptions socialCommentOption, final Integer maxResults,
+             final Integer start);
 }

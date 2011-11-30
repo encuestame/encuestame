@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.PollDao;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
@@ -150,13 +151,13 @@ public interface IPoll extends IBaseDao {
 
      /**
       * Retrieve poll mark as favorites.
-      * @param userId user id
+      * @param userAccount user account
       * @param maxResults max of results.
       * @param start point start results.
       * @return List of {@link Poll}.
       */
      List<Poll> retrieveFavouritesPoll(
-             final Long userId,
+             final UserAccount userAccount,
              final Integer maxResults,
              final Integer start);
 
@@ -168,33 +169,46 @@ public interface IPoll extends IBaseDao {
       * @return
       */
      List<Poll> retrievePollToday(
-             final Long userId,
-              final Integer maxResults,
-              final Integer start);
+             final Account owner,
+             final Integer maxResults,
+             final Integer start,
+             final Date startDate);
 
      /**
-      *
-      * @param userId
+      * Retrieve poll by date range.
+      * @param owner
       * @param initDate
+      * @param startDate
       * @param maxResults
       * @param start
       * @return
       */
      List<Poll> retrievePollByDate(
-             final Long userId,
+             final Account owner,
              final Date initDate,
+             final Date startDate,
              final Integer maxResults,
              final Integer start);
 
      /**
       *
-      * @param userId
+      * @param owner
       * @param maxResults
       * @param start
+      * @param startDate
       * @return
       */
      List<Poll> retrievePollLastWeek(
-             final Long userId,
+             final Account owner,
              final Integer maxResults,
-             final Integer start);
+             final Integer start,
+             final Date startDate);
+
+     /**
+      * Get total polls by user.
+      * @param user
+      * @param publishStatus
+      * @return
+      */
+    Long getTotalPollsbyUser(final UserAccount user, final Boolean publishStatus);
 }

@@ -1,0 +1,187 @@
+
+#***********************************************************************************
+# * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+# * encuestame Development Team.
+# * Licensed under the Apache Software License version 2.0
+# * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+# * Unless required by applicable law or agreed to  in writing,  software  distributed
+# * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
+# * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
+# * specific language governing permissions and limitations under the License.
+# ************************************************************************************
+
+#************************************************************************************
+# Home Configuration
+
+encuestame.home=.
+
+#************************************************************************************
+# !!! ATTENTION PLEASE !!!
+# If you use DEMO profile, should be FALSE
+encuestame.development = true
+#************************************************************************************
+
+#************************************************************************************
+
+# Custom Database configuration settings
+
+#************************************************************************************
+# Postgres Configuration
+#************************************************************************************
+datasource.userbd = postgres
+datasource.pass= postgres
+datasource.classname = org.postgresql.Driver
+datasource.dialect = org.hibernate.dialect.PostgreSQLDialect
+datasource.showsql = false
+datasource.database = postgres
+datasource.delimited =
+datasource.hbm2ddl.auto = update
+datasource.urldb = jdbc:postgresql://localhost/encuestame
+
+#************************************************************************************
+# MySQL Configuration
+#************************************************************************************
+#datasource.userbd = root
+#datasource.pass=
+#datasource.classname = com.mysql.jdbc.Driver
+#datasource.dialect = org.hibernate.dialect.MySQLInnoDBDialect
+#atasource.showsql = false
+#datasource.database = mysql
+#datasource.delimited =
+#datasource.hbm2ddl.auto = none
+#datasource.urldb = jdbc:mysql://localhost:3306/encuestame?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8
+
+#************************************************************************************
+# HSQLDB Configuration
+#************************************************************************************
+#datasource.urldb = jdbc:hsqldb:file:/User/me/encuestame
+
+
+#************************************************************************************
+# Cron Jobs
+#************************************************************************************
+
+cron.reindex = 0 45 * * * ?
+cron.attachment = 0 59 * * * ?
+cron.calculateReindex = 0 0/5 * * * ?
+cron.calculateRelevane = 0 0/5 * * * ?
+cron.removeUnconfirmedAccount = 0 59 * * * ?
+
+setup.installation.demo = true
+#application.domain = http://192.168.1.41:8080/encuestame
+
+
+#************************************************************************************
+# Application Conf
+#************************************************************************************
+application.domain = http://localhost:8080/encuestame
+application.private = false
+application.debug.mode = true
+
+#************************************************************************************
+# Mail Configuration
+#************************************************************************************
+mail.host= smtp.gmail.com
+mail.port= 465
+mail.username = xxxx@gmail.com
+mail.password = xxxxx
+mail.noresponse = xxxxx@gmail.com
+mail.protocol = smtps
+mail.encoding = UTF-8
+
+
+#************************************************************************************
+# Short Url Configuration
+#************************************************************************************
+short.bitLy.key=R_5ea5369d4eee11
+short.bitLy.login=useranem
+short.google.key=AIzaSyCvEMn
+
+#************************************************************************************
+# Notification
+#************************************************************************************
+
+not.toaster.duration = 10
+not.toaster.topic = myMessages
+not.toaster.position = tr-right
+
+not.main.delay = 60000
+not.main.limit = 8
+
+not.main.activity.levelDebug = info
+not.main.activity.maxConnections = 2
+not.main.activity.maxNetworkDelay = 50000
+not.main.activity.levelDebug = info
+
+#************************************************************************************
+#    TWEETPOLL / POLL / SURVEY
+#************************************************************************************
+
+tp.min.answer.allowed = 2
+tp.min.answer.hr = false
+tp.min.answer.minsoa = 1
+
+#************************************************************************************
+#    SOCIAL NETWORKS PROVIDERS
+#************************************************************************************
+
+# Google
+google.api.key = AIzaSyCvEMnlGa4q4Suayx1bMYXg-Wkf1jYmmaQ
+google.client.id=287300901667.apps.googleusercontent.com
+google.client.secret=oIJZgke5nPDSEEeNOy0lBrxv
+google.authorizeURl=https://accounts.google.com/o/oauth2/auth?client_id={client_id}&redirect_uri={redirect_uri}&scope={scope}&response_type=code
+google.accesToken=https://accounts.google.com/o/oauth2/token
+google.register.client.id=287300901667-8e1g7ssrsqr220f49icn4cr7s5k18m3l.apps.googleusercontent.com
+google.register.client.secret=anARiiZriXA_Vp1BYrlSQN7L
+
+# Twitter
+twitter.tinyUrl = http://tinyurl.com/api-create.php
+twitter.oauth.request.token = http://twitter.com/oauth/request_token
+twitter.oauth.access.token = http://twitter.com/oauth/access_token
+twitter.oauth.authorize = http://twitter.com/oauth/authorize?oauth_token={token}
+twitter.url.domain = http://twitter.com/
+twitter.oauth.consumerKey = nFboU4T1Zhv8cqMC4cP0ug
+twitter.oauth.consumerSecret = GwOPUEJEaCbNBiBzq6J8StDhb7FOmwDcjfX6zMe0
+
+# LinkedIn Provider
+linkedIn.oauth.api.key = 5hkdPhtfkRwR0uRhIftai57FA0xbpH7m2fsBFfELvVLf6KMqw1X_FdzsgPkFORuS
+linkedIn.oauth.api.secret = 3Tuj7nXvACdCwffnbh-NkUXQ_Re0t1FPakogEPApw_3DBsfowdQuoggCCTd38a9o
+linkedIn.oauth.authorize.url = https://www.linkedin.com/uas/oauth/authorize?oauth_token={token}
+linkedIn.oauth.request.token = https://api.linkedin.com/uas/oauth/requestToken
+linkedIn.oauth.access.token = 	https://api.linkedin.com/uas/oauth/accessToken
+
+# Facebook Provider
+facebook.api.key = 7884c549be98950cbfb2fee7e0709f83
+facebook.api.secret = 30e79324a521022f380673392df04495
+facebook.api.id = 172948326103458
+facebook.oauth.authorize=https://www.facebook.com/dialog/oauth?client_id={client_id}&redirect_uri={redirect_uri}
+facebook.oauth.accesToken=https://graph.facebook.com/oauth/access_token
+
+# TripIt
+tripIt.oauth.api.key = ed00208afc958b1d6fbd06f7a20faa03e810fa27
+tripIt.oauth.api.secret = 47c29a0bb66df8c633580e3810536b9b25ff3a59
+tripIt.oauth.api.request.url = https://api.tripit.com/oauth/request_token
+tripIt.oauth.api.authorize.url = https://www.tripit.com/oauth/authorize?oauth_token={token}&oauth_callback=https://xxxx.com/connect/tripit
+tripIt.oauth.api.accessToken.url = https://api.tripit.com/oauth/access_token
+
+#identica
+identica.consumer.key=801f384ec5dc1aecc4801841aae5ac9d
+identica.consumer.secret=858629866209502c1023ce2dd86f14a2
+identica.requestToken=https://identi.ca/api/oauth/request_token
+identica.accessToken=https://identi.ca/api/oauth/access_token
+identica.authorizeUrl=https://identi.ca/api/oauth/authorize?oauth_token={token}
+
+#myspace
+myspace.consumer.key=49226d7f290649829bb23b2b9351bba1
+myspace.consumer.secret=547db3dff93c47c997bd5cfcfa82e6a4ebfaaba615b145c395bb36312643fddb
+myspace.requestToken=http://api.myspace.com/request_token
+myspace.accessToken=http://api.myspace.com/access_token
+myspace.authorizeUrl="http://api.myspace.com/authorize?oauth_token={token}
+
+#yahoo
+yahoo.consumer.key=dj0yJmk9MXc5ZXZhS2FYaUZkJmQ9WVdrOU1YbzNXazR6TXpnbWNHbzlPRGd4T1RjM05qWXkmcz1jb25zdW1lcnNlY3JldCZ4PTU2
+yahoo.consumer.secret=d0acfb77382f4da1faba47afb232bdca867fe6ed
+yahoo.requestToken=https://api.login.yahoo.com/oauth/v2/get_request_token
+yahoo.accessToken=https://api.login.yahoo.com/oauth/v2/get_token
+yahoo.authorizeUrl=https://api.login.yahoo.com/oauth/v2/request_auth?oauth_token={token}
+yahoo.apId=1z7ZN338

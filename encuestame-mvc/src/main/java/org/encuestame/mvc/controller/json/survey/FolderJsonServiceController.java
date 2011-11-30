@@ -15,9 +15,10 @@ package org.encuestame.mvc.controller.json.survey;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.collections.ListUtils;
+
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -244,7 +245,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
                         setSingleResponse("folders", getTweetPollService().getFolders());
                     }
                 } else if ("survey".equals(actionType)) {
-                    setSingleResponse("folders", ListUtils.EMPTY_LIST);
+                    setSingleResponse("folders", getSurveyService().getFolders());
                 }
             } catch (Exception e) {
                log.error(e);

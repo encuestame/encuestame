@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -399,7 +398,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.ITweetPollService#removeAllQuestionsAnswers(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
      */
-    public void removeAllQuestionsAnswers(final TweetPoll tweetPoll){
+   /* public void removeAllQuestionsAnswers(final TweetPoll tweetPoll){
         final Question question = tweetPoll.getQuestion();
         final Set<QuestionAnswer> currentQuestionAnswers = question.getQuestionsAnswers();
         //removing old answers.
@@ -638,7 +637,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public TweetPoll getTweetPollPublishedById(final Long tweetPollId) throws EnMeNoResultsFoundException{
         final TweetPoll tweetPoll = getTweetPollDao().getPublicTweetPollById(tweetPollId);
-        if (!tweetPoll.getPublishTweetPoll()) {
+        if (tweetPoll == null) {
             throw new EnMeNoResultsFoundException("tweetpoll [" + tweetPollId
                     + "] is not published");
         }
@@ -723,7 +722,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final List<TweetPollResultsBean> pollResults = new ArrayList<TweetPollResultsBean>();
         final TweetPoll tweetPoll = getTweetPollById(tweetPollId, null);
         if (log.isDebugEnabled()) {
-            log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
+           // log.debug("Answers Size "+tweetPoll.getQuestion().getQuestionsAnswers().size());
             log.debug("tweetPoll "+tweetPoll);
         }
         for (QuestionAnswer questionsAnswer : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
@@ -1060,7 +1059,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll) {
       final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
-      final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll);
+      final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll , null, null, TypeSearchResult.TWEETPOLL);
       log.debug("getTweetPollLinks "+links.size());
       for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
           log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());

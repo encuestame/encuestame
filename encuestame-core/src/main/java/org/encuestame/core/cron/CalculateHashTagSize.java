@@ -54,16 +54,26 @@ public class CalculateHashTagSize {
      */
     public void calculate(){
         log.info("************ Start hashtag calculate job **************");
+
         double average = 0;
         int total = 0;
         double score = 0;
+
         List<Long> maxMinTotal = new ArrayList<Long>();
+
         final List<HashTag> tags = getHashTagDao().getHashTags(null, 0, "");
         log.debug("HashTag to process "+tags.size());
         total = tags.size();
+
         final List<Object[]> maxMin = getHashTagDao().getMaxMinTagFrecuency();
-        final long maxFrecuency =  (Long) maxMin.get(0)[0];
-        final long minFrecuency =  (Long) maxMin.get(0)[1];
+        long maxFrecuency = 0;
+        long minFrecuency = 0;
+
+        if (maxMin.get(0) != null) {
+            minFrecuency =  (Long) maxMin.get(0)[0];
+            minFrecuency =  (Long) maxMin.get(0)[1];
+        }
+
         for (HashTag hashTag : tags) {
             log.debug("Calculate for: "+hashTag.getHashTag()+" size after calculate: "+hashTag.getSize());
             long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(), 2);

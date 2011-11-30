@@ -16,8 +16,10 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import org.encuestame.business.service.CommentService;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.persistence.domain.Comment;
@@ -25,8 +27,8 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 import org.junit.Before;
@@ -128,6 +130,35 @@ public class TestCommentService extends AbstractSpringSecurityContext {
         final List<Comment> comments = getCommentsOperationsService().getCommentsbyTweetPoll(
                 this.tweetPoll, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 4, comments.size());
+    }
+
+    /**
+     *Test get top rated comments.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testGetTopCommentsRated() throws EnMeNoResultsFoundException {
+        final Calendar myCal = Calendar.getInstance();
+        myCal.add(Calendar.DATE, -1);
+        createDefaultTweetPollCommentVoted("My top1 tweetPoll comment",
+                tweetPoll, getSpringSecurityLoggedUserAccount(), 150L, 420L,
+                myCal.getTime());
+        createDefaultTweetPollCommentVoted("My top2 tweetPoll comment",
+                tweetPoll, getSpringSecurityLoggedUserAccount(), 35L, 580L,
+                new Date());
+        myCal.add(Calendar.DATE, -2);
+        createDefaultTweetPollCommentVoted("My top3 tweetPoll comment",
+                tweetPoll, getSpringSecurityLoggedUserAccount(), 325L, 70L,
+                myCal.getTime());
+
+        final List<Comment> comments = getCommentsOperationsService()
+                .getCommentsbyTweetPoll(this.tweetPoll, this.MAX_RESULTS,
+                        this.START);
+        assertEquals("Should be equals", 7, comments.size());
+        final List<CommentBean> topList = getCommentsOperationsService()
+                .getTopRatedComments(CommentsSocialOptions.LIKE_VOTE,
+                        this.MAX_RESULTS, this.START);
+        assertEquals("Should be equals", 6, topList.size());
     }
 
     /**

@@ -155,6 +155,17 @@ public class ValidateOperations {
     }
 
     /**
+     *
+     * @param email
+     * @return
+     */
+    public UserAccount checkifEmailExist(final String email) {
+        log.debug("checkifEmailExist email... ->"+email);
+        final UserAccount user = getSecurityService().findUserAccountByEmail(email);
+        return user;
+    }
+
+    /**
      * Validate user email.
      * @param email
      * @param user

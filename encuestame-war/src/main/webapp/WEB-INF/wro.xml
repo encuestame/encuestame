@@ -15,9 +15,13 @@
     <css>/resource/css/web/table.css</css>
     <css>/resource/css/web/user.css</css>
     <css>/resource/css/common.css</css>
+    <css>/resource/css/reset.css</css>
+    <css>/resource/css/web/layout.css</css>
   </group>
   <group name='mobile'>
     <css>/resource/css/mobile/default.css</css>
     <css>/resource/css/common.css</css>
+    <css>/resource/css/reset.css</css>
+    <css>/resource/css/mobile/layout.css</css>
   </group>
 </groups>

@@ -20,11 +20,15 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
 /**
@@ -263,11 +267,14 @@ public interface ITweetPoll extends IBaseDao{
    List<Object[]> getResultsByTweetPoll(final Long tweetPollId, final Long answerId);
 
    /**
-    * Return all links published by {@link TweetPoll}.
+    * Return all links published by {@link TweetPoll}, {@link Survey}, {@link Poll}.
     * @param tweetPoll
+    * @param survey
+    * @param poll
+    * @param itemType
     * @return
     */
-   List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll);
+   public List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(final TweetPoll tweetPoll, final Survey survey, final Poll poll, final TypeSearchResult itemType);
 
    /**
     * Get max tweetPoll like votes by user.
@@ -286,4 +293,12 @@ public interface ITweetPoll extends IBaseDao{
     List<TweetPoll> getTweetPolls(final Integer maxResults,
             final Integer start, final Date range);
 
+    /**
+     * Get total tweetpolls by user.
+     * @param user
+     * @param publishTweetPoll
+     * @return
+     */
+    Long getTotalTweetPoll(final UserAccount user,
+            final Boolean publishTweetPoll);
 }

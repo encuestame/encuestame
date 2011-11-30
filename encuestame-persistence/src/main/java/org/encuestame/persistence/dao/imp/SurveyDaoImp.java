@@ -12,19 +12,20 @@
  */
 package org.encuestame.persistence.dao.imp;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ISurvey;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -80,6 +81,14 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         return getHibernateTemplate().findByNamedParam("FROM SurveyFolder where users.uid=:userId","userId", userId);
     }
 
+    @SuppressWarnings("unchecked")
+    public List<SurveyFolder> retrieveSurveyFolderByUserAccount(final UserAccount account){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SurveyFolder.class);
+        criteria.add(Restrictions.eq("createdBy", account));
+        criteria.add(Restrictions.eq("status", org.encuestame.utils.enums.Status.ACTIVE));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
     /**
      * Retrieve Surveys by Folder
      * @param userId
@@ -127,13 +136,13 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     /**
      * Retrieve Questions by Survey Section.
      */
-    @SuppressWarnings("unchecked")
-    public List<SurveySection> retrieveQuestionsBySurveySection(final Long secId){
+
+   /* public List<SurveySection> retrieveQuestionsBySurveySection(final Long secId){
         final SurveySection ssection = this.retrieveSurveySectionById(secId);
-        List questionsSection = new ArrayList(ssection.getQuestionSection());
+        List questionsSection = new ArrayList(ssection.get());
          //final List  quest = ssection.getQuestionSection();
         return questionsSection;
-    }
+    }*/
 
     /**
      * Retrieve Sections by Page in Survey.
@@ -201,11 +210,12 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      */
     @SuppressWarnings("unchecked")
     //TODO: migrate search to Hibernate Search.
-    public List<Survey> retrieveSurveybyQuestionName(final String keyWord, final Long userId,
+    public List<Survey> retrieveSurveybyName(final String keyWord, final Long userId,
             final Integer maxResults,
             final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
         criteria.createAlias("editorOwner","editorOwner");
+        criteria.add(Restrictions.like("name", keyWord, MatchMode.ANYWHERE));
         criteria.add(Restrictions.eq("editorOwner.uid", userId));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -220,8 +230,6 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
             final Date initDate,
             final Integer maxResults,
             final Integer start){
-         System.out.println("FECHA INICIO --->" + initDate);
-         System.out.println("FECHA FIN MID --->" + getNextDayMidnightDate());
          final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          criteria.createAlias("owner","owner");
          criteria.add(Restrictions.between("createdAt", initDate, getNextDayMidnightDate()));
@@ -343,5 +351,49 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
          criteria.add(Restrictions.eq("editorOwner.uid", userId));
          criteria.addOrder(Order.desc("createdAt"));
          return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#retrieveSurveyByAccount(java.lang.Long, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Survey> retrieveSurveyByAccount(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start){
+         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
+         criteria.createAlias("owner","owner");
+         criteria.add(Restrictions.eq("owner.uid", userId));
+         criteria.addOrder(Order.desc("createdAt"));
+         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#getSurveyResponseBySurvey(org.encuestame.persistence.domain.survey.Survey)
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveyResult> getSurveyResponseBySurvey(final Survey survey, final Question question) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(SurveyResult.class);
+        if (question != null) {
+            criteria.add(Restrictions.eq("question", question));
+            criteria.add(Restrictions.eq("survey", survey));
+        } else {
+            criteria.add(Restrictions.eq("survey", survey));
+        }
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ISurvey#getSurveySection(org.encuestame.persistence.domain.survey.Survey)
+     */
+    @SuppressWarnings("unchecked")
+    public List<SurveySection> getSurveySection(final Survey survey){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SurveySection.class);
+        criteria.add(Restrictions.eq("survey", survey));
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 }

@@ -46,7 +46,7 @@
                             <strong>
                                <a href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
                              </strong>) <spring:message code="added" /> <strong>${item.relativeTime}</strong>
-                              |  25 <spring:message code="home.item.comments" /></div>
+                              |${item.totalComments} <spring:message code="home.item.comments" /></div>
                         </div>
                     </div>
                 </div>

@@ -92,7 +92,7 @@ dojo.declare(
             dojo.addClass(actions, "web-directory-item-actions");
             var a = dojo.create("a", { innerHTML: "Add" }, actions);
             dojo.connect(a, "onclick", dojo.hitch(this, function() {
-                dojo.publish("/encuestame/dashboard/gadget/add", [this.dashboardWidget.layoutWidget, gadget.id]);
+                dojo.publish("/encuestame/dashboard/gadget/add", [this.dashboardWidget._dasboardId, gadget.id]);
             }));
             return item;
         }

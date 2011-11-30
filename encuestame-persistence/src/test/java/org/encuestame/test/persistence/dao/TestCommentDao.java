@@ -15,6 +15,8 @@ package org.encuestame.test.persistence.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.CommentDao;
@@ -23,6 +25,8 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,7 +61,7 @@ public class TestCommentDao extends AbstractBase {
         this.user = createUserAccount("isabelle", createAccount());
         this.question = createQuestion("When did you go last weekend", "");
         this.tpoll = createPublishedTweetPoll(user.getAccount(), this.question);
-        this.comment = createDefaultTweetPollComment("I was working", this.tpoll, user);
+        this.comment = createDefaultTweetPollCommentVoted("I was working", this.tpoll, user, 150L, 985L, new Date());
     }
 
     /**
@@ -112,10 +116,50 @@ public class TestCommentDao extends AbstractBase {
         final UserAccount userAcc2 = createUserAccount("anita", createAccount());
         assertNotNull(userAcc2);
         createDefaultTweetPollComment("I was watching tv", this.tpoll, userAcc2);
-        final List<Comment> commentbyTweetPoll = getCommentsOperations().getCommentsbyTweetPoll(tpoll, this.MAX_RESULTS, this.START);
+        final List<Comment> commentbyTweetPoll = getCommentsOperations()
+                .getCommentsbyTweetPoll(tpoll, this.MAX_RESULTS, this.START);
         assertEquals("Should be equals", 2, commentbyTweetPoll.size());
-        for (Comment comment : commentbyTweetPoll) {
-            // System.out.println("Comments ---> " + comment.getComment());
-        }
+        final Long totalComment = getCommentsOperations()
+                .getTotalCommentsbyItem(this.tpoll.getTweetPollId(),
+                        TypeSearchResult.TWEETPOLL);
+        assertEquals("Should be equals", 2, totalComment.intValue());
+    }
+
+    /**
+     * Test get top rated comments.
+     */
+    @Test
+    public void testGetTopRatedComments(){
+        final Calendar myDate = Calendar.getInstance();
+        myDate.add(Calendar.DATE, -1);
+        this.comment.setCreatedAt(myDate.getTime());
+        getCommentsOperations().saveOrUpdate(this.comment);
+        //two days before
+        myDate.add(Calendar.DATE, -2);
+        createDefaultTweetPollCommentVoted("Comment 1", tpoll, this.user, 170L, 300L, myDate.getTime());
+        createDefaultTweetPollCommentVoted("Comment 2", tpoll, this.user, 540L, 580L, myDate.getTime());
+
+        //three days before
+        myDate.add(Calendar.DATE, -3);
+        createDefaultTweetPollCommentVoted("Comment 3", tpoll, this.user, 223L, 160L, myDate.getTime());
+        createDefaultTweetPollCommentVoted("Comment 4", tpoll, this.user, 389L, 60L, myDate.getTime());
+
+        //four days before
+        myDate.add(Calendar.DATE, -4);
+        createDefaultTweetPollCommentVoted("Comment 5", tpoll, this.user, 110L, 630L, myDate.getTime());
+        //five days before
+        myDate.add(Calendar.DATE, -5);
+        createDefaultTweetPollCommentVoted("Comment 6", tpoll, this.user, 15L, 155L, myDate.getTime());
+
+        // Get total tweetpoll comments published.
+        final List<Comment> totalCommentsPublished = getCommentsOperations().getCommentsbyTweetPoll(tpoll, 15, 0);
+        assertEquals("Should be equals", 7, totalCommentsPublished.size());
+
+        // Get total rated comments published.
+        final List<Comment> getLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.LIKE_VOTE, 3, 15, 0);
+        assertEquals("Should be equals", 3, getLikeTopRatedComments.size());
+
+        final List<Comment> getDisLikeTopRatedComments = getCommentsOperations().getTopRatedComments(CommentsSocialOptions.DISLIKE_VOTE, 3, 15, 0);
+        assertEquals("Should be equals", 3, getDisLikeTopRatedComments.size());
     }
 }

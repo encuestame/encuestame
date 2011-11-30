@@ -41,6 +41,9 @@ public enum EnMePermission {
         else if (this == ENCUESTAME_PUBLISHER) { permission = "ENCUESTAME_PUBLISHER"; }
         else if (this == ENCUESTAME_EDITOR) { permission = "ENCUESTAME_EDITOR"; }
         else if (this == ENCUESTAME_ANONYMOUS) { permission = "ENCUESTAME_ANONYMOUS"; }
+        else if (this == ENCUESTAME_API) { permission = "ENCUESTAME_API"; }
+        else if (this == ENCUESTAME_READ) { permission = "ENCUESTAME_READ"; }
+        else if (this == ENCUESTAME_WRITE) { permission = "ENCUESTAME_WRITE"; }
         return permission;
     }
 
@@ -57,6 +60,9 @@ public enum EnMePermission {
         else if (permission.equalsIgnoreCase("ENCUESTAME_EDITOR")) { return ENCUESTAME_EDITOR; }
         else if (permission.equalsIgnoreCase("ENCUESTAME_ANONYMOUS")) { return ENCUESTAME_ANONYMOUS; }
         else if (permission.equalsIgnoreCase("ENCUESTAME_USER")) { return ENCUESTAME_USER; }
+        else if (permission.equalsIgnoreCase("ENCUESTAME_API")) { return ENCUESTAME_API; }
+        else if (permission.equalsIgnoreCase("ENCUESTAME_READ")) { return ENCUESTAME_READ; }
+        else if (permission.equalsIgnoreCase("ENCUESTAME_WRITE")) { return ENCUESTAME_WRITE; }
         else return ENCUESTAME_USER;
     }
 }

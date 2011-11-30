@@ -15,11 +15,13 @@ package org.encuestame.persistence.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 
@@ -50,7 +52,7 @@ public interface ISurvey extends IBaseDao{
     * @param secId
     * @return
     */
-    List<SurveySection> retrieveQuestionsBySurveySection(final Long secId);
+    // List<SurveySection> retrieveQuestionsBySurveySection(final Long secId);
 
     /**
     *
@@ -127,7 +129,7 @@ public interface ISurvey extends IBaseDao{
      * @param start
      * @return
      */
-    List<Survey> retrieveSurveybyQuestionName(final String keyWord, final Long userId,
+    List<Survey> retrieveSurveybyName(final String keyWord, final Long userId,
             final Integer maxResults,
             final Integer start);
 
@@ -228,4 +230,39 @@ public interface ISurvey extends IBaseDao{
             final Account account,
             final Integer maxResults,
             final Integer start);
+
+
+    /**
+     * Retrieve Surveys by Account id.
+     * @param userId
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Survey> retrieveSurveyByAccount(
+            final Long userId,
+            final Integer maxResults,
+            final Integer start);
+
+    /**
+     * Retrieve surveys by UserAccount.
+     * @param account
+     * @return
+     */
+    List<SurveyFolder> retrieveSurveyFolderByUserAccount(
+            final UserAccount account);
+
+    /**
+     * Get survey responseBySurvey
+     * @param survey
+     * @return
+     */
+    List<SurveyResult> getSurveyResponseBySurvey(final Survey survey, final Question question);
+
+    /**
+     * Get survey sections.
+     * @param survey
+     * @return
+     */
+    List<SurveySection> getSurveySection(final Survey survey);
 }

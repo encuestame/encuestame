@@ -22,11 +22,15 @@ public enum TypeSearch {
     KEYWORD,
     LASTDAY,
     LASTWEEK,
+    THISMONTH,
+    LAST30DAYS,
+    LAST365DAYS,
     FAVOURITES,
     SCHEDULED,
     ALL,
     BYOWNER,
     FOLDER,
+    DATE,
     TypeSearch(){
         //Constructor.
     };
@@ -43,6 +47,10 @@ public enum TypeSearch {
         else if (this == LASTWEEK) { permission = "LASTWEEK"; }
         else if (this == FAVOURITES) { permission = "FAVOURITES"; }
         else if (this == SCHEDULED) { permission = "SCHEDULED"; }
+        else if (this == THISMONTH) { permission = "THISMONTH"; }
+        else if (this == LAST365DAYS) { permission = "LAST365DAYS"; }
+        else if (this == LAST30DAYS) { permission = "LAST30DAYS"; }
+        else if (this == DATE) { permission = "DATE"; }
         else if (this == ALL) { permission = "ALL"; }
         return permission;
     }
@@ -61,6 +69,10 @@ public enum TypeSearch {
         else if (search.equalsIgnoreCase("FOLDER")) { return FOLDER; }
         else if (search.equalsIgnoreCase("FAVOURITES")) { return FAVOURITES; }
         else if (search.equalsIgnoreCase("SCHEDULED")) { return SCHEDULED; }
+        else if (search.equalsIgnoreCase("THISMONTH")) { return THISMONTH; }
+        else if (search.equalsIgnoreCase("LAST365DAYS")) { return LAST365DAYS; }
+        else if (search.equalsIgnoreCase("LAST30DAYS")) { return LAST30DAYS; }
+        else if (search.equalsIgnoreCase("DATE")) { return DATE; }
         else if (search.equalsIgnoreCase("ALL")) { return ALL; }
         else return null;
     }

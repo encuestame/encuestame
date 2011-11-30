@@ -13,12 +13,16 @@
 package org.encuestame.mvc.test.json;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 
 import org.encuestame.mvc.controller.json.HashTagsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -130,5 +134,48 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         //Assert.assertEquals(items.get("dashboard_name"), "dasboard 1");
     }
 
+    /**
+     * Test Get frontend items.
+     * @throws IOException
+     * @throws ServletException
+     *
+     */
+    @Test
+    public void testGetFrontendItems() throws ServletException, IOException{
+        final Question question = createQuestion("abcdefg", "pattern");
+        final TweetPoll tp = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSpringSecurityLoggedUserAccount(), question);
+        final Poll poll = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
+        tp.setRelevance(50L);
+        poll.setRelevance(30L);
+        initService("/api/common/frontend/stream.json", MethodJson.GET);
+        setParameter("period", "all");
+        setParameter("maxResults", "10");
+        setParameter("start", "0");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray items = (JSONArray) success.get("frontendItems");
+        Assert.assertNotNull(items);
+        Assert.assertEquals(items.size(), 2);
+    }
 
+    /**
+     * Test get users top rated.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testgetUserRatedTop() throws ServletException, IOException {
+        final Question question = createQuestion("abcdefg", "pattern");
+        createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(),
+                getSpringSecurityLoggedUserAccount(), question);
+        createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(),
+                Boolean.TRUE, Boolean.TRUE);
+        initService("/api/common/frontend/topusers.json", MethodJson.GET);
+        setParameter("status", "1");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONArray items = (JSONArray) success.get("profile");
+        Assert.assertNotNull(items);
+        Assert.assertEquals(items.size(), 1);
+    }
 }

@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import junit.framework.Assert;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
@@ -61,8 +60,6 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.captcha.ReCaptcha;
-import org.encuestame.utils.enums.TypeSearch;
-import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -71,7 +68,6 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -98,6 +94,9 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
       * Simple time format.
       */
      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
+
+
+     protected static final Integer START_DEFAULT = 0;
 
      /**
       * {@link ReCaptcha}.

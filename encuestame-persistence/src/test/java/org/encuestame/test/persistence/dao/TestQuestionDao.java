@@ -21,9 +21,12 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.QuestionDaoImp;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -112,6 +115,40 @@ public class TestQuestionDao extends AbstractBase{
                 this.user.getUid(), 100, 0);
         log.debug("Lucene Index "+startlistOfQuestions3.size());
         assertEquals("Results should be equals", 100,  startlistOfQuestions3.size());
+    }
 
+    /**
+     * Test Get questions by survey section.
+     */
+    @Test
+    public void testGetQuestionsbySection(){
+        // Sections
+        final SurveySection section1 = createSurveySection("First Section");
+        final SurveySection section2 = createSurveySection("Second Section");
+        Assert.assertNotNull(section1);
+        Assert.assertNotNull(section2);
+
+        // Pattern
+        final QuestionPattern pattern = createQuestionPattern("Yes/No");
+
+        // Questions in first section.
+        addQuestionSection("Question 11", pattern, section1, this.user);
+        addQuestionSection("Question 12", pattern, section1, this.user);
+        addQuestionSection("Question 13", pattern, section1, this.user);
+        addQuestionSection("Question 14", pattern, section1, this.user);
+
+        // Questions in second section.
+        addQuestionSection("Question 21", pattern, section2, this.user);
+        addQuestionSection("Question 22", pattern, section2, this.user);
+        addQuestionSection("Question 23", pattern, section2, this.user);
+
+        final List<Question> questionsBySection = getQuestionDaoImp()
+                .getQuestionsbySection(section1);
+        assertEquals("Results for first section should be equals", 4,
+                questionsBySection.size());
+        final List<Question> questionsBySection2 = getQuestionDaoImp()
+                .getQuestionsbySection(section2);
+        assertEquals("Results for second section should be equals", 3,
+                questionsBySection2.size());
     }
 }

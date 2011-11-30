@@ -22,11 +22,14 @@ import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.CommentsSocialOptions;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -89,6 +92,53 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         criteria.add(Restrictions.eq("tweetPoll",tpoll));
         criteria.addOrder(Order.desc("likeVote"));
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.CommentsOperations#getTotalCommentsbyItem(java.lang.Long, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public Long getTotalCommentsbyItem(final Long id, final TypeSearchResult itemType){
+          final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
+          criteria.setProjection(Projections.rowCount());
+          if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+              criteria.createAlias("tweetPoll", "tweetPoll");
+              criteria.add(Restrictions.eq("tweetPoll.tweetPollId", id));
+          } else if (itemType.equals(TypeSearchResult.POLL)) {
+              criteria.createAlias("poll", "poll");
+              criteria.add(Restrictions.eq("poll.pollId", id));
+          } else if (itemType.equals(TypeSearchResult.SURVEY)) {
+              criteria.createAlias("survey", "survey");
+              criteria.add(Restrictions.eq("survey.sid", id));
+          } else {
+              log.error(" Search result type undefined " + itemType);
+          }
+          @SuppressWarnings("unchecked")
+          List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+          log.debug("Retrieve total comments by  " + itemType + "--->"
+                  + results.size());
+          return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.CommentsOperations#getTopRatedComments(org.encuestame.utils.enums.CommentsSocialOptions, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Comment> getTopRatedComments(
+            final CommentsSocialOptions socialOption, final Integer timeRange,
+            final Integer maxResults, final Integer startResults) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(Comment.class);
+        criteria.add(Restrictions.between("createdAt",
+                getCommentTimeRange(timeRange), getNextDayMidnightDate()));
+        if (socialOption.equals(CommentsSocialOptions.LIKE_VOTE)) {
+            criteria.addOrder(Order.desc("likeVote"));
+        } else {
+            criteria.addOrder(Order.desc("dislikeVote"));
+        }
+        return (List<Comment>) filterByMaxorStart(criteria, maxResults,
+                startResults);
     }
 
     /*

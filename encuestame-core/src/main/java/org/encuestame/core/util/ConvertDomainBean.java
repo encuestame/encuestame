@@ -68,6 +68,7 @@ import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -564,6 +565,7 @@ public class ConvertDomainBean {
                     : DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getDateLimited()));
         }
         unitTweetPoll.setRelevance(tweetPoll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT : tweetPoll.getRelevance());
+        unitTweetPoll.setItemType(TypeSearchResult.TWEETPOLL.toString().toLowerCase());
         return unitTweetPoll;
     }
 
@@ -603,6 +605,22 @@ public class ConvertDomainBean {
         unitPoll.setHits(poll.getHits() == null ? EnMeUtils.VOTE_MIN : poll.getHits());
         unitPoll.setFavorite(poll.getFavorites());
         unitPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
+        unitPoll.setLatitude(poll.getLocationLatitude() == null ? 0: poll.getLocationLatitude());
+        unitPoll.setLongitude(poll.getLocationLongitude() == null ? 0: poll.getLocationLongitude());
+        unitPoll.setIsShowAdditionalInfo(poll.getShowAdditionalInfo());
+        unitPoll.setAdditionalInfo(poll.getAdditionalInfo());
+        unitPoll.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
+        if (poll.getShowComments() != null) {
+            unitPoll.setShowComments(poll.getShowComments().toString());
+        }
+        unitPoll.setIsShowResults(poll.getShowResults());
+        unitPoll.setFolderId(poll.getPollFolder() == null ? null : poll.getPollFolder().getId());
+        unitPoll.setIsCloseAfterDate(poll.getCloseAfterDate());
+        unitPoll.setClosedDate(poll.getClosedDate() == null ? null : DateUtil.DOJO_DATE_FORMAT.format(poll.getClosedDate()));
+        unitPoll.setIsCloseAfterQuota(poll.getCloseAfterquota());
+        unitPoll.setClosedQuota(poll.getClosedQuota() == null ? null : poll.getClosedQuota());
+        unitPoll.setIsIpRestricted(poll.getIpRestriction());
+        unitPoll.setIpRestricted(poll.getIpProtection() == null ? null : poll.getIpProtection());
         return unitPoll;
     }
 
@@ -996,6 +1014,9 @@ public class ConvertDomainBean {
            homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
            homeBean.setItemType(tweetBean.getItemType() == null ? null : tweetBean.getItemType().toString());
            homeBean.setRelevance(tweetBean.getRelevance());
+           homeBean.setItemType(TypeSearchResult.TWEETPOLL.toString().toLowerCase());
+           homeBean.setHashTags(tweetBean.getHashTags());
+           homeBean.setTotalComments(tweetBean.getTotalComments() == null ? null : tweetBean.getTotalComments());
        return homeBean;
    }
 
@@ -1027,6 +1048,10 @@ public class ConvertDomainBean {
        homeBean.setHits(pollBean.getHits() == null ? 0L : pollBean.getHits());
        homeBean.setRelativeTime(pollBean.getRelativeTime());
        homeBean.setItemType(pollBean.getItemType() == null ? null : pollBean.getItemType().toString());
+       homeBean.setRelevance(pollBean.getRelevance() == null ? 0L : pollBean.getRelevance());
+       homeBean.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
+       homeBean.setHashTags(pollBean.getHashTags());
+       homeBean.setTotalComments(pollBean.getTotalComments() == null ? null : pollBean.getTotalComments());
        return homeBean;
    }
 
@@ -1058,7 +1083,36 @@ public class ConvertDomainBean {
        homeBean.setCreateDate(null);
        homeBean.setTotalVotes(null);
        homeBean.setRelativeTime(null);
-       homeBean.setItemType(null);
+       homeBean.setTotalComments(null);
+       homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase());
+       homeBean.setTotalComments(null);
        return homeBean;
    }
+
+   /**
+    * Convert userAccount top profile top rated.
+    * @param user
+    * @return
+    */
+   public static final ProfileRatedTopBean convertUserAccountToProfileRated(final UserAccount user){
+       final ProfileRatedTopBean profileTop = new ProfileRatedTopBean();
+       profileTop.setUsername(user.getUsername());
+       profileTop.setTopValue(null);
+       return profileTop;
+   }
+
+   /**
+    * Convert userAccount list top profile top rated.
+    * @param items
+    * @return
+    */
+    public static final List<ProfileRatedTopBean> convertUserAccountListToProfileRated(
+            final List<UserAccount> items) {
+        final List<ProfileRatedTopBean> listFrontEndItems = new ArrayList<ProfileRatedTopBean>();
+        for (UserAccount userAccount : items) {
+            listFrontEndItems.add(ConvertDomainBean
+                    .convertUserAccountToProfileRated(userAccount));
+        }
+        return listFrontEndItems;
+    }
 }

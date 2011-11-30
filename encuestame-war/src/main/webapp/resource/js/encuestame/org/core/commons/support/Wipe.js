@@ -31,27 +31,28 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
         duration : 200,
         height : 300,
 
+        /*
+         *
+         */
         constructor: function(node, duration, heigth) {
+            //if (node == null) {
                 this.node = node;
-                if (duration != null) {
-                    this.duration = duration;
-                }
-                if (heigth != null) {
-                    this.heigth = heigth;
-                }
+                this.duration == null ? this.duration : duration;
+                this.heigth == null ? this.heigth : heigth;
+            //} else {
+            //    throw new Error("node is required");
+            //}
         },
 
         /*
         *
         */
        wipeInOne: function() {
-           if (this.node) {
-               dojox.fx.wipeTo({
-                    node: this.node,
-                   duration: this.duration,
-                   height: this.height
-               }).play();
-           }
+           dojox.fx.wipeTo({
+                node: this.node,
+               duration: this.duration,
+               height: this.height
+           }).play();
        },
 
        /*

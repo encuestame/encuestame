@@ -289,4 +289,10 @@ public interface IAccountDao extends IBaseDao {
      */
     HashMap<String, Long> getSocialAccountStats(final SocialAccount socialAccount);
 
+    /**
+     * Get user accounts.
+     * @param status
+     * @return
+     */
+    List<UserAccount> getUserAccounts(final Boolean status);
 }

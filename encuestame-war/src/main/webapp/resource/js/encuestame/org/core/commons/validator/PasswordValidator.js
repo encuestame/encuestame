@@ -13,6 +13,7 @@ dojo.declare("encuestame.org.core.commons.validator.PasswordValidator",
     templatePath : dojo.moduleUrl("encuestame.org.core.commons.validator", "templates/passwordValidator.html"),
     widgetsInTemplate : true,
     noEvents : true,
+    placeholder : "Write your password",
     exclude : encuestame.constants.passwordExcludes,
     toolTip : false,
     postCreate : function(){

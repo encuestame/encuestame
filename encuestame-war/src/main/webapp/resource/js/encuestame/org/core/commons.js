@@ -2,7 +2,6 @@ dojo.provide("encuestame.org.core.commons");
 
 dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
 dojo.require("encuestame.org.core.commons.error.ErrorHandler");
-dojo.require("encuestame.org.core.commons.dashboard.Dashboard");
 dojo.require("dijit.Dialog");
 dojo.require("dojo.cookie");
 
@@ -136,6 +135,32 @@ encuestame.utilities.usernameLink = function(username) {
         return url;
     }
 };
+
+encuestame.utilities.randomString = function() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+};
+
+encuestame.utilities.url = {};
+
+/*
+ * summary :: build hashtag url
+ *    hashtagName : hashtag name;
+ */
+encuestame.utilities.url.hashtag  = function(hashtagName) {
+    if (hashtagName) {
+        var url = encuestame.contextDefault;
+        url = url.concat("/tag/");
+        url = url.concat(hashtagName);
+        url = url.concat("/");
+        return url;
+    } else {
+        throw new Error("hashtag name is required");
+    }
+}
 
 /*
  * Short a long number to short number description.
@@ -507,6 +532,7 @@ encuestame.service.list.poll = {};
 encuestame.service.list.listPoll = encuestame.contextWidget()+"/api/survey/poll/search.json";
 encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/survey/poll/create.json";
 encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/survey/poll/publish.json";
+encuestame.service.list.poll.detail = encuestame.contextWidget()+"/api/survey/poll/detail.json";
 
 /**
  * Comment Services.
@@ -610,6 +636,23 @@ encuestame.constants.imageSizes = {
     preview : "preview",
     web : "web"
 };
+
+encuestame.messages = {};
+
+// publish a message on main frame.
+/*
+ * MESSAGE: "message",
+            WARNING: "warning",
+            ERROR: "error",
+            FATAL: "fatal"
+ */
+encuestame.messages.pubish = function(message, type, duration) {
+    console.info("encuestame.messages.pubish", message);
+    console.info("encuestame.messages.pubish", type);
+    console.info("encuestame.messages.pubish", duration);
+    dojo.publish('/encuestame/message/publish', [{ message: message, type: type, duration: duration}]);
+};
+
 encuestame.constants.errorCodes = {
     "002" : "Enter your first and last name.",
     "003" : "Whats your email address?",
@@ -628,6 +671,11 @@ encuestame.constants.errorCodes = {
     "022" : "You need at least 1 social account to publish your beautiful creation.",
     "023" : "Ops, something is wrong."
 };
+
+encuestame.constants.warningCodes = {
+    "001" : "Warning message to define"
+};
+
 encuestame.constants.messageCodes = {
     "001" : "Name looks great",
     "004" : "We will email you a confirmation.",
@@ -640,7 +688,8 @@ encuestame.constants.messageCodes = {
     "016" : "Don't worry, you can change it later.",
     "020" : "",
     "021" : "Drag your gadget here !!",
-    "022" : "Be the first to comment on this publication."
-};
+    "022" : "Be the first to comment on this publication.",
+    "023" : "Updated Successfully"
+ };
 
-encuestame.constants.version = { version : "1.1.37"};
+encuestame.constants.version = { version : "1.141"};
