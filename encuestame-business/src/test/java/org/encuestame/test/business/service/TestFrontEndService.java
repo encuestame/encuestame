@@ -12,6 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -28,6 +29,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,11 +208,31 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
     /**
      * Test get user rated top.
+     * @throws EnMeNoResultsFoundException
      */
-    //@Test
-    public void testGetUsersRatedTop(){
-        final Question question = createQuestion("Who are you tt?", "");
+    @Test
+    public void testGetUsersRatedTop() throws EnMeNoResultsFoundException {
+        final Question question = createQuestion("Who are you ?", "");
+        final Question question2 = createQuestion(
+                "What is your favorite month of the year", "");
+        final Question question3 = createQuestion(
+                "What is your favorite quote", "");
+        final Question question4 = createQuestion(
+                "What is your marital status?", "");
+        final Date myDate = new Date();
         createPublishedTweetPoll(question, this.secondary);
+        createPublishedTweetPoll(question2, this.secondary);
+        createPoll(myDate, question3, this.secondary, Boolean.TRUE,
+                Boolean.TRUE);
+        createPoll(myDate, question4, this.secondary, Boolean.TRUE,
+                Boolean.TRUE);
+        final List<ProfileRatedTopBean> profiles = getFrontEndService()
+                .getTopRatedProfile(Boolean.TRUE);
+        Assert.assertEquals("Should be equals", 2, profiles.size());
+        Assert.assertEquals("Should be equals", 4, profiles.get(0)
+                .getTopValue().intValue());
+        Assert.assertEquals("Should be equals", 0, profiles.get(1)
+                .getTopValue().intValue());
     }
 
     /**
