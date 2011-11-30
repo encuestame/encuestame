@@ -473,4 +473,16 @@ public class TestTweetPollDao  extends AbstractBase{
                 .getLinksByTweetPoll(tp1 , null, null, TypeSearchResult.TWEETPOLL);
         Assert.assertEquals("Should be", 1, tpsavedPublished.size());
     }
+
+    /**
+     * Test get total tweetpolls by user.
+     */
+    @Test
+    public void testGetTotalTweetPollsbyUser(){
+         final Question question = createQuestion("Who I am?", "");
+         final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+         assertNotNull(tp);
+         final Long totalTweets = getTweetPoll().getTotalTweetPoll(this.secondary, Boolean.TRUE);
+         Assert.assertEquals("Should be", 1, totalTweets.intValue());
+    }
 }

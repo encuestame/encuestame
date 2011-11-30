@@ -203,4 +203,12 @@ public interface IPoll extends IBaseDao {
              final Integer maxResults,
              final Integer start,
              final Date startDate);
+
+     /**
+      * Get total polls by user.
+      * @param user
+      * @param publishStatus
+      * @return
+      */
+    Long getTotalPollsbyUser(final UserAccount user, final Boolean publishStatus);
 }

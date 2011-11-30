@@ -68,6 +68,7 @@ import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -1087,4 +1088,31 @@ public class ConvertDomainBean {
        homeBean.setTotalComments(null);
        return homeBean;
    }
+
+   /**
+    * Convert userAccount top profile top rated.
+    * @param user
+    * @return
+    */
+   public static final ProfileRatedTopBean convertUserAccountToProfileRated(final UserAccount user){
+       final ProfileRatedTopBean profileTop = new ProfileRatedTopBean();
+       profileTop.setUsername(user.getUsername());
+       profileTop.setTopValue(null);
+       return profileTop;
+   }
+
+   /**
+    * Convert userAccount list top profile top rated.
+    * @param items
+    * @return
+    */
+    public static final List<ProfileRatedTopBean> convertUserAccountListToProfileRated(
+            final List<UserAccount> items) {
+        final List<ProfileRatedTopBean> listFrontEndItems = new ArrayList<ProfileRatedTopBean>();
+        for (UserAccount userAccount : items) {
+            listFrontEndItems.add(ConvertDomainBean
+                    .convertUserAccountToProfileRated(userAccount));
+        }
+        return listFrontEndItems;
+    }
 }

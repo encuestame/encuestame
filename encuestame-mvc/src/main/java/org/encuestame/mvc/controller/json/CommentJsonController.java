@@ -180,8 +180,7 @@ public class CommentJsonController extends AbstractJsonController {
          return returnData();
      }
 
-    @RequestMapping(value = "/api/common/comment/topRated.json", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/common/comment/rate/top.json", method = RequestMethod.GET)
     public ModelMap getTopRatedComments(
             @RequestParam(value = "commentOption", required = true) String commentOption,
             @RequestParam(value = "max", required = false) Integer max,

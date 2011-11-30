@@ -26,6 +26,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
+import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,4 +78,34 @@ public class FrontEndJsonController extends AbstractJsonController{
             }
             return returnData();
         }
+
+    /**
+     * Get user rated top.
+     * @param status
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/common/frontend/topusers.json", method = RequestMethod.GET)
+    public ModelMap getUserRatedTop(
+        @RequestParam(value = "status", required = false) Boolean status,
+        HttpServletRequest request,
+        HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            if (status == null ){
+                throw new EnMeSearchException("search params required.");
+            } else {
+                final  List<ProfileRatedTopBean> itemList = getFrontService().getTopRatedProfile(status);
+                jsonResponse.put("profile", itemList);
+                setItemResponse(jsonResponse);
+               }
+        } catch (Exception e) {
+             log.error(e);
+        }
+        return returnData();
+    }
 }

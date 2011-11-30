@@ -25,7 +25,6 @@ import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -54,7 +53,7 @@ public class TestSearchService extends AbstractServiceBase {
         createHashTag("nicaragua");
         final Question question = createQuestion("Has scala great future as program language?", account);
         createQuestion("What is your favorite program language?", account);
-        createTweetPoll(1234567L, true, true, true, true, null, null, new Date(), false, account, question);
+        createTweetPoll(1234567L, true, true, true, true, null, null, new Date(), false, account, question, null);
         flushIndexes();
         List<TypeSearchResult> resultsAllowed = new ArrayList<TypeSearchResult>();
         resultsAllowed.add(TypeSearchResult.QUESTION);
