@@ -41,6 +41,14 @@
             <source>../encuestame-doc/dev/en/dev-guide.html.zip</source>
             <outputDirectory>encuestame-${artifact.version}-release/doc</outputDirectory>
         </file>
+	<file> 
+            <source>../encuestame-doc/dev/es/guia-desarrollo.pdf</source>
+            <outputDirectory>encuestame-${artifact.version}-release/doc</outputDirectory>
+        </file> 
+        <file> 
+            <source>../encuestame-doc/dev/es/guia-desarrollo.zip</source>
+            <outputDirectory>encuestame-${artifact.version}-release/doc</outputDirectory>
+        </file>
     </files>
 
 </assembly>
