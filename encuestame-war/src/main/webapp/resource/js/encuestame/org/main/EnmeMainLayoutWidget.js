@@ -12,7 +12,9 @@ dojo.declare(
         /*
          * enable widgets on html template.
          */
-        widgetsInTemplate: true
+        widgetsInTemplate: true,
+
+        contextDefaultPath : config.contextPath
 
 
 });

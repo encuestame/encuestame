@@ -130,12 +130,20 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
             final Integer maxResults, final Integer startResults) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(Comment.class);
+        log.debug("getTopRatedComments start date "+ getCommentTimeRange(timeRange));
+        log.debug("getTopRatedComments end date "+  getNextDayMidnightDate());
         criteria.add(Restrictions.between("createdAt",
                 getCommentTimeRange(timeRange), getNextDayMidnightDate()));
-        if (socialOption.equals(CommentsSocialOptions.LIKE_VOTE)) {
-            criteria.addOrder(Order.desc("likeVote"));
+        if (socialOption != null) {
+            if (socialOption.equals(CommentsSocialOptions.LIKE_VOTE)) {
+                criteria.addOrder(Order.desc("likeVote"));
+            } else if (socialOption.equals(CommentsSocialOptions.DISLIKE_VOTE)) {
+                criteria.addOrder(Order.desc("dislikeVote"));
+            } else {
+                criteria.addOrder(Order.desc("likeVote"));
+            }
         } else {
-            criteria.addOrder(Order.desc("dislikeVote"));
+            criteria.addOrder(Order.desc("likeVote"));
         }
         return (List<Comment>) filterByMaxorStart(criteria, maxResults,
                 startResults);

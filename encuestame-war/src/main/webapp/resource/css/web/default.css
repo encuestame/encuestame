@@ -411,3 +411,7 @@ div.web-default-menu  li.first {
     font-size: 130%;
     width: 850px;
 }
+
+.togglePointer{
+    cursor: pointer;
+}

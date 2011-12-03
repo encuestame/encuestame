@@ -74,7 +74,7 @@ public class CommentJsonController extends AbstractJsonController {
         try {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             final List<Comment> comments = getCommentService().getComments(
-                    TypeSearchResult.getTypeSearchResult(type), itemId, max,
+                    TypeSearchResult.getTypeSearchResult(type), itemId, limitTotalMax(max),
                     start);
             final List<CommentBean> commentBean = ConvertDomainBean.convertListCommentDomainToBean(comments);
             jsonResponse.put("comments", commentBean);
@@ -157,6 +157,14 @@ public class CommentJsonController extends AbstractJsonController {
             return returnData();
         }
 
+    /**
+     *
+     * @param mycomment
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/api/common/comment/create.json", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     public ModelMap createtDashboard(
@@ -180,9 +188,18 @@ public class CommentJsonController extends AbstractJsonController {
          return returnData();
      }
 
+    /**
+     *
+     * @param commentOption
+     * @param max
+     * @param start
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/api/common/comment/rate/top.json", method = RequestMethod.GET)
     public ModelMap getTopRatedComments(
-            @RequestParam(value = "commentOption", required = true) String commentOption,
+            @RequestParam(value = "commentOption", required = false) String commentOption,
             @RequestParam(value = "max", required = false) Integer max,
             @RequestParam(value = "start", required = false) Integer start,
             HttpServletRequest request, HttpServletResponse response) {

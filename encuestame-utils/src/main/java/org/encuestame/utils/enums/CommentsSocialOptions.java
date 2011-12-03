@@ -47,8 +47,9 @@ public enum CommentsSocialOptions {
         if (null == option) { return null; }
          else if (option.equalsIgnoreCase("LIKE_VOTE")) { return  LIKE_VOTE; }
          else if (option.equalsIgnoreCase("DISLIKE_VOTE")) { return  DISLIKE_VOTE; }
-         else
-    return null;
+         else {
+             return null;
+         }
     }
 
 }

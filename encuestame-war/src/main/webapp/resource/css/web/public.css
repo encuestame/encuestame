@@ -3419,3 +3419,41 @@ div.drop-down-menu-select-title:hover .sub-menu {
 .sub-menu li:hover {
     border-bottom: 1px dotted #bababa;
 }
+
+
+/** rated **/
+
+.web-rated-comments{
+
+
+}
+
+.web-rated-comments .web-rated-comment-item{
+    clear: both;
+    min-width: 20px;
+    padding: 2px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-picture{
+    float: left;
+    margin: 0px 10px 0px 2px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-detail{
+    color: #919191;
+    font-size: 12px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-detail .strong{
+    font-weight: bold;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub{
+    font-size: 11px;
+    color: #444;
+    padding: 6px 0 1px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub .date{
+    font-weight: bold;
+}

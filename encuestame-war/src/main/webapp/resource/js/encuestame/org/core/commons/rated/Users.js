@@ -6,11 +6,11 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.layout.ContentPane");
 dojo.require('encuestame.org.core.commons');
+dojo.require("encuestame.org.core.commons.rated.Rated");
 
 dojo.declare(
     "encuestame.org.core.commons.rated.Users",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/users.html"),
+    [encuestame.org.core.commons.rated.Rated],{
 
-        widgetsInTemplate: true
+
 });

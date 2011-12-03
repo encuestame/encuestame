@@ -6,11 +6,12 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.layout.ContentPane");
 dojo.require('encuestame.org.core.commons');
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
 
 dojo.declare(
     "encuestame.org.core.commons.hashtags.Cloud",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.hashtags", "template/cloud.html"),
 
         widgetsInTemplate: true,

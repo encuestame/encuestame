@@ -78,6 +78,8 @@ dependencies ={
                 "encuestame.org.core.commons.panel.PanelBar",
                 "encuestame.org.core.shared.utils.FoldersActions",
                 "encuestame.org.core.commons.support.ActionDialogHandler",
+                "encuestame.org.core.shared.utils.ToggleText",
+                "encuestame.org.core.commons.rated.Rated",
                 //mobile
                 "encuestame.org.mobile.notifications.NotificationList",
                 "encuestame.org.mobile.tweetPoll.TweetPollList",

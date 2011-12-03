@@ -13,18 +13,18 @@
 <section class="section">
    <div class="sectionTitle">
            <spring:message code="home.aside.rated.comments" />
-       </div>
+   </div>
    <div dojoType="encuestame.org.core.commons.rated.Comments" class="web-aside-section"></div>
 </section>
 <section class="section">
    <div class="sectionTitle">
            <spring:message code="home.aside.rated.hashtag" />
        </div>
-   <div dojoType="encuestame.org.core.commons.rated.HashTags"  class="web-aside-section"></div>
+
 </section>
 <section class="section">
    <div class="sectionTitle">
            <spring:message code="home.aside.rated.users" />
        </div>
-   <div dojoType="encuestame.org.core.commons.rated.Users"  class="web-aside-section"></div>
+
 </section>

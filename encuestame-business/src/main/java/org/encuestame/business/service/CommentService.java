@@ -181,7 +181,9 @@ public class CommentService extends AbstractBaseService implements ICommentServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#getTopRatedComments(org.encuestame.utils.enums.CommentsSocialOptions, java.lang.Integer, java.lang.Integer)
      */
-    public List<CommentBean> getTopRatedComments(final CommentsSocialOptions socialCommentOption, final Integer maxResults,
+    public List<CommentBean> getTopRatedComments(
+            final CommentsSocialOptions socialCommentOption,
+            final Integer maxResults,
             final Integer start){
         final Integer timeRange = EnMePlaceHolderConfigurer
                 .getIntegerProperty("comment.time.range") == null ? this.TIME_RANGE_VALUE
