@@ -46,6 +46,17 @@ dojo.declare(
     "encuestame.org.core.commons.rated.UsersProfile",
     [encuestame.org.main.EnmeMainLayoutWidget],{
 
+     /*
+      *
+      */
      templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/profile-item.html"),
+
+     /*
+      *
+      */
+     data : null,
+
+     postCreate : function(){
+     }
 
 });
