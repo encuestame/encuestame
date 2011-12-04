@@ -14,10 +14,18 @@
          </div>
     </div>
     <div class="web-rated-comment-item-sub">
-        <nav>
-             <span class="date">${data.created_at}</span>
-             <span> Like  ${data.likeVote}</span>
-             <span> Dislike  ${data.dislike_vote}</span>
-        </nav>
+        <section>
+             <span>
+                 <div dojoType="encuestame.org.core.commons.rated.LikeRate" positive="true" value="${data.likeVote}"></div>
+             </span>
+             <span>
+                 <div dojoType="encuestame.org.core.commons.rated.LikeRate" negative="true" value="${data.dislike_vote}"></div>
+             </span>
+            <span class="date">
+               <a href="${contextDefaultPath}${data.url}"> <!-- This link should be point to comment url. -->
+                 ${data.created_at}
+               </a>
+            </span>
+        </section>
     </div>
 </div>

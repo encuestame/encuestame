@@ -3432,6 +3432,7 @@ div.drop-down-menu-select-title:hover .sub-menu {
     clear: both;
     min-width: 20px;
     padding: 2px;
+    margin-bottom: 15px;
 }
 
 .web-rated-comments .web-rated-comment-item .web-rated-comment-picture{
@@ -3452,6 +3453,10 @@ div.drop-down-menu-select-title:hover .sub-menu {
     font-size: 11px;
     color: #444;
     padding: 6px 0 1px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub section > span{
+    display: inline-block;
 }
 
 .web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub .date{

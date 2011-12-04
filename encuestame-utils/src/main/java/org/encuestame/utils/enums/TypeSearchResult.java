@@ -40,6 +40,21 @@ public enum TypeSearchResult {
     }
 
     /**
+     * Return the url prefix to make url to acces to public url.
+     * @param type
+     * @return
+     */
+    public static String getUrlPrefix(final TypeSearchResult type) {
+        if (null == type) { return null; }
+        else if (type.equals(TWEETPOLL)) { return "tweetpoll"; }
+        else if (type.equals(PROFILE)) { return "profile"; }
+        else if (type.equals(POLL)) { return "poll"; }
+        else if (type.equals(SURVEY)) { return "survey"; }
+        else if (type.equals(HASHTAG)) { return "tag"; }
+        else return null;
+    }
+
+    /**
      *
      * @param layout
      * @return

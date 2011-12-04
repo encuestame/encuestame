@@ -65,6 +65,12 @@ public class CommentBean implements Serializable{
     private Long userAccountId;
 
     /**
+     * Comment url.
+     */
+    @JsonProperty(value = "url")
+    private String commentUrl;
+
+    /**
      * Commented By.
      */
     @JsonProperty(value = "commented_by")
@@ -236,6 +242,21 @@ public class CommentBean implements Serializable{
     @JsonIgnore
     public String getCommentedByUsername() {
         return commentedByUsername;
+    }
+
+    /**
+     * @return the commentUrl
+     */
+    @JsonIgnore
+    public String getCommentUrl() {
+        return commentUrl;
+    }
+
+    /**
+     * @param commentUrl the commentUrl to set
+     */
+    public void setCommentUrl(String commentUrl) {
+        this.commentUrl = commentUrl;
     }
 
     /**

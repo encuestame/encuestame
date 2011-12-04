@@ -934,7 +934,7 @@ public class ConvertDomainBean {
        commentBean.setCommentId(commentDomain.getCommentId());
        commentBean.setComment(commentDomain.getComment());
        commentBean.setCreatedAt(commentDomain.getCreatedAt());
-        commentBean
+       commentBean
                 .setDislikeVote(commentDomain.getDislikeVote() == null ? EnMeUtils.VOTE_MIN
                         : commentDomain.getDislikeVote());
         commentBean
@@ -942,29 +942,51 @@ public class ConvertDomainBean {
                         : commentDomain.getLikeVote());
        long id = 0;
        boolean set = false;
+       String slug = "";
        /*
         * is possible refactor this part? ..
         */
+       TypeSearchResult type = null;
        if (commentDomain.getPoll() != null && !set) {
+           type = TypeSearchResult.POLL;
            id = commentDomain.getPoll().getPollId();
            commentBean.setType(TypeSearchResult.POLL.toString());
            set = true;
+           slug = commentDomain.getPoll().getQuestion().getSlugQuestion();
        }
        if (commentDomain.getTweetPoll() != null && !set) {
+           type = TypeSearchResult.TWEETPOLL;
            id = commentDomain.getTweetPoll().getTweetPollId();
            commentBean.setType(TypeSearchResult.TWEETPOLL.toString());
            set = true;
+           slug = commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
        }
        if (commentDomain.getSurvey() != null && !set) {
+           type = TypeSearchResult.SURVEY;
            id = commentDomain.getSurvey().getSid();
            commentBean.setType(TypeSearchResult.SURVEY.toString());
            set = true;
+           //slug = commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
        }
        commentBean.setId(id);
        commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
        commentBean.setUserAccountId(commentDomain.getUser() == null ? null : commentDomain.getUser().getUid());
        commentBean.setCommentedBy(commentDomain.getUser().getCompleteName());
        commentBean.setCommentedByUsername(commentDomain.getUser().getUsername());
+       //url
+       //tweetpoll/4/do-you-like-summer-season%3F
+       log.debug("TypeSearchResult "+type);
+       if( type != null) {
+           final StringBuffer url = new StringBuffer("/");
+           url.append(TypeSearchResult.getUrlPrefix(type));
+           url.append("/");
+           url.append(id);
+           url.append("/");
+           url.append(slug);
+           url.append("/#comment");
+           url.append(commentDomain.getCommentId());
+           commentBean.setCommentUrl(url.toString());
+       }
        return commentBean;
    }
 
