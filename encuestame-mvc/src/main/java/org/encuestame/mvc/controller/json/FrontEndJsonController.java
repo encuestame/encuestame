@@ -104,6 +104,7 @@ public class FrontEndJsonController extends AbstractJsonController{
                 setItemResponse(jsonResponse);
                }
         } catch (Exception e) {
+             e.printStackTrace();
              log.error(e);
         }
         return returnData();

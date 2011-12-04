@@ -48,11 +48,11 @@ dojo.declare(
             var load = dojo.hitch(this, function(data) {
                 this.arrayAccounts = data.success.cloud;
                 dojo.empty(this._hashtagCloud);
-                console.debug("social", this._hashtagCloud);
+                //console.debug("social", this._hashtagCloud);
                 this._printCloud(data.success.cloud);
             });
             var error = function(error) {
-                console.debug("error", error);
+                //console.debug("error", error);
             };
             encuestame.service.xhrGet(
                     encuestame.service.list.cloud, {}, load, error);

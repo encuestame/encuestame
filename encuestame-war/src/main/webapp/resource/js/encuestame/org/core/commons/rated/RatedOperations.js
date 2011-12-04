@@ -1,13 +1,11 @@
-dojo.provide("encuestame.org.core.commons.rated.Rated");
+dojo.provide("encuestame.org.core.commons.rated.RatedOperations");
 
 dojo.require('encuestame.org.core.commons');
 dojo.require('encuestame.org.core.shared.utils.AccountPicture');
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
-dojo.declare(
-    "encuestame.org.core.commons.rated.Rated",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/rate.html"),
+dojo.declare("encuestame.org.core.commons.rated.RatedOperations",
+            [encuestame.org.main.EnmeMainLayoutWidget],{
 
         /*
          *
@@ -25,19 +23,12 @@ dojo.declare(
         _key : null,
 
         /*
-         * executed after render template.
-         */
+        * executed after render template.
+        */
         postCreate : function() {
             if (this.service != null) {
                 this._loadItems();
             }
-        },
-
-        /*
-         * executed before render template.
-         */
-        postMixInProperties: function() {
-
         },
 
         /*

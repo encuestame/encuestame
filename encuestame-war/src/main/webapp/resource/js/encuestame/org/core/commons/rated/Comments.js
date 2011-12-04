@@ -1,14 +1,16 @@
 dojo.provide("encuestame.org.core.commons.rated.Comments");
 
 dojo.require('encuestame.org.core.commons');
-dojo.require("encuestame.org.core.commons.rated.Rated");
+dojo.require("encuestame.org.core.commons.rated.RatedOperations");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require("encuestame.org.core.shared.utils.ToggleText");
 dojo.require("encuestame.org.core.commons.rated.LikeRate");
 
 dojo.declare(
     "encuestame.org.core.commons.rated.Comments",
-    [encuestame.org.core.commons.rated.Rated], {
+    [encuestame.org.core.commons.rated.RatedOperations], {
+
+    templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/rate.html"),
 
     /*
      *

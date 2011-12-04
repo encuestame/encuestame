@@ -548,6 +548,7 @@ encuestame.service.comments.create = encuestame.contextWidget()+"/api/common/com
 
 encuestame.service.list.rate = {};
 encuestame.service.list.rate.comments = encuestame.contextWidget()+"/api/common/comment/rate/top.json";
+encuestame.service.list.rate.profile = encuestame.contextWidget()+"/api/common/frontend/topusers.json";
 
 /**
  * Vote services.

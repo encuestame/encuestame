@@ -23,8 +23,8 @@
 
 </section>
 <section class="section">
-   <div class="sectionTitle">
-           <spring:message code="home.aside.rated.users" />
-       </div>
-
+    <div class="sectionTitle">
+         <spring:message code="home.aside.rated.users" />
+     </div>
+     <div dojoType="encuestame.org.core.commons.rated.RatedProfile" class="web-aside-section"></div>
 </section>
