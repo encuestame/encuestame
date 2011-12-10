@@ -109,6 +109,29 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <wtpversion>1.5</wtpversion>
+                    <additionalProjectFacets>
+                        <jst.java>6.0</jst.java>
+                        <jst.web>2.5</jst.web>
+                    </additionalProjectFacets>
+                    <additionalBuildcommands>
+                        <buildcommand>org.eclipse.wst.common.project.facet.core.builder</buildcommand>
+                        <buildcommand>org.eclipse.wst.jsdt.core.javascriptValidator</buildcommand>
+                        <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <additionalProjectnatures>
+                        <projectnature>org.eclipse.jdt.core.javanature</projectnature>
+                        <projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
+                        <projectnature>org.eclipse.wst.jsdt.core.jsNature</projectnature>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
