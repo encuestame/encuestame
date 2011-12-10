@@ -20,7 +20,7 @@
         <system>Bamboo</system>
         <url>http://ci.encuestame.org</url>
     </ciManagement>
-    <inceptionYear>2009</inceptionYear>
+    <inceptionYear>2008</inceptionYear>
 
     <properties>
         <!-- Java version -->
@@ -214,11 +214,15 @@
             <id>www.encuestame.org</id>
             <url>${apache}</url>
         </site>
-        <!-- Temporary until we publish to another release repository -->
+         <repository>
+            <id>archiva.internal</id>
+            <name>Encuestame Release Repository</name>
+            <url>http://archive.encuestame.org/repository/internal</url>
+        </repository>
         <snapshotRepository>
-            <id>enme-local</id>
-            <name>enme-local</name>
-            <url>file://${user.home}/.m2/repository</url>
+            <id>archiva.snapshots</id>
+            <name>Internal Snapshot Repository</name>
+            <url>http://archive.encuestame.org/repository/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -229,21 +233,28 @@
 
     <!-- Repositories -->
     <repositories>
-        <!-- Jboss Repository
         <repository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Maven Repository Group</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-            <layout>default</layout>
+            <id>internal</id>
+            <name>Encuestame Internal Repository</name>
+            <url>http://archive.encuestame.org/repository/internal/</url>
             <releases>
                 <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <name>Encuestame Snapshot Repository</name>
+            <url>http://archive.encuestame.org/repository/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
             </snapshots>
-        </repository>-->
+        </repository>
         <repository>
             <id>repository.jboss.com</id>
             <name>Jboss Repository for Maven</name>
@@ -503,11 +514,13 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jdepend-maven-plugin</artifactId>
+                    <version>2.0-beta-2</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>2.4.0-SNAPSHOT</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
