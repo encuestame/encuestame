@@ -86,17 +86,22 @@ public class HashTagController extends AbstractBaseOperations {
         final HashTag tag;
         try {
             tag = getFrontService().getHashTagItem(name);
+            log.debug("tagController tag =>"+tag);
             boolean hashTagVisite = getFrontService().checkPreviousHit(IP, tag.getHashTagId(), TypeSearchResult.HASHTAG);
             // TODO: Check that previous hash Tag hit has been visited the same day.
+            log.debug("hashTagVisite =>"+hashTagVisite);
             if (!hashTagVisite) {
                 getFrontService().registerHit(null, null, null, tag, IP);
             }
             final List<TweetPollBean> tweetPollbyTags = getFrontService()
                     .getTweetPollsbyHashTagId(tag.getHashTagId(),
                             LIMIT_HASHTAG, "hashtag", request);
+            log.debug("tagController tweetPollbyTags =>"+tweetPollbyTags.size());
             final List<TweetPollBean> tweetPollbyRated = getFrontService()
                     .getTweetPollsbyHashTagId(tag.getHashTagId(),
                             LIMIT_HASHTAG, "hashtagRated", request);
+            log.debug("tagController tweetPollbyRated =>"+tweetPollbyRated.size());
+            log.debug("tagController tag =>"+tag);
             if (tag == null) {
                 return "pageNotFound";
             } else {
@@ -106,6 +111,7 @@ public class HashTagController extends AbstractBaseOperations {
                 model.addAttribute("tweetPollrated", tweetPollbyRated);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e);
             return "pageNotFound";
         }
