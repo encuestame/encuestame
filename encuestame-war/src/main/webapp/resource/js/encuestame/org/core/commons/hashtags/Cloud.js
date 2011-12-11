@@ -6,14 +6,13 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.layout.ContentPane");
 dojo.require('encuestame.org.core.commons');
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
 
 dojo.declare(
     "encuestame.org.core.commons.hashtags.Cloud",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.hashtags", "template/cloud.html"),
-
-        widgetsInTemplate: true,
 
         _hashtagCloud : null,
 
@@ -47,11 +46,11 @@ dojo.declare(
             var load = dojo.hitch(this, function(data) {
                 this.arrayAccounts = data.success.cloud;
                 dojo.empty(this._hashtagCloud);
-                console.debug("social", this._hashtagCloud);
+                //console.debug("social", this._hashtagCloud);
                 this._printCloud(data.success.cloud);
             });
             var error = function(error) {
-                console.debug("error", error);
+                //console.debug("error", error);
             };
             encuestame.service.xhrGet(
                     encuestame.service.list.cloud, {}, load, error);

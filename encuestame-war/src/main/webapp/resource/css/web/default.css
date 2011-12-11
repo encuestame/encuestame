@@ -411,3 +411,30 @@ div.web-default-menu  li.first {
     font-size: 130%;
     width: 850px;
 }
+
+.togglePointer{
+    cursor: pointer;
+}
+
+
+/** emne-box **/
+
+.emne-box{
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid #E5E5E5;
+    margin: 15px 3px 3px;
+    clear: both;
+}
+
+.emne-box header{
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #E5E5E5;
+    min-height: 18px;
+    border-bottom: 1px solid #E5E5E5;
+    clear: both;
+    padding-left: 8px;
+    padding-top: 8px;
+}

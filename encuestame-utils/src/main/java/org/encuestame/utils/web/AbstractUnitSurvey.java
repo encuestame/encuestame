@@ -134,6 +134,9 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonProperty(value = "total_comments")
     private Long totalComments;
 
+    @JsonProperty(value = "hastags_string")
+    private String hashtagAsString = "";
+
     /**
      * @return the hashTags
      */
@@ -515,5 +518,26 @@ public abstract class AbstractUnitSurvey implements Serializable {
      */
     public void setTotalComments(final Long totalComments) {
         this.totalComments = totalComments;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getHashtagAsString() {
+        final StringBuffer buffer = new StringBuffer();
+        int size = getHashTags().size();
+        for (HashTagBean bean : getHashTags()) {
+            buffer.append(bean.getHashTagName());
+            if (!(--size == 0)) {
+                buffer.append(",");
+            }
+        }
+        this.hashtagAsString = buffer.toString();
+        return hashtagAsString;
+    }
+
+    public void setHashtagAsString(final String hashtagAsString) {
+        this.hashtagAsString = hashtagAsString;
     }
 }

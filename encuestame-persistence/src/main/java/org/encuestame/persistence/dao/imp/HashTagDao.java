@@ -39,15 +39,15 @@ import org.springframework.stereotype.Repository;
 @Repository("hashTagDao")
 public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagDao {
 
-	/**
-	 * The min size of hashtag to be displayed on cloud service.
-	 */
-	private final static Long MIN_SIZE_CLOUD = 12L;
+    /**
+     * The min size of hashtag to be displayed on cloud service.
+     */
+    private final static Long MIN_SIZE_CLOUD = 11L;
 
-	/**
-	 *
-	 * @param sessionFactory
-	 */
+    /**
+     *
+     * @param sessionFactory
+     */
     @Autowired
     public HashTagDao(SessionFactory sessionFactory) {
              setSessionFactory(sessionFactory);

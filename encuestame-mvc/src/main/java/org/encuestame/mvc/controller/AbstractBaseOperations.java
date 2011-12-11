@@ -95,8 +95,15 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
       */
      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
-
+     /**
+      *
+      */
      protected static final Integer START_DEFAULT = 0;
+
+     /**
+      * Max total results to retrieve.
+      */
+     protected static final Integer MAX_RESULTS = 100;
 
      /**
       * {@link ReCaptcha}.
@@ -244,6 +251,15 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             log.debug("X-FORWARDED-FOR ["+ip+"]");
         }
         return ip;
+    }
+
+    /**
+     *
+     * @param max
+     * @return
+     */
+    public Integer limitTotalMax(Integer max){
+        return max == null ? null : (max > this.MAX_RESULTS ? this.MAX_RESULTS : max);
     }
 
     /**

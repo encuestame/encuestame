@@ -541,10 +541,14 @@ encuestame.service.comments = {};
 encuestame.service.comments.list = function(type) {
     return encuestame.contextWidget()+"/api/common/comment/comments/"+ type +".json";
 };
-encuestame.service.comments.search = "/api/common/comment/search.json";
-encuestame.service.comments.like = "/api/common/comment/like_vote.json";
-encuestame.service.comments.dislike = "/api/common/comment/dislike_vote.json";
-encuestame.service.comments.create = "/api/common/comment/create.json";
+encuestame.service.comments.search = encuestame.contextWidget()+"/api/common/comment/search.json";
+encuestame.service.comments.like = encuestame.contextWidget()+"/api/common/comment/like_vote.json";
+encuestame.service.comments.dislike = encuestame.contextWidget()+"/api/common/comment/dislike_vote.json";
+encuestame.service.comments.create = encuestame.contextWidget()+"/api/common/comment/create.json";
+
+encuestame.service.list.rate = {};
+encuestame.service.list.rate.comments = encuestame.contextWidget()+"/api/common/comment/rate/top.json";
+encuestame.service.list.rate.profile = encuestame.contextWidget()+"/api/common/frontend/topusers.json";
 
 /**
  * Vote services.

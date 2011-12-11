@@ -2489,14 +2489,50 @@ div.web-notification-list div.web-notification-list-item .date{
     display: inline-block;
 }
 
-/********** HASHTAGS **************/
+/** HASHTAGS */
 
-div.web-hashtagName{
-    color: #5C8397;
-    font-size: 130%;
+.web-hashtag-wrapper{
+    margin: 30px;
 }
 
-div.web-tags-tweetpolls{
+.web-hashtag-header {
+  margin-bottom: 10px;
+  overflow: auto;
+  position: relative;
+}
+
+.web-hashtag-header .web-hashtagName{
+    float: left;
+    color: #000;
+    font-size: 150%;
+}
+
+.web-hashtag-header .web-hashtagName h2{
+    width: 500px;
+    margin: 0;
+}
+
+.web-hashtag-header .web-hashtag-options{
+    float: right;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper{
+
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-top {
+  float: right;
+  min-width: 250px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-mainline{
+    float: left;
+    width: 770px;
+}
+
+/** tweetpoll tags **/
+
+.web-tags-tweetpolls{
     margin-top: 4px;
     width: 100%;
 
@@ -3418,4 +3454,151 @@ div.drop-down-menu-select-title:hover .sub-menu {
 
 .sub-menu li:hover {
     border-bottom: 1px dotted #bababa;
+}
+
+
+/** rated **/
+
+.web-rated-comments{
+
+
+}
+
+.web-rated-comments .web-rated-comment-item{
+    clear: both;
+    min-width: 20px;
+    padding: 2px;
+    margin-bottom: 15px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-picture{
+    float: left;
+    margin: 0px 10px 0px 2px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-detail{
+    color: #919191;
+    font-size: 12px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-detail .strong{
+    font-weight: bold;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub{
+    font-size: 11px;
+    color: #444;
+    padding: 6px 0 1px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub section > span{
+    display: inline-block;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub .date{
+    font-weight: bold;
+}
+
+
+/** profile rated **/
+
+.web-rated-profile-item {
+  clear: both;
+  min-height: 20px;
+  padding: 2px;
+}
+
+.web-rated-profile-item .web-rated-profile-picture{
+    float: left;
+    margin: 0px 10px 0px 2px;
+}
+
+.web-rated-profile-item  .web-rated-profile-item-detail{
+    color: #919191;
+    font-size: 12px;
+}
+
+.web-rated-profile-item  .web-rated-profile-item-detail h2{
+    margin: 0;
+    font-size: 14px;
+}
+
+/** publications **/
+
+.web-pup-wrapper{
+
+}
+
+.web-pup-wrapper .web-pup-item{
+   padding: 10px 20px;
+   position: relative;
+   font-size: 15px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper{
+    clear: both;
+    overflow: auto;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-image{
+  float: left;
+  height: 48px;
+  margin-top: 3px;
+  overflow: hidden;
+  width: 48px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content {
+  float: left;
+  margin-left: 16px;
+  min-height: 48px;
+  width: 400px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content-custom {
+  margin-left: 480px;
+  min-height: 48px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper  .web-pup-item-bottom{
+    font-size: 10px;
+    color: #EFEFEF;
+    margin-top: 2px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-row{
+  display: block;
+  line-height: 15px;
+  position: relative;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title{
+    padding-top: 3px;
+}
+
+.web-pup-wrapper .web-pub-hashtag {
+  background-color: #EFEFEF;
+  border: 1px solid #DDDDDD;
+  border-radius: 3px 3px 3px 3px;
+  color: #12122D;
+  font-size: 10px;
+  margin: 2px 2px 2px 0;
+  padding: 2px;
+  white-space: nowrap;
+}
+
+.web-pup-wrapper .web-pub-hashtag a:link {
+    color: #12122D;
+}
+
+.web-pup-wrapper .web-pub-hashtag:hover {
+    color: #F7FBFF;
+    background-color: #3E6D8E;
+    text-decoration: none;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title h2{
+    margin: 0;
+    font-weight: normal;
+    font-size: 15px;
 }

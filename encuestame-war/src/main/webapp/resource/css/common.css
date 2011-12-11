@@ -72,3 +72,25 @@
    /* border-top: 1px solid #00FF59;
     border-bottom: 1px solid #00FF59;*/
 }
+
+.likeRate {
+  color: #FFFFFF;
+  text-align: center;
+  width: 25px;
+}
+
+.likeRate .wrapper{
+   padding: 2px;
+   margin: 1px;
+   -webkit-border-radius: 2px;
+   -moz-border-radius: 2px;
+   border-radius: 2px;
+}
+
+.likeRate .positive{
+    background-color: #50CD62;
+}
+
+.likeRate .negative{
+    background-color: #CD6969;
+}

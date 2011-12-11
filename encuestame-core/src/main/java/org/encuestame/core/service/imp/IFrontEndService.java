@@ -179,4 +179,17 @@ public interface IFrontEndService extends ServiceOperations {
      */
     List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
     throws EnMeNoResultsFoundException;
+
+    /**
+     * Return last publications by {@link HashTag}.
+     * @param hashTag {@link HashTag}
+     * @param keyword keyword if not null, the search should be by keyword.
+     * @param limit limit of items
+     * @param filter order by
+     * @param request {@link HttpServletRequest}.
+     * @return
+     */
+    public List<HomeBean> searchLastPublicationsbyHashTag(
+            final HashTag hashTag, final String keyword, final Integer limit,
+            final String filter, final HttpServletRequest request);
 }

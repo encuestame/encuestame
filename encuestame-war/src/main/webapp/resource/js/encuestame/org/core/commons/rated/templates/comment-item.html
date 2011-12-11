@@ -1,0 +1,31 @@
+<div class="web-rated-comment-item">
+    <div class="web-rated-comment-picture">
+        <a dojoType="encuestame.org.core.shared.utils.AccountPicture"
+           username="${data.commented_username}"
+           picture_width="24"
+           picture_height="24"></a>
+    </div>
+    <div class="web-rated-comment-item-detail">
+         <div dojoType="encuestame.org.core.shared.utils.ToggleText"
+         limit="150" text="${data.comment}"></div>
+         <div class="by">
+             <span class="strong">by</span>
+             <a href="${contextDefaultPath}/profile/${data.commented_username}">${data.commented_username}</a>
+         </div>
+    </div>
+    <div class="web-rated-comment-item-sub">
+        <section>
+             <span>
+                 <div dojoType="encuestame.org.core.commons.rated.LikeRate" positive="true" value="${data.likeVote}"></div>
+             </span>
+             <span>
+                 <div dojoType="encuestame.org.core.commons.rated.LikeRate" negative="true" value="${data.dislike_vote}"></div>
+             </span>
+            <span class="date">
+               <a href="${contextDefaultPath}${data.url}"> <!-- This link should be point to comment url. -->
+                 ${data.created_at}
+               </a>
+            </span>
+        </section>
+    </div>
+</div>
