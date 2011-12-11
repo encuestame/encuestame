@@ -2489,14 +2489,50 @@ div.web-notification-list div.web-notification-list-item .date{
     display: inline-block;
 }
 
-/********** HASHTAGS **************/
+/** HASHTAGS */
 
-div.web-hashtagName{
-    color: #5C8397;
-    font-size: 130%;
+.web-hashtag-wrapper{
+    margin: 30px;
 }
 
-div.web-tags-tweetpolls{
+.web-hashtag-header {
+  margin-bottom: 10px;
+  overflow: auto;
+  position: relative;
+}
+
+.web-hashtag-header .web-hashtagName{
+    float: left;
+    color: #000;
+    font-size: 150%;
+}
+
+.web-hashtag-header .web-hashtagName h2{
+    width: 500px;
+    margin: 0;
+}
+
+.web-hashtag-header .web-hashtag-options{
+    float: right;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper{
+
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-top {
+  float: right;
+  min-width: 250px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-mainline{
+    float: left;
+    width: 770px;
+}
+
+/** tweetpoll tags **/
+
+.web-tags-tweetpolls{
     margin-top: 4px;
     width: 100%;
 
