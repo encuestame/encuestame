@@ -31,40 +31,15 @@
 
     <div class="web-ht-detail-wrapper">
        <div class="web-ht-wrapper-mainline">
-           <article class=" emne-box">
-                     <header>
-                        Last 50 Publications
-                     </header>
-                <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #2
-                </section>
-                 <section>
-                    Pub #3
-                </section>
-                 <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #1
-                </section>
+           <article class="emne-box">
+                <header>
+                   Last 50 Publications
+                </header>
+                <div class="web-pup-wrapper">
+                <c:forEach items="${tweetPolls}" var="item">
+                    <%@ include file="detail_item.jsp"%>
+                </c:forEach>
+                </div>
             </article>
              <article class="emne-box">
                      <header>

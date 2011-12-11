@@ -1,0 +1,29 @@
+<div class="web-pup-item-detail-wrapper">
+     <div class="web-pup-item-image">
+         <a dojoType="encuestame.org.core.shared.utils.AccountPicture"
+            picture_width="48"
+            picture_height="48"
+            username=${username}></a>
+     </div>
+     <div class="web-pup-item-content">
+         <div class="web-pup-item-row web-pup-item-title ">
+                <h2>
+                    ${title}
+                </h2>
+          </div>
+          <div class="web-pup-item-row web-pup-item-title-detail">
+
+          </div>
+          <div class="web-pup-item-row hashtags">
+             <div dojoAttachPoint="_tags"></div>
+          </div>
+          <div class="web-pup-item-row web-pup-item-bottom">
+            <div>
+                <a href="#">${added} ${relativeTime}</a>
+            </div>
+          </div>
+      </div>
+      <div class="web-pup-item-content-custom">
+           <div dojoAttachPoint="_custom"></div>
+      </div>
+</div>

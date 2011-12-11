@@ -426,8 +426,8 @@ div.web-default-menu  li.first {
     border: 1px solid #E5E5E5;
     margin: 15px 3px 3px;
     clear: both;
-    overflow: auto;
 }
+
 .emne-box header{
     font-size: 14px;
     font-weight: bold;

@@ -14,8 +14,6 @@ dojo.declare(
     [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.hashtags", "template/cloud.html"),
 
-        widgetsInTemplate: true,
-
         _hashtagCloud : null,
 
         /*
