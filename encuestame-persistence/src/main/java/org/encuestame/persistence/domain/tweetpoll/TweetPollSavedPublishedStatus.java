@@ -260,11 +260,21 @@ public class TweetPollSavedPublishedStatus {
      */
     @Override
     public String toString() {
-        return "TweetPollSavedPublishedStatus [id=" + id + ", socialAccount="
-                + socialAccount.toString() + ", tweetPoll=" + tweetPoll.toString()
-                + ", tweetContent=" + tweetContent + ", tweetId=" + tweetId
-                + ", apiType=" + apiType + ", status=" + status
-                + ", descriptionStatus=" + descriptionStatus
-                + ", publicationDateTweet=" + publicationDateTweet + "]";
+        return "TweetPollSavedPublishedStatus ["
+                + (id != null ? "id=" + id + ", " : "")
+                + (socialAccount != null ? "socialAccount=" + socialAccount
+                        + ", " : "")
+                + (tweetPoll != null ? "tweetPoll=" + tweetPoll + ", " : "")
+                + (tweetContent != null ? "tweetContent=" + tweetContent + ", "
+                        : "")
+                + (tweetId != null ? "tweetId=" + tweetId + ", " : "")
+                + (apiType != null ? "apiType=" + apiType + ", " : "")
+                + (status != null ? "status=" + status + ", " : "")
+                + (descriptionStatus != null ? "descriptionStatus="
+                        + descriptionStatus + ", " : "")
+                + (publicationDateTweet != null ? "publicationDateTweet="
+                        + publicationDateTweet + ", " : "")
+                + (poll != null ? "poll=" + poll + ", " : "")
+                + (survey != null ? "survey=" + survey : "") + "]";
     }
 }

@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.FrontEndDao;
@@ -25,6 +26,7 @@ import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
@@ -106,5 +108,31 @@ public class TestFrontEndDao extends AbstractBase {
                 ipAddress, tweet.getTweetPollId(), TypeSearchResult.TWEETPOLL);
         assertNotNull(tpRate);
         assertEquals("Should be equals", 1, tpRate.size());
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testGetLinksByHomeItem() {
+        final TweetPoll tp1 = createTweetPoll(12345L, true, true, true, true, false, null, new Date(),
+                true, this.secondary.getAccount(),
+                createQuestion("test tp1", this.secondary.getAccount()),
+                this.secondary);
+        final TweetPoll tp2 = createTweetPoll(162345L, true, true, true, true, false, null, new Date(),
+                true, this.secondary.getAccount(),
+                createQuestion("test tp2", this.secondary.getAccount()),
+                this.secondary);
+        tp1.getHashTags().add(this.hashTag);
+        getTweetPoll().saveOrUpdate(tp1);
+        getTweetPoll().saveOrUpdate(tp2);
+        createTweetPollSavedPublishedSTatus(tp1, "432432532", null, "test tweettxt dad");
+        createTweetPollSavedPublishedSTatus(tp2, "43243sa2532", null, "test tweettxt fdsc");
+        createTweetPollSavedPublishedSTatus(tp1, "4324a1232532", null, "test tweettxt cz xc");
+        createTweetPollSavedPublishedSTatus(tp2, "432d123432532", null, "test tweettxt c cxz");
+        List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
+                .getLinksByHomeItem(this.hashTag, null, null, null, null,
+                        TypeSearchResult.TypeSearchResult.HASHTAG);
+        assertEquals("Should be equals", 2, links.size());
     }
 }
