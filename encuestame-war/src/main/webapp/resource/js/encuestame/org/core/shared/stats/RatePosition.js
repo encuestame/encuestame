@@ -8,15 +8,14 @@ dojo.require("dijit.layout.ContentPane");
 dojo.require('encuestame.org.core.commons');
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
-dojo.require('encuestame.org.core.commons.rated.RatedProfile');
 
 dojo.declare(
     "encuestame.org.core.shared.stats.RatePosition",
-    [encuestame.org.core.commons.rated.RatedProfile],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
     /*
      *
      */
-    //templatePath: dojo.moduleUrl("encuestame.org.core.shared.stats", "templates/position.html"),
+    templatePath: dojo.moduleUrl("encuestame.org.core.shared.stats", "templates/position.html"),
 
 
     service : encuestame.service.list.rate.profile,

@@ -33,17 +33,22 @@
        <div class="web-ht-wrapper-mainline">
            <article class="emne-box">
                 <header>
-                   Last 50 Publications
+                  <spring:message code="home.hashtag.lastpub" />
                 </header>
                 <div class="web-pup-wrapper">
                 <c:forEach items="${tweetPolls}" var="item">
                     <%@ include file="detail_item.jsp"%>
                 </c:forEach>
+                <c:if test="${empty tweetPolls}">
+                    <h2>
+                       <spring:message code="home.hashtag.nolink" />
+                    </h2>
+                </c:if>
                 </div>
             </article>
              <article class="emne-box">
                      <header>
-                        Tweets
+                        <spring:message code="home.hashtag.tweets" />
                      </header>
                 <section>
                      <div dojoType="encuestame.org.core.commons.social.LinksPublished"
@@ -55,21 +60,27 @@
         <aside class="web-ht-wrapper-top">
             <article class="emne-box">
                  <header>
-                    Stats
+                    <spring:message code="home.hashtag.stats" />
                  </header>
-                 <div dojoType="encuestame.org.core.shared.stats.GenericStats" id="generic"></div>
+                 <div dojoType="encuestame.org.core.shared.stats.GenericStats"
+                      hasthag="${tagName.hashTagName}" class="web-generic-stats"
+                      type="HASHTAG" id="generic"></div>
              </article>
             <article class="emne-box">
                  <header>
-                    Rate
+                   <spring:message code="home.hashtag.position" />
                  </header>
-                 <div dojoType="encuestame.org.core.shared.stats.RatePosition" id="position"></div>
+                 <div dojoType="encuestame.org.core.shared.stats.RatePosition"
+                      hasthag="${tagName.hashTagName}" class="web-rated-position"
+                      type="HASHTAG" id="position"></div>
             </article>
             <article class="emne-box">
                  <header>
-                    Top 50 Profiles
+                    <spring:message code="home.hashtag.profile" />
                  </header>
-                 <div dojoType="encuestame.org.core.shared.stats.TopProfiles" id="topprofiles"></div>
+                 <div dojoType="encuestame.org.core.shared.stats.TopProfiles"
+                      hasthag="${tagName.hashTagName}" class="web-top-profile"
+                      type="HASHTAG" id="topprofiles"></div>
             </article>
         </aside>
     </div>

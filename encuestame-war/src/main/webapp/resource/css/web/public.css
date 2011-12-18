@@ -3560,10 +3560,22 @@ div.web-social-links{
   width: 400px;
 }
 
+.web-top-profile{
+    padding: 10px;
+}
+
 /** publications **/
 
 .web-pup-wrapper{
 
+}
+
+.web-pup-wrapper h2 {
+  color: #CBCBCB;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 15px;
 }
 
 .web-pup-wrapper .web-pup-item{
