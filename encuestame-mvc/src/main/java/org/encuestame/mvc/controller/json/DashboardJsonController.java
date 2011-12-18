@@ -293,7 +293,6 @@ public class DashboardJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) {
         try {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             getDashboardService().moveGadget(gadgetId, dashboardId, position, column);
             setSuccesResponse();
         } catch (Exception e) {

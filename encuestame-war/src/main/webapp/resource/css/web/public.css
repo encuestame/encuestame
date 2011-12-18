@@ -3651,3 +3651,26 @@ div.web-social-links{
     font-weight: normal;
     font-size: 15px;
 }
+
+/** web-stats **/
+
+.web-stats{
+    padding: 3px
+}
+
+.web-stats table{
+
+}
+
+.web-stats table tr{
+    line-height: 20px;
+}
+
+.web-stats table td{
+    padding: 2px;
+}
+
+.web-stats table tr td:first-child {
+  font-weight: bold;
+  padding-right: 20px;
+}

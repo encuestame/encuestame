@@ -63,24 +63,27 @@
                     <spring:message code="home.hashtag.stats" />
                  </header>
                  <div dojoType="encuestame.org.core.shared.stats.GenericStats"
-                      hasthag="${tagName.hashTagName}" class="web-generic-stats"
-                      type="HASHTAG" id="generic"></div>
+                      hasthag="${tagName.hashTagName}"
+                      class="web-generic-stats"
+                      key="HASHTAG" id="generic"></div>
              </article>
             <article class="emne-box">
                  <header>
                    <spring:message code="home.hashtag.position" />
                  </header>
                  <div dojoType="encuestame.org.core.shared.stats.RatePosition"
-                      hasthag="${tagName.hashTagName}" class="web-rated-position"
-                      type="HASHTAG" id="position"></div>
+                      hasthag="${tagName.hashTagName}"
+                      class="web-rated-position"
+                      key="HASHTAG" id="position"></div>
             </article>
             <article class="emne-box">
                  <header>
                     <spring:message code="home.hashtag.profile" />
                  </header>
                  <div dojoType="encuestame.org.core.shared.stats.TopProfiles"
-                      hasthag="${tagName.hashTagName}" class="web-top-profile"
-                      type="HASHTAG" id="topprofiles"></div>
+                      hasthag="${tagName.hashTagName}"
+                      class="web-top-profile"
+                      key="HASHTAG" id="topprofiles"></div>
             </article>
         </aside>
     </div>
