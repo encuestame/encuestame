@@ -46,16 +46,9 @@
                         Tweets
                      </header>
                 <section>
-                    Pub #1
-                </section>
-                 <section>
-                    Pub #2
-                </section>
-                 <section>
-                    Pub #3
-                </section>
-                 <section>
-                    Pub #1
+                     <div dojoType="encuestame.org.core.commons.social.LinksPublished"
+                          hasthag="${tagName.hashTagName}" class="web-social-links"
+                          type="HASHTAG"></div>
                 </section>
             </article>
         </div>
@@ -64,100 +57,19 @@
                  <header>
                     Stats
                  </header>
-                 <table>
-                    <tr>
-                        <td>
-                            Created by
-                        </td>
-                        <td>
-                            Admin
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Created
-                        </td>
-                        <td>
-                            4 years ago
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Hits
-                        </td>
-                        <td>
-                            1,534
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Likes / Dislike Rate
-                        </td>
-                        <td>
-                            34
-                        </td>
-                    <tr>
-                        <td>
-                            Average
-                        </td>
-                        <td>
-                            454
-                        </td>
-                    </tr>
-                 </table>
+                 <div dojoType="encuestame.org.core.shared.stats.GenericStats" id="generic"></div>
              </article>
             <article class="emne-box">
                  <header>
                     Rate
                  </header>
-                 <div>Current Position</div>
-                <table>
-                    <tr>
-                        <td>
-                           USA
-                        </td>
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            <img src="<%=request.getContextPath()%>/resources/images/icons/enme_down.png"/>
-                        </td>
-                    <tr>
-                    <tr>
-                        <td>
-                           ${tagName.hashTagName}
-                        </td>
-                        <td>
-                            5
-                        </td>
-                        <td>
-                            <img src="<%=request.getContextPath()%>/resources/images/icons/enme_up.png"/>
-                        </td>
-                    <tr>
-                </table>
+                 <div dojoType="encuestame.org.core.shared.stats.RatePosition" id="position"></div>
             </article>
             <article class="emne-box">
                  <header>
                     Top 50 Profiles
                  </header>
-                <table>
-                    <tr>
-                        <td>
-                           Admin
-                        </td>
-                        <td>
-                            1,400
-                        </td>
-                    <tr>
-                    <tr>
-                        <td>
-                           Jota
-                        </td>
-                        <td>
-                            1,200
-                        </td>
-                    <tr>
-                </table>
+                 <div dojoType="encuestame.org.core.shared.stats.TopProfiles" id="topprofiles"></div>
             </article>
         </aside>
     </div>

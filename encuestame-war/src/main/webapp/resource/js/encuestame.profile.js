@@ -119,7 +119,12 @@ dependencies ={
                 "encuestame.org.core.shared.utils.ContextSupport",
                 "encuestame.org.core.commons.support.DnD",
                 "encuestame.org.core.shared.utils.Icon",
-                "encuestame.org.core.shared.utils.More"
+                "encuestame.org.core.shared.utils.More",
+                //public
+                "encuestame.org.core.shared.stats.RatePosition",
+                "encuestame.org.core.shared.stats.GenericStats",
+                "encuestame.org.core.shared.stats.TopProfiles",
+                "encuestame.org.core.shared.publications.Publications"
                 ]
             }
           /*,

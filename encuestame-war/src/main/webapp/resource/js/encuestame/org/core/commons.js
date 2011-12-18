@@ -330,7 +330,7 @@ encuestame.session.getSession = function(){
 
 encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
 
-encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY'];
+encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY', 'HASHTAG'];
 
 encuestame.social = {};
 
