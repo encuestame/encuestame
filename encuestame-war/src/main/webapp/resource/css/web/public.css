@@ -3650,6 +3650,8 @@ div.web-social-links{
     margin: 0;
     font-weight: normal;
     font-size: 15px;
+    padding: 0;
+    color: #444444;
 }
 
 /** web-stats **/
@@ -3673,4 +3675,51 @@ div.web-social-links{
 .web-stats table tr td:first-child {
   font-weight: bold;
   padding-right: 20px;
+}
+
+/** .web-rated-position */
+
+.web-rated-position{
+    padding: 3px
+}
+
+.web-rated-position table{
+}
+
+.web-rated-position table th{
+    font-weight: bold;
+    text-align: center;
+}
+
+.web-rated-position table tr th:first-child{
+    text-align: left;
+}
+
+.web-rated-position table tr{
+    line-height: 20px;
+}
+
+.web-rated-position table td{
+    padding: 2px;
+}
+
+.web-rated-position table tr td:first-child {
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+.web-rated-position .web-position-number{
+    text-align: center;
+}
+
+.web-position-down{
+
+}
+
+.web-position-up{
+
+}
+
+.web-position-equal{
+
 }
