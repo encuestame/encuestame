@@ -15,18 +15,7 @@
     </section>
 
     <section class="web-ht-graph-wrapper emne-box">
-        <div class="web-ht-button-wrapper">
-            <div class="web-ht-button-item">
-
-            </div>
-            <div class="web-ht-button-item">
-
-            </div>
-            <div class="web-ht-button-item">
-
-            </div>
-        </div>
-        <div id="holder" class="web-ht-graph"></div>
+       <div dojoType="encuestame.org.core.commons.hashtags.HashTagGraph"></div>
     </section>
 
     <div class="web-ht-detail-wrapper">

@@ -21,6 +21,7 @@ dependencies ={
                 "encuestame.org.core.shared.utils.FolderSelect",
                 "encuestame.org.core.commons.dashboard.GadgetDirectory",
                 "encuestame.org.core.commons.social.SocialAccounts",
+                "encuestame.org.core.commons.hashtags.HashTagGraph",
                 //"encuestame.org.core.commons.dashboard.Dashboard",
                 //"encuestame.org.core.commons.dashboard.DashboardLayout",
                 "encuestame.org.core.commons.dashboard.DashboardWrapper",

@@ -2530,6 +2530,27 @@ div.web-notification-list div.web-notification-list-item .date{
     width: 770px;
 }
 
+.web-ht-graph-wrapper{
+    overflow: auto;
+}
+
+.web-ht-graph-wrapper .web-ht-graph{
+    float: left;
+    width: 765px;
+}
+
+.web-ht-graph-wrapper .web-ht-button-wrapper{
+    float: right;
+    width: 235px;
+}
+
+.web-ht-button-wrapper .web-ht-button-item {
+  border-bottom: 1px solid #E5E5E5;
+  border-left: 1px solid #E5E5E5;
+  min-height: 80px;
+  padding: 10px;
+}
+
 /** tweetpoll tags **/
 
 .web-tags-tweetpolls{
