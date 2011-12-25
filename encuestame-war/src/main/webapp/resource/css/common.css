@@ -94,3 +94,45 @@
 .likeRate .negative{
     background-color: #CD6969;
 }
+
+button.emne-menu {
+  background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px 3px 3px 3px;
+  color: #000000;
+  cursor: pointer;
+  height: 2.0833em;
+  overflow: visible;
+  padding: 0 0.5em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+button.emne-menu span {
+  line-height: normal;
+}
+
+button.emne-menu img {
+  font-size: 0;
+  vertical-align: middle;
+}
+
+button.emne-menu button {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-image: -moz-linear-gradient(center top , #FFFFFF 0pt, #E0E0E0 100%);
+  border-color: #CCCCCC #CCCCCC #AAAAAA;
+  border-radius: 3px 3px 3px 3px;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 0 1px #FFFFFF inset;
+  color: #555555;
+  font-size: 11px;
+  font-weight: bold;
+  height: 2.95em;
+  padding: 0 0.91em;
+  text-shadow: 0 0 0 transparent, 0 1px 0 #FFFFFF;
+}

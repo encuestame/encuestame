@@ -26,6 +26,13 @@ dojo.declare("encuestame.org.core.commons.chart.RaphaelSupport", null, {
                 //console.debug("data", this.data);
         },
 
+        /*
+         *
+         */
+        _reload : function(){
+
+        },
+
         getAnchors : function(p1x, p1y, p2x, p2y, p3x, p3y) {
             var l1 = (p2x - p1x) / 2,
                 l2 = (p3x - p2x) / 2,

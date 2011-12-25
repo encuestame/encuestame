@@ -10,7 +10,13 @@
             </h2>
         </div>
         <div class="web-hashtag-options">
-             Viewing: All Time
+             <button class="emne-menu">
+                <!-- Widget to switch Time Ranges
+                     - Select All / Last Month / Last Week / Hot (Last 24) / Calendar
+                     -->
+                <span>View: All</span>
+                <img>
+             </button>
         </div>
     </section>
 
