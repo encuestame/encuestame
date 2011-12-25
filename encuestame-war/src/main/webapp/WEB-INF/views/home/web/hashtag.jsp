@@ -10,7 +10,7 @@
             </h2>
         </div>
         <div class="web-hashtag-options">
-             <button class="emne-menu">
+             <button class="emne-menu gradient-gray">
                 <!-- Widget to switch Time Ranges
                      - Select All / Last Month / Last Week / Hot (Last 24) / Calendar
                      -->
