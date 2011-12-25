@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <section class="web-pup-item">
      <!-- general information -->
-
      <div dojoType="encuestame.org.core.shared.publications.Publications"
             username="${item.ownerUsername}"
             url="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}"

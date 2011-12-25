@@ -2507,9 +2507,9 @@ div.web-notification-list div.web-notification-list-item .date{
     font-size: 150%;
 }
 
-.web-hashtag-header .web-hashtagName h2{
-    width: 500px;
-    margin: 0;
+.web-hashtag-header .web-hashtagName h2 {
+  margin: 0 0 0 6px;
+  width: 500px;
 }
 
 .web-hashtag-header .web-hashtag-options{
@@ -2530,6 +2530,63 @@ div.web-notification-list div.web-notification-list-item .date{
     width: 770px;
 }
 
+.web-ht-graph-wrapper{
+    overflow: auto;
+}
+
+.web-ht-graph-wrapper .web-ht-graph{
+    float: left;
+    width: 765px;
+}
+
+.web-ht-graph-wrapper .web-ht-button-wrapper{
+    float: right;
+    width: 243px;
+}
+
+.web-ht-button-wrapper .web-ht-button-item {
+  border-bottom: 1px solid #E5E5E5;
+  border-left: 1px solid #E5E5E5;
+  min-height: 55px;
+  color: #676767;
+}
+
+
+.stats-button {
+  cursor: pointer;
+  min-height: 80px;
+  overflow: auto;
+  padding: 10px 30px 10px 40px;
+  background-color: #444;
+}
+
+.stats-button .web-graph-sts-btt-tlt {
+  font-size: 14px;
+  font-weight: bold;
+}
+.stats-button .web-graph-sts-btt-val {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.stats-button .web-graph-sts-btt-sub {
+  font-size: 13px;
+  padding-left: 40%;
+}
+
+.web-ht-button-wrapper .selected{
+    background-color: #fff;
+    color: #444444;
+    -moz-box-shadow:    inset 0 7px 5px -6px gray;
+    -webkit-box-shadow: inset 0 7px 5px -6px gray;
+    box-shadow:         inset 0 7px 5px -6px gray;
+}
+
+.stats-button:hover{
+    background-color: #fff;
+    color: #444444;
+
+}
 /** tweetpoll tags **/
 
 .web-tags-tweetpolls{
@@ -3523,10 +3580,59 @@ div.drop-down-menu-select-title:hover .sub-menu {
     font-size: 14px;
 }
 
+/** social links references **/
+
+div.web-social-links{
+    overflow: auto;
+}
+
+.web-social-links h2 {
+  color: #CBCBCB;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 15px;
+}
+
+.web-social-links .links .item{
+  font-size: 15px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.web-social-links .item {
+  font-size: 14px;
+  overflow: auto;
+  padding: 11px 7px 5px 20px;
+}
+
+.web-social-links .item .img{
+  float: left;
+  overflow: hidden;
+}
+
+.web-social-links .item .link{
+  float: left;
+  margin-left: 16px;
+  width: 400px;
+}
+
+.web-top-profile{
+    padding: 10px;
+}
+
 /** publications **/
 
 .web-pup-wrapper{
 
+}
+
+.web-pup-wrapper h2 {
+  color: #CBCBCB;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 15px;
 }
 
 .web-pup-wrapper .web-pup-item{
@@ -3601,4 +3707,76 @@ div.drop-down-menu-select-title:hover .sub-menu {
     margin: 0;
     font-weight: normal;
     font-size: 15px;
+    padding: 0;
+    color: #444444;
+}
+
+/** web-stats **/
+
+.web-stats{
+    padding: 3px
+}
+
+.web-stats table{
+
+}
+
+.web-stats table tr{
+    line-height: 20px;
+}
+
+.web-stats table td{
+    padding: 2px;
+}
+
+.web-stats table tr td:first-child {
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+/** .web-rated-position */
+
+.web-rated-position{
+    padding: 3px
+}
+
+.web-rated-position table{
+}
+
+.web-rated-position table th{
+    font-weight: bold;
+    text-align: center;
+}
+
+.web-rated-position table tr th:first-child{
+    text-align: left;
+}
+
+.web-rated-position table tr{
+    line-height: 20px;
+}
+
+.web-rated-position table td{
+    padding: 2px;
+}
+
+.web-rated-position table tr td:first-child {
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+.web-rated-position .web-position-number{
+    text-align: center;
+}
+
+.web-position-down{
+
+}
+
+.web-position-up{
+
+}
+
+.web-position-equal{
+
 }

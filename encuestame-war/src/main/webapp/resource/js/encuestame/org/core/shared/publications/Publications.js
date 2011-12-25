@@ -66,37 +66,4 @@ dojo.declare(
                 //error
             }
         }
-
-//        _printCloud : function(items){
-//            dojo.forEach(items,
-//                dojo.hitch(this,function(item) {
-//                  var wrapper = dojo.doc.createElement("div");
-//                  dojo.style(wrapper, "display", "inline-block");
-//                  dojo.style(wrapper, "margin", "5px");
-//                  dojo.style(wrapper, "fontSize", "1"+item.size+"%");
-//                  var widget = new encuestame.org.core.commons.stream.HashTagInfo(
-//                          {hashTagName : item.hashTagName,
-//                           url : encuestame.contextDefault+"/tag/"+item.hashTagName+"/",
-//                           size : item.size});
-//                  wrapper.appendChild(widget.domNode);
-//                  this._hashtagCloud.appendChild(wrapper);
-//                }));
-//        },
-//
-//        /*
-//         *
-//         */
-//        _loadCloud : function(){
-//            var load = dojo.hitch(this, function(data) {
-//                this.arrayAccounts = data.success.cloud;
-//                dojo.empty(this._hashtagCloud);
-//                //console.debug("social", this._hashtagCloud);
-//                this._printCloud(data.success.cloud);
-//            });
-//            var error = function(error) {
-//                //console.debug("error", error);
-//            };
-//            encuestame.service.xhrGet(
-//                    encuestame.service.list.cloud, {}, load, error);
-//        }
 });

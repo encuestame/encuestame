@@ -23,11 +23,13 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
@@ -189,7 +191,14 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request {@link HttpServletRequest}.
      * @return
      */
-    public List<HomeBean> searchLastPublicationsbyHashTag(
+     List<HomeBean> searchLastPublicationsbyHashTag(
             final HashTag hashTag, final String keyword, final Integer limit,
             final String filter, final HttpServletRequest request);
+
+     /**
+      *
+      * @param hash
+      * @return
+      */
+     List<LinksSocialBean> getHashTagLinks(final HashTag hash);
 }

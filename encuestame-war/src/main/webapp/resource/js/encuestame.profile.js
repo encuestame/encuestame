@@ -21,6 +21,7 @@ dependencies ={
                 "encuestame.org.core.shared.utils.FolderSelect",
                 "encuestame.org.core.commons.dashboard.GadgetDirectory",
                 "encuestame.org.core.commons.social.SocialAccounts",
+                "encuestame.org.core.commons.hashtags.HashTagGraph",
                 //"encuestame.org.core.commons.dashboard.Dashboard",
                 //"encuestame.org.core.commons.dashboard.DashboardLayout",
                 "encuestame.org.core.commons.dashboard.DashboardWrapper",
@@ -119,7 +120,12 @@ dependencies ={
                 "encuestame.org.core.shared.utils.ContextSupport",
                 "encuestame.org.core.commons.support.DnD",
                 "encuestame.org.core.shared.utils.Icon",
-                "encuestame.org.core.shared.utils.More"
+                "encuestame.org.core.shared.utils.More",
+                //public
+                "encuestame.org.core.shared.stats.RatePosition",
+                "encuestame.org.core.shared.stats.GenericStats",
+                "encuestame.org.core.shared.stats.TopProfiles",
+                "encuestame.org.core.shared.publications.Publications"
                 ]
             }
           /*,
