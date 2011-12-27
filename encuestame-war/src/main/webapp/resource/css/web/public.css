@@ -369,13 +369,13 @@ div.pagination .titleNext {
 }
 
 /** clod **/
-div.cloud {
-    clear: both;
-    margin-bottom: 4px;
-    max-width: 100%;
+.web-cloud {
+  clear: both;
+  margin: 45px 0 auto;
+  max-width: 100%;
 }
 
-div.cloud div.cloudTitle {
+.web-cloud > h1 {
     font-size: 140%;
     font-weight: bold;
     margin-bottom: 4px;
@@ -385,12 +385,17 @@ div.cloud div.cloudTitle {
     padding: 5px;
 }
 
-div.cloud div.cloudItems {
-    padding: 5px;
-    overflow: auto;
+.web-cloud .cloudItems {
+  overflow: auto;
+  padding: 10px;
 }
 
-div.cloud .cloudItem {
+.web-cloud .cloudItems > a.tag {
+  display: inline-block;
+  margin: 5px;
+}
+
+.web-cloud .cloudItem {
     display: inline-block;
     font-size: 20px;
     font-weight: bold;
