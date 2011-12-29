@@ -22,7 +22,10 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -234,6 +237,48 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         Assert.assertEquals("Should be equals", 0, profiles.get(1)
                 .getTopValue().intValue());
     }
+    
+    /**
+     * Test Get total usage by hashTag.
+     */
+    @Test
+	public void testGetTotalUsageByHashTag() {
+		final Account account = createAccount();
+		final HashTag hashtag1 = createHashTag("romantic");
+		 
+		final Question question = createQuestion("What is your favorite type of movies?", "");
+		final Date myDate = new Date();
+		// TweetPoll
+		final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+		tp.getHashTags().add(hashtag1);
+		getTweetPoll().saveOrUpdate(tp);
+		
+		// Poll
+		final Poll poll = createPoll(myDate, question, this.secondary,
+				Boolean.TRUE, Boolean.TRUE);
+		poll.getHashTags().add(hashtag1);
+		getPollDao().saveOrUpdate(poll);
+
+		// Poll 2
+		final Question question2 = createQuestion("What is your favorite type of music?", "");
+ 		final Poll poll2 = createPoll(myDate, question2, this.secondary,
+				Boolean.TRUE, Boolean.TRUE);
+		poll2.getHashTags().add(hashtag1);
+		getPollDao().saveOrUpdate(poll2);
+
+		// Survey
+		final Survey mySurvey = createDefaultSurvey(account, "Survey test",
+				myDate);
+		mySurvey.getHashTags().add(hashtag1);
+		getSurveyDaoImp().saveOrUpdate(mySurvey);
+		
+		// Total usage TweetPoll, Poll and Survey by tagId
+		final Long totalUsage = getFrontEndService().getTotalUsageByHashTag(
+				hashtag1.getHashTagId(), 0, 10, "hashtag");
+
+        Assert.assertEquals("Should be equals", 4, totalUsage.intValue());
+		
+	}
 
     /**
     * @return the frontEndService

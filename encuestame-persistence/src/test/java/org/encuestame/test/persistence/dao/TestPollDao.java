@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IPoll;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
@@ -233,4 +234,47 @@ public class TestPollDao extends AbstractBase {
                 this.userAccount, Boolean.TRUE);
        Assert.assertEquals("Should be", 2, totalPolls.intValue());
     }
+    
+    /**
+     * Test get total polls by hashTag.
+     */
+	@Test
+	public void testGetTotalPollsByHashTag() {
+		final HashTag hashtag1 = createHashTag("roses");
+		final HashTag hashtag2 = createHashTag("red");
+		final HashTag hashtag3 = createHashTag("flowers");
+
+		final Poll poll1 = createPoll(myDate.getTime(), this.question,
+				"DPMU12", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+		poll1.getHashTags().add(hashtag1);
+		poll1.getHashTags().add(hashtag2);
+		poll1.getHashTags().add(hashtag3);
+		getPollDao().saveOrUpdate(poll1);
+
+		final Poll poll2 = createPoll(myDate.getTime(), this.question,
+				"DPMU13", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+
+		poll2.getHashTags().add(hashtag3);
+		poll2.getHashTags().add(hashtag1);
+		getPollDao().saveOrUpdate(poll2);
+
+		final Poll poll3 = createPoll(myDate.getTime(), this.question,
+				"DPMU14", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+		poll3.getHashTags().add(hashtag3);
+		getPollDao().saveOrUpdate(poll3);
+
+		final List<Poll> totalUsagePoll = getPollDao().getPollByHashTagId(
+				hashtag1.getHashTagId(), this.START, this.MAX_RESULTS, "hashtag");
+
+		Assert.assertEquals("Should be", 2, totalUsagePoll.size());
+
+		final List<Poll> totalUsagePoll2 = getPollDao().getPollByHashTagId(
+				hashtag2.getHashTagId(), this.START, this.MAX_RESULTS, "hashtag");
+
+		Assert.assertEquals("Should be", 1, totalUsagePoll2.size());
+
+		final List<Poll> totalUsagePoll3 = getPollDao().getPollByHashTagId(
+				hashtag3.getHashTagId(), this.START, this.MAX_RESULTS, "hashtag");
+		Assert.assertEquals("Should be", 3, totalUsagePoll3.size());
+	}
 }

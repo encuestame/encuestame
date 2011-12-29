@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ISurvey;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -32,7 +33,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -396,4 +399,30 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         criteria.add(Restrictions.eq("survey", survey));
         return getHibernateTemplate().findByCriteria(criteria);
     }
+    
+    @SuppressWarnings("unchecked")
+	public List<Survey> getSurveysByHashTagId(final Long hashTagId, final Integer startResults,
+            final Integer limitResults, final String filterby) {
+        final DetachedCriteria detached = DetachedCriteria
+                .forClass(Survey.class)
+                .createAlias("hashTags", "hashTags")
+                .setProjection(Projections.id())
+                .add(Subqueries.propertyIn(
+                        "hashTags.hashTagId",
+                        DetachedCriteria
+                                .forClass(HashTag.class, "hash")
+                                .setProjection(Projections.id())
+                                .add(Restrictions.in("hash.hashTagId",
+                                        new Long[] { hashTagId }))));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(
+        		Survey.class, "survey");
+        criteria.add(Subqueries.propertyIn("survey.sid", detached));
+        if (filterby.equals("hashtag")) {
+            criteria.addOrder(Order.desc("survey.createdAt"));
+        } else if (filterby.equals("hashtagRated")) {
+        	  criteria.addOrder(Order.desc("numbervotes"));
+        }
+        return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
+    } 
+    
 }
