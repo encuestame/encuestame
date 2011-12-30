@@ -82,7 +82,7 @@ public class CalculateHashTagSize {
 
         for (HashTag hashTag : tags) {
             log.debug("Calculate for: "+hashTag.getHashTag()+" size after calculate: "+hashTag.getSize());
-            long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(), this.INIT_RESULTS, this.MAX_RESULTS);
+            long tagFrecuency = getHashTagFrecuency(hashTag.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
             long relevance = (tagFrecuency + (hashTag.getHits() == null ? 0 : hashTag.getHits()));
             long logFrecuency = Math.round(EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency));
             log.debug("-------- log frecuency: "+logFrecuency);
@@ -115,9 +115,9 @@ public class CalculateHashTagSize {
      * @param limit
      * @return
      */
-    public Long getHashTagFrecuency(final Long hashTagId, final Integer initResults, final Integer limit){
+    public Long getHashTagFrecuency(final String tagName, final Integer initResults, final Integer limit){
         final Integer totalRelTweetPoll;
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(hashTagId, initResults, limit, "");
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagName(tagName, initResults, limit, "");
         totalRelTweetPoll = tweetPolls.size();
         //TODO:Pending count relevance hashtags for polls and surveys.
         return totalRelTweetPoll.longValue();

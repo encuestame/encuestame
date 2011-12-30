@@ -268,12 +268,12 @@ public interface ISurvey extends IBaseDao{
     
     /**
      * Get total polls by hashtag.
-     * @param hashTagId
+     * @param tagName
      * @param startResults
      * @param limitResults
      * @param filterby
      * @return
      */
-    List<Survey> getSurveysByHashTagId(final Long hashTagId, final Integer startResults,
+    List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
             final Integer limitResults, final String filterby);
 }

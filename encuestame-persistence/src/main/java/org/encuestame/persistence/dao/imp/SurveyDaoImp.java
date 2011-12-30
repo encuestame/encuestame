@@ -401,7 +401,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     }
     
     @SuppressWarnings("unchecked")
-	public List<Survey> getSurveysByHashTagId(final Long hashTagId, final Integer startResults,
+	public List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
             final Integer limitResults, final String filterby) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Survey.class)
@@ -412,8 +412,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
                         DetachedCriteria
                                 .forClass(HashTag.class, "hash")
                                 .setProjection(Projections.id())
-                                .add(Restrictions.in("hash.hashTagId",
-                                        new Long[] { hashTagId }))));
+                                .add(Restrictions.in("hash.hashTag",
+                                        new String[] { tagName }))));
         final DetachedCriteria criteria = DetachedCriteria.forClass(
         		Survey.class, "survey");
         criteria.add(Subqueries.propertyIn("survey.sid", detached));

@@ -95,7 +95,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId, final Integer initResults,
+    List<TweetPollBean> getTweetPollsbyHashTagName(final String tagName, final Integer initResults,
             final Integer limit, final String filter,
             final HttpServletRequest request);
 
@@ -197,12 +197,12 @@ public interface IFrontEndService extends ServiceOperations {
 	 * Get total usage {@link TweetPoll}, {@link Poll} or {@link Survey} by
 	 * HashTag.
 	 * 
-	 * @param tagId
+	 * @param tagName
 	 * @param initResults
 	 * @param maxResults
 	 * @param filter
 	 * @return
 	 */
-	Long getTotalUsageByHashTag(final Long tagId, final Integer initResults,
+	Long getTotalUsageByHashTag(final String tagName, final Integer initResults,
 			final Integer maxResults, final String filter);
 }

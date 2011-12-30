@@ -381,7 +381,7 @@ public class TestSurveyDao extends AbstractBase {
 		getSurveyDaoImp().saveOrUpdate(mySurvey);
 
 		final List<Survey> totalSurveys = getSurveyDaoImp()
-				.getSurveysByHashTagId(hashtag1.getHashTagId(),
+				.getSurveysByHashTagName(hashtag1.getHashTag(),
 						this.START_RESULTS, this.MAX_RESULTS, "hashtag");
 		assertEquals("Should be equals", 2, totalSurveys.size());
 	}

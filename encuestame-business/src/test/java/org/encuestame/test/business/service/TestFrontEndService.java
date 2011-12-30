@@ -274,7 +274,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 		
 		// Total usage TweetPoll, Poll and Survey by tagId
 		final Long totalUsage = getFrontEndService().getTotalUsageByHashTag(
-				hashtag1.getHashTagId(), 0, 10, "hashtag");
+				hashtag1.getHashTag(), 0, 10, "hashtag");
 
         Assert.assertEquals("Should be equals", 4, totalUsage.intValue());
 		
