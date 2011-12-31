@@ -13,16 +13,12 @@
 package org.encuestame.persistence.domain;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -210,12 +206,7 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
     /**
      * Survey created at.
      ***/
-    private Date createdAt;
-
-    /**
-     * Hash Tags.
-     **/
-    private Set<HashTag> hashTags = new HashSet<HashTag>();
+    private Date createdAt;  
 
     /**
      * @return the customMessage.
@@ -676,23 +667,5 @@ public abstract class AbstractSurvey extends AbstractGeoPoint {
      */
     public void setCreatedAt(final Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    /**
-     * @return the hashTags
-     */
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "poll_hashtags",
-               joinColumns = {@JoinColumn(name = "poll_id")},
-               inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
-    public Set<HashTag> getHashTags() {
-        return hashTags;
-    }
-
-    /**
-     * @param hashTags the hashTags to set
-     */
-    public void setHashTags(Set<HashTag> hashTags) {
-        this.hashTags = hashTags;
-    }
+    } 
 }

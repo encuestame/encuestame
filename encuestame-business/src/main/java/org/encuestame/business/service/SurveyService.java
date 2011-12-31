@@ -253,7 +253,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         try {
             final Survey surveyDomain = this.newSurvey(surveyBean);
             if (surveyBean.getHashTags().size() > 0) {
-                surveyDomain.getHashTags().addAll(
+                 surveyDomain.getHashTags().addAll(
                         retrieveListOfHashTags(surveyBean.getHashTags()));
                 log.debug("Update Hash Tag");
                 getSurveyDaoImp().saveOrUpdate(surveyDomain);

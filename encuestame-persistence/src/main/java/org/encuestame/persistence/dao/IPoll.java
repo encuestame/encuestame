@@ -211,4 +211,15 @@ public interface IPoll extends IBaseDao {
       * @return
       */
     Long getTotalPollsbyUser(final UserAccount user, final Boolean publishStatus);
+    
+    /**
+     * Get poll by hashTag id.
+     * @param tagName
+     * @param startResults
+     * @param limitResults
+     * @param filterby
+     * @return
+     */
+    List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
+            final Integer limitResults, final String filterby);
 }

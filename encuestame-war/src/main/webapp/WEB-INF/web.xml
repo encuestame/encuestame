@@ -23,64 +23,64 @@
         </taglib>
     </jsp-config>
 
-     <filter>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter
-        </filter-class>
-      </filter>
+<!--      <filter> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <filter-class>net.sf.ehcache.constructs.web.filter.SimplePageCachingFilter -->
+<!--         </filter-class> -->
+<!--       </filter> -->
 
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>*.json</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>*.atom</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>*.rss</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/user/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/admon/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/settings/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/search/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/tweetpoll/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/poll/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/survey/*</url-pattern>
-    </filter-mapping>
-        <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/cloud</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/social/*</url-pattern>
-    </filter-mapping>
-     <filter-mapping>
-        <filter-name>SimplePageCachingFilter</filter-name>
-        <url-pattern>/home</url-pattern>
-    </filter-mapping>
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>*.json</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>*.atom</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>*.rss</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/user/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/admon/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/settings/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/search/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/tweetpoll/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/poll/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/survey/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--         <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/cloud</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--     <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/social/*</url-pattern> -->
+<!--     </filter-mapping> -->
+<!--      <filter-mapping> -->
+<!--         <filter-name>SimplePageCachingFilter</filter-name> -->
+<!--         <url-pattern>/home</url-pattern> -->
+<!--     </filter-mapping> -->
 
     <!-- Allows attributes to be accessed on the next request -->
     <filter>

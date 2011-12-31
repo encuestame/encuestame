@@ -157,7 +157,7 @@ dojo.declare(
                 var error = function(error) {
                     console.debug("error", error);
                 };
-                console.debug("PROVIDER", this.socialProvider.toLowerCase());
+               // console.debug("PROVIDER", this.socialProvider.toLowerCase());
                 encuestame.service.xhrGet(
                         encuestame.service.list.allSocialAccount, {provider:this.socialProvider.toLowerCase()}, load, error);
             },

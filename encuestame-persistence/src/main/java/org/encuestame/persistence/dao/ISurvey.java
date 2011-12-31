@@ -265,4 +265,15 @@ public interface ISurvey extends IBaseDao{
      * @return
      */
     List<SurveySection> getSurveySection(final Survey survey);
+    
+    /**
+     * Get total polls by hashtag.
+     * @param tagName
+     * @param startResults
+     * @param limitResults
+     * @param filterby
+     * @return
+     */
+    List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
+            final Integer limitResults, final String filterby);
 }

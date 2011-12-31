@@ -6,10 +6,11 @@ dojo.require("dijit.form.Button");
 dojo.require("dijit.form.TextBox");
 dojo.require("dojox.data.QueryReadStore");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
 
 dojo.declare(
     "encuestame.org.core.shared.utils.Suggest",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
 
       templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/suggest.html"),
 
@@ -174,7 +175,7 @@ dojo.declare(
          * hide with fade out the suggest box.
          */
         hide : function(){
-            console.info("HIDE");
+            //console.info("HIDE");
             this._itemStored = [];
             var fadeArgs = {
                     node: this._suggestItems

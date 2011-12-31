@@ -20,11 +20,12 @@ import java.util.List;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IPoll;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.PollFolder; 
 import org.encuestame.utils.DateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -33,6 +34,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -125,6 +127,35 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.addOrder(Order.desc("createdAt"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollByHashTagId(java.lang.Long, java.lang.Integer, java.lang.String)
+     */
+    @SuppressWarnings("unchecked")
+	public List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
+            final Integer limitResults, final String filterby) {
+        final DetachedCriteria detached = DetachedCriteria
+                .forClass(Poll.class)
+                .createAlias("hashTags", "hashTags")
+                .setProjection(Projections.id())
+                .add(Subqueries.propertyIn(
+                        "hashTags.hashTagId",
+                        DetachedCriteria
+                                .forClass(HashTag.class, "hash")
+                                .setProjection(Projections.id())
+                                .add(Restrictions.in("hash.hashTag",
+                                        new String[] { tagName }))));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(
+                Poll.class, "poll");
+        criteria.add(Subqueries.propertyIn("poll.pollId", detached));
+        if (filterby.equals("hashtag")) {
+            criteria.addOrder(Order.desc("poll.createdAt"));
+        } else if (filterby.equals("hashtagRated")) {
+        	  criteria.addOrder(Order.desc("numbervotes"));
+        }
+        return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
+    } 
 
     /*
      * (non-Javadoc)

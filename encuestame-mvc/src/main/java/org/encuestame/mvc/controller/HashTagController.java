@@ -50,6 +50,9 @@ public class HashTagController extends AbstractBaseOperations {
 
     /** HashTag max results. **/
     private final Integer LIMIT_HASHTAG = 15;
+    
+    /** INIT_RESULTS **/
+    private final Integer INIT_RESULTS = 0;
 
     /**
      * HashTag List.
@@ -98,7 +101,7 @@ public class HashTagController extends AbstractBaseOperations {
                     getFrontService().registerHit(null, null, null, tag, IP);
                 }
                 final List<HomeBean> lastPublications = getFrontService()
-                        .searchLastPublicationsbyHashTag(tag, null,
+                        .searchLastPublicationsbyHashTag(tag, null, this.INIT_RESULTS,
                                 LIMIT_HASHTAG, "hashtag", request);
                 log.debug("tagController tweetPollbyTags =>"+lastPublications.size());
                 log.debug("tagController tag =>"+tag);
