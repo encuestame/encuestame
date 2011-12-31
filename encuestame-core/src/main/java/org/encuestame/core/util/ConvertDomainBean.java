@@ -49,12 +49,14 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.HomeBean;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -1136,5 +1138,39 @@ public class ConvertDomainBean {
                     .convertUserAccountToProfileRated(userAccount));
         }
         return listFrontEndItems;
+    }
+
+    /**
+     *  Convert a list of {@link TweetPollSavedPublishedStatus} to list of {@link LinksSocialBean}.
+     * @param links
+     * @return
+     */
+    public static final List<LinksSocialBean> convertTweetPollSavedPublishedStatus(
+            final List<TweetPollSavedPublishedStatus> links) {
+        final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
+        for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
+            log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
+            linksBean.add(ConvertDomainBean.convertTweetPollSavedPublishedStatus(tweetPollSavedPublishedStatus));
+         }
+        return linksBean;
+    }
+
+    /**
+     * Convert {@link TweetPollSavedPublishedStatus} to {@link LinksSocialBean}.
+     * @param tweetPollSavedPublishedStatus
+     * @return
+     */
+    public static final LinksSocialBean convertTweetPollSavedPublishedStatus(
+            final TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus) {
+        final LinksSocialBean linksSocialBean = new LinksSocialBean();
+        linksSocialBean.setProvider(tweetPollSavedPublishedStatus
+                .getSocialAccount().getAccounType().name());
+        linksSocialBean.setLink(SocialUtils.getSocialTweetPublishedUrl(
+                tweetPollSavedPublishedStatus.getTweetId(),
+                tweetPollSavedPublishedStatus.getSocialAccount()
+                        .getSocialAccountName(), tweetPollSavedPublishedStatus
+                        .getSocialAccount().getAccounType()));
+        log.debug("getTweetPollLinks "+linksSocialBean.toString());
+        return linksSocialBean;
     }
 }

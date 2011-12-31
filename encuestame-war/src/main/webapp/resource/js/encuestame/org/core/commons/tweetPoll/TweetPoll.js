@@ -118,7 +118,7 @@ dojo.declare(
             } else {
                 this.errorLoading();
             }
-            var node = dojo.byId("wrapper");
+            //var node = dojo.byId("wrapper");
             document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", this.scroll, false);
             window.onscroll = this.scroll;
             //enable auto save.

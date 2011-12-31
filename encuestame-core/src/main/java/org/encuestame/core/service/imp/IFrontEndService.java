@@ -28,6 +28,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
@@ -178,22 +179,23 @@ public interface IFrontEndService extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
-    throws EnMeNoResultsFoundException;
-
-    /**
-     * Return last publications by {@link HashTag}.
-     * @param hashTag {@link HashTag}
-     * @param keyword keyword if not null, the search should be by keyword.
-     * @param limit limit of items
-     * @param filter order by
-     * @param request {@link HttpServletRequest}.
-     * @return
-     */
-	List<HomeBean> searchLastPublicationsbyHashTag(
-            final HashTag hashTag, final String keyword, final Integer initResults, final Integer limit,
-            final String filter, final HttpServletRequest request);
+    throws EnMeNoResultsFoundException; 
     
+
 	/**
+	* Return last publications by {@link HashTag}.
+	* @param hashTag {@link HashTag}
+	* @param keyword keyword if not null, the search should be by keyword.
+	* @param limit limit of items
+	* @param filter order by
+	* @param request {@link HttpServletRequest}.
+	* @return
+   **/
+   	List<HomeBean> searchLastPublicationsbyHashTag(
+               final HashTag hashTag, final String keyword, final Integer initResults, final Integer limit,
+               final String filter, final HttpServletRequest request);
+    
+    /**
 	 * Get total usage {@link TweetPoll}, {@link Poll} or {@link Survey} by
 	 * HashTag.
 	 * 
@@ -205,4 +207,12 @@ public interface IFrontEndService extends ServiceOperations {
 	 */
 	Long getTotalUsageByHashTag(final String tagName, final Integer initResults,
 			final Integer maxResults, final String filter);
+	
+	/**
+    *
+    * @param hash
+    * @return
+    */
+   List<LinksSocialBean> getHashTagLinks(final HashTag hash);
+
 }

@@ -27,6 +27,8 @@ dojo.declare(
          */
         itemId : null,
 
+        hasthag : "",
+
         /*
          * post create.
          */
@@ -40,6 +42,8 @@ dojo.declare(
                     //TODO: future
                 } else if(this.type == encuestame.surveys[2]){
                     //TODO: future
+                } else if(this.type == encuestame.surveys[3]){
+                    this._loadLinks(this.hasthag, encuestame.surveys[3]);
                 }
             }
         },

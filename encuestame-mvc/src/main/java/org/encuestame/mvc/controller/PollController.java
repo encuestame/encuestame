@@ -43,8 +43,8 @@ public class PollController extends AbstractBaseOperations {
      * @param model model
      * @return template
      */
-    @RequestMapping(value = "/poll/{id}", method = RequestMethod.GET)
-    public String pollController(final ModelMap model, @PathVariable Long id) {
+    @RequestMapping(value = "/poll/{id}/{slug}", method = RequestMethod.GET)
+    public String pollController(final ModelMap model, @PathVariable Long id,  @PathVariable String slug) {
         log.debug("poll Id -->" + id);
         try {
             final Poll poll = getPollService().getPollById(id);

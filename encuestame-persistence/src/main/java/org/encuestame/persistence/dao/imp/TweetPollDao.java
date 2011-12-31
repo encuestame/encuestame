@@ -578,6 +578,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * org.encuestame.utils.enums.TypeSearchResult)
      */
     @SuppressWarnings("unchecked")
+    //TODO: please use FrontEndDao new method.
+    /*
+     * List<TweetPollSavedPublishedStatus> getLinksByHomeItem replace this method.
+     */
     public List<TweetPollSavedPublishedStatus> getLinksByTweetPoll(
             final TweetPoll tweetPoll, final Survey survey, final Poll poll,
             final TypeSearchResult itemType) {

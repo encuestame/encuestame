@@ -15,10 +15,13 @@ package org.encuestame.persistence.dao;
 import java.util.List;
 
 import org.encuestame.persistence.domain.AccessRate;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
@@ -144,4 +147,22 @@ public interface IFrontEndDao extends IBaseDao{
      * @return
      */
     List<Survey> getSurveyFrontEndAllTime(final Integer start, final Integer maxResults);
+
+
+
+    /**
+     * Get Links by Home Item.
+     * @param tweetPoll
+     * @param survey
+     * @param poll
+     * @param itemType
+     * @return
+     */
+    List<TweetPollSavedPublishedStatus> getLinksByHomeItem(
+            final HashTag hashTag,
+            final UserAccount userAccount,
+            final TweetPoll tweetPoll,
+            final Survey survey,
+            final Poll poll,
+            final TypeSearchResult itemType);
 }

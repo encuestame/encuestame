@@ -25,10 +25,12 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,6 +108,46 @@ public class FrontEndJsonController extends AbstractJsonController{
         } catch (Exception e) {
              e.printStackTrace();
              log.error(e);
+        }
+        return returnData();
+    }
+
+
+    /**
+     * Retrieve the stats for each component hastahg/twpoll/poll/survey.
+     * @param id id to identify the item
+     * @param type type of component
+     * @param request {@link HttpServletRequest}
+     * @param response {@link HttpServletResponse}
+     * @return json string.
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/common/frontend/{type}/stats.json", method = RequestMethod.GET)
+    public ModelMap getGenericStats(
+            @RequestParam(value = "id", required = false) String id,
+            @PathVariable final String type,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            final TypeSearchResult filter = TypeSearchResult
+                    .getTypeSearchResult(type);
+            final Map<String, String> stats = new HashMap<String, String>();
+            if (filter.equals(TypeSearchResult.HASHTAG)) {
+                stats.put("Created By", "admin");
+                stats.put("Created", "4 years ago");
+                stats.put("Hits", "1,500");
+                stats.put("Likes / Dislike Rate", "34");
+                stats.put("Average", "1.4");
+            }
+            jsonResponse.put("stats", stats);
+            setItemResponse(jsonResponse);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e);
         }
         return returnData();
     }

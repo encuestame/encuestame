@@ -330,7 +330,7 @@ encuestame.session.getSession = function(){
 
 encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
 
-encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY'];
+encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY', 'HASHTAG'];
 
 encuestame.social = {};
 
@@ -549,6 +549,9 @@ encuestame.service.comments.create = encuestame.contextWidget()+"/api/common/com
 encuestame.service.list.rate = {};
 encuestame.service.list.rate.comments = encuestame.contextWidget()+"/api/common/comment/rate/top.json";
 encuestame.service.list.rate.profile = encuestame.contextWidget()+"/api/common/frontend/topusers.json";
+encuestame.service.list.rate.stats = function(type) {
+    return  encuestame.contextWidget()+"/api/common/frontend/"+type+"/stats.json";
+};
 
 /**
  * Vote services.
