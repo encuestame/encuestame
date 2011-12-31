@@ -214,7 +214,7 @@ public class TestSurveyDao extends AbstractBase {
         createDefaultSurvey(user, "My Second Survey", otherHourDate.getTime());
         final List<Survey> surveyToday = getSurveyDaoImp().retrieveSurveyToday(
                 this.user, this.MAX_RESULTS, this.START_RESULTS);
-        assertEquals("Should be equals", 1, surveyToday.size());
+        assertEquals("Should be equals", 2, surveyToday.size());
     }
 
     /**
