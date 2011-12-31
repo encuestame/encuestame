@@ -23,7 +23,6 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -182,26 +181,19 @@ public interface IFrontEndService extends ServiceOperations {
     List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
     throws EnMeNoResultsFoundException;
 
+
     /**
-     * Return last publications by {@link HashTag}.
-     * @param hashTag {@link HashTag}
-     * @param keyword keyword if not null, the search should be by keyword.
-     * @param limit limit of items
-     * @param filter order by
-     * @param request {@link HttpServletRequest}.
-     * @return
-     */
-     List<HomeBean> searchLastPublicationsbyHashTag(
-            final HashTag hashTag, final String keyword, final Integer limit,
-            final String filter, final HttpServletRequest request);
-
-     /**
-      *
-      * @param hash
-      * @return
-      */
-     List<LinksSocialBean> getHashTagLinks(final HashTag hash);
-
+    * Return last publications by {@link HashTag}.
+    * @param hashTag {@link HashTag}
+    * @param keyword keyword if not null, the search should be by keyword.
+    * @param limit limit of items
+    * @param filter order by
+    * @param request {@link HttpServletRequest}.
+    * @return
+   **/
+       List<HomeBean> searchLastPublicationsbyHashTag(
+               final HashTag hashTag, final String keyword, final Integer initResults, final Integer limit,
+               final String filter, final HttpServletRequest request);
 
     /**
      * Get total usage {@link TweetPoll}, {@link Poll} or {@link Survey} by
@@ -215,4 +207,11 @@ public interface IFrontEndService extends ServiceOperations {
      */
     Long getTotalUsageByHashTag(final String tagName, final Integer initResults,
             final Integer maxResults, final String filter);
+
+    /**
+    *
+    * @param hash
+    * @return
+    */
+   List<LinksSocialBean> getHashTagLinks(final HashTag hash);
 }

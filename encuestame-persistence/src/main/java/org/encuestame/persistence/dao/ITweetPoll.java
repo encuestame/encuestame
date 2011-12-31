@@ -301,4 +301,15 @@ public interface ITweetPoll extends IBaseDao{
      */
     Long getTotalTweetPoll(final UserAccount user,
             final Boolean publishTweetPoll);
+
+    /**
+     * Get Total social links by Type: {@link TweetPoll}, {@link Poll} and {@link Survey}.
+     * @param tweetPoll
+     * @param survey
+     * @param poll
+     * @param itemType
+     * @return
+     */
+	Long getSocialLinksByType(final TweetPoll tweetPoll, final Survey survey,
+			final Poll poll, final TypeSearchResult itemType);
 }

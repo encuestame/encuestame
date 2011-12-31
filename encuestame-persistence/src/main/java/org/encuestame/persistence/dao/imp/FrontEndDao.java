@@ -429,7 +429,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             criteria.add(Restrictions.eq("poll", poll));
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             //social links by hashtag
-            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagId(hashTag.getHashTagId(), 20, "hashtag");
+            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(),0, 20, "hashtag");
             log.debug("getLinksByHomeItem hashtag TP size "+d.size());
             if (d.size() != 0) {
                 criteria.add(Restrictions.in("tweetPoll", d));

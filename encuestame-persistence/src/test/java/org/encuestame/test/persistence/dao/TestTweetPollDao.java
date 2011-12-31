@@ -491,4 +491,35 @@ public class TestTweetPollDao  extends AbstractBase{
          final Long totalTweets = getTweetPoll().getTotalTweetPoll(this.secondary, Boolean.TRUE);
          Assert.assertEquals("Should be", 1, totalTweets.intValue());
     }
+    
+    /**
+     * Test Get total social links by type.
+     */
+    @Test
+    public void testGetTotalLinksByType() {
+        // TweePoll 1
+    	final TweetPoll tweetPoll = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("What is your favorite pastime?", secondary.getAccount()), new Date());
+        assertNotNull(tweetPoll); 
+        
+        final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+        assertNotNull(socialAccount);
+        final String tweetContent = "Tweet content text";
+        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedSTatus(
+                tweetPoll, " ", socialAccount, tweetContent);
+       
+        tpSaved.setApiType(SocialProvider.TWITTER);
+        getTweetPoll().saveOrUpdate(tpSaved);
+        assertNotNull(tpSaved);
+        
+        final TweetPollSavedPublishedStatus tpSaved2= createTweetPollSavedPublishedSTatus(
+        		tweetPoll, " ", socialAccount, tweetContent);
+        tpSaved2.setApiType(SocialProvider.FACEBOOK);
+        getTweetPoll().saveOrUpdate(tpSaved2);
+        assertNotNull(tpSaved2);
+        final Long tweetPollSocialLinks = getTweetPoll().getSocialLinksByType(tweetPoll, null, null, TypeSearchResult.TWEETPOLL); 
+         
+        Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
+    }
 }
