@@ -68,20 +68,30 @@ dojo.declare(
             this.clear();
         },
 
+        /*
+         *
+         */
         clear : function(){
             if(this.textBoxWidget){
                 this.selectedItem = null;
                 this.textBoxWidget.set("value", "");
             }
             dojo.empty(this._suggestItems);
-      },
+        },
 
+        /*
+         *
+         */
         _searchSuggestSupport : function() {
              dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                  if (dojo.keys.SPACE == e.keyCode || dojo.keys.ENTER == e.keyCode) {
                       this.processSpaceAction();
                  } else if (dojo.keys.ESCAPE == e.keyCode) {
                      this.hide();
+                 } else if (dojo.keys.UP_ARROW == e.keyCode) {
+
+                 } else if (dojo.keys.DOWN_ARROW == e.keyCode) {
+
                  } else {
                      this._setParams(
                              { limit: 10,
@@ -147,25 +157,26 @@ dojo.declare(
         wigetsInTemplate: true,
         //reference of suggest widget.
         parentWidget: null,
+
         data: null,
 
         postCreate : function() {
             //console.info("SearchSuggestItem", this.data);
             if (this.data) {
                 if ("tags" in this.data) {
-                    this._printHashtags(this.data.tags);
+                    this._printItems("Hashtags", this.data.tags);
                 };
 
                 if ("profiles" in this.data) {
-                    this._printProfiles(this.data.profiles);
+                    this._printItems("Profiles", this.data.profiles);
                 };
 
                 if ("questions" in this.data) {
-                    this._printQuestions(this.data.questions);
+                    this._printItems("Questions", this.data.questions);
                 };
 
                 if ("attachments" in this.data) {
-                    this._printAttach(this.data.attachments);
+                    this._printItems("Documents", this.data.attachments);
                 };
             }
         },
@@ -173,37 +184,56 @@ dojo.declare(
         /*
         *
         */
-       _printHashtags : function(items) {
-           var hash = dojo.create("section");
-       },
-
-       /*
-        *
-        */
-       _printQuestions : function(items) {
-
-       },
-
-       /*
-        *
-        */
-       _printProfiles : function(items) {
-
-       },
-
-       /*
-        *
-        */
-       _printAttach : function(items) {
-
+       _printItems : function(label, items) {
+           console.info("_printHashtags", items);
+           if (items.length > 0) {
+               var hash = new encuestame.org.core.commons.search.SearchSuggestItemSection({label : label, items : items});
+               this._container.appendChild(hash.domNode);
+           }
        }
 });
 
 dojo.declare(
         "encuestame.org.core.commons.search.SearchSuggestItemSection",
         [encuestame.org.main.EnmeMainLayoutWidget],{
+
         //template
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItemSection.html")
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItemSection.html"),
 
+        //
+        items : [],
 
+        label : "",
+
+        postCreate : function() {
+            dojo.forEach(this.items,
+                    dojo.hitch(this,function(item) {
+                 this._itemSuggest.appendChild(this._createItem(item));
+            }));
+        },
+
+        /*
+         *
+         */
+        _createItem : function(item) {
+            var div = dojo.create("div");
+            dojo.addClass(div, "web-search-item");
+            var h4 = dojo.create("h4", null, div);
+            h4.innerHTML = item.itemSearchTitle;
+            if (item.urlLocation != "" && item.urlLocation != null) { //on click point to this url.
+               dojo.connect(div, "onclick", dojo.hitch(this, function(event) {
+                   console.debug("click item", encuestame.contextDefault+item.urlLocation	);
+                   document.location.href = encuestame.contextDefault+item.urlLocation;
+               }));
+
+               dojo.connect(div, "onKeyUp", dojo.hitch( this, function(e) {
+                    if (dojo.keys.ENTER == e.keyCode) {
+                        console.info("_createItem key up", item.urlLocation);
+                    }
+               }));
+            } else { // point to search url
+
+            }
+            return div;
+        }
 });

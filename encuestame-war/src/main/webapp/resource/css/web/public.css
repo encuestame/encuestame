@@ -3811,3 +3811,66 @@ div.web-social-links{
 .web-position-equal{
 
 }
+
+/** search items **/
+
+.web-search-wrapper{
+
+}
+
+.web-search-wrapper .suggestBox {
+  min-height: 20px;
+  right: 15px;
+  z-index: 600;
+  border-radius: 3px 3px 3px 3px;
+   -webkit-border-radius: 3px 3px 3px 3px;
+   -moz-border-radius: 3px 3px 3px 3px;
+   -moz-box-shadow: 1px 4px 3px 0px #888888;
+   -webkit-box-shadow: 1px 4px 3px 0px #888888;
+   box-shadow: 1px 4px 3px 0px #888888;
+}
+
+.web-search-container-wrapper {
+   width: 290px;
+}
+
+.web-search-wrapper .searchSuggestItem{
+
+}
+
+.web-search-container-wrapper .web-search-section {
+  background-color: #444444;
+  border-bottom: 1px dotted #F2F2F2;
+  clear: both;
+  display: inline-block;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.web-search-container-wrapper .web-search-section-label {
+  background-color: #444444;
+  color: #FFFFFF;
+  float: left;
+  font-weight: bold;
+  line-height: 5px;
+  padding: 7px 4px;
+  width: 66px;
+}
+
+.web-search-container-wrapper .web-search-section-container {
+  background-color: white;
+  margin-left: 75px;
+}
+
+.web-search-container-wrapper .web-search-section-container .web-search-item {
+  border-bottom: 1px dotted #EBEBEB;
+  display: inline-block;
+  padding: 5px;
+  width: 90%;
+  cursor: pointer;
+}
+
+.web-search-container-wrapper .web-search-section-container .web-search-item h4 {
+  margin: 0;
+}

@@ -667,6 +667,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         userAccount.setEnjoyDate(Calendar.getInstance().getTime()); //current date
         userAccount.setAccount(account);
         userAccount.setUserStatus(Boolean.TRUE);
+        userAccount.setSharedProfile(Boolean.TRUE);
         userAccount.setUserEmail(singUpBean.getEmail());
         userAccount.setCompleteName(singUpBean.getFullName());
         userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.

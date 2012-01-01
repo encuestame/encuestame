@@ -23,7 +23,7 @@
                     <div dojoType="encuestame.org.core.commons.dashboard.DashBoardMenu"
                         contextPath="<%=request.getContextPath()%>"></div> </span>
             </c:if>
-            <span class="link">
+            <span class="link web-search-wrapper">
                 <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
             </span>
         </div>
