@@ -24,7 +24,8 @@
                         contextPath="<%=request.getContextPath()%>"></div> </span>
             </c:if>
             <span class="link web-search-wrapper">
-                <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
+                <div dojoType="encuestame.org.core.commons.search.SearchMenu" placeholder=" <spring:message
+                            code="header.public.search" />"></div>
             </span>
         </div>
     </div>

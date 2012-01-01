@@ -30,6 +30,9 @@ dojo.declare(
          */
         textBoxWidget : null,
 
+
+        placeholder : "Search",
+
         /*
          * store all items.
          */
@@ -77,6 +80,14 @@ dojo.declare(
                 this.textBoxWidget.set("value", "");
             }
             dojo.empty(this._suggestItems);
+        },
+
+        _moveUp : function(){
+
+        },
+
+        _moveDown : function(){
+
         },
 
         /*

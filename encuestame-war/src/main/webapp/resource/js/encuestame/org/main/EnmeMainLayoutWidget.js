@@ -14,6 +14,14 @@ dojo.declare(
          */
         widgetsInTemplate: true,
 
+        /*
+         * default placeholder.
+         */
+        placeholder : "Type something...",
+
+        /*
+         * default context path.
+         */
         contextDefaultPath : config.contextPath
 
 
