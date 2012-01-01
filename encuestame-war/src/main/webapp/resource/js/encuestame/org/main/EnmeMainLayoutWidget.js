@@ -20,6 +20,11 @@ dojo.declare(
         placeholder : "Type something...",
 
         /*
+         *
+         */
+        defaultNoResults : "Nothing find with ",
+
+        /*
          * default context path.
          */
         contextDefaultPath : config.contextPath
