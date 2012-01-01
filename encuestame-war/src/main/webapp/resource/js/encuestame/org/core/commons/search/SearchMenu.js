@@ -184,7 +184,7 @@ dojo.declare(
          */
         _searchCallService : function(){
             var load = dojo.hitch(this, function(data) {
-                console.debug("social _searchCallService", data);
+                //console.debug("social _searchCallService", data);
                 dojo.empty(this._suggestItems);
                 if("items" in data.success) {
                     var fadeArgs = {
@@ -237,7 +237,7 @@ dojo.declare(
 
         postCreate : function() {
             //console.info("SearchSuggestItem", this.data);
-            console.info("SearchSuggestItem",this.checkIfDataIsEmtpy());
+            //console.info("SearchSuggestItem",this.checkIfDataIsEmtpy());
             if (this.data && !this.checkIfDataIsEmtpy()) {
                 dojo.empty(this._container);
                 if ("tags" in this.data) {
@@ -290,7 +290,7 @@ dojo.declare(
         *
         */
        _printItems : function(label, items) {
-           console.info("_printHashtags", items);
+           //console.info("_printHashtags", items);
            if (items.length > 0) {
                var hash = new encuestame.org.core.commons.search.SearchSuggestItemSection(
                        {
@@ -337,14 +337,8 @@ dojo.declare(
             if (item.urlLocation != "" && item.urlLocation != null) { //on click point to this url.
                dojo.attr(div, "data-url", item.urlLocation);
                dojo.connect(div, "onclick", dojo.hitch(this, function(event) {
-                   console.debug("click item", encuestame.contextDefault+item.urlLocation	);
+                   //console.debug("click item", encuestame.contextDefault+item.urlLocation	);
                    document.location.href = encuestame.contextDefault+item.urlLocation;
-               }));
-
-               dojo.connect(div, "onKeyUp", dojo.hitch( this, function(e) {
-                    if (dojo.keys.ENTER == e.keyCode) {
-                        console.info("_createItem key up", item.urlLocation);
-                    }
                }));
             } else { // point to search url
 
