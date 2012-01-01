@@ -235,6 +235,10 @@ div.defaultSectionTitle {
     margin: 0 auto;
 }
 
+#content-container #enme-content div.defaultMarginWrapper > h1{
+    margin-left: 6px;
+}
+
 #content-container #enme-content div.votes{
     margin: 0 auto;
     width: 50%;

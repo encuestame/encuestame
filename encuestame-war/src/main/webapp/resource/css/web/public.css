@@ -2980,19 +2980,24 @@ div.web-profile-wrapper .rss li {
 
 /** social **/
 
-div.socialAccounts{
-    margin-top: 20px;
+div.socialAccounts {
+  background-color: #E0E0E0;
+  margin-top: 20px;
+  min-height: 396px;
+  overflow: auto;
 }
-
 
 div.socialAccounts div.socialWrapper{
     margin: 0px;
 }
 
-div.socialAccounts div.socialWrapper div.listSocialCommunities{
-    min-width: 200px;
-    float: left;
-    margin-right: 6px;
+div.socialAccounts div.socialWrapper div.listSocialCommunities {
+  float: left;
+  min-height: 400px;
+  min-width: 200px;
+  -moz-box-shadow: 0 1px 3px #888888 inset;
+  -webkit-box-shadow: 0 1px 3px #888888 inset;
+   box-shadow: 0 1px 3px #888888 inset;
 }
 
 div.socialAccounts div.socialWrapper div.socialCommunitieItem{
@@ -3002,7 +3007,17 @@ div.socialAccounts div.socialWrapper div.socialCommunitieItem{
     color: #FFF;
     max-width: 200px;
     cursor: pointer;
-    border-bottom: 1px dotted black;
+    -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
+}
+
+div.socialAccounts div.socialWrapper .selected{
+    -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
+     background-color: #E5E5E5;
+     color: #969696 !important;
 }
 
 div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
@@ -3010,27 +3025,54 @@ div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
     color: grey;
 }
 
-div.socialAccounts div.socialWrapper  div.socialAccountListDetail{
-    float: left;
-    width: 850px;
+div.socialAccounts div.socialWrapper div.socialAccountListDetail {
+  margin-left: 200px;
+  padding: 0;
+}
+
+div.socialAccounts div.socialWrapper div.socialAccountListDetail .toolBox {
+  overflow: auto;
+  padding: 7px;
+}
+
+div.socialAccounts div.socialWrapper div.socialAccountListDetail .account-list-container .socialWrapperRow:first-child{
+   margin-top  : 10px;
 }
 
 
 /** Row Account */
 
-div.socialWrapperRow{
-     padding: 2px;
+div.socialWrapperRow {
      font-size: 110%;
-     margin: 2px;
-    -moz-box-shadow: 0px 1px 1px #888;
-    -webkit-box-shadow: 0px 1px 1px #888;
-     box-shadow: 0px 1px 1px #888;
+    -moz-box-shadow: inset 0px 1px 1px #888;
+    -webkit-box-shadow: inset 0px 1px 1px #888;
+     box-shadow: inset 0px 1px 1px #888;
     -webkit-border-radius:  2px 2px 2px 2px;
     -moz-border-radius: 2px 2px 2px 2px;
      border-radius: 2px 2px 2px 2px;
      cursor: pointer;
-     margin: 10px 0px 10px 0px;
      overflow: auto;
+     background-color: #F9F9F9;
+     margin-bottom: 10px;
+}
+
+div.socialWrapperRow .sub-title-account{
+    overflow: auto;
+}
+
+div.socialWrapperRow .sub-title-account .image{
+    float: left;
+}
+
+div.socialWrapperRow div.title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 30px;
+  padding: 5px;
+}
+
+div.socialWrapperRow form{
+   padding: 10px;
 }
 
 div.socialWrapperRow div.socialNewForm{
@@ -3061,13 +3103,6 @@ div.socialWrapperRow div.tokensWrapper .dijitTextBox{
 div.socialWrapperRow div.tokensWrapper label{
     font-weight: bold;
     font-size: 90%;
-}
-
-div.socialWrapperRow div.title{
-    font-size: 100%;
-    margin: 2px;
-    float: left;
-    padding: 4px;
 }
 
 /** gadget **/
