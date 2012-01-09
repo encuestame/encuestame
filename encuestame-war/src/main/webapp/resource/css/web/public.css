@@ -1222,10 +1222,6 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
 
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
-    -webkit-border-radius: 2px 2px 0px 0px;
-    -moz-border-radius: 2px 2px 0px 0px;
-    border-radius: 2px 2px 0px 0px;
-    border: 1px solid #D7D7D7;
     margin-top: 29px;
 }
 
@@ -1267,8 +1263,7 @@ div.web-tweetpoll-wrapper div.tweetListContent {
     overflow: hidden;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options {
     float: left;
     min-width: 185px;
     width: 185px;
@@ -1276,14 +1271,15 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
     text-align: left;
     background-color: #F0F0F0;
     margin-right: 0px;
+    -moz-box-shadow:-5px 0 5px -6px #000000 inset;
+    -webkit-box-shadow:-5px 0 5px -6px #000000 inset;
+    box-shadow:-5px 0 5px -6px #000000 inset;
 }
 
 div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel {
-
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem {
-  border-bottom: 1px solid #EEEEEE;
   clear: both;
   float: left;
   font-size: 12px;
@@ -1294,16 +1290,21 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected {
     background-color: #6F6F6F;
     color: #FFF;
+    -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover {
     background-color: #6F6F6F;
     color: #FFF;
     cursor: pointer;
+     -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span{
     padding-left: 10px;
     text-decoration: none;
 }
@@ -1312,8 +1313,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
     color: #FFF !important;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover{
     color: #FFF;
     cursor: pointer;
     text-decoration: none;
@@ -1321,9 +1321,12 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:ho
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
   border-left: 1px solid #C2BEC2;
-  float: left;
-  width: 912px;
+  margin-left: 185px;
+  -moz-box-shadow: 10px -10px 8px 8px #000000;
+  -webkit-box-shadow: 10px -10px 8px 8px #000000;
+  box-shadow: 10px -10px 8px 8px #000000;
 }
+
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
   min-height: 20px;
   padding: 8px 0 3px 10px;
@@ -1331,7 +1334,6 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {
     min-height: 35px;
-    padding: 1px;
     border-bottom: 1px solid #D2D2D2;
     background-color: #F4F4F4;
 }
@@ -1351,24 +1353,39 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     cursor: pointer;
 }
 
-div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite
-    {
+div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite{
     margin: 3px 10px 3px 3px;
     float: left;
 }
 
 div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
-    clear: both;
     width: 100%;
     overflow: auto;
-    padding: 8px;
+    padding: 5px;
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+background: linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+
+
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title
-    {
-    font-size: 140%;
-    color: #70798C;
-    float: left;
+.web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel{
+    -moz-box-shadow:    inset 0 7px 5px -6px gray;
+    -webkit-box-shadow: inset 0 7px 5px -6px gray;
+    box-shadow:         inset 0 7px 5px -6px gray;
+}
+
+.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title {
+  color: #8F8F8F;
+  float: left;
+  font-size: 14px;
+  line-height: 25px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.listItemTweetSeleted {
@@ -1379,14 +1396,12 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     min-height: 30px;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel{
     float: right;
     text-align: left;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.votesTitle
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.votesTitle{
     font-size: 120%;
     font-weight: bold;
 }
@@ -1508,7 +1523,6 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
 
 div.web-tweetpoll-wrapper {
     min-height: 45em;
-    margin-bottom: 5em;
 }
 
 div.spaceBlock {
@@ -1516,7 +1530,7 @@ div.spaceBlock {
 }
 
 div.web-tweetpoll-wrapper div.spaceBlockTop {
-    margin-top: 80px !important;
+    margin-top: 20px !important;
 }
 
 div.web-tweetpoll-section {
@@ -1591,16 +1605,14 @@ div.web-tweetpoll-wrapper .socialBlock {
 }
 
 div.tweetPollPublishButton {
-    background-color: #EBEBEB;
-    margin: auto 65px;
+    margin: auto 80px;
     padding: 10px;
     text-align: right;
 }
 
-div.botton-button-publish {
-    margin: auto 65px;
-    padding: 10px;
-    text-align: right;
+.tweetPollPublishButton {
+  margin: auto 78px;
+  padding: 10px;
 }
 
 div.web-tweetpoll-wrapper div.tweetPollPublish div.item {
@@ -1637,13 +1649,12 @@ div.web-tweetpoll-wrapper div.tweetPollPreviewRelative {
 
 div.web-tweetpoll-wrapper div.previewAbsolute {
     position: absolute !important;
-    top: 37px;
 }
 
 div.web-tweetpoll-wrapper div.previewFixed {
-    position: fixed !important;
+    position: absolute !important;
     top: 0px;
-    left: 266px; /* this value should be dinamic */
+    /* left: 266px; this value should be dinamic */
 }
 
 div.web-tweetpoll-wrapper div.web-tweetpoll-section .tweetThis {
@@ -1724,9 +1735,13 @@ div.web-tweetpoll-wrapper div.tweetPollOptions div.question .dijitTextArea {
     font-size: 130%;
 }
 
-/** preview **/
+/** preview tweetpoll **/
 div.web-tweetpoll-wrapper div.previewWrapperContent {
 
+}
+
+div.web-tweetpoll-wrapper div.previewWrapperContent .hide {
+ display: none;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent div.counter {
@@ -2254,8 +2269,7 @@ div.tweetPollPublishDialog div.items div.item div.detail .success-url {
     font-weight: bold;
 }
 
-div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover
-    {
+div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover{
     text-decoration: underline;
 }
 
@@ -2294,6 +2308,18 @@ div.web-folder-wrapper .web-folder-item{
     padding-left: 13px;
     overflow: auto;
     width: auto;
+}
+
+div.web-folder-wrapper .web-folder-item .dijitInlineEditBoxDisplayMode {
+  background-color: transparent !important;
+  border: 0;
+}
+div.web-folder-wrapper .web-folder-item .dijitInline{
+    width: 100px !important;
+}
+
+div.web-folder-wrapper .web-folder-item input{
+    max-width: 50px !important;
 }
 
 div.web-folder-wrapper .web-folder-item:hover {
