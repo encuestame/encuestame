@@ -105,19 +105,19 @@ public class HashTagJsonStats extends AbstractJsonController {
 		private static final long serialVersionUID = -2620835370999916919L;
 
 		/** Total hashTags usage in Poll, Survey and TweetPoll. **/
-		@JsonProperty(value = "id")
+		@JsonProperty(value = "usage_by_item")
 		private Long usageByItem;
 
 		/** Total HashTags usage in social network profiles. **/
-		@JsonProperty(value = "id")
+		@JsonProperty(value = "total_usage_by_social_network")
 		private Long totalUsageBySocialNetwork;
 
 		/** Total hits. **/
-		@JsonProperty(value = "id")
+		@JsonProperty(value = "total_hits")
 		private Long totalHits;
 
 		/** **/
-		@JsonProperty(value = "id")
+		@JsonProperty(value = "usage_by_votes")
 		private Long usageByVotes;
 
 		/**
