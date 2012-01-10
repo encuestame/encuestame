@@ -1889,14 +1889,33 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      }
 
       /**
-      * @param tweetPoll
-      * @param tweetId
-      * @param socialAccount
-      * @param tweetText
-      * @return
-      */
-    public TweetPollSavedPublishedStatus createTweetPollSavedPublishedSTatus(
-            final TweetPoll tweetPoll, final String tweetId,
+       *  Create TweetPoll social links.
+       * @param tweetPoll
+       * @param tweetId
+       * @param socialAccount
+       * @param tweetText
+       * @return
+       */
+	public TweetPollSavedPublishedStatus createTweetPollSavedPublishedStatus(
+			final TweetPoll tweetPoll, final String tweetId,
+			final SocialAccount socialAccount, final String tweetText) {
+		return this.createSocialLinkSavedPublishedStatus(tweetPoll, null, null,
+				tweetId, socialAccount, tweetText);
+
+	}
+   
+	/**
+	 * Create social network link.
+	 * @param tweetPoll
+	 * @param poll
+	 * @param survey
+	 * @param tweetId
+	 * @param socialAccount
+	 * @param tweetText
+	 * @return
+	 */
+    public TweetPollSavedPublishedStatus createSocialLinkSavedPublishedStatus(
+            final TweetPoll tweetPoll, final Poll poll, final Survey survey, final String tweetId,
             final SocialAccount socialAccount, final String tweetText) {
         final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
         publishedStatus.setTweetPoll(tweetPoll);
@@ -1905,8 +1924,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         publishedStatus.setSocialAccount(socialAccount);
         publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
         publishedStatus.setPublicationDateTweet(new Date());
+        publishedStatus.setPoll(poll);
+        publishedStatus.setSurvey(survey);
         getTweetPoll().saveOrUpdate(publishedStatus);
         return publishedStatus;
+    }
+    
+    /**
+     * Create Poll social links.
+     * @param poll
+     * @param tweetId
+     * @param socialAccount
+     * @param tweetText
+     * @return
+     */
+    public TweetPollSavedPublishedStatus createPollSavedPublishedStatus(
+            final Poll poll, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+         return this.createSocialLinkSavedPublishedStatus(null, poll, null, tweetId, socialAccount, tweetText);
     }
 
     /**

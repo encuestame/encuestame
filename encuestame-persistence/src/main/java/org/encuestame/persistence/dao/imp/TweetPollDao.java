@@ -42,7 +42,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
@@ -544,7 +543,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> getTweetpollByHashTagName(final String tagName, final Integer startResults,
-            final Integer limit, final String filterby) {
+            final Integer limit, final TypeSearchResult filterby) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(TweetPoll.class)
                 .createAlias("hashTags", "hashTags")
@@ -559,9 +558,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 TweetPoll.class, "tweetPoll");
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
-        if (filterby.equals("hashtag")) {
+        if (filterby.equals(TypeSearchResult.HASHTAG)) {
             criteria.addOrder(Order.desc("tweetPoll.createDate"));
-        } else if (filterby.equals("hashtagRated")) {
+        } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
             criteria.addOrder(Order.desc("numbervotes"));
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limit);

@@ -117,7 +117,7 @@ public class CalculateHashTagSize {
      */
     public Long getHashTagFrecuency(final String tagName, final Integer initResults, final Integer limit){
         final Integer totalRelTweetPoll;
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagName(tagName, initResults, limit, "");
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagName(tagName, initResults, limit, null);
         totalRelTweetPoll = tweetPolls.size();
         //TODO:Pending count relevance hashtags for polls and surveys.
         return totalRelTweetPoll.longValue();

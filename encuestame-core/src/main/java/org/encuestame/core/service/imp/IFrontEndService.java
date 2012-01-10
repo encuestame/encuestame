@@ -206,7 +206,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @return
      */
     Long getTotalUsageByHashTag(final String tagName, final Integer initResults,
-            final Integer maxResults, final String filter);
+            final Integer maxResults, final TypeSearchResult filter);
 
     /**
     *
@@ -214,4 +214,21 @@ public interface IFrontEndService extends ServiceOperations {
     * @return
     */
    List<LinksSocialBean> getHashTagLinks(final HashTag hash);
+   
+   /**
+    * Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
+    * @param tagName
+    * @param initResults
+    * @param maxResults 
+    * @return
+    */
+   Long getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults); 
+   
+   /**
+    * Get total hash tag hits by tag name.
+    * @param tagName
+    * @param filterBy
+    * @return
+    */
+	Long getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy);
 }

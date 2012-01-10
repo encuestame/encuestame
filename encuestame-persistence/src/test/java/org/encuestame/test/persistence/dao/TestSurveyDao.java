@@ -33,6 +33,7 @@ import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -382,7 +383,7 @@ public class TestSurveyDao extends AbstractBase {
 
 		final List<Survey> totalSurveys = getSurveyDaoImp()
 				.getSurveysByHashTagName(hashtag1.getHashTag(),
-						this.START_RESULTS, this.MAX_RESULTS, "hashtag");
+						this.START_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 		assertEquals("Should be equals", 2, totalSurveys.size());
 	}
 }

@@ -126,10 +126,10 @@ public class TestFrontEndDao extends AbstractBase {
         tp1.getHashTags().add(this.hashTag);
         getTweetPoll().saveOrUpdate(tp1);
         getTweetPoll().saveOrUpdate(tp2);
-        createTweetPollSavedPublishedSTatus(tp1, "432432532", null, "test tweettxt dad");
-        createTweetPollSavedPublishedSTatus(tp2, "43243sa2532", null, "test tweettxt fdsc");
-        createTweetPollSavedPublishedSTatus(tp1, "4324a1232532", null, "test tweettxt cz xc");
-        createTweetPollSavedPublishedSTatus(tp2, "432d123432532", null, "test tweettxt c cxz");
+        createTweetPollSavedPublishedStatus(tp1, "432432532", null, "test tweettxt dad");
+        createTweetPollSavedPublishedStatus(tp2, "43243sa2532", null, "test tweettxt fdsc");
+        createTweetPollSavedPublishedStatus(tp1, "4324a1232532", null, "test tweettxt cz xc");
+        createTweetPollSavedPublishedStatus(tp2, "432d123432532", null, "test tweettxt c cxz");
         List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(this.hashTag, null, null, null, null,
                         TypeSearchResult.TypeSearchResult.HASHTAG);
