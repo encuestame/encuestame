@@ -57,6 +57,7 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
@@ -1785,6 +1786,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return hastag;
     }
 
+    /**
+     * Helper.
+     * Create hashTag ranking.
+     * @param tag
+     * @param rankingDate
+     * @param average
+     * @return
+     */
+    public HashTagRanking createHashTagRank(final HashTag tag, final Date rankingDate, final Double average){
+    	final HashTagRanking tagRank = new HashTagRanking();
+    	tagRank.setHashTag(tag);
+    	tagRank.setAverage(average); 
+    	tagRank.setRankingDate(rankingDate);
+    	getHashTagDao().saveOrUpdate(tagRank);
+    	return tagRank;
+    }
 
     /**
      * @return the notification

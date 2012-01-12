@@ -20,6 +20,7 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -202,6 +203,28 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
      */
     public HashTag getHashTagById(final Long hashTagId) throws HibernateException {
         return (HashTag) getHibernateTemplate().get(HashTag.class, hashTagId);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IHashTagDao#getHashTagRankStats(org.encuestame.persistence.domain.HashTag)
+     */
+	@SuppressWarnings("unchecked")
+	public List<HashTagRanking> getHashTagRankStats() {  
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(HashTagRanking.class);
+	 criteria.add(Restrictions.isNotNull("hashTag"));
+	 criteria.addOrder(Order.desc("average"));
+		//criteria.add(Restrictions.between("", null, getCurrentdMidnightDate()));
+		   return getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IHashTagDao#getHashTagRankStatsById(java.lang.Long)
+	 */
+	public HashTagRanking getHashTagRankStatsById(final Long hashTagRankId) throws HibernateException {
+        return (HashTagRanking) getHibernateTemplate().get(HashTagRanking.class, hashTagRankId);
     }
 
     /**
