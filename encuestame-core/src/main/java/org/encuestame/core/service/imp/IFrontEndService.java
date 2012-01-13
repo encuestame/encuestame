@@ -34,6 +34,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.stats.HashTagRankingBean;
 
 /**
  * Implementation for Front End Service.
@@ -231,4 +232,13 @@ public interface IFrontEndService extends ServiceOperations {
     * @return
     */
 	Long getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy);
+	
+	/**
+	 * Get hashTag ranking.
+	 * @param tagName
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	List<HashTagRankingBean> getHashTagRanking(final String tagName)
+			throws EnMeNoResultsFoundException;
 }

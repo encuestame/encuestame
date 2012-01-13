@@ -38,6 +38,7 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
+import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -331,6 +332,38 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         Assert.assertEquals("Should be equals", 3, total.intValue());
     	
     }
+    
+    /**
+     * Test Get hashTag ranking.
+     * @throws EnMeNoResultsFoundException 
+     */
+	@Test
+	public void testGetHashTagRanking() throws EnMeNoResultsFoundException {
+		final Date myDate = new Date();
+		final HashTag tag = createHashTag("America", 20L);
+		final HashTag tag1 = createHashTag("Europa", 20L);
+		final HashTag tag2 = createHashTag("Asia", 20L);
+		final HashTag tag3 = createHashTag("Oceania", 20L);
+		final HashTag tag4 = createHashTag("Africa", 20L);
+
+		createHashTagRank(tag3, myDate, (double) 90); // Oceania -- 0
+		createHashTagRank(tag4, myDate, (double) 70); // Africa -- 1
+		createHashTagRank(tag2, myDate, (double) 30); // Asia -- 2
+		createHashTagRank(tag, myDate, (double) 20); // America -- 3
+		createHashTagRank(tag1, myDate, (double) 10); // Europa --4
+		
+		final List<HashTagRankingBean> getFirstHashTag = getFrontEndService()
+				.getHashTagRanking("Oceania");
+		Assert.assertEquals("Should be equals", 2, getFirstHashTag.size());
+    	
+		final List<HashTagRankingBean> getMiddleHashTag = getFrontEndService()
+				.getHashTagRanking("Asia");
+		Assert.assertEquals("Should be equals", 3, getMiddleHashTag.size());
+    	
+		final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
+				.getHashTagRanking("Europa");
+		Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
+	}
 
     /**
     * @return the frontEndService
