@@ -18,6 +18,11 @@ dojo.declare("encuestame.org.core.shared.utils.OptionMenu",
             _openBox : true,
 
             /*
+             * Display icon by default.
+             */
+            enableIcon : true,
+
+            /*
              *
              */
             _classReplace : "",
@@ -38,7 +43,11 @@ dojo.declare("encuestame.org.core.shared.utils.OptionMenu",
              *
              */
             postCreate : function() {
-                this.addMenuSupport(this._icon, "click");
+                if (this.enableIcon) {
+                    this.addMenuSupport(this._icon, "click");
+                } else {
+                    //TODO: enable open context menu on click defined dom node.
+                }
                 this._buildMenus();
             },
 

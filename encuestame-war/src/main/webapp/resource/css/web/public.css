@@ -1553,8 +1553,9 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title {
   font-weight: bold;
 }
 
-div.web-tweetpoll-section .space{
-    padding: 10px;
+.web-tweetpoll-section .space {
+  overflow: auto;
+  padding: 10px;
 }
 
 div.web-tweetpoll-section .info{
@@ -1737,7 +1738,7 @@ div.web-tweetpoll-wrapper div.tweetPollOptions div.question .dijitTextArea {
 
 /** preview tweetpoll **/
 div.web-tweetpoll-wrapper div.previewWrapperContent {
-
+  overflow: auto;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .hide {
@@ -1745,16 +1746,18 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .hide {
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent div.counter {
-    font-size: 240%;
-    font-weight: bold;
-    position: absolute;
-    right: 15px;
-    top: 5px;
+  font-size: 240%;
+  font-weight: bold;
+  margin-left: 95%;
+  right: 15px;
+  top: 5px;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent div.content {
-    float: left;
-    max-width: 90%;
+  float: left;
+  line-height: 20px;
+  max-width: 90%;
+  width: 90%;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .inlineBlock {
@@ -1772,17 +1775,21 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewQuestion {
     display: inline-block;
     font-weight: bold;
     margin-right: 3px;
-    padding: 6px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 2px;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .previewAnswer {
-    padding: 6px;
+    padding: 2px;
     background-color: #C9F5C8;
     color: #000;
     border: 1px solid #C1B6B6;
     font-weight: bold;
     margin-left: 5px;
     margin-right: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     -moz-border-radius: 9px 9px 9px 9px;
     -webkit-border-radius: 9px 9px 9px 9px;
     border-radius: 9px 9px 9px 9px;
@@ -1790,11 +1797,13 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewAnswer {
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .previewHashTag {
-    padding: 6px;
+    padding: 2px;
     background-color: #FEBEB2;
     color: #000;
     font-weight: bold;
     margin-right: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     -moz-border-radius: 9px 9px 9px 9px;
     -webkit-border-radius: 9px 9px 9px 9px;
     border-radius: 9px 9px 9px 9px;
@@ -1867,9 +1876,9 @@ div.answerAddForm div.labelQuestion {
     margin-bottom: 3px;
 }
 
-.addAnswers  .listAnswerWrapper {
-    margin: 0px;
-    max-width: 80%;
+.addAnswers .listAnswerWrapper {
+  margin: 0;
+  max-width: 700px;
 }
 
 .addAnswers .answerItem {
@@ -1881,7 +1890,7 @@ div.answerAddForm div.labelQuestion {
   font-size: 100%;
   margin-top: 3px;
   max-width: 89%;
-  min-height: 27px;
+  min-height: 25px;
   overflow: auto;
   padding: 3px;
   vertical-align: top;
