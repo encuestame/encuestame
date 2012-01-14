@@ -1,4 +1,4 @@
-<div class="addAnswers">
+<article class="addAnswers">
     <div class="answerAddForm">
         <div class="labelQuestion">
             <input id="answerAddText" type="text" dojoAttachPoint="_suggest"
@@ -9,8 +9,12 @@
                   Add ${label}
                </button>
             <div class="listAnswerWrapper" dojoAttachPoint="_listAnswers">
+                <!-- List of answers. -->
+            </div>
         </div>
-        </div>
+        <!--
+            Dialog to remove an answer.
+         -->
         <div dojoType="dijit.Dialog" id="option_${id}" title="Options" style="width: 400px;">
               <div class="optionAnswerItem">
                     <span class="optionItem">
@@ -25,4 +29,4 @@
               </div>
         </div>
     </div>
-</div>
+</article>

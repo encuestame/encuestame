@@ -1,32 +1,37 @@
 dojo.provide("encuestame.org.core.commons.profile.ProfileMenu");
 
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+dojo.require("encuestame.org.core.commons.support.ToggleMenu");
+dojo.require('encuestame.org.core.commons');
+
+/**
+ * Widget to define the profile of menu.
+ */
 dojo.declare(
     "encuestame.org.core.commons.profile.ProfileMenu",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.core.commons.support.ToggleMenu],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.profile", "templates/profileMenu.html"),
 
-        widgetsInTemplate: true,
-
-        _openBox : false,
-
-        contextPath : encuestame.contextDefault,
-
+        /*
+         *
+         */
         completeName : "",
 
+        /*
+         *
+         */
         username : "",
 
         /*
          *
          */
-        _open: function(event){
-            dojo.stopEvent(event);
-            if(this._openBox){
-                dojo.removeClass(this._profileBox, "profileOpenPanel");
-                this._openBox = false;
-            } else {
-                dojo.addClass(this._profileBox, "profileOpenPanel");
-                this._openBox = true;
-            }
-        }
+        _classReplace : "profileOpenPanel",
 
+        /*
+        *
+        */
+       postCreate : function() {
+           this.addMenuSupport(this._image);
+           this.addMenuSupport(this._name);
+       }
 });

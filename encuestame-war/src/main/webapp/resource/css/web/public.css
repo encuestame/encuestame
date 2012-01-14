@@ -1802,7 +1802,7 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewHashTag {
 }
 
 /** Add Answers **/
-div.addAnswers {
+.addAnswers {
 
 }
 
@@ -1812,7 +1812,7 @@ input {
     border-radius: 5px;
 }
 
-div.addAnswers div.options {
+.addAnswers div.options {
     margin: 4px;
     text-align: right;
 }
@@ -1854,7 +1854,7 @@ div.answerAddForm div.labelQuestion {
     max-width: 90%;
 }
 
-div.addAnswers div.addNewAnswer {
+.addAnswers div.addNewAnswer {
     font-size: 12px;
     color: #FFF;
     float: left;
@@ -1867,12 +1867,12 @@ div.addAnswers div.addNewAnswer {
     margin-bottom: 3px;
 }
 
-div.addAnswers  div.listAnswerWrapper {
+.addAnswers  .listAnswerWrapper {
     margin: 0px;
     max-width: 80%;
 }
 
-div.addAnswers div.answerItem {
+.addAnswers .answerItem {
   background-color: #9C9C9C;
   -moz-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
@@ -1883,61 +1883,60 @@ div.addAnswers div.answerItem {
   max-width: 89%;
   min-height: 27px;
   overflow: auto;
-  padding-top: 3px;
+  padding: 3px;
   vertical-align: top;
 }
 
-div.addAnswers div.answerItem div.title {
+.addAnswers .answerItem .title {
   color: #FFFFFF;
+  float: left;
   font-size: 100%;
   font-weight: bold;
-  padding: 0;
-}
-
-div.addAnswers div.answerItem div.title .answerItemTitle {
-  display: inline-block;
-  margin: 2px;
-  max-width: 50%;
-  min-width: 39%;
-  padding: 0;
-}
-
-div.addAnswers div.answerItem div.title .answerItemShortUrl {
-  color: red;
-  display: inline-block;
-  float: right;
-  max-width: 40%;
   overflow: auto;
   padding: 0;
 }
 
-div.addAnswers div.answerItem .shortUrlEnter {
+.addAnswers .answerItem .title .answerItemTitle {
+  display: inline-block;
+  float: left;
+  line-height: 20px;
+  margin: 2px;
+  min-width: 300px;
+  padding: 1px;
+  width: 300px;
+}
+
+.addAnswers .answerItem div.title .answerItemShortUrl {
+  color: red;
+  margin-left: 300px;
+  max-width: 240px;
+  overflow: auto;
+  padding: 0;
+}
+
+.addAnswers .answerItem .shortUrlEnter {
     background-color: #AAADAC;
     border: 1px solid #D5D1D1;
     color: white !important;
 }
 
-div.addAnswers div.answerItem .shortUrlEnter  a {
+.addAnswers .answerItem .shortUrlEnter  a {
     color: white;
 }
 
-div.addAnswers div.answerItem div.title .answerItemShortUrl a:link {
+.addAnswers .answerItem div.title .answerItemShortUrl a:link {
     text-decoration: none;
 }
 
-div.addAnswers div.answerItem div.title .answerItemShortUrl a:hover {
+.addAnswers .answerItem div.title .answerItemShortUrl a:hover {
     text-decoration: none;
 }
 
-div.addAnswers div.answerItem div.options {
+.addAnswers .answerItem div.options {
 
 }
 
-div.addAnswers div.answerItem:hover {
-    background-color: #4C718D;
-}
-
-div.addAnswers div.answerItem .answer {
+.addAnswers .answerItem .answer {
     background-repeat: no-repeat;
     padding-left: 15px;
     display: inline-block;
@@ -1951,8 +1950,13 @@ div.addAnswers div.answerItem .answer {
     float: left;
 }
 
+.addAnswers .answerItem .answerItem-options {
+  line-height: 25px;
+  margin-left: 550px;
+}
+
 /** hash tags **/
-div.addAnswers div.addNewHashTag {
+.addAnswers div.addNewHashTag {
     padding: 10px;
     font-size: 12px;
     color: #FFF;
@@ -1960,14 +1964,14 @@ div.addAnswers div.addNewHashTag {
     width: 50%;
 }
 
-div.addAnswers div.addNewAnswer .label {
+.addAnswers div.addNewAnswer .label {
     min-width: 100px;
     margin: 10px;
     color: #000;
     font-weight: bold;
 }
 
-div.addAnswers div.addNewAnswer .addButton {
+.addAnswers div.addNewAnswer .addButton {
     margin-left: 8px;
     border: 1px solid #BCBCBC;
     min-width: 100px;
