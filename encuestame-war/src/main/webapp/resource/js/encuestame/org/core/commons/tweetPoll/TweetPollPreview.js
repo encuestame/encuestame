@@ -28,13 +28,42 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPreview",
         [encuestame.org.main.EnmeMainLayoutWidget],{
+
+            /*
+             * template
+             */
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpollPreview.html"),
+
+            /*
+             * question widget.
+             */
             _questionBox : {node:null,initialize:false},
+
+            /*
+             * answer widgets.
+             */
             _answersBox : {node:null,initialize:false},
+
+            /*
+             * hashtag widget.
+             */
             _hashTagsBox : {node:null,initialize:false},
+
+            /*
+             * completed text.
+             */
             _completeText : "",
+
+            /*
+             *
+             */
             _isValid : false,
+
+            /*
+             *
+             */
             _isValidMessage : "",
+
             /*
              * max length text.
              */
@@ -45,7 +74,14 @@ dojo.declare(
              */
             _lastedCounter : 0,
 
+            /*
+             *
+             */
             _answerSize : 0,
+
+            /*
+             *
+             */
             _hashTagsSize : 0,
 
             _locked : false,
