@@ -52,9 +52,9 @@ dojo.declare("encuestame.org.core.commons.support.ToggleMenu", [encuestame.org.m
     * @event set by dojo.
     */
    _switchMenu: function(event) {
-       console.debug("_switchMenu", this._classReplace);
-       console.debug("_switchMenu", this._menu);
-       console.debug("_switchMenu", this._openBox);
+       //console.debug("_switchMenu", this._classReplace);
+       //console.debug("_switchMenu", this._menu);
+       //console.debug("_switchMenu", this._openBox);
        dojo.stopEvent(event);
        if (this._openBox) {
            dojo.removeClass(this._menu, this._classReplace);

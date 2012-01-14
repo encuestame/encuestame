@@ -6,6 +6,7 @@ dojo.require("dijit.form.Textarea");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.Dialog");
 dojo.require("dijit.form.TextBox");
+dojo.require("encuestame.org.core.shared.utils.OptionMenu");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 /**
@@ -266,9 +267,23 @@ dojo.declare(
                 dojo.addClass(url, "wrap");
 
                 //dom events.
-                dojo.connect(urlA, "onclick", this, this.editShortUrl);
-                dojo.connect(this.domNode, "onclick", this, this._showOptions);
-                dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
+                //dojo.connect(urlA, "onclick", this, this.editShortUrl);
+                //dojo.connect(this.domNode, "onclick", this, this._showOptions);
+
+                var menuWidget = new encuestame.org.core.shared.utils.OptionMenu({
+                    _classReplace : "hidden",
+                    menu_items : [{
+                        label : "Remove",
+                        action : function() {
+                            console.debug("Remove");
+                        }}
+                        //{label : "Edit",
+                        //action : function() {
+                        //    console.debug("Edit");
+                        //}}
+                ]});
+                this._options.appendChild(menuWidget.domNode);
+                /*dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
                     dojo.stopEvent(event);
                     dojo.addClass(urlA, "shortUrlEnter");
                     dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
@@ -278,7 +293,7 @@ dojo.declare(
                 dojo.connect(urlA, "onmouseleave", this,  dojo.hitch(this, function(event){
                     dojo.stopEvent(event);
                     dojo.removeClass(url, "shortUrlEnter");
-                }));
+                }));*/
                 this._item.appendChild(answer);
                 this._item.appendChild(url);
             }

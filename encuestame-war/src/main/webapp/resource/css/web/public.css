@@ -1985,7 +1985,9 @@ div.hashTagWrapper {
     max-width: 90%;
 }
 
-div.wrapperHashTagItems {
+.wrapperHashTagItems {
+  overflow: auto;
+  padding: 10px 0 5px;
 }
 
 div.wrapperHashTagItems div.addNewHashTag {
@@ -3959,4 +3961,33 @@ div.web-social-links{
 
 .web-search-container-wrapper .web-search-section-container .web-search-item h4 {
   margin: 0;
+}
+
+/** option-menu */
+
+.option-menu {
+
+}
+
+.option-menu .icon {
+  background-color: #B4B4B2;
+  margin-left: 1px;
+  margin-top: 1px;
+  padding: 0 5px;
+  width: 10px;
+}
+
+.option-menu .hidden{
+    display: none;
+}
+
+.option-menu .menu-items {
+  background: none repeat scroll 0 0 #E3E3E3;
+  border: 1px solid #969696;
+  padding: 5px;
+  position: absolute;
+}
+
+.option-menu .menu-items .menu-item-wrap {
+  color: #747474;
 }
