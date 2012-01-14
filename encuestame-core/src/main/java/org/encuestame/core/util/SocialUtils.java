@@ -24,6 +24,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -149,18 +150,25 @@ public class SocialUtils {
      */
     public static String getTinyUrl(String string){
         String tinyUrl = string;
-        HttpClient httpclient = new HttpClient();
+        HttpClientParams params = new HttpClientParams();
+        params.setConnectionManagerTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        params.setSoTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        HttpClient httpclient = new HttpClient(params); //TODO: time out??
+        //httpclient.setConnectionTimeout(EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        log.debug("tiny url timeout "+EnMePlaceHolderConfigurer.getIntegerProperty("application.timeout"));
+        //httpclient.setParams(params);
         HttpMethod method = new GetMethod(SocialUtils.TINY_URL);
         method.setQueryString(new NameValuePair[] { new NameValuePair("url",
                 string) });
         try {
+            log.debug("tiny url execute: "+string);
             httpclient.executeMethod(method);
             tinyUrl = method.getResponseBodyAsString();
         } catch (HttpException e) {
-            log.error(e);
+            log.error("HttpException "+ e);
             tinyUrl = string;
         } catch (IOException e) {
-            log.error(e);
+            log.error("IOException"+ e);
             tinyUrl = string;
         } finally{
             method.releaseConnection();
