@@ -1,7 +1,11 @@
 <div class="web-tweetpoll-wrapper spaceBlock">
 
-    <div id="previewWrapper" class="tweetPollPreviewRelative previewAbsolute" style="opacity:0;">
-         <div id="preview" dojoType="encuestame.org.core.commons.tweetPoll.TweetPollPreview"></div>
+    <div id="previewWrapperFixed" class="tweetPollPreviewRelative" style="opacity:0">
+        <div dojoAttachPoint="_previewFixed"></div>
+    </div>
+
+    <div class="web-tweetpoll-preview-top web-tweetpoll-section spaceBlock spaceBlockTop">
+         <div dojoAttachPoint="_preview"></div>
     </div>
 
     <div class="web-tweetpoll-section spaceBlock spaceBlockTop" dojoAttachPoint="_tweetQuestion">

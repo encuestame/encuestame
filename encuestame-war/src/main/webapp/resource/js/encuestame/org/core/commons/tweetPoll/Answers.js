@@ -196,23 +196,6 @@ dojo.declare(
         getDialog : function() {
             var dialog = dijit.byId("option_"+this.id);
             return dialog;
-        },
-
-        /*
-         *
-         */
-        _removeItem : function(event) {
-            dojo.stopEvent(event);
-            var i = dojo.indexOf(this.listItems, this.getDialog().item);
-            if (i != -1) {
-                //this.listItems.splice(i, 1);
-                //dojo.destroy(this.getDialog().item.domNode);
-                //this.getDialog().hide();
-                //dojo.publish("/encuestame/tweetpoll/updatePreview");
-                this.getDialog().item._removeAnswer(i);
-            } else {
-                console.error("Error on remove Item");
-            }
         }
     }
 );
@@ -266,34 +249,17 @@ dojo.declare(
                 dojo.addClass(url, "answerItemShortUrl");
                 dojo.addClass(url, "wrap");
 
-                //dom events.
-                //dojo.connect(urlA, "onclick", this, this.editShortUrl);
-                //dojo.connect(this.domNode, "onclick", this, this._showOptions);
-
                 var menuWidget = new encuestame.org.core.shared.utils.OptionMenu({
                     _classReplace : "hidden",
                     menu_items : [{
                         label : "Remove",
-                        action : function() {
-                            console.debug("Remove");
-                        }}
+                        action : dojo.hitch(this, this._removeAnswer)}
                         //{label : "Edit",
                         //action : function() {
                         //    console.debug("Edit");
                         //}}
                 ]});
                 this._options.appendChild(menuWidget.domNode);
-                /*dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
-                    dojo.stopEvent(event);
-                    dojo.addClass(urlA, "shortUrlEnter");
-                    dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
-
-                    }));
-                }));
-                dojo.connect(urlA, "onmouseleave", this,  dojo.hitch(this, function(event){
-                    dojo.stopEvent(event);
-                    dojo.removeClass(url, "shortUrlEnter");
-                }));*/
                 this._item.appendChild(answer);
                 this._item.appendChild(url);
             }
@@ -308,31 +274,19 @@ dojo.declare(
         },
 
         /*
-         *
-         */
-        _showOptions : function(){
-            var dialog = this.parentAnswer.getDialog();
-            dialog.item = this;
-            dialog.show();
-        },
-
-
-        /*
          * remove this answer.
          */
-        _removeAnswer : function(i) {
+        _removeAnswer : function() {
              var params = {
                      "id" : this.tweetPollId,
-                    "answerId" : this.answer.answerId
+                     "answerId" : this.answer.answerId
             };
-            //console.debug("params", params);
-            //console.debug("i", i);
-            var load = dojo.hitch(this, function(data){
-                console.debug("removing answer", data);
+            var load = dojo.hitch(this, function(data) {
+                var i = dojo.indexOf(this.parentAnswer.listItems, this);
+                console.debug("removing answer", i);
                 this.parentAnswer.listItems.splice(i, 1);
-                dojo.destroy(this.domNode);
-                this.parentAnswer.getDialog().hide();
                 dojo.publish("/encuestame/tweetpoll/updatePreview");
+                dojo.destroy(this.domNode, true);
             });
             var error = function(error) {
                 console.debug("error", error);

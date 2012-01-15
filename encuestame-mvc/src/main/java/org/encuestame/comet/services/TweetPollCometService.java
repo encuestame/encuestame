@@ -58,8 +58,7 @@ public class TweetPollCometService extends AbstractCometService {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @Listener("/service/tweetpoll/autosave")
     @SuppressWarnings("unchecked")
-    public void processAutoSave(final ServerSession remote, final ServerMessage.Mutable message) {
-        //System.out.println("--------- TweetPoll COMMET AUTOSAVE ----------");
+    public void processAutoSave(final ServerSession remote, final ServerMessage.Mutable message) {;
         log.debug("--------- TweetPoll COMMET AUTOSAVE ----------");
         final Map<String, Object> inputMessage = message.getDataAsMap();
         Map<String, Object> outPutMessage = new HashedMap();
@@ -133,7 +132,7 @@ public class TweetPollCometService extends AbstractCometService {
                     final TweetPollBean tweetPollBean = this.fillTweetPoll(options, question, user, hastagsArray, tweetPollId);
                     //final TweetPoll tweetPoll = updateTweetPoll(tweetPollId, question, hastagsArray.toArray(new String[]{}),
                      //       answerArray.toArray(new Long[]{}));
-                    final TweetPoll tweetPoll = updateTweetPoll(tweetPollBean);
+                    updateTweetPoll(tweetPollBean);
                     outPutMessage = inputMessage;
                     log.debug("updated tweetPoll:{"+tweetPollJson.get("tweetPollId"));
                 }
@@ -203,7 +202,7 @@ public class TweetPollCometService extends AbstractCometService {
         }
         //question
         tweetPollBean.setQuestionBean(new QuestionBean(question));
-        log.debug("fillTweetPoll "+tweetPollBean);
+        log.debug("fillTweetPoll: "+tweetPollBean);
         return tweetPollBean;
     }
 
@@ -224,7 +223,6 @@ public class TweetPollCometService extends AbstractCometService {
        followDashBoard=true, captcha=true, scheduledTime=null, liveResults=false, maxLimitVotes=24}}}
      */
     public class Options {
-
         private Boolean repeatedVotes;
         private Boolean resumeLiveResults;
         private Boolean scheduled;
@@ -354,7 +352,5 @@ public class TweetPollCometService extends AbstractCometService {
                     + ", maxLimitVotes=" + maxLimitVotes + ", scheduledDate="
                     + scheduledDate + ", scheduledTime=" + scheduledTime + "]";
         }
-
-
     }
 }

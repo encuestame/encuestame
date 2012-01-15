@@ -26,10 +26,12 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -125,7 +127,51 @@ public class HashTagsJsonController extends AbstractJsonController{
              setItemResponse(jsonResponse);
             }
          catch (Exception e) {
-            // TODO: handle exception
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+    /**
+     *
+     * @param hashtag
+     * @param action
+     * @param type
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/hashtag/{type}/{action}.json", method = RequestMethod.GET)
+    public ModelMap manageHashtag(
+            @RequestParam(value = "id", required = true) final String hashtag,
+            @RequestParam(value = "itemId", required = true) final Long id,
+            @PathVariable final String action, @PathVariable final String type,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
+            if (typeItem.equals(TypeSearchResult.TWEETPOLL)) {
+                if ("remove".equals("action")) {
+                    setSuccesResponse();
+                    getTweetPollService().removeHashtagFromTweetPoll(null, null);
+                } else if ("add".equals("action")) {
+                     final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+                     jsonResponse.put("hashtag", getTweetPollService().addHashtagToTweetPoll(getTweetPollService().getTweetPollById(id), new HashTagBean(hashtag)));
+                     setItemResponse(jsonResponse);
+                }
+            } else if (typeItem.equals(TypeSearchResult.POLL)) {
+                 //TODO: no yet.
+                 setSuccesResponse();
+            } else if (typeItem.equals(TypeSearchResult.SURVEY)) {
+                //TODO: no yet.
+                 setSuccesResponse();
+            }
+        } catch (Exception e) {
             log.error(e);
             setError(e.getMessage(), response);
         }

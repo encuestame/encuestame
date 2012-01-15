@@ -28,13 +28,47 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPreview",
         [encuestame.org.main.EnmeMainLayoutWidget],{
+
+            /*
+             * template
+             */
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpollPreview.html"),
+
+            /*
+             * question widget.
+             */
             _questionBox : {node:null,initialize:false},
+
+            /*
+             * answer widgets.
+             */
             _answersBox : {node:null,initialize:false},
+
+            /*
+             * hashtag widget.
+             */
             _hashTagsBox : {node:null,initialize:false},
+
+            /*
+             * widget to buil preview reference.
+             */
+            _widgetReferences : { question: null, answer: null, hashtag: null},
+
+            /*
+             * completed text.
+             */
             _completeText : "",
+
+            /*
+             *
+             */
             _isValid : false,
+
+            /*
+             *
+             */
             _isValidMessage : "",
+
             /*
              * max length text.
              */
@@ -45,9 +79,19 @@ dojo.declare(
              */
             _lastedCounter : 0,
 
+            /*
+             *
+             */
             _answerSize : 0,
+
+            /*
+             *
+             */
             _hashTagsSize : 0,
 
+            /*
+             *
+             */
             _locked : false,
 
             /*
@@ -62,17 +106,13 @@ dojo.declare(
              * show the preview node.
              * @param node
              */
-            show : function(/* DOM */ parentNode, y) {
-              var yT = (y * -1) -2;
-              dojo.style(parentNode, "top", yT+"px");
+            show : function(/* DOM */ parentNode) {
               if (!this._locked) {
                     this._locked = true;
                     var fadeArgs = {
                             node: parentNode,
-                            duration: 200,
+                            duration: 100,
                             onEnd: dojo.hitch(this,function() {
-                                dojo.addClass(parentNode, "previewFixed");
-                                 dojo.removeClass(parentNode, "previewAbsolute");
                                  this._locked = false;
                             })
                     };
@@ -84,17 +124,13 @@ dojo.declare(
              * hide the preview node.
              * @param node
              */
-            hide : function(/* DOM */ parentNode, y) {
-               var yT = (y * -1) -2;
-               dojo.style(parentNode, "top", yT+"px");
+            hide : function(/* DOM */ parentNode) {
                if (!this._locked) {
                     this._locked = true;
                     var fadeArgs = {
                             node: parentNode,
-                            duration: 200,
+                            duration: 100,
                             onEnd: dojo.hitch(this,function() {
-                                dojo.removeClass(parentNode, "previewFixed");
-                                dojo.addClass(parentNode, "previewAbsolute");
                                 this._locked = false;
                             })
                     };
@@ -116,14 +152,16 @@ dojo.declare(
              * initialize widget.
              */
             initialize : function() {
-
+                dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
             },
 
             /*
              * build question.
+             * @param question widget.
              */
-            _buildQuestion : function(question){
-              dojo.empty(this._content);
+            _buildQuestion : function(/* widget */ question) {
+                //remove old question
+                dojo.empty(this._content);
                 if (this._questionBox.node == null) {
                   this._questionBox.node = dojo.doc.createElement("span");
                   dojo.addClass(this._questionBox.node, "previewQuestion");
@@ -134,10 +172,9 @@ dojo.declare(
                   var newPreview = question.get("value");
                   //question
                   this._questionBox.node.innerHTML = newPreview;
-                  //console.debug("_buildQuestion newPreview", this._questionBox.node);
                   this._completeText = newPreview;
                 }
-                if(question.get("value") != "") {
+                if (question.get("value") != "") {
                     this._content.appendChild(this._questionBox.node);
                 }
             },
@@ -145,8 +182,8 @@ dojo.declare(
             /*
              *
              */
-            _buildAnswers : function(answers){
-              if (answers != null) {;
+            _buildAnswers : function(answers) {
+              if (answers != null) {
                 var arrayItem = [];
                 var questionDiv = dojo.doc.createElement("span");
                 var wishlist = new dojo.dnd.Source(questionDiv);
@@ -195,6 +232,9 @@ dojo.declare(
                       }
             },
 
+            /*
+             * Return the current lenght text.
+             */
             _getCurrentLengthText : function(){
                 return this._lastedCounter;
             },
@@ -244,6 +284,9 @@ dojo.declare(
                 return this._isValid;
             },
 
+            /*
+             * check if the message is valid.
+             */
             isValidMessage : function() {
                 return this._isValidMessage;
             },
@@ -258,10 +301,10 @@ dojo.declare(
             /*
              * Update preview.
              */
-            updatePreview : function(question, answers, hashtags){
-                 this._buildQuestion(question);
-                 this._buildAnswers(answers);
-                 this._buildHahsTags(hashtags);
+            updatePreview : function() {
+                 this._buildQuestion(this._widgetReferences.question);
+                 this._buildAnswers(this._widgetReferences.answer);
+                 this._buildHahsTags(this._widgetReferences.hashtag);
                  this._updateCounter(this.getCompleteTweet());
             }
 });

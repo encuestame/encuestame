@@ -52,6 +52,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.joda.time.DateTime;
@@ -341,15 +342,16 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @see org.encuestame.business.service.imp.ITweetPollService#updateTweetPoll(org.encuestame.persistence.domain.tweetpoll.TweetPoll, java.lang.String[], java.util.List)
      */
     public TweetPoll updateTweetPoll(final TweetPollBean tweetPollBean) throws EnMeNoResultsFoundException {
-        //updating hashtags
         log.debug("Updated tweetpoll with id :"+tweetPollBean.getId());
         final TweetPoll tweetPoll = getTweetPoll(tweetPollBean.getId(), getUserPrincipalUsername());
         Assert.notNull(tweetPoll);
         if (tweetPoll == null) {
             throw new EnMeTweetPollNotFoundException();
         }
-        final List<HashTag> newList = retrieveListOfHashTags(tweetPollBean.getHashTags());
-        log.debug("new list of hashtags size: "+newList.size());
+        //TODO: disabled to create hashtag directly from own service.
+        //final List<HashTag> newList = retrieveListOfHashTags(tweetPollBean.getHashTags());
+        //log.debug("new list of hashtags size: "+newList.size());
+
         //update question name.
         final Question questionDomain = tweetPoll.getQuestion();
         Assert.notNull(questionDomain);
@@ -357,8 +359,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         questionDomain.setSlugQuestion(RestFullUtil.slugify(tweetPollBean.getQuestionBean().getQuestionName()));
         questionDomain.setCreateDate(Calendar.getInstance().getTime());
         getQuestionDao().saveOrUpdate(questionDomain);
+
         //update hashtags.
-        tweetPoll.getHashTags().addAll(retrieveListOfHashTags(tweetPollBean.getHashTags())); //TODO check if this action remove old hashtags.
+        //TODO: disabled to create hashtag directly from own service.
+        //tweetPoll.getHashTags().addAll(retrieveListOfHashTags(tweetPollBean.getHashTags())); //TODO check if this action remove old hashtags.
+
         //update options.
         tweetPoll.setAllowLiveResults(tweetPollBean.getAllowLiveResults());
         tweetPoll.setAllowRepatedVotes(tweetPollBean.getAllowRepeatedVotes());
@@ -463,14 +468,16 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public String generateTweetPollContent(final TweetPoll tweetPollDomain) throws EnMeExpcetion{
         String tweetQuestionText = "";
         try{
-            log.debug("generateTweetPollText");
-            log.debug("TweetPoll ID: "+tweetPollDomain.getTweetPollId());
+            if (log.isDebugEnabled()) {
+                log.debug("generateTweetPollText");
+                log.debug("TweetPoll ID: "+tweetPollDomain.getTweetPollId());
+            }
             tweetQuestionText = tweetPollDomain.getQuestion().getQuestion();
             log.debug("Question text: "+tweetQuestionText);
             final List<TweetPollSwitch> tweetPollSwitchs = getTweetPollSwitch(tweetPollDomain);
             log.debug("generateTweetPollText tweetPollSwitchs:{ "+tweetPollSwitchs.size());
             final StringBuilder builder = new StringBuilder(tweetQuestionText);
-            //
+
             for (final TweetPollSwitch tpswitch : tweetPollSwitchs) {
                  final QuestionAnswer questionsAnswers = tpswitch.getAnswers();
                  log.debug("Answer ID: "+questionsAnswers.getQuestionAnswerId());
@@ -480,12 +487,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  builder.append(" ");
                  builder.append(tpswitch.getShortUrl());
             }
-            //Build Hash Tag.
+
+            // build Hash Tag.
             for (final HashTag tag : tweetPollDomain.getHashTags()) {
-                 log.debug("Hash Tag ID: "+tag.getHashTagId());
-                 log.debug("Tag Name "+tag.getHashTag());
-                 builder.append(" ");
-                 builder.append("#");
+                if (log.isDebugEnabled()) {
+                     log.debug("Hash Tag ID: "+tag.getHashTagId());
+                     log.debug("Tag Name "+tag.getHashTag());
+                }
+                 builder.append(EnMeUtils.SPACE);
+                 builder.append(EnMeUtils.HASH);
                  builder.append(tag.getHashTag());
             }
             tweetQuestionText = builder.toString();
@@ -1029,6 +1039,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public void checkTweetPollCompleteStatus(final TweetPoll tweetPoll) {
         boolean next = true;
+
         log.debug("checkTweetPollCompleteStatus tweetPoll.getLimitVotesEnabled() "+tweetPoll.getLimitVotesEnabled());
         boolean votesEnabled = tweetPoll.getLimitVotesEnabled() == null ? false : tweetPoll.getLimitVotesEnabled();
         if (votesEnabled) {
@@ -1039,11 +1050,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 next = false;
             }
         }
+
         log.debug("checkTweetPollCompleteStatus tweetPoll.getDateLimit() "+tweetPoll.getDateLimit());
         if (next && tweetPoll.getDateLimited() != null) {
             DateTime date = new DateTime(tweetPoll.getDateLimited());
             log.debug(date);
-            if(date.isBeforeNow()){
+            if (date.isBeforeNow()) {
                 log.debug("checkTweetPollCompleteStatus is After Now");
                 tweetPoll.setCompleted(Boolean.TRUE);
                 next = false;
@@ -1060,7 +1072,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll) {
       final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
       final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll , null, null, TypeSearchResult.TWEETPOLL);
-      log.debug("getTweetPollLinks "+links.size());
+      log.debug("getTweetPollLinks: "+links.size());
       for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
           log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
           final LinksSocialBean linksSocialBean = new LinksSocialBean();
@@ -1077,6 +1089,47 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
        }
 
       return linksBean;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.ITweetPollService#addHashtagToTweetPoll
+     * (org.encuestame.persistence.domain.tweetpoll.TweetPoll,
+     * org.encuestame.utils.web.HashTagBean)
+     */
+    public HashTag addHashtagToTweetPoll(final TweetPoll tweetPoll,
+            final HashTagBean hashTagBean)
+            throws EnMeNoResultsFoundException {
+        log.debug("Adding hashtag to TP "+tweetPoll.getTweetPollId());
+        log.debug("Adding hashTagBean to TP "+hashTagBean.getHashTagName());
+        HashTag hashtag = getHashTag(hashTagBean.getHashTagName(), false);
+        if (hashtag == null) {
+            hashtag = createHashTag(hashTagBean.getHashTagName().toLowerCase());
+            tweetPoll.getHashTags().add(hashtag);
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+            log.debug("Added new hashtag done :"+hashtag.getHashTagId());
+            return hashtag;
+        } else {
+            tweetPoll.getHashTags().add(hashtag);
+            getTweetPollDao().saveOrUpdate(tweetPoll);
+            log.debug("Added previous hashtag done :"+hashtag.getHashTagId());
+            return hashtag;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.ITweetPollService#removeHashtagFromTweetPoll
+     * (org.encuestame.persistence.domain.tweetpoll.TweetPoll,
+     * org.encuestame.persistence.domain.HashTag)
+     */
+    public void removeHashtagFromTweetPoll(final TweetPoll tweetPoll,
+            final HashTag hashTag) {
+        log.debug("Remove hashtag disabled");
     }
 
     /*

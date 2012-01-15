@@ -49,6 +49,10 @@ public class EnMeUtils {
 
     public static final long HIT_DEFAULT = 1;
 
+    public static final String HASH = "#";
+
+    public static final String SPACE = " ";
+
     /** Percentage value for like option vote. **/
     public static final float LIKE_PERCENTAGE_VALUE = 0.10F;
 

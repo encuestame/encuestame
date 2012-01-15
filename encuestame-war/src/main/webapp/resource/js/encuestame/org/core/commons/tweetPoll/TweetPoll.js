@@ -27,20 +27,41 @@ dojo.declare(
     [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpoll.html"),
 
-        widgetsInTemplate: true,
-
         hashTagWidget: null,
 
+        /*
+         * answer widget reference.
+         */
         answerWidget : null,
 
+        /*
+         * question widget.
+         */
         questionWidget : null,
 
+        /*
+         * preview widget.
+         */
         previeWidget : null,
 
+        /*
+         * the fixed preview appear on the top of the page.
+         */
+        previewFixedWiget : null,
+
+        /*
+         * social widget.
+         */
         socialWidget : null,
 
+        /*
+         * the publish dialog to alocate the publish widget.
+         */
         dialogWidget : null,
 
+        /*
+         * schedule widget.
+         */
         scheduleWidget : null,
 
         scheduledDateWidget  : null,
@@ -110,7 +131,10 @@ dojo.declare(
             this.questionWidget = dijit.byId("question");
             this.answerWidget = dijit.byId("answers");
             this.hashTagWidget = dijit.byId("hashtags");
-            this.previeWidget = dijit.byId("preview");
+            //create preview widget.
+            this.previeWidget = this._createPreviewWidget(this._preview);
+            //create preview fixed widet.
+            this.previewFixedWiget  = this._createPreviewWidget(this._previewFixed);
             if(this.questionWidget
                     || this.answerWidget
                     || this.hashTagWidget
@@ -280,6 +304,18 @@ dojo.declare(
         },
 
         /*
+         * create preview widget.
+         */
+        _createPreviewWidget : function(node) {
+            var widget = new encuestame.org.core.commons.tweetPoll.TweetPollPreview(
+                     {
+                         _widgetReferences : {question : this.questionWidget, answer : this.answerWidget, hashtag : this.hashTagWidget }
+                     });
+             node.appendChild(widget.domNode);
+             return widget;
+        },
+
+        /*
          * block widgets.
          */
         _block : function(){
@@ -350,24 +386,21 @@ dojo.declare(
              //this.tweetPoll.anwsers = status.answers;
              //
              this.tweetPoll.started = true;
-             console.debug("_autoSaveStatus FINISH", this.tweetPoll);
+             //console.debug("_autoSaveStatus FINISH", this.tweetPoll);
          },
 
         /*
          * auto-scroll publish top bar.
          */
         scroll : function() {
-            var node = dojo.byId("tweetPollWrapper");
-            var nodeFixed = dojo.byId("previewWrapper");
+            var node = this._tweetQuestion;
+            var nodeFixed = dojo.byId("previewWrapperFixed");
             var coords = dojo.coords(node);
-            console.info("corrds", coords.y);
             if (coords.y < 0) {
-              this.previeWidget.show(nodeFixed, coords.y);
+             this.previewFixedWiget.show(nodeFixed);
 
             } else {
-              this.previeWidget.hide(nodeFixed, coords.y);
-             // dojo.addClass(nodeFixed, "previewAbsolute");
-              //dojo.removeClass(nodeFixed, "previewFixed");
+              this.previewFixedWiget.hide(nodeFixed);
             }
           },
 
@@ -381,18 +414,18 @@ dojo.declare(
               console.debug("url id ", hash.id);
               //this.tweetPoll.tweetPollId = hash.id;
              }
-             dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
+             //dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
              this.questionWidget.block = false;
              dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(event) {
                  if (dojo.keys.DELETE == event.keyCode || dojo.keys.BACKSPACE == event.keyCode) {
-                        console.debug("is removing");
-                        this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
+                        //console.debug("is removing");
+                        dojo.publish("/encuestame/tweetpoll/updatePreview");
                         if(!this.questionWidget.block){
                             this._questionTextLastSucessMessage = this.questionWidget.get("value");
                         }
                  } else {
-                     this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
-                     if(!this.questionWidget.block){
+                     dojo.publish("/encuestame/tweetpoll/updatePreview");
+                     if (!this.questionWidget.block) {
                          this._questionTextLastSucessMessage = this.questionWidget.get("value");
                      } else {
                          this.questionWidget.set('value', this._questionTextLastSucessMessage);
@@ -409,14 +442,6 @@ dojo.declare(
              this.tweetPollPublishWidget = new encuestame.org.core.commons.tweetPoll.TweetPollPublishInfo(
                      { tweetPollWidget : this});
         },
-
-        /*
-         * update widget preview.
-         */
-        updatePreview : function() {
-            this.previeWidget.updatePreview(this.questionWidget, this.answerWidget, this.hashTagWidget);
-        },
-
 
         /*
          * check if tweetpoll is valid and start the process to publish.
