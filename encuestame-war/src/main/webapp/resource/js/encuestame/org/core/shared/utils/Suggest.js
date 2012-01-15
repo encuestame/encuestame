@@ -47,12 +47,21 @@ dojo.declare(
 
         sortFields : [{attribute: 'hashTagName', descending: true}],
 
+        /*
+         * Default search parameters.
+         */
         searchParam: { limit : 10, keyword : ""},
 
+        /*
+         * A filter list to exluce from suggested items.
+         */
         exclude : [],
 
         _itemStored : [],
 
+        /*
+         * post create life cylce.
+         */
         postCreate: function() {
             this.textBoxWidget = dijit.byId(this._suggest);
             if(this.textBoxWidget){
@@ -60,14 +69,16 @@ dojo.declare(
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                     if (dojo.keys.SPACE == e.keyCode || dojo.keys.ENTER == e.keyCode) {
                          this.processSpaceAction();
-                    } else if (dojo.keys.ESCAPE == e.keyCode) {
-                        this.hide();
+                    } else if (dojo.keys.UP_ARROW == e.keyCode) {
+                        //TODO: down by suggestion list.
+                    } else if (dojo.keys.DOWN_ARROW == e.keyCode) {
+                        //TODO: up by suggestion list.
                     } else {
                         this._setParams(
                                 { limit: this.limit,
                                   keyword : this.textBoxWidget.get("value"),
                                   excludes : this.exclude});
-                        console.debug("suggest", this.textBoxWidget.get("value"));
+                        //console.debug("suggest", this.textBoxWidget.get("value"));
                         if (this.textBoxWidget.get("value") != "") {
                             this.callSuggest();
                         }
@@ -83,7 +94,7 @@ dojo.declare(
                 //call first time suggest.
                 this.callSuggest();
                 //enable add button, if not the default add is click on item.
-                if(this.addButton){
+                if (this.addButton) {
                   //check if node exist.
                   if (this._suggestButton) {
                       dojo.style(this._suggestButton, "display", "block");
@@ -198,8 +209,8 @@ dojo.declare(
         },
 
         //Process after click add button.
-        processSelectedItemButton : function(){
-            if(this.textBoxWidget && this.addButton){
+        processSelectedItemButton : function() {
+            if (this.textBoxWidget && this.addButton) {
                 this.hide();
                 var newValue = {id:null, label:"", newValue: true};
                 newValue.label = this.textBoxWidget.get("value");

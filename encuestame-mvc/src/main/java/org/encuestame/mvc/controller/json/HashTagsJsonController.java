@@ -146,7 +146,7 @@ public class HashTagsJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "/api/survey/hashtag/{type}/{action}.json", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/survey/hashtag/{type}/{action}.json", method = RequestMethod.POST)
     public ModelMap manageHashtag(
             @RequestParam(value = "id", required = true) final String hashtag,
             @RequestParam(value = "itemId", required = true) final Long id,

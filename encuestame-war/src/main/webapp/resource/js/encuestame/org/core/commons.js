@@ -508,12 +508,14 @@ encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/a
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 //Hashtag Service
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
+
 /*
  * Get Hashtag action.
  * @param type could be / hashtag, tweetpoll, poll.
  * @param action could be / remove / add
  */
-encuestame.service.list.tweetpoll.answer.getAction = function(/* string */ type,  /* string */action) {
+encuestame.service.list.hashtagsAction = {};
+encuestame.service.list.hashtagsAction.getAction = function(/* string */ type,  /* string */action) {
     return  encuestame.contextWidget()+"/api/survey/hashtag/"+ type+"/"+action+".json";
 };
 encuestame.service.list.cloud = encuestame.contextWidget()+"/api/common/hashtags/cloud.json";
