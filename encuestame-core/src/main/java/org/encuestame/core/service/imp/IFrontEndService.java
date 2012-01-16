@@ -236,9 +236,7 @@ public interface IFrontEndService extends ServiceOperations {
 	/**
 	 * Get hashTag ranking.
 	 * @param tagName
-	 * @return
-	 * @throws EnMeNoResultsFoundException
+	 * @return 
 	 */
-	List<HashTagRankingBean> getHashTagRanking(final String tagName)
-			throws EnMeNoResultsFoundException;
+	List<HashTagRankingBean> getHashTagRanking(final String tagName);
 }

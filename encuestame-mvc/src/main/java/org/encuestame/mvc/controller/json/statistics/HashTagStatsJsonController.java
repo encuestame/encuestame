@@ -14,7 +14,8 @@ package org.encuestame.mvc.controller.json.statistics;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.HashMap; 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.enums.TypeSearchResult; 
+import org.encuestame.utils.web.stats.HashTagRankingBean;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,13 +43,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since January 05, 2012
  */
-public class HashTagJsonStats extends AbstractJsonController {
+@Controller
+public class HashTagStatsJsonController extends AbstractJsonController {
 
 	/** Log. **/
 	private Logger log = Logger.getLogger(this.getClass());
 
 	/** **/
-	private IFrontEndService service = getFrontService();
+
 
 	/** **/
 	private Integer INIT_RESULTS = 0;
@@ -71,16 +75,17 @@ public class HashTagJsonStats extends AbstractJsonController {
 			@RequestParam(value = "limit", required = false) Integer limit,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		try {
+		try { 
+			
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			final HashTagStatsBean tagStatsBean = new HashTagStatsBean();
-			tagStatsBean.setTotalHits(service.getTotalUsageByHashTag(tagName,
+			tagStatsBean.setTotalHits(getFrontService().getTotalUsageByHashTag(tagName,
 					this.INIT_RESULTS, limit,
 					TypeSearchResult.getTypeSearchResult(filter)));
-			tagStatsBean.setTotalUsageBySocialNetwork(service
+			tagStatsBean.setTotalUsageBySocialNetwork(getFrontService()
 					.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
 							limit));
-			tagStatsBean.setUsageByItem(service.getHashTagHitsbyName(tagName,
+			tagStatsBean.setUsageByItem(getFrontService().getHashTagHitsbyName(tagName,
 					TypeSearchResult.getTypeSearchResult(filter)));
 
 			jsonResponse.put("hashTagButtonStats", tagStatsBean);
@@ -92,6 +97,38 @@ public class HashTagJsonStats extends AbstractJsonController {
 		}
 		return returnData();
 	}
+	
+	
+	/**
+	 * Get hashTags ranking stats.
+	 * @param tagName
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/api/common/hashtags/stats/ranking.json", method = RequestMethod.GET)
+	public ModelMap getHashTagRankingStats(
+			@RequestParam(value = "tagName", required = true) String tagName,  
+			HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		try {
+			//IFrontEndService service = getFrontService();
+			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+				final List<HashTagRankingBean> tagRankingBean =  getFrontService().getHashTagRanking(tagName);
+			log.debug("HashTagJsonStats size --->" + tagRankingBean.size());
+			jsonResponse.put("hashTagRankingStats", getFrontService().getHashTagRanking(tagName));
+			setItemResponse(jsonResponse);
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
+	
 
 	 /**
      * HashTag stats bean.
