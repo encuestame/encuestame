@@ -12,7 +12,9 @@
  */
 package org.encuestame.utils;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,7 +28,6 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.ResumeResultTweetPoll;
 import org.encuestame.utils.json.SocialAccountBean;
-import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
@@ -46,8 +47,13 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
+import org.encuestame.utils.web.UnitAbstractSurvey.CustomFinalMessage;
+import org.encuestame.utils.web.UnitAbstractSurvey.MultipleResponse;
+import org.encuestame.utils.web.ProfileRatedTopBean;
+import org.encuestame.utils.web.UnitAttachment;
 import org.encuestame.utils.web.UnitCatStateBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitGroupBean;
@@ -58,10 +64,12 @@ import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.UnitSurveyFormat;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
 import org.encuestame.utils.web.frontEnd.UnitSearchItem;
 import org.encuestame.utils.web.notification.UtilNotification;
+import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,32 +83,19 @@ import org.junit.Test;
 public class TestUnitBeans extends AbstractBaseUtils {
 
     /** {@link QuestionAnswerBean}. **/
-    private QuestionAnswerBean questionAnswer;
-
-    /** {@link TweetPollResultsBean}. **/
-    private TweetPollResultsBean tpResultsBean;
-
-    /** {@link TweetPollBean}. **/
-    private TweetPollBean tpBean;
-
+    private QuestionAnswerBean questionAnswer; 
+ 
     /** {@link DashboardBean}.**/
-    private DashboardBean myDashboardBean;
-
-    /** {@link UserAccountBean}. **/
-    private UserAccountBean myUserAccBean;
+    private DashboardBean myDashboardBean; 
 
     @Before
-    public void initService(){
-
-
-
-
+    public void initService(){ 
        this.myDashboardBean = createDashboardBean("Store all surveys created",
                 "Survey Dash", Boolean.TRUE, 8, "AAA", Boolean.TRUE, 2);
     }
 
     /**
-    * Test Unit Answers Bean.
+    * Test {@link QuestionAnswerBean}.
     **/
     @Test
     public void testUnitAnswerBean() {
@@ -113,6 +108,9 @@ public class TestUnitBeans extends AbstractBaseUtils {
         assertNotNull(unitAnswer.getQuestionId());
     }
 
+    /**
+     * Test {@link UtilTreeNode}.
+     */
     @Test
     public void testUtilTreeNode(){
         final UtilTreeNode treeNode = new UtilTreeNode();
@@ -126,7 +124,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-    * Test Unit Pattern Bean.
+    * Test {@link QuestionPatternBean}.
     */
     @Test
     public void testUnitPatternBean() {
@@ -168,7 +166,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Unit Tweet Poll.
+     * Unit {@link TweetPollBean}.
      */
     @Test
     public void testUnitTweetPoll(){
@@ -186,13 +184,8 @@ public class TestUnitBeans extends AbstractBaseUtils {
         tweetPoll.setSchedule(true);
         tweetPoll.setScheduleDate(myDate);
         tweetPoll.setCompleted(true);
-        tweetPoll.setTweetUrl("http://www.encuestame.org");
-      //  tweetPoll.setTwitterUserAccount("@encuestame");
-        assertNotNull(tweetPoll.getCompleted());
-    //    assertNotNull(tweetPoll.getTwitterUserAcoount());
-    //    assertNotNull(tweetPoll.getTweetUrl());
-    //    assertNotNull(tweetPoll.getTweetUrl());
-
+        tweetPoll.setTweetUrl("http://www.encuestame.org"); 
+        assertNotNull(tweetPoll.getCompleted()); 
         tweetPoll.setCaptcha(true);
         tweetPoll.setLimitVotes(12345);
         tweetPoll.setResumeLiveResults(true);
@@ -335,6 +328,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
         assertNotNull(projectBean.getUserId());
         assertNotNull(projectBean.toString());
     }
+    
     /**
      * Test {@link org.encuestame.utils.web.UnitLocationBean}.
      */
@@ -376,6 +370,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
         assertNotNull(locationFolder.getUnitUserBean());
         assertNotNull(locationFolder.getType());
     }
+    
     /**
      * Test {@link UnitSessionUserBean}.
      */
@@ -497,7 +492,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test.
+     * Test {@link UtilVoteCaptcha}.
      */
     @Test
     public void testUtilVoteCaptcha(){
@@ -506,28 +501,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
         captcha.setCodeVote("12345");
         assertNotNull(captcha.getCaptcha());
         assertNotNull(captcha.getCodeVote());
-    }
-
-    /**
-     * Test.
-     */
-    @Test
-    public void UtilNotification(){
-        final org.encuestame.utils.web.notification.UtilNotification notification = new UtilNotification();
-        notification.setAdditionalDescription("add");
-        notification.setDate("12345");
-        notification.setDescription("des");
-        notification.setHour("1");
-        notification.setIcon("icon");
-        notification.setId(1L);
-        notification.setType("type");
-        assertNotNull(notification.getAdditionalDescription());
-        assertNotNull(notification.getDate());
-        assertNotNull(notification.getDescription());
-        assertNotNull(notification.getHour());
-        assertNotNull(notification.getIcon());
-        assertNotNull(notification.getType());
-    }
+    } 
 
     /**
      * Test.
@@ -538,7 +512,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test.
+     * Test {@link ForgotPasswordBean}.
      */
     @Test
     public void testUnitForgotPassword(){
@@ -550,19 +524,23 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test.
+     * Test {@link HashTagBean}.
      */
     @Test
     public void testUnitHashTag(){
         final HashTagBean hashTag = new HashTagBean();
         hashTag.setHashTagName("nicaragua");
         hashTag.setId(1L);
+        hashTag.setHits(100L);
+        hashTag.setSize(15);
         assertNotNull(hashTag.getHashTagName());
         assertNotNull(hashTag.getId());
+        assertNotNull(hashTag.getHits());
+        assertNotNull(hashTag.getSize());
     }
 
     /**
-     * Test.
+     * Test {@link SocialAccountBean}.
      */
     @Test
     public void testUnitTwitterAccountBean(){
@@ -582,7 +560,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test.
+     * Test {@link InvitationBean}. 
      */
     @Test
     public void testInvitationBean(){
@@ -598,7 +576,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test.
+     * Test {@link NotificationBean}.
      */
     @Test
     public void testNotificationBean(){
@@ -829,7 +807,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
 //    }
 
     /**
-     * Test Unit email list.
+     * Test {@link UnitLists}.
      */
     @Test
     public void testUnitLists(){
@@ -846,7 +824,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test comment bean.
+     * Test {@link CommentBean}.
      */
     @Test
     public void testCommentBean(){
@@ -875,26 +853,26 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test gadget properties bean.
+     * Test {@link GadgetPropertiesBean}.
      */
-    //@Test
-//    public void testGadgetPropertiesBean(){
-//        final GadgetPropertiesBean gadgetProperties = new GadgetPropertiesBean();
-//        gadgetProperties.setPropertyId(1L);
-//        gadgetProperties.setGadgetPropName("my gadget");
-//        gadgetProperties.setGadgetPropValue("");
-//        gadgetProperties.setGadgetId(1L);
-//        gadgetProperties.setUserAccount(this.myUserAccBean);
-//        assertNotNull(gadgetProperties);
-//        assertNotNull(gadgetProperties.getPropertyId());
-//        assertNotNull(gadgetProperties.getGadgetPropName());
-//        assertNotNull(gadgetProperties.getGadgetPropValue());
-//        assertNotNull(gadgetProperties.getGadgetId());
-//        assertNotNull(gadgetProperties.getUserAccount());
-//    }
+    @Test
+	public void testGadgetPropertiesBean(){
+		final GadgetPropertiesBean gadgetProperties = new GadgetPropertiesBean();
+        gadgetProperties.setPropertyId(1L);
+        gadgetProperties.setGadgetPropName("my gadget");
+        gadgetProperties.setGadgetPropValue("");
+        gadgetProperties.setGadgetId(1L);
+        gadgetProperties.setUserAccount(createUserAccountBean("admin", "admin@encuestame.org"));
+        assertNotNull(gadgetProperties);
+        assertNotNull(gadgetProperties.getPropertyId());
+        assertNotNull(gadgetProperties.getGadgetPropName());
+        assertNotNull(gadgetProperties.getGadgetPropValue());
+        assertNotNull(gadgetProperties.getGadgetId());
+        assertNotNull(gadgetProperties.getUserAccount());
+    }
 
     /**
-     * Test gadget bean.
+     * Test {@link GadgetBean}.
      */
     @Test
     public void testGadgetBean(){
@@ -917,7 +895,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test social user profile.
+     * Test {@link SocialUserProfile}.
      */
     @Test
     public void testSocialUserProfile(){
@@ -1002,7 +980,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     }
 
     /**
-     * Test social network bean.
+     * Test {@link SocialNetworkBean}.
      */
     @Test
     public void testSocialNetworkBean(){
@@ -1022,5 +1000,188 @@ public class TestUnitBeans extends AbstractBaseUtils {
         assertNotNull(socialNetwork.getSocialProvider());
         assertNotNull(socialNetwork.getUrlAccessToken());
         assertNotNull(socialNetwork.getUrlRequestToken());
+    }
+    
+    /**
+     * Test {@link HashTagRankingBean}.
+     */
+    @Test
+    public void testHashTagRankingBean(){
+    	final HashTagRankingBean tagRankingBean = new HashTagRankingBean();
+    	tagRankingBean.setRankId(1L);
+    	tagRankingBean.setAverage(28.5);
+    	tagRankingBean.setPosition(3);
+    	tagRankingBean.setTagName("Spain");
+    	assertNotNull(tagRankingBean.getAverage());
+    	assertNotNull(tagRankingBean.getRankId());
+    	assertNotNull(tagRankingBean.getPosition());
+    	assertNotNull(tagRankingBean.getTagName());
+    }
+    
+    /**
+     * Test {@link UnitSurveySection}.
+     */
+    @Test
+    public void testUnitSurveySectionBean(){
+    	final UnitSurveySection surveySectionBean = new UnitSurveySection();
+    	final List<QuestionBean> questionBeanList = new ArrayList<QuestionBean>();
+    	questionBeanList.add(new QuestionBean("First Question"));
+    	questionBeanList.add(new QuestionBean("Second Question"));
+    	questionBeanList.add(new QuestionBean("Third Question")); 
+    	surveySectionBean.setId(1);
+    	surveySectionBean.setName("main section");
+    	surveySectionBean.setShowPanel(Boolean.TRUE);
+    	surveySectionBean.setStateId(1);
+    	surveySectionBean.setListQuestions(questionBeanList);
+    	assertNotNull(surveySectionBean.getId());
+    	assertNotNull(surveySectionBean.getName());
+    	assertNotNull(surveySectionBean.getShowPanel());
+    	assertNotNull(surveySectionBean.getStateId());
+    	assertNotNull(surveySectionBean.getListQuestions());
+    } 
+    
+    /**
+     * Test {@link SurveyBean}.
+     */
+    @Test
+    public void testSurveyBean(){
+    	final SurveyBean surveyBean = new SurveyBean();
+    	final Calendar myDate = Calendar.getInstance();
+    	final List<HashTagBean> tagBean = new ArrayList<HashTagBean>();
+    	tagBean.add(createUnitHashTag("Europa", 1L));
+    	tagBean.add(createUnitHashTag("Asia", 2L));
+    	tagBean.add(createUnitHashTag("Africa", 3L));
+    	
+    	surveyBean.setSid(1L);
+    	surveyBean.setTicket(1);
+    	surveyBean.setStartDate(myDate.getTime());
+    	myDate.add(Calendar.DATE, +8);
+    	surveyBean.setEndDate(myDate.getTime());
+    	myDate.add(Calendar.DATE, +2);
+    	surveyBean.setDateInterview(myDate.getTime());
+    	surveyBean.setComplete("complete");
+    	surveyBean.setOwnerUsername("paola");
+    	surveyBean.setCustomMessage(Boolean.TRUE);
+    	surveyBean.setCustomStartMessages("Custom start messages");
+    	surveyBean.setMultipleResponse(MultipleResponse.SINGLE);
+    	surveyBean.setCustomFinalMessage(CustomFinalMessage.FINALMESSAGE); 
+    	surveyBean.setShowProgressBar(Boolean.TRUE);
+    	surveyBean.setOptionalTitle("Optional Title");
+    	surveyBean.setPasswordRestrictions(Boolean.FALSE);
+    	surveyBean.setIpRestriction(Boolean.TRUE);
+    	surveyBean.setPassProtection("");
+    	surveyBean.setIpProtection("");
+    	surveyBean.setCloseAfterDate(Boolean.FALSE);
+    	myDate.add(Calendar.DATE, +2);
+    	surveyBean.setClosedDate(myDate.getTime());
+    	surveyBean.setCloseAfterquota(Boolean.TRUE);
+    	surveyBean.setClosedQuota(20);
+    	surveyBean.setShowResults(Boolean.TRUE);
+    	surveyBean.setNumbervotes(10L);
+    	surveyBean.setHits(25L);
+    	surveyBean.setShowAdditionalInfo(Boolean.TRUE);
+    	surveyBean.setAdditionalInfo("Additional Info");
+    	surveyBean.setNotifications(Boolean.TRUE);
+    	surveyBean.setName("My first Survey");
+    	surveyBean.setRelevance(85L);
+    	surveyBean.setCreatedAt(myDate.getTime());
+    	surveyBean.setLikeVote(300L);
+    	surveyBean.setDislikeVote(150L);
+    	surveyBean.setFavorites(Boolean.TRUE);
+    	surveyBean.setHashTags(tagBean);
+    	surveyBean.setTotalComments(25L);
+    	
+    	assertNotNull(surveyBean.getSid());
+    	assertNotNull(surveyBean.getTicket());
+    	assertNotNull(surveyBean.getStartDate());
+    	assertNotNull(surveyBean.getEndDate());
+    	assertNotNull(surveyBean.getDateInterview());
+    	assertNotNull(surveyBean.getComplete());
+    	assertNotNull(surveyBean.getOwnerUsername());
+    	assertNotNull(surveyBean.getCustomMessage());
+    	assertNotNull(surveyBean.getCustomStartMessages());
+    	assertNotNull(surveyBean.getMultipleResponse());
+    	assertNotNull(surveyBean.getShowProgressBar());
+    	assertNotNull(surveyBean.getOptionalTitle());
+    	assertNotNull(surveyBean.getPasswordRestrictions());
+    	assertNotNull(surveyBean.getIpRestriction());
+    	assertNotNull(surveyBean.getPassProtection());
+    	assertNotNull(surveyBean.getIpProtection());
+    	assertNotNull(surveyBean.getCloseAfterDate());
+    	assertNotNull(surveyBean.getClosedDate());
+    	assertNotNull(surveyBean.getClosedQuota());
+    	assertNotNull(surveyBean.getShowResults());
+    	assertNotNull(surveyBean.getNumbervotes());
+    	assertNotNull(surveyBean.getHits());
+    	assertNotNull(surveyBean.getShowAdditionalInfo());
+    	assertNotNull(surveyBean.getAdditionalInfo());
+    	assertNotNull(surveyBean.getNotifications());
+    	assertNotNull(surveyBean.getName());
+    	assertNotNull(surveyBean.getRelevance());
+    	assertNotNull(surveyBean.getCreatedAt());
+    	assertNotNull(surveyBean.getLikeVote());
+    	assertNotNull(surveyBean.getDislikeVote());
+    	assertNotNull(surveyBean.getFavorites());
+    	assertNotNull(surveyBean.getHashTags());
+    	assertNotNull(surveyBean.getTotalComments());
+    }
+    
+    /**
+     * Test {@link UnitAttachment}
+     */
+    @Test
+    public void testUnitAttachment(){
+    	final UnitAttachment attachmentBean = new UnitAttachment();
+    	final UnitProjectBean projectBean = createProjectBean("", 2L, 1L);
+    	final File myFile =  new File("/uri/"); 
+    	attachmentBean.setAttachmentId(1L);
+    	attachmentBean.setFile(myFile);
+    	attachmentBean.setFilename("attachFile");
+    	attachmentBean.setProjectBean(projectBean);
+    	attachmentBean.setUploadDate(new Date());
+    	
+    	assertNotNull(attachmentBean.getAttachmentId());
+    	assertNotNull(attachmentBean.getFile());
+    	assertNotNull(attachmentBean.getFilename());
+    	assertNotNull(attachmentBean.getProjectBean());
+    	assertNotNull(attachmentBean.getUploadDate());  
+    }
+    
+    /**
+     * Test {@link TweetPollResultsBean}.
+     */
+    @Test
+    public void testTweetPollResultsBean(){
+    	final TweetPollResultsBean tpResultsBean = new TweetPollResultsBean();
+    	tpResultsBean.setAnswerId(1L);
+    	tpResultsBean.setAnswerName("Yes");
+    	tpResultsBean.setColor("#000000");
+    	tpResultsBean.setPercent("50");
+    	tpResultsBean.setVotes(60L);
+    	
+    	assertNotNull(tpResultsBean.getAnswerId());
+    	assertNotNull(tpResultsBean.getAnswerName());
+    	assertNotNull(tpResultsBean.getColor());
+    	assertNotNull(tpResultsBean.getPercent());
+    	assertNotNull(tpResultsBean.getVotes());  
+    }
+    
+    /**
+     * Test {@link ProfileRatedTopBean}.
+     */
+    @Test
+    public void testProfileRatedTopBean(){
+    	final ProfileRatedTopBean profileRatedTop = new ProfileRatedTopBean();
+    	profileRatedTop.setPoll(1L);
+    	profileRatedTop.setSurvey(2L);
+    	profileRatedTop.setTopValue(5L);
+    	profileRatedTop.setTpoll(4L);
+    	profileRatedTop.setUsername("admin");
+    	
+    	assertNotNull(profileRatedTop.getPoll());
+    	assertNotNull(profileRatedTop.getSurvey());
+    	assertNotNull(profileRatedTop.getTopValue());
+    	assertNotNull(profileRatedTop.getUsername());
+    	assertNotNull(profileRatedTop.getTpoll()); 
     }
 }
