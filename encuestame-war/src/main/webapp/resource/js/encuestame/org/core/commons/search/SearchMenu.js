@@ -1,6 +1,9 @@
 dojo.provide("encuestame.org.core.commons.search.SearchMenu");
 
+dojo.require("dijit.form.TextBox");
+dojo.require('encuestame.org.core.commons');
 dojo.require("encuestame.org.core.shared.utils.Suggest");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 /**
  * Search menu widget.
@@ -8,7 +11,7 @@ dojo.require("encuestame.org.core.shared.utils.Suggest");
  */
 dojo.declare(
     "encuestame.org.core.commons.search.SearchMenu",
-    [encuestame.org.core.shared.utils.SuggestItem],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
       /*
        * template.
        */
@@ -19,10 +22,13 @@ dojo.declare(
          */
         widgetsInTemplate: true,
 
+
+        label : "Search",
+
         /*
          * suggest widget referece.
          */
-        suggestWidget : null,
+        textBoxWidget : null,
 
         /*
          * store all items.
@@ -30,46 +36,187 @@ dojo.declare(
         listItems : [],
 
         /*
+         * default search params.
+         */
+        searchParam: { limit : config.suggest_limit, keyword : ""},
+
+        /*
+         * index item selected.
+         */
+        _indexItem : -1,
+
+        /*
+         * store the item selected temp.
+         */
+        _selectedNode : null,
+
+        /*
          * post create process.
          */
         postCreate: function() {
-          //instance suggest widget.
-            this.suggestWidget = new encuestame.org.core.shared.utils.Suggest(
-                { url :encuestame.service.search.suggest,
-                  addButton : false,
-                  hideLabel: true,
-                  query :  {itemSearchTitle : "*"},
-                  templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/suggest.html")});
-            //override build row method.
-            this.suggestWidget.buildRow = dojo.hitch(this, function(data){
-                  console.info("suggest buildRow...", data);
-                  this.newItemSuggest(data);
-              });
-            //append child widget dom node.
-            this._suggest.appendChild(this.suggestWidget.domNode);
-            //if suggest is not null we override pricessSelectedItem method.
-            if(this.suggestWidget){
-                this.suggestWidget.processSelectedItem = dojo.hitch(this, function(data){
-                    console.info("Processing Item Selected ...", data);
-                    this.newItemSuggest(data);
-                });
+           this.textBoxWidget = dijit.byId(this._suggest);
+           if (this.textBoxWidget) {
+               this._searchSuggestSupport();
+           }
+        },
+
+        /*
+         * set params
+         * @param object of values.
+         */
+        _setParams: function(value){
+            this.searchParam = value;
+        },
+
+
+        /*
+         * hide with fade out the suggest box.
+         */
+        hide : function(){
+            //console.info("HIDE");
+            this.listItems = [];
+            var fadeArgs = {
+                    node: this._suggestItems
+            };
+            dojo.fadeOut(fadeArgs).play();
+            this.clear();
+        },
+
+        /*
+         *
+         */
+        clear : function(){
+            if (this.textBoxWidget) {
+                this._selectedNode = null;
+                this.textBoxWidget.set("value", "");
+            }
+            dojo.empty(this._suggestItems);
+        },
+
+        /*
+         *
+         */
+        _moveSelected : function(position) {
+             dojo.query(".web-search-item").forEach(function(node, index, arr){
+                  dojo.removeClass(node, "selected");
+             });
+            if (this._indexItem == -1) {
+                if (position == "up") {
+                    this._indexItem = this.listItems.length;
+                } else {
+                    this._indexItem = 0;
+                }
+            } else  if (this._indexItem == 0) {
+                if (position == "up") {
+                    this._indexItem = this.listItems.length - 1;
+                } else if (position == "down") {
+                    this._indexItem = this._indexItem + 1;
+                }
+            } else if (this._indexItem >= this.listItems.length) {
+                 if (position == "up") {
+                     this._indexItem = this.listItems.length - 1;
+                 } else {
+                     this._indexItem = 0;
+                 }
+                this._indexItem = 0;
+            } else {
+                if (position == "up") {
+                    this._indexItem = this._indexItem - 1;
+                } else {
+                    this._indexItem = this._indexItem + 1;
+                }
+            }
+            //find node in the array.
+            var node = this.listItems[this._indexItem];
+            this._selectedNode = node;
+            if (node) {
+                this.textBoxWidget.attr("value", dojo.attr(node, "data-value"));
+                dojo.addClass(node, "selected");
             }
         },
 
         /*
-         * Create new suggest item.
+         * on press enter.
+         * @param selectedItem the item selected by user.
+         */
+        processEnterAction : function(selectedItem) {
+            //if item is null, search whith value in the input, if not use the data-value attribute.
+              var searchUrl = encuestame.contextDefault;
+            if (selectedItem == null || dojo.attr(selectedItem, "data-url") == undefined) {
+                searchUrl = searchUrl.concat("/search?q=");
+                searchUrl = searchUrl.concat(this.textBoxWidget.get("value"));
+            } else {
+                searchUrl = searchUrl.concat(dojo.attr(selectedItem, "data-url"));
+            }
+            document.location.href = searchUrl;
+        },
+
+        /*
+         *
+         */
+        _searchSuggestSupport : function() {
+             dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
+                 if (dojo.keys.ENTER == e.keyCode) {
+                      this.processEnterAction(this._selectedNode);
+                 } else if (dojo.keys.ESCAPE == e.keyCode) {
+                     this.hide();
+                 } else if (dojo.keys.UP_ARROW == e.keyCode) {
+                     this._moveSelected("up");
+                 } else if (dojo.keys.DOWN_ARROW == e.keyCode) {
+                     this._moveSelected("down");
+                 } else {
+                     this._setParams(
+                             { limit: config.suggest_limit,
+                               keyword : this.textBoxWidget.get("value"),
+                               excludes : this.exclude});
+                     //console.debug("suggest", this.textBoxWidget.get("value"));
+                     if (this.textBoxWidget.get("value") != "" && this.textBoxWidget.get("value").length > 1) {
+                         this._searchCallService();
+                     }
+                 }
+                 //this.textBoxWidget //TODO: this.hide() on lost focus.
+             }));
+        },
+
+        /*
+         * Make a call to search service.
+         * {"error":{},"success":{"items":{"profiles":[],"questions":[],"attachments":[],"tags":[{"id":null,"hits":3000001,"typeSearchResult":"HASHTAG","urlLocation":"/hashtag/nicaragua","score":100,"itemSearchTitle":"Nicaragua","itemSearchDescription":null}]},"label":"itemSearchTitle","identifier":"id"}}
+         */
+        _searchCallService : function(){
+            var load = dojo.hitch(this, function(data) {
+                //console.debug("social _searchCallService", data);
+                dojo.empty(this._suggestItems);
+                if("items" in data.success) {
+                    var fadeArgs = {
+                            node: this._suggestItems
+                    };
+                    //reset selected values.
+                    this.listItems = [];
+                    this._indexItem = -1;
+                    this._selectedNode = null;
+                    dojo.fadeIn(fadeArgs).play();
+                    //print new items.
+                    this.printItems(data.success.items);
+                }
+            });
+            var error = function(error) {
+                console.debug("error", error);
+            };
+            encuestame.service.xhrGet(
+                    encuestame.service.search.suggest, this.searchParam, load, error);
+        },
+
+        /*
+         * Create a list of item.
          * @param data suggested search item.
          */
-        newItemSuggest : function(data){
-            var widget = new encuestame.org.core.commons.search.SearchSuggestItem(
+        printItems : function(data) {
+            var widget = new encuestame.org.core.commons.search.SearchSuggestItemsByType(
                     {
                      data : data,
-                     parentWidget : this,
-                     suggestWidget : this.suggestWidget
+                     parentWidget : this
                      });
-            this.listItems.push(widget);
-            this.suggestWidget._suggestItems.appendChild(widget.domNode);
-            widget.processItem = this.suggestWidget.processSelectedItem;
+            this._suggestItems.appendChild(widget.domNode);
         }
 });
 
@@ -77,17 +224,126 @@ dojo.declare(
  * Widget define item suggest box.
  */
 dojo.declare(
-        "encuestame.org.core.commons.search.SearchSuggestItem",
-        [dijit._Widget, dijit._Templated],{
+        "encuestame.org.core.commons.search.SearchSuggestItemsByType",
+        [encuestame.org.main.EnmeMainLayoutWidget],{
         //template
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItem.html"),
         //widgets in template
         wigetsInTemplate: true,
         //reference of suggest widget.
-        suggestWidget: null,
+        parentWidget: null,
 
-        _goTo : function(event){
-            //TODO: do something when you click on it
-            this.suggestWidget.hide();
+        data: null,
+
+        postCreate : function() {
+            //console.info("SearchSuggestItem", this.data);
+            //console.info("SearchSuggestItem",this.checkIfDataIsEmtpy());
+            if (this.data && !this.checkIfDataIsEmtpy()) {
+                dojo.empty(this._container);
+                if ("tags" in this.data) {
+                    this._printItems("Hashtags", this.data.tags);
+                };
+
+                if ("profiles" in this.data) {
+                    this._printItems("Profiles", this.data.profiles);
+                };
+
+                if ("questions" in this.data) {
+                    this._printItems("Questions", this.data.questions);
+                };
+
+                if ("attachments" in this.data) {
+                    this._printItems("Documents", this.data.attachments);
+                };
+            } else {
+                var div = dojo.create("div");
+                dojo.addClass(div, "web-suggest-noresults");
+                dojo.addClass(div, "wrap");
+                div.innerHTML = this.parentWidget.defaultNoResults + " ";
+                var span = dojo.create("span", null, div);
+                span.innerHTML = this.parentWidget.textBoxWidget.get("value");
+                this._container.appendChild(div);
+            }
+        },
+
+        checkIfDataIsEmtpy : function() {
+            var isEmpty = true;
+            if ("tags" in this.data) {
+                isEmpty = this.data.tags.length == 0 ? true : false;
+            };
+
+            if ("profiles" in this.data && isEmpty) {
+                isEmpty = this.data.profiles.length == 0 ? true : false;
+            };
+
+            if ("questions" in this.data && isEmpty) {
+                isEmpty = this.data.questions.length == 0 ? true : false;
+            };
+
+            if ("attachments" in this.data && isEmpty) {
+                isEmpty = this.data.attachments.length == 0 ? true : false;
+            };
+            return isEmpty;
+        },
+
+        /*
+        *
+        */
+       _printItems : function(label, items) {
+           //console.info("_printHashtags", items);
+           if (items.length > 0) {
+               var hash = new encuestame.org.core.commons.search.SearchSuggestItemSection(
+                       {
+                        label : label,
+                        parentWidget : this.parentWidget,
+                        items : items
+                       });
+               this._container.appendChild(hash.domNode);
+           }
+       }
+});
+
+dojo.declare(
+        "encuestame.org.core.commons.search.SearchSuggestItemSection",
+        [encuestame.org.main.EnmeMainLayoutWidget],{
+
+        //template
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItemSection.html"),
+
+        //
+        items : [],
+
+        parentWidget : null,
+
+        label : "",
+
+        postCreate : function() {
+            dojo.forEach(this.items,
+                    dojo.hitch(this,function(item) {
+                 this._itemSuggest.appendChild(this._createItem(item, this.label));
+            }));
+        },
+
+        /*
+         *
+         */
+        _createItem : function(item, type) {
+            var div = dojo.create("div");
+            dojo.addClass(div, "web-search-item");
+            dojo.attr(div, "data-value", item.itemSearchTitle);
+            dojo.attr(div, "data-type", type);
+            var h4 = dojo.create("h4", null, div);
+            h4.innerHTML = item.itemSearchTitle;
+            if (item.urlLocation != "" && item.urlLocation != null) { //on click point to this url.
+               dojo.attr(div, "data-url", item.urlLocation);
+               dojo.connect(div, "onclick", dojo.hitch(this, function(event) {
+                   //console.debug("click item", encuestame.contextDefault+item.urlLocation	);
+                   document.location.href = encuestame.contextDefault+item.urlLocation;
+               }));
+            } else { // point to search url
+
+            }
+            this.parentWidget.listItems.push(div);
+            return div;
         }
 });

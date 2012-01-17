@@ -24,6 +24,7 @@
         var config = {
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
+            suggest_limit : 10,
             delay : 60000,
             activity : {
                 levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",

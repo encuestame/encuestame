@@ -114,7 +114,7 @@ div.web-header span.search {
 #mainWrapper {
     min-width: 1040px;
     overflow: auto;
-    min-height: 650px;
+    min-height: 600px;
 }
 
 #content-container {

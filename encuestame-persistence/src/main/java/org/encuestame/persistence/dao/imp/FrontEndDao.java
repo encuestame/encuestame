@@ -31,7 +31,6 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -39,7 +38,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
@@ -429,7 +427,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             criteria.add(Restrictions.eq("poll", poll));
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             //social links by hashtag
-            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagId(hashTag.getHashTagId(), 20, "hashtag");
+            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(),0, 20, TypeSearchResult.HASHTAG);
             log.debug("getLinksByHomeItem hashtag TP size "+d.size());
             if (d.size() != 0) {
                 criteria.add(Restrictions.in("tweetPoll", d));

@@ -12,6 +12,9 @@
  */
 package org.encuestame.persistence.domain.survey;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.mail.Folder;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,11 +23,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.encuestame.persistence.domain.AbstractSurvey;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -73,6 +79,11 @@ public class Poll extends AbstractSurvey {
      * {@link Folder}.
      */
     private PollFolder pollFolder;
+    
+    /**
+     * Hash Tags.
+     **/
+    private Set<HashTag> hashTags = new HashSet<HashTag>();
 
 
     /**
@@ -91,8 +102,7 @@ public class Poll extends AbstractSurvey {
      */
     public void setPollId(Long pollId) {
         this.pollId = pollId;
-    }
-
+    } 
 
     /**
      * @return the pollCompleted
@@ -173,5 +183,23 @@ public class Poll extends AbstractSurvey {
      */
     public void setPollFolder(PollFolder pollFolder) {
         this.pollFolder = pollFolder;
+    }
+    
+    /**
+     * @return the hashTags
+     */
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "poll_hashtags",
+               joinColumns = {@JoinColumn(name = "poll_id")},
+               inverseJoinColumns = {@JoinColumn(name = "hastag_id")})
+    public Set<HashTag> getHashTags() {
+        return hashTags;
+    }
+
+    /**
+     * @param hashTags the hashTags to set
+     */
+    public void setHashTags(Set<HashTag> hashTags) {
+        this.hashTags = hashTags;
     }
 }

@@ -56,7 +56,7 @@ public class LinksJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
                 getProperty("twitter.test.tokenSecret"),
                 user,
                 getProperty("twitter.test.account"), Boolean.FALSE, SocialProvider.TWITTER);
-        createTweetPollSavedPublishedSTatus(tweetPoll, "12345", socialAccount, "hi @encuestame !!");
+        createTweetPollSavedPublishedStatus(tweetPoll, "12345", socialAccount, "hi @encuestame !!");
     }
 
 

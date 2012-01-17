@@ -57,6 +57,7 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.Project.Priority;
@@ -1785,6 +1786,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return hastag;
     }
 
+    /**
+     * Helper.
+     * Create hashTag ranking.
+     * @param tag
+     * @param rankingDate
+     * @param average
+     * @return
+     */
+    public HashTagRanking createHashTagRank(final HashTag tag, final Date rankingDate, final Double average){
+    	final HashTagRanking tagRank = new HashTagRanking();
+    	tagRank.setHashTag(tag);
+    	tagRank.setAverage(average); 
+    	tagRank.setRankingDate(rankingDate);
+    	getHashTagDao().saveOrUpdate(tagRank);
+    	return tagRank;
+    }
 
     /**
      * @return the notification
@@ -1889,14 +1906,33 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      }
 
       /**
-      * @param tweetPoll
-      * @param tweetId
-      * @param socialAccount
-      * @param tweetText
-      * @return
-      */
-    public TweetPollSavedPublishedStatus createTweetPollSavedPublishedSTatus(
-            final TweetPoll tweetPoll, final String tweetId,
+       *  Create TweetPoll social links.
+       * @param tweetPoll
+       * @param tweetId
+       * @param socialAccount
+       * @param tweetText
+       * @return
+       */
+	public TweetPollSavedPublishedStatus createTweetPollSavedPublishedStatus(
+			final TweetPoll tweetPoll, final String tweetId,
+			final SocialAccount socialAccount, final String tweetText) {
+		return this.createSocialLinkSavedPublishedStatus(tweetPoll, null, null,
+				tweetId, socialAccount, tweetText);
+
+	}
+   
+	/**
+	 * Create social network link.
+	 * @param tweetPoll
+	 * @param poll
+	 * @param survey
+	 * @param tweetId
+	 * @param socialAccount
+	 * @param tweetText
+	 * @return
+	 */
+    public TweetPollSavedPublishedStatus createSocialLinkSavedPublishedStatus(
+            final TweetPoll tweetPoll, final Poll poll, final Survey survey, final String tweetId,
             final SocialAccount socialAccount, final String tweetText) {
         final TweetPollSavedPublishedStatus publishedStatus = new TweetPollSavedPublishedStatus();
         publishedStatus.setTweetPoll(tweetPoll);
@@ -1905,8 +1941,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         publishedStatus.setSocialAccount(socialAccount);
         publishedStatus.setTweetId(RandomStringUtils.randomAlphabetic(18));
         publishedStatus.setPublicationDateTweet(new Date());
+        publishedStatus.setPoll(poll);
+        publishedStatus.setSurvey(survey);
         getTweetPoll().saveOrUpdate(publishedStatus);
         return publishedStatus;
+    }
+    
+    /**
+     * Create Poll social links.
+     * @param poll
+     * @param tweetId
+     * @param socialAccount
+     * @param tweetText
+     * @return
+     */
+    public TweetPollSavedPublishedStatus createPollSavedPublishedStatus(
+            final Poll poll, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+         return this.createSocialLinkSavedPublishedStatus(null, poll, null, tweetId, socialAccount, tweetText);
     }
 
     /**

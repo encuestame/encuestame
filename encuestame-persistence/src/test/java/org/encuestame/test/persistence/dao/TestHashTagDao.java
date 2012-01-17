@@ -14,12 +14,14 @@ package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
 
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.test.config.AbstractBase;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,5 +106,22 @@ public class TestHashTagDao  extends AbstractBase{
            // System.out.println("---- MIN ----****"+ objects[1]);
         }
     }
+    
+	/**
+	 * Test Get hashtag rank stats.
+	 */
+	@Test
+	public void testgetHashTagRankStats() {
+		final Date myDate = new Date();
+		final HashTag tag = createHashTag("America", 20L);
+		final HashTag tag1 = createHashTag("Europa", 20L);
+		final HashTag tag2 = createHashTag("Asia", 20L);
+		createHashTagRank(tag, myDate, 20D);
+		createHashTagRank(tag1, myDate, 10D);
+		createHashTagRank(tag2, myDate, 30D);
+ 		final List<HashTagRanking> tRank = getHashTagDao()
+				.getHashTagRankStats();
+		assertEquals("Should be equals", tRank.size(), 3);
 
+	} 
 }

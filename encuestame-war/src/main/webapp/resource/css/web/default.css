@@ -111,7 +111,7 @@ a:hover{
   -moz-border-radius:  4px 4px 4px 4px;
   border-radius:  4px 4px 4px 4px;
   -moz-box-shadow: 0px 0px 1px #888;
-  -webkit-box-shadow: 0x 0px 1px #888;
+  -webkit-box-shadow: 0px 0px 1px #888;
   box-shadow: 0px 0px 1px #888;
   color: #FFFFFF;
   cursor: pointer;
@@ -195,11 +195,32 @@ a:hover{
 
 
 div.defaultSectionTitle {
-  background-color: #3E6D8E;
   color: #FFFFFF;
   font-size: 120%;
   margin-bottom: 5px;
   padding: 10px;
+}
+
+.gradient-gray{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #e0e0e0 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e0e0e0)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
+}
+
+.gradient-black{
+  background: #110b0b; /* Old browsers */
+    background: -moz-linear-gradient(top, #110b0b 0%, #767676 98%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#110b0b), color-stop(98%,#767676)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #110b0b 0%,#767676 98%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #110b0b 0%,#767676 98%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #110b0b 0%,#767676 98%); /* IE10+ */
+    background: linear-gradient(top, #110b0b 0%,#767676 98%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#110b0b', endColorstr='#767676',GradientType=0 ); /* IE6-9 */
 }
 
 /** content container **/
@@ -212,6 +233,10 @@ div.defaultSectionTitle {
 #content-container #enme-content div.defaultMarginWrapper{
     margin-top: 29px;
     margin: 0 auto;
+}
+
+#content-container #enme-content div.defaultMarginWrapper > h1{
+    margin-left: 6px;
 }
 
 #content-container #enme-content div.votes{
@@ -324,7 +349,7 @@ div.updateProfile .pictureWrapper{
 div.updateProfile .pictureProfileNew{
     padding: 10px;
     text-align: center;
-    width: 400px;'
+    width: 400px;
 }
 
 /* div.updateProfile .pictureProfileNew .class{

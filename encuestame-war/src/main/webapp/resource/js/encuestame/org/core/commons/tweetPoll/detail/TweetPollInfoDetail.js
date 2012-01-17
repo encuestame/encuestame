@@ -125,7 +125,9 @@ dojo.declare(
             if(this.countdownWidget){
                 this.countdownWidget.hide();
             }
-            this.statusWidget.setClose();
+            if (this.statusWidget) {
+                this.statusWidget.setClose();
+            }
         },
 
         _reloadHits : function() {

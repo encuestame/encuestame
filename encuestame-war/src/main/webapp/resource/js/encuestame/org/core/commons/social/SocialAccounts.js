@@ -7,6 +7,7 @@ dojo.require("dijit.form.Button");
 dojo.require("dijit.form.Form");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.core.commons.dialog.Confirm");
+dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 
 dojo.require("dojo.hash");
 
@@ -79,9 +80,11 @@ dojo.declare(
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialButton.html"),
 
             postCreate : function(){
+                dojo.subscribe("/encuestame/social/clean/buttons", this, dojo.hitch(this, function(type) {
+                    dojo.removeClass(this.domNode, "selected");
+                }));
                 var hash = dojo.queryToObject(dojo.hash());
                 if (hash.provider && hash.provider == this.id) {
-                    console.info("LOADING....", this.id);
                     this._loadAccountInterface(hash.provider);
                 }
             },
@@ -95,6 +98,7 @@ dojo.declare(
             },
 
             _click : function(event){
+                dojo.publish("/encuestame/social/clean/buttons");
                 var hash = dojo.queryToObject(dojo.hash());
                 //console.debug("click button");
                 this._loadAccountInterface(this.id);
@@ -102,6 +106,7 @@ dojo.declare(
                    provider : this.id
                 };
                 dojo.hash(dojo.objectToQuery(params));
+                dojo.addClass(this.domNode, "selected");
             }
  });
 
@@ -157,7 +162,7 @@ dojo.declare(
                 var error = function(error) {
                     console.debug("error", error);
                 };
-                console.debug("PROVIDER", this.socialProvider.toLowerCase());
+               // console.debug("PROVIDER", this.socialProvider.toLowerCase());
                 encuestame.service.xhrGet(
                         encuestame.service.list.allSocialAccount, {provider:this.socialProvider.toLowerCase()}, load, error);
             },
