@@ -27,6 +27,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder; 
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -134,7 +135,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
 	public List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
-            final Integer limitResults, final String filterby) {
+            final Integer limitResults, final TypeSearchResult filterby) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
                 .createAlias("hashTags", "hashTags")
@@ -149,9 +150,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 Poll.class, "poll");
         criteria.add(Subqueries.propertyIn("poll.pollId", detached));
-        if (filterby.equals("hashtag")) {
+        if (filterby.equals(TypeSearchResult.HASHTAG)) {
             criteria.addOrder(Order.desc("poll.createdAt"));
-        } else if (filterby.equals("hashtagRated")) {
+        } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
         	  criteria.addOrder(Order.desc("numbervotes"));
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);

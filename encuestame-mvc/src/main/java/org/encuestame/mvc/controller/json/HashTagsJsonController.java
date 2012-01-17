@@ -59,7 +59,7 @@ public class HashTagsJsonController extends AbstractJsonController{
      * Limit of cloud results.
      */
     private static final Integer CLOUD_LIMIT_DEFAULT = 20;
-
+     
      /**
      * Get List of Users.
      * @param username username
@@ -176,6 +176,5 @@ public class HashTagsJsonController extends AbstractJsonController{
             setError(e.getMessage(), response);
         }
         return returnData();
-    }
-
+    }  
 }

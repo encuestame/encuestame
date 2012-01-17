@@ -87,6 +87,7 @@
                 <value>org.encuestame.persistence.domain.Comment</value>
                 <value>org.encuestame.persistence.domain.Hit</value>
                 <value>org.encuestame.persistence.domain.AccessRate</value>
+                <value>org.encuestame.persistence.domain.HashTagRanking</value> 
             </list>
         </property>
         <property name="hibernateProperties">

@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -511,5 +512,18 @@ public class TestHibernateDomains extends AbstractBase{
          rateItem.setPoll(null);
          rateItem.setSurvey(null);
          rateItem.setUpdatedDate(Calendar.getInstance().getTime());
-         }
+	}
+     
+    /**
+     *  Test {@link HashTagRanking} Domain.
+     */
+    @Test
+    public void testHashTagRanking(){
+    	final HashTagRanking tagRanking = new HashTagRanking(); 
+    	final HashTag tag = createHashTag("health");
+    	tagRanking.setHashTag(tag);
+    	tagRanking.setAverage(25D); 
+    	tagRanking.setRankingDate(new Date());
+    	getHashTagDao().saveOrUpdate(tagRanking);
+    }
 }

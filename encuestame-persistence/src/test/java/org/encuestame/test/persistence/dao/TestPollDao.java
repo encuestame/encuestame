@@ -30,6 +30,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -264,17 +265,17 @@ public class TestPollDao extends AbstractBase {
 		getPollDao().saveOrUpdate(poll3);
 
 		final List<Poll> totalUsagePoll = getPollDao().getPollByHashTagName(
-				hashtag1.getHashTag(), this.START, this.MAX_RESULTS, "hashtag");
+				hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 
 		Assert.assertEquals("Should be", 2, totalUsagePoll.size());
 
 		final List<Poll> totalUsagePoll2 = getPollDao().getPollByHashTagName(
-				hashtag2.getHashTag(), this.START, this.MAX_RESULTS, "hashtag");
+				hashtag2.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 
 		Assert.assertEquals("Should be", 1, totalUsagePoll2.size());
 
 		final List<Poll> totalUsagePoll3 = getPollDao().getPollByHashTagName(
-				hashtag3.getHashTag(), this.START, this.MAX_RESULTS, "hashtag");
+				hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 		Assert.assertEquals("Should be", 3, totalUsagePoll3.size());
 	}
 }

@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -402,7 +403,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
     
     @SuppressWarnings("unchecked")
 	public List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
-            final Integer limitResults, final String filterby) {
+            final Integer limitResults, final TypeSearchResult filterby) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Survey.class)
                 .createAlias("hashTags", "hashTags")
@@ -417,9 +418,9 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         final DetachedCriteria criteria = DetachedCriteria.forClass(
         		Survey.class, "survey");
         criteria.add(Subqueries.propertyIn("survey.sid", detached));
-        if (filterby.equals("hashtag")) {
+        if (filterby.equals(TypeSearchResult.HASHTAG)) {
             criteria.addOrder(Order.desc("survey.createdAt"));
-        } else if (filterby.equals("hashtagRated")) {
+        } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
         	  criteria.addOrder(Order.desc("numbervotes"));
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
