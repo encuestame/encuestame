@@ -200,16 +200,18 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws EnMeNoResultsFoundException
      */
     public List<HashTag> retrieveListOfHashTags(final List<HashTagBean> hashtagBeans) throws EnMeNoResultsFoundException{
+        log.debug("TPService retrieveListOfHashTags from frontEnd->"+hashtagBeans.size());
         final List<HashTag> tagList = new ArrayList<HashTag>();
         for (HashTagBean unitHashTag : hashtagBeans) {
-            HashTag hashTag = getHashTag(unitHashTag.getHashTagName());
+            HashTag hashTag = getHashTag(unitHashTag.getHashTagName(), true);
             //if is null, create new hashTag.
-            if(hashTag == null && unitHashTag.getHashTagName() != null){
+            if (hashTag == null && unitHashTag.getHashTagName() != null) {
                 log.debug("created new hashTag:{"+unitHashTag.getHashTagName().toLowerCase());
-                hashTag = createHashTag(unitHashTag.getHashTagName().toLowerCase());
+                hashTag =createHashTag(unitHashTag.getHashTagName().toLowerCase());
             }
             tagList.add(hashTag);
         }
+        log.debug("TPService retrieveListOfHashTags from database->"+tagList.size());
         return tagList;
     }
 
@@ -253,29 +255,33 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws IOException
      * @throws HttpException
      */
-    public String createShortUrl(final ShortUrlProvider provider, final String url){
+    public String createShortUrl(final ShortUrlProvider provider, final String url) {
         log.debug("shortUrlProvider "+url);
         log.debug("shortUrlProvider PROVIDER "+provider);
+        log.debug("Is offline? "+EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode"));
         String urlShort = url;
-        if (provider == null) {
-            urlShort = SocialUtils.getGoGl(url,
-                    EnMePlaceHolderConfigurer.getProperty("short.google.key"));
-        } else if (provider.equals(ShortUrlProvider.GOOGL)) {
-            urlShort = SocialUtils.getGoGl(url,
-                    EnMePlaceHolderConfigurer.getProperty("short.google.key"));
-        } else if (provider.equals(ShortUrlProvider.TINYURL)) {
-            urlShort = SocialUtils.getTinyUrl(url);
-        } else if (provider.equals(ShortUrlProvider.BITLY)) {
-             urlShort = SocialUtils.getBitLy(url,
-                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
-                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
-        } else {
-             //if is  null, always user bitly.
-             urlShort = SocialUtils.getBitLy(url,
-                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
-                     EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+        if (!EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode")) {
+            if (provider == null) {
+                urlShort = SocialUtils.getGoGl(url,
+                        EnMePlaceHolderConfigurer.getProperty("short.google.key"));
+            } else if (provider.equals(ShortUrlProvider.GOOGL)) {
+                urlShort = SocialUtils.getGoGl(url,
+                        EnMePlaceHolderConfigurer.getProperty("short.google.key"));
+            } else if (provider.equals(ShortUrlProvider.TINYURL)) {
+                urlShort = SocialUtils.getTinyUrl(url);
+            } else if (provider.equals(ShortUrlProvider.BITLY)) {
+                 urlShort = SocialUtils.getBitLy(url,
+                         EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
+                         EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+            }
+            //else {
+                 // if is  null, always user bitly.
+                 // urlShort = SocialUtils.getBitLy(url,
+                 //         EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
+                 //         EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+            //}
         }
-        log.debug("shortUrlProvider SHORT "+urlShort);
+        log.debug("shortUrlProvider SHORT: "+urlShort);
         return urlShort;
     }
 

@@ -23,8 +23,12 @@
                     <div dojoType="encuestame.org.core.commons.dashboard.DashBoardMenu"
                         contextPath="<%=request.getContextPath()%>"></div> </span>
             </c:if>
-            <span class="link">
-                <div dojoType="encuestame.org.core.commons.search.SearchMenu"></div>
+            <span class="link web-search-wrapper">
+                <div dojoType="encuestame.org.core.commons.search.SearchMenu"
+                 placeholder=" <spring:message code="header.public.search" />"
+                 defaultNoResults="<spring:message code="header.public.noresults" />">
+
+                 </div>
             </span>
         </div>
     </div>

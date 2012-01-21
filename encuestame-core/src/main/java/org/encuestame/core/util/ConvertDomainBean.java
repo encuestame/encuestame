@@ -49,12 +49,14 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.HomeBean;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
@@ -934,7 +936,7 @@ public class ConvertDomainBean {
        commentBean.setCommentId(commentDomain.getCommentId());
        commentBean.setComment(commentDomain.getComment());
        commentBean.setCreatedAt(commentDomain.getCreatedAt());
-        commentBean
+       commentBean
                 .setDislikeVote(commentDomain.getDislikeVote() == null ? EnMeUtils.VOTE_MIN
                         : commentDomain.getDislikeVote());
         commentBean
@@ -942,29 +944,51 @@ public class ConvertDomainBean {
                         : commentDomain.getLikeVote());
        long id = 0;
        boolean set = false;
+       String slug = "";
        /*
         * is possible refactor this part? ..
         */
+       TypeSearchResult type = null;
        if (commentDomain.getPoll() != null && !set) {
+           type = TypeSearchResult.POLL;
            id = commentDomain.getPoll().getPollId();
            commentBean.setType(TypeSearchResult.POLL.toString());
            set = true;
+           slug = commentDomain.getPoll().getQuestion().getSlugQuestion();
        }
        if (commentDomain.getTweetPoll() != null && !set) {
+           type = TypeSearchResult.TWEETPOLL;
            id = commentDomain.getTweetPoll().getTweetPollId();
            commentBean.setType(TypeSearchResult.TWEETPOLL.toString());
            set = true;
+           slug = commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
        }
        if (commentDomain.getSurvey() != null && !set) {
+           type = TypeSearchResult.SURVEY;
            id = commentDomain.getSurvey().getSid();
            commentBean.setType(TypeSearchResult.SURVEY.toString());
            set = true;
+           //slug = commentDomain.getTweetPoll().getQuestion().getSlugQuestion();
        }
        commentBean.setId(id);
        commentBean.setParentId(commentDomain.getParentId() == null ? null : commentDomain.getParentId());
        commentBean.setUserAccountId(commentDomain.getUser() == null ? null : commentDomain.getUser().getUid());
        commentBean.setCommentedBy(commentDomain.getUser().getCompleteName());
        commentBean.setCommentedByUsername(commentDomain.getUser().getUsername());
+       //url
+       //tweetpoll/4/do-you-like-summer-season%3F
+       log.debug("TypeSearchResult "+type);
+       if( type != null) {
+           final StringBuffer url = new StringBuffer("/");
+           url.append(TypeSearchResult.getUrlPrefix(type));
+           url.append("/");
+           url.append(id);
+           url.append("/");
+           url.append(slug);
+           url.append("/#comment");
+           url.append(commentDomain.getCommentId());
+           commentBean.setCommentUrl(url.toString());
+       }
        return commentBean;
    }
 
@@ -1114,5 +1138,39 @@ public class ConvertDomainBean {
                     .convertUserAccountToProfileRated(userAccount));
         }
         return listFrontEndItems;
+    }
+
+    /**
+     *  Convert a list of {@link TweetPollSavedPublishedStatus} to list of {@link LinksSocialBean}.
+     * @param links
+     * @return
+     */
+    public static final List<LinksSocialBean> convertTweetPollSavedPublishedStatus(
+            final List<TweetPollSavedPublishedStatus> links) {
+        final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
+        for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
+            log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
+            linksBean.add(ConvertDomainBean.convertTweetPollSavedPublishedStatus(tweetPollSavedPublishedStatus));
+         }
+        return linksBean;
+    }
+
+    /**
+     * Convert {@link TweetPollSavedPublishedStatus} to {@link LinksSocialBean}.
+     * @param tweetPollSavedPublishedStatus
+     * @return
+     */
+    public static final LinksSocialBean convertTweetPollSavedPublishedStatus(
+            final TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus) {
+        final LinksSocialBean linksSocialBean = new LinksSocialBean();
+        linksSocialBean.setProvider(tweetPollSavedPublishedStatus
+                .getSocialAccount().getAccounType().name());
+        linksSocialBean.setLink(SocialUtils.getSocialTweetPublishedUrl(
+                tweetPollSavedPublishedStatus.getTweetId(),
+                tweetPollSavedPublishedStatus.getSocialAccount()
+                        .getSocialAccountName(), tweetPollSavedPublishedStatus
+                        .getSocialAccount().getAccounType()));
+        log.debug("getTweetPollLinks "+linksSocialBean.toString());
+        return linksSocialBean;
     }
 }

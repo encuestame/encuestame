@@ -22,6 +22,7 @@
     <definition name="cloud" extends="page">
         <put-attribute name="title" value="Cloud | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}cloud.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}js_cloud.jsp" />
     </definition>
 
    <definition name="profile/view" extends="page">
@@ -32,6 +33,7 @@
     <definition name="tag/detail" extends="page">
         <put-attribute name="title" value="HashTag Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}hashtag.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}js_hashtag.jsp" />
     </definition>
 
 </tiles-definitions>

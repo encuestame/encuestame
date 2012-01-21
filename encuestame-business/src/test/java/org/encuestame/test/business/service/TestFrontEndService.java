@@ -12,6 +12,8 @@
  */
 package org.encuestame.test.business.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
 import java.util.List;
 
@@ -22,14 +24,21 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
+import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -234,6 +243,143 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         Assert.assertEquals("Should be equals", 0, profiles.get(1)
                 .getTopValue().intValue());
     }
+    
+    /**
+     * Test Get total usage by hashTag.
+     */
+    @Test
+	public void testGetTotalUsageByHashTag() {
+		final Account account = createAccount();
+		final HashTag hashtag1 = createHashTag("romantic");
+		 
+		final Question question = createQuestion("What is your favorite type of movies?", "");
+		final Date myDate = new Date();
+		// TweetPoll
+		final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+		tp.getHashTags().add(hashtag1);
+		getTweetPoll().saveOrUpdate(tp);
+		
+		// Poll
+		final Poll poll = createPoll(myDate, question, this.secondary,
+				Boolean.TRUE, Boolean.TRUE);
+		poll.getHashTags().add(hashtag1);
+		getPollDao().saveOrUpdate(poll);
+
+		// Poll 2
+		final Question question2 = createQuestion("What is your favorite type of music?", "");
+ 		final Poll poll2 = createPoll(myDate, question2, this.secondary,
+				Boolean.TRUE, Boolean.TRUE);
+		poll2.getHashTags().add(hashtag1);
+		getPollDao().saveOrUpdate(poll2);
+
+		// Survey
+		final Survey mySurvey = createDefaultSurvey(account, "Survey test",
+				myDate);
+		mySurvey.getHashTags().add(hashtag1);
+		getSurveyDaoImp().saveOrUpdate(mySurvey);
+		
+		// Total usage TweetPoll, Poll and Survey by tagId
+		final Long totalUsage = getFrontEndService().getTotalUsageByHashTag(
+				hashtag1.getHashTag(), 0, 10, TypeSearchResult.HASHTAG);
+
+        Assert.assertEquals("Should be equals", 4, totalUsage.intValue());
+		
+	}
+    
+    /**
+     * Test get social network by hash tag.
+     */
+    @Test
+    public void testGetSocialNetworkUseByHashTag(){
+    	final HashTag hashtag1 = createHashTag("romantic");
+    	final Question question = createQuestion("What is your favorite type of movies?", "");
+    	final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+    	tp.getHashTags().add(hashtag1);
+    	getTweetPoll().saveOrUpdate(tp);
+    	final TweetPoll tp2 = createPublishedTweetPoll(question, this.secondary);
+    	tp2.getHashTags().add(hashtag1);
+    	getTweetPoll().saveOrUpdate(tp2);
+    	
+    	///
+    	final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+        assertNotNull(socialAccount);
+        final String tweetContent = "Tweet content text";
+        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+                tp, " ", socialAccount, tweetContent);
+       
+        tpSaved.setApiType(SocialProvider.TWITTER);
+        getTweetPoll().saveOrUpdate(tpSaved);
+        assertNotNull(tpSaved);
+        
+        final TweetPollSavedPublishedStatus tpSaved2= createTweetPollSavedPublishedStatus(
+        		tp, " ", socialAccount, tweetContent);
+        tpSaved2.setApiType(SocialProvider.FACEBOOK);
+        getTweetPoll().saveOrUpdate(tpSaved2);
+        assertNotNull(tpSaved2);
+    	
+        final Poll poll1 = createPoll(new Date(), question,
+				"DPMU123", this.secondary, Boolean.TRUE, Boolean.TRUE);
+		poll1.getHashTags().add(hashtag1); 
+		getPollDao().saveOrUpdate(poll1);
+        
+		final TweetPollSavedPublishedStatus pollSaved1 = createPollSavedPublishedStatus(
+				poll1, " ", socialAccount, tweetContent);
+		pollSaved1.setApiType(SocialProvider.TWITTER);
+		getPollDao().saveOrUpdate(pollSaved1);
+		assertNotNull(pollSaved1); 
+        
+        final Long total = getFrontEndService().getSocialNetworkUseByHashTag(hashtag1.getHashTag(), 0, 10);
+        Assert.assertEquals("Should be equals", 3, total.intValue());
+    	
+    }
+    
+    /**
+     * Test Get hashTag ranking.
+     * @throws EnMeNoResultsFoundException 
+     */
+	@Test
+	public void testGetHashTagRanking() throws EnMeNoResultsFoundException {
+		final Date myDate = new Date();
+		final HashTag tag = createHashTag("America", 20L);
+		final HashTag tag1 = createHashTag("Europa", 20L);
+		final HashTag tag2 = createHashTag("Asia", 20L);
+		final HashTag tag3 = createHashTag("Oceania", 20L);
+		final HashTag tag4 = createHashTag("Africa", 20L);
+
+		createHashTagRank(tag3, myDate, (double) 90); // Oceania -- 0
+		createHashTagRank(tag4, myDate, (double) 70); // Africa -- 1
+		createHashTagRank(tag2, myDate, (double) 30); // Asia -- 2
+		createHashTagRank(tag, myDate, (double) 20); // America -- 3
+		createHashTagRank(tag1, myDate, (double) 10); // Europa --4
+		
+		final List<HashTagRankingBean> getFirstHashTag = getFrontEndService()
+				.getHashTagRanking("Oceania");
+		Assert.assertEquals("Should be equals", 2, getFirstHashTag.size());
+    	
+		final List<HashTagRankingBean> getMiddleHashTag = getFrontEndService()
+				.getHashTagRanking("Asia");
+		Assert.assertEquals("Should be equals", 3, getMiddleHashTag.size());
+    	
+		final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
+				.getHashTagRanking("Europa");
+		Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
+	}
+	
+	/**
+	 * 
+	 */
+	public void testSearchItemsByTweetPoll(){
+		
+	}
+	
+	public void testSearchItemsBySurvey(){
+		
+	}
+	
+	public void testSearchItemsByPoll(){
+		
+	}
+	
 
     /**
     * @return the frontEndService

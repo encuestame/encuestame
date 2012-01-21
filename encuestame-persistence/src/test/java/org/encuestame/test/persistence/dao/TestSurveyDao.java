@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPattern;
@@ -32,6 +33,7 @@ import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +62,7 @@ public class TestSurveyDao extends AbstractBase {
     private SurveyPagination surveyPag;
 
     private Survey survey;
-
+    
     private Integer MAX_RESULTS = 10;
 
     private Integer START_RESULTS = 0;
@@ -205,7 +207,7 @@ public class TestSurveyDao extends AbstractBase {
     /**
      * Test retrieve survey created today.
      */
-    //@Test
+    //@Test //TODO:ENMETEST-13
     public void testRetrieveSurveyToday() {
         final Calendar otherHourDate = Calendar.getInstance();
         otherHourDate.add(Calendar.HOUR, 3);
@@ -356,4 +358,32 @@ public class TestSurveyDao extends AbstractBase {
                 .getSurveySection(survey);
         assertEquals("Should be equals", 2, surveySections.size());
     }
+    
+    /**
+     * Test Get total surveys by hashTags.
+     */
+    @Test
+	public void testGetSurveysByHashTags() {
+		final HashTag hashtag1 = createHashTag("home");
+		final HashTag hashtag2 = createHashTag("technology");
+		final HashTag hashtag3 = createHashTag("internet");
+
+		final Survey mySurvey = createDefaultSurvey(this.user, "Survey test",
+				new Date());
+
+		mySurvey.getHashTags().add(hashtag1);
+		mySurvey.getHashTags().add(hashtag2);
+		mySurvey.getHashTags().add(hashtag3);
+		getSurveyDaoImp().saveOrUpdate(mySurvey);
+
+		final Survey mySurvey2 = createDefaultSurvey(this.user,
+				"Survey test 2", new Date());
+		mySurvey2.getHashTags().add(hashtag1);
+		getSurveyDaoImp().saveOrUpdate(mySurvey);
+
+		final List<Survey> totalSurveys = getSurveyDaoImp()
+				.getSurveysByHashTagName(hashtag1.getHashTag(),
+						this.START_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+		assertEquals("Should be equals", 2, totalSurveys.size());
+	}
 }

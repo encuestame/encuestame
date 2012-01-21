@@ -12,9 +12,11 @@
  */
 package org.encuestame.core.cron;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,6 +26,7 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,6 +40,12 @@ public class CalculateHashTagSize {
     /** Front End Service Log. **/
     private Logger log = Logger.getLogger(this.getClass());
 
+    /** Maximum results query. **/
+    private Integer MAX_RESULTS = 10;
+
+    /** Init results query. **/
+    private Integer INIT_RESULTS = 0;
+    
     /**
      * {@link HashTagDao}.
      */
@@ -58,9 +67,13 @@ public class CalculateHashTagSize {
         double average = 0;
         int total = 0;
         double score = 0;
+        double scoreRank = 0;
+        double averageHashTagRanking = 0;
 
-        List<Long> maxMinTotal = new ArrayList<Long>();
-
+        List<Long> maxMinTotal = new ArrayList<Long>(); 
+        
+        final HashTagRanking tagRanking = new HashTagRanking();
+        
         final List<HashTag> tags = getHashTagDao().getHashTags(null, 0, "");
         log.debug("HashTag to process "+tags.size());
         total = tags.size();
@@ -76,17 +89,24 @@ public class CalculateHashTagSize {
 
         for (HashTag hashTag : tags) {
             log.debug("Calculate for: "+hashTag.getHashTag()+" size after calculate: "+hashTag.getSize());
-            long tagFrecuency = getHashTagFrecuency(hashTag.getHashTagId(), 2);
+            long tagFrecuency = getHashTagFrecuency(hashTag.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
             long relevance = (tagFrecuency + (hashTag.getHits() == null ? 0 : hashTag.getHits()));
             long logFrecuency = Math.round(EnMeUtils.calculateSizeTag(relevance, maxFrecuency, minFrecuency));
             log.debug("-------- log frecuency: "+logFrecuency);
             score += logFrecuency;
+            scoreRank = logFrecuency;
+            averageHashTagRanking = (double) scoreRank / (double)total;
             maxMinTotal.add(logFrecuency);
             hashTag.setSize(Long.valueOf(logFrecuency));
             log.debug("Calculate for: "+hashTag.getHashTag()+" size before calculate: "+logFrecuency);
             hashTag.setUpdatedDate(Calendar.getInstance().getTime());
             getHashTagDao().saveOrUpdate(hashTag);
+            // Save table
+            tagRanking.setAverage(averageHashTagRanking); 
+            tagRanking.setHashTag(hashTag);
+            tagRanking.setRankingDate(new Date());  
         }
+     
         average = (double) score / (double)total;
         log.info("*******************************");
         log.info("******* Resume of Process *****");
@@ -109,14 +129,15 @@ public class CalculateHashTagSize {
      * @param limit
      * @return
      */
-    public Long getHashTagFrecuency(final Long hashTagId, final Integer limit){
+    public Long getHashTagFrecuency(final String tagName, final Integer initResults, final Integer limit){
         final Integer totalRelTweetPoll;
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(hashTagId, limit, "");
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagName(tagName, initResults, limit, null);
         totalRelTweetPoll = tweetPolls.size();
         //TODO:Pending count relevance hashtags for polls and surveys.
         return totalRelTweetPoll.longValue();
     }
-
+      
+    
     /**
      * @return the hashTagDao
      */

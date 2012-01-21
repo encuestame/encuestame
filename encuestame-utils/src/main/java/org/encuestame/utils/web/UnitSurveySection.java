@@ -25,11 +25,19 @@ import org.encuestame.utils.json.QuestionBean;
  **/
 public class UnitSurveySection{
 
-
+	/** **/
     private Integer id;
+
+    /** **/
     private String name;
+    
+    /** **/
     private Integer stateId;
+    
+    /** **/
     private List<QuestionBean> listQuestions = new ArrayList<QuestionBean>();
+    
+    /** **/
     private Boolean showPanel = false;
 
     public UnitSurveySection() {}

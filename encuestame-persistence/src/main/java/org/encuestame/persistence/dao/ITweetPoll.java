@@ -248,14 +248,15 @@ public interface ITweetPoll extends IBaseDao{
      */
     List<TweetPollSwitch> getAnswerTweetSwitch(final QuestionAnswer questionAnswer);
 
-     /**
+    /**
      * Get tweetPoll by top rated.
-     * @param hashTagId
+     * @param tagName
+     * @param startResults
      * @param limit
-     * @param limit
+     * @param filterby
      * @return
      */
-   List<TweetPoll> getTweetpollByHashTagId(final Long hashTagId, final Integer limit, final String filterby);
+   List<TweetPoll> getTweetpollByHashTagName(final String tagName, final Integer startResults, final Integer limit, final TypeSearchResult filterby);
 
 
   /**
@@ -301,4 +302,15 @@ public interface ITweetPoll extends IBaseDao{
      */
     Long getTotalTweetPoll(final UserAccount user,
             final Boolean publishTweetPoll);
+
+    /**
+     * Get Total social links by Type: {@link TweetPoll}, {@link Poll} and {@link Survey}.
+     * @param tweetPoll
+     * @param survey
+     * @param poll
+     * @param itemType
+     * @return
+     */
+	Long getSocialLinksByType(final TweetPoll tweetPoll, final Survey survey,
+			final Poll poll, final TypeSearchResult itemType);
 }

@@ -88,7 +88,7 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard/list.json", method = RequestMethod.GET)
-    public ModelMap getMyDasboards(
+    public ModelMap getMyDashboards(
             HttpServletRequest request,
             HttpServletResponse response){
          try {
@@ -266,6 +266,7 @@ public class DashboardJsonController extends AbstractJsonController {
              log.debug("addGadgetonDashboard "+"/api/common/gadgets/add.json");
              final Map<String, Object> jsonResponse = new HashMap<String, Object>();
              final Gadget gadget = getDashboardService().addGadgetOnDashboard(boardId, gadgetId);
+             System.out.println("Gadget --->" + gadget.getGadgetName());
              jsonResponse.put("gadget", ConvertDomainBean.convertGadgetDomaintoBean(gadget));
              setItemResponse(jsonResponse);
         } catch (Exception e) {
@@ -293,7 +294,6 @@ public class DashboardJsonController extends AbstractJsonController {
             HttpServletRequest request,
             HttpServletResponse response) {
         try {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             getDashboardService().moveGadget(gadgetId, dashboardId, position, column);
             setSuccesResponse();
         } catch (Exception e) {

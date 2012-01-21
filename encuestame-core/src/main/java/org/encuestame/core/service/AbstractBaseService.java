@@ -91,14 +91,19 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public HashTag getHashTag(final String tagName)
+    public HashTag getHashTag(final String tagName, final Boolean exceptionIfNotFound)
             throws EnMeNoResultsFoundException {
         Assert.notNull(tagName);
         final HashTag hashTag = getHashTagDao().getHashTagByName(
                 tagName.toLowerCase());
+        log.debug("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
         if (hashTag == null) {
-            throw new EnMeNoResultsFoundException("hashtag [" + hashTag
-                    + "] not found");
+            //if possible we can't exception to allow create a new with the parameter.
+            if (exceptionIfNotFound && exceptionIfNotFound == null) {
+                throw new EnMeNoResultsFoundException("hashtag [" + hashTag+ "] not found");
+            } else {
+                return null;
+            }
         } else {
             log.debug("getHashTag "+hashTag);
             return hashTag;

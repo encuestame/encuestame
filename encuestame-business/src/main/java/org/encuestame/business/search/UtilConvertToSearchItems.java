@@ -86,7 +86,7 @@ public class UtilConvertToSearchItems {
      */
     public static GlobalSearchItem convertHashTagToSearchItem(final HashTag tag) {
         final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
-        globalSearchItem.setUrlLocation("/hashtag/"
+        globalSearchItem.setUrlLocation("/tag/"
                 + RestFullUtil.formatHasgTag(tag.getHashTag()));
         globalSearchItem.setHits(tag.getHits());
         globalSearchItem.setItemSearchTitle(tag.getHashTag());
@@ -103,7 +103,7 @@ public class UtilConvertToSearchItems {
     public static GlobalSearchItem convertProfileToSearchItem(
             final UserAccount profile) {
         final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
-        globalSearchItem.setUrlLocation("/users/profile/"
+        globalSearchItem.setUrlLocation("/profile/"
                 + profile.getUsername());
         globalSearchItem.setHits(0L);
         globalSearchItem.setItemSearchTitle(profile.getCompleteName());

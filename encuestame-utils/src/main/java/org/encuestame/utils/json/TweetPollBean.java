@@ -571,10 +571,161 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
      */
     @Override
     public String toString() {
-        return "TweetPollBean [id=" + id + ", publishPoll=" + publishPoll
-                + ", completed=" + completed + ", userId=" + userId
-                + ", createDate=" + createDate + ", totalVotes=" + totalVotes
-                + ", hits=" + hits + ", captcha=" + captcha + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("TweetPollBean [");
+        if (id != null) {
+            builder.append("id=");
+            builder.append(id);
+            builder.append(", ");
+        }
+        if (questionBean != null) {
+            builder.append("questionBean=");
+            builder.append(questionBean);
+            builder.append(", ");
+        }
+        if (closeNotification != null) {
+            builder.append("closeNotification=");
+            builder.append(closeNotification);
+            builder.append(", ");
+        }
+        if (resultNotification != null) {
+            builder.append("resultNotification=");
+            builder.append(resultNotification);
+            builder.append(", ");
+        }
+        if (publishPoll != null) {
+            builder.append("publishPoll=");
+            builder.append(publishPoll);
+            builder.append(", ");
+        }
+        if (scheduleDate != null) {
+            builder.append("scheduleDate=");
+            builder.append(scheduleDate);
+            builder.append(", ");
+        }
+        if (allowLiveResults != null) {
+            builder.append("allowLiveResults=");
+            builder.append(allowLiveResults);
+            builder.append(", ");
+        }
+        if (schedule != null) {
+            builder.append("schedule=");
+            builder.append(schedule);
+            builder.append(", ");
+        }
+        if (completed != null) {
+            builder.append("completed=");
+            builder.append(completed);
+            builder.append(", ");
+        }
+        if (favourites != null) {
+            builder.append("favourites=");
+            builder.append(favourites);
+            builder.append(", ");
+        }
+        if (userId != null) {
+            builder.append("userId=");
+            builder.append(userId);
+            builder.append(", ");
+        }
+        if (ownerUsername != null) {
+            builder.append("ownerUsername=");
+            builder.append(ownerUsername);
+            builder.append(", ");
+        }
+        if (tweetUrl != null) {
+            builder.append("tweetUrl=");
+            builder.append(tweetUrl);
+            builder.append(", ");
+        }
+        if (createDate != null) {
+            builder.append("createDate=");
+            builder.append(createDate);
+            builder.append(", ");
+        }
+        if (allowRepeatedVotes != null) {
+            builder.append("allowRepeatedVotes=");
+            builder.append(allowRepeatedVotes);
+            builder.append(", ");
+        }
+        if (totalVotes != null) {
+            builder.append("totalVotes=");
+            builder.append(totalVotes);
+            builder.append(", ");
+        }
+        if (hits != null) {
+            builder.append("hits=");
+            builder.append(hits);
+            builder.append(", ");
+        }
+        if (relativeTime != null) {
+            builder.append("relativeTime=");
+            builder.append(relativeTime);
+            builder.append(", ");
+        }
+        if (maxRepeatedVotes != null) {
+            builder.append("maxRepeatedVotes=");
+            builder.append(maxRepeatedVotes);
+            builder.append(", ");
+        }
+        if (limitVotesEnabled != null) {
+            builder.append("limitVotesEnabled=");
+            builder.append(limitVotesEnabled);
+            builder.append(", ");
+        }
+        if (resumeTweetPollDashBoard != null) {
+            builder.append("resumeTweetPollDashBoard=");
+            builder.append(resumeTweetPollDashBoard);
+            builder.append(", ");
+        }
+        if (createdDateAt != null) {
+            builder.append("createdDateAt=");
+            builder.append(createdDateAt);
+            builder.append(", ");
+        }
+        if (limitVotesDate != null) {
+            builder.append("limitVotesDate=");
+            builder.append(limitVotesDate);
+            builder.append(", ");
+        }
+        if (dateToLimit != null) {
+            builder.append("dateToLimit=");
+            builder.append(dateToLimit);
+            builder.append(", ");
+        }
+        if (updateDate != null) {
+            builder.append("updateDate=");
+            builder.append(updateDate);
+            builder.append(", ");
+        }
+        if (captcha != null) {
+            builder.append("captcha=");
+            builder.append(captcha);
+            builder.append(", ");
+        }
+        if (limitVotes != null) {
+            builder.append("limitVotes=");
+            builder.append(limitVotes);
+            builder.append(", ");
+        }
+        if (resumeLiveResults != null) {
+            builder.append("resumeLiveResults=");
+            builder.append(resumeLiveResults);
+            builder.append(", ");
+        }
+        if (results != null) {
+            builder.append("results=");
+            builder.append(results);
+            builder.append(", ");
+        }
+        if (answerSwitchBeans != null) {
+            builder.append("answerSwitchBeans=");
+            builder.append(answerSwitchBeans);
+        }
+        builder.append("]");
+        return builder.toString();
     }
+
+
 
 }

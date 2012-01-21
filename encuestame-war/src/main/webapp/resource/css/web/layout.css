@@ -114,7 +114,7 @@ div.web-header span.search {
 #mainWrapper {
     min-width: 1040px;
     overflow: auto;
-    min-height: 650px;
+    min-height: 600px;
 }
 
 #content-container {
@@ -130,7 +130,6 @@ footer {
 }
 
 #footer {
-    background-color: #F7F7F7;
     color: #666666;
     position: relative;
     text-align: center;
@@ -147,11 +146,10 @@ footer {
 }
 
 #footer .footer {
-    font-size: 0.9em;
-    height: 20px;
-    line-height: 20px;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 10px;
-    background-color: #E7E7E7;
+  font-size: 0.9em;
+  height: 20px;
+  overflow: hidden;
+  padding: 10px;
+  text-align: right;
+  white-space: nowrap;
 }

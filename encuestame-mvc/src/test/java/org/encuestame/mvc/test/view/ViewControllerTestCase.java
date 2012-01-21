@@ -18,14 +18,15 @@ import java.util.Date;
 
 import junit.framework.Assert;
 
-import org.bouncycastle.util.test.TestFailedException;
 import org.encuestame.mvc.controller.AdmonController;
 import org.encuestame.mvc.controller.DashBoardController;
 import org.encuestame.mvc.controller.HomeController;
 import org.encuestame.mvc.controller.PollController;
 import org.encuestame.mvc.controller.SignInController;
+import org.encuestame.mvc.controller.SignUpController;
 import org.encuestame.mvc.controller.SurveyController;
 import org.encuestame.mvc.controller.TweetPollController;
+import org.encuestame.mvc.controller.UserProfileController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -55,6 +56,12 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
 
         @Autowired
         private DashBoardController dashBoardController;
+
+        @Autowired
+        private SignUpController signupController;
+
+        @Autowired
+        private UserProfileController profileController;
 
         private TweetPollSwitch tpswitch;
 
@@ -163,108 +170,252 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
             final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"),
                     createUserAccount("diana", createAccount()), true, true);
             //"/user/signin
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/poll/"+poll.getPollId());
+            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/poll/"+poll.getPollId()+"/slug");
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 pollController2);
             assertViewName(mav, "poll/detail");
         }
 
-        /**
-         * {@link TestFailedException} {@link SurveyController}.
-         * @throws Exception exception.
-         */
-        @Test
-        public void testSurveyController() throws Exception {
-            final SurveyController controller = new SurveyController();
-            //"/user/signin
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/survey");
-            final ModelAndView mav = handlerAdapter.handle(request, response,
+    /**
+     * Test {@link SurveyController}
+     * @throws Exception
+     */
+    @Test
+    public void testSurveyController() throws Exception {
+        final SurveyController controller = new SurveyController();
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/user/survey");
+        final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
-            assertViewName(mav, "user/survey");
-        }
+        assertViewName(mav, "user/survey");
+    }
 
-        /**
-         * Test {@link TweetPollController}.
-         * @throws Exception exception.
-         */
-        @Test
-        public void testTweetPollController() throws Exception {
-            Assert.assertNotNull(this.tweetPollController);
-
-            //bad vote view.
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/1");
-            final ModelAndView mav = handlerAdapter.handle(request, response,
-                    tweetPollController);
-            //System.out.println(mav);
-            assertViewName(mav, "badTweetVote");
-
-            //vote view.
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/"+ this.tpswitch.getCodeTweet());
-            final ModelAndView mavVote = handlerAdapter.handle(request, response,
-                    tweetPollController);
-            assertViewName(mavVote, "badTweetVote");
-
-            //repeated vote view.
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/"+ this.tpswitch.getCodeTweet());
-            final ModelAndView mavVote1 = handlerAdapter.handle(request, response,
-                    tweetPollController);
-            assertViewName(mavVote1, "badTweetVote");
-
-
-            ///user/tweetpoll/list
-            //request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/list");
-            //final ModelAndView mav2 = handlerAdapter.handle(request, response,
-            //        tweetPollController);
-            //assertViewName(mav2, "badTweetVote");
-
-            ///user/tweetpoll/list
-            //request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/new");
-            //final ModelAndView mav3 = handlerAdapter.handle(request, response,
-            //        tweetPollController);
-            //assertViewName(mav3, "tweetpoll/new");
-        }
-
-        /**
-         *
-         * @throws Exception
-         */
-        //@Test
-        public void testRedirecttweetPollController() throws Exception {
-            final TweetPollController controller = this.tweetPollController;
-            // /user/tweetpoll/list
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll");
-            final ModelAndView mav = handlerAdapter.handle(request, response,
+    /**
+     * Test
+     * @throws Exception
+     */
+    @Test
+    public void testSurveyPublicController() throws Exception {
+        SurveyController controller = new SurveyController();
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/survey/1/slug/");
+        final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
-            assertViewName(mav, "redirect:/user/tweetpoll/list");
-        }
+        assertViewName(mav, "survey");
+    }
 
-        //@Test
-        public void testtweetPollController() throws Exception {
-             final TweetPollController controller = this.tweetPollController;
-            // /user/tweetpoll/list
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/tweetpoll/list");
-            final ModelAndView mav = handlerAdapter.handle(request, response,
+    /**
+     * Test.
+     * @throws Exception
+     */
+    @Test
+    public void testAddHandlerSignUpController() throws Exception {
+        //SignUpController controller = new SignUpController();
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/user/signup");
+        final ModelAndView mav = handlerAdapter.handle(request, response,
+                signupController);
+        assertViewName(mav, "signup");
+    }
+
+/*
+ * 	TODO: fix testProcessSubmit(org.encuestame.mvc.test.view.ViewControllerTestCase): Required String parameter 'realName' is not present
+    @Test
+    public void testProcessSubmit() throws Exception {
+        final String realName = "Jhon Smith";
+        final String password = "smith1234";
+        final String username = "jhonsmith";
+        final String email = "jhonsmith@encuestame.org";
+        request.setParameter("realName", realName);
+        request.setParameter("password", password);
+        request.setParameter("username", username);
+        request.setParameter("email", email);
+        SignUpController controller = new SignUpController();
+        request = new MockHttpServletRequest(MethodJson.POST.toString(),
+                "/user/signup/create");
+        final ModelAndView mav = handlerAdapter.handle(request, response,
                 controller);
-            assertViewName(mav, "tweetpoll");
-        }
+        assertViewName(mav, "redirect:/user/dashboard");
+    }*/
 
-        /**
-         * Test TweetPoll controller banned ip
-         * @throws Exception
-         */
-        public void testTweetPollControllerBanned() throws Exception{
-            //Banned Ip vote.
-            //TODO: ENCUESTAME-179
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/tweetpoll/vote/"+ this.tpswitch.getCodeTweet());
-            final ModelAndView mavVote2 = handlerAdapter.handle(request, response,
-                    this.tweetPollController);
-            assertViewName(mavVote2, "banned");
-        }
+    /**
+     * Test confirmation account
+     * @throws Exception
+     */
+    @Test
+    public void testConfirmAccountController() throws Exception {
+        final UserAccount userAcc = createUserAccount("jhonsmith", createAccount());
+        userAcc.setInviteCode("15D27P495M");
+        getAccountDao().saveOrUpdate(userAcc);
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/user/confirm/email/"+userAcc.getInviteCode());
+        final ModelAndView mav = handlerAdapter.handle(request, response,
+                signupController);
+        assertViewName(mav, "user/confirm/");
+    }
 
-        /**
-         * @param pollController the pollController to set
-         */
-        public void setPollController(TweetPollController pollController) {
-            this.tweetPollController = pollController;
-        }
+    /**
+     * Test confirm account with bad invitation code.
+     * @throws Exception
+     */
+    @Test
+    public void testAccountWithBadInvitationCodeController() throws Exception {
+        final UserAccount userAcc = createUserAccount("jhonsmith", createAccount());
+        userAcc.setInviteCode("15D27P495M34U");
+        getAccountDao().saveOrUpdate(userAcc);
+        final String badInvitationCode = "2905JP";
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/user/confirm/email/"+ badInvitationCode);
+        final ModelAndView mav = handlerAdapter.handle(request, response,
+                signupController);
+        assertViewName(mav, "signin");
+    }
+
+    /**
+     * Test {@link UserProfileController}.
+     * @throws Exception
+     */
+    @Test
+    public void testUserProfileController() throws Exception {
+        final UserAccount userAcc = createUserAccount("jhonsmith", createAccount());
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/profile/"+ userAcc.getUsername());
+        final ModelAndView mav = handlerAdapter.handle(request, response,
+                profileController);
+        assertViewName(mav, "profile/view");
+
+        // Username  not found.
+        final String badUsername = "badUser";
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/profile/"+ badUsername );
+        final ModelAndView mavBadUser = handlerAdapter.handle(request, response,
+                profileController);
+        assertViewName(mavBadUser, "404");
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testDetailTweetPollController() {
+
+    }
+
+    public void testNewTweetPollController() {
+
+    }
+
+
+
+
+
+    /**
+     * Test {@link TweetPollController}.
+     *
+     * @throws Exception
+     *             exception.
+     */
+    @Test
+    public void testTweetPollController() throws Exception {
+        Assert.assertNotNull(this.tweetPollController);
+
+        // bad vote view.
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/tweetpoll/vote/1");
+        final ModelAndView mav = handlerAdapter.handle(request, response,
+                tweetPollController);
+        // System.out.println(mav);
+        assertViewName(mav, "badTweetVote");
+
+        // vote view.
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/tweetpoll/vote/" + this.tpswitch.getCodeTweet());
+        final ModelAndView mavVote = handlerAdapter.handle(request, response,
+                tweetPollController);
+        assertViewName(mavVote, "badTweetVote");
+
+        // repeated vote view.
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/tweetpoll/vote/" + this.tpswitch.getCodeTweet());
+        final ModelAndView mavVote1 = handlerAdapter.handle(request, response,
+                tweetPollController);
+        assertViewName(mavVote1, "badTweetVote");
+
+        // /user/tweetpoll/list
+        // request = new MockHttpServletRequest(MethodJson.GET.toString(),
+        // "/user/tweetpoll/list");
+        // final ModelAndView mav2 = handlerAdapter.handle(request, response,
+        // tweetPollController);
+        // assertViewName(mav2, "badTweetVote");
+
+        // /user/tweetpoll/list
+        // request = new MockHttpServletRequest(MethodJson.GET.toString(),
+        // "/user/tweetpoll/new");
+        // final ModelAndView mav3 = handlerAdapter.handle(request, response,
+        // tweetPollController);
+        // assertViewName(mav3, "tweetpoll/new");
+    }
+
+    /**
+     *
+     * @throws Exception
+     */
+    // @Test
+    public void testRedirecttweetPollController() throws Exception {
+        final TweetPollController controller = this.tweetPollController;
+        // /user/tweetpoll/list
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/user/tweetpoll");
+        final ModelAndView mav = handlerAdapter.handle(request, response,
+                controller);
+        assertViewName(mav, "redirect:/user/tweetpoll/list");
+    }
+
+    // @Test
+    public void testtweetPollController() throws Exception {
+        final TweetPollController controller = this.tweetPollController;
+        // /user/tweetpoll/list
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/user/tweetpoll/list");
+        final ModelAndView mav = handlerAdapter.handle(request, response,
+                controller);
+        assertViewName(mav, "tweetpoll");
+    }
+
+    /**
+     * Test TweetPoll controller banned ip
+     *
+     * @throws Exception
+     */
+    public void testTweetPollControllerBanned() throws Exception {
+        // Banned Ip vote.
+        // TODO: ENCUESTAME-179
+        request = new MockHttpServletRequest(MethodJson.GET.toString(),
+                "/tweetpoll/vote/" + this.tpswitch.getCodeTweet());
+        final ModelAndView mavVote2 = handlerAdapter.handle(request, response,
+                this.tweetPollController);
+        assertViewName(mavVote2, "banned");
+    }
+
+    /**
+     * @param pollController
+     *            the pollController to set
+     */
+    public void setPollController(TweetPollController pollController) {
+        this.tweetPollController = pollController;
+    }
+
+    /**
+     * @param signupController the signupController to set
+     */
+    public void setSignupController(SignUpController signupController) {
+        this.signupController = signupController;
+    }
+
+    /**
+     * @param profileController the profileController to set
+     */
+    public void setProfileController(UserProfileController profileController) {
+        this.profileController = profileController;
+    }
 }

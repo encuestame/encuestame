@@ -18,7 +18,7 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG,
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED,
 
     TypeSearchResult(){
 
@@ -36,7 +36,24 @@ public enum TypeSearchResult {
         else if (this == ATTACHMENT) { type = "ATTACHMENT"; }
         else if (this == QUESTION) { type = "QUESTION"; }
         else if (this == HASHTAG) { type = "HASHTAG"; }
+        else if (this == HASHTAGRATED) { type = "HASHTAGRATED"; }
         return type;
+    }
+
+    /**
+     * Return the url prefix to make url to acces to public url.
+     * @param type
+     * @return
+     */
+    public static String getUrlPrefix(final TypeSearchResult type) {
+        if (null == type) { return null; }
+        else if (type.equals(TWEETPOLL)) { return "tweetpoll"; }
+        else if (type.equals(PROFILE)) { return "profile"; }
+        else if (type.equals(POLL)) { return "poll"; }
+        else if (type.equals(SURVEY)) { return "survey"; }
+        else if (type.equals(HASHTAG)) { return "tag"; }
+        else if (type.equals(HASHTAGRATED)) { return "hashtagRated"; }
+        else return null;
     }
 
     /**
@@ -53,6 +70,7 @@ public enum TypeSearchResult {
         else if (type.equalsIgnoreCase("ATTACHMENT")) { return ATTACHMENT; }
         else if (type.equalsIgnoreCase("QUESTION")) { return QUESTION; }
         else if (type.equalsIgnoreCase("HASHTAG")) { return HASHTAG; }
+        else if (type.equalsIgnoreCase("HASHTAGRATED")) { return HASHTAGRATED; }
         else return null;
     }
 }

@@ -95,8 +95,15 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
       */
      public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_TIME);
 
-
+     /**
+      *
+      */
      protected static final Integer START_DEFAULT = 0;
+
+     /**
+      * Max total results to retrieve.
+      */
+     protected static final Integer MAX_RESULTS = 100;
 
      /**
       * {@link ReCaptcha}.
@@ -244,6 +251,15 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
             log.debug("X-FORWARDED-FOR ["+ip+"]");
         }
         return ip;
+    }
+
+    /**
+     *
+     * @param max
+     * @return
+     */
+    public Integer limitTotalMax(Integer max){
+        return max == null ? null : (max > this.MAX_RESULTS ? this.MAX_RESULTS : max);
     }
 
     /**
@@ -567,12 +583,16 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         log.debug("HashTag size:{" + hashtags.length);
         for (int row = 0; row < hashtags.length; row++) {
             final HashTagBean hashTag = new HashTagBean();
-            if (hashtags[row] != null) {
+            final String hashtagE = hashtags[row];
+            if (hashtagE != null && !hashtagE.isEmpty()) {
                 log.debug("HashTag:{" + hashTag);
                 hashTag.setHashTagName(hashtags[row].toLowerCase().trim());
                 hashtagsList.add(hashTag);
+            } else {
+                log.warn("Trying to save empty or null hashtag?");
             }
         }
+        log.debug("hashtag fillListOfHashTagsBean->"+hashtagsList.size());
         return hashtagsList;
     }
 

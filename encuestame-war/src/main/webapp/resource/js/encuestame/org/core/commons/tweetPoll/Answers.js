@@ -3,34 +3,58 @@ dojo.provide("encuestame.org.core.commons.tweetPoll.Answers");
 dojo.require("dojo.dnd.Source");
 dojo.require("dijit.form.Form");
 dojo.require("dijit.form.Textarea");
-dojo.require("dijit._Templated");
-dojo.require("dijit.form.Textarea");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.Dialog");
 dojo.require("dijit.form.TextBox");
-dojo.require("dijit._Widget");
+dojo.require("encuestame.org.core.shared.utils.OptionMenu");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
+/**
+ * Widget to list of answers.
+ */
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.Answers",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answer.html"),
 
-        widgetsInTemplate: true,
-
+        /*
+         * list of items.
+         */
         listItems : [],
 
+        /*
+         * default short url provider.
+         */
         _provider : encuestame.shortUrlProvider,
 
+        /*
+         * button widget.
+         */
         buttonWidget : null,
 
+        /*
+         * default label.
+         */
         label : "Answer",
 
+        /*
+         * tweetpollId.
+         */
         tweetPollId : null,
 
+        /*
+         * Answer source.
+         */
         answerSource : null,
 
+        /*
+         * Flag to control bloked.
+         */
         _blocked : false,
 
+        /*
+         *
+         */
         postCreate: function() {
              this.buttonWidget = new dijit.form.Button({
                  label: "Add",
@@ -58,18 +82,27 @@ dojo.declare(
              }));
         },
 
+        /*
+         *
+         */
         block : function(){
             //console.debug("blocking answer...");
             this.buttonWidget.disabled = true;
             dijit.byId("answerAddText").disabled = true;
         },
 
+        /*
+         *
+         */
         unblock : function() {
            // console.debug("unblocking answer...");
             this.buttonWidget.disabled = false;
             dijit.byId("answerAddText").disabled = false;
         },
 
+        /*
+         *
+         */
         getAnswers : function(){
             var array = [];
              dojo.forEach(this.listItems,
@@ -80,7 +113,10 @@ dojo.declare(
             return array;
         },
 
-        getAnswersId : function(){
+        /*
+         *
+         */
+        getAnswersId : function() {
             var array = [];
              dojo.forEach(this.listItems,
                    dojo.hitch(this,function(item) {
@@ -90,12 +126,17 @@ dojo.declare(
             return array;
         },
 
-        onDrop : function(){
-             if(dojo.dnd.manager().target !== this.answerSource){
-                 return;add
+        /*
+         *
+         */
+        onDrop : function() {
+                // check out
+             if (dojo.dnd.manager().target !== this.answerSource) {
+                 return;
              }
-              if(dojo.dnd.manager().target == dojo.dnd.manager().source){
-                  var newOrder = [];
+
+             if (dojo.dnd.manager().target == dojo.dnd.manager().source) {
+                  //var newOrder = [];
                   this.listItems = [];
                   dojo.forEach
                   (this.answerSource.getAllNodes(),
@@ -107,7 +148,10 @@ dojo.declare(
               }
         },
 
-        addAnswer : function(){
+        /*
+         *
+         */
+        addAnswer : function() {
             //dojo.publish("/encuestame/tweetpoll/autosave");
             var text = dijit.byId(this._suggest);
             var params = {
@@ -146,39 +190,24 @@ dojo.declare(
                }
         },
 
-        getDialog : function(){
+        /*
+         *
+         */
+        getDialog : function() {
             var dialog = dijit.byId("option_"+this.id);
             return dialog;
-        },
-
-        _removeItem : function(event){
-            dojo.stopEvent(event);
-            var i = dojo.indexOf(this.listItems, this.getDialog().item);
-            if (i != -1) {
-                //this.listItems.splice(i, 1);
-                //dojo.destroy(this.getDialog().item.domNode);
-                //this.getDialog().hide();
-                //dojo.publish("/encuestame/tweetpoll/updatePreview");
-                this.getDialog().item._removeAnswer(i);
-            } else {
-                console.error("Error on remove Item");
-            }
         }
     }
 );
 
 /**
- * Answer Item.
+ * Widget to represent an answer item.
  */
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.AnswerItem",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.main.EnmeMainLayoutWidget],{
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answerItem.html"),
 
-        /*
-         * enabled widget on template.
-         */
-        widgetsInTemplate: true,
 
         /*
          * tweetpoll Id reference.
@@ -206,29 +235,31 @@ dojo.declare(
         postCreate : function() {
             this._provider = encuestame.shortUrlProvider;
             if (this._item) {
-                var answer = dojo.doc.createElement("span");
+                var answer = dojo.doc.createElement("div");
                 answer.innerHTML = this.answer.label;
                 dojo.addClass(answer, "answerItemTitle");
-                var url = dojo.doc.createElement("span");
+                dojo.addClass(answer, "wrap");
+                var url = dojo.doc.createElement("div");
+                //url
                 var urlA = dojo.doc.createElement("a");
                 urlA.innerHTML = this.answer.shortUrl;
                 urlA.href = "#";
                 //urlA.target = "_blank";
                 url.appendChild(urlA);
                 dojo.addClass(url, "answerItemShortUrl");
-                dojo.connect(urlA, "onclick", this, this.editShortUrl);
-                dojo.connect(this.domNode, "onclick", this, this._showOptions);
-                dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
-                    dojo.stopEvent(event);
-                    dojo.addClass(urlA, "shortUrlEnter");
-                    dojo.connect(urlA, "onmouseenter", this, dojo.hitch(this, function(event){
+                dojo.addClass(url, "wrap");
 
-                    }));
-                }));
-                dojo.connect(urlA, "onmouseleave", this,  dojo.hitch(this, function(event){
-                    dojo.stopEvent(event);
-                    dojo.removeClass(url, "shortUrlEnter");
-                }));
+                var menuWidget = new encuestame.org.core.shared.utils.OptionMenu({
+                    _classReplace : "hidden",
+                    menu_items : [{
+                        label : "Remove",
+                        action : dojo.hitch(this, this._removeAnswer)}
+                        //{label : "Edit",
+                        //action : function() {
+                        //    console.debug("Edit");
+                        //}}
+                ]});
+                this._options.appendChild(menuWidget.domNode);
                 this._item.appendChild(answer);
                 this._item.appendChild(url);
             }
@@ -242,29 +273,20 @@ dojo.declare(
             console.debug(event);
         },
 
-        _showOptions : function(){
-            var dialog = this.parentAnswer.getDialog();
-            dialog.item = this;
-            dialog.show();
-        },
-
-
         /*
          * remove this answer.
          */
-        _removeAnswer : function(i){
+        _removeAnswer : function() {
              var params = {
                      "id" : this.tweetPollId,
-                    "answerId" : this.answer.answerId
+                     "answerId" : this.answer.answerId
             };
-            console.debug("params", params);
-            console.debug("i", i);
-            var load = dojo.hitch(this, function(data){
-                console.debug("removing answer", data);
+            var load = dojo.hitch(this, function(data) {
+                var i = dojo.indexOf(this.parentAnswer.listItems, this);
+                console.debug("removing answer", i);
                 this.parentAnswer.listItems.splice(i, 1);
-                dojo.destroy(this.domNode);
-                this.parentAnswer.getDialog().hide();
                 dojo.publish("/encuestame/tweetpoll/updatePreview");
+                dojo.destroy(this.domNode, true);
             });
             var error = function(error) {
                 console.debug("error", error);
@@ -276,7 +298,7 @@ dojo.declare(
         /*
          * answer text.
          */
-        getAnswerText: function(){
+        getAnswerText: function() {
             var answer = this.answer.label+ " "+this.answer.shortUrl;
             return answer;
         }

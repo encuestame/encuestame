@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.HashTagRanking;
 import org.hibernate.HibernateException;
 
 /**
@@ -71,4 +72,19 @@ public interface IHashTagDao extends IBaseDao	{
      * @return
      */
    List<Object[]> getMaxMinTagFrecuency();
+   
+   /**
+    * Get hashTag rank stats by id.
+    * @param hashTagRankId
+    * @return
+    * @throws HibernateException
+    */
+	HashTagRanking getHashTagRankStatsById(final Long hashTagRankId) throws HibernateException;
+	
+	/**
+	 * 
+	 * @param hashTag
+	 * @return
+	 */
+	List<HashTagRanking> getHashTagRankStats();
 }

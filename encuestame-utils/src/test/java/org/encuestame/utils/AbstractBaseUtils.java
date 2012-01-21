@@ -39,6 +39,7 @@ import org.encuestame.utils.web.UserAccountBean;
  * @since
  */
 public abstract class AbstractBaseUtils extends TestCase{
+	
     /**
     * Create Project Bean.
     * @param projectName project bean.

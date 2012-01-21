@@ -72,6 +72,13 @@ public class TestTweetPollDao  extends AbstractBase{
     private TweetPollFolder tweetPollFolder;
 
     private HashTag hashTag1;
+    
+    /** Maximum results query. **/
+    private Integer MAX_RESULTS = 10;
+
+    /** Init results query. **/
+    private Integer INIT_RESULTS = 0;
+    
     /**
      * Before.
      */
@@ -268,13 +275,12 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Test
     public void testgetTweetpollByHashTagName(){
-        assertNotNull(this.tweetPoll);
-        final Integer limit = 3;
-
+        assertNotNull(this.tweetPoll); 
+        
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, -15);
         final Calendar calendar2 = Calendar.getInstance();
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
+        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagName(this.hashTag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
         assertEquals("Should be equals", 1, tweetPolls.size());
         final HashTag hashtag2 = createHashTag("paola");
         final HashTag hashtag3 = createHashTag("juan");
@@ -299,7 +305,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final HashMap<Integer, RelativeTimeEnum> hm3 = DateUtil.getRelativeTime(tweetPoll1.getCreateDate());
         //System.out.println("HM 3 ---------->"+hm3);
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtag");
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagName(this.hashTag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
         //System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
 
 
@@ -347,7 +353,7 @@ public class TestTweetPollDao  extends AbstractBase{
         getTweetPoll().saveOrUpdate(tweetPoll1);
         getTweetPoll().saveOrUpdate(tweetPoll2);
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagId(this.hashTag1.getHashTagId(), limit, "hashtagRated");
+        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagName(this.hashTag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAGRATED);
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 
@@ -464,7 +470,7 @@ public class TestTweetPollDao  extends AbstractBase{
         final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
         assertNotNull(socialAccount);
         final String tweetContent = "Tweet content text";
-        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedSTatus(
+        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
                 tp1, " ", socialAccount, tweetContent);
         tpSaved.setApiType(SocialProvider.TWITTER);
         getTweetPoll().saveOrUpdate(tpSaved);
@@ -484,5 +490,36 @@ public class TestTweetPollDao  extends AbstractBase{
          assertNotNull(tp);
          final Long totalTweets = getTweetPoll().getTotalTweetPoll(this.secondary, Boolean.TRUE);
          Assert.assertEquals("Should be", 1, totalTweets.intValue());
+    }
+    
+    /**
+     * Test Get total social links by type.
+     */
+    @Test
+    public void testGetTotalLinksByType() {
+        // TweePoll 1
+    	final TweetPoll tweetPoll = createPublishedTweetPoll(
+                this.secondary.getAccount(),
+                createQuestion("What is your favorite pastime?", secondary.getAccount()), new Date());
+        assertNotNull(tweetPoll); 
+        
+        final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+        assertNotNull(socialAccount);
+        final String tweetContent = "Tweet content text";
+        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+                tweetPoll, " ", socialAccount, tweetContent);
+       
+        tpSaved.setApiType(SocialProvider.TWITTER);
+        getTweetPoll().saveOrUpdate(tpSaved);
+        assertNotNull(tpSaved);
+        
+        final TweetPollSavedPublishedStatus tpSaved2= createTweetPollSavedPublishedStatus(
+        		tweetPoll, " ", socialAccount, tweetContent);
+        tpSaved2.setApiType(SocialProvider.FACEBOOK);
+        getTweetPoll().saveOrUpdate(tpSaved2);
+        assertNotNull(tpSaved2);
+        final Long tweetPollSocialLinks = getTweetPoll().getSocialLinksByType(tweetPoll, null, null, TypeSearchResult.TWEETPOLL); 
+         
+        Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
     }
 }

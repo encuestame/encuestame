@@ -20,12 +20,17 @@ import java.util.List;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
+import org.encuestame.persistence.dao.IPoll;
+import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.dao.SearchSurveyPollTweetItem;
 import org.encuestame.persistence.domain.AccessRate;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -46,7 +51,14 @@ import org.springframework.stereotype.Repository;
 public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEndDao{
 
     /** {@link HashTagDao}. **/
+    @Autowired
     private IHashTagDao hashTagDao;
+    /** {@link TweetPollDao}. **/
+    @Autowired
+    private ITweetPoll tweetPoll;
+    /** {@link PollDao}. **/
+    @Autowired
+    private IPoll poll;
     /** Represent 24 hours. **/
     private final Integer PERIOD_24 = 1;
     /** Represent 7 days. **/
@@ -260,6 +272,34 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         this.hashTagDao = hashTagDao;
     }
 
+    /**
+     * @return the tweetPoll
+     */
+    public ITweetPoll getTweetPoll() {
+        return tweetPoll;
+    }
+
+    /**
+     * @param tweetPoll the tweetPoll to set
+     */
+    public void setTweetPoll(ITweetPoll tweetPoll) {
+        this.tweetPoll = tweetPoll;
+    }
+
+    /**
+     * @return the poll
+     */
+    public IPoll getPoll() {
+        return poll;
+    }
+
+    /**
+     * @param poll the poll to set
+     */
+    public void setPoll(IPoll poll) {
+        this.poll = poll;
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getHitsByIpAndType(java.lang.String, java.lang.Long, org.encuestame.persistence.domain.TypeSearchResult)
@@ -364,5 +404,43 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
                     }
                 });
         return searchResult;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IFrontEndDao#getLinksByHomeItem(org.encuestame.persistence.domain.HashTag, org.encuestame.persistence.domain.security.UserAccount, org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<TweetPollSavedPublishedStatus> getLinksByHomeItem(
+            final HashTag hashTag,
+            final UserAccount userAccount,
+            final TweetPoll tweetPoll,
+            final Survey survey,
+            final Poll poll,
+            final TypeSearchResult itemType) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollSavedPublishedStatus.class);
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+            criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        } else if (itemType.equals(TypeSearchResult.POLL)) {
+            criteria.add(Restrictions.eq("survey", survey));
+        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
+            criteria.add(Restrictions.eq("poll", poll));
+        } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
+            //social links by hashtag
+            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(),0, 20, TypeSearchResult.HASHTAG);
+            log.debug("getLinksByHomeItem hashtag TP size "+d.size());
+            if (d.size() != 0) {
+                criteria.add(Restrictions.in("tweetPoll", d));
+            }
+        } else if (itemType.equals(TypeSearchResult.PROFILE)) {
+            //TODO: future
+        } else {
+            log.error("Item type not valid: " + itemType);
+        }
+        criteria.addOrder(Order.desc("publicationDateTweet"));
+        //criteria.add(Restrictions.isNotNull("apiType"));
+        //criteria.add(Restrictions.isNotNull("tweetId"));
+        //criteria.add(Restrictions.eq("status", Status.SUCCESS));
+        return  getHibernateTemplate().findByCriteria(criteria);
     }
 }

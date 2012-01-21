@@ -24,6 +24,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,9 @@ public class HashTagController extends AbstractBaseOperations {
 
     /** HashTag max results. **/
     private final Integer LIMIT_HASHTAG = 15;
+    
+    /** INIT_RESULTS **/
+    private final Integer INIT_RESULTS = 0;
 
     /**
      * HashTag List.
@@ -86,26 +90,27 @@ public class HashTagController extends AbstractBaseOperations {
         final HashTag tag;
         try {
             tag = getFrontService().getHashTagItem(name);
-            boolean hashTagVisite = getFrontService().checkPreviousHit(IP, tag.getHashTagId(), TypeSearchResult.HASHTAG);
-            // TODO: Check that previous hash Tag hit has been visited the same day.
-            if (!hashTagVisite) {
-                getFrontService().registerHit(null, null, null, tag, IP);
-            }
-            final List<TweetPollBean> tweetPollbyTags = getFrontService()
-                    .getTweetPollsbyHashTagId(tag.getHashTagId(),
-                            LIMIT_HASHTAG, "hashtag", request);
-            final List<TweetPollBean> tweetPollbyRated = getFrontService()
-                    .getTweetPollsbyHashTagId(tag.getHashTagId(),
-                            LIMIT_HASHTAG, "hashtagRated", request);
             if (tag == null) {
                 return "pageNotFound";
             } else {
+                log.debug("tagController tag =>"+tag);
+                boolean hashTagVisite = getFrontService().checkPreviousHit(IP, tag.getHashTagId(), TypeSearchResult.HASHTAG);
+                // TODO: Check that previous hash Tag hit has been visited the same day.
+                log.debug("hashTagVisite =>"+hashTagVisite);
+                if (!hashTagVisite) {
+                    getFrontService().registerHit(null, null, null, tag, IP);
+                }
+                final List<HomeBean> lastPublications = getFrontService()
+                        .searchLastPublicationsbyHashTag(tag, null, this.INIT_RESULTS,
+                                LIMIT_HASHTAG, "hashtag", request);
+                log.debug("tagController tweetPollbyTags =>"+lastPublications.size());
+                log.debug("tagController tag =>"+tag);
                 final HashTagBean bean =  ConvertDomainBean.convertHashTagDomain(tag);
                 model.addAttribute("tagName", bean);
-                model.addAttribute("tweetPolls", tweetPollbyTags);
-                model.addAttribute("tweetPollrated", tweetPollbyRated);
+                model.addAttribute("tweetPolls", lastPublications);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e);
             return "pageNotFound";
         }

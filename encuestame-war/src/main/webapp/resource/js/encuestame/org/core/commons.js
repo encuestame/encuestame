@@ -330,7 +330,7 @@ encuestame.session.getSession = function(){
 
 encuestame.status = ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'];
 
-encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY'];
+encuestame.surveys = ['TWEETPOLL', 'POLl', 'SURVEY', 'HASHTAG'];
 
 encuestame.social = {};
 
@@ -506,8 +506,21 @@ encuestame.service.list.listPermissions = encuestame.contextWidget()+"/api/admon
 encuestame.service.list.listUserPermissions = encuestame.contextWidget()+"/api/admon/list-user-permissions.json";
 encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/add-permission.json";
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
+//Hashtag Service
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
+
+/*
+ * Get Hashtag action.
+ * @param type could be / hashtag, tweetpoll, poll.
+ * @param action could be / remove / add
+ */
+encuestame.service.list.hashtagsAction = {};
+encuestame.service.list.hashtagsAction.getAction = function(/* string */ type,  /* string */action) {
+    return  encuestame.contextWidget()+"/api/survey/hashtag/"+ type+"/"+action+".json";
+};
 encuestame.service.list.cloud = encuestame.contextWidget()+"/api/common/hashtags/cloud.json";
+
+//Social Services
 encuestame.service.list.allSocialAccount = encuestame.contextWidget()+"/api/common/social/accounts.json";
 
 //tweetpoll service
@@ -541,10 +554,17 @@ encuestame.service.comments = {};
 encuestame.service.comments.list = function(type) {
     return encuestame.contextWidget()+"/api/common/comment/comments/"+ type +".json";
 };
-encuestame.service.comments.search = "/api/common/comment/search.json";
-encuestame.service.comments.like = "/api/common/comment/like_vote.json";
-encuestame.service.comments.dislike = "/api/common/comment/dislike_vote.json";
-encuestame.service.comments.create = "/api/common/comment/create.json";
+encuestame.service.comments.search = encuestame.contextWidget()+"/api/common/comment/search.json";
+encuestame.service.comments.like = encuestame.contextWidget()+"/api/common/comment/like_vote.json";
+encuestame.service.comments.dislike = encuestame.contextWidget()+"/api/common/comment/dislike_vote.json";
+encuestame.service.comments.create = encuestame.contextWidget()+"/api/common/comment/create.json";
+
+encuestame.service.list.rate = {};
+encuestame.service.list.rate.comments = encuestame.contextWidget()+"/api/common/comment/rate/top.json";
+encuestame.service.list.rate.profile = encuestame.contextWidget()+"/api/common/frontend/topusers.json";
+encuestame.service.list.rate.stats = function(type) {
+    return  encuestame.contextWidget()+"/api/common/frontend/"+type+"/stats.json";
+};
 
 /**
  * Vote services.

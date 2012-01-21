@@ -369,13 +369,13 @@ div.pagination .titleNext {
 }
 
 /** clod **/
-div.cloud {
-    clear: both;
-    margin-bottom: 4px;
-    max-width: 100%;
+.web-cloud {
+  clear: both;
+  margin: 45px 0 auto;
+  max-width: 100%;
 }
 
-div.cloud div.cloudTitle {
+.web-cloud > h1 {
     font-size: 140%;
     font-weight: bold;
     margin-bottom: 4px;
@@ -385,12 +385,17 @@ div.cloud div.cloudTitle {
     padding: 5px;
 }
 
-div.cloud div.cloudItems {
-    padding: 5px;
-    overflow: auto;
+.web-cloud .cloudItems {
+  overflow: auto;
+  padding: 10px;
 }
 
-div.cloud .cloudItem {
+.web-cloud .cloudItems > a.tag {
+  display: inline-block;
+  margin: 5px;
+}
+
+.web-cloud .cloudItem {
     display: inline-block;
     font-size: 20px;
     font-weight: bold;
@@ -700,107 +705,113 @@ div.web-form-wrapper a.button:active span {
 }
 
 /** tweetpoll detail **/
-div.web-tweetpoll-detail {
-  border-left: 1px solid #EFEFEF;
-  border-right: 1px solid #EFEFEF;
+.web-tweetpoll-detail {
+  margin: 30px;
 }
 
-div.web-tweetpoll-detail div.question {
+.web-tweetpoll-detail header h1 {
+  font-weight: bold;
+  margin: 10px 5px;
+}
+
+.web-tweetpoll-detail div.question {
     margin: 0px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-info {
+div.web-tweetpoll-detail .web-tweetpoll-info {
     background-color: #EDEDED;
 }
 
 
-div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail {
-  background-color: #665A5A;
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
   color: white;
   float: left;
-  min-height: 20px;
+  min-height: 48px;
   min-width: 45px;
   padding: 3px;
   text-align: center;
   width: 75px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-title {
-  color: #A9A9A9;
-  font-size: 17px;
-}
-
-div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-high {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-high {
   font-size: 20px;
   font-weight: bold;
+  padding: 4px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title {
   color: #BABABA;
   font-size: 10px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small {
   font-size: 13px;
+  line-height: 15px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper {
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
   border-bottom: 1px dotted #BEBEC8;
   overflow: auto;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-chart {
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart {
     float: left;
     min-height: 180px;
     width: 400px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer {
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart .onLive{
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+/* tweetpoll detail answers */
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer {
   float: left;
   min-height: 100px;
   width: 600px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-answer-wrapper div.web-tweetpoll-answer-answer div.web-tweetpoll-answers
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .web-tweetpoll-answers
     {
     padding: 10px;
 }
 
-div.web-tweetpoll-answer-answer .web-tweetpoll-answer-table {
+.web-tweetpoll-answer-answer .web-tweetpoll-answer-table {
     border: 1px none;
     width: 590px;
 }
 
-div.web-tweetpoll-answer-answer thead{
+.web-tweetpoll-answer-answer thead{
 
 }
 
-div.web-tweetpoll-answer-answer thead tr {
-  background-color: #3E6D8E;
+.web-tweetpoll-answer-answer thead tr {
   padding: 10px;
 }
 
-div.web-tweetpoll-answer-answer .web-tweetpoll-answer-answer thead tr th{
-
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer {
+  margin-top: 45px;
+  min-height: 100px;
+  padding: 10px;
 }
 
-.web-tweetpoll-answer-table .header-table-answer {
-  border: 0 none;
-  color: #FFF5F5;
-  font-size: 110%;
-  font-weight: bold;
-  padding-bottom: 10px;
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer h2{
+    margin: 0;
 }
 
 .web-tweetpoll-answer-table th {
   border-bottom: 1px solid #3E6D8E;
   color: #FFFFFF;
+  line-height: 24px;
   text-align: center;
   text-transform: lowercase;
 }
 
 .web-tweetpoll-answer-table td {
   border-bottom: 1px solid #BBC2C6;
+  line-height: 25px;
   padding: 8px 15px;
 }
 
@@ -813,7 +824,7 @@ div.web-tweetpoll-answer-answer .web-tweetpoll-answer-answer thead tr th{
 .web-tweetpoll-answer-table .color-code {
     float: left;
     height: 11px;
-    margin: 2px 10px 0 0;
+    margin: 5px 10px 0 0;
     width: 11px;
 }
 
@@ -822,8 +833,7 @@ div.web-tweetpoll-answer-answer .web-tweetpoll-answer-answer thead tr th{
     text-align: right;
 }
 
-.web-tweetpoll-answer-table .answer-data-strong,div.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong-r
-    {
+.web-tweetpoll-answer-table .answer-data-strong, .web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong-r {
     color: #000000;
     font-weight: bold;
     text-align: center;
@@ -837,19 +847,19 @@ div.web-tweetpoll-answer-answer .web-tweetpoll-answer-answer thead tr th{
     color: #333333;
 }
 
-div.web-tweetpoll-detail .section-block{
+.web-tweetpoll-detail .section-block{
     background-color: blue;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-social-links {
+.web-tweetpoll-detail .web-tweetpoll-social-links {
     padding: 0px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links {
+.web-tweetpoll-detail .web-tweetpoll-social-links .links {
     padding: 0px;
 }
 
-div.web-tweetpoll-detail .titleTweetPollSection {
+.web-tweetpoll-detail .titleTweetPollSection {
   background-color: #3E6D8E;
   color: #FFFFFF;
   font-size: 110%;
@@ -857,11 +867,11 @@ div.web-tweetpoll-detail .titleTweetPollSection {
   padding: 5px;
 }
 
-div.web-tweetpoll-detail .extraMargin {
+.web-tweetpoll-detail .extraMargin {
     margin-bottom: 15px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-social-links div.title {
+.web-tweetpoll-detail .web-tweetpoll-social-links .title {
     font-size: 120%;
     border-bottom: 2px solid #000;
     margin-bottom: 5px;
@@ -869,77 +879,90 @@ div.web-tweetpoll-detail div.web-tweetpoll-social-links div.title {
     padding-bottom: 5px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item
-    {
+.web-tweetpoll-detail .web-tweetpoll-social-links .links .item {
     overflow: auto;
     padding: 5px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links h2 {
+.web-tweetpoll-detail .web-tweetpoll-social-links .links h2 {
     font-weight: normal;
     margin-top: 1em;
     font-size: 100%;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .img
-    {
+.web-tweetpoll-detail .web-tweetpoll-social-links .links .item .img {
     float: left;
     min-width: 27px;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-social-links div.links div.item .link
-    {
+.web-tweetpoll-detail .web-tweetpoll-social-links .links .item .link{
     float: left;
 }
 
-div.web-tweetpoll-detail div.web-tweetpoll-hashtags {
+.web-tweetpoll-detail .web-tweetpoll-hashtags {
+    overflow: auto;
+    padding: 10px;
+}
+
+.web-tweetpoll-detail  .web-tweetpoll-comments {
     margin-bottom: 15px;
 }
 
-div.web-tweetpoll-detail  div.web-tweetpoll-comments {
-    margin-bottom: 15px;
+
+.web-tweetpoll-button-wrapper{
+    min-height: 30px;
 }
+
+.web-tweetpoll-button-wrapper > div{
+    float: left;
+    margin: 5px 7px;
+    cursor: pointer;
+}
+
+.web-tweetpoll-button-wrapper > div > img{
+
+}
+
 
 /* tweetpoll info detail */
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail {
+.web-tweetpoll-detail .web-tweetPoll-info-detail {
   overflow: auto;
   width: 100%;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail .question-info{
+div.web-tweetpoll-detail .web-tweetPoll-info-detail .question-info{
     float: left;
     padding-top: 15px;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail .left-info{
+.web-tweetpoll-detail .web-tweetPoll-info-detail .left-info{
     float: left;
     width: 150px;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info {
+.web-tweetpoll-detail .web-tweetPoll-info-detail .info {
   float: left;
   max-height: 65px;
   overflow: hidden;
   width: 700px;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.picture {
+.web-tweetpoll-detail .web-tweetPoll-info-detail .picture {
     float: left;
     max-height: 54px;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data {
+.web-tweetpoll-detail .web-tweetPoll-info-detail .info .data {
     float: left;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data label
+.web-tweetpoll-detail .web-tweetPoll-info-detail .info .data label
     {
     font-weight: bold;
     margin-left: 3px;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data ul
-    {
+.web-tweetpoll-detail .web-tweetPoll-info-detail div.info div.data ul{
     margin: 0px !important;
     padding: 0px !important;
 }
@@ -1199,10 +1222,6 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
 
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
-    -webkit-border-radius: 2px 2px 0px 0px;
-    -moz-border-radius: 2px 2px 0px 0px;
-    border-radius: 2px 2px 0px 0px;
-    border: 1px solid #D7D7D7;
     margin-top: 29px;
 }
 
@@ -1244,8 +1263,7 @@ div.web-tweetpoll-wrapper div.tweetListContent {
     overflow: hidden;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options {
     float: left;
     min-width: 185px;
     width: 185px;
@@ -1253,14 +1271,15 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
     text-align: left;
     background-color: #F0F0F0;
     margin-right: 0px;
+    -moz-box-shadow:-5px 0 5px -6px #000000 inset;
+    -webkit-box-shadow:-5px 0 5px -6px #000000 inset;
+    box-shadow:-5px 0 5px -6px #000000 inset;
 }
 
 div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel {
-
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem {
-  border-bottom: 1px solid #EEEEEE;
   clear: both;
   float: left;
   font-size: 12px;
@@ -1271,16 +1290,21 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItemSelected {
     background-color: #6F6F6F;
     color: #FFF;
+    -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem:hover {
     background-color: #6F6F6F;
     color: #FFF;
     cursor: pointer;
+     -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.optionItem span{
     padding-left: 10px;
     text-decoration: none;
 }
@@ -1289,8 +1313,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options div.opt
     color: #FFF !important;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:hover{
     color: #FFF;
     cursor: pointer;
     text-decoration: none;
@@ -1298,9 +1321,12 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:ho
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
   border-left: 1px solid #C2BEC2;
-  float: left;
-  width: 912px;
+  margin-left: 185px;
+  -moz-box-shadow: 10px -10px 8px 8px #000000;
+  -webkit-box-shadow: 10px -10px 8px 8px #000000;
+  box-shadow: 10px -10px 8px 8px #000000;
 }
+
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
   min-height: 20px;
   padding: 8px 0 3px 10px;
@@ -1308,7 +1334,6 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {
     min-height: 35px;
-    padding: 1px;
     border-bottom: 1px solid #D2D2D2;
     background-color: #F4F4F4;
 }
@@ -1328,24 +1353,39 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     cursor: pointer;
 }
 
-div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite
-    {
+div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite{
     margin: 3px 10px 3px 3px;
     float: left;
 }
 
 div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
-    clear: both;
     width: 100%;
     overflow: auto;
-    padding: 8px;
+    padding: 5px;
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+background: linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+
+
+
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title
-    {
-    font-size: 140%;
-    color: #70798C;
-    float: left;
+.web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel{
+    -moz-box-shadow:    inset 0 7px 5px -6px gray;
+    -webkit-box-shadow: inset 0 7px 5px -6px gray;
+    box-shadow:         inset 0 7px 5px -6px gray;
+}
+
+.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title {
+  color: #8F8F8F;
+  float: left;
+  font-size: 14px;
+  line-height: 25px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.listItemTweetSeleted {
@@ -1356,14 +1396,12 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     min-height: 30px;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel{
     float: right;
     text-align: left;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.votesTitle
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.votesTitle{
     font-size: 120%;
     font-weight: bold;
 }
@@ -1485,7 +1523,6 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
 
 div.web-tweetpoll-wrapper {
     min-height: 45em;
-    margin-bottom: 5em;
 }
 
 div.spaceBlock {
@@ -1493,7 +1530,7 @@ div.spaceBlock {
 }
 
 div.web-tweetpoll-wrapper div.spaceBlockTop {
-    margin-top: 80px !important;
+    margin-top: 20px !important;
 }
 
 div.web-tweetpoll-section {
@@ -1516,8 +1553,9 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title {
   font-weight: bold;
 }
 
-div.web-tweetpoll-section .space{
-    padding: 10px;
+.web-tweetpoll-section .space {
+  overflow: auto;
+  padding: 10px;
 }
 
 div.web-tweetpoll-section .info{
@@ -1568,16 +1606,14 @@ div.web-tweetpoll-wrapper .socialBlock {
 }
 
 div.tweetPollPublishButton {
-    background-color: #EBEBEB;
-    margin: auto 65px;
+    margin: auto 80px;
     padding: 10px;
     text-align: right;
 }
 
-div.botton-button-publish {
-    margin: auto 65px;
-    padding: 10px;
-    text-align: right;
+.tweetPollPublishButton {
+  margin: auto 78px;
+  padding: 10px;
 }
 
 div.web-tweetpoll-wrapper div.tweetPollPublish div.item {
@@ -1604,23 +1640,19 @@ div.web-tweetpoll-wrapper div.tweetPollPreviewRelative {
     border-right: 1px solid #D0D0D0;
     border-top: 1px solid #D0D0D0;
     display: block;
-    left: 86px;
-    margin-bottom: 10px;
+    margin: 0 auto 0 90px;
     min-height: 25px !important;
     padding: 10px;
     width: 900px;
     z-index: 10;
-}
-
-div.web-tweetpoll-wrapper div.previewAbsolute {
-    position: absolute !important;
-    top: 37px;
+    position: fixed;
+    top: 0;
 }
 
 div.web-tweetpoll-wrapper div.previewFixed {
-    position: fixed !important;
+    position: absolute !important;
     top: 0px;
-    left: 266px; /* this value should be dinamic */
+    /* left: 266px; this value should be dinamic */
 }
 
 div.web-tweetpoll-wrapper div.web-tweetpoll-section .tweetThis {
@@ -1701,22 +1733,33 @@ div.web-tweetpoll-wrapper div.tweetPollOptions div.question .dijitTextArea {
     font-size: 130%;
 }
 
-/** preview **/
+/** preview tweetpoll **/
 div.web-tweetpoll-wrapper div.previewWrapperContent {
+  overflow: auto;
+}
 
+div.web-tweetpoll-wrapper .web-tweetpoll-preview-top {
+  padding: 10px;
+  width: 900px;
+}
+
+div.web-tweetpoll-wrapper div.previewWrapperContent .hide {
+ display: none;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent div.counter {
-    font-size: 240%;
-    font-weight: bold;
-    position: absolute;
-    right: 15px;
-    top: 5px;
+  font-size: 240%;
+  font-weight: bold;
+  margin-left: 93%;
+  right: 15px;
+  top: 5px;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent div.content {
-    float: left;
-    max-width: 90%;
+  float: left;
+  line-height: 20px;
+  max-width: 90%;
+  width: 90%;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .inlineBlock {
@@ -1734,17 +1777,21 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewQuestion {
     display: inline-block;
     font-weight: bold;
     margin-right: 3px;
-    padding: 6px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 2px;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .previewAnswer {
-    padding: 6px;
+    padding: 2px;
     background-color: #C9F5C8;
     color: #000;
     border: 1px solid #C1B6B6;
     font-weight: bold;
     margin-left: 5px;
     margin-right: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     -moz-border-radius: 9px 9px 9px 9px;
     -webkit-border-radius: 9px 9px 9px 9px;
     border-radius: 9px 9px 9px 9px;
@@ -1752,11 +1799,13 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewAnswer {
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .previewHashTag {
-    padding: 6px;
+    padding: 2px;
     background-color: #FEBEB2;
     color: #000;
     font-weight: bold;
     margin-right: 5px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     -moz-border-radius: 9px 9px 9px 9px;
     -webkit-border-radius: 9px 9px 9px 9px;
     border-radius: 9px 9px 9px 9px;
@@ -1764,7 +1813,7 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewHashTag {
 }
 
 /** Add Answers **/
-div.addAnswers {
+.addAnswers {
 
 }
 
@@ -1774,7 +1823,7 @@ input {
     border-radius: 5px;
 }
 
-div.addAnswers div.options {
+.addAnswers div.options {
     margin: 4px;
     text-align: right;
 }
@@ -1816,7 +1865,7 @@ div.answerAddForm div.labelQuestion {
     max-width: 90%;
 }
 
-div.addAnswers div.addNewAnswer {
+.addAnswers div.addNewAnswer {
     font-size: 12px;
     color: #FFF;
     float: left;
@@ -1829,12 +1878,12 @@ div.addAnswers div.addNewAnswer {
     margin-bottom: 3px;
 }
 
-div.addAnswers  div.listAnswerWrapper {
-    margin: 0px;
-    max-width: 80%;
+.addAnswers .listAnswerWrapper {
+  margin: 0;
+  max-width: 700px;
 }
 
-div.addAnswers div.answerItem {
+.addAnswers .answerItem {
   background-color: #9C9C9C;
   -moz-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
@@ -1843,63 +1892,62 @@ div.addAnswers div.answerItem {
   font-size: 100%;
   margin-top: 3px;
   max-width: 89%;
-  min-height: 27px;
+  min-height: 25px;
   overflow: auto;
-  padding-top: 3px;
+  padding: 3px;
   vertical-align: top;
 }
 
-div.addAnswers div.answerItem div.title {
+.addAnswers .answerItem .title {
   color: #FFFFFF;
+  float: left;
   font-size: 100%;
   font-weight: bold;
-  padding: 0;
-}
-
-div.addAnswers div.answerItem div.title .answerItemTitle {
-  display: inline-block;
-  margin: 2px;
-  max-width: 50%;
-  min-width: 39%;
-  padding: 0;
-}
-
-div.addAnswers div.answerItem div.title .answerItemShortUrl {
-  color: red;
-  display: inline-block;
-  float: right;
-  max-width: 40%;
   overflow: auto;
   padding: 0;
 }
 
-div.addAnswers div.answerItem .shortUrlEnter {
+.addAnswers .answerItem .title .answerItemTitle {
+  display: inline-block;
+  float: left;
+  line-height: 20px;
+  margin: 2px;
+  min-width: 300px;
+  padding: 1px;
+  width: 300px;
+}
+
+.addAnswers .answerItem div.title .answerItemShortUrl {
+  color: red;
+  margin-left: 300px;
+  max-width: 240px;
+  overflow: auto;
+  padding: 0;
+}
+
+.addAnswers .answerItem .shortUrlEnter {
     background-color: #AAADAC;
     border: 1px solid #D5D1D1;
     color: white !important;
 }
 
-div.addAnswers div.answerItem .shortUrlEnter  a {
+.addAnswers .answerItem .shortUrlEnter  a {
     color: white;
 }
 
-div.addAnswers div.answerItem div.title .answerItemShortUrl a:link {
+.addAnswers .answerItem div.title .answerItemShortUrl a:link {
     text-decoration: none;
 }
 
-div.addAnswers div.answerItem div.title .answerItemShortUrl a:hover {
+.addAnswers .answerItem div.title .answerItemShortUrl a:hover {
     text-decoration: none;
 }
 
-div.addAnswers div.answerItem div.options {
+.addAnswers .answerItem div.options {
 
 }
 
-div.addAnswers div.answerItem:hover {
-    background-color: #4C718D;
-}
-
-div.addAnswers div.answerItem .answer {
+.addAnswers .answerItem .answer {
     background-repeat: no-repeat;
     padding-left: 15px;
     display: inline-block;
@@ -1913,8 +1961,13 @@ div.addAnswers div.answerItem .answer {
     float: left;
 }
 
+.addAnswers .answerItem .answerItem-options {
+  line-height: 25px;
+  margin-left: 550px;
+}
+
 /** hash tags **/
-div.addAnswers div.addNewHashTag {
+.addAnswers div.addNewHashTag {
     padding: 10px;
     font-size: 12px;
     color: #FFF;
@@ -1922,14 +1975,14 @@ div.addAnswers div.addNewHashTag {
     width: 50%;
 }
 
-div.addAnswers div.addNewAnswer .label {
+.addAnswers div.addNewAnswer .label {
     min-width: 100px;
     margin: 10px;
     color: #000;
     font-weight: bold;
 }
 
-div.addAnswers div.addNewAnswer .addButton {
+.addAnswers div.addNewAnswer .addButton {
     margin-left: 8px;
     border: 1px solid #BCBCBC;
     min-width: 100px;
@@ -1943,7 +1996,9 @@ div.hashTagWrapper {
     max-width: 90%;
 }
 
-div.wrapperHashTagItems {
+.wrapperHashTagItems {
+  overflow: auto;
+  padding: 10px 0 5px;
 }
 
 div.wrapperHashTagItems div.addNewHashTag {
@@ -1991,7 +2046,7 @@ div.wrapperHashTagItems .hashTagItem {
     column-gap: 30px;
     display: inline-block;
     text-align: center;
-    min-width: 50px;
+    min-width: 30px;
     cursor: pointer;
 }
 
@@ -2231,8 +2286,7 @@ div.tweetPollPublishDialog div.items div.item div.detail .success-url {
     font-weight: bold;
 }
 
-div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover
-    {
+div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover{
     text-decoration: underline;
 }
 
@@ -2271,6 +2325,18 @@ div.web-folder-wrapper .web-folder-item{
     padding-left: 13px;
     overflow: auto;
     width: auto;
+}
+
+div.web-folder-wrapper .web-folder-item .dijitInlineEditBoxDisplayMode {
+  background-color: transparent !important;
+  border: 0;
+}
+div.web-folder-wrapper .web-folder-item .dijitInline{
+    width: 100px !important;
+}
+
+div.web-folder-wrapper .web-folder-item input{
+    max-width: 50px !important;
 }
 
 div.web-folder-wrapper .web-folder-item:hover {
@@ -2489,14 +2555,115 @@ div.web-notification-list div.web-notification-list-item .date{
     display: inline-block;
 }
 
-/********** HASHTAGS **************/
 
-div.web-hashtagName{
-    color: #5C8397;
-    font-size: 130%;
+/** Poll Page Detail **/
+
+.web-poll-detail-wrapper{
+    margin: 30px;
 }
 
-div.web-tags-tweetpolls{
+
+/** HASHTAGS */
+
+.web-hashtag-wrapper{
+    margin: 30px;
+}
+
+.web-hashtag-header {
+  margin-bottom: 10px;
+  overflow: auto;
+  position: relative;
+}
+
+.web-hashtag-header .web-hashtagName{
+    float: left;
+    color: #000;
+    font-size: 150%;
+}
+
+.web-hashtag-header .web-hashtagName h2 {
+  margin: 0 0 0 6px;
+  width: 500px;
+}
+
+.web-hashtag-header .web-hashtag-options{
+    float: right;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper{
+
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-top {
+  float: right;
+  min-width: 250px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-mainline{
+    float: left;
+    width: 770px;
+}
+
+.web-ht-graph-wrapper{
+    overflow: auto;
+}
+
+.web-ht-graph-wrapper .web-ht-graph{
+    float: left;
+    width: 765px;
+}
+
+.web-ht-graph-wrapper .web-ht-button-wrapper{
+    float: right;
+    width: 243px;
+}
+
+.web-ht-button-wrapper .web-ht-button-item {
+  border-bottom: 1px solid #E5E5E5;
+  border-left: 1px solid #E5E5E5;
+  min-height: 55px;
+  color: #676767;
+}
+
+
+.stats-button {
+  cursor: pointer;
+  min-height: 80px;
+  overflow: auto;
+  padding: 10px 30px 10px 40px;
+  background-color: #444;
+}
+
+.stats-button .web-graph-sts-btt-tlt {
+  font-size: 14px;
+  font-weight: bold;
+}
+.stats-button .web-graph-sts-btt-val {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.stats-button .web-graph-sts-btt-sub {
+  font-size: 13px;
+  padding-left: 40%;
+}
+
+.web-ht-button-wrapper .selected{
+    background-color: #fff;
+    color: #444444;
+    -moz-box-shadow:    inset 0 7px 5px -6px gray;
+    -webkit-box-shadow: inset 0 7px 5px -6px gray;
+    box-shadow:         inset 0 7px 5px -6px gray;
+}
+
+.stats-button:hover{
+    background-color: #fff;
+    color: #444444;
+
+}
+/** tweetpoll tags **/
+
+.web-tags-tweetpolls{
     margin-top: 4px;
     width: 100%;
 
@@ -2856,19 +3023,24 @@ div.web-profile-wrapper .rss li {
 
 /** social **/
 
-div.socialAccounts{
-    margin-top: 20px;
+div.socialAccounts {
+  background-color: #E0E0E0;
+  margin-top: 20px;
+  min-height: 396px;
+  overflow: auto;
 }
-
 
 div.socialAccounts div.socialWrapper{
     margin: 0px;
 }
 
-div.socialAccounts div.socialWrapper div.listSocialCommunities{
-    min-width: 200px;
-    float: left;
-    margin-right: 6px;
+div.socialAccounts div.socialWrapper div.listSocialCommunities {
+  float: left;
+  min-height: 400px;
+  min-width: 200px;
+  -moz-box-shadow: 0 1px 3px #888888 inset;
+  -webkit-box-shadow: 0 1px 3px #888888 inset;
+   box-shadow: 0 1px 3px #888888 inset;
 }
 
 div.socialAccounts div.socialWrapper div.socialCommunitieItem{
@@ -2878,7 +3050,17 @@ div.socialAccounts div.socialWrapper div.socialCommunitieItem{
     color: #FFF;
     max-width: 200px;
     cursor: pointer;
-    border-bottom: 1px dotted black;
+    -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
+}
+
+div.socialAccounts div.socialWrapper .selected{
+    -moz-box-shadow: 0 1px 3px #888888 inset;
+    -webkit-box-shadow: 0 1px 3px #888888 inset;
+     box-shadow: 0 1px 3px #888888 inset;
+     background-color: #E5E5E5;
+     color: #969696 !important;
 }
 
 div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
@@ -2886,27 +3068,54 @@ div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover{
     color: grey;
 }
 
-div.socialAccounts div.socialWrapper  div.socialAccountListDetail{
-    float: left;
-    width: 850px;
+div.socialAccounts div.socialWrapper div.socialAccountListDetail {
+  margin-left: 200px;
+  padding: 0;
+}
+
+div.socialAccounts div.socialWrapper div.socialAccountListDetail .toolBox {
+  overflow: auto;
+  padding: 7px;
+}
+
+div.socialAccounts div.socialWrapper div.socialAccountListDetail .account-list-container .socialWrapperRow:first-child{
+   margin-top  : 10px;
 }
 
 
 /** Row Account */
 
-div.socialWrapperRow{
-     padding: 2px;
+div.socialWrapperRow {
      font-size: 110%;
-     margin: 2px;
-    -moz-box-shadow: 0px 1px 1px #888;
-    -webkit-box-shadow: 0px 1px 1px #888;
-     box-shadow: 0px 1px 1px #888;
+    -moz-box-shadow: inset 0px 1px 1px #888;
+    -webkit-box-shadow: inset 0px 1px 1px #888;
+     box-shadow: inset 0px 1px 1px #888;
     -webkit-border-radius:  2px 2px 2px 2px;
     -moz-border-radius: 2px 2px 2px 2px;
      border-radius: 2px 2px 2px 2px;
      cursor: pointer;
-     margin: 10px 0px 10px 0px;
      overflow: auto;
+     background-color: #F9F9F9;
+     margin-bottom: 10px;
+}
+
+div.socialWrapperRow .sub-title-account{
+    overflow: auto;
+}
+
+div.socialWrapperRow .sub-title-account .image{
+    float: left;
+}
+
+div.socialWrapperRow div.title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 30px;
+  padding: 5px;
+}
+
+div.socialWrapperRow form{
+   padding: 10px;
 }
 
 div.socialWrapperRow div.socialNewForm{
@@ -2937,13 +3146,6 @@ div.socialWrapperRow div.tokensWrapper .dijitTextBox{
 div.socialWrapperRow div.tokensWrapper label{
     font-weight: bold;
     font-size: 90%;
-}
-
-div.socialWrapperRow div.title{
-    font-size: 100%;
-    margin: 2px;
-    float: left;
-    padding: 4px;
 }
 
 /** gadget **/
@@ -3418,4 +3620,385 @@ div.drop-down-menu-select-title:hover .sub-menu {
 
 .sub-menu li:hover {
     border-bottom: 1px dotted #bababa;
+}
+
+
+/** rated **/
+
+.web-rated-comments{
+
+
+}
+
+.web-rated-comments .web-rated-comment-item{
+    clear: both;
+    min-width: 20px;
+    padding: 2px;
+    margin-bottom: 15px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-picture{
+    float: left;
+    margin: 0px 10px 0px 2px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-detail{
+    color: #919191;
+    font-size: 12px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-detail .strong{
+    font-weight: bold;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub{
+    font-size: 11px;
+    color: #444;
+    padding: 6px 0 1px;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub section > span{
+    display: inline-block;
+}
+
+.web-rated-comments .web-rated-comment-item .web-rated-comment-item-sub .date{
+    font-weight: bold;
+}
+
+
+/** profile rated **/
+
+.web-rated-profile-item {
+  clear: both;
+  min-height: 20px;
+  padding: 2px;
+}
+
+.web-rated-profile-item .web-rated-profile-picture{
+    float: left;
+    margin: 0px 10px 0px 2px;
+}
+
+.web-rated-profile-item  .web-rated-profile-item-detail{
+    color: #919191;
+    font-size: 12px;
+}
+
+.web-rated-profile-item  .web-rated-profile-item-detail h2{
+    margin: 0;
+    font-size: 14px;
+}
+
+/** social links references **/
+
+div.web-social-links{
+    overflow: auto;
+}
+
+.web-social-links h2 {
+  color: #CBCBCB;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 15px;
+}
+
+.web-social-links .links .item{
+  font-size: 15px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.web-social-links .item {
+  font-size: 14px;
+  overflow: auto;
+  padding: 11px 7px 5px 20px;
+}
+
+.web-social-links .item .img{
+  float: left;
+  overflow: hidden;
+}
+
+.web-social-links .item .link{
+  float: left;
+  margin-left: 16px;
+  width: 400px;
+}
+
+.web-top-profile{
+    padding: 10px;
+}
+
+/** publications **/
+
+.web-pup-wrapper{
+
+}
+
+.web-pup-wrapper h2 {
+  color: #CBCBCB;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 15px;
+}
+
+.web-pup-wrapper .web-pup-item{
+   padding: 10px 20px;
+   position: relative;
+   font-size: 15px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper{
+    clear: both;
+    overflow: auto;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-image{
+  float: left;
+  height: 48px;
+  margin-top: 3px;
+  overflow: hidden;
+  width: 48px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content {
+  float: left;
+  margin-left: 16px;
+  min-height: 48px;
+  width: 400px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content-custom {
+  margin-left: 480px;
+  min-height: 48px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper  .web-pup-item-bottom{
+    font-size: 10px;
+    color: #EFEFEF;
+    margin-top: 2px;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-row{
+  display: block;
+  line-height: 15px;
+  position: relative;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title{
+    padding-top: 3px;
+}
+
+.web-pup-wrapper .web-pub-hashtag {
+  background-color: #EFEFEF;
+  border: 1px solid #DDDDDD;
+  border-radius: 3px 3px 3px 3px;
+  color: #12122D;
+  font-size: 10px;
+  margin: 2px 2px 2px 0;
+  padding: 2px;
+  white-space: nowrap;
+}
+
+.web-pup-wrapper .web-pub-hashtag a:link {
+    color: #12122D;
+}
+
+.web-pup-wrapper .web-pub-hashtag:hover {
+    color: #F7FBFF;
+    background-color: #3E6D8E;
+    text-decoration: none;
+}
+
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title h2{
+    margin: 0;
+    font-weight: normal;
+    font-size: 15px;
+    padding: 0;
+    color: #444444;
+}
+
+/** web-stats **/
+
+.web-stats{
+    padding: 3px
+}
+
+.web-stats table{
+
+}
+
+.web-stats table tr{
+    line-height: 20px;
+}
+
+.web-stats table td{
+    padding: 2px;
+}
+
+.web-stats table tr td:first-child {
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+/** .web-rated-position */
+
+.web-rated-position{
+    padding: 3px
+}
+
+.web-rated-position table{
+}
+
+.web-rated-position table th{
+    font-weight: bold;
+    text-align: center;
+}
+
+.web-rated-position table tr th:first-child{
+    text-align: left;
+}
+
+.web-rated-position table tr{
+    line-height: 20px;
+}
+
+.web-rated-position table td{
+    padding: 2px;
+}
+
+.web-rated-position table tr td:first-child {
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+.web-rated-position .web-position-number{
+    text-align: center;
+}
+
+.web-position-down{
+
+}
+
+.web-position-up{
+
+}
+
+.web-position-equal{
+
+}
+
+/** search items **/
+
+.web-search-wrapper{
+
+}
+
+.web-search-wrapper .suggestBox {
+  min-height: 20px;
+  right: 15px;
+  z-index: 600;
+  border-radius: 3px 3px 3px 3px;
+   -webkit-border-radius: 3px 3px 3px 3px;
+   -moz-border-radius: 3px 3px 3px 3px;
+   -moz-box-shadow: 1px 4px 3px 0px #888888;
+   -webkit-box-shadow: 1px 4px 3px 0px #888888;
+   box-shadow: 1px 4px 3px 0px #888888;
+}
+
+.web-search-wrapper .web-suggest-noresults {
+  background-color: #444444;
+  color: white;
+  font-weight: bold;
+  line-height: 19px;
+  min-height: 20px;
+  padding: 3px;
+  right: 15px;
+  width: 172px;
+  z-index: 600;
+}
+
+.web-search-wrapper .web-suggest-noresults > span{
+    color: gray;
+}
+
+.web-search-container-wrapper {
+   width: 290px;
+}
+
+.web-search-wrapper .searchSuggestItem{
+
+}
+
+.web-search-container-wrapper .web-search-section {
+  background-color: #444444;
+  border-bottom: 1px dotted #F2F2F2;
+  clear: both;
+  display: inline-block;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.web-search-container-wrapper .web-search-section-label {
+  background-color: #444444;
+  color: #FFFFFF;
+  float: left;
+  font-weight: bold;
+  line-height: 5px;
+  padding: 7px 4px;
+  width: 66px;
+}
+
+.web-search-container-wrapper .web-search-section-container {
+  background-color: white;
+  margin-left: 75px;
+}
+
+.web-search-container-wrapper .web-search-section-container .selected {
+  background-color: #B7B7B7;
+  color: white;
+}
+
+.web-search-container-wrapper .web-search-section-container .web-search-item {
+  border-bottom: 1px dotted #EBEBEB;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+  width: 95.5%;
+}
+
+.web-search-container-wrapper .web-search-section-container .web-search-item h4 {
+  margin: 0;
+}
+
+/** option-menu */
+
+.option-menu {
+
+}
+
+.option-menu .icon {
+  background-color: #B4B4B2;
+  margin-left: 1px;
+  margin-top: 1px;
+  padding: 0 5px;
+  width: 10px;
+}
+
+.option-menu .hidden{
+    display: none;
+}
+
+.option-menu .menu-items {
+  background: none repeat scroll 0 0 #E3E3E3;
+  border: 1px solid #969696;
+  padding: 5px;
+  position: absolute;
+}
+
+.option-menu .menu-items .menu-item-wrap {
+  color: #747474;
 }

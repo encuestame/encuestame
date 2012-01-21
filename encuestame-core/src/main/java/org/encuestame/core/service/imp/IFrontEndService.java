@@ -28,11 +28,13 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.stats.HashTagRankingBean;
 
 /**
  * Implementation for Front End Service.
@@ -95,7 +97,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @param request
      * @return
      */
-    List<TweetPollBean> getTweetPollsbyHashTagId(final Long hashTagId,
+    List<TweetPollBean> getTweetPollsbyHashTagName(final String tagName, final Integer initResults,
             final Integer limit, final String filter,
             final HttpServletRequest request);
 
@@ -179,4 +181,62 @@ public interface IFrontEndService extends ServiceOperations {
      */
     List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
     throws EnMeNoResultsFoundException;
+
+
+    /**
+    * Return last publications by {@link HashTag}.
+    * @param hashTag {@link HashTag}
+    * @param keyword keyword if not null, the search should be by keyword.
+    * @param limit limit of items
+    * @param filter order by
+    * @param request {@link HttpServletRequest}.
+    * @return
+   **/
+       List<HomeBean> searchLastPublicationsbyHashTag(
+               final HashTag hashTag, final String keyword, final Integer initResults, final Integer limit,
+               final String filter, final HttpServletRequest request);
+
+    /**
+     * Get total usage {@link TweetPoll}, {@link Poll} or {@link Survey} by
+     * HashTag.
+     *
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+    Long getTotalUsageByHashTag(final String tagName, final Integer initResults,
+            final Integer maxResults, final TypeSearchResult filter);
+
+    /**
+    *
+    * @param hash
+    * @return
+    */
+   List<LinksSocialBean> getHashTagLinks(final HashTag hash);
+   
+   /**
+    * Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
+    * @param tagName
+    * @param initResults
+    * @param maxResults 
+    * @return
+    */
+   Long getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults); 
+   
+   /**
+    * Get total hash tag hits by tag name.
+    * @param tagName
+    * @param filterBy
+    * @return
+    */
+	Long getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy);
+	
+	/**
+	 * Get hashTag ranking.
+	 * @param tagName
+	 * @return 
+	 */
+	List<HashTagRankingBean> getHashTagRanking(final String tagName);
 }

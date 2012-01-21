@@ -64,7 +64,7 @@ public class SignUpController extends AbstractSecurityController {
             return "redirect:/signin";
         } else {
             final SignUpBean user = new SignUpBean();
-            final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
+            final String captcha = getReCaptcha().createRecaptchaHtml(null, null); 
             log.debug(captcha);
             user.setCaptcha(captcha);
             log.info("username "+user);

@@ -1,18 +1,11 @@
-<div class="${type}WrapperRow socialWrapperRow default-background-dark-color">
+<div class="${type}WrapperRow socialWrapperRow">
     <div dojoType="dijit.form.Form" class="socialNewForm">
-        <table  dojoAttachEvent="onclick:_showHideSecrets">
-            <tr>
-                <td>
-                    <div style="float: left;">
-                        <img alt="${account.account}" src="${account.profile_thumbnail_picture}" height="25" width="25">
-                    </div>
-                    <div class="title">${account.account}</div>
-                </td>
-                <td>
-                    <a href="#"  dojoAttachEvent="onclick:_showHideSecrets">Show Details</a><br/>
-                </td>
-            </tr>
-        </table>
+        <div class="sub-title-account" dojoAttachEvent="onclick:_showHideSecrets">
+               <div class="image">
+                    <img alt="${account.account}" src="${account.profile_thumbnail_picture}" height="28" width="28">
+               </div>
+               <div class="title">${account.account}</div>
+        </div>
         <div class="tokensWrapper defaultDisplayHide" dojoAttachPoint="_secretView">
             <div class="tokenHideOptions">
                 <table>

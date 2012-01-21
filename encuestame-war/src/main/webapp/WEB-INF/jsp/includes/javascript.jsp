@@ -10,6 +10,11 @@
                     };
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
+<!-- Production
+<script src="<%=request.getContextPath()%>/resources/js/req/raphael-min.js"></script>
+-->
+<!-- Dev -->
+<script src="<%=request.getContextPath()%>/resources/js/req/raphael.js"></script>
 <script>
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
@@ -19,6 +24,7 @@
         var config = {
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
+            suggest_limit : 10,
             delay : 60000,
             activity : {
                 levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
@@ -40,7 +46,6 @@
         };
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/req/raphael-min.js"></script>
  <c:if test="${!development}">
     <script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js?<%=EnMePlaceHolderConfigurer.getProperty("app.version")%>"></script>
 </c:if>

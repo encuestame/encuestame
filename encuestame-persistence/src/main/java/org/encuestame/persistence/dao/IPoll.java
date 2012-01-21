@@ -20,6 +20,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
 /**
@@ -211,4 +212,15 @@ public interface IPoll extends IBaseDao {
       * @return
       */
     Long getTotalPollsbyUser(final UserAccount user, final Boolean publishStatus);
+    
+    /**
+     * Get poll by hashTag id.
+     * @param tagName
+     * @param startResults
+     * @param limitResults
+     * @param filterby
+     * @return
+     */
+    List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
+            final Integer limitResults, final TypeSearchResult filterby);
 }

@@ -14,7 +14,6 @@ dojo.provide("encuestame.org.core.gadget.Comments");
 
 dojo.require("encuestame.org.core.gadget.Gadget");
 dojo.require("encuestame.org.core.comments.Comment");
-dojo.require("encuestame.org.core.comments.Comment");
 
 dojo.declare(
     "encuestame.org.core.gadget.Comments",

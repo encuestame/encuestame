@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.141-SNAPSHOT</version>
+        <version>1.142</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
@@ -24,7 +24,7 @@
                 <dependency>
                    <groupId>org.mortbay.jetty</groupId>
                    <artifactId>jetty-ssl</artifactId>
-                   <version>7.0.0.pre5</version>
+                   <version>${jetty.ssl}</version>
                 </dependency>
             </dependencies>
                 <configuration>
@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>keytool-maven-plugin</artifactId>
-                <version>1.0</version>
+                <version>${keytool.maven.plugin}</version>
                 <executions>
                     <execution>
                         <phase>generate-resources</phase>
@@ -105,9 +105,32 @@
                     <dependency>
                         <groupId>jasperreports</groupId>
                         <artifactId>jasperreports</artifactId>
-                        <version>3.5.3</version>
+                        <version>${jasper.report}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <wtpversion>1.5</wtpversion>
+                    <additionalProjectFacets>
+                        <jst.java>6.0</jst.java>
+                        <jst.web>2.5</jst.web>
+                    </additionalProjectFacets>
+                    <additionalBuildcommands>
+                        <buildcommand>org.eclipse.wst.common.project.facet.core.builder</buildcommand>
+                        <buildcommand>org.eclipse.wst.jsdt.core.javascriptValidator</buildcommand>
+                        <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <additionalProjectnatures>
+                        <projectnature>org.eclipse.jdt.core.javanature</projectnature>
+                        <projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
+                        <projectnature>org.eclipse.wst.jsdt.core.jsNature</projectnature>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -131,7 +154,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.1.1</version>
+                    <version>${maven.war.plugin}</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -153,7 +176,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.1.1</version>
+                    <version>${maven.war.plugin}</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -175,7 +198,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.1.1</version>
+                    <version>${maven.war.plugin}</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -197,7 +220,7 @@
                      <plugin>
                         <groupId>ro.isdc.wro4j</groupId>
                         <artifactId>wro4j-maven-plugin</artifactId>
-                        <version>1.3.8</version>
+                        <version>${wro4j.plugin}</version>
                         <executions>
                           <execution>
                             <phase>compile</phase>
@@ -215,7 +238,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
-                        <version>2.1.1</version>
+                        <version>${maven.war.plugin}</version>
                         <configuration>
                             <packagingIncludes>
                                 WEB-INF/lib/*,
@@ -264,7 +287,7 @@
                          <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-antrun-plugin</artifactId>
-                            <version>1.6</version>
+                            <version>${maven-antrun-plugin}</version>
                             <executions>
                                 <execution>
                                     <phase>compile</phase>

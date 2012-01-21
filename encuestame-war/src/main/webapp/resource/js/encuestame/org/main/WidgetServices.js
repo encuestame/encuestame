@@ -39,8 +39,8 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     /*
      *
      */
-    errorMesage : function() {
-        encuestame.messages.pubish(encuestame.constants.errorCodes["023"], "error", this._delay_messages);
+    errorMesage : function(error) {
+        encuestame.messages.pubish(error == null ? encuestame.constants.errorCodes["023"] : error, "error", this._delay_messages);
     },
 
     /*
