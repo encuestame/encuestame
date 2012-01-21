@@ -23,7 +23,6 @@ import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.social.SocialNetworkBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.junit.Test;
 
