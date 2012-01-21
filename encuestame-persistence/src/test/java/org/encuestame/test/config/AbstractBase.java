@@ -1197,7 +1197,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param user
      * @return
      */
-    public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user){
+    public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user) {
         return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
@@ -1795,12 +1795,12 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public HashTagRanking createHashTagRank(final HashTag tag, final Date rankingDate, final Double average){
-    	final HashTagRanking tagRank = new HashTagRanking();
-    	tagRank.setHashTag(tag);
-    	tagRank.setAverage(average); 
-    	tagRank.setRankingDate(rankingDate);
-    	getHashTagDao().saveOrUpdate(tagRank);
-    	return tagRank;
+        final HashTagRanking tagRank = new HashTagRanking();
+        tagRank.setHashTag(tag);
+        tagRank.setAverage(average);
+        tagRank.setRankingDate(rankingDate);
+        getHashTagDao().saveOrUpdate(tagRank);
+        return tagRank;
     }
 
     /**
@@ -1913,24 +1913,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
        * @param tweetText
        * @return
        */
-	public TweetPollSavedPublishedStatus createTweetPollSavedPublishedStatus(
-			final TweetPoll tweetPoll, final String tweetId,
-			final SocialAccount socialAccount, final String tweetText) {
-		return this.createSocialLinkSavedPublishedStatus(tweetPoll, null, null,
-				tweetId, socialAccount, tweetText);
+    public TweetPollSavedPublishedStatus createTweetPollSavedPublishedStatus(
+            final TweetPoll tweetPoll, final String tweetId,
+            final SocialAccount socialAccount, final String tweetText) {
+        return this.createSocialLinkSavedPublishedStatus(tweetPoll, null, null,
+                tweetId, socialAccount, tweetText);
 
-	}
-   
-	/**
-	 * Create social network link.
-	 * @param tweetPoll
-	 * @param poll
-	 * @param survey
-	 * @param tweetId
-	 * @param socialAccount
-	 * @param tweetText
-	 * @return
-	 */
+    }
+
+    /**
+     * Create social network link.
+     * @param tweetPoll
+     * @param poll
+     * @param survey
+     * @param tweetId
+     * @param socialAccount
+     * @param tweetText
+     * @return
+     */
     public TweetPollSavedPublishedStatus createSocialLinkSavedPublishedStatus(
             final TweetPoll tweetPoll, final Poll poll, final Survey survey, final String tweetId,
             final SocialAccount socialAccount, final String tweetText) {
@@ -1946,7 +1946,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         getTweetPoll().saveOrUpdate(publishedStatus);
         return publishedStatus;
     }
-    
+
     /**
      * Create Poll social links.
      * @param poll
