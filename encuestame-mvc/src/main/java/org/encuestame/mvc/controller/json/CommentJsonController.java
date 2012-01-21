@@ -167,7 +167,7 @@ public class CommentJsonController extends AbstractJsonController {
      */
     @RequestMapping(value = "/api/common/comment/create.json", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    public ModelMap createtDashboard(
+    public ModelMap createComment(
             @RequestParam(value = "comment", required = true) String mycomment,
             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
             HttpServletRequest request,

@@ -14,6 +14,7 @@
 package org.encuestame.mvc.controller;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,6 +44,7 @@ public class SurveyController  extends AbstractBaseOperations {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/survey", method = RequestMethod.GET)
     public String surveyController(final ModelMap model) {
+    	 model.addAttribute("survey", "survey" );
         log.debug("survey");
         return "user/survey";
     }
@@ -56,7 +58,7 @@ public class SurveyController  extends AbstractBaseOperations {
     public String surveyPublicController(final ModelMap model,
             @PathVariable Long id,
             @PathVariable String slug) {
-        log.debug("survey");
+        log.debug("survey"); 
         return "survey";
     }
 }
