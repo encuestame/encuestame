@@ -364,6 +364,22 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 				.getHashTagRanking("Europa");
 		Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
 	}
+	
+	/**
+	 * 
+	 */
+	public void testSearchItemsByTweetPoll(){
+		
+	}
+	
+	public void testSearchItemsBySurvey(){
+		
+	}
+	
+	public void testSearchItemsByPoll(){
+		
+	}
+	
 
     /**
     * @return the frontEndService

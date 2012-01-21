@@ -32,7 +32,7 @@ public class UserProfileController extends AbstractBaseOperations {
     private Log log = LogFactory.getLog(this.getClass());
 
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
-    public String tweetPollController(
+    public String userProfileController(
             final ModelMap model,
             @PathVariable String username) {
         username = filterValue(username);
