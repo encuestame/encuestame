@@ -150,7 +150,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/answer/{type}.json", method = RequestMethod.GET)
-    public ModelMap createAnswer(
+    public ModelMap manageAnswer(
             @RequestParam(value = "id", required = true) final Long tweetPollId,
             @RequestParam(value = "answer", required = false) final String answer,
             @RequestParam(value = "answerId", required = false) final Long answerId,

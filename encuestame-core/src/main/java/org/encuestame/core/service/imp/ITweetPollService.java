@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -33,6 +34,7 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 
@@ -436,6 +438,22 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param range
       * @return
       */
-     List<TweetPoll> getTweetPollsbyRange(final Integer maxResults,
-             final Integer start, final Date range);
+     List<TweetPoll> getTweetPollsbyRange(final Integer maxResults, final Integer start, final Date range);
+
+     /**
+      * Add hashtag to {@link TweetPoll}.
+      * @param tweetPoll
+      * @param hashTagBean
+      * @return {@link HashTag}.
+     * @throws EnMeNoResultsFoundException
+      */
+     HashTag addHashtagToTweetPoll(final TweetPoll tweetPoll,
+             final HashTagBean hashTagBean) throws EnMeNoResultsFoundException;
+
+     /**
+      * Remove hashtag to {@link TweetPoll}.
+      * @param tweetPoll
+      * @param hashTag
+      */
+     void removeHashtagFromTweetPoll(final TweetPoll tweetPoll, final HashTag hashTag);
 }
