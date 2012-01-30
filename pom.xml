@@ -26,7 +26,7 @@
         <!-- Java version -->
         <java-version>1.6</java-version>
         <!-- encuestame version -->
-        <encuestame.version>1.142</encuestame.version>
+        <encuestame.version>1.143-SNAPSHOT</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
         <spring.version>3.1.0.RELEASE</spring.version>
         <env>development</env>
