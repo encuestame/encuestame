@@ -26,8 +26,8 @@
      <import resource="spring/encuestame-json-context.xml" />
      <import resource="spring/encuestame-rss-context.xml" />
 
-     <!-- Integration -->
-     <import resource="spring/encuestame-integration.xml" />
+     <!-- Integration
+     <import resource="spring/encuestame-integration.xml" />-->
      <import resource="spring/encuestame-comet-context.xml" />
 
      <!-- Task -->
