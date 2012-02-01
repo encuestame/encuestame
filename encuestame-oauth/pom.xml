@@ -203,11 +203,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
         </dependency>
-        <!-- Spring WebFlow -->
-        <dependency>
-            <groupId>org.springframework.webflow</groupId>
-            <artifactId>spring-binding</artifactId>
-        </dependency>
         <!-- Spring Integration -->
         <dependency>
             <groupId>org.springframework.integration</groupId>
