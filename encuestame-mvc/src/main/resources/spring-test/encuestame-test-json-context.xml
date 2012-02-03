@@ -13,7 +13,7 @@
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-      <tx:annotation-driven proxy-target-class="true"/>
+      
 
       <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
 
