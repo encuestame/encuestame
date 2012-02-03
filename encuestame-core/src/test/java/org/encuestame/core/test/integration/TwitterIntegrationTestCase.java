@@ -25,14 +25,13 @@ import org.springframework.integration.MessageChannel;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.message.GenericMessage;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Scope("singleton")
-@ContextConfiguration(locations = {
+/*@ContextConfiguration(locations = {
          "classpath:TwitterSendUpdates-context.xml"
-          })
+          })*/
 @Ignore
 public class TwitterIntegrationTestCase {
 
