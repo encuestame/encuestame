@@ -144,6 +144,14 @@ encuestame.utilities.randomString = function() {
     return text;
 };
 
+/**
+ * Checking if a string is empty, null or undefined.
+ * @param string value
+ */
+encuestame.utilities.isEmpty = function(str) {
+     return (!str || 0 === str.length);
+};
+
 encuestame.utilities.url = {};
 
 /*

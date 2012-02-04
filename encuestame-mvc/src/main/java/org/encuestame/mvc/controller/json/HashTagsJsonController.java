@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.service.imp.IFrontEndService;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.HashTagBean;
@@ -59,7 +60,7 @@ public class HashTagsJsonController extends AbstractJsonController{
      * Limit of cloud results.
      */
     private static final Integer CLOUD_LIMIT_DEFAULT = 20;
-     
+
      /**
      * Get List of Users.
      * @param username username
@@ -150,18 +151,27 @@ public class HashTagsJsonController extends AbstractJsonController{
     public ModelMap manageHashtag(
             @RequestParam(value = "id", required = true) final String hashtag,
             @RequestParam(value = "itemId", required = true) final Long id,
-            @PathVariable final String action, @PathVariable final String type,
+            @PathVariable final String action,
+            @PathVariable final String type,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
             final TypeSearchResult typeItem = TypeSearchResult.getTypeSearchResult(type);
+            log.debug("***************/api/survey/hashtag/{type}/{action}.json************");
             if (typeItem.equals(TypeSearchResult.TWEETPOLL)) {
-                if ("remove".equals("action")) {
+                if ("remove".equals(action)) {
                     setSuccesResponse();
                     getTweetPollService().removeHashtagFromTweetPoll(null, null);
-                } else if ("add".equals("action")) {
+                } else if ("add".equals(action)) {
                      final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                     jsonResponse.put("hashtag", getTweetPollService().addHashtagToTweetPoll(getTweetPollService().getTweetPollById(id), new HashTagBean(hashtag)));
+                    final HashTagBean bean = ConvertDomainBean
+                            .convertHashTagDomain(getTweetPollService()
+                                    .addHashtagToTweetPoll(
+                                            getTweetPollService()
+                                                    .getTweetPollById(id),
+                                            new HashTagBean(hashtag)));
+                    log.debug("New TweetPoll HT Bean: "+bean);
+                    jsonResponse.put("hashtag", bean);
                      setItemResponse(jsonResponse);
                 }
             } else if (typeItem.equals(TypeSearchResult.POLL)) {
@@ -171,10 +181,11 @@ public class HashTagsJsonController extends AbstractJsonController{
                 //TODO: no yet.
                  setSuccesResponse();
             }
+            log.debug("***************/api/survey/hashtag/{type}/{action}.json************");
         } catch (Exception e) {
             log.error(e);
             setError(e.getMessage(), response);
         }
         return returnData();
-    }  
+    }
 }

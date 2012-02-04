@@ -115,7 +115,9 @@ dojo.declare(
                     "itemId" : this.tweetPollId
            };
            var load = dojo.hitch(this, function(data) {
-               this.addNewHashTag(data);
+               if ("success" in data) {
+                   this.addNewHashTag(data.success.hashtag);
+               }
            });
            var error = dojo.hitch(this, function(error) {
                this.errorMesage(error.message);
@@ -165,6 +167,7 @@ dojo.declare(
             console.debug(data);
             var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
                     {
+                     label : data.hashTagName,
                      data : data,
                      parentWidget : this
                      });
@@ -211,15 +214,33 @@ dojo.declare(
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtagItem.html"),
         //widgets in template
         wigetsInTemplate: true,
-         //data
+
+        /**
+         * the body of hashtag.
+         */
         data : null,
 
+        /**
+         * the label of the hashtag.
+         */
+        label : null,
+
+        /**
+         * Parent widget reference.
+         */
         parentWidget : null,
 
-        postCreate : function(){
-            console.debug("new HashTag", this.data);
+        /**
+         *
+         */
+        postCreate : function() {
+            //console.debug("new HashTag", this.label);
         },
 
+        /**
+         *
+         * @param event
+         */
         _options : function(event){
             var dialog = this.parentWidget.getDialog();
             dialog.item = this;
@@ -234,10 +255,8 @@ dojo.declare(
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html"),
 
         block : function(){
-
         },
 
         unblock : function(){
-
         }
 });
