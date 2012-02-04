@@ -68,7 +68,7 @@ dojo.declare(
          */
         postCreate: function() {
             this.textBoxWidget = dijit.byId(this._suggest);
-            if(this.textBoxWidget){
+            if (this.textBoxWidget) {
               //enable keyword events
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
                     if (!this._inProcessKey) {

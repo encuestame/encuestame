@@ -51,6 +51,16 @@ dojo.declare(
         _selectedNode : null,
 
         /*
+         * define if a key process is on curse.
+         */
+        _inProcessKey : false,
+
+        /*
+         * the time to delay key events.
+         */
+        _delay : 700,
+
+        /*
          * post create process.
          */
         postCreate: function() {
@@ -151,34 +161,50 @@ dojo.declare(
             document.location.href = searchUrl;
         },
 
-        /*
-         *
+        /**
+         * Search suggest support.
          */
         _searchSuggestSupport : function() {
-             dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
+
+            /**
+              * initialize the key up event.
+              */
+             dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(/* dojo event */e) {
+                 var text = this.textBoxWidget.get("value");
+                 // ENTER key
                  if (dojo.keys.ENTER == e.keyCode) {
                       this.processEnterAction(this._selectedNode);
+                 // ESC key
                  } else if (dojo.keys.ESCAPE == e.keyCode) {
                      this.hide();
+                 // UP ARROW KEY
                  } else if (dojo.keys.UP_ARROW == e.keyCode) {
                      this._moveSelected("up");
+                 // DOWN ARROW KEY
                  } else if (dojo.keys.DOWN_ARROW == e.keyCode) {
                      this._moveSelected("down");
+                 // THE REST OF KEYBOARD
                  } else {
                      this._setParams(
                              { limit: config.suggest_limit,
-                               keyword : this.textBoxWidget.get("value"),
+                               keyword : text,
                                excludes : this.exclude});
-                     //console.debug("suggest", this.textBoxWidget.get("value"));
-                     if (this.textBoxWidget.get("value") != "" && this.textBoxWidget.get("value").length > 1) {
-                         this._searchCallService();
+                     if (!encuestame.utilities.isEmpty(text) && text.length > 1) {
+                         var parent = this;
+                         if (!this._inProcessKey) {
+                             this._inProcessKey = true;
+                             setTimeout(function () {
+                                 parent._inProcessKey = false;
+                                 parent._searchCallService();
+                             }, this._delay);
+                         }
                      }
                  }
                  //this.textBoxWidget //TODO: this.hide() on lost focus.
              }));
         },
 
-        /*
+        /**
          * Make a call to search service.
          * {"error":{},"success":{"items":{"profiles":[],"questions":[],"attachments":[],"tags":[{"id":null,"hits":3000001,"typeSearchResult":"HASHTAG","urlLocation":"/hashtag/nicaragua","score":100,"itemSearchTitle":"Nicaragua","itemSearchDescription":null}]},"label":"itemSearchTitle","identifier":"id"}}
          */
@@ -206,7 +232,7 @@ dojo.declare(
                     encuestame.service.search.suggest, this.searchParam, load, error);
         },
 
-        /*
+        /**
          * Create a list of item.
          * @param data suggested search item.
          */
@@ -220,7 +246,7 @@ dojo.declare(
         }
 });
 
-/*
+/**
  * Widget define item suggest box.
  */
 dojo.declare(
@@ -235,6 +261,9 @@ dojo.declare(
 
         data: null,
 
+        /**
+         * Post Create Life Cycle.
+         */
         postCreate : function() {
             //console.info("SearchSuggestItem", this.data);
             //console.info("SearchSuggestItem",this.checkIfDataIsEmtpy());
@@ -266,6 +295,10 @@ dojo.declare(
             }
         },
 
+        /**
+         * Check if data for each item is empty.
+         * @returns {Boolean}
+         */
         checkIfDataIsEmtpy : function() {
             var isEmpty = true;
             if ("tags" in this.data) {
@@ -286,8 +319,8 @@ dojo.declare(
             return isEmpty;
         },
 
-        /*
-        *
+       /**
+        * Print items.
         */
        _printItems : function(label, items) {
            //console.info("_printHashtags", items);
@@ -303,6 +336,10 @@ dojo.declare(
        }
 });
 
+/**
+ * Search Suggest Item Secction.
+ * Is a space to store items separated by section, questions, hashstag, attachmetns.
+ */
 dojo.declare(
         "encuestame.org.core.commons.search.SearchSuggestItemSection",
         [encuestame.org.main.EnmeMainLayoutWidget],{
@@ -317,6 +354,9 @@ dojo.declare(
 
         label : "",
 
+        /**
+         * Post Create.
+         */
         postCreate : function() {
             dojo.forEach(this.items,
                     dojo.hitch(this,function(item) {
@@ -324,8 +364,8 @@ dojo.declare(
             }));
         },
 
-        /*
-         *
+        /**
+         * Create a search item.
          */
         _createItem : function(item, type) {
             var div = dojo.create("div");
