@@ -59,6 +59,10 @@ dojo.declare(
 
         _itemStored : [],
 
+        _delay : 700,
+
+        _inProcessKey : false,
+
         /*
          * post create life cylce.
          */
@@ -67,23 +71,31 @@ dojo.declare(
             if(this.textBoxWidget){
               //enable keyword events
                 dojo.connect(this.textBoxWidget, "onKeyUp", dojo.hitch(this, function(e) {
-                    if (dojo.keys.SPACE == e.keyCode || dojo.keys.ENTER == e.keyCode) {
-                         this.processSpaceAction();
-                    } else if (dojo.keys.UP_ARROW == e.keyCode) {
-                        //TODO: down by suggestion list.
-                    } else if (dojo.keys.DOWN_ARROW == e.keyCode) {
-                        //TODO: up by suggestion list.
-                    } else {
-                        this._setParams(
-                                { limit: this.limit,
-                                  keyword : this.textBoxWidget.get("value"),
-                                  excludes : this.exclude});
-                        //console.debug("suggest", this.textBoxWidget.get("value"));
-                        if (this.textBoxWidget.get("value") != "") {
-                            this.callSuggest();
-                        }
-                    }
-                    //this.textBoxWidget //TODO: this.hide() on lost focus.
+                    if (!this._inProcessKey) {
+                        this._inProcessKey = true;
+                        var parent = this;
+                        dojo.hitch(this, setTimeout(function () {
+                            parent._inProcessKey = false;
+                            if (dojo.keys.SPACE == e.keyCode || dojo.keys.ENTER == e.keyCode) {
+                                parent.processSpaceAction();
+                            } else if (dojo.keys.UP_ARROW == e.keyCode) {
+                                //TODO: down by suggestion list.
+                            } else if (dojo.keys.DOWN_ARROW == e.keyCode) {
+                                //TODO: up by suggestion list.
+                            } else {
+                                parent._setParams(
+                                        { limit: parent.limit,
+                                          keyword : parent.textBoxWidget.get("value"),
+                                          excludes : parent.exclude});
+                                //console.debug("suggest", this.textBoxWidget.get("value"));
+                                if (!encuestame.utilities.isEmpty(parent.textBoxWidget.get("value"))) {
+                                    //call first time suggest.
+                                     parent.callSuggest();
+                                 }
+                              }
+                              // this.textBoxWidget //TODO: this.hide() on lost focus.
+                        }, this._delay));
+                      }
                 }));
                 //query read store.
                 this.store = new dojox.data.QueryReadStore({
@@ -91,8 +103,7 @@ dojo.declare(
                     sortFields : this.sortFields,
                     requestMethod : this.modeQuery}
                 );
-                //call first time suggest.
-                this.callSuggest();
+                 this.callSuggest();
                 //enable add button, if not the default add is click on item.
                 if (this.addButton) {
                   //check if node exist.
@@ -215,7 +226,7 @@ dojo.declare(
                 var newValue = {id:null, label:"", newValue: true};
                 newValue.label = this.textBoxWidget.get("value");
                 this.selectedItem = newValue;
-                if(newValue.label != ''){
+                if (!encuestame.utilities.isEmpty(newValue.label)) {
                     this.processSelectedItem(this.selectedItem);
                 }
                 this.clear();
