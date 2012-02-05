@@ -3,10 +3,8 @@
     <h1>Settings Configuration</h1>
     <br/>
     <div style="width: 900px; height: 500px;">
-        <div dojoType="dijit.layout.TabContainer"
-            style="width: 100%; height: 100%;">
-            <div dojoType="dijit.layout.ContentPane" title="Your Account"
-                selected="true">
+        <div dojoType="dijit.layout.TabContainer" style="width: 100%; height: 100%;">
+            <div dojoType="dijit.layout.ContentPane" title="Your Account" selected="true">
                  <enme:widget type="encuestame.org.core.commons.profile.Profile"></enme:widget>
             </div>
             <div dojoType="dijit.layout.ContentPane" title="Picture" style="border: 0 none;">

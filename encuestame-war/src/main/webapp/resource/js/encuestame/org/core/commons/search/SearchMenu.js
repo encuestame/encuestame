@@ -252,7 +252,8 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.search.SearchSuggestItemsByType",
         [encuestame.org.main.EnmeMainLayoutWidget],{
-        //template
+
+            //template
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItem.html"),
         //widgets in template
         wigetsInTemplate: true,
@@ -366,6 +367,8 @@ dojo.declare(
 
         /**
          * Create a search item.
+         * @param item
+         * @param type
          */
         _createItem : function(item, type) {
             var div = dojo.create("div");

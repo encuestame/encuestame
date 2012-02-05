@@ -3059,7 +3059,7 @@ div.socialAccounts div.socialWrapper .selected{
     -moz-box-shadow: 0 1px 3px #888888 inset;
     -webkit-box-shadow: 0 1px 3px #888888 inset;
      box-shadow: 0 1px 3px #888888 inset;
-     background-color: #E5E5E5;
+     background-color: #FCFCFC;
      color: #969696 !important;
 }
 
@@ -4001,4 +4001,46 @@ div.web-social-links{
 
 .option-menu .menu-items .menu-item-wrap {
   color: #747474;
+}
+
+/** tweetpoll vote options **/
+
+.web-tweetpoll-vote-options {
+  margin: 0 auto;
+  padding-top: 60px;
+  width: 1000px;
+}
+
+.web-tweetpoll-vote-options h1 {
+  color: #999999;
+  font-weight: bold;
+  margin: 0;
+}
+
+.web-tweetpoll-vote-options h3 {
+  font-size: 15px;
+  font-weight: normal;
+  margin: 10px 0 0 0;
+}
+
+.web-tweetpoll-vote-options .web-permatlink {
+  background-color: #FFFFFF;
+  border: 1px solid #E3E3E3;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 1px 6px rgba(72, 72, 72, 0.46);
+  margin: 0 auto;
+  min-height: 180px;
+  padding: 20px;
+  width: 50%;
+}
+
+.web-tweetpoll-vote-options .web-tweetpoll-info {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 25%;
+  text-align: right;
+}
+
+.web-tweetpoll-vote-options .web-tweetpoll-info a{
+    color: #444444;
 }
