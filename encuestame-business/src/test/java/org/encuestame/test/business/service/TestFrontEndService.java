@@ -24,6 +24,7 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -31,6 +32,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
@@ -363,6 +365,50 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 		final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
 				.getHashTagRanking("Europa");
 		Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
+	}
+	
+	
+	/**
+	 * Test total hashTag used on items voted.
+	 */
+	@Test
+	public void testGetHashTagUsedOnItemsVoted(){
+		final HashTag hashtag1 = createHashTag("season");
+    	final Question question = createQuestion("What is your favorite season?", "");
+    	final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+    	tp.getHashTags().add(hashtag1);
+    	getTweetPoll().saveOrUpdate(tp);
+    	
+    	// Item 2 
+    	final Question question2 = createQuestion("What is your favorite holidays?", "");
+    	final TweetPoll tp2 = createPublishedTweetPoll(question2, this.secondary);
+    	tp2.getHashTags().add(hashtag1);
+    	getTweetPoll().saveOrUpdate(tp2);
+    	
+    	final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "7891011");
+    	final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "7891012");
+    	
+    	final QuestionAnswer questionsAnswers3 = createQuestionAnswer("yes", question2, "11121314");
+    	final QuestionAnswer questionsAnswers4 = createQuestionAnswer("no", question2, "11121315");
+
+    	final TweetPollSwitch tpollSwitch1 = createTweetPollSwitch(questionsAnswers1, tp);
+    	final TweetPollSwitch tpollSwitch2 = createTweetPollSwitch(questionsAnswers2, tp); 
+          
+    	final TweetPollSwitch tpollSwitch3 = createTweetPollSwitch(questionsAnswers3, tp2);
+    	final TweetPollSwitch tpollSwitch4 = createTweetPollSwitch(questionsAnswers4, tp2); 
+    	
+    	// TweetPoll 1 votes.
+    	createTweetPollResult(tpollSwitch1, "192.168.0.1");
+    	createTweetPollResult(tpollSwitch1, "192.168.0.2");
+    	createTweetPollResult(tpollSwitch2, "192.168.0.3");
+    	createTweetPollResult(tpollSwitch2, "192.168.0.4");
+ 
+    	// TweetPoll 2 votes.
+    	createTweetPollResult(tpollSwitch3, "192.168.0.5");
+    	createTweetPollResult(tpollSwitch4, "192.168.0.6");
+    	
+     	final Long myTotalTp = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag());
+     	Assert.assertEquals("Should be equals", 4, myTotalTp.intValue());  
 	}
 	
 	/**

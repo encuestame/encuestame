@@ -239,4 +239,11 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @return 
 	 */
 	List<HashTagRankingBean> getHashTagRanking(final String tagName);
+	
+	/**
+	 * Get Total usage by hashtags on tweepolls voted.
+	 * @param tagName
+	 * @return
+	 */
+	Long getHashTagUsedOnItemsVoted(final String tagName);
 }
