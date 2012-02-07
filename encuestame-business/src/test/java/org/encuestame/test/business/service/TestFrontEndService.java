@@ -66,6 +66,12 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
+    
+    /** **/
+    private Integer INIT_RESULTS= 0;
+    
+    /** **/
+    private Integer MAX_RESULTS= 10;
 
     @Before
     public void initData(){
@@ -407,8 +413,8 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	createTweetPollResult(tpollSwitch3, "192.168.0.5");
     	createTweetPollResult(tpollSwitch4, "192.168.0.6");
     	
-     	final Long myTotalTp = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag());
-     	Assert.assertEquals("Should be equals", 4, myTotalTp.intValue());  
+     	final Long totalTweetPollsVoted = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
+     	Assert.assertEquals("Should be equals", 4, totalTweetPollsVoted.intValue());  
 	}
 	
 	/**

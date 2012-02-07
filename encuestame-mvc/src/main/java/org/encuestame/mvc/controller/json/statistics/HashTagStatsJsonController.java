@@ -14,7 +14,7 @@ package org.encuestame.mvc.controller.json.statistics;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap; 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +27,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.utils.enums.TypeSearchResult; 
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -87,6 +86,8 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 							limit));
 			tagStatsBean.setUsageByItem(getFrontService().getHashTagHitsbyName(tagName,
 					TypeSearchResult.getTypeSearchResult(filter)));
+			tagStatsBean.setUsageByVotes(getFrontService().getHashTagUsedOnItemsVoted(tagName, 
+					this.INIT_RESULTS, limit));
 
 			jsonResponse.put("hashTagButtonStats", tagStatsBean);
 			setItemResponse(jsonResponse);

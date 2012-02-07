@@ -243,7 +243,9 @@ public interface IFrontEndService extends ServiceOperations {
 	/**
 	 * Get Total usage by hashtags on tweepolls voted.
 	 * @param tagName
+	 * @param initResults
+	 * @param max
 	 * @return
 	 */
-	Long getHashTagUsedOnItemsVoted(final String tagName);
+	Long getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
 }
