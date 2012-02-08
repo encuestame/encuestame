@@ -21,7 +21,6 @@ import javax.servlet.ServletException;
 
 import org.encuestame.mvc.controller.json.statistics.HashTagStatsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
-
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -173,6 +172,24 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         Assert.assertEquals(hashTagsRanking2.size(), 3); 
     }
 
+    /**
+     * Test retrieve generic stats.
+     * @throws IOException 
+     * @throws ServletException 
+     */
+    @Test
+    public void testRetrieveGenericStats() throws ServletException, IOException{
+    	final Question question = createQuestion("Black or White?", "");
+    	final TweetPoll tweetpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount());  
+    	initService("/api/common/stats/generic.json", MethodJson.GET);
+        setParameter("id", tweetpoll.getTweetPollId().toString());
+        setParameter("filter", "TWEETPOLL");
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final JSONObject genericStatsData = (JSONObject) success.get("generic");
+        Assert.assertEquals(genericStatsData.get("hits").toString(), tweetpoll.getHits().toString()); 
+    	
+    }
 
 
 }

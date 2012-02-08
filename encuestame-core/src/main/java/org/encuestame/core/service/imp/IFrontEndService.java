@@ -251,7 +251,7 @@ public interface IFrontEndService extends ServiceOperations {
 	Long getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
 	
 	/**
-	 * 
+	 * Generic stats for {@link TweetPoll}, {@link Poll} or {@link Survey}.
 	 * @param itemId
 	 * @param itemType
 	 * @return

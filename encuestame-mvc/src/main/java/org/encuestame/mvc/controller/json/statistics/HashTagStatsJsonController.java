@@ -29,6 +29,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -121,6 +122,41 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 				final List<HashTagRankingBean> tagRankingBean =  getFrontService().getHashTagRanking(tagName);
 			log.debug("HashTagJsonStats size --->" + tagRankingBean.size());
 			jsonResponse.put("hashTagRankingStats", getFrontService().getHashTagRanking(tagName));
+			setItemResponse(jsonResponse);
+		} catch (Exception e) {
+			// TODO: handle exception
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
+	
+	/**
+	 * Generic stats.
+	 * @param itemId
+	 * @param tagName
+	 * @param filter
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/api/common/stats/generic.json", method = RequestMethod.GET)
+	public ModelMap getGenericStats(
+			@RequestParam(value = "id", required = false) Long itemId,
+			@RequestParam(value = "tagName", required = false) String tagName,
+			@RequestParam(value = "filter", required = false) String filter,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		try {
+			
+			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+			 final TypeSearchResult filterType = TypeSearchResult
+	                    .getTypeSearchResult(filter);
+			final GenericStatsBean genericStatsBean =  getFrontService().retrieveGenericStats(itemId, filterType);
+			jsonResponse.put("generic", genericStatsBean);
 			setItemResponse(jsonResponse);
 		} catch (Exception e) {
 			// TODO: handle exception

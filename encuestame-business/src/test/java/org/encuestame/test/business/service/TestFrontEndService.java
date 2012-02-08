@@ -428,13 +428,22 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 	 */
 	@Test
 	public void testGetGenericStats() throws EnMeNoResultsFoundException{
-		final Question question = createQuestion("What is your favorite type of song?", ""); 
-    	final TweetPoll tpoll = createPublishedTweetPoll(5L, question, this.secondary); 
-    	final Calendar myCalendar = Calendar.getInstance();
-    	myCalendar.add(Calendar.DATE, -5);
-    	final HashMap<Integer, RelativeTimeEnum> relative;
-    	relative = DateUtil.getRelativeTime(myCalendar.getTime()); 
-    	final GenericStatsBean stat = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId(), TypeSearchResult.TWEETPOLL); 
+		final Question question = createQuestion("What is your favorite type of song?", "");
+		// TweetPoll
+    	final TweetPoll tpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount()); 
+    	// Poll
+    	final Poll poll = createPoll(new Date(), question, "JCPM", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
+    	// Survey
+    	final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());  
+    	
+    	final GenericStatsBean genericTweetPollStats = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+    	Assert.assertNotNull(genericTweetPollStats);  
+    	 
+    	final GenericStatsBean genericPollStats = getFrontEndService().retrieveGenericStats(poll.getPollId(), TypeSearchResult.POLL);
+    	Assert.assertNotNull(genericPollStats);  
+    	
+    	//final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);
+    	//Assert.assertNotNull(genericSurveyStats);  
 	}
 	
 	/**
