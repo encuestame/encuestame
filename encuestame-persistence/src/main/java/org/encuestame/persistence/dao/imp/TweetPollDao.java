@@ -558,10 +558,13 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 TweetPoll.class, "tweetPoll");
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
-        if (filterby.equals(TypeSearchResult.HASHTAG)) {
-            criteria.addOrder(Order.desc("tweetPoll.createDate"));
-        } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
-            criteria.addOrder(Order.desc("numbervotes"));
+        //if filters are defined.
+        if (filterby != null) {
+            if (filterby.equals(TypeSearchResult.HASHTAG)) {
+                criteria.addOrder(Order.desc("tweetPoll.createDate"));
+            } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
+                criteria.addOrder(Order.desc("numbervotes"));
+            }
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limit);
     }
@@ -657,34 +660,34 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                 + "--->" + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
-    
-	@SuppressWarnings("unchecked")
-	public Long getSocialLinksByType(final TweetPoll tweetPoll,
-			final Survey survey, final Poll poll,
-			final TypeSearchResult itemType) {
-		final DetachedCriteria criteria = DetachedCriteria
-				.forClass(TweetPollSavedPublishedStatus.class);
-		criteria.setProjection(Projections.rowCount());
-		if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
-			criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
-		} else if (itemType.equals(TypeSearchResult.SURVEY)) {
-			criteria.createAlias("survey", "survey");
-			criteria.add(Restrictions.eq("survey", survey));
-			// criteria.addOrder(Order.desc("survey.createdAt"));
-		} else if (itemType.equals(TypeSearchResult.POLL)) {
-			criteria.add(Restrictions.eq("poll", poll));
-			// criteria.addOrder(Order.desc("poll.createdAt"));
-		} else {
-			log.error("Item type not valid: " + itemType);
-		}
-		criteria.add(Restrictions.isNotNull("apiType"));
-		criteria.add(Restrictions.isNotNull("tweetId"));
-		criteria.add(Restrictions.eq("status", Status.SUCCESS));
 
-		List<Long> results = getHibernateTemplate().findByCriteria(criteria);
-		log.debug("Retrieve total Social Links:" + "--->" + results.size());
-		return (Long) (results.get(0) == null ? 0 : results.get(0));
+    @SuppressWarnings("unchecked")
+    public Long getSocialLinksByType(final TweetPoll tweetPoll,
+            final Survey survey, final Poll poll,
+            final TypeSearchResult itemType) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollSavedPublishedStatus.class);
+        criteria.setProjection(Projections.rowCount());
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+            criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
+            criteria.createAlias("survey", "survey");
+            criteria.add(Restrictions.eq("survey", survey));
+            // criteria.addOrder(Order.desc("survey.createdAt"));
+        } else if (itemType.equals(TypeSearchResult.POLL)) {
+            criteria.add(Restrictions.eq("poll", poll));
+            // criteria.addOrder(Order.desc("poll.createdAt"));
+        } else {
+            log.error("Item type not valid: " + itemType);
+        }
+        criteria.add(Restrictions.isNotNull("apiType"));
+        criteria.add(Restrictions.isNotNull("tweetId"));
+        criteria.add(Restrictions.eq("status", Status.SUCCESS));
 
-	}
-    
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        log.debug("Retrieve total Social Links:" + "--->" + results.size());
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
+
+    }
+
 }

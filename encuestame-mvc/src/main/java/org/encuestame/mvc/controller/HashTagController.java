@@ -25,7 +25,6 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
-import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,7 +49,7 @@ public class HashTagController extends AbstractBaseOperations {
 
     /** HashTag max results. **/
     private final Integer LIMIT_HASHTAG = 15;
-    
+
     /** INIT_RESULTS **/
     private final Integer INIT_RESULTS = 0;
 

@@ -104,6 +104,17 @@ a:hover{
     margin-bottom: 3px;
 }
 
+.mainError {
+  background-color: #F4A1A1;
+  color: #FEFEFE;
+  font-size: 125%;
+  margin-top: 15px;
+  padding: 15px;
+  -webkit-box-shadow: 3px 3px 7px rgba(50, 50, 48, 0.7);
+  -moz-box-shadow:    3px 3px 7px rgba(50, 50, 48, 0.7);
+   box-shadow:         3px 3px 7px rgba(50, 50, 48, 0.7);
+}
+
 .defaultForm button.button {
   background-color: #258E24;
   border: 1px solid #CCCCCC;
@@ -212,6 +223,17 @@ div.defaultSectionTitle {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
 }
 
+.gradient-yellow{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #D0D67C 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#D0D67C)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 ); /* IE6-9 */
+}
+
 .gradient-black{
   background: #110b0b; /* Old browsers */
     background: -moz-linear-gradient(top, #110b0b 0%, #767676 98%); /* FF3.6+ */
@@ -225,17 +247,17 @@ div.defaultSectionTitle {
 
 /** content container **/
 
-#content-container #enme-content div.publicMarginWrapper{
+#content-container #enme-content .publicMarginWrapper{
     width: 100%;
     margin-top: 29px;
 }
 
-#content-container #enme-content div.defaultMarginWrapper{
+#content-container #enme-content .defaultMarginWrapper{
     margin-top: 29px;
     margin: 0 auto;
 }
 
-#content-container #enme-content div.defaultMarginWrapper > h1{
+#content-container #enme-content .defaultMarginWrapper > h1{
     margin-left: 6px;
 }
 

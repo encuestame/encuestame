@@ -16,7 +16,6 @@
           <value>classpath:/org/encuestame/core/config/version.properties</value>
         </list>
     </property>
-    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
   </bean>
 
    <!--  <bean id="log4jInitializer"

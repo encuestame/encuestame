@@ -1099,7 +1099,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (org.encuestame.persistence.domain.tweetpoll.TweetPoll,
      * org.encuestame.utils.web.HashTagBean)
      */
-    public HashTag addHashtagToTweetPoll(final TweetPoll tweetPoll,
+    public HashTag addHashtagToTweetPoll(
+            final TweetPoll tweetPoll,
             final HashTagBean hashTagBean)
             throws EnMeNoResultsFoundException {
         log.debug("Adding hashtag to TP "+tweetPoll.getTweetPollId());
