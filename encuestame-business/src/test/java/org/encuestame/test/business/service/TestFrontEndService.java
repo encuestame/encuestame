@@ -14,7 +14,9 @@ package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -24,6 +26,7 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -31,13 +34,17 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
+import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,6 +71,12 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
     /** {@link TweetPoll}. **/
     private TweetPoll tweetPoll;
+    
+    /** **/
+    private Integer INIT_RESULTS= 0;
+    
+    /** **/
+    private Integer MAX_RESULTS= 10;
 
     @Before
     public void initData(){
@@ -363,6 +376,74 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 		final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
 				.getHashTagRanking("Europa");
 		Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
+	}
+	
+	
+	/**
+	 * Test total hashTag used on items voted.
+	 */
+	@Test
+	public void testGetHashTagUsedOnItemsVoted(){
+		final HashTag hashtag1 = createHashTag("season");
+    	final Question question = createQuestion("What is your favorite season?", "");
+    	final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+    	tp.getHashTags().add(hashtag1);
+    	getTweetPoll().saveOrUpdate(tp);
+    	
+    	// Item 2 
+    	final Question question2 = createQuestion("What is your favorite holidays?", "");
+    	final TweetPoll tp2 = createPublishedTweetPoll(question2, this.secondary);
+    	tp2.getHashTags().add(hashtag1);
+    	getTweetPoll().saveOrUpdate(tp2);
+    	
+    	final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "7891011");
+    	final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "7891012");
+    	
+    	final QuestionAnswer questionsAnswers3 = createQuestionAnswer("yes", question2, "11121314");
+    	final QuestionAnswer questionsAnswers4 = createQuestionAnswer("no", question2, "11121315");
+
+    	final TweetPollSwitch tpollSwitch1 = createTweetPollSwitch(questionsAnswers1, tp);
+    	final TweetPollSwitch tpollSwitch2 = createTweetPollSwitch(questionsAnswers2, tp); 
+          
+    	final TweetPollSwitch tpollSwitch3 = createTweetPollSwitch(questionsAnswers3, tp2);
+    	final TweetPollSwitch tpollSwitch4 = createTweetPollSwitch(questionsAnswers4, tp2); 
+    	
+    	// TweetPoll 1 votes.
+    	createTweetPollResult(tpollSwitch1, "192.168.0.1");
+    	createTweetPollResult(tpollSwitch1, "192.168.0.2");
+    	createTweetPollResult(tpollSwitch2, "192.168.0.3");
+    	createTweetPollResult(tpollSwitch2, "192.168.0.4");
+ 
+    	// TweetPoll 2 votes.
+    	createTweetPollResult(tpollSwitch3, "192.168.0.5");
+    	createTweetPollResult(tpollSwitch4, "192.168.0.6");
+    	
+     	final Long totalTweetPollsVoted = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
+     	Assert.assertEquals("Should be equals", 6, totalTweetPollsVoted.intValue());  
+	}
+	
+	/**
+	 * Test Generic data stats.
+	 * @throws EnMeNoResultsFoundException 
+	 */
+	@Test
+	public void testGetGenericStats() throws EnMeNoResultsFoundException{
+		final Question question = createQuestion("What is your favorite type of song?", "");
+		// TweetPoll
+    	final TweetPoll tpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount()); 
+    	// Poll
+    	final Poll poll = createPoll(new Date(), question, "JCPM", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
+    	// Survey
+    	final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());  
+    	
+    	final GenericStatsBean genericTweetPollStats = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+    	Assert.assertNotNull(genericTweetPollStats);  
+    	 
+    	final GenericStatsBean genericPollStats = getFrontEndService().retrieveGenericStats(poll.getPollId(), TypeSearchResult.POLL);
+    	Assert.assertNotNull(genericPollStats);  
+    	
+    	//final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);
+    	//Assert.assertNotNull(genericSurveyStats);  
 	}
 	
 	/**

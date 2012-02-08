@@ -34,6 +34,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 
 /**
@@ -239,4 +240,22 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @return 
 	 */
 	List<HashTagRankingBean> getHashTagRanking(final String tagName);
+	
+	/**
+	 * Get Total usage by hashtags on tweepolls voted.
+	 * @param tagName
+	 * @param initResults
+	 * @param max
+	 * @return
+	 */
+	Long getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
+	
+	/**
+	 * Generic stats for {@link TweetPoll}, {@link Poll} or {@link Survey}.
+	 * @param itemId
+	 * @param itemType
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	GenericStatsBean retrieveGenericStats(final Long itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
 }
