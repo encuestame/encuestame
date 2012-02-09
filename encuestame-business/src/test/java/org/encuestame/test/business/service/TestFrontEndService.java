@@ -14,7 +14,9 @@ package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -36,10 +38,13 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
+import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -414,7 +419,22 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	createTweetPollResult(tpollSwitch4, "192.168.0.6");
     	
      	final Long totalTweetPollsVoted = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
-     	Assert.assertEquals("Should be equals", 4, totalTweetPollsVoted.intValue());  
+     	Assert.assertEquals("Should be equals", 6, totalTweetPollsVoted.intValue());  
+	}
+	
+	/**
+	 * Test Generic data stats.
+	 * @throws EnMeNoResultsFoundException 
+	 */
+	@Test
+	public void testGetGenericStats() throws EnMeNoResultsFoundException{
+		final Question question = createQuestion("What is your favorite type of song?", ""); 
+    	final TweetPoll tpoll = createPublishedTweetPoll(5L, question, this.secondary); 
+    	final Calendar myCalendar = Calendar.getInstance();
+    	myCalendar.add(Calendar.DATE, -5);
+    	final HashMap<Integer, RelativeTimeEnum> relative;
+    	relative = DateUtil.getRelativeTime(myCalendar.getTime()); 
+    	final GenericStatsBean stat = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId(), TypeSearchResult.TWEETPOLL); 
 	}
 	
 	/**

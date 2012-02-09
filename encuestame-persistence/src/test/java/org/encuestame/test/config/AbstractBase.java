@@ -1200,6 +1200,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user) {
         return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
+    
+    public TweetPoll createPublishedTweetPoll(final Long id, final Question question, final UserAccount user) {
+        return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
+     }
 
     /**
      * Create Not Published {@link TweetPoll}.
