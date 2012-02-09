@@ -251,11 +251,11 @@ public interface IFrontEndService extends ServiceOperations {
 	Long getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
 	
 	/**
-	 * Generic stats for {@link TweetPoll}, {@link Poll} or {@link Survey}.
+	 * Generic stats for {@link TweetPoll}, {@link Poll}, {@link Survey} or {@link HashTag}.
 	 * @param itemId
 	 * @param itemType
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	GenericStatsBean retrieveGenericStats(final Long itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
+	GenericStatsBean retrieveGenericStats(final String itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
 }

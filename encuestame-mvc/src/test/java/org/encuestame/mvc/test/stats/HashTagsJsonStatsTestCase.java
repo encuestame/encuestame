@@ -181,6 +181,7 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
     public void testRetrieveGenericStats() throws ServletException, IOException{
     	final Question question = createQuestion("Black or White?", "");
     	final TweetPoll tweetpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount());  
+    	// TWEETPOLL
     	initService("/api/common/stats/generic.json", MethodJson.GET);
         setParameter("id", tweetpoll.getTweetPollId().toString());
         setParameter("filter", "TWEETPOLL");
@@ -189,6 +190,21 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject genericStatsData = (JSONObject) success.get("generic");
         Assert.assertEquals(genericStatsData.get("hits").toString(), tweetpoll.getHits().toString()); 
     	
+        // HASHTAG
+        final HashTag hashtag = createHashTag("software");
+        hashtag.setHits(20L);
+        getHashTagDao().saveOrUpdate(hashtag);
+        System.out.println("HASHTAG HITS --->" + hashtag.getHits());
+    	initService("/api/common/stats/generic.json", MethodJson.GET);
+        setParameter("id", hashtag.getHashTag());
+        setParameter("filter", "HASHTAG");
+        final JSONObject responseHashTag = callJsonService();
+        final JSONObject successHashTag = getSucess(responseHashTag);
+        final JSONObject genericHashStatsData = (JSONObject) successHashTag.get("generic"); 
+    	
+        Assert.assertEquals(genericHashStatsData.get("hits").toString(), hashtag.getHits().toString()); 
+    	
+        
     }
 
 
