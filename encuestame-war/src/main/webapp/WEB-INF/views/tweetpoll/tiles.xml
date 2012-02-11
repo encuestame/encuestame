@@ -3,20 +3,32 @@
 
 <tiles-definitions>
 
-    <definition name="tweetpoll" extends="main-vote">
+    <definition name="tweetpoll" extends="page">
         <put-attribute name="title" value="TweetPoll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}tweetpoll.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}list-js.jsp" />
     </definition>
 
-    <definition name="tweetpoll/new" extends="main-vote">
+    <definition name="tweetpoll/new" extends="page">
         <put-attribute name="title" value="TweetPoll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}new.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}new-js.jsp" />
     </definition>
 
+     <definition name="tweetpoll/detail" extends="page">
+        <put-attribute name="title" value="TweetPoll Detail" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail-js.jsp" />
+    </definition>
+
+     <definition name="tweetpoll/social" extends="page">
+        <put-attribute name="title" value="TweetPoll Social Networks Accounts" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}social.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}social-js.jsp" />
+    </definition>
 
     <definition name="tweetVoted" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Vote" />
@@ -40,19 +52,6 @@
         <put-attribute name="title" value="TweetPoll Bad Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad-js.jsp" />
-    </definition>
-
-    <definition name="tweetpoll/detail" extends="main-vote">
-        <put-attribute name="title" value="TweetPoll Detail" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail-js.jsp" />
-    </definition>
-
-     <definition name="tweetpoll/social" extends="main-vote">
-        <put-attribute name="title" value="TweetPoll Social Networks Accounts" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}social.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}social-js.jsp" />
     </definition>
 
     <definition name="banned" extends="main-vote">
