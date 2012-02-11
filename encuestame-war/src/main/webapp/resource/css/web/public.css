@@ -1362,17 +1362,14 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
     width: 100%;
     overflow: auto;
     padding: 5px;
-background: #ffffff; /* Old browsers */
-background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
-background: linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-
-
-
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
+    background: linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
 }
 
 .web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel{
@@ -4032,6 +4029,20 @@ div.web-social-links{
   min-height: 180px;
   padding: 20px;
   width: 50%;
+}
+
+.web-tweetpoll-vote-options .gradient-red h1 {
+  color: #FFF;
+  margin: 55px;
+}
+
+.web-tweetpoll-vote-options .web-permatlink .captcha {
+    margin: 2px;
+}
+
+.web-tweetpoll-vote-options .web-permatlink .captcha .recaptcha {
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .web-tweetpoll-vote-options .web-tweetpoll-info {
