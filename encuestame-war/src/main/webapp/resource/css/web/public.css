@@ -1229,6 +1229,27 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
   margin: 5px;
   min-height: 200px;
   padding: 10px;
+  overflow: auto;
+}
+
+.web-item-row .web-list-more .web-poll-info{
+    clear: both;
+    overflow: auto;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-char-detail{
+    float: left;
+    min-width: 280px;
+    margin: 5px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options{
+    margin-left: 300px;
+}
+
+.web-item-row .web-list-more .web-poll-detail-bttm-bar{
+    padding: 4px;
+    background-color: gray;
 }
 
 /** TweetPoll **/
