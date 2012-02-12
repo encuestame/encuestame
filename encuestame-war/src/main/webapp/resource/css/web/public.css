@@ -1220,6 +1220,17 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
     font-weight: normal;
 }
 
+/**
+ * expand zone of detail of list POLL
+ **/
+.web-item-row .web-list-more .web-poll-item-detail {
+  border: 1px solid #EEEEEE;
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px;
+  min-height: 200px;
+  padding: 10px;
+}
+
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
     margin-top: 29px;

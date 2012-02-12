@@ -89,16 +89,16 @@ dojo.declare(
             }
             }
          */
-        _loadVotes : function(){
+        _loadVotes : function() {
             var response = dojo.hitch(this, function(dataJson) {
                 if (dataJson.success.votesResult) {
                     var votes = dataJson.success.votesResult;
-                    if(votes.length > 0) {
+                    if (votes.length > 0) {
                     var results = [];
                     dojo.forEach(
                             votes,
                             dojo.hitch(this, function(data, index) {
-                                console.info("ANSWER BEAN", data);
+                                //console.info("ANSWER BEAN", data);
                                 var answer = [data.question_label, (data.votes == null ? 0 : data.votes), data.color];
                                 results.push(answer);
                                 dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [data.votes, data.percent]]);

@@ -52,11 +52,11 @@ dojo.declare("encuestame.org.core.commons.support.PanelWipe",
             }
         },
 
-        /*
+       /**
         *
         */
        wipeInOne: function() {
-           console.info("connect wipeInOne", this.content);
+           //console.info("connect wipeInOne", this.content);
            dojox.fx.wipeTo({
                 node: this.content,
                duration: this.duration,
@@ -68,7 +68,7 @@ dojo.declare("encuestame.org.core.commons.support.PanelWipe",
         *
         */
        wipeOutOne : function() {
-           console.info("connect wipeOutOne", this.content);
+           //console.info("connect wipeOutOne", this.content);
            if (this.content) {
                dojox.fx.wipeOut({
                    node: this.content,
@@ -79,10 +79,10 @@ dojo.declare("encuestame.org.core.commons.support.PanelWipe",
 
         // connect the node with wipe effect
         connect : function(node, functionCall) {
-            console.info("connect with", node);
+            //console.info("connect with", node);
             if (node) {
                 dojo.connect(node, "onclick", dojo.hitch(this, function(event) {
-                    console.info("connect click", node);
+                    //console.info("connect click", node);
                     if (this.selected) {
                         this.wipeOutOne();
                     } else {
@@ -90,7 +90,7 @@ dojo.declare("encuestame.org.core.commons.support.PanelWipe",
                          functionCall();
                     }
                     this.selected =!this.selected;
-                    console.info("connect click", this.selected);
+                    //console.info("connect click", this.selected);
                 }));
             }
         },

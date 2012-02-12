@@ -19,7 +19,7 @@ dojo.declare("encuestame.org.core.commons.chart.RaphaelSupport", null, {
       labels : ["1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3"],
       data : ['1','54','10','30','54','13','18','54','13','43','54','133','53','54','13'],
 
-        constructor: function(node, results, size){
+        constructor: function(node, results, size) {
                 //this.node = node;
                 //this.data = results;
                 //this.size = size;
