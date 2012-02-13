@@ -10,7 +10,7 @@
                ${switch.tweetPoll.question.question}
             </h2>
             <h3>
-                <spring:message code="tweetpoll.votes.selection" /> ${switch.answers.answer}
+                <spring:message code="tweetpoll.votes.selection" />: <b>${switch.answers.answer}</b>
             </h3>
             <div class="web-tweetpoll-info">
                 <a href="<%=request.getContextPath()%>/tweetpoll/${switch.tweetPoll.tweetPollId}/${switch.tweetPoll.question.slugQuestion}">

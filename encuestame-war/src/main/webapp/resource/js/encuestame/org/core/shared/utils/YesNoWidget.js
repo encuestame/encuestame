@@ -3,11 +3,12 @@ dojo.provide("encuestame.org.core.shared.utils.YesNoWidget");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.Tooltip");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require('encuestame.org.core.commons');
 
 dojo.declare(
     "encuestame.org.core.shared.utils.YesNoWidget",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/yesno.html"),
 
         /** Allow other widgets in the template. **/

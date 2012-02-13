@@ -3,9 +3,11 @@
         <input id="row_${id}" name="row_${id}" dojoType="dijit.form.CheckBox">
      </div>
      <div class="web-item-row-section web-item-row-section-title">
-        <h3>${data.question.question_name}</h3>
+        <div>${data.question.question_name}</div>
         <nav class="nav-menu">
-           <a dojoAttachPoint="_edit">Edit</a> |
+           <a dojoAttachPoint="_edit">
+                Edit
+            </a> |
            <a>Preview</a>  |
            <a>Options</a>
         </nav>
@@ -20,5 +22,4 @@
      <div class="web-item-row-section web-item-row-section-options">
      </div>
      <div dojoAttachPoint="_more" id="more_${id}" class="web-list-more" style="clear: both;"></div>
-     <div id="standby_${id}" dojoType="encuestame.org.core.shared.utils.StandBy" target="${id}" style="min-height: 0px;"></div>
 </section>
