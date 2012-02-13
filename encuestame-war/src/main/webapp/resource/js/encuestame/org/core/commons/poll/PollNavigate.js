@@ -22,6 +22,7 @@ dojo.require("encuestame.org.core.shared.utils.More");
 dojo.require("encuestame.org.core.commons.support.PanelWipe");
 dojo.require("encuestame.org.core.shared.utils.StandBy");
 dojo.require("encuestame.org.core.commons.chart.ChartLayerSupport");
+dojo.require("encuestame.org.core.shared.utils.UpdateDefaultOptions");
 
 dojo.require("dijit.InlineEditBox");
 dojo.require("dijit.form.Textarea");
@@ -201,9 +202,15 @@ dojo.declare(
          */
         postCreate : function() {
             //console.debug("row data", this.data);
-            var panel = new encuestame.org.core.commons.support.PanelWipe(this._more, null, null);
+            var panel = new encuestame.org.core.commons.support.PanelWipe(this._more, null, null, 390);
             //add event on click edit link
             panel.connect(this._edit, dojo.hitch(this, this._callEditInfo));
+            panel.preWipe = dojo.hitch(this, function() {
+                dojo.addClass(this.domNode, "selected-row");
+            });
+            panel.postWipe =  dojo.hitch(this, function() {
+                dojo.removeClass(this.domNode, "selected-row");
+            });
             //this._standBy = dijit.byId("standby_"+this.id);
             this.widget_detail = new encuestame.org.core.commons.poll.PollNavigateItemDetail({ data : this.data});
             dojo.addClass(this.widget_detail.domNode, "hidden");
@@ -257,7 +264,7 @@ dojo.declare(
             });
             var error = dojo.hitch(this, function(error) {
                 //this._standBy.stop();
-                console.debug("error", error);
+                console.error("error", error);
             });
             var params = {
                     id : this.data.id
@@ -275,7 +282,8 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.poll.PollNavigateItemDetail",
             [encuestame.org.main.EnmeMainLayoutWidget,
-             encuestame.org.core.commons.chart.ChartLayerSupport], {
+             encuestame.org.core.commons.chart.ChartLayerSupport,
+             encuestame.org.core.shared.utils.UpdateDefaultOptions], {
 
        /**
         * HTML Template.
@@ -284,7 +292,10 @@ dojo.declare(
 
 
        postCreate : function() {
-
+           this.setNodeAppend(this._detailItems);
+           this.addRow("test1", 1, console.log("test1"));
+           this.addRow("test2", 1, console.log("test2"));
+           this.addRow("test3", 1, console.log("test3"));
        },
 
        /**

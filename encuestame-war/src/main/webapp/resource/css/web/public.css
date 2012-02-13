@@ -1151,6 +1151,11 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
     color: #FFF !important;
 }
 
+.web-list-rows .selected-row {
+  background-color: #F8F8F8;
+  border: 1px solid #EEEEEE;
+}
+
 .web-item-row {
   border-bottom: 1px dotted #E3E3E3;
   cursor: pointer;
@@ -1180,13 +1185,26 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
     padding: 2px 0 0;
 }
 
+.web-item-row .nav-menu > a{
+   color: #444;
+   text-decoration: underline;
+   font-weight: normal;
+}
+
 .web-item-row .web-item-row-section-input {
-  padding: 10px;
+  padding: 0 0 8px 6px;
 }
 
 .web-item-row .web-item-row-section-title{
     width: 650px;
     max-width: 650px;
+}
+
+.web-item-row .web-item-row-section-title > div {
+  clear: both;
+  color: #707070;
+  font-size: 14px;
+  position: relative;
 }
 
 .web-item-row  .web-item-row-section-votes{
@@ -1196,18 +1214,20 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
 .web-item-row .web-item-row-section-votes .web-item-row-section-votes-number {
   font-size: 14px;
   font-weight: bold;
-  text-align: right;
+  text-align: center;
 }
 
 .web-item-row .web-item-row-section-votes .web-item-row-section-votes-title {
   color: #989898;
-  text-align: right;
+  text-align: center;
 }
 
-.web-item-row  .web-item-row-section-date{
-     width: 60px;
-     text-align: right;
-     color: #989898;
+.web-item-row .web-item-row-section-date {
+  color: #989898;
+  font-size: 10px;
+  margin-top: 10px;
+  text-align: right;
+  width: 60px;
 }
 
 .web-item-row .web-item-row-section-options {
@@ -1220,6 +1240,12 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
     font-weight: normal;
 }
 
+.web-item-row .web-list-more .titleNext{
+  color: #275296;
+  font-size: 110%;
+  font-weight: bold;
+}
+
 /**
  * expand zone of detail of list POLL
  **/
@@ -1227,9 +1253,13 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
   border: 1px solid #EEEEEE;
   border-radius: 5px 5px 5px 5px;
   margin: 5px;
-  min-height: 200px;
+  min-height: 340px;
   padding: 10px;
   overflow: auto;
+  box-shadow : inset 0px 0px 4px #E0E0E0;
+  -moz-box-shadow:-inset 0px 0px 4px #E0E0E0;
+  -webkit-box-shadow:inset 0px 0px 4px #E0E0E0;
+
 }
 
 .web-item-row .web-list-more .web-poll-info{
@@ -1243,13 +1273,18 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
     margin: 5px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options{
-    margin-left: 300px;
+.web-item-row .web-list-more .web-poll-info .web-poll-options {
+  margin-left: 300px;
+  padding: 6px;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar{
-    padding: 4px;
-    background-color: gray;
+.web-item-row .web-list-more .web-poll-detail-bttm-bar {
+  background-color: #E6E6E6;
+  border: 1px solid #D6D6D6;
+  border-radius: 3px 3px 3px 3px;
+  margin: 4px;
+  min-height: 27px;
+  padding: 4px;
 }
 
 /** TweetPoll **/
