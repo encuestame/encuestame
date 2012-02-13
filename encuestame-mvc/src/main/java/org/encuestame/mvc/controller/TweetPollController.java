@@ -75,7 +75,7 @@ public class TweetPollController extends AbstractSocialController {
         final Boolean checkBannedIp = checkIPinBlackList(IP);
         log.debug("Check Banned IP----> " + checkBannedIp);
 
-        if(checkBannedIp){
+        if (checkBannedIp) {
             pathVote ="banned";
             log.debug("ip banned");
         }
@@ -193,9 +193,11 @@ public class TweetPollController extends AbstractSocialController {
                  //Find Answer To Vote.
                  final TweetPollSwitch tweetPoll = getTweetPollService().getTweetPollDao()
                         .retrieveTweetsPollSwitch(code);
+                 model.addAttribute("switch", tweetPoll);
                  //Validate Code.
                  if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                      log.debug("tweetpoll answer not found");
+
                      return "badTweetVote";
                      //model.addAttribute("message", "Tweet Not Valid.");
                  } else {

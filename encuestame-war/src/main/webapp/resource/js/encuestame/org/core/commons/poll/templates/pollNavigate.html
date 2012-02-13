@@ -47,6 +47,7 @@
         </aside>
         <article style="margin-left: 202px;">
             <div class="web-list-tweet">
+                <!-- Drop Down Menu -->
                 <div style="padding: 10px; color: rgb(255, 255, 255);
                      font-size: 16px;
                      background-color: #595959;
@@ -57,10 +58,12 @@
                         <div dojoType="encuestame.org.core.shared.utils.DropDownMenuSelect" defaultText="Poll Actions.."></div>
                     </div>
                 </div>
-                <article dojoAttachPoint="_items" class="web-list-rows"></article>
+                <article dojoAttachPoint="_items" class="web-list-rows">
+                        <!-- List of items -->
+                </article>
+                <!-- NODE to load more items -->
                 <div dojoAttachPoint="_more" class="web-list-more"></div>
                 <div dojoAttachPoint="_item" class="web-row-detail"></div>
-
             </div>
         </article>
     </div>
