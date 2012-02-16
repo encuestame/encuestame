@@ -145,7 +145,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 	 */
 	@RequestMapping(value = "/api/common/stats/generic.json", method = RequestMethod.GET)
 	public ModelMap getGenericStats(
-			@RequestParam(value = "id", required = false) Long itemId,
+			@RequestParam(value = "id", required = false) String itemId,
 			@RequestParam(value = "tagName", required = false) String tagName,
 			@RequestParam(value = "filter", required = false) String filter,
 			HttpServletRequest request, HttpServletResponse response)
