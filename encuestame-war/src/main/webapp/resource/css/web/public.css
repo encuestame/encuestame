@@ -1274,8 +1274,36 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
 }
 
 .web-item-row .web-list-more .web-poll-info .web-poll-options {
-  margin-left: 300px;
+  float: left;
   padding: 6px;
+  width: 265px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer{
+  margin-left: 575px;
+  padding: 6px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options h2 {
+  border-bottom: 1px solid #AEACA3;
+  margin: 0 0 10px 5px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail {
+  border-bottom: 1px dotted #E0E0E0;
+  overflow: auto;
+  padding: 5px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail .label {
+  float: left;
+  font-weight: bold;
+  width: 215px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail .data {
+  margin-left: 140px;
+  overflow: auto;
 }
 
 .web-item-row .web-list-more .web-poll-detail-bttm-bar {
