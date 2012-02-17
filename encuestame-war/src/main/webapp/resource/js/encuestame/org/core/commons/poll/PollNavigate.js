@@ -315,17 +315,45 @@ dojo.declare(
        },
 
        /**
-        *
+        * Render the answer in table format.
+        * @param data a object with answer data
         */
        reRenderResults : function(data) {
-           dojo.forEach(data.answers, function(answer) {
-           var rowDetail = dojo.create('div');
-           dojo.place(this._detailAnswers, rowDetail);
-           });
+           if (data.answers.length > 0) {
+               dojo.forEach(data.answers, dojo.hitch(this, function(answer) {
+               var rowDetail = dojo.create('div');
+                   dojo.addClass(rowDetail, "web-poll-answer-row");
+                   //color
+                   var color = dojo.create('div');
+                   var span_color = dojo.create('span');
+                   dojo.style(span_color, "background-color", answer.color);
+                   dojo.style(span_color, "display", "inline-block");
+                   dojo.style(span_color, "width", "30px");
+                   dojo.place(span_color, color);
+                   dojo.addClass(color, "web-poll-answer-row-color");
+                   //color.innerHTML = answer.color;
+                   dojo.place(color, rowDetail);
+                   //label
+                   var label = dojo.create('div');
+                   dojo.addClass(label, "web-poll-answer-row-label");
+                   label.innerHTML = answer.answer;
+                   dojo.place(label, rowDetail);
+                   //percent
+                   var percent = dojo.create('div');
+                   dojo.addClass(percent, "web-poll-answer-row-percent");
+                   percent.innerHTML = answer.percent;
+                   dojo.place(percent, rowDetail);
+                   //append to root
+                   dojo.place(rowDetail, this._detailAnswers);
+               }));
+           } else {
+               dojo.place(encuestame.utilities.noResults("web-poll-answer-no-results"), this._detailAnswers);
+           }
        },
 
        /**
-        *
+        * Set results.
+        * @param data a object with answer data
         */
        setResults : function(data) {
            var nodeId = this.id+"_chart";
@@ -337,6 +365,7 @@ dojo.declare(
 
        /**
         * Convert to answer to chat.
+        * @param data a array with answers object
         */
        _convertToChartAnswer : function(answers) {
            var array = [];

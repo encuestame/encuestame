@@ -136,6 +136,19 @@ encuestame.utilities.usernameLink = function(username) {
     }
 };
 
+/**
+ * Create a no results message node.
+ */
+encuestame.utilities.noResults = function(classCSS) {
+    var norR = dojo.create("div");
+    dojo.addClass(norR, "no-results");
+    if (classCSS != null) {
+        dojo.addClass(norR, classCSS);
+    }
+    norR.innerHTML = encuestame.constants.messageCodes["023"];
+    return norR;
+};
+
 encuestame.utilities.randomString = function() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -717,7 +730,8 @@ encuestame.constants.messageCodes = {
     "020" : "",
     "021" : "Drag your gadget here !!",
     "022" : "Be the first to comment on this publication.",
-    "023" : "Updated Successfully"
+    "023" : "Updated Successfully",
+    "024" : "Sorry, no results found"
  };
 
-encuestame.constants.version = { version : "1.141"};
+encuestame.constants.version = { version : "1.143"};
