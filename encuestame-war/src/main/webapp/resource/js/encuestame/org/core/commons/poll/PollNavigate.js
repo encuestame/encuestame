@@ -259,6 +259,54 @@ dojo.declare(
                                        type : "text",
                                        percent : 27,
                                        color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
+                                   },
+                                   {
+                                       answer: "answer5",
+                                       type : "text",
+                                       percent : 27,
+                                       color : "#FF0000"
                                    }
                                    ]
                 };
@@ -303,6 +351,7 @@ dojo.declare(
         * Post create.
         */
        postCreate : function() {
+           dojo.empty(this._detailItems);
            this.setNodeAppend(this._detailItems);
            this.addRow("Close after date", 1, console.log("test1"));
            this.addRow("Cloase after quota", 1, console.log("test2"));
@@ -320,6 +369,7 @@ dojo.declare(
         */
        reRenderResults : function(data) {
            if (data.answers.length > 0) {
+               dojo.empty(this._detailAnswers);
                dojo.forEach(data.answers, dojo.hitch(this, function(answer) {
                var rowDetail = dojo.create('div');
                    dojo.addClass(rowDetail, "web-poll-answer-row");

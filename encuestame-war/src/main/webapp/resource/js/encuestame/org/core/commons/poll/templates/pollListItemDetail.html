@@ -5,13 +5,14 @@
         </div>
 
         <!-- Options detail -->
-        <div class="web-poll-options" dojoAttachPoint="_detailItems">
-          <h2>${label}</h2>
+        <div class="web-poll-options-answer">
+            <h2>Answers</h2>
+            <div dojoAttachPoint="_detailAnswers" class="web-poll-answer-container"></div>
         </div>
-
         <!-- Answer detail -->
-        <div class="web-poll-options-answer" dojoAttachPoint="_detailAnswers">
-
+        <div class="web-poll-options">
+            <h2>${label}</h2>
+            <div dojoAttachPoint="_detailItems"></div>
         </div>
     </div>
     <div class="web-poll-detail-bttm-bar">

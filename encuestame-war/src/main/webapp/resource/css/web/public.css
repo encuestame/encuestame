@@ -1274,32 +1274,52 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
 }
 
 .web-item-row .web-list-more .web-poll-info .web-poll-options {
+  margin-left: 545px;
+  padding: 6px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer {
   float: left;
   padding: 6px;
-  width: 265px;
+  width: 250px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer{
-  margin-left: 575px;
-  padding: 6px;
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer > div{
+    max-height: 265px;
+    overflow: auto;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row{
-
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row {
+  border-bottom: 1px dotted #DED8D8;
+  overflow: auto;
+  padding: 4px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color{
-
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
+  border-radius: 11px 11px 11px 11px;
+  float: left;
+  margin-bottom: 1px;
+  margin-right: 10px;
+  margin-top: 1px;
+  padding: 1px;
+  width: 20px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label{
-
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label {
+  color: #9C9B99;
+  float: left;
+  font-weight: bold;
+  line-height: 15px;
+  width: 165px;
 }
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent{
 
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent {
+  color: #70706F;
+  font-weight: bold;
+  margin-left: 100px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options h2 {
+.web-item-row .web-list-more .web-poll-info h2 {
   border-bottom: 1px solid #AEACA3;
   margin: 0 0 10px 5px;
 }
