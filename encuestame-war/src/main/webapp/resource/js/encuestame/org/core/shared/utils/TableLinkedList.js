@@ -82,6 +82,11 @@ dojo.declare("encuestame.org.core.shared.utils.TableLinkedList", null, {
          }
     },
 
+    /**
+     * Display a message if results are equal 0.
+     */
+    displayEmptyMessage : function() {
+    },
 
     /**
      * A service support to retrieve items based on list of parameters.
@@ -92,13 +97,20 @@ dojo.declare("encuestame.org.core.shared.utils.TableLinkedList", null, {
             if ("success" in data) {
                 this._empty();
                 //console.debug("pro", data.success[this.property]);
-                dojo.forEach(data.success[this.property], dojo.hitch(this, function(
-                        data, index) {
-                    //console.info("for each", data);
-                    if (dojo.isFunction(this.processItem)) {
-                        this.items_array.push(this.processItem(data, index));
-                    }
-                }));
+                var items = data.success[this.property];
+                if (items.length > 0) {
+                    dojo.forEach(items, dojo.hitch(this, function(
+                            data, index) {
+                        //console.info("for each", data);
+                        if (dojo.isFunction(this.processItem)) {
+                            this.items_array.push(this.processItem(data, index));
+                        }
+                    }));
+                    this.more_widget.show();
+                } else {
+                    this.displayEmptyMessage();
+                    this.more_widget.hide();
+                }
                 this._afterEach();
             } else {
                 ///console.warn("no success");

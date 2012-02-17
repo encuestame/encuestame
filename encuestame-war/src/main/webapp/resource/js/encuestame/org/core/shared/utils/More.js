@@ -9,8 +9,6 @@ dojo.declare("encuestame.org.core.shared.utils.More",
             templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
                     "template/more.html"),
 
-
-
             /*
              *
              */
@@ -31,8 +29,25 @@ dojo.declare("encuestame.org.core.shared.utils.More",
                 }));
             },
 
+            /**
+             *
+             */
             loadItems : function() {
 
+            },
+
+            /**
+             *
+             */
+            hide : function(){
+                dojo.addClass(this.domNode, "hidden");
+            },
+
+            /**
+             *
+             */
+            show : function(){
+                dojo.removeClass(this.domNode, "hidden");
             }
 
         });

@@ -1295,6 +1295,16 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
   padding: 4px;
 }
 
+.web-items-no-results {
+  border: 4px solid #F2F2F2;
+  border-radius: 10px 10px 10px 10px;
+  color: #D6D6D6;
+  font-size: 24px;
+  margin: 18px;
+  min-height: 40px;
+  padding: 120px;
+}
+
 .web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
   border-radius: 11px 11px 11px 11px;
   float: left;

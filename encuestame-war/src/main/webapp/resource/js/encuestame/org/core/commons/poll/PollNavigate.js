@@ -98,11 +98,21 @@ dojo.declare(
             //});
         },
 
+        /*
+         * @override
+         */
+        displayEmptyMessage : function() {
+            var node = dojo.create("div");
+            dojo.addClass(node, "web-items-no-results");
+            node.innerHTML = encuestame.constants.messageCodes["024"];
+            dojo.place(node, this._items);
+        },
+
         /**
          * Function to clean _items node.
          */
         _empty : function() {
-            console.debug("empty items");
+            //console.debug("empty items");
             dojo.empty(this._items);
         },
 
