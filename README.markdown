@@ -1,7 +1,7 @@
 encuestame open source social survey
 ====================
 
-For information on how to build encuestame, check out its [documentation](http://wiki.encuestame.org/display/DOC/How+to+build+Encuestame).
+For information on how to build encuestame, check out [documentation](http://wiki.encuestame.org/display/DOC/How+to+build+Encuestame).
 
 ## Current Version Info
 
