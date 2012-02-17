@@ -19,22 +19,28 @@ dojo.declare("encuestame.org.core.shared.utils.UpdateDefaultOptions", null, {
     _node : null,
 
     /**
-     *
+     * Append detail node to template.
      * @param node
      */
     addDetail : function(node){
-        this._detailItems.appendChild(node);
+        this._node.appendChild(node);
     },
 
     /**
-     *
+     * Set the node to append items.
      * @param node
      */
     setNodeAppend : function(node) {
         this._node = node;
     },
 
-    addRow : function(title, data, refFunction ){
+    /**
+     * Add new row to template.
+     * @param title label
+     * @param data initial data
+     * @param refFunction function to trigger on change data
+     */
+    addRow : function(title, data, refFunction ) {
         this.addDetail(this.builDetailRow(title, this.addYesNoWidget(data,
                 dojo.hitch(this, null))));
     },
@@ -60,7 +66,7 @@ dojo.declare("encuestame.org.core.shared.utils.UpdateDefaultOptions", null, {
 
 
     /**
-     * Yes / No.
+     * Create  Yes / No Widget.
      */
     addYesNoWidget : function(value, onChange){
         var widget = new encuestame.org.core.shared.utils.YesNoWidget({data: value});

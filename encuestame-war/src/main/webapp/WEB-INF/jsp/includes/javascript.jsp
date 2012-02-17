@@ -50,4 +50,4 @@
     <script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js?<%=EnMePlaceHolderConfigurer.getProperty("app.version")%>"></script>
 </c:if>
 <%-- <script src="<%=request.getContextPath()%>/resources/js/encuestame/encuestame.js"></script> --%>
-<%=WidgetUtil.getAnalytics("analytics.inc")%>
+<%--<%=WidgetUtil.getAnalytics("analytics.inc")%>--%>

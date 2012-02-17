@@ -436,10 +436,10 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	// Survey
     	final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());  
     	
-    	final GenericStatsBean genericTweetPollStats = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
+    	final GenericStatsBean genericTweetPollStats = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId().toString(), TypeSearchResult.TWEETPOLL);
     	Assert.assertNotNull(genericTweetPollStats);  
     	 
-    	final GenericStatsBean genericPollStats = getFrontEndService().retrieveGenericStats(poll.getPollId(), TypeSearchResult.POLL);
+    	final GenericStatsBean genericPollStats = getFrontEndService().retrieveGenericStats(poll.getPollId().toString(), TypeSearchResult.POLL);
     	Assert.assertNotNull(genericPollStats);  
     	
     	//final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);

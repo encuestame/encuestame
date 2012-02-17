@@ -212,7 +212,7 @@ dojo.declare(
                 dojo.removeClass(this.domNode, "selected-row");
             });
             //this._standBy = dijit.byId("standby_"+this.id);
-            this.widget_detail = new encuestame.org.core.commons.poll.PollNavigateItemDetail({ data : this.data});
+            this.widget_detail = new encuestame.org.core.commons.poll.PollNavigateItemDetail({ data : this.data , label : "Poll Options"});
             dojo.addClass(this.widget_detail.domNode, "hidden");
             dojo.place(this.widget_detail.domNode, this._more);
         },
@@ -230,31 +230,35 @@ dojo.declare(
                                        answer: "answer 1",
                                        type : "text",
                                        percent : 43,
+                                       color : "#A6B4BF"
 
                                    },
                                    {
                                        answer: "answer 2",
                                        type : "text",
                                        percent : 13,
+                                       color : "#FEFEF"
 
                                    },
                                    {
                                        answer: "answer 3",
                                        type : "text",
                                        percent : 3,
+                                       color : "#44444"
 
                                    },
                                    {
                                        answer: "answer 4",
                                        type : "text",
                                        percent : 14,
+                                       color : "#888888"
 
                                    },
                                    {
                                        answer: "answer5",
                                        type : "text",
                                        percent : 27,
-
+                                       color : "#FF0000"
                                    }
                                    ]
                 };
@@ -290,12 +294,34 @@ dojo.declare(
         */
        templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/pollListItemDetail.html"),
 
+       /**
+        * h2 title.
+        */
+       label : "",
 
+       /**
+        * Post create.
+        */
        postCreate : function() {
            this.setNodeAppend(this._detailItems);
-           this.addRow("test1", 1, console.log("test1"));
-           this.addRow("test2", 1, console.log("test2"));
-           this.addRow("test3", 1, console.log("test3"));
+           this.addRow("Close after date", 1, console.log("test1"));
+           this.addRow("Cloase after quota", 1, console.log("test2"));
+           this.addRow("Enable IP restrictions", 1, console.log("test3"));
+           this.addRow("Enable notifications", 1, console.log("test3"));
+           this.addRow("Enable password restriction", 1, console.log("test3"));
+           this.addRow("Display aditional information", 1, console.log("test3"));
+           this.addRow("Make result public", 1, console.log("test3"));
+           this.addRow("Make result public", 1, console.log("test3"));
+       },
+
+       /**
+        *
+        */
+       reRenderResults : function(data) {
+           dojo.forEach(data.answers, function(answer) {
+           var rowDetail = dojo.create('div');
+           dojo.place(this._detailAnswers, rowDetail);
+           });
        },
 
        /**
@@ -304,12 +330,19 @@ dojo.declare(
        setResults : function(data) {
            var nodeId = this.id+"_chart";
            dojo.empty(dojo.byId(nodeId));
-
-           var answer = ["Si", 40, "#A6B4BF"];
-           var answer1 = ["No", 10, "#FEFEF"];
-           var answer2 = ["TV", 50, "#44444"];
-
-           this.widgetChart = this.buildChart({id : nodeId, results : [answer,answer1,answer2]});
+           this.widgetChart = this.buildChart({id : nodeId, results : this._convertToChartAnswer(data.answers)});
            this.renderChart(this.widgetChart);
+           this.reRenderResults(data);
+       },
+
+       /**
+        * Convert to answer to chat.
+        */
+       _convertToChartAnswer : function(answers) {
+           var array = [];
+           dojo.forEach(answers, function(answer) {
+              array.push([answer.answer, answer.percent, answer.color]);
+           });
+           return array;
        }
 });
