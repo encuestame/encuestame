@@ -8,8 +8,7 @@
     <version>1.143-SNAPSHOT</version>
     <name>encuestame</name>
     <description>
-    encuestame is a open source webapp java survey system build
-    with open source lib, spring, hibernate, lucene and dojo
+     Encuestame is an open source project based on Java technology. You can use the Encuestame to create different types of surveys. Encuestame provides a full featured Survey Managed System based on the Java 6 specification. It's integrated with the most popular social networks (Facebook, Twitter, etc) and the capable to distribute your content with diferent ways.
   </description>
     <url>http://www.encuestame.org</url>
     <issueManagement>
@@ -131,6 +130,10 @@
         <comet.version>2.3.1</comet.version>
         <!-- Plugin Version -->
         <surefire.version>2.9</surefire.version>
+        <!-- 
+        	Clover 2 Needed install on local host 
+        	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
+        -->
         <maven-clover2-plugin>3.0.5</maven-clover2-plugin>
         <maven-jar.plugin>2.3.2</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
@@ -413,6 +416,11 @@
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-clover2-plugin</artifactId>
                 <version>${maven-clover2-plugin}</version>
+                <configuration>
+                	<generatePdf>true</generatePdf>
+					<generateXml>true</generateXml>
+					<generateHtml>true</generateHtml>
+                </configuration>
             </plugin>
         </plugins>
         <pluginManagement>
