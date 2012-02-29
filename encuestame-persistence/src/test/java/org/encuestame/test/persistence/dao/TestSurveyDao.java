@@ -19,7 +19,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -386,4 +385,26 @@ public class TestSurveyDao extends AbstractBase {
 						this.START_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 		assertEquals("Should be equals", 2, totalSurveys.size());
 	}
+    
+    /**
+     * Test get total surveys by hashtag and date range.
+     */
+    @Test
+    public void testGetSurveysbyHashTagNameAndDateRange(){
+    	final Calendar myDate = Calendar.getInstance();
+    	final HashTag hashtag1 = createHashTag("home");
+    	final Survey mySurvey = createDefaultSurvey(this.user, "Survey test",
+				myDate.getTime()); 
+		mySurvey.getHashTags().add(hashtag1);
+		getSurveyDaoImp().saveOrUpdate(mySurvey);
+		
+		myDate.add(Calendar.DATE, -4);
+		final Survey mySurvey2 = createDefaultSurvey(this.user, "Survey test 2",
+				myDate.getTime()); 
+		mySurvey2.getHashTags().add(hashtag1);
+		getSurveyDaoImp().saveOrUpdate(mySurvey2);
+		
+		final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START_RESULTS, this.MAX_RESULTS);
+		assertEquals("Should be equals", 2, getTotalSurveysbyHashTag.size());
+    }
 }

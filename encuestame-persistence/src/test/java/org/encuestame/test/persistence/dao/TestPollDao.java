@@ -278,4 +278,29 @@ public class TestPollDao extends AbstractBase {
 				hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 		Assert.assertEquals("Should be", 3, totalUsagePoll3.size());
 	}
+	
+	/**
+	 * Get total polls by hashtag name and date range.
+	 */
+	@Test
+	public void testGetPollsbyHashTagNameAndDateRange(){
+		final Calendar myDate = Calendar.getInstance();
+		final Question myQuestion = createQuestion("what are your favorite flowers?", this.userAccount.getAccount()); 
+		final HashTag hashtag1 = createHashTag("roses"); 
+		 
+		final Poll poll1 = createPoll(myDate.getTime(), myQuestion,
+				"DPMU12", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+		poll1.getHashTags().add(hashtag1); 
+		getPollDao().saveOrUpdate(poll1); 
+		myDate.add(Calendar.DATE, -2);
+		
+		
+		final Question myQuestion2 = createQuestion("What was your best gift for valentines day?", this.userAccount.getAccount()); 
+		final Poll poll2 = createPoll(myDate.getTime(), myQuestion2,
+				"DPMU19", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+		poll2.getHashTags().add(hashtag1);  
+		getPollDao().saveOrUpdate(poll2);
+		final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START, this.MAX_RESULTS);
+		Assert.assertEquals("Should be", 2, getTotalPollsbyHashTag.size());
+	}
 }

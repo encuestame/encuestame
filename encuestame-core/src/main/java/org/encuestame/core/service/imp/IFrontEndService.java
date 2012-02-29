@@ -35,6 +35,7 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.stats.GenericStatsBean;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 
 /**
@@ -258,4 +259,6 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @throws EnMeNoResultsFoundException
 	 */
 	GenericStatsBean retrieveGenericStats(final String itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
+	
+	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
 }

@@ -223,4 +223,16 @@ public interface IPoll extends IBaseDao {
      */
     List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
             final Integer limitResults, final TypeSearchResult filterby);
+    
+    /**
+     * Get total polls by hashtag and date range.
+     * @param tagName
+     * @param period
+     * @param startResults
+     * @param limit
+     * @return
+     */
+	List<Poll> getPollsbyHashTagNameAndDateRange(
+			final String tagName, final Integer period,
+			final Integer startResults, final Integer limit);
 }
