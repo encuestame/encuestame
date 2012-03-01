@@ -568,7 +568,46 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limit);
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollsbyHashTagNameAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+	@SuppressWarnings("unchecked")
+	public List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
+			final String tagName, final Integer period,
+			final Integer startResults, final Integer limit) {
+		Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			final Calendar hi = Calendar.getInstance();
+			hi.add(Calendar.DAY_OF_YEAR, -period);
+			startDate = hi.getTime();
+			endDate = Calendar.getInstance().getTime();
 
+		} 
+		final DetachedCriteria detached = DetachedCriteria
+				.forClass(TweetPoll.class)
+				.createAlias("hashTags", "hashTags")
+				.setProjection(Projections.id())
+				.add(Subqueries.propertyIn(
+						"hashTags.hashTagId",
+						DetachedCriteria
+								.forClass(HashTag.class, "hash")
+								.setProjection(Projections.id())
+								.add(Restrictions.in("hash.hashTag",
+										new String[] { tagName }))));
+		final DetachedCriteria criteria = DetachedCriteria.forClass(
+				TweetPoll.class, "tweetPoll");
+		criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
+		criteria.addOrder(Order.desc("tweetPoll.createDate"));
+		criteria.add(Restrictions.between("createDate", startDate, endDate));
+		criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+		return getHibernateTemplate().findByCriteria(criteria, startResults,
+				limit); 
+	}
+
+	 
     /*
      * (non-Javadoc)
      *

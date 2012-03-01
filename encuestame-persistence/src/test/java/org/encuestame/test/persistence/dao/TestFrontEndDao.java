@@ -159,10 +159,12 @@ public class TestFrontEndDao extends AbstractBase {
     	// Retrieve hits for tag Id in the last 7 days.
     	List<Object[]> myListObj = getFrontEndDao().getTotalHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7, 0, 20, -1);
     	//	(hashTag1.getHashTagId(), TypeSearchResult.HASHTAG, 6, 1, 100, 0, startDate, endDate, hashTag1.getHashTagId());
-     
-    	/*for (Object[] objects : myListObj) {
+    	System.out.println("total" + myListObj.size());
+    	 /*for (Object[] objects : myListObj) {
     		System.out.println(" Object 1 --->" + objects[0]);
     		System.out.println(" Object 2 --->" + objects[1]);
-		}*/
+		} */
     }
+    
+    
 }

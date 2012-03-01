@@ -14,9 +14,7 @@ package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -38,13 +36,12 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
-import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.stats.GenericStatsBean;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -444,6 +441,25 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	
     	//final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);
     	//Assert.assertNotNull(genericSurveyStats);  
+	}
+	
+	@Test
+	public void testGetTotalHashTagHitsbyDateRange() throws EnMeNoResultsFoundException{
+		final Question question = createQuestion("What is your favorite type of song?", "");
+		// TweetPoll
+    	final TweetPoll tpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount()); 
+    	
+    	final HashTag tag = createHashTag("romantic");
+    	tpoll.getHashTags().add(tag);
+    	getTweetPoll().saveOrUpdate(tpoll);
+    	
+    	final TweetPoll tpoll2 = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount()); 
+     	tpoll2.getHashTags().add(tag);
+    	getTweetPoll().saveOrUpdate(tpoll2);
+    	 
+    	
+    	 final List<HashTagDetailStats> stats = getFrontEndService().getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 7, 0, 20);
+    	 //System.out.println("List -------> " + stats.size());
 	}
 	
 	/**

@@ -19,7 +19,9 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
@@ -522,4 +524,36 @@ public class TestTweetPollDao  extends AbstractBase{
          
         Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
     }
+    
+    /**
+     * Test get total tweetpolls published by hashtag.
+     */
+	@Test
+	public void testGetTweetPollsbyHashTagNameAndDateRange() {
+		final HashTag myHashTag = createHashTag("preferences");
+		final Calendar releaseDate = Calendar.getInstance();
+		releaseDate.add(Calendar.DATE, -2);
+		final Question myFirstQuestion = createQuestion(
+				"What is your favorite kind of movie?", secondary.getAccount());
+		final Question mySecondQuestion = createQuestion(
+				"What is your favorite kind of song?", secondary.getAccount());
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(), myFirstQuestion,
+				releaseDate.getTime());
+		tweetPoll.getHashTags().add(myHashTag);
+		getTweetPoll().saveOrUpdate(tweetPoll);
+		assertNotNull(tweetPoll);
+		releaseDate.add(Calendar.DATE, -4);
+		final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+				this.secondary.getAccount(), mySecondQuestion,
+				releaseDate.getTime());
+		tweetPoll2.getHashTags().add(myHashTag);
+		getTweetPoll().saveOrUpdate(tweetPoll2);
+		assertNotNull(tweetPoll2);
+
+		final List<TweetPoll> tweetPollsbyHashTag = getTweetPoll()
+				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(),
+						7, this.INIT_RESULTS, this.MAX_RESULTS);
+		Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
+	} 
 }

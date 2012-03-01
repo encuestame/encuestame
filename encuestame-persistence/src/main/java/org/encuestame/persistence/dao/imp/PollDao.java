@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.PollFolder; 
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
@@ -158,6 +159,40 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
     } 
 
+    @SuppressWarnings("unchecked")
+	public List<Poll> getPollsbyHashTagNameAndDateRange(
+			final String tagName, final Integer period,
+			final Integer startResults, final Integer limit) {
+		Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			final Calendar hi = Calendar.getInstance();
+			hi.add(Calendar.DAY_OF_YEAR, -period);
+			startDate = hi.getTime();
+			endDate = Calendar.getInstance().getTime();
+
+		} 
+		final DetachedCriteria detached = DetachedCriteria
+				.forClass(Poll.class)
+				.createAlias("hashTags", "hashTags")
+				.setProjection(Projections.id())
+				.add(Subqueries.propertyIn(
+						"hashTags.hashTagId",
+						DetachedCriteria
+								.forClass(HashTag.class, "hash")
+								.setProjection(Projections.id())
+								.add(Restrictions.in("hash.hashTag",
+										new String[] { tagName }))));
+		final DetachedCriteria criteria = DetachedCriteria.forClass(
+				Poll.class, "poll");
+		criteria.add(Subqueries.propertyIn("poll.pollId", detached));
+		criteria.addOrder(Order.desc("poll.createdAt"));
+		criteria.add(Restrictions.between("createdAt", startDate, endDate));
+		criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+		return getHibernateTemplate().findByCriteria(criteria, startResults,
+				limit); 
+	}
+    
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long)
