@@ -14,6 +14,7 @@ package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -457,9 +458,28 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
      	tpoll2.getHashTags().add(tag);
     	getTweetPoll().saveOrUpdate(tpoll2);
     	 
+    	final Calendar myDate = Calendar.getInstance();
+    	myDate.add(Calendar.MONTH, -2);
     	
-    	 final List<HashTagDetailStats> stats = getFrontEndService().getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 7, 0, 20);
-    	 //System.out.println("List -------> " + stats.size());
+    	final TweetPoll tpoll3 = createPublishedTweetPoll(6L, question, getSpringSecurityLoggedUserAccount()); 
+    	tpoll3.getHashTags().add(tag);
+    	tpoll3.setCreateDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(tpoll3);
+    	
+    	myDate.add(Calendar.MONTH, -4);
+    	final TweetPoll tpoll4 = createPublishedTweetPoll(6L, question, getSpringSecurityLoggedUserAccount()); 
+    	tpoll4.getHashTags().add(tag);
+    	tpoll4.setCreateDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(tpoll4);
+    	
+    	
+    	
+    	 final List<HashTagDetailStats> stats = getFrontEndService().getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, 0, 20);
+    	 System.out.println("List -------> " + stats.size());
+    	 for (HashTagDetailStats hashTagDetailStats : stats) {
+    		 System.out.println("\n" + "Details ---> " + hashTagDetailStats.getValue());
+    		 System.out.println("\n" + "Label ---> " + hashTagDetailStats.getLabel());
+    	 }
 	}
 	
 	/**
