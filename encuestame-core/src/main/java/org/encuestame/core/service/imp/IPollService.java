@@ -235,6 +235,5 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      * @throws EnmeFailOperation
      */
-    void changeStatusPoll(final Long pollId, final String username)
-    throws EnMeNoResultsFoundException, EnmeFailOperation;
+    void changeStatusPoll(final Long pollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation;
 }

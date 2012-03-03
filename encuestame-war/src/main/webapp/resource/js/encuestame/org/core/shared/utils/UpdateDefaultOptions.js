@@ -40,9 +40,8 @@ dojo.declare("encuestame.org.core.shared.utils.UpdateDefaultOptions", null, {
      * @param data initial data
      * @param refFunction function to trigger on change data
      */
-    addRow : function(title, data, refFunction ) {
-        this.addDetail(this.builDetailRow(title, this.addYesNoWidget(data,
-                dojo.hitch(this, null))));
+    addRow : function(title, data, refFunction, options ) {
+        this.addDetail(this.builDetailRow(title, this.addYesNoWidget(data, refFunction, options)));
     },
 
     /**
@@ -68,10 +67,10 @@ dojo.declare("encuestame.org.core.shared.utils.UpdateDefaultOptions", null, {
     /**
      * Create  Yes / No Widget.
      */
-    addYesNoWidget : function(value, onChange){
-        var widget = new encuestame.org.core.shared.utils.YesNoWidget({data: value});
+    addYesNoWidget : function(value, onChange, options){
+        var widget = new encuestame.org.core.shared.utils.YesNoWidget({data: value, optionalParameters : options});
         if (onChange != null) {
-            //widget._onChange = onChange;
+            widget._onChange = onChange;
         }
         return widget.domNode;
     }

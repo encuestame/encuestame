@@ -358,12 +358,17 @@ dojo.declare(
        label : "",
 
        /**
+        * The information of poll detail.
+        */
+       data : {},
+
+       /**
         * Post create.
         */
        postCreate : function() {
            dojo.empty(this._detailItems);
            this.setNodeAppend(this._detailItems);
-           this.addRow("Close after date", 1, console.log("test1"));
+           this.addRow("Close after date", 1, dojo.hitch(this, this._updatePollParameters), "change-open-status");
            this.addRow("Cloase after quota", 1, console.log("test2"));
            this.addRow("Enable IP restrictions", 1, console.log("test3"));
            this.addRow("Enable notifications", 1, console.log("test3"));
@@ -371,6 +376,31 @@ dojo.declare(
            this.addRow("Display aditional information", 1, console.log("test3"));
            this.addRow("Make result public", 1, console.log("test3"));
            this.addRow("Make result public", 1, console.log("test3"));
+       },
+
+       /**
+        *
+        * @param property
+        */
+       _updatePollParameters : function(property) {
+           var params = {
+                "pollId" : this.data.id
+           };
+           var load = dojo.hitch(this, function(data) {
+               if ("success" in data) {
+                   console.info("success", data);
+               }
+           });
+
+           var error = dojo.hitch(this, function(error) {
+               this._showErrorMessage(error.message);
+           });
+           if (property) {
+               encuestame.service.xhrPostParam(
+                    encuestame.service.list.poll.setParameter(property), params, load, error);
+           } else {
+               this._showErrorMessage("error on update parameter");
+           }
        },
 
        /**

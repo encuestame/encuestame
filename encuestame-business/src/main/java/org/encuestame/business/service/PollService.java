@@ -31,7 +31,6 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
@@ -45,7 +44,6 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitLists;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -53,7 +51,6 @@ import org.springframework.util.Assert;
  * Poll Service.
  * @author Morales, Diana Paola paola AT encuestame.org
  * @since  April 01, 2010
- * @version $Id: $
  */
 @Service
 public class PollService extends AbstractSurveyService implements IPollService{
@@ -68,7 +65,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#filterPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<PollBean> filterPollByItemsByType(
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
@@ -117,7 +114,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     * (non-Javadoc)
     * @see org.encuestame.core.service.imp.IPollService#createPoll(java.lang.String, java.lang.String[], java.lang.Boolean, java.lang.String, java.lang.Boolean)
     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
         final String commentOption, final Boolean notification) throws EnMeExpcetion{
         final UserAccount user = getUserAccount(getUserPrincipalUsername());
@@ -209,7 +206,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeExpcetion
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<PollBean> searchPollByKeyword(final String keywordQuestion, final Integer maxResults,
         final Integer start) throws EnMeExpcetion{
         log.debug("search keyword Poll  "+keywordQuestion);
@@ -231,7 +228,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<PollBean> searchPollsByFolder(final Long folderId, final String username) throws EnMeNoResultsFoundException{
         final PollFolder pollFolder = getPollDao().getPollFolderById(folderId);
         List<Poll> polls = new ArrayList<Poll>();
@@ -249,7 +246,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return unitPoll
      * @throws EnMeNoResultsFoundException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<PollBean> listPollByUser(final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException{
         final List<PollBean> unitPoll = new ArrayList<PollBean>();
         final List<Poll> polls = getPollDao().findAllPollByEditorOwner(getUserAccount(getUserPrincipalUsername()), maxResults, start);
@@ -266,7 +263,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<PollBean> getPollsByFolder(final FolderBean folder) throws EnMeNoResultsFoundException{
         final List<Poll> polls = getPollDao().getPollsByPollFolder(getUserAccount(getUserPrincipalUsername()), getPollFolder(folder.getId()));
         return ConvertDomainBean.convertSetToPollBean(polls);
@@ -343,7 +340,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException exception
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<FolderBean> retrieveFolderPoll() throws EnMeNoResultsFoundException {
         final List<PollFolder> folders = getPollDao().getPollFolderByUserAccount(getUserAccount(getUserPrincipalUsername()));
         return ConvertDomainBean.convertListPollFolderToBean(folders);
@@ -356,7 +353,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public FolderBean createPollFolder(final String folderName) throws EnMeNoResultsFoundException {
         final PollFolder pollFolder = new PollFolder();
         pollFolder.setCreatedBy(getUserAccount(getUserPrincipalUsername()));
@@ -429,7 +426,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @param pollId
      * @throws EnMeNoResultsFoundException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public void addPollToFolder(final Long folderId, final Long pollId)
                                 throws EnMeNoResultsFoundException{
         final PollFolder pfolder = this.getPollFolderByFolderIdandUser(folderId, getUserAccount(getUserPrincipalUsername()));
@@ -464,7 +461,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<PollBean> getPollsbyDate(final Date date, final Integer maxResults,
             final Integer start) throws EnMeNoResultsFoundException{
         List<Poll> pollList = new ArrayList<Poll>();
@@ -484,7 +481,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
      public Poll getPollById(final Long pollId, final UserAccount account) throws EnMeNoResultsFoundException{
         final Poll poll = getPollDao().getPollById(pollId, getUserAccount(getUserPrincipalUsername()));
         if (poll == null) {
@@ -501,7 +498,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return
      * @throws EnMeNoResultsFoundException
      */
-     @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException{
          final Poll poll = this.getPollById(pollId, getUserAccount(getUserPrincipalUsername()));
          if (poll == null) {
@@ -531,7 +528,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.IPollService#getPollsByUserName(java.lang.String, java.lang.Integer, java.lang.Integer)
      */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+
     public List<PollBean> getPollsByUserName(
             final String username,
             final Integer maxResults,

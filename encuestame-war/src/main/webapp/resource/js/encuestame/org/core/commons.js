@@ -562,11 +562,17 @@ encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
 };
 
+/*
+ * Poll Services
+ */
 encuestame.service.list.poll = {};
 encuestame.service.list.listPoll = encuestame.contextWidget()+"/api/survey/poll/search.json";
 encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/survey/poll/create.json";
 encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/survey/poll/publish.json";
 encuestame.service.list.poll.detail = encuestame.contextWidget()+"/api/survey/poll/detail.json";
+encuestame.service.list.poll.setParameter = function(/* string */ type) {
+    return  encuestame.contextWidget()+"/api/survey/poll/"+type+"-poll.json";
+};
 
 /**
  * Comment Services.

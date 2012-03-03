@@ -246,21 +246,23 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value ="/api/survey/poll/{propertyType}-poll.json", method = RequestMethod.GET)
+    @RequestMapping(value ="/api/survey/poll/{propertyType}-poll.json", method = RequestMethod.POST)
     public ModelMap changeTweetPollProperties(
             @PathVariable String propertyType,
-            @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
             log.debug("Property Type " + propertyType);
             if ("change-open-status".equals(propertyType)) {
                 getPollService().changeStatusPoll(
-                        tweetPollId, getUserPrincipalUsername());
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
             } else {
-                log.warn("Type not valid");
+                log.warn("type not valid");
+                setError("type not valid", response);
             }
-            setSuccesResponse();
+
         }
         catch (Exception e) {
                 log.error(e);
