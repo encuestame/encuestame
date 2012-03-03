@@ -23,6 +23,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.web.PollBean;
@@ -226,4 +227,14 @@ public interface IPollService extends IMasterSurveyService{
     List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion;
+
+    /**
+     * Change the poll's status.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void changeStatusPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
 }

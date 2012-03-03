@@ -13,7 +13,6 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -234,4 +233,39 @@ public class PollJsonController extends AbstractJsonController{
           }
           return returnData();
       }
+
+    /**
+     *
+     * @param propertyType
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value ="/api/survey/poll/{propertyType}-poll.json", method = RequestMethod.GET)
+    public ModelMap changeTweetPollProperties(
+            @PathVariable String propertyType,
+            @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            log.debug("Property Type " + propertyType);
+            if ("change-open-status".equals(propertyType)) {
+                getPollService().changeStatusPoll(
+                        tweetPollId, getUserPrincipalUsername());
+            } else {
+                log.warn("Type not valid");
+            }
+            setSuccesResponse();
+        }
+        catch (Exception e) {
+                log.error(e);
+                setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }
