@@ -225,6 +225,10 @@ dojo.declare(
             this.widget_detail = new encuestame.org.core.commons.poll.PollNavigateItemDetail({ data : this.data , label : "Poll Options"});
             dojo.addClass(this.widget_detail.domNode, "hidden");
             dojo.place(this.widget_detail.domNode, this._more);
+            //set votes
+            this._votes.innerHTML = this.data.total_votes == null ? 0 : this.data.total_votes;
+            //set date.
+            this._date.innerHTML = this.data.creation_date;
         },
 
         /**
@@ -294,8 +298,6 @@ dojo.declare(
         * Post create.
         */
        postCreate : function() {
-           dojo.empty(this._detailItems);
-           this.setNodeAppend(this._detailItems);
        },
 
        /**
@@ -328,19 +330,20 @@ dojo.declare(
         * @param data a object with answer data
         */
        reRenderResults : function(data) {
+           dojo.empty(this._detailAnswers);
            if (data.length > 0) {
-               dojo.empty(this._detailAnswers);
                dojo.forEach(data, dojo.hitch(this, function(answer) {
                var rowDetail = dojo.create('div');
                    dojo.addClass(rowDetail, "web-poll-answer-row");
                    //color
                    var color = dojo.create('div');
                    var span_color = dojo.create('span');
-                   dojo.style(span_color, "background-color", answer.color);
+
                    dojo.style(span_color, "display", "inline-block");
                    dojo.style(span_color, "width", "30px");
                    dojo.place(span_color, color);
                    dojo.addClass(color, "web-poll-answer-row-color");
+                   dojo.style(color, "backgroundColor", answer.color);
                    //color.innerHTML = answer.color;
                    dojo.place(color, rowDetail);
                    //label
@@ -351,7 +354,7 @@ dojo.declare(
                    //percent
                    var percent = dojo.create('div');
                    dojo.addClass(percent, "web-poll-answer-row-percent");
-                   percent.innerHTML = answer.percent;
+                   percent.innerHTML = answer.votes == undefined ? 0 : answer.votes;
                    dojo.place(percent, rowDetail);
                    //append to root
                    dojo.place(rowDetail, this._detailAnswers);
@@ -366,6 +369,8 @@ dojo.declare(
         * @param data a object with answer data
         */
        setResults : function(data) {
+           dojo.empty(this._detailItems);
+           this.setNodeAppend(this._detailItems);
            this.addRow("Close after date", data.poll_bean.is_close_after_date, dojo.hitch(this, this._updatePollParameters), "change-open-status");
            this.addRow("Close after quota", data.poll_bean.is_close_after_quota, dojo.hitch(this, this._updatePollParameters), "close-after-quota");
            this.addRow("Enable IP restrictions", data.poll_bean.is_ip_restricted, dojo.hitch(this, this._updatePollParameters), "ip-protection");
@@ -389,9 +394,13 @@ dojo.declare(
        _mergeResultsAnswers : function(list_answers, list_results) {
            dojo.forEach(list_answers,
                    dojo.hitch(this, function(data, index) {
-                       //this._cache_items.push(data);
-                       data.votes = 0;
-                       data.percent = 0;
+                       dojo.forEach(list_results, function(data2, index) {
+                           if(data2.answer.answer_id === data.answer_id) {
+                               data.votes = data2.answer_votes;
+                               data.percent = 0;
+                               return false;
+                           }
+                       });
               }));
            return list_answers;
        },
@@ -403,7 +412,7 @@ dojo.declare(
        _convertToChartAnswer : function(answers) {
            var array = [];
            dojo.forEach(answers, function(answer) {
-              array.push([answer.answers, answer.percent, answer.color]);
+              array.push([answer.answers, answer.votes == undefined ? 0 : answer.votes , answer.color]);
            });
            return array;
        }

@@ -145,7 +145,7 @@ encuestame.utilities.noResults = function(classCSS) {
     if (classCSS != null) {
         dojo.addClass(norR, classCSS);
     }
-    norR.innerHTML = encuestame.constants.messageCodes["023"];
+    norR.innerHTML = encuestame.constants.messageCodes["024"];
     return norR;
 };
 

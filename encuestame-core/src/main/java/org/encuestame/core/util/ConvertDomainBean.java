@@ -602,7 +602,7 @@ public class ConvertDomainBean {
      * @param poll
      * @return unitPoll unitPoll
      */
-    public static final PollBean convertPollDomainToBean(final Poll poll){
+    public static final PollBean convertPollDomainToBean(final Poll poll) {
         final PollBean unitPoll = new PollBean();
         unitPoll.setId(poll.getPollId());
         unitPoll.setCompletedPoll(poll.getPollCompleted() == null ? false : poll.getPollCompleted());
