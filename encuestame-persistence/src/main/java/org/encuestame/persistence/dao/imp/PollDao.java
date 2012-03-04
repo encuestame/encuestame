@@ -129,13 +129,13 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.addOrder(Order.desc("createdAt"));
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollByHashTagId(java.lang.Long, java.lang.Integer, java.lang.String)
      */
     @SuppressWarnings("unchecked")
-	public List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
+    public List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
             final Integer limitResults, final TypeSearchResult filterby) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
@@ -154,45 +154,45 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         if (filterby.equals(TypeSearchResult.HASHTAG)) {
             criteria.addOrder(Order.desc("poll.createdAt"));
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
-        	  criteria.addOrder(Order.desc("numbervotes"));
+              criteria.addOrder(Order.desc("numbervotes"));
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
-    } 
+    }
 
     @SuppressWarnings("unchecked")
-	public List<Poll> getPollsbyHashTagNameAndDateRange(
-			final String tagName, final Integer period,
-			final Integer startResults, final Integer limit) {
-		Date startDate = null;
-		Date endDate = null;
-		if (period != null) {
-			final Calendar hi = Calendar.getInstance();
-			hi.add(Calendar.DAY_OF_YEAR, -period);
-			startDate = hi.getTime();
-			endDate = Calendar.getInstance().getTime();
+    public List<Poll> getPollsbyHashTagNameAndDateRange(
+            final String tagName, final Integer period,
+            final Integer startResults, final Integer limit) {
+        Date startDate = null;
+        Date endDate = null;
+        if (period != null) {
+            final Calendar hi = Calendar.getInstance();
+            hi.add(Calendar.DAY_OF_YEAR, -period);
+            startDate = hi.getTime();
+            endDate = Calendar.getInstance().getTime();
 
-		} 
-		final DetachedCriteria detached = DetachedCriteria
-				.forClass(Poll.class)
-				.createAlias("hashTags", "hashTags")
-				.setProjection(Projections.id())
-				.add(Subqueries.propertyIn(
-						"hashTags.hashTagId",
-						DetachedCriteria
-								.forClass(HashTag.class, "hash")
-								.setProjection(Projections.id())
-								.add(Restrictions.in("hash.hashTag",
-										new String[] { tagName }))));
-		final DetachedCriteria criteria = DetachedCriteria.forClass(
-				Poll.class, "poll");
-		criteria.add(Subqueries.propertyIn("poll.pollId", detached));
-		criteria.addOrder(Order.desc("poll.createdAt"));
-		criteria.add(Restrictions.between("createdAt", startDate, endDate));
-		criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-		return getHibernateTemplate().findByCriteria(criteria, startResults,
-				limit); 
-	}
-    
+        }
+        final DetachedCriteria detached = DetachedCriteria
+                .forClass(Poll.class)
+                .createAlias("hashTags", "hashTags")
+                .setProjection(Projections.id())
+                .add(Subqueries.propertyIn(
+                        "hashTags.hashTagId",
+                        DetachedCriteria
+                                .forClass(HashTag.class, "hash")
+                                .setProjection(Projections.id())
+                                .add(Restrictions.in("hash.hashTag",
+                                        new String[] { tagName }))));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(
+                Poll.class, "poll");
+        criteria.add(Subqueries.propertyIn("poll.pollId", detached));
+        criteria.addOrder(Order.desc("poll.createdAt"));
+        criteria.add(Restrictions.between("createdAt", startDate, endDate));
+        criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+        return getHibernateTemplate().findByCriteria(criteria, startResults,
+                limit);
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long)
@@ -216,10 +216,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     @SuppressWarnings("unchecked")
     public List<Object[]> retrieveResultPolls(final Long pollId,
             final Long questionId) {
-        final String pollResultsCounter = "select answer.answer,"
+        final String pollResultsCounter = "select answer.questionAnswerId, answer.answer,"
                 + "count(poll.pollId) FROM PollResult "
                 + "where poll.pollId= :pollId and answer.questionAnswerId= :questionId "
-                + "group by answer.answer";
+                + "group by answer.answer, answer.questionAnswerId";
         return new ArrayList<Object[]>(getSession().createQuery(
                 pollResultsCounter).setParameter("pollId", pollId)
                 .setParameter("questionId", questionId).list());

@@ -116,8 +116,15 @@ public class PollJsonController extends AbstractJsonController{
           return returnData();
       }
 
-    /*
-     *
+    /**
+     * A service to retrieve all info of a poll.
+     * @param pollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/detail.json", method = RequestMethod.GET)
