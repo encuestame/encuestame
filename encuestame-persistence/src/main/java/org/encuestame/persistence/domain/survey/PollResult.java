@@ -29,7 +29,7 @@ import javax.persistence.TemporalType;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 
 /**
- * PollResult Domain.
+ * PollResult Domain..
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since March 15, 2009
  */
