@@ -13,6 +13,7 @@
 package org.encuestame.utils.web;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -32,6 +33,12 @@ public class PollDetailBean {
      */
     public PollBean pollBean;
 
+
+    /**
+     * List of available answers.
+     */
+    public List<QuestionAnswerBean> listAnswers = new ArrayList<QuestionAnswerBean>();
+
     /**
      * @return the results
      */
@@ -42,7 +49,7 @@ public class PollDetailBean {
     /**
      * @param results the results to set
      */
-    public void setResults(java.util.List<PollBeanResult> results) {
+    public void setResults(final java.util.List<PollBeanResult> results) {
         this.results = results;
     }
 
@@ -56,7 +63,21 @@ public class PollDetailBean {
     /**
      * @param pollBean the pollBean to set
      */
-    public void setPollBean(PollBean pollBean) {
+    public void setPollBean(final PollBean pollBean) {
         this.pollBean = pollBean;
+    }
+
+    /**
+     * @return the listAnswers
+     */
+    public List<QuestionAnswerBean> getListAnswers() {
+        return listAnswers;
+    }
+
+    /**
+     * @param listAnswers the listAnswers to set
+     */
+    public void setListAnswers(final List<QuestionAnswerBean> listAnswers) {
+        this.listAnswers = listAnswers;
     }
 }

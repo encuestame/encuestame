@@ -195,6 +195,19 @@ public class ConvertDomainBean {
     }
 
     /**
+     * Convert a List of {@link QuestionAnswer} to {@link QuestionAnswerBean}.
+     * @param answers list of {@link QuestionAnswer}.
+     * @return a list of {@link QuestionAnswerBean}.
+     */
+    public static final  List<QuestionAnswerBean> convertAnswersToQuestionAnswerBean(final List<QuestionAnswer> answers) {
+        final List<QuestionAnswerBean> listTags = new ArrayList<QuestionAnswerBean>();
+        for (QuestionAnswer answer : answers) {
+            listTags.add(ConvertDomainBean.convertAnswerToBean(answer));
+        }
+        return listTags;
+    }
+
+    /**
      * Convert List Twitter Accounts.
      * @param accounts
      * @return

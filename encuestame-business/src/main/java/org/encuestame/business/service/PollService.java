@@ -681,19 +681,20 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final Poll poll = getPoll(pollId);
         detail.setPollBean(ConvertDomainBean.convertPollDomainToBean(poll));
         final List<Object[]> list = getPollDao().retrieveResultPolls(pollId, poll.getQuestion().getQid());
-        if (list.size() > 0) {
-            for (Object[] objects : list) {
-                final PollBeanResult result = new PollBeanResult();
-                final QuestionAnswerBean answer = new QuestionAnswerBean();
-                //TODO: fix potential nullpointers.
-                answer.setAnswerId(Long.valueOf(objects[0].toString()));
-                answer.setAnswers(objects[1].toString());
-                answer.setColor(objects[2].toString());
-                result.setAnswerBean(answer);
-                result.setResult(Long.valueOf(objects[3].toString()));
-                detail.getResults().add(result);
-            }
+        for (Object[] objects : list) {
+            final PollBeanResult result = new PollBeanResult();
+            final QuestionAnswerBean answer = new QuestionAnswerBean();
+            //TODO: fix potential nullpointers.
+            answer.setAnswerId(Long.valueOf(objects[0].toString()));
+            answer.setAnswers(objects[1].toString());
+            answer.setColor(objects[2].toString());
+            result.setAnswerBean(answer);
+            result.setResult(Long.valueOf(objects[3].toString()));
+            detail.getResults().add(result);
         }
+        detail.setListAnswers(ConvertDomainBean
+                .convertAnswersToQuestionAnswerBean(getQuestionDao()
+                        .getAnswersByQuestionId(poll.getQuestion().getQid())));
         return detail;
     }
 }
