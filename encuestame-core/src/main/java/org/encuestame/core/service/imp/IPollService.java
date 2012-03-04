@@ -236,4 +236,66 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnmeFailOperation
      */
     void changeStatusPoll(final Long pollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     *
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void closeAfterQuotaPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     * Set true / false the ip protection.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void ipProtectionPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     * Enable /Disable notifications.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void enableNotificationsPoll(final Long pollId,
+            final String username) throws EnMeNoResultsFoundException,
+            EnmeFailOperation;
+
+    /**
+     * Enable /Disable additional info.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void setAdditionalInfoPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     * Enable /Disable password restrictions.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void setPasswordRestrictionsPoll(final Long pollId,
+            final String username) throws EnMeNoResultsFoundException,
+            EnmeFailOperation;
+
+    /**
+     * Enable /Disable displar results in a poll.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void setShowResultsPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
 }

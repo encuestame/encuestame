@@ -258,6 +258,30 @@ public class PollJsonController extends AbstractJsonController{
                 getPollService().changeStatusPoll(
                         pollId, getUserPrincipalUsername());
                 setSuccesResponse();
+            } else  if ("change-display-results".equals(propertyType)) {
+                getPollService().setShowResultsPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("password-restrictions".equals(propertyType)) {
+                getPollService().setPasswordRestrictionsPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("additional-info".equals(propertyType)) {
+                getPollService().setAdditionalInfoPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("notifications".equals(propertyType)) {
+                getPollService().enableNotificationsPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("ip-protection".equals(propertyType)) {
+                getPollService().ipProtectionPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("close-after-quota".equals(propertyType)) {
+                getPollService().closeAfterQuotaPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
             } else {
                 log.warn("type not valid");
                 setError("type not valid", response);

@@ -369,13 +369,12 @@ dojo.declare(
            dojo.empty(this._detailItems);
            this.setNodeAppend(this._detailItems);
            this.addRow("Close after date", 1, dojo.hitch(this, this._updatePollParameters), "change-open-status");
-           this.addRow("Cloase after quota", 1, console.log("test2"));
-           this.addRow("Enable IP restrictions", 1, console.log("test3"));
-           this.addRow("Enable notifications", 1, console.log("test3"));
-           this.addRow("Enable password restriction", 1, console.log("test3"));
-           this.addRow("Display aditional information", 1, console.log("test3"));
-           this.addRow("Make result public", 1, console.log("test3"));
-           this.addRow("Make result public", 1, console.log("test3"));
+           this.addRow("Cloase after quota", 1, dojo.hitch(this, this._updatePollParameters), "close-after-quota");
+           this.addRow("Enable IP restrictions", 1,dojo.hitch(this, this._updatePollParameters), "ip-protection");
+           this.addRow("Enable notifications", 1,dojo.hitch(this, this._updatePollParameters), "notifications");
+           this.addRow("Enable password restriction", 1,dojo.hitch(this, this._updatePollParameters), "password-restrictions");
+           this.addRow("Display aditional information", 1,dojo.hitch(this, this._updatePollParameters), "additional-info");
+           this.addRow("Make result public", 1,dojo.hitch(this, this._updatePollParameters), "change-display-results");
        },
 
        /**

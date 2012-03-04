@@ -567,4 +567,102 @@ public class PollService extends AbstractSurveyService implements IPollService{
             throw new EnmeFailOperation("Fail Change Status Operation");
         }
     }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#closeAfterQuotaPoll(java.lang.Long, java.lang.String)
+     */
+    public void closeAfterQuotaPoll(final Long pollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation {
+        final Poll poll = getPollById(pollId, username);
+        if (poll != null) {
+            poll.setCloseAfterquota(!(poll.getCloseAfterquota() == null ? false
+                    : poll.getCloseAfterquota()));
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#ipProtectionPoll(java.lang.Long, java.lang.String)
+     */
+    public void ipProtectionPoll(final Long pollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation {
+        final Poll poll = getPollById(pollId, username);
+        if (poll != null) {
+            poll.setIpRestriction(!(poll.getIpRestriction() == null ? false
+                    : poll.getIpRestriction()));
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#ipEnableNotificationsPoll(java.lang.Long, java.lang.String)
+     */
+    public void enableNotificationsPoll(final Long pollId,
+            final String username) throws EnMeNoResultsFoundException,
+            EnmeFailOperation {
+        final Poll poll = getPollById(pollId, username);
+        if (poll != null) {
+            poll.setNotifications(!(poll.getNotifications() == null ? false
+                    : poll.getNotifications()));
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#setAdditionalInfoPoll(java.lang.Long, java.lang.String)
+     */
+    public void setAdditionalInfoPoll(final Long pollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation {
+        final Poll poll = getPollById(pollId, username);
+        if (poll != null) {
+            poll.setShowAdditionalInfo(!(poll.getShowAdditionalInfo() == null ? false
+                    : poll.getShowAdditionalInfo()));
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#setPasswordRestrictionsPoll(java.lang.Long, java.lang.String)
+     */
+    public void setPasswordRestrictionsPoll(final Long pollId,
+            final String username) throws EnMeNoResultsFoundException,
+            EnmeFailOperation {
+        final Poll poll = getPollById(pollId, username);
+        if (poll != null) {
+            poll.setPasswordRestrictions(!(poll.getPasswordRestrictions() == null ? false
+                    : poll.getPasswordRestrictions()));
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#setShowResultsPoll(java.lang.Long, java.lang.String)
+     */
+    public void setShowResultsPoll(final Long pollId, final String username)
+            throws EnMeNoResultsFoundException, EnmeFailOperation {
+        final Poll poll = getPollById(pollId, username);
+        if (poll != null) {
+            poll.setShowResults(!(poll.getShowResults() == null ? false : poll
+                    .getShowResults()));
+            getPollDao().saveOrUpdate(poll);
+        } else {
+            throw new EnmeFailOperation("Fail Change Status Operation");
+        }
+    }
 }
