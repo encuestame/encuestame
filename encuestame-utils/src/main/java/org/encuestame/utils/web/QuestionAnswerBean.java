@@ -14,6 +14,9 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.ShortUrlProvider;
 
 /**
@@ -21,7 +24,7 @@ import org.encuestame.utils.ShortUrlProvider;
  * @author Picado, Juan Carlos juanATencuestame.org
  * @since June 01 2009 15:24:16
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuestionAnswerBean implements Serializable{
 
     /**
@@ -30,40 +33,48 @@ public class QuestionAnswerBean implements Serializable{
     private static final long serialVersionUID = 1914430351701434773L;
 
     /** Answer Id. **/
+    @JsonProperty(value = "answer_id")
     private Long answerId;
 
     /** Answer. **/
+    @JsonProperty(value = "answers")
     private String answers;
 
     /** Answer Hash. **/
+    @JsonIgnore
     private String answerHash;
 
     /** Url. **/
+    @JsonProperty(value = "url")
     private String url;
 
     /** Short url. **/
+    @JsonProperty(value = "short_url")
     private String shortUrl;
 
     /** Question Id. **/
+    @JsonProperty(value = "qid")
     private	 Long questionId;
 
     /** Color. */
+    @JsonProperty(value = "color")
     private String color;
 
 
     /** short url type. **/
+    @JsonProperty(value = "provider")
     private ShortUrlProvider shortUrlType;
 
     /**
      * Constructor.
      */
-    public QuestionAnswerBean() {
-    }
+    public QuestionAnswerBean() {}
 
     /**
      * Constructor with answers.
      * @param answers
      */
+
     public QuestionAnswerBean(final String answers) {
         super();
         this.answers = answers;
@@ -72,6 +83,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the answerId
      */
+    @JsonIgnore
     public final Long getAnswerId() {
         return answerId;
     }
@@ -87,6 +99,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the answers
      */
+    @JsonIgnore
     public final String getAnswers() {
         return answers;
     }
@@ -102,6 +115,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the answerHash
      */
+    @JsonIgnore
     public final String getAnswerHash() {
         return answerHash;
     }
@@ -117,6 +131,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the questionId
      */
+    @JsonIgnore
     public final Long getQuestionId() {
         return questionId;
     }
@@ -132,6 +147,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the url
      */
+    @JsonIgnore
     public String getUrl() {
         return url;
     }
@@ -146,6 +162,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the shortUrl
      */
+    @JsonIgnore
     public String getShortUrl() {
         return shortUrl;
     }
@@ -160,6 +177,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the shortUrlType
      */
+    @JsonIgnore
     public ShortUrlProvider getShortUrlType() {
         return shortUrlType;
     }
@@ -176,6 +194,7 @@ public class QuestionAnswerBean implements Serializable{
     /**
      * @return the color
      */
+    @JsonIgnore
     public String getColor() {
         return color;
     }

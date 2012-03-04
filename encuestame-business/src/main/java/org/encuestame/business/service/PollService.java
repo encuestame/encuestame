@@ -686,6 +686,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final Poll poll = getPoll(pollId);
         detail.setPollBean(ConvertDomainBean.convertPollDomainToBean(poll));
         final List<Object[]> list = getPollDao().retrieveResultPolls(pollId, poll.getQuestion().getQid());
+        log.debug("retrieveResultPolls==> "+list.size());
         for (Object[] objects : list) {
             final PollBeanResult result = new PollBeanResult();
             final QuestionAnswerBean answer = new QuestionAnswerBean();

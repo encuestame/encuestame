@@ -215,14 +215,13 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Object[]> retrieveResultPolls(final Long pollId,
-            final Long questionId) {
+            final Long answerId) {
         final String pollResultsCounter = "select answer.questionAnswerId, answer.answer, answer.color,"
                 + "count(poll.pollId) FROM PollResult "
-                + "where poll.pollId= :pollId and answer.questionAnswerId= :questionId "
+                + "where poll.pollId= :pollId "
                 + "group by answer.answer, answer.questionAnswerId, answer.color";
-        return new ArrayList<Object[]>(getSession().createQuery(
-                pollResultsCounter).setParameter("pollId", pollId)
-                .setParameter("questionId", questionId).list());
+        return new ArrayList<Object[]>(getSession().createQuery(pollResultsCounter).setParameter("pollId", pollId)
+                .list());
     }
 
      /*

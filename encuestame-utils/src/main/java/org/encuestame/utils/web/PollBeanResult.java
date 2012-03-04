@@ -14,19 +14,30 @@ package org.encuestame.utils.web;
 
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
  /**
  * Unit Poll Result.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since  April 01, 2010
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PollBeanResult {
 
+    @JsonProperty(value = "answer")
     private QuestionAnswerBean answerBean;
+
+    @JsonProperty(value = "answer_votes")
     private Long result;
+
+    @JsonIgnore
     private Date votedDate;
     /**
      * @return the answerBean
      */
+    @JsonIgnore
     public QuestionAnswerBean getAnswerBean() {
         return answerBean;
     }
@@ -39,25 +50,27 @@ public class PollBeanResult {
     /**
      * @return the result
      */
+    @JsonIgnore
     public Long getResult() {
         return result;
     }
     /**
      * @param result the result to set
      */
-    public void setResult(Long result) {
+    public void setResult(final Long result) {
         this.result = result;
     }
     /**
      * @return the votedDate
      */
+    @JsonIgnore
     public Date getVotedDate() {
         return votedDate;
     }
     /**
      * @param votedDate the votedDate to set
      */
-    public void setVotedDate(Date votedDate) {
+    public void setVotedDate(final Date votedDate) {
         this.votedDate = votedDate;
     }
 }

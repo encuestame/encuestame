@@ -233,97 +233,24 @@ dojo.declare(
         _callEditInfo : function() {
             //console.info("_callEditInfo");
             var load = dojo.hitch(this, function(data) {
-                console.info("_callEditInfo", data);
-                dojo.removeClass(this.widget_detail.domNode, "hidden");
-                data = {
-                        answers : [
-                                   {
-                                       answer: "answer 1",
-                                       type : "text",
-                                       percent : 43,
-                                       color : "#A6B4BF"
+                if("success" in data){
+                    console.info("_callEditInfo", data);
+                    dojo.removeClass(this.widget_detail.domNode, "hidden");
+                    /*
+                     * {
+                           answer: "answer 1",
+                           type : "text",
+                           percent : 43,
+                           color : "#A6B4BF"
 
-                                   },
-                                   {
-                                       answer: "answer 2",
-                                       type : "text",
-                                       percent : 13,
-                                       color : "#FEFEF"
-
-                                   },
-                                   {
-                                       answer: "answer 3",
-                                       type : "text",
-                                       percent : 3,
-                                       color : "#44444"
-
-                                   },
-                                   {
-                                       answer: "answer 4",
-                                       type : "text",
-                                       percent : 14,
-                                       color : "#888888"
-
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   },
-                                   {
-                                       answer: "answer5",
-                                       type : "text",
-                                       percent : 27,
-                                       color : "#FF0000"
-                                   }
-                                   ]
-                };
-                this.widget_detail.setResults(data);
-                //this._standBy.stop();
-                //console.info("poll detail", data);
+                       }
+                     */
+                    this.widget_detail.setResults(data.success.poll);
+                    //this._standBy.stop();
+                    //console.info("poll detail", data);
+                } else {
+                    console.error("error", error);
+                }
             });
             var error = dojo.hitch(this, function(error) {
                 //this._standBy.stop();
@@ -369,13 +296,6 @@ dojo.declare(
        postCreate : function() {
            dojo.empty(this._detailItems);
            this.setNodeAppend(this._detailItems);
-           this.addRow("Close after date", 1, dojo.hitch(this, this._updatePollParameters), "change-open-status");
-           this.addRow("Cloase after quota", 1, dojo.hitch(this, this._updatePollParameters), "close-after-quota");
-           this.addRow("Enable IP restrictions", 1,dojo.hitch(this, this._updatePollParameters), "ip-protection");
-           this.addRow("Enable notifications", 1,dojo.hitch(this, this._updatePollParameters), "notifications");
-           this.addRow("Enable password restriction", 1,dojo.hitch(this, this._updatePollParameters), "password-restrictions");
-           this.addRow("Display aditional information", 1,dojo.hitch(this, this._updatePollParameters), "additional-info");
-           this.addRow("Make result public", 1,dojo.hitch(this, this._updatePollParameters), "change-display-results");
        },
 
        /**
@@ -408,9 +328,9 @@ dojo.declare(
         * @param data a object with answer data
         */
        reRenderResults : function(data) {
-           if (data.answers.length > 0) {
+           if (data.length > 0) {
                dojo.empty(this._detailAnswers);
-               dojo.forEach(data.answers, dojo.hitch(this, function(answer) {
+               dojo.forEach(data, dojo.hitch(this, function(answer) {
                var rowDetail = dojo.create('div');
                    dojo.addClass(rowDetail, "web-poll-answer-row");
                    //color
@@ -426,7 +346,7 @@ dojo.declare(
                    //label
                    var label = dojo.create('div');
                    dojo.addClass(label, "web-poll-answer-row-label");
-                   label.innerHTML = answer.answer;
+                   label.innerHTML = answer.answers;
                    dojo.place(label, rowDetail);
                    //percent
                    var percent = dojo.create('div');
@@ -446,11 +366,34 @@ dojo.declare(
         * @param data a object with answer data
         */
        setResults : function(data) {
+           this.addRow("Close after date", data.poll_bean.is_close_after_date, dojo.hitch(this, this._updatePollParameters), "change-open-status");
+           this.addRow("Close after quota", data.poll_bean.is_close_after_quota, dojo.hitch(this, this._updatePollParameters), "close-after-quota");
+           this.addRow("Enable IP restrictions", data.poll_bean.is_ip_restricted, dojo.hitch(this, this._updatePollParameters), "ip-protection");
+           this.addRow("Enable notifications", data.poll_bean.close_notification, dojo.hitch(this, this._updatePollParameters), "notifications");
+           this.addRow("Enable password restriction", data.poll_bean.is_password_restriction, dojo.hitch(this, this._updatePollParameters), "password-restrictions");
+           this.addRow("Display aditional information", data.poll_bean.is_show_additional_info, dojo.hitch(this, this._updatePollParameters), "additional-info");
+           this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
            var nodeId = this.id+"_chart";
            dojo.empty(dojo.byId(nodeId));
-           this.widgetChart = this.buildChart({id : nodeId, results : this._convertToChartAnswer(data.answers)});
+           this.widgetChart = this.buildChart({id : nodeId, results : this._convertToChartAnswer(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results))});
            this.renderChart(this.widgetChart);
-           this.reRenderResults(data);
+           this.reRenderResults(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results));
+       },
+
+       /**
+        * Merge the answer with votes, if results exist is merged with the vote.
+        * Added new property, answer.vote = x;
+        * @param list_answers
+        * @param list_results
+        */
+       _mergeResultsAnswers : function(list_answers, list_results) {
+           dojo.forEach(list_answers,
+                   dojo.hitch(this, function(data, index) {
+                       //this._cache_items.push(data);
+                       data.votes = 0;
+                       data.percent = 0;
+              }));
+           return list_answers;
        },
 
        /**
@@ -460,7 +403,7 @@ dojo.declare(
        _convertToChartAnswer : function(answers) {
            var array = [];
            dojo.forEach(answers, function(answer) {
-              array.push([answer.answer, answer.percent, answer.color]);
+              array.push([answer.answers, answer.percent, answer.color]);
            });
            return array;
        }

@@ -35,6 +35,12 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonProperty(value = "hashtags")
     private List<HashTagBean> hashTags = new ArrayList<HashTagBean>();
 
+    /**
+     * Define if the abstract survey is restricted by password.
+     */
+    @JsonProperty(value = "is_password_restriction")
+    private Boolean isPasswordRestriction;
+
     /** **/
     @JsonProperty(value = "owner_username")
     private String ownerUsername;
@@ -134,7 +140,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     @JsonProperty(value = "total_comments")
     private Long totalComments;
 
-    @JsonProperty(value = "hastags_string")
+    @JsonIgnore
     private String hashtagAsString = "";
 
     /**
@@ -306,6 +312,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the latitude
      */
+    @JsonIgnore
     public Float getLatitude() {
         return latitude;
     }
@@ -320,6 +327,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the longitude
      */
+    @JsonIgnore
     public Float getLongitude() {
         return longitude;
     }
@@ -334,6 +342,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the additionalInfo
      */
+    @JsonIgnore
     public String getAdditionalInfo() {
         return additionalInfo;
     }
@@ -348,6 +357,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the showComments
      */
+    @JsonIgnore
     public String getShowComments() {
         return showComments;
     }
@@ -362,6 +372,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the showResults
      */
+    @JsonIgnore
     public Boolean getShowResults() {
         return isShowResults;
     }
@@ -376,6 +387,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the folderId
      */
+    @JsonIgnore
     public Long getFolderId() {
         return folderId;
     }
@@ -390,6 +402,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the showAdditionalInfo
      */
+    @JsonIgnore
     public Boolean getIsShowAdditionalInfo() {
         return isShowAdditionalInfo;
     }
@@ -404,6 +417,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the closeAfterDate
      */
+    @JsonIgnore
     public Boolean getIsCloseAfterDate() {
         return isCloseAfterDate;
     }
@@ -418,6 +432,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the closedDate
      */
+    @JsonIgnore
     public String getClosedDate() {
         return closedDate;
     }
@@ -432,6 +447,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the isCloseAfterQuota
      */
+    @JsonIgnore
     public Boolean getIsCloseAfterQuota() {
         return isCloseAfterQuota;
     }
@@ -446,6 +462,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the closedQuota
      */
+    @JsonIgnore
     public Integer getClosedQuota() {
         return closedQuota;
     }
@@ -460,6 +477,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the isIpRestricted
      */
+    @JsonIgnore
     public Boolean getIsIpRestricted() {
         return isIpRestricted;
     }
@@ -474,6 +492,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the ipRestricted
      */
+    @JsonIgnore
     public String getIpRestricted() {
         return ipRestricted;
     }
@@ -488,6 +507,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the multipleResponse
      */
+    @JsonIgnore
     public String getMultipleResponse() {
         return multipleResponse;
     }
@@ -502,6 +522,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the isShowResults
      */
+    @JsonIgnore
     public Boolean getIsShowResults() {
         return isShowResults;
     }
@@ -509,6 +530,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
     /**
      * @return the totalComments
      */
+    @JsonIgnore
     public Long getTotalComments() {
         return totalComments;
     }
@@ -524,6 +546,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
      *
      * @return
      */
+    @JsonProperty(value = "hastags_string")
     public String getHashtagAsString() {
         final StringBuffer buffer = new StringBuffer();
         int size = getHashTags().size();
@@ -540,4 +563,21 @@ public abstract class AbstractUnitSurvey implements Serializable {
     public void setHashtagAsString(final String hashtagAsString) {
         this.hashtagAsString = hashtagAsString;
     }
+
+    /**
+     * @return the isPasswordRestriction
+     */
+    @JsonIgnore
+    public Boolean getIsPasswordRestriction() {
+        return isPasswordRestriction;
+    }
+
+    /**
+     * @param isPasswordRestriction the isPasswordRestriction to set
+     */
+    public void setIsPasswordRestriction(Boolean isPasswordRestriction) {
+        this.isPasswordRestriction = isPasswordRestriction;
+    }
+
+
 }

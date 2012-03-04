@@ -505,7 +505,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public PollResult createPollResults(final QuestionAnswer questionAnswer, final Poll poll){
         final PollResult pollRes = new PollResult();
         pollRes.setAnswer(questionAnswer);
-        pollRes.setIpaddress("127.0.0.1");
+        pollRes.setIpaddress("127.0.0."+RandomStringUtils.random(10));
         pollRes.setPoll(poll);
         pollRes.setVotationDate(new Date());
         getPollDao().saveOrUpdate(pollRes);
@@ -1200,7 +1200,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public TweetPoll createPublishedTweetPoll(final Question question, final UserAccount user) {
         return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
-    
+
     public TweetPoll createPublishedTweetPoll(final Long id, final Question question, final UserAccount user) {
         return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
