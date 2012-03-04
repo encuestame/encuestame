@@ -475,7 +475,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	
     	
     	 final List<HashTagDetailStats> stats = getFrontEndService().getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, 0, 20);
-    	 System.out.println("List -------> " + stats.size());
+    	 System.out.println("List hashtag detail test cases -------> " + stats.size());
     	 for (HashTagDetailStats hashTagDetailStats : stats) {
     		 System.out.println("\n" + "Details ---> " + hashTagDetailStats.getValue());
     		 System.out.println("\n" + "Label ---> " + hashTagDetailStats.getLabel());
