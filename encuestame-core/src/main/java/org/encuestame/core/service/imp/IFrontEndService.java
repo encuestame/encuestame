@@ -260,5 +260,14 @@ public interface IFrontEndService extends ServiceOperations {
 	 */
 	GenericStatsBean retrieveGenericStats(final String itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
 	
+	/**
+	 * Get total usage items by hashTag and Date Range
+	 * @param hashTagName
+	 * @param period
+	 * @param startResults
+	 * @param maxResults
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
 	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
 }
