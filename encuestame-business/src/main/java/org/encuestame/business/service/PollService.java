@@ -124,6 +124,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final String commentOption, final Boolean notification) throws EnMeExpcetion{
         final UserAccount user = getUserAccount(getUserPrincipalUsername());
         Assert.notNull(answers);
+        log.debug("poll list answer=>" + answers);
         Assert.notNull(user);
         Assert.notNull(questionName);
         final Poll pollDomain = new Poll();
@@ -162,11 +163,15 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);
+            log.debug("poll list answer=>" + answers.length);
             for (int row = 0; row < answers.length; row++) {
                  final String answersText = answers[row];
                  Assert.notNull(answersText);
-                 if (answersText.isEmpty()) {
+                 if (!answersText.isEmpty()) {
+                     log.debug("creatong answer=>" + question.getQidKey());
+                     log.debug("creatong answer=>" + answersText.trim());
                      createAnswers(question, answersText.trim());
+
                  }
             }
             this.getPollDao().saveOrUpdate(pollDomain);
