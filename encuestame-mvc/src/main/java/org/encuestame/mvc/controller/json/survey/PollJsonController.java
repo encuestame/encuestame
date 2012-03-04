@@ -205,6 +205,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/create.json", method = RequestMethod.POST)
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
