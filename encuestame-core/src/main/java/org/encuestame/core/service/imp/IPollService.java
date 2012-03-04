@@ -27,6 +27,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollDetailBean;
 import org.encuestame.utils.web.UnitLists;
 
 /**
@@ -298,4 +299,10 @@ public interface IPollService extends IMasterSurveyService{
      */
     void setShowResultsPoll(final Long pollId, final String username)
     throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     *
+     * @return
+     */
+    PollDetailBean getPollDetailInfo(final Long pollId);
 }

@@ -233,6 +233,7 @@ dojo.declare(
         _callEditInfo : function() {
             //console.info("_callEditInfo");
             var load = dojo.hitch(this, function(data) {
+                console.info("_callEditInfo", data);
                 dojo.removeClass(this.widget_detail.domNode, "hidden");
                 data = {
                         answers : [

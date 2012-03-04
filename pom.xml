@@ -141,10 +141,9 @@
         <maven-antrun-plugin>1.6</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
         <cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
-        <maven-javadoc-plugin>2.8</maven-javadoc-plugin>
+        <maven-javadoc-plugin>2.8.1</maven-javadoc-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
-        <maven-javadoc-plugin>2.8</maven-javadoc-plugin>
         <maven-changes-plugin>2.4</maven-changes-plugin>
         <findbugs-maven-plugin>1.2</findbugs-maven-plugin>
         <taglist-maven-plugin>2.4</taglist-maven-plugin>
@@ -498,6 +497,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin}</version>
+                    <configuration>
+          			   <reportOutputDirectory>${project.reporting.outputDirectory}/apidoc</reportOutputDirectory>
+                       <destDir>encuestame</destDir>
+                    </configuration>
                     <executions>
                         <execution>
                             <phase>package</phase>

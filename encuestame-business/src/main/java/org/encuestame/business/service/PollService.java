@@ -28,9 +28,11 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
@@ -43,6 +45,9 @@ import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollBeanResult;
+import org.encuestame.utils.web.PollDetailBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitLists;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -664,5 +669,31 @@ public class PollService extends AbstractSurveyService implements IPollService{
         } else {
             throw new EnmeFailOperation("Fail Change Status Operation");
         }
+    }
+
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#getPollDetailInfo(java.lang.Long)
+     */
+    public PollDetailBean getPollDetailInfo(final Long pollId){
+        final PollDetailBean detail = new PollDetailBean();
+        final Poll poll = getPoll(pollId);
+        detail.setPollBean(ConvertDomainBean.convertPollDomainToBean(poll));
+        final List<Object[]> list = getPollDao().retrieveResultPolls(pollId, poll.getQuestion().getQid());
+        if (list.size() > 0) {
+            for (Object[] objects : list) {
+                final PollBeanResult result = new PollBeanResult();
+                final QuestionAnswerBean answer = new QuestionAnswerBean();
+                //TODO: fix potential nullpointers.
+                answer.setAnswerId(Long.valueOf(objects[0].toString()));
+                answer.setAnswers(objects[1].toString());
+                answer.setColor(objects[2].toString());
+                result.setAnswerBean(answer);
+                result.setResult(Long.valueOf(objects[3].toString()));
+                detail.getResults().add(result);
+            }
+        }
+        return detail;
     }
 }

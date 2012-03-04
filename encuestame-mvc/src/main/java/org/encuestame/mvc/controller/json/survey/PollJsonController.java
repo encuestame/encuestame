@@ -133,7 +133,7 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            jsonResponse.put("poll", null);
+            jsonResponse.put("poll", getPollService().getPollDetailInfo(pollId));
             setItemResponse(jsonResponse);
         return returnData();
     }

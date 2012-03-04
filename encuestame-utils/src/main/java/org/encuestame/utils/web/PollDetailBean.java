@@ -12,52 +12,51 @@
  */
 package org.encuestame.utils.web;
 
-import java.util.Date;
+import java.util.ArrayList;
 
- /**
- * Unit Poll Result.
- * @author Morales, Diana Paola paolaATencuestame.org
- * @since  April 01, 2010
+
+/**
+ * Unit Poll Detail Bean.
+ * @author Picado, Juan juanATencuestame.org
+ * @since  March 04, 2011
  */
-public class PollBeanResult {
+public class PollDetailBean {
 
-    private QuestionAnswerBean answerBean;
-    private Long result;
-    private Date votedDate;
     /**
-     * @return the answerBean
+     *
      */
-    public QuestionAnswerBean getAnswerBean() {
-        return answerBean;
+    public java.util.List<PollBeanResult> results = new ArrayList<PollBeanResult>();
+
+    /**
+     *
+     */
+    public PollBean pollBean;
+
+    /**
+     * @return the results
+     */
+    public java.util.List<PollBeanResult> getResults() {
+        return results;
     }
+
     /**
-     * @param answerBean the answerBean to set
+     * @param results the results to set
      */
-    public void setAnswerBean(QuestionAnswerBean answerBean) {
-        this.answerBean = answerBean;
+    public void setResults(java.util.List<PollBeanResult> results) {
+        this.results = results;
     }
+
     /**
-     * @return the result
+     * @return the pollBean
      */
-    public Long getResult() {
-        return result;
+    public PollBean getPollBean() {
+        return pollBean;
     }
+
     /**
-     * @param result the result to set
+     * @param pollBean the pollBean to set
      */
-    public void setResult(Long result) {
-        this.result = result;
-    }
-    /**
-     * @return the votedDate
-     */
-    public Date getVotedDate() {
-        return votedDate;
-    }
-    /**
-     * @param votedDate the votedDate to set
-     */
-    public void setVotedDate(Date votedDate) {
-        this.votedDate = votedDate;
+    public void setPollBean(PollBean pollBean) {
+        this.pollBean = pollBean;
     }
 }
