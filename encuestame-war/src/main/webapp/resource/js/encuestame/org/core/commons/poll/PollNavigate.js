@@ -211,7 +211,6 @@ dojo.declare(
          * Post create cycle life.
          */
         postCreate : function() {
-            //console.debug("row data", this.data);
             var panel = new encuestame.org.core.commons.support.PanelWipe(this._more, null, null, 390);
             //add event on click edit link
             panel.connect(this._edit, dojo.hitch(this, this._callEditInfo));
@@ -227,7 +226,7 @@ dojo.declare(
             dojo.place(this.widget_detail.domNode, this._more);
             //set votes
             this._votes.innerHTML = this.data.total_votes == null ? 0 : this.data.total_votes;
-            //set date.
+            //set date
             this._date.innerHTML = this.data.creation_date;
         },
 
@@ -235,36 +234,20 @@ dojo.declare(
          * Call Edito Info.
          */
         _callEditInfo : function() {
-            //console.info("_callEditInfo");
             var load = dojo.hitch(this, function(data) {
-                if("success" in data){
-                    console.info("_callEditInfo", data);
+                if ("success" in data) {
                     dojo.removeClass(this.widget_detail.domNode, "hidden");
-                    /*
-                     * {
-                           answer: "answer 1",
-                           type : "text",
-                           percent : 43,
-                           color : "#A6B4BF"
-
-                       }
-                     */
                     this.widget_detail.setResults(data.success.poll);
-                    //this._standBy.stop();
-                    //console.info("poll detail", data);
                 } else {
-                    console.error("error", error);
+                    this._showErrorMessage(error);
                 }
             });
             var error = dojo.hitch(this, function(error) {
-                //this._standBy.stop();
-                console.error("error", error);
+                this._showErrorMessage(error);
             });
             var params = {
                     id : this.data.id
             };
-            //this._standBy.startup();
-            //this._standBy.start();
             dojo.addClass(this.widget_detail.domNode, "hidden");
             encuestame.service.xhrGet(encuestame.service.list.poll.detail, params, load, error);
         },
@@ -298,6 +281,10 @@ dojo.declare(
         * Post create.
         */
        postCreate : function() {
+           //dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
+           this._remove.onClick = dojo.hitch(this, function(){
+               console.info("json service to remove");
+           });
        },
 
        /**
@@ -378,11 +365,33 @@ dojo.declare(
            this.addRow("Enable password restriction", data.poll_bean.is_password_restriction, dojo.hitch(this, this._updatePollParameters), "password-restrictions");
            this.addRow("Display aditional information", data.poll_bean.is_show_additional_info, dojo.hitch(this, this._updatePollParameters), "additional-info");
            this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
+           this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
            var nodeId = this.id+"_chart";
            dojo.empty(dojo.byId(nodeId));
            this.widgetChart = this.buildChart({id : nodeId, results : this._convertToChartAnswer(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results))});
            this.renderChart(this.widgetChart);
            this.reRenderResults(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results));
+
+           var comments = dojo.create("div");
+           dojo.addClass(comments, "web-poll-answer-row-comments");
+           comments.innerHTML = data.poll_bean.total_comments;
+
+           var hits = dojo.create("div");
+           dojo.addClass(hits, "web-poll-answer-row-hits");
+           hits.innerHTML = data.poll_bean.hits;
+
+           var likes = dojo.create("div");
+           dojo.addClass(likes, "web-poll-answer-row-likes");
+           likes.innerHTML = data.poll_bean.like_votes;
+
+           var dislike = dojo.create("div");
+           dojo.addClass(dislike, "web-poll-answer-row-dislike");
+           dislike.innerHTML = data.poll_bean.dislike_votes;
+
+           dojo.place(comments, this._detail_info);
+           dojo.place(hits, this._detail_info);
+           dojo.place(likes, this._detail_info);
+           dojo.place(dislike, this._detail_info);
        },
 
        /**

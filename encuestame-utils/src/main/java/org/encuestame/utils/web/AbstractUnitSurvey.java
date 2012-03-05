@@ -138,7 +138,7 @@ public abstract class AbstractUnitSurvey implements Serializable {
 
     /** Show total comments received. **/
     @JsonProperty(value = "total_comments")
-    private Long totalComments;
+    private Long totalComments = 0L;
 
     @JsonIgnore
     private String hashtagAsString = "";

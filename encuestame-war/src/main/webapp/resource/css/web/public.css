@@ -1371,6 +1371,18 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
   padding: 4px;
 }
 
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info{
+  float: left;
+}
+
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info > div{
+
+}
+
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove{
+ float: right;
+}
+
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
     margin-top: 29px;
