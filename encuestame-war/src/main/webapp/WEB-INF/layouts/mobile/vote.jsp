@@ -12,13 +12,29 @@
     </title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-   <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
+    <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp" %>
 </head>
 <body class="claro">
      <header id="header">
-         <tiles:insertAttribute name="header" ignore="true" />
-         <tiles:insertAttribute name="menu" ignore="true" />
+         <div id="header">
+            <div id="mobile-header-wrapper">
+                <div class="logo">
+                    <a href="<%=request.getContextPath()%>"> <img alt="logo"
+                        src="<%=request.getContextPath()%>/resources/${logo}"> </a>
+                </div>
+                <div class="mobile-header-options">
+                    <c:if test="${!logged}">
+                        <span class="link"> <a
+                            href="<%=request.getContextPath()%>/user/signin">Sign In</a> </span>
+                    </c:if>
+                    <c:if test="${logged}">
+                        <!--  <img alt="logo" src="<%=request.getContextPath()%>/resources/${logo}">-->
+                        <a href="<%=request.getContextPath()%>/user/dashboard">Dashboard</a>
+                    </c:if>
+                </div>
+            </div>
+        </div>
      </header>
      <div id="mainWrapper">
         <div id="content-container" class="enme-auto-center">
