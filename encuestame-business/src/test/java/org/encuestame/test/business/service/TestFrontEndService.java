@@ -447,18 +447,21 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 	@Test
 	public void testGetTotalHashTagHitsbyDateRange() throws EnMeNoResultsFoundException{
 		final Question question = createQuestion("What is your favorite type of song?", "");
+		final HashTag tag = createHashTag("romantic");
+		final Calendar myDate = Calendar.getInstance();
 		// TweetPoll
     	final TweetPoll tpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount()); 
-    	
-    	final HashTag tag = createHashTag("romantic");
-    	tpoll.getHashTags().add(tag);
+      	tpoll.getHashTags().add(tag);
     	getTweetPoll().saveOrUpdate(tpoll);
+    	
+    	final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
+    	survey.getHashTags().add(tag); 
+    	getSurveyDaoImp().saveOrUpdate(survey);
     	
     	final TweetPoll tpoll2 = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount()); 
      	tpoll2.getHashTags().add(tag);
-    	getTweetPoll().saveOrUpdate(tpoll2);
-    	 
-    	final Calendar myDate = Calendar.getInstance();
+    	getTweetPoll().saveOrUpdate(tpoll2); 
+    	
     	myDate.add(Calendar.MONTH, -2);
     	
     	final TweetPoll tpoll3 = createPublishedTweetPoll(6L, question, getSpringSecurityLoggedUserAccount()); 
@@ -471,15 +474,36 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	tpoll4.getHashTags().add(tag);
     	tpoll4.setCreateDate(myDate.getTime());
     	getTweetPoll().saveOrUpdate(tpoll4);
+    	System.out.println(" TP 4 --->" + tpoll4.getCreateDate());
+    	 
+    	// Polls
+    	
+    	final Poll poll1 = createPoll(myDate.getTime(), question, getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
+    	poll1.getHashTags().add(tag);
+    	getPollDao().saveOrUpdate(poll1);
+    	
+    	final Poll poll2 = createPoll(new Date(), question, getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
+    	poll2.getHashTags().add(tag);
+    	getPollDao().saveOrUpdate(poll2);
+    	
+    	// Surveys
+    	final Survey survey2 = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
+    	survey.getHashTags().add(tag);
+    	getSurveyDaoImp().saveOrUpdate(survey2);
+    	
+    	final Survey survey3 = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount());
+    	survey.getHashTags().add(tag);
+    	survey.setCreatedAt(myDate.getTime());
+    	getSurveyDaoImp().saveOrUpdate(survey3);
     	
     	
-    	
-    	 final List<HashTagDetailStats> stats = getFrontEndService().getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, 0, 20);
-    	 System.out.println("List hashtag detail test cases -------> " + stats.size());
+    	 final List<HashTagDetailStats> stats = getFrontEndService().getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, 0, 20); 
     	 for (HashTagDetailStats hashTagDetailStats : stats) {
-    		 System.out.println("\n" + "Details ---> " + hashTagDetailStats.getValue());
-    		 System.out.println("\n" + "Label ---> " + hashTagDetailStats.getLabel());
-    	 }
+    		 System.out.println("\n" + " Label  ---> " + hashTagDetailStats.getLabel() + "\n");
+    		 System.out.println(" Value ---> " + hashTagDetailStats.getValue());
+    		
+    	 } 
+    	 Assert.assertEquals("Should be equals", 3, stats.size());  
 	}
 	
 	/**
