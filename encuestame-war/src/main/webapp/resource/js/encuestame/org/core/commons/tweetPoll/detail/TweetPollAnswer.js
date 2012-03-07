@@ -6,14 +6,14 @@ dojo.require("dijit.form.TextBox");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
-
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require('dojox.timing');
 
 dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         //template
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll.detail", "templates/tweetPollAnswer.html"),
         //widget
@@ -43,6 +43,7 @@ dojo.declare(
                 dojo.stopEvent(event);
                 location.href = this.url;
             }));
+            console.info("test", s);
         },
 
         /*

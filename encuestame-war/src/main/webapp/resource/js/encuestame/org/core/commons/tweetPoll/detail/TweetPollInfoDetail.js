@@ -7,7 +7,7 @@ dojo.require("dijit.form.CheckBox");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
-
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require("dojo.date.locale");
 
 dojo.require("encuestame.org.core.shared.utils.SurveyStatus");
@@ -16,7 +16,7 @@ dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         /*
          *
          */
