@@ -43,7 +43,6 @@ dojo.declare(
                 dojo.stopEvent(event);
                 location.href = this.url;
             }));
-            console.info("test", s);
         },
 
         /*
