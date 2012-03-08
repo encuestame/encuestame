@@ -1349,7 +1349,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Survey createDefaultSurvey(final Account secUsers ){
         return this.createSurvey("", new Date(), new Date(), secUsers,
-                new Date(), createDefaultSurveyFormat(), "FirstSurvey", null);
+                new Date(), createDefaultSurveyFormat(), "FirstSurvey", new Date());
      }
 
     /**
