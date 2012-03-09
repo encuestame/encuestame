@@ -88,7 +88,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         setParameter("boardId", db.getBoardId().toString());
         final JSONObject response2 = callJsonService();
         final JSONObject success2 = getSucess(response2);
-        System.out.println(success2);
+        //System.out.println(success2);
         final JSONObject gadgetJson = (JSONObject) success2.get("gadget");
         Assert.assertEquals("1", gadgetJson.get("gadget_position").toString());
         Assert.assertEquals("1", gadgetJson.get("gadget_column").toString());

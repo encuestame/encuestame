@@ -57,7 +57,7 @@ public class HashTagControllerTestCase extends AbstractMvcUnitBeans{
         final ModelAndView mav = handlerAdapter.handle(request, response,
                 hashTagController);
         assertViewName(mav, "tag/detail");
-        System.out.println("Test hash Tag Controller");
+        //System.out.println("Test hash Tag Controller");
 
     }
 }
