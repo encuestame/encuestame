@@ -79,6 +79,119 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
     }
 
     /**
+     * Call the service to change status.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testChangeStatusPollProperties() throws ServletException, IOException{
+        // Search poll published today.
+        this.changePropertyPoll("change-open-status");
+    }
+
+    /**
+     * Call the service to password restrictions.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testPasswordRestrictionPollProperties() throws ServletException, IOException{
+        // Search poll published today.
+        this.changePropertyPoll("password-restrictions");
+    }
+
+    /**
+     * Call the service to display addtional info.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testAddtionalInfoPollProperties() throws ServletException, IOException{
+        // Search poll published today.
+        this.changePropertyPoll("additional-info");
+    }
+
+    /**
+     * Call the service display notifications.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testNotificationsPollProperties() throws ServletException, IOException{
+        // Search poll published today.
+        this.changePropertyPoll("notifications");
+    }
+
+    /**
+     * Call the service to change ip protection.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testIPProtectionPollProperties() throws ServletException, IOException{
+        // Search poll published today.
+        this.changePropertyPoll("ip-protection");
+    }
+
+    /**
+     * Call the service to close the poll after finish the quota.
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testCloseAfterQuotaPollProperties() throws ServletException, IOException{
+        // Search poll published today.
+        this.changePropertyPoll("close-after-quota");
+    }
+
+    /**
+     * Call the service to update a property of a poll.
+     * @param property
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void changePropertyPoll(final String property) throws ServletException, IOException{
+         // Search poll published today.
+        final Date todayDate = new Date();
+        final Question question = createQuestion("What is your favourite movie", "pattern");
+        final Poll poll = createPoll(todayDate, question,
+                          getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
+                          Boolean.TRUE);
+        Assert.assertNotNull(poll);
+        //change-open-status
+        initService("/api/survey/poll/"+property+"-poll.json", MethodJson.POST);
+        setParameter("pollId", poll.getPollId().toString());
+        final JSONObject response = callJsonService();
+        final JSONObject success = getSucess(response);
+        final Long polls = (Long) success.get("r");
+        Assert.assertEquals("Should be equals ", polls.toString(), "0");
+    }
+
+    /**
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void changeWrongPropertyPoll() throws ServletException, IOException{
+        // Search poll published today.
+       final Date todayDate = new Date();
+       final Question question = createQuestion("What is your favourite movie", "pattern");
+       final Poll poll = createPoll(todayDate, question,
+                         getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
+                         Boolean.TRUE);
+       Assert.assertNotNull(poll);
+       //change-open-status
+       initService("/api/survey/poll/xxx-poll.json", MethodJson.POST);
+       setParameter("pollId", poll.getPollId().toString());
+       final JSONObject response = callJsonService();
+       final JSONObject error = getErrors(response);
+       //System.out.println(error);
+       final String message = (String) error.get("message");
+       Assert.assertEquals("Should be equals ",message, "type not valid");
+   }
+
+    /**
      *
      * @param type
      * @param keyword

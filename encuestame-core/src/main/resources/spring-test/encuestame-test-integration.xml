@@ -9,9 +9,9 @@
             http://www.springframework.org/schema/integration
             http://www.springframework.org/schema/integration/spring-integration.xsd
             http://www.springframework.org/schema/integration/twitter
-            http://www.springframework.org/schema/integration/twitter/spring-integration-twitter-2.0.xsd
+            http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
             http://www.springframework.org/schema/integration/file
-            http://www.springframework.org/schema/integration/file/spring-integration-file-2.0.xsd">
+            http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
 
    <i:gateway id="twitterGateway"
         default-request-channel="actionChannel"
@@ -31,6 +31,6 @@
      </i:channel>
 
      <!--    <import resource="classpath:encuestame-mail-sender.xml" />-->
-    <import resource="TwitterSendUpdates-context.xml" />
+   <!-- <import resource="TwitterSendUpdates-context.xml" />-->
 
 </beans>

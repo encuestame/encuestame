@@ -163,6 +163,7 @@ public class AbstractSurveyService extends AbstractChartService {
           answer.setQuestions(question);;
           answer.setColor(PictureUtils.getRandomHexColor());
           this.getQuestionDao().saveOrUpdate(answer);
+          log.debug("createAnswers =>" + answer.getQuestionAnswerId());
         return answer;
     }
 

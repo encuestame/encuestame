@@ -3,20 +3,35 @@ dojo.provide("encuestame.org.core.shared.utils.YesNoWidget");
 dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.Tooltip");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require('encuestame.org.core.commons');
 
 dojo.declare(
     "encuestame.org.core.shared.utils.YesNoWidget",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/yesno.html"),
 
         /** Allow other widgets in the template. **/
         widgetsInTemplate: true,
 
+        /**
+         * Default value.
+         */
         data : false,
 
+        /**
+         * Labels.
+         */
         labels : ['Yes', 'No'],
 
+        /*
+         *
+         */
+        optionalParameters : "",
+
+        /*
+         *
+         */
         labelsMessage : "Click to Change.",
 
         /** Post Create. **/
@@ -38,11 +53,11 @@ dojo.declare(
                 this._label.innerHTML = this.labels[1];
             }
             //after change.
-            this._onChange();
+            this._onChange(this.optionalParameters);
         },
 
         /** Change Data. **/
-        _change : function(event){
+        _change : function(event) {
              dojo.stopEvent(event);
              this.data = !this.data;
              this._changeValue();
@@ -51,6 +66,5 @@ dojo.declare(
         /**
          * Override.
          */
-        _onChange : function(){
-        }
+        _onChange : function(){}
 });

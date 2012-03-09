@@ -135,4 +135,36 @@ public class TestFrontEndDao extends AbstractBase {
                         TypeSearchResult.TypeSearchResult.HASHTAG);
         assertEquals("Should be equals", 2, links.size());
     }
+    
+    /**
+     * Get total hashTagHits by range.
+     */
+    @Test
+    public void testGetTotalHashTagHitsbyDateRange(){
+    	final Calendar myDate = Calendar.getInstance();
+    	final HashTag hashTag1 = createHashTag("software2"); 
+
+    	final String ipAddress1 = "192.168.1.1";
+    	final String ipAddress2 = "192.168.1.2";
+    	final String ipAddress3 = "192.168.1.3";
+    	
+    	final Calendar hi = Calendar.getInstance();  
+    	 
+    	final Hit hit1 = createHashTagHit(hashTag, ipAddress);
+    	// It created today, setted with minus 5 days. so the new date is between friday or Saturday ago
+    	myDate.add(Calendar.DATE, -5);
+    	hit1.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit1); 
+    	 
+    	// Retrieve hits for tag Id in the last 7 days.
+    	List<Object[]> myListObj = getFrontEndDao().getTotalHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7, 0, 20, -1);
+    	//	(hashTag1.getHashTagId(), TypeSearchResult.HASHTAG, 6, 1, 100, 0, startDate, endDate, hashTag1.getHashTagId());
+    	System.out.println("total" + myListObj.size());
+    	 /*for (Object[] objects : myListObj) {
+    		System.out.println(" Object 1 --->" + objects[0]);
+    		System.out.println(" Object 2 --->" + objects[1]);
+		} */
+    }
+    
+    
 }

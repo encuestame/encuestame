@@ -161,7 +161,7 @@ dojo.declare(
         /**
          * Yes / No.
          */
-        addYesNoWidget : function(value, onChange){
+        addYesNoWidget : function(value, onChange) {
             var widget = new encuestame.org.core.shared.utils.YesNoWidget({data: value});
             if(onChange != null){
                 widget._onChange = onChange;
@@ -178,7 +178,7 @@ dojo.declare(
         /**
          * Build Detail Row.
          */
-        builDetailRow : function(labelText, dataContet){
+        builDetailRow : function(labelText, dataContet) {
             var rowDetail = dojo.doc.createElement('div');
             dojo.addClass(rowDetail, "rownDetail");
             var label = dojo.doc.createElement('div');

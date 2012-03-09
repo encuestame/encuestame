@@ -23,9 +23,11 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollDetailBean;
 import org.encuestame.utils.web.UnitLists;
 
 /**
@@ -226,4 +228,81 @@ public interface IPollService extends IMasterSurveyService{
     List<PollBean> filterPollByItemsByType(final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion;
+
+    /**
+     * Change the poll's status.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void changeStatusPoll(final Long pollId, final String username) throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     *
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void closeAfterQuotaPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     * Set true / false the ip protection.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void ipProtectionPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     * Enable /Disable notifications.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void enableNotificationsPoll(final Long pollId,
+            final String username) throws EnMeNoResultsFoundException,
+            EnmeFailOperation;
+
+    /**
+     * Enable /Disable additional info.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void setAdditionalInfoPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     * Enable /Disable password restrictions.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void setPasswordRestrictionsPoll(final Long pollId,
+            final String username) throws EnMeNoResultsFoundException,
+            EnmeFailOperation;
+
+    /**
+     * Enable /Disable displar results in a poll.
+     * @param pollId
+     * @param username
+     * @throws EnMeNoResultsFoundException
+     * @throws EnmeFailOperation
+     */
+    void setShowResultsPoll(final Long pollId, final String username)
+    throws EnMeNoResultsFoundException, EnmeFailOperation;
+
+    /**
+     *
+     * @return
+     */
+    PollDetailBean getPollDetailInfo(final Long pollId);
 }

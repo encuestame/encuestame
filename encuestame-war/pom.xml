@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.142</version>
+        <version>1.143</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
@@ -15,7 +15,54 @@
             <filter>../env/${env}.properties</filter>
        </filters>
     <finalName>encuestame</finalName>
-    <plugins>
+        <plugins>
+        <!-- jRebel plugin -->
+        <plugin>
+            <groupId>org.zeroturnaround</groupId>
+            <artifactId>jrebel-maven-plugin</artifactId>
+            <version>1.1.1</version>
+            <executions>
+                <execution>
+                    <id>generate-rebel-xml</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <packaging>war</packaging>
+                <classpath>
+                    <fallback>default</fallback>
+                    <resources>
+                        <resource>
+                            <directory>${basedir}/../encuestame-business/target/classes</directory>
+                        </resource>
+                        <resource>
+                            <directory>${basedir}/../encuestame-core/target/classes</directory>
+                        </resource>
+                        <resource>
+                            <directory>${basedir}/../encuestame-mvc/target/classes</directory>
+                        </resource>
+                        <resource>
+                            <directory>${basedir}/../encuestame-oauth/target/classes</directory>
+                        </resource>
+                        <resource>
+                            <directory>${basedir}/../encuestame-persistence/target/classes</directory>
+                        </resource>
+                        <resource>
+                            <directory>${basedir}/../encuestame-social/target/classes</directory>
+                        </resource>
+                        <resource>
+                            <directory>${basedir}/../encuestame-utils/target/classes</directory>
+                        </resource>
+                    </resources>
+                </classpath>
+            </configuration>
+        </plugin>
+        <!-- jRebel plugin -->
+
+
         <plugin>
            <groupId>org.mortbay.jetty</groupId>
            <artifactId>jetty-maven-plugin</artifactId>
@@ -48,7 +95,7 @@
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
                     </webAppConfig>
-                    <scanIntervalSeconds>5</scanIntervalSeconds><!--
+                    <scanIntervalSeconds>0</scanIntervalSeconds><!--
                         <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
                             <filename>target/encuestame.log</filename>
                             <retainDays>90</retainDays>
@@ -58,6 +105,7 @@
                         </requestLog>
                 --></configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>keytool-maven-plugin</artifactId>
@@ -113,6 +161,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
                 <configuration>
+                    <projectNameTemplate>[artifactId]</projectNameTemplate>
+                    <wtpapplicationxml>true</wtpapplicationxml>
+                    <wtpmanifest>false</wtpmanifest>
                     <wtpversion>1.5</wtpversion>
                     <additionalProjectFacets>
                         <jst.java>6.0</jst.java>
@@ -156,6 +207,7 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven.war.plugin}</version>
                     <configuration>
+                        <packagingExcludes>WEB-INF/classes/rebel.xml</packagingExcludes>
                         <archive>
                             <manifest>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -178,6 +230,7 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven.war.plugin}</version>
                     <configuration>
+                        <packagingExcludes>WEB-INF/classes/rebel.xml</packagingExcludes>
                         <archive>
                             <manifest>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -200,6 +253,7 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>${maven.war.plugin}</version>
                     <configuration>
+                        <packagingExcludes>WEB-INF/classes/rebel.xml</packagingExcludes>
                         <archive>
                             <manifest>
                                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -264,6 +318,7 @@
                                 **/*.jsp
                             </packagingIncludes>
                             <packagingExcludes>
+                                WEB-INF/classes/rebel.xml,
                                 resource/encuestame-config-custom.properties,
                                 WEB-INF/classes/encuestame-config-custom.properties
                              </packagingExcludes>
@@ -344,6 +399,14 @@
             </build>
         </profile>
     </profiles>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>zt-repo</id>
+            <name>Zero turnaround repo</name>
+            <url>dav:http://repos.zeroturnaround.com/maven2</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -548,11 +611,6 @@
                <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-web</artifactId>
-            </dependency>
-            <!-- Spring WebFlow -->
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-binding</artifactId>
             </dependency>
             <dependency>
                 <groupId>org.springframework.webflow</groupId>

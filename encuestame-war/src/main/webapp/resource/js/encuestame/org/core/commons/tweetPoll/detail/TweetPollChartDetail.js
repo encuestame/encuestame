@@ -6,6 +6,7 @@ dojo.require("dijit.form.TextBox");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 dojo.require("dijit.Dialog");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 dojo.require('dojox.timing');
 
@@ -13,7 +14,7 @@ dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll.detail", "templates/tweetPollChartDetail.html"),
         //widget
         widgetsInTemplate: true,
@@ -89,16 +90,16 @@ dojo.declare(
             }
             }
          */
-        _loadVotes : function(){
+        _loadVotes : function() {
             var response = dojo.hitch(this, function(dataJson) {
                 if (dataJson.success.votesResult) {
                     var votes = dataJson.success.votesResult;
-                    if(votes.length > 0) {
+                    if (votes.length > 0) {
                     var results = [];
                     dojo.forEach(
                             votes,
                             dojo.hitch(this, function(data, index) {
-                                console.info("ANSWER BEAN", data);
+                                //console.info("ANSWER BEAN", data);
                                 var answer = [data.question_label, (data.votes == null ? 0 : data.votes), data.color];
                                 results.push(answer);
                                 dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [data.votes, data.percent]]);

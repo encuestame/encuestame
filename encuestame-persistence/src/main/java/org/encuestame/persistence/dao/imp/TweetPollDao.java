@@ -558,14 +558,56 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 TweetPoll.class, "tweetPoll");
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
-        if (filterby.equals(TypeSearchResult.HASHTAG)) {
-            criteria.addOrder(Order.desc("tweetPoll.createDate"));
-        } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
-            criteria.addOrder(Order.desc("numbervotes"));
+        //if filters are defined.
+        if (filterby != null) {
+            if (filterby.equals(TypeSearchResult.HASHTAG)) {
+                criteria.addOrder(Order.desc("tweetPoll.createDate"));
+            } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
+                criteria.addOrder(Order.desc("numbervotes"));
+            }
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limit);
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollsbyHashTagNameAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+	@SuppressWarnings("unchecked")
+	public List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
+			final String tagName, final Integer period,
+			final Integer startResults, final Integer limit) {
+		Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			final Calendar hi = Calendar.getInstance();
+			hi.add(Calendar.DAY_OF_YEAR, -period);
+			startDate = hi.getTime();
+			endDate = Calendar.getInstance().getTime();
 
+		} 
+		final DetachedCriteria detached = DetachedCriteria
+				.forClass(TweetPoll.class)
+				.createAlias("hashTags", "hashTags")
+				.setProjection(Projections.id())
+				.add(Subqueries.propertyIn(
+						"hashTags.hashTagId",
+						DetachedCriteria
+								.forClass(HashTag.class, "hash")
+								.setProjection(Projections.id())
+								.add(Restrictions.in("hash.hashTag",
+										new String[] { tagName }))));
+		final DetachedCriteria criteria = DetachedCriteria.forClass(
+				TweetPoll.class, "tweetPoll");
+		criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
+		criteria.addOrder(Order.desc("tweetPoll.createDate"));
+		criteria.add(Restrictions.between("createDate", startDate, endDate));
+		criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+		return getHibernateTemplate().findByCriteria(criteria, startResults,
+				limit); 
+	}
+
+	 
     /*
      * (non-Javadoc)
      *
@@ -657,26 +699,75 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                 + "--->" + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
+
+    @SuppressWarnings("unchecked")
+    public Long getSocialLinksByType(final TweetPoll tweetPoll,
+            final Survey survey, final Poll poll,
+            final TypeSearchResult itemType) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollSavedPublishedStatus.class);
+        criteria.setProjection(Projections.rowCount());
+        if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+            criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+        } else if (itemType.equals(TypeSearchResult.SURVEY)) {
+            criteria.createAlias("survey", "survey");
+            criteria.add(Restrictions.eq("survey", survey));
+            // criteria.addOrder(Order.desc("survey.createdAt"));
+        } else if (itemType.equals(TypeSearchResult.POLL)) {
+            criteria.add(Restrictions.eq("poll", poll));
+            // criteria.addOrder(Order.desc("poll.createdAt"));
+        } else {
+            log.error("Item type not valid: " + itemType);
+        }
+        criteria.add(Restrictions.isNotNull("apiType"));
+        criteria.add(Restrictions.isNotNull("tweetId"));
+        criteria.add(Restrictions.eq("status", Status.SUCCESS));
+
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        log.debug("Retrieve total Social Links:" + "--->" + results.size());
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
+
+    }
     
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getSocialLinksByTypeAndDateRange(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.enums.TypeSearchResult, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
 	@SuppressWarnings("unchecked")
-	public Long getSocialLinksByType(final TweetPoll tweetPoll,
+	public Long getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
 			final Survey survey, final Poll poll,
-			final TypeSearchResult itemType) {
+			final TypeSearchResult itemType, final Integer period,
+			final Integer startResults, final Integer limit) {
+
+		Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			final Calendar hi = Calendar.getInstance();
+			hi.add(Calendar.DAY_OF_YEAR, -period);
+			startDate = hi.getTime();
+			endDate = Calendar.getInstance().getTime();
+
+		}
+
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(TweetPollSavedPublishedStatus.class);
 		criteria.setProjection(Projections.rowCount());
 		if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+			criteria.createAlias("tweetPoll", "tweetPoll");
 			criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+
 		} else if (itemType.equals(TypeSearchResult.SURVEY)) {
 			criteria.createAlias("survey", "survey");
 			criteria.add(Restrictions.eq("survey", survey));
-			// criteria.addOrder(Order.desc("survey.createdAt"));
+
 		} else if (itemType.equals(TypeSearchResult.POLL)) {
 			criteria.add(Restrictions.eq("poll", poll));
-			// criteria.addOrder(Order.desc("poll.createdAt"));
+
 		} else {
 			log.error("Item type not valid: " + itemType);
 		}
+		criteria.add(Restrictions.between("publicationDateTweet", startDate,
+				endDate));
 		criteria.add(Restrictions.isNotNull("apiType"));
 		criteria.add(Restrictions.isNotNull("tweetId"));
 		criteria.add(Restrictions.eq("status", Status.SUCCESS));
@@ -684,7 +775,6 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 		List<Long> results = getHibernateTemplate().findByCriteria(criteria);
 		log.debug("Retrieve total Social Links:" + "--->" + results.size());
 		return (Long) (results.get(0) == null ? 0 : results.get(0));
-
 	}
-    
+
 }

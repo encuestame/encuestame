@@ -32,7 +32,6 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
  * PollResult Domain.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since March 15, 2009
- * @version $Id: $
  */
 @Entity
 @Table(name = "poll_result")

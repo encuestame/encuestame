@@ -16,7 +16,7 @@
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries-->
     <script src="<%=request.getContextPath()%>/resources/js/req/modernizr-2.0.6.js"></script>
 </head>
-<body class="claro">
+<body class="claro enme-web-context">
      <header id="header">
          <tiles:insertAttribute name="header" ignore="true" />
          <tiles:insertAttribute name="menu" ignore="true" />

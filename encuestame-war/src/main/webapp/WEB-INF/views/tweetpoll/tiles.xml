@@ -17,32 +17,7 @@
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}new-js.jsp" />
     </definition>
 
-
-    <definition name="tweetVoted" extends="page">
-        <put-attribute name="title" value="TweetPoll Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voted.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voted-js.jsp" />
-    </definition>
-
-    <definition name="repeatedTweetVote" extends="page">
-        <put-attribute name="title" value="TweetPoll Repeated Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}repeated.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}repeated-js.jsp" />
-    </definition>
-
-    <definition name="voteCaptcha" extends="page">
-        <put-attribute name="title" value="TweetPoll Captcha Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voteCaptcha.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}captcha-js.jsp" />
-    </definition>
-
-    <definition name="badTweetVote" extends="page">
-        <put-attribute name="title" value="TweetPoll Bad Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad-js.jsp" />
-    </definition>
-
-    <definition name="tweetpoll/detail" extends="page">
+     <definition name="tweetpoll/detail" extends="page">
         <put-attribute name="title" value="TweetPoll Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}detail-js.jsp" />
@@ -55,7 +30,31 @@
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}social-js.jsp" />
     </definition>
 
-    <definition name="banned" extends="page">
+    <definition name="tweetVoted" extends="main-vote">
+        <put-attribute name="title" value="TweetPoll Vote" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voted.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voted-js.jsp" />
+    </definition>
+
+    <definition name="repeatedTweetVote" extends="main-vote">
+        <put-attribute name="title" value="TweetPoll Repeated Vote" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}repeated.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}repeated-js.jsp" />
+    </definition>
+
+    <definition name="voteCaptcha" extends="main-vote">
+        <put-attribute name="title" value="TweetPoll Captcha Vote" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}voteCaptcha.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}captcha-js.jsp" />
+    </definition>
+
+    <definition name="badTweetVote" extends="main-vote">
+        <put-attribute name="title" value="TweetPoll Bad Vote" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad-js.jsp" />
+    </definition>
+
+    <definition name="banned" extends="main-vote">
         <put-attribute name="title" value="banned IP" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}banned.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${currentDevice.mobile ? 'mobile/' : 'web/'}banned-js.jsp" />

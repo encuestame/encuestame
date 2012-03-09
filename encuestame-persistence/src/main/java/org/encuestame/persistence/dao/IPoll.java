@@ -20,6 +20,8 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -212,7 +214,7 @@ public interface IPoll extends IBaseDao {
       * @return
       */
     Long getTotalPollsbyUser(final UserAccount user, final Boolean publishStatus);
-    
+
     /**
      * Get poll by hashTag id.
      * @param tagName
@@ -223,4 +225,16 @@ public interface IPoll extends IBaseDao {
      */
     List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
             final Integer limitResults, final TypeSearchResult filterby);
+
+    /**
+     * Get total polls by hashtag and date range.
+     * @param tagName
+     * @param period
+     * @param startResults
+     * @param limit
+     * @return
+     */
+    List<Poll> getPollsbyHashTagNameAndDateRange(
+            final String tagName, final Integer period,
+            final Integer startResults, final Integer limit);
 }

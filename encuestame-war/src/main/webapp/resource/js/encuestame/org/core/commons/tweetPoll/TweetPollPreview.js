@@ -218,8 +218,11 @@ dojo.declare(
                                 index) {
                             //TODO: check if blank spaces are counted.
                             var span1 = dojo.doc.createElement("span");
-                            span1.innerHTML = "#"+item.data.label;
-                            this._completeText = this._completeText + " " + "#"+item.data.label.trim();
+                            span1.innerHTML = "#"+item.data.hashTagName;
+                            /*
+                             * TODO: improve the concatenation.
+                             */
+                            this._completeText = this._completeText + " " + "#"+item.data.hashTagName.trim();
                             dojo.addClass(span1, "previewHashTag");
                             arrayItem.push(span1);
                         }));

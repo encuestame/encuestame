@@ -22,14 +22,23 @@ dojo.require("dojox.charting.widget.Legend");
 
 dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", null, {
 
-        constructor: function(node, results, size){
+        /**
+         * Constructor.
+         * @param node
+         * @param results
+         * @param size
+         */
+        constructor: function(node, results, size) {
                 this.node = node;
                 this.data = results;
                 this.size = size;
-                console.debug("data", this.data);
+                //console.debug("data", this.data);
         },
 
-        _buildSeries : function(){
+        /**
+         * Build series.
+         */
+        _buildSeries : function() {
              this._seriesData = [];
               dojo.forEach(
                       this.data,
@@ -58,7 +67,10 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
 
         _seriesData : [],
 
-        render: function(){
+        /**
+         * Render the chart.
+         */
+        render: function() {
             this._buildSeries();
             var dc = dojox.charting;
             var chartTwo = new dc.Chart2D(this.node);

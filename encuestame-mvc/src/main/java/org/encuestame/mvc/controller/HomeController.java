@@ -36,25 +36,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController extends AbstractBaseOperations {
 
-    /**
+   /**
     * Log.
     */
     private Log log = LogFactory.getLog(this.getClass());
 
-    /** HashTag max results. **/
+    /**
+     * Default HashTag max results.
+     */
     private final Integer MAX_HASHTAG = 80;
 
-    /** Items max results. **/
+    /**
+     * Default Items max results.
+     */
     private final Integer MAX_ITEMS = 100;
 
-    /** **/
+    /**
+     * Default date range.
+     */
     private final String SHOW_ALL_RESULTS = "all";
 
-    /**
+   /**
     * Home Controller.
-    *
-    * @param model
-    *            model
+    * @param model model
     * @return template
     */
     @RequestMapping(value = "/home", method = RequestMethod.GET)

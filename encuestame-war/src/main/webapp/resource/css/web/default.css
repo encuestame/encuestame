@@ -104,6 +104,17 @@ a:hover{
     margin-bottom: 3px;
 }
 
+.mainError {
+  background-color: #F4A1A1;
+  color: #FEFEFE;
+  font-size: 125%;
+  margin-top: 15px;
+  padding: 15px;
+  -webkit-box-shadow: 3px 3px 7px rgba(50, 50, 48, 0.7);
+  -moz-box-shadow:    3px 3px 7px rgba(50, 50, 48, 0.7);
+   box-shadow:         3px 3px 7px rgba(50, 50, 48, 0.7);
+}
+
 .defaultForm button.button {
   background-color: #258E24;
   border: 1px solid #CCCCCC;
@@ -212,6 +223,39 @@ div.defaultSectionTitle {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
 }
 
+.gradient-yellow{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #D0D67C 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#D0D67C)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 ); /* IE6-9 */
+}
+
+.gradient-green{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #D0D67C 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#D0D67C)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%,#D0D67C 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#D0D67C',GradientType=0 ); /* IE6-9 */
+}
+
+.gradient-red{
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #923F3F 0%, #E67862 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#923F3F), color-stop(100%,#E67862)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #923F3F 0%,#E67862 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #923F3F 0%,#E67862 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #923F3F 0%,#E67862 100%); /* IE10+ */
+    background: linear-gradient(top, #923F3F 0%,#E67862 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#923F3F', endColorstr='#E67862',GradientType=0 ); /* IE6-9 */
+}
+
 .gradient-black{
   background: #110b0b; /* Old browsers */
     background: -moz-linear-gradient(top, #110b0b 0%, #767676 98%); /* FF3.6+ */
@@ -225,17 +269,17 @@ div.defaultSectionTitle {
 
 /** content container **/
 
-#content-container #enme-content div.publicMarginWrapper{
+#content-container #enme-content .publicMarginWrapper{
     width: 100%;
     margin-top: 29px;
 }
 
-#content-container #enme-content div.defaultMarginWrapper{
+#content-container #enme-content .defaultMarginWrapper{
     margin-top: 29px;
     margin: 0 auto;
 }
 
-#content-container #enme-content div.defaultMarginWrapper > h1{
+#content-container #enme-content .defaultMarginWrapper > h1{
     margin-left: 6px;
 }
 
@@ -430,6 +474,7 @@ div.web-default-menu  li.first {
 
 /**
   This class to increase size on dijitTextBox
+  poll - single response widget.
 */
 .input-d .dijitTextBox {
     padding: 3px;
@@ -441,6 +486,37 @@ div.web-default-menu  li.first {
     cursor: pointer;
 }
 
+.enme-text .dijitTextBox{
+  background-color: #FFFFFF;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow : 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+.enme-text .dijitTextBox .dijitInputField {
+  font-size: 13px;
+  padding: 1px 2px;
+}
+
+.enme-web-context .dijitDialog {
+  border: 1px solid #676767 !important;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 1px 2px 10px 6px rgba(9, 9, 9, 0.25) !important;
+}
+
+.enme-web-context .dijitDialog  ul, .enme-web-context .dijitDialog ol {
+  margin: 0px;
+}
+
+.enme-web-context .dijitDialogTitleBar{
+  display: none !important;
+}
+
+.enme-web-context .dijitDialog .dijitDialogPaneContent {
+  background: none repeat scroll 0 0 #F9F9F9 !important;
+  border-top: 1px solid #FEFEFE !important;
+  padding: 0 !important;
+  position: relative !important;
+}
 
 /** emne-box **/
 

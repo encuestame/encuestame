@@ -136,12 +136,33 @@ encuestame.utilities.usernameLink = function(username) {
     }
 };
 
+/**
+ * Create a no results message node.
+ */
+encuestame.utilities.noResults = function(classCSS) {
+    var norR = dojo.create("div");
+    dojo.addClass(norR, "no-results");
+    if (classCSS != null) {
+        dojo.addClass(norR, classCSS);
+    }
+    norR.innerHTML = encuestame.constants.messageCodes["024"];
+    return norR;
+};
+
 encuestame.utilities.randomString = function() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for( var i=0; i < 5; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     return text;
+};
+
+/**
+ * Checking if a string is empty, null or undefined.
+ * @param string value
+ */
+encuestame.utilities.isEmpty = function(str) {
+     return (!str || 0 === str.length);
 };
 
 encuestame.utilities.url = {};
@@ -541,11 +562,17 @@ encuestame.service.list.tweetpoll.answer.getVotes = function(username, id){
     return  encuestame.contextWidget()+"/api/tweetpoll/"+username+"/answer/"+id+"/votes.json";
 };
 
+/*
+ * Poll Services
+ */
 encuestame.service.list.poll = {};
 encuestame.service.list.listPoll = encuestame.contextWidget()+"/api/survey/poll/search.json";
 encuestame.service.list.poll.create = encuestame.contextWidget()+"/api/survey/poll/create.json";
 encuestame.service.list.poll.publish = encuestame.contextWidget()+"/api/survey/poll/publish.json";
 encuestame.service.list.poll.detail = encuestame.contextWidget()+"/api/survey/poll/detail.json";
+encuestame.service.list.poll.setParameter = function(/* string */ type) {
+    return  encuestame.contextWidget()+"/api/survey/poll/"+type+"-poll.json";
+};
 
 /**
  * Comment Services.
@@ -709,7 +736,8 @@ encuestame.constants.messageCodes = {
     "020" : "",
     "021" : "Drag your gadget here !!",
     "022" : "Be the first to comment on this publication.",
-    "023" : "Updated Successfully"
+    "023" : "Updated Successfully",
+    "024" : "Sorry, no results found"
  };
 
-encuestame.constants.version = { version : "1.141"};
+encuestame.constants.version = { version : "1.143"};

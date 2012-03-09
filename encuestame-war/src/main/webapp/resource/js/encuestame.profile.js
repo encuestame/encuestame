@@ -21,6 +21,8 @@ dependencies ={
                 "encuestame.org.core.commons.poll.Poll",
                 "encuestame.org.core.commons.poll.PollNavigate",
                 "encuestame.org.core.commons.dialog.Info",
+                "encuestame.org.core.commons.chart.ChartLayerSupport",
+                "encuestame.org.core.shared.utils.UpdateDefaultOptions",
                 "encuestame.org.core.shared.utils.FolderSelect",
                 "encuestame.org.core.commons.dashboard.GadgetDirectory",
                 "encuestame.org.core.commons.social.SocialAccounts",

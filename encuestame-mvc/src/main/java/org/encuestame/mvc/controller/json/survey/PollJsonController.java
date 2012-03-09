@@ -13,7 +13,6 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,8 +116,15 @@ public class PollJsonController extends AbstractJsonController{
           return returnData();
       }
 
-    /*
-     *
+    /**
+     * A service to retrieve all info of a poll.
+     * @param pollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/detail.json", method = RequestMethod.GET)
@@ -127,10 +133,7 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            for (int i = 0; i < 50000; i++) {
-                log.debug(i);
-                //TODO: for TEST propose.
-            }
+            jsonResponse.put("poll", getPollService().getPollDetailInfo(pollId));
             setItemResponse(jsonResponse);
         return returnData();
     }
@@ -209,6 +212,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/create.json", method = RequestMethod.POST)
     public ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
@@ -223,6 +227,7 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+               log.debug("poll list answer " + answers);
                final Poll poll = getPollService().createPoll(questionName, answers, showResults,
                                  showComments, notification);
                final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
@@ -237,4 +242,65 @@ public class PollJsonController extends AbstractJsonController{
           }
           return returnData();
       }
+
+    /**
+     *
+     * @param propertyType
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value ="/api/survey/poll/{propertyType}-poll.json", method = RequestMethod.POST)
+    public ModelMap changeTweetPollProperties(
+            @PathVariable String propertyType,
+            @RequestParam(value = "pollId", required = true) Long pollId,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            log.debug("Property Type " + propertyType);
+            if ("change-open-status".equals(propertyType)) {
+                getPollService().changeStatusPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("change-display-results".equals(propertyType)) {
+                getPollService().setShowResultsPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("password-restrictions".equals(propertyType)) {
+                getPollService().setPasswordRestrictionsPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("additional-info".equals(propertyType)) {
+                getPollService().setAdditionalInfoPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("notifications".equals(propertyType)) {
+                getPollService().enableNotificationsPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("ip-protection".equals(propertyType)) {
+                getPollService().ipProtectionPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else  if ("close-after-quota".equals(propertyType)) {
+                getPollService().closeAfterQuotaPoll(
+                        pollId, getUserPrincipalUsername());
+                setSuccesResponse();
+            } else {
+                log.warn("type not valid");
+                setError("type not valid", response);
+            }
+
+        }
+        catch (Exception e) {
+                log.error(e);
+                setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }

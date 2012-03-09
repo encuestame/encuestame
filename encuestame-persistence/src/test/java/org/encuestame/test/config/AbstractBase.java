@@ -505,7 +505,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public PollResult createPollResults(final QuestionAnswer questionAnswer, final Poll poll){
         final PollResult pollRes = new PollResult();
         pollRes.setAnswer(questionAnswer);
-        pollRes.setIpaddress("127.0.0.1");
+        pollRes.setIpaddress("127.0.0."+RandomStringUtils.random(10));
         pollRes.setPoll(poll);
         pollRes.setVotationDate(new Date());
         getPollDao().saveOrUpdate(pollRes);
@@ -1201,6 +1201,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createTweetPoll(12345L, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
+    public TweetPoll createPublishedTweetPoll(final Long id, final Question question, final UserAccount user) {
+        return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
+     }
+
     /**
      * Create Not Published {@link TweetPoll}.
      * @param tweetOwner tweet owner
@@ -1345,7 +1349,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public Survey createDefaultSurvey(final Account secUsers ){
         return this.createSurvey("", new Date(), new Date(), secUsers,
-                new Date(), createDefaultSurveyFormat(), "FirstSurvey", null);
+                new Date(), createDefaultSurveyFormat(), "FirstSurvey", new Date());
      }
 
     /**

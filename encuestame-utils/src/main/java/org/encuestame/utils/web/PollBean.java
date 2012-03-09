@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.json.QuestionBean;
 
@@ -25,6 +26,7 @@ import org.encuestame.utils.json.QuestionBean;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since  March 15, 2009
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PollBean extends AbstractUnitSurvey implements Serializable{
 
     /**

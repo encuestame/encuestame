@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.142</version>
+        <version>1.143</version>
     </parent>
     <artifactId>encuestame-persistence</artifactId>
     <packaging>jar</packaging>
@@ -150,14 +150,6 @@
             <artifactId>twitter4j-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
@@ -221,10 +213,7 @@
             <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-core</artifactId>
-        </dependency><!--
+        <!--
         <dependency>
             <groupId>org.apache.pluto</groupId>
             <artifactId>pluto-util</artifactId>
@@ -260,11 +249,6 @@
                <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-web</artifactId>
-            </dependency>
-            <!-- Spring WebFlow -->
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>spring-binding</artifactId>
             </dependency>
             <!-- Spring Integration  -->
             <dependency>
