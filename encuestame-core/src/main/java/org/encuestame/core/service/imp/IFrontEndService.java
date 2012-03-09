@@ -270,4 +270,9 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @throws EnMeNoResultsFoundException
 	 */
 	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
+	
+	
+	List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
+			final String tagName, final Integer initResults,
+			final Integer maxResults, final TypeSearchResult filter, final Integer period);
 }

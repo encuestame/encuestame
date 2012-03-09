@@ -728,5 +728,53 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         return (Long) (results.get(0) == null ? 0 : results.get(0));
 
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getSocialLinksByTypeAndDateRange(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Survey, org.encuestame.persistence.domain.survey.Poll, org.encuestame.utils.enums.TypeSearchResult, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+	@SuppressWarnings("unchecked")
+	public Long getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
+			final Survey survey, final Poll poll,
+			final TypeSearchResult itemType, final Integer period,
+			final Integer startResults, final Integer limit) {
+
+		Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			final Calendar hi = Calendar.getInstance();
+			hi.add(Calendar.DAY_OF_YEAR, -period);
+			startDate = hi.getTime();
+			endDate = Calendar.getInstance().getTime();
+
+		}
+
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(TweetPollSavedPublishedStatus.class);
+		criteria.setProjection(Projections.rowCount());
+		if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
+			criteria.createAlias("tweetPoll", "tweetPoll");
+			criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
+
+		} else if (itemType.equals(TypeSearchResult.SURVEY)) {
+			criteria.createAlias("survey", "survey");
+			criteria.add(Restrictions.eq("survey", survey));
+
+		} else if (itemType.equals(TypeSearchResult.POLL)) {
+			criteria.add(Restrictions.eq("poll", poll));
+
+		} else {
+			log.error("Item type not valid: " + itemType);
+		}
+		criteria.add(Restrictions.between("publicationDateTweet", startDate,
+				endDate));
+		criteria.add(Restrictions.isNotNull("apiType"));
+		criteria.add(Restrictions.isNotNull("tweetId"));
+		criteria.add(Restrictions.eq("status", Status.SUCCESS));
+
+		List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+		log.debug("Retrieve total Social Links:" + "--->" + results.size());
+		return (Long) (results.get(0) == null ? 0 : results.get(0));
+	}
 
 }
