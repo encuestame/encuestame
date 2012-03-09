@@ -24,10 +24,11 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * @since February 29, 2012
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HashTagDetailStats implements Serializable {
+public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	
 	/** Serial **/
 	private static final long serialVersionUID = -3813516985333784846L;
+ 
 
 	/** **/
 	@JsonProperty(value = "label")
@@ -68,4 +69,13 @@ public class HashTagDetailStats implements Serializable {
 	public void setValue(Long value) {
 		this.value = value;
 	}
-}
+
+	@Override
+	public int compareTo(Object o) {
+		HashTagDetailStats itemStat = (HashTagDetailStats) o;
+		String item = this.getLabel(); 
+		int CompareToValue = itemStat.getLabel().compareTo(item); 
+		return CompareToValue;
+
+	}
+} 

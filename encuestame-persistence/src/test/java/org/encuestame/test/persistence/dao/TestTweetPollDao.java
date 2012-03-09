@@ -19,10 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
@@ -556,4 +553,43 @@ public class TestTweetPollDao  extends AbstractBase{
 						7, this.INIT_RESULTS, this.MAX_RESULTS);
 		Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
 	} 
+	
+	/**
+	 * Test Get social networks links by type and date range.
+	 */
+	@Test
+	public void testGetSocialLinksByTypeAndDateRange() {
+		final Calendar myCalendarDate = Calendar.getInstance();
+
+		// TweePoll 1
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(),
+				createQuestion("What is your favorite pastime?",
+						secondary.getAccount()), myCalendarDate.getTime());
+		assertNotNull(tweetPoll);
+
+		final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+		assertNotNull(socialAccount);
+		final String tweetContent = "Tweet content text";
+		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+				tweetPoll, " ", socialAccount, tweetContent);
+
+		tpSaved.setApiType(SocialProvider.TWITTER);
+		tpSaved.setPublicationDateTweet(myCalendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved);
+		assertNotNull(tpSaved);
+
+		myCalendarDate.add(Calendar.MONTH, -2);
+		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
+				tweetPoll, " ", socialAccount, tweetContent);
+		tpSaved2.setApiType(SocialProvider.FACEBOOK);
+		tpSaved2.setPublicationDateTweet(myCalendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved2);
+		assertNotNull(tpSaved2);
+		final Long tweetPollSocialLinks = getTweetPoll()
+				.getSocialLinksByTypeAndDateRange(tweetPoll, null, null,
+						TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);  
+		Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
+	}
+
 }
