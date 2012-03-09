@@ -508,6 +508,100 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     	 Assert.assertEquals("Should be equals", 3, stats.size());  
 	}
 	
+	
+	@Test
+	public void getTweetPollSocialNetworkLinksbyTagAndDateRange() {
+		final Calendar calendarDate = Calendar.getInstance();
+		final HashTag hashtag1 = createHashTag("romantic");
+		final Question question = createQuestion(
+				"What is your favorite hobbie?", "");
+		// TweetPoll 1
+		final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+		tp.getHashTags().add(hashtag1);
+		getTweetPoll().saveOrUpdate(tp);
+		
+		// TweetPoll 2
+		final TweetPoll tp2 = createPublishedTweetPoll(question, this.secondary);
+		tp2.getHashTags().add(hashtag1);
+		getTweetPoll().saveOrUpdate(tp2);
+	
+		
+		// /
+		final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+		assertNotNull(socialAccount);
+		final String tweetContent = "Tweet content text";
+		
+		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+				tp, " ", socialAccount, tweetContent);
+
+		tpSaved.setApiType(SocialProvider.TWITTER);
+		tpSaved.setPublicationDateTweet(calendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved);
+		assertNotNull(tpSaved);
+
+		calendarDate.add(Calendar.MONTH, -2);
+
+		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
+				tp, " ", socialAccount, tweetContent);
+		tpSaved2.setApiType(SocialProvider.FACEBOOK);
+		tpSaved2.setPublicationDateTweet(calendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved2);
+		assertNotNull(tpSaved2);
+		
+	
+		// TweetPoll 3
+		//calendarDate.add(Calendar.MONTH, -1);
+		final TweetPoll tp3 = createPublishedTweetPoll(question, this.secondary);
+		tp3.getHashTags().add(hashtag1);
+		tp3.setCreateDate(calendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tp3);
+		
+		
+	
+		calendarDate.add(Calendar.MONTH, -2);
+		final TweetPollSavedPublishedStatus tpSaved3 = createTweetPollSavedPublishedStatus(
+				tp3, " ", socialAccount, tweetContent);
+		tpSaved3.setApiType(SocialProvider.FACEBOOK);
+		tpSaved3.setPublicationDateTweet(calendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved3);
+		assertNotNull(tpSaved3);
+		
+		// TweetPoll 4
+		final TweetPoll tp4 = createPublishedTweetPoll(question, this.secondary);
+		tp4.getHashTags().add(hashtag1);
+		tp4.setCreateDate(calendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tp4);
+		
+	
+		calendarDate.add(Calendar.MONTH, -1);
+		final TweetPollSavedPublishedStatus tpSaved4 = createTweetPollSavedPublishedStatus(
+				tp4, " ", socialAccount, tweetContent);
+		tpSaved4.setApiType(SocialProvider.FACEBOOK);
+		tpSaved4.setPublicationDateTweet(calendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved4);
+		assertNotNull(tpSaved4);
+		
+		final TweetPollSavedPublishedStatus tpSaved5 = createTweetPollSavedPublishedStatus(
+				tp2, " ", socialAccount, tweetContent);
+		tpSaved5.setApiType(SocialProvider.FACEBOOK);
+		tpSaved5.setPublicationDateTweet(calendarDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved5);
+		assertNotNull(tpSaved5);
+  
+		final List<HashTagDetailStats> totalSocialLinksUsagebyHashTagAndTweetPoll = getFrontEndService()
+				.getTweetPollSocialNetworkLinksbyTagAndDateRange(
+						hashtag1.getHashTag(), this.INIT_RESULTS,
+						this.MAX_RESULTS, TypeSearchResult.TWEETPOLL, 365);
+		 
+//		 for (HashTagDetailStats hashTagDetailStats : total) {
+//		  System.out.println("Label : " + hashTagDetailStats.getLabel() +
+//		 "-----   Value: " + hashTagDetailStats.getValue());
+//	  }
+
+	 Assert.assertEquals("Should be equals", 3, totalSocialLinksUsagebyHashTagAndTweetPoll.size());
+
+	}
+	
 	/**
 	 * 
 	 */
