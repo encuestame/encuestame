@@ -36,6 +36,9 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
@@ -43,6 +46,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -490,4 +494,16 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     public void setMailService(final MailServiceOperations mailServiceOperations) {
         this.mailService = mailServiceOperations;
     }
+
+    /**
+     * Get total comments by item type {@link TweetPoll}, {@link Poll} or {@link Survey}.
+     * @param itemId
+     * @param itemType
+     * @return
+     */
+    protected Long getTotalCommentsbyType(final Long itemId, final TypeSearchResult itemType){
+        final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType);
+        return totalComments;
+    }
+
 }

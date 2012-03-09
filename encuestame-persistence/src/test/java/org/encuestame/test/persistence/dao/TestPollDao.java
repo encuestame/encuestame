@@ -107,17 +107,22 @@ public class TestPollDao extends AbstractBase {
     **/
     @Test
     public void testRetrievePollResultsById(){
+        final Poll poll = createPoll(myDate.getTime(), this.question, "FDKdsadsads125", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         final Question quest = createQuestion("Do you like futboll", "Yes/No");
         final QuestionAnswer qansw = createQuestionAnswer("Yes", quest, "2020");
-        createQuestionAnswer("No", quest, "2020");
-        createPollResults(qansw, this.poll);
-        createPollResults(qansw, this.poll);
-        final List<Object[]> polli = getPollDao().retrieveResultPolls(this.poll.getPollId(), qansw.getQuestionAnswerId());
-        final Iterator<Object[]> iterator = polli.iterator();
-        while (iterator.hasNext()) {
-            final Object[] objects = iterator.next();
-         }
-        assertEquals("Should be equals", 1, polli.size());
+        final QuestionAnswer qansw2 =createQuestionAnswer("No", quest, "2021");
+        createPollResults(qansw2, poll);
+        createPollResults(qansw2, poll);
+        createPollResults(qansw2, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        final List<Object[]> polli = getPollDao().retrieveResultPolls(poll.getPollId(), qansw.getQuestionAnswerId());
+        assertEquals("Should be equals", 2, polli.size());
     }
 
     /**
@@ -235,72 +240,72 @@ public class TestPollDao extends AbstractBase {
                 this.userAccount, Boolean.TRUE);
        Assert.assertEquals("Should be", 2, totalPolls.intValue());
     }
-    
+
     /**
      * Test get total polls by hashTag.
      */
-	@Test
-	public void testGetTotalPollsByHashTag() {
-		final HashTag hashtag1 = createHashTag("roses");
-		final HashTag hashtag2 = createHashTag("red");
-		final HashTag hashtag3 = createHashTag("flowers");
+    @Test
+    public void testGetTotalPollsByHashTag() {
+        final HashTag hashtag1 = createHashTag("roses");
+        final HashTag hashtag2 = createHashTag("red");
+        final HashTag hashtag3 = createHashTag("flowers");
 
-		final Poll poll1 = createPoll(myDate.getTime(), this.question,
-				"DPMU12", this.userAccount, Boolean.TRUE, Boolean.TRUE);
-		poll1.getHashTags().add(hashtag1);
-		poll1.getHashTags().add(hashtag2);
-		poll1.getHashTags().add(hashtag3);
-		getPollDao().saveOrUpdate(poll1);
+        final Poll poll1 = createPoll(myDate.getTime(), this.question,
+                "DPMU12", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        poll1.getHashTags().add(hashtag1);
+        poll1.getHashTags().add(hashtag2);
+        poll1.getHashTags().add(hashtag3);
+        getPollDao().saveOrUpdate(poll1);
 
-		final Poll poll2 = createPoll(myDate.getTime(), this.question,
-				"DPMU13", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        final Poll poll2 = createPoll(myDate.getTime(), this.question,
+                "DPMU13", this.userAccount, Boolean.TRUE, Boolean.TRUE);
 
-		poll2.getHashTags().add(hashtag3);
-		poll2.getHashTags().add(hashtag1);
-		getPollDao().saveOrUpdate(poll2);
+        poll2.getHashTags().add(hashtag3);
+        poll2.getHashTags().add(hashtag1);
+        getPollDao().saveOrUpdate(poll2);
 
-		final Poll poll3 = createPoll(myDate.getTime(), this.question,
-				"DPMU14", this.userAccount, Boolean.TRUE, Boolean.TRUE);
-		poll3.getHashTags().add(hashtag3);
-		getPollDao().saveOrUpdate(poll3);
+        final Poll poll3 = createPoll(myDate.getTime(), this.question,
+                "DPMU14", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        poll3.getHashTags().add(hashtag3);
+        getPollDao().saveOrUpdate(poll3);
 
-		final List<Poll> totalUsagePoll = getPollDao().getPollByHashTagName(
-				hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+        final List<Poll> totalUsagePoll = getPollDao().getPollByHashTagName(
+                hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 
-		Assert.assertEquals("Should be", 2, totalUsagePoll.size());
+        Assert.assertEquals("Should be", 2, totalUsagePoll.size());
 
-		final List<Poll> totalUsagePoll2 = getPollDao().getPollByHashTagName(
-				hashtag2.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+        final List<Poll> totalUsagePoll2 = getPollDao().getPollByHashTagName(
+                hashtag2.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 
-		Assert.assertEquals("Should be", 1, totalUsagePoll2.size());
+        Assert.assertEquals("Should be", 1, totalUsagePoll2.size());
 
-		final List<Poll> totalUsagePoll3 = getPollDao().getPollByHashTagName(
-				hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
-		Assert.assertEquals("Should be", 3, totalUsagePoll3.size());
-	}
-	
-	/**
-	 * Get total polls by hashtag name and date range.
-	 */
-	@Test
-	public void testGetPollsbyHashTagNameAndDateRange(){
-		final Calendar myDate = Calendar.getInstance();
-		final Question myQuestion = createQuestion("what are your favorite flowers?", this.userAccount.getAccount()); 
-		final HashTag hashtag1 = createHashTag("roses"); 
-		 
-		final Poll poll1 = createPoll(myDate.getTime(), myQuestion,
-				"DPMU12", this.userAccount, Boolean.TRUE, Boolean.TRUE);
-		poll1.getHashTags().add(hashtag1); 
-		getPollDao().saveOrUpdate(poll1); 
-		myDate.add(Calendar.DATE, -2);
-		
-		
-		final Question myQuestion2 = createQuestion("What was your best gift for valentines day?", this.userAccount.getAccount()); 
-		final Poll poll2 = createPoll(myDate.getTime(), myQuestion2,
-				"DPMU19", this.userAccount, Boolean.TRUE, Boolean.TRUE);
-		poll2.getHashTags().add(hashtag1);  
-		getPollDao().saveOrUpdate(poll2);
-		final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START, this.MAX_RESULTS);
-		Assert.assertEquals("Should be", 2, getTotalPollsbyHashTag.size());
-	}
+        final List<Poll> totalUsagePoll3 = getPollDao().getPollByHashTagName(
+                hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+        Assert.assertEquals("Should be", 3, totalUsagePoll3.size());
+    }
+
+    /**
+     * Get total polls by hashtag name and date range.
+     */
+    @Test
+    public void testGetPollsbyHashTagNameAndDateRange(){
+        final Calendar myDate = Calendar.getInstance();
+        final Question myQuestion = createQuestion("what are your favorite flowers?", this.userAccount.getAccount());
+        final HashTag hashtag1 = createHashTag("roses");
+
+        final Poll poll1 = createPoll(myDate.getTime(), myQuestion,
+                "DPMU12", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        poll1.getHashTags().add(hashtag1);
+        getPollDao().saveOrUpdate(poll1);
+        myDate.add(Calendar.DATE, -2);
+
+
+        final Question myQuestion2 = createQuestion("What was your best gift for valentines day?", this.userAccount.getAccount());
+        final Poll poll2 = createPoll(myDate.getTime(), myQuestion2,
+                "DPMU19", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        poll2.getHashTags().add(hashtag1);
+        getPollDao().saveOrUpdate(poll2);
+        final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START, this.MAX_RESULTS);
+        Assert.assertEquals("Should be", 2, getTotalPollsbyHashTag.size());
+    }
 }

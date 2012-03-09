@@ -1225,9 +1225,9 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
 .web-item-row .web-item-row-section-date {
   color: #989898;
   font-size: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: right;
-  width: 60px;
+  width: 80px;
 }
 
 .web-item-row .web-item-row-section-options {
@@ -1287,6 +1287,17 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
 .web-item-row .web-list-more .web-poll-info .web-poll-options-answer > div{
     max-height: 265px;
     overflow: auto;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
+  border: 1px solid #EBEBEB;
+  border-radius: 6px 6px 6px 6px;
+  color: #E6E5E3;
+  font-size: 15px;
+  line-height: 159px;
+  min-height: 160px;
+  padding: 7px;
+  text-align: center;
 }
 
 .web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row {
@@ -1358,6 +1369,18 @@ div.web-filter-sidebar-panel div.optionItem span:hover{
   margin: 4px;
   min-height: 27px;
   padding: 4px;
+}
+
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info{
+  float: left;
+}
+
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info > div{
+
+}
+
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove{
+ float: right;
 }
 
 /** TweetPoll **/
@@ -2828,7 +2851,7 @@ div.profilePanel{
     min-width: 245px;
     background-color: #444444;
     right: 0px;
-    top: 30px;
+    top: 35px;
     zoom: 1;
     -moz-box-shadow: 1px 2px 3px #888888;
     -webkit-box-shadow: 1px 2px 3px #888888;
@@ -3024,7 +3047,6 @@ div.web-profile-menu .image {
 div.web-profile-menu .real-name {
   min-width: 119px;
   padding-right: 4px;
-  padding-top: 4px;
   vertical-align: middle;
   width: 145px;
   text-align: center;
@@ -3032,7 +3054,8 @@ div.web-profile-menu .real-name {
 
 /** notifications **/
 
-div.notificationWrapper {
+.notificationWrapper {
+  line-height: 21px;
   min-height: 22px;
   padding: 4px;
 }

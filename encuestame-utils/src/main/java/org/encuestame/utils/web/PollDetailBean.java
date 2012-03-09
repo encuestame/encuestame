@@ -15,33 +15,42 @@ package org.encuestame.utils.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 
 /**
  * Unit Poll Detail Bean.
  * @author Picado, Juan juanATencuestame.org
  * @since  March 04, 2011
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PollDetailBean {
 
     /**
      *
      */
+    @JsonProperty(value = "poll_results")
     public java.util.List<PollBeanResult> results = new ArrayList<PollBeanResult>();
 
     /**
      *
      */
+    @JsonProperty(value = "poll_bean")
     public PollBean pollBean;
 
 
     /**
      * List of available answers.
      */
+    @JsonProperty(value = "poll_list_answers")
     public List<QuestionAnswerBean> listAnswers = new ArrayList<QuestionAnswerBean>();
 
     /**
      * @return the results
      */
+    @JsonIgnore
     public java.util.List<PollBeanResult> getResults() {
         return results;
     }
@@ -56,6 +65,7 @@ public class PollDetailBean {
     /**
      * @return the pollBean
      */
+    @JsonIgnore
     public PollBean getPollBean() {
         return pollBean;
     }
@@ -70,6 +80,7 @@ public class PollDetailBean {
     /**
      * @return the listAnswers
      */
+    @JsonIgnore
     public List<QuestionAnswerBean> getListAnswers() {
         return listAnswers;
     }

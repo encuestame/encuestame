@@ -42,6 +42,7 @@ import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.PollBean;
@@ -124,6 +125,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final String commentOption, final Boolean notification) throws EnMeExpcetion{
         final UserAccount user = getUserAccount(getUserPrincipalUsername());
         Assert.notNull(answers);
+        log.debug("poll list answer=>" + answers);
         Assert.notNull(user);
         Assert.notNull(questionName);
         final Poll pollDomain = new Poll();
@@ -162,11 +164,15 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);
+            log.debug("poll list answer=>" + answers.length);
             for (int row = 0; row < answers.length; row++) {
                  final String answersText = answers[row];
                  Assert.notNull(answersText);
-                 if (answersText.isEmpty()) {
+                 if (!answersText.isEmpty()) {
+                     log.debug("creatong answer=>" + question.getQidKey());
+                     log.debug("creatong answer=>" + answersText.trim());
                      createAnswers(question, answersText.trim());
+
                  }
             }
             this.getPollDao().saveOrUpdate(pollDomain);
@@ -681,6 +687,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final Poll poll = getPoll(pollId);
         detail.setPollBean(ConvertDomainBean.convertPollDomainToBean(poll));
         final List<Object[]> list = getPollDao().retrieveResultPolls(pollId, poll.getQuestion().getQid());
+        //log.debug("retrieveResultPolls==> "+list.size());
         for (Object[] objects : list) {
             final PollBeanResult result = new PollBeanResult();
             final QuestionAnswerBean answer = new QuestionAnswerBean();
@@ -692,9 +699,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
             result.setResult(Long.valueOf(objects[3].toString()));
             detail.getResults().add(result);
         }
+        //set the list of answers
         detail.setListAnswers(ConvertDomainBean
                 .convertAnswersToQuestionAnswerBean(getQuestionDao()
                         .getAnswersByQuestionId(poll.getQuestion().getQid())));
+        //set the comments.
+        detail.getPollBean().setTotalComments(this.getTotalCommentsbyType(detail.getPollBean().getId(), TypeSearchResult.POLL));
         return detail;
     }
 }

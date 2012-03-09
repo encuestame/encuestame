@@ -227,6 +227,7 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+               log.debug("poll list answer " + answers);
                final Poll poll = getPollService().createPoll(questionName, answers, showResults,
                                  showComments, notification);
                final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);

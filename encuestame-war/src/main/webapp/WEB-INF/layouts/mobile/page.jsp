@@ -1,12 +1,4 @@
-<%@page import="org.encuestame.core.security.util.WidgetUtil"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html>
@@ -17,14 +9,7 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
    <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
-    <style type="text/css">
-          @import "<%=request.getContextPath()%>/resources/js/dijit/themes/claro/claro.css";
-    </style>
     <%@ include file="/WEB-INF/jsp/includes/mobile/css.jsp" %>
-    <script type="text/javascript">
-         dojo.require("dijit.dijit");
-         dojo.require("dojo.parser");
-    </script>
 </head>
 <body>
 <body class="mobile claro">
@@ -39,6 +24,7 @@
      </div>
      <div id="footer">
           <tiles:insertAttribute name="footer" />
+          <a href="javascript:var%20sourceWindow%20%3D%20window.open%28%27about%3Ablank%27%29%3B%20%0Avar%20newDoc%20%3D%20sourceWindow.document%3B%20%0AnewDoc.open%28%29%3B%20%0AnewDoc.write%28%27%3Chtml%3E%3Chead%3E%3Ctitle%3ESource%20of%20%27%20%2B%20document.location.href%20%2B%20%27%3C/title%3E%3C/head%3E%3Cbody%3E%3C/body%3E%3C/html%3E%27%29%3B%20%0AnewDoc.close%28%29%3B%20%0Avar%20pre%20%3D%20newDoc.body.appendChild%28newDoc.createElement%28%22pre%22%29%29%3B%20%0Apre.appendChild%28newDoc.createTextNode%28document.documentElement.innerHTML%29%29%3B">View Source</a>
      </div>
 </body>
 </html>

@@ -602,40 +602,43 @@ public class ConvertDomainBean {
      * @param poll
      * @return unitPoll unitPoll
      */
-    public static final PollBean convertPollDomainToBean(final Poll poll){
+    public static final PollBean convertPollDomainToBean(final Poll poll) {
         final PollBean unitPoll = new PollBean();
         unitPoll.setId(poll.getPollId());
-        unitPoll.setCompletedPoll(poll.getPollCompleted());
+        unitPoll.setCompletedPoll(poll.getPollCompleted() == null ? false : poll.getPollCompleted());
         unitPoll.setCreationDate(poll.getCreatedAt() == null ? null : DateUtil.DOJO_DATE_FORMAT.format(poll.getCreatedAt()));
         unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll.getQuestion()));
-        unitPoll.setPublishPoll(poll.getPublish());
+        unitPoll.setPublishPoll(poll.getPublish() == null ? false : poll.getPublish());
         if (poll.getUpdatedDate() != null) {
              unitPoll.setUpdatedDate(poll.getUpdatedDate());
         }
         unitPoll.setTotalVotes(poll.getNumbervotes() == null ? EnMeUtils.VOTE_MIN : Long.valueOf(poll.getNumbervotes()));
+        unitPoll.setShowResultsPoll(poll.getShowResults() == null ? false : poll.getShowResults());
         unitPoll.setLikeVote(poll.getLikeVote() == null ? EnMeUtils.LIKE_DEFAULT : Long.valueOf(poll.getLikeVote()));
         unitPoll.setDislikeVote(poll.getDislikeVote() == null ? EnMeUtils.DISLIKE_DEFAULT : Long.valueOf(poll.getDislikeVote()));
         unitPoll.setOwnerUsername(poll.getEditorOwner() == null ? null : poll.getEditorOwner().getUsername());
         unitPoll.setRelevance(poll.getRelevance() == null ? EnMeUtils.RATE_DEFAULT : poll.getRelevance());
         unitPoll.setHits(poll.getHits() == null ? EnMeUtils.VOTE_MIN : poll.getHits());
-        unitPoll.setFavorite(poll.getFavorites());
+        unitPoll.setFavorite(poll.getFavorites() == null ? false : poll.getFavorites());
         unitPoll.setHashTags(ConvertDomainBean.convertListHashTagsToBean(new ArrayList<HashTag>(poll.getHashTags())));
         unitPoll.setLatitude(poll.getLocationLatitude() == null ? 0: poll.getLocationLatitude());
         unitPoll.setLongitude(poll.getLocationLongitude() == null ? 0: poll.getLocationLongitude());
-        unitPoll.setIsShowAdditionalInfo(poll.getShowAdditionalInfo());
-        unitPoll.setAdditionalInfo(poll.getAdditionalInfo());
+        unitPoll.setIsShowAdditionalInfo(poll.getShowAdditionalInfo() == null ? false : poll.getShowAdditionalInfo());
+        unitPoll.setAdditionalInfo(poll.getAdditionalInfo() == null ? "" : poll.getAdditionalInfo());
+        unitPoll.setCloseNotification(poll.getNotifications() == null ? false : poll.getNotifications());
         unitPoll.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
+        unitPoll.setIsPasswordRestriction(poll.getPasswordRestrictions() == null ? false : poll.getPasswordRestrictions());
         if (poll.getShowComments() != null) {
             unitPoll.setShowComments(poll.getShowComments().toString());
         }
-        unitPoll.setIsShowResults(poll.getShowResults());
+        unitPoll.setIsShowResults(poll.getShowResults() == null ? false : poll.getShowResults());
         unitPoll.setFolderId(poll.getPollFolder() == null ? null : poll.getPollFolder().getId());
-        unitPoll.setIsCloseAfterDate(poll.getCloseAfterDate());
+        unitPoll.setIsCloseAfterDate(poll.getCloseAfterDate() == null ? false : poll.getCloseAfterDate());
         unitPoll.setClosedDate(poll.getClosedDate() == null ? null : DateUtil.DOJO_DATE_FORMAT.format(poll.getClosedDate()));
-        unitPoll.setIsCloseAfterQuota(poll.getCloseAfterquota());
+        unitPoll.setIsCloseAfterQuota(poll.getCloseAfterquota() == null ? false : poll.getCloseAfterquota());
         unitPoll.setClosedQuota(poll.getClosedQuota() == null ? null : poll.getClosedQuota());
         unitPoll.setIsIpRestricted(poll.getIpRestriction());
-        unitPoll.setIpRestricted(poll.getIpProtection() == null ? null : poll.getIpProtection());
+        unitPoll.setIpRestricted(poll.getIpProtection() == null ? "" : poll.getIpProtection());
         return unitPoll;
     }
 
@@ -1053,7 +1056,7 @@ public class ConvertDomainBean {
            homeBean.setRelevance(tweetBean.getRelevance());
            homeBean.setItemType(TypeSearchResult.TWEETPOLL.toString().toLowerCase());
            homeBean.setHashTags(tweetBean.getHashTags());
-           homeBean.setTotalComments(tweetBean.getTotalComments() == null ? null : tweetBean.getTotalComments());
+           homeBean.setTotalComments(tweetBean.getTotalComments() == null ? 0 : tweetBean.getTotalComments());
        return homeBean;
    }
 
@@ -1088,7 +1091,7 @@ public class ConvertDomainBean {
        homeBean.setRelevance(pollBean.getRelevance() == null ? 0L : pollBean.getRelevance());
        homeBean.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
        homeBean.setHashTags(pollBean.getHashTags());
-       homeBean.setTotalComments(pollBean.getTotalComments() == null ? null : pollBean.getTotalComments());
+       homeBean.setTotalComments(pollBean.getTotalComments() == null ? 0 : pollBean.getTotalComments());
        return homeBean;
    }
 
