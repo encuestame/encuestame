@@ -325,4 +325,20 @@ public interface ITweetPoll extends IBaseDao{
 	List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
 			final String tagName, final Integer period,
 			final Integer startResults, final Integer limit);  
+	
+	/**
+	 * Get social links by type( {@link Poll}, {@link TweetPoll} or {@link Survey}) and date range.
+	 * @param tweetPoll
+	 * @param survey
+	 * @param poll
+	 * @param itemType
+	 * @param period
+	 * @param startResults
+	 * @param limit
+	 * @return
+	 */
+	Long getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
+	            final Survey survey, final Poll poll,
+	            final TypeSearchResult itemType, final Integer period,
+				final Integer startResults, final Integer limit);
 }
