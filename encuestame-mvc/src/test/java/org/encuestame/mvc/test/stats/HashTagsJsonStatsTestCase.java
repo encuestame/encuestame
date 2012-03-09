@@ -44,7 +44,7 @@ import org.junit.Test;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since January 09, 2012.
  */
-public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans { 
+public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
 
     /**
      *
@@ -53,7 +53,7 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void testGetHashTagButtonStats() throws ServletException, IOException{
-    	UserAccount userAcc= getSpringSecurityLoggedUserAccount();
+        UserAccount userAcc= getSpringSecurityLoggedUserAccount();
         //1-  Create Tag, Question and TweetPoll
         final Date creationDate = new Date();
 
@@ -63,15 +63,15 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         /* Question **/
         final Question question = createQuestion("What is your favorite type of movies?", "");
 
-        /* TweetPoll **/ 
+        /* TweetPoll **/
         final TweetPoll myTweetPoll = createPublishedTweetPoll(question, userAcc);
-        
+
         /* Poll **/
         final Poll myPoll = createPoll(creationDate, question, userAcc, Boolean.TRUE, Boolean.TRUE);
 
         /* Survey **/
         final Survey mySurvey = createDefaultSurvey(userAcc.getAccount(), "My First Encuestame Survey", creationDate);
-  
+
         // 2- Add HashTag to TweetPoll, Poll or Survey
         myTweetPoll.getHashTags().add(hashtag1);
         getTweetPoll().saveOrUpdate(myTweetPoll);
@@ -95,8 +95,8 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         getTweetPoll().saveOrUpdate(tpSaved);
         assertNotNull(tpSaved);
 
-       
-        // Total Usaged by HashTag (TweetPoll, Poll or Survey) 
+
+        // Total Usaged by HashTag (TweetPoll, Poll or Survey)
         // Total Usage by HashTag(Hits)
         createHashTagHit(hashtag1, "192.1.1.1");
         createHashTagHit(hashtag1, "192.1.1.2");
@@ -107,20 +107,20 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         final Long totalHitsbyTag = getFrontEndDao().getTotalHitsbyType(hashtag1.getHashTagId(),
                     TypeSearchResult.HASHTAG);
         Assert.assertEquals("Should be equals ", totalHitsbyTag.intValue(), 5);
-        
+
         // 4- Get total Usage by tweetpoll voted.
-             
-      	final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "7891011");
-      	final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "7891012");
 
-      	final TweetPollSwitch tpollSwitch1 = createTweetPollSwitch(questionsAnswers1, myTweetPoll);
-    	final TweetPollSwitch tpollSwitch2 = createTweetPollSwitch(questionsAnswers2, myTweetPoll); 
+          final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "7891011");
+          final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "7891012");
 
-    	createTweetPollResult(tpollSwitch1, "192.168.0.1");
-    	createTweetPollResult(tpollSwitch1, "192.168.0.2");
-    	createTweetPollResult(tpollSwitch2, "192.168.0.3");
-    	createTweetPollResult(tpollSwitch2, "192.168.0.4");
-    	
+          final TweetPollSwitch tpollSwitch1 = createTweetPollSwitch(questionsAnswers1, myTweetPoll);
+        final TweetPollSwitch tpollSwitch2 = createTweetPollSwitch(questionsAnswers2, myTweetPoll);
+
+        createTweetPollResult(tpollSwitch1, "192.168.0.1");
+        createTweetPollResult(tpollSwitch1, "192.168.0.2");
+        createTweetPollResult(tpollSwitch2, "192.168.0.3");
+        createTweetPollResult(tpollSwitch2, "192.168.0.4");
+
         // 2- Call Json service
         initService("/api/common/hashtags/stats/button.json", MethodJson.GET);
         setParameter("tagName", "romantic");
@@ -132,13 +132,13 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject buttonStats = (JSONObject) success.get("hashTagButtonStats");
         log.debug("Showing stats usage" +  buttonStats.get("usage_by_item").toString());
         Assert.assertEquals(buttonStats.get("usage_by_item").toString(), "5");
-        
+
         log.debug("Showing stats usage by social network links" +  buttonStats.get("total_usage_by_social_network").toString());
         Assert.assertEquals(buttonStats.get("total_usage_by_social_network").toString(), "1");
-        
+
         log.debug("Showing stats usage by item(HashTag)" +  buttonStats.get("total_hits").toString());
         Assert.assertEquals(buttonStats.get("total_hits").toString(), "3");
-        
+
         log.debug("Showing stats usage by item(HashTag)" +  buttonStats.get("usage_by_votes").toString());
         Assert.assertEquals(buttonStats.get("usage_by_votes").toString(), "4");
     }
@@ -169,42 +169,42 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray hashTagsRanking2 = (JSONArray) success.get("hashTagRankingStats");
-        Assert.assertEquals(hashTagsRanking2.size(), 3); 
+        Assert.assertEquals(hashTagsRanking2.size(), 3);
     }
 
     /**
      * Test retrieve generic stats.
-     * @throws IOException 
-     * @throws ServletException 
+     * @throws IOException
+     * @throws ServletException
      */
     @Test
     public void testRetrieveGenericStats() throws ServletException, IOException{
-    	final Question question = createQuestion("Black or White?", "");
-    	final TweetPoll tweetpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount());  
-    	// TWEETPOLL
-    	initService("/api/common/stats/generic.json", MethodJson.GET);
+        final Question question = createQuestion("Black or White?", "");
+        final TweetPoll tweetpoll = createPublishedTweetPoll(5L, question, getSpringSecurityLoggedUserAccount());
+        // TWEETPOLL
+        initService("/api/common/stats/generic.json", MethodJson.GET);
         setParameter("id", tweetpoll.getTweetPollId().toString());
         setParameter("filter", "TWEETPOLL");
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONObject genericStatsData = (JSONObject) success.get("generic");
-        Assert.assertEquals(genericStatsData.get("hits").toString(), tweetpoll.getHits().toString()); 
-    	
+        Assert.assertEquals(genericStatsData.get("hits").toString(), tweetpoll.getHits().toString());
+
         // HASHTAG
         final HashTag hashtag = createHashTag("software");
         hashtag.setHits(20L);
         getHashTagDao().saveOrUpdate(hashtag);
-        System.out.println("HASHTAG HITS --->" + hashtag.getHits());
-    	initService("/api/common/stats/generic.json", MethodJson.GET);
+        //System.out.println("HASHTAG HITS --->" + hashtag.getHits());
+        initService("/api/common/stats/generic.json", MethodJson.GET);
         setParameter("id", hashtag.getHashTag());
         setParameter("filter", "HASHTAG");
         final JSONObject responseHashTag = callJsonService();
         final JSONObject successHashTag = getSucess(responseHashTag);
-        final JSONObject genericHashStatsData = (JSONObject) successHashTag.get("generic"); 
-    	
-        Assert.assertEquals(genericHashStatsData.get("hits").toString(), hashtag.getHits().toString()); 
-    	
-        
+        final JSONObject genericHashStatsData = (JSONObject) successHashTag.get("generic");
+
+        Assert.assertEquals(genericHashStatsData.get("hits").toString(), hashtag.getHits().toString());
+
+
     }
 
 

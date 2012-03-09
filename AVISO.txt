@@ -47,9 +47,8 @@ CONTACTO
 COMMITTERS:
 
 * Diana Paola Morales Urbina
-  http://es.linkedin.com/in/dianmorales
+  http://about.me/dianmorales
   http://twitter.com/#!/dianmora
 * Juan Carlos Picado Herrera
-  http://es.linkedin.com/in/juancarlospicadoherrera
-  http://twitter.com/#!/jotadeveloper
+  http://about.me/jotadeveloper
 
