@@ -200,7 +200,7 @@ public class TestSurveyDao extends AbstractBase {
     public void testRetrieveSurveyByDate(){
         createDefaultSurvey(user, "My Survey", this.myDate.getTime());
         final List<Survey> surveyList = getSurveyDaoImp().retrieveSurveyByDate(this.user, this.myDate.getTime(), this.MAX_RESULTS, this.START_RESULTS);
-        assertEquals("Should be equals", 1, surveyList.size());
+        assertEquals("Should be equals", 2, surveyList.size());
     }
 
     /**
@@ -229,7 +229,7 @@ public class TestSurveyDao extends AbstractBase {
         final List<Survey> surveylastWeek = getSurveyDaoImp()
                 .retrieveSurveyLastWeek(this.user, this.MAX_RESULTS,
                         this.START_RESULTS);
-        assertEquals("Should be equals", 1, surveylastWeek.size());
+        assertEquals("Should be equals", 2, surveylastWeek.size());
     }
 
     /**
@@ -244,7 +244,7 @@ public class TestSurveyDao extends AbstractBase {
         final List<Survey> surveyLastYear = getSurveyDaoImp()
                 .retrieveSurveyLastYear(this.user, this.MAX_RESULTS,
                         this.START_RESULTS);
-        assertEquals("Should be equals", 1, surveyLastYear.size());
+        assertEquals("Should be equals", 2, surveyLastYear.size());
     }
 
     /**
