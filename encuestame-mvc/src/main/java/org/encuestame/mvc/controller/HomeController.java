@@ -56,11 +56,9 @@ public class HomeController extends AbstractBaseOperations {
      */
     private final String SHOW_ALL_RESULTS = "all";
 
-    /**
+   /**
     * Home Controller.
-    *
-    * @param model
-    *            model
+    * @param model model
     * @return template
     */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
