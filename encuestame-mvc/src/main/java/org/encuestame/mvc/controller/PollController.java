@@ -13,12 +13,17 @@
 
 package org.encuestame.mvc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,5 +96,20 @@ public class PollController extends AbstractBaseOperations {
     public String newPollController(final ModelMap model) {
         log.debug("tweetpoll");
         return "poll/new";
+    }
+
+
+    /**
+     *
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/poll/{id}/vote.js", method = RequestMethod.GET)
+    public String jsView(
+        Model model,
+        HttpServletRequest request) {
+        //
+        return "jsView";
     }
 }
