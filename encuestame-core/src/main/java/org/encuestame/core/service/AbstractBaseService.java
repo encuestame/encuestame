@@ -299,8 +299,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param secUser
      * @return
      */
-    @Deprecated
-    public Notification createNotification(final NotificationEnum description, final String additional,  final Account account){
+    public Notification createNotification(final NotificationEnum description, final String additional,  final Account account) {
         final Notification notification = new Notification();
         notification.setDescription(description);
         notification.setAccount(account);

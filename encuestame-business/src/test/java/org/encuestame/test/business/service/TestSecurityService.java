@@ -42,7 +42,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Test Security Service.
@@ -409,8 +408,8 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
      * Test Renew Password without Pass.
      * @throws EnMeExpcetion  EnMeExpcetion
      */
-   @Test
-   @ExpectedException(EnMeExpcetion.class)
+ @Test(expected = EnMeExpcetion.class)
+
    public void testRenewPasswordwithoutPass()throws EnMeExpcetion{
       final UserAccount secUser = createUserAccount("diana",this.userPrimary);
       UserAccountBean userPassBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
@@ -423,7 +422,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion EnMeExpcetion
      **/
       @Test
-      @ExpectedException(EnMeExpcetion.class)
+
        public void testCreateUserwithoutEmail() throws EnMeExpcetion{
         final UserAccountBean userCreateBean = new UserAccountBean();
         userCreateBean.setEmail(null);
@@ -436,7 +435,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
        * @throws EnMeExpcetion EnMeExpcetion
        */
       @Test
-      @ExpectedException(EnMeExpcetion.class)
+
        public void testCreateUserwithoutUsername() throws EnMeExpcetion{
         final UserAccountBean userCreateBean = new UserAccountBean();
         userCreateBean.setEmail("paola@users.com");
@@ -556,7 +555,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
          * @throws EnMeExpcetion EnMeExpcetion
          */
         @Test
-        @ExpectedException(EnMeExpcetion.class)
+
         public void testAssignPermissionwithoutIdUsername() throws EnMeExpcetion{
           final UserAccountBean userPermissionBean = new UserAccountBean();
           final UnitPermission permissionBean = ConvertDomainBean.convertPermissionToBean(this.permission);
@@ -571,7 +570,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
          * @throws EnMeExpcetion EnMeExpcetion
          */
         @Test
-        @ExpectedException(EnMeExpcetion.class)
+
         public void testAssignPermissionwithPermission() throws EnMeExpcetion{
             final UserAccount secUser = createUserAccount("juanpicado2",this.userPrimary);
             final UserAccountBean userPermissionBean = ConvertDomainBean.convertSecondaryUserToUserBean(secUser);
@@ -588,7 +587,6 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
          * @throws EnMeExpcetion EnMeExpcetion
          */
         @Test
-        @ExpectedException(EnMeExpcetion.class)
         public void testAssignPermissionwithPermissionIdandUserId() throws EnMeExpcetion{
           UserAccountBean userPermissionBean = new UserAccountBean();
           UnitPermission permissionBean = new UnitPermission();
@@ -604,7 +602,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext{
         public void testAssignGroup() throws EnMeExpcetion{
           final UserAccount users=  createUserAccount("juanpicado",this.userPrimary);
           final Group groups = createGroups("encuestador");
-          UserAccountBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(users);
+        UserAccountBean userBean = ConvertDomainBean.convertSecondaryUserToUserBean(users);
           UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groups);
           //securityService.assingGroup(userBean, groupBean);
         }

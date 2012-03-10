@@ -28,6 +28,7 @@ public class ProtectedResourceClientFactory {
      * Constructs a RestTemplate that adds the OAuth1 Authorization header to each request before it is executed.
      */
     public static RestTemplate create(String consumerKey, String consumerSecret, String accessToken, String accessTokenSecret) {
+        //ENCUESTAME-407
         final RestTemplate restTemplate = new RestTemplate(new CommonsClientHttpRequestFactory());
         restTemplate.setRequestFactory(new OAuth1RequestFactory(restTemplate.getRequestFactory(), consumerKey, consumerSecret, accessToken, accessTokenSecret));
         return restTemplate;

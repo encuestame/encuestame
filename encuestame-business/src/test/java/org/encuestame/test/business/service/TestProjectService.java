@@ -27,20 +27,16 @@ import org.encuestame.utils.web.UnitProjectBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
-
 /**
  * Project Service Test.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since April 13, 2009
- * @version $Id:$
  */
 public class TestProjectService extends AbstractServiceBase {
 
 
        /** {@link Account}. **/
-
-         Account user;
+        private Account user;
 
         /** {@link IProjectService} **/
         @Autowired
@@ -104,31 +100,28 @@ public class TestProjectService extends AbstractServiceBase {
        * Test loadProjectInfo id null.
        * @throws EnMeExpcetion exception
        */
-      @Test
-      @ExpectedException(EnMeExpcetion.class)
+      @Test(expected = EnMeExpcetion.class)
       public void testloadProjectInfoIdNull() throws EnMeExpcetion{
             final UnitProjectBean projectBean = new UnitProjectBean();
-            final UnitProjectBean projectRetrieve =projectService.loadProjectInfo(projectBean);
+            projectService.loadProjectInfo(projectBean);
       }
 
       /**
        * Test loadProjectInfo project null.
        * @throws EnMeExpcetion exception
        */
-      @Test
-      @ExpectedException(EnMeExpcetion.class)
+      @Test(expected = EnMeExpcetion.class)
       public void testloadProjectInfoProjectNull() throws EnMeExpcetion {
             final UnitProjectBean projectBean = new UnitProjectBean();
             projectBean.setId(444L);
-            final UnitProjectBean projectRetrieve = projectService.loadProjectInfo(projectBean);
+            projectService.loadProjectInfo(projectBean);
       }
 
       /**
        * Test Create project Null.
        * @throws EnMeExpcetion encuestame exception.
        */
-      @Test
-      @ExpectedException(EnMeExpcetion.class)
+      @Test(expected = EnMeExpcetion.class)
       public void testcreateProjectNull()throws EnMeExpcetion{
           projectService.createProject(null, null);
       }
