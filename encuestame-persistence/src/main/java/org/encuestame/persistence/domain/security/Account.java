@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -36,7 +37,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "account")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Account{
+public class Account implements Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4145752254967442223L;
 
     /** User Id. **/
     private Long uid;
