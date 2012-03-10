@@ -529,7 +529,7 @@ div.web-default-menu  li.first {
     clear: both;
 }
 
-.emne-box header{
+.emne-box > header{
     font-size: 14px;
     font-weight: bold;
     background-color: #E5E5E5;

@@ -183,6 +183,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
   font-size: 110%;
   margin-bottom: 5px;
   padding: 8px;
+  font-weight: bold;
 }
 
 .web-item-wrapper .items{
@@ -4240,3 +4241,58 @@ div.web-social-links{
 .web-tweetpoll-vote-options .web-tweetpoll-info a{
     color: #444444;
 }
+
+
+/*** search page ***/
+.search-items-wrapper {
+  overflow: auto;
+  padding: 5px;
+}
+
+.search-items-wrapper .no-results {
+  color: #989898;
+}
+
+.search-items-wrapper > aside{
+    margin-left: 80%;
+}
+
+.search-items-wrapper > aside .no-results{
+    margin-left: 5px;
+}
+
+.search-items-wrapper header {
+  border-bottom: 1px solid #F0EFF1;
+  color: #D9D9D9;
+  font-size: 14px;
+  margin-right: 10px;
+  padding-left: 5px;
+}
+
+.search-items-wrapper .search-items {
+  float: left;
+  min-height: 500px;
+  width: 80%;
+}
+
+.search-items-wrapper .search-items .search-item {
+  margin-left: 5px;
+}
+
+.search-items-wrapper .search-hashtag {
+  overflow: auto;
+}
+
+.search-items-wrapper .search-hashtag > div {
+  padding: 10px 0;
+}
+
+.search-items-wrapper .search-hashtag > div > section {
+  float: left;
+  padding: 6px 2px;
+}
+
+.search-items-wrapper .search-profiles{
+ overflow: auto;
+}
+/*** search page end ***/
