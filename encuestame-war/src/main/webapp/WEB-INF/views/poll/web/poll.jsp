@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-tweetpoll-detail ">
+<article class="web-tweetpoll-detail web-wrapper-detail">
    <header>
        <h1>${poll.questionBean.questionName}</h1>
    </header>
@@ -55,7 +55,7 @@
                 </table>
             </div>
        </section>
-       <section class="web-tweetpoll-button-wrapper gradient-gray">
+       <section class="web-button-wrapper gradient-gray">
             <div>
                 <img src="<%=request.getContextPath()%>/resources/images/icons/enme_pie.png">
             </div>
@@ -88,6 +88,6 @@
    </c:if>
    <section class="web-tweetpoll-comments emne-box">
       <header>Comments</header>
-      <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
+      <div dojoType="encuestame.org.core.comments.Comments" type="poll" item_id="${tweetpoll.id}"></div>
    </section>
 </article>

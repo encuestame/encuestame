@@ -114,13 +114,17 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 }
 
 #web-main-public-line .categoryMenu {
-  background-color: #444444;
+  background-color: #585858;
   overflow: auto;
   padding: 10px;
   margin: 0px 0px 0px 15px;
   border-radius: 0px 0px 5px 5px;
   -webkit-border-radius: 0px 0px 5px 5px;
   -moz-border-radius: 0px 0px 5px 5px;
+  text-shadow: 0.1em 0.1em #333333;
+  -moz-box-shadow: 0 3px 4px 2px #3D3D3D inset;
+  -webkit-box-shadow: 0 3px 4px 2px #3D3D3D inset;
+  box-shadow: 0 3px 4px 2px #3D3D3D inset;
 }
 
 #web-main-public-line .categoryMenu a {
@@ -143,8 +147,9 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 }
 
 #web-main-public-line .web-left-wrapper {
-    float: right;
-    width: 220px;
+  float: right;
+  margin-top: 35px;
+  width: 220px;
 }
 
 #web-main-public-line .web-left-wrapper .section {
@@ -159,20 +164,29 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 }
 
 #web-main-public-line .web-left-wrapper .section div.link {
-    padding: 1px;
-    padding-right: 8px;
-    text-align: right;
+  margin-bottom: 4px;
+  margin-top: 6px;
+  padding: 1px 8px 1px 1px;
+  text-align: right;
+  font-size: 0.9em;
+}
+
+#web-main-public-line .web-left-wrapper .section div.link a{
+  color: #898989;
 }
 
 #web-main-public-line .web-left-wrapper .section .sectionTitle {
-  background-color: #444444;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  color: #FFFFFF;
+  color: #5C5757;
   font-size: 110%;
   margin-bottom: 5px;
   padding: 8px;
+}
+
+.web-item-wrapper .items{
+   margin: 0 0 0 15px;
 }
 
 .web-item-wrapper .item {
@@ -180,7 +194,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
     border-bottom: 1px dotted #EEEBEB;
     clear: both;
     overflow: auto;
-    padding: 7px;
+    padding: 7px  0px;
 }
 
 .web-item-wrapper .item .stats-rating {
@@ -222,14 +236,11 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 
 .web-item-wrapper .item .img {
     float: left;
-    margin-right: 10px;
-    margin-top: 6px;
 }
 
 .web-item-wrapper .item .content {
-    float: right;
-    width: 87%;
-    max-width: 750px;
+  margin-left: 85px;
+  width: auto;
 }
 
 .web-item-wrapper .item .clear {
@@ -265,7 +276,6 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description{
 }
 
 .web-item-wrapper .item .content {
-    float: left;
     padding: 4px;
 }
 
@@ -705,14 +715,7 @@ div.web-form-wrapper a.button:active span {
 }
 
 /** tweetpoll detail **/
-.web-tweetpoll-detail {
-  margin: 30px;
-}
-
-.web-tweetpoll-detail header h1 {
-  font-weight: bold;
-  margin: 10px 5px;
-}
+.web-tweetpoll-detail {}
 
 .web-tweetpoll-detail div.question {
     margin: 0px;
@@ -749,10 +752,7 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
   line-height: 15px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
-  border-bottom: 1px dotted #BEBEC8;
-  overflow: auto;
-}
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper {}
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart {
     float: left;
@@ -908,22 +908,6 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
     margin-bottom: 15px;
 }
 
-
-.web-tweetpoll-button-wrapper{
-    min-height: 30px;
-}
-
-.web-tweetpoll-button-wrapper > div{
-    float: left;
-    margin: 5px 7px;
-    cursor: pointer;
-}
-
-.web-tweetpoll-button-wrapper > div > img{
-
-}
-
-
 /* tweetpoll info detail */
 .web-tweetpoll-detail .web-tweetPoll-info-detail {
   overflow: auto;
@@ -990,6 +974,11 @@ div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.onLive {
   margin: 12px;
   padding: 2px 2px 2px 15px;
   width: 260px;
+}
+
+/** poll detail **/
+.web-poll-detail {
+  margin: 30px;
 }
 
 /** survey status */
@@ -3817,7 +3806,10 @@ div.drop-down-menu-select-title:hover .sub-menu {
 
 .web-rated-comments{
 
+}
 
+.web-rated-comments .web-rated-comments-items{
+ padding: 6px;
 }
 
 .web-rated-comments .web-rated-comment-item{
