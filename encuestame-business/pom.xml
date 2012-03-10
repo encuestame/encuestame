@@ -30,6 +30,7 @@
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
                <artifactId>maven-jar-plugin</artifactId>
+               <version>${maven-jar.plugin}</version>
                <executions>
                  <execution>
                    <goals>
@@ -161,7 +162,7 @@
             <artifactId>jasypt</artifactId>
         </dependency>
         <dependency>
-            <groupId>jdom</groupId>
+            <groupId>org.jdom</groupId>
             <artifactId>jdom</artifactId>
         </dependency>
         <dependency>
@@ -173,14 +174,7 @@
             <artifactId>twitter4j-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
@@ -232,10 +226,6 @@
         <dependency>
             <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.opensymphony.quartz</groupId>
@@ -332,11 +322,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-        </dependency>
-        <!-- Aspect J -->
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
