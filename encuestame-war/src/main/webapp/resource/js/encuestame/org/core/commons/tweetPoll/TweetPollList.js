@@ -273,7 +273,7 @@ dojo.declare(
                 dojo.removeClass(this._favourite, "emptyFavourite");
             }
 
-            this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._panel);
+            this.panelWidget = new encuestame.org.core.commons.support.Wipe(this._panel, 200, 260);
             if (this.data.hashTags) {
                 dojo.forEach(this.data.hashTags,
                 dojo.hitch(this,function(item) {

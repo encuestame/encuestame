@@ -26,26 +26,30 @@ dojo.require("dojox.charting.widget.Legend");
  * @since
  */
 dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
-
+        /*
+         * node.
+         */
         node : null,
+        /*
+         * duration.
+         */
         duration : 200,
+        /*
+         * height.
+         */
         height : 300,
 
         /*
-         *
+         * Constructor of wipe.
          */
-        constructor: function(node, duration, heigth) {
-            //if (node == null) {
-                this.node = node;
-                this.duration == null ? this.duration : duration;
-                this.heigth == null ? this.heigth : heigth;
-            //} else {
-            //    throw new Error("node is required");
-            //}
+        constructor: function(node, duration, height) {
+            this.node = node;
+            this.duration = (duration == null) ? this.duration : duration;
+            this.height = (height == null) ? this.height : height;
         },
 
-        /*
-        *
+       /*
+        * on wite in.
         */
        wipeInOne: function() {
            dojox.fx.wipeTo({
@@ -56,7 +60,7 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
        },
 
        /*
-        *
+        * on wipe out.
         */
        wipeOutOne : function() {
            if (this.node) {
