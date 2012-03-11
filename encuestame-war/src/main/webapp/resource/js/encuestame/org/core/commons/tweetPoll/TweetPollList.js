@@ -298,12 +298,14 @@ dojo.declare(
 
         panelWidget : null,
         // wipe parameters.
-        _wipe : { height : 275, duration : 200},
+        _wipe : { height : 255, duration : 200},
 
         //post create
         postCreate : function() {
+
             dojo.subscribe("/encuestame/tweetpoll/item/unselect", this, "unselect");
             dojo.connect(this._title, "onclick", dojo.hitch(this, this._onClickItem));
+
             if (!this.data.favourites) {
                 dojo.addClass(this._favourite, "emptyFavourite");
                 dojo.removeClass(this._favourite, "selectedFavourite");
@@ -317,7 +319,7 @@ dojo.declare(
                 if (this.data.hashtags.length > 0) {
                     dojo.forEach(this.data.hashtags,
                         dojo.hitch(this,function(item) {
-                            if (item.hashTagName != "") {
+                            if (item.hashTagName !== "") {
                                 var hashtag = new encuestame.org.core.commons.stream.HashTagInfo(
                                         {
                                          hashTagName: item.hashTagName,

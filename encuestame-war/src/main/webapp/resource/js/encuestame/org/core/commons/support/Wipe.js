@@ -26,6 +26,7 @@ dojo.require("dojox.charting.widget.Legend");
  * @since
  */
 dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
+
         /*
          * node.
          */
@@ -40,12 +41,30 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
         height : 300,
 
         /*
+         * default status.
+         */
+        _open : false,
+
+        /*
+         * default group.
+         */
+        group : "default",
+
+        /*
+         * id.
+         */
+        id : "",
+
+        /*
          * Constructor of wipe.
          */
-        constructor: function(node, duration, height) {
+        constructor: function(node, duration, height, group, id) {
+            dojo.subscribe("/encuestame/wipe/close", this, "_close");
             this.node = node;
             this.duration = (duration == null) ? this.duration : duration;
             this.height = (height == null) ? this.height : height;
+            this.group = (group == null) ? this.group : group;
+            this.id = (id == null) ? this.id : id;
         },
 
        /*
@@ -60,6 +79,15 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
        },
 
        /*
+        * close the wipe.
+        */
+       _close : function(id, group) {
+           if (id !== this.id && group === this.group) {
+               this.wipeOutOne();
+           }
+       },
+
+       /*
         * on wipe out.
         */
        wipeOutOne : function() {
@@ -69,5 +97,17 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
                   duration: this.duration
                }).play();
            }
+       },
+
+       /*
+        * provide toggle suport to wipe panel.
+        */
+       togglePanel : function() {
+           if (this._open) {
+               this.wipeOutOne();
+            } else {
+               this.wipeInOne();
+            }
+            this._open =!this._open;
        }
 });
