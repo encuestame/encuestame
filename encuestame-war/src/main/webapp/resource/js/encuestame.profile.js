@@ -4,6 +4,7 @@ dependencies ={
             name: "encuestame-commons.js",
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
+                "encuestame.org.core.commons.support.ItemsFilterSupport",
                 "encuestame.org.core.commons.dashboard.DashboardGridContainer",
                 "encuestame.org.core.commons.tweetPoll.TweetPoll",
                 "encuestame.org.core.commons.tweetPoll.TweetPollPreview",

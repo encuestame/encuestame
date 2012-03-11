@@ -328,13 +328,14 @@ div.defaultSectionTitle {
   padding: 5px;
 }
 
-.default-sidebar-menu-sub{
-  background-color: #595959; /**A6A5A5 **/
+.default-sidebar-menu-sub {
+  background-color: #595959;
   color: #FFFFFF;
   font-size: 100%;
   min-height: 21px;
-  padding: 4px 1px 1px 6px;
+  padding: 9px 0 0 7px;
 }
+
 /** Suggest. **/
 
 div.suggestBox{

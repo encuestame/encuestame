@@ -167,7 +167,7 @@ public class ConvertDomainBean {
      * @param hashTag name
      * @return
      */
-    public static final HashTagBean convertHashTagDomain(final HashTag hashTag){
+    public static final HashTagBean convertHashTagDomain(final HashTag hashTag) {
         final HashTagBean unitHashTag = new HashTagBean();
         unitHashTag.setHashTagName(hashTag.getHashTag());
         unitHashTag.setId(hashTag.getHashTagId());
@@ -177,7 +177,6 @@ public class ConvertDomainBean {
         if(hashTag.getSize() != null){
             unitHashTag.setSize(hashTag.getSize().intValue());
         }
-
         return unitHashTag;
     }
 
@@ -188,8 +187,10 @@ public class ConvertDomainBean {
      */
     public static final  List<HashTagBean> convertListHashTagsToBean(final List<HashTag> tags) {
         final List<HashTagBean> listTags = new ArrayList<HashTagBean>();
-        for (HashTag account : tags) {
-            listTags.add(ConvertDomainBean.convertHashTagDomain(account));
+        for (HashTag tag : tags) {
+            if (!tag.getHashTag().isEmpty()) {
+                listTags.add(ConvertDomainBean.convertHashTagDomain(tag));
+            }
         }
         return listTags;
     }
