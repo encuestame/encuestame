@@ -34,7 +34,11 @@
             </div>
             <div class="web-list-tweet">
                 <div dojoAttachPoint="_customMenu" class="web-twettpoll-list-menu default-background-dark-color-sub default-top-menu">
-                   <div dojoAttachPoint="_filters" dojoType="encuestame.org.core.commons.support.ItemsFilterSupport"></div>
+                   <!--
+                        Filters Support.
+                    -->
+                   <div dojoAttachPoint="_filters" dojoType="encuestame.org.core.commons.support.ItemsFilterSupport"
+                        typeItem="TWEETPOLL"></div>
                 </div>
                 <div dojoAttachPoint="_items"></div>
             </div>

@@ -235,6 +235,8 @@ dojo.declare(
          * Load Tweet Polls.
          */
         loadTweetPolls : function(params) {
+            dojo.publish("/encuestame/wipe/close/group", ["tp-options"]);
+            dojo.publish("/encuestame/filters/selected/remove");
             var i = false;
             var load = dojo.hitch(this, function(data){
                 dojo.empty(this._items);

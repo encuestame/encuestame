@@ -12,6 +12,15 @@
  */
 dojo.provide("encuestame.org.core.commons.support.SearchMenu");
 
+dojo.require("dijit.form.TextBox");
+dojo.require("dijit.form.Button");
+dojo.require("dijit.form.CheckBox");
+dojo.require("dijit.form.MultiSelect");
+dojo.require("dijit.form.Slider");
+dojo.require("dijit.form.HorizontalSlider");
+dojo.require("dijit.form.HorizontalRule");
+dojo.require("dijit.form.HorizontalRuleLabels");
+
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 /**
@@ -21,5 +30,16 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
  */
 dojo.declare("encuestame.org.core.commons.support.SearchMenu", [encuestame.org.main.EnmeMainLayoutWidget], {
 
+    /*
+     *
+     */
+     templatePath: dojo.moduleUrl("encuestame.org.core.commons.support", "templates/search-filters.html"),
+
+     /*
+      *
+      */
+     postCreate : function() {
+
+     }
 
 });

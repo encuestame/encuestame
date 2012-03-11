@@ -1,26 +1,24 @@
-<section>
+<section class="web-filters-options">
     <nav>
-        <a href="#" dojoAttachPoint="_search">Search</a> |
-        <a href="#" dojoAttachPoint="_filter">Filter Options</a> |
+        <a href="#" dojoAttachPoint="_search">Advanced Search</a> |
         <a href="#" dojoAttachPoint="_order">Order Options</a> |
         <a href="#" dojoAttachPoint="_social">Social Network Options</a> |
         <a href="#" dojoAttachPoint="_votes">Votes Options</a>
     </nav>
-    <article>
+    <article class="enme-text-large">
         <section dojoAttachPoint="_search_o" class="" style="display:none;">
-            1111
-        </section>
-        <section dojoAttachPoint="_filter_o" class="" style="display:none;">
-            22222
+            <div dojoType="encuestame.org.core.commons.support.SearchMenu"
+                 typeItem="${typeItem}"
+                 dojoAttachPoint="_searchWidget"></div>
         </section>
          <section dojoAttachPoint="_order_o" class="" style="display:none;">
             333333
         </section>
         <section dojoAttachPoint="_social_o" class="" style="display:none;">
-            444444
+           44444
         </section>
         <section dojoAttachPoint="_votes_o" class="" style="display:none;">
-            555555
+           555555
         </section>
     </article>
 </section>
