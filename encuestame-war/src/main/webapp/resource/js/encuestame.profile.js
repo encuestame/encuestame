@@ -4,6 +4,11 @@ dependencies ={
             name: "encuestame-commons.js",
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
+                "encuestame.org.core.commons.support.OrderMenu",
+                "encuestame.org.core.commons.support.SocialFilterMenu",
+                "encuestame.org.core.commons.support.VotesFilterMenu",
+                "encuestame.org.core.shared.utils.SocialAccountsSupport",
+                "encuestame.org.core.commons.support.AbstractFilterSupport",
                 "encuestame.org.core.commons.support.ItemsFilterSupport",
                 "encuestame.org.core.commons.support.SearchMenu",
                 "encuestame.org.core.commons.dashboard.DashboardGridContainer",

@@ -10,41 +10,13 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-dojo.provide("encuestame.org.core.shared.utils.ContextSupport");
+dojo.provide("encuestame.org.core.commons.support.AbstractFilterSupport");
 
 /**
  *
  */
-dojo.declare("encuestame.org.core.shared.utils.ContextSupport",
-        null,
-    {
-        /*
-         * context.
-         */
-        _context : ["tweetpoll", "poll", "survey"],
+dojo.declare("encuestame.org.core.commons.support.AbstractFilterSupport", null, {
 
-        /*
-         *
-         */
-        context : null,
+    //ready to add publish events to filter results.
 
-        /*
-         *
-         */
-        constructor: function(){
-            this.context = "";
-        },
-
-        /*
-         * get action.
-         */
-        getContext : function(context){
-            var position = dojo.indexOf(this._context, context);
-            //console.info("getAction", position);
-            if (position == -1) {
-                console.error("invalid context");
-            } else {
-                return position;
-            }
-        }
 });

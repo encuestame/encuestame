@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-dojo.provide("encuestame.org.core.commons.support.SearchMenu");
+dojo.provide("encuestame.org.core.commons.support.VotesFilterMenu");
 
 dojo.require("dijit.form.TextBox");
 dojo.require("dijit.form.Button");
@@ -29,19 +29,18 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
  * @author Picado, Juan juanATencuestame.org
  * @since 14/01/12
  */
-dojo.declare("encuestame.org.core.commons.support.SearchMenu",
-        [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.support.AbstractFilterSupport], {
+dojo.declare("encuestame.org.core.commons.support.VotesFilterMenu",
+             [encuestame.org.main.EnmeMainLayoutWidget,
+              encuestame.org.core.commons.support.AbstractFilterSupport], {
 
     /*
      *
      */
-     templatePath: dojo.moduleUrl("encuestame.org.core.commons.support", "templates/search-filters.html"),
+     templatePath: dojo.moduleUrl("encuestame.org.core.commons.support", "templates/votes-filters.html"),
 
      /*
       *
       */
-     postCreate : function() {
-
-     }
+     postCreate : function() {}
 
 });

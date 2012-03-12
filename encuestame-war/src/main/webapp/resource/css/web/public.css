@@ -4417,3 +4417,49 @@ div.web-social-links {
   padding: 1px;
   text-align: right;
 }
+
+.web-social-filter{
+
+}
+.web-social-filter > div{
+  text-align: right;
+  margin-top: 2px;
+}
+
+.web-social-filter .web-social-filter-counter {
+  color: white;
+  float: left;
+  font-weight: bold;
+}
+.web-social-filter-items {
+  height: 130px;
+  overflow: auto;
+}
+
+.web-social-filter-items .web-social-filter-item {
+  clear: both;
+  cursor: pointer;
+  overflow: auto;
+  padding: 1px;
+  width: 80%;
+}
+
+.web-social-filter-items .selected {
+  background-color: #C2C2C2;
+  border-radius: 5px 5px 5px 5px;
+  color: black !important;
+  margin-top: 5px;
+}
+
+.web-social-filter-items .web-social-filter-item .web-social-filter-image {
+  float: left;
+  padding: 2px 2px 0;
+  width: 35px;
+}
+
+.web-social-filter-items .web-social-filter-item .web-social-filter-name {
+  color: white;
+  font-weight: bold;
+  line-height: 20px;
+  margin-left: 31px;
+}

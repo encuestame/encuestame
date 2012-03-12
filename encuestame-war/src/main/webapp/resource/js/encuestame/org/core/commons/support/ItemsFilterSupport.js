@@ -15,6 +15,9 @@ dojo.provide("encuestame.org.core.commons.support.ItemsFilterSupport");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.require("encuestame.org.core.commons.support.Wipe");
 dojo.require("encuestame.org.core.commons.support.SearchMenu");
+dojo.require("encuestame.org.core.commons.support.OrderMenu");
+dojo.require("encuestame.org.core.commons.support.SocialFilterMenu");
+dojo.require("encuestame.org.core.commons.support.VotesFilterMenu");
 
 /**
  * Filter Items Support.
@@ -53,9 +56,9 @@ dojo.declare("encuestame.org.core.commons.support.ItemsFilterSupport",
          dojo.connect(this._social, "onclick", dojo.hitch(this, this._openSocial));
          dojo.connect(this._votes, "onclick", dojo.hitch(this, this._openVotes));
          this.optionsWidget.search = new encuestame.org.core.commons.support.Wipe(this._search_o, this._wipe.duration, this._wipe.height, "tp-options", "1");
-         this.optionsWidget.order = new encuestame.org.core.commons.support.Wipe(this._order_o, this._wipe.duration, this._wipe.height, "tp-options", "3");
-         this.optionsWidget.social = new encuestame.org.core.commons.support.Wipe(this._social_o, this._wipe.duration, this._wipe.height, "tp-options", "4");
-         this.optionsWidget.votes = new encuestame.org.core.commons.support.Wipe(this._votes_o, this._wipe.duration, this._wipe.height, "tp-options", "5");
+         this.optionsWidget.order = new encuestame.org.core.commons.support.Wipe(this._order_o, this._wipe.duration, 140, "tp-options", "3");
+         this.optionsWidget.social = new encuestame.org.core.commons.support.Wipe(this._social_o, this._wipe.duration, 200, "tp-options", "4");
+         this.optionsWidget.votes = new encuestame.org.core.commons.support.Wipe(this._votes_o, this._wipe.duration, 140, "tp-options", "5");
      },
 
      /*

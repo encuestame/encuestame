@@ -88,7 +88,7 @@ dojo.declare(
          */
         getAction : function(action) {
             var position = dojo.indexOf(this._actions, action);
-            console.info("getAction position", position);
+            //console.info("getAction position", position);
             if (position == -1) {
                 console.error("invalid action");
             } else {
