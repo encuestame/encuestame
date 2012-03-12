@@ -21,6 +21,7 @@ dojo.require("dijit.form.HorizontalSlider");
 dojo.require("dijit.form.HorizontalRule");
 dojo.require("dijit.form.HorizontalRuleLabels");
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
+dojo.require("encuestame.org.core.commons.support.AbstractFilterSupport");
 
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
