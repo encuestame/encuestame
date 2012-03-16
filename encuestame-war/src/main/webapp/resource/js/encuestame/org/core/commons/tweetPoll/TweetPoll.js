@@ -18,10 +18,14 @@ dojo.require("dojox.widget.Dialog");
 
 dojo.require("encuestame.org.core.commons.tweetPoll.Answers");
 dojo.require("encuestame.org.core.commons.tweetPoll.HashTags");
+dojo.require("encuestame.org.core.shared.utils.GenericDialogContent");
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
+/**
+ * Create TweetPoll Interfaces.
+ */
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPoll",
     [encuestame.org.main.EnmeMainLayoutWidget],{
@@ -219,8 +223,8 @@ dojo.declare(
             //time widget.
             this.scheduledTimeWidget = dijit.byId("scheduledTime");
             this.scheduledTimeWidget.onChange = dojo.hitch(this, function(event){
-                console.debug("Scheduled Time", encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
-                        encuestame.date.timeFormat));
+                //console.debug("Scheduled Time", encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
+                 //       encuestame.date.timeFormat));
                 this.tweetPoll.options.scheduledTime = encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
                         encuestame.date.timeFormat);
                 dojo.publish("/encuestame/tweetpoll/autosave");
@@ -301,6 +305,17 @@ dojo.declare(
             dojo.connect(this._publish, "onClick", dojo.hitch(this, function(event) {
                 this._checkPublish();
             }));
+
+            dojo.subscribe("/encuestame/dialog/close", this, this._hideDialog);
+        },
+
+        /**
+         * Hide the current dialog.
+         */
+        _hideDialog : function(){
+            if (this.dialogWidget != null) {
+                this.dialogWidget.hide();
+            }
         },
 
         /*
@@ -477,8 +492,9 @@ dojo.declare(
          * show error message.
          */
         _showErrorMessage : function(errorMessage) {
+            var widget = new encuestame.org.core.shared.utils.GenericDialogContent({content : errorMessage, dialog : this.dialogWidget});
             this.dialogWidget = new dijit.Dialog({
-                content: errorMessage,
+                content: widget.domNode,
                 style: "width: 700px",
                 draggable : false
             });
@@ -540,8 +556,9 @@ dojo.declare(
             postCreate : function(){
                 var button = dijit.byId(this._close);
                     button.onClick = dojo.hitch(this, function(event){
-                          this.tweetPollWidget.dialogWidget.hide();
-                          console.debug(encuestame.contextDefault+"/user/tweetpoll/list");
+                          //this.tweetPollWidget.dialogWidget.hide();
+                          dojo.publish("/encuestame/dialog/close");
+                          //console.debug(encuestame.contextDefault+"/user/tweetpoll/list");
                           document.location.href = encuestame.contextDefault+"/user/tweetpoll/list";
                 });
             },

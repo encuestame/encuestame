@@ -592,3 +592,14 @@ div.web-default-menu  li.first {
 .web-wrapper-detail .web-button-wrapper > div > img{
 
 }
+
+.web-generic-dialog-content {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 35px 10px 10px;
+}
+
+.web-generic-dialog-content .button{
+    text-align: right;
+    padding-right: 10px;
+}

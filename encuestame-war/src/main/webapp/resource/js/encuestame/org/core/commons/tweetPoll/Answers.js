@@ -159,13 +159,13 @@ dojo.declare(
                     "answer" : text.get("value"),
                     "shortUrl" : encuestame.shortUrlProvider[1].code
                };
-               console.debug("params", params);
+               //console.debug("params", params);
                var load = dojo.hitch(this, function(data){
                    console.debug(data);
                    var items = [];
                    var answerWidget = new encuestame.org.core.commons.tweetPoll.AnswerItem({
                        answer :{
-                           answerId : data.success.newAnswer.answer.answerId,
+                           answerId : data.success.newAnswer.answer.answer_id,
                            label: data.success.newAnswer.answer.answers,
                            shortUrl : data.success.newAnswer.short_url,
                            provider: encuestame.shortUrlProvider[1]

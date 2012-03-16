@@ -146,7 +146,7 @@ public class TweetPollSwitch {
     /**
      * @return the shortUrl
      */
-    @Column(name = "short_url", nullable = true)
+    @Column(name = "short_url", nullable = true, length = 400)
     public String getShortUrl() {
         return shortUrl;
     }

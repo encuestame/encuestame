@@ -18,13 +18,14 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.InlineEditBox");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
 
 /**
  * This is a abstract class to provide folder support.
  */
 dojo.declare(
     "encuestame.org.core.shared.utils.FolderOperations",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
 
         /*
          * folder context.
