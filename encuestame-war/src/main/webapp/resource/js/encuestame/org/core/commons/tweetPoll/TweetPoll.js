@@ -166,14 +166,14 @@ dojo.declare(
               dojo.addOnLoad(dojo.hitch(this, function(){
                     subscriptionAutoSave  = encuestame.activity.cometd.subscribe('/service/tweetpoll/autosave',
                     dojo.hitch(this, function(message) {
-                        console.info("tweetpoll autosave response", message);
+                        //console.info("tweetpoll autosave response", message);
                         this._autoSaveStatus(message);
                     }));
               }));
               //remove comet support on unload.
               dojo.addOnUnload(function() {
                   if(subscriptionAutoSave != null){
-                      console.info("un subsrcibe subscriptionAutoSave service");
+                      //console.info("un subsrcibe subscriptionAutoSave service");
                       encuestame.activity.cometd.unsubscribe(subscriptionAutoSave);
                   }
               });
@@ -216,7 +216,7 @@ dojo.declare(
             //date widget.
             this.scheduledDateWidget = dijit.byId("scheduledDate");
             this.scheduledDateWidget.onChange = dojo.hitch(this, function(event){
-                console.debug("Scheduled Date", this.scheduledDateWidget.get("value"));
+                //.debug("Scheduled Date", this.scheduledDateWidget.get("value"));
               this.tweetPoll.options.scheduledDate = encuestame.date.getFormatTime(this.scheduledDateWidget.get("value"),
                       encuestame.date.dateFormat);
               dojo.publish("/encuestame/tweetpoll/autosave");
@@ -246,7 +246,7 @@ dojo.declare(
              */
             this.limitVotesWidget = dijit.byId("limitVotes");
             this.limitVotesWidget.onChange = dojo.hitch(this, function(event){
-                console.debug("limitVotesWidget", event);
+                //console.debug("limitVotesWidget", event);
                 if (event) {
                     dojo.removeClass(this._limitNumbers, "defaultDisplayHide");
                 } else {
@@ -257,7 +257,7 @@ dojo.declare(
             });
             this.limitNumbersWidget = dijit.byId("limitNumbers");
             this.limitNumbersWidget.onChange = dojo.hitch(this, function(event){
-                console.debug("maxLimitVotes ", this.limitNumbersWidget.get("value"));
+              //console.debug("maxLimitVotes ", this.limitNumbersWidget.get("value"));
               this.tweetPoll.options.maxLimitVotes = this.limitNumbersWidget.get("value");
               dojo.publish("/encuestame/tweetpoll/autosave");
             });
@@ -271,7 +271,7 @@ dojo.declare(
              */
             this.ipWidget = dijit.byId("ip");
             this.ipWidget.onChange = dojo.hitch(this, function(event){
-                console.debug("ipWidget", event);
+                //console.debug("ipWidget", event);
                 if (event) {
                     dojo.removeClass(this._repeatedNumbers, "defaultDisplayHide");
                 } else {
@@ -282,7 +282,7 @@ dojo.declare(
             });
             this.repeatedNumbersWidget = dijit.byId("repeatedNumbers");
             this.repeatedNumbersWidget.onChange = dojo.hitch(this, function(event){
-                console.debug("maxLimitVotes ", this.repeatedNumbersWidget.get("value"));
+              //console.debug("maxLimitVotes ", this.repeatedNumbersWidget.get("value"));
               this.tweetPoll.options.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
               dojo.publish("/encuestame/tweetpoll/autosave");
             });
@@ -293,7 +293,7 @@ dojo.declare(
             //report
             this.resumeWidget = dijit.byId("resume");
             this.resumeWidget.onChange = dojo.hitch(this, function(event){
-                 console.debug("resumeWidget ", event);
+                //console.debug("resumeWidget ", event);
                 this.tweetPoll.options.resumeLiveResults = event;
                 dojo.publish("/encuestame/tweetpoll/autosave");
             });
@@ -321,7 +321,7 @@ dojo.declare(
             }
         },
 
-        /*
+        /**
          * create preview widget.
          */
         _createPreviewWidget : function(node) {
@@ -336,7 +336,7 @@ dojo.declare(
         /*
          * block widgets.
          */
-        _block : function(){
+        _block : function() {
             this.answerWidget.block();
             this.hashTagWidget.block();
             //console.info("block this.questionWidget.maxLength ", this.questionWidget.maxLength);
@@ -541,95 +541,100 @@ dojo.declare(
 
 
 /**
- *
+ * This widget represent the list of social of site to publish the tweetpoll.
  */
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPublishInfo",
         [encuestame.org.main.EnmeMainLayoutWidget],{
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpollPublish.html"),
 
+            /**
+             * The list of social accounts.
+             */
             _socialAccounts : [],
 
+            /**
+             * TweetPoll widget.
+             */
             tweetPollWidget : null,
 
-            widgetsInTemplate: true,
-
+            /**
+             *
+             */
             _inProcess : false,
 
-            postCreate : function(){
+            /**
+             * Post create.
+             */
+            postCreate : function() {
                 var button = dijit.byId(this._close);
-                    button.onClick = dojo.hitch(this, function(event){
-                          //this.tweetPollWidget.dialogWidget.hide();
-                          dojo.publish("/encuestame/dialog/close");
-                          //console.debug(encuestame.contextDefault+"/user/tweetpoll/list");
-                          document.location.href = encuestame.contextDefault+"/user/tweetpoll/list";
+                    button.onClick = dojo.hitch(this, function(event) {
+                       dojo.publish("/encuestame/dialog/close");
+                       document.location.href = encuestame.contextDefault+"/user/tweetpoll/list";
                 });
             },
 
-            /*
+            /**
              * set social account array.
              */
             setListOfSocialAccounts : function(accounts){
                 this._socialAccounts = accounts;
             },
 
-            /*
+            /**
              * initialize widget.
              */
-            initialize : function(){
+            initialize : function() {
                 this._inProcess = true;
                 this._showProcessingMessage();
             },
 
-            /*
-             *
+            /**
+             * Display proccessing message.
              */
             _showProcessingMessage : function(){
                 var message = dojo.doc.createElement("div");
                 dojo.addClass(this._message, "defaultDisplayBlock");
                 dojo.removeClass(this._message, "defaultDisplayHide");
-                message.innerHTML = "Publishing your tweets, please wait ...";
-                console.debug("message", message);
+                message.innerHTML = encuestame.constants.messageCodes["025"];
+                //console.debug("message", message);
                 this._message.appendChild(message);
             },
 
-            /*
-             *
+            /**
+             * Hidde the processing message.
              */
-            _hideProcessingMessage : function(){
-                console.debug("_hideProcessingMessage");
+            _hideProcessingMessage : function() {
                 dojo.removeClass(this._message, "defaultDisplayBlock");
                 dojo.addClass(this._message, "defaultDisplayHide");
                 dojo.empty(this._message);
             },
 
-            /*
-             * process date published.
+            /**
+             * Process date published.
+             * @param socialPublish
              */
             process: function(socialPublish){
-                console.debug("tweetPollPublishWidget process", socialPublish);
                 if (socialPublish) {
                     this._hideProcessingMessage();
                     dojo.empty(this._container);
                     dojo.empty(this._message);
-                    console.debug("show accoutns", this._socialAccounts);
                     dojo.forEach(socialPublish,
                             dojo.hitch(this,function(tweet) {
-                                console.debug("socialPublish", tweet);
                                 var row = this._buildTweetProcessView(tweet);
-                                if(row){
+                                if (row) {
                                     this._container.appendChild(row);
                                 }
                    }));
                 } else {
-                    console.error("data tweet process is empty");
+                    this.errorMesage("data tweet process is empty");
                 }
             },
 
-            /*
+            /**
              * search by id the complete info for selected social account.
              */
-            _getSocialAccountWidget : function(id){
+            _getSocialAccountWidget : function(id) {
                 //this._socialAccounts
                 var selected = null;
                 dojo.forEach(this._socialAccounts,
@@ -641,18 +646,17 @@ dojo.declare(
                 return selected;
             },
 
-            /*
-             * build tweet process view.
+            /**
+             * Build tweet process view.
              */
             _buildTweetProcessView : function(data){
                   return this._createStatusTweet(data);
             },
 
-            /*
-             * create status tweet.
+            /**
+             * Create status tweet.
              */
             _createStatusTweet : function(data){
-                console.debug("_createStatusTweet", data);
                 var widget = new encuestame.org.core.commons.tweetPoll.TweetPollPublishItemStatus(
                         {
                             data:data,
@@ -663,7 +667,7 @@ dojo.declare(
             }
 });
 
-/*
+/**
  * Represents a status of tweet published by social account.
  */
 dojo.declare(
@@ -674,21 +678,17 @@ dojo.declare(
             widgetsInTemplate: true,
             socialAccount : {},
             postCreate : function(){
-                console.debug("socialAccount", this.socialAccount);
                 this.initialize();
             },
 
             /*
              * initialize widget.
              */
-            initialize : function(){
-                console.debug("data.status_tweet", this.data.status_tweet);
+            initialize : function() {
                 if (this.data.status_tweet == encuestame.status[0]) { // SUCCESS
                     this._detailStatus.appendChild(this._showSuccessMessage());
                 } else if (this.data.status_tweet == encuestame.status[1]) { //FAILURE
                     this._detailStatus.appendChild(this._showFailureMessage());
-                } else {
-                    console.error("nothing to do.");
                 }
                 this._accountProviderIcon.src = encuestame.social.shortPicture(this.socialAccount.type_account);
             },

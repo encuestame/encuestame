@@ -738,7 +738,8 @@ encuestame.constants.messageCodes = {
     "021" : "Drag your gadget here !!",
     "022" : "Be the first to comment on this publication.",
     "023" : "Updated Successfully",
-    "024" : "Sorry, no results found"
+    "024" : "Sorry, no results found",
+    "025" : "Publishing your tweets, please wait ..."
  };
 
 encuestame.constants.version = { version : "1.143"};
