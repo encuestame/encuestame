@@ -716,7 +716,8 @@ encuestame.constants.errorCodes = {
     "020" : "Your Tweet contains more than 140 characters. You will have to be more ingenious.",
     "021" : "Your Tweet no contains required answers, imagine a sky without clouds?",
     "022" : "You need at least 1 social account to publish your beautiful creation.",
-    "023" : "Ops, something is wrong."
+    "023" : "Ops, something is wrong.",
+    "024" : "Please, save your tweetpoll first"
 };
 
 encuestame.constants.warningCodes = {

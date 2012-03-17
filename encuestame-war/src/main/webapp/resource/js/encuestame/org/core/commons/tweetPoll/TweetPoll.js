@@ -22,13 +22,14 @@ dojo.require("encuestame.org.core.shared.utils.GenericDialogContent");
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore");
 
 /**
  * Create TweetPoll Interfaces.
  */
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.TweetPoll",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
+    [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.tweetPoll.TweetPollCore],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpoll.html"),
 
         hashTagWidget: null,
@@ -307,6 +308,8 @@ dojo.declare(
             }));
 
             dojo.subscribe("/encuestame/dialog/close", this, this._hideDialog);
+            dojo.subscribe("/encuestame/tweetpoll/dialog/error", this, this._showErrorMessage);
+            this.enableBlockTweetPollOnProcess();
         },
 
         /**

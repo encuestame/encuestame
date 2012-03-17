@@ -1987,7 +1987,7 @@ div.web-tweetpoll-wrapper div.previewWrapperContent div.content {
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .inlineBlock {
     /*     display: inline-block !important; */
-    margin: 3px;
+    margin: 0px;
 }
 
 div.web-tweetpoll-wrapper div.previewWrapperContent .previewQuestion {
@@ -2011,10 +2011,7 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewAnswer {
     color: #000;
     border: 1px solid #C1B6B6;
     font-weight: bold;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 1px;
-    margin-bottom: 1px;
+    margin: 1px 10px 0px 0px;
     -moz-border-radius: 9px 9px 9px 9px;
     -webkit-border-radius: 9px 9px 9px 9px;
     border-radius: 9px 9px 9px 9px;
@@ -2027,7 +2024,7 @@ div.web-tweetpoll-wrapper div.previewWrapperContent .previewHashTag {
     color: #000;
     font-weight: bold;
     margin-right: 5px;
-    margin-top: 1px;
+    margin-top: 5px;
     margin-bottom: 1px;
     -moz-border-radius: 9px 9px 9px 9px;
     -webkit-border-radius: 9px 9px 9px 9px;

@@ -6,6 +6,7 @@ dependencies ={
             dependencies: [
                 "encuestame.org.core.commons.support.OrderMenu",
                 "encuestame.org.core.commons.support.SocialFilterMenu",
+                "encuestame.org.core.commons.tweetPoll.TweetPollCore",
                 "encuestame.org.core.commons.support.VotesFilterMenu",
                 "encuestame.org.core.shared.utils.SocialAccountsSupport",
                 "encuestame.org.core.commons.support.AbstractFilterSupport",
