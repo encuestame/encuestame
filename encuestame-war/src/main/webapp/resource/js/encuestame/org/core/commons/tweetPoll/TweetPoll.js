@@ -492,10 +492,10 @@ dojo.declare(
          * show error message.
          */
         _showErrorMessage : function(errorMessage) {
-            var widget = new encuestame.org.core.shared.utils.GenericDialogContent({content : errorMessage, dialog : this.dialogWidget});
+            var widget = new encuestame.org.core.shared.utils.GenericDialogContent({content : errorMessage});
             this.dialogWidget = new dijit.Dialog({
                 content: widget.domNode,
-                style: "width: 700px",
+                style: "width: 400px",
                 draggable : false
             });
             this.dialogWidget.show();

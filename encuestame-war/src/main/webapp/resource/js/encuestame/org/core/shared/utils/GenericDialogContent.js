@@ -32,13 +32,10 @@ dojo.declare(
        */
       content : "",
 
-      dialog : null,
-
       /*
        *
        */
       postCreate : function() {
-          console.debug("dialog", this._button);
           if (this._button) {
               this._button.onClick = dojo.hitch(this, function(event){
                   dojo.stopEvent(event);
