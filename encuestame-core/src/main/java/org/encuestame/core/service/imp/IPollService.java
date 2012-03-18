@@ -315,4 +315,12 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     Poll getPollSlugById(final Long pollId, final String slug) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param pollId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Poll getPollById(final Long pollId) throws EnMeNoResultsFoundException;
 }

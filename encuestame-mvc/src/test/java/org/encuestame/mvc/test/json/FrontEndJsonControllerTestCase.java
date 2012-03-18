@@ -72,7 +72,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    @Test
+    //@Test
     public void testGetDirectory() throws ServletException, IOException {
         initService("/api/common/gadgets/directory.json", MethodJson.GET);
         final JSONObject response = callJsonService();

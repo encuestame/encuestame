@@ -20,8 +20,6 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -47,6 +45,14 @@ public interface IPoll extends IBaseDao {
       * @return
       */
      Poll getPollById(final Long pollId);
+
+     /**
+      * Get the poll by id
+      * @param pollId
+      * @param slugQuestion
+      * @return
+      */
+     Poll getPollById(final Long pollId, final String slugQuestion);
 
      /**
       * Count All Poll.

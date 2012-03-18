@@ -30,7 +30,6 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -337,7 +336,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollByIdandUserId(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
-    public Poll getPollById(final Long pollId, UserAccount userAcc){
+    public Poll getPollById(final Long pollId, UserAccount userAcc) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("pollId", pollId));

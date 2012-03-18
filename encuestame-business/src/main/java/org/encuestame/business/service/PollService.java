@@ -515,6 +515,20 @@ public class PollService extends AbstractSurveyService implements IPollService{
         return poll;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#getPollById(java.lang.Long)
+     */
+    public Poll getPollById(final Long pollId)
+            throws EnMeNoResultsFoundException {
+        final Poll poll = this.getPollDao().getPollById(pollId);
+        if (poll == null) {
+            throw new EnMePollNotFoundException("poll invalid with this id "
+                    + pollId);
+        }
+        return poll;
+    }
+
     /**
      *
      * @param pollId
