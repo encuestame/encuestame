@@ -170,7 +170,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
             final Poll poll = createPoll(new Date(), createQuestion("question 1", "Si"),
                     createUserAccount("diana", createAccount()), true, true);
             //"/user/signin
-            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/poll/"+poll.getPollId()+"/slug");
+            request = new MockHttpServletRequest(MethodJson.GET.toString(), "/poll/"+poll.getPollId()+"/"+poll.getQuestion().getSlugQuestion());
             final ModelAndView mav = handlerAdapter.handle(request, response,
                 pollController2);
             assertViewName(mav, "poll/detail");

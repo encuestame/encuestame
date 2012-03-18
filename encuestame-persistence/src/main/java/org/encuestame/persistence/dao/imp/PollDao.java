@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,6 +29,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -214,7 +216,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         .forClass(Poll.class)
         .createAlias("question", "question");
         detached.add(Restrictions.eq("pollId", pollId));
-        detached.add(Restrictions.eq("question.slugQuestion", slugQuestion));
+        detached.add(Restrictions.eq("question.slugQuestion", RestFullUtil.encodeUTF8(slugQuestion)));
         return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(detached));
     }
 

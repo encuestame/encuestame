@@ -28,6 +28,7 @@ import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollDetailBean;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitLists;
 
 /**

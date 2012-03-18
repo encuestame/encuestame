@@ -175,7 +175,7 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public QuestionAnswer getQuestionAnswerById(final Long id) throws EnMeNoResultsFoundException{
         final QuestionAnswer answer = getQuestionDao().retrieveAnswerById(id);
-        if(answer == null){
+        if (answer == null) {
             throw new EnMeNoResultsFoundException("answer not found");
         }
         return  answer;
@@ -188,7 +188,7 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public void updateQuestionName(final Long questionId, final String questionName){
             final Question question = getQuestionDao().retrieveQuestionById(questionId);
-            if(question != null){
+            if (question != null) {
                 question.setQuestion(questionName);
                 getQuestionDao().saveOrUpdate(question);
             }
@@ -344,7 +344,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param questionId question Id
      * @return List of Answers
      */
-    public List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId){
+    public List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId) {
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(questionId);
         log.debug("answers by question id ["+questionId+"] answers size:{"+answers.size());
         final List<QuestionAnswerBean> answersBean = new ArrayList<QuestionAnswerBean>();

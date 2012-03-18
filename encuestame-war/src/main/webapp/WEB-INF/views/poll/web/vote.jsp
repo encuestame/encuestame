@@ -6,6 +6,8 @@
    <article class="emne-box">
         <section class="web-vote">
             VOTE ${poll}
+            VOTE ${poll.questionBean}
+            ANSWER ${answers}
        </section>
    </article>
 </article>

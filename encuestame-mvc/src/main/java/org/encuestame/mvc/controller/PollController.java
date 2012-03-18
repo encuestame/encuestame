@@ -13,6 +13,8 @@
 
 package org.encuestame.mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -20,6 +22,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,7 +115,9 @@ public class PollController extends AbstractBaseOperations {
         @PathVariable String slug) {
         try {
             final Poll poll = getPollService().getPollSlugById(id, slug);
+            final List<QuestionAnswerBean> answer = getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
             model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+            model.addAttribute("answers", answer);
         } catch (EnMeNoResultsFoundException e) {
             log.error(e);
             e.printStackTrace();

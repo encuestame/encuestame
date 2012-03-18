@@ -243,4 +243,29 @@ public class PollBean extends AbstractUnitSurvey implements Serializable{
     public void setShortUrl(final String shortUrl) {
         this.shortUrl = shortUrl;
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "PollBean ["
+                + (id != null ? "id=" + id + ", " : "")
+                + (completedPoll != null ? "completedPoll=" + completedPoll
+                        + ", " : "")
+                + (creationDate != null ? "creationDate=" + creationDate + ", "
+                        : "")
+                + (questionBean != null ? "questionBean=" + questionBean + ", "
+                        : "")
+                + (finishDate != null ? "finishDate=" + finishDate + ", " : "")
+                + (publishPoll != null ? "publishPoll=" + publishPoll + ", "
+                        : "")
+                + (closeNotification != null ? "closeNotification="
+                        + closeNotification + ", " : "")
+                + (showResultsPoll != null ? "showResultsPoll="
+                        + showResultsPoll + ", " : "")
+                + (updatedDate != null ? "updatedDate=" + updatedDate + ", "
+                        : "") + (url != null ? "url=" + url + ", " : "")
+                + (shortUrl != null ? "shortUrl=" + shortUrl : "") + "]";
+    }
 }
