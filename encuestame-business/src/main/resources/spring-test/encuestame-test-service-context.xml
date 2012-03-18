@@ -30,7 +30,7 @@
     <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"
         scope="singleton" />
     <!--  Gadget Support -->
-    <bean id="gadgetLoader" init-method="load" class="org.encuestame.business.gadgets.GadgetsLoader" scope="singleton">
+    <bean id="gadgetLoader" init-method="load" class="org.encuestame.business.gadgets.GadgetsLoader" scope="prototype">
        <property name="gadgets">
           <list>
             <value>classpath:org/encuestame/business/gadgets/activity-stream.properties</value>

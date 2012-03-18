@@ -114,21 +114,6 @@ public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
     }
 
     /**
-     * Test get gadgets directory.
-     * @throws IOException
-     * @throws ServletException
-     *
-     */
-    @Test
-    public void testGetGadgetsDirectory() throws ServletException, IOException {
-        initService("/api/common/gadgets/directory.json", MethodJson.GET);
-        final JSONObject response = callJsonService();
-        final JSONObject success = getSucess(response);
-        final JSONArray directoryGadgets = (JSONArray) success.get("gadgets");
-        Assert.assertEquals(directoryGadgets.size(), 6);
-    }
-
-    /**
      * Test add gadget on dashboard.
      * @throws IOException
      * @throws ServletException

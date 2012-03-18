@@ -29,6 +29,7 @@ import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.annotation.Repeat;
 
 /**
  * {@link HashTagsJsonController} Test Case.
@@ -78,7 +79,7 @@ public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject success = getSucess(response);
         final JSONArray items = (JSONArray) success.get("gadgets");
         Assert.assertNotNull(items);
-        Assert.assertEquals(items.size(), 6);
+        Assert.assertEquals(items.size(), 3);
         final JSONObject gadget = (JSONObject) items.get(0);
         final String gadgetId = (String) gadget.get("id");
         //add gadgets to dashboard
