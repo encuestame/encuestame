@@ -177,14 +177,6 @@ public interface IPollService extends IMasterSurveyService{
     Poll getPollById(final Long pollId, final UserAccount account) throws EnMeNoResultsFoundException;
 
     /**
-     * Get poll by pollId.
-     * @param pollId
-     * @return
-     * @throws EnMeTweetPollNotFoundException
-     */
-    Poll getPollById(final Long pollId) throws EnMePollNotFoundException;
-
-    /**
      * Get polls by userName.
      * @param username
      * @param maxResults
@@ -303,6 +295,24 @@ public interface IPollService extends IMasterSurveyService{
     /**
      *
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    PollDetailBean getPollDetailInfo(final Long pollId);
+    PollDetailBean getPollDetailInfo(final Long pollId) throws EnMeNoResultsFoundException;
+
+    /**
+     * User vote a {@link Poll}.
+     * @param pollId poll id.
+     * @param slug question name slug.
+     * @throws EnMeNoResultsFoundException
+     */
+    void vote(final Long pollId, final String slug, final String ipAddress, final Long answerId) throws EnMeNoResultsFoundException;
+
+    /**
+     * Get poll by id and slug.
+     * @param pollId
+     * @param slug
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Poll getPollSlugById(final Long pollId, final String slug) throws EnMeNoResultsFoundException;
 }

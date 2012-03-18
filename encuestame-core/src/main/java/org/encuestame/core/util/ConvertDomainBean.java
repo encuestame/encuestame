@@ -45,6 +45,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -70,6 +71,7 @@ import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.encuestame.utils.web.GadgetPropertiesBean;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TypeTreeNode;
@@ -1189,5 +1191,26 @@ public class ConvertDomainBean {
                         .getSocialAccount().getAccounType()));
         log.debug("getTweetPollLinks "+linksSocialBean.toString());
         return linksSocialBean;
+    }
+
+    /**
+     * Convert a values of {@link PollResult} to {@link PollBeanResult}.
+     * @param answerId answer id
+     * @param answerString answer string
+     * @param color color of answer
+     * @param resultVotes result of votes.
+     * @return
+     */
+    public static PollBeanResult convertPollResultToBean(final Long answerId,
+            final String answerString, final String color,
+            final Long resultVotes) {
+        final PollBeanResult result = new PollBeanResult();
+        final QuestionAnswerBean answer = new QuestionAnswerBean();
+        answer.setAnswerId(answerId);
+        answer.setAnswers(answerString);
+        answer.setColor(color);
+        result.setAnswerBean(answer);
+        result.setResult(resultVotes);
+        return result;
     }
 }

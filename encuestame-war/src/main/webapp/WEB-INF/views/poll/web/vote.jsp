@@ -5,7 +5,7 @@
    </header>
    <article class="emne-box">
         <section class="web-vote">
-            VOTE
+            VOTE ${poll}
        </section>
    </article>
 </article>

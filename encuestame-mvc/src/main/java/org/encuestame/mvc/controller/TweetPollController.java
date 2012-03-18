@@ -78,48 +78,47 @@ public class TweetPollController extends AbstractSocialController {
         if (checkBannedIp) {
             pathVote ="banned";
             log.debug("ip banned");
-        }
-        else{
-        if (tweetId.isEmpty()) {
-            log.debug("tweet is empty");
-            model.put("message", "Tweet Not Valid..");
         } else {
-            tweetId = filterValue(tweetId);
-            model.put("tweetId", tweetId);
-            log.info("search code->"+tweetId);
-            final TweetPollSwitch tweetPoll = getTweetPollService()
-                    .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
-            model.addAttribute("switch", tweetPoll);
-            //NOTE: tweetpoll should be published to able to vote !!
-            if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
-                log.debug("tweetpoll answer not found");
-                model.put("message", "Tweet Not Valid.");
-            } else  if (tweetPoll.getTweetPoll().getCompleted()) {
-                log.debug("tweetpoll is archived");
-                model.put("message", "Tweetpoll is closed, no more votes.");
-            }else {
-                log.info("Validate Votting");
-                    log.info("IP" + IP);
-                    if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
-                        if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                            getTweetPollService().tweetPollVote(tweetPoll, IP);
-                            model.put("message", "Tweet Poll Voted.");
-                            pathVote = "tweetVoted";
-                            log.debug("VOTED");
-                        } else {
-                            this.createCaptcha(model, tweetId);
-                            log.debug("VOTE WITH CAPTCHA");
-                            pathVote = "voteCaptcha";
+            if (tweetId.isEmpty()) {
+                log.debug("tweet is empty");
+                model.put("message", "Tweet Not Valid..");
+            } else {
+                tweetId = filterValue(tweetId);
+                model.put("tweetId", tweetId);
+                log.info("search code->"+tweetId);
+                final TweetPollSwitch tweetPoll = getTweetPollService()
+                        .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
+                model.addAttribute("switch", tweetPoll);
+                //NOTE: tweetpoll should be published to able to vote !!
+                if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
+                    log.debug("tweetpoll answer not found");
+                    model.put("message", "Tweet Not Valid.");
+                } else  if (tweetPoll.getTweetPoll().getCompleted()) {
+                    log.debug("tweetpoll is archived");
+                    model.put("message", "Tweetpoll is closed, no more votes.");
+                }else {
+                    log.info("Validate Votting");
+                        log.info("IP" + IP);
+                        if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
+                            if (!tweetPoll.getTweetPoll().getCaptcha()) {
+                                getTweetPollService().tweetPollVote(tweetPoll, IP);
+                                model.put("message", "Tweet Poll Voted.");
+                                pathVote = "tweetVoted";
+                                log.debug("VOTED");
+                            } else {
+                                this.createCaptcha(model, tweetId);
+                                log.debug("VOTE WITH CAPTCHA");
+                                pathVote = "voteCaptcha";
+                            }
                         }
-                    }
-                    else{
-                        log.debug("Tweet Vote Repeteaded.");
-                        model.put("message", "Tweet Vote Repeteaded.");
-                        pathVote = "repeatedTweetVote";
-                    }
-                    model.get("message");
-                 }
-        }
+                        else{
+                            log.debug("Tweet Vote Repeteaded.");
+                            model.put("message", "Tweet Vote Repeteaded.");
+                            pathVote = "repeatedTweetVote";
+                        }
+                        model.get("message");
+                     }
+            }
         }
         log.info("redirect template WHERE "+pathVote);
         return pathVote;

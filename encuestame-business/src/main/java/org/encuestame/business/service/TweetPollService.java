@@ -423,7 +423,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.ITweetPollService#removeQuestionAnswer(org.encuestame.persistence.domain.question.QuestionAnswer)
      */
-    public void removeQuestionAnswer(final QuestionAnswer questionAnswer){
+    public void removeQuestionAnswer(final QuestionAnswer questionAnswer) {
         //removing old data.
         final List<TweetPollSwitch> list = getTweetPollDao().getAnswerTweetSwitch(questionAnswer);
         log.debug("removeQuestionAnswer switch size:"+list.size());

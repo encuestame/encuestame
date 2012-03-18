@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -49,12 +50,13 @@ public class PollController extends AbstractBaseOperations {
     @RequestMapping(value = "/poll/{id}/{slug}", method = RequestMethod.GET)
     public String pollController(final ModelMap model, @PathVariable Long id,  @PathVariable String slug) {
         log.debug("poll Id -->" + id);
+        log.debug("poll slug -->" + slug);
         try {
-            final Poll poll = getPollService().getPollById(id);
+            final Poll poll = getPollService().getPollSlugById(id, slug);
             model.addAttribute("poll",
                     ConvertDomainBean.convertPollDomainToBean(poll));
             return "poll/detail";
-        } catch (EnMePollNotFoundException e) {
+        } catch (EnMeNoResultsFoundException e) {
             log.error(e);
             return "404";
         }
@@ -92,7 +94,7 @@ public class PollController extends AbstractBaseOperations {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll/new", method = RequestMethod.GET)
     public String newPollController(final ModelMap model) {
-        log.debug("tweetpoll");
+        log.debug("new poll");
         return "poll/new";
     }
 
@@ -105,9 +107,17 @@ public class PollController extends AbstractBaseOperations {
     @RequestMapping(value = "/poll/vote/{id}/{slug}", method = RequestMethod.GET)
     public String pollVoteController(
         ModelMap model,
+        HttpServletRequest request,
         @PathVariable Long id,
         @PathVariable String slug) {
-
+        try {
+            final Poll poll = getPollService().getPollSlugById(id, slug);
+            model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+        } catch (EnMeNoResultsFoundException e) {
+            log.error(e);
+            e.printStackTrace();
+            model.put("message", "Poll not valid.");
+        }
         return "poll/vote";
     }
 
