@@ -214,7 +214,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         .forClass(Poll.class)
         .createAlias("question", "question");
         detached.add(Restrictions.eq("pollId", pollId));
-        detached.add(Restrictions.eq("slugQuestion", slugQuestion));
+        detached.add(Restrictions.eq("question.slugQuestion", slugQuestion));
         return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(detached));
     }
 
