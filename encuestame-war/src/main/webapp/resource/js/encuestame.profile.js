@@ -5,6 +5,7 @@ dependencies ={
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
                 "encuestame.org.core.commons.support.OrderMenu",
+                "encuestame.org.core.commons.poll.vote.PollVote",
                 "encuestame.org.core.commons.support.SocialFilterMenu",
                 "encuestame.org.core.commons.tweetPoll.TweetPollCore",
                 "encuestame.org.core.commons.support.VotesFilterMenu",

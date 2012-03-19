@@ -12,6 +12,9 @@
         <section class="web-tweetpoll-answer-wrapper">
             <div class="web-tweetpoll-answer-chart">
                 <!-- Poll Chart -->
+                <div>
+                    <a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">Vote</a>
+                </div>
             </div>
             <div class="web-tweetpoll-answer-answer">
                 <table class="web-tweetpoll-answer-table" cellspacing="0">
@@ -41,15 +44,6 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${answers}" var="a">
-                             <tr class="answer"
-                                  dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
-                                  aId="${a.answers.questionAnswerId}"
-                                  color="${a.answers.color}"
-                                  label="${a.answers.answer}"
-                                  owner="${tweetpoll.ownerUsername}"
-                                  completed="${tweetpoll.completed}"
-                                  url="${a.shortUrl}">
-                             </tr>
                        </c:forEach>
                     </tbody>
                 </table>
@@ -70,7 +64,7 @@
        </header>
        <section>
             <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                 itemId="${tweetpoll.id}" type="TWEETPOLL" class="web-social-links"
+                 type="POLL" class="web-social-links"
                  ></div>
        </section>
     </article>
@@ -88,6 +82,6 @@
    </c:if>
    <section class="web-tweetpoll-comments emne-box">
       <header>Comments</header>
-      <div dojoType="encuestame.org.core.comments.Comments" type="poll" item_id="${tweetpoll.id}"></div>
+      <div dojoType="encuestame.org.core.comments.Comments" type="poll" item_id="${poll.id}"></div>
    </section>
 </article>
