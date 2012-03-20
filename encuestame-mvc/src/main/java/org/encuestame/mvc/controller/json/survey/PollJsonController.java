@@ -27,6 +27,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.web.PollBean;
@@ -133,7 +134,12 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            jsonResponse.put("poll", getPollService().getPollDetailInfo(pollId));
+            try {
+                jsonResponse.put("poll", getPollService().getPollDetailInfo(pollId));
+            } catch (EnMeNoResultsFoundException e) {
+                 log.error(e);
+                 setError(e.getMessage(), response);
+            }
             setItemResponse(jsonResponse);
         return returnData();
     }

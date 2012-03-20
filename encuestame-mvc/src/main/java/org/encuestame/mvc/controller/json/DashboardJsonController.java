@@ -115,7 +115,8 @@ public class DashboardJsonController extends AbstractJsonController {
              final List<Properties> gadgets = GadgetsLoader.getDirectoy();
              final List<Directory> directory = new ArrayList<DashboardJsonController.Directory>();
              for (Properties properties : gadgets) {
-                final Directory directoryItem = new Directory();
+                // TODO: move to ConvertDomainBean.
+                 final Directory directoryItem = new Directory();
                 directoryItem.setDescription(properties.getProperty("description"));
                 directoryItem.setId(properties.getProperty("name"));
                 directoryItem.setImage(properties.getProperty("image"));

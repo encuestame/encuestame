@@ -43,7 +43,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Test of {@link AbstractSurveyService}
@@ -125,8 +124,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
      * Load Patter Info Null.
      * @throws EnMeExpcetion exception
      */
-    @Test
-    @ExpectedException(EnMeExpcetion.class)
+    @Test(expected = EnMeExpcetion.class)
     public void testloadPatternInfoNull() throws EnMeExpcetion {
         surveyService.loadPatternInfo(null);
     }

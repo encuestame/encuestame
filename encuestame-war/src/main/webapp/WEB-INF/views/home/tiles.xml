@@ -17,6 +17,7 @@
     <definition name="search" extends="page">
         <put-attribute name="title" value="Search | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}search.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/home/search-js.jsp" />
     </definition>
 
     <definition name="cloud" extends="page">

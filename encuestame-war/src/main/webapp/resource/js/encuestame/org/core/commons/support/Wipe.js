@@ -27,25 +27,49 @@ dojo.require("dojox.charting.widget.Legend");
  */
 dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
 
+        /*
+         * node.
+         */
         node : null,
+        /*
+         * duration.
+         */
         duration : 200,
+        /*
+         * height.
+         */
         height : 300,
 
         /*
-         *
+         * default status.
          */
-        constructor: function(node, duration, heigth) {
-            //if (node == null) {
-                this.node = node;
-                this.duration == null ? this.duration : duration;
-                this.heigth == null ? this.heigth : heigth;
-            //} else {
-            //    throw new Error("node is required");
-            //}
-        },
+        _open : false,
 
         /*
-        *
+         * default group.
+         */
+        group : "default",
+
+        /*
+         * id.
+         */
+        id : "",
+
+        /*
+         * Constructor of wipe.
+         */
+        constructor: function(node, duration, height, group, id) {
+            dojo.subscribe("/encuestame/wipe/close", this, "_close");
+            dojo.subscribe("/encuestame/wipe/close/group", this, "_group");
+            this.node = node;
+            this.duration = (duration == null) ? this.duration : duration;
+            this.height = (height == null) ? this.height : height;
+            this.group = (group == null) ? this.group : group;
+            this.id = (id == null) ? this.id : id;
+        },
+
+       /*
+        * on wite in.
         */
        wipeInOne: function() {
            dojox.fx.wipeTo({
@@ -56,7 +80,27 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
        },
 
        /*
-        *
+        * close the wipe.
+        */
+       _group : function(group) {
+           if (group === this.group) {
+               this.wipeOutOne();
+               this._open = false;
+           }
+       },
+
+       /*
+        * close the wipe.
+        */
+       _close : function(id, group) {
+           if (id !== this.id && group === this.group) {
+               this.wipeOutOne();
+               this._open = false;
+           }
+       },
+
+       /*
+        * on wipe out.
         */
        wipeOutOne : function() {
            if (this.node) {
@@ -65,5 +109,18 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
                   duration: this.duration
                }).play();
            }
+       },
+
+       /*
+        * provide toggle suport to wipe panel.
+        */
+       togglePanel : function(node) {
+           if (this._open) {
+               this.wipeOutOne();
+            } else {
+               this.wipeInOne();
+               node == null ? null : dojo.addClass(node, "selected");
+            }
+            this._open =!this._open;
        }
 });

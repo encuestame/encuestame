@@ -10,7 +10,6 @@ body {
 }
 
 /** header **/
-
 header#header {
     left: 0;
     min-width: 1040px;
@@ -40,21 +39,20 @@ header#header {
     width: 100px;
 }
 
-
-.heading-title{
+.heading-title {
     width: 100%;
     margin-top: 40px;
     overflow: auto;
 }
 
 .heading-title H1 {
-  color: #C53436;
-  float: left;
-  font-size: 24px;
-  font-weight: normal;
-  line-height: 24px;
-  margin: 0;
-  padding: 0 8px;
+    color: #C53436;
+    float: left;
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0;
+    padding: 0 8px;
 }
 
 div.web-header {
@@ -62,6 +60,30 @@ div.web-header {
     padding: 0 5px;
     min-height: 40px;
     background-color: #E8E8E8;
+    box-shadow : 2px 0px 4px 1px #7B7B7B;
+}
+
+.web-header-options .suggest .dijitTextBox {
+  border-radius: 7px 7px 7px 7px;
+  padding: 2px;
+  width: 250px;
+}
+
+.web-header-options .suggest .dijitTextBox .dijitInputContainer {
+  border-radius: 14px 14px 14px 14px;
+  padding: 1px;
+}
+
+.web-header-options .suggest .dijitTextBox .dijitInputInner {
+  color: #A6A6A6;
+  font-size: 13px !important;
+}
+
+.web-header-options .suggest .dijitTextBox .dijitPlaceHolder {
+  color: #DDDDDC;
+  font-size: 13px !important;
+  line-height: 15px;
+  padding-left: 8px;
 }
 
 div.web-header-options {
@@ -80,8 +102,8 @@ div.web-header div.logoEncuestame {
 }
 
 div.web-header div.web-header-wrapper {
-    padding: 5px;
-    background-color: #EBE9E9;
+  background-color: #EBE9E9;
+  padding: 4px;
 }
 
 div.web-header span {
@@ -110,7 +132,6 @@ div.web-header span.search {
 
 }
 
-
 #mainWrapper {
     min-width: 1040px;
     overflow: auto;
@@ -137,8 +158,8 @@ footer {
     margin-top: 15px;
 }
 
-.text-color{
-    color : #39609D;
+.text-color {
+    color: #39609D;
 }
 
 #footer .powered {
@@ -146,10 +167,10 @@ footer {
 }
 
 #footer .footer {
-  font-size: 0.9em;
-  height: 20px;
-  overflow: hidden;
-  padding: 10px;
-  text-align: right;
-  white-space: nowrap;
+    font-size: 0.9em;
+    height: 20px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: right;
+    white-space: nowrap;
 }

@@ -103,8 +103,8 @@
 
     <!-- Root Logger -->
     <root>
-        <priority value="warn" />
-        <!-- <appender-ref ref="console" /> -->
+        <priority value="info" />
+        <appender-ref ref="console" />
         <appender-ref ref="file" />
     </root>
 

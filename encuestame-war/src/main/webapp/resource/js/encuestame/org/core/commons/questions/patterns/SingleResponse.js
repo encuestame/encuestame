@@ -12,10 +12,14 @@ dojo.declare(
     [encuestame.org.core.commons.questions.patterns.AbstractPattern],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.questions.patterns", "templates/single.html"),
 
-        widgetsInTemplate: true,
-
+        /**
+         *
+         */
         dndEnabled : false,
 
+        /**
+         *
+         */
         postCreate : function(){
             if (this.dndEnabled) {
                 dojo.addClass(this._handle, "dojoDndHandle");

@@ -11,19 +11,21 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller.search;
+package org.encuestame.mvc.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.queryParser.ParseException;
-import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.core.search.GlobalSearchItem;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.stereotype.Controller;
@@ -40,7 +42,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SearchController extends AbstractBaseOperations {
 
+    /**
+     * Log.
+     */
     private Log log = LogFactory.getLog(this.getClass());
+
+    /**
+     * Limits.
+     */
+    private static final Integer LIMIT_RESULTS = 50;
 
     /**
      * Search Controller.
@@ -88,22 +98,22 @@ public class SearchController extends AbstractBaseOperations {
        final String keyword = request.getParameter("q");
        final List<TypeSearchResult> types = new ArrayList<TypeSearchResult>();
        types.add(TypeSearchResult.TWEETPOLL);
+       types.add(TypeSearchResult.POLL);
        types.add(TypeSearchResult.HASHTAG);
        types.add(TypeSearchResult.PROFILE);
        types.add(TypeSearchResult.QUESTION);
+       //TODO: add survey to results.
        try {
-           getSearchService().quickSearch(keyword, "", 0, 50, types);
-       } catch (EnMeNoResultsFoundException e) {
-           // TODO Auto-generated catch block
-           log.error(e);
-       } catch (IOException e) {
-           // TODO Auto-generated catch block
-           log.error(e);
-       } catch (ParseException e) {
-           // TODO Auto-generated catch block
+           log.debug("search get");
+           //keyword stats.
+           model.addAttribute("keywordStats", null);
+           //search service.
+           final Map<String, List<GlobalSearchItem>>  results  = getSearchService().quickSearch(keyword, "", 0, LIMIT_RESULTS, types);
+           model.addAttribute("results", results);
+       }  catch (Exception e) {
+           model.addAttribute("results", ListUtils.EMPTY_LIST);
            log.error(e);
        }
-       log.debug("search get");
        return "search";
      }
 

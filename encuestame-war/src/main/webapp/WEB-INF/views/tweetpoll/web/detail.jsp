@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-tweetpoll-detail ">
+<article class="web-tweetpoll-detail web-wrapper-detail">
    <header>
        <h1>${tweetpoll.questionBean.questionName}</h1>
    </header>
@@ -16,7 +16,7 @@
                  owner="${tweetpoll.ownerUsername}"
                  tweetPollid="${tweetpoll.id}"></div>
        </section>
-        <section class="web-tweetpoll-answer-wrapper">
+        <section class="web-tweetpoll-answer-wrapper web-wrapper-detail-wrapper">
             <div class="web-tweetpoll-answer-chart">
                 <div id="chart" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail"
                      tweetPollid="${tweetpoll.id}"
@@ -65,7 +65,7 @@
                 </table>
             </div>
        </section>
-       <section class="web-tweetpoll-button-wrapper gradient-gray">
+       <section class="web-button-wrapper gradient-gray">
             <div>
                 <img src="<%=request.getContextPath()%>/resources/images/icons/enme_pie.png">
             </div>
@@ -97,7 +97,9 @@
        </section>
    </c:if>
    <section class="web-tweetpoll-comments emne-box">
-      <header>Comments</header>
-      <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
+      <header>
+        Comments
+      </header>
+      <div name="comments" dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </section>
 </article>

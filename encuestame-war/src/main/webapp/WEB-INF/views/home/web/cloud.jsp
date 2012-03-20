@@ -6,9 +6,12 @@
         </header>
         <section class="cloudItems">
             <c:forEach items="${hashtags}" var="cloud">
-                  <span class="item" style="font-size: ${cloud.size}px;"  dojoType="encuestame.org.core.commons.stream.HashTagInfo"
-                        url="<%=request.getContextPath()%>/tag/${cloud.hashTagName}/"
-                        hashTagName="${cloud.hashTagName}"></span>
+                  <c:if test="${not empty cloud.hashTagName}">
+                      <span class="item" style="font-size: ${cloud.size}px;" dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                            url="<%=request.getContextPath()%>/tag/${cloud.hashTagName}/"
+                            hashTagName="${cloud.hashTagName}">
+                      </span>
+                 </c:if>
             </c:forEach>
         </section>
     </article>

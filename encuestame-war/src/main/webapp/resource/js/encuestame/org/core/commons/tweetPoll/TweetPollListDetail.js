@@ -119,7 +119,7 @@ dojo.declare(
             this.displayChart(this.typeChart[1]);
             //Build Detail.
             dojo.empty(this._detailItems);
-            this.addDetail(this.builDetailRow("Public Link", this.createTextContent("http://www.google.es")));
+            //this.addDetail(this.builDetailRow("Public Link", this.createTextContent("http://www.google.es")));
             this.addDetail(this.builDetailRow("Created Date", this.createTextContent(this.data.createDate)));
             this.addDetail(this.builDetailRow("Captcha", this.addYesNoWidget(this.data.captcha,
                      dojo.hitch(this,this._setCaptcha))));

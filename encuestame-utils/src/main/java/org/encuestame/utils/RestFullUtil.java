@@ -26,8 +26,14 @@ import java.util.regex.Pattern;
  */
 public class RestFullUtil {
 
+    /**
+     * No latin pattern.
+     */
     private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
 
+    /**
+     * Whitespace pattern.
+     */
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
 
     /**
@@ -49,16 +55,27 @@ public class RestFullUtil {
      * @throws UnsupportedEncodingException
      */
     public static String slugify(final String input) {
-        if (input == null || input.length() == 0) return "";
+        if (input == null || input.length() == 0) {
+            return "";
+        }
         String toReturn = RestFullUtil.normalize(input);
         toReturn = toReturn.replace(" ", "-");
         toReturn = toReturn.toLowerCase();
-        try {
-            toReturn = URLEncoder.encode(toReturn, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            toReturn = input;
-        }
+        toReturn = RestFullUtil.encodeUTF8(toReturn);
         return toReturn;
+    }
+
+    /**
+     *
+     * @param toReturn
+     * @return
+     */
+    public static String encodeUTF8(final String toReturn) {
+        try {
+            return URLEncoder.encode(toReturn, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return toReturn;
+        }
     }
 
       /**

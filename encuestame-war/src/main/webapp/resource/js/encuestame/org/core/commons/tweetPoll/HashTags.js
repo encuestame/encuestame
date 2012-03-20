@@ -5,10 +5,11 @@ dojo.require("dijit.Dialog");
 dojo.require('encuestame.org.core.commons');
 dojo.require("encuestame.org.core.shared.utils.Suggest");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore");
 
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.HashTags",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
+    [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.tweetPoll.TweetPollCore],{
 
         /*
          * template.
@@ -47,7 +48,7 @@ dojo.declare(
              hashTagWidget.processSelectedItemButton = dojo.hitch(this, function() {
                  if (hashTagWidget.textBoxWidget && hashTagWidget.addButton) {
                      var newValue = {id : null, label :"" , newValue : true};
-                     newValue.label = hashTagWidget.textBoxWidget.get("value");
+                     newValue.label = dojo.trim(hashTagWidget.textBoxWidget.get("value"));
                      hashTagWidget.selectedItem = newValue;
                      if (newValue.label != '') {
                          hashTagWidget.processSelectedItem(hashTagWidget.selectedItem);
@@ -59,7 +60,7 @@ dojo.declare(
              //the action if user push on space bar.
              hashTagWidget.processSpaceAction =  dojo.hitch(this, function() {
                  if (hashTagWidget.textBoxWidget) {
-                     var currentText = hashTagWidget.textBoxWidget.get("value");
+                     var currentText = dojo.trim(hashTagWidget.textBoxWidget.get("value"));
                      var added = false;
                      if (hashTagWidget._itemStored.length > 0) {
                          dojo.forEach(
@@ -104,10 +105,11 @@ dojo.declare(
                     }
                 });
             }
+            this.enableBlockTweetPollOnProcess();
         },
 
-        /*
-         *
+        /**
+         * Add hashtag item.
          */
         _addHastahToItem : function(data) {
             var params = {
@@ -136,7 +138,10 @@ dojo.declare(
             //dojo.byId("hashTagSuggest_"+this.id).unblock();
         },
 
-        //Add New Hash Tag.
+        /**
+         * Add New Hash Tag.
+         * @param hashTag hashtag item
+         */
         addNewHashTag : function(hashTag) {
             if (hashTag && this.listItems) {
                 this.printHashTag(hashTag);
@@ -158,7 +163,7 @@ dojo.declare(
                 dojo.hitch(this, function(tag, index) {
                     hashtags.push(tag.data);
                 }));
-            console.debug("hashtags", hashtags);
+            //console.debug("hashtags", hashtags);
             return hashtags;
         },
 
@@ -189,10 +194,10 @@ dojo.declare(
         /*
          * remove hashtag.
          */
-        _removeItem : function(event){
+        _removeItem : function(event) {
             dojo.stopEvent(event);
             var i = dojo.indexOf(this.listItems, this.getDialog().item);
-            if(i != -1){
+            if (i != -1) {
                 this.listItems.splice(i, 1);
                 dojo.destroy(this.getDialog().item.domNode);
                 this.getDialog().hide();

@@ -50,10 +50,6 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
     @Autowired
     private UserDetailsService userDetailsService;
 
-    /**
-     */
-    private boolean includeDetailsObject = true;
-
     /*
      * (non-Javadoc)
      * @see org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider#additionalAuthenticationChecks(org.springframework.security.core.userdetails.UserDetails, org.springframework.security.authentication.UsernamePasswordAuthenticationToken)
@@ -79,12 +75,10 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
             log.debug("SOCIAL CREDENTIALS OFF");
             if (authentication.getCredentials() == null) {
                 logger.debug("Authentication failed: no credentials provided");
-
                 throw new BadCredentialsException(
                         messages.getMessage(
                                 "AbstractUserDetailsAuthenticationProvider.badCredentials",
-                                "Bad credentials"),
-                        includeDetailsObject ? userDetails : null);
+                                "Bad credentials"));
             }
 
             String presentedPassword = authentication.getCredentials()
@@ -93,12 +87,10 @@ public class EnMeUsernameProvider extends AbstractUserDetailsAuthenticationProvi
             if (!passwordEncoder.isPasswordValid(userDetails.getPassword(),
                     presentedPassword, salt)) {
                 logger.debug("Authentication failed: password does not match stored value");
-
                 throw new BadCredentialsException(
                         messages.getMessage(
                                 "AbstractUserDetailsAuthenticationProvider.badCredentials",
-                                "Bad credentials"),
-                        includeDetailsObject ? userDetails : null);
+                                "Bad credentials"));
             }
         } else {
             if (log.isInfoEnabled()) {
