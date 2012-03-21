@@ -37,7 +37,6 @@ import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -63,7 +62,6 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.TypeAuth;
 import org.encuestame.utils.web.CommentBean;
@@ -501,20 +499,6 @@ public class ConvertDomainBean {
       permBean.setDescription(permission.getPermissionDescription());
       permBean.setPermission(permission.getPermission().toString());
       return permBean;
-    }
-
-
-    /**
-     * Convert {@link QuestionPattern} to {@link QuestionPatternBean}.
-     * @param pattern  {@link QuestionPattern}
-     * @return {@link QuestionPatternBean}
-     */
-    public static final QuestionPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
-        final QuestionPatternBean patterBean = new QuestionPatternBean();
-        patterBean.setId(pattern.getPatternId());
-        patterBean.setPatronType(pattern.getPatternType());
-        patterBean.setLabel(pattern.getLabelQid());
-        return patterBean;
     }
 
     /**

@@ -89,10 +89,6 @@ public class Question {
     private Long hits;
 
     /**
-     * Type of pattern.
-     */
-    private QuestionPattern questionPattern;
-    /**
      * Account relationship.
      */
     private Account accountQuestion;
@@ -171,22 +167,6 @@ public class Question {
      */
     public void setQuestionColettions(final Set<QuestionColettion> questionColettions) {
         this.questionColettions = questionColettions;
-    }
-
-    /**
-     * @return the questionPattern
-     */
-    @ManyToOne()
-    @JoinColumn(name = "id_question_pattern", nullable = true)
-    public QuestionPattern getQuestionPattern() {
-        return questionPattern;
-    }
-
-    /**
-     * @param questionPattern the questionPattern to set
-     */
-    public void setQuestionPattern(final QuestionPattern questionPattern) {
-        this.questionPattern = questionPattern;
     }
 
     /**

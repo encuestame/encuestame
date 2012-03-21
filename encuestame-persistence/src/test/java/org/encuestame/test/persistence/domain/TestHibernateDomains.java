@@ -39,7 +39,6 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionDependenceSurvey;
 import org.encuestame.persistence.domain.question.QuestionDependencies;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -128,25 +127,6 @@ public class TestHibernateDomains extends AbstractBase{
 
     }
 
-
-    /**
-    * Test Question Pattern Domain.
-    **/
-    @Test
-    public void testQuestionPattern(){
-        final QuestionPattern questionPattern = new QuestionPattern();
-        questionPattern.setPatternType("yes or No");
-        questionPattern.setDesQid("1");
-        questionPattern.setLabelQid("Y/N");
-        questionPattern.setLabelQid("Yes or No");
-        questionPattern.setFinallity("Select an option");
-        questionPattern.setPatternTemplate("patter.template.java");
-        questionPattern.setLevel(2);
-        getQuestionDaoImp().saveOrUpdate(questionPattern);
-        assertNotNull(questionPattern.getPatternId());
-
-    }
-
     /**
     * Test Questions Domain.
     **/
@@ -158,7 +138,6 @@ public class TestHibernateDomains extends AbstractBase{
         questions.setHits(0L);
         questions.setSharedQuestion(Boolean.FALSE);
         questions.setSlugQuestion(" "+RandomStringUtils.randomAscii(10));
-        questions.setQuestionPattern(createQuestionPattern("options"));
         questions.getQuestionColettions().add(createQuestionCollect("options"));
         questions.setAccountQuestion(createAccount());
         getQuestionDaoImp().saveOrUpdate(questions);
@@ -512,18 +491,18 @@ public class TestHibernateDomains extends AbstractBase{
          rateItem.setPoll(null);
          rateItem.setSurvey(null);
          rateItem.setUpdatedDate(Calendar.getInstance().getTime());
-	}
-     
+    }
+
     /**
      *  Test {@link HashTagRanking} Domain.
      */
     @Test
     public void testHashTagRanking(){
-    	final HashTagRanking tagRanking = new HashTagRanking(); 
-    	final HashTag tag = createHashTag("health");
-    	tagRanking.setHashTag(tag);
-    	tagRanking.setAverage(25D); 
-    	tagRanking.setRankingDate(new Date());
-    	getHashTagDao().saveOrUpdate(tagRanking);
+        final HashTagRanking tagRanking = new HashTagRanking();
+        final HashTag tag = createHashTag("health");
+        tagRanking.setHashTag(tag);
+        tagRanking.setAverage(25D);
+        tagRanking.setRankingDate(new Date());
+        getHashTagDao().saveOrUpdate(tagRanking);
     }
 }

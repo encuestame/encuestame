@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.QuestionDaoImp;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.test.config.AbstractBase;
@@ -128,19 +127,16 @@ public class TestQuestionDao extends AbstractBase{
         Assert.assertNotNull(section1);
         Assert.assertNotNull(section2);
 
-        // Pattern
-        final QuestionPattern pattern = createQuestionPattern("Yes/No");
-
         // Questions in first section.
-        addQuestionSection("Question 11", pattern, section1, this.user);
-        addQuestionSection("Question 12", pattern, section1, this.user);
-        addQuestionSection("Question 13", pattern, section1, this.user);
-        addQuestionSection("Question 14", pattern, section1, this.user);
+        addQuestionSection("Question 11", section1, this.user);
+        addQuestionSection("Question 12", section1, this.user);
+        addQuestionSection("Question 13", section1, this.user);
+        addQuestionSection("Question 14", section1, this.user);
 
         // Questions in second section.
-        addQuestionSection("Question 21", pattern, section2, this.user);
-        addQuestionSection("Question 22", pattern, section2, this.user);
-        addQuestionSection("Question 23", pattern, section2, this.user);
+        addQuestionSection("Question 21", section2, this.user);
+        addQuestionSection("Question 22", section2, this.user);
+        addQuestionSection("Question 23", section2, this.user);
 
         final List<Question> questionsBySection = getQuestionDaoImp()
                 .getQuestionsbySection(section1);

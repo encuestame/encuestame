@@ -22,7 +22,6 @@ import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -213,25 +212,6 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     @SuppressWarnings("unchecked")
     public final List<Question> loadAllQuestions() throws HibernateException {
         return getHibernateTemplate().find("from Question");
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestionPattern()
-     */
-    @SuppressWarnings("unchecked")
-    public final List<QuestionPattern> loadAllQuestionPattern()
-            throws HibernateException {
-        return getHibernateTemplate().find("from QuestionPattern");
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IQuestionDao#loadPatternInfo(java.lang.Long)
-     */
-    public final QuestionPattern loadPatternInfo(final Long patternId) throws HibernateException{
-        return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patternId);
     }
 
     /*

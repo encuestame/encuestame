@@ -33,7 +33,6 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -58,7 +57,6 @@ import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
@@ -556,62 +554,6 @@ public class AbstractSurveyService extends AbstractChartService {
             throw new EnMeExpcetion(e);
         }
         return  listQuestionBean;
-    }
-
-    /**
-     * Load pattern info.
-     * @param unitPatternBean {@link QuestionPatternBean}
-     * @return {@link QuestionPatternBean}
-     * @throws EnMeExpcetion exception
-     */
-    public QuestionPatternBean loadPatternInfo(QuestionPatternBean unitPatternBean)
-            throws EnMeExpcetion {
-        if (unitPatternBean != null && unitPatternBean.getId() != null) {
-            final QuestionPattern questionPatternDomain = getQuestionDao().loadPatternInfo(
-                    unitPatternBean.getId());
-
-            unitPatternBean.setId(questionPatternDomain.getPatternId());
-
-            unitPatternBean.setDescripcion(questionPatternDomain.getDesQid());
-            unitPatternBean.setLabel(questionPatternDomain.getLabelQid());
-            unitPatternBean.setPatronType(questionPatternDomain.getPatternType());
-            unitPatternBean.setTemplate(questionPatternDomain.getPatternTemplate());
-            unitPatternBean.setClasspattern("classpatthern");
-            unitPatternBean.setLevelpattern("2");
-            unitPatternBean.setFinallity("save");
-            //TODO : need more properties.
-            return unitPatternBean;
-        }
-        else {
-            throw new EnMeExpcetion("unit patter bean is null");
-        }
-    }
-
-    /**
-     * Load all Patrons.
-     * @return List of {@link QuestionPatternBean}
-     * @throws EnMeExpcetion exception
-     */
-    public Collection<QuestionPatternBean> loadAllPatrons()
-            throws EnMeExpcetion {
-        final List<QuestionPatternBean> listPatronBean = new LinkedList<QuestionPatternBean>();
-        try {
-            final List<QuestionPattern> patronList = getQuestionDao()
-                    .loadAllQuestionPattern();
-            if (patronList.size() > 0) {
-               for (QuestionPattern patron : patronList) {
-                    QuestionPatternBean p = new QuestionPatternBean();
-                    p.setId(patron.getPatternId());
-                    p.setPatronType(patron.getPatternType());
-                    listPatronBean.add(p);
-                }
-            }
-        } catch (HibernateException e) {
-            throw new EnMeExpcetion(e);
-        } catch (Exception e) {
-            throw new EnMeExpcetion(e);
-        }
-        return listPatronBean;
     }
 
     /**

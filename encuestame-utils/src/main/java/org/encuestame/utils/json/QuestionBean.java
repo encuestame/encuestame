@@ -61,12 +61,6 @@ public class QuestionBean implements Serializable {
     /**
      *
      */
-    @JsonProperty(value = "pattern")
-    private QuestionPatternBean pattern = new QuestionPatternBean();
-
-    /**
-     *
-     */
     @JsonProperty(value = "state_id")
     private Long stateId;
 
@@ -132,22 +126,6 @@ public class QuestionBean implements Serializable {
      */
     public final void setVersion(String version) {
         this.version = version;
-    }
-
-    /**
-     * @return the pattern
-     */
-    @JsonIgnore
-    public final QuestionPatternBean getPattern() {
-        return pattern;
-    }
-
-    /**
-     * @param pattern
-     *            the pattern to set
-     */
-    public final void setPattern(final QuestionPatternBean pattern) {
-        this.pattern = pattern;
     }
 
     /**
@@ -252,7 +230,7 @@ public class QuestionBean implements Serializable {
     @Override
     public String toString() {
         return "QuestionBean [questionName=" + questionName + ", slugName="
-                + slugName + ", version=" + version + ", pattern=" + pattern
+                + slugName + ", version=" + version
                 + ", stateId=" + stateId + ", id=" + id + ", userId=" + userId
                 + ", listAnswers=" + listAnswers + "]";
     }
