@@ -5,13 +5,18 @@
    </header>
    <article class="emne-box">
         <section class="web-vote">
-            VOTE ${poll}
-            VOTE ${poll.questionBean}
-            ANSWER ${answers}
+            VOTE ${poll}<br>
+            /////////////////////////////////////////////
+            VOTE ${poll.questionBean}<br>
+            /////////////////////////////////////////////
+            ANSWER ${answers}<br>
+            <br>
+            <br>
+            <br>
             <article dojoType="encuestame.org.core.commons.poll.vote.PollVote"
                     pollId="${poll.id}">
-                <c:forEach items="${answers}" var="a">
-                    <section dojoType="encuestame.org.core.commons.poll.vote.AnswerVote"
+                <c:forEach items="${answers}" var="a">${poll.questionBean.widget}
+                    <section dojoType="${poll.questionBean.widget}"
                              answerId="${a.answerId}"
                              label="${a.answers}"
                              value="">

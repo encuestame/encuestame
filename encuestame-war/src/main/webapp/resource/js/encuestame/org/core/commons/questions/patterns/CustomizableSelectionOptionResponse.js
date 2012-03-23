@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-dojo.provide("encuestame.org.core.commons.questions.patterns.MultipleOptionResponse");
+dojo.provide("encuestame.org.core.commons.questions.patterns.CustomizableSelectionOptionResponse");
 
 dojo.require("encuestame.org.core.commons.questions.patterns.AbstractPattern");
 dojo.require("encuestame.org.core.commons.questions.patterns.AbstractSoundResponse");
@@ -22,7 +22,7 @@ dojo.require("encuestame.org.core.commons.questions.patterns.AbstractMultipleSel
 /**
  *
  */
-dojo.declare("encuestame.org.core.commons.questions.patterns.MultipleOptionResponse",
+dojo.declare("encuestame.org.core.commons.questions.patterns.CustomizableSelectionOptionResponse",
         [encuestame.org.core.commons.questions.patterns.AbstractPattern,
          encuestame.org.core.commons.questions.patterns.AbstractSoundResponse,
          encuestame.org.core.commons.questions.patterns.AbstractVideoResponse,
@@ -30,8 +30,13 @@ dojo.declare("encuestame.org.core.commons.questions.patterns.MultipleOptionRespo
          encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer,
          encuestame.org.core.commons.questions.patterns.AbstractMultipleSelection],{
 
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.questions.patterns", "templates/customizableSelectionOptionResponse.html"),
 
-        postCreate : function(){
+        multiple : false,
+
+        addNewResponse : false,
+
+        postCreate : function() {
             this.inherited(arguments);
         }
 

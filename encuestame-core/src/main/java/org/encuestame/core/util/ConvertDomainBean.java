@@ -513,6 +513,11 @@ public class ConvertDomainBean {
         questionBean.setSlugName(questions.getSlugQuestion());
         questionBean.setHits(questions.getHits());
         questionBean.setUserId(questions.getAccountQuestion() == null ? null : questions.getAccountQuestion().getUid());
+        if (questions.getQuestionPattern() != null) {
+            log.debug("questions.getQuestionPattern()"+questions.getQuestionPattern().name());
+            questionBean.setWidget(questions.getQuestionPattern().getWidget());
+            questionBean.setPattern(questions.getQuestionPattern().name());
+        }
         return questionBean;
     }
 

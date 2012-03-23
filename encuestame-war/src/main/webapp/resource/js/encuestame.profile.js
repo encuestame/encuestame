@@ -141,6 +141,7 @@ dependencies ={
                 "encuestame.org.core.commons.questions.patterns.AbstractVideoResponse",
                 "encuestame.org.core.commons.questions.patterns.MultipleOptionResponse",
                 "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+                "encuestame.org.core.commons.questions.patterns.CustomizableSelectionOptionResponse",
                 "encuestame.org.core.shared.publish.PublishSupport",
                 "encuestame.org.core.shared.utils.ContextSupport",
                 "encuestame.org.core.commons.support.DnD",

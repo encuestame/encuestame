@@ -56,6 +56,7 @@ import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -105,11 +106,14 @@ public class AbstractSurveyService extends AbstractChartService {
     /**
      * Create Question.
      * @param questionBean {@link QuestionBean}.
+     * @param account {@link UserAccount}
+     * @param questionPattern {@link QuestionPattern}
      * @throws EnMeExpcetion exception
      */
     public Question createQuestion(
             final QuestionBean questionBean,
-            final UserAccount account) throws EnMeExpcetion{
+            final UserAccount account,
+            final QuestionPattern questionPattern) throws EnMeExpcetion{
             final Question question = new Question();
             try{
                 question.setQuestion(questionBean.getQuestionName());

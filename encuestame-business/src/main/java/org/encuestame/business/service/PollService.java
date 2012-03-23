@@ -40,6 +40,7 @@ import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
@@ -119,7 +120,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
     * (non-Javadoc)
     * @see org.encuestame.core.service.imp.IPollService#createPoll(java.lang.String, java.lang.String[], java.lang.Boolean, java.lang.String, java.lang.Boolean)
     */
-
     public Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
         final String commentOption, final Boolean notification) throws EnMeExpcetion{
         final UserAccount user = getUserAccount(getUserPrincipalUsername());
@@ -131,7 +131,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         try {
             final QuestionBean questionBean = new QuestionBean();
             questionBean.setQuestionName(questionName);
-            final Question question = createQuestion(questionBean, user);
+            final Question question = createQuestion(questionBean, user, QuestionPattern.CUSTOMIZABLE_SELECTION);
             log.debug("question found : {"+question);
             log.debug("answers found : {"+answers.length);
             if (question == null) {

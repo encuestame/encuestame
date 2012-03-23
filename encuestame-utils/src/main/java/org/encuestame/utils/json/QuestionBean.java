@@ -77,6 +77,18 @@ public class QuestionBean implements Serializable {
     private Long userId;
 
     /**
+     * Pattern.
+     */
+    @JsonProperty(value = "pattern")
+    private String pattern;
+
+    /**
+     * Widget.
+     */
+    @JsonProperty(value = "widget")
+    private String widget;
+
+    /**
      *
      */
     @JsonProperty(value = "list_answers")
@@ -218,6 +230,36 @@ public class QuestionBean implements Serializable {
     }
 
     /**
+     * @return the pattern
+     */
+    @JsonIgnore
+    public String getPattern() {
+        return pattern;
+    }
+
+    /**
+     * @param pattern the pattern to set
+     */
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
+    /**
+     * @return the widget
+     */
+     @JsonIgnore
+    public String getWidget() {
+        return widget;
+    }
+
+    /**
+     * @param widget the widget to set
+     */
+    public void setWidget(String widget) {
+        this.widget = widget;
+    }
+
+    /**
      * @param hits the hits to set
      */
     public void setHits(final Long hits) {
@@ -229,9 +271,18 @@ public class QuestionBean implements Serializable {
      */
     @Override
     public String toString() {
-        return "QuestionBean [questionName=" + questionName + ", slugName="
-                + slugName + ", version=" + version
-                + ", stateId=" + stateId + ", id=" + id + ", userId=" + userId
-                + ", listAnswers=" + listAnswers + "]";
+        return "QuestionBean ["
+                + (questionName != null ? "questionName=" + questionName + ", "
+                        : "")
+                + (slugName != null ? "slugName=" + slugName + ", " : "")
+                + (hits != null ? "hits=" + hits + ", " : "")
+                + (version != null ? "version=" + version + ", " : "")
+                + (stateId != null ? "stateId=" + stateId + ", " : "")
+                + (id != null ? "id=" + id + ", " : "")
+                + (userId != null ? "userId=" + userId + ", " : "")
+                + (pattern != null ? "pattern=" + pattern + ", " : "")
+                + (widget != null ? "widget=" + widget + ", " : "")
+                + (listAnswers != null ? "listAnswers=" + listAnswers.size() : "")
+                + "]";
     }
 }

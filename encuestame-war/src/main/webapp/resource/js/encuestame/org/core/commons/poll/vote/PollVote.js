@@ -15,17 +15,28 @@ dojo.provide("encuestame.org.core.commons.poll.vote.PollVote");
 dojo.require('encuestame.org.core.commons');
 dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
 
+dojo.require('encuestame.org.core.commons.questions.patterns.SingleOptionResponse');
+dojo.require('encuestame.org.core.commons.questions.patterns.MultipleOptionResponse');
+
 /**
  *
  */
 dojo.declare("encuestame.org.core.commons.poll.vote.PollVote", [
         encuestame.org.main.EnmeMainLayoutWidget], {
-    templatePath : dojo.moduleUrl("encuestame.org.core.commons.poll.vote",
-            "templates/pollvote.html"),
 
+        /**
+         *
+         */
+        templatePath : dojo.moduleUrl("encuestame.org.core.commons.poll.vote","templates/pollvote.html"),
+
+
+        /**
+         *
+         */
         postCreate : function(){
             dojo.query("> [dojoType]", this.srcNodeRef).forEach(
                     dojo.hitch(this, function(node) {
+                       console.info(node);
                        this._responses.appendChild(node);
                     })
                 );
