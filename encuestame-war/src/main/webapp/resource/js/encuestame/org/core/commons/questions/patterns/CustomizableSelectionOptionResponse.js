@@ -32,11 +32,43 @@ dojo.declare("encuestame.org.core.commons.questions.patterns.CustomizableSelecti
 
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.questions.patterns", "templates/customizableSelectionOptionResponse.html"),
 
-        multiple : false,
-
+        /**
+         * Enable add new response.
+         */
         addNewResponse : false,
 
+        /**
+         *
+         */
+        name : "name",
+
+        /**
+         *
+         */
+        value : "",
+
+        /**
+         *
+         */
+        itemId : "",
+
+        /**
+         * Define the default of type of answers.
+         */
+        type : "DEFAULT",
+
+        /**
+         * Post Create.
+         */
         postCreate : function() {
+            if (this.multiple) {
+                this.initializeMultipleSupport(this.name, this._option);
+            } else {
+                this._createSimpleButton(this.name, this._option, this.value, this.itemId);
+            }
+            if (this.addNewResponse) {
+                this.initializeAddNewResponseSupport();
+            }
             this.inherited(arguments);
         }
 

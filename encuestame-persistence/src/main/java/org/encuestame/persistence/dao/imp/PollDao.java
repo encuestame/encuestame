@@ -208,15 +208,16 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
     /*
      * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long, java.lang.String)
+     * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long, java.lang.String, boolean)
      */
     @SuppressWarnings("unchecked")
-    public Poll getPollById(final Long pollId, final String slugQuestion) {
+    public Poll getPollById(final Long pollId, final String slugQuestion, final boolean encode) {
         final DetachedCriteria detached = DetachedCriteria
         .forClass(Poll.class)
         .createAlias("question", "question");
         detached.add(Restrictions.eq("pollId", pollId));
-        detached.add(Restrictions.eq("question.slugQuestion", RestFullUtil.encodeUTF8(slugQuestion)));
+        final String encodeString = encode ? RestFullUtil.encodeUTF8(slugQuestion) : slugQuestion;
+        detached.add(Restrictions.eq("question.slugQuestion", encodeString));
         return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(detached));
     }
 

@@ -50,9 +50,10 @@ public interface IPoll extends IBaseDao {
       * Get the poll by id
       * @param pollId
       * @param slugQuestion
+      * @param encode define if is required encode the slug question.
       * @return
       */
-     Poll getPollById(final Long pollId, final String slugQuestion);
+     Poll getPollById(final Long pollId, final String slugQuestion, final boolean encode);
 
      /**
       * Count All Poll.

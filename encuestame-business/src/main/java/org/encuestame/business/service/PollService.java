@@ -48,7 +48,6 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
-import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UnitLists;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -271,8 +270,18 @@ public class PollService extends AbstractSurveyService implements IPollService{
     * (non-Javadoc)
     * @see org.encuestame.core.service.imp.IPollService#vote(java.lang.Long, java.lang.String, java.lang.String, java.lang.Long)
     */
-    public void vote(final Long pollId, final String slug, final String ipAddress, final Long answerId) throws EnMeNoResultsFoundException {
-        final Poll poll = this.getPollDao().getPollById(pollId, slug);
+    public void vote(final Long pollId, final String slug,
+            final String ipAddress,
+            final Long answerId)
+            throws EnMeNoResultsFoundException {
+        log.debug("vote "+pollId);
+        log.debug("vote "+slug);
+        log.debug("vote "+ipAddress);
+        log.debug("vote "+answerId);
+        final Poll poll = this.getPollDao().getPollById(pollId, slug, false);
+        if (poll == null) {
+            throw new EnMeNoResultsFoundException("poll not found");
+        }
         final PollResult pr = new PollResult();
         pr.setAnswer(this.getQuestionAnswerById(answerId));
         //validate IP address.
@@ -550,7 +559,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @see org.encuestame.core.service.imp.IPollService#getPollSlugById(java.lang.Long, java.lang.String)
      */
     public Poll getPollSlugById(final Long pollId, final String slug) throws EnMeNoResultsFoundException{
-        final Poll poll = this.getPollDao().getPollById(pollId, slug);
+        final Poll poll = this.getPollDao().getPollById(pollId, slug, true);
         if (poll == null) {
             log.error("poll invalid with this id "+pollId+ " and slug:{"+slug);
             throw new EnMePollNotFoundException("poll invalid with this id "+pollId+ " and slug:{"+slug);

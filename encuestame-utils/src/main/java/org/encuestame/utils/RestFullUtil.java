@@ -78,9 +78,9 @@ public class RestFullUtil {
         }
     }
 
-      /**
-       * Convert the String input to a slug.
-       */
+     /**
+      * Convert the String input to a slug.
+      */
       public static String toSlug(String input) {
         if (input == null) {
             throw new IllegalArgumentException("Input cannot be null");

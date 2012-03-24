@@ -30,5 +30,13 @@
      </div>
      <footer id="footer">
           <tiles:insertAttribute name="footer" />
+          <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
+            <script type="text/javascript">
+                 dojo.require("dijit.dijit");
+                 dojo.require("dojo.parser");
+                 dojo.require("dojo.io.script");
+                 dojo.require("encuestame.org.core.commons");
+            </script>
+          <tiles:insertAttribute name="extra-js" ignore="true"/>
      </footer>
 </html>

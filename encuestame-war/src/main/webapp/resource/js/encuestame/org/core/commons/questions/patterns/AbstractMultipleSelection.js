@@ -19,4 +19,32 @@ dojo.declare("encuestame.org.core.commons.questions.patterns.AbstractMultipleSel
         null,
     {
 
+     /**
+       * Enable multiples selection.
+       */
+       multiple : false,
+
+       /**
+        *
+        */
+       constructor: function(){},
+
+       /**
+        *
+        */
+       initializeMultipleSupport : function(label) {
+
+       },
+
+       /**
+        *
+        */
+       _selectedWidgets : [],
+
+       /**
+        *
+        */
+       getSelectedtedWidgets : function() {
+
+       },
     });

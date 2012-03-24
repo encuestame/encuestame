@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -30,6 +29,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Poll controller.
@@ -51,18 +51,60 @@ public class PollController extends AbstractBaseOperations {
      * @return template
      */
     @RequestMapping(value = "/poll/{id}/{slug}", method = RequestMethod.GET)
-    public String pollController(final ModelMap model, @PathVariable Long id,  @PathVariable String slug) {
+    public String pollController(final ModelMap model,
+            @PathVariable Long id,
+            @PathVariable String slug) {
         log.debug("poll Id -->" + id);
         log.debug("poll slug -->" + slug);
         try {
             final Poll poll = getPollService().getPollSlugById(id, slug);
+            log.debug("poll--> "+poll);
             model.addAttribute("poll",
                     ConvertDomainBean.convertPollDomainToBean(poll));
             return "poll/detail";
-        } catch (EnMeNoResultsFoundException e) {
+        } catch (Exception e) {
             log.error(e);
             return "404";
         }
+    }
+
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/poll/voted", method = RequestMethod.GET)
+    public String pollVoted(final ModelMap model) {
+        return "poll/voted";
+    }
+
+    /**
+     *
+     * @param responses
+     * @param password
+     * @param usernameForm
+     * @param req
+     * @return
+     */
+    @RequestMapping(value = "/poll/vote/post", method = RequestMethod.POST)
+    public String submit(
+            @RequestParam("poll") Long responseId,
+            @RequestParam("itemId") Long itemId,
+            @RequestParam("type") String type,
+            @RequestParam("slugName") String slugName,
+            final HttpServletRequest req) {
+        log.debug("VOTE POLL "+responseId);
+        log.debug("VOTE POLL "+itemId);
+        log.debug("VOTE POLL "+type);
+        log.debug("VOTE POLL "+type);
+
+        try {
+            getPollService().vote(itemId, slugName, getIpClient(), responseId);
+        } catch (EnMeNoResultsFoundException e) {
+            log.error("error poll vote "+e);
+            e.printStackTrace();
+        }
+        return "redirect:/poll/voted/";
     }
 
     /**

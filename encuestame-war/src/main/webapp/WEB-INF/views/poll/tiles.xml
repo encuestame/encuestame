@@ -10,10 +10,20 @@
     </definition>
 
 
-    <definition name="poll/vote" extends="page">
+    <definition name="poll/vote" extends="main-vote">
         <put-attribute name="title" value="Poll Vote | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}vote.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}vote-js.jsp" />
+    </definition>
+
+    <definition name="poll/voted" extends="main-vote">
+        <put-attribute name="title" value="Voted | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}voted.jsp" />
+    </definition>
+
+    <definition name="poll/bad" extends="main-vote">
+        <put-attribute name="title" value="Voted | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad-voted.jsp" />
     </definition>
 
     <definition name="poll/list" extends="page">
