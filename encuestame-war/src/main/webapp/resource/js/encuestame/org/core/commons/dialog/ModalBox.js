@@ -97,7 +97,7 @@ dojo.declare(
          //modal-box-im
          dojo.addClass(container, "modal-box-im");
          dojo.style(container, "top","-10px");
-         dojo.style(container, "left",left+"px");
+         dojo.style(container, "left", left+"px"); //TODO: issues on webkit browsers.
          var l = dojo.create("div");
          if(typeof content == "string") {
              l.innerHTML = content;

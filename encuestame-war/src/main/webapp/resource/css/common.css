@@ -137,6 +137,21 @@ button.emne-menu button {
   text-shadow: 0 0 0 transparent, 0 1px 0 #FFFFFF;
 }
 
+button {
+  cursor: pointer;
+  background-color: #89CF6A;
+  border: 1px solid #6D8000;
+  border-radius: 14px 14px 14px 14px;
+  color: white;
+  font-size: 14px;
+  padding: 5px 13px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+button:hover{
+    background-color: #A1D988;
+}
+
 .wrap{
     white-space: pre;           /* CSS 2.0 */
     white-space: pre-wrap;      /* CSS 2.1 */
@@ -146,4 +161,12 @@ button.emne-menu button {
     white-space: -moz-pre-wrap; /* Mozilla */
     white-space: -hp-pre-wrap;  /* HP Printers */
     word-wrap: break-word;      /* IE 5+ */
+}
+
+/** disable focus on webkit **/
+input:focus {
+    outline: none !important;
+}
+.dijitTextBoxFocused {
+    outline: none !important;
 }

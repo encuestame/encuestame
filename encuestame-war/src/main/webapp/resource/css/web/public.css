@@ -1384,19 +1384,16 @@ div.web-filter-sidebar-panel div.optionItem span:hover {
     padding: 4px;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info
-    {
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info {
     float: left;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info>div
-    {
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info>div {
 
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove
-    {
-    float: right;
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove {
+  text-align: right;
 }
 
 /** TweetPoll **/
@@ -1412,15 +1409,17 @@ div.web-filter-sidebar-panel div.optionItem span:hover {
 
 /** List TweetPoll **/
 #web-tweetpoll-wrapper div.web-tweetpoll-menu {
-    font-size: 100%;
-    padding: 10px;
+  font-size: 100%;
+  padding: 10px;
+  text-align: right;
 }
 
 #web-tweetpoll-wrapper div.web-tweetpoll-menu  a {
     color: #FFF !important;
-    font-weight: bold;
     cursor: pointer;
-    text-decoration: underline;
+}
+#web-tweetpoll-wrapper div.web-tweetpoll-menu  a:hover {
+    text-decoration: none;
 }
 
 div.web-tweetpoll-wrapper {
@@ -4553,9 +4552,8 @@ div.web-social-links {
   border: 1px solid #6D8000;
   border-radius: 14px 14px 14px 14px;
   color: white;
-  font-family: Arial,Helvetica,sans-serif;
   font-size: 14px;
-  padding: 10px 20px;
+  padding: 5px 13px;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
@@ -4646,19 +4644,3 @@ div.web-social-links {
     bottom: 0;
     right: 0;
 }
-
-.modal-box button{
-    background-color: #89CF6A;
-  border: 1px solid #6D8000;
-  border-radius: 14px 14px 14px 14px;
-  color: white;
-  font-family: Arial,Helvetica,sans-serif;
-  font-size: 14px;
-  padding: 5px 13px;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.modal-box button:hover{
-    background-color: #A1D988;
-}
-
