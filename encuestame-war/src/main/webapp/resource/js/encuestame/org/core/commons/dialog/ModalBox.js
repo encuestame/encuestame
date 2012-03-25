@@ -1,5 +1,7 @@
 dojo.provide("encuestame.org.core.commons.dialog.ModalBox");
 
+dojo.require("dojo.fx");
+
 /**
  * Widget to display a pretty a modal box.
  */
@@ -35,6 +37,18 @@ dojo.declare(
          this.node = node;
          this.mode = mode == null ? this.mode : mode;
          this.handler = customHandler == null ? this.handler : customHandler;
+         //scroll event for IE
+         ///document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", dojo.hitch(this, this.onScroll), false);
+         //scroll wheel for
+         //window.onscroll = dojo.hitch(this, this.onScroll);
+
+     },
+
+     onScroll : function(){
+         //var height = window.height();
+         //var scrollTop = window.scrollTop();
+         console.debug("onScroll",height);
+         console.debug("onScroll",scrollTop);
      },
 
      /**
@@ -61,8 +75,29 @@ dojo.declare(
      _buildModal : function(content) {
          var container = dojo.create("div");
          dojo.addClass(container, "modal-box");
+         //var height = window.height();
+
+         var innerWidth = 0;
+         if (window.innerWidth) { //if browser supports window.innerWidth
+             innerWidth = window.innerWidth;
+         } else if (document.all) { //else if browser supports document.all (IE 4+)
+             innerWidth = document.body.clientWidth;
+         }
+         var left = (innerWidth / 2) - (420 / 2);
+         //check if is IE.
+         var iebody = (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body;
+         //position top scroll
+         var dsoctop = document.all ? iebody.scrollTop : pageYOffset;
+         //position left scroll
+         var dsocleft = document.all? iebody.scrollLeft : pageXOffset;
+         //adjust window top.
+         dsoctop = dsoctop + 100;
+         //adjust left top.
+         dsocleft = dsocleft + 100;
          //modal-box-im
          dojo.addClass(container, "modal-box-im");
+         dojo.style(container, "top","-10px");
+         dojo.style(container, "left",left+"px");
          var l = dojo.create("div");
          if(typeof content == "string") {
              l.innerHTML = content;
@@ -72,8 +107,15 @@ dojo.declare(
          dojo.addClass(l, "wrapper");
          container.appendChild(l);
          var buttons = this._createButtons(container);
-         console.info("buttons",buttons);
+         //console.info("buttons",buttons);
          l.appendChild(buttons);
+         var slideArgs = {
+                 node: container,
+                 top: dsoctop,
+                 left: left,
+                 unit: "px"
+             };
+          dojo.fx.slideTo(slideArgs).play();
          return container;
      },
 
