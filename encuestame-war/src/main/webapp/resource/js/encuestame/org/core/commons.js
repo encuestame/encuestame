@@ -700,6 +700,9 @@ encuestame.messages.pubish = function(message, type, duration) {
     dojo.publish('/encuestame/message/publish', [{ message: message, type: type, duration: duration}]);
 };
 
+encuestame.modalbox = {};
+
+
 encuestame.constants.errorCodes = {
     "002" : "Enter your first and last name.",
     "003" : "Whats your email address?",

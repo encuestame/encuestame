@@ -11,6 +11,9 @@
  ************************************************************************************
  */
 dojo.provide("encuestame.org.main.WidgetServices");
+
+dojo.require("encuestame.org.core.commons.dialog.ModalBox");
+
 dojo.declare("encuestame.org.main.WidgetServices", null, {
 
     // constructor
@@ -20,6 +23,14 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      *
      */
     _delay_messages : 5000,
+
+    /*
+     *
+     */
+    _createModalBox : function(type, handler) {
+        var modalBox = new encuestame.org.core.commons.dialog.ModalBox(dojo.byId("modal-box"), type, dojo.hitch(handler));
+        return modalBox;
+    },
 
     /*
      *
@@ -40,7 +51,16 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      *
      */
     errorMesage : function(error) {
-        encuestame.messages.pubish(error == null ? encuestame.constants.errorCodes["023"] : error, "error", this._delay_messages);
+        var modal = this._createModalBox("alert", null);
+        modal.show(error == null ? encuestame.constants.errorCodes["023"] : error);
+    },
+
+    /*
+     *
+     */
+    infoMesage : function(info) {
+         var modal = this._createModalBox("alert", null);
+         modal.show(info);
     },
 
     /*

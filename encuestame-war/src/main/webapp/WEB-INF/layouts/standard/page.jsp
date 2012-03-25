@@ -52,5 +52,6 @@
     </script>
     <!-- Insert additional javascript  -->
     <tiles:insertAttribute name="extra-js" ignore="true"/>
+    <div id="modal-box"></div>
 </body>
 </html>

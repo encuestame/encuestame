@@ -11,4 +11,6 @@ encuestame.org.core.gadget.TweetPollVotes
     dojo.require("dojox.widget.FeedPortlet");
     dojo.require("dojox.layout.GridContainer");
     dojo.require("dojox.widget.Calendar");
+    dojo.require("encuestame.org.core.commons.dialog.ModalBox");
+    dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 </script>
