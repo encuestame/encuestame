@@ -741,4 +741,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
         detail.getPollBean().setTotalComments(this.getTotalCommentsbyType(detail.getPollBean().getId(), TypeSearchResult.POLL));
         return detail;
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#validatePollIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
+     */
+    public PollResult validatePollIP(final String ip, final Poll poll) {
+    	return getPollDao().validateVoteIP(ip, poll);
+    }
 }

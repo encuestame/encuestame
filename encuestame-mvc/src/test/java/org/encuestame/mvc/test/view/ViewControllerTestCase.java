@@ -111,8 +111,7 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
         public void testDashBoardController() throws Exception {
             DashBoardController controller = this.dashBoardController;
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/dashboard");
-            final ModelAndView mav = handlerAdapter.handle(request, response,
-                controller);
+            final ModelAndView mav = handlerAdapter.handle(request, response, controller);
             assertViewName(mav, "dashboard");
         }
 

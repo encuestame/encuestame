@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -79,7 +80,8 @@ public class PollController extends AbstractBaseOperations {
     }
 
     /**
-     *
+     * Called when user vote from Vote Interface, validate the vote and
+     * return a page for different cases.
      * @param responses
      * @param password
      * @param usernameForm
@@ -97,14 +99,34 @@ public class PollController extends AbstractBaseOperations {
         log.debug("VOTE POLL "+itemId);
         log.debug("VOTE POLL "+type);
         log.debug("VOTE POLL "+type);
-
+        //default path
+        String pathVote = "redirect:/poll/voted/";
         try {
-            getPollService().vote(itemId, slugName, getIpClient(), responseId);
+            type = filterValue(type);
+            slugName = filterValue(slugName);
+            final String IP = getIpClient();
+            //validations
+            final Boolean checkBannedIp = checkIPinBlackList(IP);
+            if (checkBannedIp) {
+            	//if banned send to banned view.
+                pathVote ="banned";
+            } else {
+	            //
+	            final Poll poll = getPollService().getPollById(itemId);
+	            final PollResult result = getPollService().validatePollIP(IP, poll);
+	            if (result == null) {
+	            	getPollService().vote(itemId, slugName, IP, responseId);
+	            } else {
+	            	pathVote = "repeated";            
+	            }
+            }
         } catch (EnMeNoResultsFoundException e) {
             log.error("error poll vote "+e);
             e.printStackTrace();
+            pathVote ="badVote";
         }
-        return "redirect:/poll/voted/";
+        log.debug("poll vote path: "+pathVote);
+        return pathVote;
     }
 
     /**

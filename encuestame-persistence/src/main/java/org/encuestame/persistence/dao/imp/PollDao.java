@@ -12,7 +12,6 @@
  */
 package org.encuestame.persistence.dao.imp;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,6 +27,8 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -492,5 +493,21 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         log.debug("Retrieve total polls by  " + user.getUsername() + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#validateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
+     */
+    @SuppressWarnings("unchecked")
+    public PollResult validateVoteIP(
+    		final String ip,
+            final Poll poll) {
+        return (PollResult) DataAccessUtils
+                .uniqueResult(getHibernateTemplate()
+                        .findByNamedParam(
+                                "from PollResult where ipAddress= :ipAddress and  poll = :poll",
+                                new String[] { "ipAddress", "poll" },
+                                new Object[] { ip, poll }));
     }
 }
