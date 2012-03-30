@@ -3079,6 +3079,7 @@ div.menuWrapper div.rightSide span {
     margin-right: 3px;
     overflow: auto;
     vertical-align: middle;
+    width: 250px;
 }
 
 /** web-profile-menu **/

@@ -1260,8 +1260,6 @@ ALTER TABLE ONLY questions
 -- Name: fk95c5414d84133d82; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY questions
-    ADD CONSTRAINT fk95c5414d84133d82 FOREIGN KEY (id_question_pattern) REFERENCES questions_pattern(pattenr_id);
 
 
 --
