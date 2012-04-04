@@ -7,11 +7,3 @@
     dojo.require("encuestame.org.core.commons.questions.patterns.MultipleOptionResponse");
     dojo.require("encuestame.org.core.commons.questions.patterns.SingleOptionResponse");
 </script>
-<enme:require>
-encuestame.org.core.commons.poll.vote.PollVote
-encuestame.org.core.commons.poll.vote.AnswerVote
-encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer
-encuestame.org.core.commons.questions.patterns.CustomizableSelectionOptionResponse
-encuestame.org.core.commons.questions.patterns.MultipleOptionResponse
-encuestame.org.core.commons.questions.patterns.SingleOptionResponse
-</enme:require>

@@ -1,10 +1,4 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<enme:require>
-encuestame.org.core.commons.dashboard.DashboardWrapper
-encuestame.org.core.gadget.Activity
-encuestame.org.core.gadget.Comments
-encuestame.org.core.gadget.TweetPollVotes
-</enme:require>
 <script type="text/javascript">
     dojo.require("dijit.dijit");
     dojo.require("dojox.widget.Portlet");
@@ -13,4 +7,8 @@ encuestame.org.core.gadget.TweetPollVotes
     dojo.require("dojox.widget.Calendar");
     dojo.require("encuestame.org.core.commons.dialog.ModalBox");
     dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
+    dojo.require("encuestame.org.core.commons.dashboard.DashboardWrapper");
+    dojo.require("encuestame.org.core.gadget.Activity");
+    dojo.require("encuestame.org.core.gadget.Comments");
+    dojo.require("encuestame.org.core.gadget.TweetPollVotes");
 </script>

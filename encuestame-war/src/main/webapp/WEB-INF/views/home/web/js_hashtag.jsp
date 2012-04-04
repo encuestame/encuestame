@@ -1,13 +1,13 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <script src="<%=request.getContextPath()%>/resources/js/req/hashtag.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/req/popup.js"></script>
-<enme:require>
-encuestame.org.core.shared.publications.Publications
-encuestame.org.core.shared.utils.AccountPicture
-encuestame.org.core.commons.stream.HashTagInfo
-encuestame.org.core.commons.social.LinksPublished
-encuestame.org.core.shared.stats.GenericStats
-encuestame.org.core.shared.stats.RatePosition
-encuestame.org.core.shared.stats.TopProfiles
-encuestame.org.core.commons.hashtags.HashTagGraph
-</enme:require>
+<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<script type="text/javascript">
+    dojo.require("encuestame.org.core.shared.publications.Publications");
+    dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
+    dojo.require("encuestame.org.core.commons.social.LinksPublished");
+    dojo.require("encuestame.org.core.shared.stats.GenericStats");
+    dojo.require("encuestame.org.core.shared.stats.RatePosition");
+    dojo.require("encuestame.org.core.shared.stats.TopProfiles");
+    dojo.require("encuestame.org.core.commons.hashtags.HashTagGraph");
+</script>

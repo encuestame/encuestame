@@ -2,6 +2,3 @@
 <script type="text/javascript">
     dojo.require("encuestame.org.core.commons.poll.Poll");
 </script>
-<enme:require>
-encuestame.org.core.commons.poll.Poll
-</enme:require>
