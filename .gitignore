@@ -25,10 +25,6 @@ encuestame-war/src/main/webapp/resource/static/
 */.settings
 *DEADJOE*
 encuestame-war/encuestame-webapp.log*
-encuestame-war/src/main/webapp/resource/js/dijit/
-encuestame-war/src/main/webapp/resource/js/dojox/
-encuestame-war/src/main/webapp/resource/js/dojo/
-encuestame-war/src/main/webapp/resource/js/org/
 encuestame-config-custom.properties
 encuestame-war/src/main/resources/encuestame-config-custom.properties
 .metadata
