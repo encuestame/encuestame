@@ -26,6 +26,16 @@
         <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad-voted.jsp" />
     </definition>
 
+    <definition name="poll/banned" extends="main-vote">
+        <put-attribute name="title" value="Bad Voted | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}bad-voted.jsp" />
+    </definition>    
+    
+    <definition name="poll/repeated" extends="main-vote">
+        <put-attribute name="title" value="Repeated Voted | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/poll/${currentDevice.mobile ? 'mobile/' : 'web/'}repeated-voted.jsp" />
+    </definition>    
+
     <definition name="poll/list" extends="page">
         <put-attribute name="title" value="Poll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />

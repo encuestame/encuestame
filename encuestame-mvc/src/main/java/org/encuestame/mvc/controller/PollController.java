@@ -70,7 +70,7 @@ public class PollController extends AbstractBaseOperations {
     }
 
     /**
-     *
+     * Display the succesfully vote interface.
      * @param model
      * @return
      */
@@ -109,7 +109,7 @@ public class PollController extends AbstractBaseOperations {
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             if (checkBannedIp) {
             	//if banned send to banned view.
-                pathVote ="banned";
+                pathVote ="poll/banned";
             } else {
 	            //
 	            final Poll poll = getPollService().getPollById(itemId);
@@ -117,13 +117,13 @@ public class PollController extends AbstractBaseOperations {
 	            if (result == null) {
 	            	getPollService().vote(itemId, slugName, IP, responseId);
 	            } else {
-	            	pathVote = "repeated";            
+	            	pathVote = "poll/repeated";            
 	            }
             }
         } catch (EnMeNoResultsFoundException e) {
             log.error("error poll vote "+e);
             e.printStackTrace();
-            pathVote ="badVote";
+            pathVote ="poll/bad";
         }
         log.debug("poll vote path: "+pathVote);
         return pathVote;
