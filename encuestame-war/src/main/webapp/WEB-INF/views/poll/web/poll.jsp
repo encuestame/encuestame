@@ -8,7 +8,9 @@
    <article class="emne-box">
         <section class="web-wrapper-detail-wrapper">
             <div class="web-chart">
-                <div dojoType="encuestame.org.core.commons.poll.detail.PollChartDetail"></div>
+                <div dojoType="encuestame.org.core.commons.poll.detail.PollChartDetail"
+                pollId="${poll.id}"
+                username="${poll.ownerUsername}"></div>
             </div>
             <div class="web-detail">
 				 <c:forEach items="${answers}" var="a">

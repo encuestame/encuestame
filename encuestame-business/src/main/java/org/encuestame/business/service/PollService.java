@@ -516,7 +516,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeNoResultsFoundException
      */
      public Poll getPollById(final Long pollId, final UserAccount account) throws EnMeNoResultsFoundException{
-        final Poll poll = getPollDao().getPollById(pollId, getUserAccount(getUserPrincipalUsername()));
+        final Poll poll = getPollDao().getPollById(pollId, account);
         if (poll == null) {
             log.error("poll invalid with this id "+pollId+ " and username:{"+account);
             throw new EnMePollNotFoundException("poll invalid with this id "+pollId+ " and username:{"+account);
@@ -545,7 +545,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @return {@link Poll}
      * @throws EnMeNoResultsFoundException
      */
-    public Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException{
+    public Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException {
+    	 log.debug("getPollById pollId: "+pollId);
+    	 log.debug("getPollById account: "+account);
          final Poll poll = this.getPollById(pollId, getUserAccount(account));
          if (poll == null) {
              log.error("poll invalid with this id "+pollId+ " and username:{"+account);
@@ -713,7 +715,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#getResultVotes(org.encuestame.persistence.domain.survey.Poll)
      */
-    public List<PollBeanResult> getResultVotes(final Poll poll){
+    public List<PollBeanResult> getResultVotes(final Poll poll) {
+    	log.debug("poll getResultVotes " + poll);
     	final List<PollBeanResult> results = new ArrayList<PollBeanResult>();
     	final List<Object[]> list = getPollDao().retrieveResultPolls(poll.getPollId(), poll.getQuestion().getQid());
         //log.debug("retrieveResultPolls==> "+list.size());
@@ -723,12 +726,13 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final String color = objects[2] == null ? null : objects[2].toString();
             final Long votes = objects[3] == null ? null : Long.valueOf(objects[3].toString());
             if (answerId != null) {
-            final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes);
-            results.add(result);
+	            final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes);	            
+	            results.add(result);
             } else {
                 throw new IllegalArgumentException("answer id is empty");
             }
         }
+        log.debug("poll PollBeanResult " + results.size());
     	return results;
     }
 

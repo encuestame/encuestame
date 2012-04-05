@@ -75,8 +75,11 @@ public class JsonDataChart extends AbstractJsonController {
         try {
             final Map<String, Object> jsonResult = new HashMap<String, Object>();
             //results by tweetpoll id.
+            log.debug("poll =============================== ");
             final Poll poll = getPollService().getPollById(pollId, username);
-            final List<PollBeanResult> results =getPollService().getResultVotes(poll);
+            log.debug("poll ================= " + poll);
+            final List<PollBeanResult> results = getPollService().getResultVotes(poll);
+            log.debug("poll PollBeanResult results " + results.size());
             jsonResult.put("votesResult", results);
             log.debug("Poll results " + results.size());
             setItemResponse(jsonResult);
