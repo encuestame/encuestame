@@ -14,14 +14,21 @@ dojo.provide("encuestame.org.core.commons.poll.detail.PollChartDetail");
 
 dojo.require('encuestame.org.core.commons');
 dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
+dojo.require('encuestame.org.core.commons.dashboard.chart.EncuestamePieChart');
+dojo.require('encuestame.org.core.commons.chart.AbstractChartVoteSupport');
 
 /**
  *
  */
 dojo.declare(
     "encuestame.org.core.commons.poll.detail.PollChartDetail",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
+    [encuestame.org.main.EnmeMainLayoutWidget, 
+     encuestame.org.core.commons.chart.AbstractChartVoteSupport],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll.detail", "templates/detail_poll.html"),
 
-       
+   
+        
+        postCreate : function(){
+        	this.enableVoteTime(this._live);
+        },
 });

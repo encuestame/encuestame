@@ -596,7 +596,7 @@ div.web-default-menu  li.first {
 .web-wrapper-detail .web-wrapper-detail-wrapper {
   border-bottom: 1px dotted #BEBEC8;
   overflow: auto;
-   min-height: 230px;
+   min-height: 250px;
 }
 
 .web-wrapper-detail .web-button-wrapper{
@@ -615,7 +615,7 @@ div.web-default-menu  li.first {
 
 .web-wrapper-detail .web-chart {
     float: left;
-    min-height: 230px;
+    min-height: 250px;
     width: 400px;
 }
 

@@ -755,11 +755,11 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
-	min-height : 250px;
+	min-height : 330px;
 }
 
 .web-tweetpoll-detail .chart-tweetpoll-wrapper {
-  min-height: 230px;
+  min-height: 300px;
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart{
@@ -772,7 +772,7 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer{
     float: left;
     min-height: 100px;
-    width: 600px;
+    width: 400px;
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .web-tweetpoll-answers

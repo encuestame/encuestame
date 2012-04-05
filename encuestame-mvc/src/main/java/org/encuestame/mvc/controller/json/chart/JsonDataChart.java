@@ -51,9 +51,9 @@ public class JsonDataChart extends AbstractJsonController {
     private Logger log = Logger.getLogger(this.getClass());
     
     /**
-     * 
-     * @param username
-     * @param tweetPollId
+     * JSON service to retrieve vote of a {@link Poll}.
+     * @param username username
+     * @param id poll id.
      * @param request
      * @param response
      * @return
