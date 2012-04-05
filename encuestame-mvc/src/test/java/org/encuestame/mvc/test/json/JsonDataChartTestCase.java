@@ -16,14 +16,18 @@ import java.util.Date;
 
 import junit.framework.Assert;
 
+import org.encuestame.business.service.PollService;
 import org.encuestame.business.service.TweetPollService;
+import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
-import org.encuestame.mvc.controller.json.chart.TweetPollJsonDataChart;
+import org.encuestame.mvc.controller.json.chart.JsonDataChart;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -32,12 +36,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Test for {@link TweetPollJsonDataChart}.
+ * Test for {@link JsonDataChart}.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 24, 2010 5:00:45 PM
- * @version $Id:$
  */
-public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
+public class JsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
 
     /**
      * TweetPoll.
@@ -48,33 +51,74 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
      * {@link TweetPollService}.
      */
     private ITweetPollService tweetPollService;
+    
+    /**
+     * {@link PollService}.
+     */
+    private IPollService pollService;
 
     /**
      * Answer 1.
      */
-    TweetPollSwitch answer1;
+    private TweetPollSwitch answer1;
 
     /**
      * Answer 2.
      */
-    TweetPollSwitch answer2;
+    private TweetPollSwitch answer2;
+    
+    /**
+     * 
+     */
+    private Poll poll;
 
     /**
      * Init
+     * @throws EnMeNoResultsFoundException 
      */
     @Before
-    public void init(){
+    public void init() throws EnMeNoResultsFoundException{
+    	//question
         final Question question = createQuestion("Real Madrid or Barcelona?", getSpringSecurityLoggedUserAccount().getAccount());
+        //tweetpoll
         this.tweetPoll = createTweetPollPublicated(Boolean.TRUE, Boolean.TRUE, new Date(), getSpringSecurityLoggedUserAccount(), question);
         final QuestionAnswer questionsAnswers1 = createQuestionAnswer("Yes", question, "hash1");
         final QuestionAnswer questionsAnswers2 = createQuestionAnswer("No", question, "hash2");
+         //answers
         this.answer1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         this.answer2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
+        //votes
         getTweetPollService().tweetPollVote(answer1, "80.23.43.23");
         getTweetPollService().tweetPollVote(answer2, "80.33.13.23");
         getTweetPollService().tweetPollVote(answer2, "80.13.13.43");
         getTweetPollService().tweetPollVote(answer2, "30.33.13.23");
         getTweetPollService().tweetPollVote(answer1, "80.33.13.13");
+        //poll
+        this.poll = createPoll(new Date(), question,  getSpringSecurityLoggedUserAccount(), true, true);
+        getPollService().vote(poll.getPollId(), question.getSlugQuestion(), "80.33.13.23", questionsAnswers1.getQuestionAnswerId());
+        getPollService().vote(poll.getPollId(), question.getSlugQuestion(), "80.33.13.25", questionsAnswers2.getQuestionAnswerId());
+    }
+    
+    /**
+     * Test /api/{username}/poll/{id}/votes.json.
+     * 
+     */
+    @Test
+    public void testPollDataChartTest() throws Exception{
+    	initService("/api/"+getSpringSecurityLoggedUserAccount().getUsername()+"/poll/votes.json", MethodJson.GET);
+    	setParameter("id", this.poll.getPollId().toString());
+        final JSONObject response = callJsonService();
+        final JSONObject sucess2 = getSucess(response);
+        final JSONArray listVotes = (JSONArray) sucess2.get("votesResult");
+        //{"error":{},
+        	//"success":{"votesResult":[
+        		//{"answer":{"color":"#301CF3","answer_id":1,"short_url":null,"qid":null,"answers":"Yes","provider":null,"url":null},"answer_votes":1},
+        		//{"answer":{"color":"#4BE9CB","answer_id":2,"short_url":null,"qid":null,"answers":"No","provider":null,"url":null},"answer_votes":1}]}}
+        //final String error = getErrorsMessage(response);
+        final JSONObject firstAnswer = (JSONObject) listVotes.get(0);
+        final JSONObject secondAnswer = (JSONObject) listVotes.get(1);
+        Assert.assertEquals(firstAnswer.get("answer_votes").toString(), "1");
+        Assert.assertEquals(secondAnswer.get("answer_votes").toString(), "1");
     }
 
     /**
@@ -143,4 +187,23 @@ public class TweetPollJsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     public void setTweetPollService(final ITweetPollService tweetPollService) {
         this.tweetPollService = tweetPollService;
     }
+
+    /**
+     * 
+     * @return
+     */
+	public IPollService getPollService() {
+		return pollService;
+	}
+
+	/**
+	 * 
+	 * @param pollService
+	 */
+	@Autowired
+	public void setPollService(final IPollService pollService) {
+		this.pollService = pollService;
+	}
+    
+    
 }

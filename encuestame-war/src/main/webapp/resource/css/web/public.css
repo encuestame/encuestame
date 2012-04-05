@@ -744,38 +744,32 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
     padding: 4px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title
-    {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title{
     color: #BABABA;
     font-size: 10px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small
-    {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small {
     font-size: 13px;
     line-height: 15px;
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
-
+	min-height : 250px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart
-    {
+.web-tweetpoll-detail .chart-tweetpoll-wrapper {
+  min-height: 230px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart{
     float: left;
     min-height: 180px;
     width: 400px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart .onLive
-    {
-    font-size: 10px;
-    margin-left: 10px;
-}
-
 /* tweetpoll detail answers */
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer
-    {
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer{
     float: left;
     min-height: 100px;
     width: 600px;
@@ -4163,7 +4157,7 @@ div.web-social-links {
     min-height: 20px;
     padding: 3px;
     right: 15px;
-    width: 172px;
+    width: 245px;
     z-index: 600;
 }
 

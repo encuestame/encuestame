@@ -224,7 +224,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @param maxResults max results
      * @return list of tweetPoll.
      */
-    public final List<Poll> getPollFrontEndAllTime(final Integer start, final Integer maxResults){
+    public final List<Poll> getPollFrontEndAllTime(final Integer start, final Integer maxResults) {
         return this.getPollFrontEnd(this.PERIOD_ALL , start, maxResults, this.WITHOUT_FIRST_RESULTS);
     }
 

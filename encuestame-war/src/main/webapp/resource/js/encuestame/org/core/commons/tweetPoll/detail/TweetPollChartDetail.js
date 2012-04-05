@@ -15,24 +15,50 @@ dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail",
     [encuestame.org.main.EnmeMainLayoutWidget],{
+    	
+    	/**
+    	 * template path.
+    	 */
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll.detail", "templates/tweetPollChartDetail.html"),
-        //widget
-        widgetsInTemplate: true,
 
+        /**
+         * Chart widget.
+         */
         widgetChart : null,
-
+        
+        /**
+         * TweetPoll Id.
+         */
         tweetPollId : null,
 
+        /**
+         * Define if is completed.
+         */
         completed : false,
-
+        
+        /**
+         * Owner of the tweetpoll.
+         */
         username : "",
-
+        
+        /**
+         * Enable live votes.
+         */
         enableLiveVotes : true,
-
+        
+        /**
+         * Default delay.
+         */
         delay : 31000,
-
+        
+        /**
+         * Timer object.
+         */
         _timer : null,
 
+        /**
+         * Post create.
+         */
         postCreate : function() {
             this._loadVotes();
             dojo.addOnLoad(dojo.hitch(this, function() {
@@ -45,12 +71,15 @@ dojo.declare(
                 }
             }));
         },
-
+        
+        /**
+         * 
+         */
         _noVotes : function(){
             console.info('NO VOTES');
         },
 
-        /*
+        /**
          * set timer to reload votes.
          */
         setTimer : function(){
@@ -92,24 +121,38 @@ dojo.declare(
          */
         _loadVotes : function() {
             var response = dojo.hitch(this, function(dataJson) {
-                if (dataJson.success.votesResult) {
-                    var votes = dataJson.success.votesResult;
+                if ("success" in dataJson) {
+                    var votes = dataJson.success.votesResult,
+                    totalVotes = 0;
                     if (votes.length > 0) {
                     var results = [];
                     dojo.forEach(
                             votes,
                             dojo.hitch(this, function(data, index) {
-                                //console.info("ANSWER BEAN", data);
-                                var answer = [data.question_label, (data.votes == null ? 0 : data.votes), data.color];
+                            	var votes = data.votes == null ? 0 : data.votes;
+                                var answer = [data.question_label, (votes), data.color];
                                 results.push(answer);
-                                dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [data.votes, data.percent]]);
+                                totalVotes += votes;
+                                dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [votes, data.percent]]);
                     }));
-                    var id = this.id+"_chart";
+                    //clean chart node.
                     dojo.empty(this._chart);
-                    this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(id, results, 110);
-                    this.render();
+                    //check if votes are 0
+                    if (totalVotes > 0) {
+	                    var id = this.id+"_chart";
+	                    
+	                    //create new chart
+	                    this.widgetChart = new encuestame.org.core.commons.dashboard.chart.EncuestamePieChart(
+	                    		id, 
+	                    		/** array of results **/ results, 
+	                    		/** **/ 110);
+	                    //render the chart
+	                    this.render();
+	                    } else {
+	                        this._noVotes();
+	                    }
                     } else {
-                        this._noVotes();
+                    	console.info("NO VOTES");
                     }
                   }
                 dojo.publish("/encuestame/tweetpoll/detail/answer/reload");

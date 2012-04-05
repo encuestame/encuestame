@@ -24,8 +24,10 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -40,13 +42,51 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 15, 2010 10:30:29 AM
  */
-@Controller("tweetPollJsonDataChart")
-public class TweetPollJsonDataChart extends AbstractJsonController {
+@Controller
+public class JsonDataChart extends AbstractJsonController {
 
     /**
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+    
+    /**
+     * 
+     * @param username
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/{username}/poll/votes.json", method = RequestMethod.GET)
+    public ModelMap getPollVotes(
+    		@PathVariable String username,
+            @RequestParam(value = "id") Long pollId,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        log.debug("PollId " + pollId);
+        log.debug("PollId " + (pollId instanceof Long));
+        // TODO: we need check if user able to display this tweetpoll. eg. If is
+        // published or if is public
+        //this.getTweetPollVotesStore(pollId, response);
+        try {
+            final Map<String, Object> jsonResult = new HashMap<String, Object>();
+            //results by tweetpoll id.
+            final Poll poll = getPollService().getPollById(pollId, username);
+            final List<PollBeanResult> results =getPollService().getResultVotes(poll);
+            jsonResult.put("votesResult", results);
+            log.debug("Poll results " + results.size());
+            setItemResponse(jsonResult);
+        } catch (EnMeNoResultsFoundException e) {
+            log.equals(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }    
+
 
     /**
      * Get votes for {@link TweetPoll}.
@@ -68,7 +108,7 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
         log.debug("TweetPollId " + (tweetPollId instanceof Long));
         // TODO: we need check if user able to display this tweetpoll. eg. If is
         // published or if is public
-        this.getVotesStore(tweetPollId, response);
+        this.getTweetPollVotesStore(tweetPollId, response);
         return returnData();
     }
 
@@ -91,7 +131,7 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
             throws JsonGenerationException, JsonMappingException, IOException {
         // TODO: we need check if user able to display this tweetpoll. eg. If is
         // published or if is public
-        this.getVotesStore(id, response);
+        this.getTweetPollVotesStore(id, response);
         return returnData();
     }
 
@@ -121,12 +161,11 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
     }
 
     /**
-     *
-     * @param username
-     * @param tweetPollId
-     * @param request
-     * @param response
-     * @return
+     * Retrieve a list of votes of one tweetpoll. 
+     * @param tweetPollId tweetpoll id.
+     * @param request {@link HttpServletRequest}
+     * @param response {@link HttpServletResponse}
+     * @return 
      * @throws JsonGenerationException
      * @throws JsonMappingException
      * @throws IOException
@@ -141,16 +180,16 @@ public class TweetPollJsonDataChart extends AbstractJsonController {
         log.debug("TweetPollId " + (tweetPollId instanceof Long));
         // TODO: we need check if user able to display this tweetpoll. eg. If is
         // published or if is public
-        this.getVotesStore(tweetPollId, response);
+        this.getTweetPollVotesStore(tweetPollId, response);
         return returnData();
     }
 
     /**
-     * Get votes store.
+     * Get tweetpoll votes store.
      * @param tweetPollId tweetpoll id
      * @param response {@link HttpServletResponse}.
      */
-    private void getVotesStore(
+    private void getTweetPollVotesStore(
             final Long tweetPollId,
             final HttpServletResponse response) {
         try {

@@ -596,6 +596,7 @@ div.web-default-menu  li.first {
 .web-wrapper-detail .web-wrapper-detail-wrapper {
   border-bottom: 1px dotted #BEBEC8;
   overflow: auto;
+   min-height: 230px;
 }
 
 .web-wrapper-detail .web-button-wrapper{
@@ -611,6 +612,20 @@ div.web-default-menu  li.first {
 .web-wrapper-detail .web-button-wrapper > div > img{
 
 }
+
+.web-wrapper-detail .web-chart {
+    float: left;
+    min-height: 230px;
+    width: 400px;
+}
+
+.web-wrapper-detail .web-detail {
+  margin-left: 300px;
+  min-height: 210px;
+  padding: 10px;
+}
+
+/** dialog **/
 
 .web-generic-dialog-content {
   font-size: 12px;

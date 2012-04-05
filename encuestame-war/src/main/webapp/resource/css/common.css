@@ -170,3 +170,8 @@ input:focus {
 .dijitTextBoxFocused {
     outline: none !important;
 }
+
+.emne-box .onLive{
+    font-size: 10px;
+    margin-left: 10px;
+}

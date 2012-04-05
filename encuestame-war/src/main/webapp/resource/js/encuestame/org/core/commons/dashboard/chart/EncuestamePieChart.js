@@ -34,37 +34,25 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
                 this.size = size;
                 //console.debug("data", this.data);
         },
-
+        
         /**
-         * Build series.
+         * Node to append the chart.
          */
-        _buildSeries : function() {
-             this._seriesData = [];
-              dojo.forEach(
-                      this.data,
-                      dojo.hitch(this, function(data, index) {
-                          if (data[1] > 0) {
-                             var item = {
-                                 y: data[1],
-                                 text: data[0],
-                                 stroke: "black",
-                                 tooltip: data[1]
-
-                             };
-                             if (data[2]) {
-                                 item.fill = data[2];
-                             }
-                             this._seriesData.push(item);
-                         }
-           }));
-        },
-
         node : null,
 
+        /**
+         * Default size of the chart.
+         */
         size : 80,
 
+        /**
+         * Chart data.
+         */
         data : [],
 
+        /**
+         * Series.
+         */
         _seriesData : [],
 
         /**
@@ -89,5 +77,29 @@ dojo.declare("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart", n
                 chart: chartTwo
             },
             "legendTwo");
+        },
+        
+        /**
+         * Build series.
+         */
+        _buildSeries : function() {
+             this._seriesData = [];
+              dojo.forEach(
+                      this.data,
+                      dojo.hitch(this, function(data, index) {
+                          if (data[1] > 0) {
+                             var item = {
+                                 y: data[1],
+                                 text: data[0],
+                                 stroke: "black",
+                                 tooltip: data[1]
+
+                             };
+                             if (data[2]) {
+                                 item.fill = data[2];
+                             }
+                             this._seriesData.push(item);
+                         }
+           }));
         }
 });

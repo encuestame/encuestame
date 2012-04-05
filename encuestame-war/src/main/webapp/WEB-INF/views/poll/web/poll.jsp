@@ -1,52 +1,20 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-tweetpoll-detail web-wrapper-detail">
+<article class="web-wrapper-detail">
    <header>
        <h1>${poll.questionBean.questionName}</h1>
    </header>
    <article class="emne-box">
-        <section class="web-tweetpoll-info">
-            <!--  -->
-       </section>
-        <section class="web-tweetpoll-answer-wrapper">
-            <div class="web-tweetpoll-answer-chart">
-                <!-- Poll Chart -->
-                <div>
-                    <a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">Vote</a>
-                </div>
+        <section class="web-wrapper-detail-wrapper">
+            <div class="web-chart">
+                <div dojoType="encuestame.org.core.commons.poll.detail.PollChartDetail"></div>
             </div>
-            <div class="web-tweetpoll-answer-answer">
-                <table class="web-tweetpoll-answer-table" cellspacing="0">
-                    <thead>
-                        <tr class="gradient-black">
-                            <th></th>
-                            <th>
-                                <span class="header-table-answer">Link to Vote</span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">Count</span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">Percent</span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer"></span>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${answers}" var="a">
-                       </c:forEach>
-                    </tbody>
-                </table>
+            <div class="web-detail">
+				 <c:forEach items="${answers}" var="a">
+				 	<div>${a}</div>
+                 </c:forEach>
+                 <a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">Vote</a>
             </div>
        </section>
        <section class="web-button-wrapper gradient-gray">
@@ -64,8 +32,8 @@
        </header>
        <section>
             <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                 type="POLL" class="web-social-links"
-                 ></div>
+                 type="POLL" class="web-social-links">
+            </div>
        </section>
     </article>
    <c:if test="${!empty hashtags}">
