@@ -573,6 +573,9 @@ encuestame.service.list.poll.detail = encuestame.contextWidget()+"/api/survey/po
 encuestame.service.list.poll.setParameter = function(/* string */ type) {
     return  encuestame.contextWidget()+"/api/survey/poll/"+type+"-poll.json";
 };
+encuestame.service.list.poll.getVotes = function(username) {
+    return  encuestame.contextWidget()+"/api/"+username+"/poll/votes.json";
+};
 
 /**
  * Comment Services.
@@ -699,6 +702,9 @@ encuestame.messages.pubish = function(message, type, duration) {
     console.info("encuestame.messages.pubish", duration);
     dojo.publish('/encuestame/message/publish', [{ message: message, type: type, duration: duration}]);
 };
+
+encuestame.modalbox = {};
+
 
 encuestame.constants.errorCodes = {
     "002" : "Enter your first and last name.",

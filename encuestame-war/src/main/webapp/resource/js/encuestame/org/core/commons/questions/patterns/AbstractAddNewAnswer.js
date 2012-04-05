@@ -12,11 +12,12 @@
  */
 dojo.provide("encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer");
 
+dojo.require('encuestame.org.core.commons');
+
 /**
  *
  */
 dojo.declare("encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer",
-        null,
-    {
+        null, {
 
-    });
+});

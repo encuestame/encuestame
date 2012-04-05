@@ -24,7 +24,6 @@ import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -35,7 +34,6 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -62,9 +60,6 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     /** {@link Question} */
     private Question question;
 
-    /** {@link QuestionPattern} **/
-    private QuestionPattern pattern;
-
     /** {@link Account} **/
     private Account user;
 
@@ -72,9 +67,6 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     private UserAccount userAccount;
 
     private List<QuestionAnswerBean> answers;
-
-    /** {@link QuestionPatternBean}**/
-    private QuestionPatternBean patternBean;
 
     /** {@link QuestionBean} **/
     private QuestionBean questionBean;
@@ -92,16 +84,13 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         this.user = createUser("testEncuesta", "testEncuesta123");
         this.userAccount = createUserAccount("jhon", user);
         this.question = createQuestion("Why the sky is blue?","html");
-        this.pattern = createQuestionPattern("html");
         createQuestionAnswer("Yes", this.question,"SSSA");
         //this.questionBean = createUnitQuestionBean("", 1L, 1L, listAnswers, pattern)
         answers = new ArrayList<QuestionAnswerBean>();
         answers.add(createAnswersBean("2DFAAS", "Yes", question.getQid()));
         answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
-        patternBean = createPatternBean("radio.class",
-                   "radio buttons", "2", "Yes/No", "template.html");
         questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
-                   this.answers, patternBean);
+                   this.answers);
    }
 
 
@@ -157,10 +146,9 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         answersSaveTweet.add(createAnswersBean("GBHD", "Maybe", questionSave.getQid()));
         answersSaveTweet.add(createAnswersBean("GTJU", "Yes", questionSave.getQid()));
 
-        patternBean = createPatternBean("radio.class",
-                   "radio buttons", "2", "Yes/No", "template.php");
+
         questionBean = createUnitQuestionBean(questionSave.getQuestion(), 1L, usersave.getUid(),
-                   answersSaveTweet, patternBean);
+                   answersSaveTweet);
         final TweetPollBean unitTweetPoll = createUnitTweetPollPublicated(new Date(), true, tweetUrl, usersave.getUid(),
                                             this.questionBean, null);
         unitTweetPoll.setId(tweetPoll.getTweetPollId());

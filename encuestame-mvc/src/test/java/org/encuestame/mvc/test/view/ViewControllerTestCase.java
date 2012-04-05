@@ -36,6 +36,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.enums.MethodJson;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -108,11 +109,11 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
          * @throws Exception
          */
         @Test
+        @Ignore
         public void testDashBoardController() throws Exception {
             DashBoardController controller = this.dashBoardController;
             request = new MockHttpServletRequest(MethodJson.GET.toString(), "/user/dashboard");
-            final ModelAndView mav = handlerAdapter.handle(request, response,
-                controller);
+            final ModelAndView mav = handlerAdapter.handle(request, response, controller);
             assertViewName(mav, "dashboard");
         }
 

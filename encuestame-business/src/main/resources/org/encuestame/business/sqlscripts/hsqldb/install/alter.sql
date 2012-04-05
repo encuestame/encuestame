@@ -64,7 +64,6 @@ alter table question_relations add constraint FK217954DE893521DA foreign key (id
 alter table question_relations add constraint FK217954DE8A76A0BD foreign key (question_id) references questions
 alter table questions add constraint FK95C5414D2B2A6AB4 foreign key (uid) references account
 alter table questions add constraint FK95C5414D39E97991 foreign key (section_ssid) references survey_section
-alter table questions add constraint FK95C5414D84133D82 foreign key (id_question_pattern) references questions_pattern
 alter table questions_answers add constraint FK539703837E6C7BBC foreign key (id_question_answer) references questions
 alter table questions_dependencies add constraint FK92E86ADBDDD118B5 foreign key (q_answer_id) references questions_answers
 alter table social_account add constraint FK50078B5B5ECE45A2 foreign key (account_uid) references account

@@ -744,41 +744,35 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
     padding: 4px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title
-    {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title{
     color: #BABABA;
     font-size: 10px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small
-    {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small {
     font-size: 13px;
     line-height: 15px;
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
-
+	min-height : 330px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart
-    {
+.web-tweetpoll-detail .chart-tweetpoll-wrapper {
+  min-height: 300px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart{
     float: left;
     min-height: 180px;
     width: 400px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart .onLive
-    {
-    font-size: 10px;
-    margin-left: 10px;
-}
-
 /* tweetpoll detail answers */
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer
-    {
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer{
     float: left;
     min-height: 100px;
-    width: 600px;
+    width: 400px;
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .web-tweetpoll-answers
@@ -1110,13 +1104,16 @@ div.web-sub-menu {
 }
 
 #web-poll-wrapper {
-    -webkit-border-radius: 2px 2px 0px 0px;
-    -moz-border-radius: 2px 2px 0px 0px;
-    border-radius: 2px 2px 0px 0px;
     border: 1px solid #D7D7D7;
     min-height: 500px;
     overflow: auto;
     margin-top: 30px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
 }
 
 div.web-filter-sidebar-panel {
@@ -1185,10 +1182,9 @@ div.web-filter-sidebar-panel div.optionItem span:hover {
     padding: 2px 0 0;
 }
 
-.web-item-row .nav-menu>a {
-    color: #444;
-    text-decoration: underline;
-    font-weight: normal;
+.web-item-row .nav-menu > a {
+  color: #747474;
+  font-weight: normal;
 }
 
 .web-item-row .web-item-row-section-input {
@@ -1258,6 +1254,7 @@ div.web-filter-sidebar-panel div.optionItem span:hover {
     min-height: 340px;
     padding: 10px;
     overflow: auto;
+    background-color: white;
     box-shadow: inset 0px 0px 4px #E0E0E0;
     -moz-box-shadow: -inset 0px 0px 4px #E0E0E0;
     -webkit-box-shadow: inset 0px 0px 4px #E0E0E0;
@@ -1381,37 +1378,42 @@ div.web-filter-sidebar-panel div.optionItem span:hover {
     padding: 4px;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info
-    {
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info {
     float: left;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info>div
-    {
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info>div {
 
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove
-    {
-    float: right;
+.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove {
+  text-align: right;
 }
 
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
     margin-top: 29px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
 }
 
 /** List TweetPoll **/
 #web-tweetpoll-wrapper div.web-tweetpoll-menu {
-    font-size: 100%;
-    padding: 10px;
+  font-size: 100%;
+  padding: 10px;
+  text-align: right;
 }
 
 #web-tweetpoll-wrapper div.web-tweetpoll-menu  a {
     color: #FFF !important;
-    font-weight: bold;
     cursor: pointer;
-    text-decoration: underline;
+}
+#web-tweetpoll-wrapper div.web-tweetpoll-menu  a:hover {
+    text-decoration: none;
 }
 
 div.web-tweetpoll-wrapper {
@@ -3071,6 +3073,7 @@ div.menuWrapper div.rightSide span {
     margin-right: 3px;
     overflow: auto;
     vertical-align: middle;
+    width: 250px;
 }
 
 /** web-profile-menu **/
@@ -3092,11 +3095,12 @@ div.web-profile-menu .image {
 }
 
 div.web-profile-menu .real-name {
-    min-width: 119px;
-    padding-right: 4px;
-    vertical-align: middle;
-    width: 145px;
-    text-align: center;
+  margin-top: 5px;
+  min-width: 119px;
+  padding-right: 4px;
+  text-align: center;
+  vertical-align: middle;
+  width: 145px;
 }
 
 /** notifications **/
@@ -4153,7 +4157,7 @@ div.web-social-links {
     min-height: 20px;
     padding: 3px;
     right: 15px;
-    width: 172px;
+    width: 245px;
     z-index: 600;
 }
 
@@ -4253,9 +4257,10 @@ div.web-social-links {
 }
 
 .web-tweetpoll-vote-options h1 {
-    color: #999999;
-    font-weight: bold;
-    margin: 0;
+  color: #565656;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .web-tweetpoll-vote-options h3 {
@@ -4264,15 +4269,29 @@ div.web-social-links {
     margin: 10px 0 0 0;
 }
 
+.web-tweetpoll-vote-options h3 b{
+    color: #565656;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
 .web-tweetpoll-vote-options .web-permatlink {
-    background-color: #FFFFFF;
-    border: 1px solid #E3E3E3;
-    border-radius: 10px 10px 10px 10px;
-    box-shadow: 0 1px 6px rgba(72, 72, 72, 0.46);
-    margin: 0 auto;
-    min-height: 180px;
-    padding: 20px;
-    width: 50%;
+  background-color: #ADE195;
+  border: 1px solid #E3E3E3;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 1px 6px rgba(72, 72, 72, 0.46);
+  color: white;
+  margin: 0 auto;
+  min-height: 180px;
+  padding: 20px;
+  width: 50%;
+}
+
+.web-tweetpoll-vote-options .yellow{
+    background-color: #EEE78B;
+}
+
+.web-tweetpoll-vote-options .red{
+    background-color: #F58165;
 }
 
 .web-tweetpoll-vote-options .gradient-red h1 {
@@ -4465,4 +4484,158 @@ div.web-social-links {
   font-weight: bold;
   line-height: 20px;
   margin-left: 31px;
+}
+
+/** poll vote **/
+
+.web-poll-wrapper-vote{
+   margin: 65px auto 0;
+   width: 600px;
+    border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+.web-poll-wrapper-vote header {
+  background: none repeat scroll 0 0 #F3F3F3;
+  font-size: 16px;
+  padding: 15px;
+  text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.web-poll-wrapper-vote .emne-box{
+    border: 0;
+    margin: 0;
+}
+
+.poll-vote-container{
+
+}
+
+.poll-vote-container section {
+  padding: 8px;
+}
+
+.poll-vote-container section label {
+  color: #7E7E7E;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.web-poll-wrapper-vote footer {
+  background-color: #676767;
+  border-radius: 0 0 6px 6px;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius:  0 0 6px 6px;
+  color: white;
+  font-size: 10px;
+  padding: 15px 40px 15px 15px;
+  text-align: right;
+}
+
+.web-poll-wrapper-vote footer button {
+  background-position: 10px 11px;
+  background-repeat: no-repeat;
+  padding: 9px 12px 9px 29px;
+}
+
+.web-poll-wrapper-vote footer button {
+  background-color: #89CF6A;
+  border: 1px solid #6D8000;
+  border-radius: 14px 14px 14px 14px;
+  color: white;
+  font-size: 14px;
+  padding: 5px 13px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.web-poll-wrapper-vote article{
+
+}
+
+.web-poll-wrapper-vote article .web-vote {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.web-poll-wrapper-vote article .web-vote input[type="radio"] {
+  background-color: #C5C5C5;
+  cursor: pointer;
+  margin-right: 8px;
+  padding: 3px;
+}
+
+.web-poll-wrapper-vote .final {
+  background-color: #ADE195;
+  box-shadow: 1px 0 4px 0 #BEBCBC;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 30px;
+}
+
+.web-poll-wrapper-vote .bad {
+    background-color: red;
+}
+
+.web-poll-wrapper-vote .final .link {
+  color: black;
+  font-size: 15px;
+  margin-top: 19px;
+  text-align: right;
+}
+/** poll vote **/
+
+/** modalbox */
+
+.modalBoxBackground {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+    background-color: black;
+    opacity: 0.5;
+    width: 100%;
+    height: 2859px;
+}
+
+.modal-box{
+    width: 420px;
+    height: auto;
+    z-index: 10000;
+    word-wrap: break-word;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.496094) 0px 0px 15px;
+    box-shadow: rgba(0, 0, 0, 0.496094) 0px 0px 15px;
+    border-radius: 6px;
+    background-color: white !important;
+    position: absolute;
+    display: block;
+}
+
+.modal-box-im{
+  background: url("../../images/background-mobalbox.png") repeat-x scroll left bottom transparent;
+    font-style: normal;
+    padding-bottom: 55px;
+}
+
+.modal-box .wrapper{
+    padding: 20px 20px 20px 20px;
+     height: auto;
+    min-height: 80px;
+}
+
+.modal-box .wrapper a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.modal-box .msgbox-buttons {
+    padding: 15px;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

@@ -18,7 +18,6 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -39,7 +38,7 @@ import org.encuestame.utils.web.UserAccountBean;
  * @since
  */
 public abstract class AbstractBaseUtils extends TestCase{
-	
+
     /**
     * Create Project Bean.
     * @param projectName project bean.
@@ -140,8 +139,7 @@ public abstract class AbstractBaseUtils extends TestCase{
         final Long questionId,
         final String questionName,
         final String version,
-        final List unitAnswer,
-        final QuestionPatternBean pattern
+        final List unitAnswer
     ){
         final QuestionBean unitQuestionBean = new QuestionBean();
         unitQuestionBean.setId(questionId);
@@ -150,47 +148,6 @@ public abstract class AbstractBaseUtils extends TestCase{
         unitQuestionBean.setUserId(1L);
         unitQuestionBean.setStateId(1L);
         return unitQuestionBean;
-    }
-
-    /**
-    * Create Unit Pattern Bean.
-    * @param classpattern classpattern
-    * @param descripcion descripcion
-    * @param finallity finallity
-    * @param patternId patternId
-    * @param label label
-    * @param levelpattern levelpattern
-    * @param patronType patronType
-    * @param shortNumberString shortNumberString
-    * @return {@link QuestionPatternBean}
-    */
-
-    public QuestionPatternBean createUnitPatternBean(
-        final String classpattern,
-        final String descripcion,
-        final String finallity,
-        final Long patternId,
-        final String label,
-        final String levelpattern,
-        final String patronType,
-        final Integer shortNumberString,
-        final String template
-        )
-    {
-        final QuestionPatternBean unitPatternBean = new QuestionPatternBean();
-        unitPatternBean.setClasspattern(classpattern);
-        unitPatternBean.setDescripcion(descripcion);
-        unitPatternBean.setFinallity(finallity);
-        unitPatternBean.setId(patternId);
-        unitPatternBean.setLabel(label);
-        unitPatternBean.setLevelpattern(levelpattern);
-        unitPatternBean.setPatronType(patronType);
-       // unitPatternBean.setServicemanagerBean(servicemanagerBean)
-       // unitPatternBean.setShortNumberString(shortNumberString);
-        unitPatternBean.setTemplate(template);
-
-        return unitPatternBean;
-
     }
 
     /**

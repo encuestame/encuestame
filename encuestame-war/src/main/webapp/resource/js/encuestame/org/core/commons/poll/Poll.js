@@ -224,7 +224,7 @@ dojo.declare(
                 valid.status = false;
                 valid.message = "Please enter at least 2 answers.";
                 console.info("error", valid);
-                this.showErrorMessage(valid.message);
+                this.infoMesage(valid.message);
                 c = 0;
             } else {
                 valid.status = true;
@@ -294,8 +294,8 @@ dojo.declare(
         /*
          *
          */
-        _openFailureMessage : function(error){
-            console.error(error);
+        _openFailureMessage : function(errorMessage) {
+             this.infoMesage(errorMessage);
         },
 
         /*

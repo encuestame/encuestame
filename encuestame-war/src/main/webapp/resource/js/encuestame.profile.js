@@ -4,6 +4,8 @@ dependencies ={
             name: "encuestame-commons.js",
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
+                "encuestame.org.core.commons.chart.AbstractChartVoteSupport",
+                "encuestame.org.core.commons.poll.detail.PollChartDetail",
                 "encuestame.org.core.commons.support.OrderMenu",
                 "encuestame.org.core.commons.poll.vote.PollVote",
                 "encuestame.org.core.commons.support.SocialFilterMenu",
@@ -141,6 +143,7 @@ dependencies ={
                 "encuestame.org.core.commons.questions.patterns.AbstractVideoResponse",
                 "encuestame.org.core.commons.questions.patterns.MultipleOptionResponse",
                 "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+                "encuestame.org.core.commons.questions.patterns.CustomizableSelectionOptionResponse",
                 "encuestame.org.core.shared.publish.PublishSupport",
                 "encuestame.org.core.shared.utils.ContextSupport",
                 "encuestame.org.core.commons.support.DnD",

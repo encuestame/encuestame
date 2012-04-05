@@ -113,7 +113,7 @@ public class PollResult {
     /**
      * @return the ipaddress
      */
-    @Column(name = "ip_address", nullable = false)
+    @Column(name = "ipAddress", nullable = false)
     public String getIpaddress() {
         return ipAddress;
     }

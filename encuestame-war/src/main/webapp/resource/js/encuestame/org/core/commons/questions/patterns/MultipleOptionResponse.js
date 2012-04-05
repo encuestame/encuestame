@@ -16,7 +16,7 @@ dojo.require("encuestame.org.core.commons.questions.patterns.AbstractPattern");
 dojo.require("encuestame.org.core.commons.questions.patterns.AbstractSoundResponse");
 dojo.require("encuestame.org.core.commons.questions.patterns.AbstractVideoResponse");
 dojo.require("encuestame.org.core.commons.questions.patterns.AbstractImageResponse");
-dojo.require("encuestame.org.core.commons.questions.patterns.AbstractaddNewAnswer");
+dojo.require("encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer");
 dojo.require("encuestame.org.core.commons.questions.patterns.AbstractMultipleSelection");
 
 /**
@@ -27,7 +27,7 @@ dojo.declare("encuestame.org.core.commons.questions.patterns.MultipleOptionRespo
          encuestame.org.core.commons.questions.patterns.AbstractSoundResponse,
          encuestame.org.core.commons.questions.patterns.AbstractVideoResponse,
          encuestame.org.core.commons.questions.patterns.AbstractImageResponse,
-         encuestame.org.core.commons.questions.patterns.AbstractaddNewAnswer,
+         encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer,
          encuestame.org.core.commons.questions.patterns.AbstractMultipleSelection],{
 
 

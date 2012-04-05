@@ -22,7 +22,6 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
 
@@ -44,23 +43,6 @@ public interface ISurveyService extends IMasterSurveyService {
      * @throws EnMeExpcetion exception
      */
     List<QuestionBean> loadAllQuestions() throws EnMeExpcetion;
-
-    /**
-     * Load pattern info.
-     * @param unitPatternBean {@link QuestionPatternBean}
-     * @return {@link QuestionPatternBean}
-     * @throws EnMeExpcetion exception
-     */
-    QuestionPatternBean loadPatternInfo(QuestionPatternBean unitPatternBean)
-    throws EnMeExpcetion;
-
-    /**
-     * Load all Patrons.
-     * @return List of {@link QuestionPatternBean}
-     * @throws EnMeExpcetion exception
-     */
-    Collection<QuestionPatternBean> loadAllPatrons()
-    throws EnMeExpcetion;
 
     /**
      * Create Question.

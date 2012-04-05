@@ -200,7 +200,6 @@ ALTER TABLE `project_locations`
 -- Constraints for table `questions`
 --
 ALTER TABLE `questions`
-  ADD CONSTRAINT `FK95C5414D84133D82` FOREIGN KEY (`id_question_pattern`) REFERENCES `questions_pattern` (`pattenr_id`),
   ADD CONSTRAINT `FK95C5414D2B2A6AB4` FOREIGN KEY (`uid`) REFERENCES `account` (`uid`),
   ADD CONSTRAINT `FK95C5414D39E97991` FOREIGN KEY (`section_ssid`) REFERENCES `survey_section` (`ssid`);
 

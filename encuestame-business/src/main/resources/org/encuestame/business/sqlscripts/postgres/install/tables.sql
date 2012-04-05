@@ -615,7 +615,7 @@ CREATE TABLE questions (
     shared_question boolean,
     question_slug character varying(255) NOT NULL,
     uid bigint NOT NULL,
-    id_question_pattern bigint,
+    question_pattern bigint,
     section_ssid bigint
 );
 

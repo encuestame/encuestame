@@ -37,7 +37,6 @@ import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -63,7 +62,6 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.TypeAuth;
 import org.encuestame.utils.web.CommentBean;
@@ -503,20 +501,6 @@ public class ConvertDomainBean {
       return permBean;
     }
 
-
-    /**
-     * Convert {@link QuestionPattern} to {@link QuestionPatternBean}.
-     * @param pattern  {@link QuestionPattern}
-     * @return {@link QuestionPatternBean}
-     */
-    public static final QuestionPatternBean convertQuestionPatternToBean(final QuestionPattern pattern){
-        final QuestionPatternBean patterBean = new QuestionPatternBean();
-        patterBean.setId(pattern.getPatternId());
-        patterBean.setPatronType(pattern.getPatternType());
-        patterBean.setLabel(pattern.getLabelQid());
-        return patterBean;
-    }
-
     /**
      * Convert {@link Question} to {@link QuestionBean}.
      * @param questions {@link Question}
@@ -529,6 +513,11 @@ public class ConvertDomainBean {
         questionBean.setSlugName(questions.getSlugQuestion());
         questionBean.setHits(questions.getHits());
         questionBean.setUserId(questions.getAccountQuestion() == null ? null : questions.getAccountQuestion().getUid());
+        if (questions.getQuestionPattern() != null) {
+            log.debug("questions.getQuestionPattern()"+questions.getQuestionPattern().name());
+            questionBean.setWidget(questions.getQuestionPattern().getWidget());
+            questionBean.setPattern(questions.getQuestionPattern().name());
+        }
         return questionBean;
     }
 

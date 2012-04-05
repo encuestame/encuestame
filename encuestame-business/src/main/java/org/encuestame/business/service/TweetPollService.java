@@ -43,6 +43,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -306,7 +307,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setQuestionName(questionName);
         questionBean.setUserId(user.getUid());
-        final Question questionDomain = createQuestion(questionBean, user);
+        final Question questionDomain = createQuestion(questionBean, user, QuestionPattern.LINKS);
         return questionDomain;
     }
 

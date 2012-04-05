@@ -31,7 +31,7 @@
      <footer id="footer">
           <tiles:insertAttribute name="footer" />
      </footer>
-     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
+    <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
@@ -52,5 +52,6 @@
     </script>
     <!-- Insert additional javascript  -->
     <tiles:insertAttribute name="extra-js" ignore="true"/>
+    <div id="modal-box"></div>
 </body>
 </html>

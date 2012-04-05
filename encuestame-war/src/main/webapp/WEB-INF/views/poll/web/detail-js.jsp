@@ -3,4 +3,5 @@
   dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
   dojo.require("encuestame.org.core.comments.Comments");
   dojo.require("encuestame.org.core.commons.social.LinksPublished");
+  dojo.require("encuestame.org.core.commons.poll.detail.PollChartDetail");
 </script>
