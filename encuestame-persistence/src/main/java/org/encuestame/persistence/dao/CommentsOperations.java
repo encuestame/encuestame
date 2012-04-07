@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -94,4 +95,13 @@ public interface CommentsOperations extends IBaseDao {
     List<Comment> getTopRatedComments(
             final CommentsSocialOptions socialOption, final Integer timeRange,
             final Integer maxResults, final Integer startResults);
+    
+    /**
+     * Retrieve a list of comments for a poll.
+     * @param poll
+     * @param maxResults
+     * @param start
+     * @return
+     */
+    List<Comment> getCommentsbPoll(final Poll poll, final Integer maxResults, final Integer start);
 }
