@@ -4665,7 +4665,12 @@ div.web-social-links {
 }
 
 .web-poll-results header .header-percents {
-  margin-left: 60px;
+  margin-left: 55px;
+}
+
+.web-poll-results .web-poll-options-button {
+  padding: 25px;
+  text-align: right;
 }
 
 /** poll results **/
