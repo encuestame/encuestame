@@ -1192,12 +1192,13 @@ public class ConvertDomainBean {
      */
     public static PollBeanResult convertPollResultToBean(final Long answerId,
             final String answerString, final String color,
-            final Long resultVotes) {
+            final Long resultVotes, final Question question) {
         final PollBeanResult result = new PollBeanResult();
         final QuestionAnswerBean answer = new QuestionAnswerBean();
         answer.setAnswerId(answerId);
         answer.setAnswers(answerString);
         answer.setColor(color);
+        answer.setQuestionId(question.getQid());
         result.setAnswerBean(answer);
         result.setResult(resultVotes);
         return result;

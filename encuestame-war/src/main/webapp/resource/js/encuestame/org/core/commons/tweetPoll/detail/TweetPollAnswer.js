@@ -34,7 +34,7 @@ dojo.declare(
 
         color : "#000",
 
-        /*
+        /**
          * post create.
          */
         postCreate : function() {
@@ -45,14 +45,11 @@ dojo.declare(
             }));
         },
 
-        /*
+        /**
          * reload answer info.
          */
         _reloadAnswerInfo : function(id, data /*[votes, percent]*/) {
-            if(this.aId == id){
-                //console.debug("_reloadAnswerInfo", id);
-                //console.debug("_reloadAnswerInfo", this.aId);
-                //console.debug("_reloadAnswerInfo", data);
+            if (this.aId == id) {
                 this._reloadValues(data[0], data[1]);
             }
         },

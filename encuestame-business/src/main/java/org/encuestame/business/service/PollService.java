@@ -726,7 +726,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final String color = objects[2] == null ? null : objects[2].toString();
             final Long votes = objects[3] == null ? null : Long.valueOf(objects[3].toString());
             if (answerId != null) {
-	            final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes);	            
+	            final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes, poll.getQuestion());	            
 	            results.add(result);
             } else {
                 throw new IllegalArgumentException("answer id is empty");

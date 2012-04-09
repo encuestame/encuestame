@@ -22,6 +22,7 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -59,9 +60,13 @@ public class PollController extends AbstractBaseOperations {
         log.debug("poll slug -->" + slug);
         try {
             final Poll poll = getPollService().getPollSlugById(id, slug);
+            //final List<QuestionAnswerBean> answer = getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
+            final List<PollBeanResult> results = getPollService().getResultVotes(poll);
+            log.debug("Poll Detail Answers "+results.size());
             log.debug("poll--> "+poll);
-            model.addAttribute("poll",
-                    ConvertDomainBean.convertPollDomainToBean(poll));
+            //TODO: reuse this code on vote poll.
+            model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
+            model.addAttribute("answers", results);
             return "poll/detail";
         } catch (Exception e) {
             log.error(e);
@@ -180,6 +185,7 @@ public class PollController extends AbstractBaseOperations {
         try {
             final Poll poll = getPollService().getPollSlugById(id, slug);
             final List<QuestionAnswerBean> answer = getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
+            log.debug("Poll Detail Answers "+answer.size());
             model.addAttribute("poll", ConvertDomainBean.convertPollDomainToBean(poll));
             model.addAttribute("answers", answer);
         } catch (EnMeNoResultsFoundException e) {

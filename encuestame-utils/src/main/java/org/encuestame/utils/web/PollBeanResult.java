@@ -73,4 +73,9 @@ public class PollBeanResult {
     public void setVotedDate(final Date votedDate) {
         this.votedDate = votedDate;
     }
+	@Override
+	public String toString() {
+		return "PollBeanResult [answerBean=" + answerBean + ", result="
+				+ result + ", votedDate=" + votedDate + "]";
+	}
 }
