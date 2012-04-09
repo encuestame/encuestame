@@ -27,6 +27,7 @@
 				 		itemId="${item.answerBean.answerId}"
 				 		color="${item.answerBean.color}"
 				 		votes="${item.result}"
+				 		percent="${item.percent}"
 				 		questionId="${item.answerBean.questionId}" 
 				 		labelResponse="${item.answerBean.answers}">				 		
 				 	</section>

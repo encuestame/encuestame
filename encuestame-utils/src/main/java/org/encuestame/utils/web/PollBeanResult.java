@@ -26,14 +26,30 @@ import org.codehaus.jackson.annotate.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PollBeanResult {
 
+	/**
+	 * Label of answer.
+	 */
     @JsonProperty(value = "answer")
     private QuestionAnswerBean answerBean;
 
+    /**
+     * Number of votes.
+     */
     @JsonProperty(value = "answer_votes")
     private Long result;
 
+    /**
+     * Date of vote.
+     */
     @JsonIgnore
     private Date votedDate;
+    
+    /**
+     * Percent of result.
+     */
+    @JsonProperty(value = "percent")
+    private String percent; 
+    
     /**
      * @return the answerBean
      */
@@ -41,12 +57,14 @@ public class PollBeanResult {
     public QuestionAnswerBean getAnswerBean() {
         return answerBean;
     }
+    
     /**
      * @param answerBean the answerBean to set
      */
     public void setAnswerBean(QuestionAnswerBean answerBean) {
         this.answerBean = answerBean;
     }
+    
     /**
      * @return the result
      */
@@ -54,12 +72,14 @@ public class PollBeanResult {
     public Long getResult() {
         return result;
     }
+    
     /**
      * @param result the result to set
      */
     public void setResult(final Long result) {
         this.result = result;
     }
+    
     /**
      * @return the votedDate
      */
@@ -67,12 +87,35 @@ public class PollBeanResult {
     public Date getVotedDate() {
         return votedDate;
     }
+    
     /**
      * @param votedDate the votedDate to set
      */
     public void setVotedDate(final Date votedDate) {
         this.votedDate = votedDate;
     }
+    
+    
+    /**
+     * Get percent.
+     * @return
+     */
+    public String getPercent() {
+		return percent;
+	}
+
+    /**
+     * Set percent.
+     * @param percent
+     */
+	public void setPercent(String percent) {
+		this.percent = percent;
+	}
+
+	/*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
 	@Override
 	public String toString() {
 		return "PollBeanResult [answerBean=" + answerBean + ", result="
