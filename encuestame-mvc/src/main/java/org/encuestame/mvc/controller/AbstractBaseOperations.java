@@ -33,7 +33,6 @@ import org.encuestame.business.service.DashboardService;
 import org.encuestame.business.service.ProjectService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
-import org.encuestame.business.service.frontEnd.FrontEndCoreService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.util.HTMLInputFilter;
 import org.encuestame.core.service.AbstractSecurityContext;
