@@ -23,8 +23,10 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -122,5 +124,26 @@ public class HomeController extends AbstractBaseOperations {
     public String index(ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
         return "redirect:/home";
+    }
+    	
+    /**
+     * Display the user profile.
+     * @param model
+     * @param username
+     * @return
+     */
+    @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
+    public String userProfileController(
+            final ModelMap model,
+            @PathVariable String username) {
+        username = filterValue(username);
+        final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
+        if (accountBean == null) {
+            return "404";
+        } else {
+            log.debug("user "+accountBean);
+            model.put("profile", accountBean);
+            return "profile/view";
+        }
     }
 }
