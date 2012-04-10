@@ -20,7 +20,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.encuestame.business.service.frontEnd.FrontEndCoreService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;

@@ -12,7 +12,6 @@
  */
 package org.encuestame.business.service;
 
-import org.encuestame.business.service.frontEnd.FrontEndCoreService;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.SecurityService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
