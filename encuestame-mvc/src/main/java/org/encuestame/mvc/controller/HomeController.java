@@ -141,6 +141,7 @@ public class HomeController extends AbstractBaseOperations {
         if (accountBean == null) {
             return "404";
         } else {
+        	
             log.debug("user "+accountBean);
             model.put("profile", accountBean);
             return "profile/view";
