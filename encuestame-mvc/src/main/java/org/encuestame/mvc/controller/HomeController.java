@@ -13,6 +13,8 @@
 
 package org.encuestame.mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +25,7 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -135,15 +138,24 @@ public class HomeController extends AbstractBaseOperations {
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
     public String userProfileController(
             final ModelMap model,
-            @PathVariable String username) {
+            @PathVariable String username, 
+            HttpServletRequest request,
+            HttpServletResponse response) {
         username = filterValue(username);
         final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
         if (accountBean == null) {
             return "404";
         } else {
-        	
+        	//1 - load all items poll / survey / poll for {username} order by date
+        	//2 - hashtag created by {username}
+        	//3 - social link published by {username}
+        	//4 - last comments  
             log.debug("user "+accountBean);
             model.put("profile", accountBean);
+			final List<HomeBean> lastItems = getFrontService()
+					.getLastItemsPublishedFromUserAccount(username, 20, false,
+							request);
+            model.put("lastItems", lastItems);
             return "profile/view";
         }
     }

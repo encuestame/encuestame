@@ -14,7 +14,6 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -107,8 +106,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * @return list of tweet pools.
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> retrieveTweetsByUserId(final Long userId,
-            final Integer maxResults, final Integer start) {
+    public List<TweetPoll> retrieveTweetsByUserId(
+    		final Long userId,
+            final Integer maxResults, 
+            final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");

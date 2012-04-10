@@ -167,4 +167,8 @@ public class TestFrontEndDao extends AbstractBase {
     }
     
     
+    @Test
+    public void testgetLastItemsSharedPublishedItemsByOwner(){
+    	System.out.println(getFrontEndDao().getLastItemsSharedPublishedItemsByOwner());
+    }
 }

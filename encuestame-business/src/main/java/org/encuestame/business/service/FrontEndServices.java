@@ -105,8 +105,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @throws EnMeSearchException
      *             search exception.
      */
-    public List<TweetPollBean> searchItemsByTweetPoll(final String period,
-            final Integer start, Integer maxResults,
+    public List<TweetPollBean> searchItemsByTweetPoll(
+    		final String period,
+            final Integer start, 
+            Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
         final List<TweetPollBean> results = new ArrayList<TweetPollBean>();
         if (maxResults == null) {
@@ -195,8 +197,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * .lang.String, java.lang.Integer, java.lang.Integer,
      * javax.servlet.http.HttpServletRequest)
      */
-    public List<HomeBean> getFrontEndItems(final String period,
-            final Integer start, Integer maxResults,
+    public List<HomeBean> getFrontEndItems(
+    		final String period,
+            final Integer start, 
+            final Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
         // Sorted list based comparable interface
         final List<HomeBean> allItems = new ArrayList<HomeBean>();
@@ -217,6 +221,19 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         log.debug("Home bean list size :" + allItems.size());
         Collections.sort(allItems);
         return allItems;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getLastItemsPublishedFromUserAccount(java.lang.String, java.lang.Integer, java.lang.Boolean, javax.servlet.http.HttpServletRequest)
+     */
+	public List<HomeBean> getLastItemsPublishedFromUserAccount(
+			final String username, 
+			final Integer maxResults,
+			final Boolean showUnSharedItems,
+			final HttpServletRequest request) {
+			
+    	return null;
     }
 
     /**
@@ -1048,8 +1065,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     }
 
     /**
-     * Get tweetPolls social network links by tag
-     *
+     * Get tweetPolls social network links by tag.
      * @param tagName
      * @param initResults
      * @param maxResults
@@ -1061,20 +1077,21 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final TypeSearchResult filter) {
         Long linksbyItem = 0L;
         Long totalLinksByTweetPoll = 0L;
-
         final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName,
                 initResults, maxResults, filter);
-
         for (TweetPoll tweetPoll : tp) {
             // Get total value by links
             linksbyItem = getTweetPollDao().getSocialLinksByType(tweetPoll,
                     null, null, TypeSearchResult.TWEETPOLL);
             totalLinksByTweetPoll = totalLinksByTweetPoll + linksbyItem;
         }
-
         return totalLinksByTweetPoll;
     }
-
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getTweetPollSocialNetworkLinksbyTagAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult, java.lang.Integer)
+     */
     public List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
             final String tagName, final Integer initResults,
             final Integer maxResults, final TypeSearchResult filter,
