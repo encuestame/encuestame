@@ -20,7 +20,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.encuestame.business.service.frontEnd.FrontEndService;
+import org.encuestame.business.service.frontEnd.FrontEndCoreService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
@@ -49,7 +49,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Test for {@link FrontEndService}.
+ * Test for {@link FrontEndCoreService}.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 12, 2011
  */
