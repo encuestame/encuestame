@@ -1435,10 +1435,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }
 
-    // Total Usage by item.
-    public void getTotalUsagebyHashTagAndDateRange() {
-
-    }
+    /**
+     * Total Usage by item.
+     */
+    public void getTotalUsagebyHashTagAndDateRange() {}
 
     /**
      * Create hashTag details stats.

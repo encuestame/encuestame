@@ -341,4 +341,14 @@ public interface ITweetPoll extends IBaseDao{
 	            final Survey survey, final Poll poll,
 	            final TypeSearchResult itemType, final Integer period,
 				final Integer startResults, final Integer limit);
+	
+	/**
+	 * Return a list of tweetpoll by {username} order by recent.
+	 * @param limitResults
+	 * @param account
+	 * @return
+	 */
+	public List<TweetPoll> getTweetPollByUsername(
+			final Integer limitResults,
+			final UserAccount account);
 }
