@@ -28,7 +28,6 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -364,11 +363,16 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollByUserIdDate(java.util.Date, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollByUserIdDate(final Date date, final UserAccount userAcc,
-            final Integer maxResults, final Integer start ){
+    public List<Poll> getPollByUserIdDate(
+    		final Date date, 
+    		final UserAccount userAcc,
+            final Integer maxResults, 
+            final Integer start ){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
-        criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
+        if ( date != null) {
+        	criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
+        }
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 

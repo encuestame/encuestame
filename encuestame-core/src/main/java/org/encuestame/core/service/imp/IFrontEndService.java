@@ -292,10 +292,11 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @param showUnSharedItems
 	 * @param request
 	 * @return
+	 * @throws EnMeNoResultsFoundException 
 	 */
 	List<HomeBean> getLastItemsPublishedFromUserAccount(
 			final String username, 
 			final Integer maxResults,
 			final Boolean showUnSharedItems,
-			final HttpServletRequest request);
+			final HttpServletRequest request) throws EnMeNoResultsFoundException;
 }

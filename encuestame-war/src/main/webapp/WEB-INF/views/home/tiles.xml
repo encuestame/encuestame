@@ -29,6 +29,7 @@
    <definition name="profile/view" extends="page">
         <put-attribute name="title" value="Profile | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}profile.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}js_profile.jsp" />
     </definition>
 
     <definition name="tag/detail" extends="page">

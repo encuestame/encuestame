@@ -569,7 +569,6 @@ div.web-default-menu  li.first {
     border-radius: 5px 5px 5px 5px;
     border: 1px solid #E5E5E5;
     margin: 15px 3px 3px;
-    clear: both;
 }
 
 .emne-box > header{
@@ -578,7 +577,6 @@ div.web-default-menu  li.first {
     background-color: #E5E5E5;
     min-height: 18px;
     border-bottom: 1px solid #E5E5E5;
-    clear: both;
     padding-left: 8px;
     padding-top: 8px;
 }

@@ -3206,6 +3206,15 @@ div.web-profile-wrapper {
     margin: 10px;
 }
 
+.web-profile-wrapper .profile-left {
+  float: left;
+  max-width: 300px;
+}
+
+.web-profile-wrapper .profile-right {
+  margin-left: 280px;
+}
+
 div.web-profile-wrapper div.profile-name {
     padding: 15px;
     margin-bottom: 0px;
@@ -3987,7 +3996,6 @@ div.web-social-links {
 }
 
 .web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper {
-    clear: both;
     overflow: auto;
 }
 

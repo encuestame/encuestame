@@ -24,9 +24,12 @@ import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.UserAccountBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,16 +48,21 @@ public class HomeController extends AbstractBaseOperations {
     * Log.
     */
     private Log log = LogFactory.getLog(this.getClass());
-
+    
     /**
-     * Default HashTag max results.
+     * Default max of home beans to display.
      */
-    private final Integer MAX_HASHTAG = 80;
-
+    @Value("${front.home.items}") private Integer homeMaxItems;
+    
     /**
-     * Default Items max results.
+     * Default max of hashtag to display.
      */
-    private final Integer MAX_ITEMS = 100;
+    @Value("${front.hashtags.items}") private Integer homeHashtagMaxItems;
+    
+    /**
+     * 
+     */
+    @Value("${front.profile.items}") private Integer profileDefaultItems;
 
     /**
      * Default date range.
@@ -81,30 +89,30 @@ public class HomeController extends AbstractBaseOperations {
             final IFrontEndService service = getFrontService();
             try {
                 if (view.isEmpty()) {
-                    model.addAttribute("items", service.getFrontEndItems(period, 0 , MAX_ITEMS, request));
+                    model.addAttribute("items", service.getFrontEndItems(period, EnMeUtils.DEFAULT_START , this.homeMaxItems, request));
                 } else {
                     if ("tweetpoll".equals(view)) {
                         model.addAttribute("items", ConvertDomainBean
                                 .convertTweetPollListToHomeBean(service
-                                        .searchItemsByTweetPoll(period, 0,
-                                                MAX_ITEMS, request)));
+                                        .searchItemsByTweetPoll(period, EnMeUtils.DEFAULT_START,
+                                        		this.homeMaxItems, request)));
                     } else if ("poll".equals(view)) {
                         model.addAttribute("items",
                                 ConvertDomainBean
                                         .convertPollListToHomeBean(service
-                                                .searchItemsByPoll(period, 0,
-                                                        MAX_ITEMS)));
+                                                .searchItemsByPoll(period, EnMeUtils.DEFAULT_START,
+                                                		this.homeMaxItems)));
                     } else if ("survey".equals(view)) {
                         //TODO: ENCUESTAME-345
                         model.addAttribute("items", ListUtils.EMPTY_LIST);
                     } else {
                         model.addAttribute("items", service
-                                .searchItemsByTweetPoll(period, 0, MAX_ITEMS,
+                                .searchItemsByTweetPoll(period, EnMeUtils.DEFAULT_START, this.homeMaxItems,
                                         request));
                     }
                 }
                 //TODO: review this code, is used?
-                model.addAttribute("hashTags", service.getHashTags(MAX_HASHTAG, 0, ""));
+                model.addAttribute("hashTags", service.getHashTags(this.homeHashtagMaxItems, EnMeUtils.DEFAULT_START, ""));
                 //TODO: search hashtags and other information.
                 //TODO: comments: ENCUESTAME-346
             } catch (EnMeSearchException e) {
@@ -152,11 +160,37 @@ public class HomeController extends AbstractBaseOperations {
         	//4 - last comments  
             log.debug("user "+accountBean);
             model.put("profile", accountBean);
-			final List<HomeBean> lastItems = getFrontService()
-					.getLastItemsPublishedFromUserAccount(username, 20, false,
-							request);
-            model.put("lastItems", lastItems);
-            return "profile/view";
+			List<HomeBean> lastItems;
+			try {
+				lastItems = getFrontService()
+						.getLastItemsPublishedFromUserAccount(username, this.profileDefaultItems, false,
+								request);
+	            model.put("lastItems", lastItems);
+	            return "profile/view";
+			} catch (EnMeNoResultsFoundException e) {
+				return "profile/view";
+			}
         }
     }
+
+	/**
+	 * @param profileDefaultItems the profileDefaultItems to set
+	 */
+	public void setProfileDefaultItems(final Integer profileDefaultItems) {
+		this.profileDefaultItems = profileDefaultItems;
+	}
+
+	/**
+	 * @param homeMaxItems the homeMaxItems to set
+	 */
+	public void setHomeMaxItems(final Integer homeMaxItems) {
+		this.homeMaxItems = homeMaxItems;
+	}
+
+	/**
+	 * @param homeHashtagMaxItems the homeHashtagMaxItems to set
+	 */
+	public void setHomeHashtagMaxItems(final Integer homeHashtagMaxItems) {
+		this.homeHashtagMaxItems = homeHashtagMaxItems;
+	}	
 }

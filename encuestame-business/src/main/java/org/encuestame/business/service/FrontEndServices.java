@@ -12,12 +12,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.core.util.RecentItemsComparator;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
@@ -223,17 +225,34 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         return allItems;
     }
     
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IFrontEndService#getLastItemsPublishedFromUserAccount(java.lang.String, java.lang.Integer, java.lang.Boolean, javax.servlet.http.HttpServletRequest)
-     */
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.core.service.imp.IFrontEndService#getLastItemsPublishedFromUserAccount(java.lang.String, java.lang.Integer, java.lang.Boolean, javax.servlet.http.HttpServletRequest)
+    */
 	public List<HomeBean> getLastItemsPublishedFromUserAccount(
 			final String username, 
 			final Integer maxResults,
 			final Boolean showUnSharedItems,
-			final HttpServletRequest request) {
-			
-    	return null;
+			final HttpServletRequest request) throws EnMeNoResultsFoundException {
+			//get tweetpolls
+		final UserAccount user = getUserAccount(username);
+		log.debug("getLastItemsPublishedFromUserAccount: "+user.getUsername());
+		final List<TweetPoll> lastTp = getTweetPollDao().getTweetPollByUsername(maxResults, user);
+		log.debug("getLastItemsPublishedFromUserAccount lastTp: "+lastTp.size());
+		final List<Poll> lastPoll = getPollDao().getPollByUserIdDate(null, user, maxResults, EnMeUtils.DEFAULT_START);
+		log.debug("getLastItemsPublishedFromUserAccount lastPoll: "+lastPoll.size());
+		final List<HomeBean> totalItems = new ArrayList<HomeBean>();
+		//convert poll to home beans
+		totalItems.addAll(ConvertDomainBean.convertPollListToHomeBean(ConvertDomainBean.convertListToPollBean(lastPoll)));
+		//convert TweetPoll to home beans
+		totalItems.addAll(ConvertDomainBean.convertTweetPollListToHomeBean(ConvertDomainBean.convertListToTweetPollBean(lastTp)));
+		//TODO: add survey Items.
+		
+		//order items
+		Collections.sort(totalItems, new RecentItemsComparator());
+		log.debug("getLastItemsPublishedFromUserAccount after sort: "+totalItems.size());
+		//ListUtils.
+    	return totalItems;
     }
 
     /**
@@ -345,6 +364,9 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         return tweetPollBean;
     }
 
+    /**
+     * 
+     */
     public List<HomeBean> searchLastPublicationsbyHashTag(
             final HashTag hashTag, final String keyword,
             final Integer initResults, final Integer limit,
