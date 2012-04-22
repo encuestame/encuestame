@@ -26,7 +26,7 @@
 	        <div class="profile-right">
 		         <article class="emne-box">
 		                <header>
-		                  	Last Published Publications
+		                  	<spring:message code="home.profile.lastpub" />
 		                  	<div class="rss">
 		                  		<a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.rss">
 		                  			<img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
