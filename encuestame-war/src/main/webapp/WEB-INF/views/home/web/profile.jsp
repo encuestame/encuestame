@@ -37,6 +37,11 @@
 		         <c:forEach items="${lastItems}" var="item">
 		             <%@ include file="detail_item.jsp"%>
 		        </c:forEach>
+		        <c:if test="${empty lastItems}">
+		        	 <h3 class="no-results">
+		        		<spring:message code="results.noresults" />
+		        	</h3>
+		        </c:if>
 		        </div>
 		        </article>
 	        </div>

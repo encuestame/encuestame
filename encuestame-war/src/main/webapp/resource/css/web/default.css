@@ -588,6 +588,14 @@ div.web-default-menu  li.first {
   top: -3px;
 }
 
+.emne-box h3.no-results {
+  color: #CCCCCC;
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  padding: 20px;
+}
+
 /** default detail **/
 .web-wrapper-detail {
   margin: 30px;
