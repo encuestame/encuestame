@@ -18,7 +18,7 @@ encuestame.home=.
 #************************************************************************************
 # !!! ATTENTION PLEASE !!!
 # If you use DEMO profile, should be FALSE
-encuestame.development = true
+encuestame.development = false
 #************************************************************************************
 
 #************************************************************************************
@@ -28,15 +28,15 @@ encuestame.development = true
 #************************************************************************************
 # Postgres Configuration
 #************************************************************************************
-datasource.userbd = postgres
-datasource.pass= postgres
-datasource.classname = org.postgresql.Driver
-datasource.dialect = org.hibernate.dialect.PostgreSQLDialect
+datasource.userbd = sa
+datasource.pass= 
+datasource.classname = org.hsqldb.jdbcDriver
+datasource.dialect = org.hibernate.dialect.HSQLDialect
 datasource.showsql = false
-datasource.database = postgres
+datasource.database = hsqldb
 datasource.delimited =
-datasource.hbm2ddl.auto = update
-datasource.urldb = jdbc:postgresql://localhost/encuestame
+datasource.hbm2ddl.auto = create
+datasource.urldb = jdbc:hsqldb:mem:encuestame_bd
 
 #************************************************************************************
 # MySQL Configuration
