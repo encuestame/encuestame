@@ -174,7 +174,6 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         setParameter("start", "0");
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
-        System.out.println(success);
         final JSONArray comments = (JSONArray) success.get("topComments");
         //System.out.println("COMMENTS JSON TEST-->" + comments.size());
         Assert.assertEquals(comments.size(), 4);

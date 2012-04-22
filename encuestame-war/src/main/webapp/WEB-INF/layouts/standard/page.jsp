@@ -15,6 +15,7 @@
       <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries-->
     <script src="<%=request.getContextPath()%>/resources/js/req/modernizr-2.0.6.js"></script>
+    <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="claro enme-web-context">
      <header id="header">

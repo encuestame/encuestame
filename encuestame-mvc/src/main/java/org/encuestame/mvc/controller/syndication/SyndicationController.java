@@ -79,7 +79,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "tweetPolls"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "tweetPolls", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -165,7 +165,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "profiles"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "profiles", rssDisplayItems));
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
             } catch (EnMeExpcetion e) {
                 log.error(e);
@@ -186,7 +186,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "surveys"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "surveys", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -250,7 +250,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "polls"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "polls", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -265,7 +265,7 @@ public class SyndicationController extends AbstractFeedController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/feed/polls.atom", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/poll.atom", method = RequestMethod.GET)
     public String pollAtom(Model model, HttpServletRequest request) {
         model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
         return "pollAtomFeedView";
@@ -316,7 +316,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "projects"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "projects", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -379,15 +379,12 @@ public class SyndicationController extends AbstractFeedController {
     @RequestMapping(value = "/feed/home.atom", method = RequestMethod.GET)
     public String frontendAtom(
         Model model,
-        HttpServletRequest request) {
-        final UserAccount secUserSecondary = findByUsername("");//TODO: remove
-        if(secUserSecondary != null){
+        HttpServletRequest request) {       
             try {
-                model.addAttribute("items", this.getEntryAtomFeed("", request, "frontend"));
+                model.addAttribute("items", this.getEntryAtomFeed("", request, "frontend", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
-        }
         return "frontEndAtomFeedView";
     }
 
@@ -403,14 +400,11 @@ public class SyndicationController extends AbstractFeedController {
     public String frontendRss(
             Model model,
             HttpServletRequest request) {
-        final UserAccount secUserSecondary = findByUsername(""); //TODO: remove
-        if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssFeed("", request, "frontend", rssDisplayItems)); //TODO: remove
+                model.addAttribute("items", this.getItemRssFeed(null, request, "frontend", rssDisplayItems)); 
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
-        }
         return "frontEndRssFeedView";
     }
 
