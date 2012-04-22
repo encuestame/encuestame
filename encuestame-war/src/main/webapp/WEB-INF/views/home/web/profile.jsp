@@ -16,6 +16,12 @@
 		                <li>
 		                    <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png"> <a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.atom">TweetPoll ATOM</a>
 		                </li>
+		                <li>
+		                    <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png"> <a href="<%=request.getContextPath()%>/feed/${profile.username}/profile.rss">Profile RSS</a>
+		                </li>
+		                <li>
+		                    <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png"> <a href="<%=request.getContextPath()%>/feed/${profile.username}/profile.atom">Profile ATOM</a>
+		                </li>		                
 		            </ul>
 		        </div>
 	        </div>

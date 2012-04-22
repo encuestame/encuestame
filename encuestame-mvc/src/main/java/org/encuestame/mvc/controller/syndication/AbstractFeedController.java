@@ -62,8 +62,11 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
      * @throws EnMeNoResultsFoundException
      */
     @SuppressWarnings("unchecked")
-    public List<Item> getItemRssFeed(final String username,
-            final HttpServletRequest request, final String itemType) throws EnMeNoResultsFoundException{
+    public List<Item> getItemRssFeed(
+    		final String username,
+            final HttpServletRequest request, 
+            final String itemType, 
+            final Integer limits) throws EnMeNoResultsFoundException{
         List<Item> item = new ArrayList<Item>();
         if (itemType.equals("tweetPolls")) {
             item = FeedUtils.convertTweetPollBeanToItemRSS(
@@ -75,7 +78,10 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
         } else if (itemType.equals("surveys")) {
             item = ListUtils.EMPTY_LIST;
         } else if (itemType.equals("profiles")) {
-            item = ListUtils.EMPTY_LIST;
+        	item = FeedUtils.convertHomeBeanToItemRSS(getFrontService()
+				.getLastItemsPublishedFromUserAccount(username, limits, false,
+						request),
+	                    InternetUtils.getDomain(request));
         } else if (itemType.equals("projects")) {
             item = ListUtils.EMPTY_LIST;
         } else if (itemType.equals("frontend")) {
