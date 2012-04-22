@@ -278,7 +278,7 @@ public class SyndicationController extends AbstractFeedController {
      * @param request request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/polls.rss", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/{username}/poll.rss", method = RequestMethod.GET)
     public String pollRss(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
@@ -298,7 +298,7 @@ public class SyndicationController extends AbstractFeedController {
     * @param request
     * @return
     */
-   @RequestMapping(value = "/feed/polls.rss", method = RequestMethod.GET)
+   @RequestMapping(value = "/feed/poll.rss", method = RequestMethod.GET)
    public String pollRss(Model model, HttpServletRequest request) {
        model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
        return "pollRssFeedView";
@@ -311,7 +311,7 @@ public class SyndicationController extends AbstractFeedController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/projects.atom", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/{username}/project.atom", method = RequestMethod.GET)
     public String projectAtom(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
@@ -344,7 +344,7 @@ public class SyndicationController extends AbstractFeedController {
      * @param request request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/projects.rss", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/{username}/project.rss", method = RequestMethod.GET)
     public String projectRss(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){

@@ -21,7 +21,16 @@
 		                </li>
 		                <li>
 		                    <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png"> <a href="<%=request.getContextPath()%>/feed/${profile.username}/profile.atom">Profile ATOM</a>
-		                </li>		                
+		                </li>
+		                <li>
+		                    <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png"> <a href="<%=request.getContextPath()%>/feed/${profile.username}/poll.atom">Poll ATOM</a>
+		                </li>
+		                <li>
+		                    <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png"> <a href="<%=request.getContextPath()%>/feed/${profile.username}/project.atom">Projects ATOM</a>
+		                </li>
+		                <li>
+		                    <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png"> <a href="<%=request.getContextPath()%>/feed/${profile.username}/project.rss">Projects RSS</a>
+		                </li>		                		                		                		                		                		                		               
 		            </ul>
 		        </div>
 	        </div>
