@@ -75,11 +75,14 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 }
 
 .web-setup-wrapper .setup-form div .label {
-    color: #8B8B8B;
-    float: left;
-    font-size: 110%;
-    font-weight: bold;
-    min-width: 145px;
+  color: #8B8B8B;
+  float: left;
+  font-size: 110%;
+  font-weight: bold;
+  line-height: 31px;
+  min-width: 145px;
+  text-align: left;
+  width: 25%;
 }
 
 .web-setup-wrapper .setup-form div.row span {

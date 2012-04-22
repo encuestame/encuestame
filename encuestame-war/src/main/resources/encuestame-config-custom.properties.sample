@@ -35,7 +35,7 @@ datasource.dialect = org.hibernate.dialect.HSQLDialect
 datasource.showsql = false
 datasource.database = hsqldb
 datasource.delimited =
-datasource.hbm2ddl.auto = create
+datasource.hbm2ddl.auto = none
 datasource.urldb = jdbc:hsqldb:mem:encuestame_bd
 
 #************************************************************************************
