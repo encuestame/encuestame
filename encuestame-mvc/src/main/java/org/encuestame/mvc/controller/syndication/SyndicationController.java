@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,13 @@ public class SyndicationController extends AbstractFeedController {
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+    
+    
+    /**
+     * 
+     */
+    @Value("${rss.display.items}") private Integer rssDisplayItems;
+
 
     /**
      * Default Tweet Poll Feed Title.
@@ -71,7 +79,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "tweetPolls"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "tweetPolls", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -101,14 +109,13 @@ public class SyndicationController extends AbstractFeedController {
     @RequestMapping(value = "/feed/{username}/tweetpoll.rss", method = RequestMethod.GET)
     public String tweetPollRss(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = findByUsername(username);
-        if(secUserSecondary != null){
+        if (secUserSecondary != null) {
              try {
-                model.addAttribute("items", this.getItemRssFeed(username, request, "tweetPolls"));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "tweetPolls", rssDisplayItems));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
         }
-
         return "tweetPollRssFeedView";
     }
 
@@ -133,19 +140,16 @@ public class SyndicationController extends AbstractFeedController {
      */
     @RequestMapping(value = "/feed/{username}/profile.rss", method = RequestMethod.GET)
     public String profileRss(@PathVariable String username, Model model, HttpServletRequest request) {
-        final UserAccount secUserSecondary = findByUsername(username);
-        if(secUserSecondary != null){
+    	final UserAccount secUserSecondary = findByUsername(username);
+        if (secUserSecondary != null) {
              try {
-                final List<Item> globalItems = new ArrayList<Item>();
-                globalItems.addAll(this.getItemRssFeed(username, request, "profiles"));
-                globalItems.addAll(this.getItemRssFeed(username, request, "profiles"));
-                globalItems.addAll(this.getItemRssFeed(username, request, "profiles"));
-                model.addAttribute("items", globalItems);
+            	final List<Item> items = this.getItemRssFeed(username, request, "profiles", rssDisplayItems); 
+            	log.debug("/feed/{username}/profile.rss items size "+items.size());
+                model.addAttribute("items", items);
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
         }
-
         return "profileRssFeedView";
     }
 
@@ -161,7 +165,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "profiles"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "profiles", rssDisplayItems));
                 this.buildTweetPollFeedBody(username, model, request, secUserSecondary);
             } catch (EnMeExpcetion e) {
                 log.error(e);
@@ -182,7 +186,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "surveys"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "surveys", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -214,7 +218,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssFeed(username, request, "surveys"));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "surveys", rssDisplayItems));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
@@ -246,7 +250,7 @@ public class SyndicationController extends AbstractFeedController {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "polls"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "polls", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -261,7 +265,7 @@ public class SyndicationController extends AbstractFeedController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/feed/polls.atom", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/poll.atom", method = RequestMethod.GET)
     public String pollAtom(Model model, HttpServletRequest request) {
         model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
         return "pollAtomFeedView";
@@ -274,12 +278,12 @@ public class SyndicationController extends AbstractFeedController {
      * @param request request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/polls.rss", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/{username}/poll.rss", method = RequestMethod.GET)
     public String pollRss(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssFeed(username, request, "polls"));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "polls", rssDisplayItems));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
@@ -294,7 +298,7 @@ public class SyndicationController extends AbstractFeedController {
     * @param request
     * @return
     */
-   @RequestMapping(value = "/feed/polls.rss", method = RequestMethod.GET)
+   @RequestMapping(value = "/feed/poll.rss", method = RequestMethod.GET)
    public String pollRss(Model model, HttpServletRequest request) {
        model.addAttribute("items", ListUtils.EMPTY_LIST); //TODO: without filter.
        return "pollRssFeedView";
@@ -307,12 +311,12 @@ public class SyndicationController extends AbstractFeedController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/projects.atom", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/{username}/project.atom", method = RequestMethod.GET)
     public String projectAtom(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
             try {
-                model.addAttribute("items", this.getEntryAtomFeed(username, request, "projects"));
+                model.addAttribute("items", this.getEntryAtomFeed(username, request, "projects", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
@@ -340,12 +344,12 @@ public class SyndicationController extends AbstractFeedController {
      * @param request request
      * @return
      */
-    @RequestMapping(value = "/feed/{username}/projects.rss", method = RequestMethod.GET)
+    @RequestMapping(value = "/feed/{username}/project.rss", method = RequestMethod.GET)
     public String projectRss(@PathVariable String username, Model model, HttpServletRequest request) {
         final UserAccount secUserSecondary = findByUsername(username);
         if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssFeed(username, request, "projects"));
+                model.addAttribute("items", this.getItemRssFeed(username, request, "projects", rssDisplayItems));
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
@@ -375,15 +379,12 @@ public class SyndicationController extends AbstractFeedController {
     @RequestMapping(value = "/feed/home.atom", method = RequestMethod.GET)
     public String frontendAtom(
         Model model,
-        HttpServletRequest request) {
-        final UserAccount secUserSecondary = findByUsername("");//TODO: remove
-        if(secUserSecondary != null){
+        HttpServletRequest request) {       
             try {
-                model.addAttribute("items", this.getEntryAtomFeed("", request, "frontend"));
+                model.addAttribute("items", this.getEntryAtomFeed("", request, "frontend", rssDisplayItems));
             } catch (EnMeExpcetion e) {
                 log.error(e);
             }
-        }
         return "frontEndAtomFeedView";
     }
 
@@ -399,14 +400,18 @@ public class SyndicationController extends AbstractFeedController {
     public String frontendRss(
             Model model,
             HttpServletRequest request) {
-        final UserAccount secUserSecondary = findByUsername(""); //TODO: remove
-        if(secUserSecondary != null){
              try {
-                model.addAttribute("items", this.getItemRssFeed("", request, "frontend")); //TODO: remove
+                model.addAttribute("items", this.getItemRssFeed(null, request, "frontend", rssDisplayItems)); 
              } catch (EnMeNoResultsFoundException e) {
                  log.error(e);
              }
-        }
         return "frontEndRssFeedView";
     }
+
+	/**
+	 * @param rssDisplayItems the rssDisplayItems to set
+	 */
+	public void setRssDisplayItems(final Integer rssDisplayItems) {
+		this.rssDisplayItems = rssDisplayItems;
+	}
 }

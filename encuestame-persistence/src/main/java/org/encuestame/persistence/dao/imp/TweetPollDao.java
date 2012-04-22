@@ -14,7 +14,6 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -107,8 +106,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * @return list of tweet pools.
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> retrieveTweetsByUserId(final Long userId,
-            final Integer maxResults, final Integer start) {
+    public List<TweetPoll> retrieveTweetsByUserId(
+    		final Long userId,
+            final Integer maxResults, 
+            final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");
@@ -673,7 +674,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * , java.lang.Integer, java.util.Date)
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> getTweetPolls(final Integer maxResults,
+    public List<TweetPoll> getTweetPolls(
+    		final Integer maxResults,
             final Integer start, final Date range) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
@@ -682,6 +684,23 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         criteria.addOrder(Order.desc("createDate"));
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
+    
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollByUsername(java.lang.Integer, org.encuestame.persistence.domain.security.UserAccount)
+    */
+	@SuppressWarnings("unchecked")
+	public List<TweetPoll> getTweetPollByUsername(
+			final Integer limitResults,
+			final UserAccount account) {
+    	final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPoll.class);
+        criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        criteria.add(Restrictions.eq("editorOwner", account));
+        criteria.addOrder(Order.desc("createDate"));
+        return (List<TweetPoll>) filterByMaxorStart(criteria, limitResults, 0);
+    }
+    
 
     /*
      * (non-Javadoc)

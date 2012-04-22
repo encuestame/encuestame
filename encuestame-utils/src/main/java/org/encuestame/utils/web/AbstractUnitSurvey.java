@@ -14,6 +14,7 @@ package org.encuestame.utils.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -71,7 +72,10 @@ public abstract class AbstractUnitSurvey implements Serializable {
 
     @JsonProperty(value = "create_date")
     private String createDate;
-
+    
+    @JsonIgnore
+    private Date createDateComparable;
+    
     /** Relevance. **/
     @JsonProperty(value = "relevance")
     private Long relevance;
@@ -551,10 +555,13 @@ public abstract class AbstractUnitSurvey implements Serializable {
         final StringBuffer buffer = new StringBuffer();
         int size = getHashTags().size();
         for (HashTagBean bean : getHashTags()) {
-            buffer.append(bean.getHashTagName());
-            if (!(--size == 0)) {
-                buffer.append(",");
-            }
+        	//check the hashtag is emtpy
+        	if (!bean.getHashTagName().isEmpty()) {
+		        buffer.append(bean.getHashTagName());
+		        if (!(--size == 0)) {
+		            buffer.append(",");
+		        }
+        	}
         }
         this.hashtagAsString = buffer.toString();
         return hashtagAsString;
@@ -579,5 +586,18 @@ public abstract class AbstractUnitSurvey implements Serializable {
         this.isPasswordRestriction = isPasswordRestriction;
     }
 
+	/**
+	 * @return the createDateComparable
+	 */
+    @JsonIgnore
+	public Date getCreateDateComparable() {
+		return createDateComparable;
+	}
 
+	/**
+	 * @param createDateComparable the createDateComparable to set
+	 */
+	public void setCreateDateComparable(Date createDateComparable) {
+		this.createDateComparable = createDateComparable;
+	}
 }

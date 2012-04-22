@@ -4,4 +4,5 @@
   dojo.require("encuestame.org.core.comments.Comments");
   dojo.require("encuestame.org.core.commons.social.LinksPublished");
   dojo.require("encuestame.org.core.commons.poll.detail.PollChartDetail");
+  dojo.require("encuestame.org.core.commons.results.answers.GenericPercentResult");
 </script>

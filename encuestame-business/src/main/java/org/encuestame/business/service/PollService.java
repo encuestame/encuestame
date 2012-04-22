@@ -726,15 +726,30 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final String color = objects[2] == null ? null : objects[2].toString();
             final Long votes = objects[3] == null ? null : Long.valueOf(objects[3].toString());
             if (answerId != null) {
-	            final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes);	            
+	            final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes, poll.getQuestion());	            
 	            results.add(result);
             } else {
                 throw new IllegalArgumentException("answer id is empty");
             }
         }
         log.debug("poll PollBeanResult " + results.size());
+        this.calculatePercents(results);
     	return results;
     }
+    
+    /**
+     * Calculate the percents.
+     * @param beanResults
+     */
+	private void calculatePercents(final List<PollBeanResult> beanResults) {
+		double totalVotes = 0;
+		for (PollBeanResult pollBeanResult : beanResults) {
+			totalVotes += totalVotes + pollBeanResult.getResult();
+		}
+		for (PollBeanResult pollBeanResult : beanResults) {
+			pollBeanResult.setPercent(EnMeUtils.calculatePercent(totalVotes, pollBeanResult.getResult()));
+		}
+	}
 
     /*
      * (non-Javadoc)
@@ -745,6 +760,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final Poll poll = getPoll(pollId);
         detail.setPollBean(ConvertDomainBean.convertPollDomainToBean(poll));
         detail.setResults(this.getResultVotes(poll));
+        this.calculatePercents(detail.getResults());
         //set the list of answers
         detail.setListAnswers(ConvertDomainBean
                 .convertAnswersToQuestionAnswerBean(getQuestionDao()

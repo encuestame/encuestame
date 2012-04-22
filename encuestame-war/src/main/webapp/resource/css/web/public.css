@@ -3206,6 +3206,22 @@ div.web-profile-wrapper {
     margin: 10px;
 }
 
+div.web-profile-wrapper > header {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 3px;
+  margin-top: 20px;
+}
+
+.web-profile-wrapper .profile-left {
+  float: left;
+  max-width: 300px;
+}
+
+.web-profile-wrapper .profile-right {
+  margin-left: 280px;
+}
+
 div.web-profile-wrapper div.profile-name {
     padding: 15px;
     margin-bottom: 0px;
@@ -3987,7 +4003,6 @@ div.web-social-links {
 }
 
 .web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper {
-    clear: both;
     overflow: auto;
 }
 
@@ -4638,4 +4653,81 @@ div.web-social-links {
     position: absolute;
     bottom: 0;
     right: 0;
+}
+
+/** poll results **/
+
+.web-poll-results{
+	margin-left: 450px !important;
+}
+
+.web-poll-results header {
+  border-bottom: 2px solid #BEBEBE;
+  margin-bottom: 10px;
+  overflow: auto;
+  padding: 5px;
+}
+
+.web-poll-results header > div {
+  color: #BEBEBE;
+  float: left;
+  font-size: 14px;
+  padding: 5px;
+}
+
+.web-poll-results header .header-votes {
+  margin-left: 345px;
+}
+
+.web-poll-results header .header-percents {
+  margin-left: 55px;
+}
+
+.web-poll-results .web-poll-options-button {
+  padding: 25px;
+  text-align: right;
+}
+
+/** poll results **/
+
+/*** web-generic-result **/
+
+.web-generic-result {
+  font-size: 14px;
+  overflow: auto;
+  padding: 3px;
+}
+
+.web-generic-result .color {
+  float: left;
+  padding: 3px;
+  text-align: center;
+  width: 60px;
+}
+
+.web-generic-result .color span {
+  border-radius: 10px 10px 10px 10px;
+  display: inline-block;
+  height: 20px;
+  width: 30px;
+}
+
+.web-generic-result .label {
+  float: left;
+  font-weight: bold;
+  padding: 8px;
+  width: 280px;
+}
+
+#content-container #enme-content div.votes {
+  float: left;
+  margin: 0 !important;
+  padding: 8px;
+  width: 100px !important;
+}
+
+.web-generic-result .percent {
+  float: left;
+  font-weight: bold;
+  padding: 8px;
 }

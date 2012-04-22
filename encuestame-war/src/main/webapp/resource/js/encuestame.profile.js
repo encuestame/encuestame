@@ -4,6 +4,8 @@ dependencies ={
             name: "encuestame-commons.js",
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
+                "encuestame.org.core.commons.results.answers.GenericPercentResult",
+                "encuestame.org.core.commons.results.answers.ResultSupport",
                 "encuestame.org.core.commons.chart.AbstractChartVoteSupport",
                 "encuestame.org.core.commons.poll.detail.PollChartDetail",
                 "encuestame.org.core.commons.support.OrderMenu",

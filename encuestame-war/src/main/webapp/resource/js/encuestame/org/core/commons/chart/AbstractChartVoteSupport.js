@@ -85,7 +85,7 @@ dojo.declare("encuestame.org.core.commons.chart.AbstractChartVoteSupport", null,
     	dojo.addOnLoad(dojo.hitch(this, function() {
             if (this.enableLiveVotes) {
                 this.setTimer();
-                liveNode.innerHTML = "ON LIVE: Results refreshed every "+(this.delay/1000)+" seconds";
+                //liveNode.innerHTML = "ON LIVE: Results refreshed every "+(this.delay/1000)+" seconds";
                 dojo.removeClass(liveNode, "defaultDisplayHide");
             } else{
                 dojo.addClass(liveNode, "defaultDisplayHide");

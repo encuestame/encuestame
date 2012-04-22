@@ -165,6 +165,4 @@ public class TestFrontEndDao extends AbstractBase {
     		System.out.println(" Object 2 --->" + objects[1]);
 		} */
     }
-    
-    
 }

@@ -61,7 +61,7 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     /** {@link ChartService}. **/
     @Autowired
     private IChartService chartService;
-    /** {@link FrontEndService}. **/
+    /** {@link FrontEndCoreService}. **/
     @Autowired
     private IFrontEndService frontEndService;
     /** {@link PictureService}. **/

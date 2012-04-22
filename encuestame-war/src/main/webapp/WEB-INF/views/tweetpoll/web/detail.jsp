@@ -29,13 +29,19 @@
                         <tr class="gradient-black">
                             <th></th>
                             <th>
-                                <span class="header-table-answer">Link to Vote</span>
+                                <span class="header-table-answer">
+                                	<spring:message code="options.linkToVote"/>
+                                </span>
                             </th>
                             <th>
-                                <span class="header-table-answer">Count</span>
+                                <span class="header-table-answer">
+                                	<spring:message code="options.votes" />
+                                </span>
                             </th>
                             <th>
-                                <span class="header-table-answer">Percent</span>
+                                <span class="header-table-answer">
+                                	<spring:message code="options.percent" />
+                                </span>
                             </th>
                             <th>
                                 <span class="header-table-answer"></span>
@@ -76,7 +82,7 @@
    </article>
    <article class="emne-box">
        <header>
-          Social Links Refered
+          <spring:message code="options.links" />
        </header>
        <section>
             <div dojoType="encuestame.org.core.commons.social.LinksPublished"
@@ -86,7 +92,9 @@
     </article>
    <c:if test="${!empty hashtags}">
        <section class="emne-box">
-           <header>HashTag Refered</header>
+           <header>
+           		<spring:message code="options.hashtag" />
+           </header>
            <div class="web-tweetpoll-hashtags ">
                <c:forEach items="${hashtags}" var="h">
                        <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
@@ -98,7 +106,7 @@
    </c:if>
    <section class="web-tweetpoll-comments emne-box">
       <header>
-        Comments
+            <spring:message code="options.comments" />
       </header>
       <div name="comments" dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </section>

@@ -7,17 +7,39 @@
    </header>
    <article class="emne-box">
         <section class="web-wrapper-detail-wrapper">
-            <div class="web-chart">
+            <article class="web-chart">
                 <div dojoType="encuestame.org.core.commons.poll.detail.PollChartDetail"
-                pollId="${poll.id}"
-                username="${poll.ownerUsername}"></div>
-            </div>
-            <div class="web-detail">
-				 <c:forEach items="${answers}" var="a">
-				 	<div>${a}</div>
+	                 pollId="${poll.id}"
+	                 username="${poll.ownerUsername}">
+	            </div>
+            </article>
+            <article class="web-detail web-poll-results"> 
+            	 <header>
+            	 	<div class="header-votes">
+            	 		<spring:message code="options.votes" />
+            	 	</div>
+            	 	<div class="header-percents">
+            	 		<spring:message code="options.percent" />
+            	 	</div>
+            	 </header>           	             	
+				 <c:forEach items="${answers}" var="item">				 
+				 	<section dojoType="encuestame.org.core.commons.results.answers.GenericPercentResult"
+				 		itemId="${item.answerBean.answerId}"
+				 		color="${item.answerBean.color}"
+				 		votes="${item.result}"
+				 		percent="${item.percent}"
+				 		questionId="${item.answerBean.questionId}" 
+				 		labelResponse="${item.answerBean.answers}">				 		
+				 	</section>
                  </c:forEach>
-                 <a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">Vote</a>
-            </div>
+                 <div class="web-poll-options-button">
+                 	<a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">
+                 		<button>
+                 			<spring:message code="options.vote" />
+                 		</button>
+                 	</a>
+                 </div>
+            </article>
        </section>
        <section class="web-button-wrapper gradient-gray">
             <div>
@@ -30,7 +52,7 @@
    </article>
    <article class="emne-box">
        <header>
-          Social Links Refered
+          <spring:message code="options.links" />
        </header>
        <section>
             <div dojoType="encuestame.org.core.commons.social.LinksPublished"
@@ -40,7 +62,9 @@
     </article>
    <c:if test="${!empty hashtags}">
        <section class="emne-box">
-           <header>HashTag Refered</header>
+           <header>
+           	   <spring:message code="options.hashtag" />
+           </header>
            <div class="web-tweetpoll-hashtags ">
                <c:forEach items="${hashtags}" var="h">
                        <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
@@ -51,7 +75,9 @@
        </section>
    </c:if>
    <section class="web-tweetpoll-comments emne-box">
-      <header>Comments</header>
+      <header>
+      		<spring:message code="options.comments" />
+      </header>
       <div dojoType="encuestame.org.core.comments.Comments" type="poll" item_id="${poll.id}"></div>
    </section>
 </article>

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -271,8 +272,31 @@ public interface IFrontEndService extends ServiceOperations {
 	 */
 	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
 	
-	
+	/**
+	 * 
+	 * @param tagName
+	 * @param initResults
+	 * @param maxResults
+	 * @param filter
+	 * @param period
+	 * @return
+	 */
 	List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
 			final String tagName, final Integer initResults,
 			final Integer maxResults, final TypeSearchResult filter, final Integer period);
+	
+	/**
+	 * Return the last items published from {@link UserAccount}.
+	 * @param username
+	 * @param maxResults
+	 * @param showUnSharedItems
+	 * @param request
+	 * @return
+	 * @throws EnMeNoResultsFoundException 
+	 */
+	List<HomeBean> getLastItemsPublishedFromUserAccount(
+			final String username, 
+			final Integer maxResults,
+			final Boolean showUnSharedItems,
+			final HttpServletRequest request) throws EnMeNoResultsFoundException;
 }

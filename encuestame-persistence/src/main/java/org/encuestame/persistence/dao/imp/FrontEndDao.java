@@ -95,7 +95,9 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @return list of tweetPoll.
      */
     @SuppressWarnings("unchecked")
-    public final List<TweetPoll> getTweetPollFrontEnd(Integer period, final Integer start, final Integer maxResults, final Integer firstResult){
+	public final List<TweetPoll> getTweetPollFrontEnd(Integer period,
+			final Integer start, final Integer maxResults,
+			final Integer firstResult) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
             criteria.createAlias("question", "question");
         if (period != null) {
@@ -123,7 +125,9 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @return list of poll.
      */
     @SuppressWarnings("unchecked")
-    public final List<Poll> getPollFrontEnd(final Integer period, final Integer start, final Integer maxResults, final Integer firstResult){
+	public final List<Poll> getPollFrontEnd(final Integer period,
+			final Integer start, final Integer maxResults,
+			final Integer firstResult) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("question", "question");
         if (period != null) {
@@ -139,8 +143,13 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         //return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
     }
 
+    /*
+     * 
+     */
     @SuppressWarnings("unchecked")
-    public final List<Survey> getSurveyFrontEnd(final Integer period, final Integer start, final Integer maxResults, final Integer firstResult){
+	public final List<Survey> getSurveyFrontEnd(final Integer period,
+			final Integer start, final Integer maxResults,
+			final Integer firstResult) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          //criteria.createAlias("question", "question");
         // TODO: Complete method, adding criteria params
