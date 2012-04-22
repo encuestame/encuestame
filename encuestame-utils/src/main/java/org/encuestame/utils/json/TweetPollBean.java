@@ -69,8 +69,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     private Long totalVotes;
     @JsonProperty(value = "hits")
     private Long hits;
-    @JsonProperty(value = "relativeTime")
-    private String relativeTime;
     @JsonProperty(value = "maxRepeatedVotes")
     private Integer maxRepeatedVotes;
     @JsonProperty(value = "limitVotesEnabled")
@@ -398,22 +396,7 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
     public void setTotalVotes(Long totalVotes) {
         this.totalVotes = totalVotes;
     }
-
-    /**
-     * @return the relativeTime
-     */
-    @JsonIgnore
-    public String getRelativeTime() {
-        return relativeTime;
-    }
-
-    /**
-     * @param relativeTime the relativeTime to set
-     */
-    public void setRelativeTime(String relativeTime) {
-        this.relativeTime = relativeTime;
-    }
-
+    
     /**
      * @return the maxRepeatedVotes
      */
@@ -656,11 +639,6 @@ public class TweetPollBean extends AbstractUnitSurvey implements Serializable{
         if (hits != null) {
             builder.append("hits=");
             builder.append(hits);
-            builder.append(", ");
-        }
-        if (relativeTime != null) {
-            builder.append("relativeTime=");
-            builder.append(relativeTime);
             builder.append(", ");
         }
         if (maxRepeatedVotes != null) {

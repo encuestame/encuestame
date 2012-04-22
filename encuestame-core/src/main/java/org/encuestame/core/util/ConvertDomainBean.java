@@ -548,6 +548,7 @@ public class ConvertDomainBean {
         unitTweetPoll.setId(tweetPoll.getTweetPollId());
         unitTweetPoll.setScheduleDate(tweetPoll.getScheduleDate());
         unitTweetPoll.setCreateDate(DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getCreateDate()));
+        unitTweetPoll.setCreateDateComparable(tweetPoll.getCreateDate());
         unitTweetPoll.setAllowLiveResults(tweetPoll.getAllowLiveResults() == null ? false : tweetPoll.getAllowLiveResults());
         unitTweetPoll.setResumeLiveResults(tweetPoll.getResumeLiveResults() == null ? false : tweetPoll.getResumeLiveResults());
         unitTweetPoll.setSchedule(tweetPoll.getScheduleTweetPoll() == null ? false : tweetPoll.getScheduleTweetPoll());
@@ -599,6 +600,7 @@ public class ConvertDomainBean {
         unitPoll.setId(poll.getPollId());
         unitPoll.setCompletedPoll(poll.getPollCompleted() == null ? false : poll.getPollCompleted());
         unitPoll.setCreationDate(poll.getCreatedAt() == null ? null : DateUtil.DOJO_DATE_FORMAT.format(poll.getCreatedAt()));
+        unitPoll.setCreateDateComparable(poll.getCreatedAt());
         unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll.getQuestion()));
         unitPoll.setPublishPoll(poll.getPublish() == null ? false : poll.getPublish());
         if (poll.getUpdatedDate() != null) {
@@ -1041,6 +1043,7 @@ public class ConvertDomainBean {
            homeBean.setQuestionBean(tweetBean.getQuestionBean());
            homeBean.setRelativeTime(tweetBean.getRelativeTime());
            homeBean.setTotalVotes(tweetBean.getTotalVotes());
+           homeBean.setCreateDateComparable(tweetBean.getCreateDateComparable());
            homeBean.setHits(tweetBean.getHits() == null ? 0L : tweetBean.getHits());
            homeBean.setUserId(tweetBean.getUserId());
            homeBean.setOwnerUsername(tweetBean.getOwnerUsername());
@@ -1076,6 +1079,7 @@ public class ConvertDomainBean {
        homeBean.setQuestionBean(pollBean.getQuestionBean());
        homeBean.setOwnerUsername(pollBean.getOwnerUsername());
        homeBean.setCreateDate(pollBean.getCreationDate());
+       homeBean.setCreateDateComparable(pollBean.getCreateDateComparable());
        homeBean.setTotalVotes(pollBean.getTotalVotes());
        homeBean.setHits(pollBean.getHits() == null ? 0L : pollBean.getHits());
        homeBean.setRelativeTime(pollBean.getRelativeTime());

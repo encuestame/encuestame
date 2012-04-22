@@ -250,6 +250,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 		
 		//order items
 		Collections.sort(totalItems, new RecentItemsComparator());
+		//fill the relative time.
+		if (request != null) {
+			fillHomeBeanRelativeTime(totalItems, request);
+		}
 		log.debug("getLastItemsPublishedFromUserAccount after sort: "+totalItems.size());
 		//ListUtils.
     	return totalItems;
@@ -365,7 +369,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     }
 
     /**
-     * 
+     * Search the last publications by {@link HashTag}.
      */
     public List<HomeBean> searchLastPublicationsbyHashTag(
             final HashTag hashTag, final String keyword,

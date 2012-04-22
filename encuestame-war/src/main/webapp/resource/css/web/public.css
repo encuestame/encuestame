@@ -3206,6 +3206,13 @@ div.web-profile-wrapper {
     margin: 10px;
 }
 
+div.web-profile-wrapper > header {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 3px;
+  margin-top: 20px;
+}
+
 .web-profile-wrapper .profile-left {
   float: left;
   max-width: 300px;
