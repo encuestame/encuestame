@@ -31,6 +31,7 @@
         <put-attribute name="title" value="Profile | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}profile.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}js_profile.jsp" />
+        <put-attribute name="rss" value="/WEB-INF/views/home/user_name_rss.jsp" />
     </definition>
 
     <definition name="tag/detail" extends="page">

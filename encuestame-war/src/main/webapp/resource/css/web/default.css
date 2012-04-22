@@ -581,6 +581,13 @@ div.web-default-menu  li.first {
     padding-top: 8px;
 }
 
+.emne-box > header .rss {
+  float: right;
+  position: relative;
+  right: 10px;
+  top: -3px;
+}
+
 /** default detail **/
 .web-wrapper-detail {
   margin: 30px;
