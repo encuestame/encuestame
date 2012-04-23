@@ -1221,6 +1221,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         getTweetPoll().saveOrUpdate(tweetPollResult);
         return tweetPollResult;
     }
+    
+    /**
+     * Create tweetpoll result data with polling date.
+     * @param tweetPollSwitch
+     * @param Ip
+     * @param pollingDate
+     * @return
+     */
+    public TweetPollResult createTweetPollResultWithPollingDate(final TweetPollSwitch tweetPollSwitch, final String Ip, final Date pollingDate){
+    	final TweetPollResult tpResults = this.createTweetPollResult(tweetPollSwitch, Ip);
+    	tpResults.setTweetResponseDate(pollingDate);
+    	getTweetPoll().saveOrUpdate(tpResults);
+    	return tpResults;
+    }
 
     /**
      * Create Fast TweetPoll Votes.

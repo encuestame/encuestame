@@ -138,6 +138,43 @@ public class TestTweetPollDao  extends AbstractBase{
         final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollId(this.tweetPoll.getTweetPollId());
         assertEquals("Should be equals", 4, totalVotes.intValue());
     }
+    
+    /**
+     * Test to get total votes by tweetpoll and specific date range.
+     */
+    @Test
+	public void testGetTotalVotesByTweetPollIdAndDateRange(){ 
+    	final Question myQuestion = createQuestion("Where are you from?", "");
+    	final QuestionAnswer questionsAnswers11 = createQuestionAnswer("America", myQuestion, "123457");
+    	final QuestionAnswer questionsAnswers21 = createQuestionAnswer("Europa", myQuestion, "123469");
+    	final TweetPoll myTweetPoll = createPublishedTweetPoll(secondary.getAccount(), myQuestion);
+    	HashTag hashTag11 = createHashTag("ciudadano");
+    	final HashTag hashTag21 = createHashTag("nacionalidad");
+    	myTweetPoll.getHashTags().add(hashTag11);
+    	myTweetPoll.getHashTags().add(hashTag21);
+    	getTweetPoll().saveOrUpdate(myTweetPoll);
+         
+         TweetPollSwitch pollSwitch11 = createTweetPollSwitch(questionsAnswers11, myTweetPoll);
+         TweetPollSwitch pollSwitch21 = createTweetPollSwitch(questionsAnswers21, myTweetPoll);
+         
+        //TweetPollSwitch pollSwitch31 = createTweetPollSwitch(questionsAnswers11, myTweetPoll);
+        // TweetPollSwitch pollSwitch41 = createTweetPollSwitch(questionsAnswers21, myTweetPoll);
+        
+         final Calendar pollingDate = Calendar.getInstance();
+         pollingDate.add(Calendar.MONDAY, -1);
+         createTweetPollResultWithPollingDate(pollSwitch1, "192.168.0.1", pollingDate.getTime());
+         createTweetPollResultWithPollingDate(pollSwitch1, "192.168.0.2", pollingDate.getTime());
+         pollingDate.add(Calendar.DATE, -5);
+         createTweetPollResultWithPollingDate(pollSwitch2, "192.168.0.3", pollingDate.getTime());
+         createTweetPollResultWithPollingDate(pollSwitch2, "192.168.0.4", pollingDate.getTime());
+          
+         final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), 365);
+         //System.out.println("TweetPoll Id -- " + myTweetPoll.getTweetPollId() + "Total Votes by -->" + totalVotes); 
+         //assertEquals("Should be equals", 4, totalVotes.intValue()); 
+          
+         
+    }
+
 
 
     /**

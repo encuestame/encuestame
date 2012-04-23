@@ -14,6 +14,7 @@ package org.encuestame.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -287,4 +288,27 @@ public class DateUtil {
         }
         return numbers;
     }
+    
+    /**
+     * Retrieve start Date to perform searches for a period of time(Month, Year, Hours, etc).
+     * @param period
+     * @return
+     */
+	public static Date retrieveStartDateByPeriod(final Integer period) {
+		final Calendar currentDate = Calendar.getInstance();
+		Date startDate = null; 
+		currentDate.add(Calendar.DAY_OF_YEAR, -period);
+		startDate = currentDate.getTime(); 
+		return startDate;
+
+	}
+	
+	/**
+	 * Get current Date by Calendar instance.
+	 * @return
+	 */
+	public static Date getCurrentCalendarDate() {
+		final Date endDate = Calendar.getInstance().getTime();
+		return endDate;
+	}
 }
