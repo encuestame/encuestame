@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -145,34 +146,42 @@ public class TestTweetPollDao  extends AbstractBase{
     @Test
 	public void testGetTotalVotesByTweetPollIdAndDateRange(){ 
     	final Question myQuestion = createQuestion("Where are you from?", "");
-    	final QuestionAnswer questionsAnswers11 = createQuestionAnswer("America", myQuestion, "123457");
-    	final QuestionAnswer questionsAnswers21 = createQuestionAnswer("Europa", myQuestion, "123469");
+    	final QuestionAnswer qaAmerica = createQuestionAnswer("America", myQuestion, "123457");
+    	final QuestionAnswer qaEurope = createQuestionAnswer("Europa", myQuestion, "123469");
     	final TweetPoll myTweetPoll = createPublishedTweetPoll(secondary.getAccount(), myQuestion);
-    	HashTag hashTag11 = createHashTag("ciudadano");
-    	final HashTag hashTag21 = createHashTag("nacionalidad");
-    	myTweetPoll.getHashTags().add(hashTag11);
-    	myTweetPoll.getHashTags().add(hashTag21);
+    	HashTag htCitizen = createHashTag("citizen");
+    	HashTag htCitizenShip = createHashTag("citizenship");
+    	myTweetPoll.getHashTags().add(htCitizen);
+    	myTweetPoll.getHashTags().add(htCitizenShip);
     	getTweetPoll().saveOrUpdate(myTweetPoll);
          
-         TweetPollSwitch pollSwitch11 = createTweetPollSwitch(questionsAnswers11, myTweetPoll);
-         TweetPollSwitch pollSwitch21 = createTweetPollSwitch(questionsAnswers21, myTweetPoll);
+    	TweetPollSwitch pollSwitchAmerica = createTweetPollSwitch(qaAmerica, myTweetPoll);
+    	TweetPollSwitch pollSwitchEurope = createTweetPollSwitch(qaEurope, myTweetPoll);
          
-        //TweetPollSwitch pollSwitch31 = createTweetPollSwitch(questionsAnswers11, myTweetPoll);
-        // TweetPollSwitch pollSwitch41 = createTweetPollSwitch(questionsAnswers21, myTweetPoll);
+    	final Calendar pollingDate = Calendar.getInstance();
+    	pollingDate.add(Calendar.MONTH, -1);
+    	
+    	final TweetPollResult tpResultAmerica =  createTweetPollResultWithPollingDate(pollSwitchAmerica, "192.168.0.1", pollingDate.getTime());
         
-         final Calendar pollingDate = Calendar.getInstance();
-         pollingDate.add(Calendar.MONDAY, -1);
-         createTweetPollResultWithPollingDate(pollSwitch1, "192.168.0.1", pollingDate.getTime());
-         createTweetPollResultWithPollingDate(pollSwitch1, "192.168.0.2", pollingDate.getTime());
-         pollingDate.add(Calendar.DATE, -5);
-         createTweetPollResultWithPollingDate(pollSwitch2, "192.168.0.3", pollingDate.getTime());
-         createTweetPollResultWithPollingDate(pollSwitch2, "192.168.0.4", pollingDate.getTime());
-          
-         final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), 365);
-         //System.out.println("TweetPoll Id -- " + myTweetPoll.getTweetPollId() + "Total Votes by -->" + totalVotes); 
-         //assertEquals("Should be equals", 4, totalVotes.intValue()); 
+    	pollingDate.add(Calendar.MONTH, -5);
+    	final TweetPollResult tpResultAmerica2 =  createTweetPollResultWithPollingDate(pollSwitchAmerica, "192.168.0.2", pollingDate.getTime());
+         
+    	final TweetPollResult tpResultEurope =  createTweetPollResultWithPollingDate(pollSwitchEurope, "192.168.0.2", pollingDate.getTime());
+        
+    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), 365);
+    	assertEquals("Should be equals", 3, totalVotes.intValue()); 
           
          
+    }
+    
+    /**
+     * Test retrieve  counter value from {@link TweetPollResult} by {@link TweetPollSwitch}.
+     */
+    @Test
+    public void testGetTotalTweetPollResultByTweetPollSwitch(){
+    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1);
+    	// See @Before on the top
+    	assertEquals("Should be equals", 2,  myvalue.intValue()); 
     }
 
 

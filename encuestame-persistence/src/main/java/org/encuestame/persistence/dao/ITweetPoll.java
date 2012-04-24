@@ -370,4 +370,11 @@ public interface ITweetPoll extends IBaseDao{
 	 * @return
 	 */
 	Long getTotalVotesByTweetPollIdAndDateRange(final Long tweetPollId, final Integer period);
+	
+	/**
+	 * Get counter total tweetpoll results by {@link TweetPollSwitch}
+	 * @param pollSwitch
+	 * @return
+	 */
+	Long getTotalTweetPollResultByTweetPollSwitch(final TweetPollSwitch pollSwitch);
 }
