@@ -205,6 +205,19 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         }
         return builder.toString();
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getTweetPollsByHashTag(java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<TweetPoll> getTweetPollsByHashTag(final String tagName,
+            final Integer initResults, final Integer maxResults,
+            final TypeSearchResult filter) {
+        final List<TweetPoll> tweetsbyTag = getTweetPollDao()
+                .getTweetpollByHashTagName(tagName, initResults, maxResults,
+                        filter);
+        return tweetsbyTag;
+    }
 
     /**
      * Getter.
