@@ -79,6 +79,10 @@ public class TestTweetPollDao  extends AbstractBase{
     /** Init results query. **/
     private Integer INIT_RESULTS = 0;
     
+    /** **/
+    private Integer PERIOD_YEAR = 365;
+    
+    
     /**
      * Before.
      */
@@ -165,10 +169,10 @@ public class TestTweetPollDao  extends AbstractBase{
         
     	pollingDate.add(Calendar.MONTH, -5);
     	final TweetPollResult tpResultAmerica2 =  createTweetPollResultWithPollingDate(pollSwitchAmerica, "192.168.0.2", pollingDate.getTime());
-         
+      	 
     	final TweetPollResult tpResultEurope =  createTweetPollResultWithPollingDate(pollSwitchEurope, "192.168.0.2", pollingDate.getTime());
-        
-    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), 365);
+         
+    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), PERIOD_YEAR);
     	assertEquals("Should be equals", 3, totalVotes.intValue()); 
           
          
@@ -179,13 +183,11 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Test
     public void testGetTotalTweetPollResultByTweetPollSwitch(){
-    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1);
+    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1, PERIOD_YEAR);
     	// See @Before on the top
     	assertEquals("Should be equals", 2,  myvalue.intValue()); 
     }
-
-
-
+  
     /**
      * Test Get TweetPoll by TweetPoll Id and User.
      */

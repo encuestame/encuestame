@@ -1796,6 +1796,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 
         return hashTagStatDetailedList;
     }
+    
+    
+    public void getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period){ 
+     
+    	final List<TweetPoll> tpolls = this.getTweetPollsByHashTag(tagName, 0, 100, TypeSearchResult.HASHTAG);
+    	Long totalVotes = 0L;
+    	for (TweetPoll tweetPoll : tpolls) {
+			totalVotes = getTweetPollDao().getTotalVotesByTweetPollIdAndDateRange(tweetPoll.getTweetPollId(), period);
+		} 
+    }
 
     /**
      * @return the tweetPollService

@@ -805,10 +805,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         Long totalvotes = 0L; 
         final TweetPoll tpoll = this.getTweetPollById(tweetPollId); 
         final List<TweetPollSwitch> tpSwitchAnswers = this
-                .getListAnswersByTweetPollAndDateRange(tpoll, period);  
+                .getListAnswersByTweetPollAndDateRange(tpoll);  
         
         for (TweetPollSwitch tweetPollSwitch : tpSwitchAnswers) { 
-        	totalvotes += this.getTotalTweetPollResultByTweetPollSwitch(tweetPollSwitch); 
+        	totalvotes += this.getTotalTweetPollResultByTweetPollSwitch(tweetPollSwitch, period); 
             log.info("Total Votes: " + totalvotes);
         }
         return totalvotes;
@@ -818,12 +818,21 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getTotalTweetPollResultByTweetPollSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch)
      */
-    public final Long getTotalTweetPollResultByTweetPollSwitch(final TweetPollSwitch pollSwitch) {
+    public final Long getTotalTweetPollResultByTweetPollSwitch(final TweetPollSwitch pollSwitch, final Integer period) {
+    	
+    	Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			startDate = DateUtil.retrieveStartDateByPeriod(period);
+			endDate = DateUtil.getCurrentCalendarDate();
+
+		}    
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollResult.class);
         criteria.setProjection(Projections.rowCount());
         criteria.add(Restrictions.eq("tweetPollSwitch", pollSwitch));
-         
+        criteria.add(Restrictions.between("tweetResponseDate", startDate,
+				endDate));
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
         log.debug("Retrieve total tweetPolls by  " + pollSwitch.getAnswers().getAnswer()
@@ -837,21 +846,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      */
 	@SuppressWarnings("unchecked")
 	public List<TweetPollSwitch> getListAnswersByTweetPollAndDateRange(
-			final TweetPoll tweetPoll, final Integer period) { 
-		Date startDate = null;
-		Date endDate = null;
-		if (period != null) {
-			startDate = DateUtil.retrieveStartDateByPeriod(period);
-			endDate = DateUtil.getCurrentCalendarDate();
-
-		}  
+			final TweetPoll tweetPoll) {  
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(TweetPollSwitch.class);
 		criteria.createAlias("tweetPoll","tweetPoll");
-		criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
-		criteria.add(Restrictions.between("dateUpdated", startDate,
-				endDate));
+		criteria.add(Restrictions.eq("tweetPoll", tweetPoll)); 
 		return getHibernateTemplate().findByCriteria(criteria);
-	}
+	}  
 
 }
