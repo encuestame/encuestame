@@ -179,6 +179,15 @@ public class TestTweetPollDao  extends AbstractBase{
     }
     
     /**
+     * Test get all {@link TweetPollResult} by {@link TweetPollSwitch}
+     */
+    @Test
+    public void testGetTweetPollResultsByTweetPollSwitch(){
+    	final List<TweetPollResult> tpResults = getTweetPoll().getTweetPollResultsByTweetPollSwitch(this.pollSwitch1); 
+    	assertEquals("Should be equals", 2, tpResults.size());  
+    }
+    
+    /**
      * Test retrieve  counter value from {@link TweetPollResult} by {@link TweetPollSwitch}.
      */
     @Test

@@ -853,5 +853,19 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 		criteria.add(Restrictions.eq("tweetPoll", tweetPoll)); 
 		return getHibernateTemplate().findByCriteria(criteria);
 	}  
+	
+	 
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollResultsByTweetPollSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch)
+	 */
+	@SuppressWarnings("unchecked")
+	public final List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch) {  
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollResult.class); 
+        criteria.add(Restrictions.eq("tweetPollSwitch", pollSwitch)); 
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+    
 
 }

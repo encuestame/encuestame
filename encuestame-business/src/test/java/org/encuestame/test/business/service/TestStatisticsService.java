@@ -23,16 +23,20 @@ import junit.framework.Assert;
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,14 +63,35 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
     /** **/
     private Integer MAX_RESULTS= 10;
     
+    private Question initQuestion;
+    
+    private HashTag initHashTag;
+    
+    private TweetPoll initTweetPoll;
+    
+    private TweetPollSwitch initTweetPollSwicht;
+    
     @Before
     public void initData(){
-        this.secondary = createUserAccount("paola", createAccount());
-        
+        this.secondary = createUserAccount("paola", createAccount()); 
+        this.initQuestion = createQuestion("What will win  the champions league 2012?", "");
+        this.initHashTag = createHashTag("romantic");
+    	final QuestionAnswer answerChelsea = createQuestionAnswer("Chelsea", initQuestion, "123457");
+    	final QuestionAnswer answerBayern = createQuestionAnswer("Bayern", initQuestion, "123469"); 
+    	
+        this.initTweetPoll = createPublishedTweetPoll(5L, initQuestion,
+				getSpringSecurityLoggedUserAccount());
+        initTweetPoll.getHashTags().add(initHashTag);
+		getTweetPoll().saveOrUpdate(initTweetPoll);
+		this.initTweetPollSwicht = createTweetPollSwitch(answerBayern, initTweetPoll);
+		final TweetPollSwitch tpSwicht = createTweetPollSwitch(answerChelsea, initTweetPoll);
+		final TweetPollResult tpResultAmerica =  createTweetPollResult(initTweetPollSwicht, "192.168.0.1");
     }
-
-    
-	
+     
+	/**
+	 * 
+	 * @throws EnMeNoResultsFoundException
+	 */
 	@Test
 	public void testGetTotalHashTagHitsbyDateRange() throws EnMeNoResultsFoundException{
 		final Question question = createQuestion("What is your favorite type of song?", "");
@@ -143,6 +168,9 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		Assert.assertEquals("Should be equals", 3, stats.size());
 	}
 
+	/**
+	 * 
+	 */
 	@Test
 	public void getTweetPollSocialNetworkLinksbyTagAndDateRange() {
 		final Calendar calendarDate = Calendar.getInstance();
@@ -230,6 +258,20 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		Assert.assertEquals("Should be equals", 3,
 				totalSocialLinksUsagebyHashTagAndTweetPoll.size());
 
+	}
+	
+	/**
+	 * Test 
+	 */
+	@Test
+	public void testGetTotalVotesbyHashTagUsageAndDateRange(){
+		
+		final List<TweetPollResultsBean> myResultsBean = getStatisticsService()
+				.getTotalVotesbyHashTagUsageAndDateRange(
+						this.initHashTag.getHashTag(), null);
+		Assert.assertEquals("Should be equals", 1,
+				myResultsBean.size());
+		 
 	}
 
 	/**

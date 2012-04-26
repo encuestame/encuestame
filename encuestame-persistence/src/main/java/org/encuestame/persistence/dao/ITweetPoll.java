@@ -377,4 +377,12 @@ public interface ITweetPoll extends IBaseDao{
 	 * @return
 	 */
 	Long getTotalTweetPollResultByTweetPollSwitch(final TweetPollSwitch pollSwitch, final Integer period);
+	
+	/**
+	 * Get all tweetpoll results by tweetpoll switch.
+	 * @param pollSwitch
+	 * @return
+	 */
+	List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch);
+	
 }

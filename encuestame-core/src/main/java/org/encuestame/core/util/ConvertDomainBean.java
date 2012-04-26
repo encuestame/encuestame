@@ -49,6 +49,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
@@ -72,6 +73,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
@@ -1207,4 +1209,35 @@ public class ConvertDomainBean {
         result.setResult(resultVotes);
         return result;
     }
+    
+    /**
+     * 
+     * @param tweetPollResult
+     * @return
+     */
+	public static final TweetPollResultsBean convertTweetPollResultToBean(
+			final TweetPollResult tweetPollResult) {
+		final TweetPollResultsBean tpResultsBean = new TweetPollResultsBean();
+		tpResultsBean.setAnswerId(1L);
+		tpResultsBean.setAnswerName("aa");
+		tpResultsBean.setColor("bb");
+		tpResultsBean.setPercent("DD");
+		tpResultsBean.setVotes(2L);
+		return tpResultsBean;
+	}
+
+	/**
+	 * 
+	 * @param tpollResults
+	 * @return
+	 */
+	public static final List<TweetPollResultsBean> convertTweetPollResultsToBean(
+			final List<TweetPollResult> tpollResults) {
+		final List<TweetPollResultsBean> loadTweetPollResults = new ArrayList<TweetPollResultsBean>();
+		for (TweetPollResult tweetPollResult : tpollResults) {
+			loadTweetPollResults.add(ConvertDomainBean
+					.convertTweetPollResultToBean(tweetPollResult));
+		}
+		return loadTweetPollResults;
+	}
 }

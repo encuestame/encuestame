@@ -17,6 +17,7 @@ import java.util.List;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 
 /**
@@ -50,4 +51,14 @@ public interface IStatisticsService extends ServiceOperations{
 	List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
 			final String tagName, final Integer initResults,
 			final Integer maxResults, final TypeSearchResult filter, final Integer period);
+	
+	
+	/**
+	 * Get total votes by hashTag usage and Tweetpolls.
+	 * @param tagName
+	 * @param period
+	 * @return
+	 */
+	List<TweetPollResultsBean> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period);
+	
 }

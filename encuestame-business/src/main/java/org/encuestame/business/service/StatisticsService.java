@@ -19,12 +19,16 @@ import java.util.List;
 import org.apache.log4j.Logger; 
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IStatisticsService;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
@@ -56,15 +60,28 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      */
     private Long counterItemsbyMonth = 0L;
 
-	
-	 public void getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period){
-	     
-	    	final List<TweetPoll> tpolls =  getTweetPollsByHashTag(tagName, 0, 100, TypeSearchResult.HASHTAG);
-	    	Long totalVotes = 0L;
-	    	for (TweetPoll tweetPoll : tpolls) {
-				totalVotes = getTweetPollDao().getTotalVotesByTweetPollIdAndDateRange(tweetPoll.getTweetPollId(), period);
-			}  
-	    }
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IStatisticsService#getTotalVotesbyHashTagUsageAndDateRange(java.lang.String, java.lang.Integer)
+     */
+	public List<TweetPollResultsBean> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period){  
+		 List<TweetPollResultsBean> tpResultsBean = new ArrayList<TweetPollResultsBean>();
+		 List<TweetPollResult> tpollResults = new ArrayList<TweetPollResult>();
+		 List<TweetPollSwitch> tpollsSwitch = new ArrayList<TweetPollSwitch>();
+		 
+		 final List<TweetPoll> tpolls =  getTweetPollsByHashTag(tagName, 0, 100, TypeSearchResult.HASHTAG);
+		 log.debug("Total Tweetpolls by hashtagName" + tpolls.size());
+		 for (TweetPoll tweetPoll : tpolls) {
+			 tpollsSwitch =  getTweetPollDao().getListAnswersByTweetPollAndDateRange(tweetPoll); 
+			 log.debug("Total TweetpollSwitch by tweetPoll -->" + tpollsSwitch.size());
+			 for (TweetPollSwitch tweetPollSwitch : tpollsSwitch) {
+				 tpollResults = getTweetPollDao().getTweetPollResultsByTweetPollSwitch(tweetPollSwitch); 
+				 log.debug("Total TweetPollResults by tweetPollSwitch -->" + tpollResults.size());
+				 tpResultsBean.addAll(ConvertDomainBean.convertTweetPollResultsToBean(tpollResults));
+			 }
+		 } 
+		 return tpResultsBean;
+	}
  
 	 
 	 /**
