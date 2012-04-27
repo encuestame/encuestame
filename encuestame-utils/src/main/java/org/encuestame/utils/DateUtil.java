@@ -311,4 +311,32 @@ public class DateUtil {
 		final Date endDate = Calendar.getInstance().getTime();
 		return endDate;
 	}
+	
+	 /**
+	  * Get value of the current month.
+	  * @param currentDate
+	  * @return
+	  */
+	public static Integer getValueCurrentMonthOfTheYear(final Date currentDate) {
+		 Integer monthValue;
+		 monthValue = new DateTime(currentDate).getMonthOfYear();  
+		 return monthValue;
+	}
+	
+	/**
+	 * Check if date is within allowed range.
+	 * @param period
+	 * @param itemDate
+	 * @return
+	 */
+	public static Boolean checkDatedWithinAllowableRange(final Integer period, final Date itemDate){
+		Boolean allowedRange = Boolean.FALSE;
+		Date endDate = DateUtil.getCurrentCalendarDate();
+		Date startDate = DateUtil.retrieveStartDateByPeriod(period); 
+		// Check if date is between starDate by period and currentDate(itemDate is > startDate, itemDate < endDate)
+		if ((itemDate.after(startDate)) || (itemDate.before(endDate))) { 
+			allowedRange = Boolean.TRUE;
+		} 
+		return allowedRange;
+	}
 }

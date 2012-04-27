@@ -19,6 +19,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
+import org.encuestame.utils.web.stats.ItemStatDetail;
 
 /**
  * Interface to Statistics Service.
@@ -59,6 +60,6 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param period
 	 * @return
 	 */
-	List<TweetPollResultsBean> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period);
+	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period);
 	
 }
