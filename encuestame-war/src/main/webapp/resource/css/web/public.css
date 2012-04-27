@@ -682,6 +682,17 @@ div.web-form-wrapper .signup-form {
 
 }
 
+#web-login-container .web-social-signin button{
+	background-color: none;
+    border: 0;
+    border-radius: 0px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+    text-shadow: none;
+}
+
 #web-login-container .web-social-signin .title {
     color: #919090;
     font-size: 13px;
@@ -4720,6 +4731,10 @@ div.web-social-links {
   font-weight: bold;
   padding: 8px;
   width: 280px;
+}
+
+.web-generic-result .votes{
+	padding: 0;
 }
 
 #content-container #enme-content div.votes {
