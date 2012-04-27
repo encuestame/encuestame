@@ -87,6 +87,7 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
+import org.encuestame.utils.web.stats.ItemStatDetail;
 
 
 /**
@@ -1240,4 +1241,33 @@ public class ConvertDomainBean {
 		}
 		return loadTweetPollResults;
 	}
+	
+   /**
+    * 
+    * @param tweetPollResult
+    * @return
+    */
+	public static final ItemStatDetail convertTweetPollResultToItemDetailBean(
+			final TweetPollResult tweetPollResult) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(tweetPollResult.getTweetPollSwitch().getSwitchId());
+		itemDetail.setDate(tweetPollResult.getTweetResponseDate()); 
+		return itemDetail;
+	}
+	
+	/**
+	 * 
+	 * @param tpollResults
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertTweetPollResultListToItemDetailBean(
+			final List<TweetPollResult> tpollResults) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (TweetPollResult tweetPollResult : tpollResults) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertTweetPollResultToItemDetailBean(tweetPollResult));
+		}
+		return itemStatDetail;
+	}
+	
 }
