@@ -110,10 +110,11 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                 if (userId != null) {
                     criteria.createAlias("accountQuestion", "accountQuestion");
                     criteria.add(Restrictions.eq("accountQuestion.uid", userId));
-                } else {
+                } 
+                //else {
                     //if user id is missing, the question should be shared to be listed.
-                    criteria.add(Restrictions.eq("sharedQuestion", Boolean.TRUE));
-                }
+                    //criteria.add(Restrictions.eq("sharedQuestion", Boolean.TRUE));
+                //}
                 //limit results
                 if (maxResults != null) {
                     criteria.setMaxResults(maxResults.intValue());
@@ -152,6 +153,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                                 new SimpleAnalyzer(), SIMILARITY_VALUE)
                                 ;
                         log.debug("fuzzyQueryFullTextResults: {" + fuzzyQueryFullTextResults.size());
+                        
                         listAllSearch.addAll(fuzzyQueryFullTextResults);
 
                         log.debug("listAllSearch size:{" + listAllSearch.size());
