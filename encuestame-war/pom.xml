@@ -321,6 +321,7 @@
                             </packagingIncludes>
                             <packagingExcludes>
                                 WEB-INF/classes/rebel.xml,
+                                resource/js/util/**/*,
                                 resource/encuestame-config-custom.properties,
                                 WEB-INF/classes/encuestame-config-custom.properties
                              </packagingExcludes>
@@ -350,23 +351,23 @@
                                     <phase>compile</phase>
                                     <configuration>
                                         <classpath>
-                                          <pathelement location="../dojo/util/shrinksafe/js.jar"/>
-                                          <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
+                                          <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/js.jar"/>
+                                          <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/shrinksafe.jar"/>
                                         </classpath>
                                         <property file="${basedir}/dojo.properties"/>
                                         <target unless="build">
                                             <java
                                              fork="true"
                                              failonerror="true"
-                                             dir="../dojo/util/buildscripts"
+                                             dir="${basedir}/src/main/webapp/resource/js/util/buildscripts"
                                              classname="org.mozilla.javascript.tools.shell.Main">
                                             <classpath>
-                                              <pathelement location="../dojo/util/shrinksafe/js.jar"/>
-                                              <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
+                                              <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/js.jar"/>
+                                              <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/shrinksafe.jar"/>
                                             </classpath>
                                             <jvmarg value="-Xmx512M"/>
                                             <arg value="build.js"/>
-                                            <arg value="version=1.6.0"/>
+                                            <arg value="version=1.6.1"/>
                                             <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
                                             <arg value="action=clean,release"/>
                                             <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
