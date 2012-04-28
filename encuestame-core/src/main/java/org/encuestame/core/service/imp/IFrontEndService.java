@@ -260,31 +260,7 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @throws EnMeNoResultsFoundException
 	 */
 	GenericStatsBean retrieveGenericStats(final String itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
-	
-	/**
-	 * Get total usage items by hashTag and Date Range
-	 * @param hashTagName
-	 * @param period
-	 * @param startResults
-	 * @param maxResults
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
-	
-	/**
-	 * 
-	 * @param tagName
-	 * @param initResults
-	 * @param maxResults
-	 * @param filter
-	 * @param period
-	 * @return
-	 */
-	List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
-			final String tagName, final Integer initResults,
-			final Integer maxResults, final TypeSearchResult filter, final Integer period);
-	
+	  
 	/**
 	 * Return the last items published from {@link UserAccount}.
 	 * @param username
@@ -299,4 +275,17 @@ public interface IFrontEndService extends ServiceOperations {
 			final Integer maxResults,
 			final Boolean showUnSharedItems,
 			final HttpServletRequest request) throws EnMeNoResultsFoundException;
+	
+	
+    /**
+     * Get TweetPolls by hashTag. 
+     * @param tagId
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     
+	List<TweetPoll> getTweetPollsByHashTag(final String tagName,
+	            final Integer initResults, final Integer maxResults,
+	            final TypeSearchResult filter);*/
 }

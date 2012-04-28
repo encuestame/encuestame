@@ -172,7 +172,7 @@ public class EnMeUtils {
         double relevance;
         final long roundRelevance ;
         relevance =  likeVotes + dislikeVotes + numberHits + comments + socialAccounts + numberVotes +hashTagHits;
-        roundRelevance = Math.round(relevance);
+        roundRelevance = relevance < 1 ? 1 : Math.round(relevance);
         log.debug(" RELEVANCE *******************************>  " + roundRelevance);
         return roundRelevance;
     }

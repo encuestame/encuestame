@@ -49,6 +49,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
@@ -72,6 +73,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.TypeTreeNode;
 import org.encuestame.utils.web.UnitGroupBean;
 import org.encuestame.utils.web.UnitLists;
@@ -85,6 +87,7 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
+import org.encuestame.utils.web.stats.ItemStatDetail;
 
 
 /**
@@ -1207,4 +1210,64 @@ public class ConvertDomainBean {
         result.setResult(resultVotes);
         return result;
     }
+    
+    /**
+     * 
+     * @param tweetPollResult
+     * @return
+     */
+	public static final TweetPollResultsBean convertTweetPollResultToBean(
+			final TweetPollResult tweetPollResult) {
+		final TweetPollResultsBean tpResultsBean = new TweetPollResultsBean();
+		tpResultsBean.setAnswerId(1L);
+		tpResultsBean.setAnswerName("aa");
+		tpResultsBean.setColor("bb");
+		tpResultsBean.setPercent("DD");
+		tpResultsBean.setVotes(2L);
+		return tpResultsBean;
+	}
+
+	/**
+	 * 
+	 * @param tpollResults
+	 * @return
+	 */
+	public static final List<TweetPollResultsBean> convertTweetPollResultsToBean(
+			final List<TweetPollResult> tpollResults) {
+		final List<TweetPollResultsBean> loadTweetPollResults = new ArrayList<TweetPollResultsBean>();
+		for (TweetPollResult tweetPollResult : tpollResults) {
+			loadTweetPollResults.add(ConvertDomainBean
+					.convertTweetPollResultToBean(tweetPollResult));
+		}
+		return loadTweetPollResults;
+	}
+	
+   /**
+    * 
+    * @param tweetPollResult
+    * @return
+    */
+	public static final ItemStatDetail convertTweetPollResultToItemDetailBean(
+			final TweetPollResult tweetPollResult) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(tweetPollResult.getTweetPollSwitch().getSwitchId());
+		itemDetail.setDate(tweetPollResult.getTweetResponseDate()); 
+		return itemDetail;
+	}
+	
+	/**
+	 * 
+	 * @param tpollResults
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertTweetPollResultListToItemDetailBean(
+			final List<TweetPollResult> tpollResults) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (TweetPollResult tweetPollResult : tpollResults) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertTweetPollResultToItemDetailBean(tweetPollResult));
+		}
+		return itemStatDetail;
+	}
+	
 }

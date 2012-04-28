@@ -796,5 +796,76 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         log.debug("Retrieve total Social Links:" + "--->" + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTotalVotesByTweetPollIdAndDateRange(java.lang.Long, java.lang.Integer)
+     */
+    public Long getTotalVotesByTweetPollIdAndDateRange(final Long tweetPollId, final Integer period) {
+        Long totalvotes = 0L; 
+        final TweetPoll tpoll = this.getTweetPollById(tweetPollId); 
+        final List<TweetPollSwitch> tpSwitchAnswers = this
+                .getListAnswersByTweetPollAndDateRange(tpoll);  
+        
+        for (TweetPollSwitch tweetPollSwitch : tpSwitchAnswers) { 
+        	totalvotes += this.getTotalTweetPollResultByTweetPollSwitch(tweetPollSwitch, period); 
+            log.info("Total Votes: " + totalvotes);
+        }
+        return totalvotes;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTotalTweetPollResultByTweetPollSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch)
+     */
+    public final Long getTotalTweetPollResultByTweetPollSwitch(final TweetPollSwitch pollSwitch, final Integer period) {
+    	
+    	Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			startDate = DateUtil.retrieveStartDateByPeriod(period);
+			endDate = DateUtil.getCurrentCalendarDate();
+
+		}    
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollResult.class);
+        criteria.setProjection(Projections.rowCount());
+        criteria.add(Restrictions.eq("tweetPollSwitch", pollSwitch));
+        criteria.add(Restrictions.between("tweetResponseDate", startDate,
+				endDate));
+        @SuppressWarnings("unchecked")
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+        log.debug("Retrieve total tweetPolls by  " + pollSwitch.getAnswers().getAnswer()
+                + "--->" + results.size());
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getListAnswersByTweetPollAndDateRange(org.encuestame.persistence.domain.tweetpoll.TweetPoll, java.lang.Integer)
+     */
+	@SuppressWarnings("unchecked")
+	public List<TweetPollSwitch> getListAnswersByTweetPollAndDateRange(
+			final TweetPoll tweetPoll) {  
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(TweetPollSwitch.class);
+		criteria.createAlias("tweetPoll","tweetPoll");
+		criteria.add(Restrictions.eq("tweetPoll", tweetPoll)); 
+		return getHibernateTemplate().findByCriteria(criteria);
+	}  
+	
+	 
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollResultsByTweetPollSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch)
+	 */
+	@SuppressWarnings("unchecked")
+	public final List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch) {  
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPollResult.class); 
+        criteria.add(Restrictions.eq("tweetPollSwitch", pollSwitch)); 
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+    
 
 }

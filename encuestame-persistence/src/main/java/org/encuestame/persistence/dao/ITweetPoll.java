@@ -351,4 +351,38 @@ public interface ITweetPoll extends IBaseDao{
 	public List<TweetPoll> getTweetPollByUsername(
 			final Integer limitResults,
 			final UserAccount account);
+	
+	/**
+	 * Get List Answers(Votes) by TweetPoll And date range.
+	 * @param tweetPoll
+	 * @param period
+	 * @param startResults
+	 * @param limit
+	 * @return
+	 */
+	List<TweetPollSwitch> getListAnswersByTweetPollAndDateRange(
+			final TweetPoll tweetPoll);
+	
+	/**
+	 * 
+	 * @param tweetPollId
+	 * @param period
+	 * @return
+	 */
+	Long getTotalVotesByTweetPollIdAndDateRange(final Long tweetPollId, final Integer period);
+	
+	/**
+	 * Get counter total tweetpoll results by {@link TweetPollSwitch}
+	 * @param pollSwitch
+	 * @return
+	 */
+	Long getTotalTweetPollResultByTweetPollSwitch(final TweetPollSwitch pollSwitch, final Integer period);
+	
+	/**
+	 * Get all tweetpoll results by tweetpoll switch.
+	 * @param pollSwitch
+	 * @return
+	 */
+	List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch);
+	
 }

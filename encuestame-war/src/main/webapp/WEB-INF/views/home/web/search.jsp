@@ -16,7 +16,7 @@
                  <c:if test="${not empty results.questions}">
                     <c:forEach items="${results.questions}" var="item">
                           <section class="search-item">
-                            ${item}
+                            ${item.itemSearchTitle}
                           </section>
                     </c:forEach>
                 </c:if>

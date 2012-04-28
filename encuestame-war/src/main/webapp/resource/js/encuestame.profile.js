@@ -12,6 +12,7 @@ dependencies ={
                 "encuestame.org.core.commons.poll.vote.PollVote",
                 "encuestame.org.core.commons.support.SocialFilterMenu",
                 "encuestame.org.core.commons.tweetPoll.TweetPollCore",
+                "encuestame.org.core.commons.poll.vote.AnswerVote",
                 "encuestame.org.core.commons.support.VotesFilterMenu",
                 "encuestame.org.core.shared.utils.SocialAccountsSupport",
                 "encuestame.org.core.commons.support.AbstractFilterSupport",
@@ -184,9 +185,9 @@ dependencies ={
             }*/
         ],
         prefixes: [
-            ["encuestame", "../../encuestame-war/src/main/webapp/resource/js/encuestame"],
+            ["encuestame", "../encuestame"],
             ["dijit", "../dijit" ],
             ["dojox", "../dojox" ],
-            ["org", "../../encuestame-war/src/main/webapp/resource/js/org" ]
+            ["org", "../org" ]
         ]
     };
