@@ -69,7 +69,6 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -931,7 +930,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         questions.setQuestion(question);
         questions.setSlugQuestion(question.replace(" ", "-"));
         questions.setSharedQuestion(Boolean.TRUE);
-        questions.setQuestionPattern(this.createQuestionPattern(pattern));
         questions.setAccountQuestion(this.createAccount());
         getQuestionDaoImp().saveOrUpdate(questions);
         return questions;
@@ -939,7 +937,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 
     public Question addQuestionSection(
             final String question,
-            final QuestionPattern pattern,
             final SurveySection section,
             final Account account){
         final Question questions = new Question();
@@ -947,7 +944,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         questions.setQuestion(question);
         questions.setSlugQuestion(question.replace(" ", "-"));
         questions.setSharedQuestion(Boolean.TRUE);
-        questions.setQuestionPattern(pattern);
         questions.setAccountQuestion(account);
         questions.setSection(section);
         getQuestionDaoImp().saveOrUpdate(questions);
@@ -1008,7 +1004,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public Question createQuestion(final String question, final String patron, final Account user){
         final Question questions = this.createQuestion(question, user);
         questions.setQidKey("1");
-        questions.setQuestionPattern(createQuestionPattern(patron));
         questions.setHits(2L);
         questions.setCreateDate(new Date());
         getQuestionDaoImp().saveOrUpdate(questions);
@@ -1049,24 +1044,6 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         result.setSurvey(survey);
         getSurveyDaoImp().saveOrUpdate(result);
         return result;
-    }
-
-    /**
-     * Create Patron Domain.
-     * @param typePatron name of patron
-     * @return {@link QuestionPattern}
-     */
-    public QuestionPattern createQuestionPattern(final String typePatron){
-        final QuestionPattern patron = new QuestionPattern();
-        patron.setDesQid("patron Html");
-        patron.setPatternTemplate("1");
-        patron.setLabelQid("1");
-        patron.setPatternType(typePatron);
-        patron.setLevel(1);
-        patron.setFinallity("save");
-        //TODO: need patron dao to save this domain.
-        getQuestionDaoImp().saveOrUpdate(patron);
-        return patron;
     }
 
     /**
@@ -1243,6 +1220,20 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         tweetPollResult.setTweetResponseDate(new Date());
         getTweetPoll().saveOrUpdate(tweetPollResult);
         return tweetPollResult;
+    }
+    
+    /**
+     * Create tweetpoll result data with polling date.
+     * @param tweetPollSwitch
+     * @param Ip
+     * @param pollingDate
+     * @return
+     */
+    public TweetPollResult createTweetPollResultWithPollingDate(final TweetPollSwitch tweetPollSwitch, final String Ip, final Date pollingDate){
+    	final TweetPollResult tpResults = this.createTweetPollResult(tweetPollSwitch, Ip);
+    	tpResults.setTweetResponseDate(pollingDate);
+    	getTweetPoll().saveOrUpdate(tpResults);
+    	return tpResults;
     }
 
     /**

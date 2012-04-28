@@ -5,10 +5,13 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.143</version>
+    <version>1.144</version>
     <name>encuestame</name>
     <description>
-     Encuestame is an open source project based on Java technology. You can use the Encuestame to create different types of surveys. Encuestame provides a full featured Survey Managed System based on the Java 6 specification. It's integrated with the most popular social networks (Facebook, Twitter, etc) and the capable to distribute your content with diferent ways.
+     Encuestame is an open source project based on Java 6 technology. You can use to create different 
+     types of surveys. Encuestame provides a full featured Survey Managed System. 
+     It's integrated with the most popular social networks (Facebook, Twitter, etc) and 
+     the capable to distribute your content with diferent ways.
   </description>
     <url>http://www.encuestame.org</url>
     <issueManagement>
@@ -22,19 +25,21 @@
     <inceptionYear>2008</inceptionYear>
 
     <properties>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Java version -->
         <java-version>1.6</java-version>
         <!-- encuestame version -->
         <encuestame.version>${project.version}</encuestame.version>
         <!-- Spring Version <spring.version>3.1.0.BUILD-SNAPSHOT</spring.version> -->
-        <spring.version>3.1.0.RELEASE</spring.version>
+        <spring.version>3.1.1.RELEASE</spring.version>
         <env>development</env>
         <spring.webflow.version>2.3.0.RELEASE</spring.webflow.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.1.0.RELEASE</spring-integration-core>
         <spring-oauth.version>1.0.0.BUILD-SNAPSHOT</spring-oauth.version>
-        <spring.mobile.version>1.0.0.BUILD-SNAPSHOT</spring.mobile.version>
+        <spring.mobile.version>1.0.0.RC1</spring.mobile.version>
         <spring.ldap>1.3.1.RELEASE</spring.ldap>
         <spring.orm>3.0.3.RELEASE</spring.orm>
         <spring.support>2.0.8</spring.support>
@@ -135,13 +140,14 @@
         	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
         -->
         <maven-clover2-plugin>3.0.5</maven-clover2-plugin>
-        <maven-jar.plugin>2.3.2</maven-jar.plugin>
+        <maven-jar.plugin>2.4</maven-jar.plugin>
         <maven-compiler-plugin>2.3.2</maven-compiler-plugin>
         <aspectj-maven-plugin>1.2</aspectj-maven-plugin>
         <maven-antrun-plugin>1.6</maven-antrun-plugin>
         <maven-resources-plugin>2.5</maven-resources-plugin>
         <cobertura.maven.plugin>2.5.1</cobertura.maven.plugin>
         <maven-javadoc-plugin>2.8.1</maven-javadoc-plugin>
+        <jasperreports-maven-plugin>1.0-beta-2</jasperreports-maven-plugin>
         <maven-pmd-plugin>2.3</maven-pmd-plugin>
         <maven-project-info-reports-plugin>2.2</maven-project-info-reports-plugin>
         <maven-changes-plugin>2.4</maven-changes-plugin>
@@ -155,6 +161,7 @@
         <keytool.maven.plugin>1.0</keytool.maven.plugin>
         <maven.war.plugin>2.1.1</maven.war.plugin>
         <wro4j.plugin>1.3.8</wro4j.plugin>
+        <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
     </properties>
 
     <modules>
@@ -1273,7 +1280,7 @@
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>jdom</groupId>
+                <groupId>org.jdom</groupId>
                 <artifactId>jdom</artifactId>
                 <version>${jdom}</version>
             </dependency>

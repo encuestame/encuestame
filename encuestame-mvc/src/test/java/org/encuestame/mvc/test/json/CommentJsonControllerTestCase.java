@@ -155,12 +155,15 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
     public void testGetTopRatedComments() throws ServletException, IOException {
         final Calendar myCal = Calendar.getInstance();
         myCal.add(Calendar.DATE, -1);
+        
         createDefaultTweetPollCommentVoted("first comment", tweetPoll,
                 getSpringSecurityLoggedUserAccount(), 150L, 420L,
                 myCal.getTime());
+        
         createDefaultTweetPollCommentVoted("second comment", tweetPoll,
                 getSpringSecurityLoggedUserAccount(), 35L, 580L, new Date());
         myCal.add(Calendar.DATE, -2);
+        
         createDefaultTweetPollCommentVoted("third comment", tweetPoll,
                 getSpringSecurityLoggedUserAccount(), 325L, 70L,
                 myCal.getTime());
@@ -173,7 +176,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject success = getSucess(response);
         final JSONArray comments = (JSONArray) success.get("topComments");
         //System.out.println("COMMENTS JSON TEST-->" + comments.size());
-        Assert.assertEquals(comments.size(), 3);
+        Assert.assertEquals(comments.size(), 4);
 
     }
 }

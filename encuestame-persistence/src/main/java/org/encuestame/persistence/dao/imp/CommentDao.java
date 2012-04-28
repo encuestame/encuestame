@@ -21,6 +21,7 @@ import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -90,6 +91,14 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
     public List<Comment> getCommentsbyTweetPoll(final TweetPoll tpoll, final Integer maxResults, final Integer start){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("tweetPoll",tpoll));
+        criteria.addOrder(Order.desc("likeVote"));
+        return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
+    }
+    
+    
+    public List<Comment> getCommentsbPoll(final Poll poll, final Integer maxResults, final Integer start) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
+        criteria.add(Restrictions.eq("poll",poll));
         criteria.addOrder(Order.desc("likeVote"));
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }

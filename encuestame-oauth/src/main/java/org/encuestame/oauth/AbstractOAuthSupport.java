@@ -50,6 +50,9 @@ public abstract class AbstractOAuthSupport {
      * @param converters
      */
     public AbstractOAuthSupport(final List<HttpMessageConverter<?>> converters) {
+        //ENCUESTAME-407
+        //http://forum.springsource.org/showthread.php?108102-Resttemplate-basic-authentication
+        //http://static.springsource.org/spring/docs/3.1.x/javadoc-api/org/springframework/http/client/CommonsClientHttpRequestFactory.html
         this.restTemplate = new RestTemplate(new CommonsClientHttpRequestFactory());
         this.restTemplate.setMessageConverters(converters);
         log.debug("OAuth Converters Size "+this.restTemplate.getMessageConverters().size());
@@ -67,6 +70,9 @@ public abstract class AbstractOAuthSupport {
      * Default Constructor.
      */
     public AbstractOAuthSupport() {
+        //ENCUESTAME-407
+        //http://forum.springsource.org/showthread.php?108102-Resttemplate-basic-authentication
+        //http://static.springsource.org/spring/docs/3.1.x/javadoc-api/org/springframework/http/client/CommonsClientHttpRequestFactory.html
         this.restTemplate = new RestTemplate(new CommonsClientHttpRequestFactory());
     }
 

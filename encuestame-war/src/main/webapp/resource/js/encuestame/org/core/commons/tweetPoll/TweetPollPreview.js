@@ -20,6 +20,7 @@ dojo.require("encuestame.org.core.commons.tweetPoll.Answers");
 dojo.require("encuestame.org.core.commons.tweetPoll.HashTags");
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
+dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 /*
@@ -27,7 +28,7 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
  */
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPreview",
-        [encuestame.org.main.EnmeMainLayoutWidget],{
+        [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.tweetPoll.TweetPollCore],{
 
             /*
              * template
@@ -100,6 +101,7 @@ dojo.declare(
             postCreate : function() {
                 this.initialize();
                 this.showEmtpyContent();
+                this.enableBlockTweetPollOnProcess();
             },
 
             /*

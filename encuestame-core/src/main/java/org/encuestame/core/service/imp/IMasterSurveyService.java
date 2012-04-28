@@ -56,5 +56,18 @@ public interface IMasterSurveyService extends ServiceOperations{
             final QuestionAnswerBean answerBean,
             final Question question);
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
     QuestionAnswer getQuestionAnswerById(final Long id) throws EnMeNoResultsFoundException;
+
+    /**
+     * Retrieve Answer By Question Id.
+     * @param questionId question Id
+     * @return List of Answers
+     */
+    List<QuestionAnswerBean> retrieveAnswerByQuestionId(final Long questionId);
 }

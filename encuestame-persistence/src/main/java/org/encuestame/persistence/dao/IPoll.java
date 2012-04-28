@@ -20,8 +20,8 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -47,6 +47,15 @@ public interface IPoll extends IBaseDao {
       * @return
       */
      Poll getPollById(final Long pollId);
+
+     /**
+      * Get the poll by id
+      * @param pollId
+      * @param slugQuestion
+      * @param encode define if is required encode the slug question.
+      * @return
+      */
+     Poll getPollById(final Long pollId, final String slugQuestion, final boolean encode);
 
      /**
       * Count All Poll.
@@ -237,4 +246,15 @@ public interface IPoll extends IBaseDao {
     List<Poll> getPollsbyHashTagNameAndDateRange(
             final String tagName, final Integer period,
             final Integer startResults, final Integer limit);
+    
+    
+    /**
+     * Find repeated votes on poll results.
+     * @param ip
+     * @param poll
+     * @return
+     */
+    PollResult validateVoteIP(
+    		final String ip,
+            final Poll poll);
 }

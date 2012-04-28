@@ -206,14 +206,11 @@ public class QuestionAnswerBean implements Serializable{
         this.color = color;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "QuestionAnswerBean [answerId=" + answerId + ", answers="
-                + answers + ", answerHash=" + answerHash + ", url=" + url
-                + ", shortUrl=" + shortUrl + ", questionId=" + questionId
-                + ", shortUrlType=" + shortUrlType + "]";
-    }
+	@Override
+	public String toString() {
+		return "QuestionAnswerBean [answerId=" + answerId + ", answers="
+				+ answers + ", answerHash=" + answerHash + ", url=" + url
+				+ ", shortUrl=" + shortUrl + ", questionId=" + questionId
+				+ ", color=" + color + ", shortUrlType=" + shortUrlType + "]";
+	}
 }

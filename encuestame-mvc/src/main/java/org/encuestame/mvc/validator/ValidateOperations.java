@@ -41,6 +41,9 @@ public class ValidateOperations {
      */
     public static final Integer MIN_USERNAME_LENGTH = 3;
 
+    /**
+     *
+     */
     public static final Integer LENGTH_RANDOM_VALUE = 5;
 
     /**

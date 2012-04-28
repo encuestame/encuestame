@@ -19,6 +19,7 @@ dojo.require("dijit.form.CheckBox");
 dojo.require('dijit.form.TimeTextBox');
 dojo.require('dijit.form.DateTextBox');
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
 dojo.require('encuestame.org.core.shared.utils.FolderSelect');
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
@@ -34,17 +35,16 @@ dojo.require('encuestame.org.core.shared.options.ResultsOptions');
 dojo.require('encuestame.org.core.shared.options.CheckSingleOption');
 dojo.require('encuestame.org.core.commons.support.ActionDialogHandler');
 
+
 /**
  *
  */
 dojo.declare(
     "encuestame.org.core.commons.poll.Poll",
-    [dijit._Widget, dijit._Templated,
+    [encuestame.org.main.EnmeMainLayoutWidget,
         encuestame.org.core.commons.support.DnD,
         encuestame.org.core.commons.support.ActionDialogHandler],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/poll.html"),
-
-        widgetsInTemplate: true,
 
         /*
          *
@@ -224,7 +224,7 @@ dojo.declare(
                 valid.status = false;
                 valid.message = "Please enter at least 2 answers.";
                 console.info("error", valid);
-                this.showErrorMessage(valid.message);
+                this.infoMesage(valid.message);
                 c = 0;
             } else {
                 valid.status = true;
@@ -294,8 +294,8 @@ dojo.declare(
         /*
          *
          */
-        _openFailureMessage : function(error){
-            console.error(error);
+        _openFailureMessage : function(errorMessage) {
+             this.infoMesage(errorMessage);
         },
 
         /*

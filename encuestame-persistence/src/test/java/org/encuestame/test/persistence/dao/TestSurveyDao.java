@@ -22,7 +22,6 @@ import java.util.List;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -61,7 +60,7 @@ public class TestSurveyDao extends AbstractBase {
     private SurveyPagination surveyPag;
 
     private Survey survey;
-    
+
     private Integer MAX_RESULTS = 10;
 
     private Integer START_RESULTS = 0;
@@ -309,17 +308,10 @@ public class TestSurveyDao extends AbstractBase {
         final SurveySection section = createDefaultSection("Overview", mySurvey);
         Assert.assertNotNull(mySurvey);
 
-
-        // 3- Define question pattern.
-        final QuestionPattern pattern = createQuestionPattern("Yes/No");
-        final QuestionPattern pattern2 = createQuestionPattern("textbox");
-        Assert.assertNotNull(pattern);
-        Assert.assertNotNull(pattern2);
-
         // 4- Add question to survey sections.
         /** Fist question**/
-        final Question question = addQuestionSection("First Question", pattern, section, this.user);
-        final Question question2 = addQuestionSection("Second Question", pattern2, section, this.user);
+        final Question question = addQuestionSection("First Question", section, this.user);
+        final Question question2 = addQuestionSection("Second Question", section, this.user);
         Assert.assertNotNull(question);
         Assert.assertNotNull(question2);
 
@@ -357,54 +349,54 @@ public class TestSurveyDao extends AbstractBase {
                 .getSurveySection(survey);
         assertEquals("Should be equals", 2, surveySections.size());
     }
-    
+
     /**
      * Test Get total surveys by hashTags.
      */
     @Test
-	public void testGetSurveysByHashTags() {
-		final HashTag hashtag1 = createHashTag("home");
-		final HashTag hashtag2 = createHashTag("technology");
-		final HashTag hashtag3 = createHashTag("internet");
+    public void testGetSurveysByHashTags() {
+        final HashTag hashtag1 = createHashTag("home");
+        final HashTag hashtag2 = createHashTag("technology");
+        final HashTag hashtag3 = createHashTag("internet");
 
-		final Survey mySurvey = createDefaultSurvey(this.user, "Survey test",
-				new Date());
+        final Survey mySurvey = createDefaultSurvey(this.user, "Survey test",
+                new Date());
 
-		mySurvey.getHashTags().add(hashtag1);
-		mySurvey.getHashTags().add(hashtag2);
-		mySurvey.getHashTags().add(hashtag3);
-		getSurveyDaoImp().saveOrUpdate(mySurvey);
+        mySurvey.getHashTags().add(hashtag1);
+        mySurvey.getHashTags().add(hashtag2);
+        mySurvey.getHashTags().add(hashtag3);
+        getSurveyDaoImp().saveOrUpdate(mySurvey);
 
-		final Survey mySurvey2 = createDefaultSurvey(this.user,
-				"Survey test 2", new Date());
-		mySurvey2.getHashTags().add(hashtag1);
-		getSurveyDaoImp().saveOrUpdate(mySurvey);
+        final Survey mySurvey2 = createDefaultSurvey(this.user,
+                "Survey test 2", new Date());
+        mySurvey2.getHashTags().add(hashtag1);
+        getSurveyDaoImp().saveOrUpdate(mySurvey);
 
-		final List<Survey> totalSurveys = getSurveyDaoImp()
-				.getSurveysByHashTagName(hashtag1.getHashTag(),
-						this.START_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
-		assertEquals("Should be equals", 2, totalSurveys.size());
-	}
-    
+        final List<Survey> totalSurveys = getSurveyDaoImp()
+                .getSurveysByHashTagName(hashtag1.getHashTag(),
+                        this.START_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+        assertEquals("Should be equals", 2, totalSurveys.size());
+    }
+
     /**
      * Test get total surveys by hashtag and date range.
      */
     @Test
     public void testGetSurveysbyHashTagNameAndDateRange(){
-    	final Calendar myDate = Calendar.getInstance();
-    	final HashTag hashtag1 = createHashTag("home");
-    	final Survey mySurvey = createDefaultSurvey(this.user, "Survey test",
-				myDate.getTime()); 
-		mySurvey.getHashTags().add(hashtag1);
-		getSurveyDaoImp().saveOrUpdate(mySurvey);
-		
-		myDate.add(Calendar.DATE, -4);
-		final Survey mySurvey2 = createDefaultSurvey(this.user, "Survey test 2",
-				myDate.getTime()); 
-		mySurvey2.getHashTags().add(hashtag1);
-		getSurveyDaoImp().saveOrUpdate(mySurvey2);
-		
-		final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START_RESULTS, this.MAX_RESULTS);
-		assertEquals("Should be equals", 2, getTotalSurveysbyHashTag.size());
+        final Calendar myDate = Calendar.getInstance();
+        final HashTag hashtag1 = createHashTag("home");
+        final Survey mySurvey = createDefaultSurvey(this.user, "Survey test",
+                myDate.getTime());
+        mySurvey.getHashTags().add(hashtag1);
+        getSurveyDaoImp().saveOrUpdate(mySurvey);
+
+        myDate.add(Calendar.DATE, -4);
+        final Survey mySurvey2 = createDefaultSurvey(this.user, "Survey test 2",
+                myDate.getTime());
+        mySurvey2.getHashTags().add(hashtag1);
+        getSurveyDaoImp().saveOrUpdate(mySurvey2);
+
+        final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START_RESULTS, this.MAX_RESULTS);
+        assertEquals("Should be equals", 2, getTotalSurveysbyHashTag.size());
     }
 }

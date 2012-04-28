@@ -4,6 +4,20 @@ dependencies ={
             name: "encuestame-commons.js",
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
+                "encuestame.org.core.commons.results.answers.GenericPercentResult",
+                "encuestame.org.core.commons.results.answers.ResultSupport",
+                "encuestame.org.core.commons.chart.AbstractChartVoteSupport",
+                "encuestame.org.core.commons.poll.detail.PollChartDetail",
+                "encuestame.org.core.commons.support.OrderMenu",
+                "encuestame.org.core.commons.poll.vote.PollVote",
+                "encuestame.org.core.commons.support.SocialFilterMenu",
+                "encuestame.org.core.commons.tweetPoll.TweetPollCore",
+                "encuestame.org.core.commons.poll.vote.AnswerVote",
+                "encuestame.org.core.commons.support.VotesFilterMenu",
+                "encuestame.org.core.shared.utils.SocialAccountsSupport",
+                "encuestame.org.core.commons.support.AbstractFilterSupport",
+                "encuestame.org.core.commons.support.ItemsFilterSupport",
+                "encuestame.org.core.commons.support.SearchMenu",
                 "encuestame.org.core.commons.dashboard.DashboardGridContainer",
                 "encuestame.org.core.commons.tweetPoll.TweetPoll",
                 "encuestame.org.core.commons.tweetPoll.TweetPollPreview",
@@ -125,6 +139,14 @@ dependencies ={
                 "encuestame.org.core.commons.questions.Question",
                 "encuestame.org.core.commons.questions.patterns.SingleResponse",
                 "encuestame.org.core.commons.questions.patterns.AbstractPattern",
+                "encuestame.org.core.commons.questions.patterns.AbstractAddNewAnswer",
+                "encuestame.org.core.commons.questions.patterns.AbstractImageResponse",
+                "encuestame.org.core.commons.questions.patterns.AbstractMultipleSelection",
+                "encuestame.org.core.commons.questions.patterns.AbstractSoundResponse",
+                "encuestame.org.core.commons.questions.patterns.AbstractVideoResponse",
+                "encuestame.org.core.commons.questions.patterns.MultipleOptionResponse",
+                "encuestame.org.core.commons.questions.patterns.SingleOptionResponse",
+                "encuestame.org.core.commons.questions.patterns.CustomizableSelectionOptionResponse",
                 "encuestame.org.core.shared.publish.PublishSupport",
                 "encuestame.org.core.shared.utils.ContextSupport",
                 "encuestame.org.core.commons.support.DnD",
@@ -163,9 +185,9 @@ dependencies ={
             }*/
         ],
         prefixes: [
-            ["encuestame", "../../encuestame-war/src/main/webapp/resource/js/encuestame"],
+            ["encuestame", "../encuestame"],
             ["dijit", "../dijit" ],
             ["dojox", "../dojox" ],
-            ["org", "../../encuestame-war/src/main/webapp/resource/js/org" ]
+            ["org", "../org" ]
         ]
     };

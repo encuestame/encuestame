@@ -15,6 +15,7 @@
       <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries-->
     <script src="<%=request.getContextPath()%>/resources/js/req/modernizr-2.0.6.js"></script>
+    <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="claro enme-web-context">
      <header id="header">
@@ -31,7 +32,7 @@
      <footer id="footer">
           <tiles:insertAttribute name="footer" />
      </footer>
-     <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
+    <%@ include file="/WEB-INF/jsp/includes/javascript.jsp" %>
     <script type="text/javascript">
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
@@ -52,5 +53,6 @@
     </script>
     <!-- Insert additional javascript  -->
     <tiles:insertAttribute name="extra-js" ignore="true"/>
+    <div id="modal-box"></div>
 </body>
 </html>

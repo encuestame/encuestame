@@ -195,8 +195,9 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
      * @param userSecondary
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<Long> getTotalSurveyByOwner(final Long userId){ //editorOwner
-        return getHibernateTemplate().findByNamedParam("select count(sid) "
+        return (List<Long>) getHibernateTemplate().findByNamedParam("select count(sid) "
                +" from Survey where editorOwner.id = :editorOwner", "editorOwner", userId);
     }
 
@@ -400,9 +401,9 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         criteria.add(Restrictions.eq("survey", survey));
         return getHibernateTemplate().findByCriteria(criteria);
     }
-    
+
     @SuppressWarnings("unchecked")
-	public List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
+    public List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
             final Integer limitResults, final TypeSearchResult filterby) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Survey.class)
@@ -416,50 +417,50 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
                                 .add(Restrictions.in("hash.hashTag",
                                         new String[] { tagName }))));
         final DetachedCriteria criteria = DetachedCriteria.forClass(
-        		Survey.class, "survey");
+                Survey.class, "survey");
         criteria.add(Subqueries.propertyIn("survey.sid", detached));
         if (filterby.equals(TypeSearchResult.HASHTAG)) {
             criteria.addOrder(Order.desc("survey.createdAt"));
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
-        	  criteria.addOrder(Order.desc("numbervotes"));
+              criteria.addOrder(Order.desc("numbervotes"));
         }
         return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
-    } 
-    
-    
-    
+    }
+
+
+
     @SuppressWarnings("unchecked")
-   	public List<Survey> getSurveysbyHashTagNameAndDateRange(
-   			final String tagName, final Integer period,
-   			final Integer startResults, final Integer limit) {
-   		Date startDate = null;
-   		Date endDate = null;
-   		if (period != null) {
-   			final Calendar hi = Calendar.getInstance();
-   			hi.add(Calendar.DAY_OF_YEAR, -period);
-   			startDate = hi.getTime();
-   			endDate = Calendar.getInstance().getTime();
+       public List<Survey> getSurveysbyHashTagNameAndDateRange(
+               final String tagName, final Integer period,
+               final Integer startResults, final Integer limit) {
+           Date startDate = null;
+           Date endDate = null;
+           if (period != null) {
+               final Calendar hi = Calendar.getInstance();
+               hi.add(Calendar.DAY_OF_YEAR, -period);
+               startDate = hi.getTime();
+               endDate = Calendar.getInstance().getTime();
 
-   		} 
-   		final DetachedCriteria detached = DetachedCriteria
-   				.forClass(Survey.class)
-   				.createAlias("hashTags", "hashTags")
-   				.setProjection(Projections.id())
-   				.add(Subqueries.propertyIn(
-   						"hashTags.hashTagId",
-   						DetachedCriteria
-   								.forClass(HashTag.class, "hash")
-   								.setProjection(Projections.id())
-   								.add(Restrictions.in("hash.hashTag",
-   										new String[] { tagName }))));
-   		final DetachedCriteria criteria = DetachedCriteria.forClass(
-   				Survey.class, "survey");
-   		criteria.add(Subqueries.propertyIn("survey.sid", detached));
-   		criteria.addOrder(Order.desc("survey.createdAt"));
-   		criteria.add(Restrictions.between("createdAt", startDate, endDate)); 
-   		return getHibernateTemplate().findByCriteria(criteria, startResults,
-   				limit); 
-   	}
+           }
+           final DetachedCriteria detached = DetachedCriteria
+                   .forClass(Survey.class)
+                   .createAlias("hashTags", "hashTags")
+                   .setProjection(Projections.id())
+                   .add(Subqueries.propertyIn(
+                           "hashTags.hashTagId",
+                           DetachedCriteria
+                                   .forClass(HashTag.class, "hash")
+                                   .setProjection(Projections.id())
+                                   .add(Restrictions.in("hash.hashTag",
+                                           new String[] { tagName }))));
+           final DetachedCriteria criteria = DetachedCriteria.forClass(
+                   Survey.class, "survey");
+           criteria.add(Subqueries.propertyIn("survey.sid", detached));
+           criteria.addOrder(Order.desc("survey.createdAt"));
+           criteria.add(Restrictions.between("createdAt", startDate, endDate));
+           return getHibernateTemplate().findByCriteria(criteria, startResults,
+                   limit);
+       }
 
-    
+
 }

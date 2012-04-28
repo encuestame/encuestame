@@ -53,7 +53,7 @@ public class GadgetsLoader {
     /**
      * Init the load of gadgets.
      */
-    public void load(){
+    public void load() {
         if (this.gadgets != null) {
             for (int i = 0; i < this.gadgets.length; i++) {
                 Resource location = this.gadgets[i];

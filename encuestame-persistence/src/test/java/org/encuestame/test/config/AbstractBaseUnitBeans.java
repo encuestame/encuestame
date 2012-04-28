@@ -24,7 +24,6 @@ import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
@@ -61,40 +60,14 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
             final String questionName,
             final Long stateId,
             final Long userId,
-            final List listAnswers,
-            final QuestionPatternBean pattern){
+            final List listAnswers){
          final QuestionBean question = new QuestionBean();
          question.setQuestionName(questionName);
          question.setStateId(stateId);
          question.setUserId(userId);
          question.setListAnswers(listAnswers);
-         question.setPattern(pattern);
          return question;
     }
-
-    /**
-     * Create Pattern Bean Helper.
-     * @param classpattern
-     * @param descripcionPattern
-     * @param levelpattern
-     * @param patronType
-     * @param template
-     * @return
-     */
-     public QuestionPatternBean createPatternBean(
-             final String classpattern,
-             final String descripcionPattern,
-             final String levelpattern,
-             final String patronType,
-             final String template){
-         final QuestionPatternBean unitPatternBean = new QuestionPatternBean();
-         unitPatternBean.setClasspattern(classpattern);
-         unitPatternBean.setDescripcion(descripcionPattern);
-         unitPatternBean.setLevelpattern(levelpattern);
-         unitPatternBean.setPatronType(patronType);
-         unitPatternBean.setTemplate(template);
-        return unitPatternBean;
-     }
 
      /**
       *
@@ -153,7 +126,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          unitTweetPoll.setCloseNotification(closeNotification);
          unitTweetPoll.setCompleted(completed);
          unitTweetPoll.setPublishPoll(publishPoll);
-         unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null, null));
+         unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null));
          unitTweetPoll.setResultNotification(resultNotification);
          unitTweetPoll.setResults(null);
          unitTweetPoll.setSchedule(schedule);
@@ -213,7 +186,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         unitTweetPoll.setUpdateDate(updateDate);
         unitTweetPoll.setUserId(userId);
         unitTweetPoll.setPublishPoll(publishPoll);
-        unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null,
+        unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L,
                 null));
         unitTweetPoll.setResults(null);
         unitTweetPoll.setTweetUrl(tweetUrl);
@@ -239,7 +212,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
         TweetPollBean unitTweetPoll = new TweetPollBean();
         unitTweetPoll.setUserId(userId);
         unitTweetPoll.setPublishPoll(publishPoll);
-        unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L, null,
+        unitTweetPoll.setQuestionBean(createUnitQuestionBean("", 1L, 1L,
                 null));
         unitTweetPoll.setResults(null);
         unitTweetPoll.setTweetUrl(tweetUrl);
@@ -302,15 +275,13 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
              final String questionName,
              final Long stateId,
              final Long userId,
-             final List listAnswers,
-             final QuestionPatternBean pattern){
+             final List listAnswers){
           final QuestionBean question = new QuestionBean();
           question.setId(questionId);
           question.setQuestionName(questionName);
           question.setStateId(stateId);
           question.setUserId(userId);
           question.setListAnswers(listAnswers);
-          question.setPattern(pattern);
           return question;
      }
 

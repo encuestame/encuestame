@@ -30,7 +30,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.business.service.DashboardService;
-import org.encuestame.business.service.FrontEndService;
 import org.encuestame.business.service.ProjectService;
 import org.encuestame.business.service.ServiceManager;
 import org.encuestame.business.service.TweetPollService;
@@ -482,7 +481,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
-     * Get {@link FrontEndService}.
+     * Get {@link FrontEndCoreService}.
      * @return
      */
     public IFrontEndService getFrontService(){

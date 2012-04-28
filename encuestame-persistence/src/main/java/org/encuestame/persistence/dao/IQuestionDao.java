@@ -17,7 +17,6 @@ import java.util.List;
 import org.apache.lucene.analysis.Analyzer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 
@@ -42,22 +41,6 @@ public interface IQuestionDao extends IBaseDao {
      * @throws HibernateException exception
      */
     List<Question> loadAllQuestions();
-
-    /**
-     * Load All Questions Patron.
-     * @return  List of {@link QuestionPattern}
-     * @throws HibernateException exception
-     */
-    List<QuestionPattern> loadAllQuestionPattern()
-    throws HibernateException;
-
-    /**
-     * Load pattern info.
-     * @param patronId patron id
-     * @return QuestionPatron
-     * @throws HibernateException exception
-     */
-    QuestionPattern loadPatternInfo(final Long patronId);
 
     /**
      * Retrieve Questions by Name.

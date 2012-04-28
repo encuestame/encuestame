@@ -573,6 +573,9 @@ encuestame.service.list.poll.detail = encuestame.contextWidget()+"/api/survey/po
 encuestame.service.list.poll.setParameter = function(/* string */ type) {
     return  encuestame.contextWidget()+"/api/survey/poll/"+type+"-poll.json";
 };
+encuestame.service.list.poll.getVotes = function(username) {
+    return  encuestame.contextWidget()+"/api/"+username+"/poll/votes.json";
+};
 
 /**
  * Comment Services.
@@ -700,6 +703,9 @@ encuestame.messages.pubish = function(message, type, duration) {
     dojo.publish('/encuestame/message/publish', [{ message: message, type: type, duration: duration}]);
 };
 
+encuestame.modalbox = {};
+
+
 encuestame.constants.errorCodes = {
     "002" : "Enter your first and last name.",
     "003" : "Whats your email address?",
@@ -716,7 +722,8 @@ encuestame.constants.errorCodes = {
     "020" : "Your Tweet contains more than 140 characters. You will have to be more ingenious.",
     "021" : "Your Tweet no contains required answers, imagine a sky without clouds?",
     "022" : "You need at least 1 social account to publish your beautiful creation.",
-    "023" : "Ops, something is wrong."
+    "023" : "Ops, something is wrong.",
+    "024" : "Please, save your tweetpoll first"
 };
 
 encuestame.constants.warningCodes = {
@@ -737,7 +744,8 @@ encuestame.constants.messageCodes = {
     "021" : "Drag your gadget here !!",
     "022" : "Be the first to comment on this publication.",
     "023" : "Updated Successfully",
-    "024" : "Sorry, no results found"
+    "024" : "Sorry, no results found",
+    "025" : "Publishing your tweets, please wait ..."
  };
 
 encuestame.constants.version = { version : "1.143"};

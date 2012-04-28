@@ -25,7 +25,6 @@ import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveySection;
@@ -37,7 +36,6 @@ import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UnitSurveySection;
@@ -182,62 +180,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
     }
 
     /**
-     * Load pattern info.
-     * @param unitPatternBean {@link QuestionPatternBean}
-     * @return {@link QuestionPatternBean}
-     * @throws EnMeExpcetion exception
-     */
-    public QuestionPatternBean loadPatternInfo(QuestionPatternBean unitPatternBean)
-            throws EnMeExpcetion {
-        if (unitPatternBean != null && unitPatternBean.getId() != null) {
-            final QuestionPattern questionPatternDomain = getQuestionDao().loadPatternInfo(
-                    unitPatternBean.getId());
-
-            unitPatternBean.setId(questionPatternDomain.getPatternId());
-
-            unitPatternBean.setDescripcion(questionPatternDomain.getDesQid());
-            unitPatternBean.setLabel(questionPatternDomain.getLabelQid());
-            unitPatternBean.setPatronType(questionPatternDomain.getPatternType());
-            unitPatternBean.setTemplate(questionPatternDomain.getPatternTemplate());
-            unitPatternBean.setClasspattern("classpatthern");
-            unitPatternBean.setLevelpattern("2");
-            unitPatternBean.setFinallity("save");
-            //TODO : need more properties.
-            return unitPatternBean;
-        }
-        else {
-            throw new EnMeExpcetion("unit patter bean is null");
-        }
-    }
-
-    /**
-     * Load all Patrons.
-     * @return List of {@link QuestionPatternBean}
-     * @throws EnMeExpcetion exception
-     */
-    public Collection<QuestionPatternBean> loadAllPatrons()
-            throws EnMeExpcetion {
-        final List<QuestionPatternBean> listPatronBean = new LinkedList<QuestionPatternBean>();
-        try {
-            final List<QuestionPattern> patronList = getQuestionDao()
-                    .loadAllQuestionPattern();
-            if (patronList.size() > 0) {
-               for (QuestionPattern patron : patronList) {
-                    QuestionPatternBean p = new QuestionPatternBean();
-                    p.setId(patron.getPatternId());
-                    p.setPatronType(patron.getPatternType());
-                    listPatronBean.add(p);
-                }
-            }
-        } catch (HibernateException e) {
-            throw new EnMeExpcetion(e);
-        } catch (Exception e) {
-            throw new EnMeExpcetion(e);
-        }
-        return listPatronBean;
-    }
-
-    /**
      * @param rANDOMQUESTIONKEY the rANDOM_QUESTION_KEY to set
      */
     public void setRandomQuestionKey(Integer rInteger){
@@ -336,7 +278,6 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
         final Question question = new Question();
         question.setQuestion(questionBean.getQuestionName());
         //	question.setQidKey();
-        question.setQuestionPattern(question.getQuestionPattern());
        // question.setQuestionsAnswers(question.getQuestionsAnswers());
         question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
        // question.setSharedQuestion();

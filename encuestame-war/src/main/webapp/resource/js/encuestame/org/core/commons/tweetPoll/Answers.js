@@ -8,13 +8,14 @@ dojo.require("dijit.Dialog");
 dojo.require("dijit.form.TextBox");
 dojo.require("encuestame.org.core.shared.utils.OptionMenu");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore");
 
 /**
  * Widget to list of answers.
  */
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.Answers",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
+    [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.tweetPoll.TweetPollCore],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/answer.html"),
 
         /*
@@ -80,6 +81,7 @@ dojo.declare(
                      this.addAnswer();
                  }
              }));
+             this.enableBlockTweetPollOnProcess();
         },
 
         /*
@@ -159,13 +161,13 @@ dojo.declare(
                     "answer" : text.get("value"),
                     "shortUrl" : encuestame.shortUrlProvider[1].code
                };
-               console.debug("params", params);
+               //console.debug("params", params);
                var load = dojo.hitch(this, function(data){
                    console.debug(data);
                    var items = [];
                    var answerWidget = new encuestame.org.core.commons.tweetPoll.AnswerItem({
                        answer :{
-                           answerId : data.success.newAnswer.answer.answerId,
+                           answerId : data.success.newAnswer.answer.answer_id,
                            label: data.success.newAnswer.answer.answers,
                            shortUrl : data.success.newAnswer.short_url,
                            provider: encuestame.shortUrlProvider[1]
@@ -180,13 +182,12 @@ dojo.declare(
                    dojo.publish("/encuestame/tweetpoll/updatePreview");
                });
                var error = function(error) {
-                   console.debug("error", error);
+                   dojo.publish("/encuestame/tweetpoll/dialog/error", [error]);
                };
-               if(this.tweetPollId != null){
-                   encuestame.service.xhrGet(
-                           encuestame.service.list.addAnswer, params, load, error);
+               if (this.tweetPollId != null) {
+                   encuestame.service.xhrGet(encuestame.service.list.addAnswer, params, load, error);
                } else {
-                   console.info("Please, save your tweetpoll first");
+                   dojo.publish("/encuestame/tweetpoll/dialog/error", [encuestame.constants.errorCodes["024"]]);
                }
         },
 
@@ -289,7 +290,7 @@ dojo.declare(
                 dojo.destroy(this.domNode, true);
             });
             var error = function(error) {
-                console.debug("error", error);
+                dojo.publish("/encuestame/tweetpoll/dialog/error", [error]);
             };
             encuestame.service.xhrGet(
                     encuestame.service.list.removeAnswer, params, load, error);

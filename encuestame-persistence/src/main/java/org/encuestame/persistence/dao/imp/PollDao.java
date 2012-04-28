@@ -27,10 +27,11 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -159,6 +160,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollsbyHashTagNameAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsbyHashTagNameAndDateRange(
             final String tagName, final Integer period,
@@ -197,15 +202,30 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long)
      */
-    public Poll getPollById(final Long pollId) throws HibernateException {
+    public Poll getPollById(final Long pollId) {
         return (Poll) getHibernateTemplate().get(Poll.class, pollId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getPollById(java.lang.Long, java.lang.String, boolean)
+     */
+    @SuppressWarnings("unchecked")
+    public Poll getPollById(final Long pollId, final String slugQuestion, final boolean encode) {
+        final DetachedCriteria detached = DetachedCriteria
+        .forClass(Poll.class)
+        .createAlias("question", "question");
+        detached.add(Restrictions.eq("pollId", pollId));
+        final String encodeString = encode ? RestFullUtil.encodeUTF8(slugQuestion) : slugQuestion;
+        detached.add(Restrictions.eq("question.slugQuestion", encodeString));
+        return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(detached));
     }
 
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#getPollFolderById(java.lang.Long)
      */
-    public PollFolder getPollFolderById(final Long folderId){
+    public PollFolder getPollFolderById(final Long folderId) {
         return getHibernateTemplate().get(PollFolder.class, folderId);
     }
 
@@ -319,7 +339,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollByIdandUserId(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
      */
     @SuppressWarnings("unchecked")
-    public Poll getPollById(final Long pollId, UserAccount userAcc){
+    public Poll getPollById(final Long pollId, UserAccount userAcc) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
         criteria.add(Restrictions.eq("pollId", pollId));
@@ -343,11 +363,16 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * @see org.encuestame.persistence.dao.IPoll#getPollByUserIdDate(java.util.Date, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-    public List<Poll> getPollByUserIdDate(final Date date, final UserAccount userAcc,
-            final Integer maxResults, final Integer start ){
+    public List<Poll> getPollByUserIdDate(
+    		final Date date, 
+    		final UserAccount userAcc,
+            final Integer maxResults, 
+            final Integer start ){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
-        criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
+        if ( date != null) {
+        	criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
+        }
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -472,5 +497,21 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         log.debug("Retrieve total polls by  " + user.getUsername() + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#validateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
+     */
+    @SuppressWarnings("unchecked")
+    public PollResult validateVoteIP(
+    		final String ip,
+            final Poll poll) {
+        return (PollResult) DataAccessUtils
+                .uniqueResult(getHibernateTemplate()
+                        .findByNamedParam(
+                                "from PollResult where ipAddress= :ipAddress and  poll = :poll",
+                                new String[] { "ipAddress", "poll" },
+                                new Object[] { ip, poll }));
     }
 }

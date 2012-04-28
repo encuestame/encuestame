@@ -22,7 +22,6 @@ import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -111,10 +110,11 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                 if (userId != null) {
                     criteria.createAlias("accountQuestion", "accountQuestion");
                     criteria.add(Restrictions.eq("accountQuestion.uid", userId));
-                } else {
+                } 
+                //else {
                     //if user id is missing, the question should be shared to be listed.
-                    criteria.add(Restrictions.eq("sharedQuestion", Boolean.TRUE));
-                }
+                    //criteria.add(Restrictions.eq("sharedQuestion", Boolean.TRUE));
+                //}
                 //limit results
                 if (maxResults != null) {
                     criteria.setMaxResults(maxResults.intValue());
@@ -153,6 +153,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                                 new SimpleAnalyzer(), SIMILARITY_VALUE)
                                 ;
                         log.debug("fuzzyQueryFullTextResults: {" + fuzzyQueryFullTextResults.size());
+                        
                         listAllSearch.addAll(fuzzyQueryFullTextResults);
 
                         log.debug("listAllSearch size:{" + listAllSearch.size());
@@ -213,25 +214,6 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     @SuppressWarnings("unchecked")
     public final List<Question> loadAllQuestions() throws HibernateException {
         return getHibernateTemplate().find("from Question");
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestionPattern()
-     */
-    @SuppressWarnings("unchecked")
-    public final List<QuestionPattern> loadAllQuestionPattern()
-            throws HibernateException {
-        return getHibernateTemplate().find("from QuestionPattern");
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IQuestionDao#loadPatternInfo(java.lang.Long)
-     */
-    public final QuestionPattern loadPatternInfo(final Long patternId) throws HibernateException{
-        return (QuestionPattern) getHibernateTemplate().get(QuestionPattern.class, patternId);
     }
 
     /*

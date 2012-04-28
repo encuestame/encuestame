@@ -1,61 +1,47 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-tweetpoll-detail ">
+<article class="web-wrapper-detail">
    <header>
        <h1>${poll.questionBean.questionName}</h1>
    </header>
    <article class="emne-box">
-        <section class="web-tweetpoll-info">
-            <!--  -->
+        <section class="web-wrapper-detail-wrapper">
+            <article class="web-chart">
+                <div dojoType="encuestame.org.core.commons.poll.detail.PollChartDetail"
+	                 pollId="${poll.id}"
+	                 username="${poll.ownerUsername}">
+	            </div>
+            </article>
+            <article class="web-detail web-poll-results"> 
+            	 <header>
+            	 	<div class="header-votes">
+            	 		<spring:message code="options.votes" />
+            	 	</div>
+            	 	<div class="header-percents">
+            	 		<spring:message code="options.percent" />
+            	 	</div>
+            	 </header>           	             	
+				 <c:forEach items="${answers}" var="item">				 
+				 	<section dojoType="encuestame.org.core.commons.results.answers.GenericPercentResult"
+				 		itemId="${item.answerBean.answerId}"
+				 		color="${item.answerBean.color}"
+				 		votes="${item.result}"
+				 		percent="${item.percent}"
+				 		questionId="${item.answerBean.questionId}" 
+				 		labelResponse="${item.answerBean.answers}">				 		
+				 	</section>
+                 </c:forEach>
+                 <div class="web-poll-options-button">
+                 	<a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">
+                 		<button>
+                 			<spring:message code="options.vote" />
+                 		</button>
+                 	</a>
+                 </div>
+            </article>
        </section>
-        <section class="web-tweetpoll-answer-wrapper">
-            <div class="web-tweetpoll-answer-chart">
-                <!-- Poll Chart -->
-            </div>
-            <div class="web-tweetpoll-answer-answer">
-                <table class="web-tweetpoll-answer-table" cellspacing="0">
-                    <thead>
-                        <tr class="gradient-black">
-                            <th></th>
-                            <th>
-                                <span class="header-table-answer">Link to Vote</span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">Count</span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">Percent</span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer"></span>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${answers}" var="a">
-                             <tr class="answer"
-                                  dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
-                                  aId="${a.answers.questionAnswerId}"
-                                  color="${a.answers.color}"
-                                  label="${a.answers.answer}"
-                                  owner="${tweetpoll.ownerUsername}"
-                                  completed="${tweetpoll.completed}"
-                                  url="${a.shortUrl}">
-                             </tr>
-                       </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-       </section>
-       <section class="web-tweetpoll-button-wrapper gradient-gray">
+       <section class="web-button-wrapper gradient-gray">
             <div>
                 <img src="<%=request.getContextPath()%>/resources/images/icons/enme_pie.png">
             </div>
@@ -66,17 +52,19 @@
    </article>
    <article class="emne-box">
        <header>
-          Social Links Refered
+          <spring:message code="options.links" />
        </header>
        <section>
             <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                 itemId="${tweetpoll.id}" type="TWEETPOLL" class="web-social-links"
-                 ></div>
+                 type="POLL" class="web-social-links">
+            </div>
        </section>
     </article>
    <c:if test="${!empty hashtags}">
        <section class="emne-box">
-           <header>HashTag Refered</header>
+           <header>
+           	   <spring:message code="options.hashtag" />
+           </header>
            <div class="web-tweetpoll-hashtags ">
                <c:forEach items="${hashtags}" var="h">
                        <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
@@ -87,7 +75,9 @@
        </section>
    </c:if>
    <section class="web-tweetpoll-comments emne-box">
-      <header>Comments</header>
-      <div dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
+      <header>
+      		<spring:message code="options.comments" />
+      </header>
+      <div dojoType="encuestame.org.core.comments.Comments" type="poll" item_id="${poll.id}"></div>
    </section>
 </article>

@@ -25,7 +25,6 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -56,9 +55,6 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
     /** {@link Question} **/
     private Question question;
-
-    /** {@link QuestionPattern} **/
-    private QuestionPattern questionPattern;
 
     /** {@link IPollService} **/
     @Autowired
@@ -92,7 +88,6 @@ public class TestPollService extends AbstractSpringSecurityContext{
         this.user = createUser("testEncuesta", "testEncuesta123");
         this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
-        this.questionPattern = createQuestionPattern("html");
         /////
         final Calendar calendarDate = Calendar.getInstance();
         calendarDate.add(Calendar.DAY_OF_WEEK,-1);

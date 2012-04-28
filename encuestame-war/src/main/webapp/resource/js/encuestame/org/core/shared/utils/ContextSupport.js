@@ -40,7 +40,7 @@ dojo.declare("encuestame.org.core.shared.utils.ContextSupport",
          */
         getContext : function(context){
             var position = dojo.indexOf(this._context, context);
-            console.info("getAction", position);
+            //console.info("getAction", position);
             if (position == -1) {
                 console.error("invalid context");
             } else {

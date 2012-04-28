@@ -558,14 +558,13 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `shared_question` bit(1) DEFAULT NULL,
   `question_slug` varchar(255) NOT NULL,
   `uid` bigint(20) NOT NULL,
-  `id_question_pattern` bigint(20) DEFAULT NULL,
   `section_ssid` bigint(20) DEFAULT NULL,
+  `question_pattern` int(11) DEFAULT NULL,
   PRIMARY KEY (`qid`),
   UNIQUE KEY `qid` (`qid`),
   KEY `FK95C5414D2B2A6AB4` (`uid`),
-  KEY `FK95C5414D39E97991` (`section_ssid`),
-  KEY `FK95C5414D84133D82` (`id_question_pattern`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `FK95C5414D39E97991` (`section_ssid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 --
 -- Table structure for table `questions_answers`

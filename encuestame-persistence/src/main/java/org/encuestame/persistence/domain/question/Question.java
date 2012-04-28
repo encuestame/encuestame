@@ -20,6 +20,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,7 @@ import javax.persistence.TemporalType;
 
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DateBridge;
@@ -47,7 +50,6 @@ import org.hibernate.search.annotations.Store;
  * Questions.
  * @author Picado, Juan juanATencuestame.org
  * @since October 17, 2009
- * @version $Id$
  */
 @Entity
 @Indexed(index="Question")
@@ -89,20 +91,23 @@ public class Question {
     private Long hits;
 
     /**
-     * Type of pattern.
-     */
-    private QuestionPattern questionPattern;
-    /**
      * Account relationship.
      */
     private Account accountQuestion;
+
+    /**
+     * Define the pattern of the question.
+     */
+    private QuestionPattern questionPattern = QuestionPattern.SINGLE_SELECTION;
 
     /**
      * This questions belongs to user collection.
      */
     private Set<QuestionColettion> questionColettions = new HashSet<QuestionColettion>();
 
-    /** This question belongs to a survey section**/
+    /**
+     * This question belongs to a survey section.
+     */
     private SurveySection section;
 
     /**
@@ -171,22 +176,6 @@ public class Question {
      */
     public void setQuestionColettions(final Set<QuestionColettion> questionColettions) {
         this.questionColettions = questionColettions;
-    }
-
-    /**
-     * @return the questionPattern
-     */
-    @ManyToOne()
-    @JoinColumn(name = "id_question_pattern", nullable = true)
-    public QuestionPattern getQuestionPattern() {
-        return questionPattern;
-    }
-
-    /**
-     * @param questionPattern the questionPattern to set
-     */
-    public void setQuestionPattern(final QuestionPattern questionPattern) {
-        this.questionPattern = questionPattern;
     }
 
     /**
@@ -281,5 +270,21 @@ public class Question {
      */
     public void setSection(final SurveySection section) {
         this.section = section;
+    }
+
+    /**
+     * @return the questionPattern
+     */
+    @Column(name="question_pattern")
+    @Enumerated(EnumType.ORDINAL)
+    public QuestionPattern getQuestionPattern() {
+        return questionPattern;
+    }
+
+    /**
+     * @param questionPattern the questionPattern to set
+     */
+    public void setQuestionPattern(QuestionPattern questionPattern) {
+        this.questionPattern = questionPattern;
     }
 }

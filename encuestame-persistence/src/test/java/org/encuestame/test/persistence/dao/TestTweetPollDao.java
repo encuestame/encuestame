@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -77,6 +78,10 @@ public class TestTweetPollDao  extends AbstractBase{
 
     /** Init results query. **/
     private Integer INIT_RESULTS = 0;
+    
+    /** **/
+    private Integer PERIOD_YEAR = 365;
+    
     
     /**
      * Before.
@@ -138,8 +143,60 @@ public class TestTweetPollDao  extends AbstractBase{
         final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollId(this.tweetPoll.getTweetPollId());
         assertEquals("Should be equals", 4, totalVotes.intValue());
     }
-
-
+    
+    /**
+     * Test to get total votes by tweetpoll and specific date range.
+     */
+    @Test
+	public void testGetTotalVotesByTweetPollIdAndDateRange(){ 
+    	final Question myQuestion = createQuestion("Where are you from?", "");
+    	final QuestionAnswer qaAmerica = createQuestionAnswer("America", myQuestion, "123457");
+    	final QuestionAnswer qaEurope = createQuestionAnswer("Europa", myQuestion, "123469");
+    	final TweetPoll myTweetPoll = createPublishedTweetPoll(secondary.getAccount(), myQuestion);
+    	HashTag htCitizen = createHashTag("citizen");
+    	HashTag htCitizenShip = createHashTag("citizenship");
+    	myTweetPoll.getHashTags().add(htCitizen);
+    	myTweetPoll.getHashTags().add(htCitizenShip);
+    	getTweetPoll().saveOrUpdate(myTweetPoll);
+         
+    	TweetPollSwitch pollSwitchAmerica = createTweetPollSwitch(qaAmerica, myTweetPoll);
+    	TweetPollSwitch pollSwitchEurope = createTweetPollSwitch(qaEurope, myTweetPoll);
+         
+    	final Calendar pollingDate = Calendar.getInstance();
+    	pollingDate.add(Calendar.MONTH, -1);
+    	
+    	final TweetPollResult tpResultAmerica =  createTweetPollResultWithPollingDate(pollSwitchAmerica, "192.168.0.1", pollingDate.getTime());
+        
+    	pollingDate.add(Calendar.MONTH, -5);
+    	final TweetPollResult tpResultAmerica2 =  createTweetPollResultWithPollingDate(pollSwitchAmerica, "192.168.0.2", pollingDate.getTime());
+      	 
+    	final TweetPollResult tpResultEurope =  createTweetPollResultWithPollingDate(pollSwitchEurope, "192.168.0.2", pollingDate.getTime());
+         
+    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), PERIOD_YEAR);
+    	assertEquals("Should be equals", 3, totalVotes.intValue()); 
+          
+         
+    }
+    
+    /**
+     * Test get all {@link TweetPollResult} by {@link TweetPollSwitch}
+     */
+    @Test
+    public void testGetTweetPollResultsByTweetPollSwitch(){
+    	final List<TweetPollResult> tpResults = getTweetPoll().getTweetPollResultsByTweetPollSwitch(this.pollSwitch1); 
+    	assertEquals("Should be equals", 2, tpResults.size());  
+    }
+    
+    /**
+     * Test retrieve  counter value from {@link TweetPollResult} by {@link TweetPollSwitch}.
+     */
+    @Test
+    public void testGetTotalTweetPollResultByTweetPollSwitch(){
+    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1, PERIOD_YEAR);
+    	// See @Before on the top
+    	assertEquals("Should be equals", 2,  myvalue.intValue()); 
+    }
+  
     /**
      * Test Get TweetPoll by TweetPoll Id and User.
      */

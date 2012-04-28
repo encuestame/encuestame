@@ -19,6 +19,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
@@ -27,6 +28,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
 import org.encuestame.utils.web.UnitLists;
 
@@ -177,14 +179,6 @@ public interface IPollService extends IMasterSurveyService{
     Poll getPollById(final Long pollId, final UserAccount account) throws EnMeNoResultsFoundException;
 
     /**
-     * Get poll by pollId.
-     * @param pollId
-     * @return
-     * @throws EnMeTweetPollNotFoundException
-     */
-    Poll getPollById(final Long pollId) throws EnMePollNotFoundException;
-
-    /**
      * Get polls by userName.
      * @param username
      * @param maxResults
@@ -303,6 +297,56 @@ public interface IPollService extends IMasterSurveyService{
     /**
      *
      * @return
+     * @throws EnMeNoResultsFoundException
      */
-    PollDetailBean getPollDetailInfo(final Long pollId);
+    PollDetailBean getPollDetailInfo(final Long pollId) throws EnMeNoResultsFoundException;
+
+    /**
+     * User vote a {@link Poll}.
+     * @param pollId poll id.
+     * @param slug question name slug.
+     * @throws EnMeNoResultsFoundException
+     */
+    void vote(final Long pollId, final String slug, final String ipAddress, final Long answerId) throws EnMeNoResultsFoundException;
+
+    /**
+     * Get poll by id and slug.
+     * @param pollId
+     * @param slug
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Poll getPollSlugById(final Long pollId, final String slug) throws EnMeNoResultsFoundException;
+
+    /**
+     *
+     * @param pollId
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Poll getPollById(final Long pollId) throws EnMeNoResultsFoundException;
+    
+    /**
+     * Validate the poll id.
+     * @param ip ip address.
+     * @param poll {@link Poll}.
+     * @return
+     */
+    PollResult validatePollIP(final String ip, final Poll poll);
+    
+    /**
+     * Return a list of {@link PollBeanResult} with votes of a {@link Poll}.
+     * @param poll
+     * @return
+     */
+    List<PollBeanResult> getResultVotes(final Poll poll);
+    
+    /**
+     * Return {@link Poll} based on Id and String account.
+     * @param pollId
+     * @param account
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException;
 }

@@ -95,7 +95,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
              comments.addAll(this.getCommentsbyTweetPoll(tweetPoll, max, start));
         } else if (searchResult.equals(TypeSearchResult.POLL)) {
             final Poll poll = getPollService().getPollById(itemId);
-            //TODO:
+            comments.addAll(getCommentsOperations().getCommentsbPoll(poll, max, start));
         } else if (searchResult.equals(TypeSearchResult.SURVEY)) {
             final Survey survey = null;
             //TODO:
@@ -176,7 +176,7 @@ public class CommentService extends AbstractBaseService implements ICommentServi
         tweetPollComments = getCommentsOperations().getCommentsbyTweetPoll(tweetPoll, maxResults, start);
         return tweetPollComments;
     }
-
+    
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ICommentService#getTopRatedComments(org.encuestame.utils.enums.CommentsSocialOptions, java.lang.Integer, java.lang.Integer)

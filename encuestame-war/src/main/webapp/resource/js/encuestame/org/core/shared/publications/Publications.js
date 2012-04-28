@@ -37,7 +37,8 @@ dojo.declare(
 
         postMixInProperties : function(){
             if (this.ht != null) {
-                this._tagsCloned = this.ht.split(",");
+            	console.info("this.ht.trim().split(",");", this.ht.trim().split(","));
+                this._tagsCloned = this.ht.trim().split(",");
             }
         },
 
@@ -46,15 +47,18 @@ dojo.declare(
          */
         postCreate : function() {
             var node = this._tags;
-            dojo.forEach(this._tagsCloned, function(entry, i){
-                var widget = new encuestame.org.core.commons.stream.HashTagInfo(
-                        {
-                          hashTagName : entry,
-                          autoCreateUrl : true, //create url automatically
-                          cssClass : "web-pub-hashtag"
-                        });
-                node.appendChild(widget.domNode);
+            dojo.forEach(this._tagsCloned, function(entry, i) {
+            	if (entry !== '') {
+	                var widget = new encuestame.org.core.commons.stream.HashTagInfo(
+	                        {
+	                          hashTagName : entry,
+	                          autoCreateUrl : true, //create url automatically
+	                          cssClass : "web-pub-hashtag"
+	                        });
+	                node.appendChild(widget.domNode);
+            	}
             });
+            //TODO: ????????
             var nodeCustom;
             if (dojo.indexOf(encuestame.surveys, dojo.trim(this.type)) == 0) { //tp
 

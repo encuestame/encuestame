@@ -15,6 +15,7 @@ package org.encuestame.core.service;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -47,6 +48,7 @@ import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
@@ -115,7 +117,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     }
 
     /**
-     *
+     * Convert a normal {@link Date} to Relative format Time .
      * @param tpbean
      * @param request
      */
@@ -133,6 +135,33 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         }
         return tpbean;
     }
+    
+    /**
+     * Fill the {@link HomeBean} relative Time. 
+     * @param homeBean {@link HomeBean}
+     * @param request {@link HttpServletRequest}.
+     * @return
+     */
+	public void fillHomeBeanRelativeTime(final List<HomeBean> listHomeBean,
+			final HttpServletRequest request) {
+		for (HomeBean homeBean : listHomeBean) {
+			final HashMap<Integer, RelativeTimeEnum> relativeTime = DateUtil
+					.getRelativeTime(homeBean.getCreateDateComparable());
+			@SuppressWarnings("rawtypes")
+			final Iterator it = relativeTime.entrySet().iterator();
+			while (it.hasNext()) {
+				@SuppressWarnings("unchecked")
+				final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>) it
+						.next();
+				if (log.isDebugEnabled()) {
+					log.debug("--" + e.getKey() + "**" + e.getValue());
+				}
+				homeBean.setRelativeTime(convertRelativeTimeMessage(
+						e.getValue(), e.getKey(), request));
+			}
+
+		}
+	}
 
     /**
      * Convert Relative Time Message.
@@ -175,6 +204,19 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             builder.append(getMessage("relative.time.one.years.ago", request, str));
         }
         return builder.toString();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#getTweetPollsByHashTag(java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
+     */
+    public List<TweetPoll> getTweetPollsByHashTag(final String tagName,
+            final Integer initResults, final Integer maxResults,
+            final TypeSearchResult filter) {
+        final List<TweetPoll> tweetsbyTag = getTweetPollDao()
+                .getTweetpollByHashTagName(tagName, initResults, maxResults,
+                        filter);
+        return tweetsbyTag;
     }
 
     /**
@@ -299,8 +341,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param secUser
      * @return
      */
-    @Deprecated
-    public Notification createNotification(final NotificationEnum description, final String additional,  final Account account){
+    public Notification createNotification(final NotificationEnum description, final String additional,  final Account account) {
         final Notification notification = new Notification();
         notification.setDescription(description);
         notification.setAccount(account);

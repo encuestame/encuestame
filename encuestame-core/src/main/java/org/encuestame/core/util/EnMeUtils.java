@@ -52,6 +52,8 @@ public class EnMeUtils {
     public static final String HASH = "#";
 
     public static final String SPACE = " ";
+    
+    public static final Integer DEFAULT_START = 0;
 
     /** Percentage value for like option vote. **/
     public static final float LIKE_PERCENTAGE_VALUE = 0.10F;
@@ -170,7 +172,7 @@ public class EnMeUtils {
         double relevance;
         final long roundRelevance ;
         relevance =  likeVotes + dislikeVotes + numberHits + comments + socialAccounts + numberVotes +hashTagHits;
-        roundRelevance = Math.round(relevance);
+        roundRelevance = relevance < 1 ? 1 : Math.round(relevance);
         log.debug(" RELEVANCE *******************************>  " + roundRelevance);
         return roundRelevance;
     }

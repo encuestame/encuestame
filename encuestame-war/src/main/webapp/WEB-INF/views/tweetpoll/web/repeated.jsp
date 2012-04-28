@@ -2,7 +2,7 @@
 <article class="defaultMarginWrapper">
     <section class="web-tweetpoll-vote-options">
 
-        <div class="web-permatlink gradient-yellow">
+        <div class="web-permatlink yellow">
             <h1>
                 <spring:message code="tweetpoll.votes.repeated" />
             </h1>

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -259,20 +260,32 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @throws EnMeNoResultsFoundException
 	 */
 	GenericStatsBean retrieveGenericStats(final String itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
-	
+	  
 	/**
-	 * Get total usage items by hashTag and Date Range
-	 * @param hashTagName
-	 * @param period
-	 * @param startResults
+	 * Return the last items published from {@link UserAccount}.
+	 * @param username
 	 * @param maxResults
+	 * @param showUnSharedItems
+	 * @param request
 	 * @return
-	 * @throws EnMeNoResultsFoundException
+	 * @throws EnMeNoResultsFoundException 
 	 */
-	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
+	List<HomeBean> getLastItemsPublishedFromUserAccount(
+			final String username, 
+			final Integer maxResults,
+			final Boolean showUnSharedItems,
+			final HttpServletRequest request) throws EnMeNoResultsFoundException;
 	
 	
-	List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
-			final String tagName, final Integer initResults,
-			final Integer maxResults, final TypeSearchResult filter, final Integer period);
+    /**
+     * Get TweetPolls by hashTag. 
+     * @param tagId
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     
+	List<TweetPoll> getTweetPollsByHashTag(final String tagName,
+	            final Integer initResults, final Integer maxResults,
+	            final TypeSearchResult filter);*/
 }

@@ -214,5 +214,5 @@ public interface IFrontEndDao extends IBaseDao{
 	 * @return
 	 */
 	List<Object[]> getHashTagHitsLast6Months(final Long tagId, final Integer start, final Integer maxResults);
-		 
+	
 }

@@ -58,7 +58,6 @@
                 <value>org.encuestame.persistence.domain.survey.PollResult</value>
                 <value>org.encuestame.persistence.domain.question.Question</value>
                 <value>org.encuestame.persistence.domain.question.QuestionAnswer</value>
-                <value>org.encuestame.persistence.domain.question.QuestionPattern</value>
                 <value>org.encuestame.persistence.domain.question.QuestionDependencies</value>
                 <value>org.encuestame.persistence.domain.question.QuestionDependenceSurvey</value>
                 <value>org.encuestame.persistence.domain.question.QuestionColettion</value>
@@ -87,7 +86,7 @@
                 <value>org.encuestame.persistence.domain.Comment</value>
                 <value>org.encuestame.persistence.domain.Hit</value>
                 <value>org.encuestame.persistence.domain.AccessRate</value>
-                <value>org.encuestame.persistence.domain.HashTagRanking</value> 
+                <value>org.encuestame.persistence.domain.HashTagRanking</value>
             </list>
         </property>
         <property name="hibernateProperties">

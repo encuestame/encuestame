@@ -43,6 +43,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -95,36 +96,46 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ITweetPollService#filterTweetPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
-    public List<TweetPollBean> filterTweetPollByItemsByType(final TypeSearch typeSearch,
-            String keyword, Integer max, Integer start,
+    public List<TweetPollBean> filterTweetPollByItemsByType(
+    		final TypeSearch typeSearch,
+            final String keyword, 
+            final Integer max, 
+            final Integer start,
             final TypeSearchResult searchResult)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
+        log.info("filterTweetPollByItemsByType typeSearch: "+typeSearch);
+        log.info("filterTweetPollByItemsByType keyword: "+keyword);
+        log.info("filterTweetPollByItemsByType max: "+max);
+        log.info("filterTweetPollByItemsByType start: "+start);
         final List<TweetPollBean> list = new ArrayList<TweetPollBean>();
-        if (TypeSearch.KEYWORD.name().equals(typeSearch)) {
-            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword, max, start));
-        } else if (TypeSearch.BYOWNER.name().equals(typeSearch)) {
-            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(), keyword, max, start));
-        } else if (TypeSearch.ALL.name().equals(typeSearch)) {
-            //TODO: this method return only the tweetpol by owner.
+        if (TypeSearch.KEYWORD.equals(typeSearch)) {
+            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(), 
+            		keyword, max, start));
+        } else if (TypeSearch.BYOWNER.equals(typeSearch)) {
+            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(), 
+            		keyword, max, start));
+        } else if (TypeSearch.ALL.equals(typeSearch)) {
+            //TODO: this method return only the tweetpoll by owner.
             list.addAll(this.getTweetsPollsByUserName(
                     getUserPrincipalUsername(), max, start));
-        } else if (TypeSearch.LASTDAY.name().equals(typeSearch)) {
+        } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
             list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
-                    max, start));
-        } else if (TypeSearch.LASTWEEK.name().equals(typeSearch)) {
+            			max, start));
+        } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
             list.addAll(this.searchTweetsPollsLastWeek(
                     getUserPrincipalUsername(), max, start));
-        } else if (TypeSearch.FAVOURITES.name().equals(typeSearch)) {
+        } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
             list.addAll(this.searchTweetsPollFavourites(
                     getUserPrincipalUsername(), max, start));
-        } else if (TypeSearch.SCHEDULED.name().equals(typeSearch)) {
-
+        } else if (TypeSearch.SCHEDULED.equals(typeSearch)) {
             list.addAll(this.searchTweetsPollScheduled(
                     getUserPrincipalUsername(), max, start));
         } else {
+            log.warn("filterTweetPollByItemsByType no type");
             list.addAll(this.getTweetsPollsByUserName(
                     getUserPrincipalUsername(), max, start));
         }
+        log.info("filterTweetPollByItemsByType list: "+list.size());
         return list;
     }
 
@@ -300,7 +311,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setQuestionName(questionName);
         questionBean.setUserId(user.getUid());
-        final Question questionDomain = createQuestion(questionBean, user);
+        final Question questionDomain = createQuestion(questionBean, user, QuestionPattern.LINKS);
         return questionDomain;
     }
 
@@ -417,7 +428,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * (non-Javadoc)
      * @see org.encuestame.business.service.imp.ITweetPollService#removeQuestionAnswer(org.encuestame.persistence.domain.question.QuestionAnswer)
      */
-    public void removeQuestionAnswer(final QuestionAnswer questionAnswer){
+    public void removeQuestionAnswer(final QuestionAnswer questionAnswer) {
         //removing old data.
         final List<TweetPollSwitch> list = getTweetPollDao().getAnswerTweetSwitch(questionAnswer);
         log.debug("removeQuestionAnswer switch size:"+list.size());
@@ -779,7 +790,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public TweetPollResultsBean getVotesByTweetPollAnswerId(final Long tweetPollId, final QuestionAnswer answer) {
         final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPollId, answer.getQuestionAnswerId());
-        log.debug("result getResultsByTweetPollId- "+result.size());
+        log.debug("result getVotesByTweetPollAnswerId- "+result.size());
         final TweetPollResultsBean tweetPollResult = new TweetPollResultsBean();
         tweetPollResult.setAnswerName(answer.getAnswer());
         if (result.size() == 0) {

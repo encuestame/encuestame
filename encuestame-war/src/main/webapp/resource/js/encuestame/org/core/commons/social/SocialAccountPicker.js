@@ -2,12 +2,14 @@ dojo.provide("encuestame.org.core.commons.social.SocialAccountPicker");
 
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.core.commons.dialog.Confirm");
+dojo.require("encuestame.org.core.shared.utils.SocialAccountsSupport");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 dojo.require("dojo.hash");
 
 dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountPicker",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.shared.utils.SocialAccountsSupport],{
 
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountPicker.html"),
 
@@ -15,17 +17,9 @@ dojo.declare(
 
         _listSocialAccounts : null,
 
-        arrayAccounts : [],
-
-        arrayWidgetAccounts : [],
-
         _arrayWidgetSelected : [],
 
         _showOnlySelected : false,
-
-        enableEasyAddAccount : false,
-
-        checkRequiredSocialAccounts : false,
 
         _selectAll : false,
 
@@ -33,6 +27,10 @@ dojo.declare(
 
         _isValidMessage : "",
 
+
+        /*
+         * post create.
+         */
         postCreate : function(){
             dojo.subscribe("/encuestame/social/picker/accounts/reload", this, "showListAccounts");
             this._loadSocialConfirmedAccounts();
@@ -44,7 +42,7 @@ dojo.declare(
         /*
          * select all items.
          */
-        _selectAll : function(){
+        _selectAll : function(event) {
             this._selectAll = !this._selectAll;
             if (!this._selectAll) {
                  dojo.forEach(
@@ -65,73 +63,6 @@ dojo.declare(
         },
 
         /*
-         * return array of id for each social account selected.
-         */
-        getSocialAccounts : function(){
-            var accountsId = [];
-            dojo.forEach(
-                    this.arrayWidgetAccounts,
-                    dojo.hitch(this, function(widget, index) {
-                        if(widget.selected){
-                            accountsId.push(widget.account.id);
-                        }
-                }));
-            console.debug("getSocialAccounts", accountsId);
-            return accountsId;
-        },
-
-        /*
-         * return complete data for selected accounts.
-         */
-        getSocialCompleteAccounts : function(){
-            var accounts = [];
-            dojo.forEach(
-                    this.arrayWidgetAccounts,
-                    dojo.hitch(this, function(widget, index) {
-                        if(widget.selected){
-                            accounts.push(widget.account);
-                        }
-                }));
-            console.debug("getSocialAccounts", accounts);
-            return accounts;
-        },
-
-        /*
-         * is valid check.
-         */
-        isValid : function() {
-            if (this._countSelected() >= this._required) {
-                return true;
-            } else {
-                this._isValidMessage = encuestame.constants.errorCodes["022"];
-                return false;
-            }
-        },
-
-        /*
-         * return a validator message.
-         */
-        isValidMessage : function() {
-            return this._isValidMessage;
-        },
-
-        /*
-         *
-         */
-        _countSelected : function(){
-            var counter = 0;
-            dojo.forEach(
-                    this.arrayWidgetAccounts,
-                    dojo.hitch(this, function(widget, index) {
-                    if(widget.selected){
-                        counter++;
-                    }
-                }));
-            console.debug("_reloadCounter", counter);
-            return counter;
-        },
-
-        /*
          * reload counter
          */
         _reloadCounter : function() {
@@ -143,7 +74,7 @@ dojo.declare(
          * show only selected accounts.
          */
         _selectedAccount : function() {
-            console.debug("_selectedAccount", this._showOnlySelected);
+            //console.debug("_selectedAccount", this._showOnlySelected);
             this._showOnlySelected = !this._showOnlySelected;
             if (this._showOnlySelected) {
                 dojo.forEach(
@@ -163,35 +94,11 @@ dojo.declare(
         },
 
         /*
-         * load all social accounts verified.
+         * clean the social accounts.
          */
-        _loadSocialConfirmedAccounts : function() {
-           var load = dojo.hitch(this, function(data) {
-                this.arrayAccounts = data.success.items;
-                dojo.empty(this._listSocialAccounts);
-                console.debug("social", this.arrayAccounts);
-                this.showListAccounts();
-                if (this.checkRequiredSocialAccounts) {
-
-                }
-            });
-            var error = function(error) {
-                console.debug("error", error);
-            };
-            encuestame.service.xhrGet(
-                    encuestame.service.list.allSocialAccount, {}, load, error);
-       },
-
-       /*
-        * show up list accounts.
-        */
-       showListAccounts : function(){
-           dojo.forEach(
-                   this.arrayAccounts,
-                   dojo.hitch(this, function(data, index) {
-                         this.createPickSocialAccount(data);
-               }));
-       },
+        cleanSocialAccounts : function(){
+             dojo.empty(this._listSocialAccounts);
+        },
 
        /*
         * create pick social account.

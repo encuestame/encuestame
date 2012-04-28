@@ -12,7 +12,7 @@
 
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="1000KB" />
-        <param name="maxBackupIndex" value="2" />
+        <param name="maxBackupIndex" value="0" />
         <param name="File" value="encuestame-webapp.log" />
         <param name="threshold" value="debug" />
         <layout class="org.apache.log4j.PatternLayout">
@@ -66,7 +66,7 @@
     </logger>
 
     <logger name="org.springframework.context">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.jdbc">
@@ -82,11 +82,11 @@
     </logger>
 
     <logger name="org.apache.http">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="httpclient.wire">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.springframework.security">
@@ -98,13 +98,13 @@
     </logger>
 
     <logger name="net.sf.ehcache">
-        <level value="info" />
+        <level value="warn" />
     </logger>
 
     <!-- Root Logger -->
     <root>
         <priority value="warn" />
-        <!-- <appender-ref ref="console" /> -->
+        <appender-ref ref="console" />
         <appender-ref ref="file" />
     </root>
 

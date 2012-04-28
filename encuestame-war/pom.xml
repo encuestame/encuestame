@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.encuestame</groupId>
         <artifactId>encuestame</artifactId>
-        <version>1.143</version>
+        <version>1.144</version>
     </parent>
     <artifactId>encuestame-war</artifactId>
     <packaging>war</packaging>
@@ -138,6 +138,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jasperreports-maven-plugin</artifactId>
+                <version>${jasperreports-maven-plugin}</version>
                 <configuration>
                     <sourceDirectory>src/main/resources/report</sourceDirectory>
                     <outputDirectory>src/main/webapp/WEB-INF/report</outputDirectory>
@@ -160,6 +161,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
+                <version>${maven-eclipse-plugin}</version>
                 <configuration>
                     <projectNameTemplate>[artifactId]</projectNameTemplate>
                     <wtpapplicationxml>true</wtpapplicationxml>
@@ -319,6 +321,7 @@
                             </packagingIncludes>
                             <packagingExcludes>
                                 WEB-INF/classes/rebel.xml,
+                                resource/js/util/**/*,
                                 resource/encuestame-config-custom.properties,
                                 WEB-INF/classes/encuestame-config-custom.properties
                              </packagingExcludes>
@@ -348,23 +351,23 @@
                                     <phase>compile</phase>
                                     <configuration>
                                         <classpath>
-                                          <pathelement location="../dojo/util/shrinksafe/js.jar"/>
-                                          <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
+                                          <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/js.jar"/>
+                                          <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/shrinksafe.jar"/>
                                         </classpath>
                                         <property file="${basedir}/dojo.properties"/>
                                         <target unless="build">
                                             <java
                                              fork="true"
                                              failonerror="true"
-                                             dir="../dojo/util/buildscripts"
+                                             dir="${basedir}/src/main/webapp/resource/js/util/buildscripts"
                                              classname="org.mozilla.javascript.tools.shell.Main">
                                             <classpath>
-                                              <pathelement location="../dojo/util/shrinksafe/js.jar"/>
-                                              <pathelement location="../dojo/util/shrinksafe/shrinksafe.jar"/>
+                                              <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/js.jar"/>
+                                              <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/shrinksafe.jar"/>
                                             </classpath>
                                             <jvmarg value="-Xmx512M"/>
                                             <arg value="build.js"/>
-                                            <arg value="version=1.6.0"/>
+                                            <arg value="version=1.6.1"/>
                                             <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
                                             <arg value="action=clean,release"/>
                                             <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
@@ -510,7 +513,7 @@
             <artifactId>jasypt</artifactId>
         </dependency>
         <dependency>
-            <groupId>jdom</groupId>
+            <groupId>org.jdom</groupId>
             <artifactId>jdom</artifactId>
         </dependency>
         <dependency>

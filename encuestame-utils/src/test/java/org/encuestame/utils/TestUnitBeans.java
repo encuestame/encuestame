@@ -25,7 +25,6 @@ import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.json.ResumeResultTweetPoll;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -121,16 +120,6 @@ public class TestUnitBeans extends AbstractBaseUtils {
         assertNotNull(treeNode.getName());
         assertNotNull(treeNode.getNode().name());
         treeNode.setNode(TypeTreeNode.ITEM);
-    }
-
-    /**
-    * Test {@link QuestionPatternBean}.
-    */
-    @Test
-    public void testUnitPatternBean() {
-        final QuestionPatternBean unitPattern = createUnitPatternBean("b", "", "",
-                2L, "", "", "", 1, "");
-        assertNotNull(unitPattern);
     }
 
     /**
@@ -435,7 +424,6 @@ public class TestUnitBeans extends AbstractBaseUtils {
         final QuestionBean questionBean = new QuestionBean();
         questionBean.setId(1L);
         questionBean.setListAnswers(new ArrayList<QuestionAnswerBean>());
-        questionBean.setPattern(new QuestionPatternBean());
         questionBean.setQuestionName("Why sky is blue?");
         questionBean.setStateId(1L);
         questionBean.setUserId(1L);
@@ -444,35 +432,10 @@ public class TestUnitBeans extends AbstractBaseUtils {
         questionBean.setHits(10L);
         assertNotNull(questionBean.getId());
         assertEquals(questionBean.getListAnswers().size(), 0);
-        assertNotNull(questionBean.getPattern());
         assertNotNull(questionBean.getQuestionName());
         assertNotNull(questionBean.getStateId());
         assertNotNull(questionBean.getUserId());
         assertNotNull(questionBean.getVersion());
-    }
-
-    /**
-     * Test {@link QuestionPatternBean}.
-     */
-    @Test
-    public void testUnitPatterBean(){
-        final QuestionPatternBean patternBean = new QuestionPatternBean();
-        patternBean.setId(1L);
-        patternBean.setClasspattern("class.class");
-        patternBean.setDescripcion("description");
-        patternBean.setFinallity("final");
-        patternBean.setLabel("yes/no");
-        patternBean.setLevelpattern("level");
-        patternBean.setPatronType("option");
-        patternBean.setTemplate("template");
-        assertNotNull(patternBean.getId());
-        assertNotNull(patternBean.getClasspattern());
-        assertNotNull(patternBean.getDescripcion());
-        assertNotNull(patternBean.getFinallity());
-        assertNotNull(patternBean.getLabel());
-        assertNotNull(patternBean.getLevelpattern());
-        assertNotNull(patternBean.getPatronType());
-        assertNotNull(patternBean.getTemplate());
     }
 
     /**
@@ -722,14 +685,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
     @Test
     public void testHomeBean(){
         final Date myDate = new Date();
-        // QuestionPatternBean
-        QuestionPatternBean qPatternBean = createUnitPatternBean(
-                "TextBoxPattern", "TextBox", "", 1L, "txt", "", "txt", 1,
-                "textBox");
-        assertNotNull(qPatternBean);
-
         // QuestionAnswerBean
-
         final QuestionAnswerBean qAnswer2 = createUnitAnswerBean(2L, "No",
                 "defg", null);
 
@@ -740,7 +696,7 @@ public class TestUnitBeans extends AbstractBaseUtils {
 
         // QuestionBean
         QuestionBean qBean = createUnitQuestionBean(1L, "First question", "1",
-                qAnswerBean, qPatternBean);
+                qAnswerBean);
         assertNotNull(qBean);
 
         // HashTagBeans

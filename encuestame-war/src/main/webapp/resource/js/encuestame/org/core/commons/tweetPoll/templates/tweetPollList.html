@@ -20,27 +20,27 @@
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
                         <span>See All</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL_PUBLISHED">
                         <span>All Published</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL_UNPUBLISHED">
                         <span>All Un-Published</span>
                     </div>
-                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL">
+                    <div class="optionItem" dojoAttachEvent="onclick:_searchByAll" type="ALL_COMPLETED">
                         <span>All Completed</span>
                     </div>
                 </div>
                 <div dojoAttachPoint="_folder"></div>
             </div>
             <div class="web-list-tweet">
-            <div dojoAttachPoint="_customMenu" class="web-twettpoll-list-menu default-background-dark-color-sub default-top-menu">
-                Search | Filter Options | Order Options | Social Network Options | Votes Options
+                <div dojoAttachPoint="_customMenu" class="web-twettpoll-list-menu default-background-dark-color-sub default-top-menu">
+                   <!--
+                        Filters Support.
+                    -->
+                   <div dojoAttachPoint="_filters" dojoType="encuestame.org.core.commons.support.ItemsFilterSupport"
+                        typeItem="TWEETPOLL"></div>
+                </div>
+                <div dojoAttachPoint="_items"></div>
             </div>
-            <div dojoAttachPoint="_items"></div>
-            </div>
-            <!-- <div class="tweetDetail" id="detailTweet">
-                <div id="detail" dojoType="encuestame.org.core.commons.tweetPoll.TweetPollListDetail"></div>
-            </div>
-             -->
          </div>
 </div>

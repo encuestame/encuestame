@@ -34,7 +34,7 @@
                     </strong>
                     <spring:message code="added" />
                     <strong> ${item.relativeTime} | <br> <a
-                        href="<%=request.getContextPath()%>/tweetpoll/${item.id}/test#comments">
+                        href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}#comments">
                             ${item.totalComments} <spring:message code="home.item.comments" /> </a> </strong>
                 </div>
             </div>

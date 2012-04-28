@@ -58,6 +58,7 @@ public class ProtectedResourceClientFactory {
      * @return
      */
     private static RestTemplate version(String accessToken, OAuth2Version version) {
+        //ENCUESTAME-407
         final RestTemplate restTemplate = new RestTemplate(new CommonsClientHttpRequestFactory());
         restTemplate.setRequestFactory(new OAuth2RequestFactory(restTemplate.getRequestFactory(), accessToken, version));
         return restTemplate;

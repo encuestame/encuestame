@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -26,7 +25,6 @@ import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.question.QuestionPattern;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -36,14 +34,12 @@ import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.QuestionPatternBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Test of {@link AbstractSurveyService}
@@ -61,9 +57,6 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
     /** {@link Question} */
     private Question question;
 
-    /** {@link QuestionPattern} **/
-    private QuestionPattern pattern;
-
     /** {@link Account} **/
     private Account user;
 
@@ -73,9 +66,6 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** {@link QuestionBean} **/
     private QuestionBean questionBean;
-
-    /** {@link QuestionPatternBean}**/
-    private QuestionPatternBean patternBean;
 
     /** Creation date of the survey. **/
     private Calendar mySurveyDate = Calendar.getInstance();
@@ -98,16 +88,14 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
          this.user = createUser("testEncuesta", "testEncuesta123");
          this.userSecondary = createUserAccount("user", this.user);
          this.question = createQuestion("Why the sky is blue?","html");
-         this.pattern = createQuestionPattern("html");
          createQuestionAnswer("Yes", this.question,"SSSA");
          //this.questionBean = createUnitQuestionBean("", 1L, 1L, listAnswers, pattern)
          answers = new ArrayList<QuestionAnswerBean>();
          answers.add(createAnswersBean("2DFAAS", "Yes", question.getQid()));
          answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
-         patternBean = createPatternBean("radio.class",
-                    "radio buttons", "2", "Yes/No", "template.php");
+
          questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
-                    this.answers, patternBean);
+                    this.answers);
          this.myUsername = getSpringSecurityLoggedUserAccount().getUsername();
     }
 
@@ -119,54 +107,6 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
     public void testloadAllQuestions() throws EnMeExpcetion{
         final List<QuestionBean> alist = surveyService.loadAllQuestions();
         assertEquals("Should be equals", 1, alist.size());
-    }
-
-    /**
-     * Load Patter Info Null.
-     * @throws EnMeExpcetion exception
-     */
-    @Test
-    @ExpectedException(EnMeExpcetion.class)
-    public void testloadPatternInfoNull() throws EnMeExpcetion {
-        surveyService.loadPatternInfo(null);
-    }
-
-    /**
-     * Load Patter Info.
-     * @throws EnMeExpcetion exception
-     */
-    @Test
-    public void testloadPatternInfo() throws EnMeExpcetion {
-        //  this.serviceInit();
-        QuestionPatternBean patternBean = new QuestionPatternBean();
-        patternBean.setId(this.pattern.getPatternId());
-        //    	patternBean.setId(createQuestionPattern("html").getPatternId());
-        patternBean = surveyService.loadPatternInfo(patternBean);
-        // 	assertNotNull(patternBean);
-        assertEquals("Should be equals",patternBean.getPatronType(), getPattern().getPatternType());
-    }
-
-    /**
-     * Load All Patterns.
-     * @throws EnMeExpcetion exception
-     */
-    @Test
-    public void testloadAllPatrons() throws EnMeExpcetion {
-    // this.serviceInit();
-        final Collection<QuestionPatternBean> patternList = surveyService.loadAllPatrons();
-    // assertNotNull(patternList);
-        assertEquals("Should be equals",2, patternList.size());
-    }
-
-    /**
-     * Load All Patterns Zero Results.
-     * @throws EnMeExpcetion exception
-     */
-//  @Test
-    public void testloadAllPatronsZeroResults() throws EnMeExpcetion {
-        final Collection<QuestionPatternBean> patternList = surveyService.loadAllPatrons();
-        assertNotNull(patternList);
-        assertEquals("Should be equals",0, patternList.size());
     }
 
     /**
@@ -399,11 +339,5 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
      */
     public Question getQuestion() {
         return question;
-    }
-    /**
-     * @return the pattern
-     */
-    public QuestionPattern getPattern() {
-        return pattern;
     }
 }

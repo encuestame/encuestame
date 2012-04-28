@@ -18,13 +18,14 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.InlineEditBox");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
 
 /**
  * This is a abstract class to provide folder support.
  */
 dojo.declare(
     "encuestame.org.core.shared.utils.FolderOperations",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
 
         /*
          * folder context.
@@ -88,7 +89,7 @@ dojo.declare(
          */
         getAction : function(action) {
             var position = dojo.indexOf(this._actions, action);
-            console.info("getAction position", position);
+            //console.info("getAction position", position);
             if (position == -1) {
                 console.error("invalid action");
             } else {
