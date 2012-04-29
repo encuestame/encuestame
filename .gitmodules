@@ -1,0 +1,12 @@
+[submodule "encuestame-war/src/main/webapp/resource/js/util"]
+	path = encuestame-war/src/main/webapp/resource/js/util
+	url = git://github.com/encuestame/util.git
+[submodule "encuestame-war/src/main/webapp/resource/js/dojo"]
+	path = encuestame-war/src/main/webapp/resource/js/dojo
+	url = git://github.com/encuestame/dojo.git
+[submodule "encuestame-war/src/main/webapp/resource/js/dijit"]
+	path = encuestame-war/src/main/webapp/resource/js/dijit
+	url = git://github.com/encuestame/dijit.git
+[submodule "encuestame-war/src/main/webapp/resource/js/dojox"]
+	path = encuestame-war/src/main/webapp/resource/js/dojox
+	url = git://github.com/encuestame/dojox.git

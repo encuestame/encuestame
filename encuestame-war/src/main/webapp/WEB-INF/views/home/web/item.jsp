@@ -1,20 +1,12 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <section class="item">
     <div class="img">
-        <div class="stats">
-            <div class="vote">
-                <div>
-                    <span class="count text-color"> ${item.relevance} </span>
-                    <div class="viewcount">
-                        <spring:message code="home.item.votes" />
-                    </div>
-                </div>
-            </div>
-            <div class="views">
-                ${item.hits}
-                <spring:message code="home.item.views" />
-            </div>
-        </div>
+        <div dojoType="encuestame.org.core.home.votes.ItemVote"
+        	 voteMessage="<spring:message code="home.item.votes" />"
+        	 viewMessage="<spring:message code="home.item.views" />"
+        	 votes="${item.relevance}"
+        	 hits="${item.hits}"
+       	></div>
     </div>
     <div class="content">
         <div class="title">
