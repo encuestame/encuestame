@@ -1,0 +1,3 @@
+[submodule "encuestame-war/src/main/webapp/resource/js/util"]
+	path = encuestame-war/src/main/webapp/resource/js/util
+	url = git://github.com/encuestame/util.git
