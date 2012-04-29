@@ -68,6 +68,27 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      */
     fatalMesage : function() {
         encuestame.messages.pubish(encuestame.constants.errorCodes["023"], "fatal", this._delay_messages);
-    }
+    },
+    
+    /**
+     * 
+     * @param params
+     * @param load
+     * @param service
+     */
+    callPOST : function(params, load, service) {
+        var error = dojo.hitch(this, function(errorMessage) {
+        	 this.infoMesage(errorMessage);
+        });
+        encuestame.service.xhrPostParam(service, params, load, error);
+     },
+     
+     /**
+      * 
+      * @param e
+      */
+     stopEvent : function(e){
+    	 dojo.stopEvent(e);
+     }
 
 });
