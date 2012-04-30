@@ -60,6 +60,6 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param period
 	 * @return
 	 */
-	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period);
+	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period);  
 	
 }

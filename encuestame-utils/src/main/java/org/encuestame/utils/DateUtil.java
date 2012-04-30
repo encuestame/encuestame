@@ -332,9 +332,9 @@ public class DateUtil {
 	public static Boolean checkDatedWithinAllowableRange(final Integer period, final Date itemDate){
 		Boolean allowedRange = Boolean.FALSE;
 		Date endDate = DateUtil.getCurrentCalendarDate();
-		Date startDate = DateUtil.retrieveStartDateByPeriod(period); 
+		Date startDate = DateUtil.retrieveStartDateByPeriod(period);  
 		// Check if date is between starDate by period and currentDate(itemDate is > startDate, itemDate < endDate)
-		if ((itemDate.after(startDate)) || (itemDate.before(endDate))) { 
+		if ((itemDate.after(startDate)) && (itemDate.before(endDate))) { 
 			allowedRange = Boolean.TRUE;
 		} 
 		return allowedRange;

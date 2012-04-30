@@ -34,7 +34,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.social.SocialProvider; 
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.junit.Before;
@@ -266,7 +266,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	/**
 	 * Test 
 	 */
-	//@Test
+	@Test
 	public void testGetTotalVotesbyHashTagUsageAndDateRange(){
 		final Calendar pollingDate = Calendar.getInstance();
 		final Question question2 = createQuestion("Who will win  the spain league 2012?", ""); 
@@ -283,13 +283,12 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	    
 	    pollingDate.add(Calendar.MONTH, -3);
 	    createTweetPollResultWithPollingDate(tpSwichtMadrid, "192.168.0.5", pollingDate.getTime());  
-	    pollingDate.add(Calendar.MONTH, -2);
+	    pollingDate.add(Calendar.MONTH, -6);
 	    createTweetPollResultWithPollingDate(tpSwichtBarsa, "192.168.0.6", pollingDate.getTime());  
 		final List<HashTagDetailStats> itemStatList = getStatisticsService()
 				.getTotalVotesbyHashTagUsageAndDateRange(
-						this.initHashTag.getHashTag(), 365);
-		//Assert.assertEquals("Should be equals", 4,
-			//	itemStatList.size()); 
+						this.initHashTag.getHashTag(), 365); 
+		Assert.assertEquals("Should be equals", 2, itemStatList.size()); 
 		 
 	}
 

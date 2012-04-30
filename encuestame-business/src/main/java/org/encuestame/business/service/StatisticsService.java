@@ -12,15 +12,11 @@
  */
 package org.encuestame.business.service;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger; 
-import org.codehaus.jackson.annotate.JsonProperty;
+import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.util.ConvertDomainBean;
@@ -33,7 +29,6 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.web.TweetPollResultsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 import org.joda.time.DateTime;
@@ -66,6 +61,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      */
     private Long counterItemsbyMonth = 0L;
     
+    /** **/
     private List<HashTagDetailStats> tagDetailStats = new ArrayList<HashTagDetailStats>();
 
     /*
@@ -76,8 +72,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		 List<ItemStatDetail> tpResultsBean = new ArrayList<ItemStatDetail>();
 		 List<TweetPollResult> tpollResults = new ArrayList<TweetPollResult>();
 		 List<TweetPollSwitch> tpollsSwitch = new ArrayList<TweetPollSwitch>();
-		 List<HashTagDetailStats> tagDetailStats1 = new ArrayList<HashTagDetailStats>();
-
+		  
 		 final List<TweetPoll> tpolls =  getTweetPollsByHashTag(tagName, 0, 100, TypeSearchResult.HASHTAG);
 		 log.debug("Total Tweetpolls by hashtagName" + tpolls.size());
 		 for (TweetPoll tweetPoll : tpolls) {
@@ -88,88 +83,97 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 				 log.debug("Total TweetPollResults by tweetPollSwitch -->" + tpollResults.size());
 				 tpResultsBean.addAll(ConvertDomainBean.convertTweetPollResultListToItemDetailBean(tpollResults));
 			 }
-		 }  
-		 tagDetailStats1 = this.getHashTagDetailStatsUsagebyVotes(tpResultsBean, period);
-		 return tagDetailStats1;
+		 }   
+	  
+		 this.removeDuplicatleItemOutOfRange(tpResultsBean, period); 
+		 tagDetailStats = this.compareList(tpResultsBean, period);   
+		 return tagDetailStats;
 	}
 	
+	/**
+	 * Remove duplicate item  from {@link TweetPollResult} vote. 
+	 * @param itemList
+	 * @param period
+	 */
+	private void removeDuplicatleItemOutOfRange(
+			final List<ItemStatDetail> itemList, final Integer period) { 
+		Boolean check;
+		for (int i = 0; i < itemList.size(); i++) {
+			check = DateUtil.checkDatedWithinAllowableRange(period, itemList
+					.get(i).getDate());
+			if (!check) {
+				itemList.remove(i);
+			}
+		} 
+	}
+		 
 	/**
 	 * 
 	 * @param itemList
 	 * @param period
 	 * @return
 	 */
-	public List<HashTagDetailStats> getHashTagDetailStatsUsagebyVotes(final List<ItemStatDetail> itemList, final Integer period){ 
-		Boolean check;
-		Integer mes;
-		
-		   HashTagDetailStats tagDetailItem = new HashTagDetailStats();
-		
-		for (ItemStatDetail itemStatDetail : itemList) {
-			check = DateUtil.checkDatedWithinAllowableRange(period, itemStatDetail.getDate());
-			if(check){ 
-				mes = DateUtil.getValueCurrentMonthOfTheYear(itemStatDetail.getDate()); 
-				tagDetailItem = createHashTagDetailStatItem(mes.toString(), 1L);
-				this.checkLabelExistsHashTagDetailStat(mes.toString(), tagDetailItem, tagDetailStats);
-				 
+	private List<HashTagDetailStats> compareList(
+			final List<ItemStatDetail> itemList, final Integer period) {
+		Long countItems = 0L;
+		Integer month = null;
+		Integer monthB;
+		Boolean existItemStatDetailLabel = Boolean.FALSE;
+
+		for (int i = 0; i < itemList.size(); i++) {
+			monthB = DateUtil.getValueCurrentMonthOfTheYear(itemList.get(i)
+					.getDate());
+			for (int j = 0; j < itemList.size(); j++) {
+				month = DateUtil.getValueCurrentMonthOfTheYear(itemList.get(j)
+						.getDate());
+				if (monthB == month) {
+					countItems++;
+				}
+
 			}
-		}   
+			existItemStatDetailLabel = checkLabelExistsHashTagDetailStat(monthB
+					.toString());
+			if (!existItemStatDetailLabel) {
+				tagDetailStats.add(createTagDetailsStats(monthB.toString(),
+						countItems));
+			}
+			countItems = 0L; 
+		}
 		return tagDetailStats;
-	}
-	
-	 /**
-	  * 
-	  * @param label
-	  * @param value
-	  * @return
-	  */
-	private HashTagDetailStats createHashTagDetailStatItem(final String label,
-			final Long value) { 
-		final HashTagDetailStats tagItemDetail = new HashTagDetailStats();
-		tagItemDetail.setLabel(label);
-		tagItemDetail.setValue(value);
-		return tagItemDetail;
-	}
-	
+	} 
+	 
 	/**
 	 * 
 	 * @param label
 	 * @param stat
 	 * @param tagList
 	 */
-	public void checkLabelExistsHashTagDetailStat(final String label, final HashTagDetailStats stat, final List<HashTagDetailStats> tagList){ 
-		Long counterItemValue = 1L; 
-		if (tagDetailStats.size() > 0) { 
-			for (HashTagDetailStats hashTagDetailStats : tagList) {
-				if(hashTagDetailStats.getLabel().equals(label)){
-					counterItemValue = hashTagDetailStats.getValue() + counterItemValue;
-					hashTagDetailStats.setValue(counterItemValue); 
-				} else { 
-				tagList.add(stat); 
+	public Boolean checkLabelExistsHashTagDetailStat(final String label) { 
+	    Boolean existLabel = Boolean.FALSE;
+		if (tagDetailStats.size() > 0) {
+			for (HashTagDetailStats hashTagDetailStats : tagDetailStats) {
+				if (hashTagDetailStats.getLabel().equals(label)) {
+					existLabel = Boolean.TRUE;
+				}
 			}
 		}
-		
-		}else {
-			tagList.add(stat);
-		}
-	} 
-	
- 
+		return existLabel; 
+	}  
 	 
-	 /**
-	     * Create hashTag details stats.
-	     *
-	     * @param label
-	     * @param value
-	     * @return
-	     */
-	    private HashTagDetailStats createTagDetailsStats(final String label,
+	/**
+	 * Create hashTag details stats.
+	 *
+	 * @param label
+	 * @param value
+	 * @return
+	*/
+	private HashTagDetailStats createTagDetailsStats(final String label,
 	            final Long value) {
-	        final HashTagDetailStats tagDetails = new HashTagDetailStats();
-	        tagDetails.setLabel(label);
-	        tagDetails.setValue(value);
-	        return tagDetails;
-	    }
+		final HashTagDetailStats tagDetails = new HashTagDetailStats();
+		tagDetails.setLabel(label);
+		tagDetails.setValue(value);
+	return tagDetails;
+	}
 
 	    /**
 	     * Counter items by HashTag.
@@ -178,7 +182,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	     * @param counter
 	     * @return
 	     */
-	    private Long counterItemsbyHashTag(final int month, Long counter) {
+		private Long counterItemsbyHashTag(final int month, Long counter) {
 	        switch (month) {
 	        case 1:
 	            counter++;
