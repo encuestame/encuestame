@@ -94,7 +94,7 @@ dojo.declare(
         "encuestame.org.core.comments.CommentForm",
         [dijit._Widget, dijit._Templated],{
 
-          templatePath: dojo.moduleUrl("encuestame.org.core.comments", "templates/commentForm.html"),
+          templatePath: dojo.moduleUrl("encuestame.org.core.comments", "templates/commentForm.html")
 
 
         });

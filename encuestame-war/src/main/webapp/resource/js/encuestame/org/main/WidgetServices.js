@@ -76,11 +76,11 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      * @param load
      * @param service
      */
-    callPOST : function(params, load, service) {
+    callPOST : function(params, load, service, loadingFunction) {
         var error = dojo.hitch(this, function(errorMessage) {
         	 this.infoMesage(errorMessage);
         });
-        encuestame.service.xhrPostParam(service, params, load, error);
+        encuestame.service.xhrPostParam(service, params, load, error, null, loadingFunction);
      },
      
      /**

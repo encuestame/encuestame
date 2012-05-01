@@ -14,8 +14,13 @@ encuestame.signin = encuestame.contextDefault+"/signin";
 
 /**
  * JSON GET call.
+ * @param {String} url
+ * @param {Object} params
+ * @param {Function} load
+ * @param {Function} error
+ * @param {Boolean} logginHandler
  */
-encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
+encuestame.service.xhrGet = function(url, params, load, error, logginHandler) {
     if (logginHandler == null) {
         logginHandler = true;
     }
@@ -474,7 +479,7 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
 /**
  * xhr POST param.
  */
-encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
+encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled, loadingFunction) {
     //validate form param.
     formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
@@ -484,19 +489,27 @@ encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
     if (error == null){
       error = defaultError;
     }
-    console.debug("Form POST ", form);
-    if (load == null || url == null || form == null){
+    //console.debug("Form POST ", form);
+    if (load == null || url == null || params == null){
         console.error("error params required.");
     } else {
+    	var innerLoad = function(data) {
+    		loadingFunction == null ? "" : loadingFunction.end();
+    		load(data);
+    	};
+    	//load = innerLoad(load);    	
         var xhrArgs = {
             url: url,
-            postData: dojo.objectToQuery(form),
+            postData: dojo.objectToQuery(params),
             handleAs: "json",
             //headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            load: load,
+            load: innerLoad,
             preventCache: true,
             error: error
         };
+        //initialize the loading
+        loadingFunction == null ? "" : loadingFunction.init();
+        //make the call
         var deferred = dojo.xhrPost(xhrArgs);
     }
 };
