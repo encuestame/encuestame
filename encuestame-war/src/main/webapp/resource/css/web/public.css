@@ -259,12 +259,11 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 .web-item-wrapper .item .stats {
     background: none repeat scroll 0 0 #F8F8F8;
     margin: 0 0 0 7px;
-    padding: 10px;
     text-align: center;
 }
 
 .web-item-wrapper .item .stats .vote {
-
+    padding: 10px 10px 0px 10px;
 }
 
 .web-item-wrapper .item .stats .count {
@@ -277,8 +276,17 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 }
 
 .web-item-wrapper .item .stats .views {
-    color: #B3B3B3;
-    font-size: 10px;
+  color: #B3B3B3;
+  font-size: 10px;
+  padding: 5px 0 10px;
+}
+
+.web-item-wrapper .item .stats .views button {
+  border: 1px solid #E3E3E3;
+  border-radius: 7px 7px 7px 7px;
+  color: #000000;
+  padding: 3px;
+  width: 86%;
 }
 
 .web-item-wrapper .item .content {

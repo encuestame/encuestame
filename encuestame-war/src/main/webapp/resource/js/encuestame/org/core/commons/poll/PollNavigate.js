@@ -250,7 +250,7 @@ dojo.declare(
             };
             dojo.addClass(this.widget_detail.domNode, "hidden");
             encuestame.service.xhrGet(encuestame.service.list.poll.detail, params, load, error);
-        },
+        }
 });
 
 /**
