@@ -26,6 +26,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -67,6 +68,40 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     /** **/
     private List<HashTagDetailStats> tagDetailStats = new ArrayList<HashTagDetailStats>();
      
+   /*
+    *  (non-Javadoc)
+    * @see org.encuestame.core.service.imp.IStatisticsService#getTotalSocialLinksbyHashTagUsageAndDateRange(java.lang.String, java.lang.String)
+    */
+	public List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(
+			final String tagName, final String period)
+			throws EnMeSearchException {
+
+		List<ItemStatDetail> tpSocialSavePublishedDetail = new ArrayList<ItemStatDetail>();
+		List<TweetPollSavedPublishedStatus> tpSavedPublished = new ArrayList<TweetPollSavedPublishedStatus>();
+		Integer periodValue = null;
+		if (period == null) {
+			throw new EnMeSearchException("search params required.");
+		} else {
+
+			final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName, 0,
+					100, TypeSearchResult.HASHTAG); 
+			for (TweetPoll tweetPoll : tpolls) {
+				tpSavedPublished = getTweetPollDao()
+						.getSocialLinksByTypeAndDateRange(tweetPoll, null,
+								null, TypeSearchResult.TWEETPOLL);
+				tpSocialSavePublishedDetail
+						.addAll(ConvertDomainBean
+								.convertTweetPollSavedPublishedStatusListToItemDetailBean(tpSavedPublished));
+			}  
+			periodValue = Integer.parseInt(period);
+			this.removeDuplicatleItemOutOfRange(tpSocialSavePublishedDetail,
+					periodValue);
+			tagDetailStats = this.compareList(tpSocialSavePublishedDetail,
+					periodValue); 
+			return tagDetailStats;
+		}
+	}
+    
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IStatisticsService#getTotalVotesbyHashTagUsageAndDateRange(java.lang.String, java.lang.Integer)ItemStatDetail
@@ -498,7 +533,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getTweetPollSocialNetworkLinksbyTagAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult, java.lang.Integer)
      */
-    public List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
+  /*  public List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
             final String tagName, final Integer initResults,
             final Integer maxResults, final TypeSearchResult filter,
             final Integer period) {
@@ -530,7 +565,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         hashTagDetailedStatisticsListbyTweetPoll = this
                 .getHashTagStatsDetailedtList(tpollListByLink);
         return hashTagDetailedStatisticsListbyTweetPoll;
-    }
+    }*/
     
     /*
      * (non-Javadoc)

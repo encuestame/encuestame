@@ -332,15 +332,11 @@ public interface ITweetPoll extends IBaseDao{
 	 * @param survey
 	 * @param poll
 	 * @param itemType
-	 * @param period
-	 * @param startResults
-	 * @param limit
 	 * @return
 	 */
-	Long getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
-	            final Survey survey, final Poll poll,
-	            final TypeSearchResult itemType, final Integer period,
-				final Integer startResults, final Integer limit);
+	List<TweetPollSavedPublishedStatus> getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
+            final Survey survey, final Poll poll,
+            final TypeSearchResult itemType);
 	
 	/**
 	 * Return a list of tweetpoll by {username} order by recent.

@@ -48,9 +48,9 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param period
 	 * @return
 	 */
-	List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
+	/*List<HashTagDetailStats> getTweetPollSocialNetworkLinksbyTagAndDateRange(
 			final String tagName, final Integer initResults,
-			final Integer maxResults, final TypeSearchResult filter, final Integer period);
+			final Integer maxResults, final TypeSearchResult filter, final Integer period);*/
 	
 	
 	/**
@@ -60,5 +60,13 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @return
 	 */
 	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final String period) throws EnMeSearchException;
+	
+	/**
+	 * 
+	 * @param tagName
+	 * @param period
+	 * @return
+	 */
+	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(final String tagName, final String period) throws EnMeSearchException;
 	
 }

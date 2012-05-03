@@ -1270,4 +1270,31 @@ public class ConvertDomainBean {
 		return itemStatDetail;
 	}
 	
-}
+	/**
+	* {@link TweetPollSavedPublishedStatus}
+	* @param tweetPollResult
+	* @return
+	*/
+	public static final ItemStatDetail convertTweetPollSavedPublishedStatusToItemDetailBean(
+			final TweetPollSavedPublishedStatus tweetPollSocial) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(tweetPollSocial.getId());
+		itemDetail.setDate(tweetPollSocial.getPublicationDateTweet());
+		return itemDetail;
+	}
+		
+	/**
+	 * 
+	 * @param tpollResults
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertTweetPollSavedPublishedStatusListToItemDetailBean(
+			final List<TweetPollSavedPublishedStatus> tpollSocialSavedPublished) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpollSocialSavedPublished) {
+			itemStatDetail.add(ConvertDomainBean
+							.convertTweetPollSavedPublishedStatusToItemDetailBean(tweetPollSavedPublishedStatus));
+		} 
+		return itemStatDetail;
+	}
+}  
