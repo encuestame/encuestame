@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -165,7 +166,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
       response.put("description", "Application does not have permission for this action");
       response.put("status", httpResponse.SC_FORBIDDEN);
       response.put("session", SecurityUtils.checkIsSessionIsExpired(getSecCtx().getAuthentication()));
-      response.put("anonymousUser", SecurityUtils.checkIsSessionIsAnonymousUser(getSecCtx().getAuthentication()));
+      response.put(EnMeUtils.ANONYMOUS_USER, SecurityUtils.checkIsSessionIsAnonymousUser(getSecCtx().getAuthentication()));
       mav.addObject("error",  response);
       return mav;
     }

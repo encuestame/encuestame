@@ -9,7 +9,8 @@
         	 viewMessage="<spring:message code="home.item.views" />"
         	 votes="${item.relevance}" 
         	 hits="${item.hits}"
-        	 itemId="${item.id}"
+        	 itemType="${item.itemType}"
+        	 itemId="${item.id}"        	 
        	></div>
     </div>
     <div class="content">

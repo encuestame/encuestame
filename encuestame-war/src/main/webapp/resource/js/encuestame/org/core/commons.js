@@ -623,10 +623,7 @@ encuestame.service.list.getTweetPollVotes = function(username, id){
  * Vote on Home
  * @param username the source of the vote, could be anonymous
  */
-encuestame.service.list.votes.home = function(username) {
-	var source = username === null ? "anonymous" :username; 
-    return  encuestame.contextWidget()+"/api/frontend/home/"+source+"/vote.json";
-};
+encuestame.service.list.votes.home = encuestame.contextWidget()+"/api/frontend/home/vote.json";
 encuestame.service.list.addAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/add.json";
 encuestame.service.list.removeAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/remove.json";
 //group services

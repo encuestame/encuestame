@@ -125,7 +125,6 @@ public class HomeController extends AbstractBaseOperations {
 
     /**
     * Index view.
-    *
     * @param model
     * @param request
     * @param response

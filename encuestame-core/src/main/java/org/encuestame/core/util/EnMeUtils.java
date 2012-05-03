@@ -32,8 +32,12 @@ public class EnMeUtils {
     /** Front End Service Log. **/
     private static Logger log = Logger.getLogger(EnMeUtils.class);
 
-
     private static final int BASE = 2;
+    
+    /**
+     * 
+     */
+    public static final String ANONYMOUS_USER = "anonymousUser";
 
     private static final int MIN_SIZE = 12;
 

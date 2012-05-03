@@ -25,6 +25,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
@@ -150,5 +151,34 @@ public class FrontEndJsonController extends AbstractJsonController{
             log.error(e);
         }
         return returnData();
+    }
+    
+    /**
+     * 
+     * @param id
+     * @param account
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/frontend/home/vote.json", method = RequestMethod.POST)
+    public ModelMap voteHome(
+            @RequestParam(value = "id", required = false) Long id,
+            @RequestParam(value = "type", required = false) String type,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {    		
+    		final Status status = getFrontService().registerVote(id, TypeSearchResult.getTypeSearchResult(type), request);
+    		if (status.equals(Status.SUCCESS)) {
+    			setSuccesResponse();
+    		} else {
+    			final HashMap<String, Object> listError = new HashMap<String, Object>();
+    			listError.put("vote", "failed");
+    			setError(listError, response);
+    		}
+			return returnData();    	
     }
 }

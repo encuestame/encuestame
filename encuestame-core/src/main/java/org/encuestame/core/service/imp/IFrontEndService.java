@@ -27,6 +27,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -288,4 +289,10 @@ public interface IFrontEndService extends ServiceOperations {
 	List<TweetPoll> getTweetPollsByHashTag(final String tagName,
 	            final Integer initResults, final Integer maxResults,
 	            final TypeSearchResult filter);*/
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final HttpServletRequest request);
 }

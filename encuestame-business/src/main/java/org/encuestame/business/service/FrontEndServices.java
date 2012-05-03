@@ -35,6 +35,7 @@ import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -393,6 +394,27 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             log.error(e);
         }
         return hit;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#registerVote()
+     */
+    public Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final HttpServletRequest request){
+    	Status status = Status.SUCCESS;
+    	final String userVote = getUserPrincipalUsername();    	
+    	if (EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
+    		log.debug("registerVote "+userVote);
+    	} else {
+    		try {
+				final UserAccount userAccount = getUserAccount(userVote);	
+				log.debug("registerVote userAccount "+userAccount.getUsername());
+			} catch (EnMeNoResultsFoundException e) {
+				log.error(e);
+				status = Status.FAILED;
+			}
+    	}    	
+    	return status;
     }
 
     /*

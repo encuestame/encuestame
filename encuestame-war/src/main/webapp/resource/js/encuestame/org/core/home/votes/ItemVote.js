@@ -34,15 +34,15 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 */
 	hits : 0,
 	
-	/**
-	 * Default vote source.
-	 */
-	voteSource : "anonymous",
-	
 	 /**
 	  * 
 	  */
-	itemId : null,
+	itemId : 0,
+	
+	/**
+	 * 
+	 */
+	itemType : "",
 	
 	 /**
 	  * 
@@ -83,7 +83,8 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 		dojo.connect(button, "onclick", dojo.hitch(this, function(){
 			if (this.itemId !== null) {
 				this._sendVote({
-					id : this.itemId
+					id : this.itemId,
+					type : this.itemType
 				});
 			}
 		}));		
@@ -119,7 +120,7 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 				console.info("data", data);
 			}			
 		});
-		this.callPOST(params, load, encuestame.service.list.votes.home(this.voteSource), loading);
+		this.callPOST(params, load, encuestame.service.list.votes.home, loading);
 	}
 
 });
