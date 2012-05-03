@@ -34,10 +34,8 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
-import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
-import org.encuestame.utils.web.stats.HashTagDetailStats; 
-import org.joda.time.DateTime;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +53,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	
 	/** {@link IStatisticsService} **/
 	@Autowired
-	private IStatisticsService statisticsService;
-	
-	/** **/
-    private Integer INIT_RESULTS= 0;
-
-    /** **/
-    private Integer MAX_RESULTS= 10;
+	private IStatisticsService statisticsService; 
     
     /** **/
     private Question initQuestion;
@@ -77,6 +69,9 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
     
     /** **/
     private TweetPollSwitch secondTweetPollSwitch;
+    
+    /** **/
+    private SocialAccount initSocialAccount;
     
     /** **/
     private Calendar pollingDate = Calendar.getInstance();
@@ -100,6 +95,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		this.secondTweetPollSwitch = createTweetPollSwitch(answerChelsea, initTweetPoll);
 		createTweetPollResult(initTweetPollSwicht, "192.168.0.1");
 		createTweetPollResult(initTweetPollSwicht, "192.168.0.2");
+		this.initSocialAccount = createDefaultSettedSocialAccount(this.secondary);
     }
      
 	/**
@@ -259,18 +255,18 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		getTweetPoll().saveOrUpdate(tpSaved5);
 		assertNotNull(tpSaved5);
 
-		final List<HashTagDetailStats> totalSocialLinksUsagebyHashTagAndTweetPoll = getStatisticsService()
+	/*	final List<HashTagDetailStats> totalSocialLinksUsagebyHashTagAndTweetPoll = getStatisticsService()
 				.getTweetPollSocialNetworkLinksbyTagAndDateRange(
 						hashtag1.getHashTag(), this.INIT_RESULTS,
-						this.MAX_RESULTS, TypeSearchResult.TWEETPOLL, 365);
+						this.MAX_RESULTS, TypeSearchResult.TWEETPOLL, 365);*/
 
 		// for (HashTagDetailStats hashTagDetailStats : total) {
 		// System.out.println("Label : " + hashTagDetailStats.getLabel() +
 		// "-----   Value: " + hashTagDetailStats.getValue());
 		// }
 
-		Assert.assertEquals("Should be equals", 3,
-				totalSocialLinksUsagebyHashTagAndTweetPoll.size());
+		// 	Assert.assertEquals("Should be equals", 3,
+		// 			totalSocialLinksUsagebyHashTagAndTweetPoll.size());
 
 	}
 	
@@ -301,12 +297,9 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	     			.getTotalVotesbyHashTagUsageAndDateRange(
 	       					this.initHashTag.getHashTag(), "365");  
 	    Assert.assertEquals("Should be equals", 3,
-	    		itemStatListbyYear.size());
-	    
-	    
-	  
+	    		itemStatListbyYear.size());  
 	} 
-	
+	 
 	/**
 	 * Test
 	 * @throws EnMeSearchException
@@ -338,6 +331,83 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 				.getTotalVotesbyHashTagUsageAndDateRange(
 						this.initHashTag.getHashTag(), "30");
 		Assert.assertEquals("Should be equals", 8, itemStatListbyMonth.size());
+	}
+	
+	/**
+	 * Test
+	 * @throws EnMeSearchException 
+	 */
+	@Test
+	public void testGetTotalSocialLinksbyHashTagUsageByYearDateRange() throws EnMeSearchException { 
+		final String tweetContent = "Tweet content text"; 
+		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", this.initSocialAccount, tweetContent); 
+		tpSaved.setApiType(SocialProvider.TWITTER);
+		tpSaved.setPublicationDateTweet(pollingDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved); 
+		
+		// TweetPoll 2 
+		
+		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", this.initSocialAccount, tweetContent);
+		tpSaved2.setApiType(SocialProvider.FACEBOOK);
+		this.pollingDate.add(Calendar.MONTH, -3);
+		tpSaved2.setPublicationDateTweet(this.pollingDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved2); 
+		
+		final TweetPollSavedPublishedStatus tpSaved3 = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", this.initSocialAccount, tweetContent);
+		tpSaved3.setApiType(SocialProvider.GOOGLE_BUZZ);
+		// Out of range.
+		this.pollingDate.add(Calendar.MONTH, -15);
+		tpSaved3.setPublicationDateTweet(this.pollingDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved3);
+		
+		final List<HashTagDetailStats> detailStatsByYear = getStatisticsService().getTotalSocialLinksbyHashTagUsageAndDateRange(this.initHashTag.getHashTag(), "365");
+		Assert.assertEquals("Should be equals", 2, detailStatsByYear.size());  
+	}
+	
+	/**
+	 * 
+	 * @throws EnMeSearchException
+	 */
+	@Test
+	public void testGetTotalSocialLinksbyHashTagUsageByWeekDateRange() throws EnMeSearchException {
+		
+		final String tweetContent = "social content text"; 
+		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", this.initSocialAccount, tweetContent); 
+		tpSaved.setApiType(SocialProvider.TWITTER);
+		tpSaved.setPublicationDateTweet(pollingDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved);  
+		
+		// TweetPoll 2 
+		
+		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", this.initSocialAccount, tweetContent);
+		tpSaved2.setApiType(SocialProvider.FACEBOOK);
+		this.pollingDate.add(Calendar.DATE, -3);
+		tpSaved2.setPublicationDateTweet(this.pollingDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved2);   
+		
+		final TweetPollSavedPublishedStatus tpSaved3 = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", this.initSocialAccount, tweetContent);
+		tpSaved3.setApiType(SocialProvider.GOOGLE_BUZZ);
+		// Out of range.
+		this.pollingDate.add(Calendar.DATE, -1);
+		tpSaved3.setPublicationDateTweet(this.pollingDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved3); 
+		
+		final TweetPollSavedPublishedStatus tpSaved4 = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", this.initSocialAccount, tweetContent);
+		tpSaved4.setApiType(SocialProvider.LINKEDIN); 
+		tpSaved4.setPublicationDateTweet(this.pollingDate.getTime());
+		getTweetPoll().saveOrUpdate(tpSaved4);  
+		
+		final List<HashTagDetailStats> detailStatsByWeek = getStatisticsService()
+				.getTotalSocialLinksbyHashTagUsageAndDateRange(
+						this.initHashTag.getHashTag(), "7");
+		Assert.assertEquals("Should be equals", 3, detailStatsByWeek.size());
 	}
 	 
 	/**
