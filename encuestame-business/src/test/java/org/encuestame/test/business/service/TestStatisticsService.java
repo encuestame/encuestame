@@ -32,11 +32,12 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
-import org.encuestame.utils.web.stats.HashTagDetailStats;
-import org.encuestame.utils.web.stats.ItemStatDetail;
+import org.encuestame.utils.web.stats.HashTagDetailStats; 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,13 +63,23 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
     /** **/
     private Integer MAX_RESULTS= 10;
     
+    /** **/
     private Question initQuestion;
     
+    /** **/
     private HashTag initHashTag;
     
+    /** **/
     private TweetPoll initTweetPoll;
     
+    /** **/
     private TweetPollSwitch initTweetPollSwicht;
+    
+    /** **/
+    private TweetPollSwitch secondTweetPollSwitch;
+    
+    /** **/
+    private Calendar pollingDate = Calendar.getInstance();
     
     /**
      * 
@@ -86,7 +97,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         initTweetPoll.getHashTags().add(initHashTag);
 		getTweetPoll().saveOrUpdate(initTweetPoll);
 		this.initTweetPollSwicht = createTweetPollSwitch(answerBayern, initTweetPoll);
-		createTweetPollSwitch(answerChelsea, initTweetPoll);
+		this.secondTweetPollSwitch = createTweetPollSwitch(answerChelsea, initTweetPoll);
 		createTweetPollResult(initTweetPollSwicht, "192.168.0.1");
 		createTweetPollResult(initTweetPollSwicht, "192.168.0.2");
     }
@@ -265,9 +276,10 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	
 	/**
 	 * Test 
+	 * @throws EnMeSearchException 
 	 */
 	@Test
-	public void testGetTotalVotesbyHashTagUsageAndDateRange(){
+	public void testGetTotalVotesbyHashTagUsageAndDateRange() throws EnMeSearchException{
 		final Calendar pollingDate = Calendar.getInstance();
 		final Question question2 = createQuestion("Who will win  the spain league 2012?", ""); 
 		final QuestionAnswer answerMadrid = createQuestionAnswer("Real Madrid", question2, "98765");
@@ -283,15 +295,51 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	    
 	    pollingDate.add(Calendar.MONTH, -3);
 	    createTweetPollResultWithPollingDate(tpSwichtMadrid, "192.168.0.5", pollingDate.getTime());  
-	    pollingDate.add(Calendar.MONTH, -6);
+	    pollingDate.add(Calendar.MONTH, -2);
 	    createTweetPollResultWithPollingDate(tpSwichtBarsa, "192.168.0.6", pollingDate.getTime());  
-		final List<HashTagDetailStats> itemStatList = getStatisticsService()
-				.getTotalVotesbyHashTagUsageAndDateRange(
-						this.initHashTag.getHashTag(), 365); 
-		Assert.assertEquals("Should be equals", 2, itemStatList.size()); 
-		 
-	}
+	    final List<HashTagDetailStats> itemStatListbyYear = getStatisticsService()
+	     			.getTotalVotesbyHashTagUsageAndDateRange(
+	       					this.initHashTag.getHashTag(), "365");  
+	    Assert.assertEquals("Should be equals", 3,
+	    		itemStatListbyYear.size());
+	    
+	    
+	  
+	} 
+	
+	/**
+	 * Test
+	 * @throws EnMeSearchException
+	 */
+	@Test
+	public void testGetTotalVotesbyHashTagUsageByMonthDateRange()
+			throws EnMeSearchException {
 
+		pollingDate.add(Calendar.DATE, -2);
+
+		createTweetPollResultWithPollingDate(this.initTweetPollSwicht,
+				"192.168.0.11", pollingDate.getTime());
+		pollingDate.add(Calendar.DATE, -5);
+
+		createTweetPollResultWithPollingDate(this.initTweetPollSwicht,
+				"192.168.0.12", pollingDate.getTime());
+		pollingDate.add(Calendar.DATE, -8);
+
+		createTweetPollResultWithPollingDate(this.initTweetPollSwicht,
+				"192.168.0.13", pollingDate.getTime());
+		createTweetPollResultWithPollingDate(this.secondTweetPollSwitch,
+				"192.168.0.14", pollingDate.getTime());
+
+		pollingDate.add(Calendar.DATE, -10);
+		createTweetPollResultWithPollingDate(this.secondTweetPollSwitch,
+				"192.168.0.15", pollingDate.getTime());
+
+		final List<HashTagDetailStats> itemStatListbyMonth = getStatisticsService()
+				.getTotalVotesbyHashTagUsageAndDateRange(
+						this.initHashTag.getHashTag(), "30");
+		Assert.assertEquals("Should be equals", 8, itemStatListbyMonth.size());
+	}
+	 
 	/**
 	 * @return the statisticsService
 	 */
