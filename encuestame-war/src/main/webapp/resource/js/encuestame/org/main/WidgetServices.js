@@ -46,6 +46,21 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     warningMesage : function() {
         encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "warning", this._delay_messages);
     },
+    
+    /**
+     * Display a default loader.
+     */
+    loadingDefaultMessage : function() { 
+ 		var loading = {
+ 		  	  init : function(){
+ 		  				console.debug("init");
+ 		  	  }, 
+ 		  	  end : function(){
+ 		  	      		console.debug("end");
+ 		  	  }
+ 		};
+ 		return loading;
+    },
 
     /*
      *
