@@ -18,7 +18,7 @@ buildNumber.properties
 */.project
 .project
 .classpath
-.buildpath
+*/.buildpath/*
 *~
 target/
 encuestame-war/src/main/webapp/resource/static/
