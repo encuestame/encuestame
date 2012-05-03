@@ -36,6 +36,11 @@ public enum SearchPeriods {
      * Represent All Time.
      */
     ALLTIME,
+    
+    /**
+     * Represent last 12 months.
+     */
+    ONEYEAR,
 
     /**
      * Constructor.
@@ -48,7 +53,7 @@ public enum SearchPeriods {
      * To String.
      */
     public String toString() {
-        String period = "24";
+        String period = "null";
         //If last 24 hours
         if (this == TWENTYFOURHOURS) { period = "24"; }
         //If last 7 days
@@ -56,7 +61,9 @@ public enum SearchPeriods {
         //If last 30 days
         else if (this == THIRTYDAYS) { period = "30"; }
         //If select all time.
-        else if (this == ALLTIME) { period = "all"; }
+        else if (this == ALLTIME) { period = "all"; } 
+        //If select all time.
+        else if (this == ONEYEAR) { period = "365"; }
         return period;
     }
 
@@ -71,6 +78,7 @@ public enum SearchPeriods {
         else if (period.equalsIgnoreCase("7")) { return SEVENDAYS; }
         else if (period.equalsIgnoreCase("30")) { return THIRTYDAYS; }
         else if (period.equalsIgnoreCase("all")) { return ALLTIME; }
+        else if (period.equalsIgnoreCase("365")) { return ONEYEAR; }
         else return TWENTYFOURHOURS;
     }
 }

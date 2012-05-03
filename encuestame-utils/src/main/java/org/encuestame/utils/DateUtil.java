@@ -324,6 +324,39 @@ public class DateUtil {
 	}
 	
 	/**
+	 * Get value of the current day of the month.
+	 * @param currentDate
+	 * @return
+	 */
+	public static Integer getValueCurrentDateOfTheMonths(final Date currentDate) {
+		 Integer dayOfTheMonth;
+		 dayOfTheMonth = new DateTime(currentDate).getDayOfMonth();  
+		 return dayOfTheMonth;
+	}
+	
+	/**
+	 * Get value of the day of the week.
+	 * @param currentDate
+	 * @return
+	 */
+	public static Integer getValueCurrentDayOfTheWeek(final Date currentDate) {
+		Integer dayOfWeek;
+		dayOfWeek = new DateTime(currentDate).getDayOfWeek();
+		return dayOfWeek;
+	}
+
+	/**
+	 * Get value hour of the day.
+	 * @param currentDate
+	 * @return
+	 */
+	public static Integer getValueHourOfTheDay(final Date currentDate) {
+		Integer hourOfTheDay;
+		hourOfTheDay = new DateTime(currentDate).getHourOfDay();
+		return hourOfTheDay;
+	}
+	
+	/**
 	 * Check if date is within allowed range.
 	 * @param period
 	 * @param itemDate
@@ -332,7 +365,7 @@ public class DateUtil {
 	public static Boolean checkDatedWithinAllowableRange(final Integer period, final Date itemDate){
 		Boolean allowedRange = Boolean.FALSE;
 		Date endDate = DateUtil.getCurrentCalendarDate();
-		Date startDate = DateUtil.retrieveStartDateByPeriod(period);  
+		Date startDate = DateUtil.retrieveStartDateByPeriod(period);   
 		// Check if date is between starDate by period and currentDate(itemDate is > startDate, itemDate < endDate)
 		if ((itemDate.after(startDate)) && (itemDate.before(endDate))) { 
 			allowedRange = Boolean.TRUE;

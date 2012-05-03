@@ -14,6 +14,7 @@ package org.encuestame.business.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,7 +28,9 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.ItemStatDetail;
@@ -41,7 +44,7 @@ import org.springframework.stereotype.Service;
  * @version $Id$
  */
 @Service
-public class StatisticsService extends AbstractBaseService implements IStatisticsService {
+public class StatisticsService extends AbstractBaseService implements IStatisticsService {  
 	
 	 /** Statistics Service Log. **/
     private Logger log = Logger.getLogger(this.getClass());
@@ -63,33 +66,49 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     
     /** **/
     private List<HashTagDetailStats> tagDetailStats = new ArrayList<HashTagDetailStats>();
-
+     
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IStatisticsService#getTotalVotesbyHashTagUsageAndDateRange(java.lang.String, java.lang.Integer)ItemStatDetail
      */
-	public List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final Integer period){  
-		 List<ItemStatDetail> tpResultsBean = new ArrayList<ItemStatDetail>();
-		 List<TweetPollResult> tpollResults = new ArrayList<TweetPollResult>();
-		 List<TweetPollSwitch> tpollsSwitch = new ArrayList<TweetPollSwitch>();
-		  
-		 final List<TweetPoll> tpolls =  getTweetPollsByHashTag(tagName, 0, 100, TypeSearchResult.HASHTAG);
-		 log.debug("Total Tweetpolls by hashtagName" + tpolls.size());
-		 for (TweetPoll tweetPoll : tpolls) {
-			 tpollsSwitch =  getTweetPollDao().getListAnswersByTweetPollAndDateRange(tweetPoll); 
-			 log.debug("Total TweetpollSwitch by tweetPoll -->" + tpollsSwitch.size());
-			 for (TweetPollSwitch tweetPollSwitch : tpollsSwitch) {
-				 tpollResults = getTweetPollDao().getTweetPollResultsByTweetPollSwitch(tweetPollSwitch); 
-				 log.debug("Total TweetPollResults by tweetPollSwitch -->" + tpollResults.size());
-				 tpResultsBean.addAll(ConvertDomainBean.convertTweetPollResultListToItemDetailBean(tpollResults));
-			 }
-		 }   
-	  
-		 this.removeDuplicatleItemOutOfRange(tpResultsBean, period); 
-		 tagDetailStats = this.compareList(tpResultsBean, period);   
-		 return tagDetailStats;
+	public List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final String period) throws EnMeSearchException{  
+		Integer periodValue = null;
+		List<ItemStatDetail> tpResultsBean = new ArrayList<ItemStatDetail>(); 
+		List<TweetPollResult> tpollResults = new ArrayList<TweetPollResult>();
+		List<TweetPollSwitch> tpollsSwitch = new ArrayList<TweetPollSwitch>(); 
+		if (period == null) {
+			throw new EnMeSearchException("search params required.");
+		} else {  
+			
+			final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName, 0,
+					100, TypeSearchResult.HASHTAG);
+			log.debug("Total Tweetpolls by hashtagName" + tpolls.size());
+			for (TweetPoll tweetPoll : tpolls) {
+				tpollsSwitch = getTweetPollDao()
+						.getListAnswersByTweetPollAndDateRange(tweetPoll);
+				log.debug("Total TweetpollSwitch by tweetPoll -->"
+						+ tpollsSwitch.size());
+				for (TweetPollSwitch tweetPollSwitch : tpollsSwitch) {
+					tpollResults = getTweetPollDao()
+							.getTweetPollResultsByTweetPollSwitch(
+									tweetPollSwitch);
+					log.debug("Total TweetPollResults by tweetPollSwitch -->"
+							+ tpollResults.size());
+					tpResultsBean
+							.addAll(ConvertDomainBean
+									.convertTweetPollResultListToItemDetailBean(tpollResults));
+				}
+			}
+
+		}
+
+		periodValue = Integer.parseInt(period); 
+		this.removeDuplicatleItemOutOfRange(tpResultsBean, periodValue);  
+		tagDetailStats = this.compareList(tpResultsBean, periodValue);   
+		return tagDetailStats;
 	}
 	
+	 
 	/**
 	 * Remove duplicate item  from {@link TweetPollResult} vote. 
 	 * @param itemList
@@ -97,11 +116,11 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 */
 	private void removeDuplicatleItemOutOfRange(
 			final List<ItemStatDetail> itemList, final Integer period) { 
-		Boolean check;
+		Boolean check; 
 		for (int i = 0; i < itemList.size(); i++) {
 			check = DateUtil.checkDatedWithinAllowableRange(period, itemList
-					.get(i).getDate());
-			if (!check) {
+					.get(i).getDate()); 
+			if (!check) { 
 				itemList.remove(i);
 			}
 		} 
@@ -112,36 +131,35 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * @param itemList
 	 * @param period
 	 * @return
+	 * @throws EnMeSearchException 
 	 */
 	private List<HashTagDetailStats> compareList(
-			final List<ItemStatDetail> itemList, final Integer period) {
+			final List<ItemStatDetail> itemList, final Integer period) throws EnMeSearchException {
 		Long countItems = 0L;
-		Integer month = null;
+		Integer month = 0;
 		Integer monthB;
-		Boolean existItemStatDetailLabel = Boolean.FALSE;
-
-		for (int i = 0; i < itemList.size(); i++) {
-			monthB = DateUtil.getValueCurrentMonthOfTheYear(itemList.get(i)
-					.getDate());
+		Boolean existItemStatDetailLabel = Boolean.FALSE; 
+		for (int i = 0; i < itemList.size(); i++) { 
+			monthB = this.getLabelValue(period.toString(), itemList.get(i).getDate());
+			 
 			for (int j = 0; j < itemList.size(); j++) {
-				month = DateUtil.getValueCurrentMonthOfTheYear(itemList.get(j)
-						.getDate());
+				month =  this.getLabelValue(period.toString(), itemList.get(j).getDate()); 
 				if (monthB == month) {
-					countItems++;
+					countItems++;  
 				}
 
 			}
 			existItemStatDetailLabel = checkLabelExistsHashTagDetailStat(monthB
 					.toString());
-			if (!existItemStatDetailLabel) {
+			if (!existItemStatDetailLabel) { 
 				tagDetailStats.add(createTagDetailsStats(monthB.toString(),
 						countItems));
 			}
 			countItems = 0L; 
 		}
 		return tagDetailStats;
-	} 
-	 
+	}  
+	
 	/**
 	 * 
 	 * @param label
@@ -159,6 +177,31 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		}
 		return existLabel; 
 	}  
+	
+	/**
+	 * 
+	 * @param period
+	 * @param pubDate
+	 * @return
+	 */
+	private Integer getLabelValue(final String period, final Date pubDate) {
+		Integer labelValue = null;
+		final SearchPeriods periodSelected = SearchPeriods
+				.getPeriodString(period);
+
+		if (periodSelected.equals(SearchPeriods.ONEYEAR)) {
+			labelValue = DateUtil.getValueCurrentMonthOfTheYear(pubDate);
+
+		} else if (periodSelected.equals(SearchPeriods.THIRTYDAYS)) {
+			labelValue = DateUtil.getValueCurrentDateOfTheMonths(pubDate);
+		} else if (periodSelected.equals(SearchPeriods.TWENTYFOURHOURS)) {
+			labelValue = DateUtil.getValueHourOfTheDay(pubDate);
+		}
+		else if (periodSelected.equals(SearchPeriods.SEVENDAYS)) {
+			labelValue = DateUtil.getValueCurrentDayOfTheWeek(pubDate);
+		}
+		return labelValue;
+	}
 	 
 	/**
 	 * Create hashTag details stats.
