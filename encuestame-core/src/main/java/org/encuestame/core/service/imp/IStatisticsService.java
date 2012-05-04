@@ -69,6 +69,21 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param period
 	 * @return
 	 */
-	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(final String tagName, final String period) throws EnMeSearchException;
+	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(
+			final String tagName, final String period)
+			throws EnMeSearchException;
 	
+	/**
+	 * 
+	 * @param hashTagName
+	 * @param period
+	 * @param startResults
+	 * @param maxResults
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 * @throws EnMeSearchException
+	 */
+	List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRange(
+			final String hashTagName, final Integer period)
+			throws EnMeNoResultsFoundException, EnMeSearchException;
 }

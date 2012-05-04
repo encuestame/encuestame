@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -1382,4 +1383,31 @@ public class ConvertDomainBean {
 		}
 		return itemStatDetail;
 	}  
+	
+	/**
+	 * 
+	 * @param hit
+	 * @return
+	 */
+	public static final ItemStatDetail convertHitsToItemDetailBean(final Hit hit) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(hit.getId());
+		itemDetail.setDate(hit.getHitDate());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertHitListToItemDetailBean(
+			final List<Hit> hits) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (Hit hit : hits) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertHitsToItemDetailBean(hit));
+		}
+		return itemStatDetail;
+	}
 }  

@@ -21,6 +21,7 @@ import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -323,11 +324,10 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         if (tag != null) {
             tweetPollsByDateRange = this
                     .getTotalTweetPollUsageByHashTagAndDateRange(hashTagName,
-                            period, startResults, maxResults);
-            System.out.println("  Total TweetPolls--> "+ tweetPollsByDateRange.size());
+                            period, startResults, maxResults); 
             pollsByDateRange = this.getTotalPollUsageByHashTagAndDateRange(
                     hashTagName, period, startResults, maxResults);
-            System.out.println("  Total  Polls--> "+ pollsByDateRange.size());
+           
             surveysByDateRange = this.getTotalSurveyUsageByHashTagAndDateRange(
                     hashTagName, period, startResults, maxResults); 
         }
@@ -339,4 +339,29 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         		period); 
 		return tagDetailStats; 
     }  
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IStatisticsService#getTotalHitsUsagebyHashTagAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
+	public List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRange(
+			final String hashTagName, final Integer period)
+			throws EnMeNoResultsFoundException, EnMeSearchException {
+		List<Hit> hashTagHits = new ArrayList<Hit>();
+		final HashTag tag = this.getHashTag(hashTagName, Boolean.TRUE);
+		List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		if (tag != null) {
+			hashTagHits = getFrontEndDao().getHashTagHitsbyDateRange(
+					tag.getHashTagId(), period);
+			System.out.println("  Total Hits --> " + hashTagHits.size());
+
+		}
+
+		itemStatDetail.addAll(ConvertDomainBean
+				.convertHitListToItemDetailBean(hashTagHits));
+
+		tagDetailStats = this.compareList(itemStatDetail, period);
+		return tagDetailStats;
+
+	}
 }

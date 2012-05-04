@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -38,7 +39,9 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
@@ -385,73 +388,38 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         log.debug("Retrieve total hits by  " + searchHitby + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
-    }
+    } 
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsLast7Days(java.lang.Long, java.lang.Integer, java.lang.Integer)
-     */
-    public List<Object[]> getHashTagHitsLast7Days(final Long tagId, final Integer start, final Integer maxResults){
-        return this.getTotalHashTagHitsbyDateRange(tagId, this.PERIOD_7_DAYS ,start, maxResults, this.WITHOUT_FIRST_RESULTS);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsLast30Days(java.lang.Long, java.lang.Integer, java.lang.Integer)
-     */
-    public List<Object[]> getHashTagHitsLast30Days(final Long tagId, final Integer start, final Integer maxResults){
-        return this.getTotalHashTagHitsbyDateRange(tagId, this.PERIOD_30_DAYS ,start, maxResults, this.WITHOUT_FIRST_RESULTS);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsLast365Days(java.lang.Long, java.lang.Integer, java.lang.Integer)
-     */
-    public List<Object[]> getHashTagHitsLast365Days(final Long tagId, final Integer start, final Integer maxResults){
-        return this.getTotalHashTagHitsbyDateRange(tagId, this.PERIOD_365_DAYS ,start, maxResults, this.WITHOUT_FIRST_RESULTS);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsLast6Months(java.lang.Long, java.lang.Integer, java.lang.Integer)
-     */
-    public List<Object[]> getHashTagHitsLast6Months(final Long tagId, final Integer start, final Integer maxResults){
-        return this.getTotalHashTagHitsbyDateRange(tagId, this.PERIOD_HALF_YEAR ,start, maxResults, this.WITHOUT_FIRST_RESULTS);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.persistence.dao.IFrontEndDao#getTotalHitsbyTypeAndRange(java.lang.Long, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
-     */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsbyDateRange
+	 * (java.lang.Long, java.lang.Integer, java.lang.Integer, java.lang.Integer,
+	 * java.lang.Integer)
+	 */
     @SuppressWarnings("unchecked")
-    public List<Object[]> getTotalHashTagHitsbyDateRange(final Long tagId,
-            final Integer period, final Integer start,
-            final Integer maxResults, final Integer initResults) {
-        Date startDate = null;
-        Date endDate = null;
-        if (period != null) {
-            final Calendar hi = Calendar.getInstance();
-            hi.add(Calendar.DAY_OF_YEAR, -period);
-            startDate = hi.getTime();
-            endDate = Calendar.getInstance().getTime();
+	public List<Hit> getHashTagHitsbyDateRange(final Long tagId,
+			final Integer period) {
+		Date startDate = null;
+		Date endDate = null;
+		if (period != null) {
+			final Calendar hi = Calendar.getInstance();
+			hi.add(Calendar.DAY_OF_YEAR, -period);
+			startDate = hi.getTime();
+			endDate = Calendar.getInstance().getTime();
 
-        }
-        return getHibernateTemplate()
-                .findByNamedParam(
-                        "SELECT MONTH(hitDate) AS hitmonth, COUNT(hashTag.hashTagId) AS hitcount"
-                                + " FROM Hit as ht"
-                                + " WHERE (ht.hashTag.hashTagId = :tagnameId)"
-                                + " AND  ht.hitDate BETWEEN (:startDateTime) AND (:endDateTime)"
-                                + " GROUP BY MONTH(hitDate)",
-                        new String[] { "tagnameId", "startDateTime",
-                                "endDateTime" },
-                        new Object[] { tagId, startDate, endDate });
-    }
+		}
 
-    public List<Object> getTotalUsagebyHashTagUsage(){
-        return null;
-    }
+		final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
+		criteria.createAlias("hashTag", "hashTag");
+		criteria.add(Restrictions.eq("hashTag.hashTagId", tagId));
+		criteria.addOrder(Order.desc("hitDate")); 
+		criteria.add(Restrictions.between("hitDate", startDate, endDate)); 
+		return getHibernateTemplate().findByCriteria(criteria);
 
+	}
+    
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getAccessRatebyItem(java.lang.String, java.lang.Long, java.lang.String)
