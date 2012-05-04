@@ -22,6 +22,7 @@ import junit.framework.Assert;
 
 import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -315,6 +316,32 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	    Assert.assertEquals("Should be equals", 3,
 	    		itemStatListbyYear.size());  
 	} 
+	
+	/**
+	 * Test
+	 * @throws EnMeSearchException 
+	 * @throws EnMeNoResultsFoundException 
+	 */ 
+	@Test 
+	public void testGetTotalHitsUsagebyHashTagAndDateRange() throws EnMeNoResultsFoundException, EnMeSearchException{
+		final Calendar myDate = Calendar.getInstance();
+    	final HashTag hashTag1 = createHashTag("software2");  
+    	 
+    	final Hit hit1 = createHashTagHit(hashTag1, "192.168.1.1");
+    	final Hit hit2 = createHashTagHit(hashTag1, "192.168.1.2");
+    	 
+    	hit1.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit1); 
+     
+    	myDate.add(Calendar.DATE, -4);
+    	hit2.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit2); 
+     
+    	
+    	final List<HashTagDetailStats> tagHitsDetailList = getStatisticsService().getTotalHitsUsagebyHashTagAndDateRange(hashTag1.getHashTag(), 7);
+    	Assert.assertEquals("Should be equals", 2, tagHitsDetailList.size());  
+		
+	}
 	 
 	/**
 	 * Test
