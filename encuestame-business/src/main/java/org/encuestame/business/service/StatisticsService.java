@@ -252,13 +252,11 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * @return
 	 */
 	private List<TweetPoll> getTotalTweetPollUsageByHashTagAndDateRange(
-			final String tagName, final Integer period,
-			final Integer startResults, final Integer maxResults) {
+			final String tagName, final Integer period) {
 		List<TweetPoll> tweetPollsByHashTag = new ArrayList<TweetPoll>();
 		// Gets the tweetpolls by hashtag
 		tweetPollsByHashTag = getTweetPollDao()
-				.getTweetPollsbyHashTagNameAndDateRange(tagName, period,
-						startResults, maxResults);
+				.getTweetPollsbyHashTagNameAndDateRange(tagName, period);
 		// Gets the stats detail of hashtags by tweetpoll.
 		return tweetPollsByHashTag;
 	}
@@ -273,11 +271,10 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * @return
 	 */
 	private List<Poll> getTotalPollUsageByHashTagAndDateRange(
-			final String tagName, final Integer period,
-			final Integer startResults, final Integer maxResults) {
+			final String tagName, final Integer period) {
 		List<Poll> pollsByHashTag = new ArrayList<Poll>();
 		pollsByHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(
-				tagName, period, startResults, maxResults);
+				tagName, period);
 		return pollsByHashTag;
 	}
 
@@ -291,12 +288,10 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * @return
 	 */
 	private List<Survey> getTotalSurveyUsageByHashTagAndDateRange(
-			final String tagName, final Integer period,
-			final Integer startResults, final Integer maxResults) {
+			final String tagName, final Integer period) {
 		List<Survey> surveysByHashTag = new ArrayList<Survey>();
 		surveysByHashTag = getSurveyDaoImp()
-				.getSurveysbyHashTagNameAndDateRange(tagName, period,
-						startResults, maxResults);
+				.getSurveysbyHashTagNameAndDateRange(tagName, period);
 		return surveysByHashTag;
 	} 
 	
@@ -308,8 +303,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * java.lang.Integer, java.lang.Integer)
 	 */
     public List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(
-    		final String hashTagName, final Integer period,
-            final Integer startResults, final Integer maxResults)
+    		final String hashTagName, final Integer period)
             throws EnMeNoResultsFoundException, EnMeSearchException {
         // Check if the hashtag exists
     	final HashTag tag = this.getHashTag(hashTagName, Boolean.TRUE); 
@@ -324,12 +318,12 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         if (tag != null) {
             tweetPollsByDateRange = this
                     .getTotalTweetPollUsageByHashTagAndDateRange(hashTagName,
-                            period, startResults, maxResults); 
+                            period); 
             pollsByDateRange = this.getTotalPollUsageByHashTagAndDateRange(
-                    hashTagName, period, startResults, maxResults);
+                    hashTagName, period);
            
             surveysByDateRange = this.getTotalSurveyUsageByHashTagAndDateRange(
-                    hashTagName, period, startResults, maxResults); 
+                    hashTagName, period); 
         }
          
         itemStatDetail.addAll(ConvertDomainBean.convertTweetPollListToItemDetailBean(tweetPollsByDateRange));
@@ -363,5 +357,5 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		tagDetailStats = this.compareList(itemStatDetail, period);
 		return tagDetailStats;
 
-	}
+	} 
 }

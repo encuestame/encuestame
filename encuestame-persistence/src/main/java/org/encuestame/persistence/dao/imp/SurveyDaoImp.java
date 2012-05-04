@@ -427,12 +427,16 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
     }
 
-
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.ISurvey#getSurveysbyHashTagNameAndDateRange
+	 * (java.lang.String, java.lang.Integer)
+	 */
     @SuppressWarnings("unchecked")
        public List<Survey> getSurveysbyHashTagNameAndDateRange(
-               final String tagName, final Integer period,
-               final Integer startResults, final Integer limit) {
+               final String tagName, final Integer period) {
            Date startDate = null;
            Date endDate = null;
            if (period != null) {
@@ -458,8 +462,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
            criteria.add(Subqueries.propertyIn("survey.sid", detached));
            criteria.addOrder(Order.desc("survey.createdAt"));
            criteria.add(Restrictions.between("createdAt", startDate, endDate));
-           return getHibernateTemplate().findByCriteria(criteria, startResults,
-                   limit);
+           return getHibernateTemplate().findByCriteria(criteria);
        }
 
 

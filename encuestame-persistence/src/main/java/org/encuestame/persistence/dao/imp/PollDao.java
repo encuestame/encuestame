@@ -166,8 +166,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsbyHashTagNameAndDateRange(
-            final String tagName, final Integer period,
-            final Integer startResults, final Integer limit) {
+            final String tagName, final Integer period) {
         Date startDate = null;
         Date endDate = null;
         if (period != null) {
@@ -194,8 +193,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.addOrder(Order.desc("poll.createdAt"));
         criteria.add(Restrictions.between("createdAt", startDate, endDate));
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
-        return getHibernateTemplate().findByCriteria(criteria, startResults,
-                limit);
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
     /*

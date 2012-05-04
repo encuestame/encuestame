@@ -281,12 +281,9 @@ public interface ISurvey extends IBaseDao{
     /**
      * Get total surveys by hashtag and date range.
      * @param tagName
-     * @param period
-     * @param startResults
-     * @param limit
+     * @param period 
      * @return
      */
 	List<Survey> getSurveysbyHashTagNameAndDateRange(
-   			final String tagName, final Integer period,
-   			final Integer startResults, final Integer limit);
+   			final String tagName, final Integer period);
 }

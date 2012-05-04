@@ -184,8 +184,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		getSurveyDaoImp().saveOrUpdate(survey4); 
 			  
 		final List<HashTagDetailStats> stats = getStatisticsService()
-				.getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, 0,
-						20);
+				.getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365);
 		 
 	// for (HashTagDetailStats hashTagDetailStats : stats) {
 	//		System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n ");

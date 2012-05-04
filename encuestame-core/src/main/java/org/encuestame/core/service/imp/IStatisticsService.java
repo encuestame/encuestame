@@ -30,15 +30,12 @@ public interface IStatisticsService extends ServiceOperations{
 	/**
 	 * Get total usage items by hashTag and Date Range
 	 * @param hashTagName
-	 * @param period
-	 * @param startResults
-	 * @param maxResults
+	 * @param period 
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
 	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(
-			final String hashTagName, final Integer period,
-			final Integer startResults, final Integer maxResults)
+			final String hashTagName, final Integer period)
 			throws EnMeNoResultsFoundException, EnMeSearchException;
 	
 	/**

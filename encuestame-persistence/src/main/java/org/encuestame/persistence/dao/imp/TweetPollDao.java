@@ -577,8 +577,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
-            final String tagName, final Integer period,
-            final Integer startResults, final Integer limit) {
+            final String tagName, final Integer period) {
         Date startDate = null;
         Date endDate = null;
         if (period != null) {
@@ -605,8 +604,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         criteria.addOrder(Order.desc("tweetPoll.createDate"));
         criteria.add(Restrictions.between("createDate", startDate, endDate));
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
-        return getHibernateTemplate().findByCriteria(criteria, startResults,
-                limit);
+        return getHibernateTemplate().findByCriteria(criteria);
     }
 
 
