@@ -38,7 +38,7 @@ public enum TypeSearchResult {
         else if (this == HASHTAG) { type = "HASHTAG"; }
         else if (this == HASHTAGRATED) { type = "HASHTAGRATED"; }
         else if (this == SOCIALNETWORK) { type = "SOCIALNETWORK"; }
-        else if (this == HITS) { type = "SOCIALNETWORK"; }
+        else if (this == HITS) { type = "HITS"; }
         else if (this == VOTES) { type = "VOTES"; }
         return type;
     }
@@ -77,6 +77,10 @@ public enum TypeSearchResult {
         else if (type.equalsIgnoreCase("QUESTION")) { return QUESTION; }
         else if (type.equalsIgnoreCase("HASHTAG")) { return HASHTAG; }
         else if (type.equalsIgnoreCase("HASHTAGRATED")) { return HASHTAGRATED; }
+        else if (type.equalsIgnoreCase("SOCIALNETWORK")) { return SOCIALNETWORK; }
+        else if (type.equalsIgnoreCase("HITS")) { return HITS; }
+        else if (type.equalsIgnoreCase("VOTES")) { return VOTES; }
+        
         else return null;
     }
 }

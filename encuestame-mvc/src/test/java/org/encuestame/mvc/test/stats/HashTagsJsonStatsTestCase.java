@@ -15,6 +15,7 @@ package org.encuestame.mvc.test.stats;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -22,6 +23,7 @@ import javax.servlet.ServletException;
 import org.encuestame.mvc.controller.json.statistics.HashTagStatsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -202,10 +204,36 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject successHashTag = getSucess(responseHashTag);
         final JSONObject genericHashStatsData = (JSONObject) successHashTag.get("generic");
 
-        Assert.assertEquals(genericHashStatsData.get("hits").toString(), hashtag.getHits().toString());
-
-
+        Assert.assertEquals(genericHashStatsData.get("hits").toString(), hashtag.getHits().toString());  
     }
-
-
+    
+    /**
+     * 
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testHashTagStatByRange() throws ServletException, IOException{
+    	final Calendar myDate = Calendar.getInstance();
+    	final HashTag hashTag1 = createHashTag("software2");  
+    	 
+    	final Hit hit1 = createHashTagHit(hashTag1, "192.168.1.1");
+    	final Hit hit2 = createHashTagHit(hashTag1, "192.168.1.2");
+    	 
+    	hit1.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit1); 
+     
+    	myDate.add(Calendar.DATE, -4);
+    	hit2.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit2); 
+    	
+    	initService("/api/common/hashtags/stats/button/range.json", MethodJson.GET);
+		setParameter("tagName", hashTag1.getHashTag());
+		setParameter("period", "7");
+		setParameter("filter", "HITS");
+		final JSONObject response = callJsonService();
+		final JSONObject success = getSucess(response);
+		final JSONArray hashTagHitsData = (JSONArray) success.get("statsByRange"); 
+		Assert.assertEquals(hashTagHitsData.size(), 2);   
+    }  
 }

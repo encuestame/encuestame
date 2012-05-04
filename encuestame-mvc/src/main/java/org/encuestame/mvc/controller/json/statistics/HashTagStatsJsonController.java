@@ -182,11 +182,11 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			@RequestParam(value = "tagName", required = true) String tagName,
 			@RequestParam(value = "period", required = true) String period,
 			@RequestParam(value = "filter", required = true) String filter,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) { 
 		try {
 			List<HashTagDetailStats> tagStats = new ArrayList<HashTagDetailStats>();
 			final TypeSearchResult filterType = TypeSearchResult
-					.getTypeSearchResult(filter);
+					.getTypeSearchResult(filter); 
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 
 			if (filterType.equals(TypeSearchResult.HASHTAG)) {
@@ -197,10 +197,10 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 				tagStats = getStatisticsService()
 						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
 								Integer.parseInt(period));
-			} else if (filterType.equals(TypeSearchResult.HITS)) {
+			} else if (filterType.equals(TypeSearchResult.HITS)) { 
 				tagStats = getStatisticsService()
 						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								Integer.parseInt(period));
+								Integer.parseInt(period));  
 			} else if (filterType.equals(TypeSearchResult.VOTES)) {
 				tagStats = getStatisticsService()
 						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
