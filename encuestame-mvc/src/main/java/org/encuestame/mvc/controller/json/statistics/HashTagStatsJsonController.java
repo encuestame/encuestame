@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller.json.statistics;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.GenericStatsBean;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -166,6 +168,51 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		return returnData();
 	}
 	
+	/**
+	 * 
+	 * @param tagName
+	 * @param period
+	 * @param filter
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/api/common/hashtags/stats/button/range.json", method = RequestMethod.GET)
+	public ModelMap getHashTagButtonStatsByDateRange(
+			@RequestParam(value = "tagName", required = true) String tagName,
+			@RequestParam(value = "period", required = true) String period,
+			@RequestParam(value = "filter", required = true) String filter,
+			HttpServletRequest request, HttpServletResponse response) {
+		try {
+			List<HashTagDetailStats> tagStats = new ArrayList<HashTagDetailStats>();
+			final TypeSearchResult filterType = TypeSearchResult
+					.getTypeSearchResult(filter);
+			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+
+			if (filterType.equals(TypeSearchResult.HASHTAG)) {
+				tagStats = getStatisticsService()
+						.getTotalUsagebyHashTagAndDateRange(tagName,
+								Integer.parseInt(period));
+			} else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
+				tagStats = getStatisticsService()
+						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
+								Integer.parseInt(period));
+			} else if (filterType.equals(TypeSearchResult.HITS)) {
+				tagStats = getStatisticsService()
+						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
+								Integer.parseInt(period));
+			} else if (filterType.equals(TypeSearchResult.VOTES)) {
+				tagStats = getStatisticsService()
+						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
+								Integer.parseInt(period));
+			}
+			jsonResponse.put("statsByRange", tagStats);
+			setItemResponse(jsonResponse);
+		} catch (Exception e) {
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
 
 	 /**
      * HashTag stats bean.

@@ -153,5 +153,16 @@ public interface IApplicationServices  extends ServiceOperations {
      * @param commentService the commentService to set
      */
     void setCommentService(final ICommentService commentService);
-
+    
+    /**
+     * 
+     * @return
+     */
+	IStatisticsService getStatisticService();
+	
+	/**
+	 * 
+	 * @param statisticService
+	 */
+	void setStatisticService(final IStatisticsService statisticService); 
 }

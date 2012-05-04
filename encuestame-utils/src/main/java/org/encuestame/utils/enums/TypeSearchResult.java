@@ -18,7 +18,7 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED,
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, 
 
     TypeSearchResult(){
 
@@ -37,6 +37,9 @@ public enum TypeSearchResult {
         else if (this == QUESTION) { type = "QUESTION"; }
         else if (this == HASHTAG) { type = "HASHTAG"; }
         else if (this == HASHTAGRATED) { type = "HASHTAGRATED"; }
+        else if (this == SOCIALNETWORK) { type = "SOCIALNETWORK"; }
+        else if (this == HITS) { type = "SOCIALNETWORK"; }
+        else if (this == VOTES) { type = "VOTES"; }
         return type;
     }
 
@@ -53,6 +56,9 @@ public enum TypeSearchResult {
         else if (type.equals(SURVEY)) { return "survey"; }
         else if (type.equals(HASHTAG)) { return "tag"; }
         else if (type.equals(HASHTAGRATED)) { return "hashtagRated"; }
+        else if (type.equals(SOCIALNETWORK)) { return "socialnetwork"; }
+        else if (type.equals(HITS)) { return "hits"; }
+        else if (type.equals(VOTES)) { return "votes"; }
         else return null;
     }
 
