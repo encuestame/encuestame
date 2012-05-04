@@ -101,9 +101,10 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	/**
 	 * 
 	 * @throws EnMeNoResultsFoundException
+	 * @throws EnMeSearchException 
 	 */
 	@Test
-	public void testGetTotalHashTagHitsbyDateRange() throws EnMeNoResultsFoundException{
+	public void testGetTotalHashTagHitsbyDateRange() throws EnMeNoResultsFoundException, EnMeSearchException{
 		final Question question = createQuestion("What is your favorite type of song?", "");
 		final HashTag tag = createHashTag("romantic");
 		final Calendar myDate = Calendar.getInstance();
@@ -111,22 +112,21 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		final TweetPoll tpoll = createPublishedTweetPoll(5L, question,
 				getSpringSecurityLoggedUserAccount());
 		tpoll.getHashTags().add(tag);
-		getTweetPoll().saveOrUpdate(tpoll);
-
+		getTweetPoll().saveOrUpdate(tpoll); 
+		
 		final TweetPoll tpoll2 = createPublishedTweetPoll(5L, question,
 				getSpringSecurityLoggedUserAccount());
 		tpoll2.getHashTags().add(tag);
-		getTweetPoll().saveOrUpdate(tpoll2);
-
+		getTweetPoll().saveOrUpdate(tpoll2); 
 		myDate.add(Calendar.MONTH, -2);
 
 		final TweetPoll tpoll3 = createPublishedTweetPoll(6L, question,
 				getSpringSecurityLoggedUserAccount());
 		tpoll3.getHashTags().add(tag);
 		tpoll3.setCreateDate(myDate.getTime());
-		getTweetPoll().saveOrUpdate(tpoll3);
-
+		getTweetPoll().saveOrUpdate(tpoll3); 
 		myDate.add(Calendar.MONTH, -4);
+		
 		final TweetPoll tpoll4 = createPublishedTweetPoll(6L, question,
 				getSpringSecurityLoggedUserAccount());
 		tpoll4.getHashTags().add(tag);
@@ -140,42 +140,58 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 				Boolean.TRUE);
 		poll1.getHashTags().add(tag);
 		getPollDao().saveOrUpdate(poll1);
-
+		 
 		final Poll poll2 = createPoll(new Date(), question,
 				getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
 				Boolean.TRUE);
 		poll2.getHashTags().add(tag);
-		getPollDao().saveOrUpdate(poll2);
-
+		getPollDao().saveOrUpdate(poll2); 
+		myDate.add(Calendar.MONTH, -10);
+		
+		// Out of range
+		final Poll poll3 = createPoll(myDate.getTime(), question,
+				getSpringSecurityLoggedUserAccount(), Boolean.TRUE,
+				Boolean.TRUE);
+		poll3.getHashTags().add(tag);
+		getPollDao().saveOrUpdate(poll3);
+		 
+		
 		// Surveys
 
 		final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
 				.getAccount());
 		survey.getHashTags().add(tag);
 		survey.setCreatedAt(new Date());
-		getSurveyDaoImp().saveOrUpdate(survey);
-
+		getSurveyDaoImp().saveOrUpdate(survey); 
 		final Survey survey2 = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
 				.getAccount());
 		survey2.getHashTags().add(tag);
 		survey2.setCreatedAt(new Date());
-		getSurveyDaoImp().saveOrUpdate(survey2);
-
+		getSurveyDaoImp().saveOrUpdate(survey2); 
+		
 		final Survey survey3 = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
 				.getAccount());
 		survey3.getHashTags().add(tag);
 		survey3.setCreatedAt(myDate.getTime());
-		getSurveyDaoImp().saveOrUpdate(survey3);
+		getSurveyDaoImp().saveOrUpdate(survey3); 
 
+		myDate.add(Calendar.MONTH, +6);
+		final Survey survey4 = createDefaultSurvey(getSpringSecurityLoggedUserAccount()
+					.getAccount());
+		survey4.getHashTags().add(tag);
+		survey4.setCreatedAt(myDate.getTime());
+		getSurveyDaoImp().saveOrUpdate(survey4); 
+			  
 		final List<HashTagDetailStats> stats = getStatisticsService()
 				.getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, 0,
 						20);
-		for (HashTagDetailStats hashTagDetailStats : stats) {
-			// System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n ");
-			// System.out.println("Label ---> " + hashTagDetailStats.getLabel()
-			// + "      Value ---> " +hashTagDetailStats.getValue());
-		}
-		Assert.assertEquals("Should be equals", 3, stats.size());
+		 
+	// for (HashTagDetailStats hashTagDetailStats : stats) {
+	//		System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n ");
+	// 			System.out.println("Label ---> " + hashTagDetailStats.getLabel()
+	// 			  + "      Value ---> " +hashTagDetailStats.getValue());
+	// }
+		Assert.assertEquals("Should be equals", 4, stats.size());
 	}
 
 	/**
@@ -330,7 +346,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		final List<HashTagDetailStats> itemStatListbyMonth = getStatisticsService()
 				.getTotalVotesbyHashTagUsageAndDateRange(
 						this.initHashTag.getHashTag(), "30");
-		Assert.assertEquals("Should be equals", 8, itemStatListbyMonth.size());
+		Assert.assertEquals("Should be equals", 7, itemStatListbyMonth.size());
 	}
 	
 	/**
@@ -364,7 +380,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		getTweetPoll().saveOrUpdate(tpSaved3);
 		
 		final List<HashTagDetailStats> detailStatsByYear = getStatisticsService().getTotalSocialLinksbyHashTagUsageAndDateRange(this.initHashTag.getHashTag(), "365");
-		Assert.assertEquals("Should be equals", 2, detailStatsByYear.size());  
+		Assert.assertEquals("Should be equals", 7, detailStatsByYear.size());  
 	}
 	
 	/**
@@ -407,7 +423,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		final List<HashTagDetailStats> detailStatsByWeek = getStatisticsService()
 				.getTotalSocialLinksbyHashTagUsageAndDateRange(
 						this.initHashTag.getHashTag(), "7");
-		Assert.assertEquals("Should be equals", 3, detailStatsByWeek.size());
+		Assert.assertEquals("Should be equals", 8, detailStatsByWeek.size());
 	}
 	 
 	/**
