@@ -16,8 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.persistence.exception.EnMeSearchException; 
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 
 /**
@@ -31,13 +30,13 @@ public interface IStatisticsService extends ServiceOperations{
 	/**
 	 * Get total usage items by hashTag and Date Range
 	 * @param hashTagName
-	 * @param period
-	 * @param startResults
-	 * @param maxResults
+	 * @param period 
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
+	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(
+			final String hashTagName, final Integer period)
+			throws EnMeNoResultsFoundException, EnMeSearchException;
 	
 	/**
 	 * 
@@ -67,6 +66,21 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param period
 	 * @return
 	 */
-	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(final String tagName, final String period) throws EnMeSearchException;
+	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(
+			final String tagName, final String period)
+			throws EnMeSearchException;
 	
+	/**
+	 * 
+	 * @param hashTagName
+	 * @param period
+	 * @param startResults
+	 * @param maxResults
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 * @throws EnMeSearchException
+	 */
+	List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRange(
+			final String hashTagName, final Integer period)
+			throws EnMeNoResultsFoundException, EnMeSearchException;
 }

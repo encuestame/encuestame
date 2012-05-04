@@ -45,6 +45,7 @@ import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.IProjectService;
 import org.encuestame.core.service.imp.IServiceManager;
+import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.imp.SearchServiceOperations;
@@ -486,6 +487,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public IFrontEndService getFrontService(){
         return getServiceManager().getApplicationServices().getFrontEndService();
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public IStatisticsService getStatisticsService(){
+        return getServiceManager().getApplicationServices().getStatisticService();
     }
 
     /**

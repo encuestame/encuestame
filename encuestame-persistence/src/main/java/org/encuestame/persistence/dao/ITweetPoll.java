@@ -317,14 +317,11 @@ public interface ITweetPoll extends IBaseDao{
 	/**
 	 * Get total tweepolls published by hashtag.
 	 * @param tagName
-	 * @param period
-	 * @param startResults
-	 * @param limit
+	 * @param period 
 	 * @return
 	 */
 	List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
-			final String tagName, final Integer period,
-			final Integer startResults, final Integer limit);  
+			final String tagName, final Integer period);  
 	
 	/**
 	 * Get social links by type( {@link Poll}, {@link TweetPoll} or {@link Survey}) and date range.

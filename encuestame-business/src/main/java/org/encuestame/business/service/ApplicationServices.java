@@ -23,6 +23,7 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.IProjectService;
+import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.imp.SearchServiceOperations;
@@ -76,6 +77,10 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     private StreamOperations streamOperations;
     @Autowired
     private ICommentService commentService;
+    
+    /** **/
+    @Autowired
+    private IStatisticsService statisticService;
 
     /**
      * @return the securityService
@@ -258,4 +263,18 @@ public class ApplicationServices extends AbstractBaseService implements IApplica
     public void setCommentService(final ICommentService commentService) {
         this.commentService = commentService;
     }
+
+	/**
+	 * @return the statisticService
+	 */
+	public IStatisticsService getStatisticService() {
+		return statisticService;
+	}
+
+	/**
+	 * @param statisticService the statisticService to set
+	 */
+	public void setStatisticService(final IStatisticsService statisticService) {
+		this.statisticService = statisticService;
+	} 
 }

@@ -36,7 +36,7 @@ import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider; 
 import org.joda.time.DateMidnight;
 import org.junit.Assert;
 import org.junit.Before;

@@ -145,24 +145,22 @@ public class TestFrontEndDao extends AbstractBase {
     	final HashTag hashTag1 = createHashTag("software2"); 
 
     	final String ipAddress1 = "192.168.1.1";
-    	final String ipAddress2 = "192.168.1.2";
-    	final String ipAddress3 = "192.168.1.3";
-    	
-    	final Calendar hi = Calendar.getInstance();  
+    	final String ipAddress2 = "192.168.1.2"; 
     	 
-    	final Hit hit1 = createHashTagHit(hashTag, ipAddress);
-    	// It created today, setted with minus 5 days. so the new date is between friday or Saturday ago
-    	myDate.add(Calendar.DATE, -5);
+    	final Hit hit1 = createHashTagHit(hashTag1, ipAddress1);
+    	final Hit hit2 = createHashTagHit(hashTag1, ipAddress2);
+    	 
     	hit1.setHitDate(myDate.getTime());
     	getTweetPoll().saveOrUpdate(hit1); 
-    	 
+    	
+    	// It created today, setted with minus 5 days. so the new date is between friday or Saturday ago
+    	// out of range
+    	myDate.add(Calendar.DATE, -9);
+    	hit2.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit2); 
+    	
     	// Retrieve hits for tag Id in the last 7 days.
-    	List<Object[]> myListObj = getFrontEndDao().getTotalHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7, 0, 20, -1);
-    	//	(hashTag1.getHashTagId(), TypeSearchResult.HASHTAG, 6, 1, 100, 0, startDate, endDate, hashTag1.getHashTagId());
-    	System.out.println("total" + myListObj.size());
-    	 /*for (Object[] objects : myListObj) {
-    		System.out.println(" Object 1 --->" + objects[0]);
-    		System.out.println(" Object 2 --->" + objects[1]);
-		} */
+    	List<Hit> myHits = getFrontEndDao().getHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7); 
+    	assertEquals("Should be equals", 1, myHits.size());
     }
 }
