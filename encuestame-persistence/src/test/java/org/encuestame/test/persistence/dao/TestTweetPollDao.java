@@ -36,7 +36,7 @@ import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider; 
 import org.joda.time.DateMidnight;
 import org.junit.Assert;
 import org.junit.Before;
@@ -643,10 +643,10 @@ public class TestTweetPollDao  extends AbstractBase{
 		tpSaved2.setPublicationDateTweet(myCalendarDate.getTime());
 		getTweetPoll().saveOrUpdate(tpSaved2);
 		assertNotNull(tpSaved2);
-		final Long tweetPollSocialLinks = getTweetPoll()
+		final List<TweetPollSavedPublishedStatus> tweetPollSocialLinks = getTweetPoll()
 				.getSocialLinksByTypeAndDateRange(tweetPoll, null, null,
-						TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);  
-		Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
+						TypeSearchResult.TWEETPOLL);  
+		Assert.assertEquals("Should be", 2, tweetPollSocialLinks.size());
 	}
 
 }
