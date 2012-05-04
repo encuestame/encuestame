@@ -7,7 +7,7 @@
         <div dojoType="encuestame.org.core.home.votes.ItemVote"
         	 voteMessage="<spring:message code="home.item.votes" />"
         	 viewMessage="<spring:message code="home.item.views" />"
-        	 votes="${item.relevance}" 
+        	 votes="${item.totalVotes}" 
         	 hits="${item.hits}"
         	 itemType="${item.itemType}"
         	 itemId="${item.id}"        	 

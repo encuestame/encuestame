@@ -402,13 +402,27 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final HttpServletRequest request){
     	Status status = Status.SUCCESS;
+    	final Long INCREASE_VOTES = 1L;
     	final String userVote = getUserPrincipalUsername();    	
     	if (EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
     		log.debug("registerVote "+userVote);
     	} else {
     		try {
 				final UserAccount userAccount = getUserAccount(userVote);	
-				log.debug("registerVote userAccount "+userAccount.getUsername());
+				if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
+					final TweetPoll tp = getTweetPollService().getTweetPollById(itemId, userVote);
+					final Long votes = tp.getNumbervotes() + INCREASE_VOTES;
+					tp.setNumbervotes(votes);
+					getTweetPollDao().saveOrUpdate(tp);
+				} else if (searchResult.equals(TypeSearchResult.POLL)) {
+					final Poll poll = getPollService().getPollById(itemId, userVote);	
+					final Long votes = poll.getNumbervotes() + INCREASE_VOTES;
+					poll.setNumbervotes(votes);
+					getPollDao().saveOrUpdate(poll);
+				} else if (searchResult.equals(TypeSearchResult.SURVEY)) {
+					//TODO: Vote a Survey.
+				} 
+				log.debug("registerVote userAccount: "+userAccount.getUsername());
 			} catch (EnMeNoResultsFoundException e) {
 				log.error(e);
 				status = Status.FAILED;
