@@ -16,8 +16,7 @@ import java.util.List;
 
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.persistence.exception.EnMeSearchException; 
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 
 /**
@@ -37,7 +36,10 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(final String hashTagName, final Integer period, final Integer startResults, final Integer maxResults) throws EnMeNoResultsFoundException;
+	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(
+			final String hashTagName, final Integer period,
+			final Integer startResults, final Integer maxResults)
+			throws EnMeNoResultsFoundException, EnMeSearchException;
 	
 	/**
 	 * 

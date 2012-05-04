@@ -1297,4 +1297,89 @@ public class ConvertDomainBean {
 		} 
 		return itemStatDetail;
 	}
+	
+	/**
+	 * 
+	 * @param tweetPoll
+	 * @return
+	 */
+	public static final ItemStatDetail convertTweetPollToItemDetailBean(
+			final TweetPoll tweetPoll) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(tweetPoll.getTweetPollId());
+		itemDetail.setDate(tweetPoll.getCreateDate());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param tpolls
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertTweetPollListToItemDetailBean(
+			final List<TweetPoll> tpolls) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (TweetPoll tweetPoll : tpolls) {
+			itemStatDetail
+					.add(ConvertDomainBean
+							.convertTweetPollToItemDetailBean(tweetPoll));
+		}
+		return itemStatDetail;
+	}
+	
+	/**
+	 * 
+	 * @param poll
+	 * @return
+	 */
+	public static final ItemStatDetail convertPollToItemDetailBean(
+			final Poll poll) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(poll.getPollId());
+		itemDetail.setDate(poll.getCreatedAt());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param polls
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertPollListToItemDetailBean(
+			final List<Poll> polls) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (Poll poll : polls) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertPollToItemDetailBean(poll));
+		}
+		return itemStatDetail;
+	}
+	
+	/**
+	 * 
+	 * @param survey
+	 * @return
+	 */
+	public static final ItemStatDetail convertSurveyToItemDetailBean(
+			final Survey survey) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(survey.getSid());
+		itemDetail.setDate(survey.getCreatedAt());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param surveys
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertSurveyListToItemDetailBean(
+			final List<Survey> surveys) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (Survey survey : surveys) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertSurveyToItemDetailBean(survey));
+		}
+		return itemStatDetail;
+	}  
 }  
