@@ -24,6 +24,9 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	
 	voteEventMessage : "Vote",
 	
+
+	voteOkMessage : "Ok !!",
+	
 	/**
 	 * Votes.
 	 */
@@ -55,11 +58,9 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	postCreate : function() {
 		dojo.connect(this.domNode, "onmouseover", dojo.hitch(this, this._displayVoteButtonIn));
 		dojo.connect(this.domNode, "onmouseout", dojo.hitch(this, this._displayVoteButtonOut));
-		var button = this._createButton();
-		//console.info("button", button);
-		button.innerHTML = "Vote";
-		dojo.addClass(button, "gradient-gray");
+		var button = this._createButton();				
 		dojo.addClass(this._button, "hidden");
+		dojo.addClass(this._loading, "hidden");
 		this._button.appendChild(button);
 	},
 	
@@ -71,7 +72,6 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 		this.stopEvent(event);				
 		dojo.removeClass(this._button, "hidden");
 		dojo.addClass(this._vote, "hidden");
-		var x = 1;
 	},
 	
 	/**
@@ -80,7 +80,11 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 */
 	_createButton : function() {
 		var button = dojo.create("button");
-		dojo.connect(button, "onclick", dojo.hitch(this, function(){
+		button.innerHTML = "Vote";
+		dojo.addClass(button, "gradient-gray");
+		var param = this;
+		dojo.connect(button, "onclick", dojo.hitch(this, function() {
+			param.clickVoteButton = true;
 			if (this.itemId !== null) {
 				this._sendVote({
 					id : this.itemId,
@@ -97,8 +101,10 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 */
 	_displayVoteButtonOut : function(event) {
 		this.stopEvent(event);
-		dojo.addClass(this._button, "hidden");
-		dojo.removeClass(this._vote, "hidden");
+		if (!this.clickVoteButton) {
+			dojo.addClass(this._button, "hidden");
+			dojo.removeClass(this._vote, "hidden");
+		}
 	},
 	
 	/**
@@ -106,21 +112,41 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 * @params {Object} params
 	 */
 	_sendVote : function(params) {
+		var param = this; 
 		var loading = {
 	      	init : function(){
-				console.debug("init");
+				dojo.addClass(param._button, "hidden");
+				dojo.removeClass(param._loading, "hidden");
 	      	}, 
 	      	end : function(){
-	      		console.debug("end");
+	      		dojo.removeClass(param._button, "hidden");
+				dojo.addClass(param._loading, "hidden");
+				delete param.clickVoteButton;
+				param.temButton = param._button;
+				param._button.innerHTML = param.voteOkMessage;
+				setTimeout(function(){
+					dojo.empty(param._button);
+					dojo.removeClass(param._vote, "hidden");
+					dojo.addClass(param._button, "hidden");					
+					var button = param._createButton();
+					param._button.appendChild(button); 
+				}, 2000);
+				//display message OK and after that display votes;
 	      	}
-		};
-		console.info("click vote"); 
+		}; 
 		var load = dojo.hitch(this, function(data) {
 			if ("success" in data) {
 				console.info("data", data);
+				var currentVote = parseInt(this._voteCounter.innerHTML),
+				newVoteCounter = currentVote + encuestame.utilities.vote;
+				this._voteCounter.innerHTML = newVoteCounter;
 			}			
 		});
-		this.callPOST(params, load, encuestame.service.list.votes.home, loading);
+		var error = dojo.hitch(this, function(data) {
+			var temp = this._voteCounter.innerHTML;
+			console.error("data error vote", data);
+		});
+		this.callPOST(params, load, encuestame.service.list.votes.home, loading, error);
 	}
 
 });

@@ -86,16 +86,18 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     },
     
     /**
-     * 
-     * @param params
-     * @param load
-     * @param service
+     * Make a POST call to backend via JSON service.
+     * @param params {Object} service's parameters
+     * @param load {Function} function to load if the request is success
+     * @param service {String} the rest ful service.
+     * @param loadingFunction {Function} overwrite the default loading
+     * @param error function to trigger a error if the request is failed
      */
-    callPOST : function(params, load, service, loadingFunction) {
-        var error = dojo.hitch(this, function(errorMessage) {
+    callPOST : function(params, load, service, loadingFunction, error) {
+        var errorFunction = (error == null  ? dojo.hitch(this, function(errorMessage) {
         	 this.infoMesage(errorMessage);
-        });
-        encuestame.service.xhrPostParam(service, params, load, error, null, loadingFunction);
+        }) : error);
+        encuestame.service.xhrPostParam(service, params, load, errorFunction, null, loadingFunction);
      },
      
      /**

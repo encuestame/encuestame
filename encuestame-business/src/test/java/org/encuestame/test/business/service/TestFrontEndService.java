@@ -35,6 +35,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
@@ -112,7 +113,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     @Test
     public void testRegisterHashTagHit() throws EnMeNoResultsFoundException{
         final Boolean registerHit = getFrontEndService().registerHit(
-                null, null, null, this.hashTag, this.ipAddress);
+                null, null, null, this.hashTag, this.ipAddress, HitCategory.VISIT);
         Assert.assertTrue(registerHit);
     }
 

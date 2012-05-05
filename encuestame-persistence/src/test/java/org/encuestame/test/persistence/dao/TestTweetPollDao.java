@@ -606,8 +606,7 @@ public class TestTweetPollDao  extends AbstractBase{
 		assertNotNull(tweetPoll2);
 
 		final List<TweetPoll> tweetPollsbyHashTag = getTweetPoll()
-				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(),
-						7, this.INIT_RESULTS, this.MAX_RESULTS);
+				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(), 7);
 		Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
 	} 
 	

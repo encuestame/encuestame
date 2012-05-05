@@ -31,7 +31,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.utils.RestFullUtil;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -39,9 +39,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
@@ -350,6 +348,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
                         } else {
                             log.error(" Search hit result type undefined " + searchHitby);
                         }
+                        //define the type of hit.
+                        criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
                         searchResult = (List<Hit>) fetchPhraseFullText(
                                 ipAddress, "ipAddress", Hit.class, criteria,
                                 new SimpleAnalyzer());
@@ -383,6 +383,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         } else {
             log.error(" Search hit result type undefined " + searchHitby);
         }
+        //define as a VISIT category
+        criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
         log.debug("Retrieve total hits by  " + searchHitby + "--->"
@@ -416,6 +418,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
 		criteria.add(Restrictions.eq("hashTag.hashTagId", tagId));
 		criteria.addOrder(Order.desc("hitDate")); 
 		criteria.add(Restrictions.between("hitDate", startDate, endDate)); 
+        //define as a VISIT category
+        criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
 		return getHibernateTemplate().findByCriteria(criteria);
 
 	}

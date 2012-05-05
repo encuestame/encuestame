@@ -125,6 +125,7 @@ encuestame.error.debug = true;
 encuestame.error.dialog = null;
 
 encuestame.utilities = {};
+encuestame.utilities.vote = 1;
 
 /*
  * create a username profile link.

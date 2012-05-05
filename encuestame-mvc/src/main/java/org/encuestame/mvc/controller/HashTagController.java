@@ -23,6 +23,7 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -97,7 +98,7 @@ public class HashTagController extends AbstractBaseOperations {
                 // TODO: Check that previous hash Tag hit has been visited the same day.
                 log.debug("hashTagVisite =>"+hashTagVisite);
                 if (!hashTagVisite) {
-                    getFrontService().registerHit(null, null, null, tag, IP);
+                    getFrontService().registerHit(null, null, null, tag, IP, HitCategory.VISIT);
                 }
                 final List<HomeBean> lastPublications = getFrontService()
                         .searchLastPublicationsbyHashTag(tag, null, this.INIT_RESULTS,

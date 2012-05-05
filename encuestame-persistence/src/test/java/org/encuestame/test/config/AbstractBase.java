@@ -95,6 +95,7 @@ import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
@@ -1973,6 +1974,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         hit.setSurvey(survey);
         hit.setTweetPoll(tweetPoll);
         hit.setHashTag(hashTag);
+        hit.setHitCategory(HitCategory.VISIT);
         getFrontEndDao().saveOrUpdate(hit);
         return hit;
     }

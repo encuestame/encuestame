@@ -257,9 +257,17 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 }
 
 .web-item-wrapper .item .stats {
-    background: none repeat scroll 0 0 #F8F8F8;
-    margin: 0 0 0 7px;
-    text-align: center;
+  background: none repeat scroll 0 0 #F8F8F8;
+  margin: 0 0 0 7px;
+  min-width: 68px;
+  text-align: center;
+}
+
+.web-item-wrapper .item .loading{
+	background-image: url(../../images/ball-loader.gif);
+	display: inline-block;
+	min-width: 16px;
+	min-height: 16px;		
 }
 
 .web-item-wrapper .item .stats .vote {

@@ -30,6 +30,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
@@ -279,7 +280,7 @@ public class TweetPollController extends AbstractSocialController {
             boolean tweetPollVisite = getFrontService().checkPreviousHit(ipAddress, tweetPoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
             // TODO: Check that previous hash Tag hit has been visited the same day.
             if (!tweetPollVisite) {
-                getFrontService().registerHit(tweetPoll, null, null, null, ipAddress);
+                getFrontService().registerHit(tweetPoll, null, null, null, ipAddress, HitCategory.VISIT);
             }
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
             final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());

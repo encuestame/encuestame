@@ -27,6 +27,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
@@ -138,7 +139,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
-            final String ip) throws EnMeNoResultsFoundException;
+            final String ip, final HitCategory hitCategory) throws EnMeNoResultsFoundException;
 
     /**
      * Register access rate.

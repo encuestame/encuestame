@@ -34,6 +34,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -400,22 +401,23 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#registerVote()
      */
-    public Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final HttpServletRequest request){
+	public Status registerVote(final Long itemId,
+			final TypeSearchResult searchResult,
+			final HttpServletRequest request) {
     	Status status = Status.SUCCESS;
     	final Long INCREASE_VOTES = 1L;
     	final String userVote = getUserPrincipalUsername();    	
-    	if (EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
-    		log.debug("registerVote "+userVote);
-    	} else {
+    	boolean anonymous = EnMeUtils.ANONYMOUS_USER.equals(userVote);
+    	log.debug("registerVote "+userVote);
     		try {
 				final UserAccount userAccount = getUserAccount(userVote);	
 				if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
-					final TweetPoll tp = getTweetPollService().getTweetPollById(itemId, userVote);
+					final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
 					final Long votes = tp.getNumbervotes() + INCREASE_VOTES;
 					tp.setNumbervotes(votes);
 					getTweetPollDao().saveOrUpdate(tp);
 				} else if (searchResult.equals(TypeSearchResult.POLL)) {
-					final Poll poll = getPollService().getPollById(itemId, userVote);	
+					final Poll poll = getPollService().getPollById(itemId);	
 					final Long votes = poll.getNumbervotes() + INCREASE_VOTES;
 					poll.setNumbervotes(votes);
 					getPollDao().saveOrUpdate(poll);
@@ -426,8 +428,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 			} catch (EnMeNoResultsFoundException e) {
 				log.error(e);
 				status = Status.FAILED;
-			}
-    	}    	
+			}    	
     	return status;
     }
 
@@ -442,7 +443,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.persistence.domain.HashTag, java.lang.String)
      */
     public Boolean registerHit(final TweetPoll tweetPoll, final Poll poll,
-            final Survey survey, final HashTag tag, final String ip)
+            final Survey survey, final HashTag tag, final String ip, final HitCategory hitCategory)
             throws EnMeNoResultsFoundException {
         final Hit hit;
         Long hitCount = 1L;
@@ -450,26 +451,26 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         // HashTag
         if (ip != null) {
             if (tag != null) {
-                hit = this.newHashTagHit(tag, ip);
+                hit = this.newHashTagHit(tag, ip, hitCategory);
                 hitCount = tag.getHits() == null ? 0L : tag.getHits()
                         + hitCount;
                 tag.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(tag);
                 register = true;
             } else if (tweetPoll != null) {
-                hit = this.newTweetPollHit(tweetPoll, ip);
+                hit = this.newTweetPollHit(tweetPoll, ip, hitCategory);
                 hitCount = tweetPoll.getHits() + hitCount;
                 tweetPoll.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(tweetPoll);
                 register = true;
             } else if (poll != null) {
-                hit = this.newPollHit(poll, ip);
+                hit = this.newPollHit(poll, ip, hitCategory);
                 hitCount = poll.getHits() + hitCount;
                 poll.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(poll);
                 register = true;
             } else if (survey != null) {
-                hit = this.newSurveyHit(survey, ip);
+                hit = this.newSurveyHit(survey, ip, hitCategory);
                 hitCount = survey.getHits() + hitCount;
                 survey.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(survey);
@@ -492,7 +493,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 
     @Transactional(readOnly = false)
     private Hit newHitItem(final TweetPoll tweetPoll, final Poll poll,
-            final Survey survey, final HashTag tag, final String ipAddress) {
+            final Survey survey, final HashTag tag, final String ipAddress, final HitCategory hitCategory) {
         final Hit hitItem = new Hit();
         hitItem.setHitDate(Calendar.getInstance().getTime());
         hitItem.setHashTag(tag);
@@ -500,6 +501,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         hitItem.setTweetPoll(tweetPoll);
         hitItem.setPoll(poll);
         hitItem.setSurvey(survey);
+        hitItem.setHitCategory(hitCategory);
         getFrontEndDao().saveOrUpdate(hitItem);
         return hitItem;
     }
@@ -512,8 +514,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @return
      */
     private Hit newTweetPollHit(final TweetPoll tweetPoll,
-            final String ipAddress) {
-        return this.newHitItem(tweetPoll, null, null, null, ipAddress);
+            final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(tweetPoll, null, null, null, ipAddress, hitCategory);
     }
 
     /**
@@ -523,8 +525,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @return
      */
-    private Hit newPollHit(final Poll poll, final String ipAddress) {
-        return this.newHitItem(null, poll, null, null, ipAddress);
+    private Hit newPollHit(final Poll poll, final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(null, poll, null, null, ipAddress, hitCategory);
     }
 
     /**
@@ -534,8 +536,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @return
      */
-    private Hit newHashTagHit(final HashTag tag, final String ipAddress) {
-        return this.newHitItem(null, null, null, tag, ipAddress);
+    private Hit newHashTagHit(final HashTag tag, final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(null, null, null, tag, ipAddress, hitCategory);
     }
 
     /**
@@ -545,8 +547,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @return
      */
-    private Hit newSurveyHit(final Survey survey, final String ipAddress) {
-        return this.newHitItem(null, null, survey, null, ipAddress);
+    private Hit newSurveyHit(final Survey survey, final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(null, null, survey, null, ipAddress, hitCategory);
     }
 
     /*

@@ -305,7 +305,7 @@ public class TestPollDao extends AbstractBase {
                 "DPMU19", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         poll2.getHashTags().add(hashtag1);
         getPollDao().saveOrUpdate(poll2);
-        final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START, this.MAX_RESULTS);
+        final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7);
         Assert.assertEquals("Should be", 2, getTotalPollsbyHashTag.size());
     }
 }

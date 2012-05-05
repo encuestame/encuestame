@@ -396,7 +396,7 @@ public class TestSurveyDao extends AbstractBase {
         mySurvey2.getHashTags().add(hashtag1);
         getSurveyDaoImp().saveOrUpdate(mySurvey2);
 
-        final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START_RESULTS, this.MAX_RESULTS);
+        final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7);
         assertEquals("Should be equals", 2, getTotalSurveysbyHashTag.size());
     }
 }
