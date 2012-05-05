@@ -18,9 +18,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.text.DecimalFormat;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
+import org.encuestame.utils.net.InetAddresses;
+import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 
 /**
  * Commons utils.
@@ -179,5 +184,28 @@ public class EnMeUtils {
         roundRelevance = relevance < 1 ? 1 : Math.round(relevance);
         log.debug(" RELEVANCE *******************************>  " + roundRelevance);
         return roundRelevance;
+    }
+    
+    /**
+     * Extract the {@link InetAddress} from {@link HttpServletRequest}. 
+     * @param request {@link HttpServletRequest}
+     * @param proxy define if the server is behind a proxy server.
+     * @return
+     */
+    public static String getIP(HttpServletRequest request, boolean proxy) {
+    	log.debug("Force Proxy Pass ["+proxy+"]");
+        String ip = "";
+        //FIXME: if your server use ProxyPass you need get IP from x-forwarder-for, we need create
+        // a switch change for ProxyPass to normal get client Id.
+        // Solution should be TOMCAT configuration.
+        log.debug("X-getHeaderNames ["+ request.getHeaderNames()+"]");
+        if (proxy) {
+            ip = XFordwardedInetAddressUtil.getAddressFromRequest(request);
+            log.debug("X-FORWARDED-FOR ["+ip+"]");
+        } else {
+        	ip = InetAddresses.forString(request.getRemoteAddr()).getHostAddress();
+        	log.debug("NON XFORWARDED IP ["+ip+"]");
+        }        
+        return ip;
     }
 }

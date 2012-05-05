@@ -9,7 +9,10 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.declare("encuestame.org.core.home.votes.ItemVote",
 		[ encuestame.org.main.EnmeMainLayoutWidget ], {
 	
-	 templatePath: dojo.moduleUrl("encuestame.org.core.home.votes", "templates/item.html"),
+	/**
+	 * Template dijit url.
+	 */
+	templatePath: dojo.moduleUrl("encuestame.org.core.home.votes", "templates/item.html"),
 
 	/**
 	 * Vote message.
@@ -21,36 +24,41 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 */
 	viewMessage : "",
 	
-	
+	/**
+	 * Button vote message.
+	 */
 	voteEventMessage : "Vote",
 	
 
+	/**
+	 * Message if vote is valid.
+	 */
 	voteOkMessage : "Ok !!",
 	
 	/**
-	 * Votes.
+	 * Message if vote is invalid.
+	 */
+	voteFailMessage : "Bad Vote !!",
+	
+	/**
+	 * Current Votes.
 	 */
 	votes : 0,
 	
 	/**
-	 * Hits.
+	 * Current Hits.
 	 */
 	hits : 0,
 	
 	 /**
-	  * 
+	  * Poll / Tpoll / Survey Id.
 	  */
 	itemId : 0,
 	
 	/**
-	 * 
+	 * Poll || TPoll || Survey
 	 */
 	itemType : "",
-	
-	 /**
-	  * 
-	  */
-	_tempNode : null,
 	
 	/**
 	 * Post create.
@@ -59,19 +67,19 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 		dojo.connect(this.domNode, "onmouseover", dojo.hitch(this, this._displayVoteButtonIn));
 		dojo.connect(this.domNode, "onmouseout", dojo.hitch(this, this._displayVoteButtonOut));
 		var button = this._createButton();				
-		dojo.addClass(this._button, "hidden");
-		dojo.addClass(this._loading, "hidden");
+		dojo.addClass(this._button, encuestame.utilities.HIDDEN_CLASS);
+		dojo.addClass(this._loading, encuestame.utilities.HIDDEN_CLASS);
 		this._button.appendChild(button);
 	},
 	
 	/**
-	 * 
+	 * Triggered on mouse over the vote box.
 	 * @param event
 	 */
 	_displayVoteButtonIn : function(event) {
 		this.stopEvent(event);				
-		dojo.removeClass(this._button, "hidden");
-		dojo.addClass(this._vote, "hidden");
+		dojo.removeClass(this._button, encuestame.utilities.HIDDEN_CLASS);
+		dojo.addClass(this._vote, encuestame.utilities.HIDDEN_CLASS);
 	},
 	
 	/**
@@ -80,8 +88,8 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 */
 	_createButton : function() {
 		var button = dojo.create("button");
-		button.innerHTML = "Vote";
-		dojo.addClass(button, "gradient-gray");
+		button.innerHTML = this.voteEventMessage;
+		dojo.addClass(button, encuestame.utilities.GRADINENT_CLASS);
 		var param = this;
 		dojo.connect(button, "onclick", dojo.hitch(this, function() {
 			param.clickVoteButton = true;
@@ -96,14 +104,14 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	},
 	
 	/**
-	 * 
+	 * Triggered on mouse out the vote.
 	 * @param event
 	 */
 	_displayVoteButtonOut : function(event) {
 		this.stopEvent(event);
 		if (!this.clickVoteButton) {
-			dojo.addClass(this._button, "hidden");
-			dojo.removeClass(this._vote, "hidden");
+			dojo.addClass(this._button, encuestame.utilities.HIDDEN_CLASS);
+			dojo.removeClass(this._vote, encuestame.utilities.HIDDEN_CLASS);
 		}
 	},
 	
@@ -114,38 +122,63 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	_sendVote : function(params) {
 		var param = this; 
 		var loading = {
-	      	init : function(){
-				dojo.addClass(param._button, "hidden");
-				dojo.removeClass(param._loading, "hidden");
+	      	init : function() {
+				// hide the button and display loadings balls 
+				dojo.addClass(param._button, encuestame.utilities.HIDDEN_CLASS);
+				dojo.removeClass(param._loading, encuestame.utilities.HIDDEN_CLASS);
 	      	}, 
-	      	end : function(){
-	      		dojo.removeClass(param._button, "hidden");
-				dojo.addClass(param._loading, "hidden");
-				delete param.clickVoteButton;
-				param.temButton = param._button;
-				param._button.innerHTML = param.voteOkMessage;
-				setTimeout(function(){
-					dojo.empty(param._button);
-					dojo.removeClass(param._vote, "hidden");
-					dojo.addClass(param._button, "hidden");					
-					var button = param._createButton();
-					param._button.appendChild(button); 
-				}, 2000);
+	      	end : function() {
+	      		// hide the loadings balls and display the button.
+	      		dojo.removeClass(param._button, encuestame.utilities.HIDDEN_CLASS);
+				dojo.addClass(param._loading, encuestame.utilities.HIDDEN_CLASS);				
 				//display message OK and after that display votes;
 	      	}
 		}; 
-		var load = dojo.hitch(this, function(data) {
-			if ("success" in data) {
-				console.info("data", data);
-				var currentVote = parseInt(this._voteCounter.innerHTML),
-				newVoteCounter = currentVote + encuestame.utilities.vote;
-				this._voteCounter.innerHTML = newVoteCounter;
-			}			
+		
+		var param = this;
+		/*
+		 * triggered after 2 seconds the user vote.
+		 * Restore to original position the vote button;
+		 */
+		var afterVote = function() {
+			dojo.empty(param._button);
+			dojo.removeClass(param._vote, encuestame.utilities.HIDDEN_CLASS);
+			dojo.addClass(param._button, encuestame.utilities.HIDDEN_CLASS);					
+			var button = param._createButton();
+			param._button.appendChild(button); 
+		};
+		
+		/*
+		 * function triggered on succesfull response.
+		 * @param {Object} data the successfull json service response
+		 */
+		var load = dojo.hitch(this, function(data) {								
+				var r = this.getDefaultResponse(data);				
+				delete this.clickVoteButton;
+				this.temButton = this._button;											
+				if (r) {
+					this._button.innerHTML = this.voteOkMessage;
+					var currentVote = parseInt(this._voteCounter.innerHTML),
+					newVoteCounter = currentVote + encuestame.utilities.vote;
+					this._voteCounter.innerHTML = newVoteCounter;
+				} else {
+					this._button.innerHTML = this.voteFailMessage;
+				}
+				//wait 2 seconds to restore the button.
+				setTimeout(afterVote, 2000);
 		});
+		
+		/*
+		 * function triggered on failed response
+		 * @param {Object} data the failed json service response 
+		 */
 		var error = dojo.hitch(this, function(data) {
-			var temp = this._voteCounter.innerHTML;
+			this._button.innerHTML = this.voteFailMessage;
+			setTimeout(afterVote, 2000);
 			console.error("data error vote", data);
 		});
+		
+		//make a POST call to server.
 		this.callPOST(params, load, encuestame.service.list.votes.home, loading, error);
 	}
 

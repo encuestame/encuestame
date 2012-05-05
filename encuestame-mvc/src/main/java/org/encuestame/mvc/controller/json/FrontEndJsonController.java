@@ -175,9 +175,7 @@ public class FrontEndJsonController extends AbstractJsonController{
     		if (status.equals(Status.SUCCESS)) {
     			setSuccesResponse();
     		} else {
-    			final HashMap<String, Object> listError = new HashMap<String, Object>();
-    			listError.put("vote", "failed");
-    			setError(listError, response);
+    			setFailedResponse();    			
     		}
 			return returnData();    	
     }

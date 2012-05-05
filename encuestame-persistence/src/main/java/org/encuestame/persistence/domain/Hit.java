@@ -29,6 +29,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -73,6 +74,9 @@ public class Hit { //TODO: Create superMapped class with Access rate.
 
     /** {@link HashTag} **/
     private HashTag hashTag;
+    
+    /** {@link UserAccount} **/
+    private UserAccount userAccount;
    
     /** {@link HitCategory} **/
     private HitCategory hitCategory;
@@ -204,4 +208,19 @@ public class Hit { //TODO: Create superMapped class with Access rate.
 	public void setHitCategory(final HitCategory hitCategory) {
 		this.hitCategory = hitCategory;
 	}
+
+	/**
+	 * @return the userAccount
+	 */
+	@ManyToOne(cascade = CascadeType.MERGE)
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+	/**
+	 * @param userAccount the userAccount to set
+	 */
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}	
 }

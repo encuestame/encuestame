@@ -86,7 +86,7 @@ public class HashTagController extends AbstractBaseOperations {
     public String tagController(ModelMap model, HttpServletRequest request,
             HttpServletResponse response, @PathVariable String name) {
         name = filterValue(name);
-        final String IP = getIpClient();
+        final String IP = getIpClient(request);
         final HashTag tag;
         try {
             tag = getFrontService().getHashTagItem(name);

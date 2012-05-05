@@ -52,6 +52,7 @@ import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -63,6 +64,8 @@ import org.encuestame.utils.captcha.ReCaptcha;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.net.InetAddresses;
+import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -235,22 +238,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        }
 
     /**
-     * Get Ip Client.
-     * @return ip
+     * Get the Host IP Address.
+     * @param 
+     * @return ip as string format.
      */
-    public String getIpClient(){
-        log.debug("Force Proxy Pass ["+this.proxyPass+"]");
-        String ip = getServletRequestAttributes().getRemoteAddr();
-        log.debug("Force Proxy Pass ["+ip+"]");
-        //FIXME: if your server use ProxyPass you need get IP from x-forwarder-for, we need create
-        // a switch change for ProxyPass to normal get client Id.
-        // Solution should be TOMCAT configuration.
-        log.debug("X-getHeaderNames ["+ getServletRequestAttributes().getHeaderNames()+"]");
-        if (this.proxyPass) {
-            ip = getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
-            log.debug("X-FORWARDED-FOR ["+ip+"]");
-        }
-        return ip;
+    public String getIpClient(final HttpServletRequest request) {
+        return EnMeUtils.getIP(request, this.proxyPass);
     }
 
     /**

@@ -126,6 +126,8 @@ encuestame.error.dialog = null;
 
 encuestame.utilities = {};
 encuestame.utilities.vote = 1;
+encuestame.utilities.GRADINENT_CLASS = "gradient-gray";
+encuestame.utilities.HIDDEN_CLASS = "hidden";
 
 /*
  * create a username profile link.

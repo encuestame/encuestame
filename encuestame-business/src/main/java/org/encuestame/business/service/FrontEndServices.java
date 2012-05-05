@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
  
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.SecurityOperations;
@@ -404,27 +405,41 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 	public Status registerVote(final Long itemId,
 			final TypeSearchResult searchResult,
 			final HttpServletRequest request) {
+
+		//FIXME: need a restrictions to avoid repeated votes  
+				
     	Status status = Status.SUCCESS;
     	final Long INCREASE_VOTES = 1L;
-    	final String userVote = getUserPrincipalUsername();    	
-    	boolean anonymous = EnMeUtils.ANONYMOUS_USER.equals(userVote);
-    	log.debug("registerVote "+userVote);
+    	final String userVote = getUserPrincipalUsername();
+    	log.debug("registerVote: "+userVote);
+		final Hit hit = new Hit();
+		hit.setHitCategory(HitCategory.VOTE);
+		hit.setIpAddress(EnMeUtils.getIP(request, EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass")));
     		try {
-				final UserAccount userAccount = getUserAccount(userVote);	
+				//vote process
 				if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
-					final TweetPoll tp = getTweetPollService().getTweetPollById(itemId);
+					final TweetPoll tp = getTweetPollService().getTweetPollPublishedById(itemId);
 					final Long votes = tp.getNumbervotes() + INCREASE_VOTES;
 					tp.setNumbervotes(votes);
+					hit.setTweetPoll(tp);
 					getTweetPollDao().saveOrUpdate(tp);
 				} else if (searchResult.equals(TypeSearchResult.POLL)) {
 					final Poll poll = getPollService().getPollById(itemId);	
 					final Long votes = poll.getNumbervotes() + INCREASE_VOTES;
 					poll.setNumbervotes(votes);
 					getPollDao().saveOrUpdate(poll);
+					hit.setPoll(poll);
 				} else if (searchResult.equals(TypeSearchResult.SURVEY)) {
 					//TODO: Vote a Survey.
-				} 
-				log.debug("registerVote userAccount: "+userAccount.getUsername());
+				}
+				//register the vote.
+				if (!EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
+					UserAccount userAccount = getUserAccount(userVote);
+					hit.setUserAccount(userAccount);
+					log.debug("registerVote by userAccount: "+userAccount.getUsername());
+				}				
+				hit.setHitDate(Calendar.getInstance().getTime());
+				getAccountDao().saveOrUpdate(hit);
 			} catch (EnMeNoResultsFoundException e) {
 				log.error(e);
 				status = Status.FAILED;

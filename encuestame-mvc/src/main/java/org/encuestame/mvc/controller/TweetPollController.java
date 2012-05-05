@@ -68,10 +68,11 @@ public class TweetPollController extends AbstractSocialController {
     @RequestMapping(value = "/tweetpoll/vote/{tweetId}", method = RequestMethod.GET)
     public String tweetPollController(
         ModelMap model,
-        @PathVariable String tweetId) {
+        @PathVariable String tweetId,
+        final HttpServletRequest req) {
         log.debug("tweetId: "+tweetId);
         String pathVote = "badTweetVote";
-        final String IP = getIpClient();
+        final String IP = getIpClient(req);
         // Check IP in BlackListFile
         final Boolean checkBannedIp = checkIPinBlackList(IP);
         log.debug("Check Banned IP----> " + checkBannedIp);
@@ -202,7 +203,7 @@ public class TweetPollController extends AbstractSocialController {
                      //model.addAttribute("message", "Tweet Not Valid.");
                  } else {
                      //save the vote.
-                     final String IP = getIpClient();
+                     final String IP = getIpClient(req);
                      log.info("IP" + IP);
                      getTweetPollService().tweetPollVote(tweetPoll, IP);
                      return "tweetVoted";
@@ -269,10 +270,11 @@ public class TweetPollController extends AbstractSocialController {
     public String detailTweetPollController(
             final ModelMap model,
             @PathVariable Long id,
-            @PathVariable String slug) {
+            @PathVariable String slug,
+            final HttpServletRequest request) {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
-        final String ipAddress = getIpClient();
+        final String ipAddress = getIpClient(request);
         try {
             slug = filterValue(slug);
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);

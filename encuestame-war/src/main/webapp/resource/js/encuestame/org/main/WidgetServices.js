@@ -61,6 +61,26 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
  		};
  		return loading;
     },
+    
+    /**
+     * Retrieve the default services response.
+     * Succesfull === {"error":{},"success":{"r":0}}
+     * or 
+     * Failed === {"error":{},"success":{"r":-1}}
+     */
+    getDefaultResponse : function(data) {
+    	if ("success" in data) {
+    		//var r = parseInt(data.success.r);
+    		var r = -1;
+    		if (r === 0) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	} else {
+    		return false;
+    	}
+    },	
 
     /*
      *

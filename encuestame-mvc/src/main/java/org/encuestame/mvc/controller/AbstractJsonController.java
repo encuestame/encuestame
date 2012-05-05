@@ -134,6 +134,15 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
         response.put("r", 0);
         setItemResponse(response);
     }
+    
+    /**
+     * Set a failed response.
+     */
+    protected void setFailedResponse(){
+        final Map<String, Object> response = new HashMap<String, Object>();
+        response.put("r", -1);
+        setItemResponse(response);
+    }
 
     /**
      * Set Item Read Store Response.
