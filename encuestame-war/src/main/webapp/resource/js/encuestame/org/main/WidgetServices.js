@@ -70,8 +70,7 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      */
     getDefaultResponse : function(data) {
     	if ("success" in data) {
-    		//var r = parseInt(data.success.r);
-    		var r = -1;
+    		var r = parseInt(data.success.r);
     		if (r === 0) {
     			return true;
     		} else {
