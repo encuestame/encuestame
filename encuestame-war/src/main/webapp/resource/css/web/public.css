@@ -2931,7 +2931,7 @@ div.profilePanel {
     min-width: 245px;
     background-color: #444444;
     right: 0px;
-    top: 35px;
+    top: 33px;
     zoom: 1;
     -moz-box-shadow: 1px 2px 3px #888888;
     -webkit-box-shadow: 1px 2px 3px #888888;
@@ -2994,8 +2994,7 @@ div.menuWrapper {
     border-radius: 0px 0px 5px 5px;
     background-color: #595959;
     max-height: 34px;
-    padding-top: 3px;
-    width: 100%;
+    width: auto;
     min-height: 33px;
 }
 
@@ -3088,32 +3087,38 @@ div ..menuWrapper .item a:hover,.menuWrapper .item .current {
 }
 
 div.menuWrapper div.leftSide {
-    float: left;
-    text-align: right;
+  float: left;
+  height: 30px;
+  padding-top: 3px;
 }
 
 div.menuWrapper div.rightSide {
-    float: right;
-    text-align: right;
+  float: right;
+  height: 33px;
+  position: relative;
+  text-align: right;
+  width: auto;
 }
 
 div.menuWrapper div.rightSide span {
-    display: inline-block;
-    margin-left: 3px;
-    margin-right: 3px;
-    overflow: auto;
-    vertical-align: middle;
-    width: 250px;
+  display: inline-block;
+  float: left;
+  margin: 0;
+  min-width: 50px;
+  width: auto;
 }
 
 /** web-profile-menu **/
+
 div.web-profile-menu {
-    color: #FFFFFF;
-    overflow: auto;
-    vertical-align: middle;
-    cursor: pointer;
-    min-width: 100px;
-    padding-top: 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  height: 25px;
+  margin-right: 10px;
+  min-width: 100px;
+  overflow: hidden;
+  padding-top: 4px;
+  vertical-align: middle;
 }
 
 div.web-profile-menu:hover {
@@ -3125,7 +3130,7 @@ div.web-profile-menu .image {
 }
 
 div.web-profile-menu .real-name {
-  margin-top: 5px;
+  margin-left: 35px;
   min-width: 119px;
   padding-right: 4px;
   text-align: center;
@@ -3135,9 +3140,12 @@ div.web-profile-menu .real-name {
 
 /** notifications **/
 .notificationWrapper {
-    line-height: 21px;
-    min-height: 22px;
-    padding: 4px;
+  height: 33px;
+  min-width: 25px;
+  padding: 0 4px;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
 }
 
 div.notificationWrapper:hover {
@@ -3150,8 +3158,8 @@ div.livePanel {
     min-height: 5px;
     width: 400px;
     background-color: #FFF;
-    right: 0px;
-    top: 37px;
+    right: 3px;
+    top: 33px;
     -moz-box-shadow: 2px 2px 5px #888888;
     -webkit-box-shadow: 2px 2px 5px #888888;
     box-shadow: 2px 2px 5px #888888;
@@ -3219,8 +3227,11 @@ div.livePanel .notificationItem .right .description {
 }
 
 div.counter {
-    color: #696868;
-    cursor: pointer;
+  color: #696868;
+  cursor: pointer;
+  left: 17px;
+  position: absolute;
+  top: 10px;
 }
 
 div.notificationWrapper div.new {

@@ -148,7 +148,7 @@
 
     <import resource="encuestame-encrypt-context.xml" />
 
-    <!-- Ehcache Configuration -->
+    <!-- Ehcache Configuration 
 
     <ehcache:annotation-driven />
 
@@ -159,4 +159,5 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation"  value="classpath:ehcache.xml"/>
     </bean>
+    -->
 </beans>
