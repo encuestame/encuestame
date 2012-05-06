@@ -52,6 +52,108 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler) {
                     switch (ioargs.xhr.status) {
                     case 403:
                         var jsonError = dojo.fromJson(ioargs.xhr.responseText);
+                        //console.info("queryObject", jsonError);
+                        message = "Application does not have permission for this action";
+                        if(!logginHandler){
+                            encuestame.error.denied(message);
+                        } else {
+                            if (!jsonError.session || jsonERror.anonymousUser) {
+                                console.info("session is expired");
+                                encuestame.error.session(encuestame.error.messages.session);
+                            }
+                        }
+                        break;
+                    case 0:
+                        message = "A network error occurred. Check that you are connected to the internet.";
+                        encuestame.error.conexion(message);
+                        break;
+                    default:
+                        message = "An unknown error occurred";
+                        encuestame.error.unknown(message, ioargs.xhr.status);
+                    }
+                }
+              },
+            handle: function(response, ioargs) {
+                //encuestame.filter.response(response);
+                var message = "";
+                //console.info(ioargs.xhr.status, error);
+                switch (ioargs.xhr.status) {
+                case 200:
+                    message = "Good request.";
+                    //if (encuestame.error.dialog != null) {
+                     //   encuestame.error.clear();
+                    //}
+                    break;
+                case 404:
+                    message = "The page you requested was not found.";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 400:
+                    message = "Bad Request";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 500:
+                    break;
+                    message = "Service temporarily unavailable.";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 407:
+                    message = "You need to authenticate with a proxy.";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 0:
+                    message = "A network error occurred. Check that you are connected to the internet.";
+                    //encuestame.error.conexion(message);
+                    break;
+                default:
+                    message = "An unknown error occurred";
+                    //encuestame.error.unknown(message, ioargs.xhr.status);
+                }
+              }
+          });
+    }
+};	
+	
+/**
+ * JSON GET call.
+ * @param {String} url
+ * @param {Object} params
+ * @param {Function} load
+ * @param {Function} error
+ * @param {Boolean} logginHandler
+ */
+encuestame.service.xhrGet = function(url, params, load, error, logginHandler) {
+    if (logginHandler == null) {
+        logginHandler = true;
+    }
+    var defaultError = function(error, ioargs){
+        console.debug("default error ", error);
+    };
+    if(error == null){
+      error = defaultError;
+      console.error("default error");
+    }
+    if (load == null || url == null || params == null) {
+        console.error("error params required.");
+    } else {
+        dojo.xhrGet({
+            url : url,
+            handleAs : "json",
+            failOk : true, //Indicates whether a request should be allowed to fail
+            //(and therefore no console error message in the event of a failure)
+            timeout : encuestame.service.timeout,
+            content: params,
+            load: load,
+            preventCache: true,
+            error: function(error, ioargs) {
+                console.info("error function", ioargs);
+                var message = "";
+                console.info(ioargs.xhr.status, error);
+                //if dialog is missing or is hide.
+                if (encuestame.error.dialog == null || !encuestame.error.dialog.open) {
+                    switch (ioargs.xhr.status) {
+                    case 403:
+                        var jsonError = dojo.fromJson(ioargs.xhr.responseText);
                         console.info("queryObject", jsonError);
                         message = "Application does not have permission for this action";
                         if(!logginHandler){
@@ -412,7 +514,7 @@ encuestame.session.activity.cookie = function(){
 /*
  * Update notification cookie info.
  */
-encuestame.session.activity.updateNot = function(t,n){
+encuestame.session.activity.updateNot = function(t,n) {
     var cokienotification = encuestame.session.activity.cookie();
     if (cokienotification) {
         cokienotification.t = t;
@@ -446,7 +548,7 @@ encuestame.date.getFormatTime = function(date, fmt){
 /**
  * Json Post Call.
  */
-encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
+encuestame.service.xhrPost = function(url, form, load, error, formEnabled) {
     //validate form param.
     formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
@@ -478,6 +580,75 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
         var deferred = dojo.xhrPost(xhrArgs);
     }
 };
+
+encuestame.service.handler = {};	
+encuestame.service.handler.serviceHander = dojo.hitch(this, function(response, ioargs) {
+    //encuestame.filter.response(response);
+    //console.info(ioargs.xhr.status, error);
+    var message = "";
+    switch (ioargs.xhr.status) {
+    case 200:
+        message = "Good request.";
+        break;
+    case 404:
+        message = "The page you requested was not found.";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 400:
+        message = "Bad Request";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 500:
+        break;
+        message = "Service temporarily unavailable.";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 407:
+        message = "You need to authenticate with a proxy.";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 0:
+        message = "A network error occurred. Check that you are connected to the internet.";
+        //encuestame.error.conexion(message);
+        break;
+    default:
+        message = "An unknown error occurred";
+        //encuestame.error.unknown(message, ioargs.xhr.status);
+    }
+});
+
+
+/**
+ * JSON GET call.
+ * @param {String} url
+ * @param {Object} params
+ * @param {Function} load
+ * @param {Function} error
+ * @param {Boolean} logginHandler
+ */
+encuestame.service.GET = function(url, params, load, error, loadingFunction) {
+    	var innerLoad = dojo.hitch(this, function(data) {
+    		loadingFunction == null ? "" : loadingFunction.end();
+    		if (dojo.isFunction(load)) {
+    			load(data);
+    		}
+    	});
+    	// initialize the loading
+        loadingFunction == null ? "" : loadingFunction.init();
+        var argsGet = {
+                url : url,
+		        handleAs : "json",
+		        failOk : true, //Indicates whether a request should be allowed to fail
+		        // (and therefore no console error message in the event of a failure)
+		        timeout : encuestame.service.timeout,
+		        content: params,
+		        load: innerLoad,
+		        preventCache: true,
+		        error: error,
+		        handle : encuestame.service.handler.serviceHander
+       }
+       dojo.xhrGet(argsGet);
+};		
 
 /**
  * xhr POST param.
@@ -615,6 +786,8 @@ encuestame.service.list.rate.stats = function(type) {
     return  encuestame.contextWidget()+"/api/common/frontend/"+type+"/stats.json";
 };
 
+encuestame.service.list.rate.buttons =	encuestame.contextWidget()+"/api/common/hashtags/stats/button.json";
+
 /**
  * Vote services.
  */
@@ -720,9 +893,9 @@ encuestame.messages = {};
             FATAL: "fatal"
  */
 encuestame.messages.pubish = function(message, type, duration) {
-    console.info("encuestame.messages.pubish", message);
-    console.info("encuestame.messages.pubish", type);
-    console.info("encuestame.messages.pubish", duration);
+    //console.info("encuestame.messages.pubish", message);
+    //console.info("encuestame.messages.pubish", type);
+    //console.info("encuestame.messages.pubish", duration);
     dojo.publish('/encuestame/message/publish', [{ message: message, type: type, duration: duration}]);
 };
 

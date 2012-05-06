@@ -21,7 +21,9 @@
     </section>
 
     <section class="web-ht-graph-wrapper emne-box">
-       <div dojoType="encuestame.org.core.commons.hashtags.HashTagGraph"></div>
+       <div dojoType="encuestame.org.core.commons.hashtags.HashTagGraph"
+       		hashtagName="${tagName.hashTagName}"
+       	></div>
     </section>
 
     <div class="web-ht-detail-wrapper">

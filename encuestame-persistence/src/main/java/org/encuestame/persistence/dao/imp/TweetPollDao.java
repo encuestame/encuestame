@@ -544,8 +544,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * .lang.String)
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> getTweetpollByHashTagName(final String tagName, final Integer startResults,
-            final Integer limit, final TypeSearchResult filterby) {
+    public List<TweetPoll> getTweetpollByHashTagName(
+    		final String tagName, 
+    		final Integer startResults,
+            final Integer limitResults, 
+            final TypeSearchResult filterby) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(TweetPoll.class)
                 .createAlias("hashTags", "hashTags")
@@ -568,7 +571,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                 criteria.addOrder(Order.desc("numbervotes"));
             }
         }
-        return getHibernateTemplate().findByCriteria(criteria, startResults, limit);
+        return (List<TweetPoll>) filterByMaxorStart(criteria, startResults, limitResults);        
     }
 
     /*

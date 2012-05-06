@@ -2883,8 +2883,10 @@ div.web-notification-list div.web-notification-list-item .date {
 }
 
 .stats-button .web-graph-sts-btt-val {
-    font-size: 26px;
-    font-weight: bold;
+  font-size: 26px;
+  font-weight: bold;
+  padding-right: 5px;
+  text-align: center;
 }
 
 .stats-button .web-graph-sts-btt-sub {

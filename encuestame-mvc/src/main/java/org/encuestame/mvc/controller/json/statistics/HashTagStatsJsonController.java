@@ -74,28 +74,31 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 	public ModelMap getHashTagButtonStats(
 			@RequestParam(value = "tagName", required = true) String tagName,
 			@RequestParam(value = "filter", required = true) String filter,
-			@RequestParam(value = "limit", required = false) Integer limit,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		try { 
 			
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			final HashTagStatsBean tagStatsBean = new HashTagStatsBean();
-			tagStatsBean.setTotalHits(getFrontService().getTotalUsageByHashTag(tagName,
-					this.INIT_RESULTS, limit,
-					TypeSearchResult.getTypeSearchResult(filter)));
-			tagStatsBean.setTotalUsageBySocialNetwork(getFrontService()
-					.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
-							limit));
-			tagStatsBean.setUsageByItem(getFrontService().getHashTagHitsbyName(tagName,
-					TypeSearchResult.getTypeSearchResult(filter)));
-			tagStatsBean.setUsageByVotes(getFrontService().getHashTagUsedOnItemsVoted(tagName, 
-					this.INIT_RESULTS, limit));
-
-			jsonResponse.put("hashTagButtonStats", tagStatsBean);
-			setItemResponse(jsonResponse);
+			final TypeSearchResult filterType = TypeSearchResult.getTypeSearchResult(filter);
+			if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
+				tagStatsBean.setTotalHits(getFrontService().getTotalUsageByHashTag(tagName,
+						this.INIT_RESULTS, null, filterType
+						));
+				tagStatsBean.setTotalUsageBySocialNetwork(getFrontService()
+						.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
+								null));
+				tagStatsBean.setUsageByItem(getFrontService().getHashTagHitsbyName(tagName,
+						filterType));
+				tagStatsBean.setUsageByVotes(getFrontService().getHashTagUsedOnItemsVoted(tagName, 
+						this.INIT_RESULTS, null));
+				jsonResponse.put("hashTagButtonStats", tagStatsBean);
+				setItemResponse(jsonResponse);
+			} else {
+				setError("filter not valid", response);
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			log.error(e);
 			setError(e.getMessage(), response);
 		}
@@ -180,7 +183,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 	@RequestMapping(value = "/api/common/hashtags/stats/button/range.json", method = RequestMethod.GET)
 	public ModelMap getHashTagButtonStatsByDateRange(
 			@RequestParam(value = "tagName", required = true) String tagName,
-			@RequestParam(value = "period", required = true) String period,
+			@RequestParam(value = "period", required = true) Integer period,
 			@RequestParam(value = "filter", required = true) String filter,
 			HttpServletRequest request, HttpServletResponse response) { 
 		try {
@@ -192,23 +195,24 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			if (filterType.equals(TypeSearchResult.HASHTAG)) {
 				tagStats = getStatisticsService()
 						.getTotalUsagebyHashTagAndDateRange(tagName,
-								Integer.parseInt(period));
+								period);
 			} else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
 				tagStats = getStatisticsService()
 						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								Integer.parseInt(period));
+								period);
 			} else if (filterType.equals(TypeSearchResult.HITS)) { 
 				tagStats = getStatisticsService()
 						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								Integer.parseInt(period));  
+								period);  
 			} else if (filterType.equals(TypeSearchResult.VOTES)) {
 				tagStats = getStatisticsService()
 						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								Integer.parseInt(period));
+								period);
 			}
 			jsonResponse.put("statsByRange", tagStats);
 			setItemResponse(jsonResponse);
 		} catch (Exception e) {
+			log.error(e);
 			setError(e.getMessage(), response);
 		}
 		return returnData();

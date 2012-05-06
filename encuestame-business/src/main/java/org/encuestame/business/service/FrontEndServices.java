@@ -1054,14 +1054,15 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.core.service.imp.IFrontEndService#getTotalUsageByHashTag
      * (java.lang.Long, java.lang.Integer, java.lang.Integer, java.lang.String)
      */
-    public Long getTotalUsageByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
+    public Long getTotalUsageByHashTag(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults,
             final TypeSearchResult filter) {
         // Validate if tag belongs to hashtag and filter isn't empty.
         Long totalUsagebyHashTag = 0L;
         final HashTag tag = getHashTagDao().getHashTagByName(tagName);
         if (tag != null) {
-
             final List<TweetPoll> tweetsbyTag = this.getTweetPollsByHashTag(
                     tagName, initResults, maxResults, filter);
             final int totatTweetPolls = tweetsbyTag.size();
