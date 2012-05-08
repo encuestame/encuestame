@@ -15,8 +15,12 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException; 
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 
 /**
@@ -83,4 +87,45 @@ public interface IStatisticsService extends ServiceOperations{
 	List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRange(
 			final String hashTagName, final Integer period)
 			throws EnMeNoResultsFoundException, EnMeSearchException;
+	
+
+    /**
+     * Get total usage {@link TweetPoll}, {@link Poll} or {@link Survey} by
+     * HashTag.
+     *
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+	HashTagDetailStats getTotalUsageByHashTag(final String tagName, final Integer initResults,
+            final Integer maxResults, final TypeSearchResult filter);
+	
+	/**
+	* Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
+	* @param tagName
+	* @param initResults
+	* @param maxResults 
+	* @return
+	*/
+	HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults);
+	
+	/**
+     * Get total hash tag hits by tag name.
+	 * @param tagName
+	 * @param filterBy
+	 * @return
+	 */
+	HashTagDetailStats getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy);
+	
+	/**
+	 * Get Total usage by hashtags on tweepolls voted.
+	 * @param tagName
+	 * @param initResults
+	 * @param max
+	 * @return
+	 */
+	HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
+		
 }

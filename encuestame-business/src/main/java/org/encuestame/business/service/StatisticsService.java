@@ -175,8 +175,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 			existItemStatDetailLabel = checkLabelExistsHashTagDetailStat(monthB
 					.toString());
 			if (!existItemStatDetailLabel) { 
-				tagDetailStats.add(createTagDetailsStats(monthB.toString(),
-						countItems));
+				tagDetailStats.add(this.createTagDetailsStats(monthB.toString(),
+						countItems, null));
 			}
 			countItems = 0L; 
 		}
@@ -224,23 +224,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 			labelValue = DateUtil.getValueCurrentDayOfTheWeek(pubDate);
 		}
 		return labelValue;
-	}
-	 
-	/**
-	 * Create hashTag details stats.
-	 *
-	 * @param label
-	 * @param value
-	 * @return
-	*/
-	private HashTagDetailStats createTagDetailsStats(final String label,
-	            final Long value) {
-		final HashTagDetailStats tagDetails = new HashTagDetailStats();
-		tagDetails.setLabel(label);
-		tagDetails.setValue(value);
-	return tagDetails;
-	}
-
+	} 
  
 	/**
 	 * Get total tweetpoll usage stats by hastag and date range.
@@ -358,4 +342,173 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		return tagDetailStats;
 
 	} 
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.IStatisticsService#getTotalUsageByHashTag
+	 * (java.lang.String, java.lang.Integer, java.lang.Integer,
+	 * org.encuestame.utils.enums.TypeSearchResult)
+	 */
+    public HashTagDetailStats getTotalUsageByHashTag(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults,
+            final TypeSearchResult filter) {
+        // Validate if tag belongs to hashtag and filter isn't empty.
+        Long totalUsagebyHashTag = 0L; 
+        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
+        if (tag != null) {
+            final List<TweetPoll> tweetsbyTag = this.getTweetPollsByHashTag(
+                    tagName, initResults, maxResults, filter);
+            final int totatTweetPolls = tweetsbyTag.size();
+            final List<Poll> pollsbyTag = this.getPollsByHashTag(tagName,
+                    initResults, maxResults, filter);
+            final int totalPolls = pollsbyTag.size();
+            final List<Survey> surveysbyTag = this.getSurveysByHashTag(tagName,
+                    initResults, maxResults, filter);
+            final int totalSurveys = surveysbyTag.size();
+            totalUsagebyHashTag = (long) (totatTweetPolls + totalPolls + totalSurveys);
+
+        }
+        final HashTagDetailStats detailStatItem4 = this.createTagDetailsStats("Usage", totalUsagebyHashTag, "times");
+        //totalUsagebyHashTag
+        return detailStatItem4;
+    }
+    
+    
+
+    public HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName,
+            final Integer initResults, final Integer maxResults) {
+        // 1- Get tweetPoll, Polls o Survey
+        Long linksbyTweetPoll = 0L;
+        Long linksbyPoll = 0L;
+        Long totalSocialLinks = 0L; 
+        linksbyTweetPoll = this.getTweetPollSocialNetworkLinksbyTag(tagName,
+                initResults, maxResults, TypeSearchResult.TWEETPOLL);
+        linksbyPoll = this.getPollsSocialNetworkLinksByTag(tagName,
+                initResults, maxResults, TypeSearchResult.POLL);
+        totalSocialLinks = linksbyTweetPoll + linksbyPoll;
+        //totalSocialLinks 
+        final HashTagDetailStats detailStatItem5 = this.createTagDetailsStats("Social Link xxx", totalSocialLinks, "Tweets");
+        return detailStatItem5;
+    }
+    
+    public HashTagDetailStats getHashTagHitsbyName(final String tagName,
+            final TypeSearchResult filterBy) { 
+        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
+        final Long hits = this.getHashTagHits(tag.getHashTagId(),
+                TypeSearchResult.HASHTAG);
+        // hits
+        final HashTagDetailStats detailStatItem3 = this.createTagDetailsStats("Visited", hits, "times");
+        return detailStatItem3;
+    }
+    
+
+    
+    public HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName,
+            final Integer initResults, final Integer maxResults) {
+        Long totalVotesbyTweetPoll = 0L;
+        Long total = 0L;
+         
+        final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName, 0, 100,
+                TypeSearchResult.HASHTAG);
+        for (TweetPoll tweetPoll : tp) {
+            totalVotesbyTweetPoll = getTweetPollDao()
+                    .getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
+            total = total + totalVotesbyTweetPoll;
+        }
+        log.debug("Total HashTag used by Tweetpoll voted: " + total);
+        final HashTagDetailStats detailStatItem2 = this.createTagDetailsStats("Used on", total, "times");
+        // total
+        return detailStatItem2;
+    }
+    
+
+    /**
+     * Get Polls by HashTag
+     *
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+    private List<Poll> getPollsByHashTag(final String tagName,
+            final Integer initResults, final Integer maxResults,
+            final TypeSearchResult filter) {
+        final List<Poll> pollsByTag = getPollDao().getPollByHashTagName(
+                tagName, initResults, maxResults, filter);
+        return pollsByTag;
+    }
+
+	/**
+     * Get polls social network links by tag.
+     *
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+	private Long getPollsSocialNetworkLinksByTag(final String tagName,
+            final Integer initResults, final Integer maxResults,
+            final TypeSearchResult filter) {
+        Long linksbyItem = 0L;
+        Long totalLinksByPoll = 0L;
+
+        final List<Poll> polls = this.getPollsByHashTag(tagName, initResults,
+                maxResults, filter);
+        for (Poll poll : polls) {
+            linksbyItem = getTweetPollDao().getSocialLinksByType(null, null,
+                    poll, TypeSearchResult.POLL);
+            totalLinksByPoll = totalLinksByPoll + linksbyItem;
+        }
+        return totalLinksByPoll;
+    }
+	
+    /**
+     * Get surveys by HashTag.
+     *
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+    private List<Survey> getSurveysByHashTag(final String tagName,
+            final Integer initResults, final Integer maxResults,
+            final TypeSearchResult filter) {
+        final List<Survey> surveysByTag = getSurveyDaoImp()
+                .getSurveysByHashTagName(tagName, initResults, maxResults,
+                        filter);
+        return surveysByTag;
+    } 
+    
+
+    /**
+     * Get tweetPolls social network links by tag.
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+	private Long getTweetPollSocialNetworkLinksbyTag(final String tagName,
+            final Integer initResults, final Integer maxResults,
+            final TypeSearchResult filter) {
+        Long linksbyItem = 0L;
+        Long totalLinksByTweetPoll = 0L;
+        final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName,
+                initResults, maxResults, filter);
+        for (TweetPoll tweetPoll : tp) {
+            // Get total value by links
+            linksbyItem = getTweetPollDao().getSocialLinksByType(tweetPoll,
+                    null, null, TypeSearchResult.TWEETPOLL);
+            totalLinksByTweetPoll = totalLinksByTweetPoll + linksbyItem;
+        }
+        return totalLinksByTweetPoll;
+    }  
+
 }

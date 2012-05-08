@@ -38,7 +38,6 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.stats.GenericStatsBean;
-import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 
 /**
@@ -201,58 +200,20 @@ public interface IFrontEndService extends ServiceOperations {
                final HashTag hashTag, final String keyword, final Integer initResults, final Integer limit,
                final String filter, final HttpServletRequest request);
 
-    /**
-     * Get total usage {@link TweetPoll}, {@link Poll} or {@link Survey} by
-     * HashTag.
-     *
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    Long getTotalUsageByHashTag(final String tagName, final Integer initResults,
-            final Integer maxResults, final TypeSearchResult filter);
 
     /**
     *
     * @param hash
     * @return
     */
-   List<LinksSocialBean> getHashTagLinks(final HashTag hash);
-   
-   /**
-    * Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
-    * @param tagName
-    * @param initResults
-    * @param maxResults 
-    * @return
-    */
-   Long getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults); 
-   
-   /**
-    * Get total hash tag hits by tag name.
-    * @param tagName
-    * @param filterBy
-    * @return
-    */
-	Long getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy);
-	
+   List<LinksSocialBean> getHashTagLinks(final HashTag hash);  
+  
 	/**
 	 * Get hashTag ranking.
 	 * @param tagName
 	 * @return 
 	 */
-	List<HashTagRankingBean> getHashTagRanking(final String tagName);
-	
-	/**
-	 * Get Total usage by hashtags on tweepolls voted.
-	 * @param tagName
-	 * @param initResults
-	 * @param max
-	 * @return
-	 */
-	Long getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
+	List<HashTagRankingBean> getHashTagRanking(final String tagName);  
 	
 	/**
 	 * Generic stats for {@link TweetPoll}, {@link Poll}, {@link Survey} or {@link HashTag}.

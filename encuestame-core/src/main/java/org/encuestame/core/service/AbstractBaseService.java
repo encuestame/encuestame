@@ -53,6 +53,7 @@ import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,36 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      */
     public AbstractBaseService() {}
 
+    
+	/**
+	 * Create hashTag details stats.
+	 *
+	 * @param label
+	 * @param value
+	 * @param subLabel
+	 * @return
+	*/
+    public HashTagDetailStats createTagDetailsStats(final String label,
+	            final Long value, final String subLabel) {
+		final HashTagDetailStats tagDetails = new HashTagDetailStats();
+		tagDetails.setLabel(label);
+		tagDetails.setValue(value);
+		tagDetails.setSubLabel(subLabel);
+	return tagDetails;
+	}
+	
+    /**
+     * Get total hash tag hits.
+     *
+     * @param id
+     * @param filterby
+     * @return
+     */
+    public Long getHashTagHits(final Long id, final TypeSearchResult filterby) {
+        final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
+                TypeSearchResult.HASHTAG);
+        return totalHashTagHits;
+	}  
 
     /**
      *

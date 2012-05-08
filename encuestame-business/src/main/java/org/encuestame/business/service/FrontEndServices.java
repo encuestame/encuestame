@@ -46,7 +46,7 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
-import org.encuestame.utils.web.stats.GenericStatsBean; 
+import org.encuestame.utils.web.stats.GenericStatsBean;  
 import org.encuestame.utils.web.stats.HashTagRankingBean; 
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1017,200 +1017,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             getPollDao().saveOrUpdate(poll);
         }
 
-    }
-
-    /**
-     * Get total hash tag hits.
-     *
-     * @param id
-     * @param filterby
-     * @return
-     */
-    private Long getHashTagHits(final Long id, final TypeSearchResult filterby) {
-        final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
-                TypeSearchResult.HASHTAG);
-        return totalHashTagHits;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getHashTagHitsbyName
-     * (java.lang.String, org.encuestame.utils.enums.TypeSearchResult)
-     */
-    public Long getHashTagHitsbyName(final String tagName,
-            final TypeSearchResult filterBy) {
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-        final Long hits = this.getHashTagHits(tag.getHashTagId(),
-                TypeSearchResult.HASHTAG);
-        return hits;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getTotalUsageByHashTag
-     * (java.lang.Long, java.lang.Integer, java.lang.Integer, java.lang.String)
-     */
-    public Long getTotalUsageByHashTag(
-    		final String tagName,
-            final Integer initResults, 
-            final Integer maxResults,
-            final TypeSearchResult filter) {
-        // Validate if tag belongs to hashtag and filter isn't empty.
-        Long totalUsagebyHashTag = 0L;
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-        if (tag != null) {
-            final List<TweetPoll> tweetsbyTag = this.getTweetPollsByHashTag(
-                    tagName, initResults, maxResults, filter);
-            final int totatTweetPolls = tweetsbyTag.size();
-            final List<Poll> pollsbyTag = this.getPollsByHashTag(tagName,
-                    initResults, maxResults, filter);
-            final int totalPolls = pollsbyTag.size();
-            final List<Survey> surveysbyTag = this.getSurveysByHashTag(tagName,
-                    initResults, maxResults, filter);
-            final int totalSurveys = surveysbyTag.size();
-            totalUsagebyHashTag = (long) (totatTweetPolls + totalPolls + totalSurveys);
-
-        }
-        return totalUsagebyHashTag;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getSocialNetworkUseByHashTag
-     * (java.lang.String, java.lang.Integer, java.lang.Integer,
-     * java.lang.String)
-     */
-
-    public Long getSocialNetworkUseByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults) {
-        // 1- Get tweetPoll, Polls o Survey
-        Long linksbyTweetPoll = 0L;
-        Long linksbyPoll = 0L;
-        Long totalSocialLinks = 0L;
-
-        linksbyTweetPoll = this.getTweetPollSocialNetworkLinksbyTag(tagName,
-                initResults, maxResults, TypeSearchResult.TWEETPOLL);
-        linksbyPoll = this.getPollsSocialNetworkLinksByTag(tagName,
-                initResults, maxResults, TypeSearchResult.POLL);
-        totalSocialLinks = linksbyTweetPoll + linksbyPoll;
-        return totalSocialLinks;
-    }
-
-    /**
-     * Get polls social network links by tag.
-     *
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    private Long getPollsSocialNetworkLinksByTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        Long linksbyItem = 0L;
-        Long totalLinksByPoll = 0L;
-
-        final List<Poll> polls = this.getPollsByHashTag(tagName, initResults,
-                maxResults, filter);
-        for (Poll poll : polls) {
-            linksbyItem = getTweetPollDao().getSocialLinksByType(null, null,
-                    poll, TypeSearchResult.POLL);
-            totalLinksByPoll = totalLinksByPoll + linksbyItem;
-        }
-        return totalLinksByPoll;
-    }
-
-    /**
-     * Get tweetPolls social network links by tag.
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    private Long getTweetPollSocialNetworkLinksbyTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        Long linksbyItem = 0L;
-        Long totalLinksByTweetPoll = 0L;
-        final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName,
-                initResults, maxResults, filter);
-        for (TweetPoll tweetPoll : tp) {
-            // Get total value by links
-            linksbyItem = getTweetPollDao().getSocialLinksByType(tweetPoll,
-                    null, null, TypeSearchResult.TWEETPOLL);
-            totalLinksByTweetPoll = totalLinksByTweetPoll + linksbyItem;
-        }
-        return totalLinksByTweetPoll;
-    }
-    
-   
-    /**
-     * Get surveys by HashTag.
-     *
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    private List<Survey> getSurveysByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        final List<Survey> surveysByTag = getSurveyDaoImp()
-                .getSurveysByHashTagName(tagName, initResults, maxResults,
-                        filter);
-        return surveysByTag;
-    }
-
-    /**
-     * Get Polls by HashTag
-     *
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    private List<Poll> getPollsByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        final List<Poll> pollsByTag = getPollDao().getPollByHashTagName(
-                tagName, initResults, maxResults, filter);
-        return pollsByTag;
-    }
-
-   
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getHashTagUsedOnItemsVoted
-     * (java.lang.String)
-     */
-    public Long getHashTagUsedOnItemsVoted(final String tagName,
-            final Integer initResults, final Integer maxResults) {
-        Long totalVotesbyTweetPoll = 0L;
-        Long total = 0L;
-        final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName, 0, 100,
-                TypeSearchResult.HASHTAG);
-        for (TweetPoll tweetPoll : tp) {
-            totalVotesbyTweetPoll = getTweetPollDao()
-                    .getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
-            total = total + totalVotesbyTweetPoll;
-        }
-        log.debug("Total HashTag used by Tweetpoll voted: " + total);
-        return total;
-    }
-
+    } 
+ 
     /*
      * (non-Javadoc)
      *
@@ -1367,10 +1175,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         genericBean.setCreatedAt(createdAt);
         return genericBean;
     }
-
-    public void retrieveHashTagGraphData() {
-
-    }
+ 
 
     /**
      * Get survey by id.
