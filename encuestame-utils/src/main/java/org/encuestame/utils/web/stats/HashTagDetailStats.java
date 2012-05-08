@@ -27,8 +27,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	
 	/** Serial **/
-	private static final long serialVersionUID = -3813516985333784846L;
- 
+	private static final long serialVersionUID = -3813516985333784846L;  
 
 	/** **/
 	@JsonProperty(value = "label")
@@ -37,6 +36,11 @@ public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	/** **/
 	@JsonProperty(value = "value")
 	private Long value;
+
+	/** **/
+	@JsonProperty(value = "sub_label")
+	private String subLabel;
+	
 
 	/**
 	 * @return the label
@@ -50,7 +54,7 @@ public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	 * @param label
 	 * the label to set
 	 */
-	public void setLabel(String label) {
+	public void setLabel(final String label) {
 		this.label = label;
 	}
 
@@ -66,8 +70,23 @@ public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	 * @param value
 	 * the value to set
 	 */
-	public void setValue(Long value) {
+	public void setValue(final Long value) {
 		this.value = value;
+	}  
+
+	/**
+	 * @return the subLabel
+	 */
+	@JsonIgnore
+	public String getSubLabel() {
+		return subLabel;
+	}
+
+	/**
+	 * @param subLabel the subLabel to set
+	 */
+	public void setSubLabel(final String subLabel) {
+		this.subLabel = subLabel;
 	}
 
 	@Override

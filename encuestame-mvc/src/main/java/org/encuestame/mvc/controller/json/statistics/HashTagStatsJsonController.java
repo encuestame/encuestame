@@ -49,10 +49,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HashTagStatsJsonController extends AbstractJsonController {
 
 	/** Log. **/
-	private Logger log = Logger.getLogger(this.getClass());
-
-	/** **/
-
+	private Logger log = Logger.getLogger(this.getClass());  
 
 	/** **/
 	private Integer INIT_RESULTS = 0;
@@ -82,15 +79,15 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			final HashTagStatsBean tagStatsBean = new HashTagStatsBean();
 			final TypeSearchResult filterType = TypeSearchResult.getTypeSearchResult(filter);
 			if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
-				tagStatsBean.setTotalHits(getFrontService().getTotalUsageByHashTag(tagName,
+				tagStatsBean.setTotalHits(getStatisticsService().getTotalUsageByHashTag(tagName,
 						this.INIT_RESULTS, null, filterType
 						));
-				tagStatsBean.setTotalUsageBySocialNetwork(getFrontService()
+				tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
 						.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
 								null));
-				tagStatsBean.setUsageByItem(getFrontService().getHashTagHitsbyName(tagName,
+				tagStatsBean.setUsageByItem(getStatisticsService().getHashTagHitsbyName(tagName,
 						filterType));
-				tagStatsBean.setUsageByVotes(getFrontService().getHashTagUsedOnItemsVoted(tagName, 
+				tagStatsBean.setUsageByVotes(getStatisticsService().getHashTagUsedOnItemsVoted(tagName, 
 						this.INIT_RESULTS, null));
 				jsonResponse.put("hashTagButtonStats", tagStatsBean);
 				setItemResponse(jsonResponse);
@@ -231,33 +228,32 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 
 		/** Total hashTags usage in Poll, Survey and TweetPoll. **/
 		@JsonProperty(value = "usage_by_item")
-		private Long usageByItem;
+		private HashTagDetailStats usageByItem;
 
 		/** Total HashTags usage in social network profiles. **/
 		@JsonProperty(value = "total_usage_by_social_network")
-		private Long totalUsageBySocialNetwork;
+		private HashTagDetailStats totalUsageBySocialNetwork;
 
 		/** Total hits. **/
 		@JsonProperty(value = "total_hits")
-		private Long totalHits;
+		private HashTagDetailStats totalHits;
 
 		/** **/
 		@JsonProperty(value = "usage_by_votes")
-		private Long usageByVotes;
+		private HashTagDetailStats usageByVotes;
 
 		/**
 		 * @return the usageByItem
 		 */
 		@JsonIgnore
-		public Long getUsageByItem() {
+		public HashTagDetailStats getUsageByItem() {
 			return usageByItem;
 		}
 
 		/**
-		 * @param usageByItem
-		 *            the usageByItem to set
+		 * @param usageByItem the usageByItem to set
 		 */
-		public void setUsageByItem(Long usageByItem) {
+		public void setUsageByItem(final HashTagDetailStats usageByItem) {
 			this.usageByItem = usageByItem;
 		}
 
@@ -265,15 +261,15 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		 * @return the totalUsageBySocialNetwork
 		 */
 		@JsonIgnore
-		public Long getTotalUsageBySocialNetwork() {
+		public HashTagDetailStats getTotalUsageBySocialNetwork() {
 			return totalUsageBySocialNetwork;
 		}
 
 		/**
-		 * @param totalUsageBySocialNetwork
-		 *            the totalUsageBySocialNetwork to set
+		 * @param totalUsageBySocialNetwork the totalUsageBySocialNetwork to set
 		 */
-		public void setTotalUsageBySocialNetwork(Long totalUsageBySocialNetwork) {
+		public void setTotalUsageBySocialNetwork(
+				final HashTagDetailStats totalUsageBySocialNetwork) {
 			this.totalUsageBySocialNetwork = totalUsageBySocialNetwork;
 		}
 
@@ -281,15 +277,14 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		 * @return the totalHits
 		 */
 		@JsonIgnore
-		public Long getTotalHits() {
+		public HashTagDetailStats getTotalHits() {
 			return totalHits;
 		}
 
 		/**
-		 * @param totalHits
-		 *            the totalHits to set
+		 * @param totalHits the totalHits to set
 		 */
-		public void setTotalHits(Long totalHits) {
+		public void setTotalHits(final HashTagDetailStats totalHits) {
 			this.totalHits = totalHits;
 		}
 
@@ -297,16 +292,15 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		 * @return the usageByVotes
 		 */
 		@JsonIgnore
-		public Long getUsageByVotes() {
+		public HashTagDetailStats getUsageByVotes() {
 			return usageByVotes;
 		}
 
 		/**
-		 * @param usageByVotes
-		 *            the usageByVotes to set
+		 * @param usageByVotes the usageByVotes to set
 		 */
-		public void setUsageByVotes(Long usageByVotes) {
+		public void setUsageByVotes(final HashTagDetailStats usageByVotes) {
 			this.usageByVotes = usageByVotes;
-		}
+		}   
 	}
 } 
