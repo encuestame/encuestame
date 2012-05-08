@@ -268,7 +268,6 @@ public class TestPollDao extends AbstractBase {
                 "DPMU14", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         poll3.getHashTags().add(hashtag3);
         getPollDao().saveOrUpdate(poll3);
-
         final List<Poll> totalUsagePoll = getPollDao().getPollByHashTagName(
                 hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
 

@@ -1232,7 +1232,6 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         Integer positionBefore;
         Integer positionAfter;
         log.debug("Hashtag ranking list --->" + hashTagRankListSize);
-
         for (int i = 0; i < hashTagRankingList.size(); i++) {
             if (hashTagRankingList.get(i).getHashTag().getHashTag()
                     .equals(tagName)) {

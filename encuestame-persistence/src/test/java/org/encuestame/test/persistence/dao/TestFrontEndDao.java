@@ -132,8 +132,8 @@ public class TestFrontEndDao extends AbstractBase {
         createTweetPollSavedPublishedStatus(tp2, "432d123432532", null, "test tweettxt c cxz");
         List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(this.hashTag, null, null, null, null,
-                        TypeSearchResult.TypeSearchResult.HASHTAG);
-        assertEquals("Should be equals", 2, links.size());
+                        TypeSearchResult.HASHTAG);
+        assertEquals("Should be equals", 4, links.size());
     }
     
     /**

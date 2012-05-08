@@ -409,7 +409,10 @@ public class TestTweetPollDao  extends AbstractBase{
         getTweetPoll().saveOrUpdate(tweetPoll1);
         getTweetPoll().saveOrUpdate(tweetPoll2);
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagName(this.hashTag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAGRATED);
+		final List<TweetPoll> tweetPolls2 = getTweetPoll()
+				.getTweetpollByHashTagName(this.hashTag1.getHashTag(),
+						this.INIT_RESULTS, this.MAX_RESULTS,
+						TypeSearchResult.HASHTAGRATED);
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 

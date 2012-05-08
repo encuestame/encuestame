@@ -107,11 +107,15 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @param start start.
       * @return
       */
-     public List<?> filterByMaxorStart(final DetachedCriteria criteria, final Integer maxResults,
-             final Integer start){
+     public List<?> filterByMaxorStart(final DetachedCriteria criteria,
+    		 final Integer maxResults,
+             final Integer start) {          
+          //if (maxResults == 0) {
+        	//  log.warn("Max Results === 0 ??");          
+          //}
           @SuppressWarnings("rawtypes")
-        List<?> results = new ArrayList();
-          if(maxResults != null && start != null){
+          List<?> results = new ArrayList();
+          if (maxResults != null && start != null) {
               results = getHibernateTemplate().findByCriteria(criteria, start, maxResults);
           } else {
               results = getHibernateTemplate().findByCriteria(criteria);

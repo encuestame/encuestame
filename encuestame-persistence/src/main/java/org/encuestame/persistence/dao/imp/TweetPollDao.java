@@ -571,7 +571,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                 criteria.addOrder(Order.desc("numbervotes"));
             }
         }
-        return (List<TweetPoll>) filterByMaxorStart(criteria, startResults, limitResults);        
+        return (List<TweetPoll>) filterByMaxorStart(criteria, limitResults, startResults);        
     }
 
     /*

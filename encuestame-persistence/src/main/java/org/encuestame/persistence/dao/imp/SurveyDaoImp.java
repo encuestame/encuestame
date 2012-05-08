@@ -424,7 +424,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
               criteria.addOrder(Order.desc("numbervotes"));
         }
-        return (List<Survey>) filterByMaxorStart(criteria, startResults, limitResults);
+        return (List<Survey>) filterByMaxorStart(criteria, limitResults, startResults);
     }
 
 	/*
