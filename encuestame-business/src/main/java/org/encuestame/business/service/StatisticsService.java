@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IStatisticsService;
@@ -31,6 +33,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.HashTagRate;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
@@ -318,10 +321,13 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		return tagDetailStats; 
     }  
     
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IStatisticsService#getTotalHitsUsagebyHashTagAndDateRange(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Integer)
-     */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.encuestame.core.service.imp.IStatisticsService#
+	 * getTotalHitsUsagebyHashTagAndDateRange(java.lang.String,
+	 * java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 */
 	public List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRange(
 			final String hashTagName, final Integer period)
 			throws EnMeNoResultsFoundException, EnMeSearchException {
@@ -355,7 +361,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     		final String tagName,
             final Integer initResults, 
             final Integer maxResults,
-            final TypeSearchResult filter) {
+            final TypeSearchResult filter, final HttpServletRequest request) {
         // Validate if tag belongs to hashtag and filter isn't empty.
         Long totalUsagebyHashTag = 0L; 
         final HashTag tag = getHashTagDao().getHashTagByName(tagName);
@@ -372,15 +378,19 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
             totalUsagebyHashTag = (long) (totatTweetPolls + totalPolls + totalSurveys);
 
         }
-        final HashTagDetailStats detailStatItem4 = this.createTagDetailsStats("Usage", totalUsagebyHashTag, "times");
-        //totalUsagebyHashTag
-        return detailStatItem4;
-    }
+        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_HITS, totalUsagebyHashTag, HashTagRate.SUB_LBL_TIMES, request); 
+        return detailStatItem;
+    } 
     
-    
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.encuestame.core.service.imp.IStatisticsService#
+	 * getSocialNetworkUseByHashTag(java.lang.String, java.lang.Integer,
+	 * java.lang.Integer, javax.servlet.http.HttpServletRequest)
+	 */
     public HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults) {
+            final Integer initResults, final Integer maxResults, final HttpServletRequest request) {
         // 1- Get tweetPoll, Polls o Survey
         Long linksbyTweetPoll = 0L;
         Long linksbyPoll = 0L;
@@ -389,26 +399,38 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
                 initResults, maxResults, TypeSearchResult.TWEETPOLL);
         linksbyPoll = this.getPollsSocialNetworkLinksByTag(tagName,
                 initResults, maxResults, TypeSearchResult.POLL);
-        totalSocialLinks = linksbyTweetPoll + linksbyPoll;
-        //totalSocialLinks 
-        final HashTagDetailStats detailStatItem5 = this.createTagDetailsStats("Social Link xxx", totalSocialLinks, "Tweets");
-        return detailStatItem5;
+        totalSocialLinks = linksbyTweetPoll + linksbyPoll; 
+        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_SOCIAL_NETWORK, totalSocialLinks, HashTagRate.SUB_LBL_TWEETS, request);
+        return detailStatItem;
     }
     
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.IStatisticsService#getHashTagHitsbyName
+	 * (java.lang.String, org.encuestame.utils.enums.TypeSearchResult,
+	 * javax.servlet.http.HttpServletRequest)
+	 */
     public HashTagDetailStats getHashTagHitsbyName(final String tagName,
-            final TypeSearchResult filterBy) { 
+            final TypeSearchResult filterBy, final HttpServletRequest request) { 
         final HashTag tag = getHashTagDao().getHashTagByName(tagName);
         final Long hits = this.getHashTagHits(tag.getHashTagId(),
-                TypeSearchResult.HASHTAG);
-        // hits
-        final HashTagDetailStats detailStatItem3 = this.createTagDetailsStats("Visited", hits, "times");
-        return detailStatItem3;
-    }
-    
+                TypeSearchResult.HASHTAG); 
+        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_USAGE, hits, HashTagRate.SUB_LBL_TIMES, request);
+        return detailStatItem;
+    } 
 
-    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.IStatisticsService#getHashTagUsedOnItemsVoted
+	 * (java.lang.String, java.lang.Integer, java.lang.Integer,
+	 * javax.servlet.http.HttpServletRequest)
+	 */
     public HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName,
-            final Integer initResults, final Integer maxResults) {
+            final Integer initResults, final Integer maxResults, final HttpServletRequest request) {
         Long totalVotesbyTweetPoll = 0L;
         Long total = 0L;
          
@@ -420,11 +442,9 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
             total = total + totalVotesbyTweetPoll;
         }
         log.debug("Total HashTag used by Tweetpoll voted: " + total);
-        final HashTagDetailStats detailStatItem2 = this.createTagDetailsStats("Used on", total, "times");
-        // total
-        return detailStatItem2;
-    }
-    
+        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_VOTES, total, HashTagRate.SUB_LBL_VOTES, request);
+        return detailStatItem;
+    } 
 
     /**
      * Get Polls by HashTag
@@ -466,7 +486,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
             totalLinksByPoll = totalLinksByPoll + linksbyItem;
         }
         return totalLinksByPoll;
-    }
+    }  
 	
     /**
      * Get surveys by HashTag.
@@ -484,9 +504,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
                 .getSurveysByHashTagName(tagName, initResults, maxResults,
                         filter);
         return surveysByTag;
-    } 
+    }   
     
-
     /**
      * Get tweetPolls social network links by tag.
      * @param tagName
@@ -510,5 +529,25 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         }
         return totalLinksByTweetPoll;
     }  
+	
+	/**
+	 * Create {@link HashTagDetailStats} for {@link HashTag} stats button.
+	 * @param label
+	 * @param value
+	 * @param subLabel
+	 * @param request
+	 * @return
+	 */
+	private HashTagDetailStats createHashTagDetailButtonStats(
+			final HashTagRate label, final Long value,
+			final HashTagRate subLabel, final HttpServletRequest request) {
+		final HashTagDetailStats tagDetails = new HashTagDetailStats();
+		tagDetails.setLabel(this.convertHashTagRateLabelMessage(label, request,
+				new Object[] {}));
+		tagDetails.setValue(value);
+		tagDetails.setSubLabel(this.convertHashTagRateLabelMessage(subLabel,
+				request, new Object[] {}));
 
+		return tagDetails;
+	} 
 }

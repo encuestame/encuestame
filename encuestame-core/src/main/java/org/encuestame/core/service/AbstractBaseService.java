@@ -46,6 +46,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.enums.HashTagRate;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
@@ -107,6 +108,41 @@ public abstract class AbstractBaseService extends AbstractDataSource {
 		tagDetails.setValue(value);
 		tagDetails.setSubLabel(subLabel);
 	return tagDetails;
+	}
+    
+    /**
+     * 
+     * @param tagRate
+     * @param request
+     * @param objects
+     * @return
+     */
+	public String convertHashTagRateLabelMessage(final HashTagRate tagRate,
+			final HttpServletRequest request, final Object[] objects) {
+		String message = null;
+		if (tagRate.equals(HashTagRate.LBL_USAGE)) {
+			message = getMessage("hashtag.stats.usage.label.hits", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.LBL_HITS)) {
+			message = getMessage("hashtag.stats.usage.label.visited", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.LBL_VOTES)) {
+			message = getMessage("hashtag.stats.usage.label.voted", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.LBL_SOCIAL_NETWORK)) {
+			message = getMessage("hashtag.stats.usage.label.social", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SUB_LBL_TIMES)) {
+			message = getMessage("hashtag.stats.usage.sublabel.times", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SUB_LBL_TWEETS)) {
+			message = getMessage("hashtag.stats.usage.sublabel.tweets",
+					request, null);
+		} else if (tagRate.equals(HashTagRate.SUB_LBL_VOTES)) {
+			message = getMessage("hashtag.stats.usage.sublabel.votes", request,
+					null);
+		}
+		return message;
 	}
 	
     /**

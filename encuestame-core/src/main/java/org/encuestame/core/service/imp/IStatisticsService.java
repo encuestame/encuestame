@@ -14,6 +14,8 @@ package org.encuestame.core.service.imp;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.core.service.ServiceOperations;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -100,32 +102,35 @@ public interface IStatisticsService extends ServiceOperations{
      * @return
      */
 	HashTagDetailStats getTotalUsageByHashTag(final String tagName, final Integer initResults,
-            final Integer maxResults, final TypeSearchResult filter);
+            final Integer maxResults, final TypeSearchResult filter, final HttpServletRequest request);
 	
 	/**
-	* Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
-	* @param tagName
-	* @param initResults
-	* @param maxResults 
-	* @return
-	*/
-	HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults);
+	 * Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
+	 * @param tagName
+	 * @param initResults
+	 * @param maxResults
+	 * @param request
+	 * @return
+	 */
+	HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults, final HttpServletRequest request);
 	
 	/**
      * Get total hash tag hits by tag name.
 	 * @param tagName
 	 * @param filterBy
+	 * @param request
 	 * @return
 	 */
-	HashTagDetailStats getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy);
+	HashTagDetailStats getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy, final HttpServletRequest request);
 	
 	/**
 	 * Get Total usage by hashtags on tweepolls voted.
 	 * @param tagName
 	 * @param initResults
 	 * @param max
+	 * @param request
 	 * @return
 	 */
-	HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
+	HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max, final HttpServletRequest request);
 		
 }
