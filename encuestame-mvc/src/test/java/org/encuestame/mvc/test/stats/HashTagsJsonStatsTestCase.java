@@ -126,23 +126,29 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         // 2- Call Json service
         initService("/api/common/hashtags/stats/button.json", MethodJson.GET);
         setParameter("tagName", "romantic");
-        setParameter("filter", "HASHTAG");
+        setParameter("filter", "HASHTAGRATED");
         setParameter("limit", "30");
 
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONObject buttonStats = (JSONObject) success.get("hashTagButtonStats");
-        log.debug("Showing stats usage" +  buttonStats.get("usage_by_item").toString());
-        Assert.assertEquals(buttonStats.get("usage_by_item").toString(), "5");
+       
+        final JSONObject usage = (JSONObject) buttonStats.get("usage_by_item");
+        final JSONObject social = (JSONObject) buttonStats.get("total_usage_by_social_network");
+        final JSONObject visits = (JSONObject) buttonStats.get("total_hits");
+        final JSONObject votes = (JSONObject) buttonStats.get("usage_by_votes");
+          
+        log.debug("Showing stats usage" +  usage.get("value").toString());
+        Assert.assertEquals(usage.get("value").toString(), "5");
 
-        log.debug("Showing stats usage by social network links" +  buttonStats.get("total_usage_by_social_network").toString());
-        Assert.assertEquals(buttonStats.get("total_usage_by_social_network").toString(), "1");
+        log.debug("Showing stats usage by social network links" +  social.get("value").toString());
+        Assert.assertEquals(social.get("value").toString(), "1");
 
-        log.debug("Showing stats usage by item(HashTag)" +  buttonStats.get("total_hits").toString());
-        Assert.assertEquals(buttonStats.get("total_hits").toString(), "3");
+        log.debug("Showing stats usage by item(HashTag)" +  visits.get("value").toString());
+        Assert.assertEquals(visits.get("value").toString(), "3");
 
-        log.debug("Showing stats usage by item(HashTag)" +  buttonStats.get("usage_by_votes").toString());
-        Assert.assertEquals(buttonStats.get("usage_by_votes").toString(), "4");
+        log.debug("Showing stats usage by item(HashTag)" +  usage.get("value").toString());
+        Assert.assertEquals(votes.get("value").toString(), "4");
     }
 
     /**

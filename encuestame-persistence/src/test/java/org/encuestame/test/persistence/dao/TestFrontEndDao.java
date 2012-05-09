@@ -125,6 +125,7 @@ public class TestFrontEndDao extends AbstractBase {
                 this.secondary);
         tp1.getHashTags().add(this.hashTag);
         getTweetPoll().saveOrUpdate(tp1);
+        tp2.getHashTags().add(this.hashTag);
         getTweetPoll().saveOrUpdate(tp2);
         createTweetPollSavedPublishedStatus(tp1, "432432532", null, "test tweettxt dad");
         createTweetPollSavedPublishedStatus(tp2, "43243sa2532", null, "test tweettxt fdsc");

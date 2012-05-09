@@ -25,6 +25,7 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -452,6 +453,139 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		Assert.assertEquals("Should be equals", 8, detailStatsByWeek.size());
 	}
 	 
+    /**
+     * Test Get total usage by hashTag.
+     */
+    @Test
+    public void testGetTotalUsageByHashTag() {
+        final Account account = createAccount();
+        final HashTag hashtag1 = createHashTag("romantic");
+
+        final Question question = createQuestion("What is your favorite type of movies?", "");
+        final Date myDate = new Date();
+        // TweetPoll
+        final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+        tp.getHashTags().add(hashtag1);
+        getTweetPoll().saveOrUpdate(tp);
+
+        // Poll
+        final Poll poll = createPoll(myDate, question, this.secondary,
+                Boolean.TRUE, Boolean.TRUE);
+        poll.getHashTags().add(hashtag1);
+        getPollDao().saveOrUpdate(poll);
+
+        // Poll 2
+        final Question question2 = createQuestion("What is your favorite type of music?", "");
+         final Poll poll2 = createPoll(myDate, question2, this.secondary,
+                Boolean.TRUE, Boolean.TRUE);
+        poll2.getHashTags().add(hashtag1);
+        getPollDao().saveOrUpdate(poll2);
+
+        // Survey
+        final Survey mySurvey = createDefaultSurvey(account, "Survey test",
+                myDate);
+        mySurvey.getHashTags().add(hashtag1);
+        getSurveyDaoImp().saveOrUpdate(mySurvey);
+
+        // Total usage TweetPoll, Poll and Survey by tagId
+        //final Long totalUsage = getStatisticsService().getTotalUsageByHashTag(
+        //       hashtag1.getHashTag(), 0, 10, TypeSearchResult.HASHTAG);
+
+        // Assert.assertEquals("Should be equals", 4, totalUsage.intValue());
+
+    }
+
+    /**
+     * Test get social network by hash tag.
+     */
+    @Test
+    public void testGetSocialNetworkUseByHashTag(){
+        final HashTag hashtag1 = createHashTag("romantic");
+        final Question question = createQuestion("What is your favorite type of movies?", "");
+        final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+        tp.getHashTags().add(hashtag1);
+        getTweetPoll().saveOrUpdate(tp);
+        final TweetPoll tp2 = createPublishedTweetPoll(question, this.secondary);
+        tp2.getHashTags().add(hashtag1);
+        getTweetPoll().saveOrUpdate(tp2);
+
+        ///
+        final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+        assertNotNull(socialAccount);
+        final String tweetContent = "Tweet content text";
+        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+                tp, " ", socialAccount, tweetContent);
+
+        tpSaved.setApiType(SocialProvider.TWITTER);
+        getTweetPoll().saveOrUpdate(tpSaved);
+        assertNotNull(tpSaved);
+
+        final TweetPollSavedPublishedStatus tpSaved2= createTweetPollSavedPublishedStatus(
+                tp, " ", socialAccount, tweetContent);
+        tpSaved2.setApiType(SocialProvider.FACEBOOK);
+        getTweetPoll().saveOrUpdate(tpSaved2);
+        assertNotNull(tpSaved2);
+
+        final Poll poll1 = createPoll(new Date(), question,
+                "DPMU123", this.secondary, Boolean.TRUE, Boolean.TRUE);
+        poll1.getHashTags().add(hashtag1);
+        getPollDao().saveOrUpdate(poll1);
+
+        final TweetPollSavedPublishedStatus pollSaved1 = createPollSavedPublishedStatus(
+                poll1, " ", socialAccount, tweetContent);
+        pollSaved1.setApiType(SocialProvider.TWITTER);
+        getPollDao().saveOrUpdate(pollSaved1);
+        assertNotNull(pollSaved1);
+
+        // final Long total = getStatisticsService().getSocialNetworkUseByHashTag(hashtag1.getHashTag(), 0, 10);
+        // Assert.assertEquals("Should be equals", 3, total.intValue());
+
+    }
+     
+    /**
+     * Test total hashTag used on items voted.
+     */
+    @Test
+    public void testGetHashTagUsedOnItemsVoted(){
+        final HashTag hashtag1 = createHashTag("season");
+        final Question question = createQuestion("What is your favorite season?", "");
+        final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
+        tp.getHashTags().add(hashtag1);
+        getTweetPoll().saveOrUpdate(tp);
+
+        // Item 2
+        final Question question2 = createQuestion("What is your favorite holidays?", "");
+        final TweetPoll tp2 = createPublishedTweetPoll(question2, this.secondary);
+        tp2.getHashTags().add(hashtag1);
+        getTweetPoll().saveOrUpdate(tp2);
+
+        final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "7891011");
+        final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "7891012");
+
+        final QuestionAnswer questionsAnswers3 = createQuestionAnswer("yes", question2, "11121314");
+        final QuestionAnswer questionsAnswers4 = createQuestionAnswer("no", question2, "11121315");
+
+        final TweetPollSwitch tpollSwitch1 = createTweetPollSwitch(questionsAnswers1, tp);
+        final TweetPollSwitch tpollSwitch2 = createTweetPollSwitch(questionsAnswers2, tp);
+
+        final TweetPollSwitch tpollSwitch3 = createTweetPollSwitch(questionsAnswers3, tp2);
+        final TweetPollSwitch tpollSwitch4 = createTweetPollSwitch(questionsAnswers4, tp2);
+
+        // TweetPoll 1 votes.
+        createTweetPollResult(tpollSwitch1, "192.168.0.1");
+        createTweetPollResult(tpollSwitch1, "192.168.0.2");
+        createTweetPollResult(tpollSwitch2, "192.168.0.3");
+        createTweetPollResult(tpollSwitch2, "192.168.0.4");
+
+        // TweetPoll 2 votes.
+        createTweetPollResult(tpollSwitch3, "192.168.0.5");
+        createTweetPollResult(tpollSwitch4, "192.168.0.6");
+
+        //  final Long totalTweetPollsVoted = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
+        // Assert.assertEquals("Should be equals", 6, totalTweetPollsVoted.intValue());
+    }
+
+    
 	/**
 	 * @return the statisticsService
 	 */
