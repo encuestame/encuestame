@@ -110,14 +110,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
 	return tagDetails;
 	}
     
-    /**
-     * 
-     * @param tagRate
-     * @param request
-     * @param objects
-     * @return
-     */
-	public String convertHashTagRateLabelMessage(final HashTagRate tagRate,
+    public String convertHashTagButtonStatsLabel(final HashTagRate tagRate,
 			final HttpServletRequest request, final Object[] objects) {
 		String message = null;
 		if (tagRate.equals(HashTagRate.LBL_USAGE)) {
@@ -142,6 +135,78 @@ public abstract class AbstractBaseService extends AbstractDataSource {
 			message = getMessage("hashtag.stats.usage.sublabel.votes", request,
 					null);
 		}
+		return message;
+	}
+    
+    /**
+     * 
+     * @param tagRate
+     * @param request
+     * @param objects
+     * @return
+     */
+	public String convertHashTagDataRangeLabelMessage(final HashTagRate tagRate,
+			final HttpServletRequest request, final Object[] objects) {
+		String message = null;
+		if (tagRate.equals(HashTagRate.JANUARY)) {
+			message = getMessage("hashtag.stats.range.label.month.january", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.FEBRUARY)) {
+			message = getMessage("hashtag.stats.range.label.month.february", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.MARCH)) {
+			message = getMessage("hashtag.stats.range.label.month.march", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.APRIL)) {
+			message = getMessage("hashtag.stats.range.label.month.april", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.MAY)) {
+			message = getMessage("hashtag.stats.range.label.month.may", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.JUNE)) {
+			message = getMessage("hashtag.stats.range.label.month.june",
+					request, null);
+		} else if (tagRate.equals(HashTagRate.JULY)) {
+			message = getMessage("hashtag.stats.range.label.month.july", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.AUGUST)) {
+			message = getMessage("hashtag.stats.range.label.month.august", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SEPTEMBER)) {
+			message = getMessage("hashtag.stats.range.label.month.september", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.OCTOBER)) {
+			message = getMessage("hashtag.stats.range.label.month.october", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.NOVEMBER)) {
+			message = getMessage("hashtag.stats.range.label.month.november", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.DECEMBER)) {
+			message = getMessage("hashtag.stats.range.label.month.december", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.MONDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.monday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.TUESDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.tuesday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.WEDNESDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.wednesday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.THURSDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.thursday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.FRIDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.friday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SATURDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.saturday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SUNDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.sunday", request,
+					null);
+		}
+		
 		return message;
 	}
 	

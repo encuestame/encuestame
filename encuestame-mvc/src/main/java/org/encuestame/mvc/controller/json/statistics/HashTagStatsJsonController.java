@@ -192,19 +192,19 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			if (filterType.equals(TypeSearchResult.HASHTAG)) {
 				tagStats = getStatisticsService()
 						.getTotalUsagebyHashTagAndDateRange(tagName,
-								period);
+								period, request);
 			} else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
 				tagStats = getStatisticsService()
-						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								period);
+						.getTotalSocialLinksbyHashTagUsageAndDateRange(tagName,
+								period, request);
 			} else if (filterType.equals(TypeSearchResult.HITS)) { 
 				tagStats = getStatisticsService()
 						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								period);  
+								period, request);  
 			} else if (filterType.equals(TypeSearchResult.VOTES)) {
 				tagStats = getStatisticsService()
-						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								period);
+						.getTotalVotesbyHashTagUsageAndDateRange(tagName,
+								period, request);
 			}
 			jsonResponse.put("statsByRange", tagStats);
 			setItemResponse(jsonResponse);

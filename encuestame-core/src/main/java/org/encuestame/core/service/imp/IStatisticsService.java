@@ -36,12 +36,13 @@ public interface IStatisticsService extends ServiceOperations{
 	/**
 	 * Get total usage items by hashTag and Date Range
 	 * @param hashTagName
-	 * @param period 
+	 * @param period
+	 * @param request
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
 	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(
-			final String hashTagName, final Integer period)
+			final String hashTagName, final Integer period, final HttpServletRequest request)
 			throws EnMeNoResultsFoundException, EnMeSearchException;
 	
 	/**
@@ -62,32 +63,35 @@ public interface IStatisticsService extends ServiceOperations{
 	 * Get total votes by hashTag usage and Tweetpolls.
 	 * @param tagName
 	 * @param period
+	 * @param request
 	 * @return
 	 */
-	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(final String tagName, final String period) throws EnMeSearchException;
+	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(
+			final String tagName, final Integer period,
+			final HttpServletRequest request) throws EnMeSearchException;
 	
 	/**
 	 * 
 	 * @param tagName
 	 * @param period
+	 * @param request
 	 * @return
 	 */
 	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(
-			final String tagName, final String period)
+			final String tagName, final Integer period, final HttpServletRequest request)
 			throws EnMeSearchException;
 	
 	/**
 	 * 
 	 * @param hashTagName
 	 * @param period
-	 * @param startResults
-	 * @param maxResults
+	 * @param request 
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 * @throws EnMeSearchException
 	 */
 	List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRange(
-			final String hashTagName, final Integer period)
+			final String hashTagName, final Integer period, final HttpServletRequest request)
 			throws EnMeNoResultsFoundException, EnMeSearchException;
 	
 
