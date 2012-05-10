@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import junit.framework.Assert;
 
@@ -36,11 +37,13 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Test Statistics Service.
@@ -78,6 +81,13 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
     /** **/
     private Calendar pollingDate = Calendar.getInstance();
     
+    
+    /**
+     * Mock HttpServletRequest.
+     */
+    MockHttpServletRequest request;
+    
+    
     /**
      * 
      */
@@ -98,6 +108,11 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		createTweetPollResult(initTweetPollSwicht, "192.168.0.1");
 		createTweetPollResult(initTweetPollSwicht, "192.168.0.2");
 		this.initSocialAccount = createDefaultSettedSocialAccount(this.secondary);
+		
+		request = new MockHttpServletRequest();
+		request.addPreferredLocale(Locale.ENGLISH);
+	       
+		
     }
      
 	/**
@@ -185,13 +200,14 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		getSurveyDaoImp().saveOrUpdate(survey4); 
 			  
 		final List<HashTagDetailStats> stats = getStatisticsService()
-				.getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365);
+				.getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, this.request);
 		 
-	// for (HashTagDetailStats hashTagDetailStats : stats) {
-	//		System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n ");
-	// 			System.out.println("Label ---> " + hashTagDetailStats.getLabel()
-	// 			  + "      Value ---> " +hashTagDetailStats.getValue());
-	// }
+		/*for (HashTagDetailStats hashTagDetailStats : stats) {
+			System.out
+					.println(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n ");
+			System.out.println("Label ---> " + hashTagDetailStats.getLabel()
+					+ "      Value ---> " + hashTagDetailStats.getValue() + "      SubLabel ---> " + hashTagDetailStats.getSubLabel());
+		}*/
 		Assert.assertEquals("Should be equals", 4, stats.size());
 	}
 
@@ -312,7 +328,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	    createTweetPollResultWithPollingDate(tpSwichtBarsa, "192.168.0.6", pollingDate.getTime());  
 	    final List<HashTagDetailStats> itemStatListbyYear = getStatisticsService()
 	     			.getTotalVotesbyHashTagUsageAndDateRange(
-	       					this.initHashTag.getHashTag(), "365");  
+	       					this.initHashTag.getHashTag(), 365, this.request);  
 	    Assert.assertEquals("Should be equals", 3,
 	    		itemStatListbyYear.size());  
 	} 
@@ -338,7 +354,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
     	getTweetPoll().saveOrUpdate(hit2); 
      
     	
-    	final List<HashTagDetailStats> tagHitsDetailList = getStatisticsService().getTotalHitsUsagebyHashTagAndDateRange(hashTag1.getHashTag(), 7);
+    	final List<HashTagDetailStats> tagHitsDetailList = getStatisticsService().getTotalHitsUsagebyHashTagAndDateRange(hashTag1.getHashTag(), 7, this.request);
     	Assert.assertEquals("Should be equals", 2, tagHitsDetailList.size());  
 		
 	}
@@ -372,7 +388,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 
 		final List<HashTagDetailStats> itemStatListbyMonth = getStatisticsService()
 				.getTotalVotesbyHashTagUsageAndDateRange(
-						this.initHashTag.getHashTag(), "30");
+						this.initHashTag.getHashTag(), 30, this.request);
 		Assert.assertEquals("Should be equals", 7, itemStatListbyMonth.size());
 	}
 	
@@ -406,7 +422,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		tpSaved3.setPublicationDateTweet(this.pollingDate.getTime());
 		getTweetPoll().saveOrUpdate(tpSaved3);
 		
-		final List<HashTagDetailStats> detailStatsByYear = getStatisticsService().getTotalSocialLinksbyHashTagUsageAndDateRange(this.initHashTag.getHashTag(), "365");
+		final List<HashTagDetailStats> detailStatsByYear = getStatisticsService().getTotalSocialLinksbyHashTagUsageAndDateRange(this.initHashTag.getHashTag(), 365, this.request);
 		Assert.assertEquals("Should be equals", 7, detailStatsByYear.size());  
 	}
 	
@@ -449,7 +465,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		
 		final List<HashTagDetailStats> detailStatsByWeek = getStatisticsService()
 				.getTotalSocialLinksbyHashTagUsageAndDateRange(
-						this.initHashTag.getHashTag(), "7");
+						this.initHashTag.getHashTag(), 7, this.request);
 		Assert.assertEquals("Should be equals", 8, detailStatsByWeek.size());
 	}
 	 
