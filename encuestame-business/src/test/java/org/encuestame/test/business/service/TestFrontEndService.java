@@ -300,6 +300,10 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         final GenericStatsBean genericPollStats = getFrontEndService().retrieveGenericStats(poll.getPollId().toString(), TypeSearchResult.POLL);
         Assert.assertNotNull(genericPollStats);
 
+        
+        final HashTag hashtag = createHashTag("Continents", 350L); 
+        final GenericStatsBean genericHashTagStats = getFrontEndService().retrieveGenericStats(hashtag.getHashTag(), TypeSearchResult.HASHTAG);
+      
         //final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);
         //Assert.assertNotNull(genericSurveyStats);
 	} 

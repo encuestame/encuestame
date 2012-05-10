@@ -1148,6 +1148,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             likeVotes = poll.getLikeVote() == null ? 0L : poll.getLikeVote();
             dislikeVotes = poll.getDislikeVote() == null ? 0L : poll
                     .getDislikeVote();
+            likeDislikeRate = (likeVotes - dislikeVotes);
 
         } else if (itemType.equals(TypeSearchResult.SURVEY)) {
             id = new Long(Long.parseLong(itemId));
@@ -1159,16 +1160,19 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             relative = DateUtil.getRelativeTime(createdAt);
             likeVotes = survey.getLikeVote();
             dislikeVotes = survey.getDislikeVote();
+            likeDislikeRate = (likeVotes - dislikeVotes);
 
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             final HashTag tag = getHashTagItem(itemId);
             totalHits = tag.getHits();
             createdAt = tag.getUpdatedDate();
             relative = DateUtil.getRelativeTime(createdAt);
+            createdBy = "";
+            likeDislikeRate = 0L;
+            
         }
         final GenericStatsBean genericBean = new GenericStatsBean();
-        genericBean.setLikeDislikeRate(likeDislikeRate);
-        ;
+        genericBean.setLikeDislikeRate(likeDislikeRate);  
         genericBean.setHits(totalHits);
         genericBean.setCreatedBy(createdBy);
         genericBean.setAverage(average);
