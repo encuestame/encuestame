@@ -2878,8 +2878,9 @@ div.web-notification-list div.web-notification-list-item .date {
 }
 
 .stats-button .web-graph-sts-btt-tlt {
-    font-size: 14px;
-    font-weight: bold;
+  font-size: 14px;
+  font-weight: bold;
+  padding-left: 20px;
 }
 
 .stats-button .web-graph-sts-btt-val {

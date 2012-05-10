@@ -151,12 +151,12 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			@RequestParam(value = "filter", required = false) String filter,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		try {
-			
+		try {			
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			 final TypeSearchResult filterType = TypeSearchResult
 	                    .getTypeSearchResult(filter);
-			final GenericStatsBean genericStatsBean =  getFrontService().retrieveGenericStats(itemId, filterType);
+			final GenericStatsBean genericStatsBean =  getFrontService().retrieveGenericStats(
+					itemId, filterType, request);
 			jsonResponse.put("generic", genericStatsBean);
 			setItemResponse(jsonResponse);
 		} catch (Exception e) {

@@ -785,7 +785,8 @@ encuestame.service.list.rate.profile = encuestame.contextWidget()+"/api/common/f
 encuestame.service.list.rate.stats = function(type) {
     return  encuestame.contextWidget()+"/api/common/frontend/"+type+"/stats.json";
 };
-
+encuestame.service.list.generic = {};
+encuestame.service.list.generic.stats = encuestame.contextWidget()+"/api/common/stats/generic.json";
 encuestame.service.list.rate.buttons =	encuestame.contextWidget()+"/api/common/hashtags/stats/button.json";
 
 /**

@@ -59,10 +59,11 @@
                  <header>
                     <spring:message code="home.hashtag.stats" />
                  </header>
-                 <div dojoType="encuestame.org.core.shared.stats.GenericStats"
-                      hasthag="${tagName.hashTagName}"
-                      class="web-generic-stats"
-                      key="HASHTAG" id="generic"></div>
+                 <div dojoType="encuestame.org.core.shared.stats.GenericStats"                      
+					  class="web-generic-stats"
+					  typeGeneric="HASHTAG"
+					  generic="${tagName.hashTagName}"
+                      id="generic"></div>
              </article>
             <article class="emne-box">
                  <header>

@@ -8,7 +8,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -1112,11 +1114,13 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.core.service.imp.IFrontEndService#retrieveGenericStats
      * (java.lang.String, org.encuestame.utils.enums.TypeSearchResult)
      */
-    public GenericStatsBean retrieveGenericStats(final String itemId,
-            final TypeSearchResult itemType) throws EnMeNoResultsFoundException {
+    public GenericStatsBean retrieveGenericStats(
+    		final String itemId,
+            final TypeSearchResult itemType,
+            final HttpServletRequest request) throws EnMeNoResultsFoundException {
         Long totalHits = 0L;
         String createdBy = " ";
-        Date createdAt = null;
+        String createdAt = null;
         double average = 0;
         Long likeDislikeRate = 0L;
         Long likeVotes;
@@ -1129,8 +1133,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             totalHits = tweetPoll.getHits() == null ? 0 : tweetPoll.getHits();
             createdBy = tweetPoll.getEditorOwner().getUsername() == null ? ""
                     : tweetPoll.getEditorOwner().getUsername();
-            createdAt = tweetPoll.getCreateDate();
-            relative = DateUtil.getRelativeTime(createdAt);
+            createdAt = DateUtil.DOJO_DATE_FORMAT.format(tweetPoll.getCreateDate());
+            relative = DateUtil.getRelativeTime(tweetPoll.getCreateDate());
             likeVotes = tweetPoll.getLikeVote() == null ? 0L : tweetPoll
                     .getLikeVote();
             dislikeVotes = tweetPoll.getDislikeVote() == null ? 0L : tweetPoll
@@ -1143,8 +1147,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final Poll poll = this.getPoll(id);
             totalHits = poll.getHits() == null ? 0 : poll.getHits();
             createdBy = poll.getEditorOwner().getUsername();
-            createdAt = poll.getCreatedAt();
-            relative = DateUtil.getRelativeTime(createdAt);
+            createdAt = DateUtil.DOJO_DATE_FORMAT.format(poll.getCreatedAt());
+            relative = DateUtil.getRelativeTime(poll.getCreatedAt());
             likeVotes = poll.getLikeVote() == null ? 0L : poll.getLikeVote();
             dislikeVotes = poll.getDislikeVote() == null ? 0L : poll
                     .getDislikeVote();
@@ -1155,20 +1159,30 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             totalHits = survey.getHits();
             createdBy = survey.getEditorOwner().getUsername() == null ? " "
                     : survey.getEditorOwner().getUsername();
-            createdAt = survey.getCreatedAt();
-            relative = DateUtil.getRelativeTime(createdAt);
+            createdAt =DateUtil.DOJO_DATE_FORMAT.format(survey.getCreatedAt()); survey.getCreatedAt();
+            relative = DateUtil.getRelativeTime(survey.getCreatedAt());
             likeVotes = survey.getLikeVote();
             dislikeVotes = survey.getDislikeVote();
 
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             final HashTag tag = getHashTagItem(itemId);
             totalHits = tag.getHits();
-            createdAt = tag.getUpdatedDate();
-            relative = DateUtil.getRelativeTime(createdAt);
+            //createdAt =  DateUtil.DOJO_DATE_FORMAT.format(tag.getUpdatedDate());
+            relative = DateUtil.getRelativeTime(tag.getUpdatedDate());
+            final Iterator it = relative.entrySet().iterator();
+			while (it.hasNext()) {
+				@SuppressWarnings("unchecked")
+				final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>) it
+						.next();
+				if (log.isDebugEnabled()) {
+					log.debug("--" + e.getKey() + "**" + e.getValue());
+				}
+				createdAt = convertRelativeTimeMessage(
+						e.getValue(), e.getKey(), request);
+			}
         }
         final GenericStatsBean genericBean = new GenericStatsBean();
         genericBean.setLikeDislikeRate(likeDislikeRate);
-        ;
         genericBean.setHits(totalHits);
         genericBean.setCreatedBy(createdBy);
         genericBean.setAverage(average);

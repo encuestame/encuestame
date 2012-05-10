@@ -248,7 +248,7 @@ public class DateUtil {
      * @param startDate date in the time.
      * @return
      */
-    public static HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date startDate){
+    public static HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date startDate) {
         int SECOND = 1;
         int MINUTE = 60 * SECOND;
         int HOUR = 60 * MINUTE;
