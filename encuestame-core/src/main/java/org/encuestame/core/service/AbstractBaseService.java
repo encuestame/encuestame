@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -334,8 +335,35 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             builder.append(getMessage("relative.time.one.year.ago", request, str));
         } else if(relativeTimeEnum.equals(RelativeTimeEnum.YEARS_AGO)) {
             builder.append(getMessage("relative.time.one.years.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.RIGTH_NOW)) {
+            builder.append(getMessage("relative.time.one.rightnow", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.YESTERDAY)) {
+            builder.append(getMessage("relative.time.yesterday", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.DAYS_AGO)) {
+            builder.append(getMessage("relative.time.daysago", request, str));
         }
+        log.debug("convertRelativeTimeMessage builder-->"+builder);
         return builder.toString();
+    }
+    
+    /**
+     * Convert a relative time to {@link String}.
+     * @param relative
+     * @param request
+     * @return
+     */
+    public String convertRelativeTimeToString(
+    		final Date relativeDate,
+    		final HttpServletRequest request) {
+    	final HashMap<Integer, RelativeTimeEnum> relative = DateUtil.getRelativeTime(relativeDate);
+    	String timeValue = "";
+    	final Iterator<Entry<Integer, RelativeTimeEnum>> it = relative.entrySet().iterator();
+        while (it.hasNext()) {
+          final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
+          log.debug("convertRelativeTimeToString --"+e.getKey() + "**" + e.getValue());
+          timeValue = convertRelativeTimeMessage(e.getValue(), e.getKey(), request);
+       }
+        return timeValue;
     }
     
     /*

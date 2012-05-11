@@ -46,7 +46,7 @@ public class GenericStatsBean implements Serializable {
 	private Double average;
 	
 	/** **/
-	@JsonProperty(value = "createdBy")
+	@JsonProperty(value = "created_by")
 	private String createdBy;
 
 	/**

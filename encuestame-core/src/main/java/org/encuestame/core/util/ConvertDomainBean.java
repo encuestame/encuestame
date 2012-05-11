@@ -88,6 +88,7 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
+import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 
 
@@ -1409,5 +1410,26 @@ public class ConvertDomainBean {
 					.convertHitsToItemDetailBean(hit));
 		}
 		return itemStatDetail;
+	}
+	
+	/**
+	 * Create a {@link GenericStatsBean}.
+	 * @param likeDislikeRate
+	 * @param totalHits
+	 * @param createdBy
+	 * @param average
+	 * @param createdAt
+	 * @return
+	 */
+	public static GenericStatsBean createGenericStatsBean(final Long likeDislikeRate,
+			final Long totalHits, final String createdBy, Double average,
+			final String createdAt) {
+		final GenericStatsBean genericBean = new GenericStatsBean();
+		genericBean.setLikeDislikeRate(likeDislikeRate);
+		genericBean.setHits(totalHits);
+		genericBean.setCreatedBy(createdBy);
+		genericBean.setAverage(average);
+		genericBean.setCreatedAt(createdAt);
+		return genericBean;
 	}
 }  

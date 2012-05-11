@@ -28,6 +28,7 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.Profile;
 import org.encuestame.utils.web.UserAccountBean;
@@ -82,7 +83,7 @@ public class JsonUsersController extends AbstractJsonController{
             for (UserAccountBean unitUserBean : userList) {
                 log.debug("user to retrieve "+unitUserBean.getUsername());
                 getSecurityService().getStatsByUsers(unitUserBean); //filter
-                final HashMap<Integer, RelativeTimeEnum> relativeTime = getRelativeTime(unitUserBean.getDateNew());
+                final HashMap<Integer, RelativeTimeEnum> relativeTime = DateUtil.getRelativeTime(unitUserBean.getDateNew());
                 final Iterator it = relativeTime.entrySet().iterator();
                 while (it.hasNext()) {
                     final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();

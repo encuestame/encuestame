@@ -276,7 +276,7 @@ public class DateUtil {
         } else if (seconds < 48 * HOUR) {
             numbers.put(hour, RelativeTimeEnum.YESTERDAY);
         } else if (seconds < 30 * DAY) {
-            numbers.put(days, RelativeTimeEnum.DAYS_AGO);
+            numbers.put(days, RelativeTimeEnum.DAYS_AGO); //TODO: maybe it's better WEEKS_AGO
         } else if (seconds < 12 * MONTH) {
             Integer months = DateUtil.getMothsBetweenDates(startDate);
             numbers.put(months, (months <= 1 ? RelativeTimeEnum.ONE_MONTH_AGO
