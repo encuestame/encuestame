@@ -1113,7 +1113,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * (java.lang.String, org.encuestame.utils.enums.TypeSearchResult)
      */
     public GenericStatsBean retrieveGenericStats(final String itemId,
-            final TypeSearchResult itemType) throws EnMeNoResultsFoundException {
+            final TypeSearchResult itemType, HttpServletRequest request) throws EnMeNoResultsFoundException {
         Long totalHits = 0L;
         String createdBy = " ";
         Date createdAt = null;
@@ -1176,7 +1176,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         genericBean.setHits(totalHits);
         genericBean.setCreatedBy(createdBy);
         genericBean.setAverage(average);
-        genericBean.setCreatedAt(createdAt);
+       // genericBean.setCreatedAt(createdAt);
         return genericBean;
     }
  
@@ -1320,5 +1320,6 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public void setSecurityService(SecurityOperations securityService) {
         this.securityService = securityService;
-    }  
+    } 
+ 
 }

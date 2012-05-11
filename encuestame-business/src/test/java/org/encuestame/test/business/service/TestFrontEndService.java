@@ -14,6 +14,7 @@ package org.encuestame.test.business.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import junit.framework.Assert;
 
@@ -37,6 +38,7 @@ import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Test for {@link FrontEndCoreService}.
@@ -65,6 +67,11 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
     /** **/
     private Integer MAX_RESULTS= 10;
+    
+    /**
+     * Mock HttpServletRequest.
+     */
+    MockHttpServletRequest request;  
 
     @Before
     public void initData(){
@@ -79,6 +86,10 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         this.tweetPoll.getHashTags().add(hashTag);
         this.tweetPoll.getHashTags().add(hashTag2);
         getTweetPoll().saveOrUpdate(this.tweetPoll);
+        
+    	request = new MockHttpServletRequest();
+		request.addPreferredLocale(Locale.ENGLISH);
+	       
     }
 
     /**
@@ -284,7 +295,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
      * Test Generic data stats.
      * @throws EnMeNoResultsFoundException
      */
-    @Test
+	@Test
     public void testGetGenericStats() throws EnMeNoResultsFoundException{
         final Question question = createQuestion("What is your favorite type of song?", "");
         // TweetPoll
@@ -294,15 +305,21 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         // Survey
         final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());
 
-        final GenericStatsBean genericTweetPollStats = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId().toString(), TypeSearchResult.TWEETPOLL);
+		final GenericStatsBean genericTweetPollStats = getFrontEndService()
+				.retrieveGenericStats(tpoll.getTweetPollId().toString(),
+						TypeSearchResult.TWEETPOLL, this.request);
         Assert.assertNotNull(genericTweetPollStats);
 
-        final GenericStatsBean genericPollStats = getFrontEndService().retrieveGenericStats(poll.getPollId().toString(), TypeSearchResult.POLL);
+		final GenericStatsBean genericPollStats = getFrontEndService()
+				.retrieveGenericStats(poll.getPollId().toString(),
+						TypeSearchResult.POLL, this.request);
         Assert.assertNotNull(genericPollStats);
 
         
         final HashTag hashtag = createHashTag("Continents", 350L); 
-        final GenericStatsBean genericHashTagStats = getFrontEndService().retrieveGenericStats(hashtag.getHashTag(), TypeSearchResult.HASHTAG);
+		final GenericStatsBean genericHashTagStats = getFrontEndService()
+				.retrieveGenericStats(hashtag.getHashTag(),
+						TypeSearchResult.HASHTAG, this.request);
       
         //final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);
         //Assert.assertNotNull(genericSurveyStats);

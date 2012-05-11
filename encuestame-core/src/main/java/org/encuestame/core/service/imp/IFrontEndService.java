@@ -222,7 +222,9 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	GenericStatsBean retrieveGenericStats(final String itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
+	GenericStatsBean retrieveGenericStats(final String itemId,
+			final TypeSearchResult itemType, final HttpServletRequest request)
+			throws EnMeNoResultsFoundException;
 	  
 	/**
 	 * Return the last items published from {@link UserAccount}.

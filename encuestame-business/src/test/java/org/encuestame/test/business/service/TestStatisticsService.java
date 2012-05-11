@@ -36,8 +36,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.test.business.security.AbstractSpringSecurityContext;
-import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.test.business.security.AbstractSpringSecurityContext; 
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.junit.Before;
@@ -110,9 +109,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		this.initSocialAccount = createDefaultSettedSocialAccount(this.secondary);
 		
 		request = new MockHttpServletRequest();
-		request.addPreferredLocale(Locale.ENGLISH);
-	       
-		
+		request.addPreferredLocale(Locale.ENGLISH);  
     }
      
 	/**

@@ -39,7 +39,7 @@ public class GenericStatsBean implements Serializable {
 	
 	/** **/
 	@JsonProperty(value = "created_at")
-	private Date createdAt;
+	private String createdAt;
 	
 	/** **/
 	@JsonProperty(value = "average")
@@ -83,14 +83,14 @@ public class GenericStatsBean implements Serializable {
 	 * @return the createdAt
 	 */
 	@JsonIgnore
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
 
 	/**
 	 * @param createdAt the createdAt to set
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 

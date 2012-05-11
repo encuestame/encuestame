@@ -44,11 +44,10 @@ dojo.declare(
     			 usage_by_votes = hashTagButtonStats['usage_by_votes'];
     			 if (this._stat) { 
 	    			 dojo.empty(this._stat);
-	    			 //FIXME: all objecs should be completed from service, sub_label, value and title;
-	    			 this._stat.appendChild(this._createAButton({title : "Usage", value : usage_by_item , sub_label : "times"}));
-	    			 this._stat.appendChild(this._createAButton({title : "Social Network Use", value : total_usage_by_social_network , sub_label : "Tweets"}));
-	    			 this._stat.appendChild(this._createAButton({title : "Visited", value : total_hits , sub_label : "times"}));
-	    			 this._stat.appendChild(this._createAButton({title : "Used on", value : usage_by_votes , sub_label : "votes"}));
+	    			 this._stat.appendChild(this._createAButton({title : usage_by_item.label, value : usage_by_item.value , sub_label : usage_by_item.sub_label}));
+	    			 this._stat.appendChild(this._createAButton({title : total_usage_by_social_network.label, value : total_usage_by_social_network.value , sub_label : total_usage_by_social_network.sub_label}));
+	    			 this._stat.appendChild(this._createAButton({title : total_hits.label, value : total_hits.value , sub_label : total_hits.sub_label}));
+	    			 this._stat.appendChild(this._createAButton({title : usage_by_votes.label, value : usage_by_votes.value , sub_label : usage_by_votes.sub_label}));
     			 }
     		 }
     	 });  	 
@@ -148,7 +147,7 @@ dojo.declare(
             "title" : "Usage",
             "value" : 500000,
             "label" : "times.",
-            "typeChart" : "usage",
+            "typeChart" : "usage"
         },
 
 
