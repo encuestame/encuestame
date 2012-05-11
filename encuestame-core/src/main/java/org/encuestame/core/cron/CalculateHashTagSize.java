@@ -14,8 +14,7 @@ package org.encuestame.core.cron;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
+import java.util.Collections; 
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,6 +26,7 @@ import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -69,9 +69,7 @@ public class CalculateHashTagSize {
         double scoreRank = 0;
         double averageHashTagRanking = 0;
         //store the max min values
-        final List<Long> maxMinTotal = new ArrayList<Long>();
-
-        final HashTagRanking tagRanking = new HashTagRanking();
+        final List<Long> maxMinTotal = new ArrayList<Long>();  
 
         final List<HashTag> tags = getHashTagDao().getHashTags(null, 0, "");
 
@@ -89,7 +87,7 @@ public class CalculateHashTagSize {
         }
 
         for (HashTag hashTag : tags) {
-
+        	final HashTagRanking tagRanking = new HashTagRanking();
             log.debug("Calculate for: "+hashTag.getHashTag()+" size after calculate: "+hashTag.getSize());
 
             long tagFrecuency = getHashTagFrecuency(hashTag.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
@@ -111,7 +109,8 @@ public class CalculateHashTagSize {
             // Save table
             tagRanking.setAverage(averageHashTagRanking);
             tagRanking.setHashTag(hashTag);
-            tagRanking.setRankingDate(new Date());
+            tagRanking.setRankingDate(DateUtil.getCurrentCalendarDate());
+            getHashTagDao().saveOrUpdate(tagRanking);
         }
 
         average = (double) score / (double)total;
