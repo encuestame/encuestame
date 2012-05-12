@@ -17,23 +17,29 @@ dojo.declare(
      */
     templatePath: dojo.moduleUrl("encuestame.org.core.shared.stats", "templates/position.html"),
 
-
-    _test : [
-             { label : "Nicaragua", last : 4, current : 1},
-             { label : "My Hashtag", last : 1, current : 2},
-             { label : "Firefox", last : 6, current : 3}
-             ],
-    /*
-     *
+    /**
+     * Tag name.
      */
-    service : encuestame.service.list.rate.profile,
+    tagName : "",
 
     /*
      *
      */
     postCreate : function(){
-        this._printRate(this._test);
+        this._callService();
     },
+    
+    _callService : function() {
+	 	var params = {
+	 			tagName : this.tagName,
+      	 };
+      	 var load = dojo.hitch(this, function(data) {
+      		 if ("success" in data) {
+      			 this._printRate(data.success.hashTagRankingStats);
+      		 }	      		 
+      	 });  	 
+      	 this.callGET(params, encuestame.service.list.ranking.hashtag, load, null, null);
+     },
 
     /*
      *
@@ -45,7 +51,9 @@ dojo.declare(
         }));
     },
 
-    /*
+    /**
+     * Build a ranking position row.
+     * @param {Object} item 
      * <tr>
             <td>USA</td>
             <td>4</td>
@@ -53,22 +61,25 @@ dojo.declare(
             </td>
         </tr>
      */
-    _createRow : function(item){
+    _createRow : function (item) {
         var tr = dojo.create("tr");
         var row1 = dojo.create("td", null, tr);
-        row1.innerHTML = item.label;
+        row1.innerHTML = item.tagName;
         var row2 = dojo.create("td", null, tr);
-        row2.innerHTML = item.current;
+        row2.innerHTML = item.position;
         dojo.addClass(row2, "web-position-number");
         var row3 = dojo.create("td", null, tr);
-        row3.appendChild(this._getPositionRow(parseInt(item.last), parseInt(item.current)));
+        row3.appendChild(this._getPositionRow(parseInt(item.position), parseInt(item.position)));
+        if (item.tagName === this.tagName) {
+        	///TODO: highlight the row.
+        }
         this._rows.appendChild(tr);
     },
 
     /*
      *
      */
-    _getPositionRow : function(last, current) {
+    _getPositionRow : function (last, current) {
         var node = dojo.create("span");
         if (last > current) {
             dojo.addClass(node, "web-position-down");

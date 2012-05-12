@@ -719,6 +719,8 @@ encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/a
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 //Hashtag Service
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
+encuestame.service.list.ranking = {};
+encuestame.service.list.ranking.hashtag = encuestame.contextWidget()+"/api/common/hashtags/stats/ranking.json";
 
 /*
  * Get Hashtag action.

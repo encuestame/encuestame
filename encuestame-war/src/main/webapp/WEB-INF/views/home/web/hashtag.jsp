@@ -70,9 +70,9 @@
                    <spring:message code="home.hashtag.position" />
                  </header>
                  <div dojoType="encuestame.org.core.shared.stats.RatePosition"
-                      hasthag="${tagName.hashTagName}"
+                      tagName="${tagName.hashTagName}"
                       class="web-rated-position"
-                      key="HASHTAG" id="position"></div>
+                      id="position"></div>
             </article>
             <article class="emne-box">
                  <header>
