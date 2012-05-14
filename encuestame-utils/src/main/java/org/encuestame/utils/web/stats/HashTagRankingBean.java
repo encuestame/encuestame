@@ -41,6 +41,9 @@ public class HashTagRankingBean implements Serializable, Comparable<Object>{
 	
 	/** **/
 	private Integer position;
+	
+	/** **/
+	private Integer lastPosition;
 
 	/**
 	 * @return the rankId
@@ -96,8 +99,22 @@ public class HashTagRankingBean implements Serializable, Comparable<Object>{
 	 */
 	public void setPosition(Integer position) {
 		this.position = position;
-	} 
+	}  
 	
+	/**
+	 * @return the lastPosition
+	 */
+	public Integer getLastPosition() {
+		return lastPosition;
+	}
+
+	/**
+	 * @param lastPosition the lastPosition to set
+	 */
+	public void setLastPosition(final Integer lastPosition) {
+		this.lastPosition = lastPosition;
+	}
+
 	/**
 	 * 
 	 */

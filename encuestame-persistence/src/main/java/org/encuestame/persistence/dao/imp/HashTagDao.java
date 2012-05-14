@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,12 +21,14 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IHashTagDao;
 import org.encuestame.persistence.domain.HashTag;
-import org.encuestame.persistence.domain.HashTagRanking;
+import org.encuestame.persistence.domain.HashTagRanking; 
+import org.encuestame.utils.DateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -210,15 +213,49 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements IHashTagD
      * @see org.encuestame.persistence.dao.IHashTagDao#getHashTagRankStats(org.encuestame.persistence.domain.HashTag)
      */
 	@SuppressWarnings("unchecked")
-	public List<HashTagRanking> getHashTagRankStats() {  
+	public List<HashTagRanking> getHashTagRankStats(final Date maxDate) {  
+		final Date startDate = DateUtil.getCurrentCalendarDate();
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(HashTagRanking.class);
 	 criteria.add(Restrictions.isNotNull("hashTag"));
 	 criteria.addOrder(Order.desc("average"));
-		//criteria.add(Restrictions.between("", null, getCurrentdMidnightDate()));
-		   return getHibernateTemplate().findByCriteria(criteria);
+	 //criteria.addOrder(Order.desc("rankingDate"));
+	 criteria.add(Restrictions.between("rankingDate", maxDate, startDate)); 
+	 return getHibernateTemplate().findByCriteria(criteria);
+	}
+	 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IHashTagDao#getHashTagRankingLastPosition(java.util.Date)
+	 */
+	public List<HashTagRanking> getHashTagRankingLastPosition(final Date maxDate) {
+		final Date startDate = DateUtil.getCurrentCalendarDate();
+
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(HashTagRanking.class); 
+		criteria.add(Restrictions.not(Restrictions.between("rankingDate",
+				maxDate, startDate)));  
+		criteria.addOrder(Order.desc("average"));
+		//criteria.addOrder(Order.desc("rankingDate"));
+		@SuppressWarnings("unchecked")
+		List<HashTagRanking> results = getHibernateTemplate().findByCriteria(
+				criteria);  
+		return results;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IHashTagDao#getMaxHashTagRankingDate()
+	 */
+	public Date getMaxHashTagRankingDate() {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(HashTagRanking.class);
+		criteria.setProjection(Projections.max("rankingDate"));
+		@SuppressWarnings("unchecked")
+		List<Date> results = getHibernateTemplate().findByCriteria(criteria);
+		return (results.get(0) == null ? new Date() : results.get(0));
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.encuestame.persistence.dao.IHashTagDao#getHashTagRankStatsById(java.lang.Long)

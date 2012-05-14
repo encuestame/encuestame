@@ -14,6 +14,7 @@ package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -112,16 +113,61 @@ public class TestHashTagDao  extends AbstractBase{
 	 */
 	@Test
 	public void testgetHashTagRankStats() {
-		final Date myDate = new Date();
+		final Calendar myDate = Calendar.getInstance();
+	
 		final HashTag tag = createHashTag("America", 20L);
 		final HashTag tag1 = createHashTag("Europa", 20L);
 		final HashTag tag2 = createHashTag("Asia", 20L);
-		createHashTagRank(tag, myDate, 20D);
-		createHashTagRank(tag1, myDate, 10D);
-		createHashTagRank(tag2, myDate, 30D);
- 		final List<HashTagRanking> tRank = getHashTagDao()
-				.getHashTagRankStats();
+		
+		myDate.add(Calendar.DATE, -1); 
+		createHashTagRank(tag, myDate.getTime(), 20D);  
+		createHashTagRank(tag1, myDate.getTime(), 10D);  
+		createHashTagRank(tag2, myDate.getTime(), 30D);
+		
+		myDate.add(Calendar.DATE, -3); 
+		createHashTagRank(tag, myDate.getTime(), 40D);
+		createHashTagRank(tag1, myDate.getTime(), 30D);  
+		
+		myDate.add(Calendar.HOUR, -1); 
+		createHashTagRank(tag, myDate.getTime(), 40D); 
+		
+		final Date maxDate = getHashTagDao().getMaxHashTagRankingDate();
+
+		final List<HashTagRanking> lastPositionTags = getHashTagDao()
+				.getHashTagRankingLastPosition(maxDate);
+		assertEquals("Should be equals", lastPositionTags.size(), 3);
+
+		final List<HashTagRanking> tRank = getHashTagDao().getHashTagRankStats(
+				maxDate);
 		assertEquals("Should be equals", tRank.size(), 3);
+	} 
+	
+	 
+	@Test
+	public void testGetMaxHashTagRankDate() {
+		final Calendar myDate = Calendar.getInstance();
+		final HashTag tag = createHashTag("America", 20L);
+		final HashTag tag1 = createHashTag("Europa", 20L);
+		final HashTag tag2 = createHashTag("Asia", 20L);
+		
+		myDate.add(Calendar.DATE, -1);
+		System.out.println("Fecha 1 --->" + myDate.getTime());
+		createHashTagRank(tag, myDate.getTime(), 20D);
+		myDate.add(Calendar.DATE, -2);
+		
+		System.out.println("Fecha 2 --->" + myDate.getTime());
+		createHashTagRank(tag1, myDate.getTime(), 10D);
+		
+		myDate.add(Calendar.DATE, -3);
+		System.out.println("Fecha 3 --->" + myDate.getTime());
+		createHashTagRank(tag2, myDate.getTime(), 30D);
+		
+ 		final Date tRank = getHashTagDao()
+				.getMaxHashTagRankingDate();
+ 		System.out.println("Fecha Mayor --->" + tRank);
+		//assertEquals("Should be equals", tRank.size(), 3);
 
 	} 
+	
+	
 }
