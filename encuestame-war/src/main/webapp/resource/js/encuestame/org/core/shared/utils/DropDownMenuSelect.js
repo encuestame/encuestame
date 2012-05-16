@@ -18,6 +18,10 @@ dojo.declare("encuestame.org.core.shared.utils.DropDownMenuSelect",
              * post create.
              */
             postCreate : function() {
+            	this._createItems();
+            },
+            
+            _createItems : function() {
                 // new poll
                 var newPoll = new encuestame.org.core.shared.utils.DropDownMenuItem({
                             label : "New Poll",

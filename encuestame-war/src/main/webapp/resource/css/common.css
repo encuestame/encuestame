@@ -176,3 +176,21 @@ input:focus {
     margin-left: 10px;
     margin-top : 10px;
 }
+
+.drop-down-menu-select{
+	
+}
+
+.drop-down-menu-select .drop-down-item{
+  background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px 3px 3px 3px;
+  color: #000000;
+  cursor: pointer;
+  height: 2.0833em;
+  overflow: visible;
+  padding: 0 0.5em;
+  vertical-align: middle;
+  white-space: nowrap;	
+}
+

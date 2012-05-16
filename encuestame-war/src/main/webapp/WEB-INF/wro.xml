@@ -22,4 +22,13 @@
     <css>/resource/css/reset.css</css>
     <css>/resource/css/mobile/layout.css</css>
   </group>
+  <group name='common'>
+   	<js>/resource/js/core/**.js</js>
+   </group>
+  <group name='html5'>
+   	<js>/resource/js/req/modernizr-2.0.6.js</js>
+   </group> 
+   <group name='graph'>
+   	<js>/resource/js/req/raphael.js</js>
+   </group>      
 </groups>

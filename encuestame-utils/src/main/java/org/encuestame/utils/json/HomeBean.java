@@ -92,15 +92,15 @@ public class HomeBean extends AbstractUnitSurvey implements Serializable, Compar
      */
     public int compareTo(Object o) {
         HomeBean home = (HomeBean) o;
-        log.debug("Home Bean Value: " + home.getRelevance());
-        log.debug("This home bean Value: " + this.getRelevance());
+        //log.debug("Home Bean Value: " + home.getRelevance());
+        //log.debug("This home bean Value: " + this.getRelevance());
         int CompareToValue = Float.compare(home.getRelevance() == null ? 0
                 : home.getRelevance(),
                 this.getRelevance() == null ? 0 : this.getRelevance());
         if (CompareToValue == 0) {
             return this.getCreateDate().compareTo(home.getCreateDate());
         } else {
-            log.debug(" Result Home Bean compare: " + CompareToValue);
+            //log.debug(" Result Home Bean compare: " + CompareToValue);
             return CompareToValue;
         }
     }

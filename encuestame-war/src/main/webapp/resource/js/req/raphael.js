@@ -1,18 +1,3 @@
-// ┌─────────────────────────────────────────────────────────────────────┐ \\
-// │ Raphaël 2.0.1 - JavaScript Vector Library                           │ \\
-// ├─────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright (c) 2008-2011 Dmitry Baranovskiy (http://raphaeljs.com)   │ \\
-// │ Copyright (c) 2008-2011 Sencha Labs (http://sencha.com)             │ \\
-// │ Licensed under the MIT (http://raphaeljs.com/license.html) license. │ \\
-// └─────────────────────────────────────────────────────────────────────┘ \\
-
-// ┌──────────────────────────────────────────────────────────────────────────────────────┐ \\
-// │ Eve 0.4.0 - JavaScript Events Library                                                │ \\
-// ├──────────────────────────────────────────────────────────────────────────────────────┤ \\
-// │ Copyright (c) 2008-2011 Dmitry Baranovskiy (http://dmitry.baranovskiy.com/)          │ \\
-// │ Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license. │ \\
-// └──────────────────────────────────────────────────────────────────────────────────────┘ \\
-
 (function (glob) {
     var version = "0.4.0",
         has = "hasOwnProperty",
