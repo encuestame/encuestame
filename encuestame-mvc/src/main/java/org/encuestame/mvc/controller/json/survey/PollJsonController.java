@@ -108,7 +108,7 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                log.debug("Poll Id"+ pollId);
-               getPollService().removePollFolder(pollId);
+               getPollService().removePoll(pollId);
                setSuccesResponse();
           } catch (Exception e) {
               log.error(e);

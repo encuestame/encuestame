@@ -29,6 +29,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -51,11 +52,14 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.Status;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -65,6 +69,43 @@ import org.junit.Test;
  * @version $Id$
  **/
 public class TestHibernateDomains extends AbstractBase{
+	  
+	private Hit initHit;
+	
+	private Poll initPoll;
+	
+	private Survey initSurvey;
+	
+	private UserAccount initUser;
+	
+	private Account initAccount; 
+	
+	private TweetPoll initTweetPoll;
+	
+	private Question initQuestion;
+	
+	private HashTag initHashTag;
+	
+	private HitCategory hitCat  = HitCategory.VISIT;
+	
+	/**
+	 * 
+	 */
+	@Before
+	public void initData(){
+	 
+		initHashTag = createHashTag("health");
+		initQuestion = createQuestion(
+				"Who will win the Spain SuperCup?", "");
+		initAccount = createAccount();
+		initUser = createUserAccount("Betty", initAccount);
+		initPoll = createDefaultPoll(initQuestion, initUser);
+		initSurvey = createDefaultSurvey(initAccount);
+		initTweetPoll = createPublishedTweetPoll(initQuestion, initUser);
+		
+		initHit = createHit(initTweetPoll, initPoll, initSurvey, initHashTag, "192.168.1.1"); 
+ 
+	}
 
     /**
      * Test Catalog Location.
@@ -401,6 +442,7 @@ public class TestHibernateDomains extends AbstractBase{
         getHashTagDao().saveOrUpdate(tag);
         assertNotNull(tag.getHashTagId());
      }
+     
      /** Dashboard domain. **/
      @Test
      public void testDashboard(){
@@ -505,4 +547,68 @@ public class TestHibernateDomains extends AbstractBase{
         tagRanking.setRankingDate(new Date());
         getHashTagDao().saveOrUpdate(tagRanking);
     }
+    
+	/**
+	 * Test {@link Hit} Domain.
+	 */
+	@Test
+	public void testHit() {
+		final Hit hit = new Hit(); 
+		hit.setHashTag(this.initHashTag);
+		hit.setHitCategory(hitCat);
+		hit.setHitDate(new Date());
+		hit.setIpAddress("");
+		hit.setPoll(initPoll);
+		hit.setSurvey(initSurvey);
+		hit.setTweetPoll(initTweetPoll);
+		hit.setUserAccount(initUser);
+		getHashTagDao().saveOrUpdate(hit);
+		assertNotNull(hit.getId());
+	}
+	
+	/**
+	 * Test {@link TweetPoll} Domain.
+	 */
+	@Test
+	public void testTweetPoll() {
+		final TweetPoll tweetPoll = new TweetPoll();
+
+		final HashTag tag1 = createHashTag("education");
+		final TweetPollFolder tpFolder = createTweetPollFolder("personal",
+				initUser);
+
+		tweetPoll.setAllowLiveResults(Boolean.TRUE);
+		tweetPoll.setAllowRepatedVotes(Boolean.FALSE);
+		tweetPoll.setCaptcha(Boolean.TRUE);
+		tweetPoll.setCloseNotification(Boolean.FALSE);
+		tweetPoll.setCompleted(Boolean.FALSE);
+		tweetPoll.setCreateDate(new Date());
+		tweetPoll.setDateLimit(Boolean.FALSE);
+		tweetPoll.setDateLimited(null);
+		tweetPoll.setDislikeVote(2L);
+		tweetPoll.setEditorOwner(initUser);
+		tweetPoll.setFavourites(Boolean.FALSE);
+		tweetPoll.getHashTags().add(initHashTag);
+		tweetPoll.getHashTags().add(tag1);
+		tweetPoll.setHits(20L);
+		tweetPoll.setLikeVote(18L);
+		tweetPoll.setLimitVotes(90);
+		tweetPoll.setLimitVotesEnabled(Boolean.TRUE);
+		tweetPoll.setLocationLatitude(25F);
+		tweetPoll.setMaxRepeatedVotes(10);
+		tweetPoll.setLocationLongitude(50F);
+		tweetPoll.setNumbervotes(10L);
+		tweetPoll.setPublishTweetPoll(Boolean.TRUE);
+		tweetPoll.setQuestion(initQuestion);
+		tweetPoll.setRelevance(40L);
+		tweetPoll.setResultNotification(Boolean.TRUE);
+		tweetPoll.setResumeLiveResults(Boolean.FALSE);
+		tweetPoll.setResumeTweetPollDashBoard(Boolean.FALSE);
+		tweetPoll.setScheduleDate(new Date());
+		tweetPoll.setScheduleTweetPoll(Boolean.FALSE);
+		tweetPoll.setTweetOwner(initAccount);
+		tweetPoll.setTweetPollFolder(tpFolder);
+		tweetPoll.setUpdatedDate(new Date());
+		assertNotNull(tweetPoll.getTweetPollId());
+	}
 }

@@ -349,4 +349,11 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException;
+    
+    /**
+     * Remove {@link Poll}
+     * @param pollId
+     * @throws EnMeNoResultsFoundException
+     */
+	void removePoll(final Long pollId) throws EnMeNoResultsFoundException;
 }
