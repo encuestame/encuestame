@@ -1045,10 +1045,11 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public List<HashTagRankingBean> getHashTagRanking(final String tagName) {
     	final Date maxRankingDate;
-    	maxRankingDate = getHashTagDao().getMaxHashTagRankingDate();
+    	maxRankingDate = getHashTagDao().getMaxHashTagRankingDate(); 
     	
         List<HashTagRanking> hashTagRankingList = getHashTagDao()
                 .getHashTagRankStats(maxRankingDate);
+        log.debug("Hashtag ranking list --->" + hashTagRankingList.size());
         final Integer value = 1;
         Integer position = 0;
         Integer lastRankPosition; 
@@ -1060,10 +1061,9 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         Integer positionBefore;
         Integer positionAfter;
         log.debug("Hashtag ranking list --->" + hashTagRankListSize);
-        for (int i = 0; i < hashTagRankingList.size(); i++) {
-        	
-            if (hashTagRankingList.get(i).getHashTag().getHashTag()
-                    .equals(tagName)) { 
+        for (int i = 0; i < hashTagRankingList.size(); i++) { 
+			if (hashTagRankingList.get(i).getHashTag().getHashTag()
+					.equals(tagName)) {
                 // Retrieve hashtag main.
                 position =i;
                 positionBefore = position - value;
@@ -1130,7 +1130,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 				}
 			}
 		}
-		Collections.sort(tagRankingBeanList);
+		Collections.sort(tagRankingBeanList); 
 		return tagRankingBeanList;
 	}
     
@@ -1146,11 +1146,9 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 	private HashTagRankingBean createHashTagRankingBean(final Long id,
 			final Double average, final Integer position, final String tagName,
 			final Integer lastPos) {
-		final HashTagRankingBean tagItemRanking = new HashTagRankingBean();
-		tagItemRanking.setAverage(average);
+		final HashTagRankingBean tagItemRanking = new HashTagRankingBean(); 
 		tagItemRanking.setPosition(position);
-		tagItemRanking.setTagName(tagName);
-		tagItemRanking.setRankId(id);
+		tagItemRanking.setTagName(tagName); 
 		tagItemRanking.setLastPosition(lastPos == null ? 0 : lastPos); 
 		return tagItemRanking;
 	}

@@ -99,5 +99,5 @@ public interface IHashTagDao extends IBaseDao	{
 	 * @param maxDate 
 	 * @return
 	 */
-	List<HashTagRanking> getHashTagRankingLastPosition(final Date maxDate);
+	List<HashTagRanking> getHashTagRankingLastPosition(final Date maxDate); 
 }
