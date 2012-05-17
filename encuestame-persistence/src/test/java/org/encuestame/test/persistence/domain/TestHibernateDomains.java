@@ -609,6 +609,7 @@ public class TestHibernateDomains extends AbstractBase{
 		tweetPoll.setTweetOwner(initAccount);
 		tweetPoll.setTweetPollFolder(tpFolder);
 		tweetPoll.setUpdatedDate(new Date());
+		getTweetPoll().saveOrUpdate(tweetPoll);
 		assertNotNull(tweetPoll.getTweetPollId());
 	}
 }

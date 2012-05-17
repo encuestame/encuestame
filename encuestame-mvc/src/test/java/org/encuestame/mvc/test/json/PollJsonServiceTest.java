@@ -88,7 +88,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray polls = (JSONArray) success.get("poll");
-        Assert.assertEquals("Should be equals ", polls.size(), 1);
+        Assert.assertEquals("Should be equals ", polls.size(), 2);
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("KEYWORD", "is", "100", "0").size(), 0);
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("LASTDAY", null, "10", "0").size(), 0);
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("LASTWEEK", null, "10", "0").size(), 0);
@@ -363,7 +363,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
         flushIndexes();
         Assert.assertNotNull(this.searchPollByKeyword("What", this.MAX_RESULTS, this.START_ON));
         Assert.assertEquals("Should be equals ",
-                this.searchPollByKeyword("What", this.MAX_RESULTS, this.START_ON).size(), 1);
+                this.searchPollByKeyword("What", this.MAX_RESULTS, this.START_ON).size(), 2);
 
         // Search Polls by date.
         final Calendar lastWeek = Calendar.getInstance();
