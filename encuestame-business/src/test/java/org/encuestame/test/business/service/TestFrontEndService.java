@@ -299,24 +299,16 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         createHashTagRank(tag, myCalDate.getTime(), (double) 56); // America -- 2
         createHashTagRank(tag9, myCalDate.getTime(), (double) 55); // Mediterraneo -- 3 
         createHashTagRank(tag7, myCalDate.getTime(), (double) 39); // Caribe -- 4  
-        createHashTagRank(tag4, myCalDate.getTime(), (double) 34); // Europa --5
+        createHashTagRank(tag4, myCalDate.getTime(), (double) 34); // Africa --5
         createHashTagRank(tag10, myCalDate.getTime(), (double) 31); // Balcanes --6
         createHashTagRank(tag6, myCalDate.getTime(), (double) 28); // Tailandia -- 7 
         createHashTagRank(tag3, myCalDate.getTime(), (double) 25); // Oceania -- 8
         createHashTagRank(tag1, myCalDate.getTime(), (double) 20); // Europa -- 9 
         createHashTagRank(tag2, myCalDate.getTime(), (double) 12); // Asia -- 10 
-        createHashTagRank(tag5, myCalDate.getTime(), (double) 10); // Australia -- 11  
-       
-        
-        
-       
-        
-        
-        createHashTagRank(tag1, myCalDate.getTime(), (double) 10); // Europa --4
+        createHashTagRank(tag5, myCalDate.getTime(), (double) 10); // Australia -- 11    
  
         final List<HashTagRankingBean> getFirstHashTag = getFrontEndService()
-                .getHashTagRanking("China"); 
-        
+                .getHashTagRanking("China");  
         Assert.assertEquals("Should be equals", 2, getFirstHashTag.size());
 
         final List<HashTagRankingBean> getMiddleHashTag = getFrontEndService()
@@ -325,7 +317,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
         final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
                 .getHashTagRanking("Antartic");
-        Assert.assertEquals("Should be equals", 2, getLastHashTag.size());
+        Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
         
     }
 

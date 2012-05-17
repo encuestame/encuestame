@@ -28,36 +28,16 @@ public class HashTagRankingBean implements Serializable, Comparable<Object>{
     private Log log = LogFactory.getLog(this.getClass());
 	
 	/** Serial. */
-	private static final long serialVersionUID = -5904425568490646391L;
-  
-	/** **/
-	private Long rankId;
+	private static final long serialVersionUID = -5904425568490646391L;  
 	
 	/** **/
-	private String tagName;
-	
-	/** **/
-	private Double average;
-	
+	private String tagName; 
+	 
 	/** **/
 	private Integer position;
 	
 	/** **/
-	private Integer lastPosition;
-
-	/**
-	 * @return the rankId
-	 */
-	public Long getRankId() {
-		return rankId;
-	}
-
-	/**
-	 * @param rankId the rankId to set
-	 */
-	public void setRankId(Long rankId) {
-		this.rankId = rankId;
-	}
+	private Integer lastPosition; 
 
 	/**
 	 * @return the tagName
@@ -71,21 +51,7 @@ public class HashTagRankingBean implements Serializable, Comparable<Object>{
 	 */
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
-	}
-
-	/**
-	 * @return the average
-	 */
-	public Double getAverage() {
-		return average;
-	}
-
-	/**
-	 * @param average the average to set
-	 */
-	public void setAverage(Double average) {
-		this.average = average;
-	}
+	} 
 
 	/**
 	 * @return the position
@@ -120,8 +86,8 @@ public class HashTagRankingBean implements Serializable, Comparable<Object>{
 	 */
 	public int compareTo(Object o) {
 		HashTagRankingBean hashTagRanking = (HashTagRankingBean) o;
-        log.debug("HashTag rank position Value: " + hashTagRanking.getPosition());
-        log.debug("This HashTag rank position Value: " + this.getPosition());
+        log.trace("HashTag rank position Value: " + hashTagRanking.getPosition());
+        log.trace("This HashTag rank position Value: " + this.getPosition());
         int CompareToValue = Float.compare(hashTagRanking.getPosition() == null ? 0
                 : hashTagRanking.getPosition(),
                 this.getPosition() == null ? 0 : this.getPosition()); 
