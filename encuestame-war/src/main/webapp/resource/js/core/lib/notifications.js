@@ -1,0 +1,1 @@
+ENME.namespace("ENME.notifications");

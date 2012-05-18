@@ -148,8 +148,8 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
       * 
       * @param e
       */
-     stopEvent : function(e){
-    	 dojo.stopEvent(e);
+     stopEvent : function (e) {
+    	 ENME.stopEvent(e);
      }
 
 });

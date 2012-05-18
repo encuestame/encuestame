@@ -32,14 +32,20 @@ if (typeof dojo != "undefined") {
 			 *         or an array of HTMLElements.
 			 */
 			$ : dojo,
-
+			
+			_$self : this,
+	
+			/**
+			 * 
+			 */
 			log : function(obj) {
-				if (typeof console != "undefined" && console.log)
+				if (typeof console != "undefined" && console.log ) { //TODO: Add verbose condition.
 					console.log(obj);
+				}
 			},
 
 			stopEvent : function(e) {
-				dojo.stopEvent(e);
+				this.$.stopEvent(e);
 				return false; 
 			},
 
@@ -138,23 +144,99 @@ if (typeof dojo != "undefined") {
 					}
 				})();
 			},
+			
 			/**
 			 * Clones the element specified by the selector and removes the id
-			 * attribute
-			 * 
-			 * @param selector
-			 *            a jQuery selector
+			 * attribute.
+			 * @param selector a jQuery selector
 			 */
 			clone : function(selector) {
-				var x = ENME.$.query(selector),
+				var x = this.$.query(selector),
 				c = x.clone();
 				c.removeAttr("id");
 				return x;
 			},
 			
-			sGet : function(options) {
-				
+			/**
+			 * 
+			 */
+			_serviceHander :  function(response, ioargs) {
+			    //encuestame.filter.response(response);
+			    //console.info(ioargs.xhr.status, error);
+			    var message = "";
+			    switch (ioargs.xhr.status) {
+			    case 200:
+			        message = "Good request.";
+			        break;
+			    case 404:
+			        message = "The page you requested was not found.";
+			        //encuestame.error.createDialog(message, message);
+			        break;
+			    case 400:
+			        message = "Bad Request";
+			        //encuestame.error.createDialog(message, message);
+			        break;
+			    case 500:
+			        break;
+			        message = "Service temporarily unavailable.";
+			        //encuestame.error.createDialog(message, message);
+			        break;
+			    case 407:
+			        message = "You need to authenticate with a proxy.";
+			        //encuestame.error.createDialog(message, message);
+			        break;
+			    case 0:
+			        message = "A network error occurred. Check that you are connected to the internet.";
+			        //encuestame.error.conexion(message);
+			        break;
+			    default:
+			        message = "An unknown error occurred";
+			        //encuestame.error.unknown(message, ioargs.xhr.status);
+			    }
 			},
+			
+			//params, service, load, error, loadingFunction
+			/**
+			 * Make a GET json call to backend.
+			 */
+			sGet : function(options) {
+					var defaultOptions = {
+						handleAs : "json",
+						failOk : true,
+						timeout : 60000,
+						preventCache : true,
+					};
+			    	params = options.params || {};
+			    	service = options.service || "";
+			        var errorFunction = (options.error == null  ? this.$.hitch(this, function(errorMessage) {
+			        	 //this.infoMesage(errorMessage);
+			        	 _$self.log(errorMessage);
+			        }) : error);
+			        if (this.$.isFunction(load)) {
+			        	//encuestame.service.GET(service, params, load, errorFunction, loadingFunction);
+			        	var innerLoad = this.$.hitch(this, function(data) {
+				    		options.loadingFunction == null ? "" : options.loadingFunction.end();
+				    		if (this.$.isFunction(load)) {
+				    			load(data);
+				    		}
+				    	});
+				    	// initialize the loading
+				        options.loadingFunction == null ? "" : options.loadingFunction.init();
+				        var argsGet = {
+				                url : url,
+						        handleAs : defaultOptions.handleAs,
+						        failOk : defaultOptions.failOk, //Indicates whether a request should be allowed to fail
+						        // (and therefore no console error message in the event of a failure)
+						        timeout : defaultOptions.timeout,
+						        content: params,
+						        load: innerLoad,
+						        preventCache: defaultOptions.preventCache,
+						        error: error,
+						        handle : _serviceHander
+				       }
+				       this.$.xhrGet(argsGet);
+			        }
+			 },
 			
 			sPost : function(options) {
 				
@@ -223,7 +305,7 @@ if (typeof dojo != "undefined") {
 			
 			getSession : function(){
 			    //JSESSIONID=dh3u2xvj7fwd1llbddl33dhcq; path=/encuestame; domain=demo2.encuestame.org
-			    var sessionCookie = dojo.cookie("JSESSIONID");
+			    var sessionCookie = this.$.cookie("JSESSIONID");
 			    if (sessionCookie == undefined) {
 			        //encuestame.error.session(encuestame.error.messages.denied);
 			    } else {
@@ -242,16 +324,9 @@ if (typeof dojo != "undefined") {
 
 	})();
 	
-	
-
 	dojo.addOnLoad(function() {
 		ENME.init();
 	});
 	
-	ENME.namespace("ENME.notifications");
-	ENME.namespace("ENME.date");
-	ENME.namespace("ENME.session");
-	ENME.namespace("ENME.service");
-	ENME.namespace("ENME.messages");
 }
 

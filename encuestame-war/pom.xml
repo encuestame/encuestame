@@ -196,7 +196,7 @@
                      </execution>
                    </executions>
                    <configuration>
-                     <targetGroups>web,mobile,common,graph,html5</targetGroups>
+                     <targetGroups>web,mobile,common,graph</targetGroups>
                      <minimize>${javascript.minimize}</minimize>
                      <wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>
                      <destinationFolder>${basedir}/src/main/webapp/resource/static/</destinationFolder>

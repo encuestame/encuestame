@@ -17,7 +17,7 @@
                 <span>View: All</span>
                 <img>
              </button>
-             <div dojoType="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"></div>
+             <!-- <div dojoType="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"></div> -->
         </div>
     </section>
 

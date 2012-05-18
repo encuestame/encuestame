@@ -23,12 +23,16 @@
     <css>/resource/css/mobile/layout.css</css>
   </group>
   <group name='common'>
-   	<js>/resource/js/core/**.js</js>
+   	<js>/resource/js/core/*.js</js>
+   	<js>/resource/js/core/lib/*.js</js>
    </group>
-  <group name='html5'>
-   	<js>/resource/js/req/modernizr-2.0.6.js</js>
-   </group> 
    <group name='graph'>
-   	<js>/resource/js/req/raphael.js</js>
-   </group>      
+        <js>/resource/js/core/graph/core/raphael-2.1.0.js</js>
+        <js>/resource/js/core/graph/core/g.raphael.0.5.0.js</js>
+<!--         <js>/resource/js/core/graph/core/popup.js</js> -->
+   		<js>/resource/js/core/graph/g.bar.js</js>
+   		<js>/resource/js/core/graph/g.dot.js</js>
+   		<js>/resource/js/core/graph/g.line.js</js>
+   		<js>/resource/js/core/graph/g.pie.js</js>
+   </group>        
 </groups>

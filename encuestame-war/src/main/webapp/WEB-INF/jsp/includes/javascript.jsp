@@ -6,11 +6,11 @@
         dojoConfig = {
                     parseOnLoad: true,
                     useCommentedJson:true,
-                    isDebug: false
-                    };
+                    isDebug : false,
+                    locale : "en-us"
+        };
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
-<script src="<%=request.getContextPath()%>/resources/static/graph.js"></script>
 <script src="<%=request.getContextPath()%>/resources/static/common.js"></script>
 <script>
          dojo.require("dijit.dijit");

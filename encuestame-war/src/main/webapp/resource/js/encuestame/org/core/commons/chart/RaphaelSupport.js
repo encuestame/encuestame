@@ -70,6 +70,7 @@ dojo.declare("encuestame.org.core.commons.chart.RaphaelSupport", null, {
                 max = Math.max.apply(Math, this.data),
                 Y = (height - bottomgutter - topgutter) / max;
             //r.drawGrid(leftgutter + X * .5 + .5, topgutter + .5, width - leftgutter - X, height - topgutter - bottomgutter, 10, 10, "#E5E5E5");
+            //Creates a path element by given path data string.    
             var path = r.path().attr({stroke: color, "stroke-width": 2, "stroke-linejoin": "square"}),
                 bgp = r.path().attr({stroke: "none", opacity: .3, fill: color}),
                 label = r.set(),
@@ -80,7 +81,7 @@ dojo.declare("encuestame.org.core.commons.chart.RaphaelSupport", null, {
             label.push(r.text(60, 12, "24 hits").attr(txt));
             label.push(r.text(60, 27, "xx label").attr(txt1).attr({fill: color}));
             label.hide();
-            var frame = r.popup(100, 100, label, "right").attr({fill: "#fff", stroke: "#666", "stroke-width": 2, "fill-opacity": .9}).hide();
+            //var frame = r.popup(100, 100, label, "right").attr({fill: "#fff", stroke: "#666", "stroke-width": 2, "fill-opacity": .9}).hide();
 
             var p, bgpp;
             for (var i = 0, ii = this.labels.length; i < ii; i++) {
@@ -107,40 +108,40 @@ dojo.declare("encuestame.org.core.commons.chart.RaphaelSupport", null, {
                 (function (x, y, data, lbl, dot) {
                     var timer, i = 0;
                     //on mouse hover
-                    rect.hover(function () {
-                        clearTimeout(leave_timer);
-                        var side = "right";
-                        if (x + frame.getBBox().width > width) {
-                            side = "left";
-                        }
-                        var ppp = r.popup(x, y, label, side, 1),
-                            anim = Raphael.animation({
-                                path: ppp.path,
-                                transform: ["t", ppp.dx, ppp.dy]
-                            }, 200 * is_label_visible);
-                        lx = label[0].transform()[0][1] + ppp.dx;
-                        ly = label[0].transform()[0][2] + ppp.dy;
-                        frame.show().stop().animate(anim);
-                        label[0].attr({text: data + " hit" + (data == 1 ? "" : "s")}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
-                        label[1].attr({text: lbl + " xxx label"}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
-                        dot.attr("r", 6);
-                        is_label_visible = true;
-                    }, function () {
-                        dot.attr("r", 4);
-                        leave_timer = setTimeout(function () {
-                            frame.hide();
-                            label[0].hide();
-                            label[1].hide();
-                            is_label_visible = false;
-                        }, 1);
-                    });
+//                    rect.hover(function () {
+//                        clearTimeout(leave_timer);
+//                        var side = "right";
+//                        if (x + frame.getBBox().width > width) {
+//                            side = "left";
+//                        }
+//                        var ppp = r.popup(x, y, label, side, 1),
+//                            anim = Raphael.animation({
+//                                path: ppp.path,
+//                                transform: ["t", ppp.dx, ppp.dy]
+//                            }, 200 * is_label_visible);
+//                        lx = label[0].transform()[0][1] + ppp.dx;
+//                        ly = label[0].transform()[0][2] + ppp.dy;
+//                        //frame.show().stop().animate(anim);
+//                        //label[0].attr({text: data + " hit" + (data == 1 ? "" : "s")}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
+//                        //label[1].attr({text: lbl + " xxx label"}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
+//                        dot.attr("r", 6);
+//                        is_label_visible = true;
+//                    }, function () {
+//                        dot.attr("r", 4);
+//                        leave_timer = setTimeout(function () {
+//                            frame.hide();
+//                            label[0].hide();
+//                            label[1].hide();
+//                            is_label_visible = false;
+//                        }, 1);
+//                    });
                 })(x, y, this.data[i], this.labels[i], dot);
             }
             p = p.concat([x, y, x, y]);
             bgpp = bgpp.concat([x, y, x, y, "L", x, height - bottomgutter, "z"]);
             path.attr({path: p});
             bgp.attr({path: bgpp});
-            frame.toFront();
+            //frame.toFront();
             label[0].toFront();
             label[1].toFront();
             blanket.toFront();

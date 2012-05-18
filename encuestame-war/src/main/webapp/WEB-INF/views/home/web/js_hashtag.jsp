@@ -2,6 +2,7 @@
 <%-- <script src="<%=request.getContextPath()%>/resources/js/req/hashtag.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/req/popup.js"></script> --%>
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
+<script src="<%=request.getContextPath()%>/resources/static/graph.js"></script>
 <script type="text/javascript">
     dojo.require("encuestame.org.core.shared.publications.Publications");
     dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
