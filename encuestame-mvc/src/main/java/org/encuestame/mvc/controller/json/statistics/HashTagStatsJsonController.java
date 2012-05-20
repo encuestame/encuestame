@@ -29,6 +29,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
@@ -186,6 +187,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			List<HashTagDetailStats> tagStats = new ArrayList<HashTagDetailStats>();
 			final TypeSearchResult filterType = TypeSearchResult
 					.getTypeSearchResult(filter); 
+			//final SearchPeriods periodSearch = SearchPeriods.getPeriodString(period);
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 
 			if (filterType.equals(TypeSearchResult.HASHTAG)) {

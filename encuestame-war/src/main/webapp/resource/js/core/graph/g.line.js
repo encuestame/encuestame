@@ -202,7 +202,7 @@
                     w = ((xs[i + 1] || x + width) - xs[i]) / 2 + (xs[i] - (xs[i - 1] || x)) / 2,
                     C;
 
-                f ? (C = {}) : cvrs.push(C = paper.rect(X - 1, y, Math.max(w + 1, 1), height).attr({ stroke: "none", fill: "#000", opacity: 0 }));
+                f ? (C = {}) : cvrs.push(C = paper.rect(X - 1, y, Math.max(w + 1, 1), height).attr({ stroke: "#EFEF", fill: "#000", opacity: 0 }));
                 C.values = [];
                 C.symbols = paper.set();
                 C.y = [];

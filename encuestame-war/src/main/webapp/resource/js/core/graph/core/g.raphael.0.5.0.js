@@ -801,7 +801,7 @@ Raphael.g = {
             t = ends.to,
             i = ends.power,
             j = 0,
-            txtattr = { font: "11px 'Fontin Sans', Fontin-Sans, sans-serif" },
+            txtattr = { font: "lighter 10px 'Fontin Sans', Fontin-Sans, sans-serif", stroke: "#D6D4D4" },
             text = paper.set(),
             d;
 
@@ -862,6 +862,7 @@ Raphael.g = {
 
         res.text = text;
         res.all = paper.set([res, text]);
+        res.attr({stroke: "#EFEFEF"});
         res.remove = function () {
             this.text.remove();
             this.constructor.prototype.remove.call(this);
