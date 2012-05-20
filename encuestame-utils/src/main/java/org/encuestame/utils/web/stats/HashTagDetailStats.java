@@ -17,6 +17,7 @@ import java.io.Serializable;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
  * HashTag detail stats.
@@ -40,6 +41,9 @@ public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	/** **/
 	@JsonProperty(value = "sub_label")
 	private String subLabel;
+	
+	@JsonProperty(value = "filter")
+	private TypeSearchResult typeSearchResult;
 	
 
 	/**
@@ -87,6 +91,21 @@ public class HashTagDetailStats implements Serializable, Comparable<Object> {
 	 */
 	public void setSubLabel(final String subLabel) {
 		this.subLabel = subLabel;
+	}
+	
+	/**
+	 * @return the typeSearchResult
+	 */
+	@JsonIgnore
+	public TypeSearchResult getTypeSearchResult() {
+		return typeSearchResult;
+	}
+
+	/**
+	 * @param typeSearchResult the typeSearchResult to set
+	 */
+	public void setTypeSearchResult(TypeSearchResult typeSearchResult) {
+		this.typeSearchResult = typeSearchResult;
 	}
 
 	@Override

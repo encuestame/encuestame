@@ -721,7 +721,8 @@ encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admo
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
 encuestame.service.list.ranking = {};
 encuestame.service.list.ranking.hashtag = encuestame.contextWidget()+"/api/common/hashtags/stats/ranking.json";
-
+encuestame.service.list.range = {};
+encuestame.service.list.range.hashtag =  encuestame.contextWidget()+"/api/common/hashtags/stats/button/range.json";
 /*
  * Get Hashtag action.
  * @param type could be / hashtag, tweetpoll, poll.

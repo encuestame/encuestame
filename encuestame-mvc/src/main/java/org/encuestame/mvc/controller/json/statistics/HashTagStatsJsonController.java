@@ -83,13 +83,17 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 				tagStatsBean.setTotalHits(getStatisticsService().getTotalUsageByHashTag(tagName,
 						this.INIT_RESULTS, null, filterType, request
 						));
+				tagStatsBean.getTotalHits().setTypeSearchResult(TypeSearchResult.HITS);
 				tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
 						.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
 								null, request));
+				tagStatsBean.getTotalUsageBySocialNetwork().setTypeSearchResult(TypeSearchResult.SOCIALNETWORK);
 				tagStatsBean.setUsageByItem(getStatisticsService().getHashTagHitsbyName(tagName,
 						filterType, request));
+				tagStatsBean.getUsageByItem().setTypeSearchResult(TypeSearchResult.HASHTAG);
 				tagStatsBean.setUsageByVotes(getStatisticsService().getHashTagUsedOnItemsVoted(tagName, 
 						this.INIT_RESULTS, null, request));
+				tagStatsBean.getUsageByVotes().setTypeSearchResult(TypeSearchResult.VOTES);
 				jsonResponse.put("hashTagButtonStats", tagStatsBean);
 				setItemResponse(jsonResponse);
 			} else {
@@ -226,7 +230,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 
 		/** Serial **/
 		private static final long serialVersionUID = -2620835370999916919L;
-
+	
 		/** Total hashTags usage in Poll, Survey and TweetPoll. **/
 		@JsonProperty(value = "usage_by_item")
 		private HashTagDetailStats usageByItem;
@@ -302,6 +306,6 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		 */
 		public void setUsageByVotes(final HashTagDetailStats usageByVotes) {
 			this.usageByVotes = usageByVotes;
-		}   
+		}
 	}
 } 
