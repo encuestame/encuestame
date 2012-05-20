@@ -7,14 +7,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
- 
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
@@ -35,8 +31,6 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
@@ -48,8 +42,8 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
-import org.encuestame.utils.web.stats.GenericStatsBean;  
-import org.encuestame.utils.web.stats.HashTagRankingBean; 
+import org.encuestame.utils.web.stats.GenericStatsBean;
+import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -1020,6 +1014,27 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         }
 
     } 
+    
+    /**
+     * Get last {@link HashTagRanking} position
+     * @param maxDate
+     * @param tagName
+     * @return
+     */
+	private Integer getHashTagLastPosition(final Date maxDate,
+			final String tagName) {
+		Integer lastPosValue = null;
+		final List<HashTagRanking> tagRanking = getHashTagDao()
+				.getHashTagRankingLastPosition(maxDate);
+		if (tagRanking.size() > 0) {
+			for (int i = 0; i < tagRanking.size(); i++) {
+				if (tagRanking.get(i).getHashTag().getHashTag().equals(tagName)) {
+					lastPosValue = i+1;
+				}
+			}
+		}
+		return lastPosValue;
+	}
  
     /*
      * (non-Javadoc)
@@ -1029,83 +1044,114 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * .lang.String)
      */
     public List<HashTagRankingBean> getHashTagRanking(final String tagName) {
-
+    	final Date maxRankingDate;
+    	maxRankingDate = getHashTagDao().getMaxHashTagRankingDate(); 
+    	
         List<HashTagRanking> hashTagRankingList = getHashTagDao()
-                .getHashTagRankStats();
+                .getHashTagRankStats(maxRankingDate);
+        log.debug("Hashtag ranking list --->" + hashTagRankingList.size());
         final Integer value = 1;
         Integer position = 0;
+        Integer lastRankPosition; 
+      
         final List<HashTagRankingBean> tagRankingBeanList = new ArrayList<HashTagRankingBean>();
-        final HashTagRankingBean tagRank = new HashTagRankingBean();
-        final HashTagRankingBean tagRankBef = new HashTagRankingBean();
-        final HashTagRankingBean tagRankAfter = new HashTagRankingBean();
+        
+        HashTagRankingBean ranking = new HashTagRankingBean();
         final Integer hashTagRankListSize = hashTagRankingList.size() - value;
         Integer positionBefore;
         Integer positionAfter;
         log.debug("Hashtag ranking list --->" + hashTagRankListSize);
-        for (int i = 0; i < hashTagRankingList.size(); i++) {
-            if (hashTagRankingList.get(i).getHashTag().getHashTag()
-                    .equals(tagName)) {
+        for (int i = 0; i < hashTagRankingList.size(); i++) { 
+			if (hashTagRankingList.get(i).getHashTag().getHashTag()
+					.equals(tagName)) {
                 // Retrieve hashtag main.
-                position = i;
-                tagRank.setAverage(hashTagRankingList.get(i).getAverage());
-                tagRank.setPosition(i);
-                tagRank.setTagName(tagName);
-                tagRank.setRankId(hashTagRankingList.get(i).getRankId());
-                tagRankingBeanList.add(tagRank);
-                log.debug("HashTag ranking main ---> "
-                        + hashTagRankingList.get(i).getHashTag().getHashTag());
-                log.debug("HashTag ranking main position---> " + position);
+                position =i;
                 positionBefore = position - value;
                 positionAfter = position + value;
-                if ((position > 0) && (position < hashTagRankListSize)) {
+                lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(i).getHashTag().getHashTag());
+				ranking = this.createHashTagRankingBean(
+						hashTagRankingList.get(i).getRankId(),
+						hashTagRankingList.get(i).getAverage(), positionAfter, tagName,
+						lastRankPosition);
+  
+                tagRankingBeanList.add(ranking);
+                log.debug("HashTag ranking main ---> "
+                        + hashTagRankingList.get(i).getHashTag().getHashTag());
+                log.debug("HashTag ranking main position---> " + position); 
+                
+                if ((position > 0) && (position < hashTagRankListSize)) { 
                     log.debug(" --- HashTag ranking first option ---");
-                    // Save hashTag before item
-                    tagRankBef.setAverage(hashTagRankingList
-                            .get(positionBefore).getAverage());
-                    tagRankBef.setPosition(positionBefore);
-                    tagRankBef.setTagName(hashTagRankingList
-                            .get(positionBefore).getHashTag().getHashTag());
-                    tagRankBef.setRankId(hashTagRankingList.get(positionBefore)
-                            .getRankId());
-                    tagRankingBeanList.add(tagRankBef);
+                    // Save hashTag before item 
+                    lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionBefore).getHashTag().getHashTag());
+					ranking = this
+							.createHashTagRankingBean(
+									hashTagRankingList.get(positionBefore)
+											.getRankId(), hashTagRankingList
+											.get(positionBefore).getAverage(),
+											position,
+									hashTagRankingList.get(positionBefore)
+											.getHashTag().getHashTag(),
+									lastRankPosition);
+                    tagRankingBeanList.add(ranking); 
 
-                    // Save hashTag after item
-                    tagRankAfter.setAverage(hashTagRankingList.get(
-                            positionAfter).getAverage());
-                    tagRankAfter.setPosition(positionAfter);
-                    tagRankAfter.setTagName(hashTagRankingList
-                            .get(positionAfter).getHashTag().getHashTag());
-                    tagRankAfter.setRankId(hashTagRankingList
-                            .get(positionAfter).getRankId());
-                    tagRankingBeanList.add(tagRankAfter);
-                } else if ((position > 0) && (position == hashTagRankListSize)) {
-                    log.debug(" --- HashTag ranking second option --- ");
-                    // Save hashTag before item
-                    tagRankBef.setAverage(hashTagRankingList
-                            .get(positionBefore).getAverage());
-                    tagRankBef.setPosition(positionBefore);
-                    tagRankBef.setTagName(hashTagRankingList
-                            .get(positionBefore).getHashTag().getHashTag());
-                    tagRankBef.setRankId(hashTagRankingList.get(positionBefore)
-                            .getRankId());
-                    tagRankingBeanList.add(tagRankBef);
-                } else if ((position == 0)) {
-                    log.debug(" --- HashTag ranking second option --- ");
-                    // Save hashTag after item
-                    tagRankAfter.setAverage(hashTagRankingList.get(
-                            positionAfter).getAverage());
-                    tagRankAfter.setPosition(positionAfter);
-                    tagRankAfter.setTagName(hashTagRankingList
-                            .get(positionAfter).getHashTag().getHashTag());
-                    tagRankAfter.setRankId(hashTagRankingList
-                            .get(positionAfter).getRankId());
-                    tagRankingBeanList.add(tagRankAfter);
-                }
-            }
-        }
-        Collections.sort(tagRankingBeanList);
-        return tagRankingBeanList;
-    }
+                    // Save hashTag after item 
+                    lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionAfter).getHashTag().getHashTag());
+					ranking = this.createHashTagRankingBean(hashTagRankingList
+							.get(positionAfter).getRankId(), hashTagRankingList
+							.get(positionAfter).getAverage(), position +2,
+							hashTagRankingList.get(positionAfter).getHashTag()
+									.getHashTag(), lastRankPosition);
+                    
+                    tagRankingBeanList.add(ranking);
+				} else if ((position > 0) && (position == hashTagRankListSize)) {
+					log.debug(" --- HashTag ranking second option --- ");
+					// Save hashTag before item
+				    lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionBefore).getHashTag().getHashTag());
+					ranking = this
+							.createHashTagRankingBean(
+									hashTagRankingList.get(positionBefore)
+											.getRankId(), hashTagRankingList
+											.get(positionBefore).getAverage(),
+											position,
+									hashTagRankingList.get(positionBefore)
+											.getHashTag().getHashTag(),
+									lastRankPosition);
+					tagRankingBeanList.add(ranking);
+				} else if ((position == 0)) { 
+					log.debug(" --- HashTag ranking second option --- ");
+					// Save hashTag after item
+					lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionAfter).getHashTag().getHashTag());
+					ranking = this.createHashTagRankingBean(hashTagRankingList
+							.get(positionAfter).getRankId(), hashTagRankingList
+							.get(positionAfter).getAverage(), i+2,
+							hashTagRankingList.get(positionAfter).getHashTag()
+									.getHashTag(), lastRankPosition);
+					tagRankingBeanList.add(ranking);
+				}
+			}
+		}
+		Collections.sort(tagRankingBeanList); 
+		return tagRankingBeanList;
+	}
+    
+    /**
+     * 
+     * @param id
+     * @param average
+     * @param position
+     * @param tagName
+     * @param lastPos
+     * @return
+     */
+	private HashTagRankingBean createHashTagRankingBean(final Long id,
+			final Double average, final Integer position, final String tagName,
+			final Integer lastPos) {
+		final HashTagRankingBean tagItemRanking = new HashTagRankingBean(); 
+		tagItemRanking.setPosition(position);
+		tagItemRanking.setTagName(tagName); 
+		tagItemRanking.setLastPosition(lastPos == null ? 0 : lastPos); 
+		return tagItemRanking;
+	}
 
     /*
      * (non-Javadoc)

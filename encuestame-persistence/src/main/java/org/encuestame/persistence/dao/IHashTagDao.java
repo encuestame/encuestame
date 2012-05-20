@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.imp.HashTagDao;
@@ -83,8 +84,20 @@ public interface IHashTagDao extends IBaseDao	{
 	
 	/**
 	 * 
-	 * @param hashTag
+	 * @param maxDate
 	 * @return
 	 */
-	List<HashTagRanking> getHashTagRankStats();
+	List<HashTagRanking> getHashTagRankStats(final Date maxDate);
+	
+	/**
+	 * Get HashTag ranking max date.
+	 */
+	Date getMaxHashTagRankingDate();
+ 
+	/**
+	 * 
+	 * @param maxDate 
+	 * @return
+	 */
+	List<HashTagRanking> getHashTagRankingLastPosition(final Date maxDate); 
 }

@@ -961,15 +961,13 @@ public class TestUnitBeans extends AbstractBaseUtils {
      */
     @Test
     public void testHashTagRankingBean(){
-        final HashTagRankingBean tagRankingBean = new HashTagRankingBean();
-        tagRankingBean.setRankId(1L);
-        tagRankingBean.setAverage(28.5);
+        final HashTagRankingBean tagRankingBean = new HashTagRankingBean(); 
         tagRankingBean.setPosition(3);
-        tagRankingBean.setTagName("Spain");
-        assertNotNull(tagRankingBean.getAverage());
-        assertNotNull(tagRankingBean.getRankId());
+        tagRankingBean.setTagName("Spain"); 
+        tagRankingBean.setLastPosition(10);
         assertNotNull(tagRankingBean.getPosition());
         assertNotNull(tagRankingBean.getTagName());
+        assertNotNull(tagRankingBean.getLastPosition());
     }
 
     /**

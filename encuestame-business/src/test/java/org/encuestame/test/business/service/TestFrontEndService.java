@@ -12,6 +12,7 @@
  */
 package org.encuestame.test.business.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -262,31 +263,62 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
      * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testGetHashTagRanking() throws EnMeNoResultsFoundException {
-        final Date myDate = new Date();
+    public void testGetHashTagRanking() throws EnMeNoResultsFoundException { 
+        final Calendar myCalDate = Calendar.getInstance();
+        
         final HashTag tag = createHashTag("America", 20L);
-        final HashTag tag1 = createHashTag("Europa", 20L);
-        final HashTag tag2 = createHashTag("Asia", 20L);
+        final HashTag tag1 = createHashTag("Europa", 30L);
+        final HashTag tag2 = createHashTag("Asia", 40L);
         final HashTag tag3 = createHashTag("Oceania", 20L);
-        final HashTag tag4 = createHashTag("Africa", 20L);
-
-        createHashTagRank(tag3, myDate, (double) 90); // Oceania -- 0
-        createHashTagRank(tag4, myDate, (double) 70); // Africa -- 1
-        createHashTagRank(tag2, myDate, (double) 30); // Asia -- 2
-        createHashTagRank(tag, myDate, (double) 20); // America -- 3
-        createHashTagRank(tag1, myDate, (double) 10); // Europa --4
-
+        final HashTag tag4 = createHashTag("Africa", 60L);
+        final HashTag tag5 = createHashTag("Australia", 55L);
+        final HashTag tag6 = createHashTag("Tailandia", 12L);
+        final HashTag tag7 = createHashTag("Caribe", 5L);
+        final HashTag tag8 = createHashTag("Antartic", 10L);
+        final HashTag tag9 = createHashTag("Mediterraneo", 70L);
+        final HashTag tag10 = createHashTag("Balcanes", 80L);
+        final HashTag tag11 = createHashTag("China", 42L);
+        
+        createHashTagRank(tag11, myCalDate.getTime(), (double) 97); // China -- 11
+        createHashTagRank(tag3, myCalDate.getTime(), (double) 90); // Oceania -- 0
+        createHashTagRank(tag4, myCalDate.getTime(), (double) 70); // Africa -- 1 
+        createHashTagRank(tag7, myCalDate.getTime(), (double) 58); // Caribe -- 7  
+        createHashTagRank(tag1, myCalDate.getTime(), (double) 40); // Europa --4
+        createHashTagRank(tag9, myCalDate.getTime(), (double) 38); // Mediterraneo -- 9 
+        createHashTagRank(tag2, myCalDate.getTime(), (double) 30); // Asia -- 2
+        createHashTagRank(tag5, myCalDate.getTime(), (double) 25); // Australia -- 5  
+        createHashTagRank(tag10, myCalDate.getTime(), (double) 16); // Balcanes -- 10
+        createHashTagRank(tag, myCalDate.getTime(), (double) 14); // America -- 3   
+        createHashTagRank(tag6, myCalDate.getTime(), (double) 12); // Tailandia -- 6 
+        createHashTagRank(tag8, myCalDate.getTime(), (double) 10); // Antartic -- 8 
+        
+        myCalDate.add(Calendar.DATE, -1);
+        
+        createHashTagRank(tag8, myCalDate.getTime(), (double) 80); //Antartic -- 0 
+        createHashTagRank(tag11, myCalDate.getTime(), (double) 68); // China -- 1
+        createHashTagRank(tag, myCalDate.getTime(), (double) 56); // America -- 2
+        createHashTagRank(tag9, myCalDate.getTime(), (double) 55); // Mediterraneo -- 3 
+        createHashTagRank(tag7, myCalDate.getTime(), (double) 39); // Caribe -- 4  
+        createHashTagRank(tag4, myCalDate.getTime(), (double) 34); // Africa --5
+        createHashTagRank(tag10, myCalDate.getTime(), (double) 31); // Balcanes --6
+        createHashTagRank(tag6, myCalDate.getTime(), (double) 28); // Tailandia -- 7 
+        createHashTagRank(tag3, myCalDate.getTime(), (double) 25); // Oceania -- 8
+        createHashTagRank(tag1, myCalDate.getTime(), (double) 20); // Europa -- 9 
+        createHashTagRank(tag2, myCalDate.getTime(), (double) 12); // Asia -- 10 
+        createHashTagRank(tag5, myCalDate.getTime(), (double) 10); // Australia -- 11    
+ 
         final List<HashTagRankingBean> getFirstHashTag = getFrontEndService()
-                .getHashTagRanking("Oceania");
+                .getHashTagRanking("China");  
         Assert.assertEquals("Should be equals", 2, getFirstHashTag.size());
 
         final List<HashTagRankingBean> getMiddleHashTag = getFrontEndService()
-                .getHashTagRanking("Asia");
+                .getHashTagRanking("Mediterraneo");
         Assert.assertEquals("Should be equals", 3, getMiddleHashTag.size());
 
         final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
-                .getHashTagRanking("Europa");
-        Assert.assertEquals("Should be equals", 2, getLastHashTag.size());
+                .getHashTagRanking("Antartic");
+        Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
+        
     }
 
 

@@ -455,6 +455,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return poll;
 
     }
+    
+    /**
+     * Helper create default poll.
+     * @param question
+     * @param userAccount
+     * @return
+     */
+	public Poll createDefaultPoll(final Question question,
+			final UserAccount userAccount) {
+		return this.createPoll(new Date(), question, userAccount, Boolean.TRUE,
+				Boolean.TRUE);
+	}
+    
     /**
       * Helper to create poll
       * @param createdDate
