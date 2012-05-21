@@ -27,8 +27,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.PollResult; 
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -246,6 +245,18 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 .list());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#retrievePollResults(org.encuestame.persistence.domain.survey.Poll)
+     */
+	@SuppressWarnings("unchecked")
+	public List<PollResult> retrievePollResults(final Poll poll) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(PollResult.class);
+		criteria.add(Restrictions.eq("poll", poll));
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
+	
      /*
       * (non-Javadoc)
       * @see org.encuestame.persistence.dao.IPoll#getPollsByQuestionKeyword(java.lang.String, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)

@@ -253,4 +253,11 @@ public interface IPoll extends IBaseDao {
     PollResult validateVoteIP(
     		final String ip,
             final Poll poll);
+    
+    /**
+     * Retrieve {@link PollResult}
+     * @param poll
+     * @return
+     */
+    List<PollResult> retrievePollResults(final Poll poll); 
 }

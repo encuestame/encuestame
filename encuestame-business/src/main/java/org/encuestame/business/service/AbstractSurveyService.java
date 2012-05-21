@@ -14,8 +14,7 @@ package org.encuestame.business.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
+import java.util.Calendar; 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -617,6 +616,18 @@ public class AbstractSurveyService extends AbstractChartService {
              getQuestionDao().saveOrUpdate(question);
          }
      }
+      
+   
+    /**
+     * Retrieve {@link QuestionAnswer} by {@link Question} id.  
+     * @param questionId
+     * @return
+     */
+	public List<QuestionAnswer> getQuestionAnswersbyQuestionId(final Long questionId) {
+		final List<QuestionAnswer> qAnswers = getQuestionDao()
+				.getAnswersByQuestionId(questionId);
+		return qAnswers;
+	}
 
     /**
      * @return the answerPollPath

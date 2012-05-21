@@ -28,10 +28,11 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.survey.PollResult; 
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
@@ -198,14 +199,45 @@ public class PollService extends AbstractSurveyService implements IPollService{
       * @param pollId
       * @throws EnMeNoResultsFoundException
       */
-    public void removePoll(final Long pollId) throws EnMeNoResultsFoundException{
-        final Poll pollDomain = this.getPoll(pollId);
-        if(pollDomain != null){
-              getPollDao().delete(pollDomain);
-          } else {
-              throw new EnMeNoResultsFoundException("Poll not found");
-          }
-      }
+	public void removePoll(final Long pollId)
+			throws EnMeNoResultsFoundException {
+		final Poll pollDomain = this.getPoll(pollId);
+
+		final List<PollResult> pollResults;
+		final List<QuestionAnswer> qAnswer;
+		Question question = new Question();
+	 
+		if (pollDomain != null) {
+			// Retrieve Poll results, answers and question.
+			 pollResults = getPollDao().retrievePollResults(pollDomain);
+			if (pollResults.size() > 0) {
+				// Delete poll results.
+				for (PollResult pollResult : pollResults) {
+					getPollDao().delete(pollResult);
+				}
+			}  
+			question = pollDomain.getQuestion();
+
+			if (question != null) {
+				 
+				// Retrieve answers by Question id.
+				qAnswer = this.getQuestionAnswersby(question.getQid());
+				for (QuestionAnswer questionAnswer : qAnswer) {
+					getQuestionDao().delete(questionAnswer);
+				}
+				// Remove Question
+				//getQuestionDao().delete(question);
+			} else {
+				throw new EnMeNoResultsFoundException("Question  not found");
+			}
+
+			// Remove Poll
+			getPollDao().delete(pollDomain);
+		 
+		} else {
+			throw new EnMeNoResultsFoundException("Poll not found");
+		}
+	}
 
     /**
      * Search Polls by Question keyword.

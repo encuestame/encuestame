@@ -16,8 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.Date; 
 import java.util.List;
 
 import org.encuestame.persistence.dao.IPoll;

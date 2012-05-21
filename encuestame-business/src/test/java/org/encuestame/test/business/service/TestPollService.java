@@ -21,10 +21,11 @@ import java.util.List;
 
 import org.encuestame.business.service.PollService;
 import org.encuestame.core.service.imp.IPollService;
-import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ConvertDomainBean; 
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -230,5 +231,32 @@ public class TestPollService extends AbstractSpringSecurityContext{
         for (PollBean pollBean : pbean) {
              log.debug(" poll name and Id--> " + pollBean.getQuestionBean().getQuestionName() + "ID -->" + pollBean.getId());
         }
+    }
+    
+    
+    /**
+     * Test remove poll
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testRemovePoll() throws EnMeExpcetion{
+    	   final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
+           final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
+           unitPoll.setQuestionBean(question);
+           final String[] answers = new String[4];
+           answers[0] = "answer One";
+           answers[1] = "answer Two";
+           answers[2] = "answer Three";
+           answers[3] = "answer Four";
+           final Poll pollserviceNew = this.pollService.createPoll("First test poll", answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE); 
+           final List<QuestionAnswer> qAnswers = getQuestionDaoImp().getAnswersByQuestionId(pollserviceNew.getQuestion().getQid()); 
+        
+           
+           this.pollService.removePoll(pollserviceNew.getPollId());
+          /* final List<QuestionAnswer> qAnswersAft = getQuestionDaoImp().getAnswersByQuestionId(idPoll);
+      
+           final Poll getPollAfter = this.pollService.getPollById(pollserviceNew.getPollId()); */
+         
+    	
     }
 }
