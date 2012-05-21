@@ -24,6 +24,7 @@ import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.test.config.AbstractBase;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -138,7 +139,8 @@ public class TestHashTagDao  extends AbstractBase{
 	 */
 	@Test
 	public void testgetHashTagRankStats(){
-		final Calendar myDate = Calendar.getInstance();
+		final DateTime time = new DateTime("2010-06-25");		
+		//final Calendar myDate = Calendar.getInstance().setTime(time.toDate());
 		final HashTag tag = createHashTag("America", 20L);
 		final HashTag tag1 = createHashTag("Europa", 20L);
 		final HashTag tag2 = createHashTag("Asia", 20L);
@@ -147,36 +149,48 @@ public class TestHashTagDao  extends AbstractBase{
 		final HashTag tag5 = createHashTag("Polar", 10L);
 		
 		
-		myDate.add(Calendar.DATE, -1);  
-		final HashTagRanking tr1 =createHashTagRank(tag, myDate.getTime(), 20D); 
+		//myDate.add(Calendar.DATE, -1);
+		final DateTime time1 = time.minusDays(1);
 		
-		myDate.add(Calendar.HOUR, -1);
-		myDate.add(Calendar.MINUTE, -5); 
-		createHashTagRank(tag1, myDate.getTime(), 25D);
+		createHashTagRank(tag, time1.toDate(), 20D); 
 		
-		myDate.add(Calendar.HOUR, -2);
-		myDate.add(Calendar.MINUTE, 25); 
-		createHashTagRank(tag2, myDate.getTime(), 15D);
+		time.minusHours(1);
+		time.minusMinutes(5);
+		//myDate.add(Calendar.HOUR, -1);
+		//myDate.add(Calendar.MINUTE, -5); 
+		createHashTagRank(tag1, time.toDate(), 25D);
 		
-		myDate.add(Calendar.HOUR, -3);
-		myDate.add(Calendar.MINUTE, 10); 
-		createHashTagRank(tag3, myDate.getTime(), 46D);
+		//myDate.add(Calendar.HOUR, -2);
+		//myDate.add(Calendar.MINUTE, 25); 
+		time.minusHours(2);
+		time.minusMinutes(25);
+		createHashTagRank(tag2, time.toDate(), 15D);
 		
-		myDate.add(Calendar.HOUR, -2);
-		myDate.add(Calendar.MINUTE, -30); 
-		createHashTagRank(tag4, myDate.getTime(), 31D);
-		createHashTagRank(tag5, myDate.getTime(), 60D);
+		//myDate.add(Calendar.HOUR, -3);
+		//myDate.add(Calendar.MINUTE, 10);
+		time.minusHours(3);
+		time.plusMinutes(10);
+		createHashTagRank(tag3, time.toDate(), 46D);
 		
-		myDate.add(Calendar.DATE, -2); 
-		createHashTagRank(tag1, myDate.getTime(), 10D);
-		createHashTagRank(tag, myDate.getTime(), 20D);
-		createHashTagRank(tag, myDate.getTime(), 20D);
+		//myDate.add(Calendar.HOUR, -2);
+		//myDate.add(Calendar.MINUTE, -30);
+		time.minusHours(2);
+		time.minusMinutes(30);
+		createHashTagRank(tag4, time.toDate(), 31D);
+		createHashTagRank(tag5, time.toDate(), 60D);
 		
-		myDate.add(Calendar.DATE, -3);
-		createHashTagRank(tag2, myDate.getTime(), 30D);
+		final DateTime time8 = time.minusDays(3); 
+		createHashTagRank(tag1, time8.toDate(), 10D);
+		createHashTagRank(tag, time8.toDate(), 20D);
+		createHashTagRank(tag, time8.toDate(), 20D);
 		
- 		final Date tRank = getHashTagDao()
-				.getMaxHashTagRankingDate(); 
+		//myDate.add(Calendar.DATE, -3);
+		final DateTime time9 = time.minusDays(3);
+		System.out.println(time9.toDate());
+		createHashTagRank(tag2, time.toDate(), 30D);
+		
+ 		final Date tRank = getHashTagDao().getMaxHashTagRankingDate();
+ 		System.out.println(tRank);
  		final List<HashTagRanking> rankStats = getHashTagDao().getHashTagRankStats(tRank);   
 		assertEquals("Should be equals", rankStats.size(), 6);
 	}  
