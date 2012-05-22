@@ -193,15 +193,27 @@ public class PollService extends AbstractSurveyService implements IPollService{
      private Poll getPoll(final Long pollId) throws EnMeNoResultsFoundException{
          return this.getPollDao().getPollById(pollId);
      }
+     
+     /**
+      * Retrieve {@link Poll} by {@link UserAccount}
+      * @param pollId
+      * @param user
+      * @return
+      * @throws EnMeNoResultsFoundException
+      */
+     private Poll getPollbyUserAndId(final Long pollId, final UserAccount user) throws EnMeNoResultsFoundException{
+         return this.getPollDao().getPollById(pollId, user);
+     } 
 
      /**
       * Remove Poll
       * @param pollId
       * @throws EnMeNoResultsFoundException
       */
+	 
 	public void removePoll(final Long pollId)
 			throws EnMeNoResultsFoundException {
-		final Poll pollDomain = this.getPoll(pollId);
+		final Poll pollDomain = this.getPollbyUserAndId(pollId, getUserAccountonSecurityContext());
 
 		final List<PollResult> pollResults;
 		final List<QuestionAnswer> qAnswer;
@@ -209,31 +221,37 @@ public class PollService extends AbstractSurveyService implements IPollService{
 	 
 		if (pollDomain != null) {
 			// Retrieve Poll results, answers and question.
-			 pollResults = getPollDao().retrievePollResults(pollDomain);
+			pollResults = getPollDao().retrievePollResults(pollDomain);  
 			if (pollResults.size() > 0) {
 				// Delete poll results.
 				for (PollResult pollResult : pollResults) {
 					getPollDao().delete(pollResult);
 				}
-			}  
+			}
 			question = pollDomain.getQuestion();
-
+		 
 			if (question != null) {
-				 
+
 				// Retrieve answers by Question id.
-				qAnswer = this.getQuestionAnswersby(question.getQid());
-				for (QuestionAnswer questionAnswer : qAnswer) {
-					getQuestionDao().delete(questionAnswer);
+				qAnswer = this
+						.getQuestionAnswersbyQuestionId(question.getQid());
+				if (qAnswer.size() > 0) {  
+					for (QuestionAnswer questionAnswer : qAnswer) {
+						getQuestionDao().delete(questionAnswer);
+					}
 				}
+				// Remove Poll
+				getPollDao().delete(pollDomain);
+				
+				 // TODO: Remove Hits and social network publications.
+
 				// Remove Question
-				//getQuestionDao().delete(question);
+				getQuestionDao().delete(question);
+
 			} else {
 				throw new EnMeNoResultsFoundException("Question  not found");
 			}
 
-			// Remove Poll
-			getPollDao().delete(pollDomain);
-		 
 		} else {
 			throw new EnMeNoResultsFoundException("Poll not found");
 		}
