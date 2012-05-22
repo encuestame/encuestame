@@ -103,6 +103,7 @@ dojo.declare(
 	    			valuesx : valuesx,
 	    			valuesy : valuesy,
 	    			width : 750,
+	    			radius : 1,
 	    			height : 280,
 	    	};
 	    	ENME.graph("line", option);
@@ -156,7 +157,7 @@ dojo.declare(
 	                        	/*
 	                        	 * Object { label="8", value=14, sub_label="Agosto"}
 	                        	 */
-		                      array_stats[1][item.label] = 8;		                        	
+		                      array_stats[1][item.label] = item.value;		                        	
 		               }));
 		       			ENME.log(array_stats[0]);
 		       			ENME.log(array_stats[1]);
@@ -180,11 +181,11 @@ dojo.declare(
 	        
 	        //create the button
 	        this._createButtons();
-	        dojo.addOnLoad(function() {
+	        dojo.addOnLoad(dojo.hitch(this, function() {
 		        if (typeof(this.default_filter) === 'string') {
 		        	this._callRateService(this.default_filter, this.default_range);
 		        }
-	        });
+	        }));
 	        
 	        dojo.addOnLoad(function() {
             	

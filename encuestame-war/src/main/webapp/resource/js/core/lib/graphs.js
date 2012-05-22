@@ -4,7 +4,7 @@ ENME.graph = ( function(dojo, undefined) {
 	
 		var line_default = {
 				smoot : false,
-				width : 1,
+				radius : 1,
 				symbol : 'circle',
 				nostroke : false,
 				axis : '0 0 1 1',
@@ -50,7 +50,7 @@ ENME.graph = ( function(dojo, undefined) {
 	              	gutter: options.gutter || line_default.gutter,
 	              	colors: options.colors || line_default.colors,
 	              	shade : options.shade || line_default.shade,
-	              	width : options.width || line_default.width,
+	              	width : options.radius || line_default.radius,
 	              	smooth: options.smooth || line_default.smooth });
 	              	//.hover(
 	              	//		function(){console.log("1", this);}, 
