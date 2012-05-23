@@ -238,25 +238,33 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test remove poll
      * @throws EnMeExpcetion
      */
-    @Test
-    public void testRemovePoll() throws EnMeExpcetion{
-    	   final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
-           final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
-           unitPoll.setQuestionBean(question);
-           final String[] answers = new String[4];
-           answers[0] = "answer One";
-           answers[1] = "answer Two";
-           answers[2] = "answer Three";
-           answers[3] = "answer Four";
-           final Poll pollserviceNew = this.pollService.createPoll("First test poll", answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE); 
-           final List<QuestionAnswer> qAnswers = getQuestionDaoImp().getAnswersByQuestionId(pollserviceNew.getQuestion().getQid()); 
-        
-           
-           this.pollService.removePoll(pollserviceNew.getPollId());
-          /* final List<QuestionAnswer> qAnswersAft = getQuestionDaoImp().getAnswersByQuestionId(idPoll);
-      
-           final Poll getPollAfter = this.pollService.getPollById(pollserviceNew.getPollId()); */
-         
-    	
-    }
+	@Test
+	public void testRemovePoll() throws EnMeExpcetion {
+
+		final String[] answers = new String[4];
+		answers[0] = "answer One";
+		answers[1] = "answer Two";
+		answers[2] = "answer Three";
+		answers[3] = "answer Four";
+		final Poll newPollService = this.pollService.createPoll(
+				"First test poll", answers, Boolean.TRUE, "APPROVE",
+				Boolean.TRUE);
+
+		final List<QuestionAnswer> beforeAnswers = getQuestionDaoImp()
+				.getAnswersByQuestionId(newPollService.getQuestion().getQid());
+		assertEquals(beforeAnswers.size(), 4);
+
+		this.pollService.removePoll(newPollService.getPollId());
+
+		/*final Poll checkPoll = this.pollService.getPollById(newPollService
+				.getPollId());
+		 
+		assertEquals("Should be equals", "poll invalid with this id"
+				+ newPollService.getPollId(), checkPoll);*/
+
+		final List<QuestionAnswer> afterAnswers = getQuestionDaoImp()
+				.getAnswersByQuestionId(newPollService.getQuestion().getQid());
+		assertEquals(afterAnswers.size(), 0);
+
+	}
 }

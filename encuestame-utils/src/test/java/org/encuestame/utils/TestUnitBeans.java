@@ -1121,19 +1121,25 @@ public class TestUnitBeans extends AbstractBaseUtils {
     /**
      * Test {@link ProfileRatedTopBean}.
      */
-    @Test
-    public void testProfileRatedTopBean(){
-        final ProfileRatedTopBean profileRatedTop = new ProfileRatedTopBean();
-        profileRatedTop.setPoll(1L);
-        profileRatedTop.setSurvey(2L);
-        profileRatedTop.setTopValue(5L);
-        profileRatedTop.setTpoll(4L);
-        profileRatedTop.setUsername("admin");
+	@Test
+	public void testProfileRatedTopBean() {
+		final ProfileRatedTopBean profileRatedTop = new ProfileRatedTopBean();
+		profileRatedTop.setCurrentPos(0);
+		profileRatedTop.setDisLikeVotes(1L);
+		profileRatedTop.setLastPos(3);
+		profileRatedTop.setLikeVotes(2L);
+		profileRatedTop.setTopValue(5L);
+		profileRatedTop.setTotalbyItems(15L);
+		profileRatedTop.setUrl("url");
+		profileRatedTop.setUsername("admin");
 
-        assertNotNull(profileRatedTop.getPoll());
-        assertNotNull(profileRatedTop.getSurvey());
-        assertNotNull(profileRatedTop.getTopValue());
-        assertNotNull(profileRatedTop.getUsername());
-        assertNotNull(profileRatedTop.getTpoll());
-    }
+		assertNotNull(profileRatedTop.getCurrentPos());
+		assertNotNull(profileRatedTop.getDisLikeVotes());
+		assertNotNull(profileRatedTop.getLastPos());
+		assertNotNull(profileRatedTop.getLikeVotes());
+		assertNotNull(profileRatedTop.getTopValue());
+		assertNotNull(profileRatedTop.getTotalbyItems());
+		assertNotNull(profileRatedTop.getUrl());
+		assertNotNull(profileRatedTop.getUsername());
+	}
 }
