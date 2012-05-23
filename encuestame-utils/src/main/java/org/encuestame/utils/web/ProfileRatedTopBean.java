@@ -34,13 +34,26 @@ public class ProfileRatedTopBean implements Serializable, Comparable<Object> {
     private String username;
 
     /** **/
-    private Long topValue;
-
-    private Long tpoll;
-
-    private Long poll;
-
-    private Long survey;
+    private Long topValue; 
+    
+    /** **/
+    private Long totalbyItems;
+    
+    /** **/
+    private String url;
+    
+    /** **/
+    private Long likeVotes;
+    
+    /** **/
+    private Long disLikeVotes;
+    
+    /** **/
+    private Integer currentPos;
+    
+    /** **/
+    private Integer lastPos;
+    
 
     /**
      * @return the username
@@ -70,49 +83,92 @@ public class ProfileRatedTopBean implements Serializable, Comparable<Object> {
         this.topValue = topValue;
     }
 
+    
     /**
-     * @return the tpoll
-     */
-    public Long getTpoll() {
-        return tpoll;
-    }
+	 * @return the totalbyItems
+	 */
+	public Long getTotalbyItems() {
+		return totalbyItems;
+	}
 
-    /**
-     * @param tpoll the tpoll to set
-     */
-    public void setTpoll(Long tpoll) {
-        this.tpoll = tpoll;
-    }
+	/**
+	 * @param totalbyItems the totalbyItems to set
+	 */
+	public void setTotalbyItems(Long totalbyItems) {
+		this.totalbyItems = totalbyItems;
+	} 
+	
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
 
-    /**
-     * @return the poll
-     */
-    public Long getPoll() {
-        return poll;
-    }
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(final String url) {
+		this.url = url;
+	}
 
-    /**
-     * @param poll the poll to set
-     */
-    public void setPoll(Long poll) {
-        this.poll = poll;
-    }
+	/**
+	 * @return the likeVotes
+	 */
+	public Long getLikeVotes() {
+		return likeVotes;
+	}
 
-    /**
-     * @return the survey
-     */
-    public Long getSurvey() {
-        return survey;
-    }
+	/**
+	 * @param likeVotes the likeVotes to set
+	 */
+	public void setLikeVotes(final Long likeVotes) {
+		this.likeVotes = likeVotes;
+	}
 
-    /**
-     * @param survey the survey to set
-     */
-    public void setSurvey(Long survey) {
-        this.survey = survey;
-    }
+	/**
+	 * @return the disLikeVotes
+	 */
+	public Long getDisLikeVotes() {
+		return disLikeVotes;
+	}
 
-    public int compareTo(Object o) {
+	/**
+	 * @param disLikeVotes the disLikeVotes to set
+	 */
+	public void setDisLikeVotes(final Long disLikeVotes) {
+		this.disLikeVotes = disLikeVotes;
+	}
+
+	/**
+	 * @return the currentPos
+	 */
+	public Integer getCurrentPos() {
+		return currentPos;
+	}
+
+	/**
+	 * @param currentPos the currentPos to set
+	 */
+	public void setCurrentPos(final Integer currentPos) {
+		this.currentPos = currentPos;
+	}
+
+	/**
+	 * @return the lastPos
+	 */
+	public Integer getLastPos() {
+		return lastPos;
+	}
+
+	/**
+	 * @param lastPos the lastPos to set
+	 */
+	public void setLastPos(final Integer lastPos) {
+		this.lastPos = lastPos;
+	}
+
+	public int compareTo(Object o) {
         ProfileRatedTopBean profile = (ProfileRatedTopBean) o;
         log.debug("Profile Value: " + profile.getTopValue());
         log.debug("This profile Value: " + this.getTopValue());

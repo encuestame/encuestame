@@ -1248,34 +1248,81 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.core.service.imp.IFrontEndService#getTopRatedProfile(java
      * .lang.Boolean)
      */
-    public List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
-            throws EnMeNoResultsFoundException {
-        Long topValue = 0L;
-        Long totalTweetPollPublished;
-        Long totalPollPublished;
-        Long total;
+	public List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
+			throws EnMeNoResultsFoundException {
+		Long topValue = 0L;
+		Long totalPublications;
+		Long publishedTweetPolls;
+		Long publishedPolls;
 
-        final List<UserAccount> users = getSecurityService()
-                .getUserAccountsAvailable(status);
-        final List<ProfileRatedTopBean> profiles = ConvertDomainBean
-                .convertUserAccountListToProfileRated(users);
-        for (ProfileRatedTopBean profileRatedTopBean : profiles) {
-            totalTweetPollPublished = getTweetPollDao().getTotalTweetPoll(
-                    getUserAccount(profileRatedTopBean.getUsername()), status);
-            log.debug("total tweetPolss published by -->"
-                    + totalTweetPollPublished);
-            totalPollPublished = getPollDao().getTotalPollsbyUser(
-                    getUserAccount(profileRatedTopBean.getUsername()), status);
-            log.debug("total tweetPolss published by -->"
-                    + totalTweetPollPublished);
-            total = totalTweetPollPublished + totalPollPublished;
-            topValue = topValue + total;
-            log.debug("total value asigned to -->" + totalTweetPollPublished);
-            profileRatedTopBean.setTopValue(topValue);
-        }
-        Collections.sort(profiles);
-        return profiles;
+		final List<ProfileRatedTopBean> profileItems = new ArrayList<ProfileRatedTopBean>();
+
+		final List<UserAccount> users = getSecurityService()
+				.getUserAccountsAvailable(status);
+
+		for (UserAccount userAccount : users) {
+			publishedTweetPolls = this.getTotalTweetPollPublished(userAccount,
+					status);
+
+			publishedPolls = this.getTotalPollPublished(userAccount, status);
+			totalPublications = publishedTweetPolls + publishedPolls;
+			topValue = topValue + totalPublications;
+			profileItems.add(this.createProfileTopBean(0, 0L, 0L, 0, topValue,
+					totalPublications, "myurl", userAccount.getUsername()));
+		}
+		Collections.sort(profileItems);
+		return profileItems;
+	}
+
+	/**
+	 * Create {@link ProfileRatedTopBean}.
+	 * @param currentPos
+	 * @param dislike
+	 * @param likeVotes
+	 * @param lastPos
+	 * @param topValue
+	 * @param total
+	 * @param url
+	 * @param username
+	 * @return
+	 */
+	private ProfileRatedTopBean createProfileTopBean(final Integer currentPos,
+			final Long dislike, final Long likeVotes, final Integer lastPos,
+			final Long topValue, final Long total, final String url, final String username) {
+		ProfileRatedTopBean profile = new ProfileRatedTopBean();
+		profile.setCurrentPos(currentPos);
+		profile.setDisLikeVotes(dislike);
+		profile.setLastPos(lastPos);
+		profile.setLikeVotes(likeVotes);
+		profile.setTopValue(topValue);
+		profile.setTotalbyItems(total);
+		profile.setUrl(url);
+		profile.setUsername(username);
+
+		return profile;
+
+	}
+    
+    private Long getTotalPollPublished(final UserAccount user, final Boolean status){
+    	  final Long totalPollPublished;
+    	  totalPollPublished = getPollDao().getTotalPollsbyUser(user, status);
+    	return totalPollPublished;
     }
+    
+    /**
+     * Retrieve total tweetpolls published by user.
+     * @param user
+     * @param status
+     * @return
+     */
+	private Long getTotalTweetPollPublished(final UserAccount user,
+			final Boolean status) {
+		final Long totalTweetPollPublished;
+		totalTweetPollPublished = getTweetPollDao().getTotalTweetPoll(user,
+				status);
+		log.debug("total tweetPolss published by -->" + totalTweetPollPublished);
+		return totalTweetPollPublished;
+	}
 
     /*
      * (non-Javadoc)
