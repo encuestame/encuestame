@@ -122,7 +122,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     */
     public Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
         final String commentOption, final Boolean notification) throws EnMeExpcetion{
-        final UserAccount user = getUserAccount(getUserPrincipalUsername());
+        final UserAccount user = getUserAccount(getUserPrincipalUsername()); 
         Assert.notNull(answers);
         log.debug("poll list answer=>" + answers);
         Assert.notNull(user);
@@ -212,8 +212,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
       */
 	 
 	public void removePoll(final Long pollId)
-			throws EnMeNoResultsFoundException {
-		final Poll pollDomain = this.getPollbyUserAndId(pollId, getUserAccountonSecurityContext());
+			throws EnMeNoResultsFoundException { 
+		final Poll pollDomain = this.getPollbyUserAndId(pollId, getUserAccount(getUserPrincipalUsername()));
 
 		final List<PollResult> pollResults;
 		final List<QuestionAnswer> qAnswer;
