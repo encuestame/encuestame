@@ -80,16 +80,16 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			final HashTagStatsBean tagStatsBean = new HashTagStatsBean();
 			final TypeSearchResult filterType = TypeSearchResult.getTypeSearchResult(filter);
 			if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
-				tagStatsBean.setTotalHits(getStatisticsService().getTotalUsageByHashTag(tagName,
-						this.INIT_RESULTS, null, filterType, request
-						));
+				tagStatsBean.setTotalHits(getStatisticsService().getHashTagHitsbyName(tagName,
+						filterType, request)); 
 				tagStatsBean.getTotalHits().setTypeSearchResult(TypeSearchResult.HITS);
 				tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
 						.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
 								null, request));
 				tagStatsBean.getTotalUsageBySocialNetwork().setTypeSearchResult(TypeSearchResult.SOCIALNETWORK);
-				tagStatsBean.setUsageByItem(getStatisticsService().getHashTagHitsbyName(tagName,
-						filterType, request));
+				tagStatsBean.setUsageByItem(getStatisticsService().getTotalUsageByHashTag(tagName,
+						this.INIT_RESULTS, null, filterType, request
+						));
 				tagStatsBean.getUsageByItem().setTypeSearchResult(TypeSearchResult.HASHTAG);
 				tagStatsBean.setUsageByVotes(getStatisticsService().getHashTagUsedOnItemsVoted(tagName, 
 						this.INIT_RESULTS, null, request));
