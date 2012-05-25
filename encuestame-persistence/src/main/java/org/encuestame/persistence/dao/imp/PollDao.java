@@ -160,6 +160,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
               criteria.addOrder(Order.desc("numbervotes"));
         }
+        criteria.add(Restrictions.eq("publish", Boolean.TRUE));
         return (List<Poll>) filterByMaxorStart(criteria,limitResults, startResults);
     }
 
