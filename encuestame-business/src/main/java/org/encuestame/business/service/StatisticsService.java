@@ -50,11 +50,7 @@ import org.springframework.stereotype.Service;
 public class StatisticsService extends AbstractBaseService implements IStatisticsService {  
 	
 	 /** Statistics Service Log. **/
-    private Logger log = Logger.getLogger(this.getClass()); 
- 
-    
-    /** **/
-    private List<HashTagDetailStats> tagDetailStats = new ArrayList<HashTagDetailStats>();
+    private Logger log = Logger.getLogger(this.getClass());  
      
 	/*
 	 * (non-Javadoc)
@@ -66,7 +62,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	public List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(
 			final String tagName, final Integer period, final HttpServletRequest request)
 			throws EnMeSearchException {
-
+		List<HashTagDetailStats> tagDetailStatsBySocial = new ArrayList<HashTagDetailStats>();
 		List<ItemStatDetail> tpSocialSavePublishedDetail = new ArrayList<ItemStatDetail>();
 		List<TweetPollSavedPublishedStatus> tpSavedPublished = new ArrayList<TweetPollSavedPublishedStatus>();
 		if (period == null) {
@@ -86,9 +82,9 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 			 
 			this.removeDuplicatleItemOutOfRange(tpSocialSavePublishedDetail,
 					period);
-			tagDetailStats = this.compareList(tpSocialSavePublishedDetail,
+			tagDetailStatsBySocial = this.compareList(tpSocialSavePublishedDetail,
 					period, request); 
-			return tagDetailStats;
+			return tagDetailStatsBySocial; 
 		}
 	}
     
@@ -105,6 +101,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		List<ItemStatDetail> tpResultsBean = new ArrayList<ItemStatDetail>(); 
 		List<TweetPollResult> tpollResults = new ArrayList<TweetPollResult>();
 		List<TweetPollSwitch> tpollsSwitch = new ArrayList<TweetPollSwitch>(); 
+		List<HashTagDetailStats> tagDetailStatsByVotes = new ArrayList<HashTagDetailStats>();
 		if (period == null) {
 			throw new EnMeSearchException("search params required.");
 		} else {  
@@ -131,8 +128,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 
 		} 
 		this.removeDuplicatleItemOutOfRange(tpResultsBean, period);  
-		tagDetailStats = this.compareList(tpResultsBean, period, request);   
-		return tagDetailStats;
+		tagDetailStatsByVotes = this.compareList(tpResultsBean, period, request);   
+		return tagDetailStatsByVotes; 
 	} 
 	 
 	/**
@@ -167,6 +164,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		Integer monthB;
 		String rangeSubLabel = null;
 		Boolean existItemStatDetailLabel = Boolean.FALSE; 
+		List<HashTagDetailStats> tagDetailStatsCompare = new ArrayList<HashTagDetailStats>();
 		for (int i = 0; i < itemList.size(); i++) { 
 			monthB = this.getLabelValue(period.toString(), itemList.get(i).getDate());
 			 
@@ -177,26 +175,26 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 				}
 
 			}
-			existItemStatDetailLabel = checkLabelExistsHashTagDetailStat(monthB
+			existItemStatDetailLabel = checkLabelExistsHashTagDetailStat(tagDetailStatsCompare, monthB
 					.toString());
 			if (!existItemStatDetailLabel) { 
 				rangeSubLabel = this.getHashTagStatsDataRangeLabel(period.toString(), monthB, request);
-				tagDetailStats.add(this.createTagDetailsStats(monthB.toString(),
+				tagDetailStatsCompare.add(this.createTagDetailsStats(monthB.toString(),
 						countItems, rangeSubLabel));
 			}
 			countItems = 0L; 
 		}
-		return tagDetailStats;
+		return tagDetailStatsCompare;
 	}  
 	
 	/**
 	 * 
 	 * @param label 
 	 */
-	public Boolean checkLabelExistsHashTagDetailStat(final String label) { 
+	public Boolean checkLabelExistsHashTagDetailStat(final List<HashTagDetailStats> detail, final String label) { 
 	    Boolean existLabel = Boolean.FALSE;
-		if (tagDetailStats.size() > 0) {
-			for (HashTagDetailStats hashTagDetailStats : tagDetailStats) {
+		if (detail.size() > 0) {
+			for (HashTagDetailStats hashTagDetailStats : detail) {
 				if (hashTagDetailStats.getLabel().equals(label)) {
 					existLabel = Boolean.TRUE;
 				}
@@ -326,29 +324,29 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     	final HashTag tag = this.getHashTag(hashTagName, Boolean.TRUE); 
      
         List<TweetPoll> tweetPollsByDateRange = new ArrayList<TweetPoll>();
+       
         List<Poll> pollsByDateRange = new ArrayList<Poll>();
         List<Survey> surveysByDateRange = new ArrayList<Survey>();
         
-        List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+        List<ItemStatDetail> itemStatDetailByUsage = new ArrayList<ItemStatDetail>();
         // If the tag exists then obtains the total
-
+        List<HashTagDetailStats> tagDetailStatsByTagName = new ArrayList<HashTagDetailStats>();
         if (tag != null) {
             tweetPollsByDateRange = this
                     .getTotalTweetPollUsageByHashTagAndDateRange(hashTagName,
-                            period); 
+                            period);   
             pollsByDateRange = this.getTotalPollUsageByHashTagAndDateRange(
                     hashTagName, period);
            
             surveysByDateRange = this.getTotalSurveyUsageByHashTagAndDateRange(
                     hashTagName, period); 
-        }
-         
-        itemStatDetail.addAll(ConvertDomainBean.convertTweetPollListToItemDetailBean(tweetPollsByDateRange));
-        itemStatDetail.addAll(ConvertDomainBean.convertPollListToItemDetailBean(pollsByDateRange)); 
-        itemStatDetail.addAll(ConvertDomainBean.convertSurveyListToItemDetailBean(surveysByDateRange));  
-        tagDetailStats = this.compareList(itemStatDetail,
+        } 
+        itemStatDetailByUsage.addAll(ConvertDomainBean.convertTweetPollListToItemDetailBean(tweetPollsByDateRange));
+        itemStatDetailByUsage.addAll(ConvertDomainBean.convertPollListToItemDetailBean(pollsByDateRange)); 
+        itemStatDetailByUsage.addAll(ConvertDomainBean.convertSurveyListToItemDetailBean(surveysByDateRange));   
+        tagDetailStatsByTagName = this.compareList(itemStatDetailByUsage,
         		period, request); 
-		return tagDetailStats; 
+		return tagDetailStatsByTagName; 
     }  
     
 	/*
@@ -362,19 +360,19 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 			final String hashTagName, final Integer period, final HttpServletRequest request)
 			throws EnMeNoResultsFoundException, EnMeSearchException {
 		List<Hit> hashTagHits = new ArrayList<Hit>();
+		List<HashTagDetailStats> tagDetailStatsByHits = new ArrayList<HashTagDetailStats>();
 		final HashTag tag = this.getHashTag(hashTagName, Boolean.TRUE);
-		List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		List<ItemStatDetail> itemStatDetailByHits = new ArrayList<ItemStatDetail>();
 		if (tag != null) {
 			hashTagHits = getFrontEndDao().getHashTagHitsbyDateRange(
-					tag.getHashTagId(), period);
-			System.out.println("  Total Hits --> " + hashTagHits.size());
+					tag.getHashTagId(), period);  
 
 		} 
-		itemStatDetail.addAll(ConvertDomainBean
-				.convertHitListToItemDetailBean(hashTagHits));
-
-		tagDetailStats = this.compareList(itemStatDetail, period, request);
-		return tagDetailStats; 
+		itemStatDetailByHits.addAll(ConvertDomainBean
+				.convertHitListToItemDetailBean(hashTagHits)); 
+		tagDetailStatsByHits = this.compareList(itemStatDetailByHits, period, request);
+		return tagDetailStatsByHits;
+		//return null;
 	} 
 	
 	/*
@@ -396,7 +394,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         final HashTag tag = getHashTagDao().getHashTagByName(tagName);
         if (tag != null) {
             final List<TweetPoll> tweetsbyTag = this.getTweetPollsByHashTag(
-                    tagName, initResults, maxResults, filter);
+                    tagName, initResults, maxResults, filter);  
             final int totatTweetPolls = tweetsbyTag.size();
             final List<Poll> pollsbyTag = this.getPollsByHashTag(tagName,
                     initResults, maxResults, filter);
