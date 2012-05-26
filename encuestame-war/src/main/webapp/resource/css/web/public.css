@@ -4151,60 +4151,88 @@ div.web-social-links {
 
 /** .web-rated-position */
 .web-rated-position {
-  margin: 0 10px;
-  padding: 3px;
+    margin: 0;
+    padding: 0;
+}
+.web-rated-position div.position-row  {
+    color: #CBCAC9;
+    font-size: 10px;
+    padding: 5px;
+    width: auto;
 }
 
-.web-rated-position table {
-	width: 100%;
+.web-rated-position div.highlight {
+  background-color: #FFF9A9;
+  border-radius: 7px 7px 7px 7px;
+  box-shadow: 1px 0 2px 0 #DADADA inset;
+  color: #676767 !important;
+  font-size: 15px;
+  margin: 3px 0;
 }
 
-.web-rated-position table th {
+.web-rated-position div.highlight span.position {
+    color: #787878;
+    font-size: 15px;
+}
+.web-rated-position span {
+    display: inline-block;
     font-weight: bold;
     text-align: center;
 }
 
-.web-rated-position table tr th:first-child {
-    text-align: left;
+.web-rated-position .position-row .position-label {
+  max-width: 125px;
+  min-width: 125px;
+  padding-left: 5px;
+  text-align: left;
 }
 
-.web-rated-position table tr {
-    line-height: 20px;
+.web-rated-position .position-row .position-label a:link, 
+.web-rated-position .position-row .position-label a,
+.web-rated-position .position-row .position-label a:active,
+.web-rated-position .position-row .position-label a:visited {
+	color: #CBCAC9;
+	text-decoration: none;
 }
 
-.web-rated-position table td {
-    padding: 2px;
+.web-rated-position span.position {
+    color: #DEDEDE;
+    font-size: 11px;
+    width: 50px;
 }
-
-.web-rated-position table tr td:first-child {
-    font-weight: bold;
-    padding-right: 20px;
+.web-rated-position span.graph {
+    padding-left: 15px;
+    text-align: center;
 }
-
 .web-rated-position .web-position-number {
-  color: #999999;
-  text-align: center;
+    color: #999999;
+    text-align: center;
 }
-
 .web-position-down {
-	background: url("../images/icons/enme_down.png") no-repeat scroll 0 0 transparent;
-	display: inline-block;
-  	height: 10px;
-    min-width: 20px;
-}
-
-.web-position-up {
- 	background: url("../images/icons/enme_up.png") no-repeat scroll 0 0 transparent;
-  	display: inline-block;
-  	height: 10px;
-  	min-width: 20px;
-}
-
-.web-position-equal {
-	background: url("../images/icons/enme_equals.png") no-repeat scroll 0 0 transparent;
+    background: url("../images/icons/enme_down.png") no-repeat scroll 0 0 transparent;
     display: inline-block;
     height: 10px;
     min-width: 20px;
+}
+.web-position-up {
+    background: url("../images/icons/enme_up.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 10px;
+    min-width: 20px;
+}
+.web-position-equal {
+    background: url("../images/icons/enme_equals.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 10px;
+    min-width: 20px;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -moz-binding: url('assets/xml/ellipsis.xml#ellipsis');
 }
 /** search items **/
 .web-search-wrapper {
