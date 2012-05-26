@@ -36,7 +36,7 @@ dojo.declare(
     _createButtons : function() {
     	 var params = {
     	     tagName : this.hashtagName,
-    	     filter  : "HASHTAGRATED", // 
+    	     filter  : "HASHTAGRATED" 
     	 };
     	 var load = dojo.hitch(this, function(data) {
     		 if ("success" in data) {
@@ -47,7 +47,7 @@ dojo.declare(
     			 usage_by_votes = hashTagButtonStats['usage_by_votes'];
     			 if (this._stat) { 
 	    			 dojo.empty(this._stat);
-	    			 this._stat.appendChild(this._createAButton({title : usage_by_item.label, value : usage_by_item.value , sub_label : usage_by_item.sub_label, filter : usage_by_item.filter }));
+	    			 this._stat.appendChild(this._createAButton({title : usage_by_item.label, value : usage_by_item.value , sub_label : usage_by_item.sub_label, filter : usage_by_item.filter }, true));
 	    			 this._stat.appendChild(this._createAButton({title : total_usage_by_social_network.label, value : total_usage_by_social_network.value , sub_label : total_usage_by_social_network.sub_label,  filter : total_usage_by_social_network.filter}));
 	    			 this._stat.appendChild(this._createAButton({title : total_hits.label, value : total_hits.value , sub_label : total_hits.sub_label, filter : total_hits.filter}));
 	    			 this._stat.appendChild(this._createAButton({title : usage_by_votes.label, value : usage_by_votes.value , sub_label : usage_by_votes.sub_label, filter : usage_by_votes.filter}));
@@ -59,17 +59,19 @@ dojo.declare(
     
     /**
      * Create a stats button.
-     * @param {Object} 
+     * @param {Object}  button_data
+     * @param {Boolean} selectedButton
      */
-    _createAButton : function (button_data) {
+    _createAButton : function (button_data, selectedButton) {
 		var button = new encuestame.org.core.commons.hashtags.HashTagGraphStatsButton({
+	        selectedButton : selectedButton || false,
 		    _handler : new encuestame.org.core.commons.hashtags.HashTagGraphStatsUsageHandler({
 		        data : {
 		            "title" : button_data.title,
 		            "value" : button_data.value,
 		            "label" : button_data.sub_label,
 		            "filter" : button_data.filter
-		        },
+		        }
 		    })
 		});
 		return button.domNode;
@@ -106,6 +108,7 @@ dojo.declare(
 	    			radius : 1,
 	    			height : 280,
 	    	};
+	    	//create a line graph
 	    	ENME.graph("line", option);
     	}
     },
@@ -143,15 +146,15 @@ dojo.declare(
 				}
        		  */
        		 if ("success" in data) {
-       			  ENME.log(data.success);
+       			  //ENME.log(data.success);
        			  var stats = data.success.statsByRange;
        			  var array_stats = [[],[]];
-       			  if (params.period === 365) {
+       			  if (params.period === 365) { //FIXME: Replace this value by CONSTANTS 
 						for (var i = 1; i <= 12 ; i++) {
 							array_stats[0].push(i);
 							array_stats[1].push(0);
 	       				}
-						ENME.log(array_stats);
+						//ENME.log(array_stats);
 		       			dojo.forEach(stats,
 		                        dojo.hitch(this,function(item) {
 	                        	/*
@@ -159,12 +162,10 @@ dojo.declare(
 	                        	 */
 		                      array_stats[1][item.label] = item.value;		                        	
 		               }));
-		       			ENME.log(array_stats[0]);
-		       			ENME.log(array_stats[1]);
+		       			//ENME.log(array_stats[0]);
+		       			//ENME.log(array_stats[1]);
 		       			this._createGraph(array_stats[0], array_stats[1]);
-       			  }
-       			 //1-convert the data to graph language
-       			 //2-display the chart.
+       			  } //TODO: The another type of data range? 24? week? month?
        		 }
        	 });  	 
        	 this.callGET(params, encuestame.service.list.range.hashtag, load, null, null);
@@ -173,100 +174,47 @@ dojo.declare(
     /**
      * Start the post create cycle.
      */
-    postCreate : function(){
-    	if (this.hashtagName != null) {
+    postCreate : function() {
+    	if (this.hashtagName) {
 	        dojo.subscribe("/encuestame/hashtag/chart/new", this, this._createNewChart);
-	        dojo.subscribe("/encuestame/hashtag/chart/reload", this, this._reload);
-	        //this.createChart();
-	        
+	        dojo.subscribe("/encuestame/hashtag/chart/reload", this, this._reload);	        
 	        //create the button
 	        this._createButtons();
 	        dojo.addOnLoad(dojo.hitch(this, function() {
 		        if (typeof(this.default_filter) === 'string') {
 		        	this._callRateService(this.default_filter, this.default_range);
 		        }
-	        }));
-	        
-	        dojo.addOnLoad(function() {
-            	
-//            	//var r = Raphael(10, 50, 640, 480),
-//                var r = Raphael("holder"),
-//                    txtattr = { 
-//                		font: "12px sans-serif", color : '#3CB763' };
-//                r.text(100, 20, "Hashtag By Use").attr(txtattr);
-//                /*
-//                 * @param x
-//                 * @param y
-//                 * @param width
-//                 * @param heigth
-//                 * @para, valuesx
-//                 * @param valuesy
-//                 */
-//                var lines = r.linechart(14, 14, 750, 280, [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24], [[3,0,0,0,0,0,15,0,0,1,0,0,0,0,0,0,0,0,0,0,0,10,23]], { 
-//                	nostroke: false, 
-//                	axis: "0 0 1 1", 
-//                	symbol: "circle",
-//                	gutter: 20,
-//                	colors: ["#66B920"],
-//                	shade : false,
-//                	width : 1,
-//                	smooth: false }).hover(function(){console.log("1", this);}, function(){console.log("2", this);});
-
-//                var lines = r.linechart(10, 10, 300, 220, [[1, 2, 3, 4, 5, 6, 7],[3.5, 4.5, 5.5, 6.5, 7, 8]], [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]], { nostroke: false, axis: "0 0 1 1", symbol: "circle", smooth: true }).hoverColumn(function () {
-//                    this.tags = r.set();
-//
-//                    for (var i = 0, ii = this.y.length; i < ii; i++) {
-//                        this.tags.push(r.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
-//                    }
-//                }, function () {
-//                    this.tags && this.tags.remove();
-//                });
-//                r.linechart(330, 10, 300, 220, x, [y.slice(0, 1e4), y2.slice(0, 1e4), y3.slice(0, 1e4)], { shade: true });
-//                r.linechart(10, 250, 300, 220, x, [y, y2, y3], { nostroke: true, shade: true });
-//
-//                var lines = r.linechart(330, 250, 300, 220, [[1, 2, 3, 4, 5, 6, 7],[3.5, 4.5, 5.5, 6.5, 7, 8]], [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]], { nostroke: false, axis: "0 0 1 1", symbol: "circle", smooth: true }).hoverColumn(function () {
-//                    this.tags = r.set();
-//
-//                    for (var i = 0, ii = this.y.length; i < ii; i++) {
-//                        this.tags.push(r.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
-//                    }
-//                }, function () {
-//                    this.tags && this.tags.remove();
-//                });
-//
-//               lines.symbols.attr({ r: 2 });
-//               // lines.lines[0].animate({"stroke-width": 2}, 1000);
-//                lines.symbols[0].attr({stroke: "#888"});
-               // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
-                //dojo.byId("holder").appendChild(r.canvas);
-            });
-        
-        
-        
+	        }));        
         }
     }
 
 });
 
-
+/**
+ * Widget to display a hashtag stats button.
+ */
 dojo.declare(
     "encuestame.org.core.commons.hashtags.HashTagGraphStatsButton",
     [encuestame.org.main.EnmeMainLayoutWidget],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.hashtags", "template/hashTagGraphStatsButton.html"),
+    
+    /**
+     * Template path.
+     */
+    templatePath: dojo.moduleUrl("encuestame.org.core.commons.hashtags", "template/hashTagGraphStatsButton.html"),
 
-    /*
-     *
+    /**
+     * Button handler.
      */
     _handler : null,
 
-    /*
-     *
+    /**
+     * Define if the button is selected by default.
      */
     selectedButton : false,
 
 
-    /*
-     *
+    /**
+     * Post create cycle.
      */
     postCreate : function(){
         if (this._handler != null) {
@@ -277,13 +225,12 @@ dojo.declare(
             this._handler.init(this);
             if (this.selectedButton) {
                 dojo.addClass(this.domNode, "selected");
-                //this._handler.switchSelected();
             }
             this._button.appendChild(this._handler.domNode);
         }
     },
 
-    /*
+    /**
      * review the state of the button.
      */
     _switchButton : function(ref) {
@@ -297,7 +244,9 @@ dojo.declare(
     }
 });
 
-
+/**
+ * Button handler to customize the button behaviour.
+ */
 dojo.declare(
         "encuestame.org.core.commons.hashtags.HashTagGraphStatsUsageHandler",
         [encuestame.org.main.EnmeMainLayoutWidget],{
@@ -313,18 +262,11 @@ dojo.declare(
             "typeChart" : ""
         },
 
-
         _buttonRef : null,
 
-        /*
-         *
-         */
-        postCreate: function(){
-
-        },
-
-        /*
-         *
+        /**
+         * Initialize the button handler.
+         * @param
          */
         init : function(ref) {
             this._buttonRef = ref;
@@ -333,17 +275,11 @@ dojo.declare(
             this._dt3.innerHTML = this.data.label;
         },
 
-        /*
+        /**
          *
          */
-        switchSelected : function() {
-
-        },
-
-        /*
-         *
-         */
-        onClick : function(){
+        onClick : function(event) {
+        	//zthis.stopEvent(event);
         	//unselect the others buttons
             dojo.publish("/encuestame/hashtag/buttons", [this._buttonRef]);
             //display a new chart on hashtag wrapper graphs.
