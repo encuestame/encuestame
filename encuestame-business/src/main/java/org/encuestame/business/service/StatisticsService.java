@@ -405,7 +405,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
             totalUsagebyHashTag = (long) (totatTweetPolls + totalPolls + totalSurveys);
 
         }
-        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_HITS, totalUsagebyHashTag, HashTagRate.SUB_LBL_TIMES, request); 
+        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_USAGE, totalUsagebyHashTag, HashTagRate.SUB_LBL_TIMES, request); 
         return detailStatItem;
     } 
     
@@ -444,7 +444,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         final HashTag tag = getHashTagDao().getHashTagByName(tagName);
         final Long hits = this.getHashTagHits(tag.getHashTagId(),
                 TypeSearchResult.HASHTAG); 
-        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_USAGE, hits, HashTagRate.SUB_LBL_TIMES, request);
+        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_HITS, hits, HashTagRate.SUB_LBL_TIMES, request);
         return detailStatItem;
     } 
 
