@@ -31,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
@@ -111,6 +112,13 @@ public abstract class AbstractBaseService extends AbstractDataSource {
 	return tagDetails;
 	}
     
+    /**
+     * 
+     * @param tagRate
+     * @param request
+     * @param objects
+     * @return
+     */
     public String convertHashTagButtonStatsLabel(final HashTagRate tagRate,
 			final HttpServletRequest request, final Object[] objects) {
 		String message = null;
@@ -230,12 +238,15 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public HashTag getHashTag(final String tagName, final Boolean exceptionIfNotFound)
+    public HashTag getHashTag(
+    		String tagName, 
+    		final Boolean exceptionIfNotFound)
             throws EnMeNoResultsFoundException {
         Assert.notNull(tagName);
-        final HashTag hashTag = getHashTagDao().getHashTagByName(
-                tagName.toLowerCase());
-        log.debug("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
+		final HashTag hashTag = getHashTagDao().getHashTagByName(
+				ValidationUtils.removeNonAlphanumericCharacters(tagName
+						.toLowerCase()));
+        log.warn("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
         if (hashTag == null) {
             //if possible we can't exception to allow create a new with the parameter.
             if (exceptionIfNotFound && exceptionIfNotFound == null) {

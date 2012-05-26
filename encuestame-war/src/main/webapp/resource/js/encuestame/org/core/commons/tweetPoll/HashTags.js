@@ -119,6 +119,8 @@ dojo.declare(
            var load = dojo.hitch(this, function(data) {
                if ("success" in data) {
                    this.addNewHashTag(data.success.hashtag);
+               } else {
+            	   console.info("bad hastag");
                }
            });
            var error = dojo.hitch(this, function(error) {
@@ -169,7 +171,7 @@ dojo.declare(
 
         //new Hash Tag.
         newHashTag : function(data) {
-            console.debug(data);
+            //console.debug(data);
             var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
                     {
                      label : data.hashTagName,

@@ -283,8 +283,8 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public final HashTag createHashTag(final String name){
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(ValidationUtils.removeNonAlphanumericCharacters(name));
-        hashTag.setHits(1L);
-        hashTag.setSize(12L);
+        hashTag.setHits(1L); //FIXME: should be parametrized ?
+        hashTag.setSize(12L); //FIXME: should be parametrized ?
         hashTag.setUpdatedDate(Calendar.getInstance().getTime());
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;

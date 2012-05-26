@@ -16,7 +16,6 @@ package org.encuestame.core.util;
  * Validations Utils.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 13, 2010 7:06:15 PM
- * @version $Id: $
  */
 public final class ValidationUtils {
 

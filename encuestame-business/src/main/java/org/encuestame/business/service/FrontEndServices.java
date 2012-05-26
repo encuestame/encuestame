@@ -321,11 +321,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public HashTag getHashTagItem(final String tagName)
             throws EnMeNoResultsFoundException {
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-        if (tag == null) {
-            throw new EnMeNoResultsFoundException("hashtag not found");
-        }
-        return tag;
+        return getHashTag(tagName, true);
     }
 
     /**

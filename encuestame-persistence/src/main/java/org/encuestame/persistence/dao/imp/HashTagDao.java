@@ -125,8 +125,10 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * .lang.String, java.lang.Integer)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<HashTag> getListHashTagsByKeyword(final String keyword,
-			final Integer maxResults, final Long[] excludes) {
+	public List<HashTag> getListHashTagsByKeyword(
+			final String keyword,
+			final Integer maxResults, 
+			final Long[] excludes) {
 		log.info("keyword " + keyword);
 		List<HashTag> searchResult = (List) getHibernateTemplate().execute(
 				new HibernateCallback() {

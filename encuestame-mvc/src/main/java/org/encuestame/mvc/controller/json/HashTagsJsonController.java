@@ -26,6 +26,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.HashTagBean;
@@ -88,11 +89,15 @@ public class HashTagsJsonController extends AbstractJsonController{
                 log.debug("Limit "+limit);
                 log.debug("Keyword "+keyword);
                 log.debug("excludes "+excludes);
+                log.debug("Hashtag Suggestion Before Validation :::"+keyword);                
+                keyword = ValidationUtils.removeNonAlphanumericCharacters(keyword); 
+                log.debug("Hashtag Suggestion After Validation :::"+keyword);
                 if(keyword == null || keyword.isEmpty()){
                     jsonResponse.put("hashtags", ListUtils.EMPTY_LIST);
                     setItemResponse(jsonResponse);
                 } else {
-                    final List<HashTagBean> hashTags = getTweetPollService().listSuggestHashTags(keyword,
+                    final List<HashTagBean> hashTags = getTweetPollService().listSuggestHashTags(
+                    		keyword,
                           limit, excludes); 
                     log.debug("List Hash Tags "+hashTags.size());
                     setItemReadStoreResponse("hashTagName", "id", hashTags);
@@ -172,8 +177,12 @@ public class HashTagsJsonController extends AbstractJsonController{
                                                     .getTweetPollById(id),
                                             new HashTagBean(hashtag)));
                     log.debug("New TweetPoll HT Bean: "+bean);
-                    jsonResponse.put("hashtag", bean);
-                     setItemResponse(jsonResponse);
+                    if (bean.getHashTagName().isEmpty()) {
+                    	setFailedResponse();
+                    } else {
+                    	jsonResponse.put("hashtag", bean);
+                    	setItemResponse(jsonResponse);
+                    }
                 }
             } else if (typeItem.equals(TypeSearchResult.POLL)) {
                  //TODO: no yet.
