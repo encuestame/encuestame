@@ -26,6 +26,7 @@ import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.core.util.SocialUtils;
+import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -1116,6 +1117,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             throws EnMeNoResultsFoundException {
         log.debug("Adding hashtag to TP "+tweetPoll.getTweetPollId());
         log.debug("Adding hashTagBean to TP "+hashTagBean.getHashTagName());
+        //validate the hashtag bean.
+        hashTagBean.setHashTagName(ValidationUtils.removeNonAlphanumericCharacters(hashTagBean.getHashTagName()));
         HashTag hashtag = getHashTag(hashTagBean.getHashTagName(), false);
         if (hashtag == null) {
             hashtag = createHashTag(hashTagBean.getHashTagName().toLowerCase());

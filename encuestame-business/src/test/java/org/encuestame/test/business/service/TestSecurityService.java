@@ -780,7 +780,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     public void testsingupUser() {
         final SignUpBean bean = createSignUpBean("newUser",
                 "newUser@gmail.com", "12345");
-        this.securityService.singupUser(bean);
+        this.securityService.singupUser(bean, false);
     }
 
     /**

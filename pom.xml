@@ -126,6 +126,7 @@
         <cglib-nodep>2.2</cglib-nodep>
         <aspectjrt>1.6.0</aspectjrt>
         <jaxen>1.1.1</jaxen>
+        <opencsv.version>2.3</opencsv.version>
         <javassist>3.12.1.GA</javassist>
         <javax.inject>1</javax.inject>
         <javax.persistence>1.0</javax.persistence>
@@ -1610,6 +1611,11 @@
                 <artifactId>commons-configuration</artifactId>
                 <version>${configuration.version}</version>
             </dependency>
+		    <dependency>
+				<groupId>net.sf.opencsv</groupId>
+				<artifactId>opencsv</artifactId>
+				<version>${opencsv.version}</version>
+			</dependency>            
        <!-- <dependency>
                 <groupId>org.apache.cactus</groupId>
                 <artifactId>cactus.core.framework</artifactId>

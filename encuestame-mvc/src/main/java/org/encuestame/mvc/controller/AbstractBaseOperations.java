@@ -216,8 +216,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      * @throws EnMeExpcetion
      */
-    public TweetPoll createTweetPoll(
-            final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+    public TweetPoll createTweetPoll(final TweetPollBean tweetPollBean) throws EnMeExpcetion{
         //create new tweetPoll
         log.debug("createTweetPoll Bean "+tweetPollBean.toString());
         return getTweetPollService().createTweetPoll(tweetPollBean,

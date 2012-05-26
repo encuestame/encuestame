@@ -117,7 +117,7 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
         UserAccount accountEmail;
         if (account == null) {
             //create new account.
-            accountEmail = getSecurityOperations().singupUser(this.convertSocialConnectedAccountToBean(profile));
+            accountEmail = getSecurityOperations().singupUser(this.convertSocialConnectedAccountToBean(profile), false);
         } else {
             //use the current account.
             accountEmail = account;

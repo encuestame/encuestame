@@ -111,7 +111,7 @@ public class SignUpController extends AbstractSecurityController {
             password = PasswordGenerator.getPassword(PASSWORD_LENGHT);
             user.setPassword(password);
         }
-        getSecurityService().singupUser(user);
+        getSecurityService().singupUser(user, false);
         return "redirect:/user/dashboard";
         // }
     }

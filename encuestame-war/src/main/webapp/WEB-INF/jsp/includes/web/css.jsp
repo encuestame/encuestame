@@ -2,7 +2,8 @@
 <c:if test="${development}">
     <link rel="stylesheet"  href="<c:url value="/resources/css/development.css" />" />    
 </c:if>
-    <link rel="stylesheet"  href="<c:url value="/resources/static/web.css" />" />
+<link rel="stylesheet"  href="<c:url value="/resources/css/resources.css" />" />
+<link rel="stylesheet"  href="<c:url value="/resources/static/web.css" />" />
 <link rel="stylesheet"  href="<c:url value="/resources/js/dijit/themes/claro/claro.css"/>" />
 <link rel="stylesheet"  href="<c:url value="/resources/js/dojox/form/resources/Rating.css"/>" />
 <link rel="stylesheet"  href="<c:url value="/resources/js/dojo/resources/dojo.css" />" />

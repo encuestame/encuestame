@@ -263,7 +263,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
      */
-    UserAccount singupUser(final SignUpBean singUpBean);
+    UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail);
 
     /**
      * Search {@link UserAccount} by email.
