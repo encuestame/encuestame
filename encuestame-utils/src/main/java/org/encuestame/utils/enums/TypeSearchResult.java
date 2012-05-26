@@ -79,8 +79,7 @@ public enum TypeSearchResult {
         else if (type.equalsIgnoreCase("HASHTAGRATED")) { return HASHTAGRATED; }
         else if (type.equalsIgnoreCase("SOCIALNETWORK")) { return SOCIALNETWORK; }
         else if (type.equalsIgnoreCase("HITS")) { return HITS; }
-        else if (type.equalsIgnoreCase("VOTES")) { return VOTES; }
-        
+        else if (type.equalsIgnoreCase("VOTES")) { return VOTES; }        
         else return null;
     }
 }

@@ -29,6 +29,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController; 
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
@@ -73,37 +74,39 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			@RequestParam(value = "filter", required = true) String filter,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		try { 
-			
+		try { 			
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			final HashTagStatsBean tagStatsBean = new HashTagStatsBean();
 			final TypeSearchResult filterType = TypeSearchResult.getTypeSearchResult(filter);
-			if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
-				// hits
-				tagStatsBean.setTotalHits(getStatisticsService().getHashTagHitsbyName(tagName,
-						filterType, request)); 
-				tagStatsBean.getTotalHits().setTypeSearchResult(TypeSearchResult.HITS);
-				// social network use
-				tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
-						.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
-								null, request));
-				tagStatsBean.getTotalUsageBySocialNetwork().setTypeSearchResult(TypeSearchResult.SOCIALNETWORK);
-				// usage by
-				tagStatsBean.setUsageByItem(getStatisticsService().getTotalUsageByHashTag(tagName,
-						this.INIT_RESULTS, null, filterType, request
-						));
-				tagStatsBean.getUsageByItem().setTypeSearchResult(TypeSearchResult.HASHTAG);
-				// votes
-				tagStatsBean.setUsageByVotes(getStatisticsService().getHashTagUsedOnItemsVoted(tagName, 
-						this.INIT_RESULTS, null, request));
-				tagStatsBean.getUsageByVotes().setTypeSearchResult(TypeSearchResult.VOTES);
-				jsonResponse.put("hashTagButtonStats", tagStatsBean);
-				setItemResponse(jsonResponse);
+			if (filterType == null) {
+				throw new EnMeNoResultsFoundException("type not found");
 			} else {
-				setError("filter not valid", response);
+				if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
+					// hits
+					tagStatsBean.setTotalHits(getStatisticsService().getHashTagHitsbyName(tagName,
+							filterType, request)); 
+					tagStatsBean.getTotalHits().setTypeSearchResult(TypeSearchResult.HITS);
+					// social network use
+					tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
+							.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
+									null, request));
+					tagStatsBean.getTotalUsageBySocialNetwork().setTypeSearchResult(TypeSearchResult.SOCIALNETWORK);
+					// usage by
+					tagStatsBean.setUsageByItem(getStatisticsService().getTotalUsageByHashTag(tagName,
+							this.INIT_RESULTS, null, filterType, request
+							));
+					tagStatsBean.getUsageByItem().setTypeSearchResult(TypeSearchResult.HASHTAG);
+					// votes
+					tagStatsBean.setUsageByVotes(getStatisticsService().getHashTagUsedOnItemsVoted(tagName, 
+							this.INIT_RESULTS, null, request));
+					tagStatsBean.getUsageByVotes().setTypeSearchResult(TypeSearchResult.VOTES);
+					jsonResponse.put("hashTagButtonStats", tagStatsBean);
+					setItemResponse(jsonResponse);
+				} else {
+					setError("filter not valid", response);
+				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error(e);
 			setError(e.getMessage(), response);
 		}
