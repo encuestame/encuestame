@@ -70,10 +70,10 @@
                  <header>
                    <spring:message code="home.hashtag.position" />
                  </header>
-                 <div dojoType="encuestame.org.core.shared.stats.RatePosition"
+                 <section dojoType="encuestame.org.core.shared.stats.RatePosition"
                       tagName="${tagName.hashTagName}"
                       class="web-rated-position"
-                      id="position"></div>
+                      id="position"></section>
             </article>
             <article class="emne-box">
                  <header>

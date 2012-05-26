@@ -104,9 +104,10 @@ public interface IStatisticsService extends ServiceOperations{
      * @param maxResults
      * @param filter
      * @return
+     * @throws EnMeNoResultsFoundException 
      */
 	HashTagDetailStats getTotalUsageByHashTag(final String tagName, final Integer initResults,
-            final Integer maxResults, final TypeSearchResult filter, final HttpServletRequest request);
+            final Integer maxResults, final TypeSearchResult filter, final HttpServletRequest request) throws EnMeNoResultsFoundException;
 	
 	/**
 	 * Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
@@ -124,8 +125,9 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param filterBy
 	 * @param request
 	 * @return
+	 * @throws EnMeNoResultsFoundException 
 	 */
-	HashTagDetailStats getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy, final HttpServletRequest request);
+	HashTagDetailStats getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy, final HttpServletRequest request) throws EnMeNoResultsFoundException;
 	
 	/**
 	 * Get Total usage by hashtags on tweepolls voted.

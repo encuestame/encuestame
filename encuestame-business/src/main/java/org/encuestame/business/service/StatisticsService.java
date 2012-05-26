@@ -388,10 +388,10 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     		final String tagName,
             final Integer initResults, 
             final Integer maxResults,
-            final TypeSearchResult filter, final HttpServletRequest request) {
+            final TypeSearchResult filter, final HttpServletRequest request) throws EnMeNoResultsFoundException {
         // Validate if tag belongs to hashtag and filter isn't empty.
         Long totalUsagebyHashTag = 0L; 
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
+        final HashTag tag = getHashTag(tagName, true);
         if (tag != null) {
             final List<TweetPoll> tweetsbyTag = this.getTweetPollsByHashTag(
                     tagName, initResults, maxResults, filter);  
@@ -440,8 +440,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * javax.servlet.http.HttpServletRequest)
 	 */
     public HashTagDetailStats getHashTagHitsbyName(final String tagName,
-            final TypeSearchResult filterBy, final HttpServletRequest request) { 
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
+            final TypeSearchResult filterBy, final HttpServletRequest request) throws EnMeNoResultsFoundException { 
+        final HashTag tag = getHashTag(tagName, true);
         final Long hits = this.getHashTagHits(tag.getHashTagId(),
                 TypeSearchResult.HASHTAG); 
         final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_HITS, hits, HashTagRate.SUB_LBL_TIMES, request);

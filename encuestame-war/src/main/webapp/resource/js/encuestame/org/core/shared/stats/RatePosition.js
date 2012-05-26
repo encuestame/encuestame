@@ -22,14 +22,17 @@ dojo.declare(
      */
     tagName : "",
 
-    /*
-     *
+    /**
+     * Post create life cycle.
      */
     postCreate : function(){
         this._callService();
     },
     
-    _callService : function() {
+    /**
+     * Call to ranking service.
+     */
+    _callService : function () {
 	 	var params = {
 	 			tagName : this.tagName,
       	 };
@@ -41,10 +44,10 @@ dojo.declare(
       	 this.callGET(params, encuestame.service.list.ranking.hashtag, load, null, null);
      },
 
-    /*
-     *
+    /**
+     * Display the ranking.
      */
-    _printRate : function(data){
+    _printRate : function(data) { 
         dojo.forEach(data,
                 dojo.hitch(this,function(item) {
                     this._createRow(item);
@@ -62,22 +65,34 @@ dojo.declare(
         </tr>
      */
     _createRow : function (item) {
-        var tr = dojo.create("tr");
-        var row1 = dojo.create("td", null, tr);
+        var tr = dojo.create("div");
+        dojo.addClass(tr, 'position-row');
+        var row1 = dojo.create("span", null, tr);
         row1.innerHTML = item.tagName;
-        var row2 = dojo.create("td", null, tr);
+        dojo.addClass(row1, 'position-label');
+        dojo.addClass(row1, 'ellipsis');
+        var row2 = dojo.create("span", null, tr);
+        dojo.addClass(row2, 'position');
         row2.innerHTML = item.position;
         dojo.addClass(row2, "web-position-number");
-        var row3 = dojo.create("td", null, tr);
-        row3.appendChild(this._getPositionRow(parseInt(item.position), parseInt(item.position)));
+        var row3 = dojo.create("span", null, tr);
+        dojo.addClass(row3, 'graph');
+        row3.appendChild(this._getPositionRow(parseInt(item.position), parseInt(item.lastPosition)));
         if (item.tagName === this.tagName) {
-        	///TODO: highlight the row.
+        	dojo.addClass(tr, 'highlight');
+        } else {
+        	var url_hashtag = encuestame.utilities.url.hashtag(item.tagName);
+        	var a = dojo.create("a");
+        	a.innerHTML = item.tagName;
+        	a.setAttribute('href', url_hashtag);   	
+        	dojo.empty(row1);
+        	row1.appendChild(a);
         }
         this._rows.appendChild(tr);
     },
 
-    /*
-     *
+    /**
+     * Get the position row.
      */
     _getPositionRow : function (last, current) {
         var node = dojo.create("span");

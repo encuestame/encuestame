@@ -4128,7 +4128,8 @@ div.web-social-links {
 
 /** web-stats **/
 .web-stats {
-    padding: 3px
+    padding: 3px;
+    margin: 0 10px;
 }
 
 .web-stats table {
@@ -4150,11 +4151,12 @@ div.web-social-links {
 
 /** .web-rated-position */
 .web-rated-position {
-    padding: 3px
+  margin: 0 10px;
+  padding: 3px;
 }
 
 .web-rated-position table {
-
+	width: 100%;
 }
 
 .web-rated-position table th {
@@ -4180,21 +4182,30 @@ div.web-social-links {
 }
 
 .web-rated-position .web-position-number {
-    text-align: center;
+  color: #999999;
+  text-align: center;
 }
 
 .web-position-down {
-
+	background: url("../images/icons/enme_down.png") no-repeat scroll 0 0 transparent;
+	display: inline-block;
+  	height: 10px;
+    min-width: 20px;
 }
 
 .web-position-up {
-
+ 	background: url("../images/icons/enme_up.png") no-repeat scroll 0 0 transparent;
+  	display: inline-block;
+  	height: 10px;
+  	min-width: 20px;
 }
 
 .web-position-equal {
-
+	background: url("../images/icons/enme_equals.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 10px;
+    min-width: 20px;
 }
-
 /** search items **/
 .web-search-wrapper {
 
