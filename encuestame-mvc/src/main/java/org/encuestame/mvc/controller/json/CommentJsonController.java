@@ -211,8 +211,7 @@ public class CommentJsonController extends AbstractJsonController {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             final List<CommentBean> comments = getCommentService()
                     .getTopRatedComments(
-                            CommentsSocialOptions
-                                    .getCommentsSocialOptions(commentOption),
+                            CommentsSocialOptions.getCommentsSocialOptions(commentOption),
                             max, start);
             jsonResponse.put("topComments", comments);
             setItemResponse(jsonResponse);

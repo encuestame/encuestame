@@ -24,6 +24,11 @@ dojo.declare(
      *
      */
     _key : ["topComments"],
+    
+    /*
+     * Limited comments.
+     */
+    comments : 5,
 
     /*
      *
@@ -39,7 +44,7 @@ dojo.declare(
       * comment params.
       */
      getParams : function() {
-         return { commentOption : "", max : 10 };
+         return { commentOption : "", max : this.comments, start : 0 };
      }
 
 });

@@ -22,7 +22,9 @@ dojo.declare(
          */
         widgetsInTemplate: true,
 
-
+        /*
+         * default label.
+         */
         label : "Search",
 
         /*
@@ -38,7 +40,7 @@ dojo.declare(
         /*
          * default search params.
          */
-        searchParam: { limit : config.suggest_limit, keyword : ""},
+        searchParam: { limitByItem : 5, keyword : ""},
 
         /*
          * index item selected.
@@ -59,6 +61,11 @@ dojo.declare(
          * the time to delay key events.
          */
         _delay : 700,
+        
+        /*
+         * 
+         */
+        limitByItem : 5,
 
         /*
          * post create process.
@@ -188,6 +195,7 @@ dojo.declare(
                      this._setParams(
                              { limit: config.suggest_limit,
                                keyword : text,
+                               limitByItem : this.limitByItem,
                                excludes : this.exclude});
                      if (!encuestame.utilities.isEmpty(text) && text.length > 1) {
                          var parent = this;
@@ -253,14 +261,25 @@ dojo.declare(
         "encuestame.org.core.commons.search.SearchSuggestItemsByType",
         [encuestame.org.main.EnmeMainLayoutWidget],{
 
-            //template
+        /*
+         * template
+         */
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItem.html"),
-        //widgets in template
+
+        /*
+         * widgets in template
+         */
         wigetsInTemplate: true,
-        //reference of suggest widget.
+        
+        /*
+         * reference of suggest widget.
+         */
         parentWidget: null,
 
-        data: null,
+        /*
+         * results
+         */
+        data: null,       
 
         /**
          * Post Create Life Cycle.
@@ -349,10 +368,16 @@ dojo.declare(
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItemSection.html"),
 
         //
-        items : [],
-
+        items : [],       
+        
+        /*
+         * 
+         */
         parentWidget : null,
 
+        /*
+         * 
+         */
         label : "",
 
         /**

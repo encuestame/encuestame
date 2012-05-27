@@ -303,25 +303,25 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
          * POLL
          */		
 		System.out.println("Creating Polls...");
-//		for (QuestionBean question : listQuestions) {
-//			try {
-//				final Poll poll = getPollService().createPoll(question.getQuestionName(), new String[] { "hashTag" }, true, "MODERATE", true);
-//				System.out.println(" Polls ID ..."+poll.getPollId());
-//	                final List<QuestionAnswerBean> answer = getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
-//	                for (QuestionAnswerBean questionAnswerBean : answer) {
-//					    double totalVotes = getRandomNumberRange(0, 100) - 1;
-//		                System.out.println(totalVotes+":: Votes for this POLL switch id "+questionAnswerBean.getAnswers());
-//	                	for (int i = 0; i < totalVotes; i++) {
-//						getPollService().vote(poll.getPollId(),
-//								poll.getQuestion().getSlugQuestion(),
-//								ipGenerator(),questionAnswerBean.getAnswerId());
-//						}
-//					}
-//	                	                
-//			} catch (EnMeExpcetion e) {
-//				e.printStackTrace();
-//			}
-//		}
+		for (QuestionBean question : listQuestions) {
+			try {
+				final Poll poll = getPollService().createPoll(question.getQuestionName(), new String[] { "hashTag" }, true, "MODERATE", true);
+				System.out.println(" Polls ID ..."+poll.getPollId());
+	                final List<QuestionAnswerBean> answer = getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
+	                for (QuestionAnswerBean questionAnswerBean : answer) {
+					    double totalVotes = getRandomNumberRange(0, 100) - 1;
+		                System.out.println(totalVotes+":: Votes for this POLL switch id "+questionAnswerBean.getAnswers());
+	                	for (int i = 0; i < totalVotes; i++) {
+						getPollService().vote(poll.getPollId(),
+								poll.getQuestion().getSlugQuestion(),
+								ipGenerator(),questionAnswerBean.getAnswerId());
+						}
+					}
+	                	                
+			} catch (EnMeExpcetion e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private Date createRandomDate(){

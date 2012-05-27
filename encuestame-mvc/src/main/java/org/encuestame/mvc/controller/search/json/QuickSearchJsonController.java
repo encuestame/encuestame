@@ -65,6 +65,7 @@ public class QuickSearchJsonController extends AbstractJsonController {
     @RequestMapping(value = "api/search/quick-suggest.json", method = RequestMethod.GET)
     public ModelMap quickSuggestionSearchService(
             @RequestParam(value = "keyword", required = true) String keyword,
+            @RequestParam(value = "limitByItem", required = false) Integer limitByItem,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
@@ -81,7 +82,7 @@ public class QuickSearchJsonController extends AbstractJsonController {
             typesEnabled.add(TypeSearchResult.TWEETPOLL);
             if (!keyword.isEmpty()) {
                  setItemReadStoreResponse("itemSearchTitle", "id", getSearchService()
-                        .quickSearch(keyword, "English", 0, LIMIT_RESULTS, typesEnabled));
+                        .quickSearch(keyword, "English", 0, LIMIT_RESULTS, limitByItem, typesEnabled));
             } else {
                 log.debug("keyword is empty");
             }

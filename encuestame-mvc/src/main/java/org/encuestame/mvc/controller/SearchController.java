@@ -108,7 +108,7 @@ public class SearchController extends AbstractBaseOperations {
            //keyword stats.
            model.addAttribute("keywordStats", null);
            //search service.
-           final Map<String, List<GlobalSearchItem>>  results  = getSearchService().quickSearch(keyword, "", 0, LIMIT_RESULTS, types);
+           final Map<String, List<GlobalSearchItem>>  results  = getSearchService().quickSearch(keyword, "", 0, LIMIT_RESULTS, null, types);
            model.addAttribute("results", results);
        }  catch (Exception e) {
            model.addAttribute("results", ListUtils.EMPTY_LIST);

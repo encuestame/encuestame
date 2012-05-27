@@ -78,35 +78,49 @@ public class SearchService extends AbstractIndexService implements
             String language,
             final Integer start,
             final Integer limit,
+            Integer limitByItem,
             final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException {
         @SuppressWarnings("unchecked")
         final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
+        limitByItem = limitByItem == null ? 0 : limitByItem; 
         if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
-            final List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
+            List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
                     .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
-                            null));
+                            null));           
+            if (limitByItem != 0 && questionResult.size() > limitByItem) {
+            	questionResult = questionResult.subList(0, limitByItem);           	
+            }
             log.debug("questionResult " + questionResult.size());
             hashset.put("questions", questionResult);
         }
 
         if (resultsAllowed.indexOf(TypeSearchResult.PROFILE) != -1) {
-            final List<GlobalSearchItem> profiles = UtilConvertToSearchItems
+             List<GlobalSearchItem> profiles = UtilConvertToSearchItems
                     .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
+            if (limitByItem != 0 && profiles.size() > limitByItem) {
+            	profiles = profiles.subList(0, limitByItem);           	
+            }
             log.debug("profiles " + profiles.size());
             hashset.put("profiles", profiles);
         }
 
         if (resultsAllowed.indexOf(TypeSearchResult.HASHTAG) != -1) {
-            final List<GlobalSearchItem> tags = UtilConvertToSearchItems
+            List<GlobalSearchItem> tags = UtilConvertToSearchItems
             .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit, null));
+            if (limitByItem != 0 && tags.size() > limitByItem) {
+            	tags = tags.subList(0, limitByItem);           	
+            }
             log.debug("tags " + tags.size());
             hashset.put("tags", tags);
         }
 
         if (resultsAllowed.indexOf(TypeSearchResult.ATTACHMENT) != -1) {
-            final List<GlobalSearchItem> attachments = UtilConvertToSearchItems
+            List<GlobalSearchItem> attachments = UtilConvertToSearchItems
                                         .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
+            if (limitByItem != 0 && attachments.size() > limitByItem) {
+            	attachments = attachments.subList(0, limitByItem);           	
+            }
             log.debug("attachments " + attachments.size());
             hashset.put("attachments", attachments);
         }

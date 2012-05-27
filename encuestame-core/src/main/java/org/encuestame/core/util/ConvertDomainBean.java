@@ -992,7 +992,6 @@ public class ConvertDomainBean {
        commentBean.setCommentedByUsername(commentDomain.getUser().getUsername());
        //url
        //tweetpoll/4/do-you-like-summer-season%3F
-       log.debug("TypeSearchResult "+type);
        if( type != null) {
            final StringBuffer url = new StringBuffer("/");
            url.append(TypeSearchResult.getUrlPrefix(type));
