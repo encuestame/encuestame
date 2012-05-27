@@ -95,8 +95,12 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }
     
-    
-    public List<Comment> getCommentsbPoll(final Poll poll, final Integer maxResults, final Integer start) {
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.CommentsOperations#getCommentsbPoll(org.encuestame.persistence.domain.survey.Poll, java.lang.Integer, java.lang.Integer)
+     */
+    @SuppressWarnings("unchecked")
+	public List<Comment> getCommentsbPoll(final Poll poll, final Integer maxResults, final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("poll",poll));
         criteria.addOrder(Order.desc("likeVote"));

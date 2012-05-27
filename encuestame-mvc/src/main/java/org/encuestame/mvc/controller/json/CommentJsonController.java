@@ -73,6 +73,9 @@ public class CommentJsonController extends AbstractJsonController {
             HttpServletRequest request, HttpServletResponse response) {
         try {
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            log.debug("/api/common/comment/comments/{type}.json itemId "+itemId);
+            log.debug("/api/common/comment/comments/{type}.json max "+max);
+            log.debug("/api/common/comment/comments/{type}.json start "+start);
             final List<Comment> comments = getCommentService().getComments(
                     TypeSearchResult.getTypeSearchResult(type), itemId, limitTotalMax(max),
                     start);

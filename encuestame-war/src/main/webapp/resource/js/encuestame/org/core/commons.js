@@ -291,32 +291,6 @@ encuestame.utilities.url.hashtag  = function(hashtagName) {
     } else {
         throw new Error("hashtag name is required");
     }
-}
-
-/*
- * Short a long number to short number description.
- * Eg: 3,500 = 3,5K
- */
-encuestame.utilities.shortAmmount = function(quantity) {
-    if (typeof quantity === "number") {
-        quantity = ( quantity < 0 ? 0  : quantity);
-        console.debug("short quantity", quantity);
-        var text = quantity.toString();
-        console.debug("short ammount", text);
-        // 5634 --> 5634k
-        if (quantity > 1000) {
-            var quantityReduced = Math.round(quantity / 100);
-            console.debug("short quantityReduced", quantityReduced);
-            text = quantityReduced.toString();
-            text = text.concat("K");
-        } else {
-
-        }
-        return text;
-    } else {
-        throw new Error("invalid number");
-    }
-
 };
 
 /*

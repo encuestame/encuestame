@@ -258,5 +258,5 @@ public interface IFrontEndService extends ServiceOperations {
 	 * 
 	 * @return
 	 */
-	Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final HttpServletRequest request);
+	Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final String ipAddress);
 }

@@ -80,10 +80,10 @@ dojo.declare(
             console.debug("this.date", this.date);
             this.statusWidget = dijit.byId("status_"+this.id);
             if (this._hits) {
-                this._hits.innerHTML = encuestame.utilities.shortAmmount(this.hits);
+                this._hits.innerHTML = ENME.shortAmmount(this.hits);
             }
             if (this._votes) {
-                this._votes.innerHTML = encuestame.utilities.shortAmmount(this.votes);
+                this._votes.innerHTML = ENME.shortAmmount(this.votes);
             }
             if (this._question_title) {
                 this._question_title.innerHTML = this.question;

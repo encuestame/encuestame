@@ -69,7 +69,11 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 		var button = this._createButton();				
 		dojo.addClass(this._button, encuestame.utilities.HIDDEN_CLASS);
 		dojo.addClass(this._loading, encuestame.utilities.HIDDEN_CLASS);
-		this._button.appendChild(button);
+		this._button.appendChild(button);		
+		this._voteCounter.innerHTML = ENME.shortAmmount(this.votes);
+		var view = dojo.create('div');
+		view.innerHTML = ENME.shortAmmount(this.hits) + " " + this.viewMessage;
+		this._vote.appendChild(view);
 	},
 	
 	/**
@@ -160,7 +164,7 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 					this._button.innerHTML = this.voteOkMessage;
 					var currentVote = parseInt(this._voteCounter.innerHTML),
 					newVoteCounter = currentVote + encuestame.utilities.vote;
-					this._voteCounter.innerHTML = newVoteCounter;
+					this._voteCounter.innerHTML = ENME.shortAmmount(newVoteCounter);
 				} else {
 					this._button.innerHTML = this.voteFailMessage;
 				}

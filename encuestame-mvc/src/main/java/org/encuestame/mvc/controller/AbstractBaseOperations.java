@@ -250,7 +250,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param max
      * @return
      */
-    public Integer limitTotalMax(Integer max){
+    public Integer limitTotalMax(Integer max) {
         return max == null ? null : (max > this.MAX_RESULTS ? this.MAX_RESULTS : max);
     }
 

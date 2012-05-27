@@ -267,21 +267,16 @@ if (typeof dojo != "undefined") {
 			},
 			
 			shortAmmount : function(quantity){
-				if (typeof quantity === "number") {
+				if (typeof(quantity) === "number") {
 			        quantity = ( quantity < 0 ? 0  : quantity);
-			        console.debug("short quantity", quantity);
 			        var text = quantity.toString();
-			        console.debug("short ammount", text);
 			        // 5634 --> 5634k
 			        if (quantity > 1000) {
 			            var quantityReduced = Math.round(quantity / 100);
-			            console.debug("short quantityReduced", quantityReduced);
 			            text = quantityReduced.toString();
 			            text = text.concat("K");
-			        } else {
-
-			        }
-			        return text;
+			        } 
+					return text;
 			    } else {
 			        throw new Error("invalid number");
 			    }
@@ -317,6 +312,13 @@ if (typeof dojo != "undefined") {
 			     var url = encuestame.contextDefault + "/resources/images/social/"+provider.toLowerCase()
 	               +"/enme_icon_"+provider.toLowerCase()+".png";
 			     return url;
+			},
+			
+			/**
+			 * 
+			 */
+			fromNow : function(date, format) {				
+				return moment(date, format).fromNow();
 			}
 		};
 

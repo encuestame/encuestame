@@ -274,7 +274,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 }
 
 .web-item-wrapper .item .stats .count {
-    font-size: 240%;
+    font-size: 21px;
 }
 
 .web-item-wrapper .item .stats .viewcount {
@@ -3928,7 +3928,7 @@ div.drop-down-menu-select-title:hover .sub-menu {
 .web-rated-comments .web-rated-comment-item {
     clear: both;
     min-width: 20px;
-    padding: 2px;
+    padding: 8px;
     margin-bottom: 15px;
 }
 

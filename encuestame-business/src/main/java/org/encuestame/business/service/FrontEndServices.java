@@ -396,7 +396,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
 	public Status registerVote(final Long itemId,
 			final TypeSearchResult searchResult,
-			final HttpServletRequest request) {
+			 final String ipAddress) {
 
 		//FIXME: need a restrictions to avoid repeated votes  
 				
@@ -406,7 +406,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     	log.debug("registerVote: "+userVote);
 		final Hit hit = new Hit();
 		hit.setHitCategory(HitCategory.VOTE);
-		hit.setIpAddress(EnMeUtils.getIP(request, EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass")));
+		hit.setIpAddress(ipAddress);
     		try {
 				//vote process
 				if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {

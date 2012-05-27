@@ -4,13 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.core.service.imp.ICommentService;
+import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.persistence.dao.ITweetPoll;
+import org.encuestame.persistence.domain.Comment;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -24,9 +31,11 @@ import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.UserAccountBean;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -53,6 +62,24 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	 */
 	@Autowired
 	public IPollService pollService;
+	
+	/**
+	 * 
+	 */
+	@Autowired
+	public IFrontEndService frontEndService;
+	
+	/**
+	 * 
+	 */
+	@Autowired
+	public ITweetPoll tweetPoll;
+	
+	/**
+	 * 
+	 */
+	@Autowired
+	public ICommentService commentService;
 	
 	/**
 	 * 
@@ -107,6 +134,23 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 		}
 		return list;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	private List<CommentBean> getComments() throws IOException {
+		CSVReader csv = readCSVFile("comments.csv");
+		String[] nextLine;
+		final List<CommentBean> list = new ArrayList<CommentBean>();
+		while ((nextLine = csv.readNext()) != null) {
+			final CommentBean bean = new CommentBean();
+			bean.setComment(nextLine[0]);
+			list.add(bean);
+		}
+		return list;
+	}	
 
 	/**
 	 * 
@@ -185,9 +229,11 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 		final List<QuestionBean> listQuestions = getPollQuestions();
 		final List<QuestionBean> tpListQuestions = getTpPollQuestions();
 		final List<UserAccount> userAccount = getAccountDao().findAll();
+		final List<CommentBean> comments = getComments();
 		int totalQuestions = listQuestions.size();
 		int totalhashtagss = hashtags.size();
 		int totalUsers = userAccount.size();
+		int totalComments = comments.size();
 		System.out.println("Users size: "+totalQuestions);		
 		System.out.println("Iterating Questions.... Creating Tweetpolls / Poll");
 		for (QuestionBean question : tpListQuestions) {		
@@ -197,7 +243,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 			final TweetPollBean tweetPollBean = new TweetPollBean();
 	        //tweetPollBean.getHashTags().addAll();
 	        // save create tweet poll
-	        double randomUser = getRandomNumberRange(0 , totalUsers) - 1;
+	        double randomUser = getRandomNumberRange(0, totalUsers) - 1;
 	        UserAccount u = userAccount.get(Double.valueOf(randomUser).intValue());
 	        tweetPollBean.setUserId(u.getAccount().getUid());
 	        tweetPollBean.setCloseNotification(Boolean.FALSE);
@@ -207,16 +253,35 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	        try {
 	        	//final Question qm = createQuestion(question, u, QuestionPattern.CUSTOMIZABLE_SELECTION);
 				final TweetPoll tpx = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u);
+				tpx.setHits(Long.valueOf(getRandomNumberRange(6, 5000)));
+				tpx.setNumbervotes(Long.valueOf(getRandomNumberRange(40, 90000)));
 				tpx.setPublishTweetPoll(true);
+				tpx.setCreateDate(createRandomDate());
 				getTweetPollDao().saveOrUpdate(tpx);
-				System.out.println("New tweetpoll "+tpx.getTweetPollId());				
+				System.out.println("New tweetpoll "+tpx.getTweetPollId());
+				for (CommentBean commentBean2 : comments) {
+					System.out.println("New COMMENT tweetpoll ");
+					final Comment comment = new Comment();
+					comment.setTweetPoll(tpx);
+					comment.setCreatedAt(createRandomDate());
+					comment.setComment(commentBean2.getComment());
+					comment.setDislikeVote(Long.valueOf(getRandomNumberRange(20, 400)));
+					comment.setLikeVote(Long.valueOf(getRandomNumberRange(100, 1500)));
+					comment.setUser(userAccount.get(Double.valueOf(getRandomNumberRange(0, totalUsers) - 1).intValue()));
+					getTweetPollDao().saveOrUpdate(comment);
+					System.out.println("Saved COMMENT tweetpoll ");
+				}				
+				System.out.println("Add hashtag to tweetpoll ");
 				for (int i = 0; i < 3; i++) {
-					double htx = getRandomNumberRange(0 , totalhashtagss) - 1;
+					double htx = getRandomNumberRange(0, totalhashtagss) - 1;
 					final HashTagBean b = hashtags.get(Double.valueOf(htx).intValue());
 						System.out.println("Adding Hashtag "+b.getHashTagName()+ " to tp "+tpx.getTweetPollId());
-						getTweetPollService().addHashtagToTweetPoll(tpx, b);
+						final HashTag h = getTweetPollService().addHashtagToTweetPoll(tpx, b);
+						h.setUpdatedDate(createRandomDate());
+						getTweetPollDao().saveOrUpdate(h);
 				}				
 				List<QuestionAnswerBean> dddd = question.getListAnswers();
+				System.out.println("Ansswers in this questions  "+dddd.size());
 				for (QuestionAnswerBean questionAnswerBean : dddd) {
 					final QuestionAnswerBean answerBean = new QuestionAnswerBean(questionAnswerBean.getAnswers());
 	                answerBean.setShortUrlType(ShortUrlProvider.NONE);
@@ -257,6 +322,12 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 //				e.printStackTrace();
 //			}
 //		}
+	}
+	
+	private Date createRandomDate(){
+		final DateTime current = new DateTime(Calendar.getInstance().getTime());
+		current.minusDays(getRandomNumberRange(400, 0));		
+		return current.toDate();
 	}
 	
 	/**
@@ -318,5 +389,33 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	 */
 	public void setPollService(IPollService pollService) {
 		this.pollService = pollService;
-	}		
+	}
+
+	/**
+	 * @return the frontEndService
+	 */
+	public IFrontEndService getFrontEndService() {
+		return frontEndService;
+	}
+
+	/**
+	 * @param frontEndService the frontEndService to set
+	 */
+	public void setFrontEndService(IFrontEndService frontEndService) {
+		this.frontEndService = frontEndService;
+	}
+
+	/**
+	 * @return the commentService
+	 */
+	public ICommentService getCommentService() {
+		return commentService;
+	}
+
+	/**
+	 * @param commentService the commentService to set
+	 */
+	public void setCommentService(ICommentService commentService) {
+		this.commentService = commentService;
+	}
 }

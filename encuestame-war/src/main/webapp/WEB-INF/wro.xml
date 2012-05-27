@@ -25,6 +25,7 @@
   <group name='common'>
    	<js>/resource/js/core/*.js</js>
    	<js>/resource/js/core/lib/*.js</js>
+   	<js>/resource/js/core/req/*.js</js>
    </group>
    <group name='graph'>
         <js>/resource/js/core/graph/core/raphael-2.1.0.js</js>
