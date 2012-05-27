@@ -309,5 +309,9 @@
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
+    
+    <session-config>
+		<session-timeout>180</session-timeout>
+	</session-config>
 
 </web-app>

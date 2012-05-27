@@ -263,25 +263,20 @@ public class AbstractSurveyService extends AbstractChartService {
         log.debug("Is offline? "+EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode"));
         String urlShort = url;
         if (!EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode")) {
-            if (provider == null) {
+            if (provider.equals(ShortUrlProvider.GOOGL)) {
                 urlShort = SocialUtils.getGoGl(url,
                         EnMePlaceHolderConfigurer.getProperty("short.google.key"));
-            } else if (provider.equals(ShortUrlProvider.GOOGL)) {
-                urlShort = SocialUtils.getGoGl(url,
-                        EnMePlaceHolderConfigurer.getProperty("short.google.key"));
+            } else if (provider.equals(ShortUrlProvider.NONE)) {
+            	urlShort = url;
             } else if (provider.equals(ShortUrlProvider.TINYURL)) {
                 urlShort = SocialUtils.getTinyUrl(url);
             } else if (provider.equals(ShortUrlProvider.BITLY)) {
                  urlShort = SocialUtils.getBitLy(url,
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+            } else {
+            	urlShort = url;
             }
-            //else {
-                 // if is  null, always user bitly.
-                 // urlShort = SocialUtils.getBitLy(url,
-                 //         EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
-                 //         EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
-            //}
         }
         log.debug("shortUrlProvider SHORT: "+urlShort);
         return urlShort;

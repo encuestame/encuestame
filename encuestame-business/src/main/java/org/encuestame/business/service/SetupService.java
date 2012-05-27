@@ -19,6 +19,7 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.business.setup.install.InstallDatabaseOperations;
+import org.encuestame.business.setup.install.demo.CSVParser;
 import org.encuestame.core.config.AdministratorProfile;
 import org.encuestame.core.config.XMLConfigurationFileSupport;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -50,6 +51,12 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Autowired
     private InstallDatabaseOperations install;
+    
+    /**
+     * 
+     */
+    @Autowired
+    private CSVParser csvParser;
 
     /**
      *
@@ -226,7 +233,8 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     @Override
     public void demoInstall() {
         try {
-            this.install.installDemoData();
+            //this.install.installDemoData();
+        	this.csvParser.executeCSVDemoInstall(6000);
         } catch (Exception e) {
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
@@ -290,4 +298,18 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         // TODO Auto-generated method stub
         return null;
     }
+
+	/**
+	 * @return the csvParser
+	 */
+	public CSVParser getCsvParser() {
+		return csvParser;
+	}
+
+	/**
+	 * @param csvParser the csvParser to set
+	 */
+	public void setCsvParser(CSVParser csvParser) {
+		this.csvParser = csvParser;
+	}
 }

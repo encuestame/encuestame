@@ -38,7 +38,6 @@ public class EnMeUserAccountProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
-         log.debug("EnMeUserAccountProvider "+authentication);
          if (authentication instanceof EnMeSecurityToken) {
              return authentication;
          } else {

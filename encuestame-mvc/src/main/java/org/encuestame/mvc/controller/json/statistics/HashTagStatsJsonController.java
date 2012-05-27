@@ -107,6 +107,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e);
 			setError(e.getMessage(), response);
 		}

@@ -347,14 +347,17 @@ CREATE TABLE IF NOT EXISTS `hits` (
   `hits_ip_address` varchar(100) NOT NULL,
   `hashTag_hash_tag_id` bigint(20) DEFAULT NULL,
   `poll_poll_id` bigint(20) DEFAULT NULL,
+  `hit_category` int(11) NOT NULL,
   `survey_sid` bigint(20) DEFAULT NULL,
   `tweetPoll_tweet_poll_id` bigint(20) DEFAULT NULL,
+  `userAccount_uid` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`hit_id`),
   UNIQUE KEY `hit_id` (`hit_id`),
   KEY `FK30DF4019AA125` (`hashTag_hash_tag_id`),
   KEY `FK30DF4063976E9` (`poll_poll_id`),
   KEY `FK30DF4051153812` (`survey_sid`),
-  KEY `FK30DF40953C854B` (`tweetPoll_tweet_poll_id`)
+  KEY `FK30DF40953C854B` (`tweetPoll_tweet_poll_id`),
+  KEY `FK30DF40369F8B2C` (`userAccount_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -475,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `poll_hashtags` (
 
 CREATE TABLE IF NOT EXISTS `poll_result` (
   `poll_resultId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ip_address` varchar(255) NOT NULL,
+  `ipAddress` varchar(255) NOT NULL,
   `votation_date` datetime NOT NULL,
   `q_answer_id` bigint(20) NOT NULL,
   `poll_id` bigint(20) NOT NULL,
@@ -1082,3 +1085,23 @@ CREATE TABLE IF NOT EXISTS `userAccount_project` (
   KEY `FKFBC45BBC84536452` (`cat_id_project`),
   KEY `FKFBC45BBC5F77A117` (`sec_id_secondary`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `survey_hashtags` (
+  `sid` bigint(20) NOT NULL,
+  `hastag_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`sid`,`hastag_id`),
+  KEY `FK9D62ED6C793D9E77` (`sid`),
+  KEY `FK9D62ED6CDA98FFE1` (`hastag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `hash_tags_ranking` (
+  `rank_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `average` double DEFAULT NULL,
+  `ranking_updated` datetime DEFAULT NULL,
+  `hashTag_hash_tag_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`rank_id`),
+  UNIQUE KEY `rank_id` (`rank_id`),
+  KEY `FK71DECDA119AA125` (`hashTag_hash_tag_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2026 ;

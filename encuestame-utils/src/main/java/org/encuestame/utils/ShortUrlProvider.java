@@ -24,6 +24,7 @@ public enum ShortUrlProvider {
     GOOGL,
     TINYURL,
     BITLY,
+    NONE,
 
     ShortTypeUrl(){};
 
