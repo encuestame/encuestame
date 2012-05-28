@@ -271,8 +271,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 		log.debug("Getting Hashtags....");
 		final List<HashTagBean> hashtags = getHashtags();
 		log.debug("Users size: "+users.size());
-		final List<QuestionBean> listQuestions = getPollQuestions();
-		final List<QuestionBean> tpListQuestions = getTpPollQuestions();
+		List<QuestionBean> listQuestions = getPollQuestions();
+		List<QuestionBean> tpListQuestions = getTpPollQuestions();
 		final List<UserAccount> userAccount = getAccountDao().findAll();
 		for (UserAccount userAccount2 : userAccount) {
 			SocialUserProfile x = new SocialUserProfile();
@@ -294,10 +294,22 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 		int totalQuestions = listQuestions.size();
 		int totalhashtagss = hashtags.size();
 		int totalUsers = userAccount.size();
-		int totalComments = comments.size();
 		log.debug("Users size: "+totalQuestions);		
 		log.debug("Iterating Questions.... Creating Tweetpolls / Poll");
+		log.debug("LIMIT TWEETPOLL TO PROCESS? "+EnMePlaceHolderConfigurer.getBooleanProperty("demo.limit.tweetpolls"));
+		log.debug("HOW TWEETPOLL TO PROCESS? "+EnMePlaceHolderConfigurer.getIntegerProperty("demo.limit.tweetpolls.quantity"));
+		log.debug("LIMIT POLL TO PROCESS? "+EnMePlaceHolderConfigurer.getBooleanProperty("demo.limit.polls"));
+		log.debug("HOW POLL TO PROCESS? "+EnMePlaceHolderConfigurer.getIntegerProperty("demo.limit.polls.quantity"));
+		if (EnMePlaceHolderConfigurer.getBooleanProperty("demo.limit.tweetpolls")){
+			tpListQuestions = tpListQuestions.subList(0, EnMePlaceHolderConfigurer.getIntegerProperty("demo.limit.tweetpolls.quantity"));
+		}
+		
+		if (EnMePlaceHolderConfigurer.getBooleanProperty("demo.limit.polls")){
+			listQuestions = listQuestions.subList(0, EnMePlaceHolderConfigurer.getIntegerProperty("demo.limit.polls.quantity"));
+		}
 
+		log.debug("TOTAL TWEETPOLL TO PROCESS: "+tpListQuestions.size());	
+		log.debug("TOTAL POLL TO PROCESS: "+listQuestions.size());
 		
 		for (QuestionBean question : tpListQuestions) {		
 			/*
@@ -375,7 +387,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	                answerBean.setShortUrlType(ShortUrlProvider.NONE);
 	                //create tweetpoll swithch
 	                final TweetPollSwitch tweetPollSwitch = getTweetPollService().createTweetPollQuestionAnswer(answerBean, tweetPollDomain);	
-	                double totalVotes = getRandomNumberRange(0, VOTES_BY_TWEETPOLL) - 1;
+	                double totalVotes = getRandomNumberRange(0, EnMePlaceHolderConfigurer.getIntegerProperty("demo.votes.by.tppoll")) - 1;
 	                log.debug(totalVotes+" Votes for this tweetpolls switch id "+tweetPollSwitch.getSwitchId());
 	                for (int i = 0; i < totalVotes; i++) {
 	                	getTweetPollService().tweetPollVote(tweetPollSwitch, EnMeUtils.ipGenerator(), createRandomDate());
@@ -441,7 +453,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 				log.debug(" Polls ID ..."+poll.getPollId());
 	                final List<QuestionAnswerBean> answer = getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
 	                for (QuestionAnswerBean questionAnswerBean : answer) {
-					    double totalVotes = getRandomNumberRange(100, VOTES_BY_POLL) - 1;
+					    double totalVotes = getRandomNumberRange(0, EnMePlaceHolderConfigurer.getIntegerProperty("demo.votes.by.poll")) - 1;
 		                log.debug(totalVotes+":: Votes for this POLL switch id "+questionAnswerBean.getAnswers());
 	                	for (int i = 0; i < totalVotes; i++) {
 						getPollService().vote(poll.getPollId(),

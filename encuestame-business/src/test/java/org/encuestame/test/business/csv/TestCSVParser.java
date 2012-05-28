@@ -23,11 +23,11 @@ public class TestCSVParser extends AbstractSpringSecurityContext{
 	 @Test
 	 public void testCSVParser() throws FileNotFoundException, IOException {
 		 Assert.assertNotNull(this.csvParser);
-		 this.csvParser.executeCSVDemoInstall(5, 5, 5);
-		 Assert.assertEquals("Questions should be", 42, getHibernateTemplate().find("from Question").size());
+		 this.csvParser.executeCSVDemoInstall(2, 2, 2);
+		 Assert.assertEquals("Questions should be", 10, getHibernateTemplate().find("from Question").size());
 		 Assert.assertEquals("Users should be", 11, getHibernateTemplate().find("from UserAccount").size());
-		 Assert.assertEquals("TweetPoll should be", 16, getHibernateTemplate().find("from TweetPoll").size());
-		 Assert.assertEquals("Poll should be", 26, getHibernateTemplate().find("from Poll").size());
+		 Assert.assertEquals("TweetPoll should be", 5, getHibernateTemplate().find("from TweetPoll").size());
+		 Assert.assertEquals("Poll should be", 5, getHibernateTemplate().find("from Poll").size());
 		 
 	 }
 
