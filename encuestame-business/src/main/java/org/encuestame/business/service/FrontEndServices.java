@@ -187,7 +187,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
         // Sorted list based comparable interface
-        final List<HomeBean> allItems = new ArrayList<HomeBean>();
+        List<HomeBean> allItems = new ArrayList<HomeBean>();
         final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
                 period, start, maxResults, request);
         log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
@@ -204,6 +204,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 .convertSurveyListToHomeBean(surveyItems));
         log.debug("Home bean list size :" + allItems.size());
         Collections.sort(allItems);
+        // limit the total resuls to maxResults requested
+        if (maxResults != null && allItems.size() > maxResults) {
+        	allItems = allItems.subList(0, maxResults);
+        }
         return allItems;
     }
     

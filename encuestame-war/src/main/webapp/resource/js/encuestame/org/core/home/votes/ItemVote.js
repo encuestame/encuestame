@@ -162,9 +162,13 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 				this.temButton = this._button;											
 				if (r) {
 					this._button.innerHTML = this.voteOkMessage;
-					var currentVote = parseInt(this._voteCounter.innerHTML),
-					newVoteCounter = currentVote + encuestame.utilities.vote;
-					this._voteCounter.innerHTML = ENME.shortAmmount(newVoteCounter);
+					var currentVote = this._voteCounter.innerHTML;
+					if (typeof(currentVote) === "number") {
+						var newVoteCounter = parseInt(currentVote) + encuestame.utilities.vote;
+						this._voteCounter.innerHTML = ENME.shortAmmount(newVoteCounter);
+					} else {
+						this._voteCounter.innerHTML = currentVote;
+					}					
 				} else {
 					this._button.innerHTML = this.voteFailMessage;
 				}

@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -254,7 +256,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      */
     @Test
     public void testValidateIp() throws EnMeExpcetion{
-        final String ipVote = "192.168.1.14";
+        final String ipVote = EnMeUtils.ipGenerator();
         final TweetPollBean myTpBean = createUnitTweetPoll(Boolean.TRUE,
                 "tweetPollUrl", getSpringSecurityLoggedUserAccount().getUid(),
                 questionBean);
@@ -274,7 +276,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         final TweetPollSwitch pollSwitch2 = tweetPollService
                 .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll);
 
-        tweetPollService.tweetPollVote(pollSwitch, ipVote);
+        tweetPollService.tweetPollVote(pollSwitch, ipVote, Calendar.getInstance().getTime());
         //tweetPollService.tweetPollVote(pollSwitch2, ipVote);
         final TweetPollResult result = tweetPollService.validateTweetPollIP(ipVote, myTweetPoll);
         assertEquals("Should be equals", ipVote , result.getIpVote());

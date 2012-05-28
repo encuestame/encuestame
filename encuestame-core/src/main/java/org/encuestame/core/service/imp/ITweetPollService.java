@@ -171,7 +171,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param pollSwitch {@link TweetPollSwitch}
      * @param ip ip
      */
-    void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip);
+    void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip, final Date voteDate);
 
     /**
      * Validate TweetPoll IP.

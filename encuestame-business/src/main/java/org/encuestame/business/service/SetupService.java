@@ -234,7 +234,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     public void demoInstall() {
         try {
             //this.install.installDemoData();
-        	this.csvParser.executeCSVDemoInstall(6000);
+        	this.csvParser.executeCSVDemoInstall(300, 300, 0);
         } catch (Exception e) {
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());

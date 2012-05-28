@@ -156,7 +156,7 @@ public class FrontEndJsonController extends AbstractJsonController{
     }
     
     /**
-     * 
+     * API JSON service to vote a published item.
      * @param id
      * @param account
      * @param request

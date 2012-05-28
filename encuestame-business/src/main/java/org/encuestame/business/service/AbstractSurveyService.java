@@ -560,11 +560,11 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param ip ip
      */
     public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip){
-        final TweetPollResult pollResult = new TweetPollResult();
-        pollResult.setIpVote(ip.trim());
-        pollResult.setTweetPollSwitch(pollSwitch);
-        pollResult.setTweetResponseDate(new Date());
-        getTweetPollDao().saveOrUpdate(pollResult);
+        final TweetPollResult tweetPollResult = new TweetPollResult();
+        tweetPollResult.setIpVote(ip.trim());
+        tweetPollResult.setTweetPollSwitch(pollSwitch);
+        tweetPollResult.setTweetResponseDate(new Date());
+        getTweetPollDao().saveOrUpdate(tweetPollResult);
     }
 
     /**

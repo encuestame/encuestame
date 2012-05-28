@@ -14,6 +14,7 @@
 package org.encuestame.mvc.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -103,7 +104,7 @@ public class TweetPollController extends AbstractSocialController {
                         log.info("IP" + IP);
                         if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
                             if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                                getTweetPollService().tweetPollVote(tweetPoll, IP);
+                                getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
                                 model.put("message", "Tweet Poll Voted.");
                                 pathVote = "tweetVoted";
                                 log.debug("VOTED");
@@ -205,7 +206,7 @@ public class TweetPollController extends AbstractSocialController {
                      //save the vote.
                      final String IP = getIpClient(req);
                      log.info("IP" + IP);
-                     getTweetPollService().tweetPollVote(tweetPoll, IP);
+                     getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
                      return "tweetVoted";
                  }
             }

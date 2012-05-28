@@ -632,15 +632,16 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          return publishedStatus;
     }
 
+    
     /*
      * (non-Javadoc)
-     * @see org.encuestame.business.service.AbstractSurveyService#tweetPollVote(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch, java.lang.String)
+     * @see org.encuestame.core.service.imp.ITweetPollService#tweetPollVote(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch, java.lang.String, java.util.Date)
      */
-    public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip){
+    public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip, final Date voteDate) {
         final TweetPollResult pollResult = new TweetPollResult();
         pollResult.setIpVote(ip.trim());
         pollResult.setTweetPollSwitch(pollSwitch);
-        pollResult.setTweetResponseDate(new Date());
+        pollResult.setTweetResponseDate(voteDate);
         getTweetPollDao().saveOrUpdate(pollResult);
     }
 

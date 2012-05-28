@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.text.DecimalFormat;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -207,5 +208,14 @@ public class EnMeUtils {
         	log.debug("NON XFORWARDED IP ["+ip+"]");
         }        
         return ip;
+    }
+    
+    /**
+     * Return a random ip.
+     * @return
+     */
+    public static String ipGenerator() {
+    	Random r = new Random();
+		return r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);		
     }
 }

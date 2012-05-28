@@ -11,8 +11,8 @@
     <bean id="reindexAttachmentJob" class="org.encuestame.business.search.ReIndexAttachmentsJob"/>
     <bean id="indexRebuilder" class="org.encuestame.core.cron.IndexRebuilder"/>
     <bean id="calculateHashTagSize" class="org.encuestame.core.cron.CalculateHashTagSize"/>
-    <bean id="removeAccountJob" class="org.encuestame.business.cron.RemoveUnconfirmedAccountJob"/>
     <bean id="calculateRelevance" class="org.encuestame.core.cron.CalculateRelevance"/>
+    <bean id="removeAccountJob" class="org.encuestame.business.cron.RemoveUnconfirmedAccountJob"/>    
 
     <bean id="calculateInvokingJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="calculateHashTagSize"/>

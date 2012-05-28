@@ -10,5 +10,5 @@ public interface CSVParser {
 	 * @throws IOException 
 	 * 
 	 */
-	void executeCSVDemoInstall(int limitedTo) throws IOException;
+	void executeCSVDemoInstall(Integer tpvotes, Integer pollvotes, Integer surveyVotes) throws IOException;
 }

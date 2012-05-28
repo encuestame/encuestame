@@ -36,13 +36,13 @@ dojo.declare(
             dojo.forEach(items,
                 dojo.hitch(this,function(item) {
                   var widget = new encuestame.org.core.commons.stream.FrontEndItem(
-                          {   questionName : item.questionBean.questionName,
+                          {   questionName : item.question.question_name,
                               id : item.id,
-                              owner : item.ownerUsername,
-                              votes : 100,
-                              views : 440,
-                              relativeTime: item.relativeTime,
-                              hashtags : item.hashTags
+                              owner : item.owner_username,
+                              votes : ENME.shortAmmount(item.total_votes),
+                              views : 0,
+                              relativeTime: item.relative_time,
+                              hashtags : item.hastags_string
                            });
                   this._list.appendChild(widget.domNode);
                 }));
