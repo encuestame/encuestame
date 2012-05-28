@@ -22,7 +22,7 @@
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
             suggest_limit : 10,
-            delay : 60000,
+            delay : 1800000,
             activity : {
                 levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
                 maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,

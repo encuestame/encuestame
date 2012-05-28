@@ -4805,7 +4805,7 @@ div.web-social-links {
 	padding: 0;
 }
 
-#content-container #enme-content div.votes {
+#content-container #enme-content .web-generic-result div.votes {
   float: left;
   margin: 0 !important;
   padding: 8px;

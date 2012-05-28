@@ -324,10 +324,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final String ipAddress,
             final Long answerId)
             throws EnMeNoResultsFoundException {
-        log.debug("vote "+pollId);
-        log.debug("vote "+slug);
-        log.debug("vote "+ipAddress);
-        log.debug("vote "+answerId);
+        log.trace("vote "+pollId);
+        log.trace("vote "+slug);
+        log.trace("vote "+ipAddress);
+        log.trace("vote "+answerId);
         final Poll poll = this.getPollDao().getPollById(pollId, slug, false);
         if (poll == null) {
             throw new EnMeNoResultsFoundException("poll not found");

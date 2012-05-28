@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.AbstractSurveyService;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
 import org.encuestame.core.service.imp.ICommentService;
@@ -29,7 +31,9 @@ import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -40,7 +44,6 @@ import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.QuestionBean;
-import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -119,6 +122,9 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	private static Integer VOTES_BY_SURVEY = 500;
 	
 	private static Integer HASHTAB_BY_ITEM = 3;
+	
+	/** Log. **/
+    private Log log = LogFactory.getLog(this.getClass());	
 
 	/**
 	 * 
@@ -252,17 +258,19 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	 */
 	@Override
 	public void executeCSVDemoInstall(Integer tpvotes, Integer pollvotes, Integer surveyVotes) throws IOException {
+        log.debug("Starting domain reindex...");
+        long start = System.currentTimeMillis();
 		VOTES_BY_TWEETPOLL = tpvotes == null ? VOTES_BY_TWEETPOLL : tpvotes;
 		VOTES_BY_POLL = pollvotes == null ? VOTES_BY_POLL : pollvotes;
 		VOTES_BY_SURVEY = surveyVotes == null ? VOTES_BY_SURVEY : surveyVotes;
 		List<SignUpBean> users = getUsers();
-		System.out.println("Creating users....");
+		log.debug("Creating users....");
 		for (SignUpBean signUpBean : users) {
 			getSecurity().singupUser(signUpBean, true);
 		}
-		System.out.println("Getting Hashtags....");
+		log.debug("Getting Hashtags....");
 		final List<HashTagBean> hashtags = getHashtags();
-		System.out.println("Users size: "+users.size());
+		log.debug("Users size: "+users.size());
 		final List<QuestionBean> listQuestions = getPollQuestions();
 		final List<QuestionBean> tpListQuestions = getTpPollQuestions();
 		final List<UserAccount> userAccount = getAccountDao().findAll();
@@ -287,8 +295,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 		int totalhashtagss = hashtags.size();
 		int totalUsers = userAccount.size();
 		int totalComments = comments.size();
-		System.out.println("Users size: "+totalQuestions);		
-		System.out.println("Iterating Questions.... Creating Tweetpolls / Poll");
+		log.debug("Users size: "+totalQuestions);		
+		log.debug("Iterating Questions.... Creating Tweetpolls / Poll");
 
 		
 		for (QuestionBean question : tpListQuestions) {		
@@ -307,60 +315,68 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	        tweetPollBean.setSchedule(Boolean.FALSE);
 	        try {
 	        	//final Question qm = createQuestion(question, u, QuestionPattern.CUSTOMIZABLE_SELECTION);
-				final TweetPoll tpx = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u);
+				final TweetPoll tweetPollDomain = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u);
 
-				double hits = getRandomNumberRange(10, 1500);
+				double hits = getRandomNumberRange(2, EnMePlaceHolderConfigurer
+						.getIntegerProperty("demo.max.tweetpoll.hits"));
 				for (int i = 0; i < hits; i++) {
-					getFrontEndService().registerHit(tpx, null, null, null, EnMeUtils.ipGenerator(), HitCategory.VISIT);
+					getFrontEndService().registerHit(tweetPollDomain, null, null, null, EnMeUtils.ipGenerator(), HitCategory.VISIT);
 				}
 				
-				double votes = getRandomNumberRange(10, 40);
+				double votes = getRandomNumberRange(10, EnMePlaceHolderConfigurer
+						.getIntegerProperty("demo.max.tweetpoll.votes"));
 				for (int i = 0; i < votes; i++) {
-					getFrontEndService().registerVote(tpx.getTweetPollId(), TypeSearchResult.TWEETPOLL, EnMeUtils.ipGenerator());
+					getFrontEndService().registerVote(tweetPollDomain.getTweetPollId(), TypeSearchResult.TWEETPOLL, EnMeUtils.ipGenerator());
 				}				
 				
-				tpx.setHits(Long.valueOf(getRandomNumberRange(6, 5000)));
-				tpx.setNumbervotes(Long.valueOf(getRandomNumberRange(40, 10000)));
-				tpx.setPublishTweetPoll(true);
-				Date x = createRandomDate();
-				tpx.setCreateDate(x);
-				tpx.setUpdatedDate(x);
-				getTweetPollDao().saveOrUpdate(tpx);
-				for (int i = 0; i < 5; i++) {
-					System.out.println("Creating folder name ....");
+				//TODO: make sense?
+				//tpx.setHits(Long.valueOf(getRandomNumberRange(6, 5000)));
+				//tpx.setNumbervotes(Long.valueOf(getRandomNumberRange(40, 10000)));
+				
+				tweetPollDomain.setPublishTweetPoll(true);
+				Date tweetPollRandomDate = createRandomDate();
+				tweetPollDomain.setCreateDate(tweetPollRandomDate);
+				tweetPollDomain.setUpdatedDate(tweetPollRandomDate);
+				getTweetPollDao().saveOrUpdate(tweetPollDomain);
+				
+				for (int i = 0; i < EnMePlaceHolderConfigurer
+						.getIntegerProperty("demo.max.tweetpoll.folder"); i++) {
+					log.debug("Creating folder name ....");
 					getTweetPollService().createTweetPollFolder(this.DEFAULT_FOLDER_NAME+"_"+i+"_", u.getUsername());
 				}				
-				System.out.println("New tweetpoll "+tpx.getTweetPollId());
+				log.debug("New tweetpoll "+tweetPollDomain.getTweetPollId());
+				
 				for (CommentBean commentBean2 : comments) {
-					System.out.println("New COMMENT tweetpoll ");
+					log.debug("New COMMENT tweetpoll ");
 					final Comment comment = new Comment();
-					comment.setTweetPoll(tpx);
+					comment.setTweetPoll(tweetPollDomain);
 					comment.setCreatedAt(createRandomDate());
 					comment.setComment(commentBean2.getComment());
 					comment.setDislikeVote(Long.valueOf(getRandomNumberRange(20, 400)));
 					comment.setLikeVote(Long.valueOf(getRandomNumberRange(100, 1500)));
 					comment.setUser(userAccount.get(Double.valueOf(getRandomNumberRange(0, totalUsers) - 1).intValue()));
 					getTweetPollDao().saveOrUpdate(comment);
-					System.out.println("Saved COMMENT tweetpoll ");
-				}				
-				System.out.println("Add hashtag to tweetpoll ");
+					log.debug("Saved COMMENT tweetpoll ");
+				}	
+
+				log.debug("Add hashtag to tweetpoll ");
 				for (int i = 0; i < HASHTAB_BY_ITEM; i++) {
 					double htx = getRandomNumberRange(0, totalhashtagss) - 1;
 					final HashTagBean b = hashtags.get(Double.valueOf(htx).intValue());
-						System.out.println("Adding Hashtag "+b.getHashTagName()+ " to tp "+tpx.getTweetPollId());
-						final HashTag h = getTweetPollService().addHashtagToTweetPoll(tpx, b);
+						log.debug("Adding Hashtag "+b.getHashTagName()+ " to tp "+tweetPollDomain.getTweetPollId());
+						final HashTag h = getTweetPollService().addHashtagToTweetPoll(tweetPollDomain, b);
 						h.setUpdatedDate(createRandomDate());
 						getTweetPollDao().saveOrUpdate(h);
 				}				
 				List<QuestionAnswerBean> dddd = question.getListAnswers();
-				System.out.println("Ansswers in this questions  "+dddd.size());
+				log.debug("Ansswers in this questions  "+dddd.size());
 				for (QuestionAnswerBean questionAnswerBean : dddd) {
 					final QuestionAnswerBean answerBean = new QuestionAnswerBean(questionAnswerBean.getAnswers());
 	                answerBean.setShortUrlType(ShortUrlProvider.NONE);
 	                //create tweetpoll swithch
-	                final TweetPollSwitch tweetPollSwitch = getTweetPollService().createTweetPollQuestionAnswer(answerBean, tpx);	
+	                final TweetPollSwitch tweetPollSwitch = getTweetPollService().createTweetPollQuestionAnswer(answerBean, tweetPollDomain);	
 	                double totalVotes = getRandomNumberRange(0, VOTES_BY_TWEETPOLL) - 1;
-	                System.out.println(totalVotes+" Votes for this tweetpolls switch id "+tweetPollSwitch.getSwitchId());
+	                log.debug(totalVotes+" Votes for this tweetpolls switch id "+tweetPollSwitch.getSwitchId());
 	                for (int i = 0; i < totalVotes; i++) {
 	                	getTweetPollService().tweetPollVote(tweetPollSwitch, EnMeUtils.ipGenerator(), createRandomDate());
 					}
@@ -375,7 +391,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 		                publishedStatus.setApiType(SocialProvider.TWITTER);
 		                publishedStatus.setSocialAccount(socialAccountBean);
 		                //adding tweetpoll
-		                publishedStatus.setTweetPoll(tpx);
+		                publishedStatus.setTweetPoll(tweetPollDomain);
 		                //store original tweet id.
 		                 publishedStatus.setTweetId(tweetId);
 		                 //store original publication date.
@@ -401,7 +417,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
         /*
          * POLL
          */		
-		System.out.println("Creating Polls...");
+		log.debug("Creating Polls...");
 		for (QuestionBean question : listQuestions) {
 			try {
 				List<String> s = new ArrayList<String>();
@@ -410,11 +426,11 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 				}
 				String[] arrayAnswers = new String[s.size()];
 				arrayAnswers = s.toArray(arrayAnswers);						
-				System.out.println("Qu Answers x ."+arrayAnswers);
+				log.debug("Qu Answers x ."+arrayAnswers);
 				final Poll poll = getPollService().createPoll(question.getQuestionName(),arrayAnswers, true, "MODERATE", true);
 				poll.setCreatedAt(createRandomDate());
 				getTweetPollDao().saveOrUpdate(poll);
-				double hits = getRandomNumberRange(10, 500);
+				double hits = getRandomNumberRange(10, 20);
 				for (int i = 0; i < hits; i++) {
 					getFrontEndService().registerHit(null, poll, null, null, EnMeUtils.ipGenerator(), HitCategory.VISIT);
 				}				
@@ -422,32 +438,47 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 				for (int i = 0; i < votes; i++) {
 					getFrontEndService().registerVote(poll.getPollId(), TypeSearchResult.POLL, EnMeUtils.ipGenerator());
 				}
-				System.out.println(" Polls ID ..."+poll.getPollId());
+				log.debug(" Polls ID ..."+poll.getPollId());
 	                final List<QuestionAnswerBean> answer = getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
 	                for (QuestionAnswerBean questionAnswerBean : answer) {
 					    double totalVotes = getRandomNumberRange(100, VOTES_BY_POLL) - 1;
-		                System.out.println(totalVotes+":: Votes for this POLL switch id "+questionAnswerBean.getAnswers());
+		                log.debug(totalVotes+":: Votes for this POLL switch id "+questionAnswerBean.getAnswers());
 	                	for (int i = 0; i < totalVotes; i++) {
 						getPollService().vote(poll.getPollId(),
 								poll.getQuestion().getSlugQuestion(),
 								EnMeUtils.ipGenerator(),questionAnswerBean.getAnswerId());
 						}
 					}	
-	                System.out.println(" Polls ID ..."+poll.getCreatedAt());
+	                log.debug(" Polls ID ..."+poll.getCreatedAt());
 			} catch (EnMeExpcetion e) {
 				e.printStackTrace();
 			}
 		}
+		//retrive all hits
+		log.debug(" :: Update Hits Date :: ");
 		final List<Hit> listHits = getAccountDao().getHibernateTemplate().find("from Hit");
 		for (Hit hit : listHits) {
 			hit.setHitDate(createRandomDate());
 			getAccountDao().saveOrUpdate(hit);
 		}
-		System.out.println(" :: Calculating Relevance :: ");
+		
+		log.debug(" :: Update Poll Result Date :: ");
+		final List<PollResult> pollResults = getAccountDao().getHibernateTemplate().find("from PollResult");
+		for (PollResult hit : pollResults) {
+			hit.setVotationDate(createRandomDate());
+			getAccountDao().saveOrUpdate(hit);
+		}		
+		
+		log.debug(" :: Calculating Relevance :: ");
 		this.calculateRelevance.calculate();
-		System.out.println(" :: Calculating Hashtag Size :: ");
+		
+		log.debug(" :: Calculating Hashtag Size :: ");
 		this.calculateHashTagSize.calculate();
-		//retrive all hits
+		
+		log.debug(" :::::::::::::::::::::::::::::::::::::::::::::::::::  ");
+        long end = System.currentTimeMillis();
+        log.debug("Demo Data : took " + (end - start) + " milliseconds");
+        log.debug(" :::::::::::::::::::::::::::::::::::::::::::::::::::  ");
 	}
 	
 	/**
