@@ -12,7 +12,7 @@
  */
 package org.encuestame.core.test.util;
 
-import org.encuestame.core.util.ValidationUtils;
+import org.encuestame.utils.ValidationUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -139,13 +139,13 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject votes = (JSONObject) buttonStats.get("usage_by_votes");
           
         log.debug("Showing stats usage" +  usage.get("value").toString());
-        Assert.assertEquals(usage.get("value").toString(), "5");
+        Assert.assertEquals(usage.get("value").toString(), "3");
 
         log.debug("Showing stats usage by social network links" +  social.get("value").toString());
         Assert.assertEquals(social.get("value").toString(), "1");
 
         log.debug("Showing stats usage by item(HashTag)" +  visits.get("value").toString());
-        Assert.assertEquals(visits.get("value").toString(), "3");
+        Assert.assertEquals(visits.get("value").toString(), "5");
 
         log.debug("Showing stats usage by item(HashTag)" +  usage.get("value").toString());
         Assert.assertEquals(votes.get("value").toString(), "4");
@@ -173,7 +173,7 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
 
         // Call json service.
         initService("/api/common/hashtags/stats/ranking.json", MethodJson.GET);
-        setParameter("tagName", "Asia");
+        setParameter("tagName", "asia");
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray hashTagsRanking2 = (JSONArray) success.get("hashTagRankingStats");

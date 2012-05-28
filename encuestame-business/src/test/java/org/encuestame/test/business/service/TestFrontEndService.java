@@ -304,15 +304,15 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         createHashTagRank(tag5, myCalDate.getTime(), (double) 10); // Australia -- 11    
  
         final List<HashTagRankingBean> getFirstHashTag = getFrontEndService()
-                .getHashTagRanking("China");  
+                .getHashTagRanking(tag11.getHashTag());  
         Assert.assertEquals("Should be equals", 2, getFirstHashTag.size());
 
         final List<HashTagRankingBean> getMiddleHashTag = getFrontEndService()
-                .getHashTagRanking("Mediterraneo");
+                .getHashTagRanking(tag9.getHashTag());
         Assert.assertEquals("Should be equals", 3, getMiddleHashTag.size());
 
         final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
-                .getHashTagRanking("Antartic");
+                .getHashTagRanking(tag8.getHashTag());
         Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
         
     }
@@ -345,6 +345,8 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
         
         final HashTag hashtag = createHashTag("Continents", 350L); 
+	    System.out.println(hashtag.getHashTag());    
+		@SuppressWarnings("unused")
 		final GenericStatsBean genericHashTagStats = getFrontEndService()
 				.retrieveGenericStats(hashtag.getHashTag(),
 						TypeSearchResult.HASHTAG, this.request);

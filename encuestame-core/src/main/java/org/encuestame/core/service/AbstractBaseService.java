@@ -31,7 +31,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.EmailSubscribe;
@@ -48,6 +47,7 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.HashTagRate;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -255,7 +255,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 return null;
             }
         } else {
-            log.debug("getHashTag "+hashTag);
+        	log.debug("getHashTag "+hashTag);
             return hashTag;
         }
     }

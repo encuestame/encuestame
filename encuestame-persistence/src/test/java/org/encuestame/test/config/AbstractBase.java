@@ -1759,7 +1759,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public HashTag createHashTag(final String hashTagName){
         final HashTag hashTag = new HashTag();
-        hashTag.setHashTag(hashTagName);
+        hashTag.setHashTag(hashTagName.toLowerCase());
         hashTag.setHits(0L);
         hashTag.setUpdatedDate(new Date());
         hashTag.setSize(0L);

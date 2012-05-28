@@ -17,8 +17,8 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.service.imp.SecurityOperations;
-import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.util.StringUtils;

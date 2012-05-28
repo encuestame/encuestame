@@ -54,8 +54,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
     private Calendar calDate = Calendar.getInstance();
     
     @Before
-    public void initData(){
-
+    public void initData() {
     	this.initQuestion = createQuestion("What is your favourite season",
 				"pattern"); 
 		calDate.add(Calendar.DATE, -2);
@@ -93,10 +92,9 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("LASTDAY", null, "10", "0").size(), 0);
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("LASTWEEK", null, "10", "0").size(), 0);
         Assert.assertEquals("Should be equals ", this.testSearchJsonService("FAVOURITES", null, "10", "0").size(), 0);
-        this.createPoll(
-                "Is Obama the best president of Unite States last 50th years?", new String[]{"Yes", "No"});
-        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "10", "0").size(), 2);
-        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "1", "0").size(), 2);
+        this.createPoll("Is Obama the best president of Unite States last 50th years?", new String[]{"Yes", "No"});
+        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "10", "0").size(), 3);
+        Assert.assertEquals("Should be equals ", this.testSearchJsonService("ALL", "is", "1", "0").size(), 3);
     }
 
     /**
@@ -374,7 +372,7 @@ public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
                 Boolean.TRUE);
         Assert.assertNotNull(this.searchPollByDate(new Date(), this.MAX_RESULTS, this.START_ON));
         Assert.assertEquals("Should be equals ",
-                this.searchPollByDate(lastWeek.getTime(), this.MAX_RESULTS, this.START_ON).size(), 2);
+                this.searchPollByDate(lastWeek.getTime(), this.MAX_RESULTS, this.START_ON).size(), 3);
     }
     
     /**
