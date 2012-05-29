@@ -27,6 +27,7 @@ import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -39,6 +40,7 @@ import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.QuestionPattern;
@@ -46,6 +48,7 @@ import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
@@ -183,6 +186,34 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
         return pollDomain;
     }
+    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.IPollService#addHashTagToPoll(org.encuestame
+	 * .persistence.domain.survey.Poll, org.encuestame.utils.web.HashTagBean)
+	 */
+	public HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
+			throws EnMeNoResultsFoundException {
+		log.debug("Adding hashtag to Poll --->" + poll.getPollId());
+		log.debug("Adding hashTagBean to Poll ---> " + tagBean.getHashTagName());
+		tagBean.setHashTagName(ValidationUtils
+				.removeNonAlphanumericCharacters(tagBean.getHashTagName()));
+		HashTag tag = getHashTag(tagBean.getHashTagName(), Boolean.FALSE);
+		if (tag == null) {
+			tag = createHashTag(tagBean.getHashTagName().toLowerCase());
+			poll.getHashTags().add(tag);
+			getPollDao().saveOrUpdate(poll);
+			log.debug("Added new hashtag done :" + tag.getHashTagId());
+			return tag;
+		} else {
+			poll.getHashTags().add(tag);
+			getPollDao().saveOrUpdate(poll);
+			log.debug("Added previous hashtag done :" + tag.getHashTagId());
+			return tag;
+		}
+	}
 
     /**
      * Get Poll by Id without user session.

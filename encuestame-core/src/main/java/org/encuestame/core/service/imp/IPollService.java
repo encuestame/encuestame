@@ -15,6 +15,7 @@ package org.encuestame.core.service.imp;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -27,6 +28,7 @@ import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
@@ -356,4 +358,14 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
 	void removePoll(final Long pollId) throws EnMeNoResultsFoundException;
+	
+	/**
+	 * Add {@link HashTag} to {@link Poll}.
+	 * @param poll
+	 * @param tagBean
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
+			throws EnMeNoResultsFoundException;
 }
