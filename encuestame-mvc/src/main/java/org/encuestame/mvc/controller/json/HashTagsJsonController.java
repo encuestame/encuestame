@@ -184,9 +184,26 @@ public class HashTagsJsonController extends AbstractJsonController{
                     	setItemResponse(jsonResponse);
                     }
                 }
-            } else if (typeItem.equals(TypeSearchResult.POLL)) {
-                 //TODO: no yet.
-                 setSuccesResponse();
+			} else if (typeItem.equals(TypeSearchResult.POLL)) {
+				if ("remove".equals(action)) {
+					log.debug("Remove option has been disabled");
+					setSuccesResponse();
+				} else if ("add".equals(action)) {
+					final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+					final HashTagBean bean = ConvertDomainBean
+							.convertHashTagDomain(getPollService()
+									.addHashTagToPoll(
+											getPollService().getPollById(id),
+											new HashTagBean(hashtag)));
+					log.debug("New TweetPoll HT Bean: " + bean);
+					if (bean.getHashTagName().isEmpty()) {
+						setFailedResponse();
+					} else {
+						jsonResponse.put("hashtag", bean);
+						setItemResponse(jsonResponse);
+					}
+					setSuccesResponse();
+				}
             } else if (typeItem.equals(TypeSearchResult.SURVEY)) {
                 //TODO: no yet.
                  setSuccesResponse();
