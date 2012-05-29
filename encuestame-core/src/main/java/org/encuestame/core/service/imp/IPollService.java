@@ -42,18 +42,19 @@ import org.encuestame.utils.web.UnitLists;
  */
 public interface IPollService extends IMasterSurveyService{
 
-    /**
-     * Create poll.
-     * @param questionName
-     * @param answers
-     * @param showResults
-     * @param commentOption
-     * @param notification
-     * @return
-     * @throws EnMeExpcetion
-     */
+   /**
+    * Create poll.
+    * @param questionName
+    * @param answers
+    * @param showResults
+    * @param commentOption
+    * @param notification
+    * @param hashtags
+    * @return
+    * @throws EnMeExpcetion
+    */
      Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
-                final String commentOption, final Boolean notification) throws EnMeExpcetion;
+                final String commentOption, final Boolean notification, final List<HashTagBean> hashtags) throws EnMeExpcetion;
 
    /**
     * List Poll by User Id.
@@ -367,5 +368,14 @@ public interface IPollService extends IMasterSurveyService{
 	 * @throws EnMeNoResultsFoundException
 	 */
 	HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
+			throws EnMeNoResultsFoundException;
+	
+	/**
+	 * Update {@link Poll}
+	 * @param pollBean
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Poll updatePoll(final PollBean pollBean)
 			throws EnMeNoResultsFoundException;
 }

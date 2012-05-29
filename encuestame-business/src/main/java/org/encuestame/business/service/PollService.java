@@ -34,12 +34,15 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult; 
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.NotificationEnum;
@@ -119,12 +122,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
         return list;
     }
 
-   /*
-    * (non-Javadoc)
-    * @see org.encuestame.core.service.imp.IPollService#createPoll(java.lang.String, java.lang.String[], java.lang.Boolean, java.lang.String, java.lang.Boolean)
-    */
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#createPoll(java.lang.String, java.lang.String[], java.lang.Boolean, java.lang.String, java.lang.Boolean, java.util.List)
+     */
     public Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
-        final String commentOption, final Boolean notification) throws EnMeExpcetion{
+        final String commentOption, final Boolean notification, final List<HashTagBean> hashtags) throws EnMeExpcetion{
         final UserAccount user = getUserAccount(getUserPrincipalUsername()); 
         Assert.notNull(answers);
         log.debug("poll list answer=>" + answers);
@@ -166,6 +169,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);
+            if (hashtags.size() > 0) {
+            	  pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));	
+            } 
             log.debug("poll list answer=>" + answers.length);
             for (int row = 0; row < answers.length; row++) {
                  final String answersText = answers[row];
@@ -179,13 +185,41 @@ public class PollService extends AbstractSurveyService implements IPollService{
             }
             this.getPollDao().saveOrUpdate(pollDomain);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) { 
             log.equals(e);
             throw new EnMeExpcetion(e);
         }
         return pollDomain;
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IPollService#updatePoll(org.encuestame.utils.web.PollBean)
+     */
+	public Poll updatePoll(final PollBean pollBean)
+			throws EnMeNoResultsFoundException {
+		final Poll poll = getPollById(pollBean.getId(),
+				getUserPrincipalUsername());
+		Assert.notNull(poll);
+		final Question questionDomain = poll.getQuestion();
+		questionDomain
+				.setQuestion(pollBean.getQuestionBean().getQuestionName());
+		questionDomain.setSlugQuestion(RestFullUtil.slugify(pollBean
+				.getQuestionBean().getQuestionName()));
+		questionDomain.setCreateDate(DateUtil.getCurrentCalendarDate());
+		getQuestionDao().saveOrUpdate(questionDomain);
+		Assert.notNull(questionDomain);
+
+		poll.setPollCompleted(pollBean.getCompletedPoll());
+		poll.setShowResults(pollBean.getShowResults());
+
+		poll.setShowComments(CommentOptions.getCommentOption(pollBean
+				.getShowComments()));
+		poll.setPublish(pollBean.getPublishPoll());
+		poll.setNotifications(pollBean.getCloseNotification());
+		poll.getHashTags().addAll(retrieveListOfHashTags(pollBean.getHashTags()));
+		return poll;
+	}
     
 	/*
 	 * (non-Javadoc)
