@@ -18,12 +18,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+ 
 import org.encuestame.business.service.PollService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean; 
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
@@ -33,8 +34,10 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitLists;
 import org.hibernate.HibernateException;
@@ -80,6 +83,24 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
     /** **/
     private Integer START = 0;
+    
+    /** **/
+    private String[] answers = new String[4];
+    
+    /** **/
+    private HashTag tag1;
+    
+    /** **/
+	private HashTag tag2;
+    
+    /** **/
+	private HashTag tag3;
+    
+    /** **/
+	private HashTag tag4;
+    
+    /** {@link HashTagBean} list. **/
+    private List<HashTagBean> tagBeanList = new ArrayList<HashTagBean>();
 
     /**
      * Init.
@@ -89,11 +110,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
         this.user = createUser("testEncuesta", "testEncuesta123");
         this.userAccount = createUserAccount("diana", this.user);
         this.question = createQuestion("Why the roses are red?","html");
-        /////
+
         final Calendar calendarDate = Calendar.getInstance();
         calendarDate.add(Calendar.DAY_OF_WEEK,-1);
-        final Date yesterdayDate= calendarDate.getTime();
-        /////////
+        final Date yesterdayDate= calendarDate.getTime(); 
 
         this.poll = createPoll(yesterdayDate, this.question, "FDK125", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         this.emailList = createDefaultListEmail(this.userAccount.getAccount());
@@ -101,8 +121,29 @@ public class TestPollService extends AbstractSpringSecurityContext{
         this.emails = createDefaultEmails("paola@demo.com", this.emailList);
         createDefaultEmails("dianmorales@demo.com", this.emailList);
         this.folder = createPollFolder("folder 1", getSpringSecurityLoggedUserAccount());
-        this.poll.setPollFolder(folder);
-
+        this.poll.setPollFolder(folder); 
+        
+        // Answers.
+        this.answers[0] = "answer One";
+        this.answers[1] = "answer Two";
+        this.answers[2] = "answer Three";
+        this.answers[3] = "answer Four"; 
+        
+        // HashTags
+		this.tag1 = createHashTag("one"); 
+		this.tag2 = createHashTag("two");
+		this.tag3 = createHashTag("three");
+		this.tag4 = createHashTag("four");
+		
+		// HashtagBean List
+		tagBeanList.add(ConvertDomainBean
+				.convertHashTagDomain(this.tag1));
+		tagBeanList.add(ConvertDomainBean
+				.convertHashTagDomain(this.tag2));
+		tagBeanList.add(ConvertDomainBean
+				.convertHashTagDomain(this.tag3));
+		tagBeanList.add(ConvertDomainBean
+				.convertHashTagDomain(this.tag4));  
      }
 
     /**
@@ -113,15 +154,13 @@ public class TestPollService extends AbstractSpringSecurityContext{
     public void testcreatePoll() throws Exception{
         final QuestionBean question = ConvertDomainBean.convertQuestionsToBean(this.question);
         final PollBean unitPoll = ConvertDomainBean.convertPollDomainToBean(this.poll);
-        unitPoll.setQuestionBean(question);
-        final String[] answers = new String[3];
-        answers[0] = "answer One";
-        answers[1] = "answer Two";
-        answers[2] = "answer Three";
-        final Poll myPoll = this.pollService.createPoll("", answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE);
-        // System.out.println("My Poll ID ---> " + myPoll.getPollId());
+        unitPoll.setQuestionBean(question);  
+		
+        final Poll myPoll = this.pollService.createPoll("ssss", this.answers, Boolean.TRUE, "APPROVE" ,Boolean.TRUE, this.tagBeanList);  
         Assert.assertNotNull(myPoll);
     }
+    
+    
 
     /**
      * Test getPollsByFolder.
@@ -213,7 +252,9 @@ public class TestPollService extends AbstractSpringSecurityContext{
         assertEquals(newQuestion.getQuestion(), pb.getQuestionBean().getQuestionName());
      }
 
-
+    /**
+     * Test publish poll by email list.
+     */
     @Test(timeout=80000)
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(),
@@ -222,6 +263,10 @@ public class TestPollService extends AbstractSpringSecurityContext{
          assertEquals(1, 1);
     }
 
+    /**
+     * Retrieve polls by specific date.
+     * @throws EnMeNoResultsFoundException
+     */
     @Test
     public void testGetPollsbyDate() throws EnMeNoResultsFoundException{
         final Calendar calendarDate = Calendar.getInstance();
@@ -240,15 +285,11 @@ public class TestPollService extends AbstractSpringSecurityContext{
      */
 	@Test
 	public void testRemovePoll() throws EnMeExpcetion {
+		//this.answers[3] = "answer Four";
 
-		final String[] answers = new String[4];
-		answers[0] = "answer One";
-		answers[1] = "answer Two";
-		answers[2] = "answer Three";
-		answers[3] = "answer Four";
 		final Poll newPollService = this.pollService.createPoll(
-				"First test poll", answers, Boolean.TRUE, "APPROVE",
-				Boolean.TRUE);
+				"First test poll", this.answers, Boolean.TRUE, "APPROVE",
+				Boolean.TRUE, this.tagBeanList);
 
 		final List<QuestionAnswer> beforeAnswers = getQuestionDaoImp()
 				.getAnswersByQuestionId(newPollService.getQuestion().getQid());
@@ -256,15 +297,52 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
 		this.pollService.removePoll(newPollService.getPollId());
 
-		/*final Poll checkPoll = this.pollService.getPollById(newPollService
-				.getPollId());
-		 
-		assertEquals("Should be equals", "poll invalid with this id"
-				+ newPollService.getPollId(), checkPoll);*/
+		/*
+		 * final Poll checkPoll = this.pollService.getPollById(newPollService
+		 * .getPollId());
+		 * 
+		 * assertEquals("Should be equals", "poll invalid with this id" +
+		 * newPollService.getPollId(), checkPoll);
+		 */
 
 		final List<QuestionAnswer> afterAnswers = getQuestionDaoImp()
 				.getAnswersByQuestionId(newPollService.getQuestion().getQid());
 		assertEquals(afterAnswers.size(), 0);
 
+	}
+	
+	/**
+	 * Test Remove HashTags from Poll.
+	 * @throws EnMeExpcetion
+	 */
+	@Test
+	public void testRemoveHashTagsFromPoll() throws EnMeExpcetion {
+		final QuestionBean question = ConvertDomainBean
+				.convertQuestionsToBean(this.question);
+		final PollBean unitPoll = ConvertDomainBean
+				.convertPollDomainToBean(this.poll);
+		unitPoll.setQuestionBean(question);
+
+		final Poll myPoll = this.pollService.createPoll("dddd", this.answers,
+				Boolean.TRUE, "APPROVE", Boolean.TRUE, this.tagBeanList);
+
+		Assert.assertNotNull(myPoll);
+		final Poll myPoll2 = this.pollService.createPoll("eeee", this.answers,
+				Boolean.TRUE, "APPROVE", Boolean.TRUE, this.tagBeanList);
+		Assert.assertNotNull(myPoll2);
+
+		final List<Poll> retrievePollsbyTagBeforeRemove = getPollDao()
+				.getPollByHashTagName(this.tag1.getHashTag(), this.START,
+						this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+		assertEquals(retrievePollsbyTagBeforeRemove.size(), 2);
+
+		// Remove hashtag
+		myPoll.getHashTags().remove(tag1);
+		getPollDao().saveOrUpdate(myPoll);
+
+		final List<Poll> retrievePollsbyTagAfterRemove = getPollDao()
+				.getPollByHashTagName(this.tag1.getHashTag(), this.START,
+						this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+		assertEquals(retrievePollsbyTagAfterRemove.size(), 1);
 	}
 }
