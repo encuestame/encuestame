@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.encuestame.utils.json.QuestionBean;
 
 /**
  * Unit Abstract Survey.
@@ -34,6 +35,21 @@ public abstract class UnitAbstractSurvey implements Serializable {
      */
     private static final long serialVersionUID = -7080756480415569746L;
 
+    /**
+     */
+    @JsonProperty(value = "relative_time")
+    private String relativeTime;
+    
+    /**
+     * 
+     */
+    @JsonProperty(value = "total_votes")
+    private Long totalVotes;
+    
+    /***/
+    @JsonProperty(value = "question")
+    private QuestionBean questionBean = new QuestionBean();
+    
     /**
      * Use a custom start message.
      */
@@ -655,4 +671,32 @@ public abstract class UnitAbstractSurvey implements Serializable {
     public void setTotalComments(Long totalComments) {
         this.totalComments = totalComments;
     }
+
+	/**
+	 * @return the relativeTime
+	 */
+	public String getRelativeTime() {
+		return relativeTime;
+	}
+
+	/**
+	 * @param relativeTime the relativeTime to set
+	 */
+	public void setRelativeTime(final String relativeTime) {
+		this.relativeTime = relativeTime;
+	}
+
+	/**
+	 * @return the totalVotes
+	 */
+	public Long getTotalVotes() {
+		return totalVotes;
+	}
+
+	/**
+	 * @param totalVotes the totalVotes to set
+	 */
+	public void setTotalVotes(final Long totalVotes) {
+		this.totalVotes = totalVotes;
+	}  
 }

@@ -1118,14 +1118,13 @@ public class ConvertDomainBean {
        final HomeBean homeBean = new HomeBean();
        homeBean.setId(surveyBean.getSid());
        homeBean.setQuestionBean(null);
-       homeBean.setOwnerUsername(null);
-       homeBean.setHits(null);
-       homeBean.setCreateDate(null);
-       homeBean.setTotalVotes(null);
-       homeBean.setRelativeTime(null);
-       homeBean.setTotalComments(null);
-       homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase());
-       homeBean.setTotalComments(null);
+       homeBean.setOwnerUsername(surveyBean.getOwnerUsername());
+       homeBean.setHits(surveyBean.getHits());
+       homeBean.setCreateDate(surveyBean.getCreatedAt() == null ? "no date" : DateUtil.DOJO_DATE_FORMAT.format(surveyBean.getCreatedAt()));
+       homeBean.setTotalVotes(surveyBean.getTotalVotes());
+       homeBean.setRelativeTime(surveyBean.getRelativeTime());
+       homeBean.setTotalComments(surveyBean.getTotalComments());
+       homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase()); 
        return homeBean;
    }
 
