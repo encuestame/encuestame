@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-
+ 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,8 +33,7 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll; 
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
@@ -436,10 +436,19 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 				for (QuestionAnswerBean commentBean : question.getListAnswers()) {
 					s.add(commentBean.getAnswers());
 				}
+				//answer array
 				String[] arrayAnswers = new String[s.size()];
+				HashTagBean[] arrayHashtag = new HashTagBean[HASHTAB_BY_ITEM];
 				arrayAnswers = s.toArray(arrayAnswers);						
 				log.debug("Qu Answers x ."+arrayAnswers);
-				final Poll poll = getPollService().createPoll(question.getQuestionName(),arrayAnswers, true, "MODERATE", true);
+				//hashtag array
+				for (int i = 0; i < HASHTAB_BY_ITEM; i++) {
+					double htx = getRandomNumberRange(0, totalhashtagss) - 1;
+					final HashTagBean b = hashtags.get(Double.valueOf(htx).intValue());
+					arrayHashtag[i] = b;
+				}		
+				List<HashTagBean> hashtagList = Arrays.asList(arrayHashtag);	
+				final Poll poll = getPollService().createPoll(question.getQuestionName(),arrayAnswers, true, "MODERATE", true, hashtagList);
 				poll.setCreatedAt(createRandomDate());
 				getTweetPollDao().saveOrUpdate(poll);
 				double hits = getRandomNumberRange(10, 20);

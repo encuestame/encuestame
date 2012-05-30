@@ -13,6 +13,8 @@
 package org.encuestame.business.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar; 
 import java.util.Date;
@@ -160,8 +162,7 @@ public class AbstractSurveyService extends AbstractChartService {
     public QuestionAnswer createAnswers(final Question question, final String answerText){
          final QuestionAnswer answer = new QuestionAnswer();
           answer.setQuestions(question);
-          answer.setAnswer(answerText);
-          answer.setQuestions(question);;
+          answer.setAnswer(answerText); 
           answer.setColor(PictureUtils.getRandomHexColor());
           this.getQuestionDao().saveOrUpdate(answer);
           log.debug("createAnswers =>" + answer.getQuestionAnswerId());
@@ -217,6 +218,26 @@ public class AbstractSurveyService extends AbstractChartService {
         return tagList;
     }
 
+    /**
+     * Create new question with answers.
+     * @param questionName
+     * @param answers
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
+    public Question createQuestion(
+            final String questionName,
+            final UserAccount user) throws EnMeExpcetion, NoSuchAlgorithmException, UnsupportedEncodingException{
+        final QuestionBean questionBean = new QuestionBean();
+        questionBean.setQuestionName(questionName);
+        questionBean.setUserId(user.getUid());
+        final Question questionDomain = createQuestion(questionBean, user, QuestionPattern.LINKS);
+        return questionDomain;
+    }
+    
     /**
      * Create {@link TweetPollSwitch}.
      * @return {@link TweetPollSwitch}.
