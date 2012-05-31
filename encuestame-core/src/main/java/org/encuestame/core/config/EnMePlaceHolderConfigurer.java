@@ -172,8 +172,8 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * @param property
      * @return
      */
-    public static Integer getIntegerProperty(final String property){
+    public static Integer getIntegerProperty(final String property) {
         String value = EnMePlaceHolderConfigurer.getProperty(property);
-        return new Integer(value);
+        return new Integer(value.trim());
     }
 }

@@ -19,7 +19,7 @@ public class TestCSVParser extends AbstractSpringSecurityContext{
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 */
-	 @Test
+	 //@Test
 	 public void testCSVParser() throws FileNotFoundException, IOException {
 		 Assert.assertNotNull(this.csvParser);
 		 this.csvParser.executeCSVDemoInstall(2, 2, 2);
