@@ -13,7 +13,6 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -232,12 +230,12 @@ public class PollJsonController extends AbstractJsonController{
             @RequestParam(value = "limitVote", required = false) Boolean limitVote,
             @RequestParam(value = "closeAfter", required = false) Boolean closeAfter,
             @RequestParam(value = "blockIp", required = false) Boolean blockIp,
-            @RequestParam(value = "hashtags", required = true) String[] hashtags,
+            @RequestParam(value = "hashtags", required = false) String[] hashtags,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-               final List<HashTagBean> tagsBean = createHashTagBeansList(hashtags);
+               final List<HashTagBean> tagsBean = createHashTagBeansList(hashtags == null ? new String[]{} : hashtags);
                log.debug("poll list answer " + answers);
                final Poll poll = getPollService().createPoll(questionName, answers, showResults,
                                  showComments, notification, tagsBean);

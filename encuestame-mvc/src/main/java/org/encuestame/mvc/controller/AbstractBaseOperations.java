@@ -215,14 +215,13 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param arrayHashTags
      * @return
      */
-    public List<HashTagBean> createHashTagBeansList(final String[] arrayHashTags){
+    public List<HashTagBean> createHashTagBeansList(final String[] arrayHashTags) {
     	final List<HashTagBean> tagBeanlist = new ArrayList<HashTagBean>();
     	for (int i = 0; i < arrayHashTags.length; i++) { 
 			final HashTagBean itemTagBean = new HashTagBean();
 			itemTagBean.setHashTagName(arrayHashTags[i]);
 			tagBeanlist.add(itemTagBean);
-		}	 
-    	
+		}	     	
     	return tagBeanlist;
     }
     
