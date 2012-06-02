@@ -16,7 +16,6 @@ package org.encuestame.utils.enums;
  * Hashtag rate Enumeration
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 18, 2010 7:14:20 PM
- * @version $Id:$
  */
 public enum HashTagRate {
 	
@@ -48,7 +47,7 @@ public enum HashTagRate {
 	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
 	
 	/**
-	 * 
+	 * Return the month of the year.
 	 * @param type
 	 * @return
 	 */

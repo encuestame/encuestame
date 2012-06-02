@@ -43,13 +43,18 @@ if (typeof dojo != "undefined") {
 					console.log(obj);
 				}
 			},
-
+	
+			/**
+			 * 
+			 */
 			stopEvent : function(e) {
 				this.$.stopEvent(e);
 				return false; 
 			},
 
-
+			/**
+			 * 
+			 */
 			include : function(url) {
 				if (!this.contains(included, url)) {
 					included.push(url);

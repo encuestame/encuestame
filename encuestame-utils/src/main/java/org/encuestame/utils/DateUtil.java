@@ -156,6 +156,16 @@ public class DateUtil {
         endtDate.minusDays(1);
         return endtDate.toDate();
     }
+    
+    /**
+     * 
+     * @param days
+     * @return
+     */
+    public static Date minusDaysToCurrentDate(final Integer days, final Date date) {
+        final DateTime dateTime = date == null ? new DateTime() : new DateTime(date);           
+        return  dateTime.minusDays(days).toDate();
+    }
 
     /**
      * Get Seconds Between Dates.
@@ -328,11 +338,18 @@ public class DateUtil {
 	 * @param currentDate
 	 * @return
 	 */
-	public static Integer getValueCurrentDateOfTheMonths(final Date currentDate) {
-		 Integer dayOfTheMonth;
-		 dayOfTheMonth = new DateTime(currentDate).getDayOfMonth();  
-		 return dayOfTheMonth;
+	public static Integer getValueCurrentDateOfTheMonths(final Date currentDate) { 
+		 return new DateTime(currentDate).getDayOfMonth();
 	}
+	
+	/**
+	 * Get the current year.
+	 * @param currentDate {@link Date}/
+	 * @return
+	 */
+	public static Integer getValueCurrentYear(final Date currentDate) {
+		 return new DateTime(currentDate).getYear(); 
+	}	
 	
 	/**
 	 * Get value of the day of the week.
@@ -340,9 +357,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Integer getValueCurrentDayOfTheWeek(final Date currentDate) {
-		Integer dayOfWeek;
-		dayOfWeek = new DateTime(currentDate).getDayOfWeek();
-		return dayOfWeek;
+		return new DateTime(currentDate).getDayOfWeek();
 	}
 
 	/**
@@ -351,9 +366,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Integer getValueHourOfTheDay(final Date currentDate) {
-		Integer hourOfTheDay;
-		hourOfTheDay = new DateTime(currentDate).getHourOfDay();
-		return hourOfTheDay;
+		return new DateTime(currentDate).getHourOfDay();
 	}
 	
 	/**

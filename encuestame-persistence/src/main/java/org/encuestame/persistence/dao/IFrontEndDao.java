@@ -103,7 +103,7 @@ public interface IFrontEndDao extends IBaseDao{
      * @param searchtype
      * @return
      */
-    Long getTotalHitsbyType(final Long id, final TypeSearchResult searchtype);
+    Long getTotalHitsbyType(final Long id, final TypeSearchResult searchtype, final Integer period);
 
     /**
      * Get access rate by item.

@@ -5,6 +5,7 @@ dependencies ={
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
                 "encuestame.org.core.commons.results.answers.GenericPercentResult",
+                "encuestame.org.main.PublicViewWidget",
                 "encuestame.org.core.home.votes.ItemVote",
                 "encuestame.org.core.commons.results.answers.ResultSupport",
                 "encuestame.org.core.commons.chart.AbstractChartVoteSupport",
@@ -156,6 +157,7 @@ dependencies ={
                 "encuestame.org.core.shared.utils.More",
                 "encuestame.org.core.shared.utils.OptionMenu",
                 "encuestame.org.core.commons.support.ToggleMenu",
+                "encuestame.org.core.shared.utils.TimeRangeDropDownMenu",
                 //public
                 "encuestame.org.core.shared.stats.RatePosition",
                 "encuestame.org.core.shared.stats.GenericStats",

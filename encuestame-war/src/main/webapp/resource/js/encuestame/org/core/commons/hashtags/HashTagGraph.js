@@ -28,16 +28,24 @@ dojo.declare(
     /**
      * Default filter.
      */
-    default_range : 365,
+    default_range : "365",
+    
+    /**
+     * 
+     */
+    channel : "",
     
     /**
      * Create all buttons.
      */
-    _createButtons : function() {
+    _createButtons : function(period) {
     	 var params = {
     	     tagName : this.hashtagName,
     	     filter  : "HASHTAGRATED" 
     	 };
+    	 if ( period) {
+    		 params.period = period
+    	 }
     	 var load = dojo.hitch(this, function(data) {
     		 if ("success" in data) {
     			 var hashTagButtonStats = data.success.hashTagButtonStats;
@@ -145,11 +153,11 @@ dojo.declare(
 				
 				}
        		  */
-       		 if ("success" in data) {
+       		 if ("success" in data) { //TODOOOOO: EL PROBLEMA ESTA AKI NECESITO CREAR MAS DATOS PARA PERIODOS
        			  //ENME.log(data.success);
        			  var stats = data.success.statsByRange;
        			  var array_stats = [[],[]];
-       			  if (params.period === 365) { //FIXME: Replace this value by CONSTANTS 
+       			  if (params.period === ENME.CONST.YEAR) {
 						for (var i = 1; i <= 12 ; i++) {
 							array_stats[0].push(i);
 							array_stats[1].push(0);
@@ -165,7 +173,13 @@ dojo.declare(
 		       			//ENME.log(array_stats[0]);
 		       			//ENME.log(array_stats[1]);
 		       			this._createGraph(array_stats[0], array_stats[1]);
-       			  } //TODO: The another type of data range? 24? week? month?
+       			  } else if (params.period === ENME.CONST.YEAR) {
+       				  
+       			  } else if (params.period === ENME.CONST.DAY) {
+       				  
+       			  } else if (params.period === ENME.CONST.YEAR) {
+       				  
+       			  }
        		 }
        	 });  	 
        	 this.callGET(params, encuestame.service.list.range.hashtag, load, null, null);
@@ -184,8 +198,19 @@ dojo.declare(
 		        if (typeof(this.default_filter) === 'string') {
 		        	this._callRateService(this.default_filter, this.default_range);
 		        }
-	        }));        
-        }
+	        }));        	        
+	        dojo.subscribe(this.channel, this, this._refreshPublish);
+    	}
+    },
+    
+    /**
+     * 
+     * @param period
+     */
+    _refreshPublish : function (period) {
+    	ENME.log(period);
+    	this._callRateService(this.default_filter, period);
+    	this._createButtons(period);
     }
 
 });

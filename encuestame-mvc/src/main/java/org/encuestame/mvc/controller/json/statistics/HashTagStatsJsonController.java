@@ -30,6 +30,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController; 
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
@@ -72,19 +73,21 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 	public ModelMap getHashTagButtonStats(
 			@RequestParam(value = "tagName", required = true) String tagName,
 			@RequestParam(value = "filter", required = true) String filter,
+			@RequestParam(value = "period", required = false) String period,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		try { 			
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			final HashTagStatsBean tagStatsBean = new HashTagStatsBean();
 			final TypeSearchResult filterType = TypeSearchResult.getTypeSearchResult(filter);
+			final SearchPeriods searchPeriod = SearchPeriods.getPeriodString(period);
 			if (filterType == null) {
 				throw new EnMeNoResultsFoundException("type not found");
 			} else {
 				if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
 					// hits
 					tagStatsBean.setTotalHits(getStatisticsService().getHashTagHitsbyName(tagName,
-							filterType, request)); 
+							filterType, request, searchPeriod)); 
 					tagStatsBean.getTotalHits().setTypeSearchResult(TypeSearchResult.HITS);
 					// social network use
 					tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
@@ -191,7 +194,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 	@RequestMapping(value = "/api/common/hashtags/stats/button/range.json", method = RequestMethod.GET)
 	public ModelMap getHashTagButtonStatsByDateRange(
 			@RequestParam(value = "tagName", required = true) String tagName,
-			@RequestParam(value = "period", required = true) Integer period,
+			@RequestParam(value = "period", required = false) String period,
 			@RequestParam(value = "filter", required = true) String filter,
 			HttpServletRequest request, HttpServletResponse response) { 
 		try {
@@ -200,27 +203,32 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 					.getTypeSearchResult(filter); 
 			//final SearchPeriods periodSearch = SearchPeriods.getPeriodString(period);
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-
-			if (filterType.equals(TypeSearchResult.HASHTAG)) {
-				tagStats = getStatisticsService()
-						.getTotalUsagebyHashTagAndDateRange(tagName,
-								period, request);
-			} else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
-				tagStats = getStatisticsService()
-						.getTotalSocialLinksbyHashTagUsageAndDateRange(tagName,
-								period, request);
-			} else if (filterType.equals(TypeSearchResult.HITS)) { 
-				tagStats = getStatisticsService()
-						.getTotalHitsUsagebyHashTagAndDateRange(tagName,
-								period, request);  
-			} else if (filterType.equals(TypeSearchResult.VOTES)) {
-				tagStats = getStatisticsService()
-						.getTotalVotesbyHashTagUsageAndDateRange(tagName,
-								period, request);
+			final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
+			if (searchPeriods == null || searchPeriods == SearchPeriods.ALLTIME) { //FIXME: all time disabled
+				setError("Period not valid", response);
+			} else {
+				if (filterType.equals(TypeSearchResult.HASHTAG)) {
+					tagStats = getStatisticsService()
+							.getTotalUsagebyHashTagAndDateRange(tagName,
+									searchPeriods, request);
+				} else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
+					tagStats = getStatisticsService()
+							.getTotalSocialLinksbyHashTagUsageAndDateRange(tagName,
+									searchPeriods, request);
+				} else if (filterType.equals(TypeSearchResult.HITS)) { 
+					tagStats = getStatisticsService()
+							.getTotalHitsUsagebyHashTagAndDateRange(tagName,
+									searchPeriods, request);  
+				} else if (filterType.equals(TypeSearchResult.VOTES)) {
+					tagStats = getStatisticsService()
+							.getTotalVotesbyHashTagUsageAndDateRange(tagName,
+									searchPeriods, request);
+				}
+				jsonResponse.put("statsByRange", tagStats);
+				setItemResponse(jsonResponse);
 			}
-			jsonResponse.put("statsByRange", tagStats);
-			setItemResponse(jsonResponse);
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error(e);
 			setError(e.getMessage(), response);
 		}

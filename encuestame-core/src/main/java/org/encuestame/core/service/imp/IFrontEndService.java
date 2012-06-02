@@ -28,6 +28,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.enums.HitCategory;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
@@ -174,8 +175,11 @@ public interface IFrontEndService extends ServiceOperations {
      * @param datebefore
      * @param todayDate
      */
-    void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
-            final Calendar datebefore, final Calendar todayDate);
+	void processItemstoCalculateRelevance(
+			final List<TweetPoll> tweetPollList,
+			final List<Poll> pollList, 
+			final List<Survey> surveyList,
+			final SearchPeriods periods);
 
     /**
      * Get the list with the users rated top.

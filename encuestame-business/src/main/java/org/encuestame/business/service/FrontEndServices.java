@@ -962,9 +962,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * java.util.List, java.util.Calendar, java.util.Calendar)
      */
     public void processItemstoCalculateRelevance(
-            final List<TweetPoll> tweetPollList, final List<Poll> pollList,
-            final List<Survey> surveyList, final Calendar datebefore,
-            final Calendar todayDate) {
+            final List<TweetPoll> tweetPollList, 
+            final List<Poll> pollList,
+            final List<Survey> surveyList,
+            final SearchPeriods periods) {
         long likeVote;
         long dislikeVote;
         long hits;
@@ -986,8 +987,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             comments = getTotalCommentsbyType(tweetPoll.getTweetPollId(),
                     TypeSearchResult.TWEETPOLL);
             log.debug("Total comments by TweetPoll ---->" + comments);
-            hashTagHits = this.getHashTagHits(tweetPoll.getTweetPollId(),
-                    TypeSearchResult.HASHTAG);
+            hashTagHits = this.getTotalHits(tweetPoll.getTweetPollId(),
+                    TypeSearchResult.HASHTAG, periods);
             relevance = this.getRelevanceValue(likeVote, dislikeVote, hits,
                     comments, socialAccounts, numberVotes, hashTagHits);
             tweetPoll.setRelevance(relevance);
@@ -1005,8 +1006,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             comments = getTotalCommentsbyType(poll.getPollId(),
                     TypeSearchResult.POLL);
             log.debug("Total Comments by Poll ---->" + comments);
-            hashTagHits = this.getHashTagHits(poll.getPollId(),
-                    TypeSearchResult.HASHTAG);
+            hashTagHits = this.getTotalHits(poll.getPollId(),
+                    TypeSearchResult.HASHTAG, periods);
             relevance = this.getRelevanceValue(likeVote, dislikeVote, hits,
                     comments, socialAccounts, numberVotes, hashTagHits);
             poll.setRelevance(relevance);

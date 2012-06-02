@@ -2812,7 +2812,6 @@ div.web-notification-list div.web-notification-list-item .date {
 .web-hashtag-header {
     margin-bottom: 10px;
     overflow: auto;
-    position: relative;
 }
 
 .web-hashtag-header .web-hashtagName {
@@ -2827,7 +2826,8 @@ div.web-notification-list div.web-notification-list-item .date {
 }
 
 .web-hashtag-header .web-hashtag-options {
-    float: right;
+  float: right;
+  margin-right: 5px;
 }
 
 .web-hashtag-wrapper .web-ht-detail-wrapper {

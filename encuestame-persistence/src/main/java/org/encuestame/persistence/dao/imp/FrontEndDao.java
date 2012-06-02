@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
@@ -39,6 +40,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
@@ -365,7 +367,14 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getTotalHitsbyType(java.lang.Long, java.lang.String)
      */
-    public final Long getTotalHitsbyType(final Long id, final TypeSearchResult searchHitby) {
+    public final Long getTotalHitsbyType(final Long id, final TypeSearchResult searchHitby, final Integer period) {
+        Date startDate = null;
+        Date endDate = null;
+        if (period != null) {
+            final DateTime dateTime = new DateTime();           
+             endDate  = dateTime.toDate();
+             startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
+         }
         final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
         criteria.setProjection(Projections.rowCount());
         if (searchHitby.equals(TypeSearchResult.TWEETPOLL)) {
@@ -383,6 +392,11 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         } else {
             log.error(" Search hit result type undefined " + searchHitby);
         }
+        
+        if (startDate != null && endDate != null) {
+        	  criteria.add(Restrictions.between("hitDate", startDate, endDate));
+        }
+        
         //define as a VISIT category
         criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
         @SuppressWarnings("unchecked")

@@ -50,6 +50,7 @@ import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.HashTagRate;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -154,8 +155,10 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param objects
      * @return
      */
-	public String convertHashTagDataRangeLabelMessage(final HashTagRate tagRate,
-			final HttpServletRequest request, final Object[] objects) {
+	public String convertHashTagDataRangeLabelMessage(
+			final HashTagRate tagRate,
+			final HttpServletRequest request, 
+			final Object[] objects) {
 		String message = null;
 		if (tagRate.equals(HashTagRate.JANUARY)) {
 			message = getMessage("hashtag.stats.range.label.month.january", request,
@@ -226,11 +229,12 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param filterby
      * @return
      */
-    public Long getHashTagHits(final Long id, final TypeSearchResult filterby) {
-        final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
-                TypeSearchResult.HASHTAG);
-        return totalHashTagHits;
-	}  
+	public Long getTotalHits(final Long id, final TypeSearchResult filterby,
+			final SearchPeriods periods) {
+		final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
+				TypeSearchResult.HASHTAG, periods.toDays());
+		return totalHashTagHits;
+	}
 
     /**
      *
@@ -249,7 +253,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         log.warn("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
         if (hashTag == null) {
             //if possible we can't exception to allow create a new with the parameter.
-            if (exceptionIfNotFound && exceptionIfNotFound == null) {
+            if (exceptionIfNotFound || exceptionIfNotFound == null) {
                 throw new EnMeNoResultsFoundException("hashtag [" + hashTag+ "] not found");
             } else {
                 return null;

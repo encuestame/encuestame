@@ -86,7 +86,7 @@ public class TestFrontEndDao extends AbstractBase {
                TypeSearchResult.HASHTAG);
        assertNotNull(hitsbyIp);
        assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
-       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG);
+       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG, null);
        assertEquals("total hits should be equals", 3, totalHits.intValue());
    }
 

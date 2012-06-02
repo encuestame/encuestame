@@ -38,6 +38,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -174,12 +175,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         Date startDate = null;
         Date endDate = null;
         if (period != null) {
-            final Calendar hi = Calendar.getInstance();
-            hi.add(Calendar.DAY_OF_YEAR, -period);
-            startDate = hi.getTime();
-            endDate = Calendar.getInstance().getTime();
-
-        }
+            final DateTime dateTime = new DateTime();           
+             endDate  = dateTime.toDate();
+             startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
+         }
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
                 .createAlias("hashTags", "hashTags")

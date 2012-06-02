@@ -37,6 +37,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext; 
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.junit.Before;
@@ -197,7 +198,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		getSurveyDaoImp().saveOrUpdate(survey4); 
 			  
 		final List<HashTagDetailStats> stats = getStatisticsService()
-				.getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), 365, this.request);
+				.getTotalUsagebyHashTagAndDateRange(tag.getHashTag(), SearchPeriods.ONEYEAR, this.request);
 		 
 		/*for (HashTagDetailStats hashTagDetailStats : stats) {
 			System.out
@@ -325,7 +326,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	    createTweetPollResultWithPollingDate(tpSwichtBarsa, "192.168.0.6", pollingDate.getTime());  
 	    final List<HashTagDetailStats> itemStatListbyYear = getStatisticsService()
 	     			.getTotalVotesbyHashTagUsageAndDateRange(
-	       					this.initHashTag.getHashTag(), 365, this.request);  
+	       					this.initHashTag.getHashTag(), SearchPeriods.ONEYEAR, this.request);  
 	    Assert.assertEquals("Should be equals", 3,
 	    		itemStatListbyYear.size());  
 	} 
@@ -351,7 +352,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
     	getTweetPoll().saveOrUpdate(hit2); 
      
     	
-    	final List<HashTagDetailStats> tagHitsDetailList = getStatisticsService().getTotalHitsUsagebyHashTagAndDateRange(hashTag1.getHashTag(), 7, this.request);
+    	final List<HashTagDetailStats> tagHitsDetailList = getStatisticsService().getTotalHitsUsagebyHashTagAndDateRange(hashTag1.getHashTag(), SearchPeriods.SEVENDAYS, this.request);
     	Assert.assertEquals("Should be equals", 2, tagHitsDetailList.size());  
 		
 	}
@@ -385,7 +386,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 
 		final List<HashTagDetailStats> itemStatListbyMonth = getStatisticsService()
 				.getTotalVotesbyHashTagUsageAndDateRange(
-						this.initHashTag.getHashTag(), 30, this.request);
+						this.initHashTag.getHashTag(), SearchPeriods.THIRTYDAYS, this.request);
 		Assert.assertEquals("Should be equals", 7, itemStatListbyMonth.size());
 	}
 	
@@ -419,7 +420,7 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 		tpSaved3.setPublicationDateTweet(this.pollingDate.getTime());
 		getTweetPoll().saveOrUpdate(tpSaved3);
 		
-		final List<HashTagDetailStats> detailStatsByYear = getStatisticsService().getTotalSocialLinksbyHashTagUsageAndDateRange(this.initHashTag.getHashTag(), 365, this.request);
+		final List<HashTagDetailStats> detailStatsByYear = getStatisticsService().getTotalSocialLinksbyHashTagUsageAndDateRange(this.initHashTag.getHashTag(), SearchPeriods.ONEYEAR, this.request);
 		Assert.assertEquals("Should be equals", 7, detailStatsByYear.size());  
 	}
 	
@@ -458,11 +459,10 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 				this.initTweetPoll, " ", this.initSocialAccount, tweetContent);
 		tpSaved4.setApiType(SocialProvider.LINKEDIN); 
 		tpSaved4.setPublicationDateTweet(this.pollingDate.getTime());
-		getTweetPoll().saveOrUpdate(tpSaved4);  
-		
+		getTweetPoll().saveOrUpdate(tpSaved4);		
 		final List<HashTagDetailStats> detailStatsByWeek = getStatisticsService()
 				.getTotalSocialLinksbyHashTagUsageAndDateRange(
-						this.initHashTag.getHashTag(), 7, this.request);
+						this.initHashTag.getHashTag(), SearchPeriods.SEVENDAYS, this.request);
 		Assert.assertEquals("Should be equals", 8, detailStatsByWeek.size());
 	}
 	 

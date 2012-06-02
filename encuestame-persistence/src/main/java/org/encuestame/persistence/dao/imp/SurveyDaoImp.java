@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -37,6 +38,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -440,12 +442,10 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
            Date startDate = null;
            Date endDate = null;
            if (period != null) {
-               final Calendar hi = Calendar.getInstance();
-               hi.add(Calendar.DAY_OF_YEAR, -period);
-               startDate = hi.getTime();
-               endDate = Calendar.getInstance().getTime();
-
-           }
+               final DateTime dateTime = new DateTime();           
+                endDate  = dateTime.toDate();
+                startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
+            }
            final DetachedCriteria detached = DetachedCriteria
                    .forClass(Survey.class)
                    .createAlias("hashTags", "hashTags")

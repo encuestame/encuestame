@@ -107,7 +107,7 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         createHashTagHit(hashtag1, "192.1.1.5");
 
         final Long totalHitsbyTag = getFrontEndDao().getTotalHitsbyType(hashtag1.getHashTagId(),
-                    TypeSearchResult.HASHTAG);
+                    TypeSearchResult.HASHTAG, null);
         Assert.assertEquals("Should be equals ", totalHitsbyTag.intValue(), 5);
 
         // 4- Get total Usage by tweetpoll voted.

@@ -66,6 +66,44 @@ public enum SearchPeriods {
         else if (this == ONEYEAR) { period = "365"; }
         return period;
     }
+    
+    /**
+     * Convert the {@link SearchPeriods} to {@link Integer}
+     * @return
+     */
+    public Integer toNumber() {
+    	Integer period = null;
+        //If last 24 hours
+        if (this == TWENTYFOURHOURS) { period = 24; }
+        //If last 7 days
+        else if (this == SEVENDAYS) { period = 7; }
+        //If last 30 days
+        else if (this == THIRTYDAYS) { period = 30; }
+        //If select all time.
+        else if (this == ALLTIME) { period = 1095; } 
+        //If select all time.
+        else if (this == ONEYEAR) { period = 365; }
+        return period;
+    }
+    
+    /**
+     * Return the period on days.
+     * @return
+     */
+    public Integer toDays() {
+    	Integer period = null;
+        //If last 24 hours
+        if (this == TWENTYFOURHOURS) { period = 1; }
+        //If last 7 days
+        else if (this == SEVENDAYS) { period = 7; }
+        //If last 30 days
+        else if (this == THIRTYDAYS) { period = 30; }
+        //If select all time.
+        else if (this == ALLTIME) { period = 1095; }  // 3years
+        //If select all time.
+        else if (this == ONEYEAR) { period = 365; }
+        return period;
+    }
 
     /**
      * Get Period by String.

@@ -10,19 +10,14 @@
             </h2>
         </div>
         <div class="web-hashtag-options">
-             <button class="emne-menu gradient-gray">
-                <!-- Widget to switch Time Ranges
-                     - Select All / Last Month / Last Week / Hot (Last 24) / Calendar
-                     -->
-                <span>View: All</span>
-                <img>
-             </button>
-             <!-- <div dojoType="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"></div> -->
-        </div>
+			  <div channel="/encuestame/hashtag/time/range/refresh/graph" 
+			  	   dojoType="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"></div>
+		</div>
     </section>
 
     <section class="web-ht-graph-wrapper emne-box">
        <div dojoType="encuestame.org.core.commons.hashtags.HashTagGraph"
+       		channel="/encuestame/hashtag/time/range/refresh/graph" 
        		hashtagName="${tagName.hashTagName}"
        	></div>
     </section>
@@ -50,6 +45,7 @@
                      </header>
                 <section>
                      <div dojoType="encuestame.org.core.commons.social.LinksPublished"
+                          channel="/encuestame/hashtag/time/range/refresh/graph" 		
                           hasthag="${tagName.hashTagName}" class="web-social-links"
                           type="HASHTAG"></div>
                 </section>
@@ -62,6 +58,7 @@
                  </header>
                  <div dojoType="encuestame.org.core.shared.stats.GenericStats"                      
 					  class="web-generic-stats"
+					  channel="/encuestame/hashtag/time/range/refresh/graph" 
 					  typeGeneric="HASHTAG"
 					  generic="${tagName.hashTagName}"
                       id="generic"></div>
@@ -72,6 +69,7 @@
                  </header>
                  <section dojoType="encuestame.org.core.shared.stats.RatePosition"
                       tagName="${tagName.hashTagName}"
+                      channel="/encuestame/hashtag/time/range/refresh/graph" 
                       class="web-rated-position"
                       id="position"></section>
             </article>
@@ -81,6 +79,7 @@
                  </header>
                  <div dojoType="encuestame.org.core.shared.stats.TopProfiles"
                       hasthag="${tagName.hashTagName}"
+                      channel="/encuestame/hashtag/time/range/refresh/graph" 
                       class="web-top-profile"
                       key="HASHTAG" id="topprofiles"></div>
             </article>

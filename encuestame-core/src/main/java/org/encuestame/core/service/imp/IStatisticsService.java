@@ -22,6 +22,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException; 
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 
@@ -42,7 +43,9 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @throws EnMeNoResultsFoundException
 	 */
 	List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(
-			final String hashTagName, final Integer period, final HttpServletRequest request)
+			final String hashTagName,
+			final SearchPeriods period, 
+			final HttpServletRequest request)
 			throws EnMeNoResultsFoundException, EnMeSearchException;
 	
 	/**
@@ -67,7 +70,8 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @return
 	 */
 	List<HashTagDetailStats> getTotalVotesbyHashTagUsageAndDateRange(
-			final String tagName, final Integer period,
+			final String tagName, 
+			final SearchPeriods period,
 			final HttpServletRequest request) throws EnMeSearchException;
 	
 	/**
@@ -78,7 +82,9 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @return
 	 */
 	List<HashTagDetailStats> getTotalSocialLinksbyHashTagUsageAndDateRange(
-			final String tagName, final Integer period, final HttpServletRequest request)
+			final String tagName,
+			final SearchPeriods period, 
+			final HttpServletRequest request)
 			throws EnMeSearchException;
 	
 	/**
@@ -91,7 +97,7 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @throws EnMeSearchException
 	 */
 	List<HashTagDetailStats> getTotalHitsUsagebyHashTagAndDateRange(
-			final String hashTagName, final Integer period, final HttpServletRequest request)
+			final String hashTagName, final SearchPeriods period, final HttpServletRequest request)
 			throws EnMeNoResultsFoundException, EnMeSearchException;
 	
 
@@ -127,7 +133,11 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @return
 	 * @throws EnMeNoResultsFoundException 
 	 */
-	HashTagDetailStats getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy, final HttpServletRequest request) throws EnMeNoResultsFoundException;
+	HashTagDetailStats getHashTagHitsbyName(final String tagName,
+			final TypeSearchResult filterBy, 
+			final HttpServletRequest request,
+			final SearchPeriods periods)
+			throws EnMeNoResultsFoundException;
 	
 	/**
 	 * Get Total usage by hashtags on tweepolls voted.

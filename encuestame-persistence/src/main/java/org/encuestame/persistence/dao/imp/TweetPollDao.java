@@ -45,6 +45,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -582,16 +583,15 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
-            final String tagName, final Integer period) {
+            final String tagName,
+            final Integer period) {
         Date startDate = null;
         Date endDate = null;
         if (period != null) {
-            final Calendar hi = Calendar.getInstance();
-            hi.add(Calendar.DAY_OF_YEAR, -period);
-            startDate = hi.getTime();
-            endDate = Calendar.getInstance().getTime();
-
-        }
+            final DateTime dateTime = new DateTime();           
+             endDate  = dateTime.toDate();
+             startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
+         }
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(TweetPoll.class)
                 .createAlias("hashTags", "hashTags")
@@ -679,7 +679,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public List<TweetPoll> getTweetPolls(
     		final Integer maxResults,
-            final Integer start, final Date range) {
+            final Integer start, 
+            final Date range) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
@@ -810,10 +811,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     	Date startDate = null;
 		Date endDate = null;
 		if (period != null) {
-			startDate = DateUtil.retrieveStartDateByPeriod(period);
-			endDate = DateUtil.getCurrentCalendarDate();
-
-		}    
+            final DateTime dateTime = new DateTime();           
+             endDate  = dateTime.toDate();
+             startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
+         }  
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollResult.class);
         criteria.setProjection(Projections.rowCount());
