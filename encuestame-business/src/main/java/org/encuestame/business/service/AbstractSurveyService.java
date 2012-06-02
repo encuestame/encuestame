@@ -197,7 +197,7 @@ public class AbstractSurveyService extends AbstractChartService {
     }
 
     /**
-     *
+     * Retrieve list of {@link HashTag} if one of each don't exist, is created and added to the list.
      * @param hashtagBeans
      * @return
      * @throws EnMeNoResultsFoundException
@@ -206,11 +206,11 @@ public class AbstractSurveyService extends AbstractChartService {
         log.debug("TPService retrieveListOfHashTags from frontEnd->"+hashtagBeans.size());
         final List<HashTag> tagList = new ArrayList<HashTag>();
         for (HashTagBean unitHashTag : hashtagBeans) {
-            HashTag hashTag = getHashTag(unitHashTag.getHashTagName(), true);
+            HashTag hashTag = getHashTag(unitHashTag.getHashTagName(), false);
             //if is null, create new hashTag.
             if (hashTag == null && unitHashTag.getHashTagName() != null) {
                 log.debug("created new hashTag:{"+unitHashTag.getHashTagName().toLowerCase());
-                hashTag =createHashTag(unitHashTag.getHashTagName().toLowerCase());
+                hashTag = createHashTag(unitHashTag.getHashTagName().toLowerCase());
             }
             tagList.add(hashTag);
         }

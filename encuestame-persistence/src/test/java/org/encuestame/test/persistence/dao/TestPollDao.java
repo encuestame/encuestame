@@ -29,6 +29,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
@@ -303,7 +304,7 @@ public class TestPollDao extends AbstractBase {
                 "DPMU19", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         poll2.getHashTags().add(hashtag1);
         getPollDao().saveOrUpdate(poll2);
-        final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7);
+        final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), SearchPeriods.SEVENDAYS);
         Assert.assertEquals("Should be", 2, getTotalPollsbyHashTag.size());
     }
 }

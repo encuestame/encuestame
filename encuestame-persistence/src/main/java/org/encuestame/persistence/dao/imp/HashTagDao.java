@@ -98,8 +98,10 @@ public class HashTagDao extends AbstractHibernateDaoSupport implements
 	 * java.lang.Integer)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<HashTag> getHashTags(final Integer maxResults,
-			final Integer start, final String tagCriteria) {
+	public List<HashTag> getHashTags(
+			final Integer maxResults,
+			final Integer start, 
+			final String tagCriteria) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(HashTag.class);
 		// TODO: please replace "hashTagsCloud" by ENUM.

@@ -13,7 +13,6 @@
 package org.encuestame.persistence.dao.imp;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,9 +26,10 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.survey.PollResult; 
+import org.encuestame.persistence.domain.survey.PollResult;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -38,7 +38,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -171,14 +170,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollsbyHashTagNameAndDateRange(
-            final String tagName, final Integer period) {
-        Date startDate = null;
-        Date endDate = null;
-        if (period != null) {
-            final DateTime dateTime = new DateTime();           
-             endDate  = dateTime.toDate();
-             startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
-         }
+            final String tagName, final SearchPeriods period) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
                 .createAlias("hashTags", "hashTags")
@@ -194,7 +186,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 Poll.class, "poll");
         criteria.add(Subqueries.propertyIn("poll.pollId", detached));
         criteria.addOrder(Order.desc("poll.createdAt"));
-        criteria.add(Restrictions.between("createdAt", startDate, endDate));
+        calculateSearchPeriodsDates(period, criteria, "createdAt");
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
         return getHibernateTemplate().findByCriteria(criteria);
     }

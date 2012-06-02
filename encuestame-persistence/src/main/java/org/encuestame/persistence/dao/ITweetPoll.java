@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -321,7 +322,8 @@ public interface ITweetPoll extends IBaseDao{
 	 * @return
 	 */
 	List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
-			final String tagName, final Integer period);  
+					final String tagName, 
+					final SearchPeriods period);  
 	
 	/**
 	 * Get social links by type( {@link Poll}, {@link TweetPoll} or {@link Survey}) and date range.
@@ -369,7 +371,8 @@ public interface ITweetPoll extends IBaseDao{
 	 * @param pollSwitch
 	 * @return
 	 */
-	Long getTotalTweetPollResultByTweetPollSwitch(final TweetPollSwitch pollSwitch, final Integer period);
+	Long getTotalTweetPollResultByTweetPollSwitch(
+			final TweetPollSwitch pollSwitch, final SearchPeriods period);
 	
 	/**
 	 * Get all tweetpoll results by tweetpoll switch.

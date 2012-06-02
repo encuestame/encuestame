@@ -35,6 +35,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider; 
 import org.joda.time.DateMidnight;
@@ -77,11 +78,7 @@ public class TestTweetPollDao  extends AbstractBase{
     private Integer MAX_RESULTS = 10;
 
     /** Init results query. **/
-    private Integer INIT_RESULTS = 0;
-    
-    /** **/
-    private Integer PERIOD_YEAR = 365;
-    
+    private Integer INIT_RESULTS = 0;      
     
     /**
      * Before.
@@ -172,7 +169,7 @@ public class TestTweetPollDao  extends AbstractBase{
       	 
     	final TweetPollResult tpResultEurope =  createTweetPollResultWithPollingDate(pollSwitchEurope, "192.168.0.2", pollingDate.getTime());
          
-    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), PERIOD_YEAR);
+    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), SearchPeriods.ONEYEAR.toDays());
     	assertEquals("Should be equals", 3, totalVotes.intValue()); 
           
          
@@ -192,7 +189,7 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Test
     public void testGetTotalTweetPollResultByTweetPollSwitch(){
-    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1, PERIOD_YEAR);
+    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1, SearchPeriods.ONEYEAR);
     	// See @Before on the top
     	assertEquals("Should be equals", 2,  myvalue.intValue()); 
     }
@@ -609,7 +606,7 @@ public class TestTweetPollDao  extends AbstractBase{
 		assertNotNull(tweetPoll2);
 
 		final List<TweetPoll> tweetPollsbyHashTag = getTweetPoll()
-				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(), 7);
+				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(), SearchPeriods.SEVENDAYS);
 		Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
 	} 
 	

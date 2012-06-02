@@ -186,7 +186,6 @@ public class TestHashTagDao  extends AbstractBase{
 		
 		//myDate.add(Calendar.DATE, -3);
 		final DateTime time9 = time.minusDays(3);
-		System.out.println(time9.toDate());
 		createHashTagRank(tag2, time.toDate(), 30D);
 		
  		final Date tRank = getHashTagDao().getMaxHashTagRankingDate();

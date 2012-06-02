@@ -126,8 +126,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#createPoll(java.lang.String, java.lang.String[], java.lang.Boolean, java.lang.String, java.lang.Boolean, java.util.List)
      */
-    public Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
-        final String commentOption, final Boolean notification, final List<HashTagBean> hashtags) throws EnMeExpcetion{
+	public Poll createPoll(final String questionName, final String[] answers,
+			final Boolean showResults, final String commentOption,
+			final Boolean notification, final List<HashTagBean> hashtags)
+			throws EnMeExpcetion {
         final UserAccount user = getUserAccount(getUserPrincipalUsername()); 
         Assert.notNull(answers);
         log.debug("poll list answer=>" + answers);
@@ -186,6 +188,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
             this.getPollDao().saveOrUpdate(pollDomain);
             }
         } catch (Exception e) { 
+        	e.printStackTrace();
             log.equals(e);
             throw new EnMeExpcetion(e);
         }

@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
@@ -396,7 +397,7 @@ public class TestSurveyDao extends AbstractBase {
         mySurvey2.getHashTags().add(hashtag1);
         getSurveyDaoImp().saveOrUpdate(mySurvey2);
 
-        final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7);
+        final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), SearchPeriods.SEVENDAYS);
         assertEquals("Should be equals", 2, getTotalSurveysbyHashTag.size());
     }
 }

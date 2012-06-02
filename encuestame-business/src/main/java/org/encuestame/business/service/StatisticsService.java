@@ -278,7 +278,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 */
 	private List<TweetPoll> getTotalTweetPollUsageByHashTagAndDateRange(
 			final String tagName, 
-			final Integer period) {
+			final SearchPeriods period) {
 		List<TweetPoll> tweetPollsByHashTag = new ArrayList<TweetPoll>();
 		// Gets the tweetpolls by hashtag
 		tweetPollsByHashTag = getTweetPollDao().getTweetPollsbyHashTagNameAndDateRange(tagName, period);
@@ -294,7 +294,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * @return
 	 */
 	private List<Poll> getTotalPollUsageByHashTagAndDateRange(
-			final String tagName, final Integer period) {
+			final String tagName, final SearchPeriods period) {
 		List<Poll> pollsByHashTag = new ArrayList<Poll>();
 		pollsByHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(
 				tagName, period);
@@ -308,7 +308,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * @return
 	 */
 	private List<Survey> getTotalSurveyUsageByHashTagAndDateRange(
-			final String tagName, final Integer period) {
+			final String tagName, final SearchPeriods period) {
 		List<Survey> surveysByHashTag = new ArrayList<Survey>();
 		surveysByHashTag = getSurveyDaoImp()
 				.getSurveysbyHashTagNameAndDateRange(tagName, period);
@@ -336,11 +336,11 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
         // If the tag exists then obtains the total
         List<HashTagDetailStats> tagDetailStatsByTagName = new ArrayList<HashTagDetailStats>();
             tweetPollsByDateRange = this.getTotalTweetPollUsageByHashTagAndDateRange(tag.getHashTag(),
-                            period.toDays());   
+                            period);   
             pollsByDateRange = this.getTotalPollUsageByHashTagAndDateRange(
-            		tag.getHashTag(), period.toDays());           
+            		tag.getHashTag(), period);           
             surveysByDateRange = this.getTotalSurveyUsageByHashTagAndDateRange(
-            		tag.getHashTag(), period.toDays()); 
+            		tag.getHashTag(), period); 
         itemStatDetailByUsage.addAll(ConvertDomainBean.convertTweetPollListToItemDetailBean(tweetPollsByDateRange));
         itemStatDetailByUsage.addAll(ConvertDomainBean.convertPollListToItemDetailBean(pollsByDateRange)); 
         itemStatDetailByUsage.addAll(ConvertDomainBean.convertSurveyListToItemDetailBean(surveysByDateRange));   

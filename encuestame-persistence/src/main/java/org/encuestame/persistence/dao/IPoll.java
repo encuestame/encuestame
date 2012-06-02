@@ -21,6 +21,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult; 
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -241,7 +242,8 @@ public interface IPoll extends IBaseDao {
      * @return
      */
     List<Poll> getPollsbyHashTagNameAndDateRange(
-            final String tagName, final Integer period);
+            final String tagName, 
+            final SearchPeriods period);
     
     
     /**

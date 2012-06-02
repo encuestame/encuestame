@@ -229,7 +229,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param filterby
      * @return
      */
-	public Long getTotalHits(final Long id, final TypeSearchResult filterby,
+	public Long getTotalHits(
+			final Long id, 
+			final TypeSearchResult filterby,
 			final SearchPeriods periods) {
 		final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
 				TypeSearchResult.HASHTAG, periods.toDays());

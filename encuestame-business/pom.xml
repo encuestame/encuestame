@@ -384,11 +384,4 @@
 		    <artifactId>opencsv</artifactId>
 	    </dependency>         
     </dependencies>
-
-     <repositories>
-            <repository>
-                <id>local-project-repo</id>
-                <url>file:${basedir}/../lib/repository</url>
-            </repository>
-     </repositories>
 </project>

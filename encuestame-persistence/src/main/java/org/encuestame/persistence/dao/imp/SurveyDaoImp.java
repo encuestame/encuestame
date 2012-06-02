@@ -29,6 +29,7 @@ import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -438,14 +439,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 	 */
     @SuppressWarnings("unchecked")
        public List<Survey> getSurveysbyHashTagNameAndDateRange(
-               final String tagName, final Integer period) {
-           Date startDate = null;
-           Date endDate = null;
-           if (period != null) {
-               final DateTime dateTime = new DateTime();           
-                endDate  = dateTime.toDate();
-                startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
-            }
+               final String tagName, final SearchPeriods period) {
            final DetachedCriteria detached = DetachedCriteria
                    .forClass(Survey.class)
                    .createAlias("hashTags", "hashTags")
@@ -461,7 +455,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
                    Survey.class, "survey");
            criteria.add(Subqueries.propertyIn("survey.sid", detached));
            criteria.addOrder(Order.desc("survey.createdAt"));
-           criteria.add(Restrictions.between("createdAt", startDate, endDate));
+           calculateSearchPeriodsDates(period, criteria, "survey.createdAt");
            return getHibernateTemplate().findByCriteria(criteria);
        }
 

@@ -31,10 +31,12 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
@@ -136,7 +138,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * Return the current date midnight.
      * @return
      */
-    public Date getCurrentdMidnightDate(){
+    //TODO: move to DateUtils
+    public Date getCurrentdMidnightDate() {
         final DateMidnight midnightDate  = new DateTime().toDateMidnight();
         return midnightDate.toDate();
     }
@@ -145,6 +148,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * Return the current date.
      * @return
      */
+    //TODO: move to DateUtils
     public Date getCurrentdDateTime(){
         DateTime currentDate = new DateTime();
         return currentDate.toDate();
@@ -155,7 +159,8 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param range
      * @return
      */
-    public Date getCommentTimeRange(final Integer range){
+    //TODO: move to DateUtils
+    public Date getCommentTimeRange(final Integer range) {
         final Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -range);
         return cal.getTime();
@@ -303,6 +308,24 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
                     }
                 });
         return searchResult;
+    }
+    
+    /**
+     * Set a Criteria between date calculating start and end date.
+     * @param searchPeriods {@link SearchPeriods}.
+     * @param criteria DetachedCriteria
+     */
+    protected void calculateSearchPeriodsDates(
+    		final SearchPeriods searchPeriods, 
+    		final DetachedCriteria criteria,
+    		final String dateProperty){
+        if (searchPeriods != null) {
+            final DateTime endDateTime = new DateTime();                      
+            final DateTime startDateTime =  endDateTime.minusDays(searchPeriods.toDays());             
+             if (endDateTime.isAfter(startDateTime)) {
+            	 criteria.add(Restrictions.between(dateProperty, startDateTime.toDate(), endDateTime.toDate()));
+             }             
+         }
     }
 
     /**
