@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -133,7 +134,7 @@ public class TestFrontEndDao extends AbstractBase {
         createTweetPollSavedPublishedStatus(tp2, "432d123432532", null, "test tweettxt c cxz");
         List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(this.hashTag, null, null, null, null,
-                        TypeSearchResult.HASHTAG);
+                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         assertEquals("Should be equals", 4, links.size());
     }
     

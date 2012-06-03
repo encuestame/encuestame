@@ -463,7 +463,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             final TweetPoll tweetPoll,
             final Survey survey,
             final Poll poll,
-            final TypeSearchResult itemType) {
+            final TypeSearchResult itemType,
+            final SearchPeriods searchPeriods) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
@@ -474,7 +475,8 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             criteria.add(Restrictions.eq("poll", poll));
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             //social links by hashtag
-            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(),0, 20, TypeSearchResult.HASHTAG);
+            final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG,
+            		searchPeriods); 
             log.debug("getLinksByHomeItem hashtag TP size "+d.size());
             if (d.size() != 0) {
                 criteria.add(Restrictions.in("tweetPoll", d));

@@ -407,7 +407,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 
     @SuppressWarnings("unchecked")
     public List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
-            final Integer limitResults, final TypeSearchResult filterby) {
+            final Integer limitResults, final TypeSearchResult filterby, final SearchPeriods searchPeriods) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Survey.class)
                 .createAlias("hashTags", "hashTags")
@@ -427,6 +427,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
               criteria.addOrder(Order.desc("numbervotes"));
         }
+        calculateSearchPeriodsDates(searchPeriods, detached, "createdAt");
         return (List<Survey>) filterByMaxorStart(criteria, limitResults, startResults);
     }
 

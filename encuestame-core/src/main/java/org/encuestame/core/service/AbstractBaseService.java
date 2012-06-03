@@ -391,10 +391,11 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     		final String tagName,
             final Integer initResults, 
             final Integer maxResults,
-            final TypeSearchResult filter) {
+            final TypeSearchResult filter,
+            final SearchPeriods searchPeriods) {
         final List<TweetPoll> tweetsbyTag = getTweetPollDao()
                 .getTweetpollByHashTagName(tagName, initResults, maxResults,
-                        filter);
+                        filter, searchPeriods);
         return tweetsbyTag;
     }
 

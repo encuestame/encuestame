@@ -28,26 +28,27 @@ dojo.declare(
     /**
      * Default filter.
      */
-    default_range : "365",
+    default_range : ENME.CONST.ALL,
     
     /**
-     * 
+     * Define the channel to refresh the graph.
      */
     channel : "",
     
     /**
      * Create all buttons.
+     * @param period {String} Define the period to filter the data.
      */
     _createButtons : function(period) {
     	 var params = {
     	     tagName : this.hashtagName,
-    	     filter  : "HASHTAGRATED" 
+    	     filter  : ENME.CONST.HASHTAGRATED 
     	 };
     	 if ( period) {
-    		 params.period = period
+    		 params.period = period;
     	 }
     	 var load = dojo.hitch(this, function(data) {
-    		 if ("success" in data) {
+    		 if (ENME.CONST.SUCCESS in data) {
     			 var hashTagButtonStats = data.success.hashTagButtonStats;
     			 usage_by_item = hashTagButtonStats['usage_by_item'],
     			 total_usage_by_social_network = hashTagButtonStats['total_usage_by_social_network'],
@@ -55,10 +56,10 @@ dojo.declare(
     			 usage_by_votes = hashTagButtonStats['usage_by_votes'];
     			 if (this._stat) { 
 	    			 dojo.empty(this._stat);
-	    			 this._stat.appendChild(this._createAButton({title : usage_by_item.label, value : usage_by_item.value , sub_label : usage_by_item.sub_label, filter : usage_by_item.filter }, true));
-	    			 this._stat.appendChild(this._createAButton({title : total_usage_by_social_network.label, value : total_usage_by_social_network.value , sub_label : total_usage_by_social_network.sub_label,  filter : total_usage_by_social_network.filter}));
-	    			 this._stat.appendChild(this._createAButton({title : total_hits.label, value : total_hits.value , sub_label : total_hits.sub_label, filter : total_hits.filter}));
-	    			 this._stat.appendChild(this._createAButton({title : usage_by_votes.label, value : usage_by_votes.value , sub_label : usage_by_votes.sub_label, filter : usage_by_votes.filter}));
+	    			 this._stat.appendChild(this._createAButton({title : usage_by_item.label, value : usage_by_item.value , sub_label : usage_by_item.sub_label, filter : usage_by_item.filter }, true, period));
+	    			 this._stat.appendChild(this._createAButton({title : total_usage_by_social_network.label, value : total_usage_by_social_network.value , sub_label : total_usage_by_social_network.sub_label,  filter : total_usage_by_social_network.filter}, false, period));
+	    			 this._stat.appendChild(this._createAButton({title : total_hits.label, value : total_hits.value , sub_label : total_hits.sub_label, filter : total_hits.filter}, false, period));
+	    			 this._stat.appendChild(this._createAButton({title : usage_by_votes.label, value : usage_by_votes.value , sub_label : usage_by_votes.sub_label, filter : usage_by_votes.filter}, false, period));
     			 }
     		 }
     	 });  	 
@@ -70,18 +71,24 @@ dojo.declare(
      * @param {Object}  button_data
      * @param {Boolean} selectedButton
      */
-    _createAButton : function (button_data, selectedButton) {
-		var button = new encuestame.org.core.commons.hashtags.HashTagGraphStatsButton({
-	        selectedButton : selectedButton || false,
-		    _handler : new encuestame.org.core.commons.hashtags.HashTagGraphStatsUsageHandler({
+    _createAButton : function (button_data, selectedButton, period) {
+    	var handler_params = {
 		        data : {
 		            "title" : button_data.title,
 		            "value" : button_data.value,
 		            "label" : button_data.sub_label,
 		            "filter" : button_data.filter
-		        }
-		    })
-		});
+		        },     		        
+		};
+    	//if period exist, override the default period.
+    	if (period) {
+    		handler_params.period = period;
+    	}
+    	var params = {
+    	        selectedButton : selectedButton || false,
+    		    _handler : new encuestame.org.core.commons.hashtags.HashTagGraphStatsUsageHandler(handler_params)
+    	};
+		var button = new encuestame.org.core.commons.hashtags.HashTagGraphStatsButton(params);
 		return button.domNode;
     },
 
@@ -173,11 +180,13 @@ dojo.declare(
 		       			//ENME.log(array_stats[0]);
 		       			//ENME.log(array_stats[1]);
 		       			this._createGraph(array_stats[0], array_stats[1]);
-       			  } else if (params.period === ENME.CONST.YEAR) {
+       			  } else if (params.period === ENME.CONST.ALL) {
        				  
        			  } else if (params.period === ENME.CONST.DAY) {
        				  
-       			  } else if (params.period === ENME.CONST.YEAR) {
+       			  } else if (params.period === ENME.CONST.WEEK) {
+       				  
+       			  } else if (params.period === ENME.CONST.MONTH) {
        				  
        			  }
        		 }
@@ -193,7 +202,7 @@ dojo.declare(
 	        dojo.subscribe("/encuestame/hashtag/chart/new", this, this._createNewChart);
 	        dojo.subscribe("/encuestame/hashtag/chart/reload", this, this._reload);	        
 	        //create the button
-	        this._createButtons();
+	        this._createButtons(this.default_range);
 	        dojo.addOnLoad(dojo.hitch(this, function() {
 		        if (typeof(this.default_filter) === 'string') {
 		        	this._callRateService(this.default_filter, this.default_range);
@@ -277,21 +286,21 @@ dojo.declare(
         [encuestame.org.main.EnmeMainLayoutWidget],{
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.hashtags", "template/hashTagGraphStatsUsageHandler.html"),
 
-        /*
-         *
+        /**
+         * 
          */
-        data : {
-            "title" : "",
-            "value" : 0,
-            "label" : "",
-            "typeChart" : ""
-        },
+        data :{},
+        
+        /**
+         * Default period if not set on created process.
+         */
+        period : ENME.CONST.ALL,
 
         _buttonRef : null,
 
         /**
          * Initialize the button handler.
-         * @param
+         * @param ref {Object} button reference. 
          */
         init : function(ref) {
             this._buttonRef = ref;
@@ -308,7 +317,7 @@ dojo.declare(
         	//unselect the others buttons
             dojo.publish("/encuestame/hashtag/buttons", [this._buttonRef]);
             //display a new chart on hashtag wrapper graphs.
-            dojo.publish("/encuestame/hashtag/chart/new", [this.data.filter, 365]);
+            dojo.publish("/encuestame/hashtag/chart/new", [this.data.filter, this.period]);
         }
 
 });

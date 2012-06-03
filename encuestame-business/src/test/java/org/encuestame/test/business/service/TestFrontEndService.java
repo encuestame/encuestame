@@ -331,7 +331,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         // Poll
         final Poll poll = createPoll(new Date(), question, "JCPM", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         // Survey
-        final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());
+        //final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());
 
 		final GenericStatsBean genericTweetPollStats = getFrontEndService()
 				.retrieveGenericStats(tpoll.getTweetPollId().toString(),
@@ -344,12 +344,14 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         Assert.assertNotNull(genericPollStats);
 
         
-        final HashTag hashtag = createHashTag("Continents", 350L); 
-	    System.out.println(hashtag.getHashTag());    
+        final HashTag hashtag = createHashTag("continents", 350L); 
+	    System.out.println(hashtag.getHashTag());    		
+		Assert.assertNotNull(hashtag);
+		Assert.assertNotNull(hashtag.getHashTagId());
+		Assert.assertNotNull(hashtag.getHashTag());
 		@SuppressWarnings("unused")
-		final GenericStatsBean genericHashTagStats = getFrontEndService()
-				.retrieveGenericStats(hashtag.getHashTag(),
-						TypeSearchResult.HASHTAG, this.request);
+		final GenericStatsBean genericHashTagStats = getFrontEndService().retrieveGenericStats(
+				hashtag.getHashTag(), TypeSearchResult.HASHTAG, this.request);
       
         //final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);
         //Assert.assertNotNull(genericSurveyStats);

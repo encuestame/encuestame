@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -162,7 +163,9 @@ public class CalculateHashTagSize {
      */
     public Long getHashTagFrecuency(final String tagName, final Integer initResults, final Integer limit){
         final Integer totalRelTweetPoll;
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagName(tagName, initResults, limit, null);
+		final List<TweetPoll> tweetPolls = getTweetPoll()
+				.getTweetpollByHashTagName(tagName, initResults, limit, null,
+						SearchPeriods.ALLTIME);
         totalRelTweetPoll = tweetPolls.size();
         //TODO:Pending count relevance hashtags for polls and surveys.
         return totalRelTweetPoll.longValue();

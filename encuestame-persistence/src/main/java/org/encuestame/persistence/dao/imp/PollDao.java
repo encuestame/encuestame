@@ -140,7 +140,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     		final String tagName, 
     		final Integer startResults,
             final Integer limitResults, 
-            final TypeSearchResult filterby) {
+            final TypeSearchResult filterby,
+            final SearchPeriods searchPeriods) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Poll.class)
                 .createAlias("hashTags", "hashTags")
@@ -161,6 +162,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
               criteria.addOrder(Order.desc("numbervotes"));
         }
         criteria.add(Restrictions.eq("publish", Boolean.TRUE));
+        calculateSearchPeriodsDates(searchPeriods, detached, "createdAt");
         return (List<Poll>) filterByMaxorStart(criteria,limitResults, startResults);
     }
 
@@ -519,4 +521,5 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                                 new String[] { "ipAddress", "poll" },
                                 new Object[] { ip, poll }));
     }
+
 }

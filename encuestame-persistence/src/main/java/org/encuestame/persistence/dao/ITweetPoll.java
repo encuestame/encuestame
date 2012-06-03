@@ -257,7 +257,10 @@ public interface ITweetPoll extends IBaseDao{
      * @param filterby
      * @return
      */
-   List<TweetPoll> getTweetpollByHashTagName(final String tagName, final Integer startResults, final Integer limit, final TypeSearchResult filterby);
+	List<TweetPoll> getTweetpollByHashTagName(final String tagName,
+			final Integer startResults, final Integer limit,
+			final TypeSearchResult filterby,
+			final SearchPeriods periods);
 
 
   /**

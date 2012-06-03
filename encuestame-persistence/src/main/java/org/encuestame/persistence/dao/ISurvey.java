@@ -277,7 +277,7 @@ public interface ISurvey extends IBaseDao{
      * @return
      */
     List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
-            final Integer limitResults, final TypeSearchResult filterby);
+            final Integer limitResults, final TypeSearchResult filterby, final SearchPeriods searchPeriods);
     
     /**
      * Get total surveys by hashtag and date range.

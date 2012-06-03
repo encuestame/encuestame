@@ -62,6 +62,7 @@ public class LinksJsonController extends AbstractJsonController{
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
+        	//FUTURE: Add SEARCHPERIODS Filter.
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             if (TypeSearchResult.TWEETPOLL.name().equals(type)) {
                 final TweetPoll tweetPoll = getTweetPollService()

@@ -1,5 +1,7 @@
 if (typeof dojo != "undefined") {
 		
+	dojo.require("dojo.number");	
+	
 	var ENME = (function() {
 
 		var isInitialised = false;
@@ -160,6 +162,15 @@ if (typeof dojo != "undefined") {
 				c = x.clone();
 				c.removeAttr("id");
 				return x;
+			},
+			
+			/**
+			 * Convert a normal number value and return a format a number like 10,332.
+			 * @param value
+			 * @returns
+			 */
+			numberFormat : function (value) {
+				return dojo.number.format(value, {places: 0});
 			},
 			
 			/**

@@ -34,6 +34,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -333,7 +334,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
 		final List<Poll> retrievePollsbyTagBeforeRemove = getPollDao()
 				.getPollByHashTagName(this.tag1.getHashTag(), this.START,
-						this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+						this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 		assertEquals(retrievePollsbyTagBeforeRemove.size(), 2);
 
 		// Remove hashtag
@@ -342,7 +343,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
 
 		final List<Poll> retrievePollsbyTagAfterRemove = getPollDao()
 				.getPollByHashTagName(this.tag1.getHashTag(), this.START,
-						this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+						this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 		assertEquals(retrievePollsbyTagAfterRemove.size(), 1);
 	}
 }

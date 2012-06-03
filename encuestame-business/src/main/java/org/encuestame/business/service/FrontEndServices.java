@@ -335,12 +335,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param limit
      * @return
      */
-    public List<TweetPollBean> getTweetPollsbyHashTagName(final String tagName,
-            final Integer initResults, final Integer limit,
-            final String filter, final HttpServletRequest request) {
+    public List<TweetPollBean> getTweetPollsbyHashTagName(
+    		final String tagName,
+            final Integer initResults,
+            final Integer limit,
+            final String filter, 
+            final HttpServletRequest request,
+            final SearchPeriods searchPeriods) {
         final List<TweetPoll> tweetPolls = getTweetPollDao()
                 .getTweetpollByHashTagName(tagName, initResults, limit,
-                        TypeSearchResult.getTypeSearchResult(filter));
+                        TypeSearchResult.getTypeSearchResult(filter), searchPeriods);
         log.debug("TweetPoll by HashTagId total size ---> " + tweetPolls.size());
         final List<TweetPollBean> tweetPollBean = ConvertDomainBean
                 .convertListToTweetPollBean(tweetPolls);
@@ -360,7 +364,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         final List<HomeBean> allItems = new ArrayList<HomeBean>();
         final List<TweetPollBean> tweetPollItems = this
                 .getTweetPollsbyHashTagName(hashTag.getHashTag(), initResults,
-                        limit, filter, request);
+                        limit, filter, request, SearchPeriods.ALLTIME);
         log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
         allItems.addAll(ConvertDomainBean
                 .convertTweetPollListToHomeBean(tweetPollItems));
@@ -1335,7 +1339,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     public List<LinksSocialBean> getHashTagLinks(final HashTag hash) {
         final List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(hash, null, null, null, null,
-                        TypeSearchResult.HASHTAG);
+                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         log.debug("getTweetPollLinks " + links.size());
         return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }

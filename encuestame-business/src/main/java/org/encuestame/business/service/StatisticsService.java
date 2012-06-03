@@ -68,7 +68,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 		if (period == null) {
 			throw new EnMeSearchException("search params required.");
 		} else {
-			final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName, null, null, TypeSearchResult.HASHTAG); //FIXME: magic numbers
+			final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName, null, null, TypeSearchResult.HASHTAG,
+					period); 
 			for (TweetPoll tweetPoll : tpolls) {
 				tpSavedPublished = getTweetPollDao()
 						.getSocialLinksByTypeAndDateRange(tweetPoll, null,
@@ -103,7 +104,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 			throw new EnMeSearchException("search params required.");
 		} else {  
 			
-			final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName, null, null, TypeSearchResult.HASHTAG);
+			final List<TweetPoll> tpolls = getTweetPollsByHashTag(tagName, null, null, TypeSearchResult.HASHTAG, period);
 			log.debug("Total Tweetpolls by hashtagName" + tpolls.size());
 			for (TweetPoll tweetPoll : tpolls) {
 				tpollsSwitch = getTweetPollDao()
@@ -323,8 +324,8 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * javax.servlet.http.HttpServletRequest)
 	 */
 	public List<HashTagDetailStats> getTotalUsagebyHashTagAndDateRange(
-    		final String hashTagName, 
-    		final SearchPeriods period, 
+    		final String hashTagName,
+    		final SearchPeriods period,
     		final HttpServletRequest request)
             throws EnMeNoResultsFoundException, EnMeSearchException {
         // Check if the hashtag exists
@@ -387,24 +388,28 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
     		final String tagName,
             final Integer initResults, 
             final Integer maxResults,
-            final TypeSearchResult filter, final HttpServletRequest request) throws EnMeNoResultsFoundException {
+            final TypeSearchResult filter, 
+            final HttpServletRequest request,
+            final SearchPeriods periods) throws EnMeNoResultsFoundException {
         // Validate if tag belongs to hashtag and filter isn't empty.
         Long totalUsagebyHashTag = 0L; 
         final HashTag tag = getHashTag(tagName, true);
         if (tag != null) {
             final List<TweetPoll> tweetsbyTag = this.getTweetPollsByHashTag(
-                    tagName, initResults, maxResults, filter);  
+                    tagName, initResults, maxResults, filter, periods);  
             final int totatTweetPolls = tweetsbyTag.size();
             final List<Poll> pollsbyTag = this.getPollsByHashTag(tagName,
-                    initResults, maxResults, filter);
+                    initResults, maxResults, filter, periods);
             final int totalPolls = pollsbyTag.size();
             final List<Survey> surveysbyTag = this.getSurveysByHashTag(tagName,
-                    initResults, maxResults, filter);
+                    initResults, maxResults, filter, periods);
             final int totalSurveys = surveysbyTag.size();
             totalUsagebyHashTag = (long) (totatTweetPolls + totalPolls + totalSurveys);
 
         }
-        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_USAGE, totalUsagebyHashTag, HashTagRate.SUB_LBL_TIMES, request); 
+		final HashTagDetailStats detailStatItem = this
+				.createHashTagDetailButtonStats(HashTagRate.LBL_USAGE,
+						totalUsagebyHashTag, HashTagRate.SUB_LBL_TIMES, request); 
         return detailStatItem;
     } 
     
@@ -415,18 +420,25 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * getSocialNetworkUseByHashTag(java.lang.String, java.lang.Integer,
 	 * java.lang.Integer, javax.servlet.http.HttpServletRequest)
 	 */
-    public HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults, final HttpServletRequest request) {
+    public HashTagDetailStats getSocialNetworkUseByHashTag(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults, 
+            final HttpServletRequest request,
+            final SearchPeriods searchPeriods) {
         // 1- Get tweetPoll, Polls o Survey
         Long linksbyTweetPoll = 0L;
         Long linksbyPoll = 0L;
         Long totalSocialLinks = 0L; 
         linksbyTweetPoll = this.getTweetPollSocialNetworkLinksbyTag(tagName,
-                initResults, maxResults, TypeSearchResult.TWEETPOLL);
+                initResults, maxResults, TypeSearchResult.TWEETPOLL, searchPeriods);
         linksbyPoll = this.getPollsSocialNetworkLinksByTag(tagName,
-                initResults, maxResults, TypeSearchResult.POLL);
+                initResults, maxResults, TypeSearchResult.POLL, searchPeriods);
         totalSocialLinks = linksbyTweetPoll + linksbyPoll; 
-        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_SOCIAL_NETWORK, totalSocialLinks, HashTagRate.SUB_LBL_TWEETS, request);
+        //TODO: add Survey support
+		final HashTagDetailStats detailStatItem = this
+				.createHashTagDetailButtonStats(HashTagRate.LBL_SOCIAL_NETWORK,
+						totalSocialLinks, HashTagRate.SUB_LBL_TWEETS, request);
         return detailStatItem;
     }
     
@@ -460,20 +472,29 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * (java.lang.String, java.lang.Integer, java.lang.Integer,
 	 * javax.servlet.http.HttpServletRequest)
 	 */
-    public HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName,
-            final Integer initResults, final Integer maxResults, final HttpServletRequest request) {
+    public HashTagDetailStats getHashTagUsedOnItemsVoted(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults, 
+            final HttpServletRequest request,
+			final SearchPeriods periods) {
         Long totalVotesbyTweetPoll = 0L;
         Long total = 0L;
          
         final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName, null, null,
-                TypeSearchResult.HASHTAG);
+                TypeSearchResult.HASHTAG, periods);
         for (TweetPoll tweetPoll : tp) {
             totalVotesbyTweetPoll = getTweetPollDao()
                     .getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
             total = total + totalVotesbyTweetPoll;
         }
         log.debug("Total HashTag used by Tweetpoll voted: " + total);
-        final HashTagDetailStats detailStatItem = this.createHashTagDetailButtonStats(HashTagRate.LBL_VOTES, total, HashTagRate.SUB_LBL_VOTES, request);
+        
+        //FIXME: POLL VOTES? ENCUESTAME-449
+        
+		final HashTagDetailStats detailStatItem = this
+				.createHashTagDetailButtonStats(HashTagRate.LBL_VOTES, total,
+						HashTagRate.SUB_LBL_VOTES, request);
         return detailStatItem;
     } 
 
@@ -488,9 +509,9 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      */
     private List<Poll> getPollsByHashTag(final String tagName,
             final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
+            final TypeSearchResult filter, final SearchPeriods searchPeriods) {
         final List<Poll> pollsByTag = getPollDao().getPollByHashTagName(
-                tagName, initResults, maxResults, filter);
+                tagName, initResults, maxResults, filter, searchPeriods);
         return pollsByTag;
     }
 
@@ -503,14 +524,16 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      * @param filter
      * @return
      */
-	private Long getPollsSocialNetworkLinksByTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
+	private Long getPollsSocialNetworkLinksByTag(
+			final String tagName,
+            final Integer initResults, 
+            final Integer maxResults,
+            final TypeSearchResult filter,
+            final SearchPeriods searchPeriods) {
         Long linksbyItem = 0L;
         Long totalLinksByPoll = 0L;
-
         final List<Poll> polls = this.getPollsByHashTag(tagName, initResults,
-                maxResults, filter);
+                maxResults, filter, searchPeriods);
         for (Poll poll : polls) {
             linksbyItem = getTweetPollDao().getSocialLinksByType(null, null,
                     poll, TypeSearchResult.POLL);
@@ -528,12 +551,15 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      * @param filter
      * @return
      */
-    private List<Survey> getSurveysByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
+    private List<Survey> getSurveysByHashTag(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults,
+            final TypeSearchResult filter,
+            final SearchPeriods searchPeriods) {
         final List<Survey> surveysByTag = getSurveyDaoImp()
                 .getSurveysByHashTagName(tagName, initResults, maxResults,
-                        filter);
+                        filter, searchPeriods);
         return surveysByTag;
     }   
     
@@ -545,13 +571,16 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
      * @param filter
      * @return
      */
-	private Long getTweetPollSocialNetworkLinksbyTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
+	private Long getTweetPollSocialNetworkLinksbyTag(
+			final String tagName,
+            final Integer initResults,
+            final Integer maxResults,
+            final TypeSearchResult filter,
+            final SearchPeriods searchPeriods) {
         Long linksbyItem = 0L;
         Long totalLinksByTweetPoll = 0L;
         final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName,
-                initResults, maxResults, filter);
+                initResults, maxResults, filter, searchPeriods);
         for (TweetPoll tweetPoll : tp) {
             // Get total value by links
             linksbyItem = getTweetPollDao().getSocialLinksByType(tweetPoll,
@@ -580,5 +609,5 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 				request, new Object[] {}));
 
 		return tagDetails;
-	} 
+	}
 }

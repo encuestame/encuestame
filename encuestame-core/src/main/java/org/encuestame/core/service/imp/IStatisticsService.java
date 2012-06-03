@@ -112,8 +112,11 @@ public interface IStatisticsService extends ServiceOperations{
      * @return
      * @throws EnMeNoResultsFoundException 
      */
-	HashTagDetailStats getTotalUsageByHashTag(final String tagName, final Integer initResults,
-            final Integer maxResults, final TypeSearchResult filter, final HttpServletRequest request) throws EnMeNoResultsFoundException;
+	HashTagDetailStats getTotalUsageByHashTag(final String tagName,
+			final Integer initResults, final Integer maxResults,
+			final TypeSearchResult filter, final HttpServletRequest request,
+			final SearchPeriods periods)
+			throws EnMeNoResultsFoundException;
 	
 	/**
 	 * Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
@@ -123,7 +126,10 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param request
 	 * @return
 	 */
-	HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults, final HttpServletRequest request);
+	HashTagDetailStats getSocialNetworkUseByHashTag(final String tagName,
+			final Integer initResults, final Integer maxResults,
+			final HttpServletRequest request,
+			final SearchPeriods searchPeriods);
 	
 	/**
      * Get total hash tag hits by tag name.
@@ -147,6 +153,9 @@ public interface IStatisticsService extends ServiceOperations{
 	 * @param request
 	 * @return
 	 */
-	HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max, final HttpServletRequest request);
+	HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName,
+			final Integer initResults, final Integer max,
+			final HttpServletRequest request,
+			final SearchPeriods periods);
 		
 }

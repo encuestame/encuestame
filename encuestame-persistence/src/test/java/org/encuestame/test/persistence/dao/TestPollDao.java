@@ -269,17 +269,17 @@ public class TestPollDao extends AbstractBase {
         poll3.getHashTags().add(hashtag3);
         getPollDao().saveOrUpdate(poll3);
         final List<Poll> totalUsagePoll = getPollDao().getPollByHashTagName(
-                hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+                hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 
         Assert.assertEquals("Should be", 2, totalUsagePoll.size());
 
         final List<Poll> totalUsagePoll2 = getPollDao().getPollByHashTagName(
-                hashtag2.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+                hashtag2.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 
         Assert.assertEquals("Should be", 1, totalUsagePoll2.size());
 
         final List<Poll> totalUsagePoll3 = getPollDao().getPollByHashTagName(
-                hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+                hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         Assert.assertEquals("Should be", 3, totalUsagePoll3.size());
     }
 

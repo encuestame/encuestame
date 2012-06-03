@@ -104,7 +104,7 @@ public interface IFrontEndService extends ServiceOperations {
      */
     List<TweetPollBean> getTweetPollsbyHashTagName(final String tagName, final Integer initResults,
             final Integer limit, final String filter,
-            final HttpServletRequest request);
+            final HttpServletRequest request, final SearchPeriods searchPeriods);
 
     /**
      * Get frontEnd items.

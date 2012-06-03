@@ -22,6 +22,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
@@ -164,7 +165,8 @@ public interface IFrontEndDao extends IBaseDao{
             final TweetPoll tweetPoll,
             final Survey survey,
             final Poll poll,
-            final TypeSearchResult itemType);
+            final TypeSearchResult itemType,
+            final SearchPeriods searchPeriods);
     
     /**
      * Get total hashTag hits by date range.

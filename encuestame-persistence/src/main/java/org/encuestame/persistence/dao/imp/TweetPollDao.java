@@ -415,8 +415,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         return result;
     }
 
-    /**
-     * Get Total Votes by TweetPoll Id.
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.ITweetPoll#getTotalVotesByTweetPollId(java.lang.Long)
      */
     public Long getTotalVotesByTweetPollId(final Long tweetPollId) {
         Long totalvotes = 0L;
@@ -550,7 +551,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     		final String tagName, 
     		final Integer startResults,
             final Integer limitResults, 
-            final TypeSearchResult filterby) {
+            final TypeSearchResult filterby,
+			final SearchPeriods periods) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(TweetPoll.class)
                 .createAlias("hashTags", "hashTags")
@@ -573,8 +575,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                 criteria.addOrder(Order.desc("numbervotes"));
             }
         }
-
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        calculateSearchPeriodsDates(periods, detached, "createDate");
         return (List<TweetPoll>) filterByMaxorStart(criteria, limitResults, startResults);        
     }
 

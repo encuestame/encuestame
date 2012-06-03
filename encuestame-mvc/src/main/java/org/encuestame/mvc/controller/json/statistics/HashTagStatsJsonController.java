@@ -85,23 +85,23 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 				throw new EnMeNoResultsFoundException("type not found");
 			} else {
 				if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
-					// hits
+					// hits /period
 					tagStatsBean.setTotalHits(getStatisticsService().getHashTagHitsbyName(tagName,
 							filterType, request, searchPeriod)); 
 					tagStatsBean.getTotalHits().setTypeSearchResult(TypeSearchResult.HITS);
-					// social network use
+					// social network use /period
 					tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
 							.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
-									null, request));
+									null, request, searchPeriod));
 					tagStatsBean.getTotalUsageBySocialNetwork().setTypeSearchResult(TypeSearchResult.SOCIALNETWORK);
-					// usage by
+					// usage by / period
 					tagStatsBean.setUsageByItem(getStatisticsService().getTotalUsageByHashTag(tagName,
-							this.INIT_RESULTS, null, filterType, request
+							this.INIT_RESULTS, null, filterType, request, searchPeriod
 							));
 					tagStatsBean.getUsageByItem().setTypeSearchResult(TypeSearchResult.HASHTAG);
 					// votes
 					tagStatsBean.setUsageByVotes(getStatisticsService().getHashTagUsedOnItemsVoted(tagName, 
-							this.INIT_RESULTS, null, request));
+							this.INIT_RESULTS, null, request, searchPeriod));
 					tagStatsBean.getUsageByVotes().setTypeSearchResult(TypeSearchResult.VOTES);
 					jsonResponse.put("hashTagButtonStats", tagStatsBean);
 					setItemResponse(jsonResponse);
@@ -204,7 +204,7 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			//final SearchPeriods periodSearch = SearchPeriods.getPeriodString(period);
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
-			if (searchPeriods == null || searchPeriods == SearchPeriods.ALLTIME) { //FIXME: all time disabled
+			if (searchPeriods == null) {
 				setError("Period not valid", response);
 			} else {
 				if (filterType.equals(TypeSearchResult.HASHTAG)) {
