@@ -12,13 +12,16 @@ dojo.require("dojo.hash");
 
 dojo.declare(
     "encuestame.org.core.commons.social.LinksPublished",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublished.html"),
+    [encuestame.org.main.EnmeMainLayoutWidget],{
+        
+    	/**
+    	 * Template.
+    	 */
+    	templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublished.html"),
 
-        widgetsInTemplate: true,
 
-        /*
-         * type.
+        /**
+         * Type.
          */
         type : "TWEETPOLL",
 
@@ -26,7 +29,10 @@ dojo.declare(
          * Item Id.
          */
         itemId : null,
-
+        
+        /**
+         * 
+         */
         hasthag : "",
 
         /*
@@ -34,7 +40,7 @@ dojo.declare(
          */
         postCreate : function() {
             if (this.type == null) {
-                console.error("type is null");
+                EMNE.log("type is null");
             } else {
                 if(this.type == encuestame.surveys[0]){
                     this._loadLinks(this.itemId, encuestame.surveys[0]);
@@ -48,7 +54,7 @@ dojo.declare(
             }
         },
 
-        /*
+        /**
          *
          */
         _loadLinks : function(id, type){
@@ -56,7 +62,7 @@ dojo.declare(
                     "id" : id,
                     "type" : type
            };
-           console.debug("params", params);
+           //console.debug("params", params);
            var load = dojo.hitch(this, function(data){
                var links = data.success.links;
                if (links.length > 0) {
@@ -70,7 +76,7 @@ dojo.declare(
            });
            var error = function(error) {
                this.autosave = true;
-               console.debug("error", error);
+               EMNE.log("error", error);
            };
            encuestame.service.xhrGet(
                    encuestame.service.social.links.loadByType, params, load, error);
@@ -90,7 +96,13 @@ dojo.declare(
          * @param data link data.
          */
         _createLink : function(data){
-            var widget = new encuestame.org.core.commons.social.LinksPublishedItem({social: data.provider_social, link: data.link_url});
+            var widget = new encuestame.org.core.commons.social.LinksPublishedItem(
+            		{
+            			social : data.provider_social, 
+            			link : data.link_url,
+            			text : data.publishd_text,
+            			date : data.published_date
+            		});
             this._items.appendChild(widget.domNode);
         }
 });
@@ -100,15 +112,41 @@ dojo.declare(
  */
 dojo.declare(
         "encuestame.org.core.commons.social.LinksPublishedItem",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.main.EnmeMainLayoutWidget],{
+        	
+        	/**
+        	 * Template.
+        	 */
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublishedItem.html"),
-
-            //template enabled
-            widgetsInTemplate: true,
-
+            
+            /**
+             * Social data.
+             */
             social : null,
-
+            
+            /**
+             * Date of publication
+             */
+            date : "",
+            
+            /**
+             * Text of publication
+             */
+            text : "",
+            
+            /**
+             * Default link.
+             */
             link : "#",
+            
+            /**
+             * Triggered before render the template.
+             */
+            postMixInProperties : function() {
+            	if ( this.date) {
+            		this.date = ENME.fromNow(this.date, "YYYY-MM-DD");
+            	}
+            },
 
             /*
              * post create.

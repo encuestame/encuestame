@@ -141,7 +141,6 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			jsonResponse.put("hashTagRankingStats", getFrontService().getHashTagRanking(tagName));
 			setItemResponse(jsonResponse);
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.error(e);
 			setError(e.getMessage(), response);
 		}

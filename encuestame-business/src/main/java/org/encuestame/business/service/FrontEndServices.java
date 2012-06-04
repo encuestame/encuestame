@@ -1029,8 +1029,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 	private Integer getHashTagLastPosition(final Date maxDate,
 			final String tagName) {
 		Integer lastPosValue = null;
-		final List<HashTagRanking> tagRanking = getHashTagDao()
-				.getHashTagRankingLastPosition(maxDate);
+		final List<HashTagRanking> tagRanking = getHashTagDao().getHashTagRankingLastPosition(maxDate);
 		if (tagRanking.size() > 0) {
 			for (int i = 0; i < tagRanking.size(); i++) {
 				if (tagRanking.get(i).getHashTag().getHashTag().equals(tagName)) {

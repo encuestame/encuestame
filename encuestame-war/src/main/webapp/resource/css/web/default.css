@@ -571,14 +571,15 @@ div.web-default-menu  li.first {
     margin: 15px 3px 3px;
 }
 
-.emne-box > header{
-    font-size: 14px;
-    font-weight: bold;
-    background-color: #E5E5E5;
-    min-height: 18px;
-    border-bottom: 1px solid #E5E5E5;
-    padding-left: 8px;
-    padding-top: 8px;
+.emne-box > header {
+  background-color: #E5E5E5;
+  border-bottom: 1px solid #CFCFCF;
+  font-size: 14px;
+  font-weight: bold;
+  min-height: 18px;
+  padding-left: 8px;
+  padding-top: 8px;
+  text-shadow: 1px 1px 1px #B3B3B4;
 }
 
 .emne-box > header .rss {

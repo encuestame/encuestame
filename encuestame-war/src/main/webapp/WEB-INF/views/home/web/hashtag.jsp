@@ -11,7 +11,8 @@
         </div>
         <div class="web-hashtag-options">
 			  <div channel="/encuestame/hashtag/time/range/refresh/graph" 
-			  	   dojoType="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"></div>
+			  	   dojoType="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"
+			  	   defaultDateRange="365"></div>
 		</div>
     </section>
 
@@ -46,8 +47,10 @@
                 <section>
                      <div dojoType="encuestame.org.core.commons.social.LinksPublished"
                           channel="/encuestame/hashtag/time/range/refresh/graph" 		
-                          hasthag="${tagName.hashTagName}" class="web-social-links"
-                          type="HASHTAG"></div>
+                          hasthag="${tagName.hashTagName}" 
+                          class="web-social-links"
+                          type="HASHTAG">
+                     </div>
                 </section>
             </article>
         </div>
@@ -61,7 +64,8 @@
 					  channel="/encuestame/hashtag/time/range/refresh/graph" 
 					  typeGeneric="HASHTAG"
 					  generic="${tagName.hashTagName}"
-                      id="generic"></div>
+                      id="generic">
+                 </div>
              </article>
             <article class="emne-box">
                  <header>
@@ -71,7 +75,8 @@
                       tagName="${tagName.hashTagName}"
                       channel="/encuestame/hashtag/time/range/refresh/graph" 
                       class="web-rated-position"
-                      id="position"></section>
+                      id="position">
+                 </section>
             </article>
             <article class="emne-box">
                  <header>
@@ -81,7 +86,8 @@
                       hasthag="${tagName.hashTagName}"
                       channel="/encuestame/hashtag/time/range/refresh/graph" 
                       class="web-top-profile"
-                      key="HASHTAG" id="topprofiles"></div>
+                      key="HASHTAG" id="topprofiles">
+                 </div>
             </article>
         </aside>
     </div>

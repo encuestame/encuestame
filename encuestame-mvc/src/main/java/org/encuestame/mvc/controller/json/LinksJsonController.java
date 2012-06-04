@@ -45,7 +45,7 @@ public class LinksJsonController extends AbstractJsonController{
     private Logger log = Logger.getLogger(this.getClass());
 
     /**
-     *
+     * Retrieve the social links where items has been published.
      * @param id
      * @param type
      * @param request
@@ -65,8 +65,7 @@ public class LinksJsonController extends AbstractJsonController{
         	//FUTURE: Add SEARCHPERIODS Filter.
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             if (TypeSearchResult.TWEETPOLL.name().equals(type)) {
-                final TweetPoll tweetPoll = getTweetPollService()
-                        .getTweetPollById(Long.valueOf(id), null);
+                final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(Long.valueOf(id), null);
                 jsonResponse.put("links", getTweetPollService()
                         .getTweetPollLinks(tweetPoll));
             } else if (TypeSearchResult.POLL.name().equals(type)) {

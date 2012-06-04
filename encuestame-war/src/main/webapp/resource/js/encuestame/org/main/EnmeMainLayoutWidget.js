@@ -45,26 +45,31 @@ dojo.declare("encuestame.org.main.EnmeMainLayoutWidget", [ dijit._Widget,
 	 */
 	range_actions : [ {
 		period : "All",
+		value  : "all",
 		action : dojo.hitch(this, function(channel) {
 			dojo.publish(channel, [ "all" ]);
 		})
 	}, {
 		period : "Last Year",
+		value  :  "365",
 		action : dojo.hitch(this, function(channel) {
 			dojo.publish(channel, [ "365" ]);
 		})
 	}, {
 		period : "Last Month",
+		value  : "30",
 		action : dojo.hitch(this, function(channel) {
 			dojo.publish(channel, [ "30" ]);
 		})
 	}, {
 		period : "Last Week",
+		value  : "7",
 		action : dojo.hitch(this, function(channel) {
 			dojo.publish(channel, [ "7" ]);
 		})
 	}, {
 		period : "Last Day",
+		value  : "24",
 		action : dojo.hitch(this, function(channel) {
 			dojo.publish(channel, [ "24" ]);
 		})

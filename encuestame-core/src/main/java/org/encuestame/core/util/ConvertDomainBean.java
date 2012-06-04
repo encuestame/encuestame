@@ -1173,10 +1173,11 @@ public class ConvertDomainBean {
     /**
      * Convert {@link TweetPollSavedPublishedStatus} to {@link LinksSocialBean}.
      * @param tweetPollSavedPublishedStatus
-     * @return
+     * @return {@link LinksSocialBean}
      */
     public static final LinksSocialBean convertTweetPollSavedPublishedStatus(
             final TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus) {
+    	final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
         final LinksSocialBean linksSocialBean = new LinksSocialBean();
         linksSocialBean.setProvider(tweetPollSavedPublishedStatus
                 .getSocialAccount().getAccounType().name());
@@ -1185,6 +1186,14 @@ public class ConvertDomainBean {
                 tweetPollSavedPublishedStatus.getSocialAccount()
                         .getSocialAccountName(), tweetPollSavedPublishedStatus
                         .getSocialAccount().getAccounType()));
+		linksSocialBean
+				.setPublishedDate(simpleDateFormat
+						.format(tweetPollSavedPublishedStatus
+								.getPublicationDateTweet()));
+		linksSocialBean.setPublishText(tweetPollSavedPublishedStatus
+				.getTweetContent() == null ? tweetPollSavedPublishedStatus
+				.getTweetPoll().getQuestion().getQuestion()
+				: tweetPollSavedPublishedStatus.getTweetContent());
         log.debug("getTweetPollLinks "+linksSocialBean.toString());
         return linksSocialBean;
     }

@@ -5,15 +5,26 @@ dojo.require('encuestame.org.core.shared.utils.DropDownMenuSelect');
 
 dojo.declare("encuestame.org.core.shared.utils.TimeRangeDropDownMenu",
 		[ encuestame.org.main.EnmeMainLayoutWidget ], {
-	
+		
+			/**
+			 * Default publish channel. 
+			 */
 			channel : "/encuestame/hashtag/time/range/refresh/graph",
 			
+			defaultDateRange : ENME.CONST.YEAR,
+			
+			/**
+			 * position default.
+			 */
 			_open : false,
 
+			/**
+			 * Default template.
+			 */
 			templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
 					"template/timeDropDownTemplate.html"),								
 
-			/*
+			/**
 			 * post create.
 			 */
 			postCreate : function() {
@@ -27,29 +38,40 @@ dojo.declare("encuestame.org.core.shared.utils.TimeRangeDropDownMenu",
 			},
 			
 			/**
-			 * 
+			 * Build the menu.
+			 * @param arrayList {Object}
 			 */
 			buildMenu : function (arrayList) {
-				dojo.forEach(arrayList,
-                        dojo.hitch(this,function(menuItem) {
+				var innerText = dojo.hitch(this, function(value) {
+					this._menu.innerHTML  = value; 
+				});
+				var setItem = dojo.hitch(this, function (item) {
+					innerText(item.period); 
+					this._expandMenu(item);
+				});
+				dojo.forEach(arrayList, dojo.hitch(this,function(menuItem) {
                    var item = dojo.create('li');
                    dojo.addClass(item, "dropdown-item");
-                   item.innerHTML = menuItem.period;         
+                   item.innerHTML = menuItem.period;
+                   if (this.defaultDateRange && this.defaultDateRange === menuItem.value) {
+                	   innerText(menuItem.period);
+                   }
                    dojo.connect(item, "onclick", dojo.hitch(this, function(event) {
                 	   menuItem.action(this.channel);
-                	   this.setItem(menuItem);
-   	            }));
-                   this.append(item, this._items);      	
+                	   setItem(menuItem);
+   	               }));
+                   this.append(item, this._items);                                                             
                 }));				
 			},
 			
-			setItem : function (item) {
-				this._menu.innerHTML  = item.period; 
-				this._expandMenu();
-			},
- 			
 			/**
 			 * 
+			 * @param item
+			 */
+
+ 			
+			/**
+			 * Expand the menu when the user click in the button.
 			 */
 			_expandMenu : function () {
 				if (this._open) {

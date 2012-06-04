@@ -15,6 +15,7 @@
     <css>/resource/css/common.css</css>
     <css>/resource/css/reset.css</css>
     <css>/resource/css/web/layout.css</css>
+    <css>/resource/css/web/components/*.css</css>
   </group>
   <group name='mobile'>
     <css>/resource/css/mobile/default.css</css>

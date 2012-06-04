@@ -28,7 +28,7 @@ dojo.declare(
     /**
      * Default filter.
      */
-    default_range : ENME.CONST.ALL,
+    default_range : ENME.CONST.YEAR,
     
     /**
      * Define the channel to refresh the graph.
@@ -160,34 +160,37 @@ dojo.declare(
 				
 				}
        		  */
+       		 var parent = this;
+       		 var buildGrahpArray = function (data, totalItems) {
+      			    var array_stats = [[],[]];
+    				for (var i = 1; i <= totalItems ; i++) {
+						array_stats[0].push(i);
+						array_stats[1].push(0);
+       				}
+					//ENME.log(array_stats);
+	       			dojo.forEach(data,
+	                        dojo.hitch(this,function(item) {
+                        	/*
+                        	 * Object { label="8", value=14, sub_label="Agosto"}
+                        	 */
+	                      array_stats[1][item.label] = item.value;		                        	
+	               }));
+	       		   parent._createGraph(array_stats[0], array_stats[1]);
+       		 };
+       		 
        		 if ("success" in data) { //TODOOOOO: EL PROBLEMA ESTA AKI NECESITO CREAR MAS DATOS PARA PERIODOS
        			  //ENME.log(data.success);
        			  var stats = data.success.statsByRange;
-       			  var array_stats = [[],[]];
        			  if (params.period === ENME.CONST.YEAR) {
-						for (var i = 1; i <= 12 ; i++) {
-							array_stats[0].push(i);
-							array_stats[1].push(0);
-	       				}
-						//ENME.log(array_stats);
-		       			dojo.forEach(stats,
-		                        dojo.hitch(this,function(item) {
-	                        	/*
-	                        	 * Object { label="8", value=14, sub_label="Agosto"}
-	                        	 */
-		                      array_stats[1][item.label] = item.value;		                        	
-		               }));
-		       			//ENME.log(array_stats[0]);
-		       			//ENME.log(array_stats[1]);
-		       			this._createGraph(array_stats[0], array_stats[1]);
+       				  buildGrahpArray(stats, 12);
        			  } else if (params.period === ENME.CONST.ALL) {
-       				  
+       				  //TODO: pending
        			  } else if (params.period === ENME.CONST.DAY) {
-       				  
+       				  buildGrahpArray(stats, 24);
        			  } else if (params.period === ENME.CONST.WEEK) {
-       				  
+       				  buildGrahpArray(stats, 7);
        			  } else if (params.period === ENME.CONST.MONTH) {
-       				  
+       				buildGrahpArray(stats, 31);
        			  }
        		 }
        	 });  	 
@@ -217,7 +220,7 @@ dojo.declare(
      * @param period
      */
     _refreshPublish : function (period) {
-    	ENME.log(period);
+    	//ENME.log(period);
     	this._callRateService(this.default_filter, period);
     	this._createButtons(period);
     }
@@ -294,7 +297,7 @@ dojo.declare(
         /**
          * Default period if not set on created process.
          */
-        period : ENME.CONST.ALL,
+        period : ENME.CONST.YEAR,
 
         _buttonRef : null,
 
