@@ -46,7 +46,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -847,5 +846,26 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         return getHibernateTemplate().findByCriteria(criteria);
     }
     
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.ITweetPoll#retrieveTweetPollsBySearchRadiusOfGeoLocation(float, float, int)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
+			final float latitude, final float longitude,
+			final int radius) {
+		final String queryStr ="SELECT tweetPollId, (acos(sin(radians(lat)) * sin(radians(:latitude)) +"
+				+ "cos(radians(lat)) * cos(radians(:latitude)) * "
+				+ "cos(radians(lng) - radians(:longitude))) * 6378) AS "
+				+ "distanciaMalagaMadrid FROM TweetPoll "
+				+ "WHERE (acos(sin(radians(lat)) * sin(radians(:latitude)) + "
+				+ "cos(radians(lat)) * cos(radians(:latitude)) * cos(radians(lng) - radians(:longitude))) * 6378) <= 510";
 
+		return getHibernateTemplate()
+				.findByNamedParam(
+						queryStr,
+						new String[] {"latitude", "longitude"},
+						new Object[] {latitude, longitude});
+
+	}
 }
