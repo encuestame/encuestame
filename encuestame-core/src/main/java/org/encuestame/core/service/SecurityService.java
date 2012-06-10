@@ -982,18 +982,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return getAccountDao().getSocialAccount(socialProvider, socialProfileId);
     }
 
-
-    /**
-     * Get {@link SocialAccount}.
-     * @param socialAccountId
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    public SocialAccountBean getSocialAccountBean(final Long socialAccountId) throws EnMeNoResultsFoundException{
-        return ConvertDomainBean.convertSocialAccountToBean(this.getSocialAccount(socialAccountId));
-    }
-
-
     /**
      * Get User Logged Scocial Accounts.
      * @param username
@@ -1091,22 +1079,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         getAccountDao().saveOrUpdate(singUp);
         getMailService().sendNotificationStatusAccount(singUp, "Change user status");
     }
-
-   /**
-    * Get social account by id.
-    * @param accountId
-    * @return
- * @throws EnMeNoResultsFoundException
-    */
-   protected SocialAccount getSocialAccount(final Long accountId) throws EnMeNoResultsFoundException{
-       final SocialAccount account =  getAccountDao().getSocialAccountById(accountId);
-        if(account == null){
-            throw new EnMeNoResultsFoundException("social account not valid {"+accountId);
-        }
-        return  account;
-   }
-
-
 
     /* Social Account SignIn Connect. * */
 
