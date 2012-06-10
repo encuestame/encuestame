@@ -6,6 +6,7 @@ dependencies ={
             dependencies: [
                 "encuestame.org.core.commons.results.answers.GenericPercentResult",
                 "encuestame.org.main.PublicViewWidget",
+                "encuestame.org.core.shared.utils.CacheLinkedList",
                 "encuestame.org.core.home.votes.ItemVote",
                 "encuestame.org.core.commons.results.answers.ResultSupport",
                 "encuestame.org.core.commons.chart.AbstractChartVoteSupport",
