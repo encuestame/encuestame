@@ -14,6 +14,9 @@ package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +24,9 @@ import java.util.Locale;
 
 import junit.framework.Assert;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.service.imp.IStatisticsService;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
@@ -32,14 +37,20 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext; 
+import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -597,7 +608,505 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         //  final Long totalTweetPollsVoted = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
         // Assert.assertEquals("Should be equals", 6, totalTweetPollsVoted.intValue());
     }
+  
+    /**
+     * Get all items voted by hashtag in 7 days.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbySevenDaysPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.SEVENDAYS);
+		Assert.assertEquals("Should be equals", 17, detail.getValue()
+				.intValue());
 
+	}
+    
+    /**
+     * Get all items voted by hashtag in 30 days.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyThirtyDayPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.THIRTYDAYS);
+
+		Assert.assertEquals("Should be equals", 36, detail.getValue()
+				.intValue());
+	}
+    
+    /**
+     * Get all items voted by hashtag in one year period.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyOneYearPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.ONEYEAR);
+		Assert.assertEquals("Should be equals", 56, detail.getValue()
+				.intValue());
+	}
+    
+    /**
+     * Get all items voted by hashtag.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyAllPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.ALLTIME);
+		Assert.assertEquals("Should be equals", 59, detail.getValue()
+				.intValue());
+	}
+    
+    /**
+     * Get items voted by hashtag in 24 hours.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyTwentyFourHoursPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.TWENTYFOURHOURS); 
+		Assert.assertEquals("Should be equals", 5, detail.getValue().intValue());
+	}
+    
+    
+    /**
+     * Create tweetPoll items vote.
+     * @param tag
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	private void createTweetPollsItemsVote(final HashTag tag)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+		String[] answers = { "yes", "no", "maybe", "impossible", "never" };
+
+		DateTime creationDate = new DateTime();
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		creationDate = creationDate.minusHours(3);
+
+		List<TweetPollSwitch> tps2 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps2.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		creationDate = creationDate.minusHours(2);
+		List<TweetPollSwitch> tps4 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps4.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps7 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps7.get(1));
+
+		creationDate = creationDate.minusHours(3);
+		List<TweetPollSwitch> tps8 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps8.get(1));
+
+		creationDate = creationDate.minusHours(1);
+		List<TweetPollSwitch> tps9 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps9.get(0));
+
+		creationDate = creationDate.minusDays(2);
+
+		List<TweetPollSwitch> tps10 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers);// Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps10.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps14 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps14.get(0));
+
+		List<TweetPollSwitch> tps15 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps15.get(0));
+
+		creationDate = creationDate.minusDays(3);
+		creationDate = creationDate.minusHours(1);
+		 
+		List<TweetPollSwitch> tps16 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps16.get(0));
+
+		List<TweetPollSwitch> tps17 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps17.get(0));
+
+		List<TweetPollSwitch> tps18 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps18.get(0));
+
+		List<TweetPollSwitch> tps19 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps19.get(0));
+
+		List<TweetPollSwitch> tps20 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps20.get(0));
+
+		List<TweetPollSwitch> tps21 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps21.get(0));
+
+		List<TweetPollSwitch> tps22 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps22.get(0));
+
+		List<TweetPollSwitch> tps23 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps23.get(0));
+
+		List<TweetPollSwitch> tps24 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps24.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		creationDate = creationDate.minusDays(6); 
+
+		List<TweetPollSwitch> tps32 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps32.get(0));
+
+		List<TweetPollSwitch> tps33 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps33.get(0));
+
+		List<TweetPollSwitch> tps34 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps34.get(0));
+
+		List<TweetPollSwitch> tps35 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps35.get(0));
+
+		List<TweetPollSwitch> tps36 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps36.get(0));
+
+		creationDate = creationDate.minusDays(8); 
+		List<TweetPollSwitch> tps37 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps37.get(0));
+
+		List<TweetPollSwitch> tps38 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps38.get(0));
+
+		List<TweetPollSwitch> tps39 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps39.get(0));
+
+		List<TweetPollSwitch> tps40 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps40.get(0));
+
+		List<TweetPollSwitch> tps41 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps41.get(0));
+
+		creationDate = creationDate.minusDays(5); 
+		List<TweetPollSwitch> tps42 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps42.get(0));
+
+		List<TweetPollSwitch> tps43 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps43.get(0));
+
+		List<TweetPollSwitch> tps44 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps44.get(0));
+
+		List<TweetPollSwitch> tps45 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps45.get(0));
+
+		creationDate = creationDate.minusDays(5); 
+
+		List<TweetPollSwitch> tps46 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps46.get(0));
+
+		List<TweetPollSwitch> tps47 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps47.get(0));
+
+		List<TweetPollSwitch> tps48 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps48.get(0));
+
+		List<TweetPollSwitch> tps49 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps49.get(0));
+
+		List<TweetPollSwitch> tps50 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps50.get(0));
+		 
+		creationDate = creationDate.minusDays(3); 
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps53 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps53.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		List<TweetPollSwitch> tps55 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps55.get(1));
+
+		List<TweetPollSwitch> tps56 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps56.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// MONTHS
+		creationDate = creationDate.minusMonths(1);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		List<TweetPollSwitch> tps60 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps60.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		List<TweetPollSwitch> tps63 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps63.get(1));
+
+		creationDate = creationDate.minusMonths(3);
+
+		List<TweetPollSwitch> tps64 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps64.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps66 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps66.get(1));
+
+		List<TweetPollSwitch> tps67 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps67.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		creationDate = creationDate.minusMonths(2);
+
+		List<TweetPollSwitch> tps69 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps69.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps71 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps71.get(0));
+
+		List<TweetPollSwitch> tps72 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps72.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps75 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps75.get(1));
+
+		creationDate = creationDate.minusMonths(3);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps77 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps77.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps79 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps79.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps81 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps81.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps83 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps83.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps86 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps86.get(1));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		creationDate = creationDate.minusMonths(1);
+
+		List<TweetPollSwitch> tps90 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps90.get(0));
+
+		List<TweetPollSwitch> tps91 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps91.get(0));
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps95 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted 56
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps95.get(1));
+		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ YEAR
+		creationDate = creationDate.minusYears(1);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps97 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps97.get(1));
+		this.createTweetPollItems(tag, creationDate.toDate(), answers);
+
+		List<TweetPollSwitch> tps99 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps99.get(1));
+
+		List<TweetPollSwitch> tps100 = this.createTweetPollItems(tag,
+				creationDate.toDate(), answers); // Voted
+		this.voteTweetPollSwitch(EnMeUtils.ipGenerator(), tps100.get(0));
+
+	}
+    
+	/**
+	 * 
+	 * @param tag
+	 * @param randomDate
+	 * @param answers
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	private List<TweetPollSwitch> createTweetPollItems(final HashTag tag,
+			final Date randomDate, final String[] answers)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		int j = 0;
+		List<TweetPollSwitch> tpollSwitchList = new ArrayList<TweetPollSwitch>();
+		// Creating question ...
+		final Question question = createQuestion(
+				"What is your favorite season? "
+						+ MD5Utils
+								.md5(RandomStringUtils.randomAlphanumeric(15)),
+				"");
+
+		// Creating tweetpoll...
+
+		final TweetPoll myTweet = createPublishedTweetPoll(question,
+				getSpringSecurityLoggedUserAccount());
+		myTweet.getHashTags().add(tag);
+		myTweet.setCreateDate(randomDate);
+		getTweetPoll().saveOrUpdate(myTweet);
+ 
+		for (j = 0; j < 2; j++) { 
+			// Creating answers... 
+			final QuestionAnswer qAnswers = createQuestionAnswer(
+					answers[getRandomNumberRange(4, 0)], question,
+					MD5Utils.md5(RandomStringUtils.randomAlphanumeric(4) + j));
+
+			TweetPollSwitch tpollSwitch = createTweetPollSwitch(qAnswers, myTweet);
+			tpollSwitchList.add(tpollSwitch);
+		}
+		return tpollSwitchList;
+	}
+    
+	/**
+	 * Vote tweetpoll switch.
+	 * @param ip
+	 * @param tpSwitch
+	 */
+	private void voteTweetPollSwitch(final String ip,
+			final TweetPollSwitch tpSwitch) {
+		createTweetPollResult(tpSwitch, ip);
+	}
+	 
+    
+	/**
+	 * 
+	 * @param max
+	 * @param min
+	 * @return
+	 */
+	private int getRandomNumberRange(int max, int min){
+		return (int) (Math.random() * (max - min + 1) ) + min;
+	}
     
 	/**
 	 * @return the statisticsService
