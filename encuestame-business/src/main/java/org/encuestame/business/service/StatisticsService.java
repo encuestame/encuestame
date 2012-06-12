@@ -507,8 +507,7 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 				TypeSearchResult.HASHTAG, period);
 		for (Poll poll : polls) {
 			totalPollVotes = totalPollVotes
-					+ getTweetPollDao().getTotalVotesByTweetPollId(
-							poll.getPollId());
+					+ getPollDao().retrievePollResults(poll).size();
 
 		} 
 		return totalPollVotes;

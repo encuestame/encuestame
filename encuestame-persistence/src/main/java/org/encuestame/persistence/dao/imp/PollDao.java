@@ -251,6 +251,10 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.persistence.dao.IPoll#getTotalVotesByPollIdAndDateRange(java.lang.Long, org.encuestame.utils.enums.SearchPeriods)
+	 */
 	public Long getTotalVotesByPollIdAndDateRange(final Long pollId,
 			final SearchPeriods period) {
 		final DetachedCriteria criteria = DetachedCriteria
