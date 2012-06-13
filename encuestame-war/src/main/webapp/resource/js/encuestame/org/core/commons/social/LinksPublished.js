@@ -7,18 +7,19 @@ dojo.require("dijit.form.Button");
 dojo.require("dijit.form.Form");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.core.commons.dialog.Confirm");
+dojo.require("encuestame.org.core.shared.utils.CacheLinkedList");
 
 dojo.require("dojo.hash");
 
 dojo.declare(
     "encuestame.org.core.commons.social.LinksPublished",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
+    [encuestame.org.main.EnmeMainLayoutWidget, 
+     encuestame.org.core.shared.utils.CacheLinkedList],{
         
     	/**
     	 * Template.
     	 */
     	templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublished.html"),
-
 
         /**
          * Type.
@@ -28,59 +29,86 @@ dojo.declare(
         /**
          * Item Id.
          */
-        itemId : null,
+        itemId : "",
+        
+        /**
+         * 
+         */        
+        more : true,
+        
+        /**
+         * 
+         */
+        property : "links",
         
         /**
          * 
          */
         hasthag : "",
+        
+        /**
+         * Poll Navigate default parameters.
+         */
+        _params : { type :  null, id : null, max : 10, start : 0},
+
 
         /*
          * post create.
          */
         postCreate : function() {
-            if (this.type == null) {
+            if (this.type == null || this.itemId == null) {
                 EMNE.log("type is null");
             } else {
-                if(this.type == encuestame.surveys[0]){
-                    this._loadLinks(this.itemId, encuestame.surveys[0]);
-                } else if(this.type == encuestame.surveys[1]){
-                    //TODO: future
-                } else if(this.type == encuestame.surveys[2]){
-                    //TODO: future
-                } else if(this.type == encuestame.surveys[3]){
-                    this._loadLinks(this.hasthag, encuestame.surveys[3]);
+                //enable more support.
+                if (this.more) {
+                    this.enableMoreSupport(this._params.start, this._params.max, this._more);
+                }
+                this._params.id = this.itemId;
+                if (this.type === ENME.CONST.TYPE_SURVEYS[0]) { // tweeptoll
+                	this._params.type = ENME.CONST.TYPE_SURVEYS[0];                	
+                } else if(this.type === ENME.CONST.TYPE_SURVEYS[1]) { // poll
+                	this._params.type = ENME.CONST.TYPE_SURVEYS[1];
+                } else if(this.type === ENME.CONST.TYPE_SURVEYS[2]) { // survey
+                	this._params.type = ENME.CONST.TYPE_SURVEYS[2];
+                } else if(this.type === ENME.CONST.TYPE_SURVEYS[3]) { // hashtag
+                	this._params.type = ENME.CONST.TYPE_SURVEYS[3];
                 }
             }
+            dojo.hitch(this, this.loadItems());
         },
-
+        
         /**
-         *
+         * Function to clean _items node.
          */
-        _loadLinks : function(id, type){
-            var params = {
-                    "id" : id,
-                    "type" : type
-           };
-           //console.debug("params", params);
-           var load = dojo.hitch(this, function(data){
-               var links = data.success.links;
-               if (links.length > 0) {
-                   dojo.forEach(links,
-                           dojo.hitch(this,function(item) {
-                             this._createLink(item);
-                           }));
-               } else {
-                   this._showNoLinksMessage();
-               }
-           });
-           var error = function(error) {
-               this.autosave = true;
-               EMNE.log("error", error);
-           };
-           encuestame.service.xhrGet(
-                   encuestame.service.social.links.loadByType, params, load, error);
+        _empty : function() {
+            dojo.empty(this._items);
         },
+                        
+        handlerError : function() {
+        	EMNE.log("error", error); 
+        },
+        
+        /**
+         * customize service params.
+         */
+        getParams : function() {
+            return this._params;
+        },    
+        
+        /**
+         * The url json service.
+         * @returns
+         */
+        getUrl : function() {
+            return encuestame.service.social.links.loadByType;
+        }, 
+        
+        /**
+         * Create a new PollNavigateItem.
+         */
+        processItem : function(/** poll data**/  data, /** position **/ index) {
+        	 this._createLink(data);
+        },        
 
         /**
          *

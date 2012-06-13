@@ -20,8 +20,12 @@ ENME.CONST = ( function() {
 				// all item
 				ALL : 'all',
 				// Hashtag rated filter	
-				HASHTAGRATED :	"HASHTAGRATED"
+				HASHTAGRATED :	"HASHTAGRATED",
+				
+				STATUS : ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'],
+				
+				TYPE_SURVEYS : ['TWEETPOLL', 'POLl', 'SURVEY', 'HASHTAG'],
 		};
-	
+			
 		return fn;
 })();

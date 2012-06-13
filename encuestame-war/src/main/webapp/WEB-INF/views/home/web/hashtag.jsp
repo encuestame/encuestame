@@ -46,9 +46,9 @@
                      </header>
                 <section>
                      <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                          channel="/encuestame/hashtag/time/range/refresh/graph" 		
-                          hasthag="${tagName.hashTagName}" 
+                          channel="/encuestame/hashtag/time/range/refresh/graph" 		                          
                           class="web-social-links"
+                          itemId="${tagName.hashTagName}"
                           type="HASHTAG">
                      </div>
                 </section>

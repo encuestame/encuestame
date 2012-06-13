@@ -160,20 +160,6 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
     }
 
     /**
-     * Get social account by id.
-     * @param accountId
-     * @return
-  * @throws EnMeNoResultsFoundException
-     */
-    protected SocialAccount getSocialAccount(final Long accountId) throws EnMeNoResultsFoundException{
-        final SocialAccount account =  getAccountDao().getSocialAccountById(accountId);
-         if(account == null){
-             throw new EnMeNoResultsFoundException("social account not valid {"+accountId);
-         }
-         return  account;
-    }
-
-    /**
      *
      * @param accessGrant
      * @param socialAccountId
