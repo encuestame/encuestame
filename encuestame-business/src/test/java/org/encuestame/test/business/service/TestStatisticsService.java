@@ -14,6 +14,9 @@ package org.encuestame.test.business.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +24,9 @@ import java.util.Locale;
 
 import junit.framework.Assert;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.service.imp.IStatisticsService;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
@@ -36,10 +41,12 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.test.business.security.AbstractSpringSecurityContext; 
+import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +87,9 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
     
     /** **/
     private Calendar pollingDate = Calendar.getInstance();
+    
+    /** **/
+    private String[] answers = {"yes", "no", "maybe", "impossible", "never"};
     
     
     /**
@@ -597,7 +607,561 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
         //  final Long totalTweetPollsVoted = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
         // Assert.assertEquals("Should be equals", 6, totalTweetPollsVoted.intValue());
     }
+  
+    /**
+     * Get all items voted by hashtag in 7 days.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbySevenDaysPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		this.createPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.SEVENDAYS);
+		Assert.assertEquals("Should be equals", 35, detail.getValue()
+				.intValue());
 
+	}
+    
+    /**
+     * Get all items voted by hashtag in 30 days.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyThirtyDayPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		this.createPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.THIRTYDAYS);
+
+		Assert.assertEquals("Should be equals", 54, detail.getValue()
+				.intValue());
+	}
+    
+    /**
+     * Get all items voted by hashtag in one year period.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyOneYearPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		this.createPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.ONEYEAR);
+		Assert.assertEquals("Should be equals", 85, detail.getValue()
+				.intValue());
+	}
+    
+    /**
+     * Get all items voted by hashtag.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyAllPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		this.createPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.ALLTIME);
+		Assert.assertEquals("Should be equals", 90, detail.getValue()
+				.intValue());
+	}
+    
+    /**
+     * Get items voted by hashtag in 24 hours.
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testGetHashTagUsedOnItemsVotedbyTwentyFourHoursPeriod()
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final HashTag tag = createHashTag("season");
+		this.createTweetPollsItemsVote(tag);
+		this.createPollsItemsVote(tag);
+		HashTagDetailStats detail = statisticsService
+				.getHashTagUsedOnItemsVoted(tag.getHashTag(), 0, 100, request,
+						SearchPeriods.TWENTYFOURHOURS); 
+		Assert.assertEquals("Should be equals", 19, detail.getValue().intValue());
+	}
+    
+	
+	private void createPollsItemsVote(final HashTag tag)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		DateTime creationDate = new DateTime(); 
+
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		creationDate = creationDate.minusHours(3);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		
+		creationDate = creationDate.minusHours(2);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		creationDate = creationDate.minusHours(3);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		creationDate = creationDate.minusHours(1);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		creationDate = creationDate.minusDays(3);
+		
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		creationDate = creationDate.minusDays(2);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		creationDate = creationDate.minusMonths(3);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		creationDate = creationDate.minusMonths(2);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		creationDate = creationDate.minusMonths(3);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		creationDate = creationDate.minusMonths(2);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		creationDate = creationDate.minusMonths(1);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 29
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		
+		creationDate = creationDate.minusYears(1);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE); 
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted
+	}
+
+    
+    /**
+     * Create tweetPoll items vote.
+     * @param tag
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	private void createTweetPollsItemsVote(final HashTag tag)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException { 
+
+		DateTime creationDate = new DateTime();
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		
+ 
+		creationDate = creationDate.minusHours(3);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		creationDate = creationDate.minusHours(2);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		creationDate = creationDate.minusHours(3);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		creationDate = creationDate.minusHours(1);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		creationDate = creationDate.minusDays(2);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE);// Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		creationDate = creationDate.minusDays(3);
+		creationDate = creationDate.minusHours(1);
+		 
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers,
+				Boolean.TRUE); // Voted
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		creationDate = creationDate.minusDays(6); 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted  
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		creationDate = creationDate.minusDays(8); 
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		creationDate = creationDate.minusDays(5); 
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		creationDate = creationDate.minusDays(5); 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+		 
+		creationDate = creationDate.minusDays(3); 
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// MONTHS
+		creationDate = creationDate.minusMonths(1);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		creationDate = creationDate.minusMonths(3);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag,
+				creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		creationDate = creationDate.minusMonths(2);
+
+		this.createTweetPollItems(tag,
+				creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		creationDate = creationDate.minusMonths(3);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		creationDate = creationDate.minusMonths(1);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 56 
+		// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ YEAR
+		creationDate = creationDate.minusYears(1);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+		
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.FALSE);
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted 
+
+		this.createTweetPollItems(tag, creationDate.toDate(), answers, Boolean.TRUE); // Voted  
+	}
+    
+	/**
+	 * Create {@link TweetPoll}
+	 * @param tag
+	 * @param randomDate
+	 * @param answers
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	private void createTweetPollItems(final HashTag tag,
+			final Date randomDate, final String[] answers, final Boolean voteItem)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		int j = 0;
+		List<TweetPollSwitch> tpollSwitchList = new ArrayList<TweetPollSwitch>();
+		// Creating question ...
+		final Question question =  this.createRandomQuestion();
+
+		// Creating tweetpoll...
+
+		final TweetPoll myTweet = createPublishedTweetPoll(question,
+				getSpringSecurityLoggedUserAccount());
+		myTweet.getHashTags().add(tag);
+		myTweet.setCreateDate(randomDate);
+		getTweetPoll().saveOrUpdate(myTweet);
+ 
+		for (j = 0; j < 2; j++) { 
+			// Creating answers... 
+			final QuestionAnswer qAnswers = this.createRandomQuestionAnswer(j, question, answers); 
+			
+			// Creating TweetPoll switch.
+			TweetPollSwitch tpollSwitch = createTweetPollSwitch(qAnswers, myTweet);
+			tpollSwitchList.add(tpollSwitch);
+		}
+		if(voteItem){
+			this.voteTweetPollSwitch(EnMeUtils.ipGenerator(),
+					tpollSwitchList.get(getRandomNumberRange(1, 0)));
+		} 
+	}
+	
+	/**
+	 * Create random question for tweetpolls and polls.
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	private Question createRandomQuestion() throws NoSuchAlgorithmException,
+			UnsupportedEncodingException {
+		final Question randomQuestion = createQuestion(
+				"What is your favorite season? "
+						+ MD5Utils
+								.md5(RandomStringUtils.randomAlphanumeric(15)),
+				"");
+		return randomQuestion;
+	}
+	
+	/**
+	 * Create {@link QuestionAnswer}
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 * @throws NoSuchAlgorithmException 
+	 */
+	private QuestionAnswer createRandomQuestionAnswer(final Integer j,
+			final Question question, final String answers[])
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		final QuestionAnswer qAnswers = createQuestionAnswer(
+				answers[getRandomNumberRange(4, 0)], question,
+				MD5Utils.md5(RandomStringUtils.randomAlphanumeric(4) + j));
+		return qAnswers;
+	} 
+	
+	/**
+	 * Vote tweetpoll switch.
+	 * @param ip
+	 * @param tpSwitch
+	 */
+	private void voteTweetPollSwitch(final String ip,
+			final TweetPollSwitch tpSwitch) {
+		createTweetPollResult(tpSwitch, ip);
+	}
+	 
+
+	/**
+	 * Create {@link Poll} and {@link QuestionAnswer}
+	 * @param tag
+	 * @param randomDate
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	private void createPollItems(final HashTag tag, final Date randomDate,
+			final String[] answers, final Boolean voteItem)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		int j = 0;
+		List<QuestionAnswer> qAnswersList = new ArrayList<QuestionAnswer>();
+
+		final Question pollQuestion = this.createRandomQuestion();
+		final Poll myPoll = createPoll(randomDate, pollQuestion,
+				MD5Utils.md5(RandomStringUtils.randomAlphanumeric(4)),
+				getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
+		myPoll.getHashTags().add(tag);
+		getPollDao().saveOrUpdate(myPoll);
+		for (j = 0; j < 2; j++) {
+			// Creating answers...
+			final QuestionAnswer qAnswers = this.createRandomQuestionAnswer(j,
+					pollQuestion, answers);
+			qAnswersList.add(qAnswers);
+		}
+		if (voteItem) { 
+			this.votePollResult(EnMeUtils.ipGenerator(),
+					qAnswersList.get(getRandomNumberRange(1, 0)), myPoll);
+		}  
+	} 
+	
+	/**
+	 * Create poll result vote.
+	 * @param ip
+	 * @param qAnswers
+	 * @param poll
+	 */
+	private void votePollResult(final String ip, final QuestionAnswer qAnswers,
+			final Poll poll) {
+		createPollResults(qAnswers, poll);
+	}
+    
+	
+	/**
+	 * 
+	 * @param max
+	 * @param min
+	 * @return
+	 */
+	private int getRandomNumberRange(int max, int min){
+		return (int) (Math.random() * (max - min + 1) ) + min;
+	}
     
 	/**
 	 * @return the statisticsService

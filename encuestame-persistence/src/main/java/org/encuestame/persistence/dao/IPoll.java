@@ -262,4 +262,13 @@ public interface IPoll extends IBaseDao {
      * @return
      */
     List<PollResult> retrievePollResults(final Poll poll); 
+    
+    /**
+     * 
+     * @param pollId
+     * @param period
+     * @return
+     */
+    Long getTotalVotesByPollIdAndDateRange(final Long pollId,
+			final SearchPeriods period);
 }

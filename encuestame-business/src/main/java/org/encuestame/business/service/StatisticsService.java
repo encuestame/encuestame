@@ -472,31 +472,69 @@ public class StatisticsService extends AbstractBaseService implements IStatistic
 	 * (java.lang.String, java.lang.Integer, java.lang.Integer,
 	 * javax.servlet.http.HttpServletRequest)
 	 */
-    public HashTagDetailStats getHashTagUsedOnItemsVoted(
-    		final String tagName,
-            final Integer initResults, 
-            final Integer maxResults, 
-            final HttpServletRequest request,
-			final SearchPeriods periods) {
-        Long totalVotesbyTweetPoll = 0L;
-        Long total = 0L;
-         
-        final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName, null, null,
-                TypeSearchResult.HASHTAG, periods);
-        for (TweetPoll tweetPoll : tp) {
-            totalVotesbyTweetPoll = getTweetPollDao()
-                    .getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
-            total = total + totalVotesbyTweetPoll;
-        }
-        log.debug("Total HashTag used by Tweetpoll voted: " + total);
-        
-        //FIXME: POLL VOTES? ENCUESTAME-449
-        
+	public HashTagDetailStats getHashTagUsedOnItemsVoted(final String tagName,
+			final Integer initResults, final Integer maxResults,
+			final HttpServletRequest request, final SearchPeriods periods) {
+		Long totalVotesbyTweetPoll = 0L;
+		Long totalVotesbyPoll = 0L;
+		Long totalHashTagUsedOnItemsVoted = 0L;
+
+		totalVotesbyTweetPoll = this.retrieveTweetPollTotalVotesByHashTag(
+				tagName, periods);
+		log.debug("Total tweetPoll votes by hashtag name : " + totalVotesbyTweetPoll);
+		totalVotesbyPoll = this.retrievePollTotalVotesByHashTag(tagName,
+				periods);
+		log.debug("Total poll votes by hashtag name : " + totalVotesbyPoll);
+		totalHashTagUsedOnItemsVoted = totalVotesbyTweetPoll + totalVotesbyPoll;
+		log.debug("Total HashTag used votes : " + totalHashTagUsedOnItemsVoted);
 		final HashTagDetailStats detailStatItem = this
-				.createHashTagDetailButtonStats(HashTagRate.LBL_VOTES, total,
+				.createHashTagDetailButtonStats(HashTagRate.LBL_VOTES,
+						totalHashTagUsedOnItemsVoted,
 						HashTagRate.SUB_LBL_VOTES, request);
-        return detailStatItem;
-    } 
+		return detailStatItem;
+	}
+    
+    /**
+     * 
+     * @param tagName
+     * @param period
+     * @return
+     */
+	private Long retrievePollTotalVotesByHashTag(final String tagName,
+			final SearchPeriods period) {
+		Long totalPollVotes = 0L;
+		final List<Poll> polls = this.getPollsByHashTag(tagName, null, null,
+				TypeSearchResult.HASHTAG, period);
+		for (Poll poll : polls) {
+			totalPollVotes = totalPollVotes
+					+ getPollDao().retrievePollResults(poll).size();
+
+		} 
+		return totalPollVotes;
+	}
+    
+	/**
+	 * 
+	 * @param tagName
+	 * @param period
+	 * @return
+	 */
+	private Long retrieveTweetPollTotalVotesByHashTag(final String tagName,
+			final SearchPeriods period) {
+		Long totalTweetPollVotes = 0L;
+		final List<TweetPoll> tweetPolls = this.getTweetPollsByHashTag(tagName,
+				null, null, TypeSearchResult.HASHTAG, period);
+
+        log.debug("TweetPolls by HashTag ****************************************** " + tweetPolls.size() + "Period ***********************" + period.toString());
+		for (TweetPoll tweetPoll : tweetPolls) {
+
+			totalTweetPollVotes = totalTweetPollVotes
+					+ getTweetPollDao().getTotalVotesByTweetPollId(
+							tweetPoll.getTweetPollId());
+		}
+		 log.debug("Total Votes by Tweetpoll ******************************************" + totalTweetPollVotes);
+		return totalTweetPollVotes;
+	}
 
     /**
      * Get Polls by HashTag

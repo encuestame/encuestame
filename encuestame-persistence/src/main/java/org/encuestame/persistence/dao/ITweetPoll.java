@@ -384,4 +384,14 @@ public interface ITweetPoll extends IBaseDao{
 	 */
 	List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch);
 	
+	/**
+	 * 
+	 * @param latitude
+	 * @param longitude
+	 * @param radius 
+	 * @return
+	 */
+	List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
+			final float latitude, final float longitude,
+			final int radius);
 }

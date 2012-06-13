@@ -653,5 +653,26 @@ public class TestTweetPollDao  extends AbstractBase{
 		//					TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);  
 		//Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
 	}
+	
+	/**
+	 * Test finding the distance between two coordinate points.
+	 */
+	@Test
+	public void testRetrieveTweetPollsBySearchRadiusOfGeoLocation() {
+		final Calendar myCalendarDate = Calendar.getInstance();
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(),
+				createQuestion("What is your favorite pastime?",
+						secondary.getAccount()), myCalendarDate.getTime());
+
+		tweetPoll.setLocationLatitude(40.4167F);
+		tweetPoll.setLocationLongitude(-3.70325F);
+		getTweetPoll().saveOrUpdate(tweetPoll);
+		assertNotNull(tweetPoll); 
+		final List<Object[]> distanceFromOrigin = getTweetPoll()
+				.retrieveTweetPollsBySearchRadiusOfGeoLocation(41.3879169F,
+						2.16991870F, 510);
+		System.out.println("Distance from Origin ---> " + distanceFromOrigin.get(0)[1]);  
+	}
 
 }
