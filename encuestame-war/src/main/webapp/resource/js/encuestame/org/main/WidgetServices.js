@@ -46,6 +46,40 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     warningMesage : function() {
         encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "warning", this._delay_messages);
     },
+    
+    /**
+     * Display a default loader.
+     */
+    loadingDefaultMessage : function() { 
+ 		var loading = {
+ 		  	  init : function(){
+ 		  				console.debug("init");
+ 		  	  }, 
+ 		  	  end : function(){
+ 		  	      		console.debug("end");
+ 		  	  }
+ 		};
+ 		return loading;
+    },
+    
+    /**
+     * Retrieve the default services response.
+     * Succesfull === {"error":{},"success":{"r":0}}
+     * or 
+     * Failed === {"error":{},"success":{"r":-1}}
+     */
+    getDefaultResponse : function(data) {
+    	if ("success" in data) {
+    		var r = parseInt(data.success.r);
+    		if (r === 0) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	} else {
+    		return false;
+    	}
+    },	
 
     /*
      *
@@ -71,24 +105,51 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     },
     
     /**
-     * 
-     * @param params
-     * @param load
-     * @param service
+     * Make a POST call to backend via JSON service.
+     * @param params {Object} service's parameters
+     * @param load {Function} function to load if the request is success
+     * @param service {String} the rest ful service.
+     * @param loadingFunction {Function} overwrite the default loading
+     * @param error function to trigger a error if the request is failed
      */
-    callPOST : function(params, load, service) {
-        var error = dojo.hitch(this, function(errorMessage) {
+    callPOST : function(params, load, service, loadingFunction, error) {
+    	 params = params || {};
+    	service = service || "";
+    	 var errorFunction = (error == null  ? dojo.hitch(this, function(errorMessage) {
         	 this.infoMesage(errorMessage);
-        });
-        encuestame.service.xhrPostParam(service, params, load, error);
+        }) : error);
+    	if (dojo.isFunction(load)) {
+    		 encuestame.service.xhrPostParam(service, params, load, errorFunction, null, loadingFunction);
+    	}
+     },
+     
+    /**
+     * Make a GET call to backend via JSON service.
+     * @param params {Object} service's parameters
+     * @param load {Function} function to load if the request is success
+     * @param service {String} the rest ful service.
+     * @param loadingFunction {Function} overwrite the default loading
+     * @param error function to trigger a error if the request is failed
+     * 
+     * url, params, load, error, logginHandler
+     */
+    callGET : function(params, service, load, error, loadingFunction) {
+    	 params = params || {};
+    	service = service || "";
+        var errorFunction = (error == null  ? dojo.hitch(this, function(errorMessage) {
+        	 this.infoMesage(errorMessage);
+        }) : error);
+        if (dojo.isFunction(load)) {
+        	encuestame.service.GET(service, params, load, errorFunction, loadingFunction);
+        }
      },
      
      /**
       * 
       * @param e
       */
-     stopEvent : function(e){
-    	 dojo.stopEvent(e);
+     stopEvent : function (e) {
+    	 ENME.stopEvent(e);
      }
 
 });

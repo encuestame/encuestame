@@ -19,7 +19,6 @@ import java.util.LinkedList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.ValidationUtils;
 import org.encuestame.persistence.dao.CommentsOperations;
 import org.encuestame.persistence.dao.IAccountDao;
 import org.encuestame.persistence.dao.IClientDao;
@@ -50,6 +49,7 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -283,8 +283,8 @@ public abstract class AbstractDataSource extends AbstractSecurityContext{
     public final HashTag createHashTag(final String name){
         final HashTag hashTag = new HashTag();
         hashTag.setHashTag(ValidationUtils.removeNonAlphanumericCharacters(name));
-        hashTag.setHits(1L);
-        hashTag.setSize(12L);
+        hashTag.setHits(1L); //FIXME: should be parametrized ?
+        hashTag.setSize(12L); //FIXME: should be parametrized ?
         hashTag.setUpdatedDate(Calendar.getInstance().getTime());
         getHashTagDao().saveOrUpdate(hashTag);
         return hashTag;

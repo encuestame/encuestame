@@ -62,7 +62,7 @@ dojo.declare("encuestame.org.activity.Activity", null, {
 
         _appSubscribe : function(service){
             this._subscription = this.cometd.subscribe(service, function() {
-              console.debug("subscribe");
+              //console.debug("subscribe");
             });
         },
 

@@ -45,12 +45,14 @@ import org.encuestame.core.service.imp.IPictureService;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.IProjectService;
 import org.encuestame.core.service.imp.IServiceManager;
+import org.encuestame.core.service.imp.IStatisticsService;
 import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.core.service.imp.SearchServiceOperations;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.service.imp.StreamOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
@@ -62,6 +64,8 @@ import org.encuestame.utils.captcha.ReCaptcha;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.net.InetAddresses;
+import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -207,13 +211,27 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
 
     /**
+     * Create {@link HashTagBean} list.
+     * @param arrayHashTags
+     * @return
+     */
+    public List<HashTagBean> createHashTagBeansList(final String[] arrayHashTags) {
+    	final List<HashTagBean> tagBeanlist = new ArrayList<HashTagBean>();
+    	for (int i = 0; i < arrayHashTags.length; i++) { 
+			final HashTagBean itemTagBean = new HashTagBean();
+			itemTagBean.setHashTagName(arrayHashTags[i]);
+			tagBeanlist.add(itemTagBean);
+		}	     	
+    	return tagBeanlist;
+    }
+    
+    /**
      *
      * @param tweetPollBean
      * @return
      * @throws EnMeExpcetion
      */
-    public TweetPoll createTweetPoll(
-            final TweetPollBean tweetPollBean) throws EnMeExpcetion{
+    public TweetPoll createTweetPoll(final TweetPollBean tweetPollBean) throws EnMeExpcetion{
         //create new tweetPoll
         log.debug("createTweetPoll Bean "+tweetPollBean.toString());
         return getTweetPollService().createTweetPoll(tweetPollBean,
@@ -234,22 +252,12 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
        }
 
     /**
-     * Get Ip Client.
-     * @return ip
+     * Get the Host IP Address.
+     * @param 
+     * @return ip as string format.
      */
-    public String getIpClient(){
-        log.debug("Force Proxy Pass ["+this.proxyPass+"]");
-        String ip = getServletRequestAttributes().getRemoteAddr();
-        log.debug("Force Proxy Pass ["+ip+"]");
-        //FIXME: if your server use ProxyPass you need get IP from x-forwarder-for, we need create
-        // a switch change for ProxyPass to normal get client Id.
-        // Solution should be TOMCAT configuration.
-        log.debug("X-getHeaderNames ["+ getServletRequestAttributes().getHeaderNames()+"]");
-        if (this.proxyPass) {
-            ip = getServletRequestAttributes().getHeader("X-FORWARDED-FOR");
-            log.debug("X-FORWARDED-FOR ["+ip+"]");
-        }
-        return ip;
+    public String getIpClient(final HttpServletRequest request) {
+        return EnMeUtils.getIP(request, this.proxyPass);
     }
 
     /**
@@ -257,7 +265,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param max
      * @return
      */
-    public Integer limitTotalMax(Integer max){
+    public Integer limitTotalMax(Integer max) {
         return max == null ? null : (max > this.MAX_RESULTS ? this.MAX_RESULTS : max);
     }
 
@@ -486,6 +494,14 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      */
     public IFrontEndService getFrontService(){
         return getServiceManager().getApplicationServices().getFrontEndService();
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public IStatisticsService getStatisticsService(){
+        return getServiceManager().getApplicationServices().getStatisticService();
     }
 
     /**

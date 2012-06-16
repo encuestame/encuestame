@@ -30,6 +30,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -108,7 +109,7 @@ public class PollJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                log.debug("Poll Id"+ pollId);
-               getPollService().removePollFolder(pollId);
+               getPollService().removePoll(pollId);
                setSuccesResponse();
           } catch (Exception e) {
               log.error(e);
@@ -229,13 +230,15 @@ public class PollJsonController extends AbstractJsonController{
             @RequestParam(value = "limitVote", required = false) Boolean limitVote,
             @RequestParam(value = "closeAfter", required = false) Boolean closeAfter,
             @RequestParam(value = "blockIp", required = false) Boolean blockIp,
+            @RequestParam(value = "hashtags", required = false) String[] hashtags,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
            try {
                final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+               final List<HashTagBean> tagsBean = createHashTagBeansList(hashtags == null ? new String[]{} : hashtags);
                log.debug("poll list answer " + answers);
                final Poll poll = getPollService().createPoll(questionName, answers, showResults,
-                                 showComments, notification);
+                                 showComments, notification, tagsBean);
                final PollBean pollBean = ConvertDomainBean.convertPollDomainToBean(poll);
                log.debug("Poll Bean "+pollBean);
                jsonResponse.put("pollBean", pollBean);
@@ -247,7 +250,7 @@ public class PollJsonController extends AbstractJsonController{
               setError(e.getMessage(), response);
           }
           return returnData();
-      }
+      } 
 
     /**
      *

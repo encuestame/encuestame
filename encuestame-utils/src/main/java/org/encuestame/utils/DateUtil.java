@@ -156,6 +156,16 @@ public class DateUtil {
         endtDate.minusDays(1);
         return endtDate.toDate();
     }
+    
+    /**
+     * 
+     * @param days
+     * @return
+     */
+    public static Date minusDaysToCurrentDate(final Integer days, final Date date) {
+        final DateTime dateTime = date == null ? new DateTime() : new DateTime(date);           
+        return  dateTime.minusDays(days).toDate();
+    }
 
     /**
      * Get Seconds Between Dates.
@@ -248,7 +258,7 @@ public class DateUtil {
      * @param startDate date in the time.
      * @return
      */
-    public static HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date startDate){
+    public static HashMap<Integer, RelativeTimeEnum> getRelativeTime(final Date startDate) {
         int SECOND = 1;
         int MINUTE = 60 * SECOND;
         int HOUR = 60 * MINUTE;
@@ -276,7 +286,7 @@ public class DateUtil {
         } else if (seconds < 48 * HOUR) {
             numbers.put(hour, RelativeTimeEnum.YESTERDAY);
         } else if (seconds < 30 * DAY) {
-            numbers.put(days, RelativeTimeEnum.DAYS_AGO);
+            numbers.put(days, RelativeTimeEnum.DAYS_AGO); //TODO: maybe it's better WEEKS_AGO
         } else if (seconds < 12 * MONTH) {
             Integer months = DateUtil.getMothsBetweenDates(startDate);
             numbers.put(months, (months <= 1 ? RelativeTimeEnum.ONE_MONTH_AGO
@@ -324,6 +334,42 @@ public class DateUtil {
 	}
 	
 	/**
+	 * Get value of the current day of the month.
+	 * @param currentDate
+	 * @return
+	 */
+	public static Integer getValueCurrentDateOfTheMonths(final Date currentDate) { 
+		 return new DateTime(currentDate).getDayOfMonth();
+	}
+	
+	/**
+	 * Get the current year.
+	 * @param currentDate {@link Date}/
+	 * @return
+	 */
+	public static Integer getValueCurrentYear(final Date currentDate) {
+		 return new DateTime(currentDate).getYear(); 
+	}	
+	
+	/**
+	 * Get value of the day of the week.
+	 * @param currentDate
+	 * @return
+	 */
+	public static Integer getValueCurrentDayOfTheWeek(final Date currentDate) {
+		return new DateTime(currentDate).getDayOfWeek();
+	}
+
+	/**
+	 * Get value hour of the day.
+	 * @param currentDate
+	 * @return
+	 */
+	public static Integer getValueHourOfTheDay(final Date currentDate) {
+		return new DateTime(currentDate).getHourOfDay();
+	}
+	
+	/**
 	 * Check if date is within allowed range.
 	 * @param period
 	 * @param itemDate
@@ -332,9 +378,9 @@ public class DateUtil {
 	public static Boolean checkDatedWithinAllowableRange(final Integer period, final Date itemDate){
 		Boolean allowedRange = Boolean.FALSE;
 		Date endDate = DateUtil.getCurrentCalendarDate();
-		Date startDate = DateUtil.retrieveStartDateByPeriod(period); 
+		Date startDate = DateUtil.retrieveStartDateByPeriod(period);   
 		// Check if date is between starDate by period and currentDate(itemDate is > startDate, itemDate < endDate)
-		if ((itemDate.after(startDate)) || (itemDate.before(endDate))) { 
+		if ((itemDate.after(startDate)) && (itemDate.before(endDate))) { 
 			allowedRange = Boolean.TRUE;
 		} 
 		return allowedRange;

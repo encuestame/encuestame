@@ -12,10 +12,10 @@
  */
 package org.encuestame.test.business.service;
 
-import static org.junit.Assert.assertNotNull; 
- 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import junit.framework.Assert;
 
@@ -23,27 +23,23 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.persistence.domain.AccessRate;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
-import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.security.Account;
-import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
-import org.encuestame.utils.web.stats.GenericStatsBean; 
+import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Test for {@link FrontEndCoreService}.
@@ -72,6 +68,11 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
 
     /** **/
     private Integer MAX_RESULTS= 10;
+    
+    /**
+     * Mock HttpServletRequest.
+     */
+    MockHttpServletRequest request;  
 
     @Before
     public void initData(){
@@ -86,6 +87,10 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         this.tweetPoll.getHashTags().add(hashTag);
         this.tweetPoll.getHashTags().add(hashTag2);
         getTweetPoll().saveOrUpdate(this.tweetPoll);
+        
+    	request = new MockHttpServletRequest();
+		request.addPreferredLocale(Locale.ENGLISH);
+	       
     }
 
     /**
@@ -112,7 +117,7 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
     @Test
     public void testRegisterHashTagHit() throws EnMeNoResultsFoundException{
         final Boolean registerHit = getFrontEndService().registerHit(
-                null, null, null, this.hashTag, this.ipAddress);
+                null, null, null, this.hashTag, this.ipAddress, HitCategory.VISIT);
         Assert.assertTrue(registerHit);
     }
 
@@ -227,201 +232,98 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
      * Test get user rated top.
      * @throws EnMeNoResultsFoundException
      */
-    @Test
-    public void testGetUsersRatedTop() throws EnMeNoResultsFoundException {
-        final Question question = createQuestion("Who are you ?", "");
-        final Question question2 = createQuestion(
-                "What is your favorite month of the year", "");
-        final Question question3 = createQuestion(
-                "What is your favorite quote", "");
-        final Question question4 = createQuestion(
-                "What is your marital status?", "");
-        final Date myDate = new Date();
-        createPublishedTweetPoll(question, this.secondary);
-        createPublishedTweetPoll(question2, this.secondary);
-        createPoll(myDate, question3, this.secondary, Boolean.TRUE,
-                Boolean.TRUE);
-        createPoll(myDate, question4, this.secondary, Boolean.TRUE,
-                Boolean.TRUE);
-        final List<ProfileRatedTopBean> profiles = getFrontEndService()
-                .getTopRatedProfile(Boolean.TRUE);
-        Assert.assertEquals("Should be equals", 2, profiles.size());
-        Assert.assertEquals("Should be equals", 4, profiles.get(0)
-                .getTopValue().intValue());
-        Assert.assertEquals("Should be equals", 0, profiles.get(1)
-                .getTopValue().intValue());
-    }
-
-    /**
-     * Test Get total usage by hashTag.
-     */
-    @Test
-    public void testGetTotalUsageByHashTag() {
-        final Account account = createAccount();
-        final HashTag hashtag1 = createHashTag("romantic");
-
-        final Question question = createQuestion("What is your favorite type of movies?", "");
-        final Date myDate = new Date();
-        // TweetPoll
-        final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
-        tp.getHashTags().add(hashtag1);
-        getTweetPoll().saveOrUpdate(tp);
-
-        // Poll
-        final Poll poll = createPoll(myDate, question, this.secondary,
-                Boolean.TRUE, Boolean.TRUE);
-        poll.getHashTags().add(hashtag1);
-        getPollDao().saveOrUpdate(poll);
-
-        // Poll 2
-        final Question question2 = createQuestion("What is your favorite type of music?", "");
-         final Poll poll2 = createPoll(myDate, question2, this.secondary,
-                Boolean.TRUE, Boolean.TRUE);
-        poll2.getHashTags().add(hashtag1);
-        getPollDao().saveOrUpdate(poll2);
-
-        // Survey
-        final Survey mySurvey = createDefaultSurvey(account, "Survey test",
-                myDate);
-        mySurvey.getHashTags().add(hashtag1);
-        getSurveyDaoImp().saveOrUpdate(mySurvey);
-
-        // Total usage TweetPoll, Poll and Survey by tagId
-        final Long totalUsage = getFrontEndService().getTotalUsageByHashTag(
-                hashtag1.getHashTag(), 0, 10, TypeSearchResult.HASHTAG);
-
-        Assert.assertEquals("Should be equals", 4, totalUsage.intValue());
-
-    }
-
-    /**
-     * Test get social network by hash tag.
-     */
-    @Test
-    public void testGetSocialNetworkUseByHashTag(){
-        final HashTag hashtag1 = createHashTag("romantic");
-        final Question question = createQuestion("What is your favorite type of movies?", "");
-        final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
-        tp.getHashTags().add(hashtag1);
-        getTweetPoll().saveOrUpdate(tp);
-        final TweetPoll tp2 = createPublishedTweetPoll(question, this.secondary);
-        tp2.getHashTags().add(hashtag1);
-        getTweetPoll().saveOrUpdate(tp2);
-
-        ///
-        final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
-        assertNotNull(socialAccount);
-        final String tweetContent = "Tweet content text";
-        final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
-                tp, " ", socialAccount, tweetContent);
-
-        tpSaved.setApiType(SocialProvider.TWITTER);
-        getTweetPoll().saveOrUpdate(tpSaved);
-        assertNotNull(tpSaved);
-
-        final TweetPollSavedPublishedStatus tpSaved2= createTweetPollSavedPublishedStatus(
-                tp, " ", socialAccount, tweetContent);
-        tpSaved2.setApiType(SocialProvider.FACEBOOK);
-        getTweetPoll().saveOrUpdate(tpSaved2);
-        assertNotNull(tpSaved2);
-
-        final Poll poll1 = createPoll(new Date(), question,
-                "DPMU123", this.secondary, Boolean.TRUE, Boolean.TRUE);
-        poll1.getHashTags().add(hashtag1);
-        getPollDao().saveOrUpdate(poll1);
-
-        final TweetPollSavedPublishedStatus pollSaved1 = createPollSavedPublishedStatus(
-                poll1, " ", socialAccount, tweetContent);
-        pollSaved1.setApiType(SocialProvider.TWITTER);
-        getPollDao().saveOrUpdate(pollSaved1);
-        assertNotNull(pollSaved1);
-
-        final Long total = getFrontEndService().getSocialNetworkUseByHashTag(hashtag1.getHashTag(), 0, 10);
-        Assert.assertEquals("Should be equals", 3, total.intValue());
-
-    }
+	@Test
+	public void testGetUsersRatedTop() throws EnMeNoResultsFoundException {
+		final Question question = createQuestion("Who are you ?", "");
+		final Question question2 = createQuestion(
+				"What is your favorite month of the year", "");
+		final Question question3 = createQuestion(
+				"What is your favorite quote", "");
+		final Question question4 = createQuestion(
+				"What is your marital status?", "");
+		final Date myDate = new Date();
+		createPublishedTweetPoll(question, this.secondary);
+		createPublishedTweetPoll(question2, this.secondary);
+		createPoll(myDate, question3, this.secondary, Boolean.TRUE,
+				Boolean.TRUE);
+		createPoll(myDate, question4, this.secondary, Boolean.TRUE,
+				Boolean.TRUE);
+		final List<ProfileRatedTopBean> profiles = getFrontEndService()
+				.getTopRatedProfile(Boolean.TRUE);
+		Assert.assertEquals("Should be equals", 2, profiles.size());
+	}
+ 
 
     /**
      * Test Get hashTag ranking.
      * @throws EnMeNoResultsFoundException
      */
     @Test
-    public void testGetHashTagRanking() throws EnMeNoResultsFoundException {
-        final Date myDate = new Date();
+    public void testGetHashTagRanking() throws EnMeNoResultsFoundException { 
+        final Calendar myCalDate = Calendar.getInstance();
+        
         final HashTag tag = createHashTag("America", 20L);
-        final HashTag tag1 = createHashTag("Europa", 20L);
-        final HashTag tag2 = createHashTag("Asia", 20L);
+        final HashTag tag1 = createHashTag("Europa", 30L);
+        final HashTag tag2 = createHashTag("Asia", 40L);
         final HashTag tag3 = createHashTag("Oceania", 20L);
-        final HashTag tag4 = createHashTag("Africa", 20L);
-
-        createHashTagRank(tag3, myDate, (double) 90); // Oceania -- 0
-        createHashTagRank(tag4, myDate, (double) 70); // Africa -- 1
-        createHashTagRank(tag2, myDate, (double) 30); // Asia -- 2
-        createHashTagRank(tag, myDate, (double) 20); // America -- 3
-        createHashTagRank(tag1, myDate, (double) 10); // Europa --4
-
+        final HashTag tag4 = createHashTag("Africa", 60L);
+        final HashTag tag5 = createHashTag("Australia", 55L);
+        final HashTag tag6 = createHashTag("Tailandia", 12L);
+        final HashTag tag7 = createHashTag("Caribe", 5L);
+        final HashTag tag8 = createHashTag("Antartic", 10L);
+        final HashTag tag9 = createHashTag("Mediterraneo", 70L);
+        final HashTag tag10 = createHashTag("Balcanes", 80L);
+        final HashTag tag11 = createHashTag("China", 42L);
+        
+        createHashTagRank(tag11, myCalDate.getTime(), (double) 97); // China -- 11
+        createHashTagRank(tag3, myCalDate.getTime(), (double) 90); // Oceania -- 0
+        createHashTagRank(tag4, myCalDate.getTime(), (double) 70); // Africa -- 1 
+        createHashTagRank(tag7, myCalDate.getTime(), (double) 58); // Caribe -- 7  
+        createHashTagRank(tag1, myCalDate.getTime(), (double) 40); // Europa --4
+        createHashTagRank(tag9, myCalDate.getTime(), (double) 38); // Mediterraneo -- 9 
+        createHashTagRank(tag2, myCalDate.getTime(), (double) 30); // Asia -- 2
+        createHashTagRank(tag5, myCalDate.getTime(), (double) 25); // Australia -- 5  
+        createHashTagRank(tag10, myCalDate.getTime(), (double) 16); // Balcanes -- 10
+        createHashTagRank(tag, myCalDate.getTime(), (double) 14); // America -- 3   
+        createHashTagRank(tag6, myCalDate.getTime(), (double) 12); // Tailandia -- 6 
+        createHashTagRank(tag8, myCalDate.getTime(), (double) 10); // Antartic -- 8 
+        
+        myCalDate.add(Calendar.DATE, -1);
+        
+        createHashTagRank(tag8, myCalDate.getTime(), (double) 80); //Antartic -- 0 
+        createHashTagRank(tag11, myCalDate.getTime(), (double) 68); // China -- 1
+        createHashTagRank(tag, myCalDate.getTime(), (double) 56); // America -- 2
+        createHashTagRank(tag9, myCalDate.getTime(), (double) 55); // Mediterraneo -- 3 
+        createHashTagRank(tag7, myCalDate.getTime(), (double) 39); // Caribe -- 4  
+        createHashTagRank(tag4, myCalDate.getTime(), (double) 34); // Africa --5
+        createHashTagRank(tag10, myCalDate.getTime(), (double) 31); // Balcanes --6
+        createHashTagRank(tag6, myCalDate.getTime(), (double) 28); // Tailandia -- 7 
+        createHashTagRank(tag3, myCalDate.getTime(), (double) 25); // Oceania -- 8
+        createHashTagRank(tag1, myCalDate.getTime(), (double) 20); // Europa -- 9 
+        createHashTagRank(tag2, myCalDate.getTime(), (double) 12); // Asia -- 10 
+        createHashTagRank(tag5, myCalDate.getTime(), (double) 10); // Australia -- 11    
+ 
         final List<HashTagRankingBean> getFirstHashTag = getFrontEndService()
-                .getHashTagRanking("Oceania");
+                .getHashTagRanking(tag11.getHashTag());  
         Assert.assertEquals("Should be equals", 2, getFirstHashTag.size());
 
         final List<HashTagRankingBean> getMiddleHashTag = getFrontEndService()
-                .getHashTagRanking("Asia");
+                .getHashTagRanking(tag9.getHashTag());
         Assert.assertEquals("Should be equals", 3, getMiddleHashTag.size());
 
         final List<HashTagRankingBean> getLastHashTag = getFrontEndService()
-                .getHashTagRanking("Europa");
-        Assert.assertEquals("Should be equals", 2, getLastHashTag.size());
+                .getHashTagRanking(tag8.getHashTag());
+        Assert.assertEquals("Should be equals", 2, getLastHashTag.size()); 
+        
     }
 
 
-    /**
-     * Test total hashTag used on items voted.
-     */
-    @Test
-    public void testGetHashTagUsedOnItemsVoted(){
-        final HashTag hashtag1 = createHashTag("season");
-        final Question question = createQuestion("What is your favorite season?", "");
-        final TweetPoll tp = createPublishedTweetPoll(question, this.secondary);
-        tp.getHashTags().add(hashtag1);
-        getTweetPoll().saveOrUpdate(tp);
-
-        // Item 2
-        final Question question2 = createQuestion("What is your favorite holidays?", "");
-        final TweetPoll tp2 = createPublishedTweetPoll(question2, this.secondary);
-        tp2.getHashTags().add(hashtag1);
-        getTweetPoll().saveOrUpdate(tp2);
-
-        final QuestionAnswer questionsAnswers1 = createQuestionAnswer("yes", question, "7891011");
-        final QuestionAnswer questionsAnswers2 = createQuestionAnswer("no", question, "7891012");
-
-        final QuestionAnswer questionsAnswers3 = createQuestionAnswer("yes", question2, "11121314");
-        final QuestionAnswer questionsAnswers4 = createQuestionAnswer("no", question2, "11121315");
-
-        final TweetPollSwitch tpollSwitch1 = createTweetPollSwitch(questionsAnswers1, tp);
-        final TweetPollSwitch tpollSwitch2 = createTweetPollSwitch(questionsAnswers2, tp);
-
-        final TweetPollSwitch tpollSwitch3 = createTweetPollSwitch(questionsAnswers3, tp2);
-        final TweetPollSwitch tpollSwitch4 = createTweetPollSwitch(questionsAnswers4, tp2);
-
-        // TweetPoll 1 votes.
-        createTweetPollResult(tpollSwitch1, "192.168.0.1");
-        createTweetPollResult(tpollSwitch1, "192.168.0.2");
-        createTweetPollResult(tpollSwitch2, "192.168.0.3");
-        createTweetPollResult(tpollSwitch2, "192.168.0.4");
-
-        // TweetPoll 2 votes.
-        createTweetPollResult(tpollSwitch3, "192.168.0.5");
-        createTweetPollResult(tpollSwitch4, "192.168.0.6");
-
-         final Long totalTweetPollsVoted = getFrontEndService().getHashTagUsedOnItemsVoted(hashtag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS);
-         Assert.assertEquals("Should be equals", 6, totalTweetPollsVoted.intValue());
-    }
 
     /**
      * Test Generic data stats.
      * @throws EnMeNoResultsFoundException
      */
-    @Test
+	@Test
     public void testGetGenericStats() throws EnMeNoResultsFoundException{
         final Question question = createQuestion("What is your favorite type of song?", "");
         // TweetPoll
@@ -429,33 +331,31 @@ public class TestFrontEndService extends AbstractSpringSecurityContext{
         // Poll
         final Poll poll = createPoll(new Date(), question, "JCPM", getSpringSecurityLoggedUserAccount(), Boolean.TRUE, Boolean.TRUE);
         // Survey
-        final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());
+        //final Survey survey = createDefaultSurvey(getSpringSecurityLoggedUserAccount().getAccount(), "Technology survey", new Date());
 
-        final GenericStatsBean genericTweetPollStats = getFrontEndService().retrieveGenericStats(tpoll.getTweetPollId().toString(), TypeSearchResult.TWEETPOLL);
+		final GenericStatsBean genericTweetPollStats = getFrontEndService()
+				.retrieveGenericStats(tpoll.getTweetPollId().toString(),
+						TypeSearchResult.TWEETPOLL, this.request);
         Assert.assertNotNull(genericTweetPollStats);
 
-        final GenericStatsBean genericPollStats = getFrontEndService().retrieveGenericStats(poll.getPollId().toString(), TypeSearchResult.POLL);
+		final GenericStatsBean genericPollStats = getFrontEndService()
+				.retrieveGenericStats(poll.getPollId().toString(),
+						TypeSearchResult.POLL, this.request);
         Assert.assertNotNull(genericPollStats);
 
+        
+        final HashTag hashtag = createHashTag("continents", 350L); 
+	    System.out.println(hashtag.getHashTag());    		
+		Assert.assertNotNull(hashtag);
+		Assert.assertNotNull(hashtag.getHashTagId());
+		Assert.assertNotNull(hashtag.getHashTag());
+		@SuppressWarnings("unused")
+		final GenericStatsBean genericHashTagStats = getFrontEndService().retrieveGenericStats(
+				hashtag.getHashTag(), TypeSearchResult.HASHTAG, this.request);
+      
         //final GenericStatsBean genericSurveyStats = getFrontEndService().retrieveGenericStats(survey.getSid(), TypeSearchResult.SURVEY);
         //Assert.assertNotNull(genericSurveyStats);
-    }
- 
-    /**
-     *
-     */
-    public void testSearchItemsByTweetPoll(){
-
-    }
-
-    public void testSearchItemsBySurvey(){
-
-    }
-
-    public void testSearchItemsByPoll(){
-
-    }
-
+	} 
 
     /**
     * @return the frontEndService

@@ -22,6 +22,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
@@ -103,7 +104,7 @@ public interface IFrontEndDao extends IBaseDao{
      * @param searchtype
      * @return
      */
-    Long getTotalHitsbyType(final Long id, final TypeSearchResult searchtype);
+    Long getTotalHitsbyType(final Long id, final TypeSearchResult searchtype, final Integer period);
 
     /**
      * Get access rate by item.
@@ -164,55 +165,15 @@ public interface IFrontEndDao extends IBaseDao{
             final TweetPoll tweetPoll,
             final Survey survey,
             final Poll poll,
-            final TypeSearchResult itemType);
+            final TypeSearchResult itemType,
+            final SearchPeriods searchPeriods);
     
     /**
      * Get total hashTag hits by date range.
      * @param tagId
-     * @param period
-     * @param start
-     * @param maxResults
-     * @param initResults
+     * @param period 
      * @return
      */
-	List<Object[]> getTotalHashTagHitsbyDateRange(final Long tagId,
-			final Integer period, final Integer start,
-			final Integer maxResults, final Integer initResults);
-	
-	/**
-	 * Get hashTag hits of the last 7 days.
-	 * @param tagId
-	 * @param start
-	 * @param maxResults
-	 * @return
-	 */
-	List<Object[]> getHashTagHitsLast7Days(final Long tagId, final Integer start, final Integer maxResults);
-	
-	/**
-	 * Get HashTag hits of the last 30 days.
-	 * @param tagId
-	 * @param start
-	 * @param maxResults
-	 * @return
-	 */
-	List<Object[]> getHashTagHitsLast30Days(final Long tagId, final Integer start, final Integer maxResults);
-	
-	/**
-	 * Get hashTag hits of the last 365 days.
-	 * @param tagId
-	 * @param start
-	 * @param maxResults
-	 * @return
-	 */
-	List<Object[]> getHashTagHitsLast365Days(final Long tagId, final Integer start, final Integer maxResults);
-			
-	/**
-	 * Get hashTag hits of the last 6 months.
-	 * @param tagId
-	 * @param start
-	 * @param maxResults
-	 * @return
-	 */
-	List<Object[]> getHashTagHitsLast6Months(final Long tagId, final Integer start, final Integer maxResults);
-	
+    public List<Hit> getHashTagHitsbyDateRange(final Long tagId,
+            final Integer period);
 }

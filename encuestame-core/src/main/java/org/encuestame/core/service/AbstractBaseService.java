@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -46,13 +47,17 @@ import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.ValidationUtils;
+import org.encuestame.utils.enums.HashTagRate;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.UnitEmails;
 import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UserAccountBean;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,6 +95,148 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      */
     public AbstractBaseService() {}
 
+    
+	/**
+	 * Create hashTag details stats.
+	 *
+	 * @param label
+	 * @param value
+	 * @param subLabel
+	 * @return
+	*/
+    public HashTagDetailStats createTagDetailsStats(final String label,
+	            final Long value, final String subLabel) {
+		final HashTagDetailStats tagDetails = new HashTagDetailStats();
+		tagDetails.setLabel(label);
+		tagDetails.setValue(value);
+		tagDetails.setSubLabel(subLabel);
+	return tagDetails;
+	}
+    
+    /**
+     * 
+     * @param tagRate
+     * @param request
+     * @param objects
+     * @return
+     */
+    public String convertHashTagButtonStatsLabel(final HashTagRate tagRate,
+			final HttpServletRequest request, final Object[] objects) {
+		String message = null;
+		if (tagRate.equals(HashTagRate.LBL_USAGE)) {
+			message = getMessage("hashtag.stats.usage.label.hits", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.LBL_HITS)) {
+			message = getMessage("hashtag.stats.usage.label.visited", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.LBL_VOTES)) {
+			message = getMessage("hashtag.stats.usage.label.voted", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.LBL_SOCIAL_NETWORK)) {
+			message = getMessage("hashtag.stats.usage.label.social", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SUB_LBL_TIMES)) {
+			message = getMessage("hashtag.stats.usage.sublabel.times", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SUB_LBL_TWEETS)) {
+			message = getMessage("hashtag.stats.usage.sublabel.tweets",
+					request, null);
+		} else if (tagRate.equals(HashTagRate.SUB_LBL_VOTES)) {
+			message = getMessage("hashtag.stats.usage.sublabel.votes", request,
+					null);
+		}
+		return message;
+	}
+    
+    /**
+     * 
+     * @param tagRate
+     * @param request
+     * @param objects
+     * @return
+     */
+	public String convertHashTagDataRangeLabelMessage(
+			final HashTagRate tagRate,
+			final HttpServletRequest request, 
+			final Object[] objects) {
+		String message = null;
+		if (tagRate.equals(HashTagRate.JANUARY)) {
+			message = getMessage("hashtag.stats.range.label.month.january", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.FEBRUARY)) {
+			message = getMessage("hashtag.stats.range.label.month.february", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.MARCH)) {
+			message = getMessage("hashtag.stats.range.label.month.march", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.APRIL)) {
+			message = getMessage("hashtag.stats.range.label.month.april", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.MAY)) {
+			message = getMessage("hashtag.stats.range.label.month.may", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.JUNE)) {
+			message = getMessage("hashtag.stats.range.label.month.june",
+					request, null);
+		} else if (tagRate.equals(HashTagRate.JULY)) {
+			message = getMessage("hashtag.stats.range.label.month.july", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.AUGUST)) {
+			message = getMessage("hashtag.stats.range.label.month.august", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SEPTEMBER)) {
+			message = getMessage("hashtag.stats.range.label.month.september", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.OCTOBER)) {
+			message = getMessage("hashtag.stats.range.label.month.october", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.NOVEMBER)) {
+			message = getMessage("hashtag.stats.range.label.month.november", request,
+					objects);
+		} else if (tagRate.equals(HashTagRate.DECEMBER)) {
+			message = getMessage("hashtag.stats.range.label.month.december", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.MONDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.monday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.TUESDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.tuesday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.WEDNESDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.wednesday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.THURSDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.thursday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.FRIDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.friday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SATURDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.saturday", request,
+					null);
+		} else if (tagRate.equals(HashTagRate.SUNDAY)) {
+			message = getMessage("hashtag.stats.range.label.week.sunday", request,
+					null);
+		}
+		
+		return message;
+	}
+	
+    /**
+     * Get total hash tag hits.
+     *
+     * @param id
+     * @param filterby
+     * @return
+     */
+	public Long getTotalHits(
+			final Long id, 
+			final TypeSearchResult filterby,
+			final SearchPeriods periods) {
+		final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
+				TypeSearchResult.HASHTAG, periods.toDays());
+		return totalHashTagHits;
+	}
 
     /**
      *
@@ -97,21 +244,24 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    public HashTag getHashTag(final String tagName, final Boolean exceptionIfNotFound)
+    public HashTag getHashTag(
+    		String tagName, 
+    		final Boolean exceptionIfNotFound)
             throws EnMeNoResultsFoundException {
         Assert.notNull(tagName);
-        final HashTag hashTag = getHashTagDao().getHashTagByName(
-                tagName.toLowerCase());
-        log.debug("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
+		final HashTag hashTag = getHashTagDao().getHashTagByName(
+				ValidationUtils.removeNonAlphanumericCharacters(tagName
+						.toLowerCase()));
+        log.warn("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
         if (hashTag == null) {
             //if possible we can't exception to allow create a new with the parameter.
-            if (exceptionIfNotFound && exceptionIfNotFound == null) {
+            if (exceptionIfNotFound || exceptionIfNotFound == null) {
                 throw new EnMeNoResultsFoundException("hashtag [" + hashTag+ "] not found");
             } else {
                 return null;
             }
         } else {
-            log.debug("getHashTag "+hashTag);
+        	log.debug("getHashTag "+hashTag);
             return hashTag;
         }
     }
@@ -202,20 +352,50 @@ public abstract class AbstractBaseService extends AbstractDataSource {
             builder.append(getMessage("relative.time.one.year.ago", request, str));
         } else if(relativeTimeEnum.equals(RelativeTimeEnum.YEARS_AGO)) {
             builder.append(getMessage("relative.time.one.years.ago", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.RIGTH_NOW)) {
+            builder.append(getMessage("relative.time.one.rightnow", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.YESTERDAY)) {
+            builder.append(getMessage("relative.time.yesterday", request, str));
+        } else if(relativeTimeEnum.equals(RelativeTimeEnum.DAYS_AGO)) {
+            builder.append(getMessage("relative.time.daysago", request, str));
         }
+        log.debug("convertRelativeTimeMessage builder-->"+builder);
         return builder.toString();
+    }
+    
+    /**
+     * Convert a relative time to {@link String}.
+     * @param relative
+     * @param request
+     * @return
+     */
+    public String convertRelativeTimeToString(
+    		final Date relativeDate,
+    		final HttpServletRequest request) {
+    	final HashMap<Integer, RelativeTimeEnum> relative = DateUtil.getRelativeTime(relativeDate);
+    	String timeValue = "";
+    	final Iterator<Entry<Integer, RelativeTimeEnum>> it = relative.entrySet().iterator();
+        while (it.hasNext()) {
+          final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
+          log.debug("convertRelativeTimeToString --"+e.getKey() + "**" + e.getValue());
+          timeValue = convertRelativeTimeMessage(e.getValue(), e.getKey(), request);
+       }
+        return timeValue;
     }
     
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getTweetPollsByHashTag(java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
-    public List<TweetPoll> getTweetPollsByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
+    public List<TweetPoll> getTweetPollsByHashTag(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults,
+            final TypeSearchResult filter,
+            final SearchPeriods searchPeriods) {
         final List<TweetPoll> tweetsbyTag = getTweetPollDao()
                 .getTweetpollByHashTagName(tagName, initResults, maxResults,
-                        filter);
+                        filter, searchPeriods);
         return tweetsbyTag;
     }
 

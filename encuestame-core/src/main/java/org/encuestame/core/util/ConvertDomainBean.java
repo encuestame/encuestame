@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
@@ -87,6 +88,7 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
+import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 
 
@@ -990,7 +992,6 @@ public class ConvertDomainBean {
        commentBean.setCommentedByUsername(commentDomain.getUser().getUsername());
        //url
        //tweetpoll/4/do-you-like-summer-season%3F
-       log.debug("TypeSearchResult "+type);
        if( type != null) {
            final StringBuffer url = new StringBuffer("/");
            url.append(TypeSearchResult.getUrlPrefix(type));
@@ -1117,14 +1118,13 @@ public class ConvertDomainBean {
        final HomeBean homeBean = new HomeBean();
        homeBean.setId(surveyBean.getSid());
        homeBean.setQuestionBean(null);
-       homeBean.setOwnerUsername(null);
-       homeBean.setHits(null);
-       homeBean.setCreateDate(null);
-       homeBean.setTotalVotes(null);
-       homeBean.setRelativeTime(null);
-       homeBean.setTotalComments(null);
-       homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase());
-       homeBean.setTotalComments(null);
+       homeBean.setOwnerUsername(surveyBean.getOwnerUsername());
+       homeBean.setHits(surveyBean.getHits());
+       homeBean.setCreateDate(surveyBean.getCreatedAt() == null ? "no date" : DateUtil.DOJO_DATE_FORMAT.format(surveyBean.getCreatedAt()));
+       homeBean.setTotalVotes(surveyBean.getTotalVotes());
+       homeBean.setRelativeTime(surveyBean.getRelativeTime());
+       homeBean.setTotalComments(surveyBean.getTotalComments());
+       homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase()); 
        return homeBean;
    }
 
@@ -1173,10 +1173,11 @@ public class ConvertDomainBean {
     /**
      * Convert {@link TweetPollSavedPublishedStatus} to {@link LinksSocialBean}.
      * @param tweetPollSavedPublishedStatus
-     * @return
+     * @return {@link LinksSocialBean}
      */
     public static final LinksSocialBean convertTweetPollSavedPublishedStatus(
             final TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus) {
+    	final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT_DATE);
         final LinksSocialBean linksSocialBean = new LinksSocialBean();
         linksSocialBean.setProvider(tweetPollSavedPublishedStatus
                 .getSocialAccount().getAccounType().name());
@@ -1185,6 +1186,14 @@ public class ConvertDomainBean {
                 tweetPollSavedPublishedStatus.getSocialAccount()
                         .getSocialAccountName(), tweetPollSavedPublishedStatus
                         .getSocialAccount().getAccounType()));
+		linksSocialBean
+				.setPublishedDate(simpleDateFormat
+						.format(tweetPollSavedPublishedStatus
+								.getPublicationDateTweet()));
+		linksSocialBean.setPublishText(tweetPollSavedPublishedStatus
+				.getTweetContent() == null ? tweetPollSavedPublishedStatus
+				.getTweetPoll().getQuestion().getQuestion()
+				: tweetPollSavedPublishedStatus.getTweetContent());
         log.debug("getTweetPollLinks "+linksSocialBean.toString());
         return linksSocialBean;
     }
@@ -1270,4 +1279,164 @@ public class ConvertDomainBean {
 		return itemStatDetail;
 	}
 	
-}
+	/**
+	* {@link TweetPollSavedPublishedStatus}
+	* @param tweetPollResult
+	* @return
+	*/
+	public static final ItemStatDetail convertTweetPollSavedPublishedStatusToItemDetailBean(
+			final TweetPollSavedPublishedStatus tweetPollSocial) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(tweetPollSocial.getId());
+		itemDetail.setDate(tweetPollSocial.getPublicationDateTweet());
+		return itemDetail;
+	}
+		
+	/**
+	 * 
+	 * @param tpollResults
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertTweetPollSavedPublishedStatusListToItemDetailBean(
+			final List<TweetPollSavedPublishedStatus> tpollSocialSavedPublished) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpollSocialSavedPublished) {
+			itemStatDetail.add(ConvertDomainBean
+							.convertTweetPollSavedPublishedStatusToItemDetailBean(tweetPollSavedPublishedStatus));
+		} 
+		return itemStatDetail;
+	}
+	
+	/**
+	 * 
+	 * @param tweetPoll
+	 * @return
+	 */
+	public static final ItemStatDetail convertTweetPollToItemDetailBean(
+			final TweetPoll tweetPoll) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(tweetPoll.getTweetPollId());
+		itemDetail.setDate(tweetPoll.getCreateDate());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param tpolls
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertTweetPollListToItemDetailBean(
+			final List<TweetPoll> tpolls) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (TweetPoll tweetPoll : tpolls) {
+			itemStatDetail
+					.add(ConvertDomainBean
+							.convertTweetPollToItemDetailBean(tweetPoll));
+		}
+		return itemStatDetail;
+	}
+	
+	/**
+	 * 
+	 * @param poll
+	 * @return
+	 */
+	public static final ItemStatDetail convertPollToItemDetailBean(
+			final Poll poll) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(poll.getPollId());
+		itemDetail.setDate(poll.getCreatedAt());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param polls
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertPollListToItemDetailBean(
+			final List<Poll> polls) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (Poll poll : polls) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertPollToItemDetailBean(poll));
+		}
+		return itemStatDetail;
+	}
+	
+	/**
+	 * 
+	 * @param survey
+	 * @return
+	 */
+	public static final ItemStatDetail convertSurveyToItemDetailBean(
+			final Survey survey) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(survey.getSid());
+		itemDetail.setDate(survey.getCreatedAt());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param surveys
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertSurveyListToItemDetailBean(
+			final List<Survey> surveys) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (Survey survey : surveys) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertSurveyToItemDetailBean(survey));
+		}
+		return itemStatDetail;
+	}  
+	
+	/**
+	 * 
+	 * @param hit
+	 * @return
+	 */
+	public static final ItemStatDetail convertHitsToItemDetailBean(final Hit hit) {
+		final ItemStatDetail itemDetail = new ItemStatDetail();
+		itemDetail.setItemId(hit.getId());
+		itemDetail.setDate(hit.getHitDate());
+		return itemDetail;
+	}
+
+	/**
+	 * 
+	 * @param hits
+	 * @return
+	 */
+	public static final List<ItemStatDetail> convertHitListToItemDetailBean(
+			final List<Hit> hits) {
+		final List<ItemStatDetail> itemStatDetail = new ArrayList<ItemStatDetail>();
+		for (Hit hit : hits) {
+			itemStatDetail.add(ConvertDomainBean
+					.convertHitsToItemDetailBean(hit));
+		}
+		return itemStatDetail;
+	}
+	
+	/**
+	 * Create a {@link GenericStatsBean}.
+	 * @param likeDislikeRate
+	 * @param totalHits
+	 * @param createdBy
+	 * @param average
+	 * @param createdAt
+	 * @return
+	 */
+	public static GenericStatsBean createGenericStatsBean(final Long likeDislikeRate,
+			final Long totalHits, final String createdBy, Double average,
+			final String createdAt) {
+		final GenericStatsBean genericBean = new GenericStatsBean();
+		genericBean.setLikeDislikeRate(likeDislikeRate);
+		genericBean.setHits(totalHits);
+		genericBean.setCreatedBy(createdBy);
+		genericBean.setAverage(average);
+		genericBean.setCreatedAt(createdAt);
+		return genericBean;
+	}
+}  

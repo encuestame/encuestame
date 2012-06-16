@@ -12,6 +12,7 @@
  */
 package org.encuestame.mvc.test.json;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import junit.framework.Assert;
@@ -88,11 +89,11 @@ public class JsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
         this.answer1 = createTweetPollSwitch(questionsAnswers1, tweetPoll);
         this.answer2 = createTweetPollSwitch(questionsAnswers2, tweetPoll);
         //votes
-        getTweetPollService().tweetPollVote(answer1, "80.23.43.23");
-        getTweetPollService().tweetPollVote(answer2, "80.33.13.23");
-        getTweetPollService().tweetPollVote(answer2, "80.13.13.43");
-        getTweetPollService().tweetPollVote(answer2, "30.33.13.23");
-        getTweetPollService().tweetPollVote(answer1, "80.33.13.13");
+        getTweetPollService().tweetPollVote(answer1, "80.23.43.23", Calendar.getInstance().getTime());
+        getTweetPollService().tweetPollVote(answer2, "80.33.13.23", Calendar.getInstance().getTime());
+        getTweetPollService().tweetPollVote(answer2, "80.13.13.43", Calendar.getInstance().getTime());
+        getTweetPollService().tweetPollVote(answer2, "30.33.13.23", Calendar.getInstance().getTime());
+        getTweetPollService().tweetPollVote(answer1, "80.33.13.13", Calendar.getInstance().getTime());
         //poll
         this.poll = createPoll(new Date(), question,  getSpringSecurityLoggedUserAccount(), true, true);
         getPollService().vote(poll.getPollId(), question.getSlugQuestion(), "80.33.13.23", questionsAnswers1.getQuestionAnswerId());

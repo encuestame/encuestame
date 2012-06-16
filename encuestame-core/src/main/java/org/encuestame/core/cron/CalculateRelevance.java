@@ -18,6 +18,7 @@ import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -76,7 +77,7 @@ public class CalculateRelevance {
                 getTweetPollService().getTweetPollsbyRange(MAX_RESULTS, START_RESULTS,
                         null),
                 getPollService().getPollsByRange(MAX_RESULTS, START_RESULTS, null),
-                null, null, null);
+                null, SearchPeriods.ALLTIME);
     }
 
     /**

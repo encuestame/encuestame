@@ -107,13 +107,13 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
            var load = dojo.hitch(this, function(data) {
                console.info("_addGadget added", data);
                if ("success" in data) {
-                   console.debug("_addGadget", data);
+                   //console.debug("_addGadget", data);
                    var gadget = data.success.gadget;
                    this._createPortlet(this._createGadget(gadget), gadget);
                }
            });
            var error = function(error) {
-               console.debug("error", error);
+               //console.debug("error", error);
            };
            encuestame.service.xhrGet(encuestame.service.gadget.add, params, load, error);
        }
@@ -146,7 +146,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
         this._removeAllGadgets();
         dojo.forEach(this._gadgets,
                 dojo.hitch(this,function(item) {
-                console.debug("print gadget", item);
+                //console.debug("print gadget", item);
                 this._createPortlet(this._createGadget(item), item);
          }));
     },
@@ -205,9 +205,9 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
      * add new porlet.
      */
     addPortlet : function(item, column, position) {
-        console.debug("addPorlet", item);
-        console.debug("addPorlet", column);
-        console.debug("addPorlet", position);
+//        console.debug("addPorlet", item);
+//        console.debug("addPorlet", column);
+//        console.debug("addPorlet", position);
         if (column && position) {
             this.gridContainer.addChild(item, column, position);
         } else {
@@ -222,7 +222,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
     _addPortlet : function(array_porlet) {
         if(array_porlet instanceof Array){
             array_porlet.forEach(function(item) {
-                console.debug("new porlet", item);
+                //console.debug("new porlet", item);
             });
         }
     },

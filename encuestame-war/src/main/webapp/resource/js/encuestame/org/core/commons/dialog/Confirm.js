@@ -17,7 +17,7 @@ dojo.declare(
          * post create.
          */
         postCreate : function(){
-             console.debug("functionYes");
+             //console.debug("functionYes");
             //this._modalconnects = [];
             this.containerNode.appendChild(this._createContent());
             this.titleNode.innerHTML = this._question;
@@ -25,7 +25,7 @@ dojo.declare(
         },
 
         functionYes : function(){
-            console.debug("functionYes");
+            //console.debug("functionYes");
         },
 
         functionNo : function(){

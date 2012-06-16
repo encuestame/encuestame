@@ -237,7 +237,7 @@ public class SocialUtils {
         final StringBuilder builder = new StringBuilder();
         if(SocialProvider.TWITTER.equals(provider)){
             String twitterUrl = EnMePlaceHolderConfigurer.getProperty("social.twitter");
-            twitterUrl = twitterUrl.replace("{username}", username); //TODO: possible NULLPOINTEREXCEPTION
+            twitterUrl = twitterUrl.replace("{username}", username); //FIXME: possible NULLPOINTEREXCEPTION
             twitterUrl = twitterUrl.replace("{id}", id);
             builder.append(twitterUrl);
         } else if(SocialProvider.FACEBOOK.equals(provider)){

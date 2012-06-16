@@ -16,8 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.Date; 
 import java.util.List;
 
 import org.encuestame.persistence.dao.IPoll;
@@ -30,6 +29,7 @@ import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
@@ -268,19 +268,18 @@ public class TestPollDao extends AbstractBase {
                 "DPMU14", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         poll3.getHashTags().add(hashtag3);
         getPollDao().saveOrUpdate(poll3);
-
         final List<Poll> totalUsagePoll = getPollDao().getPollByHashTagName(
-                hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+                hashtag1.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 
         Assert.assertEquals("Should be", 2, totalUsagePoll.size());
 
         final List<Poll> totalUsagePoll2 = getPollDao().getPollByHashTagName(
-                hashtag2.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+                hashtag2.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
 
         Assert.assertEquals("Should be", 1, totalUsagePoll2.size());
 
         final List<Poll> totalUsagePoll3 = getPollDao().getPollByHashTagName(
-                hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+                hashtag3.getHashTag(), this.START, this.MAX_RESULTS, TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         Assert.assertEquals("Should be", 3, totalUsagePoll3.size());
     }
 
@@ -305,7 +304,7 @@ public class TestPollDao extends AbstractBase {
                 "DPMU19", this.userAccount, Boolean.TRUE, Boolean.TRUE);
         poll2.getHashTags().add(hashtag1);
         getPollDao().saveOrUpdate(poll2);
-        final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), 7, this.START, this.MAX_RESULTS);
+        final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), SearchPeriods.SEVENDAYS);
         Assert.assertEquals("Should be", 2, getTotalPollsbyHashTag.size());
     }
 }

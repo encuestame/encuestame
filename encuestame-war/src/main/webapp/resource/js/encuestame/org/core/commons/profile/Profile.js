@@ -39,13 +39,13 @@ dojo.declare(
                         var email = dijit.byId("email");
                         email.set('value', profile.email);
                         email.onChange = dojo.hitch(this, function(){
-                                console.debug("change");
+                                //console.debug("change");
                                 email.validateBackEnd("email");
                         });
                         var username = dijit.byId("username");
                         username.set('value', profile.username);
                         username.onChange = dojo.hitch(this, function(){
-                            console.debug("change");
+                            //console.debug("change");
                             username.validateBackEnd("username");
                         });
                         var completeName = dijit.byId("completeName");
@@ -66,15 +66,15 @@ dojo.declare(
         _updateProfile : function(event){
             dojo.stopEvent(event);
             var form = dojo.byId("profileForm");
-            console.debug("form ", form);
+            //console.debug("form ", form);
             var formDijit = dijit.byId("profileForm");
-            console.debug("form", formDijit);
+            //console.debug("form", formDijit);
             if(formDijit.isValid()){
                 var load = dojo.hitch(this, function(data){
-                    console.debug(data);
+                    //console.debug(data);
                 });
                 var error = function(error) {
-                    console.debug("error", error);
+                    //console.debug("error", error);
                 };
                 //var query = {};
                 //query.username =  dijit.byId("username").get("value") ;
@@ -109,23 +109,23 @@ dojo.extend(dijit.form.ValidationTextBox, {
      * validate back end.
      */
     validateBackEnd : function(type){
-        console.debug("validateBackEnd", type);
+        //console.debug("validateBackEnd", type);
         if(type != null){
             var load = dojo.hitch(this, function(response){
-                console.debug(type, response.success.validate);
+                //console.debug(type, response.success.validate);
                 if(!response.success.validate){
                     var message = response.success.messages[type];
-                     console.debug("Error", message);
+                     //console.debug("Error", message);
                     this.invalidMessage = message;
                     this.getErrorMessage(true);
                     this._maskValidSubsetError = true;
                     this.displayMessage(message);
-                    console.debug("set error message");
+                    //console.debug("set error message");
                 }
                 //return response.success.validate;
             });
             var error = function(error) {
-                console.debug("error", error);
+                //console.debug("error", error);
                 //return false;
             };
             encuestame.service.xhrGet(encuestame.service.list.checkProfile, {type:type, value: this.textbox.value}, load, error);

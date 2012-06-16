@@ -159,9 +159,9 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * @param property
      * @return
      */
-    public static Boolean getBooleanProperty(final String property){
+    public static Boolean getBooleanProperty(final String property) {
         String value = EnMePlaceHolderConfigurer.getProperty(property);
-        if(value == null){
+        if (value == null) {
             value = "false";
         }
         return new Boolean(value);
@@ -172,8 +172,8 @@ public class EnMePlaceHolderConfigurer extends PropertyPlaceholderConfigurer {
      * @param property
      * @return
      */
-    public static Integer getIntegerProperty(final String property){
-        String value = EnMePlaceHolderConfigurer.getProperty(property);
-        return new Integer(value);
+    public static Integer getIntegerProperty(final String property) {
+        final String value = EnMePlaceHolderConfigurer.getProperty(property);
+        return new Integer(value == null ? "0" : value.trim());
     }
 }

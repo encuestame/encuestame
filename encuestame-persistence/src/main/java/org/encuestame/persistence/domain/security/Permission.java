@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,9 +42,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "permission")
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Permission {
+public class Permission implements Serializable{
 
-    private Long idPermission;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7022618496782629901L;
+	
+	private Long idPermission;
     private EnMePermission permission;
     private String permissionDescription;
     private Set<Group> groups = new HashSet<Group>();

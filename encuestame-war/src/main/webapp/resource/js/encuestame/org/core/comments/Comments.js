@@ -67,9 +67,9 @@ dojo.declare(
                   }
               });
               var error = function(error) {
-                  console.debug("error", error);
+                  console.error("error", error);
               };
-          encuestame.service.xhrGet(encuestame.service.comments.list(this.type), { id : this.item_id}, load, error);
+          encuestame.service.xhrGet(encuestame.service.comments.list(this.type), { id : this.item_id, max: 10}, load, error);
       },
 
       /*
@@ -94,7 +94,7 @@ dojo.declare(
         "encuestame.org.core.comments.CommentForm",
         [dijit._Widget, dijit._Templated],{
 
-          templatePath: dojo.moduleUrl("encuestame.org.core.comments", "templates/commentForm.html"),
+          templatePath: dojo.moduleUrl("encuestame.org.core.comments", "templates/commentForm.html")
 
 
         });

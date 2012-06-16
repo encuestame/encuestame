@@ -18,15 +18,15 @@ package org.encuestame.utils;
  * @since Dec 14, 2010 20:14:07 PM
  */
 public enum RelativeTimeEnum {
-    RIGTH_NOW,
+    RIGTH_NOW, //##
     ONE_SECOND_AGO,
     SECONDS_AGO,
     A_MINUTE_AGO,
     MINUTES_AGO,
     AN_HOUR_AGO,
     HOURS_AGO,
-    YESTERDAY,
-    DAYS_AGO,
+    YESTERDAY, //##
+    DAYS_AGO, //##
     ONE_MONTH_AGO,
     MONTHS_AGO,
     ONE_YEAR_AGO,

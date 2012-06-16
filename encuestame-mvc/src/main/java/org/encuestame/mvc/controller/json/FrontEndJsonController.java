@@ -23,8 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
@@ -150,5 +153,33 @@ public class FrontEndJsonController extends AbstractJsonController{
             log.error(e);
         }
         return returnData();
+    }
+    
+    /**
+     * API JSON service to vote a published item.
+     * @param id
+     * @param account
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/frontend/home/vote.json", method = RequestMethod.POST)
+    public ModelMap voteHome(
+            @RequestParam(value = "id", required = false) Long id,
+            @RequestParam(value = "type", required = false) String type,
+            HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {    
+    		final String ip = EnMeUtils.getIP(request, EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass"));
+    		final Status status = getFrontService().registerVote(id, TypeSearchResult.getTypeSearchResult(type), ip);
+    		if (status.equals(Status.SUCCESS)) {
+    			setSuccesResponse();
+    		} else {
+    			setFailedResponse();    			
+    		}
+			return returnData();    	
     }
 }

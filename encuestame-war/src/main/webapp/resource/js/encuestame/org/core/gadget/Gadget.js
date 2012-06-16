@@ -55,18 +55,18 @@ dojo.declare(
                      }
                  }));
                  var subscriptionNotification = null;
-                 dojo.addOnLoad(dojo.hitch(this, function() {
+                 dojo.addOnLoad(dojo.hitch(this, function () {
                  subscriptionNotification  = encuestame.activity.cometd.subscribe(this.getUrl(),
                      dojo.hitch(this, function(message) {
                          this._updateStream(message);
                    }));
                  }));
-                 dojo.addOnUnload(function() {
-                     if(subscriptionNotification != null){
+                 dojo.addOnUnload(dojo.hitch(this, function () {
+                     if(subscriptionNotification != null) {
                          this.stopTimer();
                          encuestame.activity.cometd.unsubscribe(subscriptionNotification);
                      }
-                 });
+                 }));
                  this.loadTimer();
                  this.callCometd();
              },

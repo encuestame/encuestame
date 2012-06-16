@@ -22,6 +22,7 @@ import org.encuestame.core.security.details.EnMeUserAccountDetails;
 import org.encuestame.core.security.token.EnMeSecurityToken;
 import org.encuestame.core.security.token.SocialAuthenticationToken;
 import org.encuestame.core.util.ConvertDomainsToSecurityContext;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.enums.EnMePermission;
@@ -195,7 +196,7 @@ public class SecurityUtils {
     public static boolean checkIsSessionIsAnonymousUser(final Authentication authentication){
         boolean anonymous = false;
         if(authentication != null){
-            if("anonymousUser".equals(authentication.getName())){
+            if (EnMeUtils.ANONYMOUS_USER.equals(authentication.getName())) {
                 anonymous = true;
             }
             log.debug("checkIsSessionIsExpired->"+anonymous);

@@ -20,8 +20,8 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
-import org.encuestame.persistence.domain.survey.PollResult;
-import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.survey.PollResult; 
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -233,19 +233,17 @@ public interface IPoll extends IBaseDao {
      * @return
      */
     List<Poll> getPollByHashTagName(final String tagName, final Integer startResults,
-            final Integer limitResults, final TypeSearchResult filterby);
+            final Integer limitResults, final TypeSearchResult filterby, final SearchPeriods searchPeriods);
 
     /**
      * Get total polls by hashtag and date range.
      * @param tagName
-     * @param period
-     * @param startResults
-     * @param limit
+     * @param period 
      * @return
      */
     List<Poll> getPollsbyHashTagNameAndDateRange(
-            final String tagName, final Integer period,
-            final Integer startResults, final Integer limit);
+            final String tagName, 
+            final SearchPeriods period);
     
     
     /**
@@ -257,4 +255,20 @@ public interface IPoll extends IBaseDao {
     PollResult validateVoteIP(
     		final String ip,
             final Poll poll);
+    
+    /**
+     * Retrieve {@link PollResult}
+     * @param poll
+     * @return
+     */
+    List<PollResult> retrievePollResults(final Poll poll); 
+    
+    /**
+     * 
+     * @param pollId
+     * @param period
+     * @return
+     */
+    Long getTotalVotesByPollIdAndDateRange(final Long pollId,
+			final SearchPeriods period);
 }

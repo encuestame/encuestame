@@ -128,7 +128,7 @@ dojo.declare(
             postCreate : function(){
                 dojo.subscribe("/encuestame/social/change", this, function(type) {
                     if (this.id == type.id) {
-                        console.debug("SELECTED "+this.socialProvider);
+                        //console.debug("SELECTED "+this.socialProvider);
                         dojo.removeClass(this.domNode, "defaultDisplayHide");
                         this._callListSocialAccounts();
                     } else {
@@ -160,7 +160,7 @@ dojo.declare(
                     this._printListOfAccounts(data.success.items);
                 });
                 var error = function(error) {
-                    console.debug("error", error);
+                    //console.debug("error", error);
                 };
                // console.debug("PROVIDER", this.socialProvider.toLowerCase());
                 encuestame.service.xhrGet(
@@ -267,7 +267,7 @@ dojo.declare(
                     dojo.publish("/encuestame/social/list/reload");
                 });
                 var error = function(error) {
-                    console.debug("error", error);
+                    //console.debug("error", error);
                 };
                 encuestame.service.xhrGet(
                        encuestame.service.social.action.remove,

@@ -26,9 +26,11 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean;
+import org.encuestame.utils.web.geo.ItemGeoLocationBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -396,4 +398,15 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
            getGeoPointDao().delete(location);
         }
     }
+    
+    public List<ItemGeoLocationBean> retrieveItemsByGeo(final Integer range, final Integer maxItem, final TypeSearchResult itemType, final float longitude, final Long latitude){
+    	/* Definir CONST Radio Tierra
+    	 * Convertir en Radianes la Long y Latitud
+    	 * 
+    	*/
+    	return null;
+    }
+    
+    
+    
 }

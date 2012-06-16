@@ -184,13 +184,15 @@ public class CommentService extends AbstractBaseService implements ICommentServi
     public List<CommentBean> getTopRatedComments(
             final CommentsSocialOptions socialCommentOption,
             final Integer maxResults,
-            final Integer start){
+            final Integer start) {
         final Integer timeRange = EnMePlaceHolderConfigurer
                 .getIntegerProperty("comment.time.range") == null ? this.TIME_RANGE_VALUE
                 : EnMePlaceHolderConfigurer
                         .getIntegerProperty("comment.time.range");
 
-        log.debug("ENME PROPERTY TIME RANGE ---> " + timeRange);
+        log.debug("getTopRatedCommentsY TIME RANGE ---> " + timeRange);
+        log.debug("getTopRatedComments TIME maxResults ---> " + maxResults);
+        log.debug("getTopRatedComments TIME start ---> " + start);
         final List<CommentBean> commentBean = new ArrayList<CommentBean>();
         final List<Comment> topCommentList = getCommentsOperations()
                 .getTopRatedComments(socialCommentOption,

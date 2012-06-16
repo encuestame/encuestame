@@ -85,7 +85,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
         log.trace("preHandle security auth "+auth);
         if (!SecurityUtils.checkIsSessionIsExpired(auth)) {
             log.trace("auth valid");
-            if(SecurityUtils.checkIsSessionIsAnonymousUser(auth)){
+            if (SecurityUtils.checkIsSessionIsAnonymousUser(auth)) {
                 log.trace("session expired");
                 request.setAttribute("logged", false);
             } else {

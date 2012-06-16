@@ -10,7 +10,7 @@ The last release versions are defined [here](http://wiki.encuestame.org/display/
 If you want to download a build version of encuestame, they're hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
 ## Maintainers
-* [Diana Paola Morales](http://at.linkedin.com/in/dianmorales)
+* [Diana Paola Morales](http://about.me/dianmorales)
 * [Juan Carlos Picado](http://about.me/jotadeveloper)
 
 ## Contributions

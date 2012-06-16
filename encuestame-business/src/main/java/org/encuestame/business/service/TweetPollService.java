@@ -42,6 +42,7 @@ import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.TweetPublishedMetadata;
+import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.Status;
@@ -631,15 +632,16 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          return publishedStatus;
     }
 
+    
     /*
      * (non-Javadoc)
-     * @see org.encuestame.business.service.AbstractSurveyService#tweetPollVote(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch, java.lang.String)
+     * @see org.encuestame.core.service.imp.ITweetPollService#tweetPollVote(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch, java.lang.String, java.util.Date)
      */
-    public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip){
+    public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip, final Date voteDate) {
         final TweetPollResult pollResult = new TweetPollResult();
         pollResult.setIpVote(ip.trim());
         pollResult.setTweetPollSwitch(pollSwitch);
-        pollResult.setTweetResponseDate(new Date());
+        pollResult.setTweetResponseDate(voteDate);
         getTweetPollDao().saveOrUpdate(pollResult);
     }
 
@@ -1084,22 +1086,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
       final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
       final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll , null, null, TypeSearchResult.TWEETPOLL);
       log.debug("getTweetPollLinks: "+links.size());
-      for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
-          log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
-          final LinksSocialBean linksSocialBean = new LinksSocialBean();
-            linksSocialBean.setProvider(tweetPollSavedPublishedStatus
-                    .getSocialAccount().getAccounType().name());
-            linksSocialBean.setLink(SocialUtils.getSocialTweetPublishedUrl(
-                    tweetPollSavedPublishedStatus.getTweetId(),
-                    tweetPollSavedPublishedStatus.getSocialAccount()
-                            .getSocialAccountName(),
-                    tweetPollSavedPublishedStatus.getSocialAccount()
-                            .getAccounType()));
-          linksBean.add(linksSocialBean);
-          log.debug("getTweetPollLinks "+linksSocialBean.toString());
-       }
-
-      return linksBean;
+      return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }
 
     /*
@@ -1116,6 +1103,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             throws EnMeNoResultsFoundException {
         log.debug("Adding hashtag to TP "+tweetPoll.getTweetPollId());
         log.debug("Adding hashTagBean to TP "+hashTagBean.getHashTagName());
+        //validate the hashtag bean.
+        hashTagBean.setHashTagName(ValidationUtils.removeNonAlphanumericCharacters(hashTagBean.getHashTagName()));
         HashTag hashtag = getHashTag(hashTagBean.getHashTagName(), false);
         if (hashtag == null) {
             hashtag = createHashTag(hashTagBean.getHashTagName().toLowerCase());

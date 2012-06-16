@@ -379,12 +379,9 @@
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+		    <artifactId>opencsv</artifactId>
+	    </dependency>         
     </dependencies>
-
-     <repositories>
-            <repository>
-                <id>local-project-repo</id>
-                <url>file:${basedir}/../lib/repository</url>
-            </repository>
-     </repositories>
 </project>

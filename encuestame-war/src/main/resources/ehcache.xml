@@ -39,9 +39,9 @@
      -->
     <defaultCache eternal="true" maxElementsInMemory="100" overflowToDisk="false" />
 
-    <!-- Cache Directory. -->
-
+    <!-- Cache Directory. 
     <diskStore path="${user.home}/encuestame-store/cache/" />
+    -->
 
     <!-- Web Cache
 

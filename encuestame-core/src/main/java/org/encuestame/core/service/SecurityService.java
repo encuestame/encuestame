@@ -647,7 +647,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param singUpBean {@link SignUpBean}.
      * @return {@link UserAccountBean}.
      */
-    public UserAccount singupUser(final SignUpBean singUpBean){
+    public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) {
+    	//FIXME: Validate the email inside this service.
         log.debug("singupUser "+singUpBean.toString());
         //create account/
         final Account account = this.createDefaultAccount();
@@ -672,7 +673,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         userAccount.setCompleteName(singUpBean.getFullName());
         userAccount.setInviteCode(inviteCode); //thinking, maybe create invite code table.
         getAccountDao().saveOrUpdate(userAccount);
-
         //create global account directory
         if (log.isDebugEnabled()) {
             log.debug("singupUser created user account");
@@ -685,10 +685,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
         this.assingPermission(userAccount, permissions);
 
-        //send new password
-        getMailService().sendPasswordConfirmationEmail(singUpBean);
-        //send confirmation account
-        getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+        if (!disableEmail) { //test proposes.
+	        //send new password
+	        getMailService().sendPasswordConfirmationEmail(singUpBean);
+	        //send confirmation account
+	        getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+        }
 
         if (log.isDebugEnabled()) {
             log.debug("new user "+userAccount.getUsername());
@@ -980,18 +982,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         return getAccountDao().getSocialAccount(socialProvider, socialProfileId);
     }
 
-
-    /**
-     * Get {@link SocialAccount}.
-     * @param socialAccountId
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    public SocialAccountBean getSocialAccountBean(final Long socialAccountId) throws EnMeNoResultsFoundException{
-        return ConvertDomainBean.convertSocialAccountToBean(this.getSocialAccount(socialAccountId));
-    }
-
-
     /**
      * Get User Logged Scocial Accounts.
      * @param username
@@ -1089,22 +1079,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         getAccountDao().saveOrUpdate(singUp);
         getMailService().sendNotificationStatusAccount(singUp, "Change user status");
     }
-
-   /**
-    * Get social account by id.
-    * @param accountId
-    * @return
- * @throws EnMeNoResultsFoundException
-    */
-   protected SocialAccount getSocialAccount(final Long accountId) throws EnMeNoResultsFoundException{
-       final SocialAccount account =  getAccountDao().getSocialAccountById(accountId);
-        if(account == null){
-            throw new EnMeNoResultsFoundException("social account not valid {"+accountId);
-        }
-        return  account;
-   }
-
-
 
     /* Social Account SignIn Connect. * */
 

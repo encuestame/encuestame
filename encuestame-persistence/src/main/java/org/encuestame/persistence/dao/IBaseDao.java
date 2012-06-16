@@ -13,6 +13,7 @@
 package org.encuestame.persistence.dao;
 
 import org.hibernate.HibernateException;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * Interface Base Dao.
@@ -42,5 +43,12 @@ public interface IBaseDao {
      * @throws HibernateException  exception
      */
     void delete(final Object domain);
+    
+    
+    /**
+     * Offer {@link HibernateTemplate} to services layer, only for test proposes.
+     * @return {@link HibernateTemplate}
+     */
+    HibernateTemplate getHibernateTemplate();
 
 }

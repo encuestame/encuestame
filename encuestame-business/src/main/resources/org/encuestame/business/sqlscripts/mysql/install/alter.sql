@@ -127,6 +127,7 @@ ALTER TABLE `group_permission`
 --
 ALTER TABLE `hits`
   ADD CONSTRAINT `FK30DF40953C854B` FOREIGN KEY (`tweetPoll_tweet_poll_id`) REFERENCES `tweetPoll` (`tweet_poll_id`),
+  ADD CONSTRAINT `FK30DF40369F8B2C` FOREIGN KEY (`userAccount_uid`) REFERENCES `userAccount` (`uid`),
   ADD CONSTRAINT `FK30DF4019AA125` FOREIGN KEY (`hashTag_hash_tag_id`) REFERENCES `hash_tags` (`hash_tag_id`),
   ADD CONSTRAINT `FK30DF4051153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`),
   ADD CONSTRAINT `FK30DF4063976E9` FOREIGN KEY (`poll_poll_id`) REFERENCES `poll` (`poll_id`);
@@ -371,3 +372,11 @@ ALTER TABLE `userAccount_permission`
 ALTER TABLE `userAccount_project`
   ADD CONSTRAINT `FKFBC45BBC5F77A117` FOREIGN KEY (`sec_id_secondary`) REFERENCES `userAccount` (`uid`),
   ADD CONSTRAINT `FKFBC45BBC84536452` FOREIGN KEY (`cat_id_project`) REFERENCES `project` (`project_id`);
+  
+ALTER TABLE `survey_hashtags`
+  ADD CONSTRAINT `FK9D62ED6C793D9E77` FOREIGN KEY (`sid`) REFERENCES `surveys` (`sid`),
+  ADD CONSTRAINT `FK9D62ED6CDA98FFE1` FOREIGN KEY (`hastag_id`) REFERENCES `hash_tags` (`hash_tag_id`);
+  
+
+ALTER TABLE `hash_tags_ranking`
+  ADD CONSTRAINT `FK71DECDA119AA125` FOREIGN KEY (`hashTag_hash_tag_id`) REFERENCES `hash_tags` (`hash_tag_id`);

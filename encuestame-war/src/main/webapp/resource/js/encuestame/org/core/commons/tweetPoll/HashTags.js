@@ -118,7 +118,16 @@ dojo.declare(
            };
            var load = dojo.hitch(this, function(data) {
                if ("success" in data) {
-                   this.addNewHashTag(data.success.hashtag);
+            	   //if fail
+            	   //{"error":{},"success":{"r":-1}}
+            	   //if not
+            	   //{"error":{},"success":{"hashtag":{"id":235,"size":12,"hashTagName":"nica","hits":1}}}
+            	   var success = data.success;
+            	   if ("hashtag" in success) {
+            		   this.addNewHashTag(data.success.hashtag);
+            	   } else if("r" in success) {
+            		   this.infoMesage("Hashtag is emtpy or has invalid characters.");
+            	   }            	   
                }
            });
            var error = dojo.hitch(this, function(error) {
@@ -169,7 +178,7 @@ dojo.declare(
 
         //new Hash Tag.
         newHashTag : function(data) {
-            console.debug(data);
+            //console.debug(data);
             var widget = new encuestame.org.core.commons.tweetPoll.HashTagsItem(
                     {
                      label : data.hashTagName,

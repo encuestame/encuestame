@@ -19,6 +19,8 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,9 +29,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.enums.HitCategory;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
@@ -70,6 +74,12 @@ public class Hit { //TODO: Create superMapped class with Access rate.
 
     /** {@link HashTag} **/
     private HashTag hashTag;
+    
+    /** {@link UserAccount} **/
+    private UserAccount userAccount;
+   
+    /** {@link HitCategory} **/
+    private HitCategory hitCategory;
 
 
     /**
@@ -179,7 +189,38 @@ public class Hit { //TODO: Create superMapped class with Access rate.
     /**
      * @param hashTag the hashTag to set
      */
-    public void setHashTag(HashTag hashTag) {
+    public void setHashTag(final HashTag hashTag) {
         this.hashTag = hashTag;
     }
+
+	/**
+	 * @return the hitCategory
+	 */
+    @Column(name = "hit_category", nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+	public HitCategory getHitCategory() {
+		return hitCategory;
+	}
+
+	/**
+	 * @param hitCategory the hitCategory to set
+	 */
+	public void setHitCategory(final HitCategory hitCategory) {
+		this.hitCategory = hitCategory;
+	}
+
+	/**
+	 * @return the userAccount
+	 */
+	@ManyToOne(cascade = CascadeType.MERGE)
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
+
+	/**
+	 * @param userAccount the userAccount to set
+	 */
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}	
 }

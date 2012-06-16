@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller.json.statistics;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +28,12 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.mvc.controller.AbstractJsonController; 
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.stats.GenericStatsBean;
+import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,10 +51,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HashTagStatsJsonController extends AbstractJsonController {
 
 	/** Log. **/
-	private Logger log = Logger.getLogger(this.getClass());
-
-	/** **/
-
+	private Logger log = Logger.getLogger(this.getClass());  
 
 	/** **/
 	private Integer INIT_RESULTS = 0;
@@ -72,28 +73,44 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 	public ModelMap getHashTagButtonStats(
 			@RequestParam(value = "tagName", required = true) String tagName,
 			@RequestParam(value = "filter", required = true) String filter,
-			@RequestParam(value = "limit", required = false) Integer limit,
+			@RequestParam(value = "period", required = false) String period,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		try { 
-			
+		try { 			
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			final HashTagStatsBean tagStatsBean = new HashTagStatsBean();
-			tagStatsBean.setTotalHits(getFrontService().getTotalUsageByHashTag(tagName,
-					this.INIT_RESULTS, limit,
-					TypeSearchResult.getTypeSearchResult(filter)));
-			tagStatsBean.setTotalUsageBySocialNetwork(getFrontService()
-					.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
-							limit));
-			tagStatsBean.setUsageByItem(getFrontService().getHashTagHitsbyName(tagName,
-					TypeSearchResult.getTypeSearchResult(filter)));
-			tagStatsBean.setUsageByVotes(getFrontService().getHashTagUsedOnItemsVoted(tagName, 
-					this.INIT_RESULTS, limit));
-
-			jsonResponse.put("hashTagButtonStats", tagStatsBean);
-			setItemResponse(jsonResponse);
+			final TypeSearchResult filterType = TypeSearchResult.getTypeSearchResult(filter);
+			final SearchPeriods searchPeriod = SearchPeriods.getPeriodString(period);
+			if (filterType == null) {
+				throw new EnMeNoResultsFoundException("type not found");
+			} else {
+				if (filterType.equals(TypeSearchResult.HASHTAGRATED)) {
+					// hits /period
+					tagStatsBean.setTotalHits(getStatisticsService().getHashTagHitsbyName(tagName,
+							filterType, request, searchPeriod)); 
+					tagStatsBean.getTotalHits().setTypeSearchResult(TypeSearchResult.HITS);
+					// social network use /period
+					tagStatsBean.setTotalUsageBySocialNetwork(getStatisticsService()
+							.getSocialNetworkUseByHashTag(tagName, this.INIT_RESULTS,
+									null, request, searchPeriod));
+					tagStatsBean.getTotalUsageBySocialNetwork().setTypeSearchResult(TypeSearchResult.SOCIALNETWORK);
+					// usage by / period
+					tagStatsBean.setUsageByItem(getStatisticsService().getTotalUsageByHashTag(tagName,
+							this.INIT_RESULTS, null, filterType, request, searchPeriod
+							));
+					tagStatsBean.getUsageByItem().setTypeSearchResult(TypeSearchResult.HASHTAG);
+					// votes
+					tagStatsBean.setUsageByVotes(getStatisticsService().getHashTagUsedOnItemsVoted(tagName, 
+							this.INIT_RESULTS, null, request, searchPeriod));
+					tagStatsBean.getUsageByVotes().setTypeSearchResult(TypeSearchResult.VOTES);
+					jsonResponse.put("hashTagButtonStats", tagStatsBean);
+					setItemResponse(jsonResponse);
+				} else {
+					setError("filter not valid", response);
+				}
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			log.error(e);
 			setError(e.getMessage(), response);
 		}
@@ -124,7 +141,6 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 			jsonResponse.put("hashTagRankingStats", getFrontService().getHashTagRanking(tagName));
 			setItemResponse(jsonResponse);
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.error(e);
 			setError(e.getMessage(), response);
 		}
@@ -146,16 +162,15 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 	@RequestMapping(value = "/api/common/stats/generic.json", method = RequestMethod.GET)
 	public ModelMap getGenericStats(
 			@RequestParam(value = "id", required = false) String itemId,
-			@RequestParam(value = "tagName", required = false) String tagName,
 			@RequestParam(value = "filter", required = false) String filter,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		try {
-			
+		try {			
 			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 			 final TypeSearchResult filterType = TypeSearchResult
 	                    .getTypeSearchResult(filter);
-			final GenericStatsBean genericStatsBean =  getFrontService().retrieveGenericStats(itemId, filterType);
+			final GenericStatsBean genericStatsBean =  getFrontService().retrieveGenericStats(
+					itemId, filterType, request);
 			jsonResponse.put("generic", genericStatsBean);
 			setItemResponse(jsonResponse);
 		} catch (Exception e) {
@@ -166,6 +181,58 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		return returnData();
 	}
 	
+	/**
+	 * 
+	 * @param tagName
+	 * @param period
+	 * @param filter
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/api/common/hashtags/stats/button/range.json", method = RequestMethod.GET)
+	public ModelMap getHashTagButtonStatsByDateRange(
+			@RequestParam(value = "tagName", required = true) String tagName,
+			@RequestParam(value = "period", required = false) String period,
+			@RequestParam(value = "filter", required = true) String filter,
+			HttpServletRequest request, HttpServletResponse response) { 
+		try {
+			List<HashTagDetailStats> tagStats = new ArrayList<HashTagDetailStats>();
+			final TypeSearchResult filterType = TypeSearchResult
+					.getTypeSearchResult(filter); 
+			//final SearchPeriods periodSearch = SearchPeriods.getPeriodString(period);
+			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+			final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
+			if (searchPeriods == null) {
+				setError("Period not valid", response);
+			} else {
+				if (filterType.equals(TypeSearchResult.HASHTAG)) {
+					tagStats = getStatisticsService()
+							.getTotalUsagebyHashTagAndDateRange(tagName,
+									searchPeriods, request);
+				} else if (filterType.equals(TypeSearchResult.SOCIALNETWORK)) {
+					tagStats = getStatisticsService()
+							.getTotalSocialLinksbyHashTagUsageAndDateRange(tagName,
+									searchPeriods, request);
+				} else if (filterType.equals(TypeSearchResult.HITS)) { 
+					tagStats = getStatisticsService()
+							.getTotalHitsUsagebyHashTagAndDateRange(tagName,
+									searchPeriods, request);  
+				} else if (filterType.equals(TypeSearchResult.VOTES)) {
+					tagStats = getStatisticsService()
+							.getTotalVotesbyHashTagUsageAndDateRange(tagName,
+									searchPeriods, request);
+				}
+				jsonResponse.put("statsByRange", tagStats);
+				setItemResponse(jsonResponse);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
 
 	 /**
      * HashTag stats bean.
@@ -177,36 +244,35 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 
 		/** Serial **/
 		private static final long serialVersionUID = -2620835370999916919L;
-
+	
 		/** Total hashTags usage in Poll, Survey and TweetPoll. **/
 		@JsonProperty(value = "usage_by_item")
-		private Long usageByItem;
+		private HashTagDetailStats usageByItem;
 
 		/** Total HashTags usage in social network profiles. **/
 		@JsonProperty(value = "total_usage_by_social_network")
-		private Long totalUsageBySocialNetwork;
+		private HashTagDetailStats totalUsageBySocialNetwork;
 
 		/** Total hits. **/
 		@JsonProperty(value = "total_hits")
-		private Long totalHits;
+		private HashTagDetailStats totalHits;
 
 		/** **/
 		@JsonProperty(value = "usage_by_votes")
-		private Long usageByVotes;
+		private HashTagDetailStats usageByVotes;
 
 		/**
 		 * @return the usageByItem
 		 */
 		@JsonIgnore
-		public Long getUsageByItem() {
+		public HashTagDetailStats getUsageByItem() {
 			return usageByItem;
 		}
 
 		/**
-		 * @param usageByItem
-		 *            the usageByItem to set
+		 * @param usageByItem the usageByItem to set
 		 */
-		public void setUsageByItem(Long usageByItem) {
+		public void setUsageByItem(final HashTagDetailStats usageByItem) {
 			this.usageByItem = usageByItem;
 		}
 
@@ -214,15 +280,15 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		 * @return the totalUsageBySocialNetwork
 		 */
 		@JsonIgnore
-		public Long getTotalUsageBySocialNetwork() {
+		public HashTagDetailStats getTotalUsageBySocialNetwork() {
 			return totalUsageBySocialNetwork;
 		}
 
 		/**
-		 * @param totalUsageBySocialNetwork
-		 *            the totalUsageBySocialNetwork to set
+		 * @param totalUsageBySocialNetwork the totalUsageBySocialNetwork to set
 		 */
-		public void setTotalUsageBySocialNetwork(Long totalUsageBySocialNetwork) {
+		public void setTotalUsageBySocialNetwork(
+				final HashTagDetailStats totalUsageBySocialNetwork) {
 			this.totalUsageBySocialNetwork = totalUsageBySocialNetwork;
 		}
 
@@ -230,15 +296,14 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		 * @return the totalHits
 		 */
 		@JsonIgnore
-		public Long getTotalHits() {
+		public HashTagDetailStats getTotalHits() {
 			return totalHits;
 		}
 
 		/**
-		 * @param totalHits
-		 *            the totalHits to set
+		 * @param totalHits the totalHits to set
 		 */
-		public void setTotalHits(Long totalHits) {
+		public void setTotalHits(final HashTagDetailStats totalHits) {
 			this.totalHits = totalHits;
 		}
 
@@ -246,15 +311,14 @@ public class HashTagStatsJsonController extends AbstractJsonController {
 		 * @return the usageByVotes
 		 */
 		@JsonIgnore
-		public Long getUsageByVotes() {
+		public HashTagDetailStats getUsageByVotes() {
 			return usageByVotes;
 		}
 
 		/**
-		 * @param usageByVotes
-		 *            the usageByVotes to set
+		 * @param usageByVotes the usageByVotes to set
 		 */
-		public void setUsageByVotes(Long usageByVotes) {
+		public void setUsageByVotes(final HashTagDetailStats usageByVotes) {
 			this.usageByVotes = usageByVotes;
 		}
 	}

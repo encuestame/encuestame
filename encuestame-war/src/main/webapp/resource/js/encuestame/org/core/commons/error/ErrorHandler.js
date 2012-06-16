@@ -16,7 +16,7 @@ dojo.declare(
         type : "Error",
 
         postCreate: function() {
-            console.debug("postCreate");
+            //console.debug("postCreate");
             //this.inherited(arguments);
         }
     }

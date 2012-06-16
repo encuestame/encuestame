@@ -15,6 +15,7 @@ package org.encuestame.mvc.test.stats;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -22,6 +23,7 @@ import javax.servlet.ServletException;
 import org.encuestame.mvc.controller.json.statistics.HashTagStatsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
@@ -105,7 +107,7 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         createHashTagHit(hashtag1, "192.1.1.5");
 
         final Long totalHitsbyTag = getFrontEndDao().getTotalHitsbyType(hashtag1.getHashTagId(),
-                    TypeSearchResult.HASHTAG);
+                    TypeSearchResult.HASHTAG, null);
         Assert.assertEquals("Should be equals ", totalHitsbyTag.intValue(), 5);
 
         // 4- Get total Usage by tweetpoll voted.
@@ -124,23 +126,29 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         // 2- Call Json service
         initService("/api/common/hashtags/stats/button.json", MethodJson.GET);
         setParameter("tagName", "romantic");
-        setParameter("filter", "HASHTAG");
+        setParameter("filter", "HASHTAGRATED");
         setParameter("limit", "30");
 
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONObject buttonStats = (JSONObject) success.get("hashTagButtonStats");
-        log.debug("Showing stats usage" +  buttonStats.get("usage_by_item").toString());
-        Assert.assertEquals(buttonStats.get("usage_by_item").toString(), "5");
+       
+        final JSONObject usage = (JSONObject) buttonStats.get("usage_by_item");
+        final JSONObject social = (JSONObject) buttonStats.get("total_usage_by_social_network");
+        final JSONObject visits = (JSONObject) buttonStats.get("total_hits");
+        final JSONObject votes = (JSONObject) buttonStats.get("usage_by_votes");
+          
+        log.debug("Showing stats usage" +  usage.get("value").toString());
+        Assert.assertEquals(usage.get("value").toString(), "3");
 
-        log.debug("Showing stats usage by social network links" +  buttonStats.get("total_usage_by_social_network").toString());
-        Assert.assertEquals(buttonStats.get("total_usage_by_social_network").toString(), "1");
+        log.debug("Showing stats usage by social network links" +  social.get("value").toString());
+        Assert.assertEquals(social.get("value").toString(), "1");
 
-        log.debug("Showing stats usage by item(HashTag)" +  buttonStats.get("total_hits").toString());
-        Assert.assertEquals(buttonStats.get("total_hits").toString(), "3");
+        log.debug("Showing stats usage by item(HashTag)" +  visits.get("value").toString());
+        Assert.assertEquals(visits.get("value").toString(), "5");
 
-        log.debug("Showing stats usage by item(HashTag)" +  buttonStats.get("usage_by_votes").toString());
-        Assert.assertEquals(buttonStats.get("usage_by_votes").toString(), "4");
+        log.debug("Showing stats usage by item(HashTag)" +  usage.get("value").toString());
+        Assert.assertEquals(votes.get("value").toString(), "4");
     }
 
     /**
@@ -165,7 +173,7 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
 
         // Call json service.
         initService("/api/common/hashtags/stats/ranking.json", MethodJson.GET);
-        setParameter("tagName", "Asia");
+        setParameter("tagName", "asia");
         final JSONObject response = callJsonService();
         final JSONObject success = getSucess(response);
         final JSONArray hashTagsRanking2 = (JSONArray) success.get("hashTagRankingStats");
@@ -202,10 +210,36 @@ public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
         final JSONObject successHashTag = getSucess(responseHashTag);
         final JSONObject genericHashStatsData = (JSONObject) successHashTag.get("generic");
 
-        Assert.assertEquals(genericHashStatsData.get("hits").toString(), hashtag.getHits().toString());
-
-
+        Assert.assertEquals(genericHashStatsData.get("hits").toString(), hashtag.getHits().toString());  
     }
-
-
+    
+    /**
+     * 
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Test
+    public void testHashTagStatByRange() throws ServletException, IOException{
+    	final Calendar myDate = Calendar.getInstance();
+    	final HashTag hashTag1 = createHashTag("software2");  
+    	 
+    	final Hit hit1 = createHashTagHit(hashTag1, "192.168.1.1");
+    	final Hit hit2 = createHashTagHit(hashTag1, "192.168.1.2");
+    	 
+    	hit1.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit1); 
+     
+    	myDate.add(Calendar.DATE, -4);
+    	hit2.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit2); 
+    	
+    	initService("/api/common/hashtags/stats/button/range.json", MethodJson.GET);
+		setParameter("tagName", hashTag1.getHashTag());
+		setParameter("period", "7");
+		setParameter("filter", "HITS");
+		final JSONObject response = callJsonService();
+		final JSONObject success = getSucess(response);
+		final JSONArray hashTagHitsData = (JSONArray) success.get("statsByRange"); 
+		Assert.assertEquals(hashTagHitsData.size(), 2);   
+    }  
 }

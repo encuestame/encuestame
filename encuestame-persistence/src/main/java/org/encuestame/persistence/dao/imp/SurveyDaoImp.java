@@ -28,6 +28,8 @@ import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -37,6 +39,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -404,7 +407,7 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
 
     @SuppressWarnings("unchecked")
     public List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
-            final Integer limitResults, final TypeSearchResult filterby) {
+            final Integer limitResults, final TypeSearchResult filterby, final SearchPeriods searchPeriods) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(Survey.class)
                 .createAlias("hashTags", "hashTags")
@@ -424,24 +427,20 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
         } else if (filterby.equals(TypeSearchResult.HASHTAGRATED)) {
               criteria.addOrder(Order.desc("numbervotes"));
         }
-        return getHibernateTemplate().findByCriteria(criteria, startResults, limitResults);
+        calculateSearchPeriodsDates(searchPeriods, detached, "createdAt");
+        return (List<Survey>) filterByMaxorStart(criteria, limitResults, startResults);
     }
 
-
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.ISurvey#getSurveysbyHashTagNameAndDateRange
+	 * (java.lang.String, java.lang.Integer)
+	 */
     @SuppressWarnings("unchecked")
        public List<Survey> getSurveysbyHashTagNameAndDateRange(
-               final String tagName, final Integer period,
-               final Integer startResults, final Integer limit) {
-           Date startDate = null;
-           Date endDate = null;
-           if (period != null) {
-               final Calendar hi = Calendar.getInstance();
-               hi.add(Calendar.DAY_OF_YEAR, -period);
-               startDate = hi.getTime();
-               endDate = Calendar.getInstance().getTime();
-
-           }
+               final String tagName, final SearchPeriods period) {
            final DetachedCriteria detached = DetachedCriteria
                    .forClass(Survey.class)
                    .createAlias("hashTags", "hashTags")
@@ -457,9 +456,8 @@ public class SurveyDaoImp extends AbstractHibernateDaoSupport implements ISurvey
                    Survey.class, "survey");
            criteria.add(Subqueries.propertyIn("survey.sid", detached));
            criteria.addOrder(Order.desc("survey.createdAt"));
-           criteria.add(Restrictions.between("createdAt", startDate, endDate));
-           return getHibernateTemplate().findByCriteria(criteria, startResults,
-                   limit);
+           calculateSearchPeriodsDates(period, criteria, "survey.createdAt");
+           return getHibernateTemplate().findByCriteria(criteria);
        }
 
 

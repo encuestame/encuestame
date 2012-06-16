@@ -60,10 +60,10 @@ public class TestSearchService extends AbstractServiceBase {
         resultsAllowed.add(TypeSearchResult.ATTACHMENT);
         resultsAllowed.add(TypeSearchResult.HASHTAG);
         resultsAllowed.add(TypeSearchResult.TWEETPOLL);
-        final Map<String, List<GlobalSearchItem>> d1 = this.searchServiceOperations.quickSearch("ni", "English", 0, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> d1 = this.searchServiceOperations.quickSearch("ni", "English", 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> hashtag = d1.get("tags");
         Assert.assertEquals(hashtag.size(), 1);
-        final Map<String, List<GlobalSearchItem>> d2 = this.searchServiceOperations.quickSearch("future", "English", 0, 10, resultsAllowed);
+        final Map<String, List<GlobalSearchItem>> d2 = this.searchServiceOperations.quickSearch("future", "English", 0, 10, 10, resultsAllowed);
         final List<GlobalSearchItem> questions = d2.get("questions");
         Assert.assertEquals(questions.size(), 1);
         //TODO: continue with  poll, profile,

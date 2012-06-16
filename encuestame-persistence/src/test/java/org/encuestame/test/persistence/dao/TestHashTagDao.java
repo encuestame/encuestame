@@ -14,6 +14,7 @@ package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.test.config.AbstractBase;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -106,22 +108,89 @@ public class TestHashTagDao  extends AbstractBase{
            // System.out.println("---- MIN ----****"+ objects[1]);
         }
     }
-    
+  
+	/**
+	 * 
+	 */
+	@Test
+	public void testGetMaxHashTagRankDate() {
+		final Calendar myDate = Calendar.getInstance();
+		final HashTag tag = createHashTag("America", 20L);
+		final HashTag tag1 = createHashTag("Europa", 20L);
+		final HashTag tag2 = createHashTag("Asia", 20L);
+		
+		myDate.add(Calendar.DATE, -1); 
+		final Date maxDate = myDate.getTime();
+		createHashTagRank(tag, myDate.getTime(), 20D);
+		myDate.add(Calendar.DATE, -2);
+		 
+		createHashTagRank(tag1, myDate.getTime(), 10D);
+		
+		myDate.add(Calendar.DATE, -3); 
+		createHashTagRank(tag2, myDate.getTime(), 30D);
+		
+ 		final Date tRank = getHashTagDao()
+				.getMaxHashTagRankingDate();  
+
+	} 
+	
 	/**
 	 * Test Get hashtag rank stats.
 	 */
 	@Test
-	public void testgetHashTagRankStats() {
-		final Date myDate = new Date();
+	public void testgetHashTagRankStats(){
+		final DateTime time = new DateTime("2010-06-25");		
+		//final Calendar myDate = Calendar.getInstance().setTime(time.toDate());
 		final HashTag tag = createHashTag("America", 20L);
 		final HashTag tag1 = createHashTag("Europa", 20L);
 		final HashTag tag2 = createHashTag("Asia", 20L);
-		createHashTagRank(tag, myDate, 20D);
-		createHashTagRank(tag1, myDate, 10D);
-		createHashTagRank(tag2, myDate, 30D);
- 		final List<HashTagRanking> tRank = getHashTagDao()
-				.getHashTagRankStats();
-		assertEquals("Should be equals", tRank.size(), 3);
-
-	} 
+		final HashTag tag3 = createHashTag("Antartic", 20L);
+		final HashTag tag4 = createHashTag("Oceania", 20L); 
+		final HashTag tag5 = createHashTag("Polar", 10L);
+		
+		
+		//myDate.add(Calendar.DATE, -1);
+		final DateTime time1 = time.minusDays(1);
+		
+		createHashTagRank(tag, time1.toDate(), 20D); 
+		
+		time.minusHours(1);
+		time.minusMinutes(5);
+		//myDate.add(Calendar.HOUR, -1);
+		//myDate.add(Calendar.MINUTE, -5); 
+		createHashTagRank(tag1, time.toDate(), 25D);
+		
+		//myDate.add(Calendar.HOUR, -2);
+		//myDate.add(Calendar.MINUTE, 25); 
+		time.minusHours(2);
+		time.minusMinutes(25);
+		createHashTagRank(tag2, time.toDate(), 15D);
+		
+		//myDate.add(Calendar.HOUR, -3);
+		//myDate.add(Calendar.MINUTE, 10);
+		time.minusHours(3);
+		time.plusMinutes(10);
+		createHashTagRank(tag3, time.toDate(), 46D);
+		
+		//myDate.add(Calendar.HOUR, -2);
+		//myDate.add(Calendar.MINUTE, -30);
+		time.minusHours(2);
+		time.minusMinutes(30);
+		createHashTagRank(tag4, time.toDate(), 31D);
+		createHashTagRank(tag5, time.toDate(), 60D);
+		
+		final DateTime time8 = time.minusDays(3); 
+		createHashTagRank(tag1, time8.toDate(), 10D);
+		createHashTagRank(tag, time8.toDate(), 20D);
+		createHashTagRank(tag, time8.toDate(), 20D);
+		
+		//myDate.add(Calendar.DATE, -3);
+		final DateTime time9 = time.minusDays(3);
+		createHashTagRank(tag2, time.toDate(), 30D);
+		
+ 		final Date tRank = getHashTagDao().getMaxHashTagRankingDate();
+ 		System.out.println(tRank);
+ 		final List<HashTagRanking> rankStats = getHashTagDao().getHashTagRankStats(tRank);   
+		assertEquals("Should be equals", rankStats.size(), 6);
+	}  
 }

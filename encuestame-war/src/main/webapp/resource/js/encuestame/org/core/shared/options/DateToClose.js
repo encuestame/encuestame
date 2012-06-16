@@ -74,14 +74,14 @@ dojo.declare(
              this.options.date = encuestame.date.getFormatTime(new Date(), encuestame.date.dateFormat);
              this.options.checked = event;
              this.publish({});
-             console.debug("this.options", this.getOptions());
+             //console.debug("this.options", this.getOptions());
          });
          this.scheduledDateWidget = dijit.byId("scheduledDate_"+this.id);
          this.scheduledDateWidget.onChange = dojo.hitch(this, function(event){
              this.options.date = encuestame.date.getFormatTime(this.scheduledDateWidget.get("value"),
                        encuestame.date.dateFormat);
                this.publish({});
-               console.debug("this.options", this.getOptions());
+               //console.debug("this.options", this.getOptions());
          });
          //time widget.
          this.scheduledTimeWidget = dijit.byId("scheduledTime_"+this.id);
@@ -89,7 +89,7 @@ dojo.declare(
              this.options.time = encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
                          encuestame.date.timeFormat);
              this.publish({});
-             console.debug("this.options", this.getOptions());
+             //console.debug("this.options", this.getOptions());
          });
      },
 

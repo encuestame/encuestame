@@ -109,7 +109,7 @@ public class PollController extends AbstractBaseOperations {
         try {
             type = filterValue(type);
             slugName = filterValue(slugName);
-            final String IP = getIpClient();
+            final String IP = getIpClient(req);
             //validations
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             if (checkBannedIp) {

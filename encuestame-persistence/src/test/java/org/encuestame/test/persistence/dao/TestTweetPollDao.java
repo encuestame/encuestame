@@ -35,8 +35,9 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.social.SocialProvider;
+import org.encuestame.utils.social.SocialProvider; 
 import org.joda.time.DateMidnight;
 import org.junit.Assert;
 import org.junit.Before;
@@ -77,11 +78,7 @@ public class TestTweetPollDao  extends AbstractBase{
     private Integer MAX_RESULTS = 10;
 
     /** Init results query. **/
-    private Integer INIT_RESULTS = 0;
-    
-    /** **/
-    private Integer PERIOD_YEAR = 365;
-    
+    private Integer INIT_RESULTS = 0;      
     
     /**
      * Before.
@@ -172,7 +169,7 @@ public class TestTweetPollDao  extends AbstractBase{
       	 
     	final TweetPollResult tpResultEurope =  createTweetPollResultWithPollingDate(pollSwitchEurope, "192.168.0.2", pollingDate.getTime());
          
-    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), PERIOD_YEAR);
+    	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), SearchPeriods.ONEYEAR.toDays());
     	assertEquals("Should be equals", 3, totalVotes.intValue()); 
           
          
@@ -192,7 +189,7 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Test
     public void testGetTotalTweetPollResultByTweetPollSwitch(){
-    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1, PERIOD_YEAR);
+    	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1, SearchPeriods.ONEYEAR);
     	// See @Before on the top
     	assertEquals("Should be equals", 2,  myvalue.intValue()); 
     }
@@ -336,7 +333,10 @@ public class TestTweetPollDao  extends AbstractBase{
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, -15);
         final Calendar calendar2 = Calendar.getInstance();
-        final List<TweetPoll> tweetPolls = getTweetPoll().getTweetpollByHashTagName(this.hashTag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+		final List<TweetPoll> tweetPolls = getTweetPoll()
+				.getTweetpollByHashTagName(this.hashTag1.getHashTag(),
+						this.INIT_RESULTS, this.MAX_RESULTS,
+						TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         assertEquals("Should be equals", 1, tweetPolls.size());
         final HashTag hashtag2 = createHashTag("paola");
         final HashTag hashtag3 = createHashTag("juan");
@@ -361,7 +361,10 @@ public class TestTweetPollDao  extends AbstractBase{
         final HashMap<Integer, RelativeTimeEnum> hm3 = DateUtil.getRelativeTime(tweetPoll1.getCreateDate());
         //System.out.println("HM 3 ---------->"+hm3);
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagName(this.hashTag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAG);
+		final List<TweetPoll> tweetPolls2 = getTweetPoll()
+				.getTweetpollByHashTagName(this.hashTag1.getHashTag(),
+						this.INIT_RESULTS, this.MAX_RESULTS,
+						TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         //System.out.println("------------- HASH TAG NAME---------> " + this.hashTag1.getHashTag());
 
 
@@ -409,7 +412,10 @@ public class TestTweetPollDao  extends AbstractBase{
         getTweetPoll().saveOrUpdate(tweetPoll1);
         getTweetPoll().saveOrUpdate(tweetPoll2);
 
-        final List<TweetPoll> tweetPolls2 = getTweetPoll().getTweetpollByHashTagName(this.hashTag1.getHashTag(), this.INIT_RESULTS, this.MAX_RESULTS, TypeSearchResult.HASHTAGRATED);
+		final List<TweetPoll> tweetPolls2 = getTweetPoll()
+				.getTweetpollByHashTagName(this.hashTag1.getHashTag(),
+						this.INIT_RESULTS, this.MAX_RESULTS,
+						TypeSearchResult.HASHTAGRATED, SearchPeriods.ALLTIME);
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 
@@ -606,8 +612,7 @@ public class TestTweetPollDao  extends AbstractBase{
 		assertNotNull(tweetPoll2);
 
 		final List<TweetPoll> tweetPollsbyHashTag = getTweetPoll()
-				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(),
-						7, this.INIT_RESULTS, this.MAX_RESULTS);
+				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(), SearchPeriods.SEVENDAYS);
 		Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
 	} 
 	
@@ -643,10 +648,31 @@ public class TestTweetPollDao  extends AbstractBase{
 		tpSaved2.setPublicationDateTweet(myCalendarDate.getTime());
 		getTweetPoll().saveOrUpdate(tpSaved2);
 		assertNotNull(tpSaved2);
-		final Long tweetPollSocialLinks = getTweetPoll()
-				.getSocialLinksByTypeAndDateRange(tweetPoll, null, null,
-						TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);  
-		Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
+		//final Long tweetPollSocialLinks = getTweetPoll()
+		//		.getSocialLinksByTypeAndDateRange(tweetPoll, null, null,
+		//					TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);  
+		//Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
+	}
+	
+	/**
+	 * Test finding the distance between two coordinate points.
+	 */
+	@Test
+	public void testRetrieveTweetPollsBySearchRadiusOfGeoLocation() {
+		final Calendar myCalendarDate = Calendar.getInstance();
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(),
+				createQuestion("What is your favorite pastime?",
+						secondary.getAccount()), myCalendarDate.getTime());
+
+		tweetPoll.setLocationLatitude(40.4167F);
+		tweetPoll.setLocationLongitude(-3.70325F);
+		getTweetPoll().saveOrUpdate(tweetPoll);
+		assertNotNull(tweetPoll); 
+		final List<Object[]> distanceFromOrigin = getTweetPoll()
+				.retrieveTweetPollsBySearchRadiusOfGeoLocation(41.3879169F,
+						2.16991870F, 510);
+		System.out.println("Distance from Origin ---> " + distanceFromOrigin.get(0)[1]);  
 	}
 
 }

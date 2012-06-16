@@ -77,13 +77,13 @@ dojo.declare(
          *
          */
         postCreate : function() {
-            console.debug("this.date", this.date);
+            //console.debug("this.date", this.date);
             this.statusWidget = dijit.byId("status_"+this.id);
             if (this._hits) {
-                this._hits.innerHTML = encuestame.utilities.shortAmmount(this.hits);
+                this._hits.innerHTML = ENME.shortAmmount(this.hits);
             }
             if (this._votes) {
-                this._votes.innerHTML = encuestame.utilities.shortAmmount(this.votes);
+                this._votes.innerHTML = ENME.shortAmmount(this.votes);
             }
             if (this._question_title) {
                 this._question_title.innerHTML = this.question;
@@ -91,7 +91,7 @@ dojo.declare(
             if(!this.completed) {
                 if (this.date != null) {
                     this.date = new Date(this.date);
-                    console.debug("this.date 2 ", this.date);
+                    //console.debug("this.date 2 ", this.date);
                     this.countdownWidget = new encuestame.org.core.shared.utils.CountDown({
                         limitDate : {
                             day : this.date.getDate(),

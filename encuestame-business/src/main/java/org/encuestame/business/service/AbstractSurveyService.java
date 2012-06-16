@@ -13,9 +13,10 @@
 package org.encuestame.business.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
+import java.util.Calendar; 
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -161,8 +162,7 @@ public class AbstractSurveyService extends AbstractChartService {
     public QuestionAnswer createAnswers(final Question question, final String answerText){
          final QuestionAnswer answer = new QuestionAnswer();
           answer.setQuestions(question);
-          answer.setAnswer(answerText);
-          answer.setQuestions(question);;
+          answer.setAnswer(answerText); 
           answer.setColor(PictureUtils.getRandomHexColor());
           this.getQuestionDao().saveOrUpdate(answer);
           log.debug("createAnswers =>" + answer.getQuestionAnswerId());
@@ -197,7 +197,7 @@ public class AbstractSurveyService extends AbstractChartService {
     }
 
     /**
-     *
+     * Retrieve list of {@link HashTag} if one of each don't exist, is created and added to the list.
      * @param hashtagBeans
      * @return
      * @throws EnMeNoResultsFoundException
@@ -206,11 +206,11 @@ public class AbstractSurveyService extends AbstractChartService {
         log.debug("TPService retrieveListOfHashTags from frontEnd->"+hashtagBeans.size());
         final List<HashTag> tagList = new ArrayList<HashTag>();
         for (HashTagBean unitHashTag : hashtagBeans) {
-            HashTag hashTag = getHashTag(unitHashTag.getHashTagName(), true);
+            HashTag hashTag = getHashTag(unitHashTag.getHashTagName(), false);
             //if is null, create new hashTag.
             if (hashTag == null && unitHashTag.getHashTagName() != null) {
                 log.debug("created new hashTag:{"+unitHashTag.getHashTagName().toLowerCase());
-                hashTag =createHashTag(unitHashTag.getHashTagName().toLowerCase());
+                hashTag = createHashTag(unitHashTag.getHashTagName().toLowerCase());
             }
             tagList.add(hashTag);
         }
@@ -218,6 +218,26 @@ public class AbstractSurveyService extends AbstractChartService {
         return tagList;
     }
 
+    /**
+     * Create new question with answers.
+     * @param questionName
+     * @param answers
+     * @param user
+     * @return
+     * @throws EnMeExpcetion
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
+    public Question createQuestion(
+            final String questionName,
+            final UserAccount user) throws EnMeExpcetion, NoSuchAlgorithmException, UnsupportedEncodingException{
+        final QuestionBean questionBean = new QuestionBean();
+        questionBean.setQuestionName(questionName);
+        questionBean.setUserId(user.getUid());
+        final Question questionDomain = createQuestion(questionBean, user, QuestionPattern.LINKS);
+        return questionDomain;
+    }
+    
     /**
      * Create {@link TweetPollSwitch}.
      * @return {@link TweetPollSwitch}.
@@ -264,25 +284,20 @@ public class AbstractSurveyService extends AbstractChartService {
         log.debug("Is offline? "+EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode"));
         String urlShort = url;
         if (!EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode")) {
-            if (provider == null) {
+            if (provider.equals(ShortUrlProvider.GOOGL)) {
                 urlShort = SocialUtils.getGoGl(url,
                         EnMePlaceHolderConfigurer.getProperty("short.google.key"));
-            } else if (provider.equals(ShortUrlProvider.GOOGL)) {
-                urlShort = SocialUtils.getGoGl(url,
-                        EnMePlaceHolderConfigurer.getProperty("short.google.key"));
+            } else if (provider.equals(ShortUrlProvider.NONE)) {
+            	urlShort = url;
             } else if (provider.equals(ShortUrlProvider.TINYURL)) {
                 urlShort = SocialUtils.getTinyUrl(url);
             } else if (provider.equals(ShortUrlProvider.BITLY)) {
                  urlShort = SocialUtils.getBitLy(url,
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+            } else {
+            	urlShort = url;
             }
-            //else {
-                 // if is  null, always user bitly.
-                 // urlShort = SocialUtils.getBitLy(url,
-                 //         EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
-                 //         EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
-            //}
         }
         log.debug("shortUrlProvider SHORT: "+urlShort);
         return urlShort;
@@ -566,11 +581,11 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param ip ip
      */
     public void tweetPollVote(final TweetPollSwitch pollSwitch, final String ip){
-        final TweetPollResult pollResult = new TweetPollResult();
-        pollResult.setIpVote(ip.trim());
-        pollResult.setTweetPollSwitch(pollSwitch);
-        pollResult.setTweetResponseDate(new Date());
-        getTweetPollDao().saveOrUpdate(pollResult);
+        final TweetPollResult tweetPollResult = new TweetPollResult();
+        tweetPollResult.setIpVote(ip.trim());
+        tweetPollResult.setTweetPollSwitch(pollSwitch);
+        tweetPollResult.setTweetResponseDate(new Date());
+        getTweetPollDao().saveOrUpdate(tweetPollResult);
     }
 
     /**
@@ -617,6 +632,18 @@ public class AbstractSurveyService extends AbstractChartService {
              getQuestionDao().saveOrUpdate(question);
          }
      }
+      
+   
+    /**
+     * Retrieve {@link QuestionAnswer} by {@link Question} id.  
+     * @param questionId
+     * @return
+     */
+	public List<QuestionAnswer> getQuestionAnswersbyQuestionId(final Long questionId) {
+		final List<QuestionAnswer> qAnswers = getQuestionDao()
+				.getAnswersByQuestionId(questionId);
+		return qAnswers;
+	}
 
     /**
      * @return the answerPollPath

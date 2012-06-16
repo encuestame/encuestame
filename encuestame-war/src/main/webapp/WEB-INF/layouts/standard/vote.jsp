@@ -12,9 +12,7 @@
     </title>
     <%@ include file="/WEB-INF/jsp/includes/meta.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
-      <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries-->
-    <script src="<%=request.getContextPath()%>/resources/js/req/modernizr-2.0.6.js"></script>
+    <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp" %>
 </head>
 <body class="claro">
      <header id="header">

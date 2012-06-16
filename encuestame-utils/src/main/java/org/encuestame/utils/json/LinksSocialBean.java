@@ -28,14 +28,31 @@ public class LinksSocialBean implements Serializable {
 
     /** **/
     private static final long serialVersionUID = -466651445270622763L;
-
+    
+    /**
+     * Social Link url.
+     */
     @JsonProperty(value = "link_url")
     private String link;
 
-
+    /**
+     * Social Network Provider.
+     */
     @JsonProperty(value = "provider_social")
     private String provider;
-
+    
+    /**
+     * Date of text is published. 
+     */
+    @JsonProperty(value = "publishd_text")
+    private String publishText;
+    
+    /**
+     * Published date.
+     */
+    @JsonProperty(value = "published_date")
+    private String publishedDate;
+    
 
     /**
      * @return the link
@@ -69,9 +86,42 @@ public class LinksSocialBean implements Serializable {
     public void setProvider(String provider) {
         this.provider = provider;
     }
+    
+    /**
+	 * @return the publishText
+	 */
+    @JsonIgnore
+	public String getPublishText() {
+		return publishText;
+	}
 
 
-    /* (non-Javadoc)
+	/**
+	 * @param publishText the publishText to set
+	 */
+	public void setPublishText(String publishText) {
+		this.publishText = publishText;
+	}
+
+
+	/**
+	 * @return the publishedDate
+	 */
+	@JsonIgnore
+	public String getPublishedDate() {
+		return publishedDate;
+	}
+
+
+	/**
+	 * @param publishedDate the publishedDate to set
+	 */
+	public void setPublishedDate(String publishedDate) {
+		this.publishedDate = publishedDate;
+	}
+
+
+	/* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

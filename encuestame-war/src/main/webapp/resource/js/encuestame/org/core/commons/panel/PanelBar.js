@@ -68,7 +68,7 @@ dojo.declare("encuestame.org.core.commons.panel.PanelBarItem",
      *
      */
     postCreate : function() {
-        console.debug("item collapsed", this.collapsed);
+        //console.debug("item collapsed", this.collapsed);
          dojo.connect(this._title, "onclick", dojo.hitch(this, function(event) {
              dojo.stopEvent(event);
              this._change();

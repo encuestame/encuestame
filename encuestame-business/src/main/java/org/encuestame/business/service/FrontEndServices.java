@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
- 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.SecurityOperations;
@@ -32,9 +31,9 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
-import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -43,8 +42,8 @@ import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
-import org.encuestame.utils.web.stats.GenericStatsBean; 
-import org.encuestame.utils.web.stats.HashTagRankingBean; 
+import org.encuestame.utils.web.stats.GenericStatsBean;
+import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -188,7 +187,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             final Integer maxResults,
             final HttpServletRequest request) throws EnMeSearchException {
         // Sorted list based comparable interface
-        final List<HomeBean> allItems = new ArrayList<HomeBean>();
+        List<HomeBean> allItems = new ArrayList<HomeBean>();
         final List<TweetPollBean> tweetPollItems = this.searchItemsByTweetPoll(
                 period, start, maxResults, request);
         log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
@@ -205,6 +204,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
                 .convertSurveyListToHomeBean(surveyItems));
         log.debug("Home bean list size :" + allItems.size());
         Collections.sort(allItems);
+        // limit the total resuls to maxResults requested
+        if (maxResults != null && allItems.size() > maxResults) {
+        	allItems = allItems.subList(0, maxResults);
+        }
         return allItems;
     }
     
@@ -322,11 +325,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public HashTag getHashTagItem(final String tagName)
             throws EnMeNoResultsFoundException {
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-        if (tag == null) {
-            throw new EnMeNoResultsFoundException("hashtag not found");
-        }
-        return tag;
+        return getHashTag(tagName, true);
     }
 
     /**
@@ -336,12 +335,16 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param limit
      * @return
      */
-    public List<TweetPollBean> getTweetPollsbyHashTagName(final String tagName,
-            final Integer initResults, final Integer limit,
-            final String filter, final HttpServletRequest request) {
+    public List<TweetPollBean> getTweetPollsbyHashTagName(
+    		final String tagName,
+            final Integer initResults,
+            final Integer limit,
+            final String filter, 
+            final HttpServletRequest request,
+            final SearchPeriods searchPeriods) {
         final List<TweetPoll> tweetPolls = getTweetPollDao()
                 .getTweetpollByHashTagName(tagName, initResults, limit,
-                        TypeSearchResult.getTypeSearchResult(filter));
+                        TypeSearchResult.getTypeSearchResult(filter), searchPeriods);
         log.debug("TweetPoll by HashTagId total size ---> " + tweetPolls.size());
         final List<TweetPollBean> tweetPollBean = ConvertDomainBean
                 .convertListToTweetPollBean(tweetPolls);
@@ -361,7 +364,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         final List<HomeBean> allItems = new ArrayList<HomeBean>();
         final List<TweetPollBean> tweetPollItems = this
                 .getTweetPollsbyHashTagName(hashTag.getHashTag(), initResults,
-                        limit, filter, request);
+                        limit, filter, request, SearchPeriods.ALLTIME);
         log.debug("FrontEnd TweetPoll items size  :" + tweetPollItems.size());
         allItems.addAll(ConvertDomainBean
                 .convertTweetPollListToHomeBean(tweetPollItems));
@@ -394,6 +397,55 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         }
         return hit;
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.IFrontEndService#registerVote()
+     */
+	public Status registerVote(final Long itemId,
+			final TypeSearchResult searchResult,
+			 final String ipAddress) {
+
+		//FIXME: need a restrictions to avoid repeated votes  
+				
+    	Status status = Status.SUCCESS;
+    	final Long INCREASE_VOTES = 1L;
+    	final String userVote = getUserPrincipalUsername();
+    	log.debug("registerVote: "+userVote);
+		final Hit hit = new Hit();
+		hit.setHitCategory(HitCategory.VOTE);
+		hit.setIpAddress(ipAddress);
+    		try {
+				//vote process
+				if (searchResult.equals(TypeSearchResult.TWEETPOLL)) {
+					final TweetPoll tp = getTweetPollService().getTweetPollPublishedById(itemId);
+					final Long votes = tp.getNumbervotes() + INCREASE_VOTES;
+					tp.setNumbervotes(votes);
+					hit.setTweetPoll(tp);
+					getTweetPollDao().saveOrUpdate(tp);
+				} else if (searchResult.equals(TypeSearchResult.POLL)) {
+					final Poll poll = getPollService().getPollById(itemId);	
+					final Long votes = poll.getNumbervotes() + INCREASE_VOTES;
+					poll.setNumbervotes(votes);
+					getPollDao().saveOrUpdate(poll);
+					hit.setPoll(poll);
+				} else if (searchResult.equals(TypeSearchResult.SURVEY)) {
+					//TODO: Vote a Survey.
+				}
+				//register the vote.
+				if (!EnMeUtils.ANONYMOUS_USER.equals(userVote)) {
+					UserAccount userAccount = getUserAccount(userVote);
+					hit.setUserAccount(userAccount);
+					log.debug("registerVote by userAccount: "+userAccount.getUsername());
+				}				
+				hit.setHitDate(Calendar.getInstance().getTime());
+				getAccountDao().saveOrUpdate(hit);
+			} catch (EnMeNoResultsFoundException e) {
+				log.error(e);
+				status = Status.FAILED;
+			}    	
+    	return status;
+    }
 
     /*
      * (non-Javadoc)
@@ -406,7 +458,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.persistence.domain.HashTag, java.lang.String)
      */
     public Boolean registerHit(final TweetPoll tweetPoll, final Poll poll,
-            final Survey survey, final HashTag tag, final String ip)
+            final Survey survey, final HashTag tag, final String ip, final HitCategory hitCategory)
             throws EnMeNoResultsFoundException {
         final Hit hit;
         Long hitCount = 1L;
@@ -414,26 +466,26 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         // HashTag
         if (ip != null) {
             if (tag != null) {
-                hit = this.newHashTagHit(tag, ip);
+                hit = this.newHashTagHit(tag, ip, hitCategory);
                 hitCount = tag.getHits() == null ? 0L : tag.getHits()
                         + hitCount;
                 tag.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(tag);
                 register = true;
             } else if (tweetPoll != null) {
-                hit = this.newTweetPollHit(tweetPoll, ip);
+                hit = this.newTweetPollHit(tweetPoll, ip, hitCategory);
                 hitCount = tweetPoll.getHits() + hitCount;
                 tweetPoll.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(tweetPoll);
                 register = true;
             } else if (poll != null) {
-                hit = this.newPollHit(poll, ip);
+                hit = this.newPollHit(poll, ip, hitCategory);
                 hitCount = poll.getHits() + hitCount;
                 poll.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(poll);
                 register = true;
             } else if (survey != null) {
-                hit = this.newSurveyHit(survey, ip);
+                hit = this.newSurveyHit(survey, ip, hitCategory);
                 hitCount = survey.getHits() + hitCount;
                 survey.setHits(hitCount);
                 getFrontEndDao().saveOrUpdate(survey);
@@ -456,7 +508,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
 
     @Transactional(readOnly = false)
     private Hit newHitItem(final TweetPoll tweetPoll, final Poll poll,
-            final Survey survey, final HashTag tag, final String ipAddress) {
+            final Survey survey, final HashTag tag, final String ipAddress, final HitCategory hitCategory) {
         final Hit hitItem = new Hit();
         hitItem.setHitDate(Calendar.getInstance().getTime());
         hitItem.setHashTag(tag);
@@ -464,6 +516,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         hitItem.setTweetPoll(tweetPoll);
         hitItem.setPoll(poll);
         hitItem.setSurvey(survey);
+        hitItem.setHitCategory(hitCategory);
         getFrontEndDao().saveOrUpdate(hitItem);
         return hitItem;
     }
@@ -476,8 +529,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @return
      */
     private Hit newTweetPollHit(final TweetPoll tweetPoll,
-            final String ipAddress) {
-        return this.newHitItem(tweetPoll, null, null, null, ipAddress);
+            final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(tweetPoll, null, null, null, ipAddress, hitCategory);
     }
 
     /**
@@ -487,8 +540,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @return
      */
-    private Hit newPollHit(final Poll poll, final String ipAddress) {
-        return this.newHitItem(null, poll, null, null, ipAddress);
+    private Hit newPollHit(final Poll poll, final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(null, poll, null, null, ipAddress, hitCategory);
     }
 
     /**
@@ -498,8 +551,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @return
      */
-    private Hit newHashTagHit(final HashTag tag, final String ipAddress) {
-        return this.newHitItem(null, null, null, tag, ipAddress);
+    private Hit newHashTagHit(final HashTag tag, final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(null, null, null, tag, ipAddress, hitCategory);
     }
 
     /**
@@ -509,8 +562,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * @param ipAddress
      * @return
      */
-    private Hit newSurveyHit(final Survey survey, final String ipAddress) {
-        return this.newHitItem(null, null, survey, null, ipAddress);
+    private Hit newSurveyHit(final Survey survey, final String ipAddress, final HitCategory hitCategory) {
+        return this.newHitItem(null, null, survey, null, ipAddress, hitCategory);
     }
 
     /*
@@ -913,9 +966,10 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * java.util.List, java.util.Calendar, java.util.Calendar)
      */
     public void processItemstoCalculateRelevance(
-            final List<TweetPoll> tweetPollList, final List<Poll> pollList,
-            final List<Survey> surveyList, final Calendar datebefore,
-            final Calendar todayDate) {
+            final List<TweetPoll> tweetPollList, 
+            final List<Poll> pollList,
+            final List<Survey> surveyList,
+            final SearchPeriods periods) {
         long likeVote;
         long dislikeVote;
         long hits;
@@ -937,8 +991,8 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             comments = getTotalCommentsbyType(tweetPoll.getTweetPollId(),
                     TypeSearchResult.TWEETPOLL);
             log.debug("Total comments by TweetPoll ---->" + comments);
-            hashTagHits = this.getHashTagHits(tweetPoll.getTweetPollId(),
-                    TypeSearchResult.HASHTAG);
+            hashTagHits = this.getTotalHits(tweetPoll.getTweetPollId(),
+                    TypeSearchResult.HASHTAG, periods);
             relevance = this.getRelevanceValue(likeVote, dislikeVote, hits,
                     comments, socialAccounts, numberVotes, hashTagHits);
             tweetPoll.setRelevance(relevance);
@@ -956,207 +1010,36 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
             comments = getTotalCommentsbyType(poll.getPollId(),
                     TypeSearchResult.POLL);
             log.debug("Total Comments by Poll ---->" + comments);
-            hashTagHits = this.getHashTagHits(poll.getPollId(),
-                    TypeSearchResult.HASHTAG);
+            hashTagHits = this.getTotalHits(poll.getPollId(),
+                    TypeSearchResult.HASHTAG, periods);
             relevance = this.getRelevanceValue(likeVote, dislikeVote, hits,
                     comments, socialAccounts, numberVotes, hashTagHits);
             poll.setRelevance(relevance);
             getPollDao().saveOrUpdate(poll);
         }
 
-    }
-
-    /**
-     * Get total hash tag hits.
-     *
-     * @param id
-     * @param filterby
-     * @return
-     */
-    private Long getHashTagHits(final Long id, final TypeSearchResult filterby) {
-        final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
-                TypeSearchResult.HASHTAG);
-        return totalHashTagHits;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getHashTagHitsbyName
-     * (java.lang.String, org.encuestame.utils.enums.TypeSearchResult)
-     */
-    public Long getHashTagHitsbyName(final String tagName,
-            final TypeSearchResult filterBy) {
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-        final Long hits = this.getHashTagHits(tag.getHashTagId(),
-                TypeSearchResult.HASHTAG);
-        return hits;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getTotalUsageByHashTag
-     * (java.lang.Long, java.lang.Integer, java.lang.Integer, java.lang.String)
-     */
-    public Long getTotalUsageByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        // Validate if tag belongs to hashtag and filter isn't empty.
-        Long totalUsagebyHashTag = 0L;
-        final HashTag tag = getHashTagDao().getHashTagByName(tagName);
-        if (tag != null) {
-
-            final List<TweetPoll> tweetsbyTag = this.getTweetPollsByHashTag(
-                    tagName, initResults, maxResults, filter);
-            final int totatTweetPolls = tweetsbyTag.size();
-            final List<Poll> pollsbyTag = this.getPollsByHashTag(tagName,
-                    initResults, maxResults, filter);
-            final int totalPolls = pollsbyTag.size();
-            final List<Survey> surveysbyTag = this.getSurveysByHashTag(tagName,
-                    initResults, maxResults, filter);
-            final int totalSurveys = surveysbyTag.size();
-            totalUsagebyHashTag = (long) (totatTweetPolls + totalPolls + totalSurveys);
-
-        }
-        return totalUsagebyHashTag;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getSocialNetworkUseByHashTag
-     * (java.lang.String, java.lang.Integer, java.lang.Integer,
-     * java.lang.String)
-     */
-
-    public Long getSocialNetworkUseByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults) {
-        // 1- Get tweetPoll, Polls o Survey
-        Long linksbyTweetPoll = 0L;
-        Long linksbyPoll = 0L;
-        Long totalSocialLinks = 0L;
-
-        linksbyTweetPoll = this.getTweetPollSocialNetworkLinksbyTag(tagName,
-                initResults, maxResults, TypeSearchResult.TWEETPOLL);
-        linksbyPoll = this.getPollsSocialNetworkLinksByTag(tagName,
-                initResults, maxResults, TypeSearchResult.POLL);
-        totalSocialLinks = linksbyTweetPoll + linksbyPoll;
-        return totalSocialLinks;
-    }
-
-    /**
-     * Get polls social network links by tag.
-     *
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    private Long getPollsSocialNetworkLinksByTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        Long linksbyItem = 0L;
-        Long totalLinksByPoll = 0L;
-
-        final List<Poll> polls = this.getPollsByHashTag(tagName, initResults,
-                maxResults, filter);
-        for (Poll poll : polls) {
-            linksbyItem = getTweetPollDao().getSocialLinksByType(null, null,
-                    poll, TypeSearchResult.POLL);
-            totalLinksByPoll = totalLinksByPoll + linksbyItem;
-        }
-        return totalLinksByPoll;
-    }
-
-    /**
-     * Get tweetPolls social network links by tag.
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    private Long getTweetPollSocialNetworkLinksbyTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        Long linksbyItem = 0L;
-        Long totalLinksByTweetPoll = 0L;
-        final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName,
-                initResults, maxResults, filter);
-        for (TweetPoll tweetPoll : tp) {
-            // Get total value by links
-            linksbyItem = getTweetPollDao().getSocialLinksByType(tweetPoll,
-                    null, null, TypeSearchResult.TWEETPOLL);
-            totalLinksByTweetPoll = totalLinksByTweetPoll + linksbyItem;
-        }
-        return totalLinksByTweetPoll;
-    }
+    } 
     
-   
     /**
-     * Get surveys by HashTag.
-     *
+     * Get last {@link HashTagRanking} position
+     * @param maxDate
      * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
      * @return
      */
-    private List<Survey> getSurveysByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        final List<Survey> surveysByTag = getSurveyDaoImp()
-                .getSurveysByHashTagName(tagName, initResults, maxResults,
-                        filter);
-        return surveysByTag;
-    }
-
-    /**
-     * Get Polls by HashTag
-     *
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    private List<Poll> getPollsByHashTag(final String tagName,
-            final Integer initResults, final Integer maxResults,
-            final TypeSearchResult filter) {
-        final List<Poll> pollsByTag = getPollDao().getPollByHashTagName(
-                tagName, initResults, maxResults, filter);
-        return pollsByTag;
-    }
-
-   
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.encuestame.core.service.imp.IFrontEndService#getHashTagUsedOnItemsVoted
-     * (java.lang.String)
-     */
-    public Long getHashTagUsedOnItemsVoted(final String tagName,
-            final Integer initResults, final Integer maxResults) {
-        Long totalVotesbyTweetPoll = 0L;
-        Long total = 0L;
-        final List<TweetPoll> tp = this.getTweetPollsByHashTag(tagName, 0, 100,
-                TypeSearchResult.HASHTAG);
-        for (TweetPoll tweetPoll : tp) {
-            totalVotesbyTweetPoll = getTweetPollDao()
-                    .getTotalVotesByTweetPollId(tweetPoll.getTweetPollId());
-            total = total + totalVotesbyTweetPoll;
-        }
-        log.debug("Total HashTag used by Tweetpoll voted: " + total);
-        return total;
-    }
-
+	private Integer getHashTagLastPosition(final Date maxDate,
+			final String tagName) {
+		Integer lastPosValue = null;
+		final List<HashTagRanking> tagRanking = getHashTagDao().getHashTagRankingLastPosition(maxDate);
+		if (tagRanking.size() > 0) {
+			for (int i = 0; i < tagRanking.size(); i++) {
+				if (tagRanking.get(i).getHashTag().getHashTag().equals(tagName)) {
+					lastPosValue = i+1;
+				}
+			}
+		}
+		return lastPosValue;
+	}
+ 
     /*
      * (non-Javadoc)
      *
@@ -1165,84 +1048,114 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * .lang.String)
      */
     public List<HashTagRankingBean> getHashTagRanking(final String tagName) {
-
+    	final Date maxRankingDate;
+    	maxRankingDate = getHashTagDao().getMaxHashTagRankingDate(); 
+    	
         List<HashTagRanking> hashTagRankingList = getHashTagDao()
-                .getHashTagRankStats();
+                .getHashTagRankStats(maxRankingDate);
+        log.debug("Hashtag ranking list --->" + hashTagRankingList.size());
         final Integer value = 1;
         Integer position = 0;
+        Integer lastRankPosition; 
+      
         final List<HashTagRankingBean> tagRankingBeanList = new ArrayList<HashTagRankingBean>();
-        final HashTagRankingBean tagRank = new HashTagRankingBean();
-        final HashTagRankingBean tagRankBef = new HashTagRankingBean();
-        final HashTagRankingBean tagRankAfter = new HashTagRankingBean();
+        
+        HashTagRankingBean ranking = new HashTagRankingBean();
         final Integer hashTagRankListSize = hashTagRankingList.size() - value;
         Integer positionBefore;
         Integer positionAfter;
         log.debug("Hashtag ranking list --->" + hashTagRankListSize);
-
-        for (int i = 0; i < hashTagRankingList.size(); i++) {
-            if (hashTagRankingList.get(i).getHashTag().getHashTag()
-                    .equals(tagName)) {
+        for (int i = 0; i < hashTagRankingList.size(); i++) { 
+			if (hashTagRankingList.get(i).getHashTag().getHashTag()
+					.equals(tagName)) {
                 // Retrieve hashtag main.
-                position = i;
-                tagRank.setAverage(hashTagRankingList.get(i).getAverage());
-                tagRank.setPosition(i);
-                tagRank.setTagName(tagName);
-                tagRank.setRankId(hashTagRankingList.get(i).getRankId());
-                tagRankingBeanList.add(tagRank);
-                log.debug("HashTag ranking main ---> "
-                        + hashTagRankingList.get(i).getHashTag().getHashTag());
-                log.debug("HashTag ranking main position---> " + position);
+                position =i;
                 positionBefore = position - value;
                 positionAfter = position + value;
-                if ((position > 0) && (position < hashTagRankListSize)) {
+                lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(i).getHashTag().getHashTag());
+				ranking = this.createHashTagRankingBean(
+						hashTagRankingList.get(i).getRankId(),
+						hashTagRankingList.get(i).getAverage(), positionAfter, tagName,
+						lastRankPosition);
+  
+                tagRankingBeanList.add(ranking);
+                log.debug("HashTag ranking main ---> "
+                        + hashTagRankingList.get(i).getHashTag().getHashTag());
+                log.debug("HashTag ranking main position---> " + position); 
+                
+                if ((position > 0) && (position < hashTagRankListSize)) { 
                     log.debug(" --- HashTag ranking first option ---");
-                    // Save hashTag before item
-                    tagRankBef.setAverage(hashTagRankingList
-                            .get(positionBefore).getAverage());
-                    tagRankBef.setPosition(positionBefore);
-                    tagRankBef.setTagName(hashTagRankingList
-                            .get(positionBefore).getHashTag().getHashTag());
-                    tagRankBef.setRankId(hashTagRankingList.get(positionBefore)
-                            .getRankId());
-                    tagRankingBeanList.add(tagRankBef);
+                    // Save hashTag before item 
+                    lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionBefore).getHashTag().getHashTag());
+					ranking = this
+							.createHashTagRankingBean(
+									hashTagRankingList.get(positionBefore)
+											.getRankId(), hashTagRankingList
+											.get(positionBefore).getAverage(),
+											position,
+									hashTagRankingList.get(positionBefore)
+											.getHashTag().getHashTag(),
+									lastRankPosition);
+                    tagRankingBeanList.add(ranking); 
 
-                    // Save hashTag after item
-                    tagRankAfter.setAverage(hashTagRankingList.get(
-                            positionAfter).getAverage());
-                    tagRankAfter.setPosition(positionAfter);
-                    tagRankAfter.setTagName(hashTagRankingList
-                            .get(positionAfter).getHashTag().getHashTag());
-                    tagRankAfter.setRankId(hashTagRankingList
-                            .get(positionAfter).getRankId());
-                    tagRankingBeanList.add(tagRankAfter);
-                } else if ((position > 0) && (position == hashTagRankListSize)) {
-                    log.debug(" --- HashTag ranking second option --- ");
-                    // Save hashTag before item
-                    tagRankBef.setAverage(hashTagRankingList
-                            .get(positionBefore).getAverage());
-                    tagRankBef.setPosition(positionBefore);
-                    tagRankBef.setTagName(hashTagRankingList
-                            .get(positionBefore).getHashTag().getHashTag());
-                    tagRankBef.setRankId(hashTagRankingList.get(positionBefore)
-                            .getRankId());
-                    tagRankingBeanList.add(tagRankBef);
-                } else if ((position == 0)) {
-                    log.debug(" --- HashTag ranking second option --- ");
-                    // Save hashTag after item
-                    tagRankAfter.setAverage(hashTagRankingList.get(
-                            positionAfter).getAverage());
-                    tagRankAfter.setPosition(positionAfter);
-                    tagRankAfter.setTagName(hashTagRankingList
-                            .get(positionAfter).getHashTag().getHashTag());
-                    tagRankAfter.setRankId(hashTagRankingList
-                            .get(positionAfter).getRankId());
-                    tagRankingBeanList.add(tagRankAfter);
-                }
-            }
-        }
-        Collections.sort(tagRankingBeanList);
-        return tagRankingBeanList;
-    }
+                    // Save hashTag after item 
+                    lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionAfter).getHashTag().getHashTag());
+					ranking = this.createHashTagRankingBean(hashTagRankingList
+							.get(positionAfter).getRankId(), hashTagRankingList
+							.get(positionAfter).getAverage(), position +2,
+							hashTagRankingList.get(positionAfter).getHashTag()
+									.getHashTag(), lastRankPosition);
+                    
+                    tagRankingBeanList.add(ranking);
+				} else if ((position > 0) && (position == hashTagRankListSize)) {
+					log.debug(" --- HashTag ranking second option --- ");
+					// Save hashTag before item
+				    lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionBefore).getHashTag().getHashTag());
+					ranking = this
+							.createHashTagRankingBean(
+									hashTagRankingList.get(positionBefore)
+											.getRankId(), hashTagRankingList
+											.get(positionBefore).getAverage(),
+											position,
+									hashTagRankingList.get(positionBefore)
+											.getHashTag().getHashTag(),
+									lastRankPosition);
+					tagRankingBeanList.add(ranking);
+				} else if ((position == 0)) { 
+					log.debug(" --- HashTag ranking second option --- ");
+					// Save hashTag after item
+					lastRankPosition = this.getHashTagLastPosition(maxRankingDate, hashTagRankingList.get(positionAfter).getHashTag().getHashTag());
+					ranking = this.createHashTagRankingBean(hashTagRankingList
+							.get(positionAfter).getRankId(), hashTagRankingList
+							.get(positionAfter).getAverage(), i+2,
+							hashTagRankingList.get(positionAfter).getHashTag()
+									.getHashTag(), lastRankPosition);
+					tagRankingBeanList.add(ranking);
+				}
+			}
+		}
+		Collections.sort(tagRankingBeanList); 
+		return tagRankingBeanList;
+	}
+    
+    /**
+     * 
+     * @param id
+     * @param average
+     * @param position
+     * @param tagName
+     * @param lastPos
+     * @return
+     */
+	private HashTagRankingBean createHashTagRankingBean(final Long id,
+			final Double average, final Integer position, final String tagName,
+			final Integer lastPos) {
+		final HashTagRankingBean tagItemRanking = new HashTagRankingBean(); 
+		tagItemRanking.setPosition(position);
+		tagItemRanking.setTagName(tagName); 
+		tagItemRanking.setLastPosition(lastPos == null ? 0 : lastPos); 
+		return tagItemRanking;
+	}
 
     /*
      * (non-Javadoc)
@@ -1251,73 +1164,64 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.core.service.imp.IFrontEndService#retrieveGenericStats
      * (java.lang.String, org.encuestame.utils.enums.TypeSearchResult)
      */
-    public GenericStatsBean retrieveGenericStats(final String itemId,
-            final TypeSearchResult itemType) throws EnMeNoResultsFoundException {
-        Long totalHits = 0L;
+	public GenericStatsBean retrieveGenericStats(final String itemId,
+			final TypeSearchResult itemType, HttpServletRequest request)
+			throws EnMeNoResultsFoundException {
+    	GenericStatsBean genericBean = new GenericStatsBean();
+    	long totalHits = 0L;
         String createdBy = " ";
-        Date createdAt = null;
+        String createdAt = null;
         double average = 0;
-        Long likeDislikeRate = 0L;
-        Long likeVotes;
-        Long dislikeVotes;
-        Long id;
-        HashMap<Integer, RelativeTimeEnum> relative;
+        long likeDislikeRate = 0L;
+        long likeVotes;
+        long dislikeVotes;
+        long id;
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
             id = new Long(Long.parseLong(itemId));
             final TweetPoll tweetPoll = this.getTweetPoll(id);
             totalHits = tweetPoll.getHits() == null ? 0 : tweetPoll.getHits();
             createdBy = tweetPoll.getEditorOwner().getUsername() == null ? ""
                     : tweetPoll.getEditorOwner().getUsername();
-            createdAt = tweetPoll.getCreateDate();
-            relative = DateUtil.getRelativeTime(createdAt);
+            createdAt = convertRelativeTimeToString(tweetPoll.getCreateDate(), request);
             likeVotes = tweetPoll.getLikeVote() == null ? 0L : tweetPoll
                     .getLikeVote();
             dislikeVotes = tweetPoll.getDislikeVote() == null ? 0L : tweetPoll
                     .getDislikeVote();
             // Like/Dislike Rate = Total Like votes minus total dislike votes.
             likeDislikeRate = (likeVotes - dislikeVotes);
-
+            genericBean = ConvertDomainBean.createGenericStatsBean(likeDislikeRate, totalHits, createdBy, average, createdAt);
         } else if (itemType.equals(TypeSearchResult.POLL)) {
             id = new Long(Long.parseLong(itemId));
             final Poll poll = this.getPoll(id);
             totalHits = poll.getHits() == null ? 0 : poll.getHits();
             createdBy = poll.getEditorOwner().getUsername();
-            createdAt = poll.getCreatedAt();
-            relative = DateUtil.getRelativeTime(createdAt);
+            createdAt = convertRelativeTimeToString(poll.getCreatedAt(), request);
             likeVotes = poll.getLikeVote() == null ? 0L : poll.getLikeVote();
             dislikeVotes = poll.getDislikeVote() == null ? 0L : poll
                     .getDislikeVote();
-
+            likeDislikeRate = (likeVotes - dislikeVotes);
+            genericBean = ConvertDomainBean.createGenericStatsBean(likeDislikeRate, totalHits, createdBy, average, createdAt);
         } else if (itemType.equals(TypeSearchResult.SURVEY)) {
             id = new Long(Long.parseLong(itemId));
             final Survey survey = this.getSurvey(id);
             totalHits = survey.getHits();
             createdBy = survey.getEditorOwner().getUsername() == null ? " "
                     : survey.getEditorOwner().getUsername();
-            createdAt = survey.getCreatedAt();
-            relative = DateUtil.getRelativeTime(createdAt);
+            createdAt = convertRelativeTimeToString(survey.getCreatedAt(), request);
             likeVotes = survey.getLikeVote();
             dislikeVotes = survey.getDislikeVote();
-
+            likeDislikeRate = (likeVotes - dislikeVotes);
+            genericBean = ConvertDomainBean.createGenericStatsBean(likeDislikeRate, totalHits, createdBy, average, createdAt);
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             final HashTag tag = getHashTagItem(itemId);
             totalHits = tag.getHits();
-            createdAt = tag.getUpdatedDate();
-            relative = DateUtil.getRelativeTime(createdAt);
+            createdAt = convertRelativeTimeToString(tag.getUpdatedDate(), request);            
+            likeDislikeRate = 0L;                        
+            genericBean = ConvertDomainBean.createGenericStatsBean(likeDislikeRate, totalHits, null, average, createdAt);
         }
-        final GenericStatsBean genericBean = new GenericStatsBean();
-        genericBean.setLikeDislikeRate(likeDislikeRate);
-        ;
-        genericBean.setHits(totalHits);
-        genericBean.setCreatedBy(createdBy);
-        genericBean.setAverage(average);
-        genericBean.setCreatedAt(createdAt);
         return genericBean;
     }
-
-    public void retrieveHashTagGraphData() {
-
-    }
+ 
 
     /**
      * Get survey by id.
@@ -1348,34 +1252,81 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.core.service.imp.IFrontEndService#getTopRatedProfile(java
      * .lang.Boolean)
      */
-    public List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
-            throws EnMeNoResultsFoundException {
-        Long topValue = 0L;
-        Long totalTweetPollPublished;
-        Long totalPollPublished;
-        Long total;
+	public List<ProfileRatedTopBean> getTopRatedProfile(final Boolean status)
+			throws EnMeNoResultsFoundException {
+		Long topValue = 0L;
+		Long totalPublications;
+		Long publishedTweetPolls;
+		Long publishedPolls;
 
-        final List<UserAccount> users = getSecurityService()
-                .getUserAccountsAvailable(status);
-        final List<ProfileRatedTopBean> profiles = ConvertDomainBean
-                .convertUserAccountListToProfileRated(users);
-        for (ProfileRatedTopBean profileRatedTopBean : profiles) {
-            totalTweetPollPublished = getTweetPollDao().getTotalTweetPoll(
-                    getUserAccount(profileRatedTopBean.getUsername()), status);
-            log.debug("total tweetPolss published by -->"
-                    + totalTweetPollPublished);
-            totalPollPublished = getPollDao().getTotalPollsbyUser(
-                    getUserAccount(profileRatedTopBean.getUsername()), status);
-            log.debug("total tweetPolss published by -->"
-                    + totalTweetPollPublished);
-            total = totalTweetPollPublished + totalPollPublished;
-            topValue = topValue + total;
-            log.debug("total value asigned to -->" + totalTweetPollPublished);
-            profileRatedTopBean.setTopValue(topValue);
-        }
-        Collections.sort(profiles);
-        return profiles;
+		final List<ProfileRatedTopBean> profileItems = new ArrayList<ProfileRatedTopBean>();
+
+		final List<UserAccount> users = getSecurityService()
+				.getUserAccountsAvailable(status);
+
+		for (UserAccount userAccount : users) {
+			publishedTweetPolls = this.getTotalTweetPollPublished(userAccount,
+					status);
+
+			publishedPolls = this.getTotalPollPublished(userAccount, status);
+			totalPublications = publishedTweetPolls + publishedPolls;
+			topValue = topValue + totalPublications;
+			profileItems.add(this.createProfileTopBean(0, 0L, 0L, 0, topValue,
+					totalPublications, "myurl", userAccount.getUsername()));
+		}
+		Collections.sort(profileItems);
+		return profileItems;
+	}
+
+	/**
+	 * Create {@link ProfileRatedTopBean}.
+	 * @param currentPos
+	 * @param dislike
+	 * @param likeVotes
+	 * @param lastPos
+	 * @param topValue
+	 * @param total
+	 * @param url
+	 * @param username
+	 * @return
+	 */
+	private ProfileRatedTopBean createProfileTopBean(final Integer currentPos,
+			final Long dislike, final Long likeVotes, final Integer lastPos,
+			final Long topValue, final Long total, final String url, final String username) {
+		ProfileRatedTopBean profile = new ProfileRatedTopBean();
+		profile.setCurrentPos(currentPos);
+		profile.setDisLikeVotes(dislike);
+		profile.setLastPos(lastPos);
+		profile.setLikeVotes(likeVotes);
+		profile.setTopValue(topValue);
+		profile.setTotalbyItems(total);
+		profile.setUrl(url);
+		profile.setUsername(username);
+
+		return profile;
+
+	}
+    
+    private Long getTotalPollPublished(final UserAccount user, final Boolean status){
+    	  final Long totalPollPublished;
+    	  totalPollPublished = getPollDao().getTotalPollsbyUser(user, status);
+    	return totalPollPublished;
     }
+    
+    /**
+     * Retrieve total tweetpolls published by user.
+     * @param user
+     * @param status
+     * @return
+     */
+	private Long getTotalTweetPollPublished(final UserAccount user,
+			final Boolean status) {
+		final Long totalTweetPollPublished;
+		totalTweetPollPublished = getTweetPollDao().getTotalTweetPoll(user,
+				status);
+		log.debug("total tweetPolss published by -->" + totalTweetPollPublished);
+		return totalTweetPollPublished;
+	}
 
     /*
      * (non-Javadoc)
@@ -1387,7 +1338,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
     public List<LinksSocialBean> getHashTagLinks(final HashTag hash) {
         final List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(hash, null, null, null, null,
-                        TypeSearchResult.HASHTAG);
+                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
         log.debug("getTweetPollLinks " + links.size());
         return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }
@@ -1458,5 +1409,6 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      */
     public void setSecurityService(SecurityOperations securityService) {
         this.securityService = securityService;
-    }  
+    } 
+ 
 }

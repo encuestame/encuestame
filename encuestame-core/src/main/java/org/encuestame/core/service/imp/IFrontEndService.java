@@ -27,6 +27,9 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
+import org.encuestame.utils.enums.HitCategory;
+import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -36,7 +39,6 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.ProfileRatedTopBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.stats.GenericStatsBean;
-import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 
 /**
@@ -102,7 +104,7 @@ public interface IFrontEndService extends ServiceOperations {
      */
     List<TweetPollBean> getTweetPollsbyHashTagName(final String tagName, final Integer initResults,
             final Integer limit, final String filter,
-            final HttpServletRequest request);
+            final HttpServletRequest request, final SearchPeriods searchPeriods);
 
     /**
      * Get frontEnd items.
@@ -137,7 +139,7 @@ public interface IFrontEndService extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     Boolean registerHit(final TweetPoll tweetPoll, final Poll poll, final Survey survey, final HashTag tag,
-            final String ip) throws EnMeNoResultsFoundException;
+            final String ip, final HitCategory hitCategory) throws EnMeNoResultsFoundException;
 
     /**
      * Register access rate.
@@ -173,8 +175,11 @@ public interface IFrontEndService extends ServiceOperations {
      * @param datebefore
      * @param todayDate
      */
-    void processItemstoCalculateRelevance(final List<TweetPoll> tweetPollList, final List<Poll> pollList, final List<Survey> surveyList,
-            final Calendar datebefore, final Calendar todayDate);
+	void processItemstoCalculateRelevance(
+			final List<TweetPoll> tweetPollList,
+			final List<Poll> pollList, 
+			final List<Survey> surveyList,
+			final SearchPeriods periods);
 
     /**
      * Get the list with the users rated top.
@@ -199,58 +204,20 @@ public interface IFrontEndService extends ServiceOperations {
                final HashTag hashTag, final String keyword, final Integer initResults, final Integer limit,
                final String filter, final HttpServletRequest request);
 
-    /**
-     * Get total usage {@link TweetPoll}, {@link Poll} or {@link Survey} by
-     * HashTag.
-     *
-     * @param tagName
-     * @param initResults
-     * @param maxResults
-     * @param filter
-     * @return
-     */
-    Long getTotalUsageByHashTag(final String tagName, final Integer initResults,
-            final Integer maxResults, final TypeSearchResult filter);
 
     /**
     *
     * @param hash
     * @return
     */
-   List<LinksSocialBean> getHashTagLinks(final HashTag hash);
-   
-   /**
-    * Get total social network links published by {@link TweetPoll}, {@link Poll} and {@link Survey}.
-    * @param tagName
-    * @param initResults
-    * @param maxResults 
-    * @return
-    */
-   Long getSocialNetworkUseByHashTag(final String tagName, final Integer initResults, final Integer maxResults); 
-   
-   /**
-    * Get total hash tag hits by tag name.
-    * @param tagName
-    * @param filterBy
-    * @return
-    */
-	Long getHashTagHitsbyName(final String tagName, final TypeSearchResult filterBy);
-	
+   List<LinksSocialBean> getHashTagLinks(final HashTag hash);  
+  
 	/**
 	 * Get hashTag ranking.
 	 * @param tagName
 	 * @return 
 	 */
-	List<HashTagRankingBean> getHashTagRanking(final String tagName);
-	
-	/**
-	 * Get Total usage by hashtags on tweepolls voted.
-	 * @param tagName
-	 * @param initResults
-	 * @param max
-	 * @return
-	 */
-	Long getHashTagUsedOnItemsVoted(final String tagName, final Integer initResults, final Integer max);
+	List<HashTagRankingBean> getHashTagRanking(final String tagName);  
 	
 	/**
 	 * Generic stats for {@link TweetPoll}, {@link Poll}, {@link Survey} or {@link HashTag}.
@@ -259,7 +226,9 @@ public interface IFrontEndService extends ServiceOperations {
 	 * @return
 	 * @throws EnMeNoResultsFoundException
 	 */
-	GenericStatsBean retrieveGenericStats(final String itemId, final TypeSearchResult itemType) throws EnMeNoResultsFoundException;
+	GenericStatsBean retrieveGenericStats(final String itemId,
+			final TypeSearchResult itemType, final HttpServletRequest request)
+			throws EnMeNoResultsFoundException;
 	  
 	/**
 	 * Return the last items published from {@link UserAccount}.
@@ -288,4 +257,10 @@ public interface IFrontEndService extends ServiceOperations {
 	List<TweetPoll> getTweetPollsByHashTag(final String tagName,
 	            final Integer initResults, final Integer maxResults,
 	            final TypeSearchResult filter);*/
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final String ipAddress);
 }

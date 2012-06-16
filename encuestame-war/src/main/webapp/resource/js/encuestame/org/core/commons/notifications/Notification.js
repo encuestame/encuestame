@@ -114,7 +114,7 @@ dojo.declare(
                 this._displayNewHighlight();
                 //update title to show number of new notifications
                 var newTitle = this._originalTitle + " ("+totalNew+")";
-                console.debug("newTitle", newTitle);
+                //console.debug("newTitle", newTitle);
                 document.title = newTitle;
             } else {
                 this._hideNewHighlight();

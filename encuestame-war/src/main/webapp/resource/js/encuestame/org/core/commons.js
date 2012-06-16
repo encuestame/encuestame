@@ -14,8 +14,115 @@ encuestame.signin = encuestame.contextDefault+"/signin";
 
 /**
  * JSON GET call.
+ * @param {String} url
+ * @param {Object} params
+ * @param {Function} load
+ * @param {Function} error
+ * @param {Boolean} logginHandler
  */
-encuestame.service.xhrGet = function(url, params, load, error, logginHandler){
+encuestame.service.xhrGet = function(url, params, load, error, logginHandler) {
+    if (logginHandler == null) {
+        logginHandler = true;
+    }
+    var defaultError = function(error, ioargs){
+        console.debug("default error ", error);
+    };
+    if(error == null){
+      error = defaultError;
+      console.error("default error");
+    }
+    if (load == null || url == null || params == null) {
+        console.error("error params required.");
+    } else {
+        dojo.xhrGet({
+            url : url,
+            handleAs : "json",
+            failOk : true, //Indicates whether a request should be allowed to fail
+            //(and therefore no console error message in the event of a failure)
+            timeout : encuestame.service.timeout,
+            content: params,
+            load: load,
+            preventCache: true,
+            error: function(error, ioargs) {
+                console.info("error function", ioargs);
+                var message = "";
+                console.info(ioargs.xhr.status, error);
+                //if dialog is missing or is hide.
+                if (encuestame.error.dialog == null || !encuestame.error.dialog.open) {
+                    switch (ioargs.xhr.status) {
+                    case 403:
+                        var jsonError = dojo.fromJson(ioargs.xhr.responseText);
+                        //console.info("queryObject", jsonError);
+                        message = "Application does not have permission for this action";
+                        if(!logginHandler){
+                            encuestame.error.denied(message);
+                        } else {
+                            if (!jsonError.session || jsonERror.anonymousUser) {
+                                console.info("session is expired");
+                                encuestame.error.session(encuestame.error.messages.session);
+                            }
+                        }
+                        break;
+                    case 0:
+                        message = "A network error occurred. Check that you are connected to the internet.";
+                        encuestame.error.conexion(message);
+                        break;
+                    default:
+                        message = "An unknown error occurred";
+                        encuestame.error.unknown(message, ioargs.xhr.status);
+                    }
+                }
+              },
+            handle: function(response, ioargs) {
+                //encuestame.filter.response(response);
+                var message = "";
+                //console.info(ioargs.xhr.status, error);
+                switch (ioargs.xhr.status) {
+                case 200:
+                    message = "Good request.";
+                    //if (encuestame.error.dialog != null) {
+                     //   encuestame.error.clear();
+                    //}
+                    break;
+                case 404:
+                    message = "The page you requested was not found.";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 400:
+                    message = "Bad Request";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 500:
+                    break;
+                    message = "Service temporarily unavailable.";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 407:
+                    message = "You need to authenticate with a proxy.";
+                    //encuestame.error.createDialog(message, message);
+                    break;
+                case 0:
+                    message = "A network error occurred. Check that you are connected to the internet.";
+                    //encuestame.error.conexion(message);
+                    break;
+                default:
+                    message = "An unknown error occurred";
+                    //encuestame.error.unknown(message, ioargs.xhr.status);
+                }
+              }
+          });
+    }
+};	
+	
+/**
+ * JSON GET call.
+ * @param {String} url
+ * @param {Object} params
+ * @param {Function} load
+ * @param {Function} error
+ * @param {Boolean} logginHandler
+ */
+encuestame.service.xhrGet = function(url, params, load, error, logginHandler) {
     if (logginHandler == null) {
         logginHandler = true;
     }
@@ -120,6 +227,9 @@ encuestame.error.debug = true;
 encuestame.error.dialog = null;
 
 encuestame.utilities = {};
+encuestame.utilities.vote = 1;
+encuestame.utilities.GRADINENT_CLASS = "gradient-gray";
+encuestame.utilities.HIDDEN_CLASS = "hidden";
 
 /*
  * create a username profile link.
@@ -181,32 +291,6 @@ encuestame.utilities.url.hashtag  = function(hashtagName) {
     } else {
         throw new Error("hashtag name is required");
     }
-}
-
-/*
- * Short a long number to short number description.
- * Eg: 3,500 = 3,5K
- */
-encuestame.utilities.shortAmmount = function(quantity) {
-    if (typeof quantity === "number") {
-        quantity = ( quantity < 0 ? 0  : quantity);
-        console.debug("short quantity", quantity);
-        var text = quantity.toString();
-        console.debug("short ammount", text);
-        // 5634 --> 5634k
-        if (quantity > 1000) {
-            var quantityReduced = Math.round(quantity / 100);
-            console.debug("short quantityReduced", quantityReduced);
-            text = quantityReduced.toString();
-            text = text.concat("K");
-        } else {
-
-        }
-        return text;
-    } else {
-        throw new Error("invalid number");
-    }
-
 };
 
 /*
@@ -404,7 +488,7 @@ encuestame.session.activity.cookie = function(){
 /*
  * Update notification cookie info.
  */
-encuestame.session.activity.updateNot = function(t,n){
+encuestame.session.activity.updateNot = function(t,n) {
     var cokienotification = encuestame.session.activity.cookie();
     if (cokienotification) {
         cokienotification.t = t;
@@ -438,7 +522,7 @@ encuestame.date.getFormatTime = function(date, fmt){
 /**
  * Json Post Call.
  */
-encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
+encuestame.service.xhrPost = function(url, form, load, error, formEnabled) {
     //validate form param.
     formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
@@ -471,10 +555,79 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled){
     }
 };
 
+encuestame.service.handler = {};	
+encuestame.service.handler.serviceHander = dojo.hitch(this, function(response, ioargs) {
+    //encuestame.filter.response(response);
+    //console.info(ioargs.xhr.status, error);
+    var message = "";
+    switch (ioargs.xhr.status) {
+    case 200:
+        message = "Good request.";
+        break;
+    case 404:
+        message = "The page you requested was not found.";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 400:
+        message = "Bad Request";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 500:
+        break;
+        message = "Service temporarily unavailable.";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 407:
+        message = "You need to authenticate with a proxy.";
+        //encuestame.error.createDialog(message, message);
+        break;
+    case 0:
+        message = "A network error occurred. Check that you are connected to the internet.";
+        //encuestame.error.conexion(message);
+        break;
+    default:
+        message = "An unknown error occurred";
+        //encuestame.error.unknown(message, ioargs.xhr.status);
+    }
+});
+
+
+/**
+ * JSON GET call.
+ * @param {String} url
+ * @param {Object} params
+ * @param {Function} load
+ * @param {Function} error
+ * @param {Boolean} logginHandler
+ */
+encuestame.service.GET = function(url, params, load, error, loadingFunction) {
+    	var innerLoad = dojo.hitch(this, function(data) {
+    		loadingFunction == null ? "" : loadingFunction.end();
+    		if (dojo.isFunction(load)) {
+    			load(data);
+    		}
+    	});
+    	// initialize the loading
+        loadingFunction == null ? "" : loadingFunction.init();
+        var argsGet = {
+                url : url,
+		        handleAs : "json",
+		        failOk : true, //Indicates whether a request should be allowed to fail
+		        // (and therefore no console error message in the event of a failure)
+		        timeout : encuestame.service.timeout,
+		        content: params,
+		        load: innerLoad,
+		        preventCache: true,
+		        error: error,
+		        handle : encuestame.service.handler.serviceHander
+       }
+       dojo.xhrGet(argsGet);
+};		
+
 /**
  * xhr POST param.
  */
-encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
+encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled, loadingFunction) {
     //validate form param.
     formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
@@ -484,19 +637,27 @@ encuestame.service.xhrPostParam = function(url, form, load, error, formEnabled){
     if (error == null){
       error = defaultError;
     }
-    console.debug("Form POST ", form);
-    if (load == null || url == null || form == null){
+    //console.debug("Form POST ", form);
+    if (load == null || url == null || params == null){
         console.error("error params required.");
     } else {
+    	var innerLoad = function(data) {
+    		loadingFunction == null ? "" : loadingFunction.end();
+    		load(data);
+    	};
+    	//load = innerLoad(load);    	
         var xhrArgs = {
             url: url,
-            postData: dojo.objectToQuery(form),
+            postData: dojo.objectToQuery(params),
             handleAs: "json",
             //headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            load: load,
+            load: innerLoad,
             preventCache: true,
             error: error
         };
+        //initialize the loading
+        loadingFunction == null ? "" : loadingFunction.init();
+        //make the call
         var deferred = dojo.xhrPost(xhrArgs);
     }
 };
@@ -532,7 +693,10 @@ encuestame.service.list.addPermission = encuestame.contextWidget()+"/api/admon/a
 encuestame.service.list.removePermission = encuestame.contextWidget()+"/api/admon/remove-permission.json";
 //Hashtag Service
 encuestame.service.list.hashtags = encuestame.contextWidget()+"/api/common/hashtags.json";
-
+encuestame.service.list.ranking = {};
+encuestame.service.list.ranking.hashtag = encuestame.contextWidget()+"/api/common/hashtags/stats/ranking.json";
+encuestame.service.list.range = {};
+encuestame.service.list.range.hashtag =  encuestame.contextWidget()+"/api/common/hashtags/stats/button/range.json";
 /*
  * Get Hashtag action.
  * @param type could be / hashtag, tweetpoll, poll.
@@ -598,6 +762,9 @@ encuestame.service.list.rate.profile = encuestame.contextWidget()+"/api/common/f
 encuestame.service.list.rate.stats = function(type) {
     return  encuestame.contextWidget()+"/api/common/frontend/"+type+"/stats.json";
 };
+encuestame.service.list.generic = {};
+encuestame.service.list.generic.stats = encuestame.contextWidget()+"/api/common/stats/generic.json";
+encuestame.service.list.rate.buttons =	encuestame.contextWidget()+"/api/common/hashtags/stats/button.json";
 
 /**
  * Vote services.
@@ -610,10 +777,7 @@ encuestame.service.list.getTweetPollVotes = function(username, id){
  * Vote on Home
  * @param username the source of the vote, could be anonymous
  */
-encuestame.service.list.votes.home = function(username) {
-	var source = username === null ? "anonymous" :username; 
-    return  encuestame.contextWidget()+"/api/frontend/home/"+source+"/vote.json";
-};
+encuestame.service.list.votes.home = encuestame.contextWidget()+"/api/frontend/home/vote.json";
 encuestame.service.list.addAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/add.json";
 encuestame.service.list.removeAnswer = encuestame.contextWidget()+"/api/survey/tweetpoll/answer/remove.json";
 //group services
@@ -707,9 +871,9 @@ encuestame.messages = {};
             FATAL: "fatal"
  */
 encuestame.messages.pubish = function(message, type, duration) {
-    console.info("encuestame.messages.pubish", message);
-    console.info("encuestame.messages.pubish", type);
-    console.info("encuestame.messages.pubish", duration);
+    //console.info("encuestame.messages.pubish", message);
+    //console.info("encuestame.messages.pubish", type);
+    //console.info("encuestame.messages.pubish", duration);
     dojo.publish('/encuestame/message/publish', [{ message: message, type: type, duration: duration}]);
 };
 

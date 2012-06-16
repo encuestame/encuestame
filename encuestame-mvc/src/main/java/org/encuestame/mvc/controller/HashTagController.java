@@ -23,6 +23,7 @@ import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.HashTagBean;
@@ -85,20 +86,26 @@ public class HashTagController extends AbstractBaseOperations {
     public String tagController(ModelMap model, HttpServletRequest request,
             HttpServletResponse response, @PathVariable String name) {
         name = filterValue(name);
-        final String IP = getIpClient();
+        
         final HashTag tag;
         try {
+        
             tag = getFrontService().getHashTagItem(name);
             if (tag == null) {
                 return "pageNotFound";
             } else {
-                log.debug("tagController tag =>"+tag);
-                boolean hashTagVisite = getFrontService().checkPreviousHit(IP, tag.getHashTagId(), TypeSearchResult.HASHTAG);
-                // TODO: Check that previous hash Tag hit has been visited the same day.
-                log.debug("hashTagVisite =>"+hashTagVisite);
-                if (!hashTagVisite) {
-                    getFrontService().registerHit(null, null, null, tag, IP);
-                }
+            	try {
+            		 log.debug("tagController tag =>"+tag);
+                 	final String IP = getIpClient(request);
+                     boolean hashTagVisite = getFrontService().checkPreviousHit(IP, tag.getHashTagId(), TypeSearchResult.HASHTAG);
+                     // TODO: Check that previous hash Tag hit has been visited the same day.
+                     log.debug("hashTagVisite =>"+hashTagVisite);
+                     if (!hashTagVisite) {
+                         getFrontService().registerHit(null, null, null, tag, IP, HitCategory.VISIT);
+                     }
+				} catch (Exception e) {
+					log.warn("Imposible register vote " + "tag id: " + tag.getHashTagId());
+				} 
                 final List<HomeBean> lastPublications = getFrontService()
                         .searchLastPublicationsbyHashTag(tag, null, this.INIT_RESULTS,
                                 LIMIT_HASHTAG, "hashtag", request);

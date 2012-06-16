@@ -14,6 +14,7 @@
 package org.encuestame.mvc.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
@@ -67,10 +69,11 @@ public class TweetPollController extends AbstractSocialController {
     @RequestMapping(value = "/tweetpoll/vote/{tweetId}", method = RequestMethod.GET)
     public String tweetPollController(
         ModelMap model,
-        @PathVariable String tweetId) {
+        @PathVariable String tweetId,
+        final HttpServletRequest req) {
         log.debug("tweetId: "+tweetId);
         String pathVote = "badTweetVote";
-        final String IP = getIpClient();
+        final String IP = getIpClient(req);
         // Check IP in BlackListFile
         final Boolean checkBannedIp = checkIPinBlackList(IP);
         log.debug("Check Banned IP----> " + checkBannedIp);
@@ -101,7 +104,7 @@ public class TweetPollController extends AbstractSocialController {
                         log.info("IP" + IP);
                         if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
                             if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                                getTweetPollService().tweetPollVote(tweetPoll, IP);
+                                getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
                                 model.put("message", "Tweet Poll Voted.");
                                 pathVote = "tweetVoted";
                                 log.debug("VOTED");
@@ -201,9 +204,9 @@ public class TweetPollController extends AbstractSocialController {
                      //model.addAttribute("message", "Tweet Not Valid.");
                  } else {
                      //save the vote.
-                     final String IP = getIpClient();
+                     final String IP = getIpClient(req);
                      log.info("IP" + IP);
-                     getTweetPollService().tweetPollVote(tweetPoll, IP);
+                     getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
                      return "tweetVoted";
                  }
             }
@@ -268,10 +271,11 @@ public class TweetPollController extends AbstractSocialController {
     public String detailTweetPollController(
             final ModelMap model,
             @PathVariable Long id,
-            @PathVariable String slug) {
+            @PathVariable String slug,
+            final HttpServletRequest request) {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
-        final String ipAddress = getIpClient();
+        final String ipAddress = getIpClient(request);
         try {
             slug = filterValue(slug);
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);
@@ -279,7 +283,7 @@ public class TweetPollController extends AbstractSocialController {
             boolean tweetPollVisite = getFrontService().checkPreviousHit(ipAddress, tweetPoll.getTweetPollId(), TypeSearchResult.TWEETPOLL);
             // TODO: Check that previous hash Tag hit has been visited the same day.
             if (!tweetPollVisite) {
-                getFrontService().registerHit(tweetPoll, null, null, null, ipAddress);
+                getFrontService().registerHit(tweetPoll, null, null, null, ipAddress, HitCategory.VISIT);
             }
             model.addAttribute("tweetpoll", ConvertDomainBean.convertTweetPollToBean(tweetPoll));
             final List<HashTag> hashtagsBean = new ArrayList<HashTag>(tweetPoll.getHashTags());

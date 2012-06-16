@@ -10,18 +10,17 @@
             </h2>
         </div>
         <div class="web-hashtag-options">
-             <button class="emne-menu gradient-gray">
-                <!-- Widget to switch Time Ranges
-                     - Select All / Last Month / Last Week / Hot (Last 24) / Calendar
-                     -->
-                <span>View: All</span>
-                <img>
-             </button>
-        </div>
+			  <div channel="/encuestame/hashtag/time/range/refresh/graph" 
+			  	   dojoType="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"
+			  	   defaultDateRange="365"></div>
+		</div>
     </section>
 
     <section class="web-ht-graph-wrapper emne-box">
-       <div dojoType="encuestame.org.core.commons.hashtags.HashTagGraph"></div>
+       <div dojoType="encuestame.org.core.commons.hashtags.HashTagGraph"
+       		channel="/encuestame/hashtag/time/range/refresh/graph" 
+       		hashtagName="${tagName.hashTagName}"
+       	></div>
     </section>
 
     <div class="web-ht-detail-wrapper">
@@ -47,8 +46,11 @@
                      </header>
                 <section>
                      <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                          hasthag="${tagName.hashTagName}" class="web-social-links"
-                          type="HASHTAG"></div>
+                          channel="/encuestame/hashtag/time/range/refresh/graph" 		                          
+                          class="web-social-links"
+                          itemId="${tagName.hashTagName}"
+                          type="HASHTAG">
+                     </div>
                 </section>
             </article>
         </div>
@@ -57,19 +59,24 @@
                  <header>
                     <spring:message code="home.hashtag.stats" />
                  </header>
-                 <div dojoType="encuestame.org.core.shared.stats.GenericStats"
-                      hasthag="${tagName.hashTagName}"
-                      class="web-generic-stats"
-                      key="HASHTAG" id="generic"></div>
+                 <div dojoType="encuestame.org.core.shared.stats.GenericStats"                      
+					  class="web-generic-stats"
+					  channel="/encuestame/hashtag/time/range/refresh/graph" 
+					  typeGeneric="HASHTAG"
+					  generic="${tagName.hashTagName}"
+                      id="generic">
+                 </div>
              </article>
             <article class="emne-box">
                  <header>
                    <spring:message code="home.hashtag.position" />
                  </header>
-                 <div dojoType="encuestame.org.core.shared.stats.RatePosition"
-                      hasthag="${tagName.hashTagName}"
+                 <section dojoType="encuestame.org.core.shared.stats.RatePosition"
+                      tagName="${tagName.hashTagName}"
+                      channel="/encuestame/hashtag/time/range/refresh/graph" 
                       class="web-rated-position"
-                      key="HASHTAG" id="position"></div>
+                      id="position">
+                 </section>
             </article>
             <article class="emne-box">
                  <header>
@@ -77,8 +84,10 @@
                  </header>
                  <div dojoType="encuestame.org.core.shared.stats.TopProfiles"
                       hasthag="${tagName.hashTagName}"
+                      channel="/encuestame/hashtag/time/range/refresh/graph" 
                       class="web-top-profile"
-                      key="HASHTAG" id="topprofiles"></div>
+                      key="HASHTAG" id="topprofiles">
+                 </div>
             </article>
         </aside>
     </div>

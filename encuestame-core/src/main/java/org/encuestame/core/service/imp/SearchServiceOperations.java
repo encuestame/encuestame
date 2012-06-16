@@ -50,7 +50,9 @@ public interface SearchServiceOperations extends ServiceOperations {
      * @throws EnMeNoResultsFoundException
      */
     Map<String, List<GlobalSearchItem>> quickSearch(final String keyword,
-            final String language, final Integer start, final Integer limit, final List<TypeSearchResult> resultsAllowed)
+			final String language, final Integer start, final Integer limit,
+			final Integer limitByItem,
+			final List<TypeSearchResult> resultsAllowed)
             throws EnMeNoResultsFoundException, IOException, ParseException ;
 
     /**

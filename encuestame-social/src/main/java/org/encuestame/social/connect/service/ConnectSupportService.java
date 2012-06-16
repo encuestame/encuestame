@@ -117,7 +117,7 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
         UserAccount accountEmail;
         if (account == null) {
             //create new account.
-            accountEmail = getSecurityOperations().singupUser(this.convertSocialConnectedAccountToBean(profile));
+            accountEmail = getSecurityOperations().singupUser(this.convertSocialConnectedAccountToBean(profile), false);
         } else {
             //use the current account.
             accountEmail = account;
@@ -157,20 +157,6 @@ public class ConnectSupportService  extends AbstractBaseService implements Conne
             final SocialProvider provider,
             final String socialProfileId) {
         return getAccountDao().findAccountConnectionBySocialProfileId(provider, socialProfileId);
-    }
-
-    /**
-     * Get social account by id.
-     * @param accountId
-     * @return
-  * @throws EnMeNoResultsFoundException
-     */
-    protected SocialAccount getSocialAccount(final Long accountId) throws EnMeNoResultsFoundException{
-        final SocialAccount account =  getAccountDao().getSocialAccountById(accountId);
-         if(account == null){
-             throw new EnMeNoResultsFoundException("social account not valid {"+accountId);
-         }
-         return  account;
     }
 
     /**

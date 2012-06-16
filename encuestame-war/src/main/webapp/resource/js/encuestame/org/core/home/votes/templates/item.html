@@ -1,14 +1,20 @@
 <div class="stats">
 	<div class="vote">
 		<div>
-			<span class="count text-color"> ${relevance} </span>
+			<span class="count text-color" dojoAttachPoint="_voteCounter"> 
+			</span>
 			<div class="viewcount">
 				${voteMessage}
 			</div>
 		</div>
 	</div>
-	<div class="views" dojoAttachPoint="_vote">
-		${hits}
-		${viewMessage}
+	<div class="views">
+		<div class="title" dojoAttachPoint="_vote">
+			
+		</div>
+		<div class="button-home-item" dojoAttachPoint="_button">
+		
+		</div>
+		<div class="loading" dojoAttachPoint="_loading"></div>
 	</div>
 </div>

@@ -60,7 +60,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     private Account userPrimary;
 
     /** User Secondary. **/
-    private UserAccount secUserSecondary;
+    private UserAccount userAccount;
 
     /** {@link Permission}. **/
     private Permission permission;
@@ -73,8 +73,8 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     @Before
     public void initService() {
         this.userPrimary = createAccount();
-        this.secUserSecondary = createUserAccount("default", this.userPrimary);
-        this.secUserSecondary.setInviteCode(inviteCode);
+        this.userAccount = createUserAccount("default", this.userPrimary);
+        this.userAccount.setInviteCode(inviteCode);
         final Group group = createGroups("admin");
         final Group group2 = createGroups("editors");
         // this.secUserSecondary.getSecGroups().add(group);
@@ -84,8 +84,8 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         createPermission(EnMePermission.ENCUESTAME_OWNER.name());
         createPermission(EnMePermission.ENCUESTAME_PUBLISHER.name());
         createPermission(EnMePermission.ENCUESTAME_ADMIN.name());
-        this.secUserSecondary.getSecUserPermissions().add(this.permission);
-        getGroup().saveOrUpdate(this.secUserSecondary);
+        this.userAccount.getSecUserPermissions().add(this.permission);
+        getGroup().saveOrUpdate(this.userAccount);
     }
 
     /**
@@ -94,11 +94,11 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     @Test
     public void testfindUserByUserName() {
         final UserAccount secondary = this.securityService
-                .findUserByUserName(this.secUserSecondary.getUsername());
-        assertEquals(this.secUserSecondary.getUid(), secondary.getUid());
-        assertEquals(this.secUserSecondary.getPassword(),
+                .findUserByUserName(this.userAccount.getUsername());
+        assertEquals(this.userAccount.getUid(), secondary.getUid());
+        assertEquals(this.userAccount.getPassword(),
                 secondary.getPassword());
-        assertEquals(this.secUserSecondary.getCompleteName(),
+        assertEquals(this.userAccount.getCompleteName(),
                 secondary.getCompleteName());
     }
 
@@ -111,9 +111,9 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
                 .findUserByEmail("fake@email.com");
         assertNull(secondary);
         final UserAccountBean secondary2 = this.securityService
-                .findUserByEmail(this.secUserSecondary.getUserEmail());
-        assertEquals(this.secUserSecondary.getUid(), secondary2.getId());
-        assertEquals(this.secUserSecondary.getUsername(),
+                .findUserByEmail(this.userAccount.getUserEmail());
+        assertEquals(this.userAccount.getUid(), secondary2.getId());
+        assertEquals(this.userAccount.getUsername(),
                 secondary2.getUsername());
     }
 
@@ -127,7 +127,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         createGroups("admin", this.userPrimary);
         createGroups("user", this.userPrimary);
         final List<UnitGroupBean> groups = this.securityService
-                .loadGroups(this.secUserSecondary.getUsername());
+                .loadGroups(this.userAccount.getUsername());
         assertEquals(groups.size(), 2);
     }
 
@@ -200,7 +200,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     @Test
     @Ignore
     public void testupdateOAuthTokenSocialAccount() throws EnMeExpcetion {
-        SocialAccount account = createDefaultSettedSocialAccount(this.secUserSecondary);
+        SocialAccount account = createDefaultSettedSocialAccount(this.userAccount);
         // this.securityService.updateOAuthTokenSocialAccount(account.getId(),
         // "12345", "fakeTokenSecret", this.secUserSecondary.getUsername());
         account = getAccountDao().getSocialAccountById(account.getId());
@@ -502,7 +502,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         userCreateBean.setEmail(null);
         userCreateBean.setUsername("diana");
         securityService.createUser(userCreateBean,
-                this.secUserSecondary.getUsername());
+                this.userAccount.getUsername());
     }
 
     /**
@@ -517,7 +517,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         userCreateBean.setEmail("paola@users.com");
         userCreateBean.setUsername(null);
         securityService.createUser(userCreateBean,
-                this.secUserSecondary.getUsername());
+                this.userAccount.getUsername());
     }
 
     /**
@@ -545,7 +545,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createAccount().getUid());
         securityService.createUser(userCreateBean,
-                this.secUserSecondary.getUsername());
+                this.userAccount.getUsername());
         // TODO: need assert
         final UserAccount user = getAccountDao().getUserByUsername(
                 userCreateBean.getUsername());
@@ -573,7 +573,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         userCreateBean.setPrimaryUserId(createAccount().getUid());
         userCreateBean.setDateNew(new Date());
         securityService.createUser(userCreateBean,
-                this.secUserSecondary.getUsername());
+                this.userAccount.getUsername());
         // TODO: need assert
         final UserAccount user = getAccountDao().getUserByUsername(
                 userCreateBean.getUsername());
@@ -601,7 +601,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         userCreateBean.setDateNew(new Date());
         userCreateBean.setPrimaryUserId(createAccount().getUid());
         securityService.createUser(userCreateBean,
-                this.secUserSecondary.getUsername());
+                this.userAccount.getUsername());
         // TODO: need assert
         final UserAccount user = getAccountDao().getUserByUsername(
                 userCreateBean.getUsername());
@@ -624,7 +624,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         final UnitGroupBean createGroupBean = ConvertDomainBean
                 .convertGroupDomainToBean(secCreateGroup);
         securityService.createGroup(createGroupBean,
-                this.secUserSecondary.getUsername());
+                this.userAccount.getUsername());
         // TODO: need assert
     }
 
@@ -755,7 +755,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     // @Test(expected = EnMeExpcetion.class)
     public void testassingGroupFromUserException() throws EnMeExpcetion {
         final UserAccountBean userBean = ConvertDomainBean
-                .convertSecondaryUserToUserBean(this.secUserSecondary);
+                .convertSecondaryUserToUserBean(this.userAccount);
         // this.securityService.assingGroupFromUser(userBean, new
         // UnitGroupBean());
     }
@@ -780,7 +780,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     public void testsingupUser() {
         final SignUpBean bean = createSignUpBean("newUser",
                 "newUser@gmail.com", "12345");
-        this.securityService.singupUser(bean);
+        this.securityService.singupUser(bean, false);
     }
 
     /**

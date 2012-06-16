@@ -6,15 +6,12 @@
         dojoConfig = {
                     parseOnLoad: true,
                     useCommentedJson:true,
-                    isDebug: false
-                    };
+                    isDebug : false,
+                    locale : "en-us"
+        };
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
-<!-- Production
-<script src="<%=request.getContextPath()%>/resources/js/req/raphael-min.js"></script>
--->
-<!-- Dev -->
-<script src="<%=request.getContextPath()%>/resources/js/req/raphael.js"></script>
+<script src="<%=request.getContextPath()%>/resources/static/common.js"></script>
 <script>
          dojo.require("dijit.dijit");
          dojo.require("dojo.parser");
@@ -25,7 +22,7 @@
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
             suggest_limit : 10,
-            delay : 60000,
+            delay : 1800000,
             activity : {
                 levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
                 maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,

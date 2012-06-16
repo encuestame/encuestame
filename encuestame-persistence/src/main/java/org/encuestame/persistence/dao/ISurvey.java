@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.HibernateException;
 
@@ -276,17 +277,14 @@ public interface ISurvey extends IBaseDao{
      * @return
      */
     List<Survey> getSurveysByHashTagName(final String tagName, final Integer startResults,
-            final Integer limitResults, final TypeSearchResult filterby);
+            final Integer limitResults, final TypeSearchResult filterby, final SearchPeriods searchPeriods);
     
     /**
      * Get total surveys by hashtag and date range.
      * @param tagName
-     * @param period
-     * @param startResults
-     * @param limit
+     * @param period 
      * @return
      */
 	List<Survey> getSurveysbyHashTagNameAndDateRange(
-   			final String tagName, final Integer period,
-   			final Integer startResults, final Integer limit);
+   			final String tagName, final SearchPeriods period);
 }

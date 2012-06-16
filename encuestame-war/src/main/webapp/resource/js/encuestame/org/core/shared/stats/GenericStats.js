@@ -10,57 +10,68 @@ dojo.declare(
     "encuestame.org.core.shared.stats.GenericStats",
     [encuestame.org.main.EnmeMainLayoutWidget],{
 
-    /*
-     *
+    /**
+     * Template path.
      */
      templatePath: dojo.moduleUrl("encuestame.org.core.shared.stats", "templates/stats.html"),
 
-     /*
+     /**
       * service json string.
       */
-     _service : null,
+     _service : encuestame.service.list.generic.stats,
 
-     /*
-      * type of stats.
+     /**
+      * typeGeneric of stats.
       */
-     type : null,
-
-
-     _test : {
-         "stats" : {
-            "Likes / Dislike Rate" : "34",
-            "Hits" : "1,500",
-            "Created" : "4 years ago",
-            "Average" : "1.4",
-            "Created By" : "admin"
-        }
-    },
+     typeGeneric : "",
+     
+     /**
+      * Item id.
+      */
+     generic : "",
 
 
     /*
      *
      */
      postCreate : function() {
-         console.info("postCreate", this.type);
-         if (this.type) {
-             this._service = encuestame.service.list.rate.stats(this.type);
-         }
-         console.info("stats", this._test);
-         this._buildStats();
+    	 this._callGenericStats();
+     },
+     
+     /**
+      * 
+      */
+     _callGenericStats : function() {
+	 	var params = {
+      	     id : this.generic,
+      	     filter  : this.typeGeneric, 
+      	 };
+      	 var load = dojo.hitch(this, function(data) {
+      		 if ("success" in data) {
+      			 this._buildStats(data.success.generic);
+      		 }	      		 
+      	 });  	 
+      	 this.callGET(params, this._service, load, null, null);
      },
 
 
-     /*
-      *
+     /**
+      *  Build the stats table.
+      *  @param {Object} Array of stats.
       */
-     _buildStats : function() {
-         for (var i in this._test.stats){
-                this._createRow(i, this._test.stats[i]);
+     _buildStats : function(stats) {
+         for (var i in stats) {
+             var value = stats[i];
+             if (value != null) {
+            	 this._createRow(i, stats[i]);
+             }
           }
      },
 
-     /*
-      *
+     /**
+      * Create a row.
+      * @param {String} header
+      * @param {String} value
       */
      _createRow : function(header, value) {
          var tr = dojo.create("tr");

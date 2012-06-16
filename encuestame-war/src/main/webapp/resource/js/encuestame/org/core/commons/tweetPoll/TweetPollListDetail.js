@@ -27,13 +27,13 @@ dojo.declare(
         typeChart : ['Bars', 'Pie', 'Lines'],
         //post create
         postCreate : function(){
-            console.debug("DETAIL", this.data);
+            //console.debug("DETAIL", this.data);
             dojo.subscribe("/encuestame/tweetpoll/detail/update", this, "updateDetail");
             dojo.subscribe("/encuestame/tweetpoll/detail/chart/render", this, "render");
             this.updateDetail(this.data);
             if (this._extra) {
                 dojo.connect(this._extra, "onclick", dojo.hitch(this, function(event){
-                    console.debug("click extra");
+                    //console.debug("click extra");
                     dojo.stopEvent(event);
                 }));
             }
@@ -213,7 +213,7 @@ dojo.declare(
                         votes,
                         dojo.hitch(this, function(data, index) {
                             var answer = [data.question_label, (data.votes == null ? 0: data.votes), data.color];
-                            console.debug("Re answer", answer);
+                            //console.debug("Re answer", answer);
                             results.push(answer);
                             dojo.publish("/encuestame/tweetpoll/detail/answer/reload", [data.id, [data.votes, data.percent]]);
                 }));

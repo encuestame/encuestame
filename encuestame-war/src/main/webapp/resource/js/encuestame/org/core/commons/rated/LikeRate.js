@@ -10,16 +10,20 @@ dojo.declare(
          * template.
          */
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/likeRate.html"),
-
-
+        
         value : 0,
 
         negative : false,
 
         positive : false,
+        
+        postMixInProperties: function() {
+
+        },
 
 
-        postCreate : function(){
+        postCreate : function() {
+        	this._value.innerHTML = this.value;
             if (this.positive && this.negative) {
                 //nothing to do.
             } else if (this.positive) {

@@ -10,3 +10,6 @@
 [submodule "encuestame-war/src/main/webapp/resource/js/dojox"]
 	path = encuestame-war/src/main/webapp/resource/js/dojox
 	url = git://github.com/encuestame/dojox.git
+[submodule "encuestame-doc"]
+	path = encuestame-doc
+	url = git://github.com/encuestame/doc.git

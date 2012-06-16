@@ -15,6 +15,7 @@ package org.encuestame.core.service.imp;
 import java.util.Date;
 import java.util.List;
 
+import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
@@ -27,6 +28,7 @@ import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
+import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.PollDetailBean;
@@ -40,18 +42,19 @@ import org.encuestame.utils.web.UnitLists;
  */
 public interface IPollService extends IMasterSurveyService{
 
-    /**
-     * Create poll.
-     * @param questionName
-     * @param answers
-     * @param showResults
-     * @param commentOption
-     * @param notification
-     * @return
-     * @throws EnMeExpcetion
-     */
+   /**
+    * Create poll.
+    * @param questionName
+    * @param answers
+    * @param showResults
+    * @param commentOption
+    * @param notification
+    * @param hashtags
+    * @return
+    * @throws EnMeExpcetion
+    */
      Poll createPoll(final String questionName, final String[] answers, final Boolean showResults,
-                final String commentOption, final Boolean notification) throws EnMeExpcetion;
+                final String commentOption, final Boolean notification, final List<HashTagBean> hashtags) throws EnMeExpcetion;
 
    /**
     * List Poll by User Id.
@@ -349,4 +352,30 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException;
+    
+    /**
+     * Remove {@link Poll}
+     * @param pollId
+     * @throws EnMeNoResultsFoundException
+     */
+	void removePoll(final Long pollId) throws EnMeNoResultsFoundException;
+	
+	/**
+	 * Add {@link HashTag} to {@link Poll}.
+	 * @param poll
+	 * @param tagBean
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
+			throws EnMeNoResultsFoundException;
+	
+	/**
+	 * Update {@link Poll}
+	 * @param pollBean
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Poll updatePoll(final PollBean pollBean)
+			throws EnMeNoResultsFoundException;
 }

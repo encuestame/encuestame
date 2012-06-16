@@ -95,6 +95,7 @@ import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
+import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.enums.Status;
@@ -454,6 +455,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return poll;
 
     }
+    
+    /**
+     * Helper create default poll.
+     * @param question
+     * @param userAccount
+     * @return
+     */
+	public Poll createDefaultPoll(final Question question,
+			final UserAccount userAccount) {
+		return this.createPoll(new Date(), question, userAccount, Boolean.TRUE,
+				Boolean.TRUE);
+	}
+    
     /**
       * Helper to create poll
       * @param createdDate
@@ -1745,7 +1759,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      */
     public HashTag createHashTag(final String hashTagName){
         final HashTag hashTag = new HashTag();
-        hashTag.setHashTag(hashTagName);
+        hashTag.setHashTag(hashTagName.toLowerCase());
         hashTag.setHits(0L);
         hashTag.setUpdatedDate(new Date());
         hashTag.setSize(0L);
@@ -1973,6 +1987,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         hit.setSurvey(survey);
         hit.setTweetPoll(tweetPoll);
         hit.setHashTag(hashTag);
+        hit.setHitCategory(HitCategory.VISIT);
         getFrontEndDao().saveOrUpdate(hit);
         return hit;
     }

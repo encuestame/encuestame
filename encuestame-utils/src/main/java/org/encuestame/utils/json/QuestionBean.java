@@ -104,7 +104,7 @@ public class QuestionBean implements Serializable {
      * Constructor Name.
      * @param name
      */
-    public QuestionBean(final String name){
+    public QuestionBean(final String name) {
         this.questionName = name;
     }
 

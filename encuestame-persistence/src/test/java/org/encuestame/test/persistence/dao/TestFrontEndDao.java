@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,7 +87,7 @@ public class TestFrontEndDao extends AbstractBase {
                TypeSearchResult.HASHTAG);
        assertNotNull(hitsbyIp);
        assertEquals("Should be equals", hitsbyIp.get(0).getIpAddress(), this.ipAddress);
-       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG);
+       final Long totalHits = getFrontEndDao().getTotalHitsbyType(hashTag.getHashTagId(), TypeSearchResult.HASHTAG, null);
        assertEquals("total hits should be equals", 3, totalHits.intValue());
    }
 
@@ -125,6 +126,7 @@ public class TestFrontEndDao extends AbstractBase {
                 this.secondary);
         tp1.getHashTags().add(this.hashTag);
         getTweetPoll().saveOrUpdate(tp1);
+        tp2.getHashTags().add(this.hashTag);
         getTweetPoll().saveOrUpdate(tp2);
         createTweetPollSavedPublishedStatus(tp1, "432432532", null, "test tweettxt dad");
         createTweetPollSavedPublishedStatus(tp2, "43243sa2532", null, "test tweettxt fdsc");
@@ -132,8 +134,8 @@ public class TestFrontEndDao extends AbstractBase {
         createTweetPollSavedPublishedStatus(tp2, "432d123432532", null, "test tweettxt c cxz");
         List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(this.hashTag, null, null, null, null,
-                        TypeSearchResult.TypeSearchResult.HASHTAG);
-        assertEquals("Should be equals", 2, links.size());
+                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+        assertEquals("Should be equals", 4, links.size());
     }
     
     /**
@@ -145,24 +147,22 @@ public class TestFrontEndDao extends AbstractBase {
     	final HashTag hashTag1 = createHashTag("software2"); 
 
     	final String ipAddress1 = "192.168.1.1";
-    	final String ipAddress2 = "192.168.1.2";
-    	final String ipAddress3 = "192.168.1.3";
-    	
-    	final Calendar hi = Calendar.getInstance();  
+    	final String ipAddress2 = "192.168.1.2"; 
     	 
-    	final Hit hit1 = createHashTagHit(hashTag, ipAddress);
-    	// It created today, setted with minus 5 days. so the new date is between friday or Saturday ago
-    	myDate.add(Calendar.DATE, -5);
+    	final Hit hit1 = createHashTagHit(hashTag1, ipAddress1);
+    	final Hit hit2 = createHashTagHit(hashTag1, ipAddress2);
+    	 
     	hit1.setHitDate(myDate.getTime());
     	getTweetPoll().saveOrUpdate(hit1); 
-    	 
+    	
+    	// It created today, setted with minus 5 days. so the new date is between friday or Saturday ago
+    	// out of range
+    	myDate.add(Calendar.DATE, -9);
+    	hit2.setHitDate(myDate.getTime());
+    	getTweetPoll().saveOrUpdate(hit2); 
+    	
     	// Retrieve hits for tag Id in the last 7 days.
-    	List<Object[]> myListObj = getFrontEndDao().getTotalHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7, 0, 20, -1);
-    	//	(hashTag1.getHashTagId(), TypeSearchResult.HASHTAG, 6, 1, 100, 0, startDate, endDate, hashTag1.getHashTagId());
-    	System.out.println("total" + myListObj.size());
-    	 /*for (Object[] objects : myListObj) {
-    		System.out.println(" Object 1 --->" + objects[0]);
-    		System.out.println(" Object 2 --->" + objects[1]);
-		} */
+    	List<Hit> myHits = getFrontEndDao().getHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7); 
+    	assertEquals("Should be equals", 1, myHits.size());
     }
 }
