@@ -47,7 +47,7 @@ dojo.declare("encuestame.org.core.commons.signup.Signup",
     },
 
     createNewAccountService : function(){
-         console.debug("createNewAccountService signupForm", signupForm);
+         //console.debug("createNewAccountService signupForm", signupForm);
          signupForm.submit();
     },
 

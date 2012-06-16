@@ -37,7 +37,7 @@ dojo.declare(
 
         postMixInProperties : function(){
             if (this.ht != null) {
-            	console.info("this.ht.trim().split(",");", this.ht.trim().split(","));
+            	//console.info("this.ht.trim().split(",");", this.ht.trim().split(","));
                 this._tagsCloned = this.ht.trim().split(",");
             }
         },

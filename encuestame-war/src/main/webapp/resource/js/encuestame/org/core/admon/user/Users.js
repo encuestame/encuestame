@@ -64,7 +64,7 @@ dojo.declare(
          * Error Resonse.
          */
         errorResponse : function(error){
-            console.debug("error", error);
+            console.error("error", error);
         },
 
         /**
@@ -320,7 +320,7 @@ dojo.declare(
                      value : response.permission,
                      iconClass : "dijitCheckBoxIcon",
                      onChange:  dojo.hitch(this, function(val) {
-                         console.debug(val);
+                         //console.debug(val);
                          var error = function(error) {
                              console.debug("error", error);
                          };
@@ -426,7 +426,7 @@ dojo.declare(
                  if(this._groupId == data.id){
                     dojo.addClass(div, "selected");
                  }
-                 console.debug(data);
+                 //console.debug(data);
                  div.innerHTML = data.groupName;
                  dojo.connect(div, "onclick", this, dojo.hitch(this, function(event){
                          this._selectItem(data, div);
@@ -525,7 +525,7 @@ dojo.declare(
 
             _onMouseOver: function(event){
                 dojo.stopEvent(event);
-                console.debug("on mouse over");
+                //console.debug("on mouse over");
                 this._timer = setTimeout(dojo.hitch(this, function() {
                     dojo.addClass(this._groupWrapper, "showMenu");
                     } ), 200);
@@ -533,7 +533,7 @@ dojo.declare(
 
             _onMouseOut : function(event){
                  dojo.stopEvent(event);
-                 console.debug("on mouse out");
+                 //console.debug("on mouse out");
                  clearTimeout(this._timer);
                  dojo.removeClass(this._groupWrapper, "showMenu");
             }

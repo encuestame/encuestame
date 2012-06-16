@@ -47,8 +47,8 @@ dojo.declare(
      onScroll : function(){
          //var height = window.height();
          //var scrollTop = window.scrollTop();
-         console.debug("onScroll",height);
-         console.debug("onScroll",scrollTop);
+         //console.debug("onScroll",height);
+         //console.debug("onScroll",scrollTop);
      },
 
      /**

@@ -28,7 +28,6 @@ dojo.declare(
          * Post create.
          */
         postCreate : function() {
-            console.debug()
             if (this._hashtag) {
                // this._hashtag.href = encuestame.contextDefault+"/tag/"+this.hashTagName+"/";
             }

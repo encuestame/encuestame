@@ -376,15 +376,15 @@ dojo.declare(
          * @param anseerws { id, question}
          */
         _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags){
-            console.debug("auto save");
+            //console.debug("auto save");
             if(this.tweetPoll.tweetPollId == null){
-               console.debug("tweet poll is autosaving ...", this.tweetPoll);
+               //console.debug("tweet poll is autosaving ...", this.tweetPoll);
             } else {
                console.info("tweetPol exist", this.tweetPoll.tweetPollId);
                this.tweetPoll.hashtags = this.hashTagWidget.getHashTags();
                this.tweetPoll.answers = this.answerWidget.getAnswersId();
             }
-            console.debug("auto save", this.tweetPoll);
+            //console.debug("auto save", this.tweetPoll);
             encuestame.activity.cometd.publish('/service/tweetpoll/autosave', { tweetPoll: this.tweetPoll});
          },
 

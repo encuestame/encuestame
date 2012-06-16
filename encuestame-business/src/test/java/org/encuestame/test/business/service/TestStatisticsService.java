@@ -48,6 +48,7 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -58,6 +59,8 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @since April 25, 2012
  * @version $Id$
  */
+@Ignore
+//TODO: replace @Ignore by @Category
 public class TestStatisticsService extends AbstractSpringSecurityContext{
 		
 	/** {@link UserAccount}. **/
@@ -700,6 +703,12 @@ public class TestStatisticsService extends AbstractSpringSecurityContext{
 	}
     
 	
+	/**
+	 * Create A poll item with votes.
+	 * @param tag
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
 	private void createPollsItemsVote(final HashTag tag)
 			throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		DateTime creationDate = new DateTime(); 

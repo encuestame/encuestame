@@ -77,7 +77,7 @@ dojo.declare(
          *
          */
         postCreate : function() {
-            console.debug("this.date", this.date);
+            //console.debug("this.date", this.date);
             this.statusWidget = dijit.byId("status_"+this.id);
             if (this._hits) {
                 this._hits.innerHTML = ENME.shortAmmount(this.hits);
@@ -91,7 +91,7 @@ dojo.declare(
             if(!this.completed) {
                 if (this.date != null) {
                     this.date = new Date(this.date);
-                    console.debug("this.date 2 ", this.date);
+                    //console.debug("this.date 2 ", this.date);
                     this.countdownWidget = new encuestame.org.core.shared.utils.CountDown({
                         limitDate : {
                             day : this.date.getDate(),

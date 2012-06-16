@@ -67,7 +67,7 @@ dojo.declare(
                   }
               });
               var error = function(error) {
-                  console.debug("error", error);
+                  console.error("error", error);
               };
           encuestame.service.xhrGet(encuestame.service.comments.list(this.type), { id : this.item_id, max: 10}, load, error);
       },

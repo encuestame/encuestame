@@ -1,6 +1,6 @@
 dependencies ={
     layers:  [
-        {
+        {	// last revision :: 1.145
             name: "encuestame-commons.js",
             //copyrightFile: "../../encuestame-war/apache.txt",
             dependencies: [
@@ -40,10 +40,12 @@ dependencies ={
                 "encuestame.org.core.commons.dialog.Info",
                 "encuestame.org.core.commons.chart.ChartLayerSupport",
                 "encuestame.org.core.shared.utils.UpdateDefaultOptions",
+                "encuestame.org.core.commons.dialog.ModalBox",
                 "encuestame.org.core.shared.utils.FolderSelect",
                 "encuestame.org.core.commons.dashboard.GadgetDirectory",
                 "encuestame.org.core.commons.social.SocialAccounts",
                 "encuestame.org.core.commons.hashtags.HashTagGraph",
+                "encuestame.org.core.shared.utils.GenericDialogContent",
                 //"encuestame.org.core.commons.dashboard.Dashboard",
                 //"encuestame.org.core.commons.dashboard.DashboardLayout",
                 "encuestame.org.core.commons.dashboard.DashboardWrapper",
@@ -89,7 +91,7 @@ dependencies ={
                 "encuestame.org.core.commons.stream.HashTagInfo",
                 "encuestame.org.core.commons.stream.FrontEndItem",
                 "encuestame.org.core.commons.rated.HashTags",
-                "encuestame.org.core.commons.rated.UsersProfile",
+                //"encuestame.org.core.commons.rated.UsersProfile", inside RateProfle
                 "encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail",
                 "encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail",
                 "encuestame.org.core.shared.utils.CountDown",

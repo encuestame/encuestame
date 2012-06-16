@@ -304,6 +304,7 @@
                                 WEB-INF/messages/**/*,
                                 resource/static/**/*,
                                 resource/images/**/*,
+                                resource/css/resources.css,
                                 resource/js/dojo/**/*,
                                 resource/js/dijit/**/*,
                                 resource/js/dojox/**/*,
@@ -322,6 +323,7 @@
                             <packagingExcludes>
                                 WEB-INF/classes/rebel.xml,
                                 resource/js/util/**/*,
+                                resource/css-compile/**/*,
                                 resource/encuestame-config-custom.properties,
                                 WEB-INF/classes/encuestame-config-custom.properties
                              </packagingExcludes>

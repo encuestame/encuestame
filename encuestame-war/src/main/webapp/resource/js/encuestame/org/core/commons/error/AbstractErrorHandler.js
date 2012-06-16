@@ -17,7 +17,7 @@ dojo.declare(
 
 
         postCreate: function() {
-            console.debug("postCreate Abstract Error ");
+            //console.debug("postCreate Abstract Error ");
             /*this.dialog = new dojox.widget.Dialog();
             console.debug("dialog 1", this.dialog);
             this.dialog.set("dimensions", [400, 200]); // [width, height]
@@ -27,11 +27,11 @@ dojo.declare(
         },
 
         show : function(){
-             console.debug("show");
+             //console.debug("show");
             if(this.dialog != null){
                 this.dialog.show();
             } else {
-                console.info("no error duialog");
+                //console.info("no error duialog");
             }
         }
     }

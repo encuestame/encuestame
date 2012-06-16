@@ -48,11 +48,16 @@ dojo.declare("encuestame.org.core.shared.utils.CacheLinkedList", null, {
      */
     enableMoreSupport : function(/** start list value **/ start, /** max values **/ max, /** node to append **/ node) {
         if (node) {
+        	var channel =  "/encuestame/more/"+this.id;
             var pagination = {_start : start, _maxResults : max };
             this.more_widget = new encuestame.org.core.shared.utils.More({
-                        pagination: pagination
+                        pagination: pagination,
+                        channel : channel
             });
             dojo.place(this.more_widget.domNode, node);
+            dojo.subscribe(channel, this, dojo.hitch(this, function() {
+            	
+            }));
         }
     },
 
