@@ -7,7 +7,7 @@ For information on how to build check out [documentation](http://wiki.encuestame
 
 The last release versions are defined [here](http://wiki.encuestame.org/display/RELEASE/Home).
 
-[![Build Status](https://secure.travis-ci.org/encuestame/encuestame.png?branch=development)](http://travis-ci.org/encuestame/encuestame)
+[![Build Status](https://secure.travis-ci.org/encuestame/encuestame.png)](http://travis-ci.org/encuestame/encuestame)
 
 If you want to download a build version of encuestame, they're hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
