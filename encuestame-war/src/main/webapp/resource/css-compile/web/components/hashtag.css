@@ -1,0 +1,104 @@
+/** HASHTAGS */
+.web-hashtag-wrapper {
+  margin: 30px;
+  overflow: auto;
+}
+
+.web-hashtag-wrapper .emne-box {
+  background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.04, rgb(255,255,255)),
+        color-stop(1, rgb(242,242,242))
+    ); 
+}
+
+.web-hashtag-header {
+  background-image: -moz-linear-gradient(center top , #888888 0pt, #444444 45px);
+  border-radius: 3px 3px 3px 3px;
+  box-shadow: 0 1px 2px 1px #CDCDCD;
+  margin: 4px 3px 25px 2px;
+  overflow: auto;
+  padding: 5px 0;
+}
+
+.web-hashtag-header .web-hashtagName {
+    float: left;
+    color: #000;
+    font-size: 150%;
+}
+
+.web-hashtag-header .web-hashtagName h2 {
+  color: white;
+  margin: 0 10px;
+  width: 500px;
+}
+
+.web-hashtag-header .web-hashtag-options {
+  float: right;
+  margin-right: 5px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper {
+  margin-top: 10px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .emne-box {
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 1px 1px 1px #D2CFCF;
+  margin-left: 4px;
+  margin-right: 3px;
+  margin-top: 10px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .emne-box header {
+  border-color: #C8C8C8 grey;
+  border-radius: 5px 5px 0 0;
+  color: black;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 20px;
+  padding: 7px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-top {
+    float: right;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-mainline {
+    float: left;
+    width: 660px;
+}
+
+.web-ht-graph-wrapper {
+  border-radius: 5px 0 0 5px;
+  overflow: auto;
+}
+
+.web-ht-graph-wrapper .web-ht-graph {
+  float: left;
+  height: 308px;
+  margin-left: 10px;
+  max-height: 308px;
+  overflow: hidden;
+  width: 650px;
+}
+
+.web-ht-graph-wrapper .web-ht-button-wrapper {
+    float: right;
+    width: 243px;
+}
+
+.web-ht-button-wrapper .web-ht-button-item {
+    border-bottom: 1px solid #E5E5E5;
+    border-left: 1px solid #E5E5E5;
+    min-height: 55px;
+    color: #676767;
+}

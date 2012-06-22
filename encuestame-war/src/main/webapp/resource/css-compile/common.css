@@ -76,7 +76,7 @@
 .likeRate {
   color: #FFFFFF;
   text-align: center;
-  width: 25px;
+  width: 3em;
 }
 
 .likeRate .wrapper{
@@ -85,6 +85,8 @@
    -webkit-border-radius: 2px;
    -moz-border-radius: 2px;
    border-radius: 2px;
+   border: 1px solid #B4B4B4;
+   min-width : 25px;
 }
 
 .likeRate .positive{
@@ -201,23 +203,19 @@ input:focus {
 }
 
 .enme-dropdown-menu-wrapper .menu-expand {
-  box-shadow: 0 0 3px -1px #454343 inset;
+  box-shadow: 0 2px 3px -1px #454343 inset
 }
 
 .enme-dropdown-menu-wrapper .enme-dropdown-menu {
    border: 1px solid #D4D4D4;
-   border-radius: 3px 3px 3px 3px;
+   border-radius: 5px 5px 5px 5px;
    cursor: pointer;
    font-weight: bold;
    min-width: 95px;
    padding: 5px;
+   color: white;
    text-align: center;
-   -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
+   position: relative;
 }
 
 .enme-dropdown-menu-wrapper ul {
@@ -227,7 +225,7 @@ input:focus {
   box-shadow: 0 1px 1px 0 #373535;
   margin: 0 0 0 2px;
   position: absolute;
-  top: 24px;
+  top: 33px;
   width: 115px;
 }
 
@@ -247,4 +245,13 @@ input:focus {
   background-color: white;
   color: black;	
   text-shadow: 0 1px white;
+}
+
+.enme-unselectable {
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
