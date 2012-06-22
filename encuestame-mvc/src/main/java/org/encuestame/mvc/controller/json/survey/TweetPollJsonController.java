@@ -250,7 +250,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                 // multi publish social account.
                 final List<TweetPollSavedPublishedStatus> results = getTweetPollService()
                         .publishMultiplesOnSocialAccounts(accountBeans,
-                                tweetPoll, tweetText);
+                                tweetPoll, tweetText, TypeSearchResult.TWEETPOLL, null,  null);
                 tweetPoll.setPublishTweetPoll(Boolean.TRUE);
                 getTweetPollService().saveOrUpdateTweetPoll(tweetPoll);
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();

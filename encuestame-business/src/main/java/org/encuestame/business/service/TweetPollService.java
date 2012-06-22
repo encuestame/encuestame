@@ -31,6 +31,8 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
@@ -526,12 +528,14 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
             final List<SocialAccountBean> twitterAccounts,
             final TweetPoll tweetPoll,
-            final String tweetText){
+            final String tweetText, final TypeSearchResult type, final Poll poll, final Survey survey){
             log.debug("publicMultiplesTweetAccounts:{"+twitterAccounts.size());
             final List<TweetPollSavedPublishedStatus> results = new ArrayList<TweetPollSavedPublishedStatus>();
             for (SocialAccountBean unitTwitterAccountBean : twitterAccounts) {
                 log.debug("publicMultiplesTweetAccounts unitTwitterAccountBean:{ "+unitTwitterAccountBean.toString());
-                results.add(this.publishTweetBySocialAccountId(unitTwitterAccountBean.getAccountId(), tweetPoll, tweetText));
+			results.add(this.publishTweetBySocialAccountId(
+					unitTwitterAccountBean.getAccountId(), tweetPoll,
+					tweetText, type, poll, survey));
             }
             return results;
     }
@@ -567,10 +571,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @see org.encuestame.business.service.imp.ITweetPollService#publishTweetPoll(java.lang.Long, org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.social.SocialProvider)
      */
     @SuppressWarnings("unused")
-    public TweetPollSavedPublishedStatus publishTweetBySocialAccountId(
-            final Long socialAccountId,
-            final TweetPoll tweetPoll,
-            final String tweetText) {
+	public TweetPollSavedPublishedStatus publishTweetBySocialAccountId(
+			final Long socialAccountId, final TweetPoll tweetPoll,
+			final String tweetText, final TypeSearchResult type,
+			final Poll poll, final Survey survey) {
          log.debug("publicMultiplesTweetAccounts tweetPoll" + tweetPoll);
         //get social account
          final SocialAccount socialAccount = getAccountDao().getSocialAccountById(socialAccountId);
@@ -582,6 +586,18 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          //adding tweetpoll
          publishedStatus.setTweetPoll(tweetPoll);
          //checking required values.
+         if(type.equals(TypeSearchResult.TWEETPOLL)){
+        	//adding tweetpoll
+             publishedStatus.setTweetPoll(tweetPoll);
+         } else if(type.equals(TypeSearchResult.POLL)){
+        	//adding tweetpoll
+             publishedStatus.setPoll(poll);
+         } else if(type.equals(TypeSearchResult.SURVEY)){
+        	 publishedStatus.setSurvey(survey);
+         } else {
+        	 log.error("Type not defined");
+         } 
+
          if (socialAccount != null) {
              log.debug("socialAccount Account NAME:{"+socialAccount.getSocialAccountName());
              //adding social account
@@ -624,8 +640,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
              log.warn("Twitter Account Not Found [Id:"+socialAccountId+"]");
              publishedStatus.setStatus(Status.FAILED);
              //throw new EnMeFailSendSocialTweetException("Twitter Account Not Found [Id:"+accountId+"]");
-             tweetPoll.setPublishTweetPoll(Boolean.FALSE);
-             getTweetPollDao().saveOrUpdate(tweetPoll);
+             if(type.equals(TypeSearchResult.TWEETPOLL)){
+				tweetPoll.setPublishTweetPoll(Boolean.FALSE);
+				getTweetPollDao().saveOrUpdate(tweetPoll);
+            }   
          }
          log.info("Publish Status Social :{------------>"+publishedStatus.toString());
          getTweetPollDao().saveOrUpdate(publishedStatus);
