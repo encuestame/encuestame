@@ -584,7 +584,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          //social provider.
          publishedStatus.setApiType(socialAccount.getAccounType());
          //adding tweetpoll
-         publishedStatus.setTweetPoll(tweetPoll);
+         //publishedStatus.setTweetPoll(tweetPoll);
          //checking required values.
          if(type.equals(TypeSearchResult.TWEETPOLL)){
         	//adding tweetpoll
@@ -642,7 +642,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
              //throw new EnMeFailSendSocialTweetException("Twitter Account Not Found [Id:"+accountId+"]");
              if(type.equals(TypeSearchResult.TWEETPOLL)){
 				tweetPoll.setPublishTweetPoll(Boolean.FALSE);
-				getTweetPollDao().saveOrUpdate(tweetPoll);
+				//getTweetPollDao().saveOrUpdate(tweetPoll);
             }   
          }
          log.info("Publish Status Social :{------------>"+publishedStatus.toString());
@@ -1096,14 +1096,25 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         this.saveOrUpdateTweetPoll(tweetPoll);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.business.service.imp.ITweetPollService#getTweetPollLinks(org.encuestame.persistence.domain.tweetpoll.TweetPoll)
-     */
-    public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll) {
-      final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
-      final List<TweetPollSavedPublishedStatus> links = getTweetPollDao().getLinksByTweetPoll(tweetPoll , null, null, TypeSearchResult.TWEETPOLL);
-      log.debug("getTweetPollLinks: "+links.size());
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#getTweetPollLinks(org
+	 * .encuestame.persistence.domain.tweetpoll.TweetPoll,
+	 * org.encuestame.persistence.domain.survey.Poll,
+	 * org.encuestame.persistence.domain.survey.Survey,
+	 * org.encuestame.utils.enums.TypeSearchResult)
+	 */
+	public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll,
+			final Poll poll, final Survey survey, final TypeSearchResult type) { 
+       List<TweetPollSavedPublishedStatus> links = new ArrayList<TweetPollSavedPublishedStatus>();
+      if(type.equals(TypeSearchResult.TWEETPOLL)){
+    	  links = getTweetPollDao().getLinksByTweetPoll(tweetPoll , null, null, TypeSearchResult.TWEETPOLL);
+      } else if(type.equals(TypeSearchResult.POLL)){
+    	  links = getTweetPollDao().getLinksByTweetPoll(null , null, poll, TypeSearchResult.POLL);
+      } 
+      log.debug("getTweetPollLinks: "+links.size()); 
       return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }
 

@@ -433,9 +433,13 @@ public interface ITweetPollService extends IMasterSurveyService{
      /**
       * Return list of links published by {@link TweetPoll}.
       * @param tweetPoll
+      * @param poll
+      * @param survey
+      * @param type
       * @return
       */
-     List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll);
+	List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll,
+			final Poll poll, final Survey survey, final TypeSearchResult type);
 
      /**
       * Get List of TweetPoll Folders.
