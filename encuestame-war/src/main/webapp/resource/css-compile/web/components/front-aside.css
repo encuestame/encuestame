@@ -1,5 +1,17 @@
 #web-main-public-line .web-left-wrapper {
-  background-image: -moz-linear-gradient(center top , #6F6E6E, #676767);
+  background-image: linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
+background-image: -o-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
+background-image: -moz-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
+background-image: -webkit-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
+background-image: -ms-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
+
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.2, rgb(111,110,110)),
+    color-stop(0.6, rgb(103,103,103))
+);
   border-radius: 0 10px 10px 0;
   border-right: 1px solid #DCDCDC;
   box-shadow: 1px 0 6px 0 #393838 inset;
@@ -14,8 +26,11 @@
 }
 
 #web-main-public-line .web-left-wrapper .section .tag {
-  box-shadow: 0 0 0 1px #3C3C3C;
-  color: #4F4F4F;
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  box-shadow: none;
+  color: white;
+  text-shadow: 0 1px 0 rgba(40, 39, 39, 0.5);
 }
 
 #web-main-public-line .web-left-wrapper .section .web-aside-section {

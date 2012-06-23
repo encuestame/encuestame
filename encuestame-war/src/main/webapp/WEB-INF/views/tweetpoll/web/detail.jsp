@@ -1,8 +1,10 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <article class="web-tweetpoll-detail web-wrapper-detail">
-   <header>
-       <h1>${tweetpoll.questionBean.questionName}</h1>
-   </header>
+   <div class="web-detail-header">
+       <div class="title">
+        <h2>${tweetpoll.questionBean.questionName}</h2>
+       </div>
+   </div>
    <article class="emne-box">
         <section class="web-tweetpoll-info">
             <div id="info" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail"
@@ -24,51 +26,17 @@
                      username="${tweetpoll.ownerUsername}"></div>
             </div>
             <div class="web-tweetpoll-answer-answer">
-                <table class="web-tweetpoll-answer-table" cellspacing="0">
-                    <thead>
-                        <tr class="gradient-black">
-                            <th></th>
-                            <th>
-                                <span class="header-table-answer">
-                                	<spring:message code="options.linkToVote"/>
-                                </span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">
-                                	<spring:message code="options.votes" />
-                                </span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">
-                                	<spring:message code="options.percent" />
-                                </span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer"></span>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${answers}" var="a">
-                            <tr class="answer"
-                                dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
-                                 aId="${a.answers.questionAnswerId}"
-                                  color="${a.answers.color}"
-                                 label="${a.answers.answer}"
-                                  owner="${tweetpoll.ownerUsername}"
-                                  completed="${tweetpoll.completed}"
-                                  url="${a.shortUrl}">
-                             </tr>
-                       </c:forEach>
-                    </tbody>
-                </table>
+                <c:forEach items="${answers}" var="a">
+                    <div class="answer"
+                        dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
+                         aId="${a.answers.questionAnswerId}"
+                          color="${a.answers.color}"
+                         label="${a.answers.answer}"
+                          owner="${tweetpoll.ownerUsername}"
+                          completed="${tweetpoll.completed}"
+                          url="${a.shortUrl}">
+                     </div>
+               </c:forEach>
             </div>
        </section>
        <section class="web-button-wrapper gradient-gray">

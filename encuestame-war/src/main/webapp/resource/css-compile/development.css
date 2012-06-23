@@ -17,11 +17,13 @@
 @import url("web/components/rated-comments.css");
 @import url("web/components/hashtag.css");
 @import url("web/components/header.css");
+@import url("web/components/more.css");
 @import url("web/components/poll.css");
 @import url("web/components/search.css");
 @import url("web/components/social-links.css");
 @import url("web/components/tags.css");
 @import url("web/components/tweetpoll.css");
+@import url("web/components/tweetpoll-detail.css");
 @import url("web/components/rated_profile.css");
 
 /* 

@@ -676,3 +676,36 @@ div.web-default-menu  li.first {
     border: 0;
     background-color: black!important;
 }
+
+.web-detail-header {
+  /* background-image: -moz-linear-gradient(center top , #888888 0pt, #444444 45px); */
+  background-image: linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -o-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -moz-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -webkit-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -ms-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.09, rgb(136,136,136)),
+    color-stop(1, rgb(68,68,68))
+);
+  border-radius: 3px 3px 3px 3px;
+  box-shadow: 0 1px 2px 1px #CDCDCD;
+  margin: 4px 3px 25px 2px;
+  overflow: auto;
+  padding: 5px 0;
+}
+
+.web-detail-header .title {
+    float: left;
+    color: #000;
+    font-size: 150%;
+}
+
+.web-detail-header .title h2 {
+  color: white;
+  margin: 0 10px;
+}

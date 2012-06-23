@@ -3,8 +3,8 @@
 
 <article class="web-hashtag-wrapper">
 
-    <section class="web-hashtag-header">
-        <div class="web-hashtagName">
+    <section class="web-hashtag-header web-detail-header">
+        <div class="title">
             <h2>
                 ${tagName.hashTagName}
             </h2>
