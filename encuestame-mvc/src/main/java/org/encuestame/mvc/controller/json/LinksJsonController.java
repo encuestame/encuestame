@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.stereotype.Controller;
@@ -67,9 +68,14 @@ public class LinksJsonController extends AbstractJsonController{
             if (TypeSearchResult.TWEETPOLL.name().equals(type)) {
                 final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(Long.valueOf(id), null);
                 jsonResponse.put("links", getTweetPollService()
-                        .getTweetPollLinks(tweetPoll));
+                        .getTweetPollLinks(tweetPoll, null, null, TypeSearchResult.getTypeSearchResult(type)));
             } else if (TypeSearchResult.POLL.name().equals(type)) {
-                 //TODO: retrieve social links by POLL
+            	final Poll poll = getPollService().getPollById(Long.valueOf(id));
+				jsonResponse.put(
+						"links",
+						getTweetPollService().getTweetPollLinks(null, poll,
+								null,
+								TypeSearchResult.getTypeSearchResult(type))); 
             } else if (TypeSearchResult.SURVEY.name().equals(type)) {
                  //TODO: retrieve social links by SURVEY
             } else if (TypeSearchResult.PROFILE.name().equals(type)) {

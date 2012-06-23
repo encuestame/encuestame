@@ -20,6 +20,8 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
@@ -196,23 +198,34 @@ public interface ITweetPollService extends IMasterSurveyService{
     List<TweetPollBean> getTweetsPollsByUserName(final String username,
             final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 
+ 
+    
     /**
      * Public Multiples Tweet Accounts.
      * @param twitterAccounts List of {@link SocialAccount}.
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
+     * @param type {@link TypeSearchResult}
+     * @param poll {@link Poll}
+     * @param survey {@link Survey}
+     * @return
      */
-    List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
-            final List<SocialAccountBean> twitterAccounts,
-            final TweetPoll tweetPoll,
-            final String tweetText);
+	List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
+			final List<SocialAccountBean> twitterAccounts,
+			final TweetPoll tweetPoll, final String tweetText,
+			final TypeSearchResult type, final Poll poll, final Survey survey);
 
    /**
     * Publish single {@link TweetPoll}.
     * @param accountId social account id.
+    * @param tweetPoll {@link TweetPoll}.
+    * @param tweetText tweet text.
+    * @param type {@link TypeSearchResult}
+    * @param poll {@link Poll}
+    * @param survey {@link Survey}
     */
    TweetPollSavedPublishedStatus publishTweetBySocialAccountId(final Long accountId, final TweetPoll tweetPoll,
-           final String tweetText);
+           final String tweetText, final TypeSearchResult type, final Poll poll, final Survey survey);
 
     /**
      * Update Question Name.
@@ -420,9 +433,13 @@ public interface ITweetPollService extends IMasterSurveyService{
      /**
       * Return list of links published by {@link TweetPoll}.
       * @param tweetPoll
+      * @param poll
+      * @param survey
+      * @param type
       * @return
       */
-     List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll);
+	List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll,
+			final Poll poll, final Survey survey, final TypeSearchResult type);
 
      /**
       * Get List of TweetPoll Folders.

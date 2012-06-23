@@ -634,10 +634,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
             // criteria.addOrder(Order.desc("tweetPoll.createDate"));
         } else if (itemType.equals(TypeSearchResult.POLL)) {
-            criteria.add(Restrictions.eq("survey", survey));
+            criteria.add(Restrictions.eq("poll", poll));
             // criteria.addOrder(Order.desc("survey.createdAt"));
         } else if (itemType.equals(TypeSearchResult.SURVEY)) {
-            criteria.add(Restrictions.eq("poll", poll));
+            criteria.add(Restrictions.eq("survey", survey));
             // criteria.addOrder(Order.desc("poll.createdAt"));
         } else {
             log.error("Item type not valid: " + itemType);

@@ -29,12 +29,16 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -77,6 +81,12 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     private List<QuestionAnswerBean> answersSaveTweet;
 
     private List<SocialAccountBean> twitterAccount;
+    
+    /** Tweet text.**/
+    private String tweetText;
+    
+    /** {@link SocialAccountBean} **/
+    private List<SocialAccountBean> socialBeans;
 
     /**
     * Before.
@@ -93,6 +103,8 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
         questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
                    this.answers);
+		this.tweetText = RandomStringUtils.randomAlphabetic(5);
+		this.socialBeans = this.createSocialAccounts();
    }
 
 
@@ -223,19 +235,61 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         //assertEquals("Should be equals", 2 , tweetPollsByUser.size());
     }
 
-    @Test
-    @Ignore
-    public void testPublicMultiplesTweetAccounts(){
-            createDefaultSettedSocialAccount(this.userAccount);
-            final List<SocialAccount> list = getAccountDao().getSocialAccountByAccount(this.userAccount.getAccount(), SocialProvider.TWITTER);
-            final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
-             final String tweetText = RandomStringUtils.randomAlphabetic(5);
-            final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.userAccount, question);
-            tweetPollService.publishMultiplesOnSocialAccounts(listUnitTwitterAccount, tweetPoll, tweetText);
-            final TweetPoll tweet = getTweetPoll().getTweetPollById(tweetPoll.getTweetPollId());
-            assertNotNull(tweet);
-    }
+    /**
+     * Create {@link SocialAccountBean}
+     * @return
+     */
+	private List<SocialAccountBean> createSocialAccounts() {
+		createDefaultSettedSocialAccount(this.userAccount); 
+		final List<SocialAccount> list = getAccountDao()
+				.getSocialAccountByAccount(this.userAccount.getAccount(),
+						SocialProvider.TWITTER);
+		
+		final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean
+				.convertListSocialAccountsToBean(list); 
+		return listUnitTwitterAccount;
+	}
 
+    /**
+     * Test Public TweetPoll on multiples social networks.
+     */
+    @Test
+    //@Ignore
+	public void testPublicMultiplesTweetAccounts() {
+    
+		final TweetPoll tweetPoll = createTweetPollPublicated(true, true,
+				new Date(), this.userAccount, question); 
+		tweetPollService.publishMultiplesOnSocialAccounts(this.socialBeans,
+				tweetPoll, this.tweetText, TypeSearchResult.TWEETPOLL, null,
+				null); 
+		final TweetPoll tweet = getTweetPoll().getTweetPollById(
+				tweetPoll.getTweetPollId());
+		assertNotNull(tweet);
+		final List<LinksSocialBean> linksPublished = getTweetPollService()
+				.getTweetPollLinks(tweetPoll, null, null,
+						TypeSearchResult.TWEETPOLL); 
+		assertEquals("Should be equals", 1 , linksPublished.size());
+	}
+    
+    /**
+     * 
+     */
+	@Test
+	public void testPublishPollOnMultiplesTweetAccounts() {
+		  
+		final Question otherQuestion = createDefaultQuestion("What is your favorite android app");
+
+		final Poll myPoll = createDefaultPoll(otherQuestion, this.userAccount);
+
+		final List<TweetPollSavedPublishedStatus> itemsPublished = tweetPollService
+				.publishMultiplesOnSocialAccounts(this.socialBeans, null, this.tweetText, TypeSearchResult.POLL, myPoll, null);
+		assertEquals("Should be equals", 1, itemsPublished.size()); 
+		final List<LinksSocialBean> linksPublished = getTweetPollService()
+				.getTweetPollLinks(null, myPoll, null,
+						TypeSearchResult.POLL); 
+		assertEquals("Should be equals", 1 , linksPublished.size());
+	}
+    
     /**
      * @return the tweetPollService
      */
