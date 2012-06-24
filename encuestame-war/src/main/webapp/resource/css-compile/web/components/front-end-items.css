@@ -157,7 +157,8 @@
 
 .web-item-wrapper .item .content .bottom .submited {
   color: #C4C4C4;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  margin-top: 5px;
 }
 
 .web-item-wrapper .item .content .bottom .submited a, .web-item-wrapper .item .content .bottom .submited a:visited,

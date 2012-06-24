@@ -39,10 +39,10 @@ dojo.declare(
          */
         postCreate : function() {
             dojo.subscribe("/encuestame/tweetpoll/detail/answer/reload", this, this._reloadAnswerInfo);
-            dojo.connect(this._url, "onclick", dojo.hitch(this, function(event){
-                dojo.stopEvent(event);
-                location.href = this.url;
-            }));
+//            dojo.connect(this._url, "onclick", dojo.hitch(this, function(event){
+//                dojo.stopEvent(event);
+//                location.href = this.url;
+//            }));
         },
 
         /**

@@ -1,17 +1,10 @@
 #web-main-public-line .web-left-wrapper {
-  background-image: linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
-background-image: -o-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
-background-image: -moz-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
-background-image: -webkit-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
-background-image: -ms-linear-gradient(bottom, rgb(111,110,110) 20%, rgb(103,103,103) 60%);
-
-background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0.2, rgb(111,110,110)),
-    color-stop(0.6, rgb(103,103,103))
-);
+background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
+        color-stop(100%, #222) );
+    background: -webkit-linear-gradient(#444, #222);
+    background: -moz-linear-gradient(#444, #222);
+    background: -o-linear-gradient(#444, #222);
+    background: linear-gradient(#444, #222);
   border-radius: 0 10px 10px 0;
   border-right: 1px solid #DCDCDC;
   box-shadow: 1px 0 6px 0 #393838 inset;

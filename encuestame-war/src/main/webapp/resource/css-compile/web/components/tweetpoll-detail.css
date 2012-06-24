@@ -7,7 +7,7 @@
 	margin: 0px;
 }
 
-div.web-tweetpoll-detail .web-tweetpoll-info {
+.web-tweetpoll-detail .web-tweetpoll-info {
 	background-color: #EDEDED;
 }
 
@@ -21,7 +21,8 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
 	width: 75px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-high {
+.web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-high
+	{
 	font-size: 20px;
 	font-weight: bold;
 	padding: 4px;
@@ -40,30 +41,120 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
 }
 
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
-	min-height: 330px;
+  background-color: white;
+  min-height: 300px;
+  overflow: hidden;
 }
 
 .web-tweetpoll-detail .chart-tweetpoll-wrapper {
 	min-height: 300px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart
-	{
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart {
 	float: left;
 	min-height: 180px;
-	width: 400px;
+	width: 395px;
 }
 
-/* tweetpoll detail answers */
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer
-	{
-	float: left;
-	min-height: 100px;
-	width: 400px;
+/*
+     tweetpoll detail answers 
+*/
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer {
+  background-color: #F7F7F7;
+  box-shadow: 3px 1px 3px 0 #CBCBCB inset;
+  float: right;
+  min-height: 315px;
+  width: 510px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .web-tweetpoll-answers
-	{
+.web-tweetpoll-answer-answer > header {
+  overflow: hidden;
+}
+
+.web-tweetpoll-answer-answer > header .answer-label {
+  display: inline-block;
+  float: left;
+  padding-left: 30px;
+  width: 260px;
+}
+
+.web-tweetpoll-answer-answer > header > div {
+
+}
+
+.web-tweetpoll-answer-answer > header > div {
+  background-color: #8E8E8E;
+  box-shadow: 0 1px 0 0 #919191 inset;
+  color: #444444;
+  font-size: 1.2em;
+     line-height: 20px;
+     padding: 10px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+.web-tweetpoll-answer-answer > header .answer-votes {
+  float: left;
+  width: 89px;
+}
+
+.web-tweetpoll-answer-answer > header .answer-percent {
+  float: right;
+  padding-right: 15px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer {
+  clear: both;
+  font-size: 1.2em;
+  overflow: auto;
+  padding: 10px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+  width: auto;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-color {
+  color: #4E4E4E;
+  float: left;
+  font-size: 1em;
+  line-height: 20px;
+  padding: 10px;
+  width: 300px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-color > div {
+  border-radius: 10px 10px 10px 10px;
+  display: inline-block;
+  float: left;
+  height: 20px;
+  margin-right: 10px;
+  opacity: 0.8;
+  width: 20px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-votes {
+  float: left;
+  line-height: 20px;
+  max-width: 80px;
+  padding: 10px;
+  width: 80px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-color > span {
+  margin-left: 5px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-color > span a:link, .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-color > span a:visited, .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-color > span a {
+  color: #539FC8;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .answer .answer-percent {
+  float: right;
+  line-height: 20px;
+  max-width: 50px;
+  padding: 10px;
+  width: 50px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer .web-tweetpoll-answers {
 	padding: 10px;
 }
 
@@ -80,63 +171,8 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
 	padding: 10px;
 }
 
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer
-	{
-	margin-top: 45px;
-	min-height: 100px;
-	padding: 10px;
-}
-
-.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer h2
-	{
+.web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer h2 {
 	margin: 0;
-}
-
-.web-tweetpoll-answer-table th {
-	border-bottom: 1px solid #3E6D8E;
-	color: #FFFFFF;
-	line-height: 24px;
-	text-align: center;
-	text-transform: lowercase;
-}
-
-.web-tweetpoll-answer-table td {
-	border-bottom: 1px solid #BBC2C6;
-	line-height: 25px;
-	padding: 8px 15px;
-}
-
-.web-tweetpoll-answer-table  .answer-poll {
-	font-weight: normal;
-	text-align: left;
-	width: 100px;
-}
-
-.web-tweetpoll-answer-table .color-code {
-	float: left;
-	height: 11px;
-	margin: 5px 10px 0 0;
-	width: 11px;
-}
-
-.web-tweetpoll-answer-table .data-aling-right {
-	border-right: 0 none;
-	text-align: right;
-}
-
-.web-tweetpoll-answer-table .answer-data-strong,.web-tweetpoll-detail .web-tweetpoll-answer-table .answer-data-strong-r
-	{
-	color: #000000;
-	font-weight: bold;
-	text-align: center;
-}
-
-.web-tweetpoll-answer-table .answer-right {
-	border-right: 1px solid #CCCCCC;
-}
-
-.web-tweetpoll-answer-table .data-bold {
-	color: #333333;
 }
 
 .web-tweetpoll-detail .section-block {
@@ -191,9 +227,20 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
 	float: left;
 }
 
+/*
+ * TweetPoll Hashtag
+ */
+
 .web-tweetpoll-detail .web-tweetpoll-hashtags {
-	overflow: auto;
-	padding: 10px;
+  padding: 20px;
+}
+
+.web-tweetpoll-detail .web-tweetpoll-hashtags .tag {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  color: #808080;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .web-tweetpoll-detail  .web-tweetpoll-comments {
@@ -202,8 +249,9 @@ div.web-tweetpoll-detail .web-tweetpoll-info {
 
 /* tweetpoll info detail */
 .web-tweetpoll-detail .web-tweetPoll-info-detail {
-	overflow: auto;
-	width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) inset, 0 -1px 1px white inset;
+    overflow: auto;
+    width: 100%;
 }
 
 div.web-tweetpoll-detail .web-tweetPoll-info-detail .question-info {
@@ -242,7 +290,8 @@ div.web-tweetpoll-detail .web-tweetPoll-info-detail .question-info {
 	padding: 0px !important;
 }
 
-div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data li {
+div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data li
+	{
 	display: block;
 }
 
@@ -251,7 +300,8 @@ div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.data {
 	width: 240px;
 }
 
-div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.tweetPollChart {
+div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.tweetPollChart
+	{
 	border: 1px dotted #000;
 }
 

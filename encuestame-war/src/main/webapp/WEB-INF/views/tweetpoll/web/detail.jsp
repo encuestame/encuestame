@@ -6,7 +6,7 @@
        </div>
    </div>
    <article class="emne-box">
-        <section class="web-tweetpoll-info">
+<%--         <section class="web-tweetpoll-info">
             <div id="info" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail"
                 <c:if test="${tweetpoll.limitVotesDate}">
                     date="${tweetpoll.dateToLimit}"
@@ -17,7 +17,7 @@
                  completed="${tweetpoll.completed}"
                  owner="${tweetpoll.ownerUsername}"
                  tweetPollid="${tweetpoll.id}"></div>
-       </section>
+       </section> --%>
         <section class="web-tweetpoll-answer-wrapper web-wrapper-detail-wrapper">
             <div class="web-tweetpoll-answer-chart">
                 <div id="chart" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail"
@@ -26,6 +26,17 @@
                      username="${tweetpoll.ownerUsername}"></div>
             </div>
             <div class="web-tweetpoll-answer-answer">
+                <header>
+                     <div class="answer-label">
+                           Answer
+                     </div>
+                     <div class="answer-votes">
+                            Total Votes
+                     </div>
+                     <div class="answer-percent">
+                            % (Percent)
+                     </div>                     
+                </header>
                 <c:forEach items="${answers}" var="a">
                     <div class="answer"
                         dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
@@ -48,20 +59,10 @@
             </div>
        </section>
    </article>
-   <article class="emne-box">
-       <header>
-          <spring:message code="options.links" />
-       </header>
-       <section>
-            <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                 itemId="${tweetpoll.id}" type="TWEETPOLL" class="web-social-links"
-                 ></div>
-       </section>
-    </article>
    <c:if test="${!empty hashtags}">
        <section class="emne-box">
            <header>
-           		<spring:message code="options.hashtag" />
+                <spring:message code="options.hashtag" />
            </header>
            <div class="web-tweetpoll-hashtags ">
                <c:forEach items="${hashtags}" var="h">
@@ -72,10 +73,23 @@
            </div>
        </section>
    </c:if>
+
+   <article class="emne-box">
+       <header>
+          <spring:message code="options.links" />
+       </header>
+       <section>
+            <div dojoType="encuestame.org.core.commons.social.LinksPublished" more="false"
+                 itemId="${tweetpoll.id}" type="TWEETPOLL" class="web-social-links"
+                 ></div>
+       </section>
+   </article>
+   
    <section class="web-tweetpoll-comments emne-box">
       <header>
             <spring:message code="options.comments" />
       </header>
       <div name="comments" dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </section>
+   
 </article>

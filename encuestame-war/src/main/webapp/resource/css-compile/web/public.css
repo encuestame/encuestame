@@ -127,7 +127,12 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     border-radius: 5px 0 0 0;
     -webkit-border-radius: 5px 0 0 0;
     -moz-border-radius: 5px 0 0 0;
-  	background-color: #2B2B2B;    
+background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
+        color-stop(100%, #222) );
+    background: -webkit-linear-gradient(#444, #222);
+    background: -moz-linear-gradient(#444, #222);
+    background: -o-linear-gradient(#444, #222);
+    background: linear-gradient(#444, #222);   
   	text-shadow: 0.1em 0.1em #333333;
 }
 
@@ -527,66 +532,6 @@ div.countdown {
     max-height: 16px;
     padding: 2px;
     text-align: center;
-}
-
-div.comments {
-    overflow: auto;
-}
-
-div.comments div.comment-wrapper {
-    margin: 3px;
-}
-
-div.comments div.comment-wrapper div.comment {
-    padding: 5px;
-    clear: both;
-    overflow: auto;
-}
-
-div.comments div.comment-wrapper div.comment div.comment-image {
-    float: left;
-    width: 45px;
-}
-
-div.comments div.comment-wrapper .comments-no-content {
-    clear: both;
-    color: #A09F9D;
-    font-size: 18px;
-    padding: 25px;
-    text-align: center;
-    width: auto;
-}
-
-div.comments div.comment-form {
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-div.comments div.comment-wrapper div.comment div.comment-data {
-    background-color: #F8F8F8;
-    border-radius: 6px 6px 6px 6px;
-    float: left;
-    padding: 5px;
-    width: 90%;
-    height: auto;
-    line-height: normal;
-    border: 1px solid #EFEFEF;
-}
-
-div.comments div.comment-wrapper div.comment div.comment-data div.comment-info-data
-    {
-    padding: 1px;
-    font-weight: bold;
-}
-
-div.comments div.comment-wrapper div.comment div.comment-data div.comment-date
-    {
-    padding: 1px;
-}
-
-div.comments div.comment-wrapper div.comment div.comment-data div.comment-body
-    {
-    padding: 3px;
 }
 
 div.panel-bar {

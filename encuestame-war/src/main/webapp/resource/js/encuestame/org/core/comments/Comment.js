@@ -57,7 +57,7 @@ dojo.declare(
         	  //set date
         	  if(this._comment_content_date){
         		  var date = dojo.create("a");
-        		  date.innerHTML = this.data.created_at;
+        		  date.innerHTML = ENME.fromNow(this.data.created_at, "YYYY-MM-DD");
         		  date.href = "#"; //TODO: future inprovments
         		  this._comment_content_date.appendChild(date);
         	  }

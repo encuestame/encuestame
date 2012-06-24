@@ -111,9 +111,10 @@ div.web-header span.link {
 }
 
 div.web-header span.link a {
-    color: #275296;
-    text-decoration: none;
-    font-size: 100%;
+  color: #444444;
+  font-size: 100%;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
 div.web-header span.link a:hover {

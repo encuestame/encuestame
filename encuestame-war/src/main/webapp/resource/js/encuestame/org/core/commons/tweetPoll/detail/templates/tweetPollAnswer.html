@@ -1,14 +1,13 @@
 <div>
-    <div class="answer-right answer-poll">
-        <div id="poll-result-0"
-             class="color-code"
+    <div class="answer-color">
+        <div class="color-code"
              style="background-color: ${color}"></div>
-             ${label}
+             <span>
+                    <a href="${url}" target="_blank" dojoAttachPoint="_url"> 
+                        ${label}
+                    </a>  
+             </span> 
         </div>
-    <div class="answer-data-strong data-aling-right" >
-        <a href="${url}" target="_blank" dojoAttachPoint="_url">${url}</a>
-    </div>
-    <div class="answer-data-strong data-aling-right" dojoAttachPoint="_votes"></div>
-    <div class="data-bold data-aling-right" dojoAttachPoint="_percent"></div>
-    <div class="data-aling-right"></div>
+    <div class="answer-votes" dojoAttachPoint="_votes"></div>
+    <div class="answer-percent" dojoAttachPoint="_percent"></div>
 </div>

@@ -56,7 +56,7 @@
        </header>
        <section>
             <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                 type="POLL" class="web-social-links">
+                 type="POLL" more="false" class="web-social-links">
             </div>
        </section>
     </article>
