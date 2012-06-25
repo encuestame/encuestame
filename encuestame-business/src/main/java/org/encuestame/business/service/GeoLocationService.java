@@ -15,9 +15,11 @@ package org.encuestame.business.service;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointType;
@@ -29,8 +31,7 @@ import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitLocationTypeBean;
-import org.encuestame.utils.web.geo.ItemGeoLocationBean;
+import org.encuestame.utils.web.UnitLocationTypeBean; 
 import org.springframework.stereotype.Service;
 
 /**
@@ -399,14 +400,31 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
         }
     }
     
-    public List<ItemGeoLocationBean> retrieveItemsByGeo(final Integer range, final Integer maxItem, final TypeSearchResult itemType, final float longitude, final Long latitude){
-    	/* Definir CONST Radio Tierra
-    	 * Convertir en Radianes la Long y Latitud
-    	 * 
-    	*/
-    	return null;
-    }
-    
-    
-    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.GeoLocationSupport#retrieveItemsByGeo
+	 * (double, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult,
+	 * double, double)
+	 */
+	public List<Object[]> retrieveItemsByGeo(final double range,
+			final Integer maxItem, final TypeSearchResult itemType,
+			final double longitude, final double latitude) {
+
+		final int earthRadius = EnMePlaceHolderConfigurer
+				.getIntegerProperty("geo.earth.radius.km");
+
+		final double latitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(latitude);
+		final double longitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(longitude);
+
+		final List<Object[]> distanceFromOrigin = getTweetPollDao()
+				.retrieveTweetPollsBySearchRadiusOfGeoLocation(
+						latitudeInRadians, longitudeInRadians, range,
+						earthRadius, maxItem);
+		// Convert list to Geo Bean
+		return distanceFromOrigin;
+	} 
 }

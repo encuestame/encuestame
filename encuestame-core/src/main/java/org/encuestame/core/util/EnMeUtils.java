@@ -218,4 +218,14 @@ public class EnMeUtils {
     	Random r = new Random();
 		return r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);		
     }
+    
+    /**
+     * Convert degrees cordinates to radians.
+     * @param degreesValue
+     * @return
+     */
+	public static Double convertDegreesToRadians(final double degreesValue) {
+		final Double radiansValue = Math.toRadians(degreesValue);
+		return radiansValue;
+	}
 }

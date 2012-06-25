@@ -18,9 +18,10 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitLocationTypeBean;
+import org.encuestame.utils.web.UnitLocationTypeBean; 
 
 /**
  * Description Class.
@@ -179,7 +180,20 @@ public interface GeoLocationSupport {
        * Retrieve Locations Items by Username
        * @param username username
        * @return
-     * @throws EnMeNoResultsFoundException
+       * @throws EnMeNoResultsFoundException
        */
       List<UnitLocationBean> retrieveLocationItemsByUsername(final String username) throws EnMeNoResultsFoundException;
+      
+      /**
+       * Retrieve items by geo coordinates
+       * @param range
+       * @param maxItem
+       * @param itemType
+       * @param longitude
+       * @param latitude
+       * @return
+       */
+      List<Object[]> retrieveItemsByGeo(final double range,
+			final Integer maxItem, final TypeSearchResult itemType,
+			final double longitude, final double latitude);
 }
