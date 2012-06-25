@@ -852,20 +852,23 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
-			final float latitude, final float longitude,
-			final int radius) {
-		final String queryStr ="SELECT tweetPollId, (acos(sin(radians(lat)) * sin(radians(:latitude)) +"
-				+ "cos(radians(lat)) * cos(radians(:latitude)) * "
-				+ "cos(radians(lng) - radians(:longitude))) * 6378) AS "
+			final double latitude, final double longitude, final double distance,
+			final double radius, final int maxItems) {
+		final double val = 510;
+	
+		final String queryStr ="(SELECT tweetPollId, (acos(sin(radians(lat)) * sin((:latitude)) +"
+				+ "cos(radians(lat)) * cos((:latitude)) * "
+				+ "cos(radians(lng) - (:longitude))) * 6378) AS "
 				+ "distanciaMalagaMadrid FROM TweetPoll "
-				+ "WHERE (acos(sin(radians(lat)) * sin(radians(:latitude)) + "
-				+ "cos(radians(lat)) * cos(radians(:latitude)) * cos(radians(lng) - radians(:longitude))) * 6378) <= 510";
+				+ "WHERE (acos(sin(radians(lat)) * sin((:latitude)) + "
+				+ "cos(radians(lat)) * cos((:latitude)) * cos(radians(lng) - (:longitude))) * :radius) <= :distance)" 
+				+ " LIMIT :maxItems";
 
 		return getHibernateTemplate()
 				.findByNamedParam(
 						queryStr,
-						new String[] {"latitude", "longitude"},
-						new Object[] {latitude, longitude});
+						new String[] {"latitude", "longitude", "distance", "radius", "maxItems"},
+						new Object[] {latitude, longitude, distance, radius, maxItems});
 
 	}
 }

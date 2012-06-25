@@ -388,10 +388,12 @@ public interface ITweetPoll extends IBaseDao{
 	 * 
 	 * @param latitude
 	 * @param longitude
-	 * @param radius 
+	 * @param distance
+	 * @param radius
+	 * @param maxItems
 	 * @return
 	 */
 	List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
-			final float latitude, final float longitude,
-			final int radius);
+			final double latitude, final double longitude, final double distance,  
+			final double radius, final int maxItems);
 }
