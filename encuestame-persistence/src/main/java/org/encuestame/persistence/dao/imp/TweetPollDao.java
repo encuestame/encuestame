@@ -848,27 +848,32 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     
 	/*
 	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.ITweetPoll#retrieveTweetPollsBySearchRadiusOfGeoLocation(float, float, int)
+	 * 
+	 * @see org.encuestame.persistence.dao.ITweetPoll#
+	 * retrieveTweetPollsBySearchRadiusOfGeoLocation(double, double, double,
+	 * double, int, org.encuestame.utils.enums.TypeSearchResult)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
-			final double latitude, final double longitude, final double distance,
-			final double radius, final int maxItems) {
-		final double val = 510;
-	
-		final String queryStr ="(SELECT tweetPollId, (acos(sin(radians(lat)) * sin((:latitude)) +"
-				+ "cos(radians(lat)) * cos((:latitude)) * "
-				+ "cos(radians(lng) - (:longitude))) * 6378) AS "
-				+ "distanciaMalagaMadrid FROM TweetPoll "
-				+ "WHERE (acos(sin(radians(lat)) * sin((:latitude)) + "
-				+ "cos(radians(lat)) * cos((:latitude)) * cos(radians(lng) - (:longitude))) * :radius) <= :distance)" 
-				+ " LIMIT :maxItems";
-
-		return getHibernateTemplate()
-				.findByNamedParam(
-						queryStr,
-						new String[] {"latitude", "longitude", "distance", "radius", "maxItems"},
-						new Object[] {latitude, longitude, distance, radius, maxItems});
-
-	}
+			final double latitude, final double longitude,
+			final double distance, final double radius, final int maxItems,
+			final TypeSearchResult type) {
+		String queryStr = "";
+		if (type.equals(TypeSearchResult.TWEETPOLL)) {
+			queryStr = this.getQueryStringForGeoLocation("tweetPollId",
+					"TweetPoll");
+		} else if (type.equals(TypeSearchResult.POLL)) {
+			queryStr = this.getQueryStringForGeoLocation("pollId", "Poll");
+		} else if (type.equals(TypeSearchResult.SURVEY)) {
+			queryStr = this.getQueryStringForGeoLocation("sid", "Survey");
+		} else if (type.equals(TypeSearchResult.HASHTAG)) {
+			// TODO: Define how to should store geolocations for hashtags, maybe
+			// in tweetpoll_hashtags
+		} else {
+			log.error("Item type not valid: " + type);
+		} 
+		getHibernateTemplate().setMaxResults(maxItems);
+		return this.findByNamedParamGeoLocationItems(queryStr, latitude,
+				longitude, distance, radius, maxItems);
+	}  
 }
