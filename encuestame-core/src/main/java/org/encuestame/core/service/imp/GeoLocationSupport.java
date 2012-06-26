@@ -22,6 +22,7 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean; 
+import org.encuestame.utils.web.geo.ItemGeoLocationBean;
 
 /**
  * Description Class.
@@ -193,7 +194,7 @@ public interface GeoLocationSupport {
        * @param latitude
        * @return
        */
-      List<Object[]> retrieveItemsByGeo(final double range,
+      List<ItemGeoLocationBean> retrieveItemsByGeo(final double range,
 			final Integer maxItem, final TypeSearchResult itemType,
 			final double longitude, final double latitude);
 }
