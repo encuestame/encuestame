@@ -327,7 +327,42 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
              }             
          }
     }
+    
+    /**
+     * 
+     * @param fieldName
+     * @param fromValue
+     * @return
+     */
+    public String getQueryStringForGeoLocation(final String fieldName, final String fromTable){
+    	final String queryStr ="SELECT " + fieldName + ", (acos(sin(radians(lat)) * sin((:latitude)) +"
+				+ "cos(radians(lat)) * cos((:latitude)) * "
+				+ "cos(radians(lng) - (:longitude))) * :radius) AS "
+				+ "distanceFrom FROM " + fromTable
+				+ " WHERE (acos(sin(radians(lat)) * sin((:latitude)) + "
+				+ "cos(radians(lat)) * cos((:latitude)) * cos(radians(lng) - (:longitude))) * :radius) <= :distance";
+    	return queryStr;
+    }
 
+    /**
+     * Retrieve geoLocation data from a point.
+     * @param query
+     * @param latitude
+     * @param longitude
+     * @param distance
+     * @param radius
+     * @param maxItems
+     * @return
+     */
+	@SuppressWarnings("unchecked")
+	public List<Object[]> findByNamedParamGeoLocationItems(final String query,
+			final double latitude, final double longitude,
+			final double distance, final double radius, final int maxItems) {
+		return getHibernateTemplate().findByNamedParam(query,
+				new String[] { "latitude", "longitude", "distance", "radius" },
+				new Object[] { latitude, longitude, distance, radius });
+	}
+    
     /**
      * @return the version
      */
