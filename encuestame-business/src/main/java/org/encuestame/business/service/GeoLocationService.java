@@ -12,12 +12,15 @@
  */
 package org.encuestame.business.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.AbstractBaseService;
 import org.encuestame.core.service.imp.GeoLocationSupport;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointType;
@@ -29,7 +32,7 @@ import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
-import org.encuestame.utils.web.UnitLocationTypeBean;
+import org.encuestame.utils.web.UnitLocationTypeBean; 
 import org.encuestame.utils.web.geo.ItemGeoLocationBean;
 import org.springframework.stereotype.Service;
 
@@ -399,14 +402,62 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
         }
     }
     
-    public List<ItemGeoLocationBean> retrieveItemsByGeo(final Integer range, final Integer maxItem, final TypeSearchResult itemType, final float longitude, final Long latitude){
-    	/* Definir CONST Radio Tierra
-    	 * Convertir en Radianes la Long y Latitud
-    	 * 
-    	*/
-    	return null;
-    }
-    
-    
-    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.GeoLocationSupport#retrieveItemsByGeo
+	 * (double, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult,
+	 * double, double)
+	 */
+	public List<ItemGeoLocationBean> retrieveItemsByGeo(final double range,
+			final Integer maxItem, final TypeSearchResult itemType,
+			final double longitude, final double latitude) {
+		List<ItemGeoLocationBean> itemsGeoBeanList = new ArrayList<ItemGeoLocationBean>();
+		final int earthRadius = EnMePlaceHolderConfigurer
+				.getIntegerProperty("geo.earth.radius.km");
+		ItemGeoLocationBean itemGeoBean = new ItemGeoLocationBean();
+		List<Object[]> distanceFromOrigin = new ArrayList<Object[]>();
+		final double latitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(latitude);
+		final double longitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(longitude);
+
+		distanceFromOrigin = getTweetPollDao()
+				.retrieveTweetPollsBySearchRadiusOfGeoLocation(
+						latitudeInRadians, longitudeInRadians, range,
+						earthRadius, maxItem, itemType);
+
+		for (Object[] objects : distanceFromOrigin) {
+			itemGeoBean = this.createItemGeoLocationBean((Long) objects[0],
+					itemType, (Float) objects[0], (Float) objects[0],
+					objects[0].toString(), (Double) objects[0]);
+			itemsGeoBeanList.add(itemGeoBean);
+		}
+		return itemsGeoBeanList;
+	}
+ 
+	
+	/**
+	 * Create {@link ItemGeoLocationBean} helper.
+	 * @param itemId
+	 * @param itemType
+	 * @param latitude
+	 * @param longitude
+	 * @param question
+	 * @param distance
+	 * @return
+	 */
+	private ItemGeoLocationBean createItemGeoLocationBean(final Long itemId,
+			final TypeSearchResult itemType, final float latitude,
+			final float longitude, final String question, final double distance) {
+		final ItemGeoLocationBean locationBean = new ItemGeoLocationBean();
+		locationBean.setItemId(itemId);
+		locationBean.setItemType(itemType);
+		locationBean.setLatitude(latitude);
+		locationBean.setLongitude(longitude);
+		locationBean.setQuestion(question);
+		locationBean.setDistance(distance);
+		return locationBean;
+	}
 }

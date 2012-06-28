@@ -12,6 +12,9 @@
  */
 package org.encuestame.test.business.service;
 
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Calendar;
 import java.util.List;
 
 import org.encuestame.business.service.GeoLocationService;
@@ -22,11 +25,14 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
+import org.encuestame.utils.web.geo.ItemGeoLocationBean;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -130,6 +136,27 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
         //final CatLocation location = createCatLocation("Managua", locTypeName, Level, secUsers)
     }
 
+    /**
+     * 
+     */
+	@Test
+	public void testRetrieveItemsByGeo() {
+		final Calendar myCalendarDate = Calendar.getInstance();
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(),
+				createQuestion("What is your favorite futboll team?",
+						secondary.getAccount()), myCalendarDate.getTime());
+
+		tweetPoll.setLocationLatitude(40.4167F);
+		tweetPoll.setLocationLongitude(-3.70325F);
+		getTweetPoll().saveOrUpdate(tweetPoll);
+		assertNotNull(tweetPoll);
+
+		final List<ItemGeoLocationBean> distanceFromOrigin = getLocationService()
+				.retrieveItemsByGeo(510d, 30, TypeSearchResult.TWEETPOLL,
+						2.16991870F, 41.3879169F);
+	}
+    
     /**
      * @return the locationService
      */

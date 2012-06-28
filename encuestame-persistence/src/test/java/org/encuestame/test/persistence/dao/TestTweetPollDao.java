@@ -668,11 +668,40 @@ public class TestTweetPollDao  extends AbstractBase{
 		tweetPoll.setLocationLatitude(40.4167F);
 		tweetPoll.setLocationLongitude(-3.70325F);
 		getTweetPoll().saveOrUpdate(tweetPoll);
-		assertNotNull(tweetPoll); 
+		assertNotNull(tweetPoll);
+
+		final TweetPoll tp1 = createPublishedTweetPoll(
+				this.secondary.getAccount(),
+				createQuestion("What is your favorite movie?",
+						secondary.getAccount()), myCalendarDate.getTime());
+
+		tp1.setLocationLatitude(39.4167F);
+		tp1.setLocationLongitude(-2.70325F);
+		getTweetPoll().saveOrUpdate(tp1);
+		assertNotNull(tp1);
+
+		final TweetPoll tp2 = createPublishedTweetPoll(
+				this.secondary.getAccount(),
+				createQuestion("What is your favorite actor?",
+						secondary.getAccount()), myCalendarDate.getTime());
+
+		tp2.setLocationLatitude(38.4167F);
+		tp2.setLocationLongitude(-3.70325F);
+		getTweetPoll().saveOrUpdate(tp2);
+		assertNotNull(tp2);
+		final double latiRadian = Math.toRadians(41.3879169F);
+		final double longRadian = Math.toRadians(2.16991870F);
+
 		final List<Object[]> distanceFromOrigin = getTweetPoll()
-				.retrieveTweetPollsBySearchRadiusOfGeoLocation(41.3879169F,
-						2.16991870F, 510);
-		System.out.println("Distance from Origin ---> " + distanceFromOrigin.get(0)[1]);  
+				.retrieveTweetPollsBySearchRadiusOfGeoLocation(latiRadian,
+						longRadian, 510d, 6378, 10, TypeSearchResult.TWEETPOLL);
+
+		System.out.println(" tota values" + distanceFromOrigin.size());
+		for (Object[] objects : distanceFromOrigin) {
+			System.out.println(" id values" + objects[0]);
+			System.out.println(" distance values" + objects[1]);
+			System.out.println(" ------------------");
+		}
 	}
 
 }
