@@ -25,7 +25,7 @@
 
        </div>
        <footer>
-            <button type="submit">Vote</button>
+            <button class="enme-ui-button vote" type="submit">Vote</button>
        </footer>
    </form>
 </article>

@@ -1,0 +1,29 @@
+.enme-web-context button.vote {
+	background-color: #E0E0E0;
+	background-image: -moz-linear-gradient(center top, #FAFAFA 0px, #DCDCDC 100%);
+	border-color: #CCCCCC #CCCCCC #AAAAAA;
+	box-shadow: 0 0 1px #FFFFFF inset;
+	text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.enme-web-context button:hover {
+	text-decoration: none;
+}
+
+.enme-ui-button {
+	border: 1px solid;
+	border-radius: 2px 2px 2px 2px;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: bold;
+	height: 2.95em;
+	outline: 0 none;
+	padding: 0 0.91em;
+	vertical-align: middle;
+	white-space: nowrap;
+	word-wrap: normal;
+	padding: 0 0.2em;
+	-moz-user-select: none;
+	color: #000000;
+	cursor: pointer;
+}

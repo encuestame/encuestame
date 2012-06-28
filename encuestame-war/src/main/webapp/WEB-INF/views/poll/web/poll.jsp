@@ -1,27 +1,32 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-wrapper-detail">
-   <header>
-       <h1>${poll.questionBean.questionName}</h1>
-   </header>
+<article class="web-wrapper-detail web-poll-results">
+   <div class="web-detail-header">
+       <div class="title">
+       <h2>${poll.questionBean.questionName}</h2>
+       </div>
+   </div>
    <article class="emne-box">
         <section class="web-wrapper-detail-wrapper">
-            <article class="web-chart">
+            <article class="web-detail-chart">
                 <div dojoType="encuestame.org.core.commons.poll.detail.PollChartDetail"
 	                 pollId="${poll.id}"
 	                 username="${poll.ownerUsername}">
 	            </div>
             </article>
-            <article class="web-detail web-poll-results"> 
-            	 <header>
-            	 	<div class="header-votes">
-            	 		<spring:message code="options.votes" />
-            	 	</div>
-            	 	<div class="header-percents">
-            	 		<spring:message code="options.percent" />
-            	 	</div>
-            	 </header>           	             	
+            <article class="web-detail-answer-wrapper"> 
+                <header>
+                     <div class="answer-label">
+                           Answer
+                     </div>
+                     <div class="answer-votes">
+                            Total Votes
+                     </div>
+                     <div class="answer-percent">
+                            % (Percent)
+                     </div>                     
+                </header>           	             	
 				 <c:forEach items="${answers}" var="item">				 
 				 	<section dojoType="encuestame.org.core.commons.results.answers.GenericPercentResult"
 				 		itemId="${item.answerBean.answerId}"
@@ -34,7 +39,7 @@
                  </c:forEach>
                  <div class="web-poll-options-button">
                  	<a href="<%=request.getContextPath()%>/poll/vote/${poll.id}/${poll.questionBean.slugName}">
-                 		<button>
+                 		<button class="enme-ui-button vote">
                  			<spring:message code="options.vote" />
                  		</button>
                  	</a>

@@ -12,7 +12,7 @@ body {
 
 /** header **/
 header#header {
-  margin: 0 auto;
+  margin: 5px auto 20px;
   width: 970px;
   z-index: 4;
 }

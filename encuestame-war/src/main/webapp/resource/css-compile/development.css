@@ -19,7 +19,11 @@
 @import url("web/components/header.css");
 @import url("web/components/more.css");
 @import url("web/components/detail-comments.css");
+@import url("web/components/generic-results.css");
+@import url("web/components/poll-results.css");
 @import url("web/components/poll.css");
+@import url("web/components/poll-vote.css");
+@import url("web/components/button.css");
 @import url("web/components/search.css");
 @import url("web/components/social-links.css");
 @import url("web/components/tags.css");
