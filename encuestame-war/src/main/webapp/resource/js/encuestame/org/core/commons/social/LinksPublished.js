@@ -72,6 +72,8 @@ dojo.declare(
                 	this._params.type = ENME.CONST.TYPE_SURVEYS[2];
                 } else if(this.type === ENME.CONST.TYPE_SURVEYS[3]) { // hashtag
                 	this._params.type = ENME.CONST.TYPE_SURVEYS[3];
+                } else {
+                	this._params.type = "";
                 }
             }
             dojo.hitch(this, this.loadItems());

@@ -7,13 +7,15 @@ dojo.require('encuestame.org.core.commons');
 dojo.declare(
     "encuestame.org.core.commons.questions.patterns.AbstractPattern",
     [encuestame.org.main.EnmeMainLayoutWidget],{
+    	
+    	itemId : "",
+    	
+    	label : "",
 
        /**
-        *
+        * PostCreate life cycle.
         */
-        postCreate : function() {
-
-        },
+        postCreate : function() {},
 
         /**
          * Create a simple button.

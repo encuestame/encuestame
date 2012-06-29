@@ -18,7 +18,7 @@
             <article class="web-detail-answer-wrapper"> 
                 <header>
                      <div class="answer-label">
-                           Answer
+                            Answer
                      </div>
                      <div class="answer-votes">
                             Total Votes
@@ -61,7 +61,10 @@
        </header>
        <section>
             <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                 type="POLL" more="false" class="web-social-links">
+                 type="POLL" 
+                 more="false" 
+                 itemId="${poll.id}"
+                 class="web-social-links">
             </div>
        </section>
     </article>

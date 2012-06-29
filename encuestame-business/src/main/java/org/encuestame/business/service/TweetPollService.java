@@ -1106,12 +1106,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 	 * org.encuestame.persistence.domain.survey.Survey,
 	 * org.encuestame.utils.enums.TypeSearchResult)
 	 */
-	public List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll,
-			final Poll poll, final Survey survey, final TypeSearchResult type) { 
+	public List<LinksSocialBean> getTweetPollLinks(
+			final TweetPoll tweetPoll,
+			final Poll poll,
+			final Survey survey, 
+			final TypeSearchResult type) { 
        List<TweetPollSavedPublishedStatus> links = new ArrayList<TweetPollSavedPublishedStatus>();
-      if(type.equals(TypeSearchResult.TWEETPOLL)){
+      if (type.equals(TypeSearchResult.TWEETPOLL)) {
     	  links = getTweetPollDao().getLinksByTweetPoll(tweetPoll , null, null, TypeSearchResult.TWEETPOLL);
-      } else if(type.equals(TypeSearchResult.POLL)){
+      } else if(type.equals(TypeSearchResult.POLL)) {
     	  links = getTweetPollDao().getLinksByTweetPoll(null , null, poll, TypeSearchResult.POLL);
       } 
       log.debug("getTweetPollLinks: "+links.size()); 

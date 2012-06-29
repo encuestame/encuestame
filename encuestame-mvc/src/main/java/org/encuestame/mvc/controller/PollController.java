@@ -100,17 +100,17 @@ public class PollController extends AbstractBaseOperations {
             @RequestParam("type") String type,
             @RequestParam("slugName") String slugName,
             final HttpServletRequest req) {
-        log.debug("VOTE POLL "+responseId);
-        log.debug("VOTE POLL "+itemId);
-        log.debug("VOTE POLL "+type);
-        log.debug("VOTE POLL "+type);
+        log.debug("/poll/vote/post VOTE POLL "+responseId);
+        log.debug("/poll/vote/post VOTE POLL "+itemId);
+        log.debug("/poll/vote/post VOTE POLL "+type);
+        log.debug("/poll/vote/post VOTE POLL "+type);
         //default path
         String pathVote = "redirect:/poll/voted/";
         try {
             type = filterValue(type);
             slugName = filterValue(slugName);
             final String IP = getIpClient(req);
-            //validations
+            // validations
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             if (checkBannedIp) {
             	//if banned send to banned view.

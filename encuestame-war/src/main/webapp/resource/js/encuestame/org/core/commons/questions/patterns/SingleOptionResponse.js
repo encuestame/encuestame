@@ -32,9 +32,18 @@ dojo.declare("encuestame.org.core.commons.questions.patterns.SingleOptionRespons
 
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.questions.patterns", "templates/singleOptionResponse.html"),
 
+        /**
+         *  Name of the option node.
+         */
         name : "",
+        
+        /**
+         * 
+         */
+        vote : "",
 
-        postCreate : function(){
+        postCreate : function() {
+        	//initialize the parents widgets.
             this.inherited(arguments);
         }
 

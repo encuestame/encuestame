@@ -24,7 +24,7 @@ ENME.CONST = ( function() {
 				
 				STATUS : ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'],
 				
-				TYPE_SURVEYS : ['TWEETPOLL', 'POLl', 'SURVEY', 'HASHTAG'],
+				TYPE_SURVEYS : ['TWEETPOLL', 'POLL', 'SURVEY', 'HASHTAG'],
 		};
 			
 		return fn;

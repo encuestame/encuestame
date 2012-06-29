@@ -33,10 +33,13 @@ dojo.declare("encuestame.org.core.commons.poll.vote.PollVote", [
         /**
          *
          */
-        postCreate : function(){
+        postCreate : function() {
+        	/*
+        	 * Retrieve the dojoType from template and append inside to this widget.
+        	 */
             dojo.query("> [dojoType]", this.srcNodeRef).forEach(
                     dojo.hitch(this, function(node) {
-                       console.info(node);
+                       ENME.log(node);
                        this._responses.appendChild(node);
                     })
                 );
