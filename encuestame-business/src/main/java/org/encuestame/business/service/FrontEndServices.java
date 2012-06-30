@@ -1339,7 +1339,7 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
         final List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(hash, null, null, null, null,
                         TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
-        log.debug("getTweetPollLinks " + links.size());
+        log.debug("getTweetPollLinks getHashTagLinks HASHTAG: " + links.size());
         return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }
 

@@ -1162,9 +1162,10 @@ public class ConvertDomainBean {
      */
     public static final List<LinksSocialBean> convertTweetPollSavedPublishedStatus(
             final List<TweetPollSavedPublishedStatus> links) {
+    	log.debug("convertTweetPollSavedPublishedStatus size "+links.size());
         final List<LinksSocialBean> linksBean = new ArrayList<LinksSocialBean>();
         for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : links) {
-            log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
+            //log.debug("getTweetPollLinks "+tweetPollSavedPublishedStatus.toString());
             linksBean.add(ConvertDomainBean.convertTweetPollSavedPublishedStatus(tweetPollSavedPublishedStatus));
          }
         return linksBean;

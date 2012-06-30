@@ -565,20 +565,22 @@ div.web-default-menu  li.first {
 
 /** emne-box **/
 
-.emne-box {
-/* 	background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-	background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-	background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-	background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-	background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-	
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.04, rgb(255,255,255)),
-		color-stop(1, rgb(242,242,242))
-	); */
+.emne-box { }
+
+.emne-box-gray {
+  background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.04, rgb(255,255,255)),
+        color-stop(1, rgb(242,242,242))
+    ); 
 }
 
 
@@ -606,14 +608,13 @@ div.web-default-menu  li.first {
   float: right;
   position: relative;
   right: 10px;
-  top: -3px;
+  top: 2px;
 }
 
 .emne-box h3.no-results {
   color: #CCCCCC;
   font-size: 1.2em;
-  margin-bottom: 30px;
-  margin-left: 30px;
+  margin : 0;
   padding: 20px;
 }
 

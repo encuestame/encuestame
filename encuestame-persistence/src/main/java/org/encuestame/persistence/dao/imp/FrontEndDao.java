@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
@@ -477,12 +478,20 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             //social links by hashtag
             final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG,
             		searchPeriods); 
-            log.debug("getLinksByHomeItem hashtag TP size "+d.size());
+            final List<Poll> polls = getPoll().getPollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, searchPeriods);
+            // FUTURE: We need include Surveys by Hashtag
+            // include on the query all published items by tweetpoll 
             if (d.size() != 0) {
                 criteria.add(Restrictions.in("tweetPoll", d));
             }
+            // include on the query all published items by poll            
+            if (polls.size() != 0) {
+                criteria.add(Restrictions.in("poll", polls));
+            }
+            //BUG: We have a serial problem here, if poll and tweetpoll are null the criteria retrieve ALL items. ENCUESTAME-490
         } else if (itemType.equals(TypeSearchResult.PROFILE)) {
             //TODO: future
+        	//return ListUtils.EMPTY_LIST;
         } else {
             log.error("Item type not valid: " + itemType);
         }
