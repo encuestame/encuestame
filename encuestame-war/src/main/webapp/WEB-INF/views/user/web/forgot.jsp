@@ -1,28 +1,50 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
-<div id="web-login-container">
-    <form:form modelAttribute="forgotPasswordBean">
-        <div class="section-wrapper">
-            <label class="section-wrapper" for="j_username">
-                 <spring:message code="forgot.username" />:
-             </label>
-            <div class="login-section-wrapper">
-                <fieldset>
-                    <form:input path="email" size="30" maxlength="25" /><br /><form:errors path="email" cssClass="errors" />
-                 </fieldset>
-            </div>
-        </div>
+<div id="web-user-actions-form-wrapper" class="enme-auto-center">
+	<div class="web-form-wrapper recover-password-form" id="web-form-wrapper">
+		<form:form modelAttribute="forgotPasswordBean" cssClass="signup-form defaultForm">
+			<div class="section-signup" title="Sign Up with Username"
+				collapsed="false">
+				<div class="web-form-singup-container">
+					<h1>
+						  <spring:message code="forgot.username" />
+					</h1>
+					<fieldset class="textbox">
+						<div class="section name">
+							<div class="validator-wrapper" id="rm" widgetid="rm">
+								<div id="_message_rm" class="sidetip">
+									<p><form:errors path="email" cssClass="error-message" /></p>
+								</div>
+								<div class="input-design">
+									<fieldset>
+										<form:input path="email" size="30" maxlength="200" />
+									</fieldset>
+								</div>
+							</div>
+						</div>
+						<div class="section name">
+                            <div class="validator-wrapper" id="rm" widgetid="rm">
+                                <div id="_message_rm" class="sidetip">
+                                    <p><form:errors path="captcha" cssClass="error-message" /></p>
+                                </div>
+                                <div class="captcha">
+                                    <fieldset>
+                                        <c:out value="${forgotPasswordBean.captcha}" escapeXml="false" />
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="section-wrapper">
-            <div class="">
-                 <c:out value="${forgotPasswordBean.captcha}" escapeXml="false" />
-                        <br /><form:errors path="captcha" cssClass="error" />
-                 </div>
-        </div>
-        <div class="section-wrapper loginButtonWrapper">
-            <div class="login-buton">
-                <input type="submit" class="btn grey defaultButton" name="submit" value="<spring:message code="forgot.submit" />" />
-            </div>
-        </div>
-    </form:form>
+					</fieldset>
+					<fieldset>
+						<div class="center">
+							<button type="submit" class="submit button" name="submit">
+							     <spring:message code="forgot.submit" />
+				            </button>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</form:form>
+	</div>
 </div>

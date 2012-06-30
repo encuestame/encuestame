@@ -72,7 +72,7 @@ dojo.declare("encuestame.org.core.shared.utils.CacheLinkedList", null, {
                 this._empty();
                 //console.debug("pro", data.success[this.property]);
                 var items = data.success[this.property];
-                if (items.length > 0) {
+                if (items && items.length > 0) {
                     dojo.forEach(items, dojo.hitch(this, function(
                             data, index) {
                         //console.info("for each", data);

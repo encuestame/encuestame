@@ -110,7 +110,15 @@ dojo.declare(
          */
         processItem : function(/** poll data**/  data, /** position **/ index) {
         	 this._createLink(data);
-        },        
+        }, 
+        
+        
+        /**
+         * Display a empty message.
+         */
+        displayEmptyMessage : function () {
+        	//TODO: POR HACER
+        },    
 
         /**
          *

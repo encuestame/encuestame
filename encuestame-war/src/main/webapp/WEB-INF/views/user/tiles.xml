@@ -3,35 +3,40 @@
 
 <tiles-definitions>
 
-    <definition name="signin" extends="page">
+    <definition name="signin" extends="login-page">
         <put-attribute name="title" value="Sign In | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}signin.jsp" />
     </definition>
 
-    <definition name="signup" extends="page">
+    <definition name="signup" extends="login-page">
         <put-attribute name="title" value="Sign Up | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}signup.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}signup-js.jsp" />
     </definition>
 
-    <definition name="forgot" extends="page">
-        <put-attribute name="title" value="Sign Up | encuestame" />
+    <definition name="forgot" extends="login-page">
+        <put-attribute name="title" value="I forgot my password | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}forgot.jsp" />
     </definition>
 
-    <definition name="connect/account" extends="page">
+    <definition name="connect/account" extends="login-page">
         <put-attribute name="title" value="Google | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}connect.jsp" />
     </definition>
 
-    <definition name="signin/provider/register" extends="page">
+    <definition name="signin/provider/register" extends="login-page">
         <put-attribute name="title" value="Social Register | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}register_provider.jsp" />
     </definition>
 
-      <definition name="user/confirm/" extends="page">
+      <definition name="user/confirm/" extends="login-page">
         <put-attribute name="title" value="Confirm User Account | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}user_confirm.jsp" />
     </definition>
 
+    <definition name="/user/checkyouremail" extends="login-page">
+        <put-attribute name="title" value="Check Your Email | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${currentDevice.mobile ? 'mobile/' : 'web/'}check.jsp" />
+    </definition>
+    
 </tiles-definitions>
