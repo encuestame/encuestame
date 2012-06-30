@@ -155,41 +155,6 @@ background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
     width: 660px;
 }
 
-/** clod **/
-.web-cloud {
-    clear: both;
-    margin: 45px 0 auto;
-    max-width: 100%;
-}
-
-.web-cloud>h1 {
-    font-size: 140%;
-    font-weight: bold;
-    margin-bottom: 4px;
-    margin-bottom: 5px;
-    background-color: #3E6D8E;
-    color: #FFF;
-    padding: 5px;
-}
-
-.web-cloud .cloudItems {
-    overflow: auto;
-    padding: 10px;
-}
-
-.web-cloud .cloudItems>a.tag {
-    display: inline-block;
-    margin: 5px;
-}
-
-.web-cloud .cloudItem {
-    display: inline-block;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 2px;
-}
-
-
 
 /** poll detail **/
 .web-poll-detail {

@@ -1,7 +1,4 @@
-@import url("button.css");
 @import url("suggest.css");
-@import url("table.css");
-
 
 a{
    text-decoration: none;
@@ -584,6 +581,8 @@ div.web-default-menu  li.first {
 	); */
 }
 
+
+
 .emne-box > header {
   background-color: #E5E5E5;
   border-bottom: 1px solid #CFCFCF;
@@ -593,6 +592,14 @@ div.web-default-menu  li.first {
   padding-left: 8px;
   padding-top: 8px;
   text-shadow: 1px 1px 1px #B3B3B4;
+}
+
+.emne-box h1 {
+  color: #6D6D6D;
+  font-size: 2em;
+  font-weight: 500;
+  margin: 12px;
+  text-shadow: 1px 1px 1px #FFFFFF;
 }
 
 .emne-box > header .rss {
