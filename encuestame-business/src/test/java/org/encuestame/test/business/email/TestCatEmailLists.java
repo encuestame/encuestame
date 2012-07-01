@@ -26,6 +26,7 @@ import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.mail.InvitationBean;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,6 +37,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since June 24, 2010
  * @version $Id: $
  */
+@Ignore
+//TODO: ENCUESTAME-484
+//Move with @Category to test with INTERNET required.
 public class TestCatEmailLists extends AbstractServiceBase {
 
     private EmailList emailList;

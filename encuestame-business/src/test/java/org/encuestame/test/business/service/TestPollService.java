@@ -44,6 +44,7 @@ import org.encuestame.utils.web.UnitLists;
 import org.hibernate.HibernateException;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -257,6 +258,9 @@ public class TestPollService extends AbstractSpringSecurityContext{
      * Test publish poll by email list.
      */
     @Test(timeout=80000)
+    @Ignore
+  //TODO: ENCUESTAME-484
+  //Move with @Category to test with INTERNET required.
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(),
                         new Date(), this.emailList.getListName(), this.userAccount.getUid());
