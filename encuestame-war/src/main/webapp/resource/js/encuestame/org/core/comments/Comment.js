@@ -42,7 +42,7 @@ dojo.declare(
         		  var commentedBy = (this.data.commented_by == null ? this.data.commented_username : this.data.commented_by);
         		  a.innerHTML = commentedBy;
         		  a.href = encuestame.utilities.usernameLink(this.data.commented_username);
-        		  a.target = "_blank";
+        		  //a.target = "_blank";
         		  this._commented_by.appendChild(a);
         	  }
         	  //set content.
