@@ -65,44 +65,29 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(javax.servlet.http.HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-        Device device = deviceResolver.resolveDevice(request);
-        //log.debug("customized mobile resolver");
+        final Device device = deviceResolver.resolveDevice(request);
+        //
         final Boolean enabledMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.enabled");
-        //log.debug("deviceResolver application.mobile.enabled:{"+enabledMobileDevice);
         final Boolean forceMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.only");
-        //log.debug("deviceResolver application.mobile.only:{"+forceMobileDevice);
-        // is mobile device enabled?
-        if (enabledMobileDevice) {
+        // if is mobile device and if mobile supoort is enabled
+        if (enabledMobileDevice && device.isMobile()) {
             //force to use mobile view.
-            if (forceMobileDevice) {
-                request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE,
-                        new EnMeDevice(Boolean.TRUE));
-            } else {
-                request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE,
-                        device);
-            }
+            request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE, device.isMobile());
+        // force to be a mobile device    
+        } else if (forceMobileDevice) {
+        	request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE, Boolean.TRUE);
+        // if is a tablet and is not forced to be mobile
+        } else if (!forceMobileDevice && device.isTablet()) {
+        	request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE, Boolean.FALSE);
+        // if is normal (NO MOBILE AND TABLE) and is not force to be a mobile device	
+        } else if (!forceMobileDevice && device.isNormal()) {
+        	request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE, Boolean.FALSE);
+        // another options, display always NON mobile site 	
         } else {
-            request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE, new EnMeDevice(Boolean.FALSE));
+        	request.setAttribute(DeviceUtils.CURRENT_DEVICE_ATTRIBUTE, Boolean.FALSE);
         }
         return true;
-    }
-}
-
-/**
- * Customized device implementation.
- */
-class EnMeDevice implements Device {
-
-    private boolean device = false;
-
-    public EnMeDevice(final boolean device) {
-        this.device = device;
-    }
-
-    @Override
-    public boolean isMobile() {
-        return device;
     }
 }
