@@ -1,7 +1,7 @@
-<div id="web-tweetpoll-wrapper" class="emne-box">
-    <div class="web-tweetpoll-menu default-background-dark-color">
+<div id="web-tweetpoll-wrapper" class="emne-box web-wrapper-detail">
+    <div class="web-tweetpoll-menu">
         <a href="<%=request.getContextPath()%>/user/tweetpoll/new">
-            <button>
+            <button class="enme-ui-button">
                 New TweetPoll
             </button>
         </a>

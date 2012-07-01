@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="menuWrapper enme-auto-center">
+<div class="menuWrapper enme-auto-center enme-ui-gradient-header-color">
     <div class="rightSide">
         <c:if test="${logged}">
             <span class="section">

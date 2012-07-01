@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<article class="web-wrapper-detail web-poll-results">
+<article class="web-wrapper-detail web-poll-results web-wrapper-detail">
    <div class="web-detail-header">
        <div class="title">
        <h2>${poll.questionBean.questionName}</h2>
