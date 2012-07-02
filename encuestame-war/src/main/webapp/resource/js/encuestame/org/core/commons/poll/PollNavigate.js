@@ -227,7 +227,7 @@ dojo.declare(
             //set votes
             this._votes.innerHTML = this.data.total_votes == null ? 0 : this.data.total_votes;
             //set date
-            this._date.innerHTML = this.data.creation_date;
+            this._date.innerHTML = ENME.fromNow(this.data.creation_date);
         },
 
         /**

@@ -32,10 +32,13 @@
 @import url("web/components/poll-results.css");
 @import url("web/components/poll.css");
 @import url("web/components/poll-vote.css");
+@import url("web/components/poll-admon.css");
 @import url("web/components/button.css");
 @import url("web/components/menu-logged.css");
 @import url("web/components/menu-profile.css");
 @import url("web/components/menu-notifications.css");
+@import url("web/components/admon-filter-side.css");
+@import url("web/components/admon-list-rows.css");
 @import url("web/components/search.css");
 @import url("web/components/social-links.css");
 @import url("web/components/tags.css");

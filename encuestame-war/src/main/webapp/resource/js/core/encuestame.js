@@ -324,17 +324,29 @@ if (typeof dojo != "undefined") {
 			    }
 			},
 			
-			shortPicture : function(provider){
+			/**
+			 * 
+			 * @param provider
+			 * @returns {String}
+			 */
+			shortPicture : function(provider) {
 			     var url = encuestame.contextDefault + "/resources/images/social/"+provider.toLowerCase()
-	               +"/enme_icon_"+provider.toLowerCase()+".png";
+	               +"/enme_icon_" + provider.toLowerCase() + ".png";
 			     return url;
 			},
 			
 			/**
-			 * 
+			 * Convert a format date to relative time.
+			 * @param date date on string format {String}
+			 * @param format format of date {String}
 			 */
-			fromNow : function(date, format) {				
-				return moment(date, format).fromNow();
+			fromNow : function(date, format) {	
+				try {
+					format = format || "YYYY-MM-DD";
+					return moment(date, format).fromNow();
+				} catch (error) {
+					return date;
+				}
 			}
 		};
 

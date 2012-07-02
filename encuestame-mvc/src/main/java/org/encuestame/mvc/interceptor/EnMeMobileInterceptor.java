@@ -66,7 +66,6 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(javax.servlet.http.HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
         final Device device = deviceResolver.resolveDevice(request);
-        //
         final Boolean enabledMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.enabled");
         final Boolean forceMobileDevice = EnMePlaceHolderConfigurer

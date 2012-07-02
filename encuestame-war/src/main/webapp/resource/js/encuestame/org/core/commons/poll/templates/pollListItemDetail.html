@@ -1,20 +1,30 @@
 <div class="web-poll-item-detail">
     <div class="web-poll-info">
+        <div class="web-poll-switch">
+            <ul>
+                <li class="selected">
+                     Answers   
+               </li>
+               <li> 
+                     ${label}
+               </li>            
+            </ul>
+        </div>
         <div class="web-poll-char-detail">
             <div id="${id}_chart"></div>
         </div>
 
-        <!-- Options detail -->
+        <!-- Answers detail -->
         <div class="web-poll-options-answer">
-            <h2>Answers</h2>
             <div dojoAttachPoint="_detailAnswers" class="web-poll-answer-container"></div>
         </div>
-        <!-- Answer detail -->
-        <div class="web-poll-options">
-            <h2>${label}</h2>
+        <!-- Options detail -->
+        <div class="web-poll-options hidden"> 
             <div dojoAttachPoint="_detailItems"></div>
         </div>
+        
     </div>
+    
     <div class="web-poll-detail-bttm-bar">
         <div class="web-poll-detail-info" dojoAttachPoint="_detail_info">
 

@@ -604,7 +604,7 @@ public class ConvertDomainBean {
         final PollBean unitPoll = new PollBean();
         unitPoll.setId(poll.getPollId());
         unitPoll.setCompletedPoll(poll.getPollCompleted() == null ? false : poll.getPollCompleted());
-        unitPoll.setCreationDate(poll.getCreatedAt() == null ? null : DateUtil.DOJO_DATE_FORMAT.format(poll.getCreatedAt()));
+        unitPoll.setCreationDate(poll.getCreatedAt() == null ? null : DateUtil.SIMPLE_DATE_FORMAT.format(poll.getCreatedAt()));
         unitPoll.setCreateDateComparable(poll.getCreatedAt());
         unitPoll.setQuestionBean(ConvertDomainBean.convertQuestionsToBean(poll.getQuestion()));
         unitPoll.setPublishPoll(poll.getPublish() == null ? false : poll.getPublish());
