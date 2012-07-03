@@ -13,7 +13,7 @@
     <css>/resource/css-compile/web/user.css</css>
     <css>/resource/css-compile/common.css</css>
     <css>/resource/css-compile/reset.css</css>
-    <css>/resource/css-compile/web/layout.css</css>
+    <css>/resource/css-compile/layout.css</css>
     <css>/resource/css-compile/web/components/*.css</css>
   </group>
   <group name='mobile'>
