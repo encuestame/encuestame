@@ -19,7 +19,6 @@ import junit.framework.Assert;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.integration.gateway.TwitterGateway;
 import org.encuestame.core.test.config.AbstractIntegrationConfig;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.Message;
@@ -28,7 +27,7 @@ import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.test.annotation.Repeat;
 
-@Ignore
+ 
 public class GatewayTestCase extends AbstractIntegrationConfig {
 
 

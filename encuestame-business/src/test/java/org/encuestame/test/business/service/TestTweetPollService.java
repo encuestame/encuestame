@@ -37,6 +37,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -48,6 +49,7 @@ import org.encuestame.utils.web.TweetPollResultsBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -253,8 +255,8 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     /**
      * Test Public TweetPoll on multiples social networks.
      */
-    @Test
-    //@Ignore
+	@Category(InternetTest.class)
+    @Test 
 	public void testPublicMultiplesTweetAccounts() {
     
 		final TweetPoll tweetPoll = createTweetPollPublicated(true, true,
@@ -274,6 +276,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     /**
      * 
      */
+	@Category(InternetTest.class)
 	@Test
 	public void testPublishPollOnMultiplesTweetAccounts() {
 		  

@@ -5,10 +5,13 @@ import java.io.IOException;
 
 import org.encuestame.business.setup.install.demo.CSVParser;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.PerformanceTest;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Category(PerformanceTest.class)
 public class TestCSVParser extends AbstractSpringSecurityContext{
 
 	@Autowired

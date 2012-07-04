@@ -25,7 +25,6 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.core.integration.gateway.TwitterGateway;
 import org.encuestame.core.test.config.AbstractIntegrationConfig;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.Message;
@@ -37,7 +36,7 @@ import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.core.MessageHandler;
 import org.springframework.integration.message.GenericMessage;
-@Ignore
+ 
 public class IntegrationTestCase extends AbstractIntegrationConfig {
 
     @Autowired
