@@ -860,12 +860,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 			final TypeSearchResult type) {
 		String queryStr = "";
 		if (type.equals(TypeSearchResult.TWEETPOLL)) {
-			queryStr = this.getQueryStringForGeoLocation("tweetPollId",
+			queryStr = this.getQueryStringForGeoLocation("tweetPollId", "locationLatitude", "locationLongitude", "question.question",
 					"TweetPoll");
 		} else if (type.equals(TypeSearchResult.POLL)) {
-			queryStr = this.getQueryStringForGeoLocation("pollId", "Poll");
+			queryStr = this.getQueryStringForGeoLocation("pollId", "locationLatitude", "locationLongitude", "question", "Poll");
 		} else if (type.equals(TypeSearchResult.SURVEY)) {
-			queryStr = this.getQueryStringForGeoLocation("sid", "Survey");
+			queryStr = this.getQueryStringForGeoLocation("sid", "locationLatitude", "locationLongitude", "question", "Survey");
 		} else if (type.equals(TypeSearchResult.HASHTAG)) {
 			// TODO: Define how to should store geolocations for hashtags, maybe
 			// in tweetpoll_hashtags

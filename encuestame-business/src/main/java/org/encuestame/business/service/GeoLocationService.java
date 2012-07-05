@@ -429,9 +429,10 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 						earthRadius, maxItem, itemType);
 
 		for (Object[] objects : distanceFromOrigin) {
+			// item id, typeSearch result,  latitude, longitude, question, distance
 			itemGeoBean = this.createItemGeoLocationBean((Long) objects[0],
-					itemType, (Float) objects[0], (Float) objects[0],
-					objects[0].toString(), (Double) objects[0]);
+					itemType, (Float) objects[1], (Float) objects[2],
+					objects[3].toString(), (Double) objects[4]);
 			itemsGeoBeanList.add(itemGeoBean);
 		}
 		return itemsGeoBeanList;

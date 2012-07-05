@@ -30,6 +30,9 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.hibernate.Criteria;
@@ -328,14 +331,17 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
          }
     }
     
-    /**
-     * 
-     * @param fieldName
-     * @param fromValue
-     * @return
-     */
-    public String getQueryStringForGeoLocation(final String fieldName, final String fromTable){
-    	final String queryStr ="SELECT " + fieldName + ", (acos(sin(radians(lat)) * sin((:latitude)) +"
+   /**
+    * Create query to get  {@link TweetPoll}, {@link Poll}, {@link Survey} by geolocation.
+    * @param fieldId
+    * @param fieldLatitude
+    * @param fieldLongitude
+    * @param fieldQuestionName
+    * @param fromTable
+    * @return
+    */
+    public String getQueryStringForGeoLocation(final String fieldId, final String fieldLatitude, final String fieldLongitude, final String fieldQuestionName ,final String fromTable){
+    	final String queryStr ="SELECT " + fieldId + "," + fieldLatitude + "," +fieldLongitude + "," +fieldQuestionName +", (acos(sin(radians(lat)) * sin((:latitude)) +"
 				+ "cos(radians(lat)) * cos((:latitude)) * "
 				+ "cos(radians(lng) - (:longitude))) * :radius) AS "
 				+ "distanceFrom FROM " + fromTable
