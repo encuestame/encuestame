@@ -35,7 +35,6 @@ import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.geo.ItemGeoLocationBean;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -138,10 +137,9 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
     }
 
     /**
-     * 
+     * Test Retrieve items by geolocation and a distance max.
      */
-	@Test
-	@Ignore
+	@Test 
 	public void testRetrieveItemsByGeo() {
 		final Calendar myCalendarDate = Calendar.getInstance();
 		final TweetPoll tweetPoll = createPublishedTweetPoll(
@@ -156,7 +154,10 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 
 		final List<ItemGeoLocationBean> distanceFromOrigin = getLocationService()
 				.retrieveItemsByGeo(510d, 30, TypeSearchResult.TWEETPOLL,
-						2.16991870F, 41.3879169F);
+						2.16991870F, 41.3879169F); 
+		Assert.assertEquals(distanceFromOrigin.size(), 1);
+		Assert.assertEquals(distanceFromOrigin.get(0).getLatitude(), tweetPoll.getLocationLatitude());
+		 
 	}
     
     /**
