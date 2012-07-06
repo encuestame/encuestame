@@ -25,6 +25,8 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -151,13 +153,31 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 		tweetPoll.setLocationLongitude(-3.70325F);
 		getTweetPoll().saveOrUpdate(tweetPoll);
 		assertNotNull(tweetPoll);
+		
+		// Create Poll
+		final Poll myPoll = createPoll(
+				myCalendarDate.getTime(),
+				createQuestion("What is your favorite futboll team?",
+						secondary.getAccount()), this.secondary, Boolean.TRUE,
+				Boolean.TRUE);
+
+		myPoll.setLocationLatitude(40.4167F);
+		myPoll.setLocationLongitude(-3.70325F);
+		getPollDao().saveOrUpdate(myPoll);
+		assertNotNull(myPoll);
+
+		final Survey mySurvey = createDefaultSurvey(this.secondary.getAccount());
+		mySurvey.setLocationLatitude(40.4167F);
+		mySurvey.setLocationLongitude(-3.70325F);
+		getSurveyDaoImp().saveOrUpdate(mySurvey);
+		assertNotNull(mySurvey);
 
 		final List<ItemGeoLocationBean> distanceFromOrigin = getLocationService()
-				.retrieveItemsByGeo(510d, 30, TypeSearchResult.TWEETPOLL,
-						2.16991870F, 41.3879169F); 
-		Assert.assertEquals(distanceFromOrigin.size(), 1);
+				.retrieveItemsByGeo(510d, 30, TypeSearchResult.ALL,
+						2.16991870F, 41.3879169F);
+		Assert.assertEquals(distanceFromOrigin.size(), 3);
 		Assert.assertEquals(distanceFromOrigin.get(0).getLatitude(), tweetPoll.getLocationLatitude());
-		 
+		Assert.assertEquals(distanceFromOrigin.get(1).getLatitude(), myPoll.getLocationLatitude());
 	}
     
     /**

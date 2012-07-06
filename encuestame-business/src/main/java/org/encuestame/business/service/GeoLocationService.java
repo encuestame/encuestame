@@ -25,6 +25,9 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.NotificationEnum;
@@ -413,31 +416,100 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 	public List<ItemGeoLocationBean> retrieveItemsByGeo(final double range,
 			final Integer maxItem, final TypeSearchResult itemType,
 			final double longitude, final double latitude) {
-		List<ItemGeoLocationBean> itemsGeoBeanList = new ArrayList<ItemGeoLocationBean>();
+		List<ItemGeoLocationBean> itemsByGeoLocation = new ArrayList<ItemGeoLocationBean>();
 		final int earthRadius = EnMePlaceHolderConfigurer
-				.getIntegerProperty("geo.earth.radius.km");
-		ItemGeoLocationBean itemGeoBean = new ItemGeoLocationBean();
+				.getIntegerProperty("geo.earth.radius.km"); 
 		List<Object[]> distanceFromOrigin = new ArrayList<Object[]>();
 		final double latitudeInRadians = EnMeUtils
 				.convertDegreesToRadians(latitude);
 		final double longitudeInRadians = EnMeUtils
 				.convertDegreesToRadians(longitude);
+		if (itemType.equals(TypeSearchResult.ALL)) {
 
+			List<Object[]> distanceFromOriginTweetPoll = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.TWEETPOLL, longitudeInRadians,
+							latitudeInRadians, earthRadius);
+			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(
+					distanceFromOriginTweetPoll, TypeSearchResult.TWEETPOLL));
+			log.debug("Total tweetpolls with geolocations --->"
+					+ distanceFromOriginTweetPoll.size());
+			List<Object[]> distanceFromOriginPoll = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.POLL, longitudeInRadians,
+							latitudeInRadians, earthRadius);
+			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(distanceFromOriginPoll,
+					TypeSearchResult.POLL));
+			log.debug("Total polls with geolocations --->"
+					+ distanceFromOriginPoll.size());
+			List<Object[]> distanceFromOriginSurvey = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.SURVEY, longitudeInRadians,
+							latitudeInRadians, earthRadius);
+			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(
+					distanceFromOriginSurvey, TypeSearchResult.SURVEY));
+			log.debug("Total surveys with geolocations -->"
+					+ distanceFromOriginSurvey.size());
+		} else {
+			distanceFromOrigin = this.getItemsByDistanceFromOrigin(range,
+					maxItem, itemType, longitudeInRadians, latitudeInRadians,
+					earthRadius);
+			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(distanceFromOrigin,
+					itemType));
+			log.debug("Total Items with geolocations --->"
+					+ itemsByGeoLocation.size() + "----" + itemType);
+		}
+
+		log.debug("Total items bean geolocated -->" + itemsByGeoLocation.size()
+				+ " type ----" + itemType);
+		return itemsByGeoLocation;
+	}
+ 
+	/**
+	 * Get the items {@link TweetPoll}, {@link Poll}, {@link Survey} with the
+	 * distances from a point source. 
+	 * @param range
+	 * @param maxItem
+	 * @param itemType
+	 * @param longitudeInRadians
+	 * @param latitudeInRadians
+	 * @param earthRadius
+	 * @return
+	 */
+	private List<Object[]> getItemsByDistanceFromOrigin(final double range,
+			final Integer maxItem, final TypeSearchResult itemType,
+			final double longitudeInRadians, final double latitudeInRadians,
+			final int earthRadius) {
+		List<Object[]> distanceFromOrigin = new ArrayList<Object[]>();
 		distanceFromOrigin = getTweetPollDao()
 				.retrieveTweetPollsBySearchRadiusOfGeoLocation(
 						latitudeInRadians, longitudeInRadians, range,
 						earthRadius, maxItem, itemType);
+		return distanceFromOrigin;
+	}
+	
+	/**
+	 * Get for an object list data about geolocations and other information
+	 * about {@link TweetPoll}, {@link Poll} or {@link Survey}.
+	 * 
+	 * @param objectList
+	 * @param itemType
+	 * @return
+	 */
+	private List<ItemGeoLocationBean> retrieveGeoDataForObjectList(
+			final List<Object[]> objectList, TypeSearchResult itemType) {
+		List<ItemGeoLocationBean> itemsGeoBeanList = new ArrayList<ItemGeoLocationBean>();
 
-		for (Object[] objects : distanceFromOrigin) {
-			// item id, typeSearch result,  latitude, longitude, question, distance
+		ItemGeoLocationBean itemGeoBean = new ItemGeoLocationBean();
+		for (Object[] objects : objectList) {
 			itemGeoBean = this.createItemGeoLocationBean((Long) objects[0],
 					itemType, (Float) objects[1], (Float) objects[2],
 					objects[3].toString(), (Double) objects[4]);
 			itemsGeoBeanList.add(itemGeoBean);
 		}
-		return itemsGeoBeanList;
+		// TODO: It«s necessary to sort by distance
+		return itemsGeoBeanList; 
 	}
- 
 	
 	/**
 	 * Create {@link ItemGeoLocationBean} helper.
