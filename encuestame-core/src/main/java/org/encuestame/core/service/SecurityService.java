@@ -182,8 +182,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public void deleteUser(final UserAccountBean userBean) throws EnMeNoResultsFoundException{
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
                 log.info("notify delete account");
-                getMailService().sendDeleteNotification(userBean.getEmail().trim(),
-                        getMessageProperties("userMessageDeleteNotification"));
+                if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+                	getMailService().sendDeleteNotification(userBean.getEmail().trim(),
+                			getMessageProperties("userMessageDeleteNotification"));
+                }
                 log.info("deleting user");
                 getAccountDao().delete(userDomain);
                 log.info("user deleted");
@@ -205,11 +207,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             //TODO: security risk?
             userBean.setPassword(newPassword);
             //if notification is suspended we need retrieve password
-            //if (getSuspendedNotification()) {
+            if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
                 getMailService().sendRenewPasswordEmail(userBean);
             //} else {
-                log.warn("Notifications Email are suspendend");
-            //}
+                //log.warn("Notifications Email are suspendend");
+            }
             //saving user.
             getAccountDao().saveOrUpdate(userDomain);
         }
@@ -687,9 +689,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
 
         if (!disableEmail) { //test proposes.
 	        //send new password
-	        getMailService().sendPasswordConfirmationEmail(singUpBean);
-	        //send confirmation account
-	        getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+        	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+		        getMailService().sendPasswordConfirmationEmail(singUpBean);
+		        //send confirmation account
+		        getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+        	}
         }
 
         if (log.isDebugEnabled()) {
@@ -753,8 +757,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param code code
      * @throws Exception excepcion
      */
-    public void inviteUser(String email, String code){
-        getMailService().sendInvitation(email, code);
+    public void inviteUser(String email, String code) {
+    	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+    		getMailService().sendInvitation(email, code);
+    	}
     }
 
     /**
@@ -795,8 +801,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public void sendUserPassword(final String email,
             final String password)
             throws MailSendException {
-        getMailService().send(email, getMessageProperties("NewPassWordMail"),
-                password);
+    	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+	        getMailService().send(email, getMessageProperties("NewPassWordMail"),
+	                password);
+    	}
     }
 
     /**
@@ -1061,7 +1069,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             }
         }
         singUp = ConvertDomainBean.convertUserAccountToSignUpBean(userAcc);
-        getMailService().sendNotificationStatusAccount(singUp, "User status");
+        if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+        	getMailService().sendNotificationStatusAccount(singUp, "User status");
+        }
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
 
@@ -1077,7 +1087,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         singUp.setPassword(userAccBean.getPassword());
         singUp.setUsername(userAccBean.getUsername());
         getAccountDao().saveOrUpdate(singUp);
-        getMailService().sendNotificationStatusAccount(singUp, "Change user status");
+        if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+        	getMailService().sendNotificationStatusAccount(singUp, "Change user status");
+        }
     }
 
     /* Social Account SignIn Connect. * */

@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
@@ -476,8 +477,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final String urlPoll = this.createUrlPollAccess(poll);
         if(emailList !=null){
                  for (Email emails : emailsList) {
-                   getMailService().send(emails.getEmail(),"New Poll", urlPoll);
-                  }
+                	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.disabled")) {
+                			getMailService().send(emails.getEmail(),"New Poll", urlPoll);
+                    }
+                 }
          }
          else{
              log.warn("Not Found Emails in your EmailList");

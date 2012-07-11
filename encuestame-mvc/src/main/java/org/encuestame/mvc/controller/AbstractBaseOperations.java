@@ -71,6 +71,8 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -609,6 +611,22 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         }
         log.debug("hashtag fillListOfHashTagsBean->"+hashtagsList.size());
         return hashtagsList;
+    }
+    
+    /**
+     * 
+     * @param model
+     * @param key
+     * @param value
+     */
+    public void addi18nProperty(final ModelMap model, final String key, final String value) {
+    	@SuppressWarnings("unchecked")
+		HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
+    	if (i18n == null) {
+    		i18n = new HashMap<String, String>();
+    		model.addAttribute("i18n", i18n);
+    	}
+    	i18n.put(key, value);
     }
 
 
