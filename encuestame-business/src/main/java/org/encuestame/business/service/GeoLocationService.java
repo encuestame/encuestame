@@ -30,7 +30,9 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.enums.NotificationEnum;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
@@ -49,6 +51,9 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 
     /** Log. **/
     private Logger log = Logger.getLogger(this.getClass());
+    
+	private int earth_radius = EnMePlaceHolderConfigurer
+			.getIntegerProperty("geo.earth.radius.km");
 
     /**
      * Create Cat LocationType.
@@ -415,10 +420,10 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 	 */
 	public List<ItemGeoLocationBean> retrieveItemsByGeo(final double range,
 			final Integer maxItem, final TypeSearchResult itemType,
-			final double longitude, final double latitude) {
+			final double longitude, final double latitude, final SearchPeriods period) {
 		List<ItemGeoLocationBean> itemsByGeoLocation = new ArrayList<ItemGeoLocationBean>();
-		final int earthRadius = EnMePlaceHolderConfigurer
-				.getIntegerProperty("geo.earth.radius.km"); 
+	/*	final int earthRadius = EnMePlaceHolderConfigurer
+				.getIntegerProperty("geo.earth.radius.km"); */
 		List<Object[]> distanceFromOrigin = new ArrayList<Object[]>();
 		final double latitudeInRadians = EnMeUtils
 				.convertDegreesToRadians(latitude);
@@ -429,7 +434,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 			List<Object[]> distanceFromOriginTweetPoll = this
 					.getItemsByDistanceFromOrigin(range, maxItem,
 							TypeSearchResult.TWEETPOLL, longitudeInRadians,
-							latitudeInRadians, earthRadius);
+							latitudeInRadians, this.earth_radius, period);
 			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(
 					distanceFromOriginTweetPoll, TypeSearchResult.TWEETPOLL));
 			log.debug("Total tweetpolls with geolocations --->"
@@ -437,7 +442,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 			List<Object[]> distanceFromOriginPoll = this
 					.getItemsByDistanceFromOrigin(range, maxItem,
 							TypeSearchResult.POLL, longitudeInRadians,
-							latitudeInRadians, earthRadius);
+							latitudeInRadians, this.earth_radius, period);
 			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(distanceFromOriginPoll,
 					TypeSearchResult.POLL));
 			log.debug("Total polls with geolocations --->"
@@ -445,7 +450,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 			List<Object[]> distanceFromOriginSurvey = this
 					.getItemsByDistanceFromOrigin(range, maxItem,
 							TypeSearchResult.SURVEY, longitudeInRadians,
-							latitudeInRadians, earthRadius);
+							latitudeInRadians, this.earth_radius, period);
 			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(
 					distanceFromOriginSurvey, TypeSearchResult.SURVEY));
 			log.debug("Total surveys with geolocations -->"
@@ -453,7 +458,7 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 		} else {
 			distanceFromOrigin = this.getItemsByDistanceFromOrigin(range,
 					maxItem, itemType, longitudeInRadians, latitudeInRadians,
-					earthRadius);
+					this.earth_radius, period);
 			itemsByGeoLocation.addAll(this.retrieveGeoDataForObjectList(distanceFromOrigin,
 					itemType));
 			log.debug("Total Items with geolocations --->"
@@ -479,12 +484,12 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 	private List<Object[]> getItemsByDistanceFromOrigin(final double range,
 			final Integer maxItem, final TypeSearchResult itemType,
 			final double longitudeInRadians, final double latitudeInRadians,
-			final int earthRadius) {
+			final int earthRadius, final SearchPeriods period) {
 		List<Object[]> distanceFromOrigin = new ArrayList<Object[]>();
 		distanceFromOrigin = getTweetPollDao()
 				.retrieveTweetPollsBySearchRadiusOfGeoLocation(
 						latitudeInRadians, longitudeInRadians, range,
-						earthRadius, maxItem, itemType);
+						earthRadius, maxItem, itemType, period);
 		return distanceFromOrigin;
 	}
 	
@@ -533,4 +538,100 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 		locationBean.setDistance(distance);
 		return locationBean;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.GeoLocationSupport#retreiveHashTagUsebyGeoLo
+	 * (double, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult,
+	 * double, double, java.lang.String,
+	 * org.encuestame.utils.enums.SearchPeriods)
+	 */
+	public List<ItemGeoLocationBean> retreiveHashTagUsebyGeoLo(
+			final double range, final Integer maxItem,
+			final TypeSearchResult itemType, final double longitude,
+			final double latitude, final String tagName,
+			final SearchPeriods period) throws EnMeSearchException { 
+ 
+		List<ItemGeoLocationBean> geoBeanList = new ArrayList<ItemGeoLocationBean>();
+
+		final double latitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(latitude);
+		final double longitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(longitude);
+
+		if (itemType.equals(TypeSearchResult.ALL)) {
+			List<Object[]> distanceFromOriginTweetPoll = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.TWEETPOLL, longitudeInRadians,
+							latitudeInRadians, this.earth_radius, period);
+			geoBeanList.addAll(this.checkIfExist(
+					distanceFromOriginTweetPoll, tagName, period, itemType));
+			log.debug("Total tweetpolls with geolocations --->"
+					+ distanceFromOriginTweetPoll.size());
+
+			// Poll
+			List<Object[]> distanceFromOriginPoll = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.POLL, longitudeInRadians,
+							latitudeInRadians, this.earth_radius, period);
+			geoBeanList.addAll(this.checkIfExist(distanceFromOriginPoll,
+					tagName, period, itemType));
+			log.debug("Total Polls with geolocations --->"
+					+ distanceFromOriginPoll.size());
+
+			// Survey
+
+			List<Object[]> distanceFromSurvey = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.POLL, longitudeInRadians,
+							latitudeInRadians, this.earth_radius, period);
+			geoBeanList.addAll(this.checkIfExist(distanceFromSurvey,
+					tagName, period, itemType));
+			log.debug("Total Surveys with geolocations --->"
+					+ distanceFromSurvey.size());
+
+		} else {
+			final List<Object[]> tpollsGeo = this.getItemsByDistanceFromOrigin(
+					range, maxItem, itemType, longitudeInRadians,
+					latitudeInRadians, this.earth_radius, period);
+			geoBeanList = this.checkIfExist(tpollsGeo, tagName, period,
+					itemType);
+		}
+
+		return geoBeanList;
+	}
+	
+	/**
+	 * 
+	 * @param itemsByGeo
+	 * @param tagName
+	 * @param periods
+	 * @param itemType
+	 * @return
+	 */
+	private List<ItemGeoLocationBean> checkIfExist(
+			final List<Object[]> itemsByGeo, final String tagName,
+			final SearchPeriods periods, final TypeSearchResult itemType) {
+		ItemGeoLocationBean itemGeoBean = new ItemGeoLocationBean();
+		List<ItemGeoLocationBean> itemsGeoBeanList = new ArrayList<ItemGeoLocationBean>();
+		for (Object[] objects : itemsByGeo) {
+
+			final TweetPoll pollchecked = getTweetPollDao()
+					.checkIfTweetPollHasHashTag(tagName, periods,
+							(Long) objects[0]);
+			if (pollchecked == null) {
+				log.debug("Tweetpoll with this hashtag has not been found."
+								+ objects[0]);
+			} else {
+				itemGeoBean = this.createItemGeoLocationBean((Long) objects[0],
+						itemType, (Float) objects[1], (Float) objects[2],
+						objects[3].toString(), (Double) objects[4]);
+				itemsGeoBeanList.add(itemGeoBean);
+			}
+		}
+
+		return itemsGeoBeanList;
+	}  
 }
