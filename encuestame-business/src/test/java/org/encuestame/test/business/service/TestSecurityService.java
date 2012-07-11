@@ -32,6 +32,8 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.InternetTest;
+import org.encuestame.utils.categories.test.SlowTest;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.social.SocialProvider;
@@ -41,6 +43,7 @@ import org.encuestame.utils.web.UserAccountBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -197,6 +200,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeExpcetion
      */
+    @Category(InternetTest.class)
     @Test
     @Ignore
     public void testupdateOAuthTokenSocialAccount() throws EnMeExpcetion {
@@ -237,7 +241,8 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeNoResultsFoundException
      */
-    @Test(timeout = 30000)
+    @Category(SlowTest.class)
+    @Test(timeout = 30000) 
     public void testdeleteUser() throws EnMeNoResultsFoundException {
         final UserAccount tempUser = createUserAccount("second user",
                 this.userPrimary);
@@ -463,10 +468,8 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             exception
      */
-    @Test
-    @Ignore
-  //TODO: ENCUESTAME-484
-  //Move with @Category to test with INTERNET required.
+    //@Category(InternetTest.class)
+    @Test 
     public void testRenewPassword() throws EnMeExpcetion {
         final UserAccount secUser = createUserAccount("paola", this.userPrimary);
         final String passwd = secUser.getPassword();
@@ -536,10 +539,8 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
-    @Test
-    @Ignore
-    //TODO: ENCUESTAME-484
-    //Move with @Category to test with INTERNET required.
+    @Category(InternetTest.class)
+    @Test  
     public void testCreateUserwithUsernameEmail() throws EnMeExpcetion {
         createDefaultPermission();
         final UserAccountBean userCreateBean = new UserAccountBean();

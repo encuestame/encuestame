@@ -13,11 +13,9 @@
 
 package org.encuestame.test.business.service;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.social.api.TwitterAPITemplate;
 import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.junit.Before;

@@ -485,7 +485,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-                        <argLine>-Xmx1024m</argLine>
+                        <argLine>-Xmx1024m</argLine> 
                     </configuration>
                     <version>${surefire.version}</version>
                 </plugin>
@@ -589,12 +589,112 @@
                 <env>mysql</env>
             </properties>
         </profile>
-        <profile>
-            <id>dmorales</id>
-            <properties>
-                <env>dmorales</env>
-            </properties>
-        </profile>
+	<profile>
+		<id>dmorales</id>
+		<properties>
+			<env>dmorales</env>
+		</properties>  
+	</profile>
+	<!-- Internet Test Categories -->
+	<profile>
+		<id>internetTest</id>
+		<properties>
+			<env>testcase</env>
+		</properties>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+						<argLine>-Xmx1024m</argLine>
+						<groups>org.encuestame.utils.categories.test.InternetTest</groups>
+					</configuration>
+					<version>${surefire.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.surefire</groupId>
+							<artifactId>surefire-junit47</artifactId>
+							<version>2.12</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+			</plugins>
+		</build> 
+	</profile> 
+	<!--  -->
+	<!-- Performance Test Categories -->
+	<profile>
+		<id>performanceTest</id>
+		<properties>
+			<env>testcase</env>
+		</properties>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+						<argLine>-Xmx1024m</argLine>
+						<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
+					</configuration>
+					<version>${surefire.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.surefire</groupId>
+							<artifactId>surefire-junit47</artifactId>
+							<version>2.12</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+			</plugins>
+		</build>
+
+	</profile> 
+	<!--  --> 
+	<!-- Performance Test Categories -->
+	<profile>
+		<id>SlowTest</id>
+		<properties>
+			<env>testcase</env>
+		</properties>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+						<argLine>-Xmx1024m</argLine>
+						<groups>org.encuestame.utils.categories.test.SlowTest</groups>
+					</configuration>
+					<version>${surefire.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.surefire</groupId>
+							<artifactId>surefire-junit47</artifactId>
+							<version>2.12</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+			</plugins>
+		</build> 
+	</profile> 
+	<!-- --> 
+	
+		<!-- Performance Test Categories -->
+	<profile>
+		<id>allTest</id>
+		<properties>
+			<env>testcase</env>
+		</properties>
+	</profile> 
+	<!-- --> 
         <profile>
             <id>demo</id>
             <properties>

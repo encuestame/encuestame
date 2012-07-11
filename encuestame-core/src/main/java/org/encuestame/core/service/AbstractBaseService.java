@@ -399,7 +399,28 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                         filter, searchPeriods);
         return tweetsbyTag;
     }
-
+    
+    /**
+     * Get surveys by HashTag.
+     *
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+    public List<Survey> getSurveysByHashTag(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults,
+            final TypeSearchResult filter,
+            final SearchPeriods searchPeriods) {
+        final List<Survey> surveysByTag = getSurveyDaoImp()
+                .getSurveysByHashTagName(tagName, initResults, maxResults,
+                        filter, searchPeriods);
+        return surveysByTag;
+    }  
+  
     /**
      * Getter.
      * @return {@link MessageSourceFactoryBean}

@@ -30,7 +30,9 @@ import org.encuestame.social.api.GoogleBuzzAPITemplate;
 import org.encuestame.social.api.IdenticaAPITemplate;
 import org.encuestame.social.api.LinkedInAPITemplate;
 import org.encuestame.social.api.support.LinkedInProfile;
+import org.encuestame.utils.categories.test.InternetTest; 
 import org.junit.Ignore;
+import org.junit.experimental.categories.Category;
 
 /**
  * Social API test case.
@@ -38,6 +40,7 @@ import org.junit.Ignore;
  * @since Apr 20, 2011
  */
 @Ignore
+@Category(InternetTest.class)
 public class SocialAPITestCase extends TestCase {
 
     final String clientId = "287300901667.apps.googleusercontent.com";
