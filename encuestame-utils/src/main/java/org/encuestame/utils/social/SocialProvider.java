@@ -72,6 +72,11 @@ public enum SocialProvider {
      * Blog support to publish on blogger accounts.
      */
     BLOGGER,
+    
+    /**
+     * All social providers.
+     */
+    ALL,
 
     /**
      * Constructor.
@@ -92,6 +97,7 @@ public enum SocialProvider {
         else if (this == GOOGLE_BUZZ) { provider = "GOOGLEBUZZ"; }
         else if (this == YAHOO) { provider = "YAHOO"; }
         else if (this == MYSPACE) { provider = "MYSPACE"; }
+        else if (this == ALL) { provider = "ALL"; }
         return provider;
     }
 
@@ -121,6 +127,7 @@ public enum SocialProvider {
     public static SocialProvider getProvider(final String socialProvider) {
         if (null == socialProvider) { return null; }
         else if (socialProvider.equalsIgnoreCase("TWITTER")) { return TWITTER; }
+        else if (socialProvider.equalsIgnoreCase("ALL")) { return ALL; }
         else if (socialProvider.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
         else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
         else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
@@ -136,9 +143,10 @@ public enum SocialProvider {
      * @param provider {@link SocialProvider}.
      * @return
      */
-    public static TypeAuth getTypeAuth(final SocialProvider provider){
+    public static TypeAuth getTypeAuth(final SocialProvider provider) {
         if(provider.equals(TWITTER)
                 || provider.equals(IDENTICA)
+                || provider.equals(ALL)
                 || provider.equals(LINKEDIN)
                 || provider.equals(MYSPACE)
                 || provider.equals(YAHOO)){
