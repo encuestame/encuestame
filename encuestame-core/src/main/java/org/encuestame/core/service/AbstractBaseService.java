@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Email;
@@ -524,7 +525,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 subscribe.setList(emailList);
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
-                getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+                	getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                }
                 //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {

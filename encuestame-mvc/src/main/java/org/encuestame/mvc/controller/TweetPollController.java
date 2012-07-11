@@ -34,6 +34,7 @@ import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SocialAccountBean;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -244,11 +245,13 @@ public class TweetPollController extends AbstractSocialController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
-        log.debug("tweetpoll new");
+        //log.debug("tweetpoll new");
+    	addi18nProperty(model, "hola", "test");
+    	addi18nProperty(model, "hola2", "test2");
         //check social accounts.
         String path = "tweetpoll/new";
         try {
-            final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(null, false);
+            final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(SocialProvider.ALL, false);
             if (socials.size() == 0) {
                 path = "tweetpoll/social";
             }

@@ -250,7 +250,7 @@ public class TestUserDao extends AbstractBase {
         assertEquals("Should be equals", this.socialAccount.getVerfied(), socAccount.get(0).getVerfied());
         assertEquals("Should be equals", 1, socAccount.size());
         final List<SocialAccount> socAccount2 = getAccountDao().getSocialVerifiedAccountByUserAccount(this.account,
-               null);
+               SocialProvider.ALL);
         assertEquals("Should be equals", 1, socAccount2.size());
     }
 

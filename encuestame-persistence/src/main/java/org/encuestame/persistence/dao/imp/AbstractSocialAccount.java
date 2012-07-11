@@ -150,7 +150,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
                 .forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("verfied", Boolean.TRUE));
-        if (provider != null) { // if provider is null, we fetch everything
+        if (!provider.equals(SocialProvider.ALL)) { // if provider is ALL, we fetch everything
             criteria.add(Restrictions.eq("accounType", provider));
         }
         return getHibernateTemplate().findByCriteria(criteria);

@@ -97,12 +97,14 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
+        	provider = provider == null ? "all" : provider; 
             final List<SocialAccountBean> accounts = getSecurityService()
                     .getValidSocialAccounts(
                             SocialProvider.getProvider(provider), true);
             setItemReadStoreResponse("socialAccounts", "id", accounts);
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

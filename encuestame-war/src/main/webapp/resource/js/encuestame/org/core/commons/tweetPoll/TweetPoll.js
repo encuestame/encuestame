@@ -105,7 +105,8 @@ dojo.declare(
             question: {},
             answers : [],
             hashtags : [],
-            options : {scheduled : false,
+            options : {
+            		   scheduled : false,
                        scheduledTime : null,
                        scheduledDate : null,
                        liveResults: false,
@@ -149,9 +150,9 @@ dojo.declare(
                 this.errorLoading();
             }
 
-            //scroll event for IE
+            // scroll event for IE
             document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", dojo.hitch(this, this.scroll), false);
-            //scroll wheel for
+            // scroll wheel for
             window.onscroll = dojo.hitch(this, this.scroll);
 
             //enable auto save.
@@ -415,8 +416,7 @@ dojo.declare(
             var nodeFixed = dojo.byId("previewWrapperFixed");
             var coords = dojo.coords(node);
             if (coords.y < 0) {
-             this.previewFixedWiget.show(nodeFixed);
-
+              this.previewFixedWiget.show(nodeFixed);
             } else {
               this.previewFixedWiget.hide(nodeFixed);
             }

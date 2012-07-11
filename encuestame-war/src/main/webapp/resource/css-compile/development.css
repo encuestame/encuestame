@@ -18,6 +18,7 @@
 @import url("web/components/front-end-items.css");
 @import url("web/components/rated-comments.css");
 @import url("web/components/hashtag.css");
+@import url("web/components/hashtag-tweetpoll.css");
 @import url("web/components/header.css");
 @import url("web/components/login.css");
 @import url("web/components/suggestion.css");
@@ -45,4 +46,7 @@
 @import url("web/components/tweetpoll.css");
 @import url("web/components/tweetpoll-detail.css");
 @import url("web/components/tweetpoll-admon.css");
+@import url("web/components/tweetpoll-vote.css");
+@import url("web/components/tweetpoll-publish.css");
+@import url("web/components/tweetpoll-create.css");
 @import url("web/components/rated_profile.css");
