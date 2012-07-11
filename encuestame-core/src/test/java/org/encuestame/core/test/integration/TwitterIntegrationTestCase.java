@@ -15,6 +15,7 @@ package org.encuestame.core.test.integration;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /*@ContextConfiguration(locations = {
          "classpath:TwitterSendUpdates-context.xml"
           })*/ 
+@Ignore
 public class TwitterIntegrationTestCase {
 
     @Autowired
