@@ -246,8 +246,25 @@ public class TweetPollController extends AbstractSocialController {
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
         //log.debug("tweetpoll new");
-    	addi18nProperty(model, "hola", "test");
-    	addi18nProperty(model, "hola2", "test2");
+    	addi18nProperty(model, "tp_write_questions", getMessage("tp_write_questions"));
+    	addi18nProperty(model, "tp_add_answer", getMessage("tp_add_answer"));
+    	addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));
+    	addi18nProperty(model, "tp_scheduled", getMessage("tp_scheduled"));
+    	addi18nProperty(model, "tp_customize", getMessage("tp_customize"));
+    	addi18nProperty(model, "tp_select_publish", getMessage("tp_select_publish"));
+    	addi18nProperty(model, "tp_options_chart", getMessage("tp_options_chart"));
+    	addi18nProperty(model, "tp_options_spam", getMessage("tp_options_spam"));
+    	addi18nProperty(model, "tp_options_report", getMessage("tp_options_report"));
+    	addi18nProperty(model, "tp_options_scheduled_this_tweetpoll", getMessage("tp_options_scheduled_this_tweetpoll"));
+    	addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
+    	addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
+    	addi18nProperty(model, "tp_options_limit_votes", getMessage("tp_options_limit_votes"));
+    	addi18nProperty(model, "tp_options_resume_live_results", getMessage("tp_options_resume_live_results"));
+    	addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
+    	addSocialPickerWidgetMessages(model);
+    	addi18nProperty(model, "button_add", getMessage("button_add"));
+    	addi18nProperty(model, "button_publish", getMessage("button_publish"));
+    	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
         //check social accounts.
         String path = "tweetpoll/new";
         try {

@@ -41,6 +41,9 @@
 
             }
         };
+        //dojo.addOnLoad(dojo.hitch(this, function() {
+            ENME.init();
+        //}));
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
  <c:if test="${!development}">

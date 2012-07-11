@@ -94,18 +94,24 @@ if (typeof dojo != "undefined") {
 				return !this.$.query(element).hasClass("hidden");
 			},
 
-
+			/**
+			 * Initialize the core.
+			 */
 			init : function() {
 				var ENME = this;
 				this.$.query("#header input[type='hidden']").forEach(
-								function() {
-									var value = this.value, id = this.title
-											|| this.id;
-									ENME.params[id] = (value
-											.match(/^(tru|fals)e$/i) ? value
-											.toLowerCase() == "true" : value);
+								function(item, index) {
+									ENME.params[dojo.attr(item, "name")] = dojo.attr(item, "value");
 								});
 				isInitialised = true;
+			},
+			
+			/**
+			 * Get message
+			 * @param value {String} the id message
+			 */
+			getMessage : function(value) {
+				return ENME.params[value] == undefined ? "" : ENME.params[value];
 			},
 
 			/**
@@ -352,11 +358,5 @@ if (typeof dojo != "undefined") {
 
 		return fn;
 
-	})();
-	
-	dojo.addOnLoad(function() {
-		ENME.init();
-	});
-	
+	})();	
 }
-

@@ -118,7 +118,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-            log.trace("postHandle");
+            //log.trace("postHandle");
             Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
             if(cookieName == null){
                 createAddCookie(COOKIE_NAME, response, RandomStringUtils.random(4));

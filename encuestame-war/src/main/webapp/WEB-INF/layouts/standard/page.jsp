@@ -9,8 +9,10 @@
 <html>
 <!--<![endif]-->
 <head>
-<title><tiles:insertAttribute name="title"
-		defaultValue="encuestame" /></title>
+<title>
+    <tiles:insertAttribute name="title" defaultValue="encuestame" />
+    
+    </title>
 <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
@@ -19,6 +21,9 @@
 <body class="claro enme-web-context">
 	<div id="mainWrapper" class="page">
 		<header id="header">
+		    <c:forEach items="${i18n}" var="entry"> 
+                  <input type="hidden" name="${entry.key}" value="${entry.value}"/>   
+            </c:forEach> 
 			<tiles:insertAttribute name="header" ignore="true" />
 			<tiles:insertAttribute name="menu" ignore="true" />
 		</header>

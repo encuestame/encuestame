@@ -179,7 +179,7 @@ dojo.declare(
                   this._completeText = newPreview || "";
                 }
                 if (newQuestionValue != "") {
-                    this._content.appendChild( dojo.clone(this._questionBox.node));
+                    this._content.appendChild(dojo.clone(this._questionBox.node));
                 }
             },
 

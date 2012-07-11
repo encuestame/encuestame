@@ -16,7 +16,7 @@ div.web-tweetpoll-section {
     border: 1px solid #E5E5E5;
     margin: 0 auto;
     overflow: auto;
-    width: 84%;
+    width: auto;
     z-index: 5;
     -webkit-border-radius: 10px 10px 10px 10px;
     -moz-border-radius: 10px 10px 10px 10px;
@@ -85,7 +85,7 @@ div.web-tweetpoll-section .counterGlobal {
 }
 
 div.tweetPollPublishButton {
-    margin: auto 80px;
+    margin: auto 0;
     padding: 10px;
     text-align: right;
 }
@@ -112,20 +112,18 @@ div.tweetPollPublishButton {
 }
 
 .web-tweetpoll-wrapper div.tweetPollPreviewRelative {
-    -moz-border-radius: 0 0 10px 10px;
-    -moz-box-shadow: 0 1px 2px #888888;
-    background-color: #EFEFEF;
-    border-left: 1px solid #D0D0D0;
-    border-right: 1px solid #D0D0D0;
-    border-top: 1px solid #D0D0D0;
-    display: block;
-    margin: 0 auto 0 90px;
-    min-height: 25px !important;
-    padding: 10px;
-    width: 900px;
-    z-index: 10;
-    position: fixed;
-    top: 0;
+  background-color: #EFEFEF;
+  border: 1px solid #D0D0D0;
+  border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  box-shadow: 0 2px 4px -2px #8C8C8C;
+  margin: 0 auto;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 950px;
+  z-index: 10;
 }
 
 .web-tweetpoll-wrapper div.previewFixed {
@@ -221,7 +219,7 @@ div.tweetPollPublishButton {
 
 .web-tweetpoll-wrapper .web-tweetpoll-preview-top {
     padding: 10px;
-    width: 800px;
+    width: auto;
 }
 
 .web-tweetpoll-wrapper div.previewWrapperContent .hide {

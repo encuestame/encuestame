@@ -647,4 +647,25 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    public Boolean isSocialSignInUpEnabled(){
        return EnMePlaceHolderConfigurer.getBooleanProperty("application.social.signin.enabled");
    }
+   
+   /**
+    * Add to model defaults messages.
+    * TODO: move to INTERCEPTOR.
+    */
+   public final void addDefaulti18nMessages(final ModelMap model) {
+	   addi18nProperty(model, "profile_menu_configuration", getMessage("profile_menu_configuration"));
+	   addi18nProperty(model, "profile_menu_social", getMessage("profile_menu_social"));
+	   addi18nProperty(model, "profile_menu_help", getMessage("profile_menu_help"));
+	   addi18nProperty(model, "profile_menu_log_out", getMessage("profile_menu_log_out"));
+   }
+   
+   /**
+    * Add to model the social picker messages.
+    * @param model
+    */
+   public final void addSocialPickerWidgetMessages(final ModelMap model) {
+	   addi18nProperty(model, "social_picker_only_selected", getMessage("social_picker_only_selected"));
+	   addi18nProperty(model, "social_picker_select_all", getMessage("social_picker_select_all"));
+	   addi18nProperty(model, "social_picker_accounts_selected", getMessage("social_picker_accounts_selected"));
+   }   
 }

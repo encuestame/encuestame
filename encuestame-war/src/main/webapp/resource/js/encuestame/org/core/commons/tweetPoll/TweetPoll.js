@@ -95,8 +95,21 @@ dojo.declare(
         timerAutoSave: null,
 
         _questionTextLastSucessMessage : "",
-
+        
+        /**
+         * 
+         */
         delay: 300000, //every 5 minutes.
+        
+       /**
+        * i18n Message.
+        */
+       i18nMessage : {
+    	   question : ENME.params["tp_write_questions"],
+    	   answer : ENME.params["tp_add_answer"],
+    	   hashtag : ENME.params["tp_add_hashtag"],
+    	   options : ENME.params["tp_customize"],
+       },
 
         /* stored save tweetPoll. */
         tweetPoll : {
@@ -154,6 +167,39 @@ dojo.declare(
             document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", dojo.hitch(this, this.scroll), false);
             // scroll wheel for
             window.onscroll = dojo.hitch(this, this.scroll);
+            
+            /*
+			 * Bug on Table / iPads We need use dojo.touch
+			 * http://dojotoolkit.org/reference-guide/1.7/dojo/touch.html
+			 */
+//			document.addEventListener("touchstart", touchStart,
+//					false);
+//			document.addEventListener("touchmove", touchMove, false);
+//	
+//			var start = {
+//				x : 0,
+//				y : 0
+//			};
+//	
+//			function touchStart(e) {
+//	
+//				// start.x = event.touches[0].pageX;
+//				// start.y = event.touches[0].pageY;
+//				console.debug("touch start");
+//			}
+//			var parent = this;
+//			function touchMove(e) {
+//	
+//				offset = {};
+//	
+//				offset.x = start.x - event.touches[0].pageX;
+//				offset.y = start.y - event.touches[0].pageY;
+//				//
+//				// return offset;
+//				console.debug(offset.x);
+//				console.debug(offset.y);
+//			}
+            
 
             //enable auto save.
             if (this.autosave) {
@@ -195,7 +241,7 @@ dojo.declare(
             //scheduled
             this.scheduleWidget = dijit.byId("schedule");
             this.scheduleWidget.onChange = dojo.hitch(this, function(event){
-                console.debug("shecduled", event);
+                //console.debug("shecduled", event);
                 if (event) {
                     dojo.removeClass(this._scheduledTime, "defaultDisplayHide");
                     dojo.removeClass(this._scheduledDate, "defaultDisplayHide");
@@ -358,12 +404,12 @@ dojo.declare(
          * Load AutoSave timer.
          */
         loadAutoSaveTimer : function(){
-            console.info("enabled autosave timer");
+            //console.info("enabled autosave timer");
             var widget = this;
             this.timerAutoSave = new dojox.timing.Timer(this.delay);
             this.timerAutoSave.onTick = function() {
               widget._autoSave();
-              console.info("enabled autosave execute");
+              //console.info("enabled autosave execute");
             };
             this.timerAutoSave.onStart = function() {};
             this.timerAutoSave.start();

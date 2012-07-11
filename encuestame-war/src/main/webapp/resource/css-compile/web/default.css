@@ -416,43 +416,6 @@ div.updateProfile .profileItem label{
     font-weight: bold;
 }
 
-
-/** default button */
-
-.dijitButton .dijitButtonNode{
-    font-size: 110% !important;
-    border: 1px solid #6D6767 !important;
-    padding: 5px 13px !important;
-    background-image: none !important;
-    font-weight: bold;
-    color: #FFF;
-    background-color: #595959 !important; /* 595959 433C3C **/
-    -moz-border-radius: 14px !important;
-    border-radius: 14px !important;
-    -webkit-border-radius: 14px !important;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-}
-
-.dijitButton .dijitButtonNode {
-  background-color: #89CF6A !important;
-  background-image: none !important;
-  border: 1px solid #6D8000 !important;
-  border-radius: 14px 14px 14px 14px !important;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-  color: #FFFFFF;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
-  font-size: 110% !important;
-  font-weight: normal;
-  padding: 5px 13px !important;
-}
-
-.dijitButton .dijitButtonHover{
-  color: #FFFFFF !important;
-  background-color: #A1D988 !important;
-}
-
 .defaultMarginWrapper .dijitTabContainerTop-container{
     border: 0 none !important;
 }
