@@ -15,6 +15,7 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.business.service.GeoLocationService;
@@ -24,17 +25,22 @@ import org.encuestame.persistence.dao.IGeoPoint;
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
+import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.geo.ItemGeoLocationBean;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,10 +67,25 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
     private IGeoPoint geoPoint;
 
     private UserAccount secondary;
+    
+    /** **/
+    private HashTag initHashTag;
+    
+    /** **/
+    private DateTime initDate;
+    
+    /** **/
+    private TweetPoll initTweetPoll;
 
     @Before
     public void init(){
         this.secondary = createUserAccount("jota", createAccount());
+        this.initHashTag = createHashTag("developer");
+        this.initDate = new DateTime();
+        this.initTweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(),
+				createQuestion("What is your favorite futboll team?",
+						secondary.getAccount()), this.initDate.toDate());
     }
 
     /**
@@ -174,10 +195,59 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 
 		final List<ItemGeoLocationBean> distanceFromOrigin = getLocationService()
 				.retrieveItemsByGeo(510d, 30, TypeSearchResult.ALL,
-						2.16991870F, 41.3879169F);
+						2.16991870F, 41.3879169F, SearchPeriods.SEVENDAYS);
 		Assert.assertEquals(distanceFromOrigin.size(), 3);
 		Assert.assertEquals(distanceFromOrigin.get(0).getLatitude(), tweetPoll.getLocationLatitude());
 		Assert.assertEquals(distanceFromOrigin.get(1).getLatitude(), myPoll.getLocationLatitude());
+	}
+	
+	/**
+	 * 
+	 * @throws EnMeSearchException
+	 */
+	@Test
+	public void testRetrieveHashTagsByGeo() throws EnMeSearchException {
+
+		final HashTag hashtag3 = createHashTag("ana");
+
+		this.initTweetPoll.setLocationLatitude(40.4167F);
+		this.initTweetPoll.setLocationLongitude(-3.70325F);
+		this.initTweetPoll.getHashTags().add(this.initHashTag);
+		this.initTweetPoll.getHashTags().add(hashtag3);
+		getTweetPoll().saveOrUpdate(this.initTweetPoll);
+		assertNotNull(this.initTweetPoll);
+
+		final TweetPoll tp2 = this.createTweetPollTest(
+				"What is your favorite television show?",
+				this.initDate.toDate()); 
+
+		tp2.setLocationLatitude(40.4167F);
+		tp2.setLocationLongitude(-3.70325F);
+		tp2.getHashTags().add(hashtag3);
+		getTweetPoll().saveOrUpdate(tp2);
+
+		assertNotNull(tp2);
+		
+		final List<ItemGeoLocationBean> items = locationService
+				.retreiveHashTagUsebyGeoLo(510d, 30,
+						TypeSearchResult.ALL, 2.16991870F, 41.3879169F,
+						hashtag3.getHashTag(), SearchPeriods.ALLTIME);  
+	}
+	 
+
+	/**
+	 * 
+	 * @param questionName
+	 * @param creationDate
+	 * @return
+	 */
+	private TweetPoll createTweetPollTest(final String questionName,
+			final Date creationDate) {
+		final Question question = createQuestion(
+				"What is your favorite futboll team22?", secondary.getAccount());
+		final TweetPoll tweetPoll = createPublishedTweetPoll(
+				this.secondary.getAccount(), question, creationDate);
+		return tweetPoll;
 	}
     
     /**

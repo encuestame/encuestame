@@ -49,6 +49,7 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @since April 25, 2012
  * @version $Id$
  */  
-
+@Ignore
 public class TestStatisticsService extends AbstractSpringSecurityContext{
 		
 	/** {@link UserAccount}. **/
