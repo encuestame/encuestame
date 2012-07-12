@@ -109,9 +109,10 @@ if (typeof dojo != "undefined") {
 			/**
 			 * Get message
 			 * @param value {String} the id message
+			 * @param default_value {String} if value is undefined, display default
 			 */
-			getMessage : function(value) {
-				return ENME.params[value] == undefined ? "" : ENME.params[value];
+			getMessage : function(value, default_value) {
+				return ENME.params[value] == undefined ? (default_value == null ? "" : default_value) : ENME.params[value];
 			},
 
 			/**

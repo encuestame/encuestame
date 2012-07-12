@@ -105,13 +105,28 @@ dojo.declare(
         * i18n Message.
         */
        i18nMessage : {
-    	   question : ENME.params["tp_write_questions"],
-    	   answer : ENME.params["tp_add_answer"],
-    	   hashtag : ENME.params["tp_add_hashtag"],
-    	   options : ENME.params["tp_customize"],
+    	   question : ENME.getMessage("tp_write_questions"),
+    	   answer : ENME.getMessage("tp_add_answer"),
+    	   hashtag : ENME.getMessage("tp_add_hashtag"),
+    	   options : ENME.getMessage("tp_customize"),
+    	   squeduled : ENME.getMessage("tp_scheduled"),
+    	   squeduled_tp : ENME.getMessage("tp_options_scheduled_this_tweetpoll"),
+    	   chart_features : ENME.getMessage("tp_options_chart"),
+    	   allow_live_results : ENME.getMessage("tp_options_resume_live_results"),
+    	   anti_spam : ENME.getMessage("tp_options_spam"),
+    	   limit_votes : ENME.getMessage("tp_options_limit_votes"),
+    	   repeated_votes : ENME.getMessage("tp_options_allow_repeated_votes"),
+    	   resume_live_results : ENME.getMessage("tp_options_resume_live_results"),
+    	   captcha : ENME.getMessage("commons_captcha"),
+    	   tp_options_report : ENME.getMessage("tp_options_report"),
+    	   follow_dashboard : ENME.getMessage("tp_options_follow_dashboard"),
+    	   button_publish : ENME.getMessage("button_publish"),
+    	   tp_select_publish : ENME.getMessage("tp_select_publish")
        },
 
-        /* stored save tweetPoll. */
+        /**
+         * Stored save tweetPoll.
+         **/
         tweetPoll : {
             tweetPollId : null,
             started : false,

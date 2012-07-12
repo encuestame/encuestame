@@ -24,24 +24,49 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      */
     _delay_messages : 5000,
 
-    /*
-     *
+    /**
+     * Create a modal box.
      */
     _createModalBox : function(type, handler) {
-        var modalBox = new encuestame.org.core.commons.dialog.ModalBox(dojo.byId("modal-box"), type, dojo.hitch(handler));
-        return modalBox;
+    	var modal = dojo.byId("modal-box");
+    	if (modal != null) {
+    		var modalBox = new encuestame.org.core.commons.dialog.ModalBox(dojo.byId("modal-box"), type, dojo.hitch(handler));
+    		return modalBox;
+    	} else {
+    		return null;
+    	}
     },
+    
+    /**
+     * Display the loading process.
+     */
+    loading_show : function (message) {
+    	var loading = dijit.byId("loading");
+    	if ( loading != null) {
+    		loading.show(message);
+    	}
+    },
+    
+    /**
+     * Hide the loading process.
+     */
+    loading_hide : function () {
+    	var loading = dijit.byId("loading");
+    	if ( loading != null) {
+    		loading.hide();
+    	}
+    },    
 
-    /*
-     *
+    /**
+     * Display a success message.
      */
     successMesage : function() {
         console.info("Successfull message");
         encuestame.messages.pubish(encuestame.constants.messageCodes["023"], "message", this._delay_messages);
     },
 
-    /*
-     *
+    /**
+     * Display a warning message.
      */
     warningMesage : function() {
         encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "warning", this._delay_messages);
@@ -86,7 +111,9 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      */
     errorMesage : function(error) {
         var modal = this._createModalBox("alert", null);
-        modal.show(error == null ? encuestame.constants.errorCodes["023"] : error);
+        if (modal != null) {
+        	modal.show(error == null ? encuestame.constants.errorCodes["023"] : error);
+        }
     },
 
     /*
@@ -94,7 +121,9 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      */
     infoMesage : function(info) {
          var modal = this._createModalBox("alert", null);
-         modal.show(info);
+         if (modal != null) {
+        	 modal.show(info);
+         }
     },
 
     /*

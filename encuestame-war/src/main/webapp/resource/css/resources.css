@@ -12,7 +12,7 @@
 }
 
 .modal-box-im{
-  background: url("../../images/background-mobalbox.png") repeat-x scroll left bottom transparent;
+  background: url("../images/background-mobalbox.png") repeat-x scroll left bottom transparent;
 }
 
 .web-item-wrapper .item .loading{
@@ -26,4 +26,30 @@ div.publishWrapper div.itemPublish .account {
 }
 div.web-folder-wrapper .web-folder-item .icon-folder {
     background-image: url("../../images/icons/enme_folder.png");
+}
+
+.loading-ball {
+  background-image: url("../images/loader.gif");
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 15px;
+  width: 20px;
+}
+
+.enme-message-box {
+  background-color: #F5FBA0;
+  background-repeat: no-repeat;
+  border: 1px solid #BCBCBC;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 0 2px 1px #BCBCBC;
+  display: inline-block;
+  height: 15px;
+  left: 25%;
+  margin: 0 auto;
+  padding: 8px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 50%;
+  z-index: 90000;
 }

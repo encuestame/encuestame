@@ -245,6 +245,18 @@ public class TweetPollController extends AbstractSocialController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
+        //check social accounts.
+        String path = "tweetpoll/new";
+        try {
+            final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(SocialProvider.ALL, false);
+            if (socials.size() == 0) {
+                path = "tweetpoll/social";
+            }
+        } catch (EnMeNoResultsFoundException e) {
+            log.error(e);
+            path = "505";
+        }
+        log.debug("newTweetPollController "+path);
         //log.debug("tweetpoll new");
     	addi18nProperty(model, "tp_write_questions", getMessage("tp_write_questions"));
     	addi18nProperty(model, "tp_add_answer", getMessage("tp_add_answer"));
@@ -265,18 +277,6 @@ public class TweetPollController extends AbstractSocialController {
     	addi18nProperty(model, "button_add", getMessage("button_add"));
     	addi18nProperty(model, "button_publish", getMessage("button_publish"));
     	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
-        //check social accounts.
-        String path = "tweetpoll/new";
-        try {
-            final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(SocialProvider.ALL, false);
-            if (socials.size() == 0) {
-                path = "tweetpoll/social";
-            }
-        } catch (EnMeNoResultsFoundException e) {
-            log.error(e);
-            path = "505";
-        }
-        log.debug("newTweetPollController "+path);
         return path;
     }
 

@@ -335,8 +335,14 @@ div.answerAddForm .addButton {
     padding: 4px;
 }
 
-div.answerAddForm div.labelQuestion {
-    max-width: 90%;
+.answerAddForm div.labelQuestion {
+  max-width: 90%;
+}
+
+.answerAddForm div.labelQuestion .answer-loader {
+  padding-left: 5px;
+  position: absolute;
+  top: 7px;
 }
 
 .addAnswers div.addNewAnswer {
