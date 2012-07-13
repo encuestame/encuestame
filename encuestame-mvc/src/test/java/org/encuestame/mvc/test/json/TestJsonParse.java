@@ -23,14 +23,17 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.util.JSONUtils;
+import org.encuestame.utils.categories.test.SlowTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test to json parse.
  * @author Picado, Juan juanATencuestame.org
  * @since 13/08/2011
  */
-public class JsonParseTest extends TestCase {
+
+public class TestJsonParse extends TestCase {
 
     /**
      *
@@ -38,6 +41,7 @@ public class JsonParseTest extends TestCase {
      * @throws JsonMappingException
      * @throws IOException
      */
+	@Category(SlowTest.class)
     @Test
     public void test() throws JsonGenerationException, JsonMappingException,
             IOException {
@@ -46,6 +50,11 @@ public class JsonParseTest extends TestCase {
         final String json2 = JSONUtils.convertObjectToJsonString(new Item());
         assertEquals("{\"name\":null,\"values\":null}", json2);
     }
+	  
+	@Test
+	public void testPrueba(){
+		System.out.println("TES");
+	}
 
     /**
      * Test case class.

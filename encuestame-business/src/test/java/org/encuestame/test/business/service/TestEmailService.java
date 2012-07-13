@@ -18,6 +18,7 @@ import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.security.SignUpBean; 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 12, 2010 10:02:41 AM
  */ 
+@Ignore
 @Category(InternetTest.class)
 public class TestEmailService extends AbstractServiceBase {
 

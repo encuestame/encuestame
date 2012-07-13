@@ -27,6 +27,7 @@ import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.mail.InvitationBean;
 import org.junit.Before; 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since June 24, 2010
  * @version $Id: $
  */ 
+@Ignore
 @Category(InternetTest.class)
 public class TestCatEmailLists extends AbstractServiceBase {
 
