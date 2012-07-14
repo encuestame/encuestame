@@ -280,7 +280,10 @@ public class TweetPollController extends AbstractSocialController {
     	addi18nProperty(model, "button_finish", getMessage("button_finish"));
     	addi18nProperty(model, "button_publish", getMessage("button_publish"));
     	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
-    	addi18nProperty(model, "tp_publish_error", getMessage("tp_publish_error"));
+    	addi18nProperty(model, "tp_publish_error", getMessage("tp_publish_error"));    	
+    	addi18nProperty(model, "e_020", getMessage("e_020"));
+    	addi18nProperty(model, "e_021", getMessage("e_021"));
+    	addi18nProperty(model, "e_024", getMessage("e_024"));
         return path;
     }
 

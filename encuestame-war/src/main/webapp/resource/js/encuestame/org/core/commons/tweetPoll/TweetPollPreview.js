@@ -259,7 +259,7 @@ dojo.declare(
                     this._isValid = true;
                   } else {
                     this._isValid = false;
-                    this._isValidMessage = encuestame.constants.errorCodes["020"];
+                    this._isValidMessage = ENME.getMessage("e_020");
                     dojo.publish("/encuestame/tweetpoll/block");
                     //this._lastedCounter = 0;
                     var currentCounter = this._counterMax - textTweet.length;
@@ -267,7 +267,7 @@ dojo.declare(
                     this._lastedCounter = currentCounter;
                   }
               } else {
-                  console.error(encuestame.constants.errorCodes["023"]);
+                  ENME.log(ENME.getMessage("e_023"));
               }
             },
 
@@ -277,7 +277,7 @@ dojo.declare(
             _checkTweetPollStructure : function() {
                 if (this._answerSize < ENME.config('tp_a')) {
                     this._isValid = false;
-                    this._isValidMessage = encuestame.constants.errorCodes["021"];
+                    this._isValidMessage =  ENME.getMessage("e_021");
                 }
             },
 

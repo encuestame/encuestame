@@ -669,5 +669,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 	   addi18nProperty(model, "social_picker_select_all", getMessage("social_picker_select_all"));
 	   addi18nProperty(model, "social_picker_unselect_all", getMessage("social_picker_unselect_all"));
 	   addi18nProperty(model, "social_picker_accounts_selected", getMessage("social_picker_accounts_selected"));
+	   addi18nProperty(model, "e_022", getMessage("e_022"));
    }   
 }

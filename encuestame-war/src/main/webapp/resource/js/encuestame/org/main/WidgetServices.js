@@ -112,7 +112,7 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     errorMesage : function(error) {
         var modal = this._createModalBox("alert", null);
         if (modal != null) {
-        	modal.show(error == null ? encuestame.constants.errorCodes["023"] : error);
+        	modal.show(error == null ? ENME.getMessage("e_023") : error);
         }
     },
 
@@ -130,7 +130,7 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
      *
      */
     fatalMesage : function() {
-        encuestame.messages.pubish(encuestame.constants.errorCodes["023"], "fatal", this._delay_messages);
+        encuestame.messages.pubish(ENME.getMessage("e_023"), "fatal", this._delay_messages);
     },
     
     /**

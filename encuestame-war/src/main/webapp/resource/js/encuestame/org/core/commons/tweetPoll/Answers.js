@@ -197,7 +197,7 @@ dojo.declare(
                    encuestame.service.xhrGet(encuestame.service.list.addAnswer, params, load, error);
                } else {
             	   //TODO: replace by EMNE.getMessage();
-                   dojo.publish("/encuestame/tweetpoll/dialog/error", [encuestame.constants.errorCodes["024"]]);
+                   dojo.publish("/encuestame/tweetpoll/dialog/error", [ENME.getMessage("e_024")]);
                }
         },
 
