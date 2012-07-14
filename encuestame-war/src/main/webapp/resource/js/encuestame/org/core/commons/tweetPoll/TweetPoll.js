@@ -174,8 +174,6 @@ dojo.declare(
                     || this.hashTagWidget
                     ){
                 this.initialize();
-            } else {
-                this.errorLoading();
             }
 
             // scroll event for IE
@@ -332,7 +330,7 @@ dojo.declare(
              * this code should be replace by encuestame.org.core.shared.options.RepeatedVotes.
              */
             this.ipWidget = dijit.byId("ip");
-            this.ipWidget.onChange = dojo.hitch(this, function(event){
+            this.ipWidget.onChange = dojo.hitch(this, function(event) {
                 //console.debug("ipWidget", event);
                 if (event) {
                     dojo.removeClass(this._repeatedNumbers, "defaultDisplayHide");
@@ -343,7 +341,7 @@ dojo.declare(
                 dojo.publish("/encuestame/tweetpoll/autosave");
             });
             this.repeatedNumbersWidget = dijit.byId("repeatedNumbers");
-            this.repeatedNumbersWidget.onChange = dojo.hitch(this, function(event){
+            this.repeatedNumbersWidget.onChange = dojo.hitch(this, function(event) {
               //console.debug("maxLimitVotes ", this.repeatedNumbersWidget.get("value"));
               this.tweetPoll.options.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
               dojo.publish("/encuestame/tweetpoll/autosave");
@@ -408,7 +406,7 @@ dojo.declare(
         /*
          * unblock items.
          */
-        _unblock : function(){
+        _unblock : function() {
             //console.info("unblock");
             this.answerWidget.unblock();
             this.questionWidget.block = false;
@@ -458,7 +456,9 @@ dojo.declare(
         	 this.loading_hide();
              if (this.tweetPoll.tweetPollId == null) {
                this.tweetPoll.tweetPollId = status.data.tweetPollId;
-               var tweetPoll = {id:this.tweetPoll.tweetPollId};
+			   var tweetPoll = {
+					id : this.tweetPoll.tweetPollId
+				};
                this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
                this.answerWidget.tweetPollId = this.tweetPoll.tweetPollId;
                //update the hash
@@ -565,7 +565,7 @@ dojo.declare(
         /*
          *  publish tweet poll.
          */
-        _publishTweet : function(){
+        _publishTweet : function() {
             var params = {
                      "id" : this.tweetPoll.tweetPollId,
                      "twitterAccounts" : this.socialWidget.getSocialAccounts()
@@ -579,23 +579,21 @@ dojo.declare(
                 this.autosave = false;
                 this.tweetPollPublishWidget.process(socialArray);
             });
+            /**
+             * On publish error.
+             *  - Close dialog
+             *  - Display a Error message
+             * 
+             */
             var error = dojo.hitch(this, function(error) {
-                console.info("error", error);
                 this.autosave = true;
-                this._showErrorMessage(error.message);
+                this.dialogWidget.hide();
+                this._showErrorMessage(ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
             });
             encuestame.service.xhrPostParam(
                     encuestame.service.list.publishTweetPoll, params, load, error);
-        },
-
-         /*
-          *  @deprecated
-          */
-        errorLoading : function(){
-
         }
-    }
-);
+});
 
 
 /**
@@ -614,6 +612,13 @@ dojo.declare(
              * The list of social accounts.
              */
             _socialAccounts : [],
+            
+            /**
+             * i18N Message.
+             */
+            i18nMessage : {
+            	button_finish : ENME.getMessage("button_finish", "Close")
+            },            
 
             /**
              * TweetPoll widget.
@@ -639,7 +644,7 @@ dojo.declare(
             /**
              * set social account array.
              */
-            setListOfSocialAccounts : function(accounts){
+            setListOfSocialAccounts : function(accounts) {
                 this._socialAccounts = accounts;
             },
 
@@ -654,7 +659,8 @@ dojo.declare(
             /**
              * Display proccessing message.
              */
-            _showProcessingMessage : function(){
+            _showProcessingMessage : function() {
+            	dojo.empty(this._message);
                 var message = dojo.doc.createElement("div");
                 dojo.addClass(this._message, "defaultDisplayBlock");
                 dojo.removeClass(this._message, "defaultDisplayHide");
@@ -666,6 +672,7 @@ dojo.declare(
              * Hidde the processing message.
              */
             _hideProcessingMessage : function() {
+            	dojo.empty(this._message);
                 dojo.removeClass(this._message, "defaultDisplayBlock");
                 dojo.addClass(this._message, "defaultDisplayHide");
                 dojo.empty(this._message);
@@ -687,6 +694,7 @@ dojo.declare(
                                     this._container.appendChild(row);
                                 }
                    }));
+                   dojo.removeClass(this._closeWrapper, "hidden");
                 } else {
                     this.errorMesage("data tweet process is empty");
                 }
@@ -710,7 +718,7 @@ dojo.declare(
             /**
              * Build tweet process view.
              */
-            _buildTweetProcessView : function(data){
+            _buildTweetProcessView : function(data) {
                   return this._createStatusTweet(data);
             },
 
@@ -722,8 +730,7 @@ dojo.declare(
                         {
                             data:data,
                             socialAccount : this._getSocialAccountWidget(data.social_account_id)
-                        }
-                        );
+                        });
                 return widget.domNode;
             }
 });
@@ -746,14 +753,7 @@ dojo.declare(
             /**
              * Social account data.
              */
-            socialAccount : {},
-            
-            /**
-             * i18N Message.
-             */
-            i18nMessage : {
-            	button_finish : ENME.getMessage("button_finish", "Close")
-            },
+            socialAccount : {},           
             
             /**
              * Post create lyfe cycle.
@@ -772,7 +772,6 @@ dojo.declare(
                     this._detailStatus.appendChild(this._showFailureMessage());
                 }
                 this._accountProviderIcon.src = encuestame.social.shortPicture(this.socialAccount.type_account);
-                dojo.removeClass(this._closeWrapper, "hidden");
             },
 
             /*

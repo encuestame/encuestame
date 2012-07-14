@@ -4,14 +4,27 @@ if (typeof dojo != "undefined") {
 	
 	var ENME = (function() {
 
-		var isInitialised = false;
-
+		/**
+		 * Define if is initialize. 
+		 */
+		var isInitialised = false,
+		_config = {};
+		
 		var fn = {
 			
+			/**
+			 * @deprecated moved to constants.js
+			 */	
 			STATUS : ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'],
 			
+			/**
+			 * @deprecated moved to constants.js
+			 */
 			SURVEYS : ['TWEETPOLL', 'POLl', 'SURVEY', 'HASHTAG'],
 			
+			/**
+			 * @deprecated moved to constants.js
+			 */
 			IMAGES_SIZE : {
 			    thumbnail : "thumbnail",
 			    defaultType : "default",
@@ -19,7 +32,10 @@ if (typeof dojo != "undefined") {
 			    preview : "preview",
 			    web : "web"
 			},
-				
+			
+			/**
+			 * Store a list of parameters.
+			 */	
 			params : {},
 
 			/**
@@ -35,6 +51,9 @@ if (typeof dojo != "undefined") {
 			 */
 			$ : dojo,
 			
+			/**
+			 * A reference of himself.
+			 */
 			_$self : this,
 	
 			/**
@@ -42,8 +61,16 @@ if (typeof dojo != "undefined") {
 			 */
 			log : function(obj) {
 				if (typeof console != "undefined" && console.log ) { //TODO: Add verbose condition.
-					console.log(obj);
+					log(obj);
 				}
+			},
+			
+			/**
+			 * Get a config value.
+			 * @param value
+			 */
+			config : function (value) {
+				return _config[value];
 			},
 	
 			/**
@@ -96,9 +123,11 @@ if (typeof dojo != "undefined") {
 
 			/**
 			 * Initialize the core.
+			 * @param config {Object}
 			 */
-			init : function() {
+			init : function(config) {
 				var ENME = this;
+				_config = config || {};
 				this.$.query("#header input[type='hidden']").forEach(
 								function(item, index) {
 									ENME.params[dojo.attr(item, "name")] = dojo.attr(item, "value");
@@ -185,7 +214,6 @@ if (typeof dojo != "undefined") {
 			 */
 			_serviceHander :  function(response, ioargs) {
 			    //encuestame.filter.response(response);
-			    //console.info(ioargs.xhr.status, error);
 			    var message = "";
 			    switch (ioargs.xhr.status) {
 			    case 200:
@@ -305,6 +333,11 @@ if (typeof dojo != "undefined") {
 			    }
 			},
 			
+			/**
+			 * Encuestane namespace declaration.
+			 * @param ns_string
+			 * @returns
+			 */
 			namespace : function(ns_string) {
 			    var parts = ns_string.split('.'), parent = ENME, i;
 			    // strip redundant leading global
@@ -321,13 +354,13 @@ if (typeof dojo != "undefined") {
 			    return parent;
 			},
 			
-			getSession : function(){
+			getSession : function() {
 			    //JSESSIONID=dh3u2xvj7fwd1llbddl33dhcq; path=/encuestame; domain=demo2.encuestame.org
 			    var sessionCookie = this.$.cookie("JSESSIONID");
 			    if (sessionCookie == undefined) {
 			        //encuestame.error.session(encuestame.error.messages.denied);
 			    } else {
-			        console.info("session is valid");
+			        log("session is valid");
 			    }
 			},
 			
@@ -337,7 +370,7 @@ if (typeof dojo != "undefined") {
 			 * @returns {String}
 			 */
 			shortPicture : function(provider) {
-			     var url = encuestame.contextDefault + "/resources/images/social/"+provider.toLowerCase()
+			     var url = encuestame.contextDefault + "/resources/images/social/" + provider.toLowerCase()
 	               +"/enme_icon_" + provider.toLowerCase() + ".png";
 			     return url;
 			},
@@ -361,3 +394,28 @@ if (typeof dojo != "undefined") {
 
 	})();	
 }
+
+/**
+ * default log.
+ */
+window.log = function () {
+    log.history = log.history || [];
+    log.history.push(arguments);
+    if (this.console) {
+        arguments.callee = arguments.callee.caller;
+        var a = [].slice.call(arguments);
+        (typeof console.log === "object" ? log.apply.call(console.log, console, a) : console.log.apply(console, a));
+    }
+};
+(function (b) {function c() {}
+    for (var d = "assert,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,timeStamp,profile,profileEnd,time,timeEnd,trace,warn".split(","), a; a = d.pop();) {
+        b[a] = b[a] || c;
+    }
+})((function () {
+    try {
+        console.log();
+        return window.console;
+    } catch (err) {
+        return window.console = {};
+    }
+})());

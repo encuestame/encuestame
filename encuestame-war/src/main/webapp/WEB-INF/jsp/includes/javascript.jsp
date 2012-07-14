@@ -18,32 +18,20 @@
          dojo.require("dojo.io.script");
 </script>
 <script>
-        var config = {
+        ENME.init({
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
             suggest_limit : 10,
             delay : 1800000,
-            activity : {
-                levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
-                maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,
-                maxNetworkDelay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxNetworkDelay")%>
-                },
-            notification : {
-                delay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.delay")%>,
-                limit : <%=EnMePlaceHolderConfigurer.getProperty("not.main.limit")%>
-                },
-            tp : {
-                a : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.allowed")%>,
-                hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
-                minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
-                },
-            pll : {
-
-            }
-        };
-        //dojo.addOnLoad(dojo.hitch(this, function() {
-            ENME.init();
-        //}));
+            activity_levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
+            activity_maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,
+            activity_maxNetworkDelay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxNetworkDelay")%>,
+            notification_delay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.delay")%>,
+            notification_limit : <%=EnMePlaceHolderConfigurer.getProperty("not.main.limit")%>,
+           	tp_a : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.allowed")%>,
+           	tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
+           	tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
+        });
 </script>
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
  <c:if test="${!development}">

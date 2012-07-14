@@ -8,8 +8,8 @@ dojo.require("dojo.cookie");
 encuestame.activity = {};
 encuestame.service = {};
 encuestame.service.offline = false;
-encuestame.service.timeout = config.delay;
-encuestame.contextDefault = config.contextPath;
+encuestame.service.timeout = ENME.config('delay');
+encuestame.contextDefault = ENME.config('contextPath');
 encuestame.signin = encuestame.contextDefault+"/signin";
 
 /**

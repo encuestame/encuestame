@@ -251,7 +251,7 @@ dojo.declare(
         _pollPath : "/poll/",
 
         postMixInProperties: function(){
-            this._domain = config.domain;
+            this._domain = ENME.config('domain');
         },
 
         postCreate : function(){
