@@ -268,12 +268,8 @@ dojo.declare(
                 var menuWidget = new encuestame.org.core.shared.utils.OptionMenu({
                     _classReplace : "hidden",
                     menu_items : [{
-                        label : "Remove",
+                        label : ENME.getMessage("button_remove", "Remove"),
                         action : dojo.hitch(this, this._removeAnswer)}
-                        //{label : "Edit",
-                        //action : function() {
-                        //    console.debug("Edit");
-                        //}}
                 ]});
                 this._options.appendChild(menuWidget.domNode);
                 this._item.appendChild(answer);
@@ -284,7 +280,7 @@ dojo.declare(
         /*
          * display or short url
          */
-        editShortUrl : function(event){
+        editShortUrl : function(event) {
             dojo.stopEvent(event);
             console.debug(event);
         },
@@ -316,10 +312,10 @@ dojo.declare(
              * on error.
              */
             var error = function(error) {
-            	this.loading_show();
+            	this.loading_hide();
                 dojo.publish("/encuestame/tweetpoll/dialog/error", [error]);
             };
-            //this.loadingRef.show();
+            this.loading_show();  
             encuestame.service.xhrGet(
                     encuestame.service.list.removeAnswer, params, load, error);
         },
@@ -328,7 +324,7 @@ dojo.declare(
          * answer text.
          */
         getAnswerText: function() {
-            var answer = this.answer.label+ " "+this.answer.shortUrl;
+            var answer = this.answer.label + " " + this.answer.shortUrl;
             return answer;
         }
 });

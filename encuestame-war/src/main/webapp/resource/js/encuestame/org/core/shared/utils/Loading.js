@@ -8,20 +8,27 @@ dojo.declare(
     	 * Template.
     	 */
         templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/loading.html"),
+        
+        i18nMessage : {
+        	loading : ENME.getMessage("loading_message", "Loading")
+        },
                 
         /**
          * Show the loader.
          */
-        show : function () {
-        	console.info("SHOW this._loading", this._loading);
+        show : function (message) {
         	dojo.removeClass(this._loading, "hidden");
+        	if (message) {
+        		this._message.innerHTML = message;
+        	} else {
+        		this._message.innerHTML = this.i18nMessage.loading;
+        	}
         },
         
         /**
          * Hide the loader.
          */
         hide : function () {
-        	console.info("HIDE this._loading", this._loading);
         	dojo.addClass(this._loading, "hidden");
         }    
 });

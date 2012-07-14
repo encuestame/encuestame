@@ -15,7 +15,6 @@ div.web-tweetpoll-section {
     background-color: #F6F6F6;
     border: 1px solid #E5E5E5;
     margin: 0 auto;
-    overflow: auto;
     width: auto;
     z-index: 5;
     -webkit-border-radius: 10px 10px 10px 10px;
@@ -29,10 +28,12 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title {
     font-size: 110%;
     padding: 10px;
     font-weight: bold;
+    border-radius : 10px 10px 0 0;
+    -webkit-border-radius : 10px 10px 0 0;
+    -moz-border-radius : 10px 10px 0 0;
 }
 
 .web-tweetpoll-section .space {
-    overflow: auto;
     padding: 10px;
 }
 
@@ -41,9 +42,9 @@ div.web-tweetpoll-section .info {
 }
 
 div.web-tweetpoll-section .counterGlobal {
+	border-radius: 100px 100px 100px 100px;
     -webkit-border-radius: 100px 100px 100px 100px;
-    -moz-border-radius: 100px 100px 100px 100px;
-    border-radius: 100px 100px 100px 100px;
+    -moz-border-radius: 100px 100px 100px 100px;    
     background-color: green;
     color: white;
     float: right;
@@ -364,17 +365,17 @@ div.answerAddForm .addButton {
 }
 
 .addAnswers .answerItem {
-    background-color: #C2C0C0;
+    background-color : #E4E4E4;
+    border : 1px solid #BFBFBF;
     -moz-border-radius: 4px 4px 4px 4px;
     border-radius: 4px 4px 4px 4px;
     color: #FFFFFF;
     cursor: pointer;
-    font-size: 100%;
     margin-top: 3px;
-    max-width: 89%;
+    max-width: 86%;
     min-height: 25px;
     overflow: auto;
-    padding: 3px;
+    padding: 0px;
     vertical-align: top;
 }
 
@@ -444,8 +445,12 @@ div.answerAddForm .addButton {
 }
 
 .addAnswers .answerItem .answerItem-options {
-    line-height: 25px;
-    margin-left: 550px;
+  float: right;
+}
+
+.addAnswers .answerItem .answerItem-options .option-menu {
+  margin-right: 10px;
+  margin-top: 5px;
 }
 
 /** hash tags **/

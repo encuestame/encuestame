@@ -622,6 +622,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     public void addi18nProperty(final ModelMap model, final String key, final String value) {
     	@SuppressWarnings("unchecked")
 		HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
+    	System.out.println("addi18nProperty---------> "+i18n);
     	if (i18n == null) {
     		i18n = new HashMap<String, String>();
     		model.addAttribute("i18n", i18n);

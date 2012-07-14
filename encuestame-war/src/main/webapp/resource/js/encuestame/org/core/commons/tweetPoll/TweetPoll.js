@@ -415,62 +415,60 @@ dojo.declare(
             this.hashTagWidget.unblock();
         },
 
-        /*
-         * Load AutoSave timer.
+        /**
+         * Load AutoSave timer
+         * Create timer to autosave the tweetpoll.
          */
-        loadAutoSaveTimer : function(){
-            //console.info("enabled autosave timer");
+        loadAutoSaveTimer : function() {
             var widget = this;
             this.timerAutoSave = new dojox.timing.Timer(this.delay);
             this.timerAutoSave.onTick = function() {
               widget._autoSave();
-              //console.info("enabled autosave execute");
             };
-            this.timerAutoSave.onStart = function() {};
+            this.timerAutoSave.onStart = function() {
+            	//nothing to do
+            };
             this.timerAutoSave.start();
         },
 
-        /*
-         * auto save tweetPoll.
+        /**
+         * Auto save tweetPoll.
          * @param tweetPollId if is null we crete new tweetPoll.
          * @param question { id, question}
          * @param hastags [id,id,id,id]
          * @param anseerws { id, question}
          */
-        _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags){
-            //console.debug("auto save");
-            if(this.tweetPoll.tweetPollId == null){
-               //console.debug("tweet poll is autosaving ...", this.tweetPoll);
+        _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags) {
+            if (this.tweetPoll.tweetPollId == null) {
+               //TODO: error?
             } else {
-               console.info("tweetPol exist", this.tweetPoll.tweetPollId);
                this.tweetPoll.hashtags = this.hashTagWidget.getHashTags();
                this.tweetPoll.answers = this.answerWidget.getAnswersId();
             }
-            //console.debug("auto save", this.tweetPoll);
+            this.loading_show();
             encuestame.activity.cometd.publish('/service/tweetpoll/autosave', { tweetPoll: this.tweetPoll});
          },
 
-         /*
-          * get activity services response after save tweetpoll.
+         /**
+          * Get activity services response after save tweetpoll.
+          * @param status {Object}
           */
-         _autoSaveStatus : function(status){
-             console.debug("auto save status", status);
+         _autoSaveStatus : function(status) {
+             //console.debug("auto save status", status);
+        	 this.loading_hide();
              if (this.tweetPoll.tweetPollId == null) {
                this.tweetPoll.tweetPollId = status.data.tweetPollId;
                var tweetPoll = {id:this.tweetPoll.tweetPollId};
                this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
                this.answerWidget.tweetPollId = this.tweetPoll.tweetPollId;
+               //update the hash
                dojo.hash(dojo.objectToQuery(tweetPoll));
              }
-             //this.tweetPoll.hashtags = status.hashTags;
-             //this.tweetPoll.anwsers = status.answers;
-             //
              this.tweetPoll.started = true;
-             //console.debug("_autoSaveStatus FINISH", this.tweetPoll);
          },
 
-        /*
-         * auto-scroll publish top bar.
+        /**
+         * Auto-scroll publish top bar.
          */
         scroll : function() {
             var node = this._tweetQuestion;
@@ -483,23 +481,20 @@ dojo.declare(
             }
           },
 
-        /*
-         * initialize new tweetpoll create.
+        /**
+         * Initialize new tweetpoll create.
          */
         initialize : function() {
            var hash = dojo.queryToObject(dojo.hash());
              if (hash.id) {
-              //retrieve tweetPoll autosaved information.
-              console.debug("url id ", hash.id);
-              //this.tweetPoll.tweetPollId = hash.id;
+            	 //if hash id previously exist, not do anything.
              }
              //dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
              this.questionWidget.block = false;
              dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(event) {
                  if (dojo.keys.DELETE == event.keyCode || dojo.keys.BACKSPACE == event.keyCode) {
-                        //console.debug("is removing");
                         dojo.publish("/encuestame/tweetpoll/updatePreview");
-                        if(!this.questionWidget.block){
+                        if (!this.questionWidget.block) {
                             this._questionTextLastSucessMessage = this.questionWidget.get("value");
                         }
                  } else {
@@ -508,7 +503,6 @@ dojo.declare(
                          this._questionTextLastSucessMessage = this.questionWidget.get("value");
                      } else {
                          this.questionWidget.set('value', this._questionTextLastSucessMessage);
-                         console.info("question is bloked",  this.questionWidget.maxLength);
                      }
                  }
              }));
@@ -519,7 +513,9 @@ dojo.declare(
              this.socialWidget = dijit.byId("social");
              //initialize publish widget.
              this.tweetPollPublishWidget = new encuestame.org.core.commons.tweetPoll.TweetPollPublishInfo(
-                     { tweetPollWidget : this});
+                     { 
+                    	 tweetPollWidget : this
+                     });
         },
 
         /*
@@ -608,6 +604,10 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPublishInfo",
         [encuestame.org.main.EnmeMainLayoutWidget],{
+
+        	/**
+        	 * Template
+        	 */
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetpollPublish.html"),
 
             /**
@@ -632,7 +632,7 @@ dojo.declare(
                 var button = dijit.byId(this._close);
                     button.onClick = dojo.hitch(this, function(event) {
                        dojo.publish("/encuestame/dialog/close");
-                       document.location.href = encuestame.contextDefault+"/user/tweetpoll/list";
+                       document.location.href = encuestame.contextDefault + "/user/tweetpoll/list";
                 });
             },
 
@@ -659,7 +659,6 @@ dojo.declare(
                 dojo.addClass(this._message, "defaultDisplayBlock");
                 dojo.removeClass(this._message, "defaultDisplayHide");
                 message.innerHTML = encuestame.constants.messageCodes["025"];
-                //console.debug("message", message);
                 this._message.appendChild(message);
             },
 
@@ -735,15 +734,35 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPublishItemStatus",
         [encuestame.org.main.EnmeMainLayoutWidget],{
+        	
+        	/**
+        	 * Template.
+        	 */
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemStatus.html"),
+            /**
+             * 
+             */
             data : {},
-            widgetsInTemplate: true,
+            /**
+             * Social account data.
+             */
             socialAccount : {},
+            
+            /**
+             * i18N Message.
+             */
+            i18nMessage : {
+            	button_finish : ENME.getMessage("button_finish", "Close")
+            },
+            
+            /**
+             * Post create lyfe cycle.
+             */
             postCreate : function(){
                 this.initialize();
             },
 
-            /*
+            /**
              * initialize widget.
              */
             initialize : function() {
@@ -753,6 +772,7 @@ dojo.declare(
                     this._detailStatus.appendChild(this._showFailureMessage());
                 }
                 this._accountProviderIcon.src = encuestame.social.shortPicture(this.socialAccount.type_account);
+                dojo.removeClass(this._closeWrapper, "hidden");
             },
 
             /*
@@ -785,7 +805,6 @@ dojo.declare(
         [encuestame.org.main.EnmeMainLayoutWidget],{
              templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemSUCCESSStatus.html"),
              metadata : null,
-             widgetsInTemplate: true
 });
 
 /*
@@ -797,7 +816,6 @@ dojo.declare(
              templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemFAILUREStatus.html"),
              metadata : null,
              parentStatusWidget : null,
-             widgetsInTemplate: true,
              postCreate : function(){
 
              },

@@ -507,8 +507,8 @@ div.web-default-menu  li.first {
 
 .enme-web-context .dijitDialog {
   border: 1px solid #676767 !important;
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 1px 2px 10px 6px rgba(9, 9, 9, 0.25) !important;
+  border-radius: 4px;
+  box-shadow: 1px 2px 2px 1px rgba(9, 9, 9, 0.25) !important;
 }
 
 .enme-web-context .dijitDialog  ul, .enme-web-context .dijitDialog ol {
@@ -702,7 +702,7 @@ div.web-default-menu  li.first {
 .web-generic-dialog-content {
   font-size: 12px;
   font-weight: bold;
-  padding: 35px 10px 10px;
+  padding: 10px 10px 10px;
 }
 
 .web-generic-dialog-content .button{

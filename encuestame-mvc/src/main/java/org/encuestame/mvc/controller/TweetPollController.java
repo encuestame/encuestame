@@ -275,6 +275,9 @@ public class TweetPollController extends AbstractSocialController {
     	addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
     	addSocialPickerWidgetMessages(model);
     	addi18nProperty(model, "button_add", getMessage("button_add"));
+    	addi18nProperty(model, "button_remove", getMessage("button_remove"));
+    	addi18nProperty(model, "button_close", getMessage("button_close"));
+    	addi18nProperty(model, "button_finish", getMessage("button_finish"));
     	addi18nProperty(model, "button_publish", getMessage("button_publish"));
     	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
         return path;
