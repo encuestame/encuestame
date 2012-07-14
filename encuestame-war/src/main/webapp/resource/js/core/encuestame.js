@@ -8,6 +8,7 @@ if (typeof dojo != "undefined") {
 		 * Define if is initialize. 
 		 */
 		var isInitialised = false,
+		// to store the default configuration
 		_config = {};
 		
 		var fn = {

@@ -275,7 +275,7 @@ dojo.declare(
              * check required structure.
              */
             _checkTweetPollStructure : function() {
-                if(this._answerSize < ENME.config('tp_a')) {
+                if (this._answerSize < ENME.config('tp_a')) {
                     this._isValid = false;
                     this._isValidMessage = encuestame.constants.errorCodes["021"];
                 }
