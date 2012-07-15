@@ -237,7 +237,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                  log.debug("tweet text "+tweetText);
                  //check real lenght if execed limit required.
                  if (tweetText.length() > SocialUtils.TWITTER_LIMIT) {
-                     throw new EnMeFailSendSocialTweetException("tweet exced length");
+                     throw new EnMeFailSendSocialTweetException(getMessage("e_020"));
                  }
                 final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
                 //convert accounts id to real social accounts objects.
@@ -261,6 +261,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             }
         } catch (Exception e) {
             log.fatal(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

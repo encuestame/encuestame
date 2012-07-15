@@ -624,6 +624,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                  createNotification(NotificationEnum.SOCIAL_MESSAGE_PUBLISHED,tweetText, SocialUtils.getSocialTweetPublishedUrl(
                          metadata.getTweetId(), socialAccount.getSocialAccountName(), socialAccount.getAccounType()), Boolean.TRUE);
              } catch (Exception e) {
+            	 e.printStackTrace();
                  log.error("Error publish tweet:{"+e);
                  //change status to failed
                  publishedStatus.setStatus(Status.FAILED);

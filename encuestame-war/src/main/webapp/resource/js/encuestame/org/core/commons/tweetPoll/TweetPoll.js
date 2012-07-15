@@ -22,7 +22,7 @@ dojo.require("encuestame.org.core.shared.utils.GenericDialogContent");
 dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore");
+dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore"); 
 
 /**
  * Create TweetPoll Interfaces.
@@ -571,7 +571,6 @@ dojo.declare(
                      "twitterAccounts" : this.socialWidget.getSocialAccounts()
             };
             var load = dojo.hitch(this, function(data) {
-                //TODO: DISABLE COMET AUTOSAVE;
                 var socialArray = [];
                 if ("success" in data) {
                     socialArray = data.success.socialPublish;
@@ -588,7 +587,7 @@ dojo.declare(
             var error = dojo.hitch(this, function(error) {
                 this.autosave = true;
                 this.dialogWidget.hide();
-                this._showErrorMessage(ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
+                this._showErrorMessage(error.message || ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
             });
             encuestame.service.xhrPostParam(
                     encuestame.service.list.publishTweetPoll, params, load, error);
@@ -664,7 +663,7 @@ dojo.declare(
                 var message = dojo.doc.createElement("div");
                 dojo.addClass(this._message, "defaultDisplayBlock");
                 dojo.removeClass(this._message, "defaultDisplayHide");
-                message.innerHTML = encuestame.constants.messageCodes["025"];
+                message.innerHTML = ENME.getMessage("pubication_inprocess_status");
                 this._message.appendChild(message);
             },
 
@@ -804,6 +803,13 @@ dojo.declare(
         [encuestame.org.main.EnmeMainLayoutWidget],{
              templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemSUCCESSStatus.html"),
              metadata : null,
+             /**
+              * i18N Message.
+              */
+             i18nMessage : {
+            	 commons_success : ENME.getMessage("commons_success", "SUCCESS"),
+            	 pubication_success_status : ENME.getMessage("pubication_success_status", "pubication_success_status")
+             }
 });
 
 /*
@@ -812,14 +818,27 @@ dojo.declare(
 dojo.declare(
         "encuestame.org.core.commons.tweetPoll.TweetPollPublishItemFAILUREStatus",
         [encuestame.org.main.EnmeMainLayoutWidget],{
-             templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemFAILUREStatus.html"),
-             metadata : null,
-             parentStatusWidget : null,
-             postCreate : function(){
+             
+        	templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/tweetPollPublishItemFAILUREStatus.html"),
+            
+        	metadata : null,
+             
+        	parentStatusWidget : null,
+            
+             /**
+              * i18N Message.
+              */
+             i18nMessage : {
+            	 commons_failure : ENME.getMessage("commons_failure", "FAILURE"),
+            	 button_try_later : ENME.getMessage("button_try_later", ""),
+            	 button_ignore : ENME.getMessage("button_ignore", ""),
+            	 button_try_again : ENME.getMessage("button_try_again", ""),
+            	 pubication_failure_status : ENME.getMessage("pubication_failure_status", "pubication_failure_status")
+             },  
 
-             },
-
-             _scheduleTweet : function(events){
-                 console.debug("TODO");
-             }
-        });
+             /**
+              * 
+              * @param events
+              */
+             _scheduleTweet : function(events) {}
+});

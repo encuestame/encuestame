@@ -178,6 +178,7 @@ div.tweetPollPublishDialog div.items div.item {
     font-weight: bold;
     min-height: 36px;
     padding: 3px;
+    overflow: auto;
 }
 
 div.tweetPollPublishDialog div.items div.item div.image {
@@ -190,7 +191,7 @@ div.tweetPollPublishDialog div.items div.item div.image {
 div.tweetPollPublishDialog div.items div.item div.detail {
     float: left;
     padding: 4px;
-    width: 294px;
+    width: 80%;
 }
 
 div.tweetPollPublishDialog div.items div.item div.icon {

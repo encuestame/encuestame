@@ -15,6 +15,8 @@ package org.encuestame.core.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.json.TweetItemPublishedResponse;
@@ -25,6 +27,12 @@ import org.encuestame.utils.json.TweetItemPublishedResponse;
  * @since May 10, 2011
  */
 public class ConvertDomainToJson {
+	
+	/**
+     * Log.
+     */
+    private static Log log = LogFactory.getLog(ConvertDomainToJson.class);
+
 
     /**
      *
@@ -35,6 +43,9 @@ public class ConvertDomainToJson {
             final List<TweetPollSavedPublishedStatus> savedPublishedStatus) {
         final List<TweetItemPublishedResponse> list = new ArrayList<TweetItemPublishedResponse>();
         for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : savedPublishedStatus) {
+        	log.debug("*******************************************************************************");
+        	log.debug(savedPublishedStatus.toString());
+        	log.debug("*******************************************************************************");
             list.add(convertTweetPollStatusToJson(tweetPollSavedPublishedStatus));
         }
         return list;
@@ -48,14 +59,18 @@ public class ConvertDomainToJson {
     public static final TweetItemPublishedResponse convertTweetPollStatusToJson(
             final TweetPollSavedPublishedStatus savedPublishedStatus) {
         final TweetItemPublishedResponse tweetResponse = new TweetItemPublishedResponse();
-        tweetResponse.datePublished = DateUtil.getFormatDate(savedPublishedStatus.getPublicationDateTweet());
+		tweetResponse.datePublished = savedPublishedStatus
+				.getPublicationDateTweet() == null ? null : DateUtil
+				.getFormatDate(savedPublishedStatus.getPublicationDateTweet());
         tweetResponse.textTweeted = savedPublishedStatus.getTweetContent();
         tweetResponse.statusTweet = savedPublishedStatus.getStatus().name();
         tweetResponse.statusDescriptionTweet = savedPublishedStatus.getDescriptionStatus();
         tweetResponse.socialAccountId = savedPublishedStatus.getSocialAccount().getId();
         tweetResponse.sourceTweet = savedPublishedStatus.getApiType().name();
-        tweetResponse.tweetId = savedPublishedStatus.getTweetId();
-        tweetResponse.tweetUrl = SocialUtils.getSocialTweetPublishedUrl(savedPublishedStatus.getTweetId(),
+        tweetResponse.tweetId = savedPublishedStatus.getTweetId() == null ? "" : savedPublishedStatus.getTweetId();
+		tweetResponse.tweetUrl = savedPublishedStatus.getTweetId() == null ? ""
+				: SocialUtils.getSocialTweetPublishedUrl(savedPublishedStatus
+						.getTweetId(),
                 savedPublishedStatus.getSocialAccount().getSocialAccountName(),
                 savedPublishedStatus.getSocialAccount().getAccounType());
         tweetResponse.socialAccountName = savedPublishedStatus.getSocialAccount().getSocialAccountName();

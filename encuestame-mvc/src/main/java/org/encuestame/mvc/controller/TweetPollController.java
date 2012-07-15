@@ -279,11 +279,19 @@ public class TweetPollController extends AbstractSocialController {
     	addi18nProperty(model, "button_close", getMessage("button_close"));
     	addi18nProperty(model, "button_finish", getMessage("button_finish"));
     	addi18nProperty(model, "button_publish", getMessage("button_publish"));
+    	addi18nProperty(model, "button_try_again", getMessage("button_try_again"));
+    	addi18nProperty(model, "button_ignore", getMessage("button_ignore"));
+    	addi18nProperty(model, "button_try_later", getMessage("button_try_later"));
     	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
-    	addi18nProperty(model, "tp_publish_error", getMessage("tp_publish_error"));    	
+    	addi18nProperty(model, "tp_publish_error", getMessage("tp_publish_error"));
+    	addi18nProperty(model, "pubication_failure_status", getMessage("pubication_failure_status"));
+    	addi18nProperty(model, "pubication_success_status", getMessage("pubication_success_status"));
+    	addi18nProperty(model, "pubication_inprocess_status", getMessage("pubication_inprocess_status"));
     	addi18nProperty(model, "e_020", getMessage("e_020"));
     	addi18nProperty(model, "e_021", getMessage("e_021"));
     	addi18nProperty(model, "e_024", getMessage("e_024"));
+    	addi18nProperty(model, "commons_success", getMessage("commons_success"));
+    	addi18nProperty(model, "commons_failure", getMessage("commons_failure"));
         return path;
     }
 

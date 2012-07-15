@@ -34,6 +34,12 @@
 			<footer id="footer">
 				<tiles:insertAttribute name="footer" />
 			</footer>
+			<c:if test="${logged}">
+		        <div dojoType="dojox.widget.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
+		            messageTopic="/encuestame/message/publish"
+		            positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
+		            id="toasted"></div>
+			</c:if>			
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
