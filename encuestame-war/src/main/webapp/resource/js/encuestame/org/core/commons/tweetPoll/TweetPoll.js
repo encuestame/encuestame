@@ -587,7 +587,7 @@ dojo.declare(
             var error = dojo.hitch(this, function(error) {
                 this.autosave = true;
                 this.dialogWidget.hide();
-                this._showErrorMessage(error.message || ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
+                this._showErrorMessage(error || ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
             });
             encuestame.service.xhrPostParam(
                     encuestame.service.list.publishTweetPoll, params, load, error);

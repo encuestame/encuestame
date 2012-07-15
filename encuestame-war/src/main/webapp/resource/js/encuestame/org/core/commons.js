@@ -634,9 +634,18 @@ encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled
     var defaultError = function(error, ioargs) {
         console.error("default error ", error);
     };
-    if (error == null){
+    if (error == null) {
       error = defaultError;
     }
+    //get the xhr encapsulated error message.
+    errorWrapper = function (errorText, xhrError) {
+    	if (typeof(xhrError === "object")){
+	    	var responseText = dojo.fromJson(xhrError.xhr.response);
+	    	error(responseText.error);
+    	} else {
+    		error(errorText || "undefined error");
+    	}
+    };
     //console.debug("Form POST ", form);
     if (load == null || url == null || params == null){
         console.error("error params required.");
@@ -653,7 +662,7 @@ encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled
             //headers: { "Content-Type": "application/json", "Accept": "application/json" },
             load: innerLoad,
             preventCache: true,
-            error: error
+            error: errorWrapper
         };
         //initialize the loading
         loadingFunction == null ? "" : loadingFunction.init();
