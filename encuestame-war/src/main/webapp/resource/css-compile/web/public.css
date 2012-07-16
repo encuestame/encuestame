@@ -1412,38 +1412,6 @@ div.drop-down-menu-select-title:hover .sub-menu {
     -o-text-overflow: ellipsis;
 }
 
-/** option-menu */
-.option-menu {
-
-}
-
-.option-menu .icon {
-  background-color: #B4B4B2;
-  border-radius: 5px 5px 5px 5px;
-  line-height: 25px;
-  margin-left: 1px;
-  margin-top: 1px;
-  padding: 0 7px;
-  width: 10px;
-}
-.option-menu .hidden {
-    display: none;
-}
-
-.option-menu .menu-items {
-  background: none repeat scroll 0 0 #E3E3E3;
-  border: 1px solid #969696;
-  border-radius: 8px 8px 8px 8px;
-  margin-top: 2px;
-  padding: 5px;
-  position: absolute;
-  width: 100px;
-}
-
-.option-menu .menu-items .menu-item-wrap {
-    color: #747474;
-}
-
 /** tweetpoll vote options **/
 .web-tweetpoll-vote-options {
     margin: 0 auto;

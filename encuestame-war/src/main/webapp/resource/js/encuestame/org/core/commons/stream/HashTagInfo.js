@@ -40,8 +40,7 @@ dojo.declare(
         postMixInProperties : function(){
             if (this.autoCreateUrl) {
                 //<%=request.getContextPath()%>/tag/${h.hashTagName}/
-                this.url = this.url.concat(config.domain);
-                //this.url = this.url.concat(config.contextPath);
+                this.url = this.url.concat(ENME.config('domain'));
                 this.url = this.url.concat("/tag/");
                 this.url = this.url.concat(this.hashTagName);
             }

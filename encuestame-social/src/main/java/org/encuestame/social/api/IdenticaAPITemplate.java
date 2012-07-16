@@ -81,17 +81,24 @@ public class IdenticaAPITemplate extends AbstractSocialAPISupport implements Ide
         return response.get("id").toString();
     }
 
-
+    
     public IdentiCaProfile getUserProfile(long userId) {
         Map<?, ?> response = getRestTemplate().getForObject(USER_PROFILE_URL + "?user_id={userId}", Map.class, userId);
         return getProfileFromResponseMap(response);
     }
 
-
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.social.api.support.IdenticaAPIOperations#getUserProfile()
+     */
     public IdentiCaProfile getUserProfile(){
        return this.getUserProfile(Long.valueOf(this.getProfileId()));
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.social.api.support.SocialAPIOperations#updateStatus(java.lang.String)
+     */
     public TweetPublishedMetadata updateStatus(String message) {
         log.debug("Identica updateStatus 2 "+message);
         return this.updateStatus(message, new IdenticaStatusDetails());

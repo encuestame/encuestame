@@ -40,6 +40,7 @@ dependencies ={
                 "encuestame.org.core.commons.dialog.Info",
                 "encuestame.org.core.commons.chart.ChartLayerSupport",
                 "encuestame.org.core.shared.utils.UpdateDefaultOptions",
+                "encuestame.org.core.shared.utils.Loading",
                 "encuestame.org.core.commons.dialog.ModalBox",
                 "encuestame.org.core.shared.utils.FolderSelect",
                 "encuestame.org.core.commons.dashboard.GadgetDirectory",

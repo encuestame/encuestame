@@ -27,3 +27,48 @@
 	color: #000000;
 	cursor: pointer;
 }
+
+/** override dijit buttons **/
+
+/** default button */
+
+.dijitButton .dijitButtonNode{
+    font-size: 12px !important;
+    border: 1px solid #ADADAD !important;
+    padding: 5px 13px !important;
+    font-weight: bold;
+    color: black;
+    background-image: none !important;
+    background: -moz-linear-gradient(center top , #FAFAFA 0px, #DCDCDC 100%) repeat scroll 0 0 transparent !important;
+    border-radius: 4px !important;        
+    -moz-border-radius: 4px !important;
+    -webkit-border-radius: 4px !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;    
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;     
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* .dijitButton .dijitButtonNode {
+  background-image: none !important;
+  border: 1px solid #6D8000 !important;
+  border-radius: 4px 4px 4px 4px !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+  font-size: 110% !important;
+  font-weight: normal;
+  padding: 5px 13px !important;
+} */
+
+/** hover color need to be fixed, it's blue **/
+
+.dijitButtonHover{
+  color: #FFFFFF !important;
+  background-color: #A1D988 !important;
+}
+
+.dijitTextBoxHover, .dijitTextBoxHover .dijitButtonNode {
+    -moz-transition-duration: 0.25s;
+    border-color: #A1D988;
+}

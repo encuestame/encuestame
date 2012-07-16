@@ -67,7 +67,7 @@ public class SignInInterceptor extends AbstractEnMeInterceptor{
         StringBuilder path = new StringBuilder(context);
         path.append(PathUtil.signIn);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.trace("Sign In Auth:{ "+authentication);
+        log.trace("Sign In Auth:{ " + authentication);
         if (arg0.getRequestURI().equals(path.toString())) {
             log.debug("Sign In are equals:{ "+arg0.getRequestURI());
             if (authentication != null) {

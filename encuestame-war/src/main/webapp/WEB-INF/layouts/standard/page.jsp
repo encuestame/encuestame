@@ -9,8 +9,10 @@
 <html>
 <!--<![endif]-->
 <head>
-<title><tiles:insertAttribute name="title"
-		defaultValue="encuestame" /></title>
+<title>
+    <tiles:insertAttribute name="title" defaultValue="encuestame" />
+    
+    </title>
 <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
@@ -19,6 +21,9 @@
 <body class="claro enme-web-context">
 	<div id="mainWrapper" class="page">
 		<header id="header">
+		    <c:forEach items="${i18n}" var="entry"> 
+                  <input type="hidden" name="${entry.key}" value="${entry.value}"/>   
+            </c:forEach> 
 			<tiles:insertAttribute name="header" ignore="true" />
 			<tiles:insertAttribute name="menu" ignore="true" />
 		</header>
@@ -29,6 +34,12 @@
 			<footer id="footer">
 				<tiles:insertAttribute name="footer" />
 			</footer>
+			<c:if test="${logged}">
+		        <div dojoType="dojox.widget.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
+		            messageTopic="/encuestame/message/publish"
+		            positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
+		            id="toasted"></div>
+			</c:if>			
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
@@ -42,16 +53,20 @@
 		dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
 		dojo.require("encuestame.org.core.commons.error.ErrorHandler");
 		<c:if test="${logged}">
-		dojo.require("encuestame.org.activity.Activity");
-		dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
-		dojo.require("encuestame.org.core.commons.notifications.Notification");
-		dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
-		dojo.require("dojox.widget.Toaster");
-		encuestame.activity = new encuestame.org.activity.Activity(true);
+			dojo.require("encuestame.org.activity.Activity");
+			dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
+			dojo.require("encuestame.org.core.commons.notifications.Notification");
+			dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
+			dojo.require("dojox.widget.Toaster");
+			dojo.require("encuestame.org.core.shared.utils.Loading");
+			encuestame.activity = new encuestame.org.activity.Activity(true);
 		</c:if>
 	</script>
 	<!-- Insert additional javascript  -->
 	<tiles:insertAttribute name="extra-js" ignore="true" />
-	<div id="modal-box"></div>
+	<c:if test="${logged}">
+	   <div id="modal-box"></div>
+	   <div dojoType="encuestame.org.core.shared.utils.Loading" id="loading"></div>
+	</c:if>
 </body>
 </html>

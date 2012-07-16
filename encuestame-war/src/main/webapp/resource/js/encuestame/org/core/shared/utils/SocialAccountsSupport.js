@@ -94,7 +94,7 @@ dojo.declare("encuestame.org.core.shared.utils.SocialAccountsSupport", null, {
         if (this._countSelected() >= this._required) {
             return true;
         } else {
-            this._isValidMessage = encuestame.constants.errorCodes["022"];
+            this._isValidMessage = ENME.getMessage("e_022");
             return false;
         }
     },

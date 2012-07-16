@@ -74,13 +74,13 @@ dojo.declare("encuestame.org.activity.Activity", null, {
              var cometURL = location.protocol
                + "//"
                + location.host
-               + config.contextPath + "/activity";
+               + ENME.config('contextPath') + "/activity";
                //configure cometd.
                this.cometd.configure({
                  url : cometURL, //url
-                 logLevel : config.activity.levelDebug, //log level
-                 maxConnections : config.activity.maxConnections,
-                 maxNetworkDelay : config.activity.maxNetworkDelay,
+                 logLevel : ENME.config('activity_levelDebug'), //log level
+                 maxConnections : ENME.config('activity_maxConnections'),
+                 maxNetworkDelay : ENME.config('activity_maxNetworkDelay'),
                  jsonDebug : true  //json debug enabled
              });
              this.cometd.addListener('/meta/handshake', dojo.hitch(this,this._metaHandshake));

@@ -193,7 +193,7 @@ dojo.declare(
                  // THE REST OF KEYBOARD
                  } else {
                      this._setParams(
-                             { limit: config.suggest_limit,
+                             { limit: ENME.config('suggest_limit'),
                                keyword : text,
                                limitByItem : this.limitByItem,
                                excludes : this.exclude});

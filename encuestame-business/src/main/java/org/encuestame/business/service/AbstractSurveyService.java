@@ -478,10 +478,11 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on Twitter 2 ...... "+published.getTweetId());
             } catch (Exception e) {
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.IDENTICA)) {
             log.debug("Publish on IDENTICA");
-            IdenticaAPIOperations identicaAPIOperations = new IdenticaAPITemplate(
+            final IdenticaAPIOperations identicaAPIOperations = new IdenticaAPITemplate(
                     EnMePlaceHolderConfigurer.getProperty("identica.consumer.key"),
                     EnMePlaceHolderConfigurer.getProperty("identica.consumer.secret"),
                     socialAccount.getAccessToken(),
@@ -491,7 +492,9 @@ public class AbstractSurveyService extends AbstractChartService {
                 published = identicaAPIOperations.updateStatus(tweetText);
                 log.debug("Publish on Identica...... "+published);
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.FACEBOOK)) {
             log.debug("Publish on FACEBOOK");
@@ -500,17 +503,22 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on FACEBOOK............>");
                 published = facebookAPIOperations.updateStatus(tweetText);
                 log.debug("Publish on FACEBOOK...... "+published);
+                published.setDatePublished(Calendar.getInstance().getTime());
             } catch (HttpClientErrorException e) {
                 log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 1");
                 log.error(e.getStatusCode());
                 log.error(e.getResponseBodyAsString());
                 log.error(e.getStatusText());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 // refresh token point.
                 //offline_access scope permission is enabled by default . In this case
                 //https://developers.facebook.com/docs/authentication/permissions/
                 log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 2");
+                e.printStackTrace();
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.LINKEDIN)) {
             log.debug("Publish on LinkedIn");
@@ -523,25 +531,29 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on LinkedIn 1............>");
                 published = linkedInAPIOperations.updateStatus(tweetText);
                 published.setTextTweeted(tweetText);
-                published.setDatePublished(new Date());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 published.setTweetId(RandomStringUtils.randomAscii(15));
                 log.debug("Publish on LinkedIn 2...... "+published);
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.GOOGLE_BUZZ)) {
             BuzzAPIOperations buzzInAPIOperations = new GoogleBuzzAPITemplate(socialAccount);
             try {
                 log.debug("Publish on LinkedIn............>");
                 published = buzzInAPIOperations.updateStatus(tweetText);
-                published.setTextTweeted(tweetText);
-                published.setDatePublished(new Date());
+                published.setTextTweeted(tweetText);   
+                published.setDatePublished(Calendar.getInstance().getTime());
                 published.setTweetId(RandomStringUtils.randomAscii(15));
                 log.debug("Publish on LinkedIn...... "+published);
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
-        }
+        }        
         if (published != null) {
             log.debug("publicTweetPoll:s "+published.toString());
         }

@@ -18,12 +18,12 @@ dojo.declare(
         /*
          * delay to retrieve new notification.
          */
-        delay: config.notification.delay,
+        delay: ENME.config('notification_delay'),
 
         /*
          * limit of notifications.
          */
-        limit: config.notification.limit,
+        limit: ENME.config('notification_limit'),
 
         notifications : null,
 
