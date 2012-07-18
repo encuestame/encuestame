@@ -44,6 +44,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
@@ -784,5 +785,21 @@ public abstract class AbstractBaseService extends AbstractDataSource {
 	public TweetPoll getTweetPollById(final Long id) throws EnMeNoResultsFoundException { 
 		 return this.getTweetPollById(id, null);
 	}
+	
+	 /**
+	  * Get {@link Poll} by id.
+	  * @param pollId
+	  * @return
+	  * @throws EnMeNoResultsFoundException
+	  */
+    public Poll getPollById(final Long pollId)
+            throws EnMeNoResultsFoundException {
+        final Poll poll = this.getPollDao().getPollById(pollId);
+        if (poll == null) {
+            throw new EnMePollNotFoundException("poll invalid with this id "
+                    + pollId);
+        }
+        return poll;
+    }
 
 }
