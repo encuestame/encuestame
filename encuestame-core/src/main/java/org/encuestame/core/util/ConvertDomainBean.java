@@ -1485,7 +1485,7 @@ public class ConvertDomainBean {
 			final float latitude, final float longitude, final String question,
 			final double distance, final String socialLink,
 			final String socialType) {
-		final ItemGeoLocationBean socialGeoBean = new SocialGeoLocationBean();
+		final ItemGeoLocationBean socialGeoBean = new ItemGeoLocationBean();
 		socialGeoBean.setDistance(distance);
 		socialGeoBean.setItemType(itemType);
 		socialGeoBean.setLatitude(latitude);
