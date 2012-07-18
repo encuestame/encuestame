@@ -663,16 +663,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         pollResult.setTweetResponseDate(voteDate);
         getTweetPollDao().saveOrUpdate(pollResult);
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.business.service.imp.ITweetPollService#getTweetPollById(java.lang.Long, org.encuestame.persistence.domain.security.UserAccount)
-     */
-    public TweetPoll getTweetPollById(final Long tweetPollId) throws EnMeNoResultsFoundException{
-        return this.getTweetPollById(tweetPollId, getUserPrincipalUsername());
-    }
-
-
+  
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollPublishedById(java.lang.Long)
@@ -705,27 +696,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         return tweetPoll;
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.ITweetPollService#getTweetPollById(java.lang.Long, java.lang.String)
-     */
-    public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException {
-        TweetPoll tweetPoll = null;
-        if (username != null) {
-            tweetPoll = getTweetPollDao()
-                    .getTweetPollByIdandUserId(tweetPollId,
-                            getUserAccount(username).getAccount().getUid());
-        } else {
-            tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
-        }
-        if (tweetPoll == null) {
-            log.error("tweet poll invalid with this id "+tweetPollId);
-            throw new EnMeTweetPollNotFoundException("tweet poll invalid with this id "+tweetPollId);
-        }
-        return tweetPoll;
-    }
-
+ 
     /**
      * Get Tweet Poll Folder by User and FolderId.
      * @param id folder id.

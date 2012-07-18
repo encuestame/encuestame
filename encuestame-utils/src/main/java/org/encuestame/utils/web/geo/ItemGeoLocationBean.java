@@ -44,6 +44,12 @@ public class ItemGeoLocationBean implements Serializable {
 	
 	/** **/
 	private Double distance;
+	
+	/** **/
+	private String socialLink;
+	
+	/** **/
+	private String socialType;
 
 	/**
 	 * @return the itemId
@@ -127,5 +133,33 @@ public class ItemGeoLocationBean implements Serializable {
 	 */
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}  
+	
+	/**
+	 * @return the socialLink
+	 */
+	public String getSocialLink() {
+		return socialLink;
+	}
+
+	/**
+	 * @param socialLink the socialLink to set
+	 */
+	public void setSocialLink(final String socialLink) {
+		this.socialLink = socialLink;
+	}
+
+	/**
+	 * @return the socialType
+	 */
+	public String getSocialType() {
+		return socialType;
+	}
+
+	/**
+	 * @param socialType the socialType to set
+	 */
+	public void setSocialType(final String socialType) {
+		this.socialType = socialType;
 	}  
 }

@@ -28,6 +28,7 @@ import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -38,7 +39,7 @@ import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.UnitLocationTypeBean; 
-import org.encuestame.utils.web.geo.ItemGeoLocationBean;
+import org.encuestame.utils.web.geo.ItemGeoLocationBean; 
 import org.springframework.stereotype.Service;
 
 /**
@@ -634,4 +635,57 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 
 		return itemsGeoBeanList;
 	}  
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.encuestame.core.service.imp.GeoLocationSupport#
+	 * retrieveSocialNetworksPublicationsbyGeoLocation(double,
+	 * java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult, double,
+	 * double, org.encuestame.utils.enums.SearchPeriods)
+	 */
+	public List<ItemGeoLocationBean> retrieveSocialNetworksPublicationsbyGeoLocation(
+			final double range, final Integer maxItem,
+			final TypeSearchResult itemType, final double longitude,
+			final double latitude, final SearchPeriods period)
+			throws EnMeSearchException, EnMeNoResultsFoundException {
+
+		List<ItemGeoLocationBean> socialGeoBean = new ArrayList<ItemGeoLocationBean>();
+
+		final double latitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(latitude);
+		final double longitudeInRadians = EnMeUtils
+				.convertDegreesToRadians(longitude);
+		List<TweetPollSavedPublishedStatus> tpSavedPublished = new ArrayList<TweetPollSavedPublishedStatus>();
+		TweetPoll itemTweetPoll;
+
+		if (itemType.equals(TypeSearchResult.ALL)) {
+			List<Object[]> distanceFromOriginTweetPoll = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.TWEETPOLL, longitudeInRadians,
+							latitudeInRadians, this.earth_radius, period);
+			log.debug("Retrieved items by distance -->"
+					+ distanceFromOriginTweetPoll.size());
+
+			for (Object[] objects : distanceFromOriginTweetPoll) {
+				itemTweetPoll = this.getTweetPollById((Long) objects[0]);
+				tpSavedPublished = getTweetPollDao().getLinksByTweetPoll(
+						itemTweetPoll, null, null, TypeSearchResult.TWEETPOLL);
+
+				log.debug("Tweetpolls published on social networks -->"
+						+ itemTweetPoll.getTweetPollId());
+
+				socialGeoBean.addAll(ConvertDomainBean
+						.convertTweetPollSavedPublishedToSocialGeoLocationBean(
+								tpSavedPublished,
+								itemTweetPoll.getTweetPollId(), itemType,
+								(Float) objects[1], (Float) objects[2],
+								objects[3].toString(), (Double) objects[4]));
+			}
+
+		}
+
+		return socialGeoBean;
+	}
+
 }

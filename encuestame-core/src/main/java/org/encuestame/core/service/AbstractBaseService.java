@@ -44,6 +44,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
@@ -750,5 +751,38 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType);
         return totalComments;
     }
+    
+    /**
+     * Get {@link TweetPoll}.
+     * @param tweetPollId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException {
+        TweetPoll tweetPoll = null;
+        if (username != null) {
+            tweetPoll = getTweetPollDao()
+                    .getTweetPollByIdandUserId(tweetPollId,
+                            getUserAccount(username).getAccount().getUid());
+        } else {
+            tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
+        }
+        if (tweetPoll == null) {
+            log.error("tweet poll invalid with this id "+tweetPollId);
+            throw new EnMeTweetPollNotFoundException("tweet poll invalid with this id "+tweetPollId);
+        }
+        return tweetPoll;
+    }
+    
+    /**
+     * Get {@link TweetPoll} by id
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException 
+     */
+	public TweetPoll getTweetPollById(final Long id) throws EnMeNoResultsFoundException { 
+		 return this.getTweetPollById(id, null);
+	}
 
 }

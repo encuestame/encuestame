@@ -88,6 +88,8 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
+import org.encuestame.utils.web.geo.ItemGeoLocationBean;
+import org.encuestame.utils.web.geo.SocialGeoLocationBean;
 import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 
@@ -1439,5 +1441,58 @@ public class ConvertDomainBean {
 		genericBean.setAverage(average);
 		genericBean.setCreatedAt(createdAt);
 		return genericBean;
+	}
+
+	/**
+	 * Convert {@link TweetPollSavedPublishedStatus} to {@link ItemGeoLocationBean} list
+	 * @param tpSaved
+	 * @param itemId
+	 * @param type
+	 * @param latitude
+	 * @param longitude
+	 * @param question
+	 * @param distance
+	 * @return
+	 */
+	public static final List<ItemGeoLocationBean> convertTweetPollSavedPublishedToSocialGeoLocationBean(
+			final List<TweetPollSavedPublishedStatus> tpSaved, Long itemId,
+			TypeSearchResult type, float latitude, float longitude,
+			String question, double distance) {
+		final List<ItemGeoLocationBean> socialGeoBean = new ArrayList<ItemGeoLocationBean>();
+		for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : tpSaved) {
+			final ItemGeoLocationBean social = convertTweetPollSavedPublishedToSocialGeoBean(
+					itemId, type, latitude, longitude, question, distance,
+					tweetPollSavedPublishedStatus.getApiType().toString(), null);
+			socialGeoBean.add(social);
+		} 
+		return socialGeoBean; 
+	}
+
+	/**
+	 * Convert {@link TweetPollSavedPublishedStatus} to {@link ItemGeoLocationBean}
+	 * @param itemId
+	 * @param itemType
+	 * @param latitude
+	 * @param longitude
+	 * @param question
+	 * @param distance
+	 * @param socialLink
+	 * @param socialType
+	 * @return
+	 */
+	public static ItemGeoLocationBean convertTweetPollSavedPublishedToSocialGeoBean(
+			final Long itemId, final TypeSearchResult itemType,
+			final float latitude, final float longitude, final String question,
+			final double distance, final String socialLink,
+			final String socialType) {
+		final ItemGeoLocationBean socialGeoBean = new SocialGeoLocationBean();
+		socialGeoBean.setDistance(distance);
+		socialGeoBean.setItemType(itemType);
+		socialGeoBean.setLatitude(latitude);
+		socialGeoBean.setLongitude(longitude);
+		socialGeoBean.setQuestion(question);
+		socialGeoBean.setSocialLink(socialLink);
+		socialGeoBean.setSocialType(socialType);
+		return socialGeoBean;
 	}
 }  

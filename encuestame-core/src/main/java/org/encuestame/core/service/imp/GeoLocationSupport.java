@@ -16,6 +16,9 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.GeoPointFolder;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -217,4 +220,22 @@ public interface GeoLocationSupport {
 			final TypeSearchResult itemType, final double longitude,
 			final double latitude, final String tagName,
 			final SearchPeriods periods)  throws EnMeSearchException ;
+    
+	 /**
+	  * Retrieve all {@link TweetPoll} {@link Poll} or {@link Survey} published on social networks.
+	  * @param range
+	  * @param maxItem
+	  * @param itemType
+	  * @param longitude
+	  * @param latitude
+	  * @param period
+	  * @return
+	  * @throws EnMeSearchException
+	  * @throws EnMeNoResultsFoundException
+	  */
+	List<ItemGeoLocationBean> retrieveSocialNetworksPublicationsbyGeoLocation(
+			final double range, final Integer maxItem,
+			final TypeSearchResult itemType, final double longitude,
+			final double latitude, final SearchPeriods period) throws EnMeSearchException,
+			EnMeNoResultsFoundException;
 }
