@@ -88,8 +88,7 @@ import org.encuestame.utils.web.UnitSessionUserBean;
 import org.encuestame.utils.web.SurveyBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.encuestame.utils.web.UtilTreeNode;
-import org.encuestame.utils.web.geo.ItemGeoLocationBean;
-import org.encuestame.utils.web.geo.SocialGeoLocationBean;
+import org.encuestame.utils.web.geo.ItemGeoLocationBean; 
 import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.ItemStatDetail;
 
