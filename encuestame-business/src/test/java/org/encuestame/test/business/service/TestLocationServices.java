@@ -27,16 +27,19 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.geo.ItemGeoLocationBean;
@@ -202,7 +205,7 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 	}
 	
 	/**
-	 * 
+	 * Test retrieve {@link HashTag} use by geoLocation.
 	 * @throws EnMeSearchException
 	 */
 	@Test
@@ -232,8 +235,61 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 				.retreiveHashTagUsebyGeoLo(510d, 30,
 						TypeSearchResult.ALL, 2.16991870F, 41.3879169F,
 						hashtag3.getHashTag(), SearchPeriods.ALLTIME);  
+		Assert.assertEquals(items.size(), 2); 
 	}
-	 
+
+	/**
+	 * Test retrieve items published on social networks.
+	 * @throws EnMeSearchException
+	 * @throws EnMeNoResultsFoundException
+	 */
+	@Test
+	public void testRetreiveSocialNetworksPublicationsbyGeoLocation()
+			throws EnMeSearchException, EnMeNoResultsFoundException {
+		this.initTweetPoll.setLocationLatitude(40.4167F);
+		this.initTweetPoll.setLocationLongitude(-3.70325F);
+		getTweetPoll().saveOrUpdate(this.initTweetPoll);
+
+		final TweetPoll tp2 = this.createTweetPollTest(
+				"What is your favorite rock band?",
+				this.initDate.toDate());
+
+		tp2.setLocationLatitude(40.4167F);
+		tp2.setLocationLongitude(-3.70325F);
+
+		getTweetPoll().saveOrUpdate(tp2);
+
+		assertNotNull(tp2);
+
+		final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
+		assertNotNull(socialAccount);
+		final String tweetContent = "Tweet content text";
+
+		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
+				this.initTweetPoll, " ", socialAccount, tweetContent);
+		tpSaved.setApiType(SocialProvider.TWITTER);
+		getTweetPoll().saveOrUpdate(tpSaved);
+		assertNotNull(tpSaved);
+
+		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
+				tp2, " ", socialAccount, tweetContent);
+		tpSaved.setApiType(SocialProvider.FACEBOOK);
+		getTweetPoll().saveOrUpdate(tpSaved2);
+		assertNotNull(tpSaved2);
+
+		final List<TweetPollSavedPublishedStatus> tpsavedPublished = getTweetPoll()
+				.getLinksByTweetPoll(this.initTweetPoll, null, null,
+						TypeSearchResult.TWEETPOLL);
+		Assert.assertEquals("Should be", 1, tpsavedPublished.size());
+
+		final List<ItemGeoLocationBean> socialLinks = locationService
+				.retrieveSocialNetworksPublicationsbyGeoLocation(510d, 30,
+						TypeSearchResult.ALL, 2.16991870F, 41.3879169F,
+						SearchPeriods.ALLTIME);
+		System.out
+				.println("Total Items social Links --->" + socialLinks.size());
+
+	}
 
 	/**
 	 * 
@@ -244,7 +300,7 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 	private TweetPoll createTweetPollTest(final String questionName,
 			final Date creationDate) {
 		final Question question = createQuestion(
-				"What is your favorite futboll team22?", secondary.getAccount());
+				"What is your favorite futboll team22?", this.secondary.getAccount());
 		final TweetPoll tweetPoll = createPublishedTweetPoll(
 				this.secondary.getAccount(), question, creationDate);
 		return tweetPoll;
