@@ -43,13 +43,13 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.MD5Utils;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.PerformanceTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.stats.HashTagDetailStats;
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +59,8 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * Test Statistics Service.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since April 25, 2012
- * @version $Id$
  */  
-@Ignore
+@Category(PerformanceTest.class)
 public class TestStatisticsService extends AbstractSpringSecurityContext{
 		
 	/** {@link UserAccount}. **/

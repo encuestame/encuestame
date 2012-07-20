@@ -54,6 +54,7 @@ import org.encuestame.persistence.domain.survey.SurveyPagination;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.EnMePermission;
 import org.encuestame.utils.enums.GadgetType;
 import org.encuestame.utils.enums.HitCategory;
@@ -61,13 +62,14 @@ import org.encuestame.utils.enums.LayoutEnum;
 import org.encuestame.utils.enums.Status;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Hibernate Domains.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since 16/12/2009
- * @version $Id$
  **/
+@Category(DefaultTest.class)
 public class TestHibernateDomains extends AbstractBase{
 	  
 	private Hit initHit;

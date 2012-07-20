@@ -24,18 +24,22 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link PollJsonServiceTest}
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since April 25, 2011
  */
+@Category(DefaultTest.class)
 public class PollJsonServiceTest extends AbstractJsonMvcUnitBeans{
 
     /** Max results query **/

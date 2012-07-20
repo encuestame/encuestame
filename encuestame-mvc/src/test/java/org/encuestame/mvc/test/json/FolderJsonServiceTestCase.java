@@ -26,18 +26,22 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link FolderJsonServiceController} Test Case.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Apr 20, 2011
  */
+@Category(DefaultTest.class)
 public class FolderJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
 
     /** {@link PollFolder}. **/

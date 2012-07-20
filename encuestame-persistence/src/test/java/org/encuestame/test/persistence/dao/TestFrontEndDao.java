@@ -28,17 +28,19 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link FrontEndDao}..
  * @author Morales Urbina, Diana paolaATencuestame.org
  * @since January 06, 2011
- * @version $Id: $
  */
+@Category(DefaultTest.class)
 public class TestFrontEndDao extends AbstractBase {
 
     /** {@link HashTag} **/

@@ -16,16 +16,20 @@ import junit.framework.Assert;
 
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Description.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 18, 2011
  */
+@Category(DefaultTest.class)
 public class ValidatorServiceJsonTestCase extends AbstractJsonMvcUnitBeans{
 
     /**

@@ -25,16 +25,18 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link QuestionDaoImp}.
  * @author Picado, Juan juanATencuestame.org
  * @since Feb 14, 2010 12:18:42 AM
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestQuestionDao extends AbstractBase{
 
     /** {@link Account} **/

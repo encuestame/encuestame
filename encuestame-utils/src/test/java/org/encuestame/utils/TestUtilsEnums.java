@@ -14,6 +14,7 @@ package org.encuestame.utils;
 
 import junit.framework.TestCase;
 
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.EnMePermission;
@@ -25,11 +26,13 @@ import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * @author dmorales
  *
  */
+@Category(DefaultTest.class)
 public class TestUtilsEnums extends TestCase{
 
     /**

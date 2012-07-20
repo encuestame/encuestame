@@ -28,6 +28,9 @@ import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.mvc.view.TweetPollAtomFeedView;
 import org.encuestame.mvc.view.TweetPollRssFeedView;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
+import org.encuestame.utils.categories.test.MVCTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.json.TweetPollBean;
 import org.jdom.Document;
@@ -37,6 +40,7 @@ import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -45,8 +49,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
  * Test Cases for Feed Controller, RSS and ATOM.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 24, 2010 8:57:54 PM
- * @version $Id:$
  */
+@Category(DefaultTest.class)
 public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
 
     /**

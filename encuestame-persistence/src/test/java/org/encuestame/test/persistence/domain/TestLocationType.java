@@ -14,14 +14,16 @@ package org.encuestame.test.persistence.domain;
 
 import org.encuestame.persistence.domain.GeoPointType;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test Catalog Location Type.
  * @author Morales Urbina, Diana paolaATencuestame.org
  * @since 06/11/2009 12:18:49
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestLocationType extends AbstractBase {
 
     /**

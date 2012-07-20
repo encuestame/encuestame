@@ -16,7 +16,9 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.encuestame.core.security.util.HTMLInputFilter;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link HTMLInputFilter} XSS Test Case.
@@ -24,8 +26,8 @@ import org.junit.Test;
  * @author Joseph O'Connell <joe.oconnell at gmail dot com>
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 17, 2010 9:39:54 PM
- * @version $Id:$
  */
+@Category(DefaultTest.class)
 public class HTMLInputFilterTestCase extends TestCase {
 
         protected HTMLInputFilter vFilter = new HTMLInputFilter(true);

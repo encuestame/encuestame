@@ -22,9 +22,11 @@ import org.encuestame.persistence.domain.dashboard.GadgetProperties;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.GadgetType;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -32,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Morales,Diana Paola paolaATencuestame.org
  * @since  July 28, 2011
  */
+@Category(DefaultTest.class)
 public class TestDashboardDao extends AbstractBase {
 
      /** {@link IDashboardDao} **/

@@ -25,11 +25,11 @@ import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.HashTagBean;
@@ -38,6 +38,7 @@ import org.encuestame.utils.web.stats.GenericStatsBean;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -46,6 +47,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 12, 2011
  */
+@Category(DefaultTest.class)
 public class TestFrontEndService extends AbstractSpringSecurityContext{
 
     @Autowired

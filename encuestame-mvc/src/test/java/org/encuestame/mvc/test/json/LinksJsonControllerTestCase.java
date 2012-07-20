@@ -26,16 +26,20 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * LinksJsonController Test Case.
  * @author Picado, Juan juanATencuestame.org
  * @since Jul 11, 2011
  */
+@Category(DefaultTest.class)
 public class LinksJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
 
     /**

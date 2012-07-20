@@ -21,11 +21,14 @@ import java.util.Properties;
 import junit.framework.TestCase;
 
 import org.encuestame.utils.captcha.http.HttpLoader;
+import org.encuestame.utils.categories.test.InternetTest;
+import org.junit.experimental.categories.Category;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+@Category(InternetTest.class)
 public class ReCaptchaImplTest extends TestCase {
 
     ReCaptchaImpl r;

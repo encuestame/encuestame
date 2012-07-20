@@ -23,19 +23,22 @@ import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.test.annotation.Repeat;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link HashTagsJsonController} Test Case.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 13, 2011
  */
+@Category(DefaultTest.class)
 public class FrontEndJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 
 

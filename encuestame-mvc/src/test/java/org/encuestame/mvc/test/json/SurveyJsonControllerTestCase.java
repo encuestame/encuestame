@@ -25,17 +25,21 @@ import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test for {@link SurveyJsonController}.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since October 24, 2011
  */
+@Category(DefaultTest.class)
 public class SurveyJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
 
     /** {@link UserAccount} **/

@@ -28,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 12, 2010 10:02:41 AM
  */ 
-@Ignore
 @Category(InternetTest.class)
 public class TestEmailService extends AbstractServiceBase {
 

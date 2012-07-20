@@ -33,6 +33,8 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
@@ -40,12 +42,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link HashTagStatsJsonController} Test Case.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since January 09, 2012.
  */
+@Category(DefaultTest.class)
 public class HashTagsJsonStatsTestCase extends AbstractJsonMvcUnitBeans {
 
     /**

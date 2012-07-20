@@ -25,10 +25,12 @@ import org.encuestame.persistence.domain.dashboard.Gadget;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.GadgetBean;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -36,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 29, 2011
  */
+@Category(DefaultTest.class)
 public class TestDashboardService extends AbstractSpringSecurityContext{
 
     /** {@link IDashboardService} **/

@@ -18,8 +18,10 @@ import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.social.api.support.TwitterAPIOperations;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link TwitterAPIOperations} test case.
@@ -27,6 +29,7 @@ import org.junit.Test;
  * @since Feb 13, 2010 5:05:12 PM
  * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestTwitterService extends AbstractServiceBase {
 
     /** {@link TwitterAPIOperations}.  */

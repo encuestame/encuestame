@@ -17,9 +17,12 @@ import junit.framework.Assert;
 import org.encuestame.mvc.controller.HashTagController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 13, 2011
  */
+@Category(DefaultTest.class)
 public class HashTagControllerTestCase extends AbstractMvcUnitBeans{
 
     @Autowired

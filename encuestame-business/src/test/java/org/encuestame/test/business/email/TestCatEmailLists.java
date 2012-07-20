@@ -39,7 +39,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since June 24, 2010
  * @version $Id: $
  */ 
-@Ignore
 @Category(InternetTest.class)
 public class TestCatEmailLists extends AbstractServiceBase {
 
