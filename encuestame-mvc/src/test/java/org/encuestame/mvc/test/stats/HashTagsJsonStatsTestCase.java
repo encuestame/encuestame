@@ -34,7 +34,6 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
