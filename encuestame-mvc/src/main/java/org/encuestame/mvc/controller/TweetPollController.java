@@ -221,8 +221,8 @@ public class TweetPollController extends AbstractSocialController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
     public String tweetPollController(final ModelMap model) {
-        log.debug("tweetpoll");
-        return "tweetpoll";
+    	addItemsManangeMessages(model);
+    	return "tweetpoll";
     }
 
     /**
