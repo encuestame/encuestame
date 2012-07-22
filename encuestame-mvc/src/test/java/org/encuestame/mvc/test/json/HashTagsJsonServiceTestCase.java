@@ -19,7 +19,6 @@ import javax.servlet.ServletException;
 import org.encuestame.mvc.controller.json.HashTagsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

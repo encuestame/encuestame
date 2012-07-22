@@ -29,8 +29,6 @@ import org.encuestame.mvc.view.TweetPollAtomFeedView;
 import org.encuestame.mvc.view.TweetPollRssFeedView;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.JSONTest;
-import org.encuestame.utils.categories.test.MVCTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.json.TweetPollBean;
 import org.jdom.Document;

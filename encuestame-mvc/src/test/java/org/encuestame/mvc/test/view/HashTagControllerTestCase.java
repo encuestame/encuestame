@@ -18,7 +18,6 @@ import org.encuestame.mvc.controller.HashTagController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.junit.Before;
 import org.junit.Test;

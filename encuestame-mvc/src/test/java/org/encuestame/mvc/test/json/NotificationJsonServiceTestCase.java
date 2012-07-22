@@ -20,7 +20,6 @@ import org.encuestame.mvc.controller.json.notifications.NotificationsJsonControl
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.utils.categories.test.DefaultTest;
-import org.encuestame.utils.categories.test.JSONTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.json.simple.JSONArray;
