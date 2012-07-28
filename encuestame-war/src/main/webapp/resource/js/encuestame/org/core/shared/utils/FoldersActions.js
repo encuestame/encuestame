@@ -38,12 +38,13 @@ dojo.declare(
        */
       i18nMessage : {
     	  detail_manage_new : ENME.getMessage("detail_manage_new"),
+    	  detail_manage_folder_title : ENME.getMessage("detail_manage_folder_title"),
     	  detail_manage_search : ENME.getMessage("detail_manage_search"),
     	  detail_manage_delete : ENME.getMessage("detail_manage_delete"),
       },      
 
       /*
-       *
+       * 
        */
       _folderSourceWidget : null,
 

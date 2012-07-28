@@ -35,6 +35,16 @@ dojo.declare("encuestame.org.core.commons.support.ItemsFilterSupport",
       * widgets.
       */
      optionsWidget : { search : null, filter : null, order : null, social : null, votes : null},
+     
+     /*
+      * i18n message for this widget.
+      */
+     i18nMessage : {
+    	 detail_manage_filters_advanced : ENME.getMessage("detail_manage_filters_advanced"),
+    	 detail_manage_filters_order : ENME.getMessage("detail_manage_filters_order"),
+    	 detail_manage_filters_social_network : ENME.getMessage("detail_manage_filters_social_network"),
+    	 detail_manage_filters_votes_options : ENME.getMessage("detail_manage_filters_votes_options"),
+     },           
 
      /*
       * options

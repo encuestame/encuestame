@@ -671,6 +671,10 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 	   addi18nProperty(model, "e_022", getMessage("e_022"));
    }   
    
+   /**
+    * 
+    * @param model
+    */
    public final void addItemsManangeMessages(final ModelMap model) {
 	   addi18nProperty(model, "detail_manage_by_account", getMessage("detail_manage_by_account"));
    	addi18nProperty(model, "detail_manage_today", getMessage("detail_manage_today"));
@@ -682,9 +686,15 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    	addi18nProperty(model, "detail_manage_unpublished", getMessage("detail_manage_unpublished"));
    	addi18nProperty(model, "detail_manage_only_completed", getMessage("detail_manage_only_completed"));
    	//folder messages
+   	addi18nProperty(model, "detail_manage_folder_title", getMessage("detail_manage_folder_title"));
    	addi18nProperty(model, "detail_manage_delete", getMessage("detail_manage_delete"));
    	addi18nProperty(model, "detail_manage_new", getMessage("detail_manage_new"));
    	addi18nProperty(model, "detail_manage_search", getMessage("detail_manage_search"));
    	addi18nProperty(model, "detail_manage_folder_replace_name", getMessage("detail_manage_folder_replace_name"));
+   	//filters
+   	addi18nProperty(model, "detail_manage_filters_advanced", getMessage("detail_manage_filters_advanced"));
+   	addi18nProperty(model, "detail_manage_filters_order", getMessage("detail_manage_filters_order"));
+   	addi18nProperty(model, "detail_manage_filters_social_network", getMessage("detail_manage_filters_social_network"));
+   	addi18nProperty(model, "detail_manage_filters_votes_options", getMessage("detail_manage_filters_votes_options"));
    }
 }
