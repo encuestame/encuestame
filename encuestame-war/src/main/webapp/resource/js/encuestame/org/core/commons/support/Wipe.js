@@ -73,7 +73,7 @@ dojo.declare("encuestame.org.core.commons.support.Wipe", null, {
         */
        wipeInOne: function() {
            dojox.fx.wipeTo({
-                node: this.node,
+               node: this.node,
                duration: this.duration,
                height: this.height
            }).play();

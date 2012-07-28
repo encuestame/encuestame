@@ -49,7 +49,7 @@ dojo.declare("encuestame.org.core.commons.support.ItemsFilterSupport",
      /*
       * options
       */
-     _wipe : { height : 205, duration : 100},
+     _wipe : { duration : 100},
 
      /*
       * type support.
@@ -65,10 +65,12 @@ dojo.declare("encuestame.org.core.commons.support.ItemsFilterSupport",
          dojo.connect(this._order, "onclick", dojo.hitch(this, this._openOrder));
          dojo.connect(this._social, "onclick", dojo.hitch(this, this._openSocial));
          dojo.connect(this._votes, "onclick", dojo.hitch(this, this._openVotes));
-         this.optionsWidget.search = new encuestame.org.core.commons.support.Wipe(this._search_o, this._wipe.duration, this._wipe.height, "tp-options", "1");
-         this.optionsWidget.order = new encuestame.org.core.commons.support.Wipe(this._order_o, this._wipe.duration, 140, "tp-options", "3");
+         this.optionsWidget.search = new encuestame.org.core.commons.support.Wipe(this._search_o, this._wipe.duration, 270, "tp-options", "1");
+         //FUTURE: disabled
+         //this.optionsWidget.order = new encuestame.org.core.commons.support.Wipe(this._order_o, this._wipe.duration, 140, "tp-options", "3");
          this.optionsWidget.social = new encuestame.org.core.commons.support.Wipe(this._social_o, this._wipe.duration, 200, "tp-options", "4");
-         this.optionsWidget.votes = new encuestame.org.core.commons.support.Wipe(this._votes_o, this._wipe.duration, 140, "tp-options", "5");
+         //FUTURE: disabled
+         //this.optionsWidget.votes = new encuestame.org.core.commons.support.Wipe(this._votes_o, this._wipe.duration, 140, "tp-options", "5");
      },
 
      /*
@@ -104,9 +106,9 @@ dojo.declare("encuestame.org.core.commons.support.ItemsFilterSupport",
       *
       */
      _openOrder : function(event) {
-         dojo.publish("/encuestame/wipe/close", [this.optionsWidget.order.id, "tp-options"]);
-         this._hideAllSelected();
-         this.optionsWidget.order.togglePanel(this._order);
+//         dojo.publish("/encuestame/wipe/close", [this.optionsWidget.order.id, "tp-options"]);
+//         this._hideAllSelected();
+//         this.optionsWidget.order.togglePanel(this._order);
       },
 
      /*
@@ -122,9 +124,9 @@ dojo.declare("encuestame.org.core.commons.support.ItemsFilterSupport",
       *
       */
      _openVotes : function(event) {
-         dojo.publish("/encuestame/wipe/close", [this.optionsWidget.votes.id, "tp-options"]);
-         this._hideAllSelected();
-         this.optionsWidget.votes.togglePanel(this._votes);
+//         dojo.publish("/encuestame/wipe/close", [this.optionsWidget.votes.id, "tp-options"]);
+//         this._hideAllSelected();
+//         this.optionsWidget.votes.togglePanel(this._votes);
       }
 
 });

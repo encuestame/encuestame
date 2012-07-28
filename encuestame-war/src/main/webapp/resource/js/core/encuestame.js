@@ -142,7 +142,7 @@ if (typeof dojo != "undefined") {
 			 * @param default_value {String} if value is undefined, display default
 			 */
 			getMessage : function(value, default_value) {
-				return ENME.params[value] == undefined ? (default_value == null ? "" : default_value) : ENME.params[value];
+				return ENME.params[value] == undefined ? (default_value == null ? "NOT_DEFINED[" + value + "]" : default_value) : ENME.params[value];
 			},
 
 			/**
@@ -187,6 +187,55 @@ if (typeof dojo != "undefined") {
 						setTimeout(arguments.callee, 0);
 					}
 				})();
+			},
+			
+			/**
+			 * Check if the url is valid.
+			 * @returns {Boolean}
+			 */
+			validURL : function (str) {
+				var expression = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+				//remove posible parameters
+//				var new_url = str.substring(0, str.indexOf('&')),
+//				new_url_2 = new_url.substring(0, str.indexOf('?'));
+				var regex = new RegExp(expression);
+				 if (str.match(regex) ) {
+				    return true;
+				 } else {
+				    return false;
+				 }
+			},
+			
+			/**
+			 * Set a fake image if the flag is false
+			 * @param flag define if is set the fake image
+			 * @param size define the size of fake image.
+			 * @param original {String} original url path
+			 */
+			fakeImage : function (size, original) {
+				var domain = ENME.config('domain'),
+				url = "";
+				if (!ENME.validURL(original)) {
+					switch(size) {
+					case "24":
+						url = domain  + "/resources/images/social/fake_24_24.png";
+					  break;
+					case "32":
+						url = domain  + "/resources/images/social/fake_32_32.png";
+						  break;
+					case "64":
+						url = domain  + "/resources/images/social/fake_64_64.png";
+						  break;
+					case "128":
+						url = domain  + "/resources/images/social/fake_128_128.png";
+					  break;
+					default:
+						url = domain  + "/resources/images/social/fake_24_24.png";
+					}					
+					return url;
+				} else {
+					return original;
+				}
 			},
 			
 			/**

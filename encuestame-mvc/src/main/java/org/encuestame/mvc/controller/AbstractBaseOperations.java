@@ -668,6 +668,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
 	   addi18nProperty(model, "social_picker_select_all", getMessage("social_picker_select_all"));
 	   addi18nProperty(model, "social_picker_unselect_all", getMessage("social_picker_unselect_all"));
 	   addi18nProperty(model, "social_picker_accounts_selected", getMessage("social_picker_accounts_selected"));
+	   addi18nProperty(model, "social_picker_filter_selected", getMessage("social_picker_filter_selected"));	   
 	   addi18nProperty(model, "e_022", getMessage("e_022"));
    }   
    
@@ -676,7 +677,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     * @param model
     */
    public final void addItemsManangeMessages(final ModelMap model) {
-	   addi18nProperty(model, "detail_manage_by_account", getMessage("detail_manage_by_account"));
+	addi18nProperty(model, "detail_manage_by_account", getMessage("detail_manage_by_account"));
    	addi18nProperty(model, "detail_manage_today", getMessage("detail_manage_today"));
    	addi18nProperty(model, "detail_manage_last_week", getMessage("detail_manage_last_week"));
    	addi18nProperty(model, "detail_manage_favorites", getMessage("detail_manage_favorites"));
@@ -696,5 +697,13 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
    	addi18nProperty(model, "detail_manage_filters_order", getMessage("detail_manage_filters_order"));
    	addi18nProperty(model, "detail_manage_filters_social_network", getMessage("detail_manage_filters_social_network"));
    	addi18nProperty(model, "detail_manage_filters_votes_options", getMessage("detail_manage_filters_votes_options"));
+   	// advanced filter
+   	addi18nProperty(model, "detail_manage_filters_advanced_title", getMessage("detail_manage_filters_advanced_title"));
+   	addi18nProperty(model, "detail_manage_filters_advanced_type_to_search", getMessage("detail_manage_filters_advanced_type_to_search"));
+   	addi18nProperty(model, "detail_manage_filters_advanced_all_results", getMessage("detail_manage_filters_advanced_all_results"));
+   	addi18nProperty(model, "detail_manage_filters_advanced_range_days", getMessage("detail_manage_filters_advanced_range_days"));
+   	
+   	addi18nProperty(model, "commons_filter", getMessage("commons_filter"));
+   	addSocialPickerWidgetMessages(model);
    }
 }
