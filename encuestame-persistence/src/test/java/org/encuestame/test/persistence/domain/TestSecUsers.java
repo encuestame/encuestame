@@ -16,14 +16,16 @@ import static org.junit.Assert.*;
 
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test Security User Pojo.
  * @author Picado, Juan juanATencuestame.org
  * @since 01/11/2009 21:31:49
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestSecUsers extends AbstractBase{
 
     /**

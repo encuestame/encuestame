@@ -37,6 +37,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -56,7 +57,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Test for {@link TweetPollService}.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 5, 2010 3:36:43 PM
- * @version $Id:$
  */
 public class TestTweetPollService  extends AbstractSpringSecurityContext{
     /**
@@ -131,6 +131,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion exception
      */
     @Test
+    @Category(DefaultTest.class)
     public void testCreateTweetPoll() throws EnMeExpcetion{
     final TweetPollBean tweetPollBean = new TweetPollBean();
     questionBean.setId(question.getQid());
@@ -151,6 +152,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * Test Save Tweet Id.
      * @throws EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     public void testSaveTweetId() throws EnMeExpcetion{
         Question questionSave = createQuestion("how much or How Many?","html");
         final Account usersave = createUser("dianmora", "xxxxxxx");
@@ -186,6 +188,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion EnMeExpcetion
      */
     @Test
+    @Category(DefaultTest.class)
     public void testGenerateTweetPollText() throws EnMeExpcetion{
         final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,true,new Date(), this.userAccount, this.question);
         createQuestionAnswer("Yes", this.question, "EEEE");
@@ -206,6 +209,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeNoResultsFoundException
      */
     @Test
+    @Category(DefaultTest.class)
     public void testGetResultsByTweetPollId() throws EnMeNoResultsFoundException{
     final TweetPoll tweetPoll = createFastTweetPollVotes();
     final List<TweetPollResultsBean> results = this.tweetPollService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
@@ -226,6 +230,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     }*/
 
     @Test
+    @Category(DefaultTest.class)
     public void testGetTweetsPollsByUserName() throws EnMeNoResultsFoundException{
         final Question question1 = createQuestion("Why the sea is salad?","html");
         final Question question2 = createQuestion("Why the sea is big?","html");
@@ -312,6 +317,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion
      */
     @Test
+    @Category(DefaultTest.class)
     public void testValidateIp() throws EnMeExpcetion{
         final String ipVote = EnMeUtils.ipGenerator();
         final TweetPollBean myTpBean = createUnitTweetPoll(Boolean.TRUE,

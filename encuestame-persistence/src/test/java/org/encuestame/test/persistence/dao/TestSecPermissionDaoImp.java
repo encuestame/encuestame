@@ -18,16 +18,18 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.security.Permission;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.EnMePermission;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test Security Permission Dao.
  * @author Picado, Juan juanATencuestame.org
  * @since 13:00:55
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestSecPermissionDaoImp extends AbstractBase {
 
      private Permission permission;

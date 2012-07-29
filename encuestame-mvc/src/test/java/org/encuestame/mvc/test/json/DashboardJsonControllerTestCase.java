@@ -21,16 +21,19 @@ import junit.framework.Assert;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.dashboard.Dashboard;
 import org.encuestame.persistence.domain.dashboard.Gadget;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Description.
  * @author Picado, Juan juanATencuestame.org
  * @since 04/08/2011
  */
+@Category(DefaultTest.class)
 public class DashboardJsonControllerTestCase  extends AbstractJsonMvcUnitBeans{
 
 

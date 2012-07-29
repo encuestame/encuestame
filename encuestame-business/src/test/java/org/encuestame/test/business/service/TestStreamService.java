@@ -22,10 +22,12 @@ import org.encuestame.business.service.StreamService;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.DateClasificatedEnum;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -33,6 +35,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  * Stream service test case.
  * @author Picado, Juan juanATencuestame.org
  */
+@Category(DefaultTest.class)
 public class TestStreamService extends AbstractSpringSecurityContext {
 
     /**

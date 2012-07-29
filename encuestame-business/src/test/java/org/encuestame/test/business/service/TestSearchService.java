@@ -27,14 +27,17 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Lucene Search service test case.
  * @author Picado, Juan juanATencuestame.org
  */
+@Category(DefaultTest.class)
 public class TestSearchService extends AbstractServiceBase {
 
     /**

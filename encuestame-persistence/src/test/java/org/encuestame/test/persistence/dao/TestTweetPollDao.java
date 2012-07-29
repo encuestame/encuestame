@@ -35,6 +35,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider; 
@@ -43,13 +44,14 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link TweetPollDao}..
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 13, 2010 11:57:17 PM
- * @version $Id: change to one dolar simbol
  */
+@Category(DefaultTest.class)
 public class TestTweetPollDao  extends AbstractBase{
 
     /** {@link UserAccount}. **/
@@ -398,13 +400,13 @@ public class TestTweetPollDao  extends AbstractBase{
 		tweetPoll1.getHashTags().add(this.hashTag1);
 
 		getTweetPoll().saveOrUpdate(tweetPoll1);
-		System.out.println(" TP 1 -->" +tweetPoll1.getTweetPollId());
+		//System.out.println(" TP 1 -->" +tweetPoll1.getTweetPollId());
 		
 		final TweetPoll tweetPollsbyTag = getTweetPoll()
 				.checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(),  SearchPeriods.ALLTIME,
 						tweetPoll1.getTweetPollId());
 
-		System.out.println(" TP Result 1 -->" +tweetPollsbyTag);
+		//System.out.println(" TP Result 1 -->" +tweetPollsbyTag);
 
 		// SIN TP Correcto
 		
@@ -416,13 +418,13 @@ public class TestTweetPollDao  extends AbstractBase{
 	    	tweetPoll2.getHashTags().add(this.hashTag1);
 
 			getTweetPoll().saveOrUpdate(tweetPoll2);
-			System.out.println(" TP 2 -->" +tweetPoll2.getTweetPollId());
+			//System.out.println(" TP 2 -->" +tweetPoll2.getTweetPollId());
 		
 		final TweetPoll tweetPollsbyTag2 = getTweetPoll()
 				.checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(), SearchPeriods.ALLTIME,
 						tweetPoll2.getTweetPollId());
 		
-		System.out.println(" TP RESULT 2 -->" +tweetPollsbyTag2);
+		//System.out.println(" TP RESULT 2 -->" +tweetPollsbyTag2);
 	}
 
     @Test

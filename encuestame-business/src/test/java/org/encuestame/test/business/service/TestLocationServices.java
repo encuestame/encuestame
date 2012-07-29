@@ -37,6 +37,7 @@ import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
@@ -47,14 +48,15 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test for {@link GeoLocationService}.
  * @author Picado, Juan juanATencuestame.org
  * @since Oct 10, 2010 11:37:52 AM
- * @version $Id:$
  */
+@Category(DefaultTest.class)
 public class TestLocationServices extends AbstractSpringSecurityContext{
 
     /**

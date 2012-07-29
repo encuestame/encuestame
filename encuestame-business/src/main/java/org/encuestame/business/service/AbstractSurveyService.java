@@ -472,10 +472,10 @@ public class AbstractSurveyService extends AbstractChartService {
                     EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
                     socialAccount);
             try {
-                log.debug("Publish on Twitter 1 ............>");
+//                log.debug("Publish on Twitter 1 ............>");
                 published = twitterAPIOperations.updateStatus(tweetText);
-                log.debug("Publish on Twitter 2 ...... "+published);
-                log.debug("Publish on Twitter 2 ...... "+published.getTweetId());
+//                log.debug("Publish on Twitter 2 ...... "+published);
+//                log.debug("Publish on Twitter 2 ...... "+published.getTweetId());
             } catch (Exception e) {
                 log.error(e);
                 e.printStackTrace();

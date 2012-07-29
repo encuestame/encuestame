@@ -25,17 +25,20 @@ import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test for {@link TweetPollJsonController}.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 10, 2011
  */
+@Category(DefaultTest.class)
 public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 
 

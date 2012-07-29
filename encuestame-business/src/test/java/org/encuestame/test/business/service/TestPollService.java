@@ -34,6 +34,7 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
@@ -53,8 +54,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Test for {@link PollService}.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since 17/05/2010 19:35:36
- * @version $Id:$
  */
+@Category(DefaultTest.class)
 public class TestPollService extends AbstractSpringSecurityContext{
 
      /** {@link Account} **/

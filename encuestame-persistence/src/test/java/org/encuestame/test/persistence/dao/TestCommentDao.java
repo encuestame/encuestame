@@ -25,16 +25,19 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test for {@link CommentDao}.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since
  */
+@Category(DefaultTest.class)
 public class TestCommentDao extends AbstractBase {
 
     /** {@link Comment} **/

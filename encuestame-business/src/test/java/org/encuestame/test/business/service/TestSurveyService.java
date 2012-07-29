@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -39,15 +40,15 @@ import org.encuestame.utils.web.SurveyBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test of {@link AbstractSurveyService}
  * @author Picado, Juan juanATencuestame.org
  * @since 05/12/2009 15:04:56
- * @version $Id$
  */
-
+@Category(DefaultTest.class)
 public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** {@link AbstractSurveyService} */

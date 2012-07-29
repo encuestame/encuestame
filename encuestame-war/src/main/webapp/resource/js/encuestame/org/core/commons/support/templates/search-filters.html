@@ -2,55 +2,71 @@
      <div class="web-filters-search">
          <div class="web-filters-search-input">
              <input type="text" dojoAttachPoint="_suggest"
-                   dojoType="dijit.form.TextBox" placeholder="Type to search..."
+                   dojoType="dijit.form.TextBox" placeholder="${i18nMessage.detail_manage_filters_advanced_type_to_search}"
                    trim="true" class="inputClass"></input>
          </div>
          <div class="web-filters-search-multi">
-            <label>
-                Select the Social Networks
+            <label>               
+                ${i18nMessage.detail_manage_filters_advanced_title}
             </label>
             <select dojoType="dijit.form.MultiSelect" size="5">
                 <option value="FACEBOOK">Facebook</option>
                 <option value="TWITTER">Twitter</option>
                 <option value="LINKEDIN">Linked In</option>
                 <option value="IDENTICA">Identi.ca</option>
-                <option value="GOOGLE">Google</option>
             </select>
          </div>
          <div class="web-filters-search-check">
             <div>
                 <input id="sched3ule_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule">Published </label>
+                <label for="schedule"> 
+                    ${i18nMessage.detail_manage_published}
+                </label>
             </div>
             <div>
                 <input id="sch2edule_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule">Completed </label>
+                <label for="schedule">
+                    ${i18nMessage.detail_manage_only_completed} 
+                </label>
             </div>
             <div>
                 <input id="schdeduale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule">Un Published </label>
+                <label for="schedule">
+                    Un Published 
+                    ${i18nMessage.detail_manage_unpublished}
+                </label>
             </div>
             <div>
                 <input id="schdeddsdsauale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule">Retrieve All Results </label>
+                <label for="schedule"> 
+                    ${i18nMessage.detail_manage_filters_advanced_all_results}
+                </label>
             </div>
          </div>
           <div class="web-filters-search-check">
             <div>
                 <input id="schassedule_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule">Scheduled </label>
+                <label for="schedule"> 
+                    ${i18nMessage.detail_manage_scheduled}
+                </label>
             </div>
             <div>
                 <input id="schedusale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule">Favorites </label>
+                <label for="schedule">
+                    ${i18nMessage.detail_manage_favorites} 
+                </label>
             </div>
             <div>
                 <input id="schesdsdusale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule">Created by me </label>
+                <label for="schedule"> 
+                    ${i18nMessage.detail_manage_by_account}
+                </label>
             </div>
           </div>
            <div class="web-filters-search-check">
-                <label>Data Range (Days)</label>
+                <label>
+                    ${i18nMessage.detail_manage_filters_advanced_range_days}
+                 </label>
                 <div id="horizontalSlider" dojoType="dijit.form.HorizontalSlider"
                     value="6" minimum="1" maximum="365" discreteValues="40"
                     intermediateChanges="true"
@@ -69,7 +85,7 @@
            </div>
           <div class="web-filters-search-button">
               <button type="button" dojoType="dijit.form.Button" value="Search" dojoAttachPoint="_button">
-                 Search Now
+                 ${i18nMessage.detail_manage_search}
               </button>
          </div>
      </div>

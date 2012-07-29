@@ -16,15 +16,17 @@ import static org.junit.Assert.assertNotNull;
 
 import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.Status;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test Catalog Location.
  * @author Morales Urbina, Diana paolaATencuestame.org
  * @since 02/11/2009 16:18:49
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestCatLocation extends AbstractBase{
     /**
      * Test Catalag Location.

@@ -31,18 +31,20 @@ import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link Survey}..
  * @author Morales, Urbina Diana paolaATencuestame.org
  * @since October 28, 2010
- * @version $Id: $
  */
+@Category(DefaultTest.class)
 public class TestSurveyDao extends AbstractBase {
 
     /** {@link Account}.**/

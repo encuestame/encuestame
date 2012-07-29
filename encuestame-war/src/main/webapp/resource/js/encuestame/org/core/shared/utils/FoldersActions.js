@@ -31,9 +31,20 @@ dojo.declare(
        * enable templates.
        */
       widgetsInTemplate: true,
+      
 
       /*
-       *
+       * i18n message for this widget.
+       */
+      i18nMessage : {
+    	  detail_manage_new : ENME.getMessage("detail_manage_new"),
+    	  detail_manage_folder_title : ENME.getMessage("detail_manage_folder_title"),
+    	  detail_manage_search : ENME.getMessage("detail_manage_search"),
+    	  detail_manage_delete : ENME.getMessage("detail_manage_delete"),
+      },      
+
+      /*
+       * 
        */
       _folderSourceWidget : null,
 
@@ -51,7 +62,7 @@ dojo.declare(
        */
       _addNewFolder : function(event){
           dojo.stopEvent(event);
-          var node = this._createFolder({folderId: null, name : "Add new name."});
+          var node = this._createFolder({folderId: null, name : ENME.getMessage("detail_manage_folder_replace_name")});
           this._folders.appendChild(node.domNode);
       },
 
@@ -115,7 +126,7 @@ dojo.declare(
         _accept : ["tweetpoll", "poll", "survey"],
 
         _foldersourceWidget : null,
-
+        
         /*
          * post create cycle.
          */
@@ -148,7 +159,7 @@ dojo.declare(
          * add folder.
          */
         _create : function(name) {
-            console.debug("updated name to;", name);
+            //console.debug("updated name to;", name);
             var id = null;
             var load = dojo.hitch(this, function(data){
                 console.debug("data", data);
@@ -165,7 +176,7 @@ dojo.declare(
          * update folder.
          */
         _update : function(name) {
-            console.debug("updated name to", name);
+            //console.debug("updated name to", name);
             var load = dojo.hitch(this, function(data){
                 console.debug("data", data);
                 console.info("updated name");

@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.categories.test.SlowTest;
 import org.encuestame.utils.enums.EnMePermission;
@@ -51,8 +52,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Picado, Juan juanATencuestame.org
  * @since 08/11/2009 11:35:01
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestSecurityService extends AbstractSpringSecurityContext {
 
     /** {@link SecurityService}. **/

@@ -32,16 +32,19 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link AccountDaoImp} Test Case.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since October 27, 2009
  */
+@Category(DefaultTest.class)
 public class TestUserDao extends AbstractBase {
 
     /** {@link Account} **/
