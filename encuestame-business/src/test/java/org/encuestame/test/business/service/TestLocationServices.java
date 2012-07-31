@@ -274,23 +274,29 @@ public class TestLocationServices extends AbstractSpringSecurityContext{
 		assertNotNull(tpSaved);
 
 		final TweetPollSavedPublishedStatus tpSaved2 = createTweetPollSavedPublishedStatus(
-				tp2, " ", socialAccount, tweetContent);
-		tpSaved.setApiType(SocialProvider.FACEBOOK);
+				this.initTweetPoll, " ", socialAccount, tweetContent);
+		tpSaved2.setApiType(SocialProvider.FACEBOOK);
 		getTweetPoll().saveOrUpdate(tpSaved2);
 		assertNotNull(tpSaved2);
+		
+		final TweetPollSavedPublishedStatus tpSaved3 = createTweetPollSavedPublishedStatus(
+				tp2, " ", socialAccount, tweetContent);
+		tpSaved3.setApiType(SocialProvider.FACEBOOK);
+		getTweetPoll().saveOrUpdate(tpSaved3);
+		assertNotNull(tpSaved3);
 
-		final List<TweetPollSavedPublishedStatus> tpsavedPublished = getTweetPoll()
+
+		 final List<TweetPollSavedPublishedStatus> tpsavedPublished = getTweetPoll()
 				.getLinksByTweetPoll(this.initTweetPoll, null, null,
 						TypeSearchResult.TWEETPOLL);
-		Assert.assertEquals("Should be", 1, tpsavedPublished.size());
+		Assert.assertEquals("Should be", 2, tpsavedPublished.size()); 
+		
 
 		final List<ItemGeoLocationBean> socialLinks = locationService
 				.retrieveSocialNetworksPublicationsbyGeoLocation(510d, 30,
 						TypeSearchResult.ALL, 2.16991870F, 41.3879169F,
 						SearchPeriods.ALLTIME);
-		System.out
-				.println("Total Items social Links --->" + socialLinks.size());
-
+		Assert.assertEquals("Should be", 3, socialLinks.size());   
 	}
 
 	/**
