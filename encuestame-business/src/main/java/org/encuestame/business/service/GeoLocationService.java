@@ -651,15 +651,17 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 			throws EnMeSearchException, EnMeNoResultsFoundException {
 
 		List<ItemGeoLocationBean> socialGeoBean = new ArrayList<ItemGeoLocationBean>();
-
+		List<Object[]> socialItemsFromOrigin = new ArrayList<Object[]>();
 		final double latitudeInRadians = EnMeUtils
 				.convertDegreesToRadians(latitude);
 		final double longitudeInRadians = EnMeUtils
 				.convertDegreesToRadians(longitude);
 		List<TweetPollSavedPublishedStatus> tpSavedPublished = new ArrayList<TweetPollSavedPublishedStatus>();
 		TweetPoll itemTweetPoll;
+		Poll itemPoll;
 
 		if (itemType.equals(TypeSearchResult.ALL)) {
+			// POLL
 			List<Object[]> distanceFromOriginTweetPoll = this
 					.getItemsByDistanceFromOrigin(range, maxItem,
 							TypeSearchResult.TWEETPOLL, longitudeInRadians,
@@ -682,7 +684,39 @@ public class GeoLocationService extends AbstractBaseService implements GeoLocati
 								(Float) objects[1], (Float) objects[2],
 								objects[3].toString(), (Double) objects[4]));
 			}
+			// POLL
+			List<Object[]> distanceFromOriginPoll = this
+					.getItemsByDistanceFromOrigin(range, maxItem,
+							TypeSearchResult.POLL, longitudeInRadians,
+							latitudeInRadians, this.earth_radius, period);
+			log.debug("Retrieved items by distance -->"
+					+ distanceFromOriginTweetPoll.size());
 
+			for (Object[] objects : distanceFromOriginPoll) {
+				itemPoll = this.getPollById((Long) objects[0]);
+				tpSavedPublished = getTweetPollDao().getLinksByTweetPoll(
+						null, null, itemPoll, TypeSearchResult.POLL);
+
+				log.debug("Polls published on social networks -->"
+						+ itemPoll.getPollId());
+
+				socialGeoBean.addAll(ConvertDomainBean
+						.convertTweetPollSavedPublishedToSocialGeoLocationBean(
+								tpSavedPublished,
+								itemPoll.getPollId(), itemType,
+								(Float) objects[1], (Float) objects[2],
+								objects[3].toString(), (Double) objects[4]));
+			}
+
+
+		} else {
+			socialItemsFromOrigin = this.getItemsByDistanceFromOrigin(range,
+					maxItem, itemType, longitudeInRadians, latitudeInRadians,
+					this.earth_radius, period);
+			socialGeoBean.addAll(this.retrieveGeoDataForObjectList(
+					socialItemsFromOrigin, itemType));
+			log.debug("Total Items with geolocations --->"
+					+ socialItemsFromOrigin.size() + "----" + itemType);
 		}
 
 		return socialGeoBean;
