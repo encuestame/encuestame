@@ -353,7 +353,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail
     {
     min-height: 185px;
-    padding: 10px;
+    padding: 0 0 0 10px;
     -moz-border-radius: 0px 5px 5px 5px;
     -webkit-border-radius: 0px 5px 5px 5px;
     border-radius: 0px 5px 5px 5px;
@@ -369,9 +369,8 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail .extra
-    {
-    margin: 0 0 0 365px;
-    width: auto;
+    {   
+    float: right;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.subMenu
