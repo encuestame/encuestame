@@ -317,6 +317,13 @@ dojo.declare(
         panelWidget : null,
         // wipe parameters.
         _wipe : { height : 255, duration : 200},
+        
+        /*
+         * i18n message for this widget.
+         */
+        i18nMessage : {
+          related_terms : ENME.getMessage("related_terms")       
+        },
 
         //post create
         postCreate : function() {

@@ -222,6 +222,21 @@ public class TweetPollController extends AbstractSocialController {
     @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
     public String tweetPollController(final ModelMap model) {
     	addItemsManangeMessages(model);
+    	addi18nProperty(model, "tweetpoo_detail_tab_detail", getMessage("tweetpoo_detail_tab_detail"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_stats", getMessage("tweetpoo_detail_tab_stats"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_comments", getMessage("tweetpoo_detail_tab_comments"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_social", getMessage("tweetpoo_detail_tab_social"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_delete", getMessage("tweetpoo_detail_tab_delete"));
+    	addi18nProperty(model, "tweetpoo_detail_answers_title_link", getMessage("tweetpoo_detail_answers_title_link"));
+    	addi18nProperty(model, "tweetpoo_detail_answers_title_count", getMessage("tweetpoo_detail_answers_title_count"));
+    	addi18nProperty(model, "tweetpoo_detail_answers_title_percent", getMessage("tweetpoo_detail_answers_title_percent"));    	
+    	addi18nProperty(model, "commons_created_date", getMessage("commons_created_date"));
+    	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
+    	addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
+    	addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
+    	addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
+    	addi18nProperty(model, "tp_options_notifications", getMessage("tp_options_notifications"));
+    	addi18nProperty(model, "related_terms", getMessage("related_terms"));
     	return "tweetpoll";
     }
 

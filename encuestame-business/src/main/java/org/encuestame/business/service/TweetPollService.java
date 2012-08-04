@@ -740,7 +740,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         for (QuestionAnswer questionsAnswer : getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid())) {
               if (log.isDebugEnabled()) {
-                  log.debug("Question Name "+tweetPoll.getQuestion().getQuestion());
+                  log.debug("Question Name " + tweetPoll.getQuestion().getQuestion());
               }
               pollResults.add(this.getVotesByTweetPollAnswerId(tweetPollId, questionsAnswer));
         }
@@ -769,9 +769,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         for (TweetPollResultsBean tweetPollResultsBean : list) {
             totalVotes += totalVotes + tweetPollResultsBean.getVotes();
         }
+        System.out.println("**********************");
+        System.out.println("*******totalVotes*************** "+totalVotes);
         for (TweetPollResultsBean tweetPollResultsBean : list) {
             tweetPollResultsBean.setPercent(EnMeUtils.calculatePercent(totalVotes, tweetPollResultsBean.getVotes()));
         }
+        System.out.println("**********************");
     }
 
     /**
