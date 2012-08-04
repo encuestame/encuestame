@@ -4,7 +4,9 @@
 <article class="web-wrapper-detail web-poll-results web-wrapper-detail">
    <div class="web-detail-header">
        <div class="title">
-       <h2>${poll.questionBean.questionName}</h2>
+	       <h2>
+	            ${poll.questionBean.questionName}
+	       </h2>
        </div>
    </div>
    <article class="emne-box">
@@ -18,13 +20,13 @@
             <article class="web-detail-answer-wrapper"> 
                 <header>
                      <div class="answer-label">
-                            Answer
+                          <spring:message code="commons_detail_answer" />
                      </div>
                      <div class="answer-votes">
-                            Total Votes
+                          <spring:message code="commons_detail_total_votes" />
                      </div>
                      <div class="answer-percent">
-                            % (Percent)
+                          <spring:message code="commons_detail_percent" />
                      </div>                     
                 </header>           	             	
 				 <c:forEach items="${answers}" var="item">				 

@@ -68,6 +68,7 @@
 }
 
 .web-tweetpoll-answer-answer > header {
+  background-color: #8E8E8E;
   overflow: hidden;
 }
 
@@ -166,31 +167,28 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     margin: 15px 10px 10px;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper .tab
-    {
-    -moz-border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px;
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper .tab {
+    -moz-border-radius: 3px 3px 0px 0px;
+    -webkit-border-radius: 3px 3px 0px 0px;
     background-color: #EFEFEF;
     border-left: 1px solid #CFCACA;
     border-radius: 5px 5px 0 0;
     border-right: 1px solid #CFCACA;
     border-top: 1px solid #CFCACA;
     color: #303030;
-    display: inline-block;
     min-width: 50px;
-    padding: 4px 15px;
+    padding: 4px 7px;
     text-align: center;
-    width: auto;
+    box-shadow : 0px -1px 2px 0px #B5B4B4 inset;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper .tab:hover
-    {
-    background-color: #000;
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper .tab:hover {
+    background-color: #545454;
     color: #FFF;
+    box-shadow : 0px -1px 2px 0px white inset;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-title
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-title {
     font-size: 130%;
     font-weight: bold;
     max-height: 30px;
@@ -198,8 +196,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     max-height: 235px;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail {
     min-height: 185px;
     padding: 0 0 0 10px;
     -moz-border-radius: 0px 5px 5px 5px;
@@ -208,6 +205,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     border: 1px solid #DCDCDC;
     background-color: #FFFFFF;
     overflow: auto;
+    margin-top : 4px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail .detail

@@ -463,7 +463,7 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public TweetPublishedMetadata publicTweetPoll(final String tweetText, final SocialAccount socialAccount)
            throws EnMeExpcetion {
-        TweetPublishedMetadata published = null;
+        TweetPublishedMetadata published = new TweetPublishedMetadata();
         log.debug("publicTweetPoll:{ "+tweetText);
         if (socialAccount.getAccounType().equals(SocialProvider.TWITTER)) {
             log.debug("Publish on TWITTER");

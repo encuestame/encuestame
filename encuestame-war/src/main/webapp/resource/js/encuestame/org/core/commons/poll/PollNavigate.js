@@ -56,6 +56,21 @@ dojo.declare(
          * Override  folder scope field.
          */
         folder_scope : "poll",
+        
+        /*
+         * i18n message for this widget.
+         */ 
+        i18nMessage : {
+          detail_manage_by_account : ENME.getMessage("detail_manage_by_account"),
+          detail_manage_today : ENME.getMessage("detail_manage_today"),
+          detail_manage_last_week : ENME.getMessage("detail_manage_last_week"),
+          detail_manage_favorites : ENME.getMessage("detail_manage_favorites"),
+          detail_manage_scheduled : ENME.getMessage("detail_manage_scheduled"),
+          detail_manage_all : ENME.getMessage("detail_manage_all"),
+          detail_manage_published : ENME.getMessage("detail_manage_published"),
+          detail_manage_unpublished : ENME.getMessage("detail_manage_unpublished"),
+          detail_manage_only_completed : ENME.getMessage("detail_manage_only_completed")          
+        },        
 
         /*
          *

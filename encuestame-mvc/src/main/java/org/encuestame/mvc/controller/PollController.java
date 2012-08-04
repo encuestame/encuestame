@@ -154,7 +154,8 @@ public class PollController extends AbstractBaseOperations {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll/list", method = RequestMethod.GET)
     public String pollListController(final ModelMap model) {
-        log.debug("tweetpoll");
+        log.debug("poll list render view");
+        addItemsManangeMessages(model);
         return "poll/list";
     }
 

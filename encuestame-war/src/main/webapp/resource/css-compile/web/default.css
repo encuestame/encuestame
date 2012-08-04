@@ -619,6 +619,7 @@ div.web-default-menu  li.first {
 }
 
 .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header {
+  background-color: #8E8E8E;
   overflow: hidden;
 }
 
