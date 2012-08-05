@@ -383,8 +383,24 @@ dojo.declare(
            this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
            var nodeId = this.id+"_chart";
            dojo.empty(dojo.byId(nodeId));
-           this.widgetChart = this.buildChart({id : nodeId, results : this._convertToChartAnswer(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results))});
-           this.renderChart(this.widgetChart);
+           //if results are empty it's needed display a "no results" option
+           if (data.poll_results.length > 0) {        	   
+			   this.widgetChart = this.buildChart({
+					id : nodeId,
+					results : this._convertToChartAnswer(
+								this._mergeResultsAnswers(
+										data.poll_list_answers,
+										data.poll_results))
+				});
+	           this.renderChart(this.widgetChart);
+           } else {
+        	   var node = dojo.byId(nodeId),
+        	   no_results = dojo.create('div');
+        	   no_results.innerHTML = ENME.getMessage('commons_no_results');
+        	   dojo.addClass(no_results, "no_results");
+        	   node.appendChild(no_results);
+           }
+           //display the list of answer on a table.
            this.reRenderResults(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results));
 
            var comments = dojo.create("div");

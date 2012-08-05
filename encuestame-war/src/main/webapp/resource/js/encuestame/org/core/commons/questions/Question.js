@@ -25,6 +25,13 @@ dojo.declare(
         questionWidget : null,
 
         enableEvents : true,
+        
+        /*
+         * i18n message for this widget.
+         */ 
+        i18nMessage : {
+        	widget_question_type : ENME.getMessage("widget_question_type"),
+        },         
 
         postCreate : function(){
             this.questionWidget = dijit.byId(this._question);

@@ -31,6 +31,17 @@
 	float: left;
 	min-width: 280px;
 	margin: 0 5px;
+	min-height: 308px;
+}
+
+.web-item-row .web-list-more .web-poll-info .web-poll-char-detail .no_results {
+  border: 1px solid #CFCBCB;
+  font-size: 18px;
+  line-height: 221px;
+  margin-top: 15px;
+  opacity: 0.2;
+  text-align: center;
+  border-radius : 3px;
 }
 
 .web-item-row .web-list-more .web-poll-info .web-poll-options {

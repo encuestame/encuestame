@@ -190,6 +190,7 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "widget_results_options");
         addi18nProperty(model, "widget_results_only_percents");
         addi18nProperty(model, "widget_results_all_data");
+        addi18nProperty(model, "widget_question_type");
         return "poll/new";
     }
 
