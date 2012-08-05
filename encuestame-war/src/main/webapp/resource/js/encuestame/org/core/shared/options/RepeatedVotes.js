@@ -24,7 +24,7 @@ dojo.declare(
         /*
          *
          */
-        label : "Allow Repeated Votes.",
+        label : ENME.getMessage('widget_repated_votes'),
 
         /*
          * to enable publish support, replace null value for publish valid url.

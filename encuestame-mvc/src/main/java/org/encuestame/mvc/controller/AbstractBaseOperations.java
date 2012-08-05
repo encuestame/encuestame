@@ -614,10 +614,10 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     }
     
     /**
-     * 
-     * @param model
-     * @param key
-     * @param value
+     * Add to the model the i18n message property.
+     * @param model {@link Model}
+     * @param key layout custom key
+     * @param value message key
      */
     public void addi18nProperty(final ModelMap model, final String key, final String value) {
     	@SuppressWarnings("unchecked")
@@ -629,6 +629,21 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     	i18n.put(key, value);
     }
 
+    /**
+     * Add to the model the i18n message property, the layout custom key will
+     * be the same of the message key.
+     * @param model
+     * @param key
+     */
+    public void addi18nProperty(final ModelMap model, final String key) {
+    	@SuppressWarnings("unchecked")
+		HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
+    	if (i18n == null) {
+    		i18n = new HashMap<String, String>();
+    		model.addAttribute("i18n", i18n);
+    	}
+    	i18n.put(key, getMessage(key));
+    }
 
    /**
     * If is not complete check and validate current status.

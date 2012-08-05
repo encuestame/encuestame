@@ -1004,54 +1004,6 @@ div.web-support-embebed textarea {
     width: 520px;
 }
 
-/** poll */
-div.web-poll-wrapper {
-    padding: 10px;
-    margin: 0 auto;
-    padding: 35px 0;
-    width: auto;
-}
-
-div.web-poll-wrapper .web-poll-question {
-
-}
-
-div.web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
-    font-size: 130%;
-    padding: 3px;
-    width: 665px;
-}
-
-/* input:focus, textarea:focus { */
-/*   border-color: rgba(82, 168, 236, 0.8); */
-/*   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6); */
-/*   outline: 0 none; */
-/* } */
-div.web-poll-wrapper .web-poll-question .web-question {
-    float: left;
-    width: 100px;
-}
-
-div.web-poll-wrapper .web-poll-question-folder {
-    float: right;
-    left: 0;
-    margin-right: 35px;
-    position: relative;
-}
-
-div.web-poll-wrapper ul.web-poll-answers {
-
-}
-
-div.web-poll-wrapper ul.web-poll-answers li {
-    list-style: none;
-    padding: 5px;
-}
-
-div.web-poll-wrapper .web-tweetpoll-section {
-    width: auto;
-    margin: auto 0;
-}
 
 /** list of paterns **/
 /*

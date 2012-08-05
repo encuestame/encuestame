@@ -160,21 +160,44 @@ public class PollController extends AbstractBaseOperations {
     }
 
     /**
-     *
-     * @param model
+     * Display the view to create a poll.
+     * @param model {@link Model}
      * @return
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll/new", method = RequestMethod.GET)
     public String newPollController(final ModelMap model) {
-        log.debug("new poll");
+        log.debug("new poll render view");
+        addi18nProperty(model, "poll_create_question_title");
+        addi18nProperty(model, "poll_create_build_answers");
+        addi18nProperty(model, "poll_create_add_new_answer");
+        addi18nProperty(model, "poll_create_allow_multiple_selection");
+        addi18nProperty(model, "poll_create_allow_new_responses");
+        addi18nProperty(model, "poll_create_limits");
+        addi18nProperty(model, "poll_create_poll_options");
+        addi18nProperty(model, "poll_create_comments");
+        addi18nProperty(model, "poll_create_results");
+        addi18nProperty(model, "poll_create_button_create");
+        addi18nProperty(model, "widget_folder_select_label");
+        addi18nProperty(model, "pattern_question_single");
+        addi18nProperty(model, "m_025");
+        addi18nProperty(model, "widget_repated_votes");
+        addi18nProperty(model, "widget_limit_votes");
+        addi18nProperty(model, "widget_date_to_close");
+        addi18nProperty(model, "widget_comments_allow");
+        addi18nProperty(model, "widget_comments_moderated");
+        addi18nProperty(model, "widget_comments_no_comments");
+        addi18nProperty(model, "widget_results_options");
+        addi18nProperty(model, "widget_results_only_percents");
+        addi18nProperty(model, "widget_results_all_data");
         return "poll/new";
     }
 
     /**
      * Vote a {@link Poll}.
-     * @param model
+     * @param model {@link Model}
      * @param tweetId
+     * @param slug 
      * @return
      */
     @RequestMapping(value = "/poll/vote/{id}/{slug}", method = RequestMethod.GET)

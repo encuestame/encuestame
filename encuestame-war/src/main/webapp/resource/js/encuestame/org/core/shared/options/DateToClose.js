@@ -49,7 +49,7 @@ dojo.declare(
 
      scheduledTimeWidget  : null,
 
-     label : "Closing this Poll",
+     label : ENME.getMessage('widget_date_to_close'),
 
      /*
      *

@@ -1,47 +1,61 @@
 <div class="web-poll-wrapper web-pattern enme-text">
     <div class="web-poll-question">
-         <div class="web-tweetpoll-section spaceBlock">
-            <div class="web-tweetpoll-section-title default-background-dark-color">Poll Question</div>
+         <div class="web-poll-section spaceBlock">
+            <div class="web-poll-section-title default-background-dark-color">
+                ${i18nMessage.poll_create_question_title}
+             </div>
              <div class="space">
                  <div id="question" dojoAttachPoint="_question" class="question web-poll-question"></div>
                  <div dojoAttachPoint="_folder" class="web-poll-question-folder"></div>
             </div>
         </div>
 
-         <div class="web-tweetpoll-section spaceBlock">
-            <div class="web-tweetpoll-section-title default-background-dark-color">Build your answers</div>
+         <div class="web-poll-section spaceBlock">
+            <div class="web-poll-section-title default-background-dark-color">
+                   ${i18nMessage.poll_create_build_answers}
+             </div>
              <div class="space">
                   <ul class="web-poll-answers"  dojoAttachPoint="_source">
                  </ul>
                  <div class="section-botton-wrapper" dojoAttachPoint="_addNew">
-                    <a href="#">Add new answer</a>
+                    <a href="#">
+                        ${i18nMessage.poll_create_add_new_answer}
+                    </a>
                  </div>
               </div>
               <div class="section-botton-wrapper">
                   <div id="multiple" dojoType="encuestame.org.core.shared.options.CheckSingleOption"
                          value="multiples" class="sub-option"
-                         label="Allow multiple selection"></div>
+                         label="${i18nMessage.poll_create_add_new_answer}"></div>
                   <div id="allow-add" dojoType="encuestame.org.core.shared.options.CheckSingleOption"
                          value="add"  class="sub-option"
-                         label="Allow add new responses"></div>
+                         label="${i18nMessage.poll_create_allow_new_responses}"></div>
               </div>
          </div>
-         <div class="web-tweetpoll-section spaceBlock">
-            <div class="web-tweetpoll-section-title default-background-dark-color">Poll Options</div>
+         <div class="web-poll-section spaceBlock">
+            <div class="web-poll-section-title default-background-dark-color">
+                ${i18nMessage.poll_create_poll_options}
+             </div>
              <div class="space">
                  <div class="section-option-wrapper">
                       <div class="section-default">
-                           <h2 class="default-dark-color">Poll Limits</h2>
+                           <h2 class="default-dark-color">
+                                ${i18nMessage.poll_create_limits}
+                           </h2>
                            <div id="repeated" dojoType="encuestame.org.core.shared.options.RepeatedVotes" class="space"></div>
                            <div id="limit" dojoType="encuestame.org.core.shared.options.LimitVotes" class="space"></div>
                            <div id="close" dojoType="encuestame.org.core.shared.options.DateToClose" class="space"></div>
                       </div>
                       <div class="section-default">
-                           <h2 class="default-dark-color">Comments</h2>
+                           <h2 class="default-dark-color">
+                                 ${i18nMessage.poll_create_comments}
+                           </h2>
                            <div id="comments" dojoType="encuestame.org.core.shared.options.CommentsOptions" class="space"></div>
                       </div>
                       <div class="section-default">
-                            <h2 class="default-dark-color">Results</h2>
+                            <h2 class="default-dark-color">
+                                ${i18nMessage.poll_create_results}
+                            </h2>
                            <div id="results" dojoType="encuestame.org.core.shared.options.ResultsOptions" class="space"></div>
                       </div>
                   </div>
@@ -54,7 +68,7 @@
                        type="button"
                        name="submitButtonTwo"
                        value="Submit">
-                       Create Poll
+                       ${i18nMessage.poll_create_button_create}
                </button>
           </div>
     </div>

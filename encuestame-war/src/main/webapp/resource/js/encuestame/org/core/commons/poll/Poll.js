@@ -50,6 +50,22 @@ dojo.declare(
          *
          */
         _folderWidget : null,
+        
+        /*
+         * i18n message for this widget.
+         */ 
+        i18nMessage : {
+        	poll_create_question_title : ENME.getMessage("poll_create_question_title"),
+        	poll_create_build_answers : ENME.getMessage("poll_create_build_answers"),
+        	poll_create_add_new_answer : ENME.getMessage("poll_create_add_new_answer"),
+        	poll_create_allow_multiple_selection : ENME.getMessage("poll_create_allow_multiple_selection"),
+        	poll_create_allow_new_responses : ENME.getMessage("poll_create_allow_new_responses"),
+        	poll_create_limits : ENME.getMessage("poll_create_limits"),
+        	poll_create_poll_options : ENME.getMessage("poll_create_poll_options"),
+        	poll_create_comments : ENME.getMessage("poll_create_comments"),
+        	poll_create_results : ENME.getMessage("poll_create_results"),
+        	poll_create_button_create : ENME.getMessage("poll_create_button_create")
+        },          
 
         /*
          *
@@ -139,10 +155,10 @@ dojo.declare(
          */
         _createPoll : function(params) {
            var load = dojo.hitch(this, function(data) {
-               console.info("create poll", data);
+               //console.info("create poll", data);
                if ("success" in data) {
                var pollBean = data.success.pollBean;
-               console.info("create poll pollBean ", pollBean);
+               //console.info("create poll pollBean ", pollBean);
                    if (pollBean != null) {
                        this._createDialogSupport();
                        this._openSuccessMessage(pollBean);
@@ -222,8 +238,8 @@ dojo.declare(
 
             if (c < this._min_answer_allowed) {
                 valid.status = false;
-                valid.message = "Please enter at least 2 answers.";
-                console.info("error", valid);
+                valid.message = ENME.getMessage("m_025");
+                //console.info("error", valid);
                 this.infoMesage(valid.message);
                 c = 0;
             } else {
@@ -237,7 +253,7 @@ dojo.declare(
             }
 
             var limit_votes = dijit.byId("limit");
-            console.info("limit_votes params", limit_votes.getOptions().checked);
+            //console.info("limit_votes params", limit_votes.getOptions().checked);
             if (limit_votes.getOptions().checked) {
                 dojo.mixin(params, {limit_votes : limit_votes.getOptions().items});
             }
