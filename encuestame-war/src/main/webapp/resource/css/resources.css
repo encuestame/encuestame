@@ -67,3 +67,47 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
   margin-left: 5px;
   margin-top: 3px;
 }
+
+.ui-hits {
+  background-image: url("../images/icons/enme_hits.gif");
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left;
+  height: 15px;
+    padding-left: 20px;
+    padding-top: 3px;
+    width: 20px;
+}
+
+.ui-comments {
+  background-image: url("../images/icons/enme_comment_reply.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left;
+  height: 15px;
+    padding-left: 20px;
+    padding-top: 3px;
+    width: 20px;
+}
+
+.ui-likes {
+  background-image: url("../images/icons/1344286942_Like.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left;
+    height: 20px;
+    padding-left: 25px;
+    padding-top: 3px;
+    width: 20px;
+}
+
+.ui-dislike {
+  background-image: url("../images/icons/1344286943_Dislike.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left;
+    height: 20px;
+    padding-left: 25px;
+    padding-top: 3px;
+    width: 20px;
+}

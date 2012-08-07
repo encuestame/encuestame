@@ -42,11 +42,11 @@ dojo.declare(
             }
         },
 
-        onKeyUp : function(event){
+        onKeyUp : function(event) {
             //override.
         },
 
-        onChange : function(event){
+        onChange : function(event) {
             //override.
         },
 

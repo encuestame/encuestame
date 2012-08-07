@@ -156,6 +156,16 @@ public class PollController extends AbstractBaseOperations {
     public String pollListController(final ModelMap model) {
         log.debug("poll list render view");
         addItemsManangeMessages(model);
+        addi18nProperty(model, "commons_no_results");
+        addi18nProperty(model, "poll_admon_poll_options");
+        addi18nProperty(model, "poll_admon_poll_answers");
+        //
+        addi18nProperty(model, "poll_admon_poll_edit");
+        addi18nProperty(model, "poll_admon_poll_preview");
+        addi18nProperty(model, "poll_admon_poll_publish_options");
+        addi18nProperty(model, "poll_admon_poll_embebed");
+        //
+        addi18nProperty(model, "poll_admon_poll_votes");
         return "poll/list";
     }
 

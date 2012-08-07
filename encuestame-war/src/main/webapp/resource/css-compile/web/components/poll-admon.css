@@ -30,6 +30,7 @@
 .web-item-row .web-list-more .web-poll-info .web-poll-char-detail {
 	float: left;
 	min-width: 280px;
+	max-width: 280px;
 	margin: 0 5px;
 	min-height: 308px;
 }
@@ -41,7 +42,7 @@
   margin-top: 15px;
   opacity: 0.2;
   text-align: center;
-  border-radius : 3px;
+  border-radius : 3px;  
 }
 
 .web-item-row .web-list-more .web-poll-info .web-poll-options {
