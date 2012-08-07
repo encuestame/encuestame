@@ -40,6 +40,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionColettion;
 import org.encuestame.persistence.domain.question.QuestionDependenceSurvey;
 import org.encuestame.persistence.domain.question.QuestionDependencies;
+import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -51,6 +52,8 @@ import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
 import org.encuestame.persistence.domain.survey.SurveyGroup;
 import org.encuestame.persistence.domain.survey.SurveyPagination;
+import org.encuestame.persistence.domain.survey.SurveyResult;
+import org.encuestame.persistence.domain.survey.SurveyTemporalResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.test.config.AbstractBase;
@@ -613,5 +616,41 @@ public class TestHibernateDomains extends AbstractBase{
 		tweetPoll.setUpdatedDate(new Date());
 		getTweetPoll().saveOrUpdate(tweetPoll);
 		assertNotNull(tweetPoll.getTweetPollId());
+	}
+	
+	/**
+	 * Test {@link QuestionPreferences} domain.
+	 */
+	public void testQuestionPreferences() {
+		final QuestionPreferences preference = new QuestionPreferences(); 
+		preference.setQuestion(this.initQuestion);
+		preference.setPreference("Order");
+		preference.setValue("Desc");
+	}
+	
+	/**
+	 * Test {@link SurveyResult} domain.
+	 */
+	public void testSurveyResult() {
+		final SurveyResult result = new SurveyResult();
+		final QuestionAnswer qAnswers = createQuestionAnswer("Spain",
+				this.initQuestion, "ORFQT29");
+		result.setAnswer(qAnswers);
+		result.setQuestion(this.initQuestion);
+		result.setSurvey(this.initSurvey);
+		result.setTxtResponse("20");
+	}
+	
+	/**
+	 * Test {@link SurveyTemporalResult} domain.
+	 */
+	public void testSurveyTemporalResult() {
+		final SurveyResult result = new SurveyResult();
+		final QuestionAnswer qAnswers = createQuestionAnswer("Yes",
+				this.initQuestion, "ORFQT31");
+		result.setAnswer(qAnswers);
+		result.setQuestion(this.initQuestion);
+		result.setSurvey(this.initSurvey);
+		result.setTxtResponse("3 Cups");
 	}
 }

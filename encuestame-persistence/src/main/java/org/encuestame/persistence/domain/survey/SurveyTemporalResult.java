@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * Copyright (C) 2001-2012 encuestame: system online surveys Copyright (C) 2012
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -22,35 +22,50 @@ import javax.persistence.Table;
 import org.encuestame.persistence.domain.AbstractResult;
 
 /**
- * SurveyResult.
- *
- * @author Picado, Juan juanATencuestame.org
- * @since October 17, 2009
- * @version $Id$
- */ 
-@Entity
-@Table(name = "survey_result")
-public class SurveyResult extends AbstractResult{
+ * Survey temporal result.
+ * @author Morales Diana Paola, paolaATencuestame.org
+ * @since August 07, 2012
+ */
+@Entity 
+@Table(name = "survey_temporal_result") 
+public class SurveyTemporalResult extends AbstractResult{
+	
+	/** **/
+	private Long idTempResult;
 
-    /** **/
-    private Long rid; 
-  
-
-    /**
-     * @return rid
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "rid", unique = true, nullable = false)
-    public Long getRid() {
-        return this.rid;
-    }
-
-    /**
-     * @param rid rid
-     */
-    public void setRid(final Long rid) {
-        this.rid = rid;
-    } 
+	/** **/
+	private String hash; 
     
+	/**
+	 * @return the tempResultId
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "IdTempResult", unique = true, nullable = false)
+	public Long getIdTempResult() {
+		return idTempResult;
+	}
+
+	/**
+	 * @param tempResultId the tempResultId to set
+	 */
+	public void setIdTempResult(Long idTempResult) {
+		this.idTempResult = idTempResult;
+	}
+
+	/**
+	 * @return the hash
+	 */
+	@Column(name = "hash", unique = true, nullable = false)
+	public String getHash() {
+		return hash;
+	}
+
+	/**
+	 * @param hash the hash to set
+	 */
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+	
 }
