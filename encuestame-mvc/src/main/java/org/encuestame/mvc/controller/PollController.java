@@ -166,6 +166,10 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "poll_admon_poll_embebed");
         //
         addi18nProperty(model, "poll_admon_poll_votes");
+        
+        addi18nProperty(model, "detail_manage_poll_title");
+        addi18nProperty(model, "detail_manage_filters");
+        addi18nProperty(model, "detail_manage_poll_dropdown_title");
         return "poll/list";
     }
 

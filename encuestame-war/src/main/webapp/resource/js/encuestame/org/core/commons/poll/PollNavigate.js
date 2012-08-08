@@ -69,7 +69,12 @@ dojo.declare(
           detail_manage_all : ENME.getMessage("detail_manage_all"),
           detail_manage_published : ENME.getMessage("detail_manage_published"),
           detail_manage_unpublished : ENME.getMessage("detail_manage_unpublished"),
-          detail_manage_only_completed : ENME.getMessage("detail_manage_only_completed")          
+          detail_manage_only_completed : ENME.getMessage("detail_manage_only_completed"),
+          
+          detail_manage_poll_title : ENME.getMessage("detail_manage_poll_title"),
+          detail_manage_filters : ENME.getMessage("detail_manage_filters"),
+          detail_manage_filters : ENME.getMessage("detail_manage_filters"),
+          detail_manage_poll_dropdown_title : ENME.getMessage("detail_manage_poll_dropdown_title")
         },        
 
         /*

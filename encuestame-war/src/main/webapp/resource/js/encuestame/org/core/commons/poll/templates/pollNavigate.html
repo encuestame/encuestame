@@ -4,7 +4,9 @@
             <div class="web-sidebar-options">
                 <div id="strapline"></div>
                 <div class="web-filter-sidebar-panel">
-                    <div class="folder-title default-background-dark-color default-sidebar-menu">Filters</div>
+                    <div class="folder-title default-background-dark-color default-sidebar-menu">
+                        ${i18nMessage.detail_manage_filters}
+                    </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount"
                         type="ACCOUNT">
                         <span>
@@ -69,9 +71,10 @@
                      background-color: #595959;
                      text-shadow: 2px 3px 1px rgba(6, 5, 5, 0.9);
                      overflow: auto;">
-                    POLL
+                     ${i18nMessage.detail_manage_poll_title}
                     <div style="float: right;">
-                        <div dojoType="encuestame.org.core.shared.utils.DropDownMenuSelect" defaultText="Poll Actions.."></div>
+                        <div dojoType="encuestame.org.core.shared.utils.DropDownMenuSelect" 
+                             defaultText="${i18nMessage.detail_manage_poll_dropdown_title}"></div>
                     </div>
                 </div>
                 <article dojoAttachPoint="_items" class="web-list-rows">
