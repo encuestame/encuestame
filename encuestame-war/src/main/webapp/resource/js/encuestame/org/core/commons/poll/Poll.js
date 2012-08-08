@@ -64,7 +64,8 @@ dojo.declare(
         	poll_create_poll_options : ENME.getMessage("poll_create_poll_options"),
         	poll_create_comments : ENME.getMessage("poll_create_comments"),
         	poll_create_results : ENME.getMessage("poll_create_results"),
-        	poll_create_button_create : ENME.getMessage("poll_create_button_create")
+        	poll_create_button_create : ENME.getMessage("poll_create_button_create"),
+        	commons_cancel : ENME.getMessage("commons_cancel")
         },          
 
         /*
@@ -118,8 +119,15 @@ dojo.declare(
                  var li = this._newAnswer({ dndEnabled : true});
                  this.addItem(li);
             }
+            // trigger the validate poll or publish and create
             dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
+            // trigger the add new answer
             dojo.connect(this._addNew, "onclick", dojo.hitch(this, this._addAnswer));
+            // cancel button
+            var parent = this;
+            dojo.connect(this._cancel, "onclick", dojo.hitch(this, function() {
+            	window.location.href = parent.contextDefaultPath + "/user/poll/list";
+            }));
         },
 
         /**

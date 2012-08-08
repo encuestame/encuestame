@@ -116,6 +116,15 @@ dojo.declare(
             //        dojo.publish('myMessages', [{ message: 'Qwerty', type: "error", duration: 0}]);
             //    });
             //});
+            
+            var menu_widget = this._dropdownmenu;
+            
+            var newPoll = new encuestame.org.core.shared.utils.DropDownMenuItem({
+                label : ENME.getMessage("poll_admon_poll_new"),
+                url : "/user/poll/new"
+            });
+            
+            menu_widget._appendItem(newPoll);
         },
 
         /*
@@ -316,7 +325,8 @@ dojo.declare(
         * i18n message for this widget.
         */ 
        i18nMessage : {
-    	   poll_admon_poll_answers : ENME.getMessage("poll_admon_poll_answers")
+    	   poll_admon_poll_answers : ENME.getMessage("poll_admon_poll_answers"),
+    	   commons_remove : ENME.getMessage("commons_remove")
        },         
 
        /**

@@ -21,13 +21,23 @@ dojo.declare("encuestame.org.core.shared.utils.DropDownMenuSelect",
             	this._createItems();
             },
             
+            /**
+             * Append item.
+             */
+            _appendItem : function (menuItem) {
+            	 this._addItem(menuItem.domNode);
+            },
+            
+            /**
+             * Create default Items.
+             */
             _createItems : function() {
                 // new poll
-                var newPoll = new encuestame.org.core.shared.utils.DropDownMenuItem({
-                            label : "New Poll",
-                            url : "/user/poll/new"
-                        });
-                this._addItem(newPoll.domNode);
+//                var newPoll = new encuestame.org.core.shared.utils.DropDownMenuItem({
+//                            label : "New Poll",
+//                            url : "/user/poll/new"
+//                        });
+                //this._appendItem(newPoll);
             },
 
             /*

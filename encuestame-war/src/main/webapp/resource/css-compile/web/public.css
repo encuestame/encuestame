@@ -1059,13 +1059,18 @@ div.folder-selection div.folder-selection-label {
 }
 
 div.folder-selection  div.folder-selection-combo {
-    margin-left: 45px;
+    margin-left: 85px;
 }
 
 .section-botton-wrapper {
-    margin-left: 40px;
+    margin-left: 50px;
     overflow: auto;
     padding: 5px;
+}
+
+.section-botton-wrapper a{
+   text-decoration: none;   
+   font-weight: bold;
 }
 
 .section-botton-wrapper .sub-option {
@@ -1104,57 +1109,7 @@ div.link-published-space {
     padding: 5px;
 }
 
-/** drop down menu **/
-div.drop-down-menu-select {
 
-}
-
-div.drop-down-menu-select-title {
-    background: none repeat scroll 0 0 #6C6D6F;
-    border-radius: 13px 13px 13px 13px;
-    color: #FFFFFF;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 20px;
-    padding: 0 15px 2px;
-    text-shadow: 0 1px 1px #002537;
-    width: 100px;
-    cursor: pointer;
-}
-
-div.drop-down-menu-select-title:hover .sub-menu {
-    display: inline-block;
-    position: absolute;
-}
-
-.sub-menu {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #C4C4C4;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    display: none;
-    margin-left: -15px;
-    margin-top: 0;
-    padding: 8px;
-    text-shadow: none;
-    width: 110px;
-}
-
-.sub-menu li {
-    border-bottom: 1px dotted #EAEAEA;
-    display: block;
-    height: 22px;
-    list-style-type: none;
-    padding: 8px 0;
-    width: 100px;
-}
-
-.sub-menu li img {
-    margin-right: .5em;
-}
-
-.sub-menu li:hover {
-    border-bottom: 1px dotted #bababa;
-}
 
 /** rated **/
 
