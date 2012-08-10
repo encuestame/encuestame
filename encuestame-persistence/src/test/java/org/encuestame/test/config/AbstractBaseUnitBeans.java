@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.survey.Survey; 
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
@@ -36,6 +37,7 @@ import org.encuestame.utils.web.UnitLocationBean;
 import org.encuestame.utils.web.UnitLocationFolder;
 import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.utils.web.UserAccountBean;
 
 /**
@@ -518,4 +520,20 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          surveyBean.setCreatedAt(createdAt);
          return surveyBean;
      }
+     
+     /**
+      * Create {@link UnitSurveySection}.
+      * @param name
+      * @param description
+      * @param survey
+      * @return
+      */
+     public UnitSurveySection createSurveySection(final String name,
+ 			final String description, final Survey survey) {
+ 		final UnitSurveySection sectionBean = new UnitSurveySection();
+ 		sectionBean.setDescription(description);
+ 		sectionBean.setName(name);
+ 		return sectionBean;
+ 	}
+ 	
 }

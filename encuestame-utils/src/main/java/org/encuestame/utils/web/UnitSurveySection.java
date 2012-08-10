@@ -39,6 +39,10 @@ public class UnitSurveySection{
     
     /** **/
     private Boolean showPanel = false;
+   
+    /** **/
+    private String description; 
+ 
 
     public UnitSurveySection() {}
 
@@ -123,5 +127,17 @@ public class UnitSurveySection{
         this.showPanel = showPanel;
     }
 
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
 
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(final String description) {
+		this.description = description;
+	}  
 }

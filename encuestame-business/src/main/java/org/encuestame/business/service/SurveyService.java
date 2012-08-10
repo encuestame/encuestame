@@ -12,8 +12,9 @@
  */
 package org.encuestame.business.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.encuestame.core.service.imp.ISurveyService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveySection;
@@ -190,23 +192,29 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ISurveyService#createSurvey(org.encuestame.utils.web.SurveyBean)
      */
-    public Survey createSurvey(final SurveyBean surveyBean)
-            throws EnMeExpcetion {
-        try {
-            final Survey surveyDomain = this.newSurvey(surveyBean);
-            if (surveyBean.getHashTags().size() > 0) {
-                 surveyDomain.getHashTags().addAll(
-                        retrieveListOfHashTags(surveyBean.getHashTags()));
-                log.debug("Update Hash Tag");
-                getSurveyDaoImp().saveOrUpdate(surveyDomain);
-            }
-            return surveyDomain;
+	public Survey createSurvey(final SurveyBean surveyBean)
+			throws EnMeExpcetion {
+		try {
+			// 1- Create survey with possible options
+			final Survey surveyDomain = this.newSurvey(surveyBean);
+			if (surveyDomain != null) {
+				final UnitSurveySection sectionBean = this.createDefaultSurveySection("Default", "Default", surveyDomain);
+				this.newSurveySection(sectionBean, surveyDomain); 
+				// 2- Create a section by default
+			}
+			if (surveyBean.getHashTags().size() > 0) {
+				surveyDomain.getHashTags().addAll(
+						retrieveListOfHashTags(surveyBean.getHashTags()));
+				log.debug("Update Hash Tag");
+				getSurveyDaoImp().saveOrUpdate(surveyDomain);
+			}
+			return surveyDomain;
 
-        } catch (Exception e) {
-            log.error("Error creating Survey:{" + e);
-            throw new EnMeExpcetion(e);
-        }
-    }
+		} catch (Exception e) {
+			log.error("Error creating Survey:{" + e);
+			throw new EnMeExpcetion(e);
+		}
+	}
 
     /*
      * (non-Javadoc)
@@ -257,23 +265,72 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * Create Survey Section.
      * @param surveySectionBean
      */
-    public void createSurveySection(final UnitSurveySection surveySectionBean){
-        try {
-            final SurveySection surveySectionDomain = new SurveySection();
-            surveySectionDomain.setDescSection(surveySectionBean.getName());
-            for (final QuestionBean questionBean : surveySectionBean.getListQuestions()) {
-                this.saveQuestions(questionBean);
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+	public SurveySection createSurveySection(
+			final UnitSurveySection surveySectionBean, final Survey survey) {
+		SurveySection surveySectionDomain = new SurveySection();
+		try {
+			surveySectionDomain = this
+					.newSurveySection(surveySectionBean, survey);
 
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return surveySectionDomain;
+	}
+    
+    /**
+     * New survey section.
+     * @param sectionBean
+     * @param survey
+     * @return
+     */
+    private SurveySection newSurveySection(final UnitSurveySection sectionBean, final Survey survey){
+    	final SurveySection surveySection = new SurveySection();
+		surveySection.setDescSection(sectionBean.getDescription());
+		surveySection.setSectionName(sectionBean.getName());
+		surveySection.setSurvey(survey);
+		getSurveyDaoImp().saveOrUpdate(surveySection);
+    	return surveySection;
+    	
     }
+    
+    /**
+     * 
+     * @param name
+     * @param description
+     * @param survey
+     * @return
+     */
+	private UnitSurveySection createDefaultSurveySection(final String name,
+			final String description, final Survey survey) {
+		final UnitSurveySection sectionBean = new UnitSurveySection();
+		sectionBean.setDescription(description);
+		sectionBean.setName(name);
+		return sectionBean;
+	}
+	 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.ISurveyService#retrieveSectionsBySurvey
+	 * (org.encuestame.persistence.domain.survey.Survey)
+	 */
+	public List<UnitSurveySection> retrieveSectionsBySurvey(final Survey survey) {
+
+		final List<SurveySection> sections = getSurveyDaoImp()
+				.getSurveySection(survey);
+		List<UnitSurveySection> sectionsBean = ConvertDomainBean
+				.convertSurveySectionListToSurveySectionBean(sections);
+
+		return sectionsBean;
+
+	} 
 
     /**
      * Save Questions.
      * @param questionBean
-     */
+     */ 
     public void saveQuestions(final QuestionBean questionBean){
         final Question question = new Question();
         question.setQuestion(questionBean.getQuestionName());

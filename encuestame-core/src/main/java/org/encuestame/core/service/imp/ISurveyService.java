@@ -12,11 +12,11 @@
  */
 package org.encuestame.core.service.imp;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearch;
@@ -24,6 +24,7 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.UnitSurveySection;
 
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;
@@ -237,4 +238,19 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     List<Survey> retrieveSurveyByFolder(final Long accountId,
             final Long folderId) throws EnMeNoResultsFoundException;
+    
+    /**
+     * 
+     * @param survey
+     * @return
+     */
+	List<UnitSurveySection> retrieveSectionsBySurvey(final Survey survey);
+	
+	/**
+	 * Create {@link SurveySection}
+	 * @param surveySectionBean
+	 * @return
+	 */
+	SurveySection createSurveySection(
+			final UnitSurveySection surveySectionBean, final Survey survey);
  }
