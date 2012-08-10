@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -37,6 +38,7 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -329,6 +331,24 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         assertEquals("should be equals", 1, listSurvey.size());
     }
 
+    
+    @Test
+    public void testCreateSurvey() throws EnMeExpcetion{
+    	// Create survey with section default
+    	final SurveyBean surveyBean = createSurveyBean("default survey", getSpringSecurityLoggedUserAccount().toString(), new Date());
+    	final Survey newSurvey = surveyService.createSurvey(surveyBean);   
+    	
+    	// Create new Section
+    	final UnitSurveySection unitSection = createSurveySection("default 3", "default 2", newSurvey);
+    	surveyService.createSurveySection(unitSection, newSurvey);
+    	
+    	// Add another section to survey
+    	final List<UnitSurveySection> ssection = surveyService.retrieveSectionsBySurvey(newSurvey);
+    	assertEquals("should be equals", 2, ssection.size());
+      
+    }
+    
+    
     /**
      * @param surveyService the surveyService to set
      */
