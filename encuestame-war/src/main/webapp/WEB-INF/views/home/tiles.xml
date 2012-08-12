@@ -26,6 +26,11 @@
         <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}cloud.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}js_cloud.jsp" />
     </definition>
+    
+    <definition name="help" extends="page">
+        <put-attribute name="title" value="Help | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/home/${currentDevice.mobile ? 'mobile/' : 'web/'}help.jsp" />
+    </definition>    
 
    <definition name="profile/view" extends="page">
         <put-attribute name="title" value="Profile | encuestame" />
