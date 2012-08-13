@@ -1,8 +1,18 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="defaultMarginWrapper">
-    <h1>Settings Configuration</h1>
-    <br/>
-    <div style="width: 900px; height: 500px;">
+    
+    <!-- 
+    <h1>
+        <spring:message code="settings.config.title" />
+    </h1>
+     --> 
+    <div dojoType="encuestame.org.core.shared.utils.SettingsMenuSwitch">
+           <!-- Profile Widget -->
+          <div id="profile_settings" dojoType="encuestame.org.core.commons.profile.Profile" data-label="<spring:message code="settings.config.myaccount" />"></div>
+          <!-- Upload Profile Image Widget -->
+          <div id="upload_image_settings" dojoType="encuestame.org.core.commons.profile.UploadProfilePicture" data-label="<spring:message code="settings.config.upload.image" />"></div>
+    </div>   
+  <!--   <div style="width: 900px; height: 500px;">
         <div dojoType="dijit.layout.TabContainer" style="width: 100%; height: 100%;">
             <div dojoType="dijit.layout.ContentPane" title="Your Account" selected="true">
                  <enme:widget type="encuestame.org.core.commons.profile.Profile"></enme:widget>
@@ -23,5 +33,5 @@
                 Public Profile Configuration
             </div>
         </div>
-    </div>
+    </div>-->
 </div>

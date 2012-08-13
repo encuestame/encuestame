@@ -8,19 +8,19 @@ dojo.require("dijit.form.Form");
 dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.core.commons.dialog.Confirm");
 dojo.require("encuestame.org.core.shared.utils.AccountPicture");
+dojo.require("encuestame.org.core.shared.utils.SettingsMenuSwitch");
 
 dojo.require("dojo.hash");
 
 dojo.declare(
     "encuestame.org.core.commons.social.SocialAccounts",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.core.shared.utils.SettingsMenuSwitch],{
+    	    	
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccounts.html"),
-
-        widgetsInTemplate: true,
 
         domain : "",
 
-        postCreate : function(){
+        postCreate : function() {
             //details
             this._createDetail("twitterDetail", "Twitter");
             this._createDetail("facebookDetail", "Facebook");
@@ -55,7 +55,7 @@ dojo.declare(
         /*
          *
          */
-        _cretateButton : function(id, provider){
+        _cretateButton : function(id, provider) {
             var widget = new encuestame.org.core.commons.social.SocialButton(
                     {
                         id : id,
@@ -66,49 +66,7 @@ dojo.declare(
         }
 });
 
-/*
- * Social Button Widget.
- */
-dojo.declare(
-        "encuestame.org.core.commons.social.SocialButton",
-        [dijit._Widget, dijit._Templated],{
 
-            label : "define label",
-
-            widgetsInTemplate: true,
-
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialButton.html"),
-
-            postCreate : function(){
-                dojo.subscribe("/encuestame/social/clean/buttons", this, dojo.hitch(this, function(type) {
-                    dojo.removeClass(this.domNode, "selected");
-                }));
-                var hash = dojo.queryToObject(dojo.hash());
-                if (hash.provider && hash.provider == this.id) {
-                    this._loadAccountInterface(hash.provider);
-                }
-            },
-
-            _loadAccountInterface : function(id){
-                //console.debug("_loadAccountInterface ", id.toLowerCase()+"Detail");
-                var widget = dijit.byId(id.toLowerCase()+"Detail");
-                //console.debug("widget ", widget);
-                dojo.publish("/encuestame/social/change", [widget]);
-                dojo.publish("/encuestame/social/"+id+"/loadAccounts");
-            },
-
-            _click : function(event){
-                dojo.publish("/encuestame/social/clean/buttons");
-                var hash = dojo.queryToObject(dojo.hash());
-                //console.debug("click button");
-                this._loadAccountInterface(this.id);
-                params = {
-                   provider : this.id
-                };
-                dojo.hash(dojo.objectToQuery(params));
-                dojo.addClass(this.domNode, "selected");
-            }
- });
 
 /*
  * Social Account Detail Widget.
