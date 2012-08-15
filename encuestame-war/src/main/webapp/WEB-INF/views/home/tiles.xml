@@ -6,7 +6,7 @@
     <definition name="home" extends="page">
         <put-attribute name="title" value="Home | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}home.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/home/js.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}js.jsp" />
         <put-attribute name="rss" value="/WEB-INF/views/home/rss.jsp" />
     </definition>
 

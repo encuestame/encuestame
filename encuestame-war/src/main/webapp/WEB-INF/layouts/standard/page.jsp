@@ -19,8 +19,6 @@
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="claro enme-web-context">
-${currentDevice}
-${holaMobile}
 	<div id="mainWrapper" class="page">
 		<header id="header">
 		    <c:forEach items="${i18n}" var="entry"> 

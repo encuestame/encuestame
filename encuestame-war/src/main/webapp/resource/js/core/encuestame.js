@@ -1,6 +1,4 @@
-if (typeof dojo != "undefined") {
-		
-	dojo.require("dojo.number");	
+if (typeof dojo != "undefined") {				
 	
 	var ENME = (function() {
 

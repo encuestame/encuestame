@@ -3,6 +3,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
   <group name='web'>
+    <css>/resource/css-compile/reset.css</css>
+    <css>/resource/css-compile/common.css</css>
+    <css>/resource/css-compile/layout.css</css>          
     <css>/resource/css-compile/web/public.css</css>
     <css>/resource/css-compile/web/default.css</css>
     <css>/resource/css-compile/web/admon.css</css>
@@ -11,16 +14,14 @@
     <css>/resource/css-compile/web/section.css</css>
     <css>/resource/css-compile/web/table.css</css>
     <css>/resource/css-compile/web/user.css</css>
-    <css>/resource/css-compile/common.css</css>
-    <css>/resource/css-compile/reset.css</css>
-    <css>/resource/css-compile/layout.css</css>
     <css>/resource/css-compile/web/components/*.css</css>
   </group>
   <group name='mobile'>
-    <css>/resource/css-compile/mobile/default.css</css>
-    <css>/resource/css-compile/common.css</css>
     <css>/resource/css-compile/reset.css</css>
+    <css>/resource/css-compile/common.css</css>    
+    <css>/resource/css-compile/mobile/default.css</css>    
     <css>/resource/css-compile/mobile/layout.css</css>
+    <css>/resource/css-compile/mobile/components/*.css</css>
   </group>
   <group name='common'>
    	<js>/resource/js/core/*.js</js>
