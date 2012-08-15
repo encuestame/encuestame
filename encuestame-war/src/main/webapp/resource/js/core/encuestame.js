@@ -115,6 +115,17 @@ if (typeof dojo != "undefined") {
 					}
 				});
 			},
+			
+			getBoolean : function(value) {
+				if (value != null) {
+					if (typeof value == "boolean") {
+						return value;
+					} else {
+						return (value === "true" ? true : false);
+					}
+				}
+				return false;
+			},			
 
 			isVisible : function(element) {
 				return !this.$.query(element).hasClass("hidden");

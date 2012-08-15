@@ -1,0 +1,69 @@
+/** social **/
+div.settingsWrapper {
+	background-color: #FFFFFF;
+	margin-top: 20px;
+	min-height: 396px;
+	overflow: auto;
+}
+
+div.settingsWrapper div.settingsGroup {
+	margin: 0px;
+	overflow: hidden;
+    width: 100%;
+}
+
+div.settingsWrapper div.settingsGroup div.listSettings {
+	float: left;
+	min-height: 400px;
+	min-width: 200px;
+	-moz-box-shadow: 0 1px 3px #888888 inset;
+	-webkit-box-shadow: 0 1px 3px #888888 inset;
+	box-shadow: 0 1px 3px #888888 inset;
+	background-color: #F7F7F7;
+}
+
+div.settingsWrapper div.settingsGroup div.socialCommunitieItem {
+	padding: 10px;
+	font-size: 110%;
+	font-weight: bold;
+	color: #FFF;
+	max-width: 200px;
+	cursor: pointer;
+	-moz-box-shadow: 0 1px 3px #888888 inset;
+	-webkit-box-shadow: 0 1px 3px #888888 inset;
+	box-shadow: 0 1px 3px #888888 inset;
+}
+
+div.settingsWrapper div.settingsGroup .selected {
+	-moz-box-shadow: 0 1px 3px #888888 inset;
+	-webkit-box-shadow: 0 1px 3px #888888 inset;
+	box-shadow: 0 1px 3px #888888 inset;
+	background-color: #FCFCFC;
+	color: #969696 !important;
+}
+
+div.settingsWrapper div.settingsGroup div.settingsListDetail {
+	margin-left: 200px;
+	padding: 15px;
+}
+
+div.settingsWrapper div.settingsGroup div.settingsListDetail h2{
+    margin: 0;	
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+div.settingsWrapper div.settingsGroup div.settingsListDetail p{
+    margin-top: 2px;	
+}
+
+div.settingsWrapper div.settingsGroup div.settingsListDetail .toolBox {
+	overflow: auto;
+	padding: 7px;
+}
+
+div.settingsWrapper div.settingsGroup div.settingsListDetail .account-list-container .socialWrapperRow:first-child
+	{
+	margin-top: 10px;
+}

@@ -19,9 +19,13 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 dojo.declare("encuestame.org.core.shared.utils.SettingsMenuSwitch", 
 				[encuestame.org.main.EnmeMainLayoutWidget ], {
 
+	/**
+	 * Template path.
+	 */
     templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
             	  "template/settings_switch.html"),
-
+            	  
+    _widget_references : [],
 
     /**
      * Post create.
@@ -32,31 +36,48 @@ dojo.declare("encuestame.org.core.shared.utils.SettingsMenuSwitch",
                     ENME.log(node);
                     //this._responses.appendChild(node);
                     //var widget = dijit.byId()
-                    console.log('widget', node);
-                    this._createDetail(node.getAttribute('id'), node.getAttribute('data-label'), node);
-                    this._cretateButton(node.getAttribute('data-label'), node.getAttribute('data-label'));
+//                    /console.log('widget', node);
+                    var enabled = node.getAttribute("data-enabled");
+                    this._createDetail(node.getAttribute('id'), node.getAttribute('data-label'), node, enabled);
+                    this._cretateButton(node.getAttribute('id'), node.getAttribute('data-label'), node.getAttribute('data-label'), enabled);
                  })
              );
+    	 // hide details
+         dojo.subscribe("/encuestame/settings/hide/all", this, dojo.hitch(this, function(type) {
+        	 dojo.query("div.setting-detail", this._detail).forEach(
+                     dojo.hitch(this, function(node) {
+                    	 dojo.addClass(node, "hidden");
+                     })
+             );                   
+         }));
     },
     
     /*
-    *
-    */
-   _createDetail : function(id, provider, widget) {
-       dojo.addClass(widget, "hidden");
+     *
+     */
+   _createDetail : function(id, provider, widget, enabled) {
+	   //_widget_references.
+	   if (!ENME.getBoolean(enabled)) {
+		   dojo.addClass(widget, "hidden");
+	   }
+       dojo.addClass(widget, "setting-detail");
        this._detail.appendChild(widget);
    },
 
    /**
     * Create a settings button.
     */
-   _cretateButton : function(id, provider) {
+   _cretateButton : function(id, label, provider, enabled) {
        var widget = new encuestame.org.core.shared.utils.SettingsButton(
                {
-                   id : id,
-                   label : provider
+                   ref_id : id,
+                   label : label,
+                   provider : provider
                });
        this._buttons.appendChild(widget.domNode);
+       if (ENME.getBoolean(enabled)) {
+    	    dojo.addClass(widget.domNode, "selected");
+       }
    }
 
 });
@@ -91,7 +112,9 @@ dojo.declare(
              */
             clickEvent : function (id) {
             	// default click event
-            	ENME.log(id);
+            	console.log(id);
+            	var widget = dijit.byId(id);
+            	dojo.removeClass(widget.domNode, "hidden");
             },
 
             /**
@@ -100,11 +123,12 @@ dojo.declare(
              */
             _click : function (event) {
                 dojo.publish("/encuestame/settings/clean/buttons");
+                dojo.publish('/encuestame/settings/hide/all');
                 var hash = dojo.queryToObject(dojo.hash());
                 //console.debug("click button");
-                this.clickEvent(this.id);
+                this.clickEvent(this.ref_id);
                 params = {
-                   provider : this.id
+                   provider : this.provider
                 };
                 dojo.hash(dojo.objectToQuery(params));
                 dojo.addClass(this.domNode, "selected");

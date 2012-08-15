@@ -580,67 +580,7 @@ div.accountUpdateWrapper {
 
 
 
-/** social **/
-div.socialAccounts {
-    background-color: #E0E0E0;
-    margin-top: 20px;
-    min-height: 396px;
-    overflow: auto;
-}
 
-div.socialAccounts div.socialWrapper {
-    margin: 0px;
-}
-
-div.socialAccounts div.socialWrapper div.listSocialCommunities {
-    float: left;
-    min-height: 400px;
-    min-width: 200px;
-    -moz-box-shadow: 0 1px 3px #888888 inset;
-    -webkit-box-shadow: 0 1px 3px #888888 inset;
-    box-shadow: 0 1px 3px #888888 inset;
-}
-
-div.socialAccounts div.socialWrapper div.socialCommunitieItem {
-    padding: 10px;
-    font-size: 110%;
-    font-weight: bold;
-    color: #FFF;
-    max-width: 200px;
-    cursor: pointer;
-    -moz-box-shadow: 0 1px 3px #888888 inset;
-    -webkit-box-shadow: 0 1px 3px #888888 inset;
-    box-shadow: 0 1px 3px #888888 inset;
-}
-
-div.socialAccounts div.socialWrapper .selected {
-    -moz-box-shadow: 0 1px 3px #888888 inset;
-    -webkit-box-shadow: 0 1px 3px #888888 inset;
-    box-shadow: 0 1px 3px #888888 inset;
-    background-color: #FCFCFC;
-    color: #969696 !important;
-}
-
-div.socialAccounts div.socialWrapper div.socialCommunitieItem:hover {
-    background-color: white;
-    color: grey;
-}
-
-div.socialAccounts div.socialWrapper div.socialAccountListDetail {
-    margin-left: 200px;
-    padding: 0;
-}
-
-div.socialAccounts div.socialWrapper div.socialAccountListDetail .toolBox
-    {
-    overflow: auto;
-    padding: 7px;
-}
-
-div.socialAccounts div.socialWrapper div.socialAccountListDetail .account-list-container .socialWrapperRow:first-child
-    {
-    margin-top: 10px;
-}
 
 /** Row Account */
 div.socialWrapperRow {
