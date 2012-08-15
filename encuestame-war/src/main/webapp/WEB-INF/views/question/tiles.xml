@@ -5,7 +5,7 @@
 
     <definition name="question/detail" extends="page">
         <put-attribute name="title" value="Home | encuestame" />
-        <put-attribute name="content" expression="/WEB-INF/views/question/${currentDevice.mobile ? 'mobile/' : 'web/'}question.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/question/${detectedDevice ? 'mobile/' : 'web/'}question.jsp" />
         <put-attribute name="rss" value="/WEB-INF/views/home/rss.jsp" />
     </definition>
 
