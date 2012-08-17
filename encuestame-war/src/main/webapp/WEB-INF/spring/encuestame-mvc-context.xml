@@ -80,8 +80,8 @@
         <property name="order" value="0"/>
          <property name="interceptors">
             <list>
-                <ref bean="mobileInterceptor"/>
                 <ref bean="enMeInterceptor"/>
+                <ref bean="mobileInterceptor"/>
                 <ref bean="openSessionInViewInterceptor"/>
             </list>
         </property>

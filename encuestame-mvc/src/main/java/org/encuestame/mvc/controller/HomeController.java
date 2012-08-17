@@ -25,12 +25,15 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -134,6 +137,35 @@ public class HomeController extends AbstractBaseOperations {
     public String index(ModelMap model, HttpServletRequest request,
             HttpServletResponse response) {
         return "redirect:/home";
+    }
+    
+    /**
+     * Help View.
+     * @param model model
+     * @return template
+     */
+    @RequestMapping(value = "/user/help", method = RequestMethod.GET)
+    public String dashBoardController(ModelMap model, UserAccount account) {
+        return "help";
+    }    
+    
+    /**
+     * Display a question view.
+     * @param model {@link Model}
+     * @param id the question id
+     * @param slug the slug question name
+     * @param request {@link HttpServletRequest}
+     * @param response {@link HttpServletResponse}
+     * @return the tile view
+     */
+    @RequestMapping(value = "/question/detail/{id}/{slug}", method = RequestMethod.GET)
+    public String questionController(
+            final ModelMap model,
+            @PathVariable String id,
+            @PathVariable String slug,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+				return "question/detail";
     }
     	
     /**

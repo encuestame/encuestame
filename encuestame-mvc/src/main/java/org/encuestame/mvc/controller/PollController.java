@@ -166,10 +166,13 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "poll_admon_poll_embebed");
         //
         addi18nProperty(model, "poll_admon_poll_votes");
-        
+        // 
         addi18nProperty(model, "detail_manage_poll_title");
         addi18nProperty(model, "detail_manage_filters");
         addi18nProperty(model, "detail_manage_poll_dropdown_title");
+        // menu items
+        addi18nProperty(model, "poll_admon_poll_new");
+        addi18nProperty(model, "commons_remove");        
         return "poll/list";
     }
 
@@ -205,6 +208,7 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "widget_results_only_percents");
         addi18nProperty(model, "widget_results_all_data");
         addi18nProperty(model, "widget_question_type");
+        addi18nProperty(model, "commons_cancel");        
         return "poll/new";
     }
 

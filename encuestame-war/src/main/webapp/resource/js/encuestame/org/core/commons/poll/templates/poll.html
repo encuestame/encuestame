@@ -26,7 +26,7 @@
               <div class="section-botton-wrapper">
                   <div id="multiple" dojoType="encuestame.org.core.shared.options.CheckSingleOption"
                          value="multiples" class="sub-option"
-                         label="${i18nMessage.poll_create_add_new_answer}"></div>
+                         label="${i18nMessage.poll_create_allow_multiple_selection}"></div>
                   <div id="allow-add" dojoType="encuestame.org.core.shared.options.CheckSingleOption"
                          value="add"  class="sub-option"
                          label="${i18nMessage.poll_create_allow_new_responses}"></div>
@@ -63,6 +63,9 @@
          </div>
 
           <div class="botton-button-publish" style="text-align: right;">
+               <button class="enme-ui-button button-red" dojoAttachPoint="_cancel">
+                    ${i18nMessage.commons_cancel}
+               </button>
                <button dojoAttachPoint="_publish"
                        dojoType="dijit.form.Button"
                        type="button"

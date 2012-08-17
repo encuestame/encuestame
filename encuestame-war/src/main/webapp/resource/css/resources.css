@@ -18,14 +18,17 @@
 .web-item-wrapper .item .loading{
 	background-image: url(../../images/ball-loader.gif);
 }
+
 div.options .saveButton {
     background-image: url(../../images/icons/add.png);
 }
+
 div.publishWrapper div.itemPublish .account {
     background-image: url(../../images/icons/twitter-logo-small.png);
 }
+
 div.web-folder-wrapper .web-folder-item .icon-folder {
-    background-image: url("../../images/icons/enme_folder.png");
+    background-image: url("../images/icons/enme_folder.png");
 }
 
 .enme-message-box {
