@@ -73,6 +73,13 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     },
     
     /**
+     * Display a warning message.
+     */
+    errorMessage : function() {
+        encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "error", this._delay_messages);
+    },    
+    
+    /**
      * Display a default loader.
      */
     loadingDefaultMessage : function() { 

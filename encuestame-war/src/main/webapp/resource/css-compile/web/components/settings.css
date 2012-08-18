@@ -67,3 +67,48 @@ div.settingsWrapper div.settingsGroup div.settingsListDetail .account-list-conta
 	{
 	margin-top: 10px;
 }
+
+.setting-detail {
+	
+}
+
+.enme-text  .setting-detail .dijitTextBox {
+  padding: 5px;
+}
+
+div.web-settings-account {
+
+}
+
+div.web-settings-account-row {
+    margin: 0 0 25px;
+}
+
+div.web-settings-account label {
+    color: #585858;
+    float: left;
+    font-size: 13px;
+    padding-top: 4px;
+    text-align: right;
+    width: 130px;
+}
+
+div.web-settings-account-row .info-block {
+    display: block;
+    line-height: 18px;
+    color: #B1B1B1;
+    margin: 5px 0 0 !important;
+    max-width: 640px;
+}
+
+div.web-settings-account-row a {
+  color: #FFBB56;
+  font-weight: bold;
+}
+
+div.web-settings-account-row .settings-submit {
+}
+
+div.web-settings-account .data {
+    margin-left: 150px;
+}
