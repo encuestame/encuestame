@@ -562,7 +562,12 @@ div.profilePanel li:hover {
 
 div.profilePanel li a:link {
     color: #BABABA !important;
-    font-weight: normal;
+    font-weight: normal;   
+}
+
+div.profilePanel li a:hover {
+    color: white !important;
+    text-decoration: none;
 }
 
 div.profilePanel li a {

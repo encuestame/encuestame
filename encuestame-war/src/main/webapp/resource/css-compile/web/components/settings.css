@@ -107,6 +107,7 @@ div.web-settings-account-row a {
 }
 
 div.web-settings-account-row .settings-submit {
+  text-align: right;
 }
 
 div.web-settings-account .data {

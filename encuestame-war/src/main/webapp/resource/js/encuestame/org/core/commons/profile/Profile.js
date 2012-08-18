@@ -28,6 +28,22 @@ dojo.declare(
         complete_name : "",
         	
         language : "",
+        
+        /**
+         * i18n Message.
+         */
+        i18nMessage : {
+        	settings_config_profile_title : ENME.getMessage("settings_config_profile_title"),
+        	settings_config_profile_description : ENME.getMessage("settings_config_profile_description"),
+        	settings_config_profile_email : ENME.getMessage("settings_config_profile_email"),
+        	settings_config_profile_email_description : ENME.getMessage("settings_config_profile_email_description"),
+        	settings_config_profile_username : ENME.getMessage("settings_config_profile_username"),
+        	settings_config_profile_username_description : ENME.getMessage("settings_config_profile_username_description"),
+        	settings_config_profile_complete_name : ENME.getMessage("settings_config_profile_complete_name"),
+        	settings_config_profile_language : ENME.getMessage("settings_config_profile_language"),
+        	e_005 :  ENME.getMessage("e_005"),
+        	commons_update :  ENME.getMessage("commons_update")
+        },        
 
         /**
          *
@@ -100,6 +116,7 @@ dojo.declare(
             if (formDijit.isValid()) {
                 var load = dojo.hitch(this, function(data) {
                     //console.debug(data);
+                	this.successMesage("Saved");
                 });
                 var error = function(error) {
                     //console.debug("error", error);

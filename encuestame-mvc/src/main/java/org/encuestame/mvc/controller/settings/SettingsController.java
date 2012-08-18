@@ -46,6 +46,21 @@ public class SettingsController extends AbstractBaseOperations{
 		try {
 			user = getProfileUserInfo();
 			model.put("account", user);
+			addi18nProperty(model, "settings_config_profile_title");
+			addi18nProperty(model, "settings_config_profile_description");
+			addi18nProperty(model, "settings_config_profile_email");
+			addi18nProperty(model, "settings_config_profile_email_description");
+			addi18nProperty(model, "settings_config_profile_username");
+			addi18nProperty(model, "settings_config_profile_username_description");
+			addi18nProperty(model, "settings_config_profile_complete_name");
+			addi18nProperty(model, "settings_config_profile_language");
+			addi18nProperty(model, "e_005");
+			addi18nProperty(model, "commons_update");
+			// picture 
+			addi18nProperty(model, "settings_config_picture_title");
+			addi18nProperty(model, "settings_config_picture_description");
+			addi18nProperty(model, "settings_config_picture_own");
+			addi18nProperty(model, "settings_config_picture_restrictions");
 			log.debug("settingsAccountController user: " + user.toString());
 		} catch (EnMeNoResultsFoundException e) {
 			log.error(e);

@@ -30,16 +30,19 @@
 		<div id="content-container" class="enme-auto-center">
 			<div id="enme-content" class="enme-auto-center">
 				<tiles:insertAttribute name="content" />
+				    <c:if test="${logged}">
+				    <!-- 
+				       <div dojoType="encuestame.org.core.shared.utils.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
+				             messageTopic="/encuestame/message/publish"
+				             positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
+				             id="toasted_message">
+				      </div>
+				    -->  
+                    </c:if> 
 			</div>
 			<footer id="footer">
 				<tiles:insertAttribute name="footer" />
-			</footer>
-			<c:if test="${logged}">
-		        <div dojoType="dojox.widget.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
-		            messageTopic="/encuestame/message/publish"
-		            positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
-		            id="toasted"></div>
-			</c:if>			
+			</footer>		
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
@@ -57,7 +60,7 @@
 			dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
 			dojo.require("encuestame.org.core.commons.notifications.Notification");
 			dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
-			dojo.require("dojox.widget.Toaster");
+			dojo.require("encuestame.org.core.shared.utils.Toaster");
 			dojo.require("encuestame.org.core.shared.utils.Loading");
 			encuestame.activity = new encuestame.org.activity.Activity(true);
 		</c:if>
@@ -67,6 +70,6 @@
 	<c:if test="${logged}">
 	   <div id="modal-box"></div>
 	   <div dojoType="encuestame.org.core.shared.utils.Loading" id="loading"></div>
-	</c:if>
+  </c:if> 
 </body>
 </html>

@@ -60,9 +60,9 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     /**
      * Display a success message.
      */
-    successMesage : function() {
-        console.info("Successfull message");
-        encuestame.messages.pubish(encuestame.constants.messageCodes["023"], "message", this._delay_messages);
+    successMesage : function(message) {
+        //console.info("Successfull message");
+        encuestame.messages.pubish(message || encuestame.constants.messageCodes["023"], "message", this._delay_messages);
     },
 
     /**
