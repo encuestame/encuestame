@@ -110,3 +110,40 @@
 .enme-web-context  .dijitMenuActive .dijitMenuItemHover, .enme-web-context .dijitMenuActive .dijitMenuItemSelected {
 	background-color: none !important;
 }
+
+/** float messages window **/
+
+.enme-web-context .dijitToasterContent {
+	background: none;
+	padding: 0;
+}
+
+.enme-web-context .dijitToasterContent .message_toaster {
+  background: none repeat scroll 0 0 #ACEBAE;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 1px 1px 1px 1px #C6C6C6;
+  color: black;
+  margin: 5px;
+  padding: 5px;
+  width: 200px;
+}
+
+.enme-web-context .dijitToasterContent .message_toaster > div {
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.enme-web-context .dijitToasterContent .message_toaster > p {
+  margin: 3px 0;
+}
+
+.enme-web-context  .dijitToasterContainer {
+    display: block;
+    font: 0.75em Tahoma,Helvetica,Verdana,Arial;
+    margin: 0;
+   width: 300px;
+}
+.enme-web-context  .dijitToasterMessage {
+    color: #FFFFFF;
+}

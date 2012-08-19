@@ -23,6 +23,7 @@
             domain : '<%=WidgetUtil.getDomain(request)%>',
             suggest_limit : 10,
             delay : 1800000,
+            message_delay : 5000,
             activity_levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
             activity_maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,
             activity_maxNetworkDelay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxNetworkDelay")%>,

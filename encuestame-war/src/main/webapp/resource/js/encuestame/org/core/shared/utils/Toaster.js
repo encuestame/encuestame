@@ -1,6 +1,7 @@
 dojo.provide("encuestame.org.core.shared.utils.Toaster");
 
 dojo.require("dojox.widget.Toaster");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 dojo.declare(
     "encuestame.org.core.shared.utils.Toaster",
@@ -8,17 +9,39 @@ dojo.declare(
     	
 		postCreate: function(){
 			//this.inherited(arguments);
-			this.hide();
-			
+			this.hide();			
 			// place node as a child of body for positioning
-			//dojo.body().appendChild(this.domNode);
-			
+			//dojo.body().appendChild(this.domNode);		
 			if (this.messageTopic) {
 				dojo.subscribe(this.messageTopic, this, "_handleMessage");
 			}
 		},
 		
-		_placeClip: function(){
+		
+		/**
+		 * 
+		 * @param message
+		 */
+		_setContent: function(message) {
+			var widget = new encuestame.org.core.shared.utils.Message({
+				message : message,
+				descriptiom : ""
+			});
+			
+			if (message && this.isVisible) {
+				this.contentNode.appendChild(widget.domNode);
+			} else {
+				dojo.empty(this.contentNode);
+				this.contentNode.appendChild(widget.domNode);
+			}
+			
+			
+		},		
+		
+		/**
+		 * 
+		 */
+		_placeClip: function() {
 			var view = dojo.window.getBox();
 			view.w = 900;
 			var nodeSize = dojo.marginBox(this.containerNode);
@@ -40,7 +63,7 @@ dojo.declare(
 //			}else if(pd.match(/^[tb]l-/)){
 //				style.left = 0 + "px";
 //			}
-			style.left = "800px";
+			style.left = "750px";	
 			style.clip = "rect(0px, " + nodeSize.w + "px, " + nodeSize.h + "px, 0px)";
 			if(dojo.isIE){
 				if(!this.bgIframe){
@@ -51,4 +74,23 @@ dojo.declare(
 				if(iframe){ iframe.style.display="block"; }
 			}
 		},
+});
+
+
+/**
+ *
+ */
+dojo.declare(
+    "encuestame.org.core.shared.utils.Message",
+    [encuestame.org.main.EnmeMainLayoutWidget],{
+    	
+        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/message.html"),
+        
+        message : "message test",
+        
+        description : "test description",
+        
+        postCreate : function () {
+        	
+        }   
 });
