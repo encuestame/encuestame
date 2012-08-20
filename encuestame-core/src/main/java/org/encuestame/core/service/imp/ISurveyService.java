@@ -15,10 +15,14 @@ package org.encuestame.core.service.imp;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveyFolder;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -211,15 +215,13 @@ public interface ISurveyService extends IMasterSurveyService {
             final Integer maxResults, final Integer start) throws EnMeExpcetion;
 
     /**
-     * Search surveys by Account.
-     * @param username
+     * Search surveys by Account. 
      * @param maxResults
      * @param start
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<SurveyBean> getSurveysByAccount(final String username,
-            final Integer maxResults, final Integer start)
+    List<SurveyBean> getSurveysByAccount(final Integer maxResults, final Integer start)
             throws EnMeNoResultsFoundException;
 
     /**
@@ -253,4 +255,31 @@ public interface ISurveyService extends IMasterSurveyService {
 	 */
 	SurveySection createSurveySection(
 			final UnitSurveySection surveySectionBean, final Survey survey);
+	
+	/**
+	 * Add {@link QuestionAnswer}
+	 * @param questionName
+	 * @param user
+	 * @param section
+	 * @param questionPattern
+	 * @param answers
+	 */
+	void addQuestionToSurveySection(final String questionName,
+			final UserAccount user, final SurveySection section,
+			final QuestionPattern questionPattern, final String[] answers);
+	
+	/**
+	 * Retrieve {@link Survey} by id and {@link UserAccount}.
+	 * @param surveyId
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Survey getSurveyById(final Long surveyId) throws EnMeNoResultsFoundException;
+	
+	/**
+	 * retrieve {@link SurveyFolder} by id and user.
+	 * @param folderId
+	 * @return
+	 */
+	SurveyFolder getSurveyFolderbyId(final Long folderId); 
  }

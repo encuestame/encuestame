@@ -64,6 +64,7 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.hibernate.HibernateException;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -655,6 +656,25 @@ public class AbstractSurveyService extends AbstractChartService {
 		final List<QuestionAnswer> qAnswers = getQuestionDao()
 				.getAnswersByQuestionId(questionId);
 		return qAnswers;
+	}
+	
+	  /**
+     * Create {@link QuestionAnswer} from an String array 
+     * @param answers
+     * @param question
+     */
+	public void createQuestionAnswers(final String[] answers,
+			final Question question) {
+		for (int row = 0; row < answers.length; row++) {
+			final String answersText = answers[row];
+			Assert.assertNotNull(answersText);
+			if (!answersText.isEmpty()) {
+				log.debug("creatong answer=>" + question.getQidKey());
+				log.debug("creatong answer=>" + answersText.trim());
+				createAnswers(question, answersText.trim());
+
+			}
+		}
 	}
 
     /**
