@@ -13,6 +13,7 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,12 +25,16 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,4 +77,30 @@ public class SurveyJsonController extends AbstractJsonController{
         }
         return returnData();
     }
+      
+    
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/sections.json", method = RequestMethod.GET)
+	public ModelMap retrieveSections(
+			@RequestParam(value = "id", required = false) Long surveyId, 
+			HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+		List<UnitSurveySection> surveySections = new ArrayList<UnitSurveySection>();
+		try { 
+			if (surveyId == null) {
+				log.debug("survey id is missing");
+			} else {
+				final Survey survey = getSurveyService().getSurveyById(surveyId);
+				surveySections = getSurveyService().retrieveSectionsBySurvey(survey);
+			}
+
+			jsonResponse.put("sections", surveySections);
+			setItemResponse(jsonResponse);
+		} catch (EnMeExpcetion e) {
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}    
 }

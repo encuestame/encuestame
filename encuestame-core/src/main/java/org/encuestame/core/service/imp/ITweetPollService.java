@@ -23,6 +23,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -473,4 +474,11 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param hashTag
       */
      void removeHashtagFromTweetPoll(final TweetPoll tweetPoll, final HashTag hashTag);
+     
+     /**
+      * Retrieve {@link TweetPollFolder} by id and user.
+      * @param folderId
+      * @return
+      */
+     TweetPollFolder getTweetPollFolderbyId(final Long folderId);
 }

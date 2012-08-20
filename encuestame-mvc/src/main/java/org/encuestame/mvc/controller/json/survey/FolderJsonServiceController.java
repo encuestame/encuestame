@@ -14,6 +14,7 @@ package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,10 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.survey.PollFolder;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveyFolder;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -253,4 +258,36 @@ public class FolderJsonServiceController extends AbstractJsonController{
             }
         return returnData();
     }
+    
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/folder/{actionType}/items.json", method = RequestMethod.GET)
+    public ModelMap retrieveItemListbyFolder(
+             @PathVariable String actionType,
+             @RequestParam(value = "folderId", required = false) Long folderId,
+               HttpServletRequest request,
+             HttpServletResponse response) { 
+             log.debug("type:{ "+actionType); 
+		// Buscar folder by Id
+		try {
+			if ("poll".equals(actionType)) {
+
+				final PollFolder pollFolder = getPollService()
+						.getPollFolderByFolderIdandUser(folderId,
+								getUserAccountonSecurityContext());
+			  
+			} else if ("tweetpoll".equals(actionType)) {
+				final TweetPollFolder tweetPollFolder = getTweetPollService().getTweetPollFolderbyId(folderId);
+			} else if ("survey".equals(actionType)) {
+				
+				final SurveyFolder surveyFolder = getSurveyService().getSurveyFolderbyId(folderId);
+				final List<Survey> surveysByFolder = getSurveyService().retrieveSurveyByFolder(getUserAccountonSecurityContext().getUid(), surveyFolder.getId());
+			}
+		} catch (Exception e) {
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+
+	}
+
 }

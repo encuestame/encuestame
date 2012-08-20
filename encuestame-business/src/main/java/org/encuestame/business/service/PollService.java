@@ -174,16 +174,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
             	  pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));	
             } 
             log.debug("poll list answer=>" + answers.length);
-            for (int row = 0; row < answers.length; row++) {
-                 final String answersText = answers[row];
-                 Assert.notNull(answersText);
-                 if (!answersText.isEmpty()) {
-                     log.debug("creatong answer=>" + question.getQidKey());
-                     log.debug("creatong answer=>" + answersText.trim());
-                     createAnswers(question, answersText.trim());
-
-                 }
-            }
+            // Add answers
+            this.createQuestionAnswers(answers, question);
             this.getPollDao().saveOrUpdate(pollDomain);
             }
         } catch (Exception e) { 

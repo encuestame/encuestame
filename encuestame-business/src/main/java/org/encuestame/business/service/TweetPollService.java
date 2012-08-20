@@ -883,6 +883,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     private TweetPollFolder getTweetPollFolder(final Long folderId){
         return this.getTweetPollDao().getTweetPollFolderById(folderId);
     }
+    
+    /**
+     * 
+     * @param folderId
+     * @return
+     */
+    public TweetPollFolder getTweetPollFolderbyId(final Long folderId){
+    	 return this.getTweetPollDao().getTweetPollFolderByIdandUser(folderId, getUserAccountonSecurityContext().getAccount());
+    }
 
     /**
      * Add {@link TweetPoll} to Folder.
