@@ -75,12 +75,38 @@
 
 /** hover color need to be fixed, it's blue **/
 
-.dijitButtonHover{
+.enme-web-context .dijitButtonHover{
   color: #FFFFFF !important;
   background-color: #A1D988 !important;
 }
 
-.dijitTextBoxHover, .dijitTextBoxHover .dijitButtonNode {
+.enme-web-context .dijitTextBoxHover, .enme-web-context .dijitTextBoxHover .dijitButtonNode {
     -moz-transition-duration: 0.25s;
     border-color: #A1D988;
+}
+
+.enme-web-context .dijitTextBoxHover, .enme-web-context .dijitTextBoxHover .dijitButtonNode {
+  border-color: #769dc0;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+.enme-web-context .dijitTextBoxHover {
+  background-color: #e9f4fe;
+  background-image: none !important;
+  background-repeat: repeat-x;
+}
+
+.enme-web-context .dijitSelect {
+	
+}
+
+.enme-web-context .dijitSelect .dijitButtonText {
+	min-width: 110px;
+    padding: 5px !important;
+    text-align: left;
+}
+
+.enme-web-context  .dijitMenuActive .dijitMenuItemHover, .enme-web-context .dijitMenuActive .dijitMenuItemSelected {
+	background-color: none !important;
 }

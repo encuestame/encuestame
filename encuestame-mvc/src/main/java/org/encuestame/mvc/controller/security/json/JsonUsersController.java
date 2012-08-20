@@ -310,17 +310,18 @@ public class JsonUsersController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         try {
-             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            final String valueFilteres = filterValue(value);
             final ValidateOperations operations = new ValidateOperations(getSecurityService(), getUserAccount());
             final UserAccount account = getUserAccount();
             if (Profile.findProfile(type).equals(Profile.USERNAME)) {
-                if(operations.validateUsername(filterValue(value), account)){
+                if (operations.validateUsername(valueFilteres, account)) {
                     jsonResponse.put("validate", true);
                 } else {
                     jsonResponse.put("validate", false);
                 }
             } else if (Profile.findProfile(type).equals(Profile.EMAIL)) {
-                if(operations.validateUserEmail(filterValue(value), account)){
+                if (operations.validateUserEmail(valueFilteres, account)) {
                     jsonResponse.put("validate", true);
                 } else {
                     jsonResponse.put("validate", false);

@@ -20,6 +20,13 @@ dojo.declare(
     widgetsInTemplate : true,
 
     contextPath : encuestame.contextDefault,
+    
+    i18nMessage : {
+    	settings_config_picture_title : ENME.getMessage("settings_config_picture_title"),
+    	settings_config_picture_description : ENME.getMessage("settings_config_picture_description"),
+    	settings_config_picture_own : ENME.getMessage("settings_config_picture_own"),
+    	settings_config_picture_restrictions : ENME.getMessage("settings_config_picture_restrictions")
+    },     
 
     _size : ["preview", "default", "web"],
 

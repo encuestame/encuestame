@@ -6,72 +6,117 @@ dojo.require("dijit.form.Select");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.Form");
 
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+
 /**
  *
  */
 dojo.declare(
     "encuestame.org.core.commons.profile.Profile",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.profile", "templates/profile.html"),
-
-        /*
-         * enable widget on template.
+        
+        /**
+         * 
          */
-        widgetsInTemplate: true,
-
         _openBox : false,
+        
+        username : "",
+        
+        email : "",
+        
+        complete_name : "",
+        	
+        language : "",
+        
+        /**
+         * i18n Message.
+         */
+        i18nMessage : {
+        	settings_config_profile_title : ENME.getMessage("settings_config_profile_title"),
+        	settings_config_profile_description : ENME.getMessage("settings_config_profile_description"),
+        	settings_config_profile_email : ENME.getMessage("settings_config_profile_email"),
+        	settings_config_profile_email_description : ENME.getMessage("settings_config_profile_email_description"),
+        	settings_config_profile_username : ENME.getMessage("settings_config_profile_username"),
+        	settings_config_profile_username_description : ENME.getMessage("settings_config_profile_username_description"),
+        	settings_config_profile_complete_name : ENME.getMessage("settings_config_profile_complete_name"),
+        	settings_config_profile_language : ENME.getMessage("settings_config_profile_language"),
+        	e_005 :  ENME.getMessage("e_005"),
+        	commons_update :  ENME.getMessage("commons_update")
+        },        
 
-        /*
+        /**
          *
          */
-        postCreate : function(){
-            this._getMyProfile();
+        postCreate : function() {
+        	// create subcribe to display errors.
+        	dojo.subscribe("/encuestame/settings/profile/message", this, this._displayMessage);                                   
+        },
+        
+        /**
+         * 
+         */
+        events : function() {
+            var email = dijit.byId("email");
+            email.onChange = dojo.hitch(this, function() {
+                //console.debug("change");
+                email.validateBackEnd("email");
+            });
+            var username = dijit.byId("username");
+            username.onChange = dojo.hitch(this, function() {
+                //console.debug("change");
+                username.validateBackEnd("username");
+            });
+        },
+        
+        /**
+         * 
+         */
+        _displayMessage : function(message, type) {
+        	console.debug("_displayMessage");
         },
 
         /*
          * get profile.
          */
-        _getMyProfile :function(){
-            var load = dojo.hitch(this, function(response){
+        _getMyProfile :function() {
+            var load = dojo.hitch(this, function(response) {
                 if (response.success) {
                     var profile = response.success.account;
                     if (profile != null) {
                         var email = dijit.byId("email");
                         email.set('value', profile.email);
-                        email.onChange = dojo.hitch(this, function(){
-                                //console.debug("change");
-                                email.validateBackEnd("email");
-                        });
+                        console.info("EMAIL");
                         var username = dijit.byId("username");
                         username.set('value', profile.username);
-                        username.onChange = dojo.hitch(this, function(){
-                            //console.debug("change");
-                            username.validateBackEnd("username");
-                        });
+                        console.info("USERNAMe");
                         var completeName = dijit.byId("completeName");
                         completeName.set('value', profile.name);
                     }
                 }
+                // attach the events
+                //console.debug("EVENTS");
+                this.events();
             });
             var error = function(error) {
-                console.debug("error", error);
+                console.error("error", error);
             };
             encuestame.service.xhrGet(encuestame.service.list.profile.my, {}, load, error);
-            return this.userAccount;
         },
 
         /*
          * update profile.
          */
-        _updateProfile : function(event){
+        _updateProfile : function(event) {
             dojo.stopEvent(event);
             var form = dojo.byId("profileForm");
             //console.debug("form ", form);
             var formDijit = dijit.byId("profileForm");
             //console.debug("form", formDijit);
-            if(formDijit.isValid()){
-                var load = dojo.hitch(this, function(data){
+            if (formDijit.isValid()) {
+                var load = dojo.hitch(this, function(data) {
                     //console.debug(data);
+                	this.successMesage("Saved");
                 });
                 var error = function(error) {
                     //console.debug("error", error);
@@ -108,12 +153,10 @@ dojo.extend(dijit.form.ValidationTextBox, {
     /*
      * validate back end.
      */
-    validateBackEnd : function(type){
-        //console.debug("validateBackEnd", type);
-        if(type != null){
-            var load = dojo.hitch(this, function(response){
-                //console.debug(type, response.success.validate);
-                if(!response.success.validate){
+    validateBackEnd : function(type) {
+        if (type != null) {
+            var load = dojo.hitch(this, function(response) {
+                if (!response.success.validate) {
                     var message = response.success.messages[type];
                      //console.debug("Error", message);
                     this.invalidMessage = message;
@@ -121,8 +164,10 @@ dojo.extend(dijit.form.ValidationTextBox, {
                     this._maskValidSubsetError = true;
                     this.displayMessage(message);
                     //console.debug("set error message");
-                }
-                //return response.success.validate;
+                    dojo.publish('/encuestame/settings/profile/message', [message, 'error']);
+                } else {
+                	 dojo.publish('/encuestame/settings/profile/message', ["Updated", 'success']);
+                }                
             });
             var error = function(error) {
                 //console.debug("error", error);

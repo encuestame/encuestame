@@ -60,9 +60,9 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     /**
      * Display a success message.
      */
-    successMesage : function() {
-        console.info("Successfull message");
-        encuestame.messages.pubish(encuestame.constants.messageCodes["023"], "message", this._delay_messages);
+    successMesage : function(message) {
+        //console.info("Successfull message");
+        encuestame.messages.pubish(message || encuestame.constants.messageCodes["023"], "message", this._delay_messages);
     },
 
     /**
@@ -71,6 +71,13 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     warningMesage : function() {
         encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "warning", this._delay_messages);
     },
+    
+    /**
+     * Display a warning message.
+     */
+    errorMessage : function() {
+        encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "error", this._delay_messages);
+    },    
     
     /**
      * Display a default loader.

@@ -112,9 +112,10 @@ dojo.declare(
              */
             clickEvent : function (id) {
             	// default click event
-            	console.log(id);
             	var widget = dijit.byId(id);
-            	dojo.removeClass(widget.domNode, "hidden");
+            	if (widget.domNode) {
+            		dojo.removeClass(widget.domNode, "hidden");
+            	}
             },
 
             /**
