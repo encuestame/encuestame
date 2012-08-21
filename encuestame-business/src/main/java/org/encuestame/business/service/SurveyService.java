@@ -12,6 +12,8 @@
  */
 package org.encuestame.business.service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -27,8 +29,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
-import org.encuestame.persistence.domain.survey.SurveySection;
-import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
+import org.encuestame.persistence.domain.survey.SurveySection; 
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSurveyNotFoundException;
@@ -166,9 +167,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ISurveyService#createSurvey(org.encuestame.utils.web.SurveyBean)
      */
-	public Survey createSurvey(final SurveyBean surveyBean)
-			throws EnMeExpcetion {
-		try {
+	public Survey createSurvey(final SurveyBean surveyBean) throws EnMeNoResultsFoundException
+		  { 
 			// 1- Create survey with possible options
 			final Survey surveyDomain = this.newSurvey(surveyBean);
 			if (surveyDomain != null) {
@@ -182,12 +182,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 				log.debug("Update Hash Tag");
 				getSurveyDaoImp().saveOrUpdate(surveyDomain);
 			}
-			return surveyDomain;
-
-		} catch (Exception e) {
-			log.error("Error creating Survey:{" + e);
-			throw new EnMeExpcetion(e);
-		}
+			return surveyDomain;  
 	}
 
     /*
@@ -242,13 +237,9 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 	public SurveySection createSurveySection(
 			final UnitSurveySection surveySectionBean, final Survey survey) {
 		SurveySection surveySectionDomain = new SurveySection();
-		try {
+		 
 			surveySectionDomain = this
-					.newSurveySection(surveySectionBean, survey);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+					.newSurveySection(surveySectionBean, survey); 
 		return surveySectionDomain;
 	}
     
@@ -311,11 +302,11 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 	 * org.encuestame.persistence.domain.survey.SurveySection,
 	 * org.encuestame.utils.enums.QuestionPattern, java.lang.String[])
 	 */
-	@SuppressWarnings("unused")
 	public void addQuestionToSurveySection(final String questionName,
 			final UserAccount user, final SurveySection section,
-			final QuestionPattern questionPattern, final String[] answers) {
-		try {
+			final QuestionPattern questionPattern, final String[] answers)
+			throws EnMeExpcetion, NoSuchAlgorithmException,
+			UnsupportedEncodingException { 
 			if ((questionName == null) || (questionName.isEmpty())) {
 				log.error("Question is required");
 			} else {
@@ -326,15 +317,13 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 				// Add answers to question
 				question.setQuestionPattern(questionPattern);
 				this.getQuestionDao().saveOrUpdate(question); 
-				if (answers.length == 0) {
-					throw new EnMeNoResultsFoundException(
-							"answers are required");
-				}
-				this.createQuestionAnswers(answers, question);
+				// 
+			/* if(answers.length == 0) {
+				throw new EnMeNoResultsFoundException(
+				"answers are required");
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		} 
+				this.createQuestionAnswers(answers, question);*/
+			} 
 	}
 
     /**

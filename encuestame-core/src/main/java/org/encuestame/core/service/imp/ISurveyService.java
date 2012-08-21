@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.service.imp;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.encuestame.persistence.domain.question.Question;
@@ -263,11 +265,16 @@ public interface ISurveyService extends IMasterSurveyService {
 	 * @param section
 	 * @param questionPattern
 	 * @param answers
+	 * @throws EnMeExpcetion
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
 	 */
 	void addQuestionToSurveySection(final String questionName,
 			final UserAccount user, final SurveySection section,
-			final QuestionPattern questionPattern, final String[] answers);
-	
+			final QuestionPattern questionPattern, final String[] answers)
+			throws EnMeExpcetion, NoSuchAlgorithmException,
+			UnsupportedEncodingException;
+
 	/**
 	 * Retrieve {@link Survey} by id and {@link UserAccount}.
 	 * @param surveyId
