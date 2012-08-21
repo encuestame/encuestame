@@ -23,9 +23,11 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeSurveyNotFoundException;
 import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
@@ -292,4 +294,23 @@ public interface ISurveyService extends IMasterSurveyService {
 	 * @return
 	 */
 	SurveyFolder getSurveyFolderbyId(final Long folderId); 
+
+	/**
+	 * 
+	 * @param answer
+	 * @param survey
+	 * @param question
+	 * @param response
+	 * @return
+	 */
+	SurveyResult saveSurveyResult(final QuestionAnswer answer, final Survey survey, final Question question, final String response);
+	
+	/**
+	 * Get survey section by id.
+	 * @param sectionId
+	 * @return
+	 * @throws EnMeSurveyNotFoundException
+	 */
+	SurveySection retrieveSurveySectionById(final Long sectionId)
+			throws EnMeSurveyNotFoundException;
  }

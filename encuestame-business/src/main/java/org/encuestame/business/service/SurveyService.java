@@ -31,6 +31,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFolder;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection; 
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -333,21 +334,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 				this.createQuestionAnswers(answers, question);*/
 			} 
 	}
-
-    /**
-     * Save Questions.
-     * @param questionBean
-     */ 
-    public void saveQuestions(final QuestionBean questionBean){
-        final Question question = new Question();
-        question.setQuestion(questionBean.getQuestionName());
-        //	question.setQidKey();
-       // question.setQuestionsAnswers(question.getQuestionsAnswers());
-        question.setAccountQuestion(getAccountDao().getUserById(questionBean.getUserId()));
-       // question.setSharedQuestion();
-        this.getQuestionDao().saveOrUpdate(question);
-        questionBean.setId(question.getQid());
-}
+ 
 
     /**
      * Create Survey Folder.
@@ -646,5 +633,40 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 	public SurveyFolder getSurveyFolderbyId(final Long folderId) { 
 		return this.getSurveyDaoImp().getSurveyFolderByIdandUser(folderId,
 				getUserAccountonSecurityContext().getUid());
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.encuestame.core.service.imp.ISurveyService#saveSurveyResult(org.
+	 * encuestame.persistence.domain.question.QuestionAnswer,
+	 * org.encuestame.persistence.domain.survey.Survey,
+	 * org.encuestame.persistence.domain.question.Question, java.lang.String)
+	 */
+	public SurveyResult saveSurveyResult(final QuestionAnswer answer, final Survey survey, final Question question, final String response){
+		final SurveyResult result = new SurveyResult();
+		result.setAnswer(answer);
+		result.setSurvey(survey);
+		result.setQuestion(question);
+		result.setTxtResponse(response == " " ? null : response);
+		getSurveyDaoImp().saveOrUpdate(result);
+		return result;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see org.encuestame.core.service.imp.ISurveyService#retrieveSurveySectionById(java.lang.Long)
+	 */
+	public SurveySection retrieveSurveySectionById(final Long sectionId)
+			throws EnMeSurveyNotFoundException {
+		final SurveySection section = getSurveyDaoImp()
+				.retrieveSurveySectionById(sectionId);
+		if (section == null) {
+			throw new EnMeSurveyNotFoundException(
+					"Section not found with this id: " + sectionId);
+		} else {
+			return section;
+		}
+
 	}
 }
