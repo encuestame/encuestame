@@ -16,6 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
@@ -199,10 +201,11 @@ public interface ISurveyService extends IMasterSurveyService {
     /**
      * Create new survey.
      * @param surveyBean
+     * @param request
      * @return
      * @throws EnMeExpcetion
      */
-    Survey createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion;
+    Survey createSurvey(final SurveyBean surveyBean, final HttpServletRequest request) throws EnMeExpcetion;
 
     /**
      * Search surveys by keyword name.

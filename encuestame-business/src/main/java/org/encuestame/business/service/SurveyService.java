@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -167,22 +169,28 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.ISurveyService#createSurvey(org.encuestame.utils.web.SurveyBean)
      */
-	public Survey createSurvey(final SurveyBean surveyBean) throws EnMeNoResultsFoundException
+	public Survey createSurvey(final SurveyBean surveyBean, final HttpServletRequest request) throws EnMeNoResultsFoundException
 		  { 
-			// 1- Create survey with possible options
-			final Survey surveyDomain = this.newSurvey(surveyBean);
-			if (surveyDomain != null) {
-				final UnitSurveySection sectionBean = this.createDefaultSurveySection("Default", "Default", surveyDomain);
-				this.newSurveySection(sectionBean, surveyDomain); 
-				// 2- Create a section by default
-			}
-			if (surveyBean.getHashTags().size() > 0) {
-				surveyDomain.getHashTags().addAll(
-						retrieveListOfHashTags(surveyBean.getHashTags()));
-				log.debug("Update Hash Tag");
-				getSurveyDaoImp().saveOrUpdate(surveyDomain);
-			}
-			return surveyDomain;  
+		final String sectionNameDefault = getMessage("survey.section.name.default",
+				request, null);
+		final String sectionDescDefault = getMessage(
+				"survey.section.name.description.default", request, null);
+
+		// 1- Create survey with possible options
+		final Survey surveyDomain = this.newSurvey(surveyBean);
+		if (surveyDomain != null) {
+			final UnitSurveySection sectionBean = this
+					.createDefaultSurveySection(sectionNameDefault, sectionDescDefault, surveyDomain);
+			this.newSurveySection(sectionBean, surveyDomain);
+			// 2- Create a section by default
+		}
+		if (surveyBean.getHashTags().size() > 0) {
+			surveyDomain.getHashTags().addAll(
+					retrieveListOfHashTags(surveyBean.getHashTags()));
+			log.debug("Update Hash Tag");
+			getSurveyDaoImp().saveOrUpdate(surveyDomain);
+		}
+		return surveyDomain;
 	}
 
     /*
