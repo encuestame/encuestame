@@ -22,12 +22,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
+import org.apache.log4j.Logger; 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.enums.QuestionPattern;
@@ -152,6 +154,57 @@ public class SurveyJsonController extends AbstractJsonController{
 						getUserAccountonSecurityContext(), section,
 						questionPattern, null);
 				setSuccesResponse();
+			}
+
+		} catch (EnMeExpcetion e) {
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData();
+	}
+	
+
+	/**
+	 * Save Survey responses.
+	 * @param surveyId
+	 * @param questionId
+	 * @param qanswer
+	 * @param txtResponse
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 */
+	@PreAuthorize("hasRole('ENCUESTAME_USER')")
+	@RequestMapping(value = "/api/survey/save.json", method = RequestMethod.GET)
+	public ModelMap saveSurveyResult(
+			@RequestParam(value = "sid", required = true) Long surveyId,
+			@RequestParam(value = "question", required = true) Long questionId,
+			@RequestParam(value = "answer", required = true) Long qanswer,
+			@RequestParam(value = "txtResponse", required = true) String txtResponse,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException,
+			NoSuchAlgorithmException {
+		final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+		try {
+			if (surveyId == null)  {
+				log.debug("survey section id is missing");
+			} else {
+
+				final Survey survey = getSurveyService()
+						.getSurveyById(surveyId);
+				final QuestionAnswer qAnswer = getSurveyService()
+						.getQuestionAnswerById(qanswer);
+				final Question question = getSurveyService().getQuestionById(
+						questionId);
+				final SurveyResult surveyResult = getSurveyService()
+						.saveSurveyResult(qAnswer, survey, question,
+								txtResponse);
+				jsonResponse.put("surveyResult", surveyResult);
+				setItemResponse(jsonResponse);
 			}
 
 		} catch (EnMeExpcetion e) {

@@ -60,6 +60,19 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     public final void createQuestion(final Question question){
         saveOrUpdate(question);
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#retrieveQuestionbyId(java.lang.Long, java.lang.Long)
+     */
+	public Question retrieveQuestionbyId(Long questionId, final Long userId) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(Question.class);
+		criteria.add(Restrictions.eq("accountQuestion.uid", userId));
+		// criteria.add(Restrictions.eq("qid", questionId));
+		return (Question) getHibernateTemplate().findByCriteria(criteria);
+
+	} 
 
     /*
      * (non-Javadoc)

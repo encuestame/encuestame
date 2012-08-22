@@ -676,6 +676,23 @@ public class AbstractSurveyService extends AbstractChartService {
 			}
 		}
 	}
+	
+	/**
+	 * Retrieve {@link Question} by id.
+	 * @param id
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	public Question getQuestionById(final Long id)
+			throws EnMeNoResultsFoundException {
+		final Question question = getQuestionDao().retrieveQuestionById(id);
+		if (question == null) {
+			throw new EnMeNoResultsFoundException(
+					"Question not found with this id:" + id);
+		} else {
+			return question;
+		} 
+	}
 
     /**
      * @return the answerPollPath

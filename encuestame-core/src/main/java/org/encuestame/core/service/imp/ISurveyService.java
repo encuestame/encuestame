@@ -313,4 +313,14 @@ public interface ISurveyService extends IMasterSurveyService {
 	 */
 	SurveySection retrieveSurveySectionById(final Long sectionId)
 			throws EnMeSurveyNotFoundException;
+	
+	/**
+	 * Retrieve {@link Question} by id.
+	 * @param id
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Question getQuestionById(final Long id)
+			throws EnMeNoResultsFoundException; 
+	 
  }
