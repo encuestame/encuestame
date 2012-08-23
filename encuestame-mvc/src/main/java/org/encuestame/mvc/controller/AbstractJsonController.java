@@ -129,11 +129,22 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
     /**
      * Set Succes Response.
      */
-    protected void setSuccesResponse(){
+    protected void setSuccesResponse() {
         final Map<String, Object> response = new HashMap<String, Object>();
         response.put("r", 0);
         setItemResponse(response);
     }
+    
+    /**
+     * Create a success response with message
+     * @param message the message
+     */
+    protected void setSuccesResponse(final String message) {
+        final Map<String, Object> response = new HashMap<String, Object>();
+        response.put("r", 0);
+        response.put("message", message == null ? "" : message);
+        setItemResponse(response);
+    }    
     
     /**
      * Set a failed response.
