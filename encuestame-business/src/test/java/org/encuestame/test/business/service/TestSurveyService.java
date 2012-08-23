@@ -15,6 +15,8 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,10 +32,12 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
@@ -359,7 +363,39 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
       
     }
     
+    /**
+     * Test get {@link Survey} by id.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testGetSurveybyId() throws EnMeNoResultsFoundException{
+    	final Survey mySurvey = createDefaultSurvey(this.user); 
+    	final Survey surveyById = surveyService.getSurveyById(mySurvey.getSid());
+    	assertEquals("should be equals", mySurvey.getSid(), surveyById.getSid()); 
+    }
     
+    /**
+     * Test Add {@link Question} to {@link SurveySection}. 
+     * @throws EnMeExpcetion
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testAddQuestionToSurveySection() throws EnMeExpcetion,
+			NoSuchAlgorithmException, UnsupportedEncodingException {
+		final String questionName = "What is your favorite superhero?";
+		final Survey defaultSurvey = createDefaultSurvey(this.user);
+		final SurveySection defaultSection = createDefaultSection("Comics",
+				defaultSurvey);
+
+		final Question questionAdded = surveyService
+				.addQuestionToSurveySection(questionName, userSecondary,
+						defaultSection, QuestionPattern.MULTIPLE_SELECTION,
+						null);
+
+		assertEquals("should be equals", defaultSection.getSsid(),
+				questionAdded.getSection().getSsid());
+	}
     /**
      * @param surveyService the surveyService to set
      */

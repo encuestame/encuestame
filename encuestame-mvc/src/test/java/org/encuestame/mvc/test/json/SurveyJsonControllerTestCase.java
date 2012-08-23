@@ -1,6 +1,6 @@
 /*
  ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
+ * Copyright (C) 2001-2012 encuestame: system online surveys Copyright (C) 2012
  * encuestame Development Team.
  * Licensed under the Apache Software License version 2.0
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -21,12 +21,16 @@ import javax.servlet.ServletException;
 import junit.framework.Assert;
 
 import org.encuestame.mvc.controller.json.survey.SurveyJsonController;
-import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
+import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans; 
+import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyFormat;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -61,8 +65,7 @@ public class SurveyJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         this.survey = createSurvey(null, new Date(), new Date(), userAccount.getAccount(), myDate, format, "My Survey", myDate );
         this.survey.setFavorites(Boolean.TRUE);
         this.survey.setEditorOwner(userAccount);
-        getAccountDao().saveOrUpdate(this.survey);
-
+        getAccountDao().saveOrUpdate(this.survey);  
     }
 
     /**
@@ -151,4 +154,89 @@ public class SurveyJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
         Assert.assertEquals(array7.size(), 2);
     }
 
+    /**
+     * Test retrieve survey sections.
+     * @throws ServletException
+     * @throws IOException
+     */
+	@Test
+	public void testRetrieveSurveySections() throws ServletException,
+			IOException {
+		Assert.assertNotNull(survey);
+		createDefaultSection("SurveySection 2", this.survey); 
+		// Search All surveys.
+		initService("/api/survey/sections.json", MethodJson.GET);
+		setParameter("id", this.survey.getSid().toString());
+
+		final JSONObject response = callJsonService();
+		final JSONObject sucess = getSucess(response);
+		Assert.assertNotNull(sucess.get("sections"));
+		final JSONArray sectionsBySurvey = (JSONArray) sucess.get("sections");  
+		Assert.assertEquals(sectionsBySurvey.size(), 1);
+	}
+    
+	/**
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@Test
+	public void testAddQuestionToSurveySection() throws ServletException,
+			IOException {
+		Assert.assertNotNull(survey);
+		final SurveySection section1 = createDefaultSection("SurveySection 2",
+				this.survey);
+		final String question = "What is your marital status?";
+		// Search All surveys.
+		initService("/api/survey/addquestion.json", MethodJson.GET);
+		setParameter("ssid", section1.getSsid().toString());
+		setParameter("pattern", QuestionPattern.MULTIPLE_SELECTION.toString());
+		setParameter("question", question);
+
+		final JSONObject response = callJsonService();
+		// assertSuccessResponse(response);
+		final JSONObject successAddQuestion = getSucess(response);
+		final JSONObject objectQuestion = (JSONObject) successAddQuestion
+				.get("newQuestion");
+
+		Assert.assertEquals(objectQuestion.get("question").toString(),
+				question);
+
+		;
+
+	}
+    
+	/**
+	 * Save {@link Survey}.
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@Test
+	public void testSaveSurveyResponses() throws ServletException, IOException {
+		Assert.assertNotNull(survey);
+		createDefaultSection("SurveySection 2", this.survey);
+		final Question myQuestion = createDefaultQuestion("Who is the best football player");
+		final QuestionAnswer qAnswer1 = createQuestionAnswer("D.Beckam",
+				myQuestion, "");
+		createQuestionAnswer("L.Messi", myQuestion, "");
+
+		// Search All surveys.
+		initService("/api/survey/save.json", MethodJson.GET);
+		setParameter("sid", this.survey.getSid().toString());
+		setParameter("question", myQuestion.getQid().toString());
+		setParameter("answer", qAnswer1.getQuestionAnswerId().toString());
+		setParameter("txtResponse", "50");
+
+		final JSONObject response = callJsonService();
+		final JSONObject sucess = getSucess(response);
+
+		final JSONObject objectQuestion = (JSONObject) sucess
+				.get("surveyResult");
+
+		final JSONObject questionValue = (JSONObject) objectQuestion
+				.get("question");
+
+		Assert.assertEquals(questionValue.get("question").toString(),
+				myQuestion.getQuestion());
+	}
 }
