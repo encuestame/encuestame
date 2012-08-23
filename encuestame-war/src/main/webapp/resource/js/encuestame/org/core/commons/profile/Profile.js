@@ -5,6 +5,7 @@ dojo.require("dijit.form.Textarea");
 dojo.require("dijit.form.Select");
 dojo.require("dijit.form.Button");
 dojo.require("dijit.form.Form");
+dojo.require("dojox.form.BusyButton");
 
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
@@ -50,7 +51,8 @@ dojo.declare(
          */
         postCreate : function() {
         	// create subcribe to display errors.
-        	dojo.subscribe("/encuestame/settings/profile/message", this, this._displayMessage);                                   
+        	dojo.subscribe("/encuestame/settings/profile/message", this, this._displayMessage);    
+        	this.events();
         },
         
         /**
@@ -62,6 +64,12 @@ dojo.declare(
                 //console.debug("change");
                 email.validateBackEnd("email");
             });
+            email.onKeyPress = dojo.hitch(this, function() {
+            	console.info("PRESSS");
+            });
+            email.onKeyDown = dojo.hitch(this, function() {
+            	console.info("onKeyDown");
+            });            
             var username = dijit.byId("username");
             username.onChange = dojo.hitch(this, function() {
                 //console.debug("change");
@@ -73,7 +81,11 @@ dojo.declare(
          * 
          */
         _displayMessage : function(message, type) {
-        	console.debug("_displayMessage");
+        	if (type === 'error') {
+        		this.errorMessage(message);
+        	} else if (type === 'success') {
+        		this.successMesage(message);
+        	}
         },
 
         /*
@@ -116,18 +128,26 @@ dojo.declare(
             if (formDijit.isValid()) {
                 var load = dojo.hitch(this, function(data) {
                     //console.debug(data);
-                	this.successMesage("Saved");
+                	if ("success" in data) {
+                		var message = data.success.message;
+                		if (message != 'undefined') {
+                			dojo.publish('/encuestame/settings/profile/message', [message, 'success']);
+                		}
+                	}
+                	this._submit.cancel();
                 });
-                var error = function(error) {
+                var error = dojo.hitch(this,function(error) {
                     //console.debug("error", error);
-                };
+                	dojo.publish('/encuestame/settings/profile/message', [error.message, 'error']);
+                	this._submit.cancel();
+                });
                 //var query = {};
                 //query.username =  dijit.byId("username").get("value") ;
                 //query.email = dijit.byId("email").get("value");
                 //var queryStr = dojo.objectToQuery(query);
                 encuestame.service.xhrPost(encuestame.service.list.updateProfile, form, load, error, true);
             } else {
-                console.info("form not valid");
+            	dojo.publish('/encuestame/settings/profile/message', [ENME.getMessage('settings_config_profile_form_not_valid'), 'error']);
             }
         }
 });
@@ -166,7 +186,8 @@ dojo.extend(dijit.form.ValidationTextBox, {
                     //console.debug("set error message");
                     dojo.publish('/encuestame/settings/profile/message', [message, 'error']);
                 } else {
-                	 dojo.publish('/encuestame/settings/profile/message', ["Updated", 'success']);
+                	 var message = response.success.messages[type] || "Not Defined";
+                	 dojo.publish('/encuestame/settings/profile/message', [message, 'success']);
                 }                
             });
             var error = function(error) {

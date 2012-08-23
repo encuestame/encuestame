@@ -62,7 +62,8 @@ public class SettingsController extends AbstractBaseOperations{
 			addi18nProperty(model, "settings_config_picture_own");
 			addi18nProperty(model, "settings_config_picture_restrictions");
 			addi18nProperty(model, "m_023");
-			addi18nProperty(model, "e_023");
+			addi18nProperty(model, "settings_config_profile_form_not_valid");
+			
 			log.debug("settingsAccountController user: " + user.toString());
 		} catch (EnMeNoResultsFoundException e) {
 			log.error(e);

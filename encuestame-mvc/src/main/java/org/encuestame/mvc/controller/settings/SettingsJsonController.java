@@ -105,7 +105,7 @@ public class SettingsJsonController extends AbstractJsonController{
                 log.debug("update email");
                 final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUserEmail(data, account)) {
-                    security.upadteAccountProfile(Profile.EMAIL, data);
+                    security.updateAccountProfile(Profile.EMAIL, data);
                     setSuccesResponse();
                 } else {
                     listError.put(type, getMessage("e_005", request, null));
@@ -114,14 +114,14 @@ public class SettingsJsonController extends AbstractJsonController{
                 log.debug("update username");
                 final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUsername(data, account)) {
-                    security.upadteAccountProfile(Profile.USERNAME, data);
+                    security.updateAccountProfile(Profile.USERNAME, data);
                     setSuccesResponse(getMessage("settings_config_profile_success", request, null));
                 } else {
                     listError.put(type, getMessage("e_018", request, null));
                 }
             } else if(type.equals(Profile.PICTURE.toString())) {
                  log.debug("update PICTURE");
-                 security.upadteAccountProfile(Profile.PICTURE, data);
+                 security.updateAccountProfile(Profile.PICTURE, data);
                  setSuccesResponse(getMessage("settings_config_picture_success", request, null));
             } else {
                 setError(getMessage("e_023", request, null), response);
@@ -202,7 +202,7 @@ public class SettingsJsonController extends AbstractJsonController{
             } else {
                 log.debug("updating profile ....");
                 //setError("invalid type", response);
-                getSecurityService().upadteAccountProfile(bio, language, completeName, username);
+                getSecurityService().updateAccountProfile(bio, language, completeName, username);
                 setSuccesResponse(getMessage("settings_config_profile_success", request, null));
             }
         } catch (Exception e) {

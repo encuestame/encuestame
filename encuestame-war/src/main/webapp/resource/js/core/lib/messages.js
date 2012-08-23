@@ -25,7 +25,8 @@ ENME.messages = ( function(d, _e) {
 				  d.publish(channel, [{
 					  message: message, 
 					  type: type, 
-					  duration: duration
+					  duration: duration,
+					  description : description					  
 				  }]);
 			}
 		};

@@ -38,7 +38,8 @@
                             validateType="username"
                             maxLength="18"
                             value="${username}"
-                            regExp="[\w]+" required="false" invalidMessage="Invalid username">
+                            regExp="[\w]+" required="false" 
+                            invalidMessage="Invalid username">
                     <p class="info-block">
                         ${i18nMessage.settings_config_profile_username_description} <a href="#">http://demo.encuestame.org/profile/username</a>
                     </p>
@@ -72,9 +73,12 @@
              </div>
              <div class="web-settings-account-row" style="">
                    <div class="settings-submit">
-                        <button dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_updateProfile">
-                            ${i18nMessage.commons_update}
-                        </button>
+                        <button dojoType="dojox.form.BusyButton"
+                                dojoAttachPoint="_submit" 
+                                busyLabel="Sending data..." 
+                                dojoAttachEvent="onClick:_updateProfile">
+						    ${i18nMessage.commons_update}
+						</button>
                    </div> 
               </div>
       </div>

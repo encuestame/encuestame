@@ -363,7 +363,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @param username
      * @throws EnMeNoResultsFoundException
      */
-    void upadteAccountProfile(
+    void updateAccountProfile(
             final org.encuestame.utils.enums.Profile property,
             final String value) throws EnMeNoResultsFoundException;
 
@@ -376,7 +376,7 @@ public interface SecurityOperations extends ServiceOperations {
      * @param completeName
      * @throws EnMeNoResultsFoundException
      */
-    void upadteAccountProfile(
+    void updateAccountProfile(
             final String bio,
             final String language,
             final String completeName,

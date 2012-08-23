@@ -25,7 +25,8 @@ dojo.declare(
 		_setContent: function(message) {
 			var widget = new encuestame.org.core.shared.utils.Message({
 				message : message,
-				descriptiom : ""
+				descriptiom : "",
+				type : this.messageCurrentType || 'message'
 			});
 			
 			if (message && this.isVisible) {
@@ -33,9 +34,29 @@ dojo.declare(
 			} else {
 				dojo.empty(this.contentNode);
 				this.contentNode.appendChild(widget.domNode);
+			}						
+		},	
+		
+		/**
+		 * 
+		 * @param message
+		 */
+		_handleMessage: function(/*String|Object*/message) {
+			if (dojo.isString(message)) {
+				this.setContent(message);
+			} else {
+				var currentMessage = message.message;
+				if (message.description) {
+					var content = dojo.create("div");
+					content.innerHTML = currentMessage;
+					var desc = dojo.create("p");
+					desc.innerHTML = message.description;
+					content.appendChild(desc);
+					currentMessage = content;
+				}
+				this.messageCurrentType = message.type;
+				this.setContent(currentMessage, message.type, message.duration);
 			}
-			
-			
 		},		
 		
 		/**
@@ -88,9 +109,9 @@ dojo.declare(
         
         message : "message test",
         
-        description : "test description",
-        
-        postCreate : function () {
-        	
+        postCreate : function () {	
+        	if (this.description) {
+        		dojo.addClass(this._description, "hidden");
+        	}
         }   
 });

@@ -114,12 +114,11 @@
 /** float messages window **/
 
 .enme-web-context .dijitToasterContent {
-	background: none;
-	padding: 0;
+	background: none repeat scroll 0 0 transparent !important;
+	padding: 0 !important;
 }
 
 .enme-web-context .dijitToasterContent .message_toaster {
-  background: none repeat scroll 0 0 #ACEBAE;
   border-radius: 5px 5px 5px 5px;
   box-shadow: 1px 1px 1px 1px #C6C6C6;
   color: black;
@@ -134,7 +133,7 @@
   font-weight: bold;
 }
 
-.enme-web-context .dijitToasterContent .message_toaster > p {
+.enme-web-context .dijitToasterContent .message_toaster > div > p {
   margin: 3px 0;
 }
 
@@ -144,6 +143,24 @@
     margin: 0;
    width: 300px;
 }
-.enme-web-context  .dijitToasterMessage {
-    color: #FFFFFF;
+
+.enme-web-context  .dijitToasterFatal  .message_toaster {
+      background: none repeat scroll 0 0 red;
+      color: #FFFFFF;    	
+}
+
+.enme-web-context  .dijitToasterError  .message_toaster {
+      background: none repeat scroll 0 0 red;
+      color: #FFFFFF;    
+}
+
+.enme-web-context  .dijitToasterMessage .message_toaster {
+      background: none repeat scroll 0 0 #ACEBAE;
+      color: #FFFFFF;
+}
+
+.enme-web-context  .dijitToasterWarning .message_toaster {
+      background: none repeat scroll 0 0 yellow;
+      color: black;
+	
 }
