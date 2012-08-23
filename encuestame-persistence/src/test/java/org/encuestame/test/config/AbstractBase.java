@@ -1314,10 +1314,17 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return surveySection;
     }
 
+    /**
+     * Create default {@link SurveySection}.
+     * @param name
+     * @param survey
+     * @return
+     */
     public SurveySection createDefaultSection(final String name, final Survey survey){
         final SurveySection surveySection = new SurveySection();
         surveySection.setDescSection(name);
         surveySection.setSurvey(survey);
+        surveySection.setSectionName(name); 
         getSurveyDaoImp().saveOrUpdate(surveySection);
         return surveySection;
     }

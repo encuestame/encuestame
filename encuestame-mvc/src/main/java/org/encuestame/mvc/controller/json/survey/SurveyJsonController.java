@@ -28,6 +28,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.survey.SurveyResult;
 import org.encuestame.persistence.domain.survey.SurveySection;
@@ -144,16 +145,18 @@ public class SurveyJsonController extends AbstractJsonController{
 		try {
 			if (sectionId == null) {
 				log.debug("survey section id is missing");
-			} else {
-				// Obtener section
+			} else { 
 				final SurveySection section = getSurveyService()
-						.retrieveSurveySectionById(sectionId);
+						.retrieveSurveySectionById(sectionId);  
 				final QuestionPattern questionPattern = QuestionPattern
-						.getQuestionPattern(pattern);
-				getSurveyService().addQuestionToSurveySection(question,
-						getUserAccountonSecurityContext(), section,
+						.getQuestionPattern(pattern);  
+				final UserAccount account = getUserAccount(); 
+				final Question questionAdded = getSurveyService().addQuestionToSurveySection(question,
+						account, section,
 						questionPattern, null);
-				setSuccesResponse();
+				final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+				jsonResponse.put("newQuestion", questionAdded);
+				setItemResponse(jsonResponse);
 			}
 
 		} catch (EnMeExpcetion e) {
@@ -184,7 +187,7 @@ public class SurveyJsonController extends AbstractJsonController{
 			@RequestParam(value = "sid", required = true) Long surveyId,
 			@RequestParam(value = "question", required = true) Long questionId,
 			@RequestParam(value = "answer", required = true) Long qanswer,
-			@RequestParam(value = "txtResponse", required = true) String txtResponse,
+			@RequestParam(value = "txtResponse", required = false) String txtResponse,
 			HttpServletRequest request, HttpServletResponse response)
 			throws JsonGenerationException, JsonMappingException, IOException,
 			NoSuchAlgorithmException {
