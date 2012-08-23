@@ -28,8 +28,10 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.TweetPollBean;
 import org.hibernate.HibernateException;
 
 /**
@@ -402,4 +404,5 @@ public interface ITweetPoll extends IBaseDao{
 	
 	TweetPoll checkIfTweetPollHasHashTag(final String tagName, final SearchPeriods periods,
 			final Long id);
+	 
 }

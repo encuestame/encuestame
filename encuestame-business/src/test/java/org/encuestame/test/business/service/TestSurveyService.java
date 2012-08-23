@@ -17,7 +17,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import junit.framework.Assert;
 
@@ -37,11 +39,13 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Test of {@link AbstractSurveyService}
@@ -79,6 +83,11 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** **/
     private String myUsername;
+    
+    /**
+     * Mock HttpServletRequest.
+     */
+    MockHttpServletRequest request;
 
      /**
      *
@@ -98,6 +107,9 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
          questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
                     this.answers);
          this.myUsername = getSpringSecurityLoggedUserAccount().getUsername();
+     	
+         request = new MockHttpServletRequest();
+		 request.addPreferredLocale(Locale.ENGLISH);  
     }
 
     /**
@@ -194,7 +206,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean, this.request);
         final String mykeyword = "";
         final List<SurveyBean> surveyBeanList = surveyService.filterSurveyItemsByType(
                 TypeSearch.LASTDAY, mykeyword, this.MAX_RESULTS,
@@ -212,7 +224,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean, this.request);
         final List<SurveyBean> surveyBeanList = surveyService
                 .searchSurveysLastWeek(getUsernameLogged(), this.MAX_RESULTS,
                         this.START_RESULTS);
@@ -246,9 +258,9 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 lastWeek.getTime());
 
-        surveyService.createSurvey(surveyBean);
-        surveyService.createSurvey(surveyBean2);
-        surveyService.createSurvey(surveyBean3);
+        surveyService.createSurvey(surveyBean, this.request);
+        surveyService.createSurvey(surveyBean2, this.request);
+        surveyService.createSurvey(surveyBean3, this.request);
 
         final String mykeyword = "";
         final List<SurveyBean> surveyBeanList = surveyService
@@ -267,7 +279,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
         surveyBean.setFavorites(Boolean.TRUE);
-        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean, this.request);
         final List<SurveyBean> surveyBeanList = surveyService
                 .searchSurveysFavourites(getUsernameLogged(), this.MAX_RESULTS,
                         this.START_RESULTS);
@@ -288,8 +300,8 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean2 = createSurveyBean("My Second survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-        surveyService.createSurvey(surveyBean);
-        surveyService.createSurvey(surveyBean2);
+        surveyService.createSurvey(surveyBean, this.request);
+        surveyService.createSurvey(surveyBean2, this.request);
         final List<SurveyBean> surveyBeanList = surveyService
                 .searchSurveysbyKeywordName(keyWord,
                         getSpringSecurityLoggedUserAccount().getUsername(),
@@ -320,7 +332,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         Assert.assertNotNull(fbean);
         final SurveyBean mySurveyBean = createSurveyBean("My Second survey",
                 this.myUsername, this.mySurveyDate.getTime());
-        final Survey mySurvey = surveyService.createSurvey(mySurveyBean);
+        final Survey mySurvey = surveyService.createSurvey(mySurveyBean, this.request);
         surveyService.addSurveyToFolder(fbean.getId(), this.myUsername,
                 mySurvey.getSid());
         final List<Survey> listSurvey = surveyService.retrieveSurveyByFolder(
@@ -329,6 +341,25 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         assertEquals("should be equals", 1, listSurvey.size());
     }
 
+    
+    @Test
+    public void testCreateSurvey() throws EnMeExpcetion{
+    	// Create survey with section default
+    	final SurveyBean surveyBean = createSurveyBean("default survey", getSpringSecurityLoggedUserAccount().toString(), new Date());
+    	final Survey newSurvey = surveyService.createSurvey(surveyBean, this.request);   
+    	
+    	// Create new Section
+    	final UnitSurveySection unitSection = createSurveySection("default 2", "default 2", newSurvey);
+    	surveyService.createSurveySection(unitSection, newSurvey);
+    	 
+    	
+    	// Add another section to survey
+    	final List<UnitSurveySection> ssection = surveyService.retrieveSectionsBySurvey(newSurvey); 
+    	assertEquals("should be equals", 2, ssection.size());
+      
+    }
+    
+    
     /**
      * @param surveyService the surveyService to set
      */

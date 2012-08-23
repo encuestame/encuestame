@@ -12,18 +12,29 @@
  */
 package org.encuestame.core.service.imp;
 
-import java.util.Collection;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveyFolder;
+import org.encuestame.persistence.domain.survey.SurveyResult;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMeSurveyNotFoundException;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.UnitSurveySection;
 
 import twitter4j.TwitterException;
 import twitter4j.http.RequestToken;
@@ -192,10 +203,11 @@ public interface ISurveyService extends IMasterSurveyService {
     /**
      * Create new survey.
      * @param surveyBean
+     * @param request
      * @return
      * @throws EnMeExpcetion
      */
-    Survey createSurvey(final SurveyBean surveyBean) throws EnMeExpcetion;
+    Survey createSurvey(final SurveyBean surveyBean, final HttpServletRequest request) throws EnMeExpcetion;
 
     /**
      * Search surveys by keyword name.
@@ -210,15 +222,13 @@ public interface ISurveyService extends IMasterSurveyService {
             final Integer maxResults, final Integer start) throws EnMeExpcetion;
 
     /**
-     * Search surveys by Account.
-     * @param username
+     * Search surveys by Account. 
      * @param maxResults
      * @param start
      * @return
      * @throws EnMeNoResultsFoundException
      */
-    List<SurveyBean> getSurveysByAccount(final String username,
-            final Integer maxResults, final Integer start)
+    List<SurveyBean> getSurveysByAccount(final Integer maxResults, final Integer start)
             throws EnMeNoResultsFoundException;
 
     /**
@@ -237,4 +247,70 @@ public interface ISurveyService extends IMasterSurveyService {
      */
     List<Survey> retrieveSurveyByFolder(final Long accountId,
             final Long folderId) throws EnMeNoResultsFoundException;
+    
+    /**
+     * 
+     * @param survey
+     * @return
+     */
+	List<UnitSurveySection> retrieveSectionsBySurvey(final Survey survey);
+	
+	/**
+	 * Create {@link SurveySection}
+	 * @param surveySectionBean
+	 * @return
+	 */
+	SurveySection createSurveySection(
+			final UnitSurveySection surveySectionBean, final Survey survey);
+	
+	/**
+	 * Add {@link QuestionAnswer}
+	 * @param questionName
+	 * @param user
+	 * @param section
+	 * @param questionPattern
+	 * @param answers
+	 * @throws EnMeExpcetion
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	void addQuestionToSurveySection(final String questionName,
+			final UserAccount user, final SurveySection section,
+			final QuestionPattern questionPattern, final String[] answers)
+			throws EnMeExpcetion, NoSuchAlgorithmException,
+			UnsupportedEncodingException;
+
+	/**
+	 * Retrieve {@link Survey} by id and {@link UserAccount}.
+	 * @param surveyId
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Survey getSurveyById(final Long surveyId) throws EnMeNoResultsFoundException;
+	
+	/**
+	 * retrieve {@link SurveyFolder} by id and user.
+	 * @param folderId
+	 * @return
+	 */
+	SurveyFolder getSurveyFolderbyId(final Long folderId); 
+
+	/**
+	 * 
+	 * @param answer
+	 * @param survey
+	 * @param question
+	 * @param response
+	 * @return
+	 */
+	SurveyResult saveSurveyResult(final QuestionAnswer answer, final Survey survey, final Question question, final String response);
+	
+	/**
+	 * Get survey section by id.
+	 * @param sectionId
+	 * @return
+	 * @throws EnMeSurveyNotFoundException
+	 */
+	SurveySection retrieveSurveySectionById(final Long sectionId)
+			throws EnMeSurveyNotFoundException;
  }

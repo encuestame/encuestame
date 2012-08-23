@@ -69,6 +69,7 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionAnswer.AnswerType;
 import org.encuestame.persistence.domain.question.QuestionColettion;
+import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.Group;
 import org.encuestame.persistence.domain.security.Permission;
@@ -2203,4 +2204,21 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public AccessRate createSurveyRate(final Boolean rate, final Survey survey, final String ipAddress){
         return this.createAccessRateItem(rate, null, survey, null, null, ipAddress);
     }
+    
+	/**
+	 * Create question preference
+	 * @param preference
+	 * @param value preference value
+	 * @param question 
+	 * @return
+	 */
+	public QuestionPreferences createQuestionPreference(
+			final String preference, final String value, final Question question) {
+		final QuestionPreferences questionPreference = new QuestionPreferences();
+		questionPreference.setPreference(preference);
+		questionPreference.setQuestion(question);
+		questionPreference.setValue(value);
+		getQuestionDaoImp().saveOrUpdate(questionPreference);
+		return questionPreference;
+	}
 }

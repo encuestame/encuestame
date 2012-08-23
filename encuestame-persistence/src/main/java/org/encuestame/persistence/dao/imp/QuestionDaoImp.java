@@ -22,6 +22,7 @@ import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IQuestionDao;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -30,6 +31,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
@@ -226,4 +228,45 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
         criteria.add(Restrictions.eq("section", section));
         return getHibernateTemplate().findByCriteria(criteria);
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#getQuestionPreferences(org.encuestame.persistence.domain.question.Question)
+     */
+    @SuppressWarnings("unchecked")
+	public List<QuestionPreferences> getQuestionPreferences(final Question question){
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(QuestionPreferences.class);
+    	criteria.add(Restrictions.eq("question", question));
+    	return getHibernateTemplate().findByCriteria(criteria);
+    }
+    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.IQuestionDao#getQuestionPreference(org
+	 * .encuestame.persistence.domain.question.Question, java.lang.String)
+	 */
+    @SuppressWarnings("unchecked")
+	public List<QuestionPreferences> getQuestionPreference(final Question question, final String pref){
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(QuestionPreferences.class); 
+    	criteria.createAlias("question", "question");
+    	criteria.add(Restrictions.eq("question", question));
+    	//criteria.add(Restrictions.eq("preference", preference));
+    	criteria.add(Restrictions.like("preference", pref, MatchMode.ANYWHERE));
+    	return getHibernateTemplate().findByCriteria(criteria);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IQuestionDao#getPreferenceById(java.lang.Long)
+     */  
+	@SuppressWarnings("unchecked")
+	public QuestionPreferences getPreferenceById(final Long preferenceId) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(QuestionPreferences.class); 
+		criteria.add(Restrictions.eq("preferenceId", preferenceId));
+		return (QuestionPreferences) DataAccessUtils
+				.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+	}
 }

@@ -32,6 +32,7 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -57,6 +58,7 @@ import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
+import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.joda.time.DateTime;
@@ -883,6 +885,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     private TweetPollFolder getTweetPollFolder(final Long folderId){
         return this.getTweetPollDao().getTweetPollFolderById(folderId);
     }
+    
+    /**
+     * 
+     * @param folderId
+     * @return
+     */
+    public TweetPollFolder getTweetPollFolderbyId(final Long folderId){
+    	 return this.getTweetPollDao().getTweetPollFolderByIdandUser(folderId, getUserAccountonSecurityContext().getAccount());
+    }
 
     /**
      * Add {@link TweetPoll} to Folder.
@@ -1150,4 +1161,26 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 maxResults, start, range);
         return tweetPolls;
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.ITweetPollService#searchTweetPollsByFolder(java.lang.Long, java.lang.String)
+     */
+	public List<TweetPollBean> searchTweetPollsByFolder(final Long folderId,
+			final String username) throws EnMeNoResultsFoundException {
+		List<TweetPoll> tweetPollsbyFolder = new ArrayList<TweetPoll>();
+		final TweetPollFolder tweetPollFolder = getTweetPollDao()
+				.getTweetPollFolderById(folderId);
+		if (tweetPollFolder == null) {
+			throw new EnMeTweetPollNotFoundException(
+					"Tweetpoll folder not found");
+
+		} else {
+			tweetPollsbyFolder = getTweetPollDao().retrieveTweetPollByFolder(
+					getUserAccountonSecurityContext().getUid(), folderId);
+		}
+		log.info("search polls by folder size " + tweetPollsbyFolder.size());
+		return ConvertDomainBean.convertListToTweetPollBean(tweetPollsbyFolder);
+	}
+
 }

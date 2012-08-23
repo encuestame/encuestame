@@ -17,6 +17,7 @@ import java.util.List;
 import org.apache.lucene.analysis.Analyzer;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
+import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.hibernate.HibernateException;
 
@@ -106,4 +107,28 @@ public interface IQuestionDao extends IBaseDao {
      * @return
      */
     List<Question> getQuestionsbySection(final SurveySection section);
+    
+    /**
+     * Get {@link QuestionPreferences} by question.
+     * @param question
+     * @return
+     */
+    List<QuestionPreferences> getQuestionPreferences(final Question question);
+    
+    /**
+     * Get {@link QuestionPreferences} by question and preference name.
+     * @param question
+     * @param preference
+     * @return
+     */
+    List<QuestionPreferences> getQuestionPreference(final Question question, final String pref);
+    
+    /**
+     * Get {@link QuestionPreferences} by id.
+     * @param questionId
+     * @return
+     */
+	QuestionPreferences getPreferenceById(final Long preferenceId);
+    
+    
 }
