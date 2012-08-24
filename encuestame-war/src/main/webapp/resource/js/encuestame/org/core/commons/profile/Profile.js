@@ -98,10 +98,10 @@ dojo.declare(
                     if (profile != null) {
                         var email = dijit.byId("email");
                         email.set('value', profile.email);
-                        console.info("EMAIL");
+                        //console.info("EMAIL");
                         var username = dijit.byId("username");
                         username.set('value', profile.username);
-                        console.info("USERNAMe");
+                        //console.info("USERNAMe");
                         var completeName = dijit.byId("completeName");
                         completeName.set('value', profile.name);
                     }

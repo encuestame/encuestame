@@ -13,5 +13,7 @@
 	<div id="upload_image_settings" 
 		dojoType="encuestame.org.core.commons.profile.UploadProfilePicture"
 		data-enabled="false"
+		username="${account.username}"
+		pictureSource="${account.pictureSource}"
 		data-label="<spring:message code="settings.config.upload.image" />"></div>
 </div>

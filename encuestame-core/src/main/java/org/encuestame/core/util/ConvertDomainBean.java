@@ -357,6 +357,7 @@ public class ConvertDomainBean {
 			unitUserBean.setName(secUserSecondary.getCompleteName());
 			unitUserBean.setEmail(secUserSecondary.getUserEmail());
 			unitUserBean.setUsername(secUserSecondary.getUsername());
+			unitUserBean.setPictureSource(secUserSecondary.getPictureSource().toString());
 			// TODO: Bug 112, add private, language y bio.
 		}
 		return unitUserBean;
