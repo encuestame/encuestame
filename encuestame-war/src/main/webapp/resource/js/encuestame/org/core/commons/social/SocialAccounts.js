@@ -35,14 +35,14 @@ dojo.declare(
             this._createDetail("twitterDetail", "Twitter");
             this._createDetail("facebookDetail", "Facebook");
             this._createDetail("linkedinDetail", "LinkedIn");
-            this._createDetail("googlebuzzDetail", "GoogleBuzz");
+            this._createDetail("googleplusDetail", "GooglePlus");
             this._createDetail("identicaDetail", "Identica");
             //this._createDetail("yahooDetail", "Yahoo"); DISABLED
             //buttons
             this._cretateButton("twitter", "Twitter");
             this._cretateButton("facebook", "Facebook");
             this._cretateButton("linkedin", "LinkedIn");
-            this._cretateButton("googlebuzz", "Google Buzz");
+            this._cretateButton("googleplus", "Google +");
             this._cretateButton("identica", "Identi.ca");
             //this._cretateButton("yahoo", "Yahoo"); DISABLED
         },
@@ -109,7 +109,7 @@ dojo.declare(
                 var widget = dijit.byId(id.toLowerCase()+"Detail");
                 //console.debug("widget ", widget);
                 dojo.publish("/encuestame/social/change", [widget]);
-                dojo.publish("/encuestame/social/"+id+"/loadAccounts");
+                dojo.publish("/encuestame/social/" + id + "/loadAccounts");
             },
 
             /**
@@ -156,7 +156,7 @@ dojo.declare(
                  });
                 dojo.subscribe("/encuestame/social/list/reload", this, "_callListSocialAccounts");
                 var myForm = dojo.byId(this._form);
-                myForm.setAttribute("action",encuestame.contextDefault+"/connect/"+this.socialProvider.toLowerCase());
+                myForm.setAttribute("action",encuestame.contextDefault + "/connect/" + this.socialProvider.toLowerCase());
                 var hash = dojo.queryToObject(dojo.hash());
                 if (hash.refresh && hash.refresh) {
                     if(hash.successful && hash.provider == this.socialProvider){
@@ -166,13 +166,20 @@ dojo.declare(
                 }
             },
 
-            _autorize : function(event){
+            /**
+             * 
+             * @param event
+             */
+            _autorize : function(event) {
                 dojo.stopEvent(event);
                 this._openAuthorizeWindow();
             },
 
-            _callListSocialAccounts : function(){
-                var load = dojo.hitch(this, function(data){
+            /**
+             * 
+             */
+            _callListSocialAccounts : function() {
+                var load = dojo.hitch(this, function(data) {
                     //console.debug("social accounts", data);
                     this._listSocialAccounts = data.success.items;
                     dojo.empty(this._list);

@@ -41,11 +41,11 @@
                     <div class="answer"
                         dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
                          aId="${a.answers.questionAnswerId}"
-                          color="${a.answers.color}"
+                         color="${a.answers.color}"
                          label="${a.answers.answer}"
-                          owner="${tweetpoll.ownerUsername}"
-                          completed="${tweetpoll.completed}"
-                          url="${a.shortUrl}">
+                         owner="${tweetpoll.ownerUsername}"
+                         completed="${tweetpoll.completed}"
+                         url="${a.shortUrl}">
                      </div>
                </c:forEach>
             </div>

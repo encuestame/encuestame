@@ -32,7 +32,6 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
-import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
@@ -58,7 +57,6 @@ import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.HashTagBean;
-import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
 import org.joda.time.DateTime;
@@ -588,13 +586,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          //adding tweetpoll
          //publishedStatus.setTweetPoll(tweetPoll);
          //checking required values.
-         if(type.equals(TypeSearchResult.TWEETPOLL)){
+         if(type.equals(TypeSearchResult.TWEETPOLL)) {
         	//adding tweetpoll
              publishedStatus.setTweetPoll(tweetPoll);
-         } else if(type.equals(TypeSearchResult.POLL)){
+         } else if(type.equals(TypeSearchResult.POLL)) {
         	//adding tweetpoll
              publishedStatus.setPoll(poll);
-         } else if(type.equals(TypeSearchResult.SURVEY)){
+         } else if(type.equals(TypeSearchResult.SURVEY)) {
         	 publishedStatus.setSurvey(survey);
          } else {
         	 log.error("Type not defined");

@@ -280,9 +280,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws HttpException
      */
     public String createShortUrl(final ShortUrlProvider provider, final String url) {
-        log.debug("shortUrlProvider "+url);
-        log.debug("shortUrlProvider PROVIDER "+provider);
-        log.debug("Is offline? "+EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode"));
+        log.debug("shortUrlProvider " + url);
+        log.debug("shortUrlProvider PROVIDER " + provider);
+        log.debug("Is offline? " + EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode"));
         String urlShort = url;
         if (!EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode")) {
             if (provider.equals(ShortUrlProvider.GOOGL)) {
