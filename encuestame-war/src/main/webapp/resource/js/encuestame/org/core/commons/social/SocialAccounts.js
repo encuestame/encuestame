@@ -9,17 +9,27 @@ dojo.require("encuestame.org.core.commons.dialog.Dialog");
 dojo.require("encuestame.org.core.commons.dialog.Confirm");
 dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 dojo.require("encuestame.org.core.shared.utils.SettingsMenuSwitch");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 dojo.require("dojo.hash");
 
 dojo.declare(
     "encuestame.org.core.commons.social.SocialAccounts",
     [encuestame.org.core.shared.utils.SettingsMenuSwitch],{
-    	    	
+    	   
+    	/**
+    	 * 
+    	 */
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccounts.html"),
-
+        
+        /**
+         * 
+         */
         domain : "",
 
+        /**
+         * 
+         */
         postCreate : function() {
             //details
             this._createDetail("twitterDetail", "Twitter");
@@ -71,15 +81,16 @@ dojo.declare(
  */
 dojo.declare(
         "encuestame.org.core.commons.social.SocialButton",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.main.EnmeMainLayoutWidget],{
 
             label : "define label",
 
-            widgetsInTemplate: true,
-
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialButton.html"),
 
-            postCreate : function(){
+            /**
+             * 
+             */
+            postCreate : function() {
                 dojo.subscribe("/encuestame/social/clean/buttons", this, dojo.hitch(this, function(type) {
                     dojo.removeClass(this.domNode, "selected");
                 }));
@@ -89,7 +100,11 @@ dojo.declare(
                 }
             },
 
-            _loadAccountInterface : function(id){
+            /**
+             * 
+             * @param id
+             */
+            _loadAccountInterface : function(id) {
                 //console.debug("_loadAccountInterface ", id.toLowerCase()+"Detail");
                 var widget = dijit.byId(id.toLowerCase()+"Detail");
                 //console.debug("widget ", widget);
@@ -97,6 +112,10 @@ dojo.declare(
                 dojo.publish("/encuestame/social/"+id+"/loadAccounts");
             },
 
+            /**
+             * 
+             * @param event
+             */
             _click : function(event){
                 dojo.publish("/encuestame/social/clean/buttons");
                 var hash = dojo.queryToObject(dojo.hash());
@@ -117,9 +136,7 @@ dojo.declare(
  */
 dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountDetail",
-        [dijit._Widget, dijit._Templated],{
-
-            widgetsInTemplate: true,
+        [encuestame.org.main.EnmeMainLayoutWidget],{
 
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/detailAccounts.html"),
 
@@ -203,19 +220,37 @@ dojo.declare(
  */
 dojo.declare(
         "encuestame.org.core.commons.social.SocialAccountRow",
-        [dijit._Widget, dijit._Templated],{
+        [encuestame.org.main.EnmeMainLayoutWidget],{
 
             templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/socialAccountRow.html"),
 
             account : null,
 
-            widgetsInTemplate: true,
+            /**
+             * i18n Message.
+             */
+            i18nMessage : {
+            	settings_config_profile_email : ENME.getMessage("settings_config_profile_email"),
+            	settings_config_profile_complete_name : ENME.getMessage("settings_config_profile_complete_name"),
+            	settings_social_tp_published_whith_this_account : ENME.getMessage("settings_social_tp_published_whith_this_account"),
+            	settings_social_pll_published_whith_this_account : ENME.getMessage("settings_social_pll_published_whith_this_account"),
+            	settings_social_su_published_whith_this_account : ENME.getMessage("settings_social_su_published_whith_this_account"),
+            	settings_social_profile_url :  ENME.getMessage("settings_social_profile_url"),
+            	button_remove : ENME.getMessage("button_remove"),
+            	settings_social_set_default : ENME.getMessage("settings_social_set_default"),
+            },
 
             _secrets : false,
 
+            /**
+             * social network flag.
+             */
             type : "twitter",
 
-            postCreate : function(){
+            /**
+             * Post create cycle lufe.
+             */
+            postCreate : function() {
               //console.debug("account", this.account);
               if (this._removeButton) {
                   if (this.account.tweetpoll_stats > 0 || this.account.poll_stats > 0 || this.account.survey_stats > 0) {
@@ -226,7 +261,8 @@ dojo.declare(
                       dojo.connect(this._removeButton, "onClick", dojo.hitch(this, "_remove"));
                   }
               }
-              dojo.subscribe("/encuestame/social/account/row/show", this, function(widget){
+              
+              dojo.subscribe("/encuestame/social/account/row/show", this, function(widget) {
                   if (this.id != widget.id) {
                       this._secrets = true;
                       this._showHideAction();
@@ -236,7 +272,10 @@ dojo.declare(
               });
             },
 
-            _disableSocialAccount : function(){
+            /**
+             * 
+             */
+            _disableSocialAccount : function() {
 
             },
 

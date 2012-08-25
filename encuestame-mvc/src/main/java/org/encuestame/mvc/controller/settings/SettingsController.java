@@ -63,6 +63,7 @@ public class SettingsController extends AbstractBaseOperations{
 			addi18nProperty(model, "settings_config_picture_restrictions");
 			addi18nProperty(model, "m_023");
 			addi18nProperty(model, "settings_config_profile_form_not_valid");
+			//social settings
 			
 			log.debug("settingsAccountController user: " + user.toString());
 		} catch (EnMeNoResultsFoundException e) {
@@ -80,6 +81,15 @@ public class SettingsController extends AbstractBaseOperations{
    @RequestMapping(value = "/settings/social", method = RequestMethod.GET)
    public String socialSettingsController(ModelMap model) {
        log.debug("social");
+       
+       addi18nProperty(model, "settings_config_profile_email");
+       addi18nProperty(model, "settings_config_profile_complete_name");
+       addi18nProperty(model, "settings_social_tp_published_whith_this_account");
+       addi18nProperty(model, "settings_social_pll_published_whith_this_account");
+       addi18nProperty(model, "settings_social_su_published_whith_this_account");
+       addi18nProperty(model, "button_remove");
+       addi18nProperty(model, "settings_social_set_default");
+       addi18nProperty(model, "settings_social_profile_url");
        return "settings/social";
    }
 }
