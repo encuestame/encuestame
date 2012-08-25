@@ -209,7 +209,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         tweetPollBean.setResultNotification(Boolean.FALSE);
         //tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
         tweetPollBean.setSchedule(Boolean.FALSE);
-        return getTweetPollService().createTweetPoll(tweetPollBean, question, user);
+        return getTweetPollService().createTweetPoll(tweetPollBean, question, user, null);
     }
 
     /**
@@ -238,7 +238,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         log.debug("createTweetPoll Bean "+tweetPollBean.toString());
         return getTweetPollService().createTweetPoll(tweetPollBean,
                 tweetPollBean.getQuestionBean().getQuestionName(),
-                getUserAccount());
+                getUserAccount(), null);
     }
 
     /**

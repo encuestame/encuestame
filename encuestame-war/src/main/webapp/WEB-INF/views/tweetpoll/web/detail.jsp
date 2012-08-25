@@ -45,8 +45,8 @@
                          label="${a.answers.answer}"
                          owner="${tweetpoll.ownerUsername}"
                          completed="${tweetpoll.completed}"
-                         url="${a.shortUrl}">
-                     </div>
+                         url="<%=request.getContextPath()%>${a.relativeUrl}">
+                     </div>                     
                </c:forEach>
             </div>
        </section>

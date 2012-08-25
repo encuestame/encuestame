@@ -15,6 +15,8 @@ package org.encuestame.core.service.imp;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -61,7 +63,8 @@ public interface ITweetPollService extends IMasterSurveyService{
     TweetPoll createTweetPoll(
             final TweetPollBean tweetPollBean,
             final String question,
-            final UserAccount user) throws EnMeExpcetion;
+            final UserAccount user,
+            final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
 
 
     /**
@@ -84,7 +87,9 @@ public interface ITweetPollService extends IMasterSurveyService{
     * @throws EnMeNoResultsFoundException
     */
    TweetPollSwitch createTweetPollQuestionAnswer(
-           final QuestionAnswerBean answerBean, final TweetPoll tp)
+           final QuestionAnswerBean answerBean, 
+           final TweetPoll tp,
+           final HttpServletRequest request)
            throws EnMeNoResultsFoundException;
 
     /**

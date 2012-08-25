@@ -112,7 +112,7 @@ dojo.declare("encuestame.org.core.commons.support.SocialFilterMenuItem",
       */
     postMixInProperties: function() {
     	// if the social link is not valid, reset a fake social image.
-    	this.data.picture_url = ENME.fakeImage("24", this.data.picture_url);
+    	this.data.picture_url = ENME.fakeImage("24", this.data.picture_url || "");
     },     
 
      /*

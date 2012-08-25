@@ -51,7 +51,7 @@ dojo.declare(
          *
          */
         _createDetail : function(id, provider) {
-            console.debug("_createDetail", provider);
+            //console.debug("_createDetail", provider);
             var widget = new encuestame.org.core.commons.social.SocialAccountDetail(
                     {
                         id : id,

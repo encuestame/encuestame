@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.exception.EnMeFailSendSocialTweetException;
@@ -325,10 +327,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public TweetPoll createTweetPoll(
             final TweetPollBean tweetPollBean,
             final String questionName,
-            final UserAccount user) throws EnMeExpcetion {
+            final UserAccount user,
+            final HttpServletRequest request) throws EnMeExpcetion {
         try{
             final Question question = createTweetPollQuestion(questionName, user);
-            log.debug("question found:{"+question);
+            log.debug("question found:{" + question);
             if (question == null) {
                 throw new EnMeNoResultsFoundException("question not found");
             } else {
@@ -342,7 +345,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                     getTweetPollDao().saveOrUpdate(tweetPollDomain);
                 }
                 //update tweetpoll switch support
-                this.updateTweetPollSwitchSupport(tweetPollDomain);
+                this.updateTweetPollSwitchSupport(tweetPollDomain, request);
                 return tweetPollDomain;
             }
         } catch (Exception e) {
@@ -448,7 +451,8 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public TweetPollSwitch createTweetPollQuestionAnswer(
             final QuestionAnswerBean answerBean,
-            final TweetPoll tp)
+            final TweetPoll tp,
+            final HttpServletRequest request)
             throws EnMeNoResultsFoundException {
         final Question question = tp.getQuestion();
         //create answer
@@ -459,7 +463,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         } else {
             //create tweet poll switch with tp and new answer.
             log.debug("createTweetPollQuestionAnswer: short url provider:{ "+questionAnswer.getProvider());
-            final TweetPollSwitch tpSwitch = this.createTweetPollSwitch(tp, questionAnswer);
+            final TweetPollSwitch tpSwitch = this.createTweetPollSwitch(tp, questionAnswer, request);
             return tpSwitch;
         }
     }

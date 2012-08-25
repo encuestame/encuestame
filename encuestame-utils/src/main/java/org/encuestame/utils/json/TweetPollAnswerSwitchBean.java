@@ -42,6 +42,8 @@ public class TweetPollAnswerSwitchBean implements Serializable {
     public QuestionAnswerBean answerBean;
     @JsonProperty(value = "short_url")
     public String shortUrl;
+    @JsonProperty(value = "relative_url")
+    public String relativeUrl;
     @JsonProperty(value = "results")
     public TweetPollResultsBean resultsBean;
 
@@ -137,4 +139,19 @@ public class TweetPollAnswerSwitchBean implements Serializable {
     public void setResultsBean(TweetPollResultsBean resultsBean) {
         this.resultsBean = resultsBean;
     }
+
+	/**
+	 * @return the relativeUrl
+	 */
+    @JsonIgnore
+	public String getRelativeUrl() {
+		return relativeUrl;
+	}
+
+	/**
+	 * @param relativeUrl the relativeUrl to set
+	 */
+	public void setRelativeUrl(String relativeUrl) {
+		this.relativeUrl = relativeUrl;
+	}       
 }

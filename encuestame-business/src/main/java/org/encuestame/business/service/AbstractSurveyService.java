@@ -21,11 +21,14 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
@@ -245,29 +248,36 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public TweetPollSwitch createTweetPollSwitch(
             final TweetPoll tweetPoll,
-            final QuestionAnswer answer){
-        final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
-        tPollSwitch.setAnswers(answer);
-        tPollSwitch.setTweetPoll(tweetPoll);
-        tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance().getTimeInMillis() + answer.getAnswer()));
-        tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
-        final StringBuffer voteUrlWithoutDomain = new StringBuffer();
-        voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
-        voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
-        final StringBuffer completeDomain = new StringBuffer(EnMePlaceHolderConfigurer.getProperty("application.domain"));
-        completeDomain.append(voteUrlWithoutDomain.toString());
-         log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
-         if (InternetUtils.validateUrl(completeDomain.toString())) {
-             log.debug("createTweetPollSwitch: URL IS VALID");
-             log.debug("createTweetPollSwitch: short url provider "+answer.getProvider());
-             tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
-         } else {
-             log.debug("createTweetPollSwitch: url IS NOT valid");
-             tPollSwitch.setShortUrl(completeDomain.toString());
-             log.warn("Invalid format vote url:{"+voteUrlWithoutDomain.toString());
-         }
-        getTweetPollDao().saveOrUpdate(tPollSwitch);
-        return tPollSwitch;
+            final QuestionAnswer answer,
+            final HttpServletRequest request) {
+		final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
+		tPollSwitch.setAnswers(answer);
+		tPollSwitch.setTweetPoll(tweetPoll);
+		tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance()
+				.getTimeInMillis() + answer.getAnswer()));
+		tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
+		final StringBuffer voteUrlWithoutDomain = new StringBuffer();
+		voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
+		voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
+		tPollSwitch.setRelativeUrl(voteUrlWithoutDomain.toString());
+		final StringBuffer completeDomain = new StringBuffer();
+		if (request != null) {
+			final String domain = WidgetUtil.getDomain(request);
+			completeDomain.append(domain);
+		}
+		completeDomain.append(voteUrlWithoutDomain.toString());
+		log.debug("tweet poll answer vote :{" + voteUrlWithoutDomain.toString());
+		if (InternetUtils.validateUrl(completeDomain.toString())) {
+			log.debug("createTweetPollSwitch: URL IS VALID");
+//			log.debug("createTweetPollSwitch: short url provider "+ answer.getProvider());
+			tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
+		} else {
+			log.debug("createTweetPollSwitch: url IS NOT valid");
+			tPollSwitch.setShortUrl(completeDomain.toString());
+			log.warn("Invalid format vote url:{" + voteUrlWithoutDomain.toString());
+		}
+		getTweetPollDao().saveOrUpdate(tPollSwitch);
+		return tPollSwitch;
     }
 
     /**
@@ -300,7 +310,7 @@ public class AbstractSurveyService extends AbstractChartService {
             	urlShort = url;
             }
         }
-        log.debug("shortUrlProvider SHORT: "+urlShort);
+        log.debug("shortUrlProvider SHORT: " + urlShort);
         return urlShort;
     }
 
@@ -309,7 +319,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param questionId
      * @param tweetPoll
      */
-    public void updateTweetPollSwitchSupport(final TweetPoll tweetPoll){
+    public void updateTweetPollSwitchSupport(final TweetPoll tweetPoll, final HttpServletRequest httpServletRequest) {
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid());
         log.debug("updateTweetPollSwitchSupport answers size:{"+answers.size());
         //iterate answer for one question
@@ -318,7 +328,7 @@ public class AbstractSurveyService extends AbstractChartService {
             TweetPollSwitch tPollSwitch = getTweetPollDao().getAnswerTweetSwitch(tweetPoll, answer);
             if (tPollSwitch == null) {
                 log.debug("created tweetpoll switch for tweetpoll:{"+tweetPoll.getTweetPollId());
-                tPollSwitch = this.createTweetPollSwitch(tweetPoll, answer);
+                tPollSwitch = this.createTweetPollSwitch(tweetPoll, answer, httpServletRequest);
             } else {
                 log.debug("updated tweetpoll switch:{"+tPollSwitch.getSwitchId()+" for tweetpoll :{"+tweetPoll.getTweetPollId());
             }

@@ -325,7 +325,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
                 questionBean);
         final TweetPoll myTweetPoll = tweetPollService.createTweetPoll(
                 myTpBean, "What is your favourite city?",
-                getSpringSecurityLoggedUserAccount());
+                getSpringSecurityLoggedUserAccount(), null);
         final Question myQuestion = createQuestion(
                 "What is your favourite city", "pattern");
 
@@ -335,9 +335,9 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
                 "No", myQuestion.getQid());
 
         final TweetPollSwitch pollSwitch = tweetPollService
-                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll);
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
         final TweetPollSwitch pollSwitch2 = tweetPollService
-                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll);
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
 
         tweetPollService.tweetPollVote(pollSwitch, ipVote, Calendar.getInstance().getTime());
         //tweetPollService.tweetPollVote(pollSwitch2, ipVote);
