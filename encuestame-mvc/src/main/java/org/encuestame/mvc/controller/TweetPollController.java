@@ -237,6 +237,10 @@ public class TweetPollController extends AbstractSocialController {
     	addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
     	addi18nProperty(model, "tp_options_notifications", getMessage("tp_options_notifications"));
     	addi18nProperty(model, "related_terms", getMessage("related_terms"));
+    	addi18nProperty(model, "commons_success", getMessage("commons_success"));
+    	addi18nProperty(model, "commons_favourite");
+    	addi18nProperty(model, "e_023");
+    	addi18nProperty(model, "commons_unfavourite");
     	return "tweetpoll";
     }
 

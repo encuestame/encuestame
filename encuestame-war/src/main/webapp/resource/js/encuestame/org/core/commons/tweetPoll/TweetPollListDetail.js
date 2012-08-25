@@ -79,11 +79,21 @@ dojo.declare(
            };
            encuestame.service.xhrGet(url, params, load, error);
        },
+       
+       /**
+        * 
+        */
+       successDetailUpdateMessage : function () {
+    	   this.publishMessage(ENME.getMessage('commons_success'), ENME.CONST.MSG.SUCCESS);  
+       },
 
-       _setAllowLiveResults : function(){
+       /**
+        * 
+        */
+       _setAllowLiveResults : function() {
            var load = dojo.hitch(this, function(data){
                this.data.allowLiveResults = !this.data.allowLiveResults;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.liveResultsTweetPoll));
        },
@@ -91,7 +101,7 @@ dojo.declare(
        _setResumeLiveResults : function(){
            var load = dojo.hitch(this, function(data){
                this.data.resumeLiveResults = !this.data.resumeLiveResults;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.resumeliveResultsTweetPoll));
        },
@@ -99,7 +109,7 @@ dojo.declare(
        _setCaptcha : function(){
            var load = dojo.hitch(this, function(data){
                this.data.captcha = !this.data.captcha;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.captchaTweetPoll));
        },
@@ -107,22 +117,28 @@ dojo.declare(
        _setNotification : function(){
            var load = dojo.hitch(this, function(data){
                this.data.closeNotification = !this.data.closeNotification;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.notificationTweetPoll));
        },
 
+       /**
+        * Set as repeated
+        */
        _setRepeated : function(){
-           var load = dojo.hitch(this, function(data){
+           var load = dojo.hitch(this, function(data) {
                this.data.allowRepeatedVotes = !this.data.allowRepeatedVotes;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.repeatedTweetPoll));
        },
-
-        error : function(){
+       
+       /**
+        * Error messages.
+        */
+        error : function() {
             this.errorMesage();
-            console.error("tweetpoll list errorrrrrrrrr ");
+            this.publishMessage(ENME.getMessage('e_023'), ENME.CONST.MSG.ERROR);  
         },
 
         /**

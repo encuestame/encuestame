@@ -53,6 +53,23 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     },    
 
     /**
+     * Publish a message on the context
+     * @param message the message
+     * @param type error, warning, info, success
+     */
+    publishMessage : function (message, type, desc) {
+    	if (type === 'success') {
+    		this.successMesage(message, desc);
+    	} else if (type === 'error') {
+    		this.errorMessage(message, desc);
+    	} else if (type === 'warn') {
+    		this.warningMesage(message, desc);
+    	} else if (type === 'fatal') {
+    		this.fatalMesage(message, desc);
+    	}
+    },
+
+    /**
      * Display a success message.
      */
     successMesage : function(message, description) {
