@@ -590,9 +590,9 @@ div.accountUpdateWrapper {
 /** Row Account */
 div.socialWrapperRow {
     font-size: 110%;
-    -moz-box-shadow: inset 0px 1px 1px #888;
-    -webkit-box-shadow: inset 0px 1px 1px #888;
-    box-shadow: inset 0px 1px 1px #888;
+    -moz-box-shadow: 1px 1px 3px #888888 inset;
+    -webkit-box-shadow: 1px 1px 3px #888888 inset;
+    box-shadow: 1px 1px 3px #888888 inset;
     -webkit-border-radius: 2px 2px 2px 2px;
     -moz-border-radius: 2px 2px 2px 2px;
     border-radius: 2px 2px 2px 2px;
@@ -600,6 +600,7 @@ div.socialWrapperRow {
     overflow: auto;
     background-color: #F9F9F9;
     margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 div.socialWrapperRow .sub-title-account {
