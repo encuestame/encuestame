@@ -316,7 +316,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	        tweetPollBean.setSchedule(Boolean.FALSE);
 	        try {
 	        	//final Question qm = createQuestion(question, u, QuestionPattern.CUSTOMIZABLE_SELECTION);
-				final TweetPoll tweetPollDomain = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u);
+				final TweetPoll tweetPollDomain = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u, null);
 
 				double hits = getRandomNumberRange(2, EnMePlaceHolderConfigurer
 						.getIntegerProperty("demo.max.tweetpoll.hits"));
