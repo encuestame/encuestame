@@ -363,9 +363,9 @@ dojo.declare(
         /*
          * Call Service.
          */
-        _callService : function(/* function after response */ load, url){
+        _callService : function(/* function after response */ load, url) {
             var error = function(error) {
-                console.debug("error", error);
+                this.publishMessage(error.message, ENME.CONST.MSG.ERROR);
             };
             var params = {
                     tweetPollId : this.data.id
@@ -383,10 +383,13 @@ dojo.declare(
                 if (this.data.favourites) {
                     dojo.addClass(this._favourite, "selectedFavourite");
                     dojo.removeClass(this._favourite, "emptyFavourite");
+                    this.publishMessage(ENME.getMessage('commons_favourite'), ENME.CONST.MSG.SUCCESS);
                 } else {
                     dojo.addClass(this._favourite, "emptyFavourite");
                     dojo.removeClass(this._favourite, "selectedFavourite");
+                    this.publishMessage(ENME.getMessage('commons_unfavourite'), ENME.CONST.MSG.SUCCESS);
                 }
+                
             });
             this._callService(load, encuestame.service.list.favouriteTweetPoll);
         },
@@ -396,7 +399,7 @@ dojo.declare(
          */
         _setCloseTweetPoll : function(event) {
             dojo.stopEvent(event);
-            var load = dojo.hitch(this, function(data){
+            var load = dojo.hitch(this, function(data) {
                 //console.debug(data);
             });
             this._callService(load, encuestame.service.list.changeTweetPollStatus);

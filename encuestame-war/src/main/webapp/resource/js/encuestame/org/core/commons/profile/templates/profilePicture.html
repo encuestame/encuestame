@@ -15,13 +15,13 @@
 		<div>
 			<form id="pictureSourceForm">
 				<input type="radio" name="pictureSource" id="gravatar_radio"
-					dojoType="dijit.form.RadioButton" checked value="gravatar" /> <label
+					dojoType="dijit.form.RadioButton" value="GRAVATAR" /> <label
 					for="radioOne"> Gravatar <a href="http://www.gravatar.com/"
 					target="_blank">
 					   http://www.gravatar.com/
 				</a>
 				</label> <br /> <input type="radio" dojoType="dijit.form.RadioButton"
-					name="pictureSource" id="uploaded_radio" value="uploaded" /> <label
+					name="pictureSource" id="uploaded_radio" value="UPLOADED" /> <label
 					for="radioTwo"> 
 					  ${i18nMessage.settings_config_picture_own}
 			 </label>
@@ -29,7 +29,7 @@
 		</div>
 		<div>
 			<form method="post" action="${contextPath}/file/upload/profile"
-				enctype="multipart/form-data" id="imageForm">
+				enctype="multipart/form-data" id="imageForm" accept-charset="UTF-8">
 				<div style="padding: 10px;">
 					<div style="padding: 15px;" class="defaultDisplayHide"
 						dojoAttachPoint="_uploadedForm">

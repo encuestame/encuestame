@@ -19,11 +19,6 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     // constructor
     constructor: function(){},
 
-    /*
-     *
-     */
-    _delay_messages : 5000,
-
     /**
      * Create a modal box.
      */
@@ -58,26 +53,50 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
     },    
 
     /**
+     * Publish a message on the context
+     * @param message the message
+     * @param type error, warning, info, success
+     */
+    publishMessage : function (message, type, desc) {
+    	if (type === 'success') {
+    		this.successMesage(message, desc);
+    	} else if (type === 'error') {
+    		this.errorMessage(message, desc);
+    	} else if (type === 'warn') {
+    		this.warningMesage(message, desc);
+    	} else if (type === 'fatal') {
+    		this.fatalMesage(message, desc);
+    	}
+    },
+
+    /**
      * Display a success message.
      */
-    successMesage : function(message) {
+    successMesage : function(message, description) {
         //console.info("Successfull message");
-        encuestame.messages.pubish(message || encuestame.constants.messageCodes["023"], "message", this._delay_messages);
+        ENME.messages.success(message, description);
     },
 
     /**
      * Display a warning message.
      */
-    warningMesage : function() {
-        encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "warning", this._delay_messages);
+    warningMesage : function(message, description) {
+    	ENME.messages.warning(message, description);
     },
     
     /**
      * Display a warning message.
      */
-    errorMessage : function() {
-        encuestame.messages.pubish(encuestame.constants.warningCodes["001"], "error", this._delay_messages);
+    errorMessage : function(message, description) {
+    	ENME.messages.success(message, description);
     },    
+    
+   /**
+    * Display a fatal message
+    */
+   fatalMesage : function(message) {
+	   ENME.messages.fatal(message, description);
+   },    
     
     /**
      * Display a default loader.
@@ -131,13 +150,6 @@ dojo.declare("encuestame.org.main.WidgetServices", null, {
          if (modal != null) {
         	 modal.show(info);
          }
-    },
-
-    /*
-     *
-     */
-    fatalMesage : function() {
-        encuestame.messages.pubish(ENME.getMessage("e_023"), "fatal", this._delay_messages);
     },
     
     /**

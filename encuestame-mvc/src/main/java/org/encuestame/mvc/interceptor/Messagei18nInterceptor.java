@@ -43,12 +43,13 @@ public class Messagei18nInterceptor extends AbstractBaseOperations implements Ha
 			Object arg2, ModelAndView arg3) throws Exception {	
 		//add profile message
 		if (arg3 != null) {
-			addDefaulti18nMessages(arg3.getModelMap());
-			addi18nProperty(arg3.getModelMap(), "loading_message",
-					getMessage("loading_message"));
-			addi18nProperty(arg3.getModelMap(), "save_message",
-					getMessage("save_message"));
-			addi18nProperty(arg3.getModelMap(), "e_023", getMessage("e_023"));
+			//TODO: this messages are displayed on json responses, we need filter by type, spring config?
+//			addDefaulti18nMessages(arg3.getModelMap());
+//			addi18nProperty(arg3.getModelMap(), "loading_message",
+//					getMessage("loading_message"));
+//			addi18nProperty(arg3.getModelMap(), "save_message",
+//					getMessage("save_message"));
+//			addi18nProperty(arg3.getModelMap(), "e_023", getMessage("e_023"));
 		}
 	}
 

@@ -897,10 +897,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param username
      * @throws EnMeNoResultsFoundException
      */
-    public void upadteAccountProfile(
+    public void updateAccountProfile(
             final Profile property,
             final String value) throws EnMeNoResultsFoundException{
-        log.debug("updating accoutn profile :"+property+" whith value "+value);
+		log.debug("updating accoutn profile :" + property + " whith value "
+				+ value);
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
         if (Profile.USERNAME.equals(property)) {
             account.setUsername(value.trim());
@@ -925,17 +926,19 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param completeName
      * @throws EnMeNoResultsFoundException
      */
-    public void upadteAccountProfile(
+    public void updateAccountProfile(
             final String bio,
             final String language,
             final String completeName,
             final String loggedUsername) throws EnMeNoResultsFoundException{
-        final UserAccount account = getUserAccount(loggedUsername);
-        log.debug("update Account user to update "+account.getUsername());
-        log.debug("update Account Profile bio "+bio);
-        log.debug("update Account Profile language "+language);
+        final UserAccount account = getUserAccount(getUserPrincipalUsername());
+        log.debug("update Account user to update " + account.getUsername());
+        log.debug("update Account Profile bio " + bio);
+        log.debug("update Account Profile language " + language);
+        log.debug("update Account Profile language " + loggedUsername);
         account.setCompleteName(completeName);
-        //TODO: bug 112, add another missing properties.
+        //TODO: ENCUESTAME-20
+        //this.updateAccountProfile()
         getAccountDao().saveOrUpdate(account);
     }
 

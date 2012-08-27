@@ -587,69 +587,7 @@ div.accountUpdateWrapper {
 
 
 
-/** Row Account */
-div.socialWrapperRow {
-    font-size: 110%;
-    -moz-box-shadow: inset 0px 1px 1px #888;
-    -webkit-box-shadow: inset 0px 1px 1px #888;
-    box-shadow: inset 0px 1px 1px #888;
-    -webkit-border-radius: 2px 2px 2px 2px;
-    -moz-border-radius: 2px 2px 2px 2px;
-    border-radius: 2px 2px 2px 2px;
-    cursor: pointer;
-    overflow: auto;
-    background-color: #F9F9F9;
-    margin-bottom: 10px;
-}
 
-div.socialWrapperRow .sub-title-account {
-    overflow: auto;
-}
-
-div.socialWrapperRow .sub-title-account .image {
-    float: left;
-}
-
-div.socialWrapperRow div.title {
-    font-size: 14px;
-    font-weight: bold;
-    margin-left: 30px;
-    padding: 5px;
-}
-
-div.socialWrapperRow form {
-    padding: 10px;
-}
-
-div.socialWrapperRow div.socialNewForm {
-    clear: both;
-    position: fixed;
-}
-
-div.socialWrapperRow div.tokensWrapper {
-    padding: 5px;
-    border-top: 1px dotted;
-}
-
-div.socialWrapperRow div.tokensWrapper div.tokenHideOptions {
-    min-height: 45px;
-}
-
-div.socialWrapperRow  div.option-button {
-    text-align: right;
-    float: right;
-    font-size: 12px;
-}
-
-div.socialWrapperRow div.tokensWrapper .dijitTextBox {
-    font-size: 100%;
-    min-width: 250px;
-}
-
-div.socialWrapperRow div.tokensWrapper label {
-    font-weight: bold;
-    font-size: 90%;
-}
 
 /** gadget **/
 div.web-gadget {

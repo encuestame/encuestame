@@ -127,7 +127,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
              final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
              final List<SocialProvider> providers = new ArrayList<SocialProvider>();
                  providers.add(SocialProvider.TWITTER);
-                 providers.add(SocialProvider.GOOGLE_BUZZ);
+                 providers.add(SocialProvider.GOOGLE_PLUS);
                  providers.add(SocialProvider.LINKEDIN);
                  providers.add(SocialProvider.IDENTICA);
                  providers.add(SocialProvider.FACEBOOK);

@@ -2,7 +2,6 @@
 @import url("layout.css");
 @import url("common.css");
 @import url("web/admon.css");
-@import url("web/button.css");
 @import url("web/default.css");
 @import url("web/menu.css");
 @import url("web/public.css");
@@ -57,3 +56,4 @@
 @import url("web/components/publish-support.css");
 
 @import url("web/components/settings.css");
+@import url("web/components/social_settings.css");
