@@ -130,5 +130,11 @@ public interface IQuestionDao extends IBaseDao {
      */
 	QuestionPreferences getPreferenceById(final Long preferenceId);
     
-    
+	/**
+	 * Retrieve {@link Question} by id
+	 * @param questionId
+	 * @param userId
+	 * @return
+	 */
+	Question retrieveQuestionbyId(Long questionId, final Long userId);
 }

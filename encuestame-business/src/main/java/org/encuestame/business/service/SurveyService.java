@@ -311,16 +311,17 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 	 * org.encuestame.persistence.domain.survey.SurveySection,
 	 * org.encuestame.utils.enums.QuestionPattern, java.lang.String[])
 	 */
-	public void addQuestionToSurveySection(final String questionName,
+	public Question addQuestionToSurveySection(final String questionName,
 			final UserAccount user, final SurveySection section,
 			final QuestionPattern questionPattern, final String[] answers)
 			throws EnMeExpcetion, NoSuchAlgorithmException,
 			UnsupportedEncodingException { 
+			Question question = new Question();
 			if ((questionName == null) || (questionName.isEmpty())) {
 				log.error("Question is required");
 			} else {
 				// Create question
-				final Question question = createQuestion(questionName, user);
+				question = createQuestion(questionName, user);
 				// Add section to question
 				question.setSection(section);
 				// Add answers to question
@@ -333,6 +334,7 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
 			}
 				this.createQuestionAnswers(answers, question);*/
 			} 
+			return question;
 	}
  
 
@@ -465,11 +467,12 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      */
     public Survey getSurvey(final Long surveyId, final String username) throws EnMeNoResultsFoundException {
         Survey survey = new Survey();
+ 
         if (username != null) {
             survey = getSurveyDaoImp()
-                    .getSurveyByIdandUserId(surveyId, getUserAccountonSecurityContext().getUid());
-        } else {
-            survey = getSurveyDaoImp().getSurveyById(surveyId);  
+                    .getSurveyByIdandUserId(surveyId, getUserAccountonSecurityContext().getAccount().getUid());
+        } else { 
+            survey = getSurveyDaoImp().getSurveyById(surveyId); 
         }
         if (survey == null) {
             log.error("survey invalid with this id "+surveyId);
@@ -483,8 +486,8 @@ public class SurveyService extends AbstractSurveyService implements ISurveyServi
      * @see org.encuestame.core.service.imp.ISurveyService#getSurveyById(java.lang.Long)
      */
 	public Survey getSurveyById(final Long surveyId)
-			throws EnMeNoResultsFoundException { 
-		return this.getSurvey(surveyId, getUserPrincipalUsername());
+			throws EnMeNoResultsFoundException {  
+		return this.getSurvey(surveyId, null);
 	}
 
     /*

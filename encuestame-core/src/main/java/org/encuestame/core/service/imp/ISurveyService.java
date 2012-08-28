@@ -274,7 +274,7 @@ public interface ISurveyService extends IMasterSurveyService {
 	 * @throws NoSuchAlgorithmException
 	 * @throws UnsupportedEncodingException
 	 */
-	void addQuestionToSurveySection(final String questionName,
+	Question addQuestionToSurveySection(final String questionName,
 			final UserAccount user, final SurveySection section,
 			final QuestionPattern questionPattern, final String[] answers)
 			throws EnMeExpcetion, NoSuchAlgorithmException,
@@ -313,4 +313,14 @@ public interface ISurveyService extends IMasterSurveyService {
 	 */
 	SurveySection retrieveSurveySectionById(final Long sectionId)
 			throws EnMeSurveyNotFoundException;
+	
+	/**
+	 * Retrieve {@link Question} by id.
+	 * @param id
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Question getQuestionById(final Long id)
+			throws EnMeNoResultsFoundException; 
+	 
  }

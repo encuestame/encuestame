@@ -402,4 +402,18 @@ public class TestSurveyDao extends AbstractBase {
         final List<Survey> getTotalSurveysbyHashTag = getSurveyDaoImp().getSurveysbyHashTagNameAndDateRange(hashtag1.getHashTag(), SearchPeriods.SEVENDAYS);
         assertEquals("Should be equals", 2, getTotalSurveysbyHashTag.size());
     }
+    
+    /**
+     * Test get {@link Survey} by id.
+     */
+	@Test
+	public void testGetSurveyById() {
+		final Survey mySurvey = createDefaultSurvey(this.user);
+		assertNotNull(mySurvey);
+
+		final Survey surveyById = getSurveyDaoImp().getSurveyById(
+				mySurvey.getSid());
+		assertEquals("Should be equals", mySurvey.getSid(), surveyById.getSid());
+
+	}
 }
