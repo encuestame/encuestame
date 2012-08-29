@@ -24,6 +24,7 @@
 		    <c:forEach items="${i18n}" var="entry"> 
                   <input type="hidden" name="${entry.key}" value="${entry.value}"/>   
             </c:forEach> 
+            <input type="hidden" name="not_view_all" value="<spring:message code="not_view_all" />"/>
 			<tiles:insertAttribute name="header" ignore="true" />
 			<tiles:insertAttribute name="menu" ignore="true" />
 		</header>
