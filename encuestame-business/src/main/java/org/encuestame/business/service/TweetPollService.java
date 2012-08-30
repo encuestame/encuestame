@@ -773,12 +773,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         for (TweetPollResultsBean tweetPollResultsBean : list) {
             totalVotes += totalVotes + tweetPollResultsBean.getVotes();
         }
-        System.out.println("**********************");
-        System.out.println("*******totalVotes*************** "+totalVotes);
+        //System.out.println("**********************");
+        //System.out.println("*******totalVotes*************** "+totalVotes);
         for (TweetPollResultsBean tweetPollResultsBean : list) {
             tweetPollResultsBean.setPercent(EnMeUtils.calculatePercent(totalVotes, tweetPollResultsBean.getVotes()));
         }
-        System.out.println("**********************");
+        //System.out.println("**********************");
     }
 
     /**
