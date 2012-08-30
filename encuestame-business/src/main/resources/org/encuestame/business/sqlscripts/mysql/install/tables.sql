@@ -1013,6 +1013,7 @@ CREATE TABLE IF NOT EXISTS `tweetpoll_switch` (
   `short_url` varchar(255) DEFAULT NULL,
   `q_answer_id` bigint(20) NOT NULL,
   `tweet_poll_id` bigint(20) NOT NULL,
+  `relative_url` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`tweetpoll_switch_id`),
   UNIQUE KEY `tweetpoll_switch_id` (`tweetpoll_switch_id`),
   UNIQUE KEY `tweet_code` (`tweet_code`),
