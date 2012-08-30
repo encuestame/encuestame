@@ -78,6 +78,8 @@
 							</button>
 						</div>
 					</fieldset>
+					<!--
+					   http://issues.encuestame.org/browse/ENCUESTAME-503 										
 					<fieldset>
 						<div class="section-signup"
 							title="Sign up with your favourite social network"
@@ -90,6 +92,7 @@
 							</div>
 						</div>
 					</fieldset>
+					 -->
 				</div>
 			</div>
 		</form>
