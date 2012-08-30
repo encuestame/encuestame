@@ -170,8 +170,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);
+           
             if (hashtags.size() > 0) {
-            	  pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));	
+            	//http://issues.encuestame.org/browse/ENCUESTAME-504
+            	//pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));	
             } 
             log.debug("poll list answer=>" + answers.length);
             // Add answers
