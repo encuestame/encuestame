@@ -81,7 +81,7 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 * @param event
 	 */
 	_displayVoteButtonIn : function(event) {
-		this.stopEvent(event);				
+		dojo.stopEvent(event);				
 		dojo.removeClass(this._button, encuestame.utilities.HIDDEN_CLASS);
 		dojo.addClass(this._vote, encuestame.utilities.HIDDEN_CLASS);
 	},
@@ -112,7 +112,7 @@ dojo.declare("encuestame.org.core.home.votes.ItemVote",
 	 * @param event
 	 */
 	_displayVoteButtonOut : function(event) {
-		this.stopEvent(event);
+		dojo.stopEvent(event);
 		if (!this.clickVoteButton) {
 			dojo.addClass(this._button, encuestame.utilities.HIDDEN_CLASS);
 			dojo.removeClass(this._vote, encuestame.utilities.HIDDEN_CLASS);

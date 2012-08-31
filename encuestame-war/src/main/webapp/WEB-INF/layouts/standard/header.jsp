@@ -1,10 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="web-header">
     <div class="web-header-wrapper enme-auto-center">
-        <div class="logo">
-            <a href="<%=request.getContextPath()%>/"> <img alt="logo"
-                src="<%=request.getContextPath()%>/resources/${logo}"> </a>
-        </div>
+        <%@ include file="/WEB-INF/layouts/logo.jsp"%>
         <div class="web-header-options">
             <c:if test="${!logged}">
                 <span class="link"> <a

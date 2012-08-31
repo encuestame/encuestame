@@ -38,6 +38,7 @@ public enum SocialProvider {
     /**
      * Google Buzz provider.
      */
+    @Deprecated
     GOOGLE_BUZZ,
 
     /** Google +. **/
@@ -72,6 +73,11 @@ public enum SocialProvider {
      * Blog support to publish on blogger accounts.
      */
     BLOGGER,
+    
+    /**
+     * All social providers.
+     */
+    ALL,
 
     /**
      * Constructor.
@@ -90,8 +96,10 @@ public enum SocialProvider {
         else if (this == IDENTICA) { provider = "IDENTICA"; }
         else if (this == LINKEDIN) { provider = "LINKEDIN"; }
         else if (this == GOOGLE_BUZZ) { provider = "GOOGLEBUZZ"; }
+        else if (this == GOOGLE_PLUS) { provider = "GOOGLEPLUS"; }
         else if (this == YAHOO) { provider = "YAHOO"; }
         else if (this == MYSPACE) { provider = "MYSPACE"; }
+        else if (this == ALL) { provider = "ALL"; }
         return provider;
     }
 
@@ -107,7 +115,8 @@ public enum SocialProvider {
         else if (this == FACEBOOK) { provider = "FACEBOOK"; }
         else if (this == IDENTICA) { provider = "IDENTICA"; }
         else if (this == LINKEDIN) { provider = "LINKEDIN"; }
-        else if (this == GOOGLE_BUZZ) { provider = "GOOGLE"; }
+        else if (this == GOOGLE_PLUS) { provider = "GOOGLEPLUS"; }
+        else if (this == GOOGLE_BUZZ) { provider = "GOOGLEBUZZ"; }
         else if (this == YAHOO) { provider = "YAHOO"; }
         else if (this == MYSPACE) { provider = "MYSPACE"; }
         return provider.toLowerCase();
@@ -121,10 +130,11 @@ public enum SocialProvider {
     public static SocialProvider getProvider(final String socialProvider) {
         if (null == socialProvider) { return null; }
         else if (socialProvider.equalsIgnoreCase("TWITTER")) { return TWITTER; }
+        else if (socialProvider.equalsIgnoreCase("ALL")) { return ALL; }
         else if (socialProvider.equalsIgnoreCase("FACEBOOK")) { return FACEBOOK; }
         else if (socialProvider.equalsIgnoreCase("IDENTICA")) { return IDENTICA; }
         else if (socialProvider.equalsIgnoreCase("LINKEDIN")) { return LINKEDIN; }
-        else if (socialProvider.equalsIgnoreCase("GOOGLEBUZZ")) { return GOOGLE_BUZZ; }
+        else if (socialProvider.equalsIgnoreCase("GOOGLEPLUS")) { return GOOGLE_PLUS; }
         else if (socialProvider.equalsIgnoreCase("GOOGLE_BUZZ")) { return GOOGLE_BUZZ; }
         else if (socialProvider.equalsIgnoreCase("YAHOO")) { return YAHOO; }
         else if (socialProvider.equalsIgnoreCase("MYSPACE")) { return MYSPACE; }
@@ -136,14 +146,15 @@ public enum SocialProvider {
      * @param provider {@link SocialProvider}.
      * @return
      */
-    public static TypeAuth getTypeAuth(final SocialProvider provider){
+    public static TypeAuth getTypeAuth(final SocialProvider provider) {
         if(provider.equals(TWITTER)
                 || provider.equals(IDENTICA)
+                || provider.equals(ALL)
                 || provider.equals(LINKEDIN)
                 || provider.equals(MYSPACE)
                 || provider.equals(YAHOO)){
             return TypeAuth.OAUTH1;
-        } else if (provider.equals(GOOGLE_BUZZ) || provider.equals(FACEBOOK)){
+        } else if (provider.equals(GOOGLE_PLUS) || provider.equals(GOOGLE_BUZZ) || provider.equals(FACEBOOK)){
             return TypeAuth.OAUTH2;
         } else {
             return null;

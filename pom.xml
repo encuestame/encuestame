@@ -5,7 +5,7 @@
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
     <packaging>pom</packaging>
-    <version>1.145</version>
+    <version>1.146</version>
     <name>encuestame</name>
     <description>
      Encuestame is an open source project based on Java 6 technology. You can use to create different 
@@ -40,7 +40,7 @@
         <!-- 3.1.0.CI-SNAPSHOT once compatible with OAuth -->
         <spring-integration-core>2.1.0.RELEASE</spring-integration-core>
         <spring-oauth.version>1.0.0.BUILD-SNAPSHOT</spring-oauth.version>
-        <spring.mobile.version>1.0.0.RC1</spring.mobile.version>
+        <spring.mobile.version>1.0.0.RELEASE</spring.mobile.version>
         <spring.ldap>1.3.1.RELEASE</spring.ldap>
         <spring.orm>3.0.3.RELEASE</spring.orm>
         <spring.support>2.0.8</spring.support>
@@ -485,9 +485,17 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-                        <argLine>-Xmx1024m</argLine>
+                        <argLine>-Xmx1024m</argLine> 
+                        <groups>org.encuestame.utils.categories.test.DefaultTest</groups>
                     </configuration>
                     <version>${surefire.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.surefire</groupId>
+                            <artifactId>surefire-junit47</artifactId>
+                            <version>${surefire.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <plugin>
@@ -570,38 +578,146 @@
         </resources>
     </build>
 
-    <profiles>
-        <profile>
-            <id>development</id>
-            <properties>
-                <env>development</env>
-            </properties>
-        </profile>
-        <profile>
-            <id>jpicado</id>
-            <properties>
-                <env>jpicado</env>
-            </properties>
-        </profile>
-     <profile>
-            <id>mysql</id>
-            <properties>
-                <env>mysql</env>
-            </properties>
-        </profile>
-        <profile>
-            <id>dmorales</id>
-            <properties>
-                <env>dmorales</env>
-            </properties>
-        </profile>
-        <profile>
-            <id>demo</id>
-            <properties>
-                <env>demo</env>
-            </properties>
-        </profile>
-    </profiles>
+	<profiles>
+		<profile>
+			<id>development</id>
+			<properties>
+				<env>development</env>
+			</properties>
+		</profile>
+		<!-- Internet Test Categories -->
+		<profile>
+			<id>test-internet</id>
+			<properties>
+				<env>testcase</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.InternetTest</groups>
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+		<!-- -->
+		<!-- Performance Test Categories -->
+		<profile>
+			<id>test-performance</id>
+			<properties>
+				<env>testcase</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+
+				</plugins>
+			</build>
+
+		</profile>
+		<!-- -->
+		<!-- Performance Test Categories -->
+		<profile>
+			<id>SlowTest</id>
+			<properties>
+				<env>test-slow</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>test-all</id>
+			<properties>
+				<env>all</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.DefaultTest</groups>
+<!--
+                            TODO: How add all groups in this configuration?
+ 							<groups>org.encuestame.utils.categories.test.CometTest</groups>
+							<groups>org.encuestame.utils.categories.test.JSONTest</groups>
+							<groups>org.encuestame.utils.categories.test.MVCTest</groups>
+							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
+							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
+							<groups>org.encuestame.utils.categories.test.InternetTest</groups> -->
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- -->
+		<profile>
+			<id>demo</id>
+			<properties>
+				<env>demo</env>
+			</properties>
+		</profile>
+	</profiles>
 
     <reporting>
         <plugins>
@@ -621,12 +737,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin}</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
             </plugin>
 
             <plugin>

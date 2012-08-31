@@ -3,8 +3,8 @@
 
 <article class="web-hashtag-wrapper">
 
-    <section class="web-hashtag-header">
-        <div class="web-hashtagName">
+    <section class="web-hashtag-header web-detail-header">
+        <div class="title">
             <h2>
                 ${tagName.hashTagName}
             </h2>
@@ -16,7 +16,7 @@
 		</div>
     </section>
 
-    <section class="web-ht-graph-wrapper emne-box">
+    <section class="web-ht-graph-wrapper emne-box emne-box-gray">
        <div dojoType="encuestame.org.core.commons.hashtags.HashTagGraph"
        		channel="/encuestame/hashtag/time/range/refresh/graph" 
        		hashtagName="${tagName.hashTagName}"
@@ -25,7 +25,7 @@
 
     <div class="web-ht-detail-wrapper">
        <div class="web-ht-wrapper-mainline">
-           <article class="emne-box">
+           <article class="emne-box emne-box-gray">
                 <header>
                   <spring:message code="home.hashtag.lastpub" />
                 </header>
@@ -40,7 +40,7 @@
                 </c:if>
                 </div>
             </article>
-             <article class="emne-box">
+             <article class="emne-box emne-box-gray">
                      <header>
                         <spring:message code="home.hashtag.tweets" />
                      </header>
@@ -55,7 +55,7 @@
             </article>
         </div>
         <aside class="web-ht-wrapper-top">
-            <article class="emne-box">
+            <article class="emne-box emne-box-gray">
                  <header>
                     <spring:message code="home.hashtag.stats" />
                  </header>
@@ -67,7 +67,7 @@
                       id="generic">
                  </div>
              </article>
-            <article class="emne-box">
+            <article class="emne-box emne-box-gray">
                  <header>
                    <spring:message code="home.hashtag.position" />
                  </header>
@@ -78,7 +78,7 @@
                       id="position">
                  </section>
             </article>
-            <article class="emne-box">
+            <article class="emne-box emne-box-gray">
                  <header>
                     <spring:message code="home.hashtag.profile" />
                  </header>

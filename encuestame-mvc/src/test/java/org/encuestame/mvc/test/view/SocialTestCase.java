@@ -16,13 +16,16 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Social test case.
  * @author Picado, Juan juanATencuestame.org
  * @since
  */
+@Category(DefaultTest.class)
 public class SocialTestCase extends TestCase{
 
 

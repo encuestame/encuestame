@@ -42,7 +42,7 @@ dojo.declare(
         		  var commentedBy = (this.data.commented_by == null ? this.data.commented_username : this.data.commented_by);
         		  a.innerHTML = commentedBy;
         		  a.href = encuestame.utilities.usernameLink(this.data.commented_username);
-        		  a.target = "_blank";
+        		  //a.target = "_blank";
         		  this._commented_by.appendChild(a);
         	  }
         	  //set content.
@@ -57,7 +57,7 @@ dojo.declare(
         	  //set date
         	  if(this._comment_content_date){
         		  var date = dojo.create("a");
-        		  date.innerHTML = this.data.created_at;
+        		  date.innerHTML = ENME.fromNow(this.data.created_at, "YYYY-MM-DD");
         		  date.href = "#"; //TODO: future inprovments
         		  this._comment_content_date.appendChild(date);
         	  }

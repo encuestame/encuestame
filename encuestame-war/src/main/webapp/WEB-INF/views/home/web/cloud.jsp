@@ -1,9 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <article class="web-cloud">
      <article class="emne-box">
-        <header class="gradient-gray">
+        <h1>
             <spring:message code="cloud.title" />
-        </header>
+        </h1>
         <section class="cloudItems">
             <c:forEach items="${hashtags}" var="cloud">
                   <c:if test="${not empty cloud.hashTagName}">

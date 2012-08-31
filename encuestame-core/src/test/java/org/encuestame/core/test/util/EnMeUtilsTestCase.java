@@ -13,7 +13,9 @@
 package org.encuestame.core.test.util;
 
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import junit.framework.TestCase;
 
@@ -21,8 +23,8 @@ import junit.framework.TestCase;
  * EnMe Utils Test Cases.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 15, 2011
- * @version Id:
  */
+@Category(DefaultTest.class)
 public class EnMeUtilsTestCase extends TestCase {
 
     /**

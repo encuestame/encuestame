@@ -21,25 +21,30 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.QuestionDaoImp;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link QuestionDaoImp}.
  * @author Picado, Juan juanATencuestame.org
  * @since Feb 14, 2010 12:18:42 AM
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestQuestionDao extends AbstractBase{
 
     /** {@link Account} **/
     private Account user;
 
+    private Question initQuestion;
+    
     /**
      * Before.
      * @throws ParseException
@@ -54,6 +59,7 @@ public class TestQuestionDao extends AbstractBase{
         }
         final Date createDate = DateUtil.parseDate("2011-01-01", DateUtil.DEFAULT_FORMAT_DATE);
         createQuestion("Question with date and hits", this.user, createDate, 200L);
+        this.initQuestion = createDefaultQuestion("What is the country with the highest number of medals at the 2012 Olympic game");
     }
 
 
@@ -147,4 +153,47 @@ public class TestQuestionDao extends AbstractBase{
         assertEquals("Results for second section should be equals", 3,
                 questionsBySection2.size());
     }
+    
+    /**
+     * 
+     */
+    @Test
+    public void testGetQuestionPreferencesbyQid(){
+    	createQuestionPreference("note", "1", this.initQuestion);
+    	createQuestionPreference("field type", "multilines", this.initQuestion);
+    	createQuestionPreference("size", "20", this.initQuestion);
+    	final List<QuestionPreferences> preferences = getQuestionDaoImp().getQuestionPreferences(this.initQuestion); 
+    	assertEquals("Total preferences found", 3,
+    			preferences.size());
+    }
+    
+    /**
+     * 
+     */
+	@Test
+	public void testGetQuestionPreferences() {
+		createQuestionPreference("note", "1", this.initQuestion);
+		createQuestionPreference("field type", "multilines", this.initQuestion);
+		createQuestionPreference("field size", "multilines", this.initQuestion);
+
+		final List<QuestionPreferences> preferences = getQuestionDaoImp()
+				.getQuestionPreference(this.initQuestion, "field");
+		assertEquals("Total preferences found by name", 2, preferences.size());
+	}
+    
+    /**
+     * 
+     */
+	@Test
+	public void testGetQuestionPreferencesbyId() {
+		final QuestionPreferences qpref1 = createQuestionPreference("note",
+				"1", this.initQuestion);
+		createQuestionPreference("field type", "multilines", this.initQuestion);
+		createQuestionPreference("field size", "multilines", this.initQuestion);
+
+		final QuestionPreferences qPreference = getQuestionDaoImp()
+				.getPreferenceById(qpref1.getPreferenceId()); 
+		assertEquals(qpref1.getPreference(), qPreference.getPreference());
+	}
+    
 }

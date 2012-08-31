@@ -1,10 +1,12 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <article class="web-tweetpoll-detail web-wrapper-detail">
-   <header>
-       <h1>${tweetpoll.questionBean.questionName}</h1>
-   </header>
+   <div class="web-detail-header">
+       <div class="title">
+        <h2>${tweetpoll.questionBean.questionName}</h2>
+       </div>
+   </div>
    <article class="emne-box">
-        <section class="web-tweetpoll-info">
+<%--         <section class="web-tweetpoll-info">
             <div id="info" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail"
                 <c:if test="${tweetpoll.limitVotesDate}">
                     date="${tweetpoll.dateToLimit}"
@@ -15,7 +17,7 @@
                  completed="${tweetpoll.completed}"
                  owner="${tweetpoll.ownerUsername}"
                  tweetPollid="${tweetpoll.id}"></div>
-       </section>
+       </section> --%>
         <section class="web-tweetpoll-answer-wrapper web-wrapper-detail-wrapper">
             <div class="web-tweetpoll-answer-chart">
                 <div id="chart" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail"
@@ -24,51 +26,28 @@
                      username="${tweetpoll.ownerUsername}"></div>
             </div>
             <div class="web-tweetpoll-answer-answer">
-                <table class="web-tweetpoll-answer-table" cellspacing="0">
-                    <thead>
-                        <tr class="gradient-black">
-                            <th></th>
-                            <th>
-                                <span class="header-table-answer">
-                                	<spring:message code="options.linkToVote"/>
-                                </span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">
-                                	<spring:message code="options.votes" />
-                                </span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer">
-                                	<spring:message code="options.percent" />
-                                </span>
-                            </th>
-                            <th>
-                                <span class="header-table-answer"></span>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                            <th class="header-table-answer-emtpy"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${answers}" var="a">
-                            <tr class="answer"
-                                dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
-                                 aId="${a.answers.questionAnswerId}"
-                                  color="${a.answers.color}"
-                                 label="${a.answers.answer}"
-                                  owner="${tweetpoll.ownerUsername}"
-                                  completed="${tweetpoll.completed}"
-                                  url="${a.shortUrl}">
-                             </tr>
-                       </c:forEach>
-                    </tbody>
-                </table>
+                <header>
+                     <div class="answer-label">
+                           <spring:message code="commons_detail_answer" />
+                     </div>
+                     <div class="answer-votes">
+                            <spring:message code="commons_detail_total_votes" />
+                     </div>
+                     <div class="answer-percent">
+                           <spring:message code="commons_detail_percent" />
+                     </div>                     
+                </header>
+                <c:forEach items="${answers}" var="a">
+                    <div class="answer"
+                        dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
+                         aId="${a.answers.questionAnswerId}"
+                         color="${a.answers.color}"
+                         label="${a.answers.answer}"
+                         owner="${tweetpoll.ownerUsername}"
+                         completed="${tweetpoll.completed}"
+                         url="<%=request.getContextPath()%>${a.relativeUrl}">
+                     </div>                     
+               </c:forEach>
             </div>
        </section>
        <section class="web-button-wrapper gradient-gray">
@@ -80,20 +59,10 @@
             </div>
        </section>
    </article>
-   <article class="emne-box">
-       <header>
-          <spring:message code="options.links" />
-       </header>
-       <section>
-            <div dojoType="encuestame.org.core.commons.social.LinksPublished"
-                 itemId="${tweetpoll.id}" type="TWEETPOLL" class="web-social-links"
-                 ></div>
-       </section>
-    </article>
    <c:if test="${!empty hashtags}">
        <section class="emne-box">
            <header>
-           		<spring:message code="options.hashtag" />
+                <spring:message code="options.hashtag" />
            </header>
            <div class="web-tweetpoll-hashtags ">
                <c:forEach items="${hashtags}" var="h">
@@ -104,10 +73,23 @@
            </div>
        </section>
    </c:if>
+
+   <article class="emne-box">
+       <header>
+          <spring:message code="options.links" />
+       </header>
+       <section>
+            <div dojoType="encuestame.org.core.commons.social.LinksPublished" more="false"
+                 itemId="${tweetpoll.id}" type="TWEETPOLL" class="web-social-links"
+                 ></div>
+       </section>
+   </article>
+   
    <section class="web-tweetpoll-comments emne-box">
       <header>
             <spring:message code="options.comments" />
       </header>
       <div name="comments" dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </section>
+   
 </article>

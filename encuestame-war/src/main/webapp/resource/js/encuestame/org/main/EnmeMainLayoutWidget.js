@@ -31,7 +31,7 @@ dojo.declare("encuestame.org.main.EnmeMainLayoutWidget", [ dijit._Widget,
 	/*
 	 * default context path.
 	 */
-	contextDefaultPath : config.contextPath,
+	contextDefaultPath : ENME.config('contextPath'),
 
 	/*
 	 * add item on drop down menu.

@@ -25,6 +25,8 @@ public enum Status {
     INACTIVE,
    /** success status */
     SUCCESS,
-
+    /** failed status **/
     FAILED
+    
+    //TODO: to string methods 
 }

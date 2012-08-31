@@ -100,17 +100,17 @@ public class PollController extends AbstractBaseOperations {
             @RequestParam("type") String type,
             @RequestParam("slugName") String slugName,
             final HttpServletRequest req) {
-        log.debug("VOTE POLL "+responseId);
-        log.debug("VOTE POLL "+itemId);
-        log.debug("VOTE POLL "+type);
-        log.debug("VOTE POLL "+type);
+        log.debug("/poll/vote/post VOTE POLL "+responseId);
+        log.debug("/poll/vote/post VOTE POLL "+itemId);
+        log.debug("/poll/vote/post VOTE POLL "+type);
+        log.debug("/poll/vote/post VOTE POLL "+type);
         //default path
         String pathVote = "redirect:/poll/voted/";
         try {
             type = filterValue(type);
             slugName = filterValue(slugName);
             final String IP = getIpClient(req);
-            //validations
+            // validations
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             if (checkBannedIp) {
             	//if banned send to banned view.
@@ -154,26 +154,69 @@ public class PollController extends AbstractBaseOperations {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll/list", method = RequestMethod.GET)
     public String pollListController(final ModelMap model) {
-        log.debug("tweetpoll");
+        log.debug("poll list render view");
+        addItemsManangeMessages(model);
+        addi18nProperty(model, "commons_no_results");
+        addi18nProperty(model, "poll_admon_poll_options");
+        addi18nProperty(model, "poll_admon_poll_answers");
+        //
+        addi18nProperty(model, "poll_admon_poll_edit");
+        addi18nProperty(model, "poll_admon_poll_preview");
+        addi18nProperty(model, "poll_admon_poll_publish_options");
+        addi18nProperty(model, "poll_admon_poll_embebed");
+        //
+        addi18nProperty(model, "poll_admon_poll_votes");
+        // 
+        addi18nProperty(model, "detail_manage_poll_title");
+        addi18nProperty(model, "detail_manage_filters");
+        addi18nProperty(model, "detail_manage_poll_dropdown_title");
+        // menu items
+        addi18nProperty(model, "poll_admon_poll_new");
+        addi18nProperty(model, "commons_remove");        
         return "poll/list";
     }
 
     /**
-     *
-     * @param model
+     * Display the view to create a poll.
+     * @param model {@link Model}
      * @return
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll/new", method = RequestMethod.GET)
     public String newPollController(final ModelMap model) {
-        log.debug("new poll");
+        log.debug("new poll render view");
+        addi18nProperty(model, "poll_create_question_title");
+        addi18nProperty(model, "poll_create_build_answers");
+        addi18nProperty(model, "poll_create_add_new_answer");
+        addi18nProperty(model, "poll_create_allow_multiple_selection");
+        addi18nProperty(model, "poll_create_allow_new_responses");
+        addi18nProperty(model, "poll_create_limits");
+        addi18nProperty(model, "poll_create_poll_options");
+        addi18nProperty(model, "poll_create_comments");
+        addi18nProperty(model, "poll_create_results");
+        addi18nProperty(model, "poll_create_button_create");
+        addi18nProperty(model, "widget_folder_select_label");
+        addi18nProperty(model, "pattern_question_single");
+        addi18nProperty(model, "m_025");
+        addi18nProperty(model, "widget_repated_votes");
+        addi18nProperty(model, "widget_limit_votes");
+        addi18nProperty(model, "widget_date_to_close");
+        addi18nProperty(model, "widget_comments_allow");
+        addi18nProperty(model, "widget_comments_moderated");
+        addi18nProperty(model, "widget_comments_no_comments");
+        addi18nProperty(model, "widget_results_options");
+        addi18nProperty(model, "widget_results_only_percents");
+        addi18nProperty(model, "widget_results_all_data");
+        addi18nProperty(model, "widget_question_type");
+        addi18nProperty(model, "commons_cancel");        
         return "poll/new";
     }
 
     /**
      * Vote a {@link Poll}.
-     * @param model
+     * @param model {@link Model}
      * @param tweetId
+     * @param slug 
      * @return
      */
     @RequestMapping(value = "/poll/vote/{id}/{slug}", method = RequestMethod.GET)

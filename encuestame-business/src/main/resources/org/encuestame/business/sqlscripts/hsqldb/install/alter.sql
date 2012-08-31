@@ -107,3 +107,7 @@ alter table userAccount_permission add constraint FKBE01CE4C43ADB63D foreign key
 alter table userAccount_permission add constraint FKBE01CE4C5F77A117 foreign key (sec_id_secondary) references userAccount
 alter table userAccount_project add constraint FKFBC45BBC84536452 foreign key (cat_id_project) references project
 alter table userAccount_project add constraint FKFBC45BBC5F77A117 foreign key (sec_id_secondary) references userAccount
+alter table survey_temporal_result add constraint FK7867CF546BF7A1C foreign key (question_qid) references questions
+alter table survey_temporal_result add constraint FK7867CF5496009B4 foreign key (answer_q_answer_id) references questions_answers
+alter table survey_temporal_result add constraint FK7867CF551153812 foreign key (survey_sid) references surveys
+alter table question_preferences add constraint FKD540D01F46BF7A1C foreign key (question_qid) references questions

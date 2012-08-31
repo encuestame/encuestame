@@ -13,14 +13,16 @@
 package org.encuestame.test.business.service;
 
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Class Description.
  * @author Picado, Juan juanATencuestame.org
  * @since 02/12/2009 22:26:24
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestDataSource extends AbstractServiceBase {
     @Test
     public void testData(){

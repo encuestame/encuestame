@@ -13,8 +13,10 @@
 package org.encuestame.core.test.util;
 
 import org.encuestame.utils.ValidationUtils;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import junit.framework.TestCase;
 
@@ -24,6 +26,7 @@ import junit.framework.TestCase;
  * @author Picado, Juan juanATencuestame.org
  * @since May 26, 2012 11:29:20 PM
  */
+@Category(DefaultTest.class)
 public class ValidationUtilsTestCases extends TestCase {
 
 	@Test

@@ -2,7 +2,7 @@
     <div dojoType="dijit.form.Form" class="socialNewForm">
         <div class="sub-title-account" dojoAttachEvent="onclick:_showHideSecrets">
                <div class="image">
-                    <img alt="${account.account}" src="${account.profile_thumbnail_picture}" height="28" width="28">
+                    <img src="${account.profile_thumbnail_picture}" height="28" width="28">
                </div>
                <div class="title">${account.account}</div>
         </div>
@@ -11,7 +11,9 @@
                 <table>
                     <tr>
                         <td>
-                            <label>Email</label>
+                            <label>
+                                ${i18nMessage.settings_config_profile_email}
+                            </label>
                         </td>
                          <td>
                             ${account.email}
@@ -19,7 +21,9 @@
                     </tr>
                     <tr>
                         <td>
-                           <label>Real Name</label>
+                           <label>
+                                ${i18nMessage.settings_config_profile_complete_name}
+                            </label>
                         </td>
                          <td>
                             ${account.real_name}
@@ -27,29 +31,55 @@
                     </tr>
                      <tr>
                         <td>
-                            <label>Profile Url</label>
+                            <label>
+                                ${i18nMessage.settings_social_profile_url}
+                            </label>
                         </td>
                         <td>
                             <a href="${account.url}" target="_blank">${account.url}</a>
                         </td>
-                     </tr>published with this account
-                     <tr>
+                     </tr>
+                                          <tr>
                         <td>
-                            <div><label>Tweetpoll published with this account:</label> ${account.tweetpoll_stats}</div>
-                            <div><label>Survey published with this account:</label> ${account.survey_stats}</div>
-                            <div><label>Poll published with this account:</label> ${account.poll_stats}</div>
+                            <label>
+                                ${i18nMessage.settings_social_tp_published_whith_this_account}:
+                            </label>
+                        </td>
+                        <td>
+                            ${account.tweetpoll_stats}
                         </td>
                      </tr>
+                                          <tr>
+                        <td>
+                            <label>
+                                ${i18nMessage.settings_social_su_published_whith_this_account}:
+                            </label>
+                        </td>
+                        <td>
+                             ${account.survey_stats}
+                        </td>
+                     </tr>
+                      <tr>
+                        <td>
+                            <label>
+                                ${i18nMessage.settings_social_pll_published_whith_this_account}:
+                            </label>
+                        </td>
+                        <td>
+                            ${account.poll_stats}
+                        </td>
+                     </tr>
+                   
                </table>
                <div class="option-button">
                    <button id="${id}_remove" dojoType="dijit.form.Button" type="button" dojoAttachPoint="_removeButton">
-                            Remove
+                            ${i18nMessage.button_remove}
                    </button>
 <!--                    <button id="${id}_statusAccount" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
                             Disable
                    </button> -->
                    <button id="${id}_default" dojoType="dijit.form.Button" type="button" dojoAttachEvent="onClick:_changeStatusAccount">
-                            Set as Default
+                            ${i18nMessage.settings_social_set_default}
                    </button>
                </div>
             </div>

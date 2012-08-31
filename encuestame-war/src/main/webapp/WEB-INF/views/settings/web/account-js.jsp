@@ -5,4 +5,5 @@
     dojo.require("encuestame.org.core.shared.utils.AccountPicture");
     dojo.require("encuestame.org.core.commons.profile.Profile");
     dojo.require("encuestame.org.core.commons.profile.UploadProfilePicture");
+    dojo.require('encuestame.org.core.shared.utils.SettingsMenuSwitch');
 </script>

@@ -1,7 +1,9 @@
 <div class="tweetPollPublishDialog">
     <div dojoAttachPoint="_message" class="info defaultDisplayHide"></div>
     <div dojoAttachPoint="_container" class="items"></div>
-    <div class="options" style="text-align: right;">
-       <button dojoType="dijit.form.Button"  dojoAttachPoint="_close">Close</button>
+    <div class="options hidden" style="text-align: right;" dojoAttachPoint="_closeWrapper">
+       <button dojoType="dijit.form.Button"  dojoAttachPoint="_close">
+            ${i18nMessage.button_finish}
+       </button>
    </div>
 </div>

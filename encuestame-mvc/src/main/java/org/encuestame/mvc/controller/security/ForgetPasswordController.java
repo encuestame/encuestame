@@ -121,7 +121,7 @@ public class ForgetPasswordController extends AbstractSecurityController {
             }
             status.setComplete();
             log.info("password generated: " + password);
-            return "redirect:/user/signin";
+            return "/user/checkyouremail";
         }
     }
 }

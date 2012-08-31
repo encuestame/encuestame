@@ -4,42 +4,60 @@
             <div class="web-sidebar-options">
                 <div id="strapline"></div>
                 <div class="web-filter-sidebar-panel">
-                    <div class="folder-title default-background-dark-color default-sidebar-menu">Filters</div>
+                    <div class="folder-title default-background-dark-color default-sidebar-menu">
+                        ${i18nMessage.detail_manage_filters}
+                    </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAccount"
                         type="ACCOUNT">
-                        <span>By Account</span>
+                        <span>
+                           ${i18nMessage.detail_manage_by_account}
+                        </span>
                     </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByLastDay"
                         type="LASTDAY">
-                        <span>Today</span>
+                        <span>
+                            ${i18nMessage.detail_manage_today}
+                        </span>
                     </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByLastWeek"
                         type="LASTWEEK">
-                        <span>Last Week</span>
+                        <span> ${i18nMessage.detail_manage_last_week}</span>
                     </div>
                     <div class="optionItem"
                         dojoAttachEvent="onclick:_searchByFavourites" type="FAVOURITES">
-                        <span>Favourites</span>
+                        <span>
+                            ${i18nMessage.detail_manage_favorites}
+                        </span>
                     </div>
                     <div class="optionItem"
                         dojoAttachEvent="onclick:_searchByScheduled" type="SCHEDULED">
-                        <span>Scheduled</span>
+                        <span>
+                            ${i18nMessage.detail_manage_scheduled}
+                        </span>
                     </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAll"
                         type="ALL">
-                        <span>See All</span>
+                        <span>
+                            ${i18nMessage.detail_manage_all}
+                        </span>
                     </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAll"
                         type="ALL">
-                        <span>All Published</span>
+                        <span>
+                            ${i18nMessage.detail_manage_published}
+                        </span>
                     </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAll"
                         type="ALL">
-                        <span>All Un-Published</span>
+                        <span>
+                            ${i18nMessage.detail_manage_unpublished}
+                        </span>
                     </div>
                     <div class="optionItem" dojoAttachEvent="onclick:_searchByAll"
                         type="ALL">
-                        <span>All Completed</span>
+                        <span>
+                            ${i18nMessage.detail_manage_only_completed}
+                        </span>
                     </div>
                 </div>
                 <div dojoAttachPoint="_folder"></div>
@@ -51,11 +69,11 @@
                 <div style="padding: 10px; color: rgb(255, 255, 255);
                      font-size: 16px;
                      background-color: #595959;
-                     text-shadow: 2px 3px 1px rgba(6, 5, 5, 0.9);
                      overflow: auto;">
-                    POLL
+                     ${i18nMessage.detail_manage_poll_title}
                     <div style="float: right;">
-                        <div dojoType="encuestame.org.core.shared.utils.DropDownMenuSelect" defaultText="Poll Actions.."></div>
+                        <div dojoAttachPoint="_dropdownmenu" dojoType="encuestame.org.core.shared.utils.DropDownMenuSelect" 
+                             defaultText="${i18nMessage.detail_manage_poll_dropdown_title}"></div>
                     </div>
                 </div>
                 <article dojoAttachPoint="_items" class="web-list-rows">

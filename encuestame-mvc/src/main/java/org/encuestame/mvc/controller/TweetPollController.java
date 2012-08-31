@@ -34,6 +34,7 @@ import org.encuestame.utils.captcha.ReCaptchaResponse;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.SocialAccountBean;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.vote.UtilVoteCaptcha;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -220,8 +221,27 @@ public class TweetPollController extends AbstractSocialController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
     public String tweetPollController(final ModelMap model) {
-        log.debug("tweetpoll");
-        return "tweetpoll";
+    	addItemsManangeMessages(model);
+    	addi18nProperty(model, "tweetpoo_detail_tab_detail", getMessage("tweetpoo_detail_tab_detail"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_stats", getMessage("tweetpoo_detail_tab_stats"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_comments", getMessage("tweetpoo_detail_tab_comments"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_social", getMessage("tweetpoo_detail_tab_social"));
+    	addi18nProperty(model, "tweetpoo_detail_tab_delete", getMessage("tweetpoo_detail_tab_delete"));
+    	addi18nProperty(model, "tweetpoo_detail_answers_title_link", getMessage("tweetpoo_detail_answers_title_link"));
+    	addi18nProperty(model, "tweetpoo_detail_answers_title_count", getMessage("tweetpoo_detail_answers_title_count"));
+    	addi18nProperty(model, "tweetpoo_detail_answers_title_percent", getMessage("tweetpoo_detail_answers_title_percent"));    	
+    	addi18nProperty(model, "commons_created_date", getMessage("commons_created_date"));
+    	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
+    	addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
+    	addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
+    	addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
+    	addi18nProperty(model, "tp_options_notifications", getMessage("tp_options_notifications"));
+    	addi18nProperty(model, "related_terms", getMessage("related_terms"));
+    	addi18nProperty(model, "commons_success", getMessage("commons_success"));
+    	addi18nProperty(model, "commons_favourite");
+    	addi18nProperty(model, "e_023");
+    	addi18nProperty(model, "commons_unfavourite");
+    	return "tweetpoll";
     }
 
     /**
@@ -244,11 +264,10 @@ public class TweetPollController extends AbstractSocialController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/new", method = RequestMethod.GET)
     public String newTweetPollController(final ModelMap model) {
-        log.debug("tweetpoll new");
         //check social accounts.
         String path = "tweetpoll/new";
         try {
-            final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(null, false);
+            final List<SocialAccountBean> socials = getSecurityService().getValidSocialAccounts(SocialProvider.ALL, false);
             if (socials.size() == 0) {
                 path = "tweetpoll/social";
             }
@@ -257,6 +276,41 @@ public class TweetPollController extends AbstractSocialController {
             path = "505";
         }
         log.debug("newTweetPollController "+path);
+        //log.debug("tweetpoll new");
+    	addi18nProperty(model, "tp_write_questions", getMessage("tp_write_questions"));
+    	addi18nProperty(model, "tp_add_answer", getMessage("tp_add_answer"));
+    	addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));
+    	addi18nProperty(model, "tp_scheduled", getMessage("tp_scheduled"));
+    	addi18nProperty(model, "tp_customize", getMessage("tp_customize"));
+    	addi18nProperty(model, "tp_select_publish", getMessage("tp_select_publish"));
+    	addi18nProperty(model, "tp_options_chart", getMessage("tp_options_chart"));
+    	addi18nProperty(model, "tp_options_spam", getMessage("tp_options_spam"));
+    	addi18nProperty(model, "tp_options_report", getMessage("tp_options_report"));
+    	addi18nProperty(model, "tp_options_scheduled_this_tweetpoll", getMessage("tp_options_scheduled_this_tweetpoll"));
+    	addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
+    	addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
+    	addi18nProperty(model, "tp_options_limit_votes", getMessage("tp_options_limit_votes"));
+    	addi18nProperty(model, "tp_options_resume_live_results", getMessage("tp_options_resume_live_results"));
+    	addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
+    	addSocialPickerWidgetMessages(model);
+    	addi18nProperty(model, "button_add", getMessage("button_add"));
+    	addi18nProperty(model, "button_remove", getMessage("button_remove"));
+    	addi18nProperty(model, "button_close", getMessage("button_close"));
+    	addi18nProperty(model, "button_finish", getMessage("button_finish"));
+    	addi18nProperty(model, "button_publish", getMessage("button_publish"));
+    	addi18nProperty(model, "button_try_again", getMessage("button_try_again"));
+    	addi18nProperty(model, "button_ignore", getMessage("button_ignore"));
+    	addi18nProperty(model, "button_try_later", getMessage("button_try_later"));
+    	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
+    	addi18nProperty(model, "tp_publish_error", getMessage("tp_publish_error"));
+    	addi18nProperty(model, "pubication_failure_status", getMessage("pubication_failure_status"));
+    	addi18nProperty(model, "pubication_success_status", getMessage("pubication_success_status"));
+    	addi18nProperty(model, "pubication_inprocess_status", getMessage("pubication_inprocess_status"));
+    	addi18nProperty(model, "e_020", getMessage("e_020"));
+    	addi18nProperty(model, "e_021", getMessage("e_021"));
+    	addi18nProperty(model, "e_024", getMessage("e_024"));
+    	addi18nProperty(model, "commons_success", getMessage("commons_success"));
+    	addi18nProperty(model, "commons_failure", getMessage("commons_failure"));
         return path;
     }
 

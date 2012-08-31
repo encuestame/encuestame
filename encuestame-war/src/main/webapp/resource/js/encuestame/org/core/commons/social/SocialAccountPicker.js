@@ -26,6 +26,16 @@ dojo.declare(
         _required : 1,
 
         _isValidMessage : "",
+        
+        /**
+         * i18n Message.
+         */
+        i18nMessage : {
+        	social_picker_only_selected : ENME.getMessage("social_picker_only_selected", "Only selected"),
+        	social_picker_select_all : ENME.getMessage("social_picker_select_all", "Select All"),
+        	social_picker_accounts_selected : ENME.getMessage("social_picker_accounts_selected", "Accounts selected"),
+        	social_picker_unselect_all : ENME.getMessage("social_picker_unselect_all", "Unselect all")
+        },
 
 
         /*
@@ -50,14 +60,14 @@ dojo.declare(
                       dojo.hitch(this, function(widget, index) {
                           widget.markAsSelected();
                  }));
-                 this._all.innerHTML = "UnSelect All";
+                 this._all.innerHTML = this.i18nMessage.social_picker_unselect_all;
             } else {
                 dojo.forEach(
                         this.arrayWidgetAccounts,
                         dojo.hitch(this, function(widget, index) {
                             widget.unSelected();
                     }));
-                this._all.innerHTML = "Select All";
+                this._all.innerHTML = this.i18nMessage.social_picker_select_all;
             }
             dojo.publish("/encuestame/social/picker/counter/reload");
         },
@@ -82,14 +92,14 @@ dojo.declare(
                     dojo.hitch(this, function(widget, index) {
                         widget.showIsSelected();
                 }));
-                this._selected.innerHTML = "Show All";
+                this._selected.innerHTML = this.i18nMessage.social_picker_select_all;
             } else {
                 dojo.forEach(
                         this.arrayWidgetAccounts,
                         dojo.hitch(this, function(widget, index) {
                             widget.show();
                     }));
-                this._selected.innerHTML = "Show only selected";
+                this._selected.innerHTML = this.i18nMessage.social_picker_only_selected;
             }
         },
 

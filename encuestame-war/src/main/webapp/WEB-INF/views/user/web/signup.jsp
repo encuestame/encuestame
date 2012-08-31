@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
-<div id="web-signup-wrapper" class="enme-auto-center">
+<div id="web-user-actions-form-wrapper" class="enme-auto-center">
     <div class="web-form-wrapper" id="web-form-wrapper">
             <form method="POST" id="signupForm"
                 dojoType="dijit.form.Form"

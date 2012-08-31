@@ -52,13 +52,20 @@ dojo.declare(
          * Flag to control bloked.
          */
         _blocked : false,
-
+        
         /*
-         *
+         * i18n Messages
+         */
+        i18nMessage : {
+     	   add_button : ENME.getMessage("button_add")
+        },
+
+        /**
+         * Post create lifecycle.
          */
         postCreate: function() {
              this.buttonWidget = new dijit.form.Button({
-                 label: "Add",
+                 label: this.i18nMessage.add_button,
                  onClick: dojo.hitch(this, function(event) {
                      dojo.stopEvent(event);
                      this.addAnswer();
@@ -87,8 +94,7 @@ dojo.declare(
         /*
          *
          */
-        block : function(){
-            //console.debug("blocking answer...");
+        block : function() { 
             this.buttonWidget.disabled = true;
             dijit.byId("answerAddText").disabled = true;
         },
@@ -97,7 +103,6 @@ dojo.declare(
          *
          */
         unblock : function() {
-           // console.debug("unblocking answer...");
             this.buttonWidget.disabled = false;
             dijit.byId("answerAddText").disabled = false;
         },
@@ -111,7 +116,6 @@ dojo.declare(
                    dojo.hitch(this,function(item) {
                    array.push({ value : item.getAnswerText()});
                    }));
-            //console.debug("getAnswers", array);
             return array;
         },
 
@@ -124,7 +128,7 @@ dojo.declare(
                    dojo.hitch(this,function(item) {
                    array.push(item.answer.answerId);
                    }));
-            console.debug("getAnswers", array);
+            //console.debug("getAnswers", array);
             return array;
         },
 
@@ -150,11 +154,10 @@ dojo.declare(
               }
         },
 
-        /*
-         *
+        /**
+         * start the process to save the answer.
          */
-        addAnswer : function() {
-            //dojo.publish("/encuestame/tweetpoll/autosave");
+        addAnswer : function() {        	
             var text = dijit.byId(this._suggest);
             var params = {
                     "id" : this.tweetPollId,
@@ -162,8 +165,9 @@ dojo.declare(
                     "shortUrl" : encuestame.shortUrlProvider[1].code
                };
                //console.debug("params", params);
-               var load = dojo.hitch(this, function(data){
-                   console.debug(data);
+               var load = dojo.hitch(this, function(data) {
+                   //console.debug(data);
+            	   this.loading_hide();
                    var items = [];
                    var answerWidget = new encuestame.org.core.commons.tweetPoll.AnswerItem({
                        answer :{
@@ -181,13 +185,19 @@ dojo.declare(
                    text.set('value', "");
                    dojo.publish("/encuestame/tweetpoll/updatePreview");
                });
+               /**
+                * On error.
+                */
                var error = function(error) {
+            	   this.loading_hide();
                    dojo.publish("/encuestame/tweetpoll/dialog/error", [error]);
-               };
-               if (this.tweetPollId != null) {
+               };               
+               if (this.tweetPollId != null) {  
+            	   this.loading_show();     	   
                    encuestame.service.xhrGet(encuestame.service.list.addAnswer, params, load, error);
                } else {
-                   dojo.publish("/encuestame/tweetpoll/dialog/error", [encuestame.constants.errorCodes["024"]]);
+            	   //TODO: replace by EMNE.getMessage();
+                   dojo.publish("/encuestame/tweetpoll/dialog/error", [ENME.getMessage("e_024")]);
                }
         },
 
@@ -229,6 +239,11 @@ dojo.declare(
          * parent answer.
          */
         parentAnswer : null,
+        
+        /*
+         * loading reference.
+         */
+        loadingRef : null,
 
         /*
          * constructor.
@@ -253,12 +268,8 @@ dojo.declare(
                 var menuWidget = new encuestame.org.core.shared.utils.OptionMenu({
                     _classReplace : "hidden",
                     menu_items : [{
-                        label : "Remove",
+                        label : ENME.getMessage("button_remove", "Remove"),
                         action : dojo.hitch(this, this._removeAnswer)}
-                        //{label : "Edit",
-                        //action : function() {
-                        //    console.debug("Edit");
-                        //}}
                 ]});
                 this._options.appendChild(menuWidget.domNode);
                 this._item.appendChild(answer);
@@ -269,29 +280,42 @@ dojo.declare(
         /*
          * display or short url
          */
-        editShortUrl : function(event){
+        editShortUrl : function(event) {
             dojo.stopEvent(event);
             console.debug(event);
         },
 
-        /*
-         * remove this answer.
+        /**
+         * start the process to remove this answer.
          */
         _removeAnswer : function() {
-             var params = {
+            /*
+             * parameters.
+             */ 
+        	var params = {
                      "id" : this.tweetPollId,
                      "answerId" : this.answer.answerId
             };
+            /*
+             * on success
+             */
             var load = dojo.hitch(this, function(data) {
+            	this.loading_hide();
                 var i = dojo.indexOf(this.parentAnswer.listItems, this);
                 console.debug("removing answer", i);
                 this.parentAnswer.listItems.splice(i, 1);
                 dojo.publish("/encuestame/tweetpoll/updatePreview");
                 dojo.destroy(this.domNode, true);
             });
+            
+            /*
+             * on error.
+             */
             var error = function(error) {
+            	this.loading_hide();
                 dojo.publish("/encuestame/tweetpoll/dialog/error", [error]);
             };
+            this.loading_show();  
             encuestame.service.xhrGet(
                     encuestame.service.list.removeAnswer, params, load, error);
         },
@@ -300,7 +324,7 @@ dojo.declare(
          * answer text.
          */
         getAnswerText: function() {
-            var answer = this.answer.label+ " "+this.answer.shortUrl;
+            var answer = this.answer.label + " " + this.answer.shortUrl;
             return answer;
         }
 });

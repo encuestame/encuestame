@@ -866,6 +866,8 @@ CREATE TABLE IF NOT EXISTS `survey_result` (
   `answer_q_answer_id` bigint(20) DEFAULT NULL,
   `question_qid` bigint(20) DEFAULT NULL,
   `survey_sid` bigint(20) DEFAULT NULL,
+  `txtResponse` varchar(255) DEFAULT NULL,
+  `hash` varchar(255) NOT NULL,
   PRIMARY KEY (`rid`),
   UNIQUE KEY `rid` (`rid`),
   KEY `FK92EA04A246BF7A1C` (`question_qid`),
@@ -881,6 +883,7 @@ CREATE TABLE IF NOT EXISTS `survey_section` (
   `ssid` bigint(20) NOT NULL AUTO_INCREMENT,
   `desc_section` varchar(255) DEFAULT NULL,
   `survey_sid` bigint(20) DEFAULT NULL,
+  `section_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ssid`),
   UNIQUE KEY `ssid` (`ssid`),
   KEY `FKFE5AD30051153812` (`survey_sid`)
@@ -1010,6 +1013,7 @@ CREATE TABLE IF NOT EXISTS `tweetpoll_switch` (
   `short_url` varchar(255) DEFAULT NULL,
   `q_answer_id` bigint(20) NOT NULL,
   `tweet_poll_id` bigint(20) NOT NULL,
+  `relative_url` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`tweetpoll_switch_id`),
   UNIQUE KEY `tweetpoll_switch_id` (`tweetpoll_switch_id`),
   UNIQUE KEY `tweet_code` (`tweet_code`),
@@ -1104,4 +1108,37 @@ CREATE TABLE IF NOT EXISTS `hash_tags_ranking` (
   PRIMARY KEY (`rank_id`),
   UNIQUE KEY `rank_id` (`rank_id`),
   KEY `FK71DECDA119AA125` (`hashTag_hash_tag_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2026 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2026;
+
+--
+-- Table structure for table `question_preferences`
+--
+
+CREATE TABLE IF NOT EXISTS `question_preferences` (
+  `preferenceId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `preference` varchar(255) DEFAULT NULL,
+  `question_qid` bigint(20) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`preferenceId`),
+  UNIQUE KEY `preferenceId` (`preferenceId`),
+  KEY `FKD540D01F46BF7A1C` (`question_qid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+
+--
+-- Table structure for table `survey_temporal_result`
+--
+CREATE TABLE IF NOT EXISTS `survey_temporal_result` (
+  `IdTempResult` bigint(20) NOT NULL AUTO_INCREMENT,
+  `txtResponse` varchar(255) DEFAULT NULL,
+  `hash` varchar(255) NOT NULL,
+  `answer_q_answer_id` bigint(20) DEFAULT NULL,
+  `question_qid` bigint(20) DEFAULT NULL,
+  `survey_sid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`IdTempResult`),
+  UNIQUE KEY `IdTempResult` (`IdTempResult`),
+  UNIQUE KEY `hash` (`hash`),
+  KEY `FK7867CF546BF7A1C` (`question_qid`),
+  KEY `FK7867CF5496009B4` (`answer_q_answer_id`),
+  KEY `FK7867CF551153812` (`survey_sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

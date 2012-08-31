@@ -13,6 +13,8 @@
 package org.encuestame.utils.captcha;
 
 import org.encuestame.utils.captcha.http.SimpleHttpLoader;
+import org.encuestame.utils.categories.test.InternetTest;
+import org.junit.experimental.categories.Category;
 
 import junit.framework.TestCase;
 
@@ -21,6 +23,7 @@ import junit.framework.TestCase;
  * @author Picado, Juan juanATencuestame.org
  * @since
  */
+@Category(InternetTest.class)
 public class SimpleHttpLoaderTest extends TestCase {
 
     SimpleHttpLoader l;

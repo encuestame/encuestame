@@ -97,12 +97,14 @@ public class SocialAccountsJsonController extends AbstractJsonController {
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
+        	provider = provider == null ? "all" : provider; 
             final List<SocialAccountBean> accounts = getSecurityService()
                     .getValidSocialAccounts(
                             SocialProvider.getProvider(provider), true);
             setItemReadStoreResponse("socialAccounts", "id", accounts);
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -125,7 +127,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
              final HashMap<String, Object> jsonResponse = new HashMap<String, Object>();
              final List<SocialProvider> providers = new ArrayList<SocialProvider>();
                  providers.add(SocialProvider.TWITTER);
-                 providers.add(SocialProvider.GOOGLE_BUZZ);
+                 providers.add(SocialProvider.GOOGLE_PLUS);
                  providers.add(SocialProvider.LINKEDIN);
                  providers.add(SocialProvider.IDENTICA);
                  providers.add(SocialProvider.FACEBOOK);

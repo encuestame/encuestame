@@ -21,11 +21,14 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.InternetUtils;
 import org.encuestame.core.util.SocialUtils;
@@ -64,6 +67,7 @@ import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.hibernate.HibernateException;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -244,29 +248,36 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public TweetPollSwitch createTweetPollSwitch(
             final TweetPoll tweetPoll,
-            final QuestionAnswer answer){
-        final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
-        tPollSwitch.setAnswers(answer);
-        tPollSwitch.setTweetPoll(tweetPoll);
-        tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance().getTimeInMillis() + answer.getAnswer()));
-        tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
-        final StringBuffer voteUrlWithoutDomain = new StringBuffer();
-        voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
-        voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
-        final StringBuffer completeDomain = new StringBuffer(EnMePlaceHolderConfigurer.getProperty("application.domain"));
-        completeDomain.append(voteUrlWithoutDomain.toString());
-         log.debug("tweet poll answer vote :{"+voteUrlWithoutDomain.toString());
-         if (InternetUtils.validateUrl(completeDomain.toString())) {
-             log.debug("createTweetPollSwitch: URL IS VALID");
-             log.debug("createTweetPollSwitch: short url provider "+answer.getProvider());
-             tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
-         } else {
-             log.debug("createTweetPollSwitch: url IS NOT valid");
-             tPollSwitch.setShortUrl(completeDomain.toString());
-             log.warn("Invalid format vote url:{"+voteUrlWithoutDomain.toString());
-         }
-        getTweetPollDao().saveOrUpdate(tPollSwitch);
-        return tPollSwitch;
+            final QuestionAnswer answer,
+            final HttpServletRequest request) {
+		final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
+		tPollSwitch.setAnswers(answer);
+		tPollSwitch.setTweetPoll(tweetPoll);
+		tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance()
+				.getTimeInMillis() + answer.getAnswer()));
+		tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
+		final StringBuffer voteUrlWithoutDomain = new StringBuffer();
+		voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
+		voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
+		tPollSwitch.setRelativeUrl(voteUrlWithoutDomain.toString());
+		final StringBuffer completeDomain = new StringBuffer();
+		if (request != null) {
+			final String domain = WidgetUtil.getDomain(request);
+			completeDomain.append(domain);
+		}
+		completeDomain.append(voteUrlWithoutDomain.toString());
+		log.debug("tweet poll answer vote :{" + voteUrlWithoutDomain.toString());
+		if (InternetUtils.validateUrl(completeDomain.toString())) {
+			log.debug("createTweetPollSwitch: URL IS VALID");
+//			log.debug("createTweetPollSwitch: short url provider "+ answer.getProvider());
+			tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
+		} else {
+			log.debug("createTweetPollSwitch: url IS NOT valid");
+			tPollSwitch.setShortUrl(completeDomain.toString());
+			log.warn("Invalid format vote url:{" + voteUrlWithoutDomain.toString());
+		}
+		getTweetPollDao().saveOrUpdate(tPollSwitch);
+		return tPollSwitch;
     }
 
     /**
@@ -279,9 +290,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * @throws HttpException
      */
     public String createShortUrl(final ShortUrlProvider provider, final String url) {
-        log.debug("shortUrlProvider "+url);
-        log.debug("shortUrlProvider PROVIDER "+provider);
-        log.debug("Is offline? "+EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode"));
+        log.debug("shortUrlProvider " + url);
+        log.debug("shortUrlProvider PROVIDER " + provider);
+        log.debug("Is offline? " + EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode"));
         String urlShort = url;
         if (!EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode")) {
             if (provider.equals(ShortUrlProvider.GOOGL)) {
@@ -299,7 +310,7 @@ public class AbstractSurveyService extends AbstractChartService {
             	urlShort = url;
             }
         }
-        log.debug("shortUrlProvider SHORT: "+urlShort);
+        log.debug("shortUrlProvider SHORT: " + urlShort);
         return urlShort;
     }
 
@@ -308,7 +319,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param questionId
      * @param tweetPoll
      */
-    public void updateTweetPollSwitchSupport(final TweetPoll tweetPoll){
+    public void updateTweetPollSwitchSupport(final TweetPoll tweetPoll, final HttpServletRequest httpServletRequest) {
         final List<QuestionAnswer> answers = this.getQuestionDao().getAnswersByQuestionId(tweetPoll.getQuestion().getQid());
         log.debug("updateTweetPollSwitchSupport answers size:{"+answers.size());
         //iterate answer for one question
@@ -317,7 +328,7 @@ public class AbstractSurveyService extends AbstractChartService {
             TweetPollSwitch tPollSwitch = getTweetPollDao().getAnswerTweetSwitch(tweetPoll, answer);
             if (tPollSwitch == null) {
                 log.debug("created tweetpoll switch for tweetpoll:{"+tweetPoll.getTweetPollId());
-                tPollSwitch = this.createTweetPollSwitch(tweetPoll, answer);
+                tPollSwitch = this.createTweetPollSwitch(tweetPoll, answer, httpServletRequest);
             } else {
                 log.debug("updated tweetpoll switch:{"+tPollSwitch.getSwitchId()+" for tweetpoll :{"+tweetPoll.getTweetPollId());
             }
@@ -463,7 +474,7 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public TweetPublishedMetadata publicTweetPoll(final String tweetText, final SocialAccount socialAccount)
            throws EnMeExpcetion {
-        TweetPublishedMetadata published = null;
+        TweetPublishedMetadata published = new TweetPublishedMetadata();
         log.debug("publicTweetPoll:{ "+tweetText);
         if (socialAccount.getAccounType().equals(SocialProvider.TWITTER)) {
             log.debug("Publish on TWITTER");
@@ -472,16 +483,17 @@ public class AbstractSurveyService extends AbstractChartService {
                     EnMePlaceHolderConfigurer.getProperty("twitter.oauth.consumerKey"),
                     socialAccount);
             try {
-                log.debug("Publish on Twitter 1 ............>");
+//                log.debug("Publish on Twitter 1 ............>");
                 published = twitterAPIOperations.updateStatus(tweetText);
-                log.debug("Publish on Twitter 2 ...... "+published);
-                log.debug("Publish on Twitter 2 ...... "+published.getTweetId());
+//                log.debug("Publish on Twitter 2 ...... "+published);
+//                log.debug("Publish on Twitter 2 ...... "+published.getTweetId());
             } catch (Exception e) {
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.IDENTICA)) {
             log.debug("Publish on IDENTICA");
-            IdenticaAPIOperations identicaAPIOperations = new IdenticaAPITemplate(
+            final IdenticaAPIOperations identicaAPIOperations = new IdenticaAPITemplate(
                     EnMePlaceHolderConfigurer.getProperty("identica.consumer.key"),
                     EnMePlaceHolderConfigurer.getProperty("identica.consumer.secret"),
                     socialAccount.getAccessToken(),
@@ -491,7 +503,9 @@ public class AbstractSurveyService extends AbstractChartService {
                 published = identicaAPIOperations.updateStatus(tweetText);
                 log.debug("Publish on Identica...... "+published);
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.FACEBOOK)) {
             log.debug("Publish on FACEBOOK");
@@ -500,17 +514,22 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on FACEBOOK............>");
                 published = facebookAPIOperations.updateStatus(tweetText);
                 log.debug("Publish on FACEBOOK...... "+published);
+                published.setDatePublished(Calendar.getInstance().getTime());
             } catch (HttpClientErrorException e) {
                 log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 1");
                 log.error(e.getStatusCode());
                 log.error(e.getResponseBodyAsString());
                 log.error(e.getStatusText());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 // refresh token point.
                 //offline_access scope permission is enabled by default . In this case
                 //https://developers.facebook.com/docs/authentication/permissions/
                 log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 2");
+                e.printStackTrace();
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.LINKEDIN)) {
             log.debug("Publish on LinkedIn");
@@ -523,25 +542,29 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.debug("Publish on LinkedIn 1............>");
                 published = linkedInAPIOperations.updateStatus(tweetText);
                 published.setTextTweeted(tweetText);
-                published.setDatePublished(new Date());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 published.setTweetId(RandomStringUtils.randomAscii(15));
                 log.debug("Publish on LinkedIn 2...... "+published);
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
         } else if (socialAccount.getAccounType().equals(SocialProvider.GOOGLE_BUZZ)) {
             BuzzAPIOperations buzzInAPIOperations = new GoogleBuzzAPITemplate(socialAccount);
             try {
                 log.debug("Publish on LinkedIn............>");
                 published = buzzInAPIOperations.updateStatus(tweetText);
-                published.setTextTweeted(tweetText);
-                published.setDatePublished(new Date());
+                published.setTextTweeted(tweetText);   
+                published.setDatePublished(Calendar.getInstance().getTime());
                 published.setTweetId(RandomStringUtils.randomAscii(15));
                 log.debug("Publish on LinkedIn...... "+published);
             } catch (Exception e) {
+            	published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
+                e.printStackTrace();
             }
-        }
+        }        
         if (published != null) {
             log.debug("publicTweetPoll:s "+published.toString());
         }
@@ -643,6 +666,42 @@ public class AbstractSurveyService extends AbstractChartService {
 		final List<QuestionAnswer> qAnswers = getQuestionDao()
 				.getAnswersByQuestionId(questionId);
 		return qAnswers;
+	}
+	
+	  /**
+     * Create {@link QuestionAnswer} from an String array 
+     * @param answers
+     * @param question
+     */
+	public void createQuestionAnswers(final String[] answers,
+			final Question question) {
+		for (int row = 0; row < answers.length; row++) {
+			final String answersText = answers[row];
+			Assert.assertNotNull(answersText);
+			if (!answersText.isEmpty()) {
+				log.debug("creatong answer=>" + question.getQidKey());
+				log.debug("creatong answer=>" + answersText.trim());
+				createAnswers(question, answersText.trim());
+
+			}
+		}
+	}
+	
+	/**
+	 * Retrieve {@link Question} by id.
+	 * @param id
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	public Question getQuestionById(final Long id)
+			throws EnMeNoResultsFoundException {
+		final Question question = getQuestionDao().retrieveQuestionById(id);
+		if (question == null) {
+			throw new EnMeNoResultsFoundException(
+					"Question not found with this id:" + id);
+		} else {
+			return question;
+		} 
 	}
 
     /**

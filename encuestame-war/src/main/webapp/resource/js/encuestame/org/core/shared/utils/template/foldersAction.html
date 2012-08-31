@@ -1,9 +1,17 @@
 <div class="web-folder-wrapper">
-    <div class="folder-title default-background-dark-color default-sidebar-menu">Folders</div>
+    <div class="folder-title enme-ui-gradient-header-color default-sidebar-menu">
+        ${i18nMessage.detail_manage_folder_title}
+    </div>
     <div class="folder-menu default-sidebar-menu-sub">
-        <span dojoAttachPoint="_new">New</span> |
-        <span dojoAttachPoint="_search">Search</span> |
-        <span dojoAttachPoint="_delete">Delete</span>
+        <span dojoAttachPoint="_new">
+            ${i18nMessage.detail_manage_new}
+        </span> |
+        <span dojoAttachPoint="_search">
+            ${i18nMessage.detail_manage_search}
+        </span> |
+        <span dojoAttachPoint="_delete">
+           ${i18nMessage.detail_manage_delete}
+         </span>
      </div>
     <div dojoAttachPoint="_folders" class="web-folder-wrapper-item"></div>
 </div>

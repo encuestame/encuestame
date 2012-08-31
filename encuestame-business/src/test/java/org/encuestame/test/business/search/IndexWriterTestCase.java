@@ -25,8 +25,10 @@ import org.encuestame.business.search.IndexerManager;
 import org.encuestame.business.search.SearchAttachmentManager;
 import org.encuestame.core.service.imp.IIndexWriter;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -34,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since Apr 12, 2011
  */
+@Category(DefaultTest.class)
 public class IndexWriterTestCase extends AbstractServiceBase{
 
     /**

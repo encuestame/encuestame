@@ -29,12 +29,18 @@ import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.InternetTest;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
@@ -44,13 +50,13 @@ import org.encuestame.utils.web.TweetPollResultsBean;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test for {@link TweetPollService}.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 5, 2010 3:36:43 PM
- * @version $Id:$
  */
 public class TestTweetPollService  extends AbstractSpringSecurityContext{
     /**
@@ -77,6 +83,12 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     private List<QuestionAnswerBean> answersSaveTweet;
 
     private List<SocialAccountBean> twitterAccount;
+    
+    /** Tweet text.**/
+    private String tweetText;
+    
+    /** {@link SocialAccountBean} **/
+    private List<SocialAccountBean> socialBeans;
 
     /**
     * Before.
@@ -93,6 +105,8 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         answers.add(createAnswersBean("4DSWGK", "No", question.getQid()));
         questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
                    this.answers);
+		this.tweetText = RandomStringUtils.randomAlphabetic(5);
+		this.socialBeans = this.createSocialAccounts();
    }
 
 
@@ -117,6 +131,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion exception
      */
     @Test
+    @Category(DefaultTest.class)
     public void testCreateTweetPoll() throws EnMeExpcetion{
     final TweetPollBean tweetPollBean = new TweetPollBean();
     questionBean.setId(question.getQid());
@@ -137,6 +152,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * Test Save Tweet Id.
      * @throws EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     public void testSaveTweetId() throws EnMeExpcetion{
         Question questionSave = createQuestion("how much or How Many?","html");
         final Account usersave = createUser("dianmora", "xxxxxxx");
@@ -172,6 +188,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion EnMeExpcetion
      */
     @Test
+    @Category(DefaultTest.class)
     public void testGenerateTweetPollText() throws EnMeExpcetion{
         final TweetPoll tweetPollPublicate = createTweetPollPublicated(true,true,new Date(), this.userAccount, this.question);
         createQuestionAnswer("Yes", this.question, "EEEE");
@@ -192,6 +209,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeNoResultsFoundException
      */
     @Test
+    @Category(DefaultTest.class)
     public void testGetResultsByTweetPollId() throws EnMeNoResultsFoundException{
     final TweetPoll tweetPoll = createFastTweetPollVotes();
     final List<TweetPollResultsBean> results = this.tweetPollService.getResultsByTweetPollId(tweetPoll.getTweetPollId());
@@ -212,6 +230,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     }*/
 
     @Test
+    @Category(DefaultTest.class)
     public void testGetTweetsPollsByUserName() throws EnMeNoResultsFoundException{
         final Question question1 = createQuestion("Why the sea is salad?","html");
         final Question question2 = createQuestion("Why the sea is big?","html");
@@ -223,19 +242,62 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         //assertEquals("Should be equals", 2 , tweetPollsByUser.size());
     }
 
-    @Test
-    @Ignore
-    public void testPublicMultiplesTweetAccounts(){
-            createDefaultSettedSocialAccount(this.userAccount);
-            final List<SocialAccount> list = getAccountDao().getSocialAccountByAccount(this.userAccount.getAccount(), SocialProvider.TWITTER);
-            final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean.convertListSocialAccountsToBean(list);
-             final String tweetText = RandomStringUtils.randomAlphabetic(5);
-            final TweetPoll tweetPoll = createTweetPollPublicated(true, true, new Date(), this.userAccount, question);
-            tweetPollService.publishMultiplesOnSocialAccounts(listUnitTwitterAccount, tweetPoll, tweetText);
-            final TweetPoll tweet = getTweetPoll().getTweetPollById(tweetPoll.getTweetPollId());
-            assertNotNull(tweet);
-    }
+    /**
+     * Create {@link SocialAccountBean}
+     * @return
+     */
+	private List<SocialAccountBean> createSocialAccounts() {
+		createDefaultSettedSocialAccount(this.userAccount); 
+		final List<SocialAccount> list = getAccountDao()
+				.getSocialAccountByAccount(this.userAccount.getAccount(),
+						SocialProvider.TWITTER);
+		
+		final List<SocialAccountBean> listUnitTwitterAccount = ConvertDomainBean
+				.convertListSocialAccountsToBean(list); 
+		return listUnitTwitterAccount;
+	}
 
+    /**
+     * Test Public TweetPoll on multiples social networks.
+     */
+	@Category(InternetTest.class)
+    @Test 
+	public void testPublicMultiplesTweetAccounts() {
+    
+		final TweetPoll tweetPoll = createTweetPollPublicated(true, true,
+				new Date(), this.userAccount, question); 
+		tweetPollService.publishMultiplesOnSocialAccounts(this.socialBeans,
+				tweetPoll, this.tweetText, TypeSearchResult.TWEETPOLL, null,
+				null); 
+		final TweetPoll tweet = getTweetPoll().getTweetPollById(
+				tweetPoll.getTweetPollId());
+		assertNotNull(tweet);
+		final List<LinksSocialBean> linksPublished = getTweetPollService()
+				.getTweetPollLinks(tweetPoll, null, null,
+						TypeSearchResult.TWEETPOLL); 
+		assertEquals("Should be equals", 1 , linksPublished.size());
+	}
+    
+    /**
+     * 
+     */
+	@Category(InternetTest.class)
+	@Test
+	public void testPublishPollOnMultiplesTweetAccounts() {
+		  
+		final Question otherQuestion = createDefaultQuestion("What is your favorite android app");
+
+		final Poll myPoll = createDefaultPoll(otherQuestion, this.userAccount);
+
+		final List<TweetPollSavedPublishedStatus> itemsPublished = tweetPollService
+				.publishMultiplesOnSocialAccounts(this.socialBeans, null, this.tweetText, TypeSearchResult.POLL, myPoll, null);
+		assertEquals("Should be equals", 1, itemsPublished.size()); 
+		final List<LinksSocialBean> linksPublished = getTweetPollService()
+				.getTweetPollLinks(null, myPoll, null,
+						TypeSearchResult.POLL); 
+		assertEquals("Should be equals", 1 , linksPublished.size());
+	}
+    
     /**
      * @return the tweetPollService
      */
@@ -255,6 +317,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @throws EnMeExpcetion
      */
     @Test
+    @Category(DefaultTest.class)
     public void testValidateIp() throws EnMeExpcetion{
         final String ipVote = EnMeUtils.ipGenerator();
         final TweetPollBean myTpBean = createUnitTweetPoll(Boolean.TRUE,
@@ -262,7 +325,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
                 questionBean);
         final TweetPoll myTweetPoll = tweetPollService.createTweetPoll(
                 myTpBean, "What is your favourite city?",
-                getSpringSecurityLoggedUserAccount());
+                getSpringSecurityLoggedUserAccount(), null);
         final Question myQuestion = createQuestion(
                 "What is your favourite city", "pattern");
 
@@ -272,9 +335,9 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
                 "No", myQuestion.getQid());
 
         final TweetPollSwitch pollSwitch = tweetPollService
-                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll);
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
         final TweetPollSwitch pollSwitch2 = tweetPollService
-                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll);
+                .createTweetPollQuestionAnswer(qAnswerBean, myTweetPoll, null);
 
         tweetPollService.tweetPollVote(pollSwitch, ipVote, Calendar.getInstance().getTime());
         //tweetPollService.tweetPollVote(pollSwitch2, ipVote);

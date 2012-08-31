@@ -8,12 +8,12 @@
                <article class="emne-box">
                     <section class="web-vote">
                         <article dojoType="encuestame.org.core.commons.poll.vote.PollVote"
-                                pollId="${poll.id}">
+                                 pollId="${poll.id}">
                             <c:forEach items="${answers}" var="a">
                                 <section dojoType="${poll.questionBean.widget}"
                                          itemId="${a.answerId}"
                                          name="poll"
-                                         value="${a.answers}">
+                                         label="${a.answers}">
                                 </section>
                             </c:forEach>
                         </article>
@@ -25,7 +25,7 @@
 
        </div>
        <footer>
-            <button type="submit">Vote</button>
+            <button class="enme-ui-button vote" type="submit">Vote</button>
        </footer>
    </form>
 </article>

@@ -19,10 +19,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.stereotype.Controller;
@@ -64,18 +66,27 @@ public class LinksJsonController extends AbstractJsonController{
         try {
         	//FUTURE: Add SEARCHPERIODS Filter.
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-            if (TypeSearchResult.TWEETPOLL.name().equals(type)) {
+            final TypeSearchResult searchResult = TypeSearchResult.getTypeSearchResult(type);
+            if (TypeSearchResult.TWEETPOLL.equals(searchResult) && !id.isEmpty()) {
                 final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(Long.valueOf(id), null);
                 jsonResponse.put("links", getTweetPollService()
-                        .getTweetPollLinks(tweetPoll));
-            } else if (TypeSearchResult.POLL.name().equals(type)) {
-                 //TODO: retrieve social links by POLL
-            } else if (TypeSearchResult.SURVEY.name().equals(type)) {
+                        .getTweetPollLinks(tweetPoll, null, null, TypeSearchResult.getTypeSearchResult(type)));
+            } else if (TypeSearchResult.POLL.equals(searchResult) && !id.isEmpty()) {
+            	final Poll poll = getPollService().getPollById(Long.valueOf(id));
+				jsonResponse.put(
+						"links",
+						getTweetPollService().getTweetPollLinks(null, poll,
+								null,
+								TypeSearchResult.getTypeSearchResult(type))); 
+            } else if (TypeSearchResult.SURVEY.equals(searchResult) && !id.isEmpty()) {
                  //TODO: retrieve social links by SURVEY
-            } else if (TypeSearchResult.PROFILE.name().equals(type)) {
+            } else if (TypeSearchResult.PROFILE.equals(searchResult) && !id.isEmpty()) {
                 //TODO: retrieve social links by PROFILE
-            } else  if (TypeSearchResult.HASHTAG.name().equals(type)) {
+            } else if (TypeSearchResult.HASHTAG.equals(searchResult) && !id.isEmpty()) {
                  jsonResponse.put("links", getFrontService().getHashTagLinks(getFrontService().getHashTagItem(id)));
+            } else {
+            	 // if not exist a type, send emtpy list.
+            	 jsonResponse.put("links", ListUtils.EMPTY_LIST);
             }
             setItemResponse(jsonResponse);
         } catch (Exception e) {

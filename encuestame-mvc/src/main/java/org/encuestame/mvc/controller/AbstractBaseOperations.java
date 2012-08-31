@@ -71,6 +71,8 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -207,7 +209,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         tweetPollBean.setResultNotification(Boolean.FALSE);
         //tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
         tweetPollBean.setSchedule(Boolean.FALSE);
-        return getTweetPollService().createTweetPoll(tweetPollBean, question, user);
+        return getTweetPollService().createTweetPoll(tweetPollBean, question, user, null);
     }
 
     /**
@@ -236,7 +238,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         log.debug("createTweetPoll Bean "+tweetPollBean.toString());
         return getTweetPollService().createTweetPoll(tweetPollBean,
                 tweetPollBean.getQuestionBean().getQuestionName(),
-                getUserAccount());
+                getUserAccount(), null);
     }
 
     /**
@@ -610,7 +612,38 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
         log.debug("hashtag fillListOfHashTagsBean->"+hashtagsList.size());
         return hashtagsList;
     }
+    
+    /**
+     * Add to the model the i18n message property.
+     * @param model {@link Model}
+     * @param key layout custom key
+     * @param value message key
+     */
+    public void addi18nProperty(final ModelMap model, final String key, final String value) {
+    	@SuppressWarnings("unchecked")
+		HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
+    	if (i18n == null) {
+    		i18n = new HashMap<String, String>();
+    		model.addAttribute("i18n", i18n);
+    	}
+    	i18n.put(key, value);
+    }
 
+    /**
+     * Add to the model the i18n message property, the layout custom key will
+     * be the same of the message key.
+     * @param model
+     * @param key
+     */
+    public void addi18nProperty(final ModelMap model, final String key) {
+    	@SuppressWarnings("unchecked")
+		HashMap<String, String> i18n = (HashMap<String, String>) model.get("i18n");
+    	if (i18n == null) {
+    		i18n = new HashMap<String, String>();
+    		model.addAttribute("i18n", i18n);
+    	}
+    	i18n.put(key, getMessage(key));
+    }
 
    /**
     * If is not complete check and validate current status.
@@ -628,5 +661,64 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
     */
    public Boolean isSocialSignInUpEnabled(){
        return EnMePlaceHolderConfigurer.getBooleanProperty("application.social.signin.enabled");
+   }
+   
+   /**
+    * Add to model defaults messages.
+    * TODO: move to INTERCEPTOR.
+    */
+   public final void addDefaulti18nMessages(final ModelMap model) {
+	   addi18nProperty(model, "profile_menu_configuration", getMessage("profile_menu_configuration"));
+	   addi18nProperty(model, "profile_menu_social", getMessage("profile_menu_social"));
+	   addi18nProperty(model, "profile_menu_help", getMessage("profile_menu_help"));
+	   addi18nProperty(model, "profile_menu_log_out", getMessage("profile_menu_log_out"));
+   }
+   
+   /**
+    * Add to model the social picker messages.
+    * @param model
+    */
+   public final void addSocialPickerWidgetMessages(final ModelMap model) {
+	   addi18nProperty(model, "social_picker_only_selected", getMessage("social_picker_only_selected"));
+	   addi18nProperty(model, "social_picker_select_all", getMessage("social_picker_select_all"));
+	   addi18nProperty(model, "social_picker_unselect_all", getMessage("social_picker_unselect_all"));
+	   addi18nProperty(model, "social_picker_accounts_selected", getMessage("social_picker_accounts_selected"));
+	   addi18nProperty(model, "social_picker_filter_selected", getMessage("social_picker_filter_selected"));	   
+	   addi18nProperty(model, "e_022", getMessage("e_022"));
+   }   
+   
+   /**
+    * 
+    * @param model
+    */
+   public final void addItemsManangeMessages(final ModelMap model) {
+	addi18nProperty(model, "detail_manage_by_account", getMessage("detail_manage_by_account"));
+   	addi18nProperty(model, "detail_manage_today", getMessage("detail_manage_today"));
+   	addi18nProperty(model, "detail_manage_last_week", getMessage("detail_manage_last_week"));
+   	addi18nProperty(model, "detail_manage_favorites", getMessage("detail_manage_favorites"));
+   	addi18nProperty(model, "detail_manage_scheduled", getMessage("detail_manage_scheduled"));
+   	addi18nProperty(model, "detail_manage_all", getMessage("detail_manage_all"));
+   	addi18nProperty(model, "detail_manage_published", getMessage("detail_manage_published"));
+   	addi18nProperty(model, "detail_manage_unpublished", getMessage("detail_manage_unpublished"));
+   	addi18nProperty(model, "detail_manage_only_completed", getMessage("detail_manage_only_completed"));
+   	//folder messages
+   	addi18nProperty(model, "detail_manage_folder_title", getMessage("detail_manage_folder_title"));
+   	addi18nProperty(model, "detail_manage_delete", getMessage("detail_manage_delete"));
+   	addi18nProperty(model, "detail_manage_new", getMessage("detail_manage_new"));
+   	addi18nProperty(model, "detail_manage_search", getMessage("detail_manage_search"));
+   	addi18nProperty(model, "detail_manage_folder_replace_name", getMessage("detail_manage_folder_replace_name"));
+   	//filters
+   	addi18nProperty(model, "detail_manage_filters_advanced", getMessage("detail_manage_filters_advanced"));
+   	addi18nProperty(model, "detail_manage_filters_order", getMessage("detail_manage_filters_order"));
+   	addi18nProperty(model, "detail_manage_filters_social_network", getMessage("detail_manage_filters_social_network"));
+   	addi18nProperty(model, "detail_manage_filters_votes_options", getMessage("detail_manage_filters_votes_options"));
+   	// advanced filter
+   	addi18nProperty(model, "detail_manage_filters_advanced_title", getMessage("detail_manage_filters_advanced_title"));
+   	addi18nProperty(model, "detail_manage_filters_advanced_type_to_search", getMessage("detail_manage_filters_advanced_type_to_search"));
+   	addi18nProperty(model, "detail_manage_filters_advanced_all_results", getMessage("detail_manage_filters_advanced_all_results"));
+   	addi18nProperty(model, "detail_manage_filters_advanced_range_days", getMessage("detail_manage_filters_advanced_range_days"));
+   	
+   	addi18nProperty(model, "commons_filter", getMessage("commons_filter"));
+   	addSocialPickerWidgetMessages(model);
    }
 }

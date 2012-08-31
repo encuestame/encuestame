@@ -40,7 +40,7 @@ dojo.declare(
       /*
        * label.
        */
-      label : "Folder",
+      label : ENME.getMessage("widget_folder_select_label"),
 
       /*
        *

@@ -19,14 +19,16 @@ import junit.framework.TestCase;
 
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Date Utils Test Cases.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 14, 2010 11:29:20 PM
- * @version Id:
  */
+@Category(DefaultTest.class)
 public class DateUtilsTestCase extends TestCase{
 
     /**

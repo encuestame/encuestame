@@ -30,6 +30,9 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.WildcardQuery;
 import org.apache.lucene.util.Version;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.hibernate.Criteria;
@@ -327,7 +330,75 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
              }             
          }
     }
+    
+	/**
+	 * Create query to get  {@link TweetPoll}, {@link Poll}, {@link Survey} by geolocation.
+	 * @param idProperty
+	 * @param latitudeProperty
+	 * @param fieldLongitude
+	 * @param questionNameProperty
+	 * @param tableName
+	 * @param creationDateProperty
+	 * @return
+	 */
+	public String getQueryStringForGeoLocation(final String idProperty,
+			final String latitudeProperty, final String fieldLongitude,
+			final String questionNameProperty, final String tableName,
+			final String creationDateProperty) {
+		 //final String queryBetween = this.calculateSearchPeriodForGeo(period, creationDateProperty);
+    	final String queryStr ="SELECT " + idProperty + "," + latitudeProperty + "," + fieldLongitude + "," + questionNameProperty +", (acos(sin(radians(lat)) * sin((:latitude)) +"
+				+ "cos(radians(lat)) * cos((:latitude)) * "
+				+ "cos(radians(lng) - (:longitude))) * :radius) AS "
+				+ "distanceFrom FROM " + tableName
+				+ " WHERE (acos(sin(radians(lat)) * sin((:latitude)) + "
+				+ "cos(radians(lat)) * cos((:latitude)) * cos(radians(lng) - (:longitude))) * :radius) <= :distance AND " + creationDateProperty +
+				" BETWEEN :startDate AND :endDate";
+	  	return queryStr;
+    }
 
+	/**
+	 * 
+	 * @param searchPeriods
+	 * @return
+	 */
+	protected DateTime calculateSearchPeriodForGeo(
+			final SearchPeriods searchPeriods) {
+		DateTime startDateTime = null;
+		if (searchPeriods != null) {
+			final DateTime endDateTime = new DateTime();
+			startDateTime = endDateTime.minusDays(searchPeriods.toDays());
+
+		}
+		return startDateTime;
+	}
+
+	/**
+	 * Retrieve geoLocation data from a point.
+	 * 
+	 * @param query
+	 * @param latitude
+	 * @param longitude
+	 * @param distance
+	 * @param radius
+	 * @param maxItems
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Object[]> findByNamedParamGeoLocationItems(final String query,
+			final double latitude, final double longitude,
+			final double distance, final double radius, final int maxItems,
+			final Date startDate, final Date endDate) {
+
+		return getHibernateTemplate().findByNamedParam(
+				query,
+				new String[] { "latitude", "longitude", "distance", "radius",
+						"startDate", "endDate" },
+				new Object[] { latitude, longitude, distance, radius,
+						startDate, endDate });
+	}
+    
     /**
      * @return the version
      */

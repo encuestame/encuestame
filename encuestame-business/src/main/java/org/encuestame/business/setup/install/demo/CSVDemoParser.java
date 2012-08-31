@@ -316,7 +316,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 	        tweetPollBean.setSchedule(Boolean.FALSE);
 	        try {
 	        	//final Question qm = createQuestion(question, u, QuestionPattern.CUSTOMIZABLE_SELECTION);
-				final TweetPoll tweetPollDomain = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u);
+				final TweetPoll tweetPollDomain = getTweetPollService().createTweetPoll(tweetPollBean, question.getQuestionName(), u, null);
 
 				double hits = getRandomNumberRange(2, EnMePlaceHolderConfigurer
 						.getIntegerProperty("demo.max.tweetpoll.hits"));
@@ -382,7 +382,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
 					final QuestionAnswerBean answerBean = new QuestionAnswerBean(questionAnswerBean.getAnswers());
 	                answerBean.setShortUrlType(ShortUrlProvider.NONE);
 	                //create tweetpoll swithch
-	                final TweetPollSwitch tweetPollSwitch = getTweetPollService().createTweetPollQuestionAnswer(answerBean, tweetPollDomain);	
+	                final TweetPollSwitch tweetPollSwitch = getTweetPollService().createTweetPollQuestionAnswer(answerBean, tweetPollDomain, null);	
 	                double totalVotes = getRandomNumberRange(0, EnMePlaceHolderConfigurer.getIntegerProperty("demo.votes.by.tppoll")) - 1;
 	                log.debug(totalVotes+" Votes for this tweetpolls switch id "+tweetPollSwitch.getSwitchId());
 	                for (int i = 0; i < totalVotes; i++) {

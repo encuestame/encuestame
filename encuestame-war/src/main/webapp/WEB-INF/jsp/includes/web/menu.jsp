@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="menuWrapper enme-auto-center">
+<div class="menuWrapper enme-auto-center enme-ui-gradient-header-color">
     <div class="rightSide">
         <c:if test="${logged}">
             <span class="section">
@@ -40,4 +40,11 @@
         </a>
         </span>
     </div>
+    <c:if test="${logged}">
+         <div dojoType="encuestame.org.core.shared.utils.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
+           messageTopic="/encuestame/message/publish"
+           positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
+           id="toasted_message">
+    </div>    
+    </c:if>
 </div>

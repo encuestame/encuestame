@@ -46,6 +46,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
@@ -578,6 +579,31 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         calculateSearchPeriodsDates(periods, detached, "createDate");
         return (List<TweetPoll>) filterByMaxorStart(criteria, limitResults, startResults);        
     }
+    
+    @SuppressWarnings("unchecked")
+    public TweetPoll checkIfTweetPollHasHashTag(
+    		final String tagName,  
+			final SearchPeriods periods, final Long tpoll) {
+        final DetachedCriteria detached = DetachedCriteria
+                .forClass(TweetPoll.class)
+                .createAlias("hashTags", "hashTags")
+                .setProjection(Projections.id())
+                .add(Restrictions.eq("tweetPoll.tweetPollId", tpoll))
+                .add(Subqueries.propertyIn(
+                        "hashTags.hashTagId",
+                        DetachedCriteria
+                                .forClass(HashTag.class, "hash")
+                                .setProjection(Projections.id())
+                                .add(Restrictions.in("hash.hashTag",
+                                        new String[] { tagName }))  ));
+        final DetachedCriteria criteria = DetachedCriteria.forClass(
+                TweetPoll.class, "tweetPoll");
+        criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));  
+        criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        calculateSearchPeriodsDates(periods, detached, "createDate"); 
+        return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate()
+                .findByCriteria(criteria));
+    }
 
     /*
      * (non-Javadoc)
@@ -604,7 +630,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         criteria.addOrder(Order.desc("tweetPoll.createDate"));
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
         
-        calculateSearchPeriodsDates(period, criteria, "createDate");
+       // calculateSearchPeriodsDates(period, criteria, "createDate");
         
         return getHibernateTemplate().findByCriteria(criteria);
     }
@@ -634,10 +660,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
             // criteria.addOrder(Order.desc("tweetPoll.createDate"));
         } else if (itemType.equals(TypeSearchResult.POLL)) {
-            criteria.add(Restrictions.eq("survey", survey));
+            criteria.add(Restrictions.eq("poll", poll));
             // criteria.addOrder(Order.desc("survey.createdAt"));
         } else if (itemType.equals(TypeSearchResult.SURVEY)) {
-            criteria.add(Restrictions.eq("poll", poll));
+            criteria.add(Restrictions.eq("survey", survey));
             // criteria.addOrder(Order.desc("poll.createdAt"));
         } else {
             log.error("Item type not valid: " + itemType);
@@ -848,24 +874,37 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     
 	/*
 	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.ITweetPoll#retrieveTweetPollsBySearchRadiusOfGeoLocation(float, float, int)
+	 * 
+	 * @see org.encuestame.persistence.dao.ITweetPoll#
+	 * retrieveTweetPollsBySearchRadiusOfGeoLocation(double, double, double,
+	 * double, int, org.encuestame.utils.enums.TypeSearchResult,
+	 * org.encuestame.utils.enums.SearchPeriods)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
-			final float latitude, final float longitude,
-			final int radius) {
-		final String queryStr ="SELECT tweetPollId, (acos(sin(radians(lat)) * sin(radians(:latitude)) +"
-				+ "cos(radians(lat)) * cos(radians(:latitude)) * "
-				+ "cos(radians(lng) - radians(:longitude))) * 6378) AS "
-				+ "distanciaMalagaMadrid FROM TweetPoll "
-				+ "WHERE (acos(sin(radians(lat)) * sin(radians(:latitude)) + "
-				+ "cos(radians(lat)) * cos(radians(:latitude)) * cos(radians(lng) - radians(:longitude))) * 6378) <= 510";
-
-		return getHibernateTemplate()
-				.findByNamedParam(
-						queryStr,
-						new String[] {"latitude", "longitude"},
-						new Object[] {latitude, longitude});
-
-	}
+			final double latitude, final double longitude,
+			final double distance, final double radius, final int maxItems,
+			final TypeSearchResult type, final SearchPeriods period) {
+		String queryStr = "";
+		final DateTime startDate= this.calculateSearchPeriodForGeo(period);
+		final DateTime endDate = new DateTime();
+		if (type.equals(TypeSearchResult.TWEETPOLL)) {
+			queryStr = this.getQueryStringForGeoLocation("tweetPollId", "locationLatitude", "locationLongitude", "question.question",
+					"TweetPoll", "createDate");
+		} else if (type.equals(TypeSearchResult.POLL)) {
+			queryStr = this.getQueryStringForGeoLocation("pollId", "locationLatitude", "locationLongitude", "question.question", "Poll",  "createdAt");
+		} else if (type.equals(TypeSearchResult.SURVEY)) {
+			queryStr = this.getQueryStringForGeoLocation("sid", "locationLatitude", "locationLongitude", "name", "Survey",  "createdAt");
+		} else if (type.equals(TypeSearchResult.HASHTAG)) {
+			// TODO: Define how to should store geolocations for hashtags, maybe
+			// in tweetpoll_hashtags
+		} 
+		else {
+			log.error("Item type not valid: " + type);
+		} 
+		 //calculateSearchPeriodsDates(period, criteria, "tweetResponseDate");
+		getHibernateTemplate().setMaxResults(maxItems);
+		return this.findByNamedParamGeoLocationItems(queryStr, latitude,
+				longitude, distance, radius, maxItems, startDate.toDate(), endDate.toDate());
+	}  
 }

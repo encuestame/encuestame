@@ -24,16 +24,18 @@ import org.encuestame.persistence.dao.imp.HashTagDao;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.HashTagRanking;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link HashTagDao}..
  * @author Morales Urbina, Diana paolaATencuestame.org
  * @since January 06, 2011
- * @version $Id: $
  */
+@Category(DefaultTest.class)
 public class TestHashTagDao  extends AbstractBase{
 
     /** {@link HashTag} **/

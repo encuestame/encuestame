@@ -1,0 +1,66 @@
+/** profile view **/
+.web-profile-wrapper {
+    margin: 0;
+}
+
+.profile-content-wrapper .web-pup-wrapper {
+	box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
+}
+
+.web-profile-wrapper > header {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 3px;
+  margin-top: 20px;
+}
+
+.web-profile-wrapper .emne-box > header > span {
+	padding-left: 5px;
+}
+
+.web-profile-wrapper .profile-content-wrapper {
+  background: none repeat scroll 0 0 white;
+  overflow: auto;
+}
+
+.web-profile-wrapper .profile-left {
+  float: left;
+  max-width: 300px;
+}
+
+.web-profile-wrapper .profile-right {
+  margin-left: 255px;
+}
+
+.web-profile-wrapper div.profile-name {
+    padding: 15px;
+    margin-bottom: 0px;
+}
+
+.web-profile-wrapper div.picture {
+    float: left;
+}
+
+.web-profile-wrapper ul {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.web-profile-wrapper .profile-left .rss li img {
+  float: left;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+
+.web-profile-wrapper .profile-left .rss li {
+  border-bottom: 1px solid #F1F1F1;
+  display: block;
+  line-height: 24px;
+  padding: 6px;
+  vertical-align: middle;
+}
+
+.web-profile-wrapper .profile-left .rss li a, .web-profile-wrapper .profile-left .rss li a:link, .web-profile-wrapper .profile-left .rss li a:visited, .web-profile-wrapper .profile-left .rss li a:active {
+  color: #A7A7A7;
+}
+	

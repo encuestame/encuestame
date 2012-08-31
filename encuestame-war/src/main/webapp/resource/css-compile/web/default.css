@@ -1,7 +1,4 @@
-@import url("button.css");
 @import url("suggest.css");
-@import url("table.css");
-
 
 a{
    text-decoration: none;
@@ -212,15 +209,20 @@ div.defaultSectionTitle {
   padding: 10px;
 }
 
-.gradient-gray{
-    background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(top, #ffffff 0%, #e0e0e0 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e0e0e0)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* IE10+ */
-    background: linear-gradient(top, #ffffff 0%,#e0e0e0 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e0e0e0',GradientType=0 ); /* IE6-9 */
+.gradient-gray {
+   background-image: linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
+   background-image: -o-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
+   background-image: -moz-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
+   background-image: -webkit-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
+   background-image: -ms-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
+
+   background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.04, rgb(200,193,193)),
+		color-stop(1, rgb(112,110,110))
+	);
 }
 
 .gradient-yellow{
@@ -414,43 +416,6 @@ div.updateProfile .profileItem label{
     font-weight: bold;
 }
 
-
-/** default button */
-
-.dijitButton .dijitButtonNode{
-    font-size: 110% !important;
-    border: 1px solid #6D6767 !important;
-    padding: 5px 13px !important;
-    background-image: none !important;
-    font-weight: bold;
-    color: #FFF;
-    background-color: #595959 !important; /* 595959 433C3C **/
-    -moz-border-radius: 14px !important;
-    border-radius: 14px !important;
-    -webkit-border-radius: 14px !important;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-}
-
-.dijitButton .dijitButtonNode {
-  background-color: #89CF6A !important;
-  background-image: none !important;
-  border: 1px solid #6D8000 !important;
-  border-radius: 14px 14px 14px 14px !important;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-  color: #FFFFFF;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
-  font-size: 110% !important;
-  font-weight: normal;
-  padding: 5px 13px !important;
-}
-
-.dijitButton .dijitButtonHover{
-  color: #FFFFFF !important;
-  background-color: #A1D988 !important;
-}
-
 .defaultMarginWrapper .dijitTabContainerTop-container{
     border: 0 none !important;
 }
@@ -542,8 +507,8 @@ div.web-default-menu  li.first {
 
 .enme-web-context .dijitDialog {
   border: 1px solid #676767 !important;
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 1px 2px 10px 6px rgba(9, 9, 9, 0.25) !important;
+  border-radius: 4px;
+  box-shadow: 1px 2px 2px 1px rgba(9, 9, 9, 0.25) !important;
 }
 
 .enme-web-context .dijitDialog  ul, .enme-web-context .dijitDialog ol {
@@ -563,13 +528,25 @@ div.web-default-menu  li.first {
 
 /** emne-box **/
 
-.emne-box{
-    -webkit-border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    border: 1px solid #E5E5E5;
-    margin: 15px 3px 3px;
+.emne-box { }
+
+.emne-box-gray {
+  background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.04, rgb(255,255,255)),
+        color-stop(1, rgb(242,242,242))
+    ); 
 }
+
+
 
 .emne-box > header {
   background-color: #E5E5E5;
@@ -582,24 +559,35 @@ div.web-default-menu  li.first {
   text-shadow: 1px 1px 1px #B3B3B4;
 }
 
+.emne-box h1 {
+  color: #6D6D6D;
+  font-size: 2em;
+  font-weight: 500;
+  margin: 12px;
+  text-shadow: 1px 1px 1px #FFFFFF;
+}
+
 .emne-box > header .rss {
   float: right;
   position: relative;
   right: 10px;
-  top: -3px;
+  top: 2px;
 }
 
 .emne-box h3.no-results {
   color: #CCCCCC;
   font-size: 1.2em;
-  margin-bottom: 30px;
-  margin-left: 30px;
+  margin : 0;
   padding: 20px;
 }
 
 /** default detail **/
 .web-wrapper-detail {
-  margin: 30px;
+  border-bottom: 1px solid #DADADA;
+  border-left: 1px solid #DADADA;
+  border-radius: 5px 0 0 5px;
+  border-right: 1px solid #DADADA;
+  margin: 0 0 30px;
 }
 
 .web-wrapper-detail header h1 {
@@ -607,11 +595,66 @@ div.web-default-menu  li.first {
   margin: 10px 5px;
 }
 
+/** agrupa el grafico y preguntas **/
 .web-wrapper-detail .web-wrapper-detail-wrapper {
-  border-bottom: 1px dotted #BEBEC8;
-  overflow: auto;
-   min-height: 250px;
+    background-color: white;
+    min-height: 300px;
+    max-height : 315px;
+    overflow: hidden;
 }
+/** agrupa el grafico **/
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart{
+    float: left;
+    min-height: 180px;
+    width: 395px;
+}
+
+/** agrupa preguntas **/
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper {
+  background-color: #F7F7F7;
+  box-shadow: 3px 1px 3px 0 #CBCBCB inset;
+  float: right;
+  min-height: 315px;
+  width: 510px;
+}
+
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header {
+  background-color: #8E8E8E;
+  overflow: hidden;
+}
+
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header .answer-label {
+  display: inline-block;
+  float: left;
+  padding-left: 30px;
+  width: 260px;
+}
+
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header > div {
+
+}
+
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header > div {
+  background-color: #8E8E8E;
+  box-shadow: 0 1px 0 0 #919191 inset;
+  color: #444444;
+  font-size: 1.2em;
+     line-height: 20px;
+     padding: 10px;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header .answer-votes {
+  float: left;
+  width: 89px;
+}
+
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header .answer-percent {
+  float: right;
+  padding-right: 15px;
+}
+
+
 
 .web-wrapper-detail .web-button-wrapper{
     min-height: 30px;
@@ -639,12 +682,28 @@ div.web-default-menu  li.first {
   padding: 10px;
 }
 
+.web-wrapper-detail .emne-box {
+  background: none repeat scroll 0 0 transparent;
+}
+
+.web-wrapper-detail .emne-box > header {
+  background-color: #D2D2D2;
+  border-bottom: 1px solid #B7B7B7;
+  box-shadow: 0 1px 1px #878787 inset;
+  color: #555555;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 7px;
+  text-shadow: 1px 1px 1px #CFCFCF;
+}
+
 /** dialog **/
 
 .web-generic-dialog-content {
   font-size: 12px;
   font-weight: bold;
-  padding: 35px 10px 10px;
+  padding: 10px 10px 10px;
 }
 
 .web-generic-dialog-content .button{
@@ -663,3 +722,64 @@ div.web-default-menu  li.first {
     border: 0;
     background-color: black!important;
 }
+
+.web-detail-header {
+  /* background-image: -moz-linear-gradient(center top , #888888 0pt, #444444 45px); */
+ /*  background-image: linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -o-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -moz-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -webkit-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+background-image: -ms-linear-gradient(bottom, rgb(136,136,136) 9%, rgb(68,68,68) 100%);
+
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.09, rgb(136,136,136)),
+    color-stop(1, rgb(68,68,68))
+); */
+background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
+		color-stop(100%, #222) );
+	background: -webkit-linear-gradient(#444, #222);
+	background: -moz-linear-gradient(#444, #222);
+	background: -o-linear-gradient(#444, #222);
+	background: linear-gradient(#444, #222);
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 1px 2px 1px #CDCDCD;
+  margin: 4px 0px 0px 0px;
+  overflow: auto;
+  padding: 5px 0;
+}
+
+.web-detail-header .title {
+    float: left;
+    color: #000;
+    font-size: 150%;
+}
+
+.web-detail-header .title h2 {
+  color: white;
+  font-size: 1em;
+  font-weight: 500;
+  margin: 0 10px;
+}   
+
+#nav-sign-in a {
+	display: block;
+	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #343434), color-stop(100%, #1E1E1E) );
+	background: -webkit-linear-gradient(top, #343434, #1E1E1E);
+	background: -moz-linear-gradient(top, #343434, #1E1E1E);
+	background: -o-linear-gradient(top, #343434, #1E1E1E);
+	background: linear-gradient(top, #343434, #1E1E1E);
+	-moz-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+	-webkit-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+	-o-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+	box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	border-radius: 5px;
+	padding: 3px 15px;
+	text-shadow: 0 -1px 0 black;}

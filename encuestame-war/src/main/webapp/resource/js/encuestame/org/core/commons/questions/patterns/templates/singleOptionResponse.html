@@ -5,13 +5,15 @@
             <input
                 dojoAttachPoint="_input"
                 type="radio"
-                name="${name}_response"
-                value=""
+                name="${name}"
+                value="${itemId}"
                 id="${id}_response"
                 class="web-radio-button">
         </span>
         <label class="pds-input-label" for="${id}_response">
-                <span class="web-response-label-span" dojoAttachPoint="_label"></span>
+                <span class="web-response-label-span" dojoAttachPoint="_label">
+                    ${label}
+                </span>
         </label>
         <span class="web-clear"></span>
         <div dojoAttachPoint="_attachment">

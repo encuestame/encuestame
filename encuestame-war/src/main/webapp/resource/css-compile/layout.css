@@ -3,20 +3,18 @@ html,body {
 }
 
 body {
-    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
+	height: 100%;
+ 	word-wrap: break-word;
+	margin: 0;
+	padding: 0;
+	background-color: #EAEAEA;
 }
 
 /** header **/
 header#header {
-    left: 0;
-    min-width: 1040px;
-    /*position: fixed;*/
-    right: 0;
-    top: 0;
-    z-index: 4;
+  margin: 5px auto 20px;
+  width: 970px;
+  z-index: 4;
 }
 
 .header {
@@ -56,17 +54,14 @@ header#header {
 }
 
 div.web-header {
-    width: auto;
-    padding: 0 5px;
-    min-height: 40px;
-    background-color: #E8E8E8;
-    box-shadow : 2px 0px 4px 1px #7B7B7B;
+  font-size: 13px;
+  font-weight: normal;
+  height: 40px;
 }
 
 .web-header-options .suggest .dijitTextBox {
-  border-radius: 7px 7px 7px 7px;
+  border-radius: 4px 4px 4px 4px;
   padding: 2px;
-  width: 250px;
 }
 
 .web-header-options .suggest .dijitTextBox .dijitInputContainer {
@@ -111,17 +106,15 @@ div.web-header span {
 }
 
 div.web-header span.link {
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 4px 4px 3px 0;
+  margin: 4px 4px 3px 0;
+  padding-left: 5px;
 }
 
 div.web-header span.link a {
-    color: #275296;
-    text-decoration: none;
-    font-size: 100%;
-    font-style: italic;
-    font-weight: bold;
+  color: #444444;
+  font-size: 100%;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
 div.web-header span.link a:hover {
@@ -133,9 +126,7 @@ div.web-header span.search {
 }
 
 #mainWrapper {
-    min-width: 1040px;
-    overflow: auto;
-    min-height: 600px;
+    margin: 0 auto;
 }
 
 #content-container {
@@ -143,7 +134,7 @@ div.web-header span.search {
 }
 
 #content-container #enme-content {
-    margin: 0 auto;
+    
 }
 
 footer {
@@ -151,11 +142,7 @@ footer {
 }
 
 #footer {
-    color: #666666;
-    position: relative;
-    text-align: center;
-    width: 100%;
-    margin-top: 15px;
+  color: #848282;
 }
 
 .text-color {

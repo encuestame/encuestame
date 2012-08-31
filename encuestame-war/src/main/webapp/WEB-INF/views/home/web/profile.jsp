@@ -1,9 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-<div class="web-profile-wrapper">
-		<header>
-			${profile.username} (${profile.name})
-		</header>
-		<div>
+<div class="web-profile-wrapper web-wrapper-detail">
+		<div class="web-detail-header">
+			<div class="title">
+				<h2>${profile.username} (${profile.name}) </h2>
+			</div>
+        </div>
+		<div class="profile-content-wrapper">
 			<div class="profile-left">
 		        <div class="picture">
 		        	<!-- Replace by dojo widget. -->
@@ -26,14 +28,16 @@
 	        <div class="profile-right">
 		         <article class="emne-box">
 		                <header>
-		                  	<spring:message code="home.profile.lastpub" />
+		                  	<span>
+		                  	   <spring:message code="home.profile.lastpub" />
+		                  	</span>
 		                  	<div class="rss">
 		                  		<a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.rss">
 		                  			<img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
 		                  	    </a>
 		                  	</div>
 		                </header>
-		         <div class="web-pup-wrapper">
+		         <div class="web-pup-wrapper emne-box-gray">
 		         <c:forEach items="${lastItems}" var="item">
 		             <%@ include file="detail_item.jsp"%>
 		        </c:forEach>

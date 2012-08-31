@@ -33,10 +33,12 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,6 +48,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 10, 2011
  */
+@Category(DefaultTest.class)
 public class ViewControllerTestCase extends AbstractMvcUnitBeans{
 
         @Autowired

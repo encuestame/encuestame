@@ -38,17 +38,17 @@ dojo.declare(
             /*
              * question widget.
              */
-            _questionBox : {node:null,initialize:false},
+            _questionBox : {node : null, initialize : false},
 
             /*
              * answer widgets.
              */
-            _answersBox : {node:null,initialize:false},
+            _answersBox : {node:null,initialize : false},
 
             /*
              * hashtag widget.
              */
-            _hashTagsBox : {node:null,initialize:false},
+            _hashTagsBox : {node:null,initialize : false},
 
             /*
              * widget to buil preview reference.
@@ -163,21 +163,23 @@ dojo.declare(
              */
             _buildQuestion : function(/* widget */ question) {
                 //remove old question
-                dojo.empty(this._content);
+            	dojo.empty(this._content);
+            	var newQuestionValue = question.get("value");
+            	// by first time it's necessary save the node.
                 if (this._questionBox.node == null) {
-                  this._questionBox.node = dojo.doc.createElement("span");
+                  this._questionBox.node = dojo.create("span");
                   dojo.addClass(this._questionBox.node, "previewQuestion");
                   this._questionBox.innerHTML = "";
                   this._questionBox.initialize = true;
-                }
+                }                
                 if (question) {
-                  var newPreview = question.get("value");
+                  var newPreview = newQuestionValue;
                   //question
                   this._questionBox.node.innerHTML = newPreview;
-                  this._completeText = newPreview;
+                  this._completeText = newPreview || "";
                 }
-                if (question.get("value") != "") {
-                    this._content.appendChild(this._questionBox.node);
+                if (newQuestionValue != "") {
+                    this._content.appendChild(dojo.clone(this._questionBox.node));
                 }
             },
 
@@ -202,9 +204,7 @@ dojo.declare(
                 //console.info("questionDiv", questionDiv);
                 dojo.addClass(questionDiv, "inlineBlock");
                 this._content.appendChild(questionDiv);
-              } else {
-                console.info("no answers widget");
-              }
+              } 
             },
 
             /*
@@ -240,7 +240,7 @@ dojo.declare(
             /*
              * Return the current lenght text.
              */
-            _getCurrentLengthText : function(){
+            _getCurrentLengthText : function() {
                 return this._lastedCounter;
             },
 
@@ -259,7 +259,7 @@ dojo.declare(
                     this._isValid = true;
                   } else {
                     this._isValid = false;
-                    this._isValidMessage = encuestame.constants.errorCodes["020"];
+                    this._isValidMessage = ENME.getMessage("e_020");
                     dojo.publish("/encuestame/tweetpoll/block");
                     //this._lastedCounter = 0;
                     var currentCounter = this._counterMax - textTweet.length;
@@ -267,7 +267,7 @@ dojo.declare(
                     this._lastedCounter = currentCounter;
                   }
               } else {
-                  console.error(encuestame.constants.errorCodes["023"]);
+                  ENME.log(ENME.getMessage("e_023"));
               }
             },
 
@@ -275,9 +275,9 @@ dojo.declare(
              * check required structure.
              */
             _checkTweetPollStructure : function() {
-                if(this._answerSize < config.tp.a) {
+                if (this._answerSize < ENME.config('tp_a')) {
                     this._isValid = false;
-                    this._isValidMessage = encuestame.constants.errorCodes["021"];
+                    this._isValidMessage =  ENME.getMessage("e_021");
                 }
             },
 

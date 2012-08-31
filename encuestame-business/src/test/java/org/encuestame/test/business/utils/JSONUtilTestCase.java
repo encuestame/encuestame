@@ -24,14 +24,16 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.encuestame.social.api.support.BuzzProfile;
+import org.encuestame.utils.categories.test.InternetTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Description.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 26, 2011
  */
-//@Ignore
+@Category(InternetTest.class)
 public class JSONUtilTestCase extends TestCase {
 
     @Test

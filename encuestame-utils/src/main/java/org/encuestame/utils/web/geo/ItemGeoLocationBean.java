@@ -14,6 +14,8 @@ package org.encuestame.utils.web.geo;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
@@ -28,26 +30,41 @@ public class ItemGeoLocationBean implements Serializable {
 	private static final long serialVersionUID = 361226054771738837L;
 
 	/** **/
+	@JsonProperty(value = "item_id")
 	private Long itemId;
 	
 	/** **/
+	@JsonProperty(value = "item_type")
 	private TypeSearchResult itemType;
 	
 	/** **/
+	@JsonProperty(value = "question")
 	private String question;
 	
 	/** **/
+	@JsonProperty(value = "latitude")
 	private Float latitude;
 	
 	/** **/
+	@JsonProperty(value = "longitude")
 	private Float longitude;
 	
 	/** **/
+	@JsonProperty(value = "distance")
 	private Double distance;
+	
+	/** **/
+	@JsonProperty(value = "social_link")
+	private String socialLink;
+	
+	/** **/
+	@JsonProperty(value = "social_type")
+	private String socialType;
 
 	/**
 	 * @return the itemId
 	 */
+	@JsonIgnore	
 	public Long getItemId() {
 		return itemId;
 	}
@@ -62,6 +79,7 @@ public class ItemGeoLocationBean implements Serializable {
 	/**
 	 * @return the itemType
 	 */
+	@JsonIgnore	
 	public TypeSearchResult getItemType() {
 		return itemType;
 	}
@@ -76,6 +94,7 @@ public class ItemGeoLocationBean implements Serializable {
 	/**
 	 * @return the question
 	 */
+	@JsonIgnore	
 	public String getQuestion() {
 		return question;
 	}
@@ -90,6 +109,7 @@ public class ItemGeoLocationBean implements Serializable {
 	/**
 	 * @return the latitude
 	 */
+	@JsonIgnore	
 	public Float getLatitude() {
 		return latitude;
 	}
@@ -104,6 +124,7 @@ public class ItemGeoLocationBean implements Serializable {
 	/**
 	 * @return the longitude
 	 */
+	@JsonIgnore	
 	public Float getLongitude() {
 		return longitude;
 	}
@@ -118,6 +139,7 @@ public class ItemGeoLocationBean implements Serializable {
 	/**
 	 * @return the distance
 	 */
+	@JsonIgnore	
 	public Double getDistance() {
 		return distance;
 	}
@@ -127,5 +149,35 @@ public class ItemGeoLocationBean implements Serializable {
 	 */
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}  
+	
+	/**
+	 * @return the socialLink
+	 */
+	@JsonIgnore	
+	public String getSocialLink() {
+		return socialLink;
+	}
+
+	/**
+	 * @param socialLink the socialLink to set
+	 */
+	public void setSocialLink(final String socialLink) {
+		this.socialLink = socialLink;
+	}
+
+	/**
+	 * @return the socialType
+	 */
+	@JsonIgnore	
+	public String getSocialType() {
+		return socialType;
+	}
+
+	/**
+	 * @param socialType the socialType to set
+	 */
+	public void setSocialType(final String socialType) {
+		this.socialType = socialType;
 	}  
 }

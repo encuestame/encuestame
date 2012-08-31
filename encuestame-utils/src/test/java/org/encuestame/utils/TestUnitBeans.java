@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.json.LinksSocialBean;
@@ -71,6 +73,7 @@ import org.encuestame.utils.web.notification.UtilNotification;
 import org.encuestame.utils.web.stats.HashTagRankingBean;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
     /**
     * Test Unit Beans.
@@ -79,6 +82,7 @@ import org.junit.Test;
     * @since 13/03/2010 16:18:10
     * @version $Id: $
     **/
+@Category(DefaultTest.class)
 public class TestUnitBeans extends AbstractBaseUtils {
 
     /** {@link QuestionAnswerBean}. **/

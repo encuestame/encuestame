@@ -31,7 +31,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Scope("singleton")
 /*@ContextConfiguration(locations = {
          "classpath:TwitterSendUpdates-context.xml"
-          })*/
+          })*/ 
 @Ignore
 public class TwitterIntegrationTestCase {
 

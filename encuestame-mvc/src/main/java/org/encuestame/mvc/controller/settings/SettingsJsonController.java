@@ -91,39 +91,40 @@ public class SettingsJsonController extends AbstractJsonController{
             @RequestParam(value = "data", required = false) String data,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
-        log.debug("update profile type:"+type);
-        log.debug("update profile data:"+data);
+        	
+        log.debug("update profile type:" + type);
+        log.debug("update profile data:" + data);
         try {
             final SecurityOperations security = getSecurityService();
             final ValidateOperations operations = new ValidateOperations(security);
             final HashMap<String, Object> listError = new HashMap<String, Object>();
             //filter data
             data = filterValue(data);
-            if(type.equals(Profile.EMAIL.toString())){
+            if (type.equals(Profile.EMAIL.toString())) {
                 //TODO: review pattern email format validator.
                 log.debug("update email");
                 final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUserEmail(data, account)) {
-                    security.upadteAccountProfile(Profile.EMAIL, data);
+                    security.updateAccountProfile(Profile.EMAIL, data);
                     setSuccesResponse();
                 } else {
-                    listError.put(type, "email not valid");
+                    listError.put(type, getMessage("e_005", request, null));
                 }
-            } else if(type.equals(Profile.USERNAME.toString())){
+            } else if(type.equals(Profile.USERNAME.toString())) {
                 log.debug("update username");
                 final UserAccount account = getSecurityService().getUserAccount(getUserPrincipalUsername());
                 if (operations.validateUsername(data, account)) {
-                    security.upadteAccountProfile(Profile.USERNAME, data);
-                    setSuccesResponse();
+                    security.updateAccountProfile(Profile.USERNAME, data);
+                    setSuccesResponse(getMessage("settings_config_profile_success", request, null));
                 } else {
-                    listError.put(type, "username not valid");
+                    listError.put(type, getMessage("e_018", request, null));
                 }
-            } else if(type.equals(Profile.PICTURE.toString())){
+            } else if(type.equals(Profile.PICTURE.toString())) {
                  log.debug("update PICTURE");
-                 security.upadteAccountProfile(Profile.PICTURE, data);
-                 setSuccesResponse();
+                 security.updateAccountProfile(Profile.PICTURE, data);
+                 setSuccesResponse(getMessage("settings_config_picture_success", request, null));
             } else {
-                setError("type not valid", response);
+                setError(getMessage("e_023", request, null), response);
             }
             if (!listError.isEmpty()) {
                 log.debug("list errors " + listError.size());
@@ -131,7 +132,8 @@ public class SettingsJsonController extends AbstractJsonController{
             }
         } catch (Exception e) {
             log.error(e);
-            setError(e.getMessage(), response);
+            e.printStackTrace();
+            setError(getMessage("e_023", request, null), response);
             //throw new JsonGenerationException(e.getMessage());
         }
         return returnData();
@@ -183,13 +185,13 @@ public class SettingsJsonController extends AbstractJsonController{
             boolean emailValid = operations.validateUserEmail(email, account);
             log.debug("emailValid " +emailValid);
             if (!emailValid) {
-                listError.put("username", "username not valid");
+                listError.put("username", getMessage("e_018", request, null));
                 valid = false;
             }
             boolean usernameValid = operations.validateUsername(username, account);
             log.debug("usernameValid " +usernameValid);
             if (!usernameValid) {
-                listError.put("email", "email not valid");
+                listError.put("email", getMessage("e_005", request, null));
                valid = false;
             }
             log.debug("this form is valid? " +valid);
@@ -200,12 +202,13 @@ public class SettingsJsonController extends AbstractJsonController{
             } else {
                 log.debug("updating profile ....");
                 //setError("invalid type", response);
-                getSecurityService().upadteAccountProfile(bio, language, completeName, username);
+                getSecurityService().updateAccountProfile(bio, language, completeName, username);
+                setSuccesResponse(getMessage("settings_config_profile_success", request, null));
             }
         } catch (Exception e) {
             log.error(e);
             e.printStackTrace();
-            setError(e.getMessage(), response);
+            setError(getMessage("e_023", request, null), response);
         }
         return returnData();
     }

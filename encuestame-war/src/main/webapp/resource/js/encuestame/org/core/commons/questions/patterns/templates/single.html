@@ -3,8 +3,10 @@
           <div dojoType="encuestame.org.core.shared.utils.Icon" src="enme-move.png"> </div>
      </div>
      <div class="single-response-input">
-         <input type="text" dojoAttachPoint="_single" dojoType="dijit.form.TextBox"  maxLength="100"
-                 placeHolder= "Type your answer"
-                trim="true" class="littleInputClass"></input>
+         <input type="text" dojoAttachPoint="_single" dojoType="dijit.form.TextBox" 
+                 maxLength="${max_length}"
+                 placeHolder= "${i18nMessage.pattern_question_single}"
+                 trim="${trim}" 
+                 class="littleInputClass"></input>
      </div>
 </div>

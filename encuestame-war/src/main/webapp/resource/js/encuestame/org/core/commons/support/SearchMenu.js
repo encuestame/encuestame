@@ -30,18 +30,29 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
  * @since 14/01/12
  */
 dojo.declare("encuestame.org.core.commons.support.SearchMenu",
-        [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.support.AbstractFilterSupport], {
+        [encuestame.org.main.EnmeMainLayoutWidget,
+         encuestame.org.core.commons.support.AbstractFilterSupport], {
 
     /*
      *
      */
      templatePath: dojo.moduleUrl("encuestame.org.core.commons.support", "templates/search-filters.html"),
-
+     
      /*
-      *
+      * i18n message for this widget.
       */
-     postCreate : function() {
-
+     i18nMessage : {
+    	 detail_manage_filters_advanced_type_to_search : ENME.getMessage("detail_manage_filters_advanced_type_to_search"),
+    	 detail_manage_filters_advanced_title : ENME.getMessage("detail_manage_filters_advanced_title"),
+    	 detail_manage_published : ENME.getMessage("detail_manage_published"),
+    	 detail_manage_unpublished : ENME.getMessage("detail_manage_unpublished"),
+    	 detail_manage_filters_advanced_all_results : ENME.getMessage("detail_manage_filters_advanced_all_results"),
+    	 detail_manage_scheduled : ENME.getMessage("detail_manage_scheduled"),
+    	 detail_manage_favorites : ENME.getMessage("detail_manage_favorites"),
+    	 detail_manage_by_account : ENME.getMessage("detail_manage_by_account"),
+    	 detail_manage_filters_advanced_range_days : ENME.getMessage("detail_manage_filters_advanced_range_days"),
+    	 detail_manage_search : ENME.getMessage("detail_manage_search"),
+    	 detail_manage_only_completed : ENME.getMessage("detail_manage_only_completed"),
      }
 
 });

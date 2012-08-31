@@ -20,17 +20,19 @@ import junit.framework.Assert;
 
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.SocialAccount;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.social.SocialProvider;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Social Account Json Service Test Cases.
  * @author Picado, Juan juanATencuestame.org
  * @since  Feb 19, 2011 13:20:58 AM
  */
-
+@Category(DefaultTest.class)
 public class SocialAccountsJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 
     /**

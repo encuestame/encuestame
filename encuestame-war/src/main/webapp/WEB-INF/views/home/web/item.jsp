@@ -30,7 +30,7 @@
                         href="<%=request.getContextPath()%>/profile/${item.ownerUsername}">${item.ownerUsername}</a>
                     </strong>
                     <spring:message code="added" />
-                    <strong> ${item.relativeTime} | <br> <a
+                    <strong> ${item.relativeTime} | <a
                         href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}#comments">
                             ${item.totalComments} <spring:message code="home.item.comments" /> </a> </strong>
                 </div>
@@ -44,21 +44,5 @@
                 </c:forEach>
             </div>
         </div>
-        <div class="stats-rating">
-              <nav>
-                  <div class="stats-rating-section">
-                        <div class="like total">2134</div>
-                        <div class="image">
-                            <img src="<%=request.getContextPath()%>/resources/images/icons/enme_like.png" width="20px" height="20px" />
-                        </div>
-                  </div>
-                  <div class="stats-rating-section">
-                       <div class="unlike total">213</div>
-                        <div class="image">
-                            <img src="<%=request.getContextPath()%>/resources/images/icons/emne_unlike.png" width="20px" height="20px" />
-                       </div>
-                  </div>
-              </nav>
-       </div>
     </div>
 </section>

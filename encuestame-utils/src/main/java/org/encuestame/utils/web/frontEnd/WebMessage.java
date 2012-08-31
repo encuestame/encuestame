@@ -12,14 +12,21 @@
  */
 package org.encuestame.utils.web.frontEnd;
 
+import java.io.Serializable;
+
 /**
  * WebMessage.
  * @author Picado, Juan juanATencuestame.org
  * @since
  */
-public final class WebMessage {
+public final class WebMessage implements Serializable{
 
-    private final WebInfoType infoType;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7442678263773715275L;
+
+	private final WebInfoType infoType;
 
     private final String message;
 

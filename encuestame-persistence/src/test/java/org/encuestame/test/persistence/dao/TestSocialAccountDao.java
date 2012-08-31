@@ -15,15 +15,17 @@ package org.encuestame.test.persistence.dao;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link SocialAccount}..
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since December 27, 2010
- * @version $Id: $
  */
+@Category(DefaultTest.class)
 public class TestSocialAccountDao extends AbstractBase{
 
     /** {@link UserAccount}. **/

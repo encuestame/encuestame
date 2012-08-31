@@ -139,12 +139,14 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
      */
     @SuppressWarnings("unchecked")
     public List<Comment> getTopRatedComments(
-            final CommentsSocialOptions socialOption, final Integer timeRange,
+            final CommentsSocialOptions socialOption, 
+            final Integer timeRange,
             final Integer maxResults, final Integer startResults) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(Comment.class);
         log.debug("getTopRatedComments start date "+ getCommentTimeRange(timeRange));
         log.debug("getTopRatedComments end date "+  getNextDayMidnightDate());
+        
         criteria.add(Restrictions.between("createdAt",
                 getCommentTimeRange(timeRange), getNextDayMidnightDate()));
         if (socialOption != null) {

@@ -15,12 +15,17 @@ package org.encuestame.core.service.imp;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -58,7 +63,8 @@ public interface ITweetPollService extends IMasterSurveyService{
     TweetPoll createTweetPoll(
             final TweetPollBean tweetPollBean,
             final String question,
-            final UserAccount user) throws EnMeExpcetion;
+            final UserAccount user,
+            final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
 
 
     /**
@@ -81,7 +87,9 @@ public interface ITweetPollService extends IMasterSurveyService{
     * @throws EnMeNoResultsFoundException
     */
    TweetPollSwitch createTweetPollQuestionAnswer(
-           final QuestionAnswerBean answerBean, final TweetPoll tp)
+           final QuestionAnswerBean answerBean, 
+           final TweetPoll tp,
+           final HttpServletRequest request)
            throws EnMeNoResultsFoundException;
 
     /**
@@ -196,23 +204,34 @@ public interface ITweetPollService extends IMasterSurveyService{
     List<TweetPollBean> getTweetsPollsByUserName(final String username,
             final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 
+ 
+    
     /**
      * Public Multiples Tweet Accounts.
      * @param twitterAccounts List of {@link SocialAccount}.
      * @param tweetPoll {@link TweetPoll}.
      * @param tweetText tweet text.
+     * @param type {@link TypeSearchResult}
+     * @param poll {@link Poll}
+     * @param survey {@link Survey}
+     * @return
      */
-    List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
-            final List<SocialAccountBean> twitterAccounts,
-            final TweetPoll tweetPoll,
-            final String tweetText);
+	List<TweetPollSavedPublishedStatus> publishMultiplesOnSocialAccounts(
+			final List<SocialAccountBean> twitterAccounts,
+			final TweetPoll tweetPoll, final String tweetText,
+			final TypeSearchResult type, final Poll poll, final Survey survey);
 
    /**
     * Publish single {@link TweetPoll}.
     * @param accountId social account id.
+    * @param tweetPoll {@link TweetPoll}.
+    * @param tweetText tweet text.
+    * @param type {@link TypeSearchResult}
+    * @param poll {@link Poll}
+    * @param survey {@link Survey}
     */
    TweetPollSavedPublishedStatus publishTweetBySocialAccountId(final Long accountId, final TweetPoll tweetPoll,
-           final String tweetText);
+           final String tweetText, final TypeSearchResult type, final Poll poll, final Survey survey);
 
     /**
      * Update Question Name.
@@ -420,9 +439,13 @@ public interface ITweetPollService extends IMasterSurveyService{
      /**
       * Return list of links published by {@link TweetPoll}.
       * @param tweetPoll
+      * @param poll
+      * @param survey
+      * @param type
       * @return
       */
-     List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll);
+	List<LinksSocialBean> getTweetPollLinks(final TweetPoll tweetPoll,
+			final Poll poll, final Survey survey, final TypeSearchResult type);
 
      /**
       * Get List of TweetPoll Folders.
@@ -456,4 +479,21 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param hashTag
       */
      void removeHashtagFromTweetPoll(final TweetPoll tweetPoll, final HashTag hashTag);
+     
+     /**
+      * Retrieve {@link TweetPollFolder} by id and user.
+      * @param folderId
+      * @return
+      */
+     TweetPollFolder getTweetPollFolderbyId(final Long folderId);
+     
+     /**
+ 	 * Search tweetpolls by folder.
+ 	 * @param folderId
+ 	 * @param username
+ 	 * @return
+ 	 * @throws EnMeNoResultsFoundException
+ 	 */
+ 	List<TweetPollBean> searchTweetPollsByFolder(final Long folderId,
+ 			final String username) throws EnMeNoResultsFoundException;
 }

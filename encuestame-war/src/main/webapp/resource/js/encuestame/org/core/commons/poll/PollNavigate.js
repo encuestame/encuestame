@@ -56,6 +56,26 @@ dojo.declare(
          * Override  folder scope field.
          */
         folder_scope : "poll",
+        
+        /*
+         * i18n message for this widget.
+         */ 
+        i18nMessage : {
+          detail_manage_by_account : ENME.getMessage("detail_manage_by_account"),
+          detail_manage_today : ENME.getMessage("detail_manage_today"),
+          detail_manage_last_week : ENME.getMessage("detail_manage_last_week"),
+          detail_manage_favorites : ENME.getMessage("detail_manage_favorites"),
+          detail_manage_scheduled : ENME.getMessage("detail_manage_scheduled"),
+          detail_manage_all : ENME.getMessage("detail_manage_all"),
+          detail_manage_published : ENME.getMessage("detail_manage_published"),
+          detail_manage_unpublished : ENME.getMessage("detail_manage_unpublished"),
+          detail_manage_only_completed : ENME.getMessage("detail_manage_only_completed"),
+          
+          detail_manage_poll_title : ENME.getMessage("detail_manage_poll_title"),
+          detail_manage_filters : ENME.getMessage("detail_manage_filters"),
+          detail_manage_filters : ENME.getMessage("detail_manage_filters"),
+          detail_manage_poll_dropdown_title : ENME.getMessage("detail_manage_poll_dropdown_title")
+        },        
 
         /*
          *
@@ -96,6 +116,15 @@ dojo.declare(
             //        dojo.publish('myMessages', [{ message: 'Qwerty', type: "error", duration: 0}]);
             //    });
             //});
+            
+            var menu_widget = this._dropdownmenu;
+            
+            var newPoll = new encuestame.org.core.shared.utils.DropDownMenuItem({
+                label : ENME.getMessage("poll_admon_poll_new"),
+                url : "/user/poll/new"
+            });
+            
+            menu_widget._appendItem(newPoll);
         },
 
         /*
@@ -196,6 +225,17 @@ dojo.declare(
          *
          */
         data : null,
+        
+        /*
+         * i18n message for this widget.
+         */ 
+        i18nMessage : {
+        	poll_admon_poll_edit : ENME.getMessage("poll_admon_poll_edit"),
+        	poll_admon_poll_preview : ENME.getMessage("poll_admon_poll_preview"),
+        	poll_admon_poll_publish_options : ENME.getMessage("poll_admon_poll_publish_options"),
+        	poll_admon_poll_embebed : ENME.getMessage("poll_admon_poll_embebed"),
+        	poll_admon_poll_votes : ENME.getMessage("poll_admon_poll_votes")
+        },           
 
         /*
          *
@@ -221,13 +261,17 @@ dojo.declare(
                 dojo.removeClass(this.domNode, "selected-row");
             });
             //this._standBy = dijit.byId("standby_"+this.id);
-            this.widget_detail = new encuestame.org.core.commons.poll.PollNavigateItemDetail({ data : this.data , label : "Poll Options"});
+            this.widget_detail = new encuestame.org.core.commons.poll.PollNavigateItemDetail(
+            		{ 
+            			data : this.data , 
+            			label : ENME.getMessage('poll_admon_poll_options')
+            		});
             dojo.addClass(this.widget_detail.domNode, "hidden");
             dojo.place(this.widget_detail.domNode, this._more);
             //set votes
             this._votes.innerHTML = this.data.total_votes == null ? 0 : this.data.total_votes;
             //set date
-            this._date.innerHTML = this.data.creation_date;
+            this._date.innerHTML = ENME.fromNow(this.data.creation_date);
         },
 
         /**
@@ -276,6 +320,14 @@ dojo.declare(
         * The information of poll detail.
         */
        data : {},
+       
+       /*
+        * i18n message for this widget.
+        */ 
+       i18nMessage : {
+    	   poll_admon_poll_answers : ENME.getMessage("poll_admon_poll_answers"),
+    	   commons_remove : ENME.getMessage("commons_remove")
+       },         
 
        /**
         * Post create.
@@ -368,26 +420,45 @@ dojo.declare(
            this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
            var nodeId = this.id+"_chart";
            dojo.empty(dojo.byId(nodeId));
-           this.widgetChart = this.buildChart({id : nodeId, results : this._convertToChartAnswer(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results))});
-           this.renderChart(this.widgetChart);
+           //if results are empty it's needed display a "no results" option
+           if (data.poll_results.length > 0) {        	   
+			   this.widgetChart = this.buildChart({
+					id : nodeId,
+					results : this._convertToChartAnswer(
+								this._mergeResultsAnswers(
+										data.poll_list_answers,
+										data.poll_results))
+				});
+	           this.renderChart(this.widgetChart);
+           } else {
+        	   var node = dojo.byId(nodeId),
+        	   no_results = dojo.create('div');
+        	   no_results.innerHTML = ENME.getMessage('commons_no_results');
+        	   dojo.addClass(no_results, "no_results");
+        	   node.appendChild(no_results);
+           }
+           //display the list of answer on a table.
            this.reRenderResults(this._mergeResultsAnswers(data.poll_list_answers, data.poll_results));
 
            var comments = dojo.create("div");
-           dojo.addClass(comments, "web-poll-answer-row-comments");
+           dojo.addClass(comments, "ui-comments");
            comments.innerHTML = data.poll_bean.total_comments;
 
            var hits = dojo.create("div");
-           dojo.addClass(hits, "web-poll-answer-row-hits");
+           dojo.addClass(hits, "ui-hits");
            hits.innerHTML = data.poll_bean.hits;
 
            var likes = dojo.create("div");
-           dojo.addClass(likes, "web-poll-answer-row-likes");
+           dojo.addClass(likes, "ui-likes");
            likes.innerHTML = data.poll_bean.like_votes;
 
            var dislike = dojo.create("div");
-           dojo.addClass(dislike, "web-poll-answer-row-dislike");
+           dojo.addClass(dislike, "ui-dislike");
            dislike.innerHTML = data.poll_bean.dislike_votes;
-
+           
+           //empty 
+           dojo.empty(this._detail_info);           
+           //append the info
            dojo.place(comments, this._detail_info);
            dojo.place(hits, this._detail_info);
            dojo.place(likes, this._detail_info);

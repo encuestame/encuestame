@@ -13,12 +13,14 @@
 package org.encuestame.test.business.social;
 
 import org.encuestame.core.service.AbstractBaseService;
+import org.encuestame.utils.categories.test.InternetTest;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.util.Assert;
 
 
-@Ignore
+@Category(InternetTest.class)
 public class SocialServiceTestCase extends AbstractBaseService{
 
     /** Test. **/

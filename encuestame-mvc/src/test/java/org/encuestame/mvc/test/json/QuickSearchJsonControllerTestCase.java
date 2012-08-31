@@ -18,17 +18,20 @@ import org.encuestame.mvc.controller.search.json.QuickSearchJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test case for {@link QuickSearchJsonController}.
  * @author Picado, Juan juanATencuestame.org
  * @since Apr 10, 2011
  */
+@Category(DefaultTest.class)
 public class QuickSearchJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
 
     /** {@link Account} **/
