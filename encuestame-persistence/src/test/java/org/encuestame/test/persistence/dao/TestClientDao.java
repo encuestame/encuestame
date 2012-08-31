@@ -20,16 +20,18 @@ import java.util.List;
 import org.encuestame.persistence.domain.Client;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.persistence.dao.imp.ClientDao;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * {@link ClientDao} test.
  * @author Picado, Juan juanATencuestame.org
  * @since Jan 24, 2010 5:12:28 PM
- * @version $Id: change to one dolar simbol
  */
+@Category(DefaultTest.class)
 public class TestClientDao  extends AbstractBase{
 
     /** {@link Project}. */

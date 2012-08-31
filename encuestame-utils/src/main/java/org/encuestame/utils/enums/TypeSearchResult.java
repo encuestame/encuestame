@@ -18,7 +18,7 @@ package org.encuestame.utils.enums;
  * @since Mar 23, 2011
  */
 public enum TypeSearchResult {
-    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, 
+    TWEETPOLL, PROFILE, POLL, SURVEY, ATTACHMENT, QUESTION, HASHTAG, HASHTAGRATED, SOCIALNETWORK, HITS, VOTES, ALL, 
 
     TypeSearchResult(){
 
@@ -40,6 +40,7 @@ public enum TypeSearchResult {
         else if (this == SOCIALNETWORK) { type = "SOCIALNETWORK"; }
         else if (this == HITS) { type = "HITS"; }
         else if (this == VOTES) { type = "VOTES"; }
+        else if (this == ALL) { type = "ALL"; }
         return type;
     }
 
@@ -59,6 +60,7 @@ public enum TypeSearchResult {
         else if (type.equals(SOCIALNETWORK)) { return "socialnetwork"; }
         else if (type.equals(HITS)) { return "hits"; }
         else if (type.equals(VOTES)) { return "votes"; }
+        else if (type.equals(ALL)) { return "all"; }
         else return null;
     }
 
@@ -80,6 +82,7 @@ public enum TypeSearchResult {
         else if (type.equalsIgnoreCase("SOCIALNETWORK")) { return SOCIALNETWORK; }
         else if (type.equalsIgnoreCase("HITS")) { return HITS; }
         else if (type.equalsIgnoreCase("VOTES")) { return VOTES; }        
+        else if (type.equalsIgnoreCase("ALL")) { return ALL; }        
         else return null;
     }
 }

@@ -16,10 +16,13 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.encuestame.comet.server.CometBayeuxInitializer;
 import org.encuestame.comet.services.TweetPollCometService;
 import org.encuestame.mvc.test.config.AbstractCometBeans;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Category(DefaultTest.class)
 public class TweetPollCometServiceTestCase extends AbstractCometBeans{
 
     @Resource(name = "tweetPollCometService")

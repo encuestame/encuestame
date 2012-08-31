@@ -6,35 +6,56 @@ dojo.require("dijit._Templated");
 dojo.require("dijit._Widget");
 dojo.require("dijit.layout.ContentPane");
 dojo.require('encuestame.org.core.commons');
+dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
 dojo.require('encuestame.org.core.commons.notifications.NotificationItem');
 
 dojo.declare(
     "encuestame.org.core.commons.notifications.Notification",
-    [dijit._Widget, dijit._Templated],{
+    [encuestame.org.main.EnmeMainLayoutWidget],{
         templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notification.html"),
-
-        widgetsInTemplate: true,
 
         /*
          * delay to retrieve new notification.
          */
-        delay: config.notification.delay,
+        delay: ENME.config('notification_delay'),
 
         /*
          * limit of notifications.
          */
-        limit: config.notification.limit,
-
+        limit: ENME.config('notification_limit'),
+        
+        i18nMessage : {
+        	not_view_all : ENME.getMessage("not_view_all"),
+        },
+        
+        /*
+         * 
+         */
         notifications : null,
 
+        /*
+         * 
+         */
         totalNot : 0,
 
+        /*
+         * 
+         */
         timer: null,
 
+        /*
+         * 
+         */
         _updateNotifications : true,
 
+        /*
+         * 
+         */
         openNot : false,
 
+        /*
+         * 
+         */
         _originalTitle : null,
 
         /*
@@ -55,7 +76,7 @@ dojo.declare(
               }));
             }));
             dojo.addOnUnload(function() {
-                if(subscriptionNotification != null){
+                if (subscriptionNotification != null) {
                     encuestame.activity.cometd.unsubscribe(subscriptionNotification);
                 }
             });
@@ -65,7 +86,7 @@ dojo.declare(
         /*
          * Load Timer.
          */
-        loadTimer : function(){
+        loadTimer : function() {
             var father = this;
             this.timer = new dojox.timing.Timer(this.delay);
             this.timer.onTick = function() {

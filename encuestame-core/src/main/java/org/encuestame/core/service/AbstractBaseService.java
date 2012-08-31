@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.MailServiceOperations;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.Email;
@@ -43,6 +44,8 @@ import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.persistence.exception.EnMePollNotFoundException;
+import org.encuestame.persistence.exception.EnMeTweetPollNotFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.MD5Utils;
@@ -398,7 +401,28 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                         filter, searchPeriods);
         return tweetsbyTag;
     }
-
+    
+    /**
+     * Get surveys by HashTag.
+     *
+     * @param tagName
+     * @param initResults
+     * @param maxResults
+     * @param filter
+     * @return
+     */
+    public List<Survey> getSurveysByHashTag(
+    		final String tagName,
+            final Integer initResults, 
+            final Integer maxResults,
+            final TypeSearchResult filter,
+            final SearchPeriods searchPeriods) {
+        final List<Survey> surveysByTag = getSurveyDaoImp()
+                .getSurveysByHashTagName(tagName, initResults, maxResults,
+                        filter, searchPeriods);
+        return surveysByTag;
+    }  
+  
     /**
      * Getter.
      * @return {@link MessageSourceFactoryBean}
@@ -503,7 +527,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 subscribe.setList(emailList);
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
-                getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+                	getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                }
                 //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
             catch (Exception e) {
@@ -725,6 +751,55 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     protected Long getTotalCommentsbyType(final Long itemId, final TypeSearchResult itemType){
         final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType);
         return totalComments;
+    }
+    
+    /**
+     * Get {@link TweetPoll}.
+     * @param tweetPollId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public TweetPoll getTweetPollById(final Long tweetPollId, final String username) throws EnMeNoResultsFoundException {
+        TweetPoll tweetPoll = null;
+        if (username != null) {
+            tweetPoll = getTweetPollDao()
+                    .getTweetPollByIdandUserId(tweetPollId,
+                            getUserAccount(username).getAccount().getUid());
+        } else {
+            tweetPoll = getTweetPollDao().getTweetPollById(tweetPollId);
+        }
+        if (tweetPoll == null) {
+            log.error("tweet poll invalid with this id "+tweetPollId);
+            throw new EnMeTweetPollNotFoundException("tweet poll invalid with this id "+tweetPollId);
+        }
+        return tweetPoll;
+    }
+    
+    /**
+     * Get {@link TweetPoll} by id
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException 
+     */
+	public TweetPoll getTweetPollById(final Long id) throws EnMeNoResultsFoundException { 
+		 return this.getTweetPollById(id, null);
+	}
+	
+	 /**
+	  * Get {@link Poll} by id.
+	  * @param pollId
+	  * @return
+	  * @throws EnMeNoResultsFoundException
+	  */
+    public Poll getPollById(final Long pollId)
+            throws EnMeNoResultsFoundException {
+        final Poll poll = this.getPollDao().getPollById(pollId);
+        if (poll == null) {
+            throw new EnMePollNotFoundException("poll invalid with this id "
+                    + pollId);
+        }
+        return poll;
     }
 
 }

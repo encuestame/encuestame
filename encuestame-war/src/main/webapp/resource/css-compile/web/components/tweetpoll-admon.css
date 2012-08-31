@@ -117,21 +117,10 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
     box-shadow: 10px -10px 8px 8px #000000;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
-    min-height: 20px;
-    padding: 8px 0 3px 10px;
-}
+/** Filter Options **/
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu a {
-    border-radius: 5px 5px 5px 5px;
-    margin: 3px;
-    padding: 3px;
-    color: white;
-}
-
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu a.selected {
-    background-color: #E6E6E6;
-   color: black;
+.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
+    padding: 5px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {

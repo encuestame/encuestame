@@ -23,6 +23,20 @@ dojo.declare(
         data: null,
 
         widgetChart : null,
+        
+        /*
+         * i18n message for this widget.
+         */
+        i18nMessage : {
+        	tweetpoo_detail_tab_detail : ENME.getMessage("tweetpoo_detail_tab_detail"),
+        	tweetpoo_detail_tab_stats : ENME.getMessage("tweetpoo_detail_tab_stats"),
+        	tweetpoo_detail_tab_comments : ENME.getMessage("tweetpoo_detail_tab_comments"),
+        	tweetpoo_detail_tab_social : ENME.getMessage("tweetpoo_detail_tab_social"),
+        	tweetpoo_detail_tab_delete : ENME.getMessage("tweetpoo_detail_tab_delete"),
+        	tweetpoo_detail_answers_title_link : ENME.getMessage("tweetpoo_detail_answers_title_link"),
+        	tweetpoo_detail_answers_title_count : ENME.getMessage("tweetpoo_detail_answers_title_count"),
+        	tweetpoo_detail_answers_title_percent : ENME.getMessage("tweetpoo_detail_answers_title_percent")          
+        },
 
         typeChart : ['Bars', 'Pie', 'Lines'],
         //post create
@@ -45,7 +59,7 @@ dojo.declare(
         /**
          * Update Detail.
          */
-        updateDetail : function(data){
+        updateDetail : function(data) {
             if(data != null){
                 this.loadContent(data);
             } else {
@@ -65,11 +79,21 @@ dojo.declare(
            };
            encuestame.service.xhrGet(url, params, load, error);
        },
+       
+       /**
+        * 
+        */
+       successDetailUpdateMessage : function () {
+    	   this.publishMessage(ENME.getMessage('commons_success'), ENME.CONST.MSG.SUCCESS);  
+       },
 
-       _setAllowLiveResults : function(){
+       /**
+        * 
+        */
+       _setAllowLiveResults : function() {
            var load = dojo.hitch(this, function(data){
                this.data.allowLiveResults = !this.data.allowLiveResults;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.liveResultsTweetPoll));
        },
@@ -77,7 +101,7 @@ dojo.declare(
        _setResumeLiveResults : function(){
            var load = dojo.hitch(this, function(data){
                this.data.resumeLiveResults = !this.data.resumeLiveResults;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.resumeliveResultsTweetPoll));
        },
@@ -85,7 +109,7 @@ dojo.declare(
        _setCaptcha : function(){
            var load = dojo.hitch(this, function(data){
                this.data.captcha = !this.data.captcha;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.captchaTweetPoll));
        },
@@ -93,22 +117,28 @@ dojo.declare(
        _setNotification : function(){
            var load = dojo.hitch(this, function(data){
                this.data.closeNotification = !this.data.closeNotification;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.notificationTweetPoll));
        },
 
+       /**
+        * Set as repeated
+        */
        _setRepeated : function(){
-           var load = dojo.hitch(this, function(data){
+           var load = dojo.hitch(this, function(data) {
                this.data.allowRepeatedVotes = !this.data.allowRepeatedVotes;
-               this.successMesage();
+               this.successDetailUpdateMessage();
            });
            dojo.hitch(this, this._callService(load, encuestame.service.list.repeatedTweetPoll));
        },
-
-        error : function(){
+       
+       /**
+        * Error messages.
+        */
+        error : function() {
             this.errorMesage();
-            console.error("tweetpoll list errorrrrrrrrr ");
+            this.publishMessage(ENME.getMessage('e_023'), ENME.CONST.MSG.ERROR);  
         },
 
         /**
@@ -120,17 +150,18 @@ dojo.declare(
             //Build Detail.
             dojo.empty(this._detailItems);
             //this.addDetail(this.builDetailRow("Public Link", this.createTextContent("http://www.google.es")));
-            this.addDetail(this.builDetailRow("Created Date", this.createTextContent(this.data.createDate)));
-            this.addDetail(this.builDetailRow("Captcha", this.addYesNoWidget(this.data.captcha,
+            this.addDetail(this.builDetailRow(ENME.getMessage("commons_created_date"), 
+            		this.createTextContent(ENME.fromNow(this.data.createDate, "YYYY-MM-DD"))));
+            this.addDetail(this.builDetailRow(ENME.getMessage("commons_captcha"), this.addYesNoWidget(this.data.captcha,
                      dojo.hitch(this,this._setCaptcha))));
-            this.addDetail(this.builDetailRow("Allow Live Results", this.addYesNoWidget(this.data.allowLiveResults
+            this.addDetail(this.builDetailRow(ENME.getMessage("tp_options_allow_results"), this.addYesNoWidget(this.data.allowLiveResults
                             , dojo.hitch(this, this._setAllowLiveResults))));
-            this.addDetail(this.builDetailRow("Allow Resume Live Results", this.addYesNoWidget(this.data.resumeLiveResults
+            this.addDetail(this.builDetailRow(ENME.getMessage("tp_options_follow_dashboard"), this.addYesNoWidget(this.data.resumeLiveResults
                             , dojo.hitch(this, this._setResumeLiveResults))));
-            this.addDetail(this.builDetailRow("Allow Repeated Votes", this.addYesNoWidget(
+            this.addDetail(this.builDetailRow(ENME.getMessage("tp_options_allow_repeated_votes"), this.addYesNoWidget(
                     this.data.allowRepeatedVotes
                     , dojo.hitch(this, this._setRepeated))));
-            this.addDetail(this.builDetailRow("Notifications", this.addYesNoWidget(
+            this.addDetail(this.builDetailRow(ENME.getMessage("tp_options_notifications"), this.addYesNoWidget(
                     this.data.closeNotification
                     , dojo.hitch(this, this._setNotification))));
             if (this._extra) {

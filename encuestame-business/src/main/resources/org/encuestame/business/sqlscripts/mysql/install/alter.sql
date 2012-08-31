@@ -380,3 +380,17 @@ ALTER TABLE `survey_hashtags`
 
 ALTER TABLE `hash_tags_ranking`
   ADD CONSTRAINT `FK71DECDA119AA125` FOREIGN KEY (`hashTag_hash_tag_id`) REFERENCES `hash_tags` (`hash_tag_id`);
+  
+--
+-- Constraints for table `question_preferences`
+--  
+ALTER TABLE `question_preferences`
+  ADD CONSTRAINT `FKD540D01F46BF7A1C` FOREIGN KEY (`question_qid`) REFERENCES `questions` (`qid`);
+  
+--
+-- Constraints for table `survey_temporal_result`
+--  
+ALTER TABLE `survey_temporal_result`
+  ADD CONSTRAINT `FK7867CF551153812` FOREIGN KEY (`survey_sid`) REFERENCES `surveys` (`sid`),
+  ADD CONSTRAINT `FK7867CF546BF7A1C` FOREIGN KEY (`question_qid`) REFERENCES `questions` (`qid`),
+  ADD CONSTRAINT `FK7867CF5496009B4` FOREIGN KEY (`answer_q_answer_id`) REFERENCES `questions_answers` (`q_answer_id`);

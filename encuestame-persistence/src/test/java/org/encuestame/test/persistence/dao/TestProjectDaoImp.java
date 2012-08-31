@@ -23,16 +23,18 @@ import org.encuestame.persistence.domain.GeoPoint;
 import org.encuestame.persistence.domain.Project;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * ProjectDaoImp.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since 16/12/2009
- * @version $Id$
  **/
+@Category(DefaultTest.class)
 public class TestProjectDaoImp extends AbstractBase{
 
     /** {@link IProjectDao} **/

@@ -28,25 +28,25 @@
             <div class="web-tweetpoll-answer-answer">
                 <header>
                      <div class="answer-label">
-                           Answer
+                           <spring:message code="commons_detail_answer" />
                      </div>
                      <div class="answer-votes">
-                            Total Votes
+                            <spring:message code="commons_detail_total_votes" />
                      </div>
                      <div class="answer-percent">
-                            % (Percent)
+                           <spring:message code="commons_detail_percent" />
                      </div>                     
                 </header>
                 <c:forEach items="${answers}" var="a">
                     <div class="answer"
                         dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
                          aId="${a.answers.questionAnswerId}"
-                          color="${a.answers.color}"
+                         color="${a.answers.color}"
                          label="${a.answers.answer}"
-                          owner="${tweetpoll.ownerUsername}"
-                          completed="${tweetpoll.completed}"
-                          url="${a.shortUrl}">
-                     </div>
+                         owner="${tweetpoll.ownerUsername}"
+                         completed="${tweetpoll.completed}"
+                         url="<%=request.getContextPath()%>${a.relativeUrl}">
+                     </div>                     
                </c:forEach>
             </div>
        </section>

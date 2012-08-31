@@ -36,5 +36,5 @@ dojo.declare(
         /*
          *
          */
-        label : "Limit Votes"
+        label : ENME.getMessage('widget_limit_votes')
 });

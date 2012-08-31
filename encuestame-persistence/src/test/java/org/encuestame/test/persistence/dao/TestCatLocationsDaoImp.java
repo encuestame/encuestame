@@ -21,16 +21,18 @@ import org.encuestame.persistence.domain.GeoPointFolder;
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test Catatalog Location Dao.
  * @author Picado, Juan juanATencuestame.org
  * @since 13:00:55
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestCatLocationsDaoImp extends AbstractBase{
 
     private Account userPrimary;

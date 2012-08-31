@@ -21,10 +21,25 @@ ENME.CONST = ( function() {
 				ALL : 'all',
 				// Hashtag rated filter	
 				HASHTAGRATED :	"HASHTAGRATED",
-				
+				// default status
 				STATUS : ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'],
-				
+				// messages
+				MSG : {
+					SUCCESS : 'success',
+					ERROR : 'error',
+					WARN : 'warn',
+					FATAL : 'fatal'
+				},
+				// type of surveys   
 				TYPE_SURVEYS : ['TWEETPOLL', 'POLL', 'SURVEY', 'HASHTAG'],
+				//image sizes
+				IMAGES_SIZE : {
+				    thumbnail : "thumbnail",
+				    defaultType : "default",
+				    profile : "profile",
+				    preview : "preview",
+				    web : "web"
+				},
 		};
 			
 		return fn;

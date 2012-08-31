@@ -1,11 +1,19 @@
 <div class="failure-wrapper">
-    <span class="failure-message">FAILURE</span>
+    <span class="failure-message">
+          ${i18nMessage.commons_failure}
+    </span>
     <span class="failure-description">
-       Your tweet has not been sent. Please try again or scheduled your tweet later.
+          ${i18nMessage.pubication_failure_status}
    </span>
-   <span class="failure-options">
-       <button dojoType="dijit.form.Button">Try Again</button>
-       <button dojoType="dijit.form.Button">Ignore</button>
-       <button dojoType="dijit.form.Button">Try Later (by default)</button>
-   </span>
+   <div class="failure-options">
+       <button dojoType="dijit.form.Button">
+             ${i18nMessage.button_try_again}
+       </button>
+       <button dojoType="dijit.form.Button">
+            ${i18nMessage.button_ignore}
+       </button>
+       <button dojoType="dijit.form.Button">
+            ${i18nMessage.button_try_later}
+       </button>
+   </div>
 </div>

@@ -23,15 +23,18 @@ import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Project Service Test.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since April 13, 2009
  */
+@Category(DefaultTest.class)
 public class TestProjectService extends AbstractServiceBase {
 
 

@@ -360,3 +360,13 @@ DROP TABLE IF EXISTS userAccount_permission;
 --
 
 DROP TABLE IF EXISTS userAccount_project;
+
+--
+-- Table structure for table 'question_preferences'
+--
+DROP TABLE IF EXISTS question_preferences;
+
+--
+-- Table structure for table 'survey_temporal_result'
+--
+DROP TABLE IF EXISTS survey_temporal_result; 

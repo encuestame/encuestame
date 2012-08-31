@@ -24,15 +24,18 @@ import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test for {@link NotificationDao}.
  * @author Picado, Juan juanATencuestame.org
  * @since April 10, 2011
  */
+@Category(DefaultTest.class)
 public class TestNotificationDao extends AbstractBase{
 
 

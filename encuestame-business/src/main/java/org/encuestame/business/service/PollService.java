@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IPollService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
@@ -169,20 +170,14 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);
+           
             if (hashtags.size() > 0) {
-            	  pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));	
+            	//http://issues.encuestame.org/browse/ENCUESTAME-504
+            	//pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));	
             } 
             log.debug("poll list answer=>" + answers.length);
-            for (int row = 0; row < answers.length; row++) {
-                 final String answersText = answers[row];
-                 Assert.notNull(answersText);
-                 if (!answersText.isEmpty()) {
-                     log.debug("creatong answer=>" + question.getQidKey());
-                     log.debug("creatong answer=>" + answersText.trim());
-                     createAnswers(question, answersText.trim());
-
-                 }
-            }
+            // Add answers
+            this.createQuestionAnswers(answers, question);
             this.getPollDao().saveOrUpdate(pollDomain);
             }
         } catch (Exception e) { 
@@ -476,8 +471,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final String urlPoll = this.createUrlPollAccess(poll);
         if(emailList !=null){
                  for (Email emails : emailsList) {
-                   getMailService().send(emails.getEmail(),"New Poll", urlPoll);
-                  }
+                	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.disabled")) {
+                			getMailService().send(emails.getEmail(),"New Poll", urlPoll);
+                    }
+                 }
          }
          else{
              log.warn("Not Found Emails in your EmailList");
@@ -639,21 +636,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
         return poll;
     }
-
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.IPollService#getPollById(java.lang.Long)
-     */
-    public Poll getPollById(final Long pollId)
-            throws EnMeNoResultsFoundException {
-        final Poll poll = this.getPollDao().getPollById(pollId);
-        if (poll == null) {
-            throw new EnMePollNotFoundException("poll invalid with this id "
-                    + pollId);
-        }
-        return poll;
-    }
-
+  
     /**
      * Retrieve a {@link Poll} based on id.
      * @param pollId poll id.

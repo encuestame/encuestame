@@ -73,6 +73,11 @@ public class TweetPollSwitch {
      * Short URL.
      */
     private String shortUrl;
+    
+    /**
+     * The relative time.
+     */
+    private String relativeUrl;
 
     /**
      * @return the switchId
@@ -173,8 +178,25 @@ public class TweetPollSwitch {
     public void setDateUpdated(Date dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
+    
+    
 
-    /* (non-Javadoc)
+    /**
+	 * @return the relativeUrl
+	 */
+    @Column(name = "relative_url", nullable = true, length = 400)
+	public String getRelativeUrl() {
+		return relativeUrl;
+	}
+
+	/**
+	 * @param relativeUrl the relativeUrl to set
+	 */
+	public void setRelativeUrl(final String relativeUrl) {
+		this.relativeUrl = relativeUrl;
+	}
+
+	/* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override

@@ -26,7 +26,8 @@ dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
  * @author Picado, Juan juanATencuestame.org
  * @since 14/01/12
  */
-dojo.declare("encuestame.org.core.commons.support.ToggleMenu", [encuestame.org.main.EnmeMainLayoutWidget], {
+dojo.declare("encuestame.org.core.commons.support.ToggleMenu", 
+		[encuestame.org.main.EnmeMainLayoutWidget], {
 
    /*
     *

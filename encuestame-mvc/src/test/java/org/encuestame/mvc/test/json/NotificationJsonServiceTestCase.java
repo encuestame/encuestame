@@ -19,20 +19,22 @@ import junit.framework.Assert;
 import org.encuestame.mvc.controller.json.notifications.NotificationsJsonController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.persistence.domain.notifications.Notification;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Test for {@link NotificationsJsonController}.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 26, 2010 8:19:49 PM
- * @version $Id:$
  */
+@Category(DefaultTest.class)
 public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
 
     /** Notification. **/

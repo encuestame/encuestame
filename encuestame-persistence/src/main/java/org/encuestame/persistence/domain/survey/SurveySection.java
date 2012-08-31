@@ -49,6 +49,9 @@ public class SurveySection {
 
     /** **/
     private Survey survey;
+    
+    /** **/
+    private String sectionName;
 
     /**
      * @return ssid
@@ -97,6 +100,21 @@ public class SurveySection {
     public void setSurvey(Survey survey) {
         this.survey = survey;
     }
+
+	/**
+	 * @return the sectionName
+	 */
+    @Column(name = "section_name")
+	public String getSectionName() {
+		return sectionName;
+	}
+
+	/**
+	 * @param sectionName the sectionName to set
+	 */
+	public void setSectionName(final String sectionName) {
+		this.sectionName = sectionName;
+	} 
 
     /**
      * @return the questionSection

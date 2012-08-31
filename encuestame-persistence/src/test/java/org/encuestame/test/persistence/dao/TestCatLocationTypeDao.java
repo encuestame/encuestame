@@ -13,14 +13,16 @@
 package org.encuestame.test.persistence.dao;
 
 import org.encuestame.test.config.AbstractBase;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test Catatalog Location Type Dao.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since November 17,2009 09:10:55
- * @version $Id$
  */
+@Category(DefaultTest.class)
 public class TestCatLocationTypeDao extends AbstractBase{
 
     /**

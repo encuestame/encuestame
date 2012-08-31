@@ -11,19 +11,156 @@
 }
 
 .enme-ui-button {
-	border: 1px solid;
-	border-radius: 2px 2px 2px 2px;
-	cursor: pointer;
-	font-size: 11px;
-	font-weight: bold;
-	height: 2.95em;
-	outline: 0 none;
-	padding: 0 0.91em;
-	vertical-align: middle;
-	white-space: nowrap;
-	word-wrap: normal;
-	padding: 0 0.2em;
-	-moz-user-select: none;
-	color: #000000;
-	cursor: pointer;
+  -moz-user-select: none;
+  background: -moz-linear-gradient(center top , #FAFAFA 0px, #DCDCDC 100%) repeat scroll 0 0 transparent !important;
+  border: 1px solid #ADADAD !important;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 1px 2px 1px 0 #D5D5D5;
+  color: #000000;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  -moz-user-select: none;  
+  height: 27px;
+  outline: 0 none;
+  padding: 0 0.2em;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100px;
+  word-wrap: normal;
+}
+
+.button-red {
+	background: -moz-linear-gradient(center top , #F1ADAD 0px, #9F6161 100%) repeat scroll 0 0 transparent !important;
+	color: white;
+}
+
+/** override dijit buttons **/
+
+/** default button */
+
+.dijitButton .dijitButtonNode{
+    font-size: 12px !important;
+    border: 1px solid #ADADAD !important;
+    padding: 5px 13px !important;
+    font-weight: bold;
+    color: black;
+    background-image: none !important;
+    background: -moz-linear-gradient(center top , #FAFAFA 0px, #DCDCDC 100%) repeat scroll 0 0 transparent !important;
+    border-radius: 4px !important;        
+    -moz-border-radius: 4px !important;
+    -webkit-border-radius: 4px !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;    
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;     
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* .dijitButton .dijitButtonNode:hover {
+	background: -moz-linear-gradient(center top , #F1ADAD 0px, #9F6161 100%) repeat scroll 0 0 transparent !important;
+} */
+
+/* .dijitButton .dijitButtonNode {
+  background-image: none !important;
+  border: 1px solid #6D8000 !important;
+  border-radius: 4px 4px 4px 4px !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+  font-size: 110% !important;
+  font-weight: normal;
+  padding: 5px 13px !important;
+} */
+
+/** hover color need to be fixed, it's blue **/
+
+.enme-web-context .dijitButtonHover{
+  color: #FFFFFF !important;
+  background-color: #A1D988 !important;
+}
+
+.enme-web-context .dijitTextBoxHover, .enme-web-context .dijitTextBoxHover .dijitButtonNode {
+    -moz-transition-duration: 0.25s;
+    border-color: #A1D988;
+}
+
+.enme-web-context .dijitTextBoxHover, .enme-web-context .dijitTextBoxHover .dijitButtonNode {
+  border-color: #769dc0;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+.enme-web-context .dijitTextBoxHover {
+  background-color: #e9f4fe;
+  background-image: none !important;
+  background-repeat: repeat-x;
+}
+
+.enme-web-context .dijitSelect {
+	
+}
+
+.enme-web-context .dijitSelect .dijitButtonText {
+	min-width: 110px;
+    padding: 5px !important;
+    text-align: left;
+}
+
+.enme-web-context  .dijitMenuActive .dijitMenuItemHover, .enme-web-context .dijitMenuActive .dijitMenuItemSelected {
+	background-color: none !important;
+}
+
+/** float messages window **/
+
+.enme-web-context .dijitToasterContent {
+	background: none repeat scroll 0 0 transparent !important;
+	padding: 0 !important;
+}
+
+.enme-web-context .dijitToasterContent .message_toaster {
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 1px 1px 1px 1px #C6C6C6;
+  color: black;
+  margin: 5px;
+  padding: 5px;
+  width: 200px;
+}
+
+.enme-web-context .dijitToasterContent .message_toaster > div {
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.enme-web-context .dijitToasterContent .message_toaster > div > p {
+  margin: 3px 0;
+}
+
+.enme-web-context  .dijitToasterContainer {
+    display: block;
+    font: 0.75em Tahoma,Helvetica,Verdana,Arial;
+    margin: 0;
+   width: 300px;
+}
+
+.enme-web-context  .dijitToasterFatal  .message_toaster {
+      background: none repeat scroll 0 0 red;
+      color: #FFFFFF;    	
+}
+
+.enme-web-context  .dijitToasterError  .message_toaster {
+      background: none repeat scroll 0 0 red;
+      color: #FFFFFF;    
+}
+
+.enme-web-context  .dijitToasterMessage .message_toaster {
+      background: none repeat scroll 0 0 #ACEBAE;
+      color: #FFFFFF;
+}
+
+.enme-web-context  .dijitToasterWarning .message_toaster {
+      background: none repeat scroll 0 0 yellow;
+      color: black;
+	
 }

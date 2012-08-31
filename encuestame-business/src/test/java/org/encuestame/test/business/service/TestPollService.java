@@ -34,6 +34,8 @@ import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.FolderBean;
@@ -43,17 +45,17 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitLists;
 import org.hibernate.HibernateException;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Before; 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
  /**
  * Test for {@link PollService}.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since 17/05/2010 19:35:36
- * @version $Id:$
  */
+@Category(DefaultTest.class)
 public class TestPollService extends AbstractSpringSecurityContext{
 
      /** {@link Account} **/
@@ -257,10 +259,8 @@ public class TestPollService extends AbstractSpringSecurityContext{
     /**
      * Test publish poll by email list.
      */
-    @Test(timeout=80000)
-    @Ignore
-  //TODO: ENCUESTAME-484
-  //Move with @Category to test with INTERNET required.
+    @Category(InternetTest.class)
+   // @Test(timeout=80000) 
     public void testPublicPollByEmailList(){
         final UnitLists emailUnitList = createUnitEmailList(this.emailList.getIdList(),
                         new Date(), this.emailList.getListName(), this.userAccount.getUid());

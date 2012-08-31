@@ -52,7 +52,7 @@ public abstract class AbstractSocialAPISupport {
      *
      * @return
      */
-    public TweetPublishedMetadata createStatus(final String tweetText){
+    public TweetPublishedMetadata createStatus(final String tweetText) {
         final TweetPublishedMetadata published = new TweetPublishedMetadata();
         published.setDatePublished(Calendar.getInstance().getTime()); //TODO: should be offial time of tweet.
         published.setTextTweeted(tweetText);

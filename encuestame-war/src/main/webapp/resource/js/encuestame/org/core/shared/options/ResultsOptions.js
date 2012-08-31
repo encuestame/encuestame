@@ -16,7 +16,7 @@ dojo.require('encuestame.org.core.commons');
 dojo.require('encuestame.org.core.shared.options.AbstractOptionSelect');
 
 /**
- * Represents a option to repeate votes.
+ * Represents a option to repeated votes.
  */
 dojo.declare(
     "encuestame.org.core.shared.options.ResultsOptions",
@@ -31,6 +31,10 @@ dojo.declare(
 
      option_name : "results_",
 
-     options_label : ["No Results", "Only Percents", "All Data"]
+     options_label : [
+                      ENME.getMessage('widget_results_options'), 
+                      ENME.getMessage('widget_results_only_percents'), 
+                      ENME.getMessage('widget_results_all_data')
+                      ]
 
 });

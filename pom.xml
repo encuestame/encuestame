@@ -485,9 +485,17 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
-                        <argLine>-Xmx1024m</argLine>
+                        <argLine>-Xmx1024m</argLine> 
+                        <groups>org.encuestame.utils.categories.test.DefaultTest</groups>
                     </configuration>
                     <version>${surefire.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.surefire</groupId>
+                            <artifactId>surefire-junit47</artifactId>
+                            <version>${surefire.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <plugin>
@@ -570,38 +578,146 @@
         </resources>
     </build>
 
-    <profiles>
-        <profile>
-            <id>development</id>
-            <properties>
-                <env>development</env>
-            </properties>
-        </profile>
-        <profile>
-            <id>jpicado</id>
-            <properties>
-                <env>jpicado</env>
-            </properties>
-        </profile>
-     <profile>
-            <id>mysql</id>
-            <properties>
-                <env>mysql</env>
-            </properties>
-        </profile>
-        <profile>
-            <id>dmorales</id>
-            <properties>
-                <env>dmorales</env>
-            </properties>
-        </profile>
-        <profile>
-            <id>demo</id>
-            <properties>
-                <env>demo</env>
-            </properties>
-        </profile>
-    </profiles>
+	<profiles>
+		<profile>
+			<id>development</id>
+			<properties>
+				<env>development</env>
+			</properties>
+		</profile>
+		<!-- Internet Test Categories -->
+		<profile>
+			<id>test-internet</id>
+			<properties>
+				<env>testcase</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.InternetTest</groups>
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+		<!-- -->
+		<!-- Performance Test Categories -->
+		<profile>
+			<id>test-performance</id>
+			<properties>
+				<env>testcase</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+
+				</plugins>
+			</build>
+
+		</profile>
+		<!-- -->
+		<!-- Performance Test Categories -->
+		<profile>
+			<id>SlowTest</id>
+			<properties>
+				<env>test-slow</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>test-all</id>
+			<properties>
+				<env>all</env>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<testFailureIgnore>${surefire.failures.ignore}</testFailureIgnore>
+							<argLine>-Xmx1024m</argLine>
+							<groups>org.encuestame.utils.categories.test.DefaultTest</groups>
+<!--
+                            TODO: How add all groups in this configuration?
+ 							<groups>org.encuestame.utils.categories.test.CometTest</groups>
+							<groups>org.encuestame.utils.categories.test.JSONTest</groups>
+							<groups>org.encuestame.utils.categories.test.MVCTest</groups>
+							<groups>org.encuestame.utils.categories.test.PerformanceTest</groups>
+							<groups>org.encuestame.utils.categories.test.SlowTest</groups>
+							<groups>org.encuestame.utils.categories.test.InternetTest</groups> -->
+						</configuration>
+						<version>${surefire.version}</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.surefire</groupId>
+								<artifactId>surefire-junit47</artifactId>
+								<version>${surefire.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- -->
+		<profile>
+			<id>demo</id>
+			<properties>
+				<env>demo</env>
+			</properties>
+		</profile>
+	</profiles>
 
     <reporting>
         <plugins>
@@ -621,12 +737,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin}</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
             </plugin>
 
             <plugin>

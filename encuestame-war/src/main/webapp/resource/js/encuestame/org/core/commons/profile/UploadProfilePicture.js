@@ -6,6 +6,7 @@ dojo.require("dijit.form.ComboButton");
 dojo.require("dijit.form.RadioButton");
 dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 dojo.require("dojox.form.FileUploader");
+dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 dojo.require("encuestame.org.core.commons.profile.ProfileSupport");
 
@@ -14,12 +15,17 @@ dojo.require("encuestame.org.core.commons.profile.ProfileSupport");
 */
 dojo.declare(
    "encuestame.org.core.commons.profile.UploadProfilePicture",
-   [dijit._Widget, dijit._Templated],{
+   [encuestame.org.main.EnmeMainLayoutWidget],{
        templatePath: dojo.moduleUrl("encuestame.org.core.commons.profile", "templates/profilePicture.html"),
 
-    widgetsInTemplate : true,
-
     contextPath : encuestame.contextDefault,
+    
+    i18nMessage : {
+    	settings_config_picture_title : ENME.getMessage("settings_config_picture_title"),
+    	settings_config_picture_description : ENME.getMessage("settings_config_picture_description"),
+    	settings_config_picture_own : ENME.getMessage("settings_config_picture_own"),
+    	settings_config_picture_restrictions : ENME.getMessage("settings_config_picture_restrictions")
+    },     
 
     _size : ["preview", "default", "web"],
 
@@ -31,38 +37,46 @@ dojo.declare(
 
     imagePath : '/',
 
-    _uploadImage : function(event){
+    /**
+     * Trigger upload the image.
+     * @param event
+     */
+    _uploadImage : function(event) {
         this.uploadImage();
     },
 
     /**
      *
      */
-    postCreate : function(){
-        console.debug("UploadProfilePicture", this.pictureSource);
+    postCreate : function() {
         if (this.username != null) {
             this._reloadPicture();
         }
         var radioGravatar = dijit.byId("gravatar_radio");
-        if (this.pictureSource == "gravatar") {
+        if (this.pictureSource == "GRAVATAR") {
             radioGravatar.value('checked', true);
         }
-        radioGravatar.onChange = dojo.hitch(this, function(e){
+        radioGravatar.onChange = dojo.hitch(this, function(e) {
              if (e) {
                  this._updatePictureSource("gravatar");
                  dojo.addClass(this._uploadedForm, "defaultDisplayHide");
              }
-        });
+        });                
         var uploadedRadio = dijit.byId("uploaded_radio");
-        if (this.pictureSource == "uploaded") {
-            uploadedRadio.value('checked', true);
+        if (this.pictureSource === 'UPLOADED') {
+        	uploadedRadio.set('checked', true);
         }
-        uploadedRadio.onChange = dojo.hitch(this, function(e){
-             if(e){
-                 this._updatePictureSource("uploaded");
-                 dojo.removeClass(this._uploadedForm, "defaultDisplayHide");
-             }
-        });
+    },
+    
+    startup : function () {
+    	var uploadedRadio = dijit.byId("uploaded_radio");
+        uploadedRadio.onChange = dojo.hitch(this, function(e) {
+            if(e){
+                this._updatePictureSource("uploaded");
+                dojo.removeClass(this._uploadedForm, "defaultDisplayHide");
+            }
+       });
+
     },
 
     /*
@@ -75,9 +89,11 @@ dojo.declare(
        console.debug("params", params);
        var load = dojo.hitch(this, function(data) {
            this._reloadPicture();
+           this.successMesage(data.success.message);
        });
        var error = function(error) {
-           console.error(error);
+           //console.error(error);
+           this.errorMessage(error.message);
        };
        encuestame.service.xhrPostParam(
                encuestame.service.list.updatePicture, params, load, error);
@@ -89,10 +105,12 @@ dojo.declare(
      */
     _reloadPicture : function(){
         dojo.empty(this._pictureWrapper);
-        console.debug("_reloadPicture");
-        var textData = new encuestame.org.core.shared.utils.AccountPicture({username : this.username, picture_width :"128",
+        //console.debug("_reloadPicture");
+        var textData = new encuestame.org.core.shared.utils.AccountPicture({
+        	username : this.username, 
+        	picture_width :"128",
             picture_height : "128", type : "default"}, "a");
-        console.log("textData", textData.domNode);
+        //console.log("textData", textData.domNode);
         this._pictureWrapper.appendChild(textData.domNode);
     },
 
@@ -102,7 +120,7 @@ dojo.declare(
      */
     uploadImage : function() {
         dojo.io.iframe.send({
-            url: this.contextPath+"/file/upload/profile",
+            url: this.contextPath + "/file/upload/profile",
             form : "imageForm",
             handleAs : "html",
             method: "POST",
@@ -114,19 +132,21 @@ dojo.declare(
                 }
             }),
             timeoutSeconds: 2000,
-            error: function (res,ioArgs) {
+            error: dojo.hitch(this,function (res,ioArgs) {
                 console.error("handle error: " + res);
                 console.error("handle error: " + ioArgs);
-            },
+                this.errorMessage("error");
+            }),
             // Callback on successful call:
-            load: function(response, ioArgs) {
+            load: dojo.hitch(this, function(response, ioArgs) {
                 // do something
                 // ...
                 console.debug("response: " + response);
                 console.debug("ioArgs: " + ioArgs);
+                this.successMesage(response);
                 // return the response for succeeding callbacks
                 return response;
-            }
+            })
         });
     }
 

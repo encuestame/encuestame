@@ -14,14 +14,16 @@ package org.encuestame.test.business.security;
 
 import static org.junit.Assert.assertEquals;
 
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Security Context Test.
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 30, 2010 9:04:44 PM
- * @version $Id:$
  */
+@Category(DefaultTest.class)
 public class TestSpringSecurityLogin extends AbstractSpringSecurityContext {
 
     @Test

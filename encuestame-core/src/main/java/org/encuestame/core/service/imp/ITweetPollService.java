@@ -15,6 +15,8 @@ package org.encuestame.core.service.imp;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
@@ -23,6 +25,7 @@ import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
@@ -60,7 +63,8 @@ public interface ITweetPollService extends IMasterSurveyService{
     TweetPoll createTweetPoll(
             final TweetPollBean tweetPollBean,
             final String question,
-            final UserAccount user) throws EnMeExpcetion;
+            final UserAccount user,
+            final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
 
 
     /**
@@ -83,7 +87,9 @@ public interface ITweetPollService extends IMasterSurveyService{
     * @throws EnMeNoResultsFoundException
     */
    TweetPollSwitch createTweetPollQuestionAnswer(
-           final QuestionAnswerBean answerBean, final TweetPoll tp)
+           final QuestionAnswerBean answerBean, 
+           final TweetPoll tp,
+           final HttpServletRequest request)
            throws EnMeNoResultsFoundException;
 
     /**
@@ -473,4 +479,21 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param hashTag
       */
      void removeHashtagFromTweetPoll(final TweetPoll tweetPoll, final HashTag hashTag);
+     
+     /**
+      * Retrieve {@link TweetPollFolder} by id and user.
+      * @param folderId
+      * @return
+      */
+     TweetPollFolder getTweetPollFolderbyId(final Long folderId);
+     
+     /**
+ 	 * Search tweetpolls by folder.
+ 	 * @param folderId
+ 	 * @param username
+ 	 * @return
+ 	 * @throws EnMeNoResultsFoundException
+ 	 */
+ 	List<TweetPollBean> searchTweetPollsByFolder(final Long folderId,
+ 			final String username) throws EnMeNoResultsFoundException;
 }

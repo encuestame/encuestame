@@ -35,20 +35,23 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.config.AbstractBase;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RelativeTimeEnum;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider; 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Test {@link TweetPollDao}..
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 13, 2010 11:57:17 PM
- * @version $Id: change to one dolar simbol
  */
+@Category(DefaultTest.class)
 public class TestTweetPollDao  extends AbstractBase{
 
     /** {@link UserAccount}. **/
@@ -380,6 +383,49 @@ public class TestTweetPollDao  extends AbstractBase{
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 
+    
+	@Test
+	public void testgetTweetpollByHashTagName2() {
+
+		final Calendar calendar = Calendar.getInstance();
+
+		final HashTag hashtag2 = createHashTag("paola");
+		final HashTag hashtag3 = createHashTag("juan");
+
+		getTweetPoll().saveOrUpdate(this.tweetPoll);
+		final TweetPoll tweetPoll1 = createPublishedTweetPoll(
+				secondary.getAccount(),
+				createQuestion("question1", secondary.getAccount()),
+				calendar.getTime());
+		tweetPoll1.getHashTags().add(this.hashTag1);
+
+		getTweetPoll().saveOrUpdate(tweetPoll1);
+		//System.out.println(" TP 1 -->" +tweetPoll1.getTweetPollId());
+		
+		final TweetPoll tweetPollsbyTag = getTweetPoll()
+				.checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(),  SearchPeriods.ALLTIME,
+						tweetPoll1.getTweetPollId());
+
+		//System.out.println(" TP Result 1 -->" +tweetPollsbyTag);
+
+		// SIN TP Correcto
+		
+		  final TweetPoll tweetPoll2 = createPublishedTweetPoll(
+	                secondary.getAccount(),
+	                createQuestion("question2", secondary.getAccount()), calendar.getTime());
+	       
+	    	tweetPoll2.getHashTags().add(hashtag3);
+	    	tweetPoll2.getHashTags().add(this.hashTag1);
+
+			getTweetPoll().saveOrUpdate(tweetPoll2);
+			//System.out.println(" TP 2 -->" +tweetPoll2.getTweetPollId());
+		
+		final TweetPoll tweetPollsbyTag2 = getTweetPoll()
+				.checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(), SearchPeriods.ALLTIME,
+						tweetPoll2.getTweetPollId());
+		
+		//System.out.println(" TP RESULT 2 -->" +tweetPollsbyTag2);
+	}
 
     @Test
     public void testgetTweetpollByTop(){
@@ -669,7 +715,7 @@ public class TestTweetPollDao  extends AbstractBase{
 		tweetPoll.setLocationLongitude(-3.70325F);
 		getTweetPoll().saveOrUpdate(tweetPoll);
 		assertNotNull(tweetPoll);
-
+		 
 		final TweetPoll tp1 = createPublishedTweetPoll(
 				this.secondary.getAccount(),
 				createQuestion("What is your favorite movie?",
@@ -677,31 +723,37 @@ public class TestTweetPollDao  extends AbstractBase{
 
 		tp1.setLocationLatitude(39.4167F);
 		tp1.setLocationLongitude(-2.70325F);
+	
 		getTweetPoll().saveOrUpdate(tp1);
 		assertNotNull(tp1);
-
+		
+		DateTime otherDate = new DateTime();
+		final DateTime creationDate = otherDate.minusDays(9);
 		final TweetPoll tp2 = createPublishedTweetPoll(
 				this.secondary.getAccount(),
 				createQuestion("What is your favorite actor?",
 						secondary.getAccount()), myCalendarDate.getTime());
 
-		tp2.setLocationLatitude(38.4167F);
-		tp2.setLocationLongitude(-3.70325F);
+		tp2.setLocationLatitude(40.4167F);
+		tp2.setLocationLongitude(-2.70325F);
+		tp2.setCreateDate(creationDate.toDate());
 		getTweetPoll().saveOrUpdate(tp2);
 		assertNotNull(tp2);
 		final double latiRadian = Math.toRadians(41.3879169F);
 		final double longRadian = Math.toRadians(2.16991870F);
-
+	  
+		 
 		final List<Object[]> distanceFromOrigin = getTweetPoll()
 				.retrieveTweetPollsBySearchRadiusOfGeoLocation(latiRadian,
-						longRadian, 510d, 6378, 10, TypeSearchResult.TWEETPOLL);
-
-		System.out.println(" tota values" + distanceFromOrigin.size());
-		for (Object[] objects : distanceFromOrigin) {
-			System.out.println(" id values" + objects[0]);
-			System.out.println(" distance values" + objects[1]);
+						longRadian, 510d, 6378, 10, TypeSearchResult.TWEETPOLL, SearchPeriods.SEVENDAYS);
+		Assert.assertEquals("Should be", 2, distanceFromOrigin.size());
+		 
+		/*for (Object[] objects : distanceFromOrigin) {
 			System.out.println(" ------------------");
-		}
+			System.out.println(" id values -->" + objects[0]);
+			System.out.println(" distance values -->" + objects[1]);
+			 
+		}*/
 	}
 
 }

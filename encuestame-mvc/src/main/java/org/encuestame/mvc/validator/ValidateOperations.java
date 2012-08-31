@@ -138,7 +138,7 @@ public class ValidateOperations {
      * @param username
      * @return
      */
-    private UserAccount getUser(final String username){
+    private UserAccount getUser(final String username) {
         final UserAccount user = getSecurityService().findUserByUserName(username);
         return user;
     }
@@ -153,8 +153,13 @@ public class ValidateOperations {
      */
     public Boolean validateUserEmail(final String email, final UserAccount userLogged){
         log.debug("validating email... ->"+email);
-        final UserAccount user = getSecurityService().findUserAccountByEmail(email);
-        return this.validateUserEmail(email, user, userLogged);
+        if (this.validateEmail(email)) {
+        	final UserAccount user = getSecurityService().findUserAccountByEmail(email);
+            return this.validateUserEmail(email, user, userLogged);
+        } else {
+        	 getMessages().put("email", "email wrong format");
+        	return false;
+        }                
     }
 
     /**
@@ -180,45 +185,23 @@ public class ValidateOperations {
         log.debug("validating email... ->"+email);
         log.debug("validating email UserAccount... ->"+user);
         boolean valid = false;
-        if(email == null) {
-            valid = false;
-        } else if (this.validateEmail(email)) {
-            if (user == null) {
-                log.debug("email is valid.. 1 ");
-                getMessages().put("email", "email is available");
-                valid = true;
-            } else if(userLogged != null && userLogged.getUserEmail().equals(email)){
-                log.debug("email is valid.. 2 ");
-                getMessages().put("email", "it's your email");
-                valid = true;
-            } else if(email.equals(user.getUserEmail())){
-                log.debug("email not valid.. 3 ");
-                getMessages().put("email", "email already exist");
-            } else {
-                log.debug("email not valid.. 4 ");
-                getMessages().put("email", "email not valid");
-            }
+        if (user == null) {
+            log.debug("email is valid.. 1 ");
+            getMessages().put("email", "email is available");
+            valid = true;
+        } else if(userLogged != null && userLogged.getUserEmail().equals(email)){
+            log.debug("email is valid.. 2 ");
+            getMessages().put("email", "it's your email");
+            valid = true;
+        } else if(email.equals(user.getUserEmail())){
+            log.debug("email not valid.. 3 ");
+            getMessages().put("email", "email already exist");
         } else {
-            getMessages().put("email", "email wrong format");
+            log.debug("email not valid.. 4 ");
+            getMessages().put("email", "email not valid");
         }
         log.debug("validateUserEmail valid ->>>>"+valid);
         return valid;
-    }
-
-    /**
-     * Validate User By Email.
-     * @param email email
-     * @return
-     */
-    @Deprecated //should be removed.
-    public UserAccountBean validateUserByEmail(final String email){
-        UserAccountBean unitUserBean = null;
-        log.debug("validating email... ");
-        if(this.validateEmail(email)) {
-            log.debug("fetch by email...");
-            unitUserBean = getSecurityService().findUserByEmail(email);
-        }
-        return unitUserBean;
     }
 
     /**
@@ -226,10 +209,10 @@ public class ValidateOperations {
      * @param email
      * @return
      */
-    public Boolean validateEmail(final String email){
+    public Boolean validateEmail(final String email) {
         log.debug("email validateEmail "+email);
         Boolean valid = false;
-        if(emailPattern.matcher(email).matches() && StringUtils.hasLength(email)) {
+        if (emailPattern.matcher(email).matches() && StringUtils.hasLength(email)) {
             log.warn("email valid");
             getMessages().put("email", "email good format");
             valid = true;

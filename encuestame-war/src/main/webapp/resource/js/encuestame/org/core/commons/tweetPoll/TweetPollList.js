@@ -70,6 +70,22 @@ dojo.declare(
          *
          */
         _tweetpollListSourceWidget : null,
+        
+        /*
+         * i18n message for this widget.
+         */
+        i18nMessage : {
+          detail_manage_by_account : ENME.getMessage("detail_manage_by_account"),
+          detail_manage_today : ENME.getMessage("detail_manage_today"),
+          detail_manage_last_week : ENME.getMessage("detail_manage_last_week"),
+          detail_manage_favorites : ENME.getMessage("detail_manage_favorites"),
+          detail_manage_scheduled : ENME.getMessage("detail_manage_scheduled"),
+          detail_manage_all : ENME.getMessage("detail_manage_all"),
+          detail_manage_published : ENME.getMessage("detail_manage_published"),
+          detail_manage_unpublished : ENME.getMessage("detail_manage_unpublished"),
+          detail_manage_only_completed : ENME.getMessage("detail_manage_only_completed")          
+        },
+        
 
         /*
          * post create.
@@ -301,6 +317,13 @@ dojo.declare(
         panelWidget : null,
         // wipe parameters.
         _wipe : { height : 255, duration : 200},
+        
+        /*
+         * i18n message for this widget.
+         */
+        i18nMessage : {
+          related_terms : ENME.getMessage("related_terms")       
+        },
 
         //post create
         postCreate : function() {
@@ -340,9 +363,9 @@ dojo.declare(
         /*
          * Call Service.
          */
-        _callService : function(/* function after response */ load, url){
+        _callService : function(/* function after response */ load, url) {
             var error = function(error) {
-                console.debug("error", error);
+                this.publishMessage(error.message, ENME.CONST.MSG.ERROR);
             };
             var params = {
                     tweetPollId : this.data.id
@@ -360,10 +383,13 @@ dojo.declare(
                 if (this.data.favourites) {
                     dojo.addClass(this._favourite, "selectedFavourite");
                     dojo.removeClass(this._favourite, "emptyFavourite");
+                    this.publishMessage(ENME.getMessage('commons_favourite'), ENME.CONST.MSG.SUCCESS);
                 } else {
                     dojo.addClass(this._favourite, "emptyFavourite");
                     dojo.removeClass(this._favourite, "selectedFavourite");
+                    this.publishMessage(ENME.getMessage('commons_unfavourite'), ENME.CONST.MSG.SUCCESS);
                 }
+                
             });
             this._callService(load, encuestame.service.list.favouriteTweetPoll);
         },
@@ -373,7 +399,7 @@ dojo.declare(
          */
         _setCloseTweetPoll : function(event) {
             dojo.stopEvent(event);
-            var load = dojo.hitch(this, function(data){
+            var load = dojo.hitch(this, function(data) {
                 //console.debug(data);
             });
             this._callService(load, encuestame.service.list.changeTweetPollStatus);

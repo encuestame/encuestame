@@ -19,7 +19,7 @@ dojo.declare(
 
         store: null,
 
-        label : "Add",
+        label : ENME.getMessage("button_add"),
 
         url : encuestame.service.list.hashtags,
 
@@ -110,7 +110,7 @@ dojo.declare(
                   if (this._suggestButton) {
                       dojo.style(this._suggestButton, "display", "block");
                       this.buttonWidget = new dijit.form.Button({
-                          label: "Add",
+                          label: ENME.getMessage("button_add", "Add"),
                           onClick: dojo.hitch(this, function(event) {
                               dojo.stopEvent(event);
                               this.processSelectedItemButton();

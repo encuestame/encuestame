@@ -18,14 +18,16 @@ import junit.framework.TestCase;
 
 import org.apache.commons.httpclient.HttpException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 /**
  * Date Utils Test Cases.
  * @author Picado, Juan juanATencuestame.org
  * @since Dec 14, 2010 11:29:20 PM
- * @version Id:
  */
+@Category(DefaultTest.class)
 public class SocialUtilsTestCase extends TestCase{
 
     /**

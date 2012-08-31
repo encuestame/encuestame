@@ -28,8 +28,10 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
+import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.TweetPollBean;
 import org.hibernate.HibernateException;
 
 /**
@@ -392,10 +394,15 @@ public interface ITweetPoll extends IBaseDao{
 	 * @param radius
 	 * @param maxItems
 	 * @param type
+	 * @param period
 	 * @return
 	 */
 	List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
 			final double latitude, final double longitude, final double distance,  
 			final double radius, final int maxItems,
-			final TypeSearchResult type);
+			final TypeSearchResult type, final SearchPeriods period);
+	
+	TweetPoll checkIfTweetPollHasHashTag(final String tagName, final SearchPeriods periods,
+			final Long id);
+	 
 }

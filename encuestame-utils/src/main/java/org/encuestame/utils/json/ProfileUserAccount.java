@@ -39,6 +39,8 @@ public class ProfileUserAccount {
     @JsonProperty(value = "language")
     private String language;
 
+    @JsonProperty(value = "picture_source")
+    private String pictureSource;
 
     /**
      * @return the username
@@ -114,4 +116,21 @@ public class ProfileUserAccount {
     public void setName(final String name) {
         this.name = name;
     }
+
+	/**
+	 * @return the pictureSource
+	 */
+    @JsonIgnore
+	public String getPictureSource() {
+		return pictureSource;
+	}
+
+	/**
+	 * @param pictureSource the pictureSource to set
+	 */
+	public void setPictureSource(String pictureSource) {
+		this.pictureSource = pictureSource;
+	}
+    
+    
 }

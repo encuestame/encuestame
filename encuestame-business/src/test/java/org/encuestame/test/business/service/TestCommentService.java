@@ -28,11 +28,13 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.CommentsSocialOptions;
 import org.encuestame.utils.web.CommentBean;
 import org.hibernate.HibernateException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -40,6 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since August 14, 2011
  */
+@Category(DefaultTest.class)
 public class TestCommentService extends AbstractSpringSecurityContext {
 
     @Autowired

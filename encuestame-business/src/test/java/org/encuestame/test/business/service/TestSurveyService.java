@@ -15,9 +15,13 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import junit.framework.Assert;
 
@@ -28,26 +32,31 @@ import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.persistence.domain.survey.SurveySection;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
+import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.QuestionPattern;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.SurveyBean;
+import org.encuestame.utils.web.UnitSurveySection;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Test of {@link AbstractSurveyService}
  * @author Picado, Juan juanATencuestame.org
  * @since 05/12/2009 15:04:56
- * @version $Id$
  */
-
+@Category(DefaultTest.class)
 public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** {@link AbstractSurveyService} */
@@ -78,6 +87,11 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
 
     /** **/
     private String myUsername;
+    
+    /**
+     * Mock HttpServletRequest.
+     */
+    MockHttpServletRequest request;
 
      /**
      *
@@ -97,6 +111,9 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
          questionBean = createUnitQuestionBean("questionName", 1L, this.user.getUid(),
                     this.answers);
          this.myUsername = getSpringSecurityLoggedUserAccount().getUsername();
+     	
+         request = new MockHttpServletRequest();
+		 request.addPreferredLocale(Locale.ENGLISH);  
     }
 
     /**
@@ -193,7 +210,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean, this.request);
         final String mykeyword = "";
         final List<SurveyBean> surveyBeanList = surveyService.filterSurveyItemsByType(
                 TypeSearch.LASTDAY, mykeyword, this.MAX_RESULTS,
@@ -211,7 +228,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean = createSurveyBean("My first survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean, this.request);
         final List<SurveyBean> surveyBeanList = surveyService
                 .searchSurveysLastWeek(getUsernameLogged(), this.MAX_RESULTS,
                         this.START_RESULTS);
@@ -245,9 +262,9 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 lastWeek.getTime());
 
-        surveyService.createSurvey(surveyBean);
-        surveyService.createSurvey(surveyBean2);
-        surveyService.createSurvey(surveyBean3);
+        surveyService.createSurvey(surveyBean, this.request);
+        surveyService.createSurvey(surveyBean2, this.request);
+        surveyService.createSurvey(surveyBean3, this.request);
 
         final String mykeyword = "";
         final List<SurveyBean> surveyBeanList = surveyService
@@ -266,7 +283,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
         surveyBean.setFavorites(Boolean.TRUE);
-        surveyService.createSurvey(surveyBean);
+        surveyService.createSurvey(surveyBean, this.request);
         final List<SurveyBean> surveyBeanList = surveyService
                 .searchSurveysFavourites(getUsernameLogged(), this.MAX_RESULTS,
                         this.START_RESULTS);
@@ -287,8 +304,8 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         final SurveyBean surveyBean2 = createSurveyBean("My Second survey",
                 getSpringSecurityLoggedUserAccount().getUsername(),
                 this.mySurveyDate.getTime());
-        surveyService.createSurvey(surveyBean);
-        surveyService.createSurvey(surveyBean2);
+        surveyService.createSurvey(surveyBean, this.request);
+        surveyService.createSurvey(surveyBean2, this.request);
         final List<SurveyBean> surveyBeanList = surveyService
                 .searchSurveysbyKeywordName(keyWord,
                         getSpringSecurityLoggedUserAccount().getUsername(),
@@ -319,7 +336,7 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         Assert.assertNotNull(fbean);
         final SurveyBean mySurveyBean = createSurveyBean("My Second survey",
                 this.myUsername, this.mySurveyDate.getTime());
-        final Survey mySurvey = surveyService.createSurvey(mySurveyBean);
+        final Survey mySurvey = surveyService.createSurvey(mySurveyBean, this.request);
         surveyService.addSurveyToFolder(fbean.getId(), this.myUsername,
                 mySurvey.getSid());
         final List<Survey> listSurvey = surveyService.retrieveSurveyByFolder(
@@ -328,6 +345,57 @@ public class TestSurveyService  extends  AbstractSpringSecurityContext{
         assertEquals("should be equals", 1, listSurvey.size());
     }
 
+    
+    @Test
+    public void testCreateSurvey() throws EnMeExpcetion{
+    	// Create survey with section default
+    	final SurveyBean surveyBean = createSurveyBean("default survey", getSpringSecurityLoggedUserAccount().toString(), new Date());
+    	final Survey newSurvey = surveyService.createSurvey(surveyBean, this.request);   
+    	
+    	// Create new Section
+    	final UnitSurveySection unitSection = createSurveySection("default 2", "default 2", newSurvey);
+    	surveyService.createSurveySection(unitSection, newSurvey);
+    	 
+    	
+    	// Add another section to survey
+    	final List<UnitSurveySection> ssection = surveyService.retrieveSectionsBySurvey(newSurvey); 
+    	assertEquals("should be equals", 2, ssection.size());
+      
+    }
+    
+    /**
+     * Test get {@link Survey} by id.
+     * @throws EnMeNoResultsFoundException
+     */
+    @Test
+    public void testGetSurveybyId() throws EnMeNoResultsFoundException{
+    	final Survey mySurvey = createDefaultSurvey(this.user); 
+    	final Survey surveyById = surveyService.getSurveyById(mySurvey.getSid());
+    	assertEquals("should be equals", mySurvey.getSid(), surveyById.getSid()); 
+    }
+    
+    /**
+     * Test Add {@link Question} to {@link SurveySection}. 
+     * @throws EnMeExpcetion
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+	@Test
+	public void testAddQuestionToSurveySection() throws EnMeExpcetion,
+			NoSuchAlgorithmException, UnsupportedEncodingException {
+		final String questionName = "What is your favorite superhero?";
+		final Survey defaultSurvey = createDefaultSurvey(this.user);
+		final SurveySection defaultSection = createDefaultSection("Comics",
+				defaultSurvey);
+
+		final Question questionAdded = surveyService
+				.addQuestionToSurveySection(questionName, userSecondary,
+						defaultSection, QuestionPattern.MULTIPLE_SELECTION,
+						null);
+
+		assertEquals("should be equals", defaultSection.getSsid(),
+				questionAdded.getSection().getSsid());
+	}
     /**
      * @param surveyService the surveyService to set
      */

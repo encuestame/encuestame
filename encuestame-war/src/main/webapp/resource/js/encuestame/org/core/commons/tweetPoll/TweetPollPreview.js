@@ -43,12 +43,12 @@ dojo.declare(
             /*
              * answer widgets.
              */
-            _answersBox : {node:null,initialize:false},
+            _answersBox : {node:null,initialize : false},
 
             /*
              * hashtag widget.
              */
-            _hashTagsBox : {node:null,initialize:false},
+            _hashTagsBox : {node:null,initialize : false},
 
             /*
              * widget to buil preview reference.
@@ -179,7 +179,7 @@ dojo.declare(
                   this._completeText = newPreview || "";
                 }
                 if (newQuestionValue != "") {
-                    this._content.appendChild( dojo.clone(this._questionBox.node));
+                    this._content.appendChild(dojo.clone(this._questionBox.node));
                 }
             },
 
@@ -204,9 +204,7 @@ dojo.declare(
                 //console.info("questionDiv", questionDiv);
                 dojo.addClass(questionDiv, "inlineBlock");
                 this._content.appendChild(questionDiv);
-              } else {
-                console.info("no answers widget");
-              }
+              } 
             },
 
             /*
@@ -242,7 +240,7 @@ dojo.declare(
             /*
              * Return the current lenght text.
              */
-            _getCurrentLengthText : function(){
+            _getCurrentLengthText : function() {
                 return this._lastedCounter;
             },
 
@@ -261,7 +259,7 @@ dojo.declare(
                     this._isValid = true;
                   } else {
                     this._isValid = false;
-                    this._isValidMessage = encuestame.constants.errorCodes["020"];
+                    this._isValidMessage = ENME.getMessage("e_020");
                     dojo.publish("/encuestame/tweetpoll/block");
                     //this._lastedCounter = 0;
                     var currentCounter = this._counterMax - textTweet.length;
@@ -269,7 +267,7 @@ dojo.declare(
                     this._lastedCounter = currentCounter;
                   }
               } else {
-                  console.error(encuestame.constants.errorCodes["023"]);
+                  ENME.log(ENME.getMessage("e_023"));
               }
             },
 
@@ -277,9 +275,9 @@ dojo.declare(
              * check required structure.
              */
             _checkTweetPollStructure : function() {
-                if(this._answerSize < config.tp.a) {
+                if (this._answerSize < ENME.config('tp_a')) {
                     this._isValid = false;
-                    this._isValidMessage = encuestame.constants.errorCodes["021"];
+                    this._isValidMessage =  ENME.getMessage("e_021");
                 }
             },
 

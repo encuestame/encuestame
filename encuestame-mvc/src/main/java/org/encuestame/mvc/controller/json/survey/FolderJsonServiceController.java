@@ -13,7 +13,9 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.survey.Survey;
+import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.SurveyBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -253,4 +260,48 @@ public class FolderJsonServiceController extends AbstractJsonController{
             }
         return returnData();
     }
+    
+    /**
+     * Retrieve Surveys contained in a folder.
+     * @param actionType
+     * @param folderId
+     * @param request
+     * @param response
+     * @return
+     */
+	@PreAuthorize("hasRole('ENCUESTAME_USER')")
+	@RequestMapping(value = "/api/survey/folder/{actionType}/items.json", method = RequestMethod.GET)
+	public ModelMap retrieveItemListbyFolder(@PathVariable String actionType,
+			@RequestParam(value = "folderId", required = false) Long folderId,
+			HttpServletRequest request, HttpServletResponse response) {
+		log.debug("type:{ " + actionType);
+		final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+
+		try {
+			if ("poll".equals(actionType)) {
+				final List<PollBean> pollsByFolder = getPollService()
+						.searchPollsByFolder(folderId,
+								getUserPrincipalUsername());
+				jsonResponse.put("PollsByFolder", pollsByFolder);
+			} else if ("tweetpoll".equals(actionType)) {
+				final List<TweetPollBean> tweetPollsByFolder = getTweetPollService()
+						.searchTweetPollsByFolder(folderId,
+								getUserPrincipalUsername());
+				jsonResponse.put("TweetPollsByFolder", tweetPollsByFolder);
+			} else if ("survey".equals(actionType)) {
+				final List<SurveyBean> surveyBeanList = new ArrayList<SurveyBean>();
+				final List<Survey> surveysByFolder = getSurveyService()
+						.retrieveSurveyByFolder(
+								getUserAccountonSecurityContext().getUid(),
+								folderId);
+				surveyBeanList.addAll(ConvertDomainBean
+						.convertListSurveyToBean(surveysByFolder));
+				jsonResponse.put("surveysByFolder", surveyBeanList);
+			}
+		} catch (Exception e) {
+			log.error(e);
+			setError(e.getMessage(), response);
+		}
+		return returnData(); 
+	} 
 }

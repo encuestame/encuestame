@@ -33,7 +33,11 @@ dojo.declare(
 
      option_name : "comments_",
 
-     options_label : ["Allow Comments", "Moderated Comments", "No comments allowed"]
+     options_label : [
+                      ENME.getMessage('widget_comments_allow'), 
+                      ENME.getMessage('widget_comments_moderated'), 
+                      ENME.getMessage('widget_comments_no_comments')
+                      ]
 
 
 });

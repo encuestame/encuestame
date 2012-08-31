@@ -5,23 +5,23 @@
 
     <definition name="location" extends="page">
         <put-attribute name="title" value="Locations | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}location.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}location-js.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}location.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}location-js.jsp" />
     </definition>
 
     <definition name="members" extends="page">
         <put-attribute name="title" value="Members | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}members.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}members-js.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}members.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}members-js.jsp" />
     </definition>
 
     <definition name="project" extends="page">
         <put-attribute name="title" value="Project | encuestame" />
-        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${currentDevice.mobile ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}project.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/admon/${currentDevice.mobile ? 'mobile/' : 'web/'}project-js.jsp" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}project.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/admon/${detectedDevice ? 'mobile/' : 'web/'}project-js.jsp" />
     </definition>
 
 </tiles-definitions>

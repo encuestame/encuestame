@@ -26,7 +26,7 @@ dojo.require("encuestame.org.core.commons.support.AbstractFilterSupport");
 dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 
 /**
- * Search Menu Support.
+ * Social Filter Menu.
  * @author Picado, Juan juanATencuestame.org
  * @since 14/01/12
  */
@@ -39,6 +39,14 @@ dojo.declare("encuestame.org.core.commons.support.SocialFilterMenu",
      *
      */
      templatePath: dojo.moduleUrl("encuestame.org.core.commons.support", "templates/social-filters.html"),
+     
+     /*
+      * i18n message for this widget.
+      */
+     i18nMessage : {
+    	 social_picker_filter_selected : ENME.getMessage("social_picker_filter_selected"),
+    	 commons_filter : ENME.getMessage("commons_filter")
+     },     
 
      /*
       *
@@ -46,7 +54,7 @@ dojo.declare("encuestame.org.core.commons.support.SocialFilterMenu",
      postCreate : function() {
          dojo.subscribe("/encuestame/social/picker/counter/reload", this, "_reloadCounter");
          this._loadSocialConfirmedAccounts();
-         this._button.onClick = dojo.hitch(this, function(){
+         this._button.onClick = dojo.hitch(this, function() {
 
          });
      },
@@ -64,7 +72,7 @@ dojo.declare("encuestame.org.core.commons.support.SocialFilterMenu",
       */
      _reloadCounter : function() {
          var counter = this._countSelected();
-         this._counter.innerHTML =  counter + " selected ";
+         this._counter.innerHTML =  counter + " " + this.i18nMessage.social_picker_filter_selected;
      },
 
      /*
@@ -77,18 +85,35 @@ dojo.declare("encuestame.org.core.commons.support.SocialFilterMenu",
      }
 });
 
+/**
+ * Social Filter Menu Item.
+ */
 dojo.declare("encuestame.org.core.commons.support.SocialFilterMenuItem",
         [encuestame.org.main.EnmeMainLayoutWidget,
          encuestame.org.core.shared.utils.SocialAccountsSupport], {
-
+	
+	/*
+	 * item data.
+	 */
     data : null,
 
+    /*
+     * selected flag (false by default)
+     */
     selected : false,
 
     /*
-     *
+     * template.
      */
      templatePath: dojo.moduleUrl("encuestame.org.core.commons.support", "templates/social-item-filters.html"),
+     
+     /*
+      * Is triggered before render
+      */
+    postMixInProperties: function() {
+    	// if the social link is not valid, reset a fake social image.
+    	this.data.picture_url = ENME.fakeImage("24", this.data.picture_url || "");
+    },     
 
      /*
       *
@@ -104,13 +129,19 @@ dojo.declare("encuestame.org.core.commons.support.SocialFilterMenuItem",
              dojo.publish("/encuestame/social/picker/counter/reload");
          }));
      },
-
-     markAsSelected : function(){
+     
+     /*
+      * Set as selected.
+      */
+     markAsSelected : function() {
          dojo.addClass(this.domNode, "selected");
          this.selected = true;
      },
 
-     unSelected : function(){
+     /*
+      * Set at un selected.
+      */
+     unSelected : function() {
          dojo.removeClass(this.domNode, "selected");
          this.selected = false;
      },

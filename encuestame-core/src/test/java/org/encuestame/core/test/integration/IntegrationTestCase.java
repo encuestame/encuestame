@@ -37,6 +37,7 @@ import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.core.MessageHandler;
 import org.springframework.integration.message.GenericMessage;
+ 
 @Ignore
 public class IntegrationTestCase extends AbstractIntegrationConfig {
 

@@ -36,7 +36,7 @@ dojo.declare(
          */
         _itemsSelected : [],
 
-        _hashtahButtonLabel : "Add Hashtag",
+        _hashtahButtonLabel : ENME.getMessage("button_add"),
 
         /*
          * pots create life cycle.
@@ -266,7 +266,11 @@ dojo.declare(
 dojo.declare(
     "encuestame.org.core.commons.tweetPoll.HashTagsSuggest",
     [encuestame.org.core.shared.utils.Suggest],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html"),
+
+    	/**
+    	 * Template.
+    	 */
+        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html"),       
 
         block : function(){
         },

@@ -16,11 +16,28 @@ dojo.declare(
          *
          */
         dndEnabled : false,
+        
+        /**
+         * i18n message for this widget.
+         */ 
+        i18nMessage : {
+        	pattern_question_single : ENME.getMessage("pattern_question_single")
+        },         
+        
+        /**
+         * Max length for the answer.
+         */
+        max_length : 100,
+        
+        /**
+         * Trim the the text.
+         */
+        trim : true,        
 
         /**
          *
          */
-        postCreate : function(){
+        postCreate : function() {
             if (this.dndEnabled) {
                 dojo.addClass(this._handle, "dojoDndHandle");
             }
