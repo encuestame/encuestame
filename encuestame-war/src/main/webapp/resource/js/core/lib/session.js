@@ -1,1 +1,3 @@
-ENME.namespace("ENME.session");
+require(["dojo/parser", "ready!"], function(parser) {
+	ENME.namespace("ENME.session");
+});

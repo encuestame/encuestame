@@ -1,5 +1,14 @@
-if (typeof dojo != "undefined") {				
-	
+define(["dojo/has!touch?ui/touch:ui/desktop"],
+  function(ui){
+    // ui will be ui/touch if touch is enabled,
+    //and ui/desktop otherwise
+    ui.start();
+})
+
+require(["dojo/parser", "ready!"], function(AuthoredDialog, parser) {
+    // Parse the page
+    parser.parse();
+ 
 	var ENME = (function() {
 
 		/**
@@ -452,7 +461,7 @@ if (typeof dojo != "undefined") {
 		return fn;
 
 	})();	
-}
+});
 
 /**
  * default log.

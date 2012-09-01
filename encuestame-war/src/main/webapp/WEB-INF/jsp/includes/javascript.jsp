@@ -3,21 +3,30 @@
      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <script>
-        dojoConfig = {
-                    parseOnLoad: true,
-                    useCommentedJson:true,
-                    isDebug : false,
-                    locale : "en-us"
-        };
+        /* dojoConfig= {
+                has: {
+                    "dojo-firebug": true
+                },
+                useCommentedJson:true,
+                parseOnLoad: false,
+                foo: "bar",
+                locale : "en-us",
+                isDebug: 1,
+                tlmSiblingOfDojo: false,
+                async: true
+            };
+       */     
 </script>
-<script src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
+<script data-dojo-config="has:{'dojo-firebug': true, 'dojo-debug-messages': true}, parseOnLoad: true,isDebug: 1, async: 1" src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/static/common.js"></script>
 <script>
-         dojo.require("dijit.dijit");
-         dojo.require("dojo.parser");
-         dojo.require("dojo.io.script");
+         //dojo.require("dijit.dijit");
+         //dojo.require("dojo.parser");
+         //dojo.require("dojo.io.script");
 </script>
+<script src="<%=request.getContextPath()%>/resources/js/encuestame/run.js"></script>
 <script>
+require(["dojo/parser", "ready!"], function(parser) {
         ENME.init({
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
@@ -33,9 +42,12 @@
            	tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
            	tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
         });
+});
 </script>
+<!-- 
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
- <c:if test="${!development}">
+ -->
+<c:if test="${!development}">
     <script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js?<%=EnMePlaceHolderConfigurer.getProperty("app.version")%>"></script>
 </c:if>
 <%-- <script src="<%=request.getContextPath()%>/resources/js/encuestame/encuestame.js"></script> --%>
