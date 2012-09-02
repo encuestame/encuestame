@@ -1,0 +1,139 @@
+<div class="web-tweetpoll-wrapper spaceBlock">
+
+    <div id="previewWrapperFixed" class="tweetPollPreviewRelative" style="opacity:0">
+        <div dojoAttachPoint="_previewFixed"></div>
+    </div>
+
+    <div class="web-tweetpoll-preview-top web-tweetpoll-section spaceBlock spaceBlockTop">
+         <div dojoAttachPoint="_preview"></div>
+    </div>
+
+    <div class="web-tweetpoll-section spaceBlock spaceBlockTop" dojoAttachPoint="_tweetQuestion">
+        <div class="web-tweetpoll-section-title default-background-dark-color">1. ${i18nMessage.question}</div>
+        <div class="tweetThis space">
+            <div id="question" dojoType="dijit.form.TextBox"
+                  class="questionTextBox inputClass"
+                  maxSize="140"
+                  maxLength="140"
+                  selectOnClick="true"></div>
+         </div>
+    </div>
+
+    <div class="web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">2. ${i18nMessage.answer}</div>
+         <div class="space">
+            <div id="answers" dojoType="encuestame.org.core.commons.tweetPoll.Answers" class="answers"></div>
+        </div>
+    </div>
+
+     <div class="web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">3. ${i18nMessage.hashtag}</div>
+         <div class="space">
+            <div id="hashtags" dojoType="encuestame.org.core.commons.tweetPoll.HashTags" class="hashtags"></div>
+        </div>
+    </div>
+
+    <div class="tweetPollPublish web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">4. ${i18nMessage.options}</div>
+         <div class="space">
+             <div style="overflow: auto;">
+             <div class="item">
+                <h4>
+                    ${i18nMessage.squeduled}
+                </h4>
+                <div class="section">
+                    <input id="schedule" name="schedule" dojoType="dijit.form.CheckBox">
+                    <label for="schedule">
+                        ${i18nMessage.squeduled_tp}
+                    </label>
+                </div>
+                <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledTime">
+                   <input type="text" name="scheduledTime" id="scheduledTime" value="T15:00:00" dojoType="dijit.form.TimeTextBox" />
+               </div>
+               <div class="section defaultDisplayHide" dojoAttachPoint="_scheduledDate">
+                 <input id="scheduledDate" type="text" name="shortYear" dojoType="dijit.form.DateTextBox"
+                        required="true" />
+                </div>
+             </div>
+             <div class="item item-padding">
+                <h4>
+                    ${i18nMessage.chart_features}
+                </h4>
+                 <div class="section">
+                    <input id="liveResults" name="liveResults"" dojoType="dijit.form.CheckBox">
+                    <label for="liveResults">
+                        ${i18nMessage.allow_live_results}
+                    </label>
+                </div>
+             </div>
+             <div class="item item-padding">
+                <h4>
+                    ${i18nMessage.anti_spam}
+                </h4>
+                 <div class="section">
+                    <input id="captcha" name="captcha"" dojoType="dijit.form.CheckBox">
+                    <label for="captcha">
+                        ${i18nMessage.captcha}
+                    </label>
+                </div>
+                <div class="section">
+                    <input id="limitVotes" name="limitVotes"" dojoType="dijit.form.CheckBox">
+                    <label for="limitVotes">
+                        ${i18nMessage.limit_votes}
+                    </label>
+                </div>
+                <div class="section defaultDisplayHide" dojoAttachPoint="_limitNumbers">
+                    <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="limitNumbers"
+                        constraints="{min:0,max:4000}" value="${tweetPoll.options.maxLimitVotes}">
+                    </div>
+                </div>
+                <div class="section">
+                    <input id="ip" name="ip" dojoType="dijit.form.CheckBox">
+                    <label for="ip">
+                        ${i18nMessage.repeated_votes}
+                    </label>
+                </div>
+                <div class="section defaultDisplayHide" dojoAttachPoint="_repeatedNumbers">
+                    <div dojoType="dijit.form.NumberSpinner" intermediateChanges="true" id="repeatedNumbers"
+                        constraints="{min:2,max:10}" value="${tweetPoll.options.maxRepeatedVotes}">
+                    </div>
+                </div>
+             </div>
+             <div class="item item-padding">
+                    <h4>
+                        ${i18nMessage.tp_options_report}
+                    </h4>
+                 <div class="section">
+                    <input id="resume" name="resume" dojoType="dijit.form.CheckBox">
+                    <label for="resume">
+                           ${i18nMessage.resume_live_results}
+                    </label>
+                </div>
+                <div class="section">
+                    <input id="dashboard" name="dashboard" dojoType="dijit.form.CheckBox">
+                    <label for="dashboard">
+                        ${i18nMessage.follow_dashboard}
+                    </label>
+                </div>
+         </div>
+       </div>
+       </div>
+    </div>
+
+    <div class="web-tweetpoll-section spaceBlock">
+        <div class="web-tweetpoll-section-title default-background-dark-color">
+        5.  ${i18nMessage.tp_select_publish} 
+        </div>
+        <div class="space">
+            <div id="social" dojoType="encuestame.org.core.commons.social.SocialAccountPicker" checkRequiredSocialAccounts="true"
+                 enableEasyAddAccount="true"></div>
+        </div>
+     </div>
+
+     <div class="tweetPollPublishButton" style="text-align: right;">
+           <button  dojoAttachPoint="_publish"  dojoType="dijit.form.Button" type="button" name="submitButtonTwo"
+                   value="Submit">
+                   ${i18nMessage.button_publish}
+           </button>
+     </div>
+</div>

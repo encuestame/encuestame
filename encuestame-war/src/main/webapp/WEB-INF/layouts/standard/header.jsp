@@ -15,15 +15,11 @@
             </c:if>
             <c:if test="${logged}">
                 <span class="link">
-                    <div dojoType="encuestame.org.core.commons.dashboard.DashBoardMenu"
-                        contextPath="<%=request.getContextPath()%>"></div> </span>
+                    <%-- <div data-dojo-type="me/web/widget/menu/DashBoardMenu"
+                         contextPath="<%=request.getContextPath()%>"></div> </span> --%>
             </c:if>
             <span class="link web-search-wrapper">
-                <div dojoType="encuestame.org.core.commons.search.SearchMenu"
-                 placeholder=" <spring:message code="header.public.search" />"
-                 defaultNoResults="<spring:message code="header.public.noresults" />">
-
-                 </div>
+                <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
             </span>
         </div>
     </div>

@@ -183,7 +183,7 @@
                     </additionalProjectnatures>
                 </configuration>
             </plugin>
-                <plugin>
+              <!--   <plugin>
                    <groupId>ro.isdc.wro4j</groupId>
                    <artifactId>wro4j-maven-plugin</artifactId>
                    <version>${wro4j.plugin}</version>
@@ -201,9 +201,9 @@
                      <wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>
                      <destinationFolder>${basedir}/src/main/webapp/resource/static/</destinationFolder>
                      <contextFolder>${basedir}/src/main/webapp/</contextFolder>
-                     <!-- <wroManagerFactory>ro.isdc.wro.extensions.manager.standalone.YUIStandaloneManagerFactory</wroManagerFactory> -->
+                     <wroManagerFactory>ro.isdc.wro.extensions.manager.standalone.YUIStandaloneManagerFactory</wroManagerFactory>
                    </configuration>
-                </plugin>
+                </plugin> -->
 	        </plugins>
         <resources>
             <resource>
