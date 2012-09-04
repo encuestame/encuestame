@@ -1117,7 +1117,7 @@ CREATE TABLE IF NOT EXISTS `question_preferences` (
   `preferenceId` bigint(20) NOT NULL AUTO_INCREMENT,
   `preference` varchar(255) DEFAULT NULL,
   `question_qid` bigint(20) DEFAULT NULL,
-  `value` varchar(255) DEFAULT NULL,
+  `preference_value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`preferenceId`),
   UNIQUE KEY `preferenceId` (`preferenceId`),
   KEY `FKD540D01F46BF7A1C` (`question_qid`)
