@@ -1801,6 +1801,11 @@ ALTER TABLE ONLY survey_group_project
 ALTER TABLE ONLY survey_section
     ADD CONSTRAINT fkfe5ad30051153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
 
+    
+ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF546BF7A1C FOREIGN KEY (question_qid) REFERENCES questions;
+ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF5496009B4 FOREIGN KEY (answer_q_answer_id) REFERENCES questions_answers;
+ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF551153812 FOREIGN KEY (survey_sid) REFERENCES surveys;
+ALTER TABLE ONLY question_preferences ADD CONSTRAINT FKD540D01F46BF7A1C FOREIGN KEY (question_qid) REFERENCES questions;
 
 -- Completed on 2011-11-30 21:40:42 CET
 

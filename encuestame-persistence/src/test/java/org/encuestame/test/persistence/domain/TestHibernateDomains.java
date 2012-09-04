@@ -625,7 +625,7 @@ public class TestHibernateDomains extends AbstractBase{
 		final QuestionPreferences preference = new QuestionPreferences(); 
 		preference.setQuestion(this.initQuestion);
 		preference.setPreference("Order");
-		preference.setValue("Desc");
+		preference.setPreferenceValue("Desc");
 	}
 	
 	/**
