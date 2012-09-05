@@ -39,10 +39,10 @@ define([ 'dojo/has', 'require' ], function (has, require) {
 		 * require just `dojo/domReady`, it would load that module just like any other module, without the special
 		 * plugin functionality.
 		 */
-		require([ 'dojo', 'dojo/parser', 'dojo/domReady!', './web/widget/menu/SearchMenu' ], function (dojo, parser, c) {
+		require([ 'dojo', 'dojo/parser', 'dojo/domReady!' ], function (dojo, parser, c) {
 			console.log("APPPPPPPPPPPPP", dojo);
 			console.log("APPPPPPPPPPPPP", parser);
-			console.log("APPPPPPPPPPPPP", c);
+			console.log("APPPPPPPPPPPPP search menu", c);
 //			app.dialog = new Dialog().placeAt(document.body);
 
 			// It is important to remember to always call startup on widgets after you have added them to the DOM.

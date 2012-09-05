@@ -9,7 +9,7 @@
             <%@ include file="item.jsp"%>
         </c:forEach>
         <c:if test="${!empty items}">
-            <div dojoType="encuestame.org.core.commons.stream.FrontEnd"></div>
+            <div dojoTypeE="encuestame.org.core.commons.stream.FrontEnd"></div>
         </c:if>
         </article>
     </article>

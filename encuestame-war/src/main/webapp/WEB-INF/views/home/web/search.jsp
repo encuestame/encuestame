@@ -36,7 +36,7 @@
                         <div>
                             <c:forEach items="${results.tags}" var="item">
                                   <section class="search-item">
-                                     <a class="item" dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                                     <a class="item" dojoTypeE="encuestame.org.core.commons.stream.HashTagInfo"
                                             url="<%=request.getContextPath()%>/tag/${item.itemSearchTitle}/"
                                             hashTagName="${item.itemSearchTitle}"></a>
                                   </section>

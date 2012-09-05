@@ -1,6 +1,31 @@
-define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin" ], function(declare, _WidgetBase, _TemplatedMixin){
-	console.log("SEARCHHHHHHH MENU");
-	return declare([ _WidgetBase, _TemplatedMixin ], {});
+define([ "dojo/parser",
+         "dojo/ready",
+         "dojo/_base/declare", 
+         "dijit/_WidgetBase", 
+         "dijit/_TemplatedMixin",
+		 "dijit/form/TextBox", 
+		 "dojo/text!me/web/widget/menu/template/searchMenu.html" ], function(
+		parser,
+		ready,
+		declare,
+		_WidgetBase,
+		_TemplatedMixin, 
+		text,  
+		template) {
+	console.log("SEARCHHHHHHH MENU", parser);
+	console.log("SEARCHHHHHHH MENU", ready);
+	console.log("SEARCHHHHHHH MENU", declare);
+	console.log("SEARCHHHHHHH MENU", text);
+	console.log("SEARCHHHHHHH MENU", template);
+
+	ready(function(){
+		parser.parse();
+		console.log("SEARCHHHHHHH MENU222222");
+    });
+	return declare([ _WidgetBase, _TemplatedMixin ], {		
+		templateString: template,
+		widgetsInTemplate : true,
+	});
 });
 
 //require([

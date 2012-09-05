@@ -31,7 +31,7 @@
 </script>
 
 <script>
-require(["dojo/parser", 'me', "ready!"], function(parser, ENME) {
+<%-- require(["dojo/parser", 'me', "ready!"], function(parser, ENME) {
 		console.log("dasdadsadsadas");
         ENME.init({
             contextPath: '<%=request.getContextPath()%>',
@@ -48,7 +48,7 @@ require(["dojo/parser", 'me', "ready!"], function(parser, ENME) {
            	tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
            	tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
         });
-});
+}); --%>
 </script>
 <!-- 
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>

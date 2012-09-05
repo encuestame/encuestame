@@ -10,4 +10,5 @@
 //    dojo.require("encuestame.org.core.commons.stream.FrontEndItem");
 //    dojo.require("encuestame.org.core.shared.utils.AccountPicture");
 //    dojo.require("encuestame.org.core.home.votes.ItemVote");
+
 </script>

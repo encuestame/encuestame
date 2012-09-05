@@ -2,9 +2,10 @@
 <section class="item">
     <div class="img">
     	<!--
-    		TODO: votes == relevance??? 
+    		TODO: votes == relevance???
+    		
     	  -->
-        <div dojoType="encuestame.org.core.home.votes.ItemVote"
+        <div dojoTypeE="encuestame.org.core.home.votes.ItemVote"  
         	 voteMessage="<spring:message code="home.item.votes" />"
         	 viewMessage="<spring:message code="home.item.views" />"
         	 votes="${item.totalVotes}" 
@@ -21,7 +22,7 @@
         <div class="bottom">
             <div class="options">
                 <div class="image">
-                    <a dojoType="encuestame.org.core.shared.utils.AccountPicture"
+                    <a dojoTypeE="encuestame.org.core.shared.utils.AccountPicture"
                         username=${item.ownerUsername}></a>
                 </div>
                 <div class="submited">
@@ -38,7 +39,7 @@
             <!-- List of Hashtags -->
             <div class="tags">
                 <c:forEach items="${item.hashTags}" var="h">
-                    <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                    <span dojoTypeE="encuestame.org.core.commons.stream.HashTagInfo"
                         url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
                         hashTagName="${h.hashTagName}"></span>
                 </c:forEach>
