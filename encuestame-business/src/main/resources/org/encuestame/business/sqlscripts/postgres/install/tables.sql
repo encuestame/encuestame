@@ -352,8 +352,11 @@ CREATE TABLE hits (
     hits_ip_address character varying(100) NOT NULL,
     hashtag_hash_tag_id bigint,
     poll_poll_id bigint,
+	hit_category integer NOT NULL,
     survey_sid bigint,
-    tweetpoll_tweet_poll_id bigint
+    tweetpoll_tweet_poll_id bigint,
+	userAccount_uid bigint
+
 );
 
 

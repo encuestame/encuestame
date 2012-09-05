@@ -834,6 +834,8 @@ ALTER TABLE ONLY hits
     ADD CONSTRAINT fk30df40953c854b FOREIGN KEY (tweetpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
 
 
+ALTER TABLE ONLY hits 
+	ADD CONSTRAINT FK30DF40369F8B2C FOREIGN KEY (userAccount_uid) REFERENCES userAccount(uid);
 --
 -- TOC entry 2155 (class 2606 OID 100019)
 -- Dependencies: 1669 1656 2047
