@@ -475,7 +475,7 @@ CREATE TABLE poll_hashtags (
 
 CREATE TABLE poll_result (
     poll_resultid bigint NOT NULL,
-    ip_address character varying(255) NOT NULL,
+    ipAddress character varying(255) NOT NULL,
     votation_date timestamp without time zone NOT NULL,
     q_answer_id bigint NOT NULL,
     poll_id bigint NOT NULL
@@ -1073,3 +1073,9 @@ CREATE TABLE question_preferences (
    question_qid bigint,
    preference_value character varying(255)
 );
+ 
+CREATE TABLE hash_tags_ranking (
+   rank_id bigint NOT NULL,
+   average real,
+   ranking_updated timestamp without time zone, 
+   hashTag_hash_tag_id bigint);
