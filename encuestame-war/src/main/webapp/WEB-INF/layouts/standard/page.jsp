@@ -16,6 +16,7 @@
 <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
+<%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="claro enme-web-context">
@@ -46,7 +47,7 @@
 			</footer>		
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/includes/javascript.jsp"%>
+	
 	<script type="text/javascript">
 		//dojo.require("dijit.dijit");
 		//dojo.require("dojo.parser");

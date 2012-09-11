@@ -1,48 +1,29 @@
 define([ "dojo/parser",
-         "dojo/ready",
          "dojo/_base/declare", 
          "dijit/_WidgetBase", 
          "dijit/_TemplatedMixin",
 		 "dijit/form/TextBox", 
+		 "dijit/_WidgetsInTemplateMixin",
 		 "dojo/text!me/web/widget/menu/template/searchMenu.html" ], function(
 		parser,
-		ready,
 		declare,
 		_WidgetBase,
 		_TemplatedMixin, 
 		text,  
+		_WidgetsInTemplateMixin,
 		template) {
 	console.log("SEARCHHHHHHH MENU", parser);
-	console.log("SEARCHHHHHHH MENU", ready);
-	console.log("SEARCHHHHHHH MENU", declare);
-	console.log("SEARCHHHHHHH MENU", text);
-	console.log("SEARCHHHHHHH MENU", template);
-
-	ready(function(){
-		parser.parse();
-		console.log("SEARCHHHHHHH MENU222222");
-    });
-	return declare([ _WidgetBase, _TemplatedMixin ], {		
+	
+	return declare([ _WidgetBase, _TemplatedMixin], {		
 		templateString: template,
-		widgetsInTemplate : true,
+		postCreate: function() {
+			console.log("SEARCHHHHHHH postCreate");
+            this.domNode.innerHTML = template;
+            parser.parse(this.domNode);
+        }
 	});
 });
 
-//require([
-//    "dojo/_base/declare", "dojo/parser", "dojo/ready",
-//    "dijit/_WidgetBase",
-//], function(declare, parser, ready, _WidgetBase){
-//
-//    declare([_WidgetBase], {
-//        // put methods, attributes, etc. here
-//    });
-//    ready(function(){
-//        // Call the parser manually so it runs after our widget is defined, and page has finished loading
-//        parser.parse();
-//        
-//        console.log("SEARCHHHH MENUUUUUUU");
-//    });
-//});
 
 //dojo.provide("encuestame.org.core.commons.search.SearchMenu");
 //
@@ -63,10 +44,6 @@ define([ "dojo/parser",
 //       */
 //      templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchMenu.html"),
 //
-//        /*
-//         * enable widget on template.
-//         */
-//        widgetsInTemplate: true,
 //
 //        /*
 //         * default label.
