@@ -97,7 +97,7 @@ dependencies ={
                 //"encuestame.org.core.commons.rated.UsersProfile", inside RateProfle
                 "encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail",
                 "encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail",
-                "encuestame.org.core.shared.utils.CountDown",
+                //"encuestame.org.core.shared.utils.CountDown",
                 "encuestame.org.core.shared.utils.SurveyStatus",
                 "encuestame.org.core.commons.validator.AbstractValidatorWidget",
                 "encuestame.org.core.commons.validator.PasswordValidator",

@@ -24,6 +24,8 @@
 </script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
+<!-- Temporal service to store all service. -->
+<script src="<%=request.getContextPath()%>/resources/js/me/json_services.js"></script>
 <script>
          //dojo.require("dijit.dijit");
          //dojo.require("dojo.parser");

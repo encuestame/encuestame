@@ -4,7 +4,7 @@ define([ "dojo/parser",
          "dijit/_TemplatedMixin",
          "dijit/form/TextBox", 
          "dijit/_WidgetsInTemplateMixin",
-         "dojo/text!me/web/widget/menu/template/searchMenu.html" ], function(
+         "dojo/text!me/web/widget/shared/template/searchMenu.html" ], function(
         parser,
         declare,
         _WidgetBase,
