@@ -689,8 +689,11 @@ encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled
  * get context widget.
  */
 encuestame.contextWidget = function(){
-        return encuestame.contextDefault;
+        //return encuestame.contextDefault;
+	return "encuestame/";
 };
+
+encuestame.contextDefault = "encuestame/";
 
 encuestame.service.list = {};
 encuestame.service.list.userList = encuestame.contextWidget()+"/api/admon/users.json";

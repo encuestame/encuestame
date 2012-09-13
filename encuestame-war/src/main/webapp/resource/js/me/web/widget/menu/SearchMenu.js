@@ -8,6 +8,7 @@ define([ "dojo/parser",
 		 "me/web/widget/suggestion/Suggest",
 		 "me/core/main_widgets/URLServices",
 		 "me/core/main_widgets/EnmeMainLayoutWidget",
+		 "me/web/widget/menu/SearchSuggestItemsByType",
 		 "dojo/text!me/web/widget/menu/template/searchMenu.html" ], function(
 		parser,
 		registry,
@@ -19,6 +20,7 @@ define([ "dojo/parser",
 		suggest,
 		_URL,
 		main_widget,
+		searchSuggestItemsByType,
 		template) {
 
 	//console.log("SEARCHHHHHHH MENU", parser);
@@ -31,7 +33,7 @@ define([ "dojo/parser",
 	templateString: template,
 
 //		postCreate: function() {
-//			var x = new suggest({});
+//			
 //			console.log("SEARCHHHHHHH postCreate", x);
 //			console.log("SEARCHHHHHHH postCreate", main_widget);
 //			console.log("SEARCHHHHHHH postCreate", suggest);
@@ -177,7 +179,7 @@ define([ "dojo/parser",
       */
      processEnterAction : function(selectedItem) {
          //if item is null, search whith value in the input, if not use the data-value attribute.
-           var searchUrl = encuestame.contextDefault;
+         var searchUrl = encuestame.contextDefault;
          if (selectedItem == null || dojo.attr(selectedItem, "data-url") == undefined) {
              searchUrl = searchUrl.concat("/search?q=");
              searchUrl = searchUrl.concat(this.textBoxWidget.get("value"));
@@ -233,9 +235,14 @@ define([ "dojo/parser",
 
      /**
       * Make a call to search service.
-      * {"error":{},"success":{"items":{"profiles":[],"questions":[],"attachments":[],"tags":[{"id":null,"hits":3000001,"typeSearchResult":"HASHTAG","urlLocation":"/hashtag/nicaragua","score":100,"itemSearchTitle":"Nicaragua","itemSearchDescription":null}]},"label":"itemSearchTitle","identifier":"id"}}
+      * {"error":{},"success":{"items":{"profiles":[],"questions":[],"attachments":[],
+      *  "tags":[{"id":null,"hits":3000001,"typeSearchResult":"HASHTAG",
+      *  "urlLocation":"/hashtag/nicaragua","score":100,
+      *  "itemSearchTitle":"Nicaragua","itemSearchDescription":null}]},
+      *  "label":"itemSearchTitle","identifier":"id"
+      *  }}
       */
-     _searchCallService : function(){
+     _searchCallService : function() {
          var load = dojo.hitch(this, function(data) {
              //console.debug("social _searchCallService", data);
              dojo.empty(this._suggestItems);
@@ -264,7 +271,7 @@ define([ "dojo/parser",
       * @param data suggested search item.
       */
      printItems : function(data) {
-         var widget = new encuestame.org.core.commons.search.SearchSuggestItemsByType(
+         var widget = new searchSuggestItemsByType(
                  {
                   data : data,
                   parentWidget : this
@@ -527,164 +534,3 @@ define([ "dojo/parser",
 //        }
 //});
 //
-///**
-// * Widget define item suggest box.
-// */
-//dojo.declare(
-//        "encuestame.org.core.commons.search.SearchSuggestItemsByType",
-//        [encuestame.org.main.EnmeMainLayoutWidget],{
-//
-//        /*
-//         * template
-//         */
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItem.html"),
-//
-//        /*
-//         * widgets in template
-//         */
-//        wigetsInTemplate: true,
-//        
-//        /*
-//         * reference of suggest widget.
-//         */
-//        parentWidget: null,
-//
-//        /*
-//         * results
-//         */
-//        data: null,       
-//
-//        /**
-//         * Post Create Life Cycle.
-//         */
-//        postCreate : function() {
-//            //console.info("SearchSuggestItem", this.data);
-//            //console.info("SearchSuggestItem",this.checkIfDataIsEmtpy());
-//            if (this.data && !this.checkIfDataIsEmtpy()) {
-//                dojo.empty(this._container);
-//                if ("tags" in this.data) {
-//                    this._printItems("Hashtags", this.data.tags);
-//                };
-//
-//                if ("profiles" in this.data) {
-//                    this._printItems("Profiles", this.data.profiles);
-//                };
-//
-//                if ("questions" in this.data) {
-//                    this._printItems("Questions", this.data.questions);
-//                };
-//
-//                if ("attachments" in this.data) {
-//                    this._printItems("Documents", this.data.attachments);
-//                };
-//            } else {
-//                var div = dojo.create("div");
-//                dojo.addClass(div, "web-suggest-noresults");
-//                dojo.addClass(div, "wrap");
-//                div.innerHTML = this.parentWidget.defaultNoResults + " ";
-//                var span = dojo.create("span", null, div);
-//                span.innerHTML = this.parentWidget.textBoxWidget.get("value");
-//                this._container.appendChild(div);
-//            }
-//        },
-//
-//        /**
-//         * Check if data for each item is empty.
-//         * @returns {Boolean}
-//         */
-//        checkIfDataIsEmtpy : function() {
-//            var isEmpty = true;
-//            if ("tags" in this.data) {
-//                isEmpty = this.data.tags.length == 0 ? true : false;
-//            };
-//
-//            if ("profiles" in this.data && isEmpty) {
-//                isEmpty = this.data.profiles.length == 0 ? true : false;
-//            };
-//
-//            if ("questions" in this.data && isEmpty) {
-//                isEmpty = this.data.questions.length == 0 ? true : false;
-//            };
-//
-//            if ("attachments" in this.data && isEmpty) {
-//                isEmpty = this.data.attachments.length == 0 ? true : false;
-//            };
-//            return isEmpty;
-//        },
-//
-//       /**
-//        * Print items.
-//        */
-//       _printItems : function(label, items) {
-//           //console.info("_printHashtags", items);
-//           if (items.length > 0) {
-//               var hash = new encuestame.org.core.commons.search.SearchSuggestItemSection(
-//                       {
-//                        label : label,
-//                        parentWidget : this.parentWidget,
-//                        items : items
-//                       });
-//               this._container.appendChild(hash.domNode);
-//           }
-//       }
-//});
-//
-///**
-// * Search Suggest Item Secction.
-// * Is a space to store items separated by section, questions, hashstag, attachmetns.
-// */
-//dojo.declare(
-//        "encuestame.org.core.commons.search.SearchSuggestItemSection",
-//        [encuestame.org.main.EnmeMainLayoutWidget],{
-//
-//        //template
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.search", "templates/searchSuggestItemSection.html"),
-//
-//        //
-//        items : [],       
-//        
-//        /*
-//         * 
-//         */
-//        parentWidget : null,
-//
-//        /*
-//         * 
-//         */
-//        label : "",
-//
-//        /**
-//         * Post Create.
-//         */
-//        postCreate : function() {
-//            dojo.forEach(this.items,
-//                    dojo.hitch(this,function(item) {
-//                 this._itemSuggest.appendChild(this._createItem(item, this.label));
-//            }));
-//        },
-//
-//        /**
-//         * Create a search item.
-//         * @param item
-//         * @param type
-//         */
-//        _createItem : function(item, type) {
-//            var div = dojo.create("div");
-//            dojo.addClass(div, "web-search-item");
-//            dojo.attr(div, "data-value", item.itemSearchTitle);
-//            dojo.attr(div, "data-type", type);
-//            var h4 = dojo.create("h4", null, div);
-//            h4.innerHTML = item.itemSearchTitle;
-//            if (item.urlLocation != "" && item.urlLocation != null) { //on click point to this url.
-//               dojo.attr(div, "data-url", item.urlLocation);
-//               dojo.connect(div, "onclick", dojo.hitch(this, function(event) {
-//                   //console.debug("click item", encuestame.contextDefault+item.urlLocation	);
-//                   document.location.href = encuestame.contextDefault+item.urlLocation;
-//               }));
-//            } else { // point to search url
-//
-//            }
-//            this.parentWidget.listItems.push(div);
-//            return div;
-//        }
-//});
