@@ -27,9 +27,18 @@
 <!-- Temporal service to store all service. -->
 <script src="<%=request.getContextPath()%>/resources/js/me/json_services.js"></script>
 <script>
-         //dojo.require("dijit.dijit");
-         //dojo.require("dojo.parser");
-         //dojo.require("dojo.io.script");
+require([
+    "dojo/_base/declare", 
+    "dojo/parser", 
+    "dojo/ready",
+    "me/core/enme",
+], function(declare, parser, ready, _ENME){  
+    ready(function(){
+        // Call the parser manually so it runs after our widget is defined, and page has finished loading
+        parser.parse();
+        _ENME.init();
+    });
+});
 </script>
 
 <script>
