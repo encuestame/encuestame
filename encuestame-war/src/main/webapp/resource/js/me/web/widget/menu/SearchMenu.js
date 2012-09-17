@@ -470,7 +470,8 @@ define([ "dojo/parser",
 	             console.debug("error", error);
 	         };
 	         encuestame.service.xhrGet(
-	                 encuestame.service.search.suggest, this.searchParam, load, error);
+	        		 _URL.service('encuestame.service.search.suggest'), 
+	        		 this.searchParam, load, error);
 	     },
 
 	     /**
