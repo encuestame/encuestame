@@ -2,8 +2,7 @@ define([ "dojo/parser",
          "dijit/registry",
          "dojo/_base/declare", 
          "dijit/_WidgetBase", 
-         "dijit/_TemplatedMixin",
-		 "dijit/form/TextBox", 
+         "dijit/_TemplatedMixin", 
 		 "dijit/_WidgetsInTemplateMixin",
 		 "me/web/widget/suggestion/Suggest",
 		 "me/core/main_widgets/URLServices",
@@ -13,13 +12,13 @@ define([ "dojo/parser",
 		 "dojo/dom", 
 		 "dojo/dom-style", 
 		 "dojo/mouse",
-		 "dojo/text!me/web/widget/menu/template/searchMenu.html" ], function(
+		 "dojo/text!me/web/widget/menu/template/searchMenu.html",
+		 "dijit/form/TextBox"], function(
 		parser,
 		registry,
 		declare,
 		_WidgetBase,
-		_TemplatedMixin, 
-		text,  
+		_TemplatedMixin, 		
 		_WidgetsInTemplateMixin,
 		suggest,
 		_URL,
@@ -234,7 +233,7 @@ define([ "dojo/parser",
 	            });
 	
 	
-	var SearchMenu = declare([ _WidgetBase, _TemplatedMixin, suggest, main_widget, _URL], {		
+	var SearchMenu = declare([main_widget, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _URL], {		
 		
 		/*
 		 * template string. 
@@ -299,13 +298,14 @@ define([ "dojo/parser",
 	      * post create process.
 	      */
 	     postCreate: function() {
-//	        this.domNode.innerHTML = template;
-//	        parser.parse(this.domNode);   
-	    	 console.log("ENMEEE222EEEEE", _ENME);
+	    	 console.log("ENMEEE222EEEEE", _ENME.params);
 	        this.textBoxWidget = registry.byId(this._suggest);
 	        if (this.textBoxWidget) {
 	            this._searchSuggestSupport();
 	        }
+//	        this.domNode.innerHTML = template;
+	   //     parser.parse(this.domNode);   
+
 	     },
 
 	     /*

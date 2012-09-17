@@ -158,9 +158,9 @@ define(["dojo",
 				var ENME = this;
 				_config = config || {};
 				query("#header input[type='hidden']").forEach(
-								function(item, index) {
-									ENME.params[domAttr.set(item, "name")] = domAttr.set(item, "value");
-								});
+					function(item, index) {
+						ENME.params[domAttr.get(item, "name")] = domAttr.get(item, "value");
+					});
 				isInitialised = true;
 			},
 			
