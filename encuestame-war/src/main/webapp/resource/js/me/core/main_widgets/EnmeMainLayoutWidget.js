@@ -1,16 +1,16 @@
 define([ "dojo/parser",
          "dojo/_base/declare", 
-		 "me/core/main_widgets/URLServices" ], function(
+		 "me/core/URLServices" ], function(
 		parser,
 		declare,
 		_URL) {
 
 	console.log("ENMEMAINWIdsadsadsadsadsDGET _URL", _URL);
 	
-	return declare([_URL], {		
+	return declare(null, {		
 		postCreate: function() {
-			console.log("SEARdsadsaCHHHHHHH _URL", _URL);
-			console.log("SEARdsadsaCHHHHHHH _URL", _URL.postCreate());
+			//console.log("SEARdsadsaCHHHHHHH _URL", _URL);
+//			/console.log("SEARdsadsaCHHHHHHH _URL", _URL.postCreate());
 //            this.domNode.innerHTML = template;
 //            parser.parse(this.domNode);
         }

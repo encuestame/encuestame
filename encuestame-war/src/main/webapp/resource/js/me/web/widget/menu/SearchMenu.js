@@ -5,7 +5,7 @@ define([ "dojo/parser",
          "dijit/_TemplatedMixin", 
 		 "dijit/_WidgetsInTemplateMixin",
 		 "me/web/widget/suggestion/Suggest",
-		 "me/core/main_widgets/URLServices",
+		 "me/core/URLServices",
 		 "me/core/enme",
 		 "me/core/main_widgets/EnmeMainLayoutWidget",
 		 "dojo/on", 
@@ -39,8 +39,7 @@ define([ "dojo/parser",
 	                                        "dijit/_TemplatedMixin",
 	                               		 "dijit/form/TextBox", 
 	                               		 "dijit/_WidgetsInTemplateMixin",
-	                               		 //"me/web/widget/suggestion/Suggest",
-	                               		 "me/core/main_widgets/URLServices",
+	                               		"me/core/URLServices",
 	                               		 "me/core/main_widgets/EnmeMainLayoutWidget",
 	                               		 "dojo/text!me/web/widget/menu/template/searchSuggestItemSection.html" ], function(
 	                               		parser,
@@ -50,14 +49,13 @@ define([ "dojo/parser",
 	                               		_TemplatedMixin, 
 	                               		text,  
 	                               		_WidgetsInTemplateMixin,
-	                               		//suggest,
 	                               		_URL,
 	                               		main_widget,
 	                               		template) {
 
 	                               	//console.log("SEARCHHHHHHH MENU", parser);
 	                               	
-	                               	return declare([ _WidgetBase, _TemplatedMixin, main_widget, _URL], {		
+	                               	return declare([ _WidgetBase, _TemplatedMixin, main_widget], {		
 	                               		
 	                               	/*
 	                               	 * template string. 
@@ -132,7 +130,6 @@ define([ "dojo/parser",
 	            		_TemplatedMixin, 
 	            		text,  
 	            		_WidgetsInTemplateMixin,
-	            		//_URL,
 	            		main_widget,
 	            		template) {
 
@@ -233,7 +230,7 @@ define([ "dojo/parser",
 	            });
 	
 	
-	var SearchMenu = declare([main_widget, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _URL], {		
+	var SearchMenu = declare([main_widget, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {		
 		
 		/*
 		 * template string. 
