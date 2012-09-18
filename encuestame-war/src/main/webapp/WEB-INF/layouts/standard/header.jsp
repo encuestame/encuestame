@@ -15,8 +15,8 @@
             </c:if>
             <c:if test="${logged}">
                 <span class="link">
-                    <%-- <div data-dojo-type="me/web/widget/menu/DashBoardMenu"
-                         contextPath="<%=request.getContextPath()%>"></div> </span> --%>
+                    <div data-dojo-type="me/web/widget/menu/DashBoardMenu"
+                         contextPath="<%=request.getContextPath()%>"></div> </span> -
             </c:if>
             <span class="link web-search-wrapper">
                 <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
