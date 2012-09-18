@@ -9,6 +9,7 @@ define([ "dojo",
 			//
 			var _appendContext = function(service) {
 				var url = context_path;
+				url = url.concat("/");
 				url = url.concat(service);
 				return url;
 			};
