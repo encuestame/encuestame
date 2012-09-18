@@ -7,7 +7,14 @@ define([ "dojo/_base/declare",
 		registry,
 		_ENME) {
 	
-	return declare(null, {		
+	return declare(null, {	
+		
+		/*
+		 * 
+		 */
+		getURLService : function() {
+			return _URL;
+		},
 		
 	    /**
 	     * Create a modal box.
