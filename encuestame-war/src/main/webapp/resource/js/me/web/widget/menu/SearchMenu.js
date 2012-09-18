@@ -12,6 +12,7 @@ define([ "dojo/parser",
 		 "dojo/dom", 
 		 "dojo/dom-style", 
 		 "dojo/mouse",
+		 "dojo/dom-class",
 		 "me/web/widget/menu/SearchSuggestItemsByType",
 		 "dojo/text!me/web/widget/menu/template/searchMenu.html",
 		 "dijit/form/TextBox"], function(
@@ -29,93 +30,11 @@ define([ "dojo/parser",
 		dom, 
 		domStyle, 
 		mouse,
+		domClass,
 		searchSuggestItemsByType,
 		template) {
 
-	//console.log("SEARCHHHHHHH MENU", parser);
-	
-	var searchSuggestItemSection = define([ "dojo/parser",
-	                                        "dijit/registry",
-	                                        "dojo/_base/declare", 
-	                                        "dijit/_WidgetBase", 
-	                                        "dijit/_TemplatedMixin",
-	                               		 "dijit/form/TextBox", 
-	                               		 "dijit/_WidgetsInTemplateMixin",
-	                               		"me/core/URLServices",
-	                               		 "me/core/main_widgets/EnmeMainLayoutWidget",
-	                               		 "dojo/text!me/web/widget/menu/template/searchSuggestItemSection.html" ], function(
-	                               		parser,
-	                               		registry,
-	                               		declare,
-	                               		_WidgetBase,
-	                               		_TemplatedMixin, 
-	                               		text,  
-	                               		_WidgetsInTemplateMixin,
-	                               		_URL,
-	                               		main_widget,
-	                               		template) {
 
-	                               	//console.log("SEARCHHHHHHH MENU", parser);
-	                               	
-	                               	return declare([ _WidgetBase, _TemplatedMixin, main_widget], {		
-	                               		
-	                               	/*
-	                               	 * template string. 
-	                               	 */
-	                               	templateString: template,
-
-	                               //  //
-	                               //  items : [],       
-	                               //  
-	                               //  /*
-	                               //   * 
-	                               //   */
-	                               //  parentWidget : null,
-	                               //
-	                               //  /*
-	                               //   * 
-	                               //   */
-	                               //  label : "",
-	                               //
-	                               //  /**
-	                               //   * Post Create.
-	                               //   */
-	                               //  postCreate : function() {
-//	                                     dojo.forEach(this.items,
-//	                                             dojo.hitch(this,function(item) {
-//	                                          this._itemSuggest.appendChild(this._createItem(item, this.label));
-//	                                     }));
-	                               //  },
-	                               //
-	                               //  /**
-	                               //   * Create a search item.
-	                               //   * @param item
-	                               //   * @param type
-	                               //   */
-	                               //  _createItem : function(item, type) {
-//	                                     var div = dojo.create("div");
-//	                                     dojo.addClass(div, "web-search-item");
-//	                                     dojo.attr(div, "data-value", item.itemSearchTitle);
-//	                                     dojo.attr(div, "data-type", type);
-//	                                     var h4 = dojo.create("h4", null, div);
-//	                                     h4.innerHTML = item.itemSearchTitle;
-//	                                     if (item.urlLocation != "" && item.urlLocation != null) { //on click point to this url.
-//	                                        dojo.attr(div, "data-url", item.urlLocation);
-//	                                        dojo.connect(div, "onclick", dojo.hitch(this, function(event) {
-//	                                            //console.debug("click item", encuestame.contextDefault+item.urlLocation	);
-//	                                            document.location.href = encuestame.contextDefault+item.urlLocation;
-//	                                        }));
-//	                                     } else { // point to search url
-	                               //
-//	                                     }
-//	                                     this.parentWidget.listItems.push(div);
-//	                                     return div;
-	                               //  }	
-
-	                               	});
-	                               });
-			
-	
 	var SearchMenu = declare([main_widget, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {		
 		
 		/*
@@ -123,15 +42,6 @@ define([ "dojo/parser",
 		 */
 		templateString: template,
 
-//			postCreate: function() {
-//				
-//				console.log("SEARCHHHHHHH postCreate", x);
-//				console.log("SEARCHHHHHHH postCreate", main_widget);
-//				console.log("SEARCHHHHHHH postCreate", suggest);
-//	            this.domNode.innerHTML = template;
-//	            parser.parse(this.domNode);
-//	        }
-			
 	     /*
 	      * default label.
 	      */
@@ -181,14 +91,10 @@ define([ "dojo/parser",
 	      * post create process.
 	      */
 	     postCreate: function() {
-	    	 console.log("ENMEEE222EEEEE", _ENME.params);
 	        this.textBoxWidget = registry.byId(this._suggest);
 	        if (this.textBoxWidget) {
 	            this._searchSuggestSupport();
 	        }
-//	        this.domNode.innerHTML = template;
-	   //     parser.parse(this.domNode);   
-
 	     },
 
 	     /*
@@ -229,7 +135,7 @@ define([ "dojo/parser",
 	      */
 	     _moveSelected : function(position) {
 	          dojo.query(".web-search-item").forEach(function(node, index, arr){
-	               dojo.removeClass(node, "selected");
+	               domClass.remove(node, "selected");
 	          });
 	         if (this._indexItem == -1) {
 	             if (position == "up") {
@@ -262,7 +168,7 @@ define([ "dojo/parser",
 	         this._selectedNode = node;
 	         if (node) {
 	             this.textBoxWidget.attr("value", dojo.attr(node, "data-value"));
-	             dojo.addClass(node, "selected");
+	             domClass.add(node, "selected");
 	         }
 	     },
 
@@ -272,7 +178,7 @@ define([ "dojo/parser",
 	      */
 	     processEnterAction : function(selectedItem) {
 	         //if item is null, search whith value in the input, if not use the data-value attribute.
-	         var searchUrl = encuestame.contextDefault;
+	         var searchUrl =  _ENME.config('contextPath');
 	         if (selectedItem == null || dojo.attr(selectedItem, "data-url") == undefined) {
 	             searchUrl = searchUrl.concat("/search?q=");
 	             searchUrl = searchUrl.concat(this.textBoxWidget.get("value"));
@@ -286,7 +192,6 @@ define([ "dojo/parser",
 	      * Search suggest support.
 	      */
 	     _searchSuggestSupport : function() {
-
 	         /**
 	           * initialize the key up event.
 	           */
@@ -307,7 +212,7 @@ define([ "dojo/parser",
 	              // THE REST OF KEYBOARD
 	              } else {
 	                  this._setParams(
-	                          { limit: ENME.config('suggest_limit'),
+	                          { limit: _ENME.config('suggest_limit'),
 	                            keyword : text,
 	                            limitByItem : this.limitByItem,
 	                            excludes : this.exclude});
@@ -492,7 +397,7 @@ define([ "dojo/parser",
 //         */
 //        _moveSelected : function(position) {
 //             dojo.query(".web-search-item").forEach(function(node, index, arr){
-//                  dojo.removeClass(node, "selected");
+//                  domClass.remove(node, "selected");
 //             });
 //            if (this._indexItem == -1) {
 //                if (position == "up") {
@@ -525,7 +430,7 @@ define([ "dojo/parser",
 //            this._selectedNode = node;
 //            if (node) {
 //                this.textBoxWidget.attr("value", dojo.attr(node, "data-value"));
-//                dojo.addClass(node, "selected");
+//                domClass.add(node, "selected");
 //            }
 //        },
 //

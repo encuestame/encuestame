@@ -6,6 +6,8 @@ define([ "dojo/parser",
 		 "dijit/_WidgetsInTemplateMixin",
 		 "me/core/main_widgets/EnmeMainLayoutWidget",
 		 "me/web/widget/menu/SearchSuggestItemSection",
+		 "dojo/dom-class",
+		 "dojo/dom-construct",
 		 "dojo/text!me/web/widget/menu/template/searchSuggestItem.html" ], function(
 		parser,
 		registry,
@@ -15,6 +17,8 @@ define([ "dojo/parser",
 		_WidgetsInTemplateMixin,
 		main_widget,
 		searchSuggestItemSection,
+		domClass,
+		domConstruct,
 		template) {
 	
 	return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {		
@@ -38,8 +42,8 @@ define([ "dojo/parser",
 	  * Post Create Life Cycle.
 	  */
 	 postCreate : function() {
-	     console.info("SearchSuggestItem", this.data);
-	     console.info("SearchSuggestItem",this.checkIfDataIsEmtpy());
+	     //console.info("SearchSuggestItem", this.data);
+	     //console.info("SearchSuggestItem",this.checkIfDataIsEmtpy());
 	     if (this.data && !this.checkIfDataIsEmtpy()) {
 	         dojo.empty(this._container);
 	         if ("tags" in this.data) {
@@ -58,11 +62,11 @@ define([ "dojo/parser",
 	             this._printItems("Documents", this.data.attachments);
 	         };
 	     } else {
-	         var div = dojo.create("div");
-	         dojo.addClass(div, "web-suggest-noresults");
-	         dojo.addClass(div, "wrap");
+	         var div = domConstruct.create("div");
+	         domClass.add(div, "web-suggest-noresults");
+	         domClass.add(div, "wrap");
 	         div.innerHTML = this.parentWidget.defaultNoResults + " ";
-	         var span = dojo.create("span", null, div);
+	         var span = domConstruct.create("span", null, div);
 	         span.innerHTML = this.parentWidget.textBoxWidget.get("value");
 	         this._container.appendChild(div);
 	     }
@@ -163,8 +167,8 @@ define([ "dojo/parser",
 //                };
 //            } else {
 //                var div = dojo.create("div");
-//                dojo.addClass(div, "web-suggest-noresults");
-//                dojo.addClass(div, "wrap");
+//                domClass.add(div, "web-suggest-noresults");
+//                domClass.add(div, "wrap");
 //                div.innerHTML = this.parentWidget.defaultNoResults + " ";
 //                var span = dojo.create("span", null, div);
 //                span.innerHTML = this.parentWidget.textBoxWidget.get("value");
@@ -254,7 +258,7 @@ define([ "dojo/parser",
 //         */
 //        _createItem : function(item, type) {
 //            var div = dojo.create("div");
-//            dojo.addClass(div, "web-search-item");
+//            domClass.add(div, "web-search-item");
 //            dojo.attr(div, "data-value", item.itemSearchTitle);
 //            dojo.attr(div, "data-type", type);
 //            var h4 = dojo.create("h4", null, div);
