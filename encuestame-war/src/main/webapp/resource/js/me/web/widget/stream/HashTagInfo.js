@@ -1,16 +1,24 @@
-dojo.provide("encuestame.org.core.commons.stream.HashTagInfo");
-;
-dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-dojo.require('encuestame.org.core.commons');
+define([ 
+         "dojo/_base/declare",
+		 "dijit/_WidgetBase", 
+		 "dijit/_TemplatedMixin",
+		 "dijit/_WidgetsInTemplateMixin",
+		 "me/core/main_widgets/EnmeMainLayoutWidget",
+		 "me/core/enme",
+		 "dojo/text!me/web/widget/stream/templates/hashTagInfo.html" ],
+		function(
+		declare,
+		_WidgetBase, 
+		_TemplatedMixin,
+		_WidgetsInTemplateMixin,
+		main_widget, 
+		_ENME, 
+		 template) {
 
-dojo.declare(
-    "encuestame.org.core.commons.stream.HashTagInfo",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
+	return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-        /*
-         * template.
-         */
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.stream", "templates/hashTagInfo.html"),
+		// template string.
+		templateString : template,
 
         /*
          * the hashtag name.
@@ -40,7 +48,7 @@ dojo.declare(
         postMixInProperties : function(){
             if (this.autoCreateUrl) {
                 //<%=request.getContextPath()%>/tag/${h.hashTagName}/
-                this.url = this.url.concat(ENME.config('domain'));
+                this.url = this.url.concat(_ENME.config('domain'));
                 this.url = this.url.concat("/tag/");
                 this.url = this.url.concat(this.hashTagName);
             }
@@ -55,5 +63,7 @@ dojo.declare(
                dojo.style(this._hashtag, "font-size", this.size+"px");
                //console.debug(this._hashtag);
             }
-        }
+        }				
+	
+	});
 });

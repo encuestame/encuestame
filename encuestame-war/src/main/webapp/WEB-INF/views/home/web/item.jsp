@@ -39,7 +39,7 @@
             <!-- List of Hashtags -->
             <div class="tags">
                 <c:forEach items="${item.hashTags}" var="h">
-                    <span dojoTypeE="encuestame.org.core.commons.stream.HashTagInfo"
+                    <span data-dojo-type="me/web/widget/stream/HashTagInfo"
                         url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
                         hashTagName="${h.hashTagName}"></span>
                 </c:forEach>
