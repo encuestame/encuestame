@@ -5,7 +5,7 @@
     		TODO: votes == relevance???
     		
     	  -->
-        <div dojoTypeE="encuestame.org.core.home.votes.ItemVote"  
+        <div data-dojo-type="me/web/widget/home/votes/ItemVote"  
         	 voteMessage="<spring:message code="home.item.votes" />"
         	 viewMessage="<spring:message code="home.item.views" />"
         	 votes="${item.totalVotes}" 
@@ -22,7 +22,7 @@
         <div class="bottom">
             <div class="options">
                 <div class="image">
-                    <a dojoTypeE="encuestame.org.core.shared.utils.AccountPicture"
+                    <a data-dojo-type="me/web/widget/pictures/AccountPicture"
                         username=${item.ownerUsername}></a>
                 </div>
                 <div class="submited">

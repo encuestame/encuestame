@@ -1,37 +1,43 @@
-dojo.provide("encuestame.org.core.shared.utils.AccountPicture");
+define([ 
+         "dojo/_base/declare",
+		 "dijit/_WidgetBase", 
+		 "dijit/_TemplatedMixin",
+		 "me/core/main_widgets/EnmeMainLayoutWidget",
+		 "me/core/enme",
+		 "dojo/text!me/web/widget/pictures/templates/accountPicture.html" ],
+		function(
+				declare,
+				_WidgetBase, 
+				_TemplatedMixin,
+				main_widget, 
+				_ENME, 
+				 template) {
 
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.form.Button");
-dojo.require("dijit.form.TextBox");
-dojo.require("dojox.data.QueryReadStore");
-dojo.require('encuestame.org.core.commons');
+			return declare([ _WidgetBase, _TemplatedMixin, main_widget], {
 
-dojo.declare(
-    "encuestame.org.core.shared.utils.AccountPicture",
-    [dijit._Widget, dijit._Templated],{
+				// template string.
+				templateString : template,
 
-      templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/accountPicture.html"),
+				// picture width
+		        picture_width :"32",
+		
+		        // picture height
+		        picture_height : "32",
+		
+		        // image size
+		        type : "thumbnail",
+		
+		        // target
+		        target : "_self",
 
-        /** Allow other widgets in the template. **/
-        widgetsInTemplate: true,
-
-        picture_width :"32",
-
-        picture_height : "32",
-
-        type : "thumbnail",
-
-        target : "_self",
-
-        contextPath : encuestame.contextDefault,
-
-        username : "",
-
-        /*
-         *
-         */
-        postMixInProperties: function(){
-            this.contextPath = encuestame.contextDefault;
-        }
-});
+		        // default username
+		        username : "",
+		
+		        /*
+		         *
+		         */
+		        postMixInProperties: function(){
+		            this.contextPath = _ENME.config("contextPath");
+		        }
+			});
+		});
