@@ -3,7 +3,7 @@
    <div class="sectionTitle ">
       <spring:message code="home.aside.popular.tags" />
    </div>
-   <div dojoTypeE="encuestame.org.core.commons.hashtags.Cloud" class="web-aside-section"></div>
+   <div data-dojo-type="me/web/widget/hashtags/Cloud" class="web-aside-section"></div>
    <div class="link">
      <a href="<%=request.getContextPath()%>/cloud">
          <spring:message code="home.aside.view.all" />
