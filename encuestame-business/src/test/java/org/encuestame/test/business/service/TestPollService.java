@@ -320,7 +320,7 @@ public class TestPollService extends AbstractSpringSecurityContext{
 	 * Test Remove HashTags from Poll.
 	 * @throws EnMeExpcetion
 	 */
-	@Test
+	//@Test
 	public void testRemoveHashTagsFromPoll() throws EnMeExpcetion {
 		final QuestionBean question = ConvertDomainBean
 				.convertQuestionsToBean(this.question);

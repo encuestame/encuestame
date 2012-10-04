@@ -14,7 +14,7 @@
    <div class="sectionTitle ">
            <spring:message code="home.aside.rated.comments" />
    </div>
-   <div dojoTypeE="encuestame.org.core.commons.rated.Comments" comments="5" class="web-aside-section"></div>
+   <div data-dojo-type="me/web/widget/rated/Comments" comments="5" class="web-aside-section"></div>
 </section>
 <section class="section emne-box">
    <div class="sectionTitle ">

@@ -1,35 +1,47 @@
-dojo.provide("encuestame.org.core.commons.rated.LikeRate");
+define([
+         "dojo/_base/declare",
+     "dijit/_WidgetBase",
+     "dijit/_TemplatedMixin",
+     "dijit/_WidgetsInTemplateMixin",
+     "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/web/widget/comments/Comment",
+     "me/core/enme",
+     "dojo/text!me/web/widget/rated/templates/likeRate.html" ],
+    function(
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    _WidgetsInTemplateMixin,
+    main_widget,
+    comment,
+    _ENME,
+     template) {
 
-dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-dojo.declare(
-        "encuestame.org.core.commons.rated.LikeRate",
-        [encuestame.org.main.EnmeMainLayoutWidget], {
+     // template string.
+    templateString : template,
 
-          /*
-         * template.
-         */
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/likeRate.html"),
-        
-        value : 0,
+    value : 0,
 
-        negative : false,
+    negative : false,
 
-        positive : false,
-        
-        postMixInProperties: function() {
+    positive : false,
 
-        },
+    postMixInProperties : function() {
 
+    },
 
-        postCreate : function() {
-        	this._value.innerHTML = this.value;
-            if (this.positive && this.negative) {
-                //nothing to do.
-            } else if (this.positive) {
-                dojo.addClass(this._likeRate, "positive");
-            } else if (this.negative) {
-                dojo.addClass(this._likeRate, "negative");
-            }
-        }
+    postCreate : function() {
+      this._value.innerHTML = this.value;
+      if (this.positive && this.negative) {
+        // nothing to do.
+      } else if (this.positive) {
+        dojo.addClass(this._likeRate, "positive");
+      } else if (this.negative) {
+        dojo.addClass(this._likeRate, "negative");
+      }
+    }
+
+  });
 });

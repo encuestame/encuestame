@@ -1,68 +1,135 @@
-dojo.provide("encuestame.org.core.commons.rated.RatedOperations");
+define([
+         "dojo/_base/declare",
+     "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/core/enme"],
+    function(
+    declare,
+    _ENME,
+     template) {
 
-dojo.require('encuestame.org.core.commons');
-dojo.require('encuestame.org.core.shared.utils.AccountPicture');
-dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+  return declare([null], {
 
-dojo.declare("encuestame.org.core.commons.rated.RatedOperations",
-            [encuestame.org.main.EnmeMainLayoutWidget],{
+  /*
+   *
+   */
+   service : null,
 
-        /*
-         *
-         */
-        service : null,
+   /*
+    *
+    */
+   _items : [],
 
-        /*
-         *
-         */
-        _items : [],
+   /*
+    *
+    */
+   _key : null,
 
-        /*
-         *
-         */
-        _key : null,
+   /*
+    * print items.
+    */
+   _print : function(items) {
+      if ( typeof(items) == 'object' ) {
+          dojo.forEach(items, dojo.hitch(this,function(item) {
+            this._item_store.appendChild(this._createItem(item));
+          }));
+      }
+   },
 
-        /*
-        * executed after render template.
-        */
-        postCreate : function() {
-            if (this.service != null) {
-                this._loadItems();
-            }
-        },
+   /*
+    * method should override.
+    */
+   _createItem : function(item) {},
 
-        /*
-         * print items.
-         */
-        _print : function(items) {
-           if ( typeof(items) == 'object' ) {
-               dojo.forEach(items, dojo.hitch(this,function(item) {
-                 this._item_store.appendChild(this._createItem(item));
-               }));
-           }
-        },
+   /*
+    *
+    */
+   getParams : function(){},
 
-        /*
-         * method should override.
-         */
-        _createItem : function(item) {},
+   /*
+    *
+    */
+   _loadItems : function(){
+         var load = dojo.hitch(this, function(data) {
+             if (this._key != null) {
+                 this._items = data.success[this._key];
+                 dojo.empty(this._item_store);
+                 this._print(this._items);
+             }
+         });
+         var error = function(error) {
+             this.errorMesage(error);
+         };
+         encuestame.service.xhrGet(this.getURLService().service(this.service), this.getParams(), load, error);
+     }
 
-        getParams : function(){},
-
-        /*
-         *
-         */
-        _loadItems : function(){
-              var load = dojo.hitch(this, function(data) {
-                  if (this._key != null) {
-                      this._items = data.success[this._key];
-                      dojo.empty(this._item_store);
-                      this._print(this._items);
-                  }
-              });
-              var error = function(error) {
-                  this.errorMesage(error);
-              };
-              encuestame.service.xhrGet(this.service, this.getParams(), load, error);
-          }
+  });
 });
+
+//dojo.provide("encuestame.org.core.commons.rated.RatedOperations");
+//
+//dojo.require('encuestame.org.core.commons');
+//dojo.require('encuestame.org.core.shared.utils.AccountPicture');
+//dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+//
+//dojo.declare("encuestame.org.core.commons.rated.RatedOperations",
+//            [encuestame.org.main.EnmeMainLayoutWidget],{
+//
+//        /*
+//         *
+//         */
+//        service : null,
+//
+//        /*
+//         *
+//         */
+//        _items : [],
+//
+//        /*
+//         *
+//         */
+//        _key : null,
+//
+//        /*
+//        * executed after render template.
+//        */
+//        postCreate : function() {
+//            if (this.service != null) {
+//                this._loadItems();
+//            }
+//        },
+//
+//        /*
+//         * print items.
+//         */
+//        _print : function(items) {
+//           if ( typeof(items) == 'object' ) {
+//               dojo.forEach(items, dojo.hitch(this,function(item) {
+//                 this._item_store.appendChild(this._createItem(item));
+//               }));
+//           }
+//        },
+//
+//        /*
+//         * method should override.
+//         */
+//        _createItem : function(item) {},
+//
+//        getParams : function(){},
+//
+//        /*
+//         *
+//         */
+//        _loadItems : function(){
+//              var load = dojo.hitch(this, function(data) {
+//                  if (this._key != null) {
+//                      this._items = data.success[this._key];
+//                      dojo.empty(this._item_store);
+//                      this._print(this._items);
+//                  }
+//              });
+//              var error = function(error) {
+//                  this.errorMesage(error);
+//              };
+//              encuestame.service.xhrGet(this.service, this.getParams(), load, error);
+//          }
+//});

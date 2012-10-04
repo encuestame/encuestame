@@ -1,101 +1,60 @@
-dojo.provide("encuestame.org.core.commons.rated.Comments");
+define([
+     "dojo/_base/declare",
+     "dijit/_WidgetBase",
+     "dijit/_TemplatedMixin",
+     "dijit/_WidgetsInTemplateMixin",
+     "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/web/widget/rated/Comment",
+     "me/web/widget/rated/RatedOperations",
+     "me/core/enme",
+     "dojo/text!me/web/widget/rated/templates/rate.html" ],
+    function(
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    _WidgetsInTemplateMixin,
+    main_widget,
+    comment,
+    ratedOperations,
+    _ENME,
+     template) {
 
-dojo.require('encuestame.org.core.commons');
-dojo.require("encuestame.org.core.commons.rated.RatedOperations");
-dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-dojo.require("encuestame.org.core.shared.utils.ToggleText");
-dojo.require("encuestame.org.core.commons.rated.LikeRate");
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, ratedOperations, _WidgetsInTemplateMixin], {
 
-/**
- * A widget reference of comment.
- */
-dojo.declare(
-    "encuestame.org.core.commons.rated.Comments",
-    [encuestame.org.core.commons.rated.RatedOperations], {
+      // template string.
+      templateString : template,
 
-    templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/rate.html"),
+      /*
+       *
+       */
+      service : 'encuestame.service.list.rate.comments',
 
-    /*
-     *
-     */
-    service : encuestame.service.list.rate.comments,
+      /*
+       *
+       */
+      _key : ["topComments"],
 
-    /*
-     *
-     */
-    _key : ["topComments"],
-    
-    /*
-     * Limited comments.
-     */
-    comments : 5,
+      /*
+       * Limited comments.
+       */
+      comments : 5,
 
-    /*
-     *
-     */
-     _createItem : function(item) {
-         var widget = new encuestame.org.core.commons.rated.Comment({
-             data : item
-         });
-         return widget.domNode;
-     },
+      /*
+       *
+       */
+       _createItem : function(item) {
+           var widget = new comment({
+               data : item
+           });
+           return widget.domNode;
+       },
 
-     /*
-      * comment params.
-      */
-     getParams : function() {
-         return { commentOption : "", max : this.comments, start : 0 };
-     }
+       /*
+        * comment params.
+        */
+       getParams : function() {
+           return { commentOption : "", max : this.comments, start : 0 };
+       }
 
-});
-
-/**
- * Short comment widget.
- */
-dojo.declare(
-        "encuestame.org.core.commons.rated.Comment",
-        [encuestame.org.main.EnmeMainLayoutWidget], {
-
-        data : null,
-        
-        limit_comment : 100,
-
-        /**
-         * template.
-         */
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.rated", "templates/comment-item.html"),
-
-        /**
-         * executed before render template.
-         */
-        postMixInProperties: function() {
-            if (this.data != null ) {
-				this.data.likeVote = ENME.shortAmmount(this.data.likeVote);
-				this.data.dislike_vote = ENME.shortAmmount(this.data.dislike_vote);
-				//format : 2012-05-27 
-				this.data.created_at = ENME.fromNow(this.data.created_at, "YYYY-MM-DD");
-            }
-        },
-        
-        /**
-         * Post create life cycle.
-         */
-        postCreate : function () {
-        	this._positive.appendChild(this._createLinkRate(true, false, this.data.likeVote));
-        	this._negative.appendChild(this._createLinkRate(false, true, this.data.dislike_vote));
-        },
-        
-        /**
-         * Create a link rate widget.
-         * @param value
-         * @returns
-         */
-        _createLinkRate : function(positive, negative, value) {
-        	var widget = new encuestame.org.core.commons.rated.LikeRate({
-        		positive : positive,
-        		value : value,
-        		negative : negative
-        	});
-        	return widget.domNode;
-        },
+  });
 });
