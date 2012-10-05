@@ -1,13 +1,13 @@
 <div class="web-rated-comment-item">
     <div class="web-rated-comment-picture">
-        <a dojoType="encuestame.org.core.shared.utils.AccountPicture"
+        <a data-dojo-type="me/web/widget/pictures/AccountPicture"
            username="${data.commented_username}"
            picture_width="24"
            picture_height="24"></a>
     </div>
     <div class="web-rated-comment-item-detail">
-         <div dojoType="encuestame.org.core.shared.utils.ToggleText"
-        	  limit="${limit_comment}" text="${data.comment}"></div>
+         <div dojoEType="encuestame.org.core.shared.utils.ToggleText"
+            limit="${limit_comment}" text="${data.comment}"></div>
          <div class="by">
              <span class="strong">by</span>
              <a href="${contextDefaultPath}/profile/${data.commented_username}">${data.commented_username}</a>
@@ -15,11 +15,11 @@
     </div>
     <div class="web-rated-comment-item-sub">
         <section>
-            <span dojoAttachPoint="_positive" class="enme-unselectable">
+            <span data-dojo-attach-point="_positive" class="enme-unselectable">
 
-			</span>
-            <span dojoAttachPoint="_negative" class="enme-unselectable">
-                 
+      </span>
+            <span data-dojo-attach-point="_negative" class="enme-unselectable">
+
             </span>
             <span class="date">
                <a href="${contextDefaultPath}${data.url}"> <!-- This link should be point to comment url. -->

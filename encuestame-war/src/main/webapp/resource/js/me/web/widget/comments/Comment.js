@@ -1,78 +1,78 @@
-define([ 
+define([
          "dojo/_base/declare",
-		 "dijit/_WidgetBase", 
-		 "dijit/_TemplatedMixin",
-		 "dijit/_WidgetsInTemplateMixin",
-		 "me/core/main_widgets/EnmeMainLayoutWidget",
-		 "me/core/enme",
-		 "dojo/text!me/web/widget/comments/templates/comment.html" ],
-		function(
-		declare,
-		_WidgetBase, 
-		_TemplatedMixin,
-		_WidgetsInTemplateMixin,
-		main_widget, 
-		_ENME, 
-		 template) {
+     "dijit/_WidgetBase",
+     "dijit/_TemplatedMixin",
+     "dijit/_WidgetsInTemplateMixin",
+     "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/core/enme",
+     "dojo/text!me/web/widget/comments/templates/comment.html" ],
+    function(
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    _WidgetsInTemplateMixin,
+    main_widget,
+    _ENME,
+     template) {
 
-	return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-			// template string.
-		 templateString : template,
-	
-	 	 type : "",
-			
-	     item_id : null,
-	     
+      // template string.
+     templateString : template,
+
+      type : "",
+
+       item_id : null,
+
        data : null,
-	     
+
        /**
         *
         */
        postCreate : function() {
-     	  if (this.data) {
-     		  try {
-     			  this._fillComment();
-     		  } catch (err) {
-     			  console.error("error on fill comment", err);
-     		  } finally {
-     			 //something could be happend.
+         if (this.data) {
+           try {
+             this._fillComment();
+           } catch (err) {
+             console.error("error on fill comment", err);
+           } finally {
+            //something could be happend.
               }
-     	   }
+          }
        },
- 
+
            /*
         *
         */
        _fillComment : function() {
-     	  //set user link
-     	  if (this._commented_by) {
-     		  var a = dojo.create("a");
-     		  var commentedBy = (this.data.commented_by == null ? this.data.commented_username : this.data.commented_by);
-     		  a.innerHTML = commentedBy;
-     		  a.href = encuestame.utilities.usernameLink(this.data.commented_username);
-     		  //a.target = "_blank";
-     		  this._commented_by.appendChild(a);
-     	  }
-     	  //set content.
-     	  /*
-     	   * in the future the content could be formated by HTML.
-     	   */
-     	  if (this._comment_content) {
-     		  var p = dojo.create("p");
-     		  p.innerHTML = this.data.comment;
-     		  this._comment_content.appendChild(p);
-     	  }
-     	  //set date
-     	  if (this._comment_content_date) {
-     		  var date = dojo.create("a");
-     		  date.innerHTML = _ENME.fromNow(this.data.created_at, "YYYY-MM-DD");
-     		  date.href = "#"; //TODO: future inprovments
-     		  this._comment_content_date.appendChild(date);
-     	  }
+         //set user link
+         if (this._commented_by) {
+           var a = dojo.create("a");
+           var commentedBy = (this.data.commented_by == null ? this.data.commented_username : this.data.commented_by);
+           a.innerHTML = commentedBy;
+           a.href = encuestame.utilities.usernameLink(this.data.commented_username);
+           //a.target = "_blank";
+           this._commented_by.appendChild(a);
+         }
+         //set content.
+         /*
+          * in the future the content could be formated by HTML.
+          */
+         if (this._comment_content) {
+           var p = dojo.create("p");
+           p.innerHTML = this.data.comment;
+           this._comment_content.appendChild(p);
+         }
+         //set date
+         if (this._comment_content_date) {
+           var date = dojo.create("a");
+           date.innerHTML = _ENME.fromNow(this.data.created_at, "YYYY-MM-DD");
+           date.href = "#"; //TODO: future inprovments
+           this._comment_content_date.appendChild(date);
+         }
        }
 
-	});
+  });
 });
 //dojo.provide("encuestame.org.core.comments.Comment");
 //

@@ -1,10 +1,11 @@
 define([
-         "dojo/_base/declare",
+     "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/web/widget/rated/LikeRate",
+     "me/web/widget/pictures/AccountPicture",
      "me/core/enme",
      "dojo/text!me/web/widget/rated/templates/comment-item.html" ],
     function(
@@ -14,6 +15,7 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     rate,
+    accountPicture,
     _ENME,
      template) {
 
