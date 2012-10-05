@@ -5,6 +5,7 @@ define([
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/web/widget/rated/LikeRate",
+     "me/web/widget/utils/ToggleText",
      "me/web/widget/pictures/AccountPicture",
      "me/core/enme",
      "dojo/text!me/web/widget/rated/templates/comment-item.html" ],
@@ -15,6 +16,7 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     rate,
+    toggleText,
     accountPicture,
     _ENME,
      template) {
