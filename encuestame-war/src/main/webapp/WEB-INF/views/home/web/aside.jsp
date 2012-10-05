@@ -26,5 +26,5 @@
     <div class="sectionTitle ">
          <spring:message code="home.aside.rated.users" />
      </div>
-     <div dojoTypeE="encuestame.org.core.commons.rated.RatedProfile" class="web-aside-section"></div>
+     <div dojoTydddpeE="me/web/widget/rated/RatedProfile" class="web-aside-section"></div>
 </section>

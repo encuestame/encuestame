@@ -1,68 +1,68 @@
 define([ "dojo/parser",
-         "dojo/_base/declare", 
-		 "me/core/URLServices",
-		 "me/core/main_widgets/WidgetServices",
-		 "me/core/enme"], function(
-		parser,
-		declare,
-		_URL,
-		_WIDGET,
-		_ENME) {
-	
-	return declare([_WIDGET], {		
+         "dojo/_base/declare",
+     "me/core/URLServices",
+     "me/core/main_widgets/WidgetServices",
+     "me/core/enme"], function(
+    parser,
+    declare,
+    _URL,
+    _WIDGET,
+    _ENME) {
+
+  return declare([_WIDGET], {
 
         /*
-         * 
+         *
          */
-	   	defaultNoResults : "Nothing find with ",
-	   
-	   	/*
-	   	 * default context path.
-	   	 */
-	   	contextDefaultPath : _ENME.config('contextPath'),
-	   
-	   	/*
-	   	 * add item on drop down menu.
-	   	 */
-	   	append : function(node, place) {
-	   		dojo.place(node, place);
-	   	},
-	   		
-	   	/**
-	   	 * 
-	   	 */
-	   	range_actions : [ {
-	   		period : "All",
-	   		value  : "all",
-	   		action : dojo.hitch(this, function(channel) {
-	   			dojo.publish(channel, [ "all" ]);
-	   		})
-	   	}, {
-	   		period : "Last Year",
-	   		value  :  "365",
-	   		action : dojo.hitch(this, function(channel) {
-	   			dojo.publish(channel, [ "365" ]);
-	   		})
-	   	}, {
-	   		period : "Last Month",
-	   		value  : "30",
-	   		action : dojo.hitch(this, function(channel) {
-	   			dojo.publish(channel, [ "30" ]);
-	   		})
-	   	}, {
-	   		period : "Last Week",
-	   		value  : "7",
-	   		action : dojo.hitch(this, function(channel) {
-	   			dojo.publish(channel, [ "7" ]);
-	   		})
-	   	}, {
-	   		period : "Last Day",
-	   		value  : "24",
-	   		action : dojo.hitch(this, function(channel) {
-	   			dojo.publish(channel, [ "24" ]);
-	   		})
-	   	}]
-	});
+       defaultNoResults : "Nothing find with ",
+
+       /*
+        * default context path.
+        */
+       contextDefaultPath : _ENME.config('contextPath'),
+
+       /*
+        * add item on drop down menu.
+        */
+       append : function(node, place) {
+         dojo.place(node, place);
+       },
+
+       /**
+        *
+        */
+       range_actions : [ {
+         period : "All",
+         value  : "all",
+         action : dojo.hitch(this, function(channel) {
+           dojo.publish(channel, [ "all" ]);
+         })
+       }, {
+         period : "Last Year",
+         value  :  "365",
+         action : dojo.hitch(this, function(channel) {
+           dojo.publish(channel, [ "365" ]);
+         })
+       }, {
+         period : "Last Month",
+         value  : "30",
+         action : dojo.hitch(this, function(channel) {
+           dojo.publish(channel, [ "30" ]);
+         })
+       }, {
+         period : "Last Week",
+         value  : "7",
+         action : dojo.hitch(this, function(channel) {
+           dojo.publish(channel, [ "7" ]);
+         })
+       }, {
+         period : "Last Day",
+         value  : "24",
+         action : dojo.hitch(this, function(channel) {
+           dojo.publish(channel, [ "24" ]);
+         })
+       }]
+  });
 });
 
 //dojo.provide("encuestame.org.main.EnmeMainLayoutWidget");
@@ -84,14 +84,14 @@ define([ "dojo/parser",
 //	 * default placeholder.
 //	 */
 //	placeholder : "Type something...",
-//	
+//
 //	/*
-//	 * 
+//	 *
 //	 */
 //	channel : "encuestame/time/range/search/",
 //
 //	/*
-//	 * 
+//	 *
 //	 */
 //	defaultNoResults : "Nothing find with ",
 //
@@ -106,9 +106,9 @@ define([ "dojo/parser",
 //	append : function(node, place) {
 //		dojo.place(node, place);
 //	},
-//		
+//
 //	/**
-//	 * 
+//	 *
 //	 */
 //	range_actions : [ {
 //		period : "All",

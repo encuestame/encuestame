@@ -1,10 +1,9 @@
 define([
-         "dojo/_base/declare",
+     "dojo/_base/declare",
      "dijit/_WidgetBase",
      "dijit/_TemplatedMixin",
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
-     "me/web/widget/comments/Comment",
      "me/core/enme",
      "dojo/text!me/web/widget/rated/templates/likeRate.html" ],
     function(
@@ -13,7 +12,6 @@ define([
     _TemplatedMixin,
     _WidgetsInTemplateMixin,
     main_widget,
-    comment,
     _ENME,
      template) {
 
@@ -27,10 +25,6 @@ define([
     negative : false,
 
     positive : false,
-
-    postMixInProperties : function() {
-
-    },
 
     postCreate : function() {
       this._value.innerHTML = this.value;

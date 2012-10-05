@@ -19,7 +19,7 @@ define([
     _ENME,
      template) {
 
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget, ratedOperations, _WidgetsInTemplateMixin], {
+  return declare([ _WidgetBase, _TemplatedMixin, ratedOperations,  main_widget, _WidgetsInTemplateMixin], {
 
       // template string.
       templateString : template,
@@ -38,6 +38,15 @@ define([
        * Limited comments.
        */
       comments : 5,
+
+      /*
+       *
+       */
+      postCreate : function() {
+        if (this.service != null) {
+            this._loadItems();
+        }
+      },
 
       /*
        *
