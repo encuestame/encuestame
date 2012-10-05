@@ -7,7 +7,7 @@
         <section class="cloudItems">
             <c:forEach items="${hashtags}" var="cloud">
                   <c:if test="${not empty cloud.hashTagName}">
-                      <span class="item" style="font-size: ${cloud.size}px;" dojoTypeE="encuestame.org.core.commons.stream.HashTagInfo"
+                      <span class="item" style="font-size: ${cloud.size}px;" data-dojo-type="me/web/widget/stream/HashTagInfo"
                             url="<%=request.getContextPath()%>/tag/${cloud.hashTagName}/"
                             hashTagName="${cloud.hashTagName}">
                       </span>

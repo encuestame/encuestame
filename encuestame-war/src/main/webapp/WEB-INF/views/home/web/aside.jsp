@@ -26,5 +26,5 @@
     <div class="sectionTitle ">
          <spring:message code="home.aside.rated.users" />
      </div>
-     <div dojoTydddpeE="me/web/widget/rated/RatedProfile" class="web-aside-section"></div>
+     <div data-dojo-type="me/web/widget/rated/RatedProfile" class="web-aside-section"></div>
 </section>
