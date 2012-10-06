@@ -48,29 +48,22 @@ define(["dojo",
       },
       //@deprecated
       SUCCESS : "success",
-
       // - Date Range parameters - //
       // last year
       YEAR : '365',
       // last 24 hours
       DAY : '24',
       // last 7 days
-
-
       WEEK : '7',
       // last 30 days
-
       MONTH : '30',
       // all item
       ALL : 'all',
-
       // Hashtag rated filter
       HASHTAGRATED : "HASHTAGRATED",
-
       // default status
       STATUS : [ 'SUCCESS', 'FAILED', 'STAND_BY', 'RE_SCHEDULED',
           'RE_SEND' ],
-
           // messages
       MSG : {
         SUCCESS : 'success',
@@ -487,7 +480,7 @@ define(["dojo",
        * @returns {String}
        */
       shortPicture : function(provider) {
-           var url = encuestame.contextDefault + "/resources/images/social/" + provider.toLowerCase()
+           var url = this.config('contextPath') + "/resources/images/social/" + provider.toLowerCase()
                  +"/enme_icon_" + provider.toLowerCase() + ".png";
            return url;
       },

@@ -42,6 +42,11 @@
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}repeated-js.jsp" />
     </definition>
 
+    <definition name="completeTweetVote" extends="main-vote">
+        <put-attribute name="title" value="TweetPoll Completed" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}completed.jsp" />
+    </definition>
+
     <definition name="voteCaptcha" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Captcha Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}voteCaptcha.jsp" />

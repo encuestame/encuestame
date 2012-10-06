@@ -20,7 +20,7 @@
        </section> --%>
         <section class="web-tweetpoll-answer-wrapper web-wrapper-detail-wrapper">
             <div class="web-tweetpoll-answer-chart">
-                <div id="chart" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail"
+                <div id="chart" data-dojo-type="me/web/widget/tweetPoll/detail/TweetPollChartDetail"
                      tweetPollid="${tweetpoll.id}"
                      completed="${tweetpoll.completed}"
                      username="${tweetpoll.ownerUsername}"></div>
@@ -35,18 +35,18 @@
                      </div>
                      <div class="answer-percent">
                            <spring:message code="commons_detail_percent" />
-                     </div>                     
+                     </div>
                 </header>
                 <c:forEach items="${answers}" var="a">
                     <div class="answer"
-                        dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
+                         data-dojo-type="me/web/widget/tweetPoll/detail/TweetPollAnswer"
                          aId="${a.answers.questionAnswerId}"
                          color="${a.answers.color}"
                          label="${a.answers.answer}"
                          owner="${tweetpoll.ownerUsername}"
                          completed="${tweetpoll.completed}"
                          url="<%=request.getContextPath()%>${a.relativeUrl}">
-                     </div>                     
+                     </div>
                </c:forEach>
             </div>
        </section>
@@ -66,7 +66,7 @@
            </header>
            <div class="web-tweetpoll-hashtags ">
                <c:forEach items="${hashtags}" var="h">
-                       <span dojoType="encuestame.org.core.commons.stream.HashTagInfo"
+                       <span data-dojo-type="me/web/widget/stream/HashTagInfo"
                         url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
                         hashTagName="${h.hashTagName}"></span>
                </c:forEach>
@@ -79,17 +79,20 @@
           <spring:message code="options.links" />
        </header>
        <section>
-            <div dojoType="encuestame.org.core.commons.social.LinksPublished" more="false"
-                 itemId="${tweetpoll.id}" type="TWEETPOLL" class="web-social-links"
+            <div data-dojo-type="me/web/widget/social/LinksPublished"
+                 more="false"
+                 itemId="${tweetpoll.id}"
+                 type="TWEETPOLL"
+                 class="web-social-links"
                  ></div>
        </section>
    </article>
-   
+
    <section class="web-tweetpoll-comments emne-box">
       <header>
             <spring:message code="options.comments" />
       </header>
-      <div name="comments" dojoType="encuestame.org.core.comments.Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
+      <div name="comments" data-dojo-type="me/web/widget/comments/Comments" type="tweetpoll" item_id="${tweetpoll.id}"></div>
    </section>
-   
+
 </article>

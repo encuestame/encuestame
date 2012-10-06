@@ -89,6 +89,6 @@
       <header>
           <spring:message code="options.comments" />
       </header>
-      <div dojoTyspe="encuestame.org.core.comments.Comments" type="poll" item_id="${poll.id}"></div>
+      <div data-dojo-type="me/web/widget/comments/Comments" type="poll" item_id="${poll.id}"></div>
    </section>
 </article>

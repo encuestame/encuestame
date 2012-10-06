@@ -5,9 +5,8 @@ define([
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
       "me/web/widget/data/CacheLinkedList",
-    // "me/web/widget/social/LinksPublishedItem",
+     "me/web/widget/social/LinksPublishedItem",
      "me/core/enme",
-   //  "me/core/constants",
      "dojo/text!me/web/widget/social/templates/linksPublished.html" ],
     function(
     declare,
@@ -16,9 +15,8 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     cacheLinkedList,
-    //linksPublishedItem,
+    linksPublishedItem,
     _ENME,
-  //  _CONST,
      template) {
 
   return declare([

@@ -103,6 +103,7 @@ public class TweetPollController extends AbstractSocialController {
                     } else  if (tweetPoll.getTweetPoll().getCompleted()) {
                         log.debug("tweetpoll is archived");
                         model.put("message", "Tweetpoll is closed, no more votes.");
+                        pathVote = "completeTweetVote";
                     }else {
                         log.info("Validate Votting");
                             log.info("IP" + IP);
