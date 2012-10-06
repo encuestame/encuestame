@@ -1,54 +1,59 @@
-dojo
-		.provide("encuestame.org.core.commons.results.answers.GenericPercentResult");
+define([
+     "dojo/_base/declare",
+     "dijit/_WidgetBase",
+     "dijit/_TemplatedMixin",
+     "dijit/_WidgetsInTemplateMixin",
+     "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/web/widget/results/answers/ResultSupport",
+     "me/core/enme",
+     "dojo/text!me/web/widget/results/answers/templates/generic_result.html" ],
+    function(
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    _WidgetsInTemplateMixin,
+    main_widget,
+    resultSupport,
+    _ENME,
+     template) {
 
-dojo.require('encuestame.org.core.commons');
-dojo.require("encuestame.org.core.commons.results.answers.ResultSupport");
-dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, resultSupport, _WidgetsInTemplateMixin], {
 
-/**
- * Search menu widget. This widget only return suggest float window with list of
- * results based on keyword.
- */
-dojo.declare(
-		"encuestame.org.core.commons.results.answers.GenericPercentResult", [
-				encuestame.org.main.EnmeMainLayoutWidget,
-				encuestame.org.core.commons.results.answers.ResultSupport ], {
+   /**
+    * template string.
+    */
+   templateString : template,
 
-			/**
-			 * Represent the unique item id of the result.
-			 */
-			itemId : null,
+    /**
+    * Represent the unique item id of the result.
+    */
+   itemId : null,
 
-			/**
-			 * Represent the label of the result / answer.
-			 */
-			labelResponse : "",
+   /**
+    * Represent the label of the result / answer.
+    */
+   labelResponse : "",
 
-			/**
-			 * Represent the color of the result.
-			 */
-			color : "",
+   /**
+    * Represent the color of the result.
+    */
+   color : "",
 
-			/**
-			 * The current total of votes.
-			 */
-			votes : "",
+   /**
+    * The current total of votes.
+    */
+   votes : "",
 
-			/**
-			 * The question id.
-			 */
-			questionId : null,
-			
-			/**
-			 * The percent result.
-			 */
-			percent : "0%",
+   /**
+    * The question id.
+    */
+   questionId : null,
 
-			/*
-			 * template.
-			 */
-			templatePath : dojo.moduleUrl(
-					"encuestame.org.core.commons.results.answers",
-					"templates/generic_result.html"),
+   /**
+    * The percent result.
+    */
+   percent : "0%",
 
-		});
+
+  });
+});
