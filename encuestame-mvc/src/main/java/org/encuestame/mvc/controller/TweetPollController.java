@@ -13,6 +13,7 @@
 
 package org.encuestame.mvc.controller;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -74,58 +75,65 @@ public class TweetPollController extends AbstractSocialController {
         final HttpServletRequest req) {
         log.debug("tweetId: "+tweetId);
         String pathVote = "badTweetVote";
-        final String IP = getIpClient(req);
+        String IP;
+        try {
+            IP = getIpClient(req);
         // Check IP in BlackListFile
-        final Boolean checkBannedIp = checkIPinBlackList(IP);
-        log.debug("Check Banned IP----> " + checkBannedIp);
+            final Boolean checkBannedIp = checkIPinBlackList(IP);
+            log.debug("Check Banned IP----> " + checkBannedIp);
 
-        if (checkBannedIp) {
-            pathVote ="banned";
-            log.debug("ip banned");
-        } else {
-            if (tweetId.isEmpty()) {
-                log.debug("tweet is empty");
-                model.put("message", "Tweet Not Valid..");
+            if (checkBannedIp) {
+                pathVote ="banned";
+                log.debug("ip banned");
             } else {
-                tweetId = filterValue(tweetId);
-                model.put("tweetId", tweetId);
-                log.info("search code->"+tweetId);
-                final TweetPollSwitch tweetPoll = getTweetPollService()
-                        .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
-                model.addAttribute("switch", tweetPoll);
-                //NOTE: tweetpoll should be published to able to vote !!
-                if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
-                    log.debug("tweetpoll answer not found");
-                    model.put("message", "Tweet Not Valid.");
-                } else  if (tweetPoll.getTweetPoll().getCompleted()) {
-                    log.debug("tweetpoll is archived");
-                    model.put("message", "Tweetpoll is closed, no more votes.");
-                }else {
-                    log.info("Validate Votting");
-                        log.info("IP" + IP);
-                        if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
-                            if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                                getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
-                                model.put("message", "Tweet Poll Voted.");
-                                pathVote = "tweetVoted";
-                                log.debug("VOTED");
-                            } else {
-                                this.createCaptcha(model, tweetId);
-                                log.debug("VOTE WITH CAPTCHA");
-                                pathVote = "voteCaptcha";
+                if (tweetId.isEmpty()) {
+                    log.debug("tweet is empty");
+                    model.put("message", "Tweet Not Valid..");
+                } else {
+                    tweetId = filterValue(tweetId);
+                    model.put("tweetId", tweetId);
+                    log.info("search code->"+tweetId);
+                    final TweetPollSwitch tweetPoll = getTweetPollService()
+                            .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
+                    model.addAttribute("switch", tweetPoll);
+                    //NOTE: tweetpoll should be published to able to vote !!
+                    if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
+                        log.debug("tweetpoll answer not found");
+                        model.put("message", "Tweet Not Valid.");
+                    } else  if (tweetPoll.getTweetPoll().getCompleted()) {
+                        log.debug("tweetpoll is archived");
+                        model.put("message", "Tweetpoll is closed, no more votes.");
+                    }else {
+                        log.info("Validate Votting");
+                            log.info("IP" + IP);
+                            if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
+                                if (!tweetPoll.getTweetPoll().getCaptcha()) {
+                                    getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
+                                    model.put("message", "Tweet Poll Voted.");
+                                    pathVote = "tweetVoted";
+                                    log.debug("VOTED");
+                                } else {
+                                    this.createCaptcha(model, tweetId);
+                                    log.debug("VOTE WITH CAPTCHA");
+                                    pathVote = "voteCaptcha";
+                                }
                             }
-                        }
-                        else{
-                            log.debug("Tweet Vote Repeteaded.");
-                            model.put("message", "Tweet Vote Repeteaded.");
-                            pathVote = "repeatedTweetVote";
-                        }
-                        model.get("message");
-                     }
+                            else{
+                                log.debug("Tweet Vote Repeteaded.");
+                                model.put("message", "Tweet Vote Repeteaded.");
+                                pathVote = "repeatedTweetVote";
+                            }
+                            model.get("message");
+                         }
+                }
             }
+            log.info("redirect template WHERE "+pathVote);
+            return pathVote;
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return pathVote;
         }
-        log.info("redirect template WHERE "+pathVote);
-        return pathVote;
     }
 
     /**
@@ -200,15 +208,20 @@ public class TweetPollController extends AbstractSocialController {
                  //Validate Code.
                  if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                      log.debug("tweetpoll answer not found");
-
                      return "badTweetVote";
                      //model.addAttribute("message", "Tweet Not Valid.");
                  } else {
                      //save the vote.
-                     final String IP = getIpClient(req);
-                     log.info("IP" + IP);
-                     getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
-                     return "tweetVoted";
+                     String IP;
+                    try {
+                        IP = getIpClient(req);
+                         log.info("IP" + IP);
+                         getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
+                         return "tweetVoted";
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                        return "badTweetVote";
+                    }
                  }
             }
     }
@@ -221,27 +234,27 @@ public class TweetPollController extends AbstractSocialController {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/tweetpoll/list", method = RequestMethod.GET)
     public String tweetPollController(final ModelMap model) {
-    	addItemsManangeMessages(model);
-    	addi18nProperty(model, "tweetpoo_detail_tab_detail", getMessage("tweetpoo_detail_tab_detail"));
-    	addi18nProperty(model, "tweetpoo_detail_tab_stats", getMessage("tweetpoo_detail_tab_stats"));
-    	addi18nProperty(model, "tweetpoo_detail_tab_comments", getMessage("tweetpoo_detail_tab_comments"));
-    	addi18nProperty(model, "tweetpoo_detail_tab_social", getMessage("tweetpoo_detail_tab_social"));
-    	addi18nProperty(model, "tweetpoo_detail_tab_delete", getMessage("tweetpoo_detail_tab_delete"));
-    	addi18nProperty(model, "tweetpoo_detail_answers_title_link", getMessage("tweetpoo_detail_answers_title_link"));
-    	addi18nProperty(model, "tweetpoo_detail_answers_title_count", getMessage("tweetpoo_detail_answers_title_count"));
-    	addi18nProperty(model, "tweetpoo_detail_answers_title_percent", getMessage("tweetpoo_detail_answers_title_percent"));    	
-    	addi18nProperty(model, "commons_created_date", getMessage("commons_created_date"));
-    	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
-    	addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
-    	addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
-    	addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
-    	addi18nProperty(model, "tp_options_notifications", getMessage("tp_options_notifications"));
-    	addi18nProperty(model, "related_terms", getMessage("related_terms"));
-    	addi18nProperty(model, "commons_success", getMessage("commons_success"));
-    	addi18nProperty(model, "commons_favourite");
-    	addi18nProperty(model, "e_023");
-    	addi18nProperty(model, "commons_unfavourite");
-    	return "tweetpoll";
+        addItemsManangeMessages(model);
+        addi18nProperty(model, "tweetpoo_detail_tab_detail", getMessage("tweetpoo_detail_tab_detail"));
+        addi18nProperty(model, "tweetpoo_detail_tab_stats", getMessage("tweetpoo_detail_tab_stats"));
+        addi18nProperty(model, "tweetpoo_detail_tab_comments", getMessage("tweetpoo_detail_tab_comments"));
+        addi18nProperty(model, "tweetpoo_detail_tab_social", getMessage("tweetpoo_detail_tab_social"));
+        addi18nProperty(model, "tweetpoo_detail_tab_delete", getMessage("tweetpoo_detail_tab_delete"));
+        addi18nProperty(model, "tweetpoo_detail_answers_title_link", getMessage("tweetpoo_detail_answers_title_link"));
+        addi18nProperty(model, "tweetpoo_detail_answers_title_count", getMessage("tweetpoo_detail_answers_title_count"));
+        addi18nProperty(model, "tweetpoo_detail_answers_title_percent", getMessage("tweetpoo_detail_answers_title_percent"));
+        addi18nProperty(model, "commons_created_date", getMessage("commons_created_date"));
+        addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
+        addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
+        addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
+        addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
+        addi18nProperty(model, "tp_options_notifications", getMessage("tp_options_notifications"));
+        addi18nProperty(model, "related_terms", getMessage("related_terms"));
+        addi18nProperty(model, "commons_success", getMessage("commons_success"));
+        addi18nProperty(model, "commons_favourite");
+        addi18nProperty(model, "e_023");
+        addi18nProperty(model, "commons_unfavourite");
+        return "tweetpoll";
     }
 
     /**
@@ -277,40 +290,40 @@ public class TweetPollController extends AbstractSocialController {
         }
         log.debug("newTweetPollController "+path);
         //log.debug("tweetpoll new");
-    	addi18nProperty(model, "tp_write_questions", getMessage("tp_write_questions"));
-    	addi18nProperty(model, "tp_add_answer", getMessage("tp_add_answer"));
-    	addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));
-    	addi18nProperty(model, "tp_scheduled", getMessage("tp_scheduled"));
-    	addi18nProperty(model, "tp_customize", getMessage("tp_customize"));
-    	addi18nProperty(model, "tp_select_publish", getMessage("tp_select_publish"));
-    	addi18nProperty(model, "tp_options_chart", getMessage("tp_options_chart"));
-    	addi18nProperty(model, "tp_options_spam", getMessage("tp_options_spam"));
-    	addi18nProperty(model, "tp_options_report", getMessage("tp_options_report"));
-    	addi18nProperty(model, "tp_options_scheduled_this_tweetpoll", getMessage("tp_options_scheduled_this_tweetpoll"));
-    	addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
-    	addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
-    	addi18nProperty(model, "tp_options_limit_votes", getMessage("tp_options_limit_votes"));
-    	addi18nProperty(model, "tp_options_resume_live_results", getMessage("tp_options_resume_live_results"));
-    	addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
-    	addSocialPickerWidgetMessages(model);
-    	addi18nProperty(model, "button_add", getMessage("button_add"));
-    	addi18nProperty(model, "button_remove", getMessage("button_remove"));
-    	addi18nProperty(model, "button_close", getMessage("button_close"));
-    	addi18nProperty(model, "button_finish", getMessage("button_finish"));
-    	addi18nProperty(model, "button_publish", getMessage("button_publish"));
-    	addi18nProperty(model, "button_try_again", getMessage("button_try_again"));
-    	addi18nProperty(model, "button_ignore", getMessage("button_ignore"));
-    	addi18nProperty(model, "button_try_later", getMessage("button_try_later"));
-    	addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
-    	addi18nProperty(model, "tp_publish_error", getMessage("tp_publish_error"));
-    	addi18nProperty(model, "pubication_failure_status", getMessage("pubication_failure_status"));
-    	addi18nProperty(model, "pubication_success_status", getMessage("pubication_success_status"));
-    	addi18nProperty(model, "pubication_inprocess_status", getMessage("pubication_inprocess_status"));
-    	addi18nProperty(model, "e_020", getMessage("e_020"));
-    	addi18nProperty(model, "e_021", getMessage("e_021"));
-    	addi18nProperty(model, "e_024", getMessage("e_024"));
-    	addi18nProperty(model, "commons_success", getMessage("commons_success"));
-    	addi18nProperty(model, "commons_failure", getMessage("commons_failure"));
+        addi18nProperty(model, "tp_write_questions", getMessage("tp_write_questions"));
+        addi18nProperty(model, "tp_add_answer", getMessage("tp_add_answer"));
+        addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));
+        addi18nProperty(model, "tp_scheduled", getMessage("tp_scheduled"));
+        addi18nProperty(model, "tp_customize", getMessage("tp_customize"));
+        addi18nProperty(model, "tp_select_publish", getMessage("tp_select_publish"));
+        addi18nProperty(model, "tp_options_chart", getMessage("tp_options_chart"));
+        addi18nProperty(model, "tp_options_spam", getMessage("tp_options_spam"));
+        addi18nProperty(model, "tp_options_report", getMessage("tp_options_report"));
+        addi18nProperty(model, "tp_options_scheduled_this_tweetpoll", getMessage("tp_options_scheduled_this_tweetpoll"));
+        addi18nProperty(model, "tp_options_allow_results", getMessage("tp_options_allow_results"));
+        addi18nProperty(model, "tp_options_allow_repeated_votes", getMessage("tp_options_allow_repeated_votes"));
+        addi18nProperty(model, "tp_options_limit_votes", getMessage("tp_options_limit_votes"));
+        addi18nProperty(model, "tp_options_resume_live_results", getMessage("tp_options_resume_live_results"));
+        addi18nProperty(model, "tp_options_follow_dashboard", getMessage("tp_options_follow_dashboard"));
+        addSocialPickerWidgetMessages(model);
+        addi18nProperty(model, "button_add", getMessage("button_add"));
+        addi18nProperty(model, "button_remove", getMessage("button_remove"));
+        addi18nProperty(model, "button_close", getMessage("button_close"));
+        addi18nProperty(model, "button_finish", getMessage("button_finish"));
+        addi18nProperty(model, "button_publish", getMessage("button_publish"));
+        addi18nProperty(model, "button_try_again", getMessage("button_try_again"));
+        addi18nProperty(model, "button_ignore", getMessage("button_ignore"));
+        addi18nProperty(model, "button_try_later", getMessage("button_try_later"));
+        addi18nProperty(model, "commons_captcha", getMessage("commons_captcha"));
+        addi18nProperty(model, "tp_publish_error", getMessage("tp_publish_error"));
+        addi18nProperty(model, "pubication_failure_status", getMessage("pubication_failure_status"));
+        addi18nProperty(model, "pubication_success_status", getMessage("pubication_success_status"));
+        addi18nProperty(model, "pubication_inprocess_status", getMessage("pubication_inprocess_status"));
+        addi18nProperty(model, "e_020", getMessage("e_020"));
+        addi18nProperty(model, "e_021", getMessage("e_021"));
+        addi18nProperty(model, "e_024", getMessage("e_024"));
+        addi18nProperty(model, "commons_success", getMessage("commons_success"));
+        addi18nProperty(model, "commons_failure", getMessage("commons_failure"));
         return path;
     }
 
@@ -329,8 +342,8 @@ public class TweetPollController extends AbstractSocialController {
             final HttpServletRequest request) {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
-        final String ipAddress = getIpClient(request);
         try {
+            final String ipAddress = getIpClient(request);
             slug = filterValue(slug);
             final TweetPoll tweetPoll = getTweetPollService().getTweetPollByIdSlugName(id, slug);
             this.checkTweetPollStatus(tweetPoll);
@@ -352,6 +365,10 @@ public class TweetPollController extends AbstractSocialController {
         } catch (EnMeNoResultsFoundException e) {
              log.error(e);
              return "404";
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            log.error(e);
+            return "404";
         }
     }
 }

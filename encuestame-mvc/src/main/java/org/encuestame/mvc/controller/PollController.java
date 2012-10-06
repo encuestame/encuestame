@@ -13,6 +13,7 @@
 
 package org.encuestame.mvc.controller;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -113,22 +114,26 @@ public class PollController extends AbstractBaseOperations {
             // validations
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             if (checkBannedIp) {
-            	//if banned send to banned view.
+                //if banned send to banned view.
                 pathVote ="poll/banned";
             } else {
-	            //
-	            final Poll poll = getPollService().getPollById(itemId);
-	            final PollResult result = getPollService().validatePollIP(IP, poll);
-	            if (result == null) {
-	            	getPollService().vote(itemId, slugName, IP, responseId);
-	            } else {
-	            	pathVote = "poll/repeated";            
-	            }
+                //
+                final Poll poll = getPollService().getPollById(itemId);
+                final PollResult result = getPollService().validatePollIP(IP, poll);
+                if (result == null) {
+                    getPollService().vote(itemId, slugName, IP, responseId);
+                } else {
+                    pathVote = "poll/repeated";
+                }
             }
         } catch (EnMeNoResultsFoundException e) {
             log.error("error poll vote "+e);
             e.printStackTrace();
             pathVote ="poll/bad";
+        } catch (UnknownHostException e) {
+             log.error("error poll vote "+e);
+             e.printStackTrace();
+             pathVote ="poll/bad";
         }
         log.debug("poll vote path: "+pathVote);
         return pathVote;
@@ -166,13 +171,13 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "poll_admon_poll_embebed");
         //
         addi18nProperty(model, "poll_admon_poll_votes");
-        // 
+        //
         addi18nProperty(model, "detail_manage_poll_title");
         addi18nProperty(model, "detail_manage_filters");
         addi18nProperty(model, "detail_manage_poll_dropdown_title");
         // menu items
         addi18nProperty(model, "poll_admon_poll_new");
-        addi18nProperty(model, "commons_remove");        
+        addi18nProperty(model, "commons_remove");
         return "poll/list";
     }
 
@@ -208,7 +213,7 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "widget_results_only_percents");
         addi18nProperty(model, "widget_results_all_data");
         addi18nProperty(model, "widget_question_type");
-        addi18nProperty(model, "commons_cancel");        
+        addi18nProperty(model, "commons_cancel");
         return "poll/new";
     }
 
@@ -216,7 +221,7 @@ public class PollController extends AbstractBaseOperations {
      * Vote a {@link Poll}.
      * @param model {@link Model}
      * @param tweetId
-     * @param slug 
+     * @param slug
      * @return
      */
     @RequestMapping(value = "/poll/vote/{id}/{slug}", method = RequestMethod.GET)

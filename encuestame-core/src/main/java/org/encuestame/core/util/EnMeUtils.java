@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Random;
 
@@ -39,9 +40,9 @@ public class EnMeUtils {
     private static Logger log = Logger.getLogger(EnMeUtils.class);
 
     private static final int BASE = 2;
-    
+
     /**
-     * 
+     *
      */
     public static final String ANONYMOUS_USER = "anonymousUser";
 
@@ -62,7 +63,7 @@ public class EnMeUtils {
     public static final String HASH = "#";
 
     public static final String SPACE = " ";
-    
+
     public static final Integer DEFAULT_START = 0;
 
     /** Percentage value for like option vote. **/
@@ -92,9 +93,9 @@ public class EnMeUtils {
      * @param value
      * @return
      */
-    public static String calculatePercent(double total, double value) {        
+    public static String calculatePercent(double total, double value) {
         if (total != 0 && value !=0) {
-        	double myAprValue = (value / total);
+            double myAprValue = (value / total);
             final DecimalFormat percent = new DecimalFormat("#0.00%");
             return percent.format(myAprValue);
         } else {
@@ -186,15 +187,17 @@ public class EnMeUtils {
         log.debug(" RELEVANCE *******************************>  " + roundRelevance);
         return roundRelevance;
     }
-    
+
     /**
-     * Extract the {@link InetAddress} from {@link HttpServletRequest}. 
+     * Extract the {@link InetAddress} from {@link HttpServletRequest}.
      * @param request {@link HttpServletRequest}
      * @param proxy define if the server is behind a proxy server.
      * @return
+     * @throws UnknownHostException
      */
-    public static String getIP(HttpServletRequest request, boolean proxy) {
-    	log.debug("Force Proxy Pass ["+proxy+"]");
+    public static String getIP(HttpServletRequest request, boolean proxy) throws UnknownHostException {
+        log.debug("getIP Force Proxy Pass ["+proxy+"]");
+        log.debug("getIP request ["+request+"]");
         String ip = "";
         //FIXME: if your server use ProxyPass you need get IP from x-forwarder-for, we need create
         // a switch change for ProxyPass to normal get client Id.
@@ -202,30 +205,33 @@ public class EnMeUtils {
         log.debug("X-getHeaderNames ["+ request.getHeaderNames()+"]");
         if (proxy) {
             ip = XFordwardedInetAddressUtil.getAddressFromRequest(request);
-            log.debug("X-FORWARDED-FOR ["+ip+"]");
+            log.debug("X-FORWARDED-FOR [" + ip + "]");
         } else {
-        	ip = InetAddresses.forString(request.getRemoteAddr()).getHostAddress();
-        	log.debug("NON XFORWARDED IP ["+ip+"]");
-        }        
+            String _ip = request.getRemoteAddr();
+            log.debug("NON XFORWARDEDddddddd IP [" + _ip + "]");
+            InetAddress sip = InetAddress.getByName(_ip);
+            log.debug("NON XFORWARDED IP sip [" + sip + "]");
+            ip = sip.getHostAddress();
+        }
         return ip;
     }
-    
+
     /**
      * Return a random ip.
      * @return
      */
     public static String ipGenerator() {
-    	Random r = new Random();
-		return r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);		
+        Random r = new Random();
+        return r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
     }
-    
+
     /**
      * Convert degrees cordinates to radians.
      * @param degreesValue
      * @return
      */
-	public static Double convertDegreesToRadians(final double degreesValue) {
-		final Double radiansValue = Math.toRadians(degreesValue);
-		return radiansValue;
-	}
+    public static Double convertDegreesToRadians(final double degreesValue) {
+        final Double radiansValue = Math.toRadians(degreesValue);
+        return radiansValue;
+    }
 }

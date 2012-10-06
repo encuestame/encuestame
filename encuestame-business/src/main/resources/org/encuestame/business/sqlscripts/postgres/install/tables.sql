@@ -352,8 +352,11 @@ CREATE TABLE hits (
     hits_ip_address character varying(100) NOT NULL,
     hashtag_hash_tag_id bigint,
     poll_poll_id bigint,
+	hit_category integer NOT NULL,
     survey_sid bigint,
-    tweetpoll_tweet_poll_id bigint
+    tweetpoll_tweet_poll_id bigint,
+	userAccount_uid bigint
+
 );
 
 
@@ -472,7 +475,7 @@ CREATE TABLE poll_hashtags (
 
 CREATE TABLE poll_result (
     poll_resultid bigint NOT NULL,
-    ip_address character varying(255) NOT NULL,
+    ipAddress character varying(255) NOT NULL,
     votation_date timestamp without time zone NOT NULL,
     q_answer_id bigint NOT NULL,
     poll_id bigint NOT NULL
@@ -796,7 +799,9 @@ CREATE TABLE survey_result (
     rid bigint NOT NULL,
     answer_q_answer_id bigint,
     question_qid bigint,
-    survey_sid bigint
+    survey_sid bigint,
+	txtResponse character varying(255),
+    hash character varying(255) NOT NULL
 );
 
 
@@ -809,7 +814,8 @@ CREATE TABLE survey_result (
 CREATE TABLE survey_section (
     ssid bigint NOT NULL,
     desc_section character varying(255),
-    survey_sid bigint
+    survey_sid bigint,
+	section_name character varying(255)
 );
 
 
@@ -984,7 +990,8 @@ CREATE TABLE tweetpoll_switch (
     last_date_updated timestamp without time zone NOT NULL,
     short_url character varying(255),
     q_answer_id bigint NOT NULL,
-    tweet_poll_id bigint NOT NULL
+    tweet_poll_id bigint NOT NULL, 
+	relative_url  character varying(400) 
 );
 
 
@@ -1049,3 +1056,26 @@ CREATE TABLE useraccount_project (
     sec_id_secondary bigint NOT NULL,
     cat_id_project bigint NOT NULL
 );
+
+
+CREATE TABLE survey_temporal_result (
+    IdTempResult bigint NOT NULL,
+    answer_q_answer_id bigint,
+    question_qid bigint,
+    survey_sid bigint,
+	txtResponse character varying(255),
+    hash character varying(255) NOT NULL
+);
+
+CREATE TABLE question_preferences (
+   preferenceId  bigint NOT NULL,
+   preference  character varying(255),
+   question_qid bigint,
+   preference_value character varying(255)
+);
+ 
+CREATE TABLE hash_tags_ranking (
+   rank_id bigint NOT NULL,
+   average real,
+   ranking_updated timestamp without time zone, 
+   hashTag_hash_tag_id bigint);

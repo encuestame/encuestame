@@ -30,6 +30,7 @@ import java.nio.ByteBuffer;
 /**
  * Copied from http://code.google.com/p/guava-libraries/.
  */
+@Deprecated
 final public class InetAddresses
 {
   private static final int IPV4_PART_COUNT = 4;
