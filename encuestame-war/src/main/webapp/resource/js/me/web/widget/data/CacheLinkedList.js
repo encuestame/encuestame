@@ -7,10 +7,12 @@
 define([
      "dojo/_base/declare",
      "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/web/widget/ui/More",
      "me/core/enme"],
     function(
     declare,
     main_widget,
+    more,
     _ENME) {
 
   return declare(main_widget, {
@@ -44,7 +46,7 @@ define([
        if (node) {
          var channel =  "/encuestame/more/"+this.id;
            var pagination = {_start : start, _maxResults : max };
-           this.more_widget = new encuestame.org.core.shared.utils.More({
+           this.more_widget = new more({
                        pagination: pagination,
                        channel : channel
            });

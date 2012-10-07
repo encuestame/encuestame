@@ -1,53 +1,57 @@
-dojo.provide("encuestame.org.core.shared.utils.More");
+define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
+    "dijit/_WidgetsInTemplateMixin",
+    "me/core/main_widgets/EnmeMainLayoutWidget", "me/core/enme",
+    "dojo/text!me/web/widget/ui/templates/more.html" ], function(declare,
+    _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, main_widget,
+    _ENME, template) {
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget,
+      _WidgetsInTemplateMixin ], {
 
-dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
-dojo.require('encuestame.org.core.commons');
+    // template string.
+    templateString : template,
 
-dojo.declare("encuestame.org.core.shared.utils.More",
-        [ encuestame.org.main.EnmeMainLayoutWidget ], {
+    /*
+     *
+     */
+    pagination : {
+      _maxResults : 0,
+      _start : 0,
+    },
 
-            templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
-                    "template/more.html"),
+    /*
+     *
+     */
+    postCreate : function() {
+      dojo.connect(this._stream, "onclick", dojo.hitch(this, function(
+          event) {
+        if (dojo.isFunction(this.loadItems)) {
+          this.loadItems();
+          this.pagination._start = this.pagination._start
+              + this.pagination._maxResults;
+        }
+      }));
+    },
 
-            /*
-             *
-             */
-            pagination : {
-                _maxResults : 0,
-                _start : 0,
-            },
+    /**
+     *
+     */
+    loadItems : function() {
 
-            /*
-             *
-             */
-            postCreate : function() {
-                dojo.connect(this._stream, "onclick", dojo.hitch(this, function(event) {
-                    if (dojo.isFunction(this.loadItems)) {
-                        this.loadItems();
-                        this.pagination._start = this.pagination._start + this.pagination._maxResults;
-                    }
-                }));
-            },
+    },
 
-            /**
-             *
-             */
-            loadItems : function() {
+    /**
+     *
+     */
+    hide : function() {
+      dojo.addClass(this.domNode, "hidden");
+    },
 
-            },
+    /**
+     *
+     */
+    show : function() {
+      dojo.removeClass(this.domNode, "hidden");
+    }
 
-            /**
-             *
-             */
-            hide : function(){
-                dojo.addClass(this.domNode, "hidden");
-            },
-
-            /**
-             *
-             */
-            show : function(){
-                dojo.removeClass(this.domNode, "hidden");
-            }
-
-        });
+  });
+});

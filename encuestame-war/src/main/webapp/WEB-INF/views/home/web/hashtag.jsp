@@ -45,7 +45,7 @@
                         <spring:message code="home.hashtag.tweets" />
                      </header>
                 <section>
-                     <div dojoTyyyype="encuestame.org.core.commons.social.LinksPublished"
+                     <div data-dojo-type="me/web/widget/social/LinksPublished"
                           channel="/encuestame/hashtag/time/range/refresh/graph"
                           class="web-social-links"
                           itemId="${tagName.hashTagName}"
