@@ -13,3 +13,6 @@
 [submodule "encuestame-doc"]
 	path = encuestame-doc
 	url = git://github.com/encuestame/doc.git
+[submodule "eve"]
+	path = encuestame-war/src/main/webapp/resource/js/eve
+	url = git://github.com/encuestame/eve.git
