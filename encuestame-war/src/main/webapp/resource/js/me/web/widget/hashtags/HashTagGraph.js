@@ -6,6 +6,8 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/chart/RaphaelSupport",
          "me/web/widget/hashtags/HashtagChart",
+         "me/web/widget/hashtags/HashTagGraphStatsButton",
+         "me/web/widget/hashtags/HashTagGraphStatsUsageHandler",
          "me/core/enme",
          "dojo/text!me/web/widget/hashtags/template/hashTagGraph.html" ],
         function(
@@ -16,6 +18,8 @@ define([
                 main_widget,
                 raphaelSupport,
                 hashtagChart,
+                hashTagGraphStatsButton,
+                hashTagGraphStatsUsageHandler,
                 _ENME,
                  template) {
             return declare([ _WidgetBase,
@@ -76,7 +80,7 @@ define([
                   }
                 }
               });
-              this.callGET(params, encuestame.service.list.rate.buttons, load, null, null);
+              this.callGET(params, this.getURLService().service('encuestame.service.list.rate.buttons'), load, null, null);
            },
 
            /**
@@ -85,24 +89,24 @@ define([
             * @param {Boolean} selectedButton
             */
            _createAButton : function (button_data, selectedButton, period) {
-             var handler_params = {
-                   data : {
-                       "title" : button_data.title,
-                       "value" : button_data.value,
-                       "label" : button_data.sub_label,
-                       "filter" : button_data.filter
-                   },
-           };
-             //if period exist, override the default period.
-             if (period) {
-               handler_params.period = period;
-             }
-             var params = {
-                     selectedButton : selectedButton || false,
-                   _handler : new encuestame.org.core.commons.hashtags.HashTagGraphStatsUsageHandler(handler_params)
+               var handler_params = {
+                     data : {
+                         "title" : button_data.title,
+                         "value" : button_data.value,
+                         "label" : button_data.sub_label,
+                         "filter" : button_data.filter
+                     },
              };
-           var button = new encuestame.org.core.commons.hashtags.HashTagGraphStatsButton(params);
-           return button.domNode;
+               //if period exist, override the default period.
+               if (period) {
+                 handler_params.period = period;
+               }
+               var params = {
+                       selectedButton : selectedButton || false,
+                     _handler : new hashTagGraphStatsUsageHandler(handler_params)
+               };
+             var button = new hashTagGraphStatsButton(params);
+             return button.domNode;
            },
 
            /**

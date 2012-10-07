@@ -7,7 +7,7 @@ define(
         "me/core/main_widgets/EnmeMainLayoutWidget", "me/core/enme", "dojo/number",
         "dojo/text!me/web/widget/hashtags/template/hashTagGraphStatsUsageHandler.html" ],
     function(declare, _WidgetBase, _TemplatedMixin,
-        _WidgetsInTemplateMixin, main_widget, number, _ENME, template) {
+        _WidgetsInTemplateMixin, main_widget, _ENME, number, template) {
       return declare([ _WidgetBase, _TemplatedMixin, main_widget,
           _WidgetsInTemplateMixin ], {
 
