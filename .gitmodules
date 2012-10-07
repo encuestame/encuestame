@@ -13,12 +13,12 @@
 [submodule "encuestame-doc"]
 	path = encuestame-doc
 	url = git://github.com/encuestame/doc.git
-[submodule "eve"]
-	path = encuestame-war/src/main/webapp/resource/js/eve
+[submodule "encuestame-war/src/main/webapp/resource/js/chart/eve"]
+	path = encuestame-war/src/main/webapp/resource/js/chart/eve
 	url = git://github.com/encuestame/eve.git
-[submodule "graphael"]
-	path = encuestame-war/src/main/webapp/resource/js/graphael
+[submodule "encuestame-war/src/main/webapp/resource/js/chart/graphael"]
+	path = encuestame-war/src/main/webapp/resource/js/chart/graphael
 	url = git://github.com/encuestame/g.raphael.git
-[submodule "raphael"]
-	path = encuestame-war/src/main/webapp/resource/js/raphael
+[submodule "encuestame-war/src/main/webapp/resource/js/chart/raphael"]
+	path = encuestame-war/src/main/webapp/resource/js/chart/raphael
 	url = git://github.com/encuestame/raphael.git
