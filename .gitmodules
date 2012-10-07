@@ -16,3 +16,9 @@
 [submodule "eve"]
 	path = encuestame-war/src/main/webapp/resource/js/eve
 	url = git://github.com/encuestame/eve.git
+[submodule "graphael"]
+	path = encuestame-war/src/main/webapp/resource/js/graphael
+	url = git://github.com/encuestame/g.raphael.git
+[submodule "raphael"]
+	path = encuestame-war/src/main/webapp/resource/js/raphael
+	url = git://github.com/encuestame/raphael.git
