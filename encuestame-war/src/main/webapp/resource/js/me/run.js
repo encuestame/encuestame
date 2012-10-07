@@ -24,7 +24,8 @@ require({
     'dijit',
     'dojox',
     // For reference, this is what a more verbose package declaration looks like.
-    { name: 'me', location: 'me', map: {} }
+    { name: 'me', location: 'me', map: {} },
+    { name: 'chart', location: 'chart', map: {} }
   ]
 // Require `me`. This loads the main application module, `me/main`, since we registered the `me` package above.
 }, [ 'me' ]);
