@@ -59,7 +59,7 @@
                  <header>
                     <spring:message code="home.hashtag.stats" />
                  </header>
-                 <div dojoTyyyype="encuestame.org.core.shared.stats.GenericStats"
+                 <div  data-dojo-type="me/web/widget/stats/GenericStats"
             class="web-generic-stats"
             channel="/encuestame/hashtag/time/range/refresh/graph"
             typeGeneric="HASHTAG"
@@ -71,7 +71,7 @@
                  <header>
                    <spring:message code="home.hashtag.position" />
                  </header>
-                 <section dojoTyyyype="encuestame.org.core.shared.stats.RatePosition"
+                 <section data-dojo-type="me/web/widget/stats/RatePosition"
                       tagName="${tagName.hashTagName}"
                       channel="/encuestame/hashtag/time/range/refresh/graph"
                       class="web-rated-position"
@@ -82,7 +82,7 @@
                  <header>
                     <spring:message code="home.hashtag.profile" />
                  </header>
-                 <div dojoTyyyype="encuestame.org.core.shared.stats.TopProfiles"
+                 <div data-dojo-type="me/web/widget/stats/TopProfiles"
                       hasthag="${tagName.hashTagName}"
                       channel="/encuestame/hashtag/time/range/refresh/graph"
                       class="web-top-profile"

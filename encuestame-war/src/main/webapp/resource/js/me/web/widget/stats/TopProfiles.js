@@ -1,24 +1,26 @@
-dojo.provide("encuestame.org.core.shared.stats.TopProfiles");
+define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
+    "dijit/_WidgetsInTemplateMixin",
+    "me/core/main_widgets/EnmeMainLayoutWidget",
+    "me/web/widget/stream/HashTagInfo", "me/core/enme",
+    "me/web/widget/rated/RatedProfile", ], function(
+    declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
+    main_widget, hashTagInfo, _ENME, ratedProfile) {
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, ratedProfile,
+      _WidgetsInTemplateMixin ], {
 
-dojo.require('dojox.timing');
-dojo.require("dojox.widget.Dialog");
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.layout.ContentPane");
-dojo.require('encuestame.org.core.commons');
-dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
-dojo.require('encuestame.org.core.commons.rated.RatedProfile');
+    // template string.
+    //templateString : template,
 
-dojo.declare(
-    "encuestame.org.core.shared.stats.TopProfiles",
-    [encuestame.org.core.commons.rated.RatedProfile],{
-        /*
-         *
-         */
-        //templatePath: dojo.moduleUrl("encuestame.org.core.shared.stats", "templates/position.html"),
+    service : 'encuestame.service.list.rate.profile',
 
-
-        service : encuestame.service.list.rate.profile
-
+   /*
+    *
+    */
+//   postCreate : function() {
+//     if (this.service != null) {
+//         this._loadItems();
+//     }
+//    }
+  });
 });
+
