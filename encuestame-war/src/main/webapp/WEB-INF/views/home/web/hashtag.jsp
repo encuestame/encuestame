@@ -11,7 +11,7 @@
         </div>
         <div class="web-hashtag-options">
         <div channel="/encuestame/hashtag/time/range/refresh/graph"
-             dojoTyyyype="encuestame.org.core.shared.utils.TimeRangeDropDownMenu"
+             data-dojo-type="me/web/widget/menu/TimeRangeDropDownMenu"
              defaultDateRange="365"></div>
     </div>
     </section>
