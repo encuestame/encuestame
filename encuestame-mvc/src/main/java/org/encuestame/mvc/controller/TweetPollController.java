@@ -23,6 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;
@@ -203,12 +204,13 @@ public class TweetPollController extends AbstractSocialController {
 
                      return "badTweetVote";
                      //model.addAttribute("message", "Tweet Not Valid.");
+                 	}
+                 if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
+                	 // save the vote.
+                	 getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
+                	 return "tweetVoted"; 
                  } else {
-                     //save the vote.
-                     final String IP = getIpClient(req);
-                     log.info("IP" + IP);
-                     getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
-                     return "tweetVoted";
+                	 return "tweetVoted";
                  }
             }
     }
