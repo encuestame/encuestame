@@ -199,7 +199,7 @@ define(["dojo",
        * @param default_value {String} if value is undefined, display default
        */
       getMessage : function(value, default_value) {
-        return ENME.params[value] == undefined
+        return this.params[value] == undefined
              ? (default_value == null
                  ? "NOT_DEFINED[" + value + "]"
                  : default_value) : ENME.params[value];

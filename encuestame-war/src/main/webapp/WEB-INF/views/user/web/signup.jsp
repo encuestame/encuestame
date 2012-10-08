@@ -61,7 +61,7 @@
                               </div>
                     </div>
             <div class="standby">
-                <div id="standby" testDojoType="encuestame.org.core.shared.utils.StandBy" target="mainWrapper"></div>
+                <div id="standby" data-dojo-type="me/web/widget/ui/StandBy" target="mainWrapper"></div>
             </div>
             </form>
     </div>
