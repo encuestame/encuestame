@@ -1,13 +1,12 @@
-dojo.provide("encuestame.org.core.commons.validator.AbstractValidatorWidget");
+define([
+     "dojo/_base/declare",
+     "me/core/enme"],
+    function(
+    declare,
+    _ENME) {
 
-dojo.require("dojo.io.iframe");
-dojo.require("dijit.form.TextBox");
-dojo.require("dijit.form.ComboButton");
-dojo.require("dijit.MenuItem");
-dojo.require("dijit.Menu");
+  return declare(null, {
 
-dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
-        [dijit._Widget, dijit._Templated ], {
     templatePath : null,
     widgetsInTemplate : true,
     noEvents : false,
@@ -17,10 +16,14 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
     inputTextValue : "",
     toolTip : true,
     placeholder:"",
-    postCreate : function(){
+
+    /**
+     *
+     */
+    postCreate : function() {
         this.inherited(arguments);
         if (this.focusDefault) {
-            dijit.focus( dojo.byId("input_"+this.id));
+            dijit.focus( dojo.byId("input_" + this.id));
         }
         if (!this.noEvents) {
             dojo.connect(this._input, "onchange", dojo.hitch(this, function(event) {
@@ -29,10 +32,16 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
         }
     },
 
+    /**
+     *
+     */
     getServiceUrl : function(){
         return "";
     },
 
+    /**
+     *
+     */
     recheck : function(data){
          this._loadService(
                    this.getServiceUrl(), {
@@ -41,11 +50,14 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
                }, this.error);
     },
 
+    /**
+     *
+     */
     error : function() {
         console.info("override");
     },
 
-    /*
+    /**
      *
      */
     _showToolTip : function(){
@@ -65,6 +77,9 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
         }
     },
 
+    /**
+     *
+     */
     _hideToolTip : function(){
         var node = dojo.byId("_tooltip_"+this.id);
         //console.info("_hideToolTip", node);
@@ -80,10 +95,10 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
     },
 
 
-    /*
+    /**
      *
      */
-    _evaluateShadowMessage : function(event){
+    _evaluateShadowMessage : function(event) {
         if (this._shadow && dojo.byId("input_"+this.id) != null) {
             var textLenght = dojo.byId("input_"+this.id).value.length;
             //console.info(textLenght);
@@ -95,10 +110,11 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
         }
     },
 
-    /*
+
+    /**
      *
      */
-    _loadService : function(service, params, error){
+    _loadService : function(service, params, error) {
             var i = false;
             var load = dojo.hitch(this, function(data) {
                     if (data.success.valid) {
@@ -120,14 +136,20 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
             // var error = function(error) {
             // console.debug("error", error);
             // };
-            encuestame.service.xhrGet(service, params, load, error);
+            encuestame.service.xhrGet(this.getURLService().service(service), params, load, error);
         },
 
+        /**
+         *
+         */
         _additionalErrorHandler : function(data){},
 
+        /**
+         *
+         */
         _additionalSuccessHandler : function(data){},
 
-        /*
+        /**
          *
          */
         _showSuccessMessage : function(data){
@@ -141,7 +163,7 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
              }
         },
 
-        /*
+        /**
          *
          */
         _showErrorMessage : function(data){
@@ -156,8 +178,13 @@ dojo.declare("encuestame.org.core.commons.validator.AbstractValidatorWidget",
             }
         },
 
-        _validate : function(event){
-            console.debug("validate", event);
+        /**
+         *
+         */
+        _validate : function(event) {
+            //console.debug("validate", event);
         }
 
+
+  });
 });

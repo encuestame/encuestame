@@ -1,41 +1,63 @@
-dojo.provide("encuestame.org.core.commons.validator.EmailValidator");
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/web/widget/validator/AbstractValidatorWidget",
+         "me/core/enme",
+         "dojo/text!me/web/widget/validator/templates/emailValidator.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                abstractValidatorWidget,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin], {
 
-dojo.require("dojo.io.iframe");
-dojo.require("dijit.form.TextBox");
-dojo.require("dijit.form.ComboButton");
-dojo.require("dijit.MenuItem");
-dojo.require("dijit.Menu");
+        // template string.
+        templateString : template,
 
-dojo.require("encuestame.org.core.commons.validator.AbstractValidatorWidget");
+        /**
+         *
+         */
+        placeholder : "Write your email",
 
-dojo.declare("encuestame.org.core.commons.validator.EmailValidator",
-        [encuestame.org.core.commons.validator.AbstractValidatorWidget], {
-    templatePath : dojo.moduleUrl("encuestame.org.core.commons.validator", "templates/emailValidator.html"),
-    widgetsInTemplate : true,
+        /**
+         *
+         */
+        postCreate : function(){
+            this.inherited(arguments);
+        },
 
-    placeholder : "Write your email",
+       /**
+        *
+        */
+       _validate : function(event) {
+               this.inputTextValue = this._input.value;
+               this._loadService(
+               this.getServiceUrl(), {
+               context : this.enviroment,
+               email : this._input.value
+           }, this.error);
+       },
 
-    postCreate : function(){
-        this.inherited(arguments);
-    },
-    /*
-    *
-    */
-   _validate : function(event) {
-           this.inputTextValue = this._input.value;
-           this._loadService(
-           this.getServiceUrl(), {
-           context : this.enviroment,
-           email : this._input.value
-       }, this.error);
-   },
+       /**
+        *
+        */
+       getServiceUrl : function(){
+           return 'encuestame.service.publicService.validate.email';
+       },
 
-   getServiceUrl : function(){
-       return encuestame.service.publicService.validate.email;
-   },
+       /**
+        *
+        */
+        error : function(error) {
+           console.debug("error", error);
+        }
 
-    error : function(error) {
-       console.debug("error", error);
-    }
-
+    });
 });

@@ -1,45 +1,60 @@
-dojo.provide("encuestame.org.core.commons.validator.RealNameValidator");
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/web/widget/validator/AbstractValidatorWidget",
+         "me/core/enme",
+         "dojo/text!me/web/widget/validator/templates/realNameValidator.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                abstractValidatorWidget,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin], {
 
-dojo.require("dojo.io.iframe");
-dojo.require("dijit.form.TextBox");
-dojo.require("dijit.form.ComboButton");
-dojo.require("dijit.MenuItem");
-dojo.require("dijit.Menu");
+          // template string.
+           templateString : template,
 
-dojo.require("encuestame.org.core.commons.validator.AbstractValidatorWidget");
+         focusDefault: true,
 
-dojo.declare("encuestame.org.core.commons.validator.RealNameValidator",
-        [encuestame.org.core.commons.validator.AbstractValidatorWidget], {
-    templatePath : dojo.moduleUrl("encuestame.org.core.commons.validator", "templates/realNameValidator.html"),
+         placeholder : "Write your Real Name",
 
-    widgetsInTemplate : true,
+         postCreate : function(){
+             this.inherited(arguments);
+         },
 
-    focusDefault: true,
+        /**
+         *
+         */
+        _validate : function(event){
+            this.inputTextValue = this._input.value;
+                this._loadService(
+            this.getServiceUrl(), {
+                context : this.enviroment,
+                real_name : this._input.value
+            }, this.error);
+        },
 
-    placeholder : "Write your Real Name",
+        /**
+         *
+         */
+        getServiceUrl : function(){
+            return 'encuestame.service.publicService.validate.realName';
+        },
 
-    postCreate : function(){
-        this.inherited(arguments);
-    },
-    /*
-    *
-    */
-   _validate : function(event){
-       this.inputTextValue = this._input.value;
-           this._loadService(
-       this.getServiceUrl(), {
-           context : this.enviroment,
-           real_name : this._input.value
-       }, this.error);
-   },
+        /**
+         *
+         */
+         error : function(error) {
+            console.debug("error", error);
+         }
 
 
-   getServiceUrl : function(){
-       return encuestame.service.publicService.validate.realName;
-   },
-
-    error : function(error) {
-       console.debug("error", error);
-    }
-
+    });
 });

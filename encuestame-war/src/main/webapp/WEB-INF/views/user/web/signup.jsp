@@ -2,8 +2,9 @@
 <div id="web-user-actions-form-wrapper" class="enme-auto-center">
     <div class="web-form-wrapper" id="web-form-wrapper">
             <form method="POST" id="signupForm"
-                dojoType="dijit.form.Form"
+                data-dojo-type="dijit/form/Form"
                 jsId="signupForm"
+                data-dojo-id="signupForm"
                 encType="multipart/form-data"
                 action="<%=request.getContextPath()%>/user/signup/create"
                 class="signup-form defaultForm"
@@ -16,25 +17,25 @@
                         <fieldset class="textbox">
                             <div class="section name">
                                 <div id="rm"
-                                    dojoType="encuestame.org.core.commons.validator.RealNameValidator"
+                                    data-dojo-type="me/web/widget/validator/RealNameValidator"
                                     placeholder="<spring:message code="signup.complete" />"
                                     enviroment="ext"></div>
                             </div>
                             <div class="section password">
                                  <div id="pssw"
-                                      dojoType="encuestame.org.core.commons.validator.PasswordValidator"
+                                      data-dojo-type="me/web/widget/validator/PasswordValidator"
                                       placeholder="<spring:message code="signup.password" />"
                                       enviroment="ext"></div>
                             </div>
                             <div class="section email">
                                 <div id="em"
-                                     dojoType="encuestame.org.core.commons.validator.EmailValidator"
+                                     data-dojo-type="me/web/widget/validator/EmailValidator"
                                      placeholder="<spring:message code="signup.email" />"
                                      enviroment="ext"></div>
                             </div>
                              <div class="section username">
                                 <div id="usrva"
-                                     dojoType="encuestame.org.core.commons.validator.UsernameValidator"
+                                     data-dojo-type="me/web/widget/validator/UsernameValidator"
                                      placeholder="<spring:message code="signup.username" />"
                                      enviroment="ext"></div>
                             </div>
@@ -42,7 +43,7 @@
                         </fieldset>
                         <fieldset>
                             <div class="center">
-                                <div dojoType="encuestame.org.core.commons.signup.Signup"
+                                <div data-dojo-type="me/web/widget/signup/Signup"
                                      value="<spring:message code="signup.button" />"></div>
                             </div>
                             <div>
@@ -60,7 +61,7 @@
                               </div>
                     </div>
             <div class="standby">
-                <div id="standby" dojoType="encuestame.org.core.shared.utils.StandBy" target="mainWrapper"></div>
+                <div id="standby" testDojoType="encuestame.org.core.shared.utils.StandBy" target="mainWrapper"></div>
             </div>
             </form>
     </div>
