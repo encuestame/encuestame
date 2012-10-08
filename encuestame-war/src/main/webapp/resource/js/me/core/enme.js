@@ -415,9 +415,14 @@ define(["dojo",
          return (!str || 0 === str.length);
       },
 
-      hashtagContext : function(hashtagName){
+      /**
+       *
+       * @param hashtagName
+       * @returns
+       */
+      hashtagContext : function(hashtagName) {
          if (hashtagName) {
-                var url = encuestame.contextDefault;
+                var url = this.config("contextPath");
                 url = url.concat("/tag/");
                 url = url.concat(hashtagName);
                 url = url.concat("/");
@@ -426,6 +431,8 @@ define(["dojo",
                 throw new Error("hashtag name is required");
            }
       },
+
+
 
       shortAmmount : function(quantity){
         if (typeof(quantity) === "number") {

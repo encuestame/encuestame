@@ -75,7 +75,7 @@ define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
          if (item.tagName === this.tagName) {
            dojo.addClass(tr, 'highlight');
          } else {
-           var url_hashtag = encuestame.utilities.url.hashtag(item.tagName);
+           var url_hashtag = _ENME.hashtagContext(item.tagName);
            var a = dojo.create("a");
            a.innerHTML = item.tagName;
            a.setAttribute('href', url_hashtag);
