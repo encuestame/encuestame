@@ -43,6 +43,9 @@ public class QuestionPreferences {
 	
 	/** **/
 	private String value;
+	
+	/** **/
+	private String preferenceValue;
 
 	/**
 	 * @return the preferenceId
@@ -89,21 +92,20 @@ public class QuestionPreferences {
 	 */
 	public void setPreference(final String preference) {
 		this.preference = preference;
+	} 
+
+	/**
+	 * @return the preferenceValue
+	 */
+	@Column(name = "preference_value")
+	public String getPreferenceValue() {
+		return preferenceValue;
 	}
 
 	/**
-	 * @return the value
+	 * @param preferenceValue the preferenceValue to set
 	 */
-	public String getValue() {
-		return value;
-	}
-
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}  
-	
-
+	public void setPreferenceValue(String preferenceValue) {
+		this.preferenceValue = preferenceValue;
+	}   
 }

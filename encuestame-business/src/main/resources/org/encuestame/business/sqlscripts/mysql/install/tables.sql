@@ -468,8 +468,7 @@ CREATE TABLE IF NOT EXISTS `poll_hashtags` (
   `hastag_id` bigint(20) NOT NULL,
   PRIMARY KEY (`poll_id`,`hastag_id`),
   KEY `FK9D199EA7DA98FFE1` (`hastag_id`),
-  KEY `FK9D199EA7F0ED6769` (`poll_id`),
-  KEY `FK9D199EA761842F44` (`poll_id`)
+  KEY `FK9D199EA7F0ED6769` (`poll_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1118,7 +1117,7 @@ CREATE TABLE IF NOT EXISTS `question_preferences` (
   `preferenceId` bigint(20) NOT NULL AUTO_INCREMENT,
   `preference` varchar(255) DEFAULT NULL,
   `question_qid` bigint(20) DEFAULT NULL,
-  `value` varchar(255) DEFAULT NULL,
+  `preference_value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`preferenceId`),
   UNIQUE KEY `preferenceId` (`preferenceId`),
   KEY `FKD540D01F46BF7A1C` (`question_qid`)

@@ -157,8 +157,7 @@ ALTER TABLE `poll_folder`
 --
 -- Constraints for table `poll_hashtags`
 --
-ALTER TABLE `poll_hashtags`
-  ADD CONSTRAINT `FK9D199EA761842F44` FOREIGN KEY (`poll_id`) REFERENCES `surveys` (`sid`),
+ALTER TABLE `poll_hashtags` 
   ADD CONSTRAINT `FK9D199EA7DA98FFE1` FOREIGN KEY (`hastag_id`) REFERENCES `hash_tags` (`hash_tag_id`),
   ADD CONSTRAINT `FK9D199EA7F0ED6769` FOREIGN KEY (`poll_id`) REFERENCES `poll` (`poll_id`);
 

@@ -32,6 +32,7 @@ alter table group_permission add constraint FK362E6F8F43ADB63D foreign key (sec_
 alter table groups add constraint FKB63DD9D45ECE45A2 foreign key (account_uid) references account
 alter table groups_permission add constraint FK7F1951A45895AFF foreign key (sec_id_group) references groups
 alter table groups_permission add constraint FK7F1951A43ADB63D foreign key (sec_id_permission) references permission
+alter table hits add constraint FK30DF40369F8B2C foreign key (userAccount_uid) references userAccount
 alter table hits add constraint FK30DF4019AA125 foreign key (hashTag_hash_tag_id) references hash_tags
 alter table hits add constraint FK30DF4063976E9 foreign key (poll_poll_id) references poll
 alter table hits add constraint FK30DF4051153812 foreign key (survey_sid) references surveys
@@ -45,7 +46,6 @@ alter table poll_folder add constraint FKC5911CEE2B2A6AB4 foreign key (uid) refe
 alter table poll_folder add constraint FKC5911CEE6EF241E9 foreign key (createdBy_uid) references userAccount
 alter table poll_hashtags add constraint FK9D199EA7DA98FFE1 foreign key (hastag_id) references hash_tags
 alter table poll_hashtags add constraint FK9D199EA7F0ED6769 foreign key (poll_id) references poll
-alter table poll_hashtags add constraint FK9D199EA761842F44 foreign key (poll_id) references surveys
 alter table poll_result add constraint FKD981C89DDDD118B5 foreign key (q_answer_id) references questions_answers
 alter table poll_result add constraint FKD981C89DF0ED6769 foreign key (poll_id) references poll
 alter table project add constraint FKED904B19514C1986 foreign key (lead_uid) references userAccount
@@ -111,3 +111,4 @@ alter table survey_temporal_result add constraint FK7867CF546BF7A1C foreign key 
 alter table survey_temporal_result add constraint FK7867CF5496009B4 foreign key (answer_q_answer_id) references questions_answers
 alter table survey_temporal_result add constraint FK7867CF551153812 foreign key (survey_sid) references surveys
 alter table question_preferences add constraint FKD540D01F46BF7A1C foreign key (question_qid) references questions
+alter table hash_tags_ranking add constraint FK71DECDA119AA125 foreign key (hashTag_hash_tag_id) references hash_tags

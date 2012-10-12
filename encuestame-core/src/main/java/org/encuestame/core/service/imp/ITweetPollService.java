@@ -496,4 +496,14 @@ public interface ITweetPollService extends IMasterSurveyService{
  	 */
  	List<TweetPollBean> searchTweetPollsByFolder(final Long folderId,
  			final String username) throws EnMeNoResultsFoundException;
+ 	
+ 	/** 
+	 * Validate TweetPoll IP.
+     * @param ipVote  ipVote
+     * @param tweetPoll tweetPoll
+ 	 * @return 
+ 	 * @throws EnmeFailOperation
+ 	 */
+ 	 List<TweetPollResult> validateIpVote(final String ipVote, final TweetPoll tweetPoll)
+			throws EnmeFailOperation;
 }

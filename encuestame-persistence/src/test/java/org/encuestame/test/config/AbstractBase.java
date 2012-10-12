@@ -2223,8 +2223,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 			final String preference, final String value, final Question question) {
 		final QuestionPreferences questionPreference = new QuestionPreferences();
 		questionPreference.setPreference(preference);
-		questionPreference.setQuestion(question);
-		questionPreference.setValue(value);
+		questionPreference.setQuestion(question); 
 		getQuestionDaoImp().saveOrUpdate(questionPreference);
 		return questionPreference;
 	}
