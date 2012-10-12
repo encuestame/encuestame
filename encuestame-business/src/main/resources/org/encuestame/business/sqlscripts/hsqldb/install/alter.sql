@@ -111,3 +111,4 @@ alter table survey_temporal_result add constraint FK7867CF546BF7A1C foreign key 
 alter table survey_temporal_result add constraint FK7867CF5496009B4 foreign key (answer_q_answer_id) references questions_answers
 alter table survey_temporal_result add constraint FK7867CF551153812 foreign key (survey_sid) references surveys
 alter table question_preferences add constraint FKD540D01F46BF7A1C foreign key (question_qid) references questions
+alter table hash_tags_ranking add constraint FK71DECDA119AA125 foreign key (hashTag_hash_tag_id) references hash_tags
