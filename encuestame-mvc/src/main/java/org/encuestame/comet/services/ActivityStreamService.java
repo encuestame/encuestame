@@ -21,10 +21,10 @@ import javax.inject.Singleton;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
+import org.cometd.annotation.Listener;
+import org.cometd.annotation.Service;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
-import org.cometd.java.annotation.Listener;
-import org.cometd.java.annotation.Service;
 import org.encuestame.core.util.JSONUtils;
 import org.encuestame.utils.web.notification.UtilNotification;
 

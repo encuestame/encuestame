@@ -17,8 +17,8 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
+import org.cometd.annotation.ServerAnnotationProcessor;
 import org.cometd.bayeux.server.BayeuxServer;
-import org.cometd.java.annotation.ServerAnnotationProcessor;
 import org.cometd.server.BayeuxServerImpl;
 import org.cometd.server.ext.AcknowledgedMessagesExtension;
 import org.springframework.beans.BeansException;

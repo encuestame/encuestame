@@ -23,10 +23,10 @@ import javax.inject.Singleton;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
+import org.cometd.annotation.Listener;
+import org.cometd.annotation.Service;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
-import org.cometd.java.annotation.Listener;
-import org.cometd.java.annotation.Service;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.exception.EnMeExpcetion;

@@ -4,9 +4,8 @@ import javax.annotation.Resource;
 
 import junit.framework.Assert;
 
+import org.cometd.annotation.AnnotationCometdServlet;
 import org.cometd.bayeux.server.ServerChannel;
-import org.cometd.java.annotation.AnnotationCometdServlet;
-import org.cometd.java.annotation.ServerAnnotationProcessor;
 import org.cometd.server.BayeuxServerImpl;
 import org.cometd.server.ServerChannelImpl;
 import org.eclipse.jetty.server.Server;

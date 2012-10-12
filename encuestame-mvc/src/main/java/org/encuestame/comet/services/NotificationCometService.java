@@ -19,10 +19,9 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.apache.log4j.Logger;
+import org.cometd.annotation.Listener;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
-import org.cometd.java.annotation.Listener;
-import org.cometd.java.annotation.Service;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
@@ -33,7 +32,7 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
  */
 @Named // Tells Spring that this is a bean
 @Singleton // Tells Spring that this is a singleton
-@Service("notificationService")
+@org.cometd.annotation.Service("notificationService")
 public class NotificationCometService extends AbstractCometService {
 
     /*

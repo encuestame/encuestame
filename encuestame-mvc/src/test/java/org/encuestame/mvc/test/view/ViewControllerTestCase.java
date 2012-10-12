@@ -333,14 +333,14 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
                 "/tweetpoll/vote/" + this.tpswitch.getCodeTweet());
         final ModelAndView mavVote = handlerAdapter.handle(request, response,
                 tweetPollController);
-        assertViewName(mavVote, "badTweetVote");
+        assertViewName(mavVote, "completeTweetVote");
 
         // repeated vote view.
         request = new MockHttpServletRequest(MethodJson.GET.toString(),
                 "/tweetpoll/vote/" + this.tpswitch.getCodeTweet());
         final ModelAndView mavVote1 = handlerAdapter.handle(request, response,
                 tweetPollController);
-        assertViewName(mavVote1, "badTweetVote");
+        assertViewName(mavVote1, "completeTweetVote");
 
         // /user/tweetpoll/list
         // request = new MockHttpServletRequest(MethodJson.GET.toString(),
@@ -412,12 +412,12 @@ public class ViewControllerTestCase extends AbstractMvcUnitBeans{
     public void setSignupController(SignUpController signupController) {
         this.signupController = signupController;
     }
-    
+
     /**
-     * 
+     *
      * @param homeController
      */
-	public void setHomeController(HomeController homeController) {
-		this.homeController = homeController;
-	}
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+    }
 }
