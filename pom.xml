@@ -136,7 +136,7 @@
         <!--CometD -->
         <comet.version>2.5.0</comet.version>
         <!-- Plugin Version -->
-        <surefire.version>2.12</surefire.version>
+        <surefire.version>2.12.4</surefire.version>
         <!-- 
         	Clover 2 Needed install on local host 
         	http://confluence.atlassian.com/display/CLOVER/Clover+for+Maven+2+and+3+Developer+Guide
@@ -164,9 +164,12 @@
         <maven.war.plugin>2.1.1</maven.war.plugin>
         <wro4j.plugin>1.4.6</wro4j.plugin>
         <maven-eclipse-plugin>2.9</maven-eclipse-plugin>
+        <dojo.version>1.8.0</dojo.version>
     </properties>
 
-    <modules>
+    <modules>            
+        <module>encuestame-js</module>
+        <module>encuestame-css</module>
         <module>encuestame-utils</module>
         <module>encuestame-core</module>
         <module>encuestame-social</module>
@@ -176,8 +179,7 @@
         <module>encuestame-mvc</module>
         <!--
             Javascript Refactorization
-            <module>encuestame-js</module>
-        -->
+        -->                        
         <module>encuestame-war</module>
     </modules>
 
@@ -1735,6 +1737,12 @@
                 <artifactId>cactus.core.framework</artifactId>
                 <version>${cactus.version}</version>
             </dependency> -->
+            <dependency>
+                <groupId>org.dojotoolkit</groupId>
+                <artifactId>dojo-war</artifactId>
+                <version>${dojo.version}</version>
+                <type>war</type>
+            </dependency>            
         </dependencies>
     </dependencyManagement>
 </project>

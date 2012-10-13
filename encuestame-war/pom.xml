@@ -784,5 +784,10 @@
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>
             <artifactId>ehcache-spring-annotations</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.dojotoolkit</groupId>
+            <artifactId>dojo-war</artifactId>            
+            <type>war</type>
+        </dependency>        
     </dependencies>
 </project>
