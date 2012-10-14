@@ -4,8 +4,7 @@ set -e
 
 # Base directory for this entire project
 BASEDIR=$(cd $(dirname $0) && pwd)
-echo $BASEDIR
-echo "juan"
+
 # Source directory for unbuilt code
 SRCDIR="$BASEDIR/js"
 
@@ -13,7 +12,7 @@ SRCDIR="$BASEDIR/js"
 TOOLSDIR="$SRCDIR/util/buildscripts"
 
 # Destination directory for built code
-DISTDIR="$BASEDIR/dist"
+DISTDIR="$BASEDIR/js/static"
 
 # Module ID of the main application package loader configuration
 LOADERMID="app/run"

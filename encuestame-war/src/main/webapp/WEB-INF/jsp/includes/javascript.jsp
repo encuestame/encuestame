@@ -4,13 +4,13 @@
 <![endif]-->
 <script>
          var dojoConfig= {
-        		baseUrl: '<%=request.getContextPath()%>/resources/js/',
-        		packages: [
-        		           { name: "dojo", location: "dojo" },
-        		           { name: "dijit", location: "dijit" },
-        		           { name: "dojox", location: "dojox" },
-        		           { name: "me", location: "me" }
-        		],
+            baseUrl: '<%=request.getContextPath()%>/resources/js/',
+            packages: [
+                       { name: "dojo", location: "dojo" },
+                       { name: "dijit", location: "dijit" },
+                       { name: "dojox", location: "dojox" },
+                       { name: "me", location: "me" }
+            ],
                 has: {
                     'dojo-firebug': true,
                     'dojo-debug-messages': true
@@ -20,19 +20,19 @@
                 isDebug: 1,
                 tlmSiblingOfDojo: false,
                 async: true
-            }; 
+            };
 </script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script src="<%=request.getContextPath()%>/resources/js/me/run.js"></script>
 <!-- Temporal service to store all service. -->
-<script src="<%=request.getContextPath()%>/resources/js/me/json_services.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/commons.js"></script>
 <script>
 require([
-    "dojo/_base/declare", 
-    "dojo/parser", 
+    "dojo/_base/declare",
+    "dojo/parser",
     "dojo/ready",
     "me/core/enme",
-], function(declare, parser, ready, _ENME){  
+], function(declare, parser, ready, _ENME){
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
         _ENME.init({
@@ -58,7 +58,7 @@ require([
 
 <script>
 <%-- require(["dojo/parser", 'me', "ready!"], function(parser, ENME) {
-		console.log("dasdadsadsadas");
+    console.log("dasdadsadsadas");
         ENME.init({
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
@@ -70,13 +70,13 @@ require([
             activity_maxNetworkDelay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxNetworkDelay")%>,
             notification_delay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.delay")%>,
             notification_limit : <%=EnMePlaceHolderConfigurer.getProperty("not.main.limit")%>,
-           	tp_a : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.allowed")%>,
-           	tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
-           	tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
+             tp_a : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.allowed")%>,
+             tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
+             tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
         });
 }); --%>
 </script>
-<!-- 
+<!--
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
  -->
 <c:if test="${!development}">

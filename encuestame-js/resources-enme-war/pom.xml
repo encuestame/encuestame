@@ -1,115 +1,157 @@
- <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 
   <parent>
-        <groupId>org.encuestame</groupId>
-        <artifactId>encuestame-js</artifactId>
-        <version>1.146</version>
-    </parent>
+    <groupId>org.encuestame</groupId>
+    <artifactId>encuestame-js</artifactId>
+    <version>1.146</version>
+  </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>resources-enme-war</artifactId>
-    <packaging>war</packaging>
-    <name>Encuestame Resources :: JavaScript ::CSS </name>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>resources-enme-war</artifactId>
+  <packaging>war</packaging>
+  <name>Encuestame Resources :: JavaScript ::CSS </name>
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>main</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                 <delete verbose="true">
-                                       <fileset dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox" includes="cometd.js"/>
-                                       <fileset dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd" includes="main.js"/>
-                                 </delete>
-                                 <copy file="${project.build.directory}/war/work/org.encuestame/cometd-javascript-common/resource/js/dojox/cometd/main.js" tofile="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd.js" />
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-               <configuration>
-                        <packagingExcludes>
-                             resource/js/dojox/cometd.js
-                        </packagingExcludes>
-                    <overlays>
-                        <overlay>
-                            <groupId>org.encuestame</groupId>
-                            <artifactId>encuestame-css</artifactId>
-                        </overlay>
-                        <overlay>
-                            <groupId>org.encuestame</groupId>
-                            <artifactId>widgets-web</artifactId>
-                        </overlay>
-                        <overlay>
-                            <groupId>org.encuestame</groupId>
-                            <artifactId>widgets-mobile</artifactId>
-                        </overlay>
-                        <overlay>
-                            <groupId>org.encuestame</groupId>
-                            <artifactId>deps</artifactId>
-                        </overlay>
-                        <overlay>
-                            <groupId>org.encuestame</groupId>
-                            <artifactId>cometd-javascript-common</artifactId>
-                        </overlay>
-                        <overlay>
-                            <groupId>org.encuestame</groupId>
-                            <artifactId>chart</artifactId>
-                        </overlay>
-                    </overlays>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>main</id>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <delete verbose="true">
+                  <fileset
+                    dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox"
+                    includes="cometd.js" />
+                  <fileset
+                    dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd"
+                    includes="main.js" />
+                </delete>
+                <copy
+                  file="${project.build.directory}/war/work/org.encuestame/cometd-javascript-common/resource/js/dojox/cometd/main.js"
+                  tofile="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd.js" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <executions>
+          <execution><!-- Run our version calculation script -->
+            <id>Version Calculation</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${basedir}/src/main/webapp/resource/build.sh</executable>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <overlays>
+            <overlay>
+              <groupId>org.encuestame</groupId>
+              <artifactId>encuestame-css</artifactId>
+            </overlay>
+            <overlay>
+              <groupId>org.encuestame</groupId>
+              <artifactId>widgets-web</artifactId>
+            </overlay>
+            <overlay>
+              <groupId>org.encuestame</groupId>
+              <artifactId>widgets-mobile</artifactId>
+            </overlay>
+            <overlay>
+              <groupId>org.encuestame</groupId>
+              <artifactId>deps</artifactId>
+            </overlay>
+            <overlay>
+              <groupId>org.encuestame</groupId>
+              <artifactId>cometd-javascript-common</artifactId>
+            </overlay>
+            <overlay>
+              <groupId>org.encuestame</groupId>
+              <artifactId>chart</artifactId>
+            </overlay>
+          </overlays>
+          <warSourceExcludes>
+            resource/js/static/dojo/,
+            resource/js/static/dojox/,
+            resource/js/static/dijit/,
+            resource/js/static/util/,
+            resource/js/static/build-report.txt,
+            resource/js/static/index.html,
+            resource/build.sh,
+            resource/js/package.json,
+            resource/js/package.js,
+            resource/profiles/,
+            resource/js/dojo/,
+            resource/js/app/,
+            resource/js/dojox/,
+            resource/js/dijit/,
+            resource/js/util/,
+            resource/js/index.html,
+            resource/js/main.js,
+            resource/js/run.js,
+            resource/js/server.sh,
+          </warSourceExcludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-css</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>widgets-web</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-         <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>widgets-mobile</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>deps</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>cometd-javascript-common</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.encuestame</groupId>
-            <artifactId>chart</artifactId>
-            <version>${project.version}</version>
-            <type>war</type>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>encuestame-css</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>widgets-web</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>widgets-mobile</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>deps</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>cometd-javascript-common</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>chart</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+  </dependencies>
 
 </project>

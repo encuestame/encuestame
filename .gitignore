@@ -37,3 +37,9 @@ encuestame-js/resources-enme-war/src/main/resources/js/util
 encuestame-js/resources-enme-war/src/main/resources/js/dojox
 encuestame-js/resources-enme-war/src/main/resources/js/dojo
 encuestame-js/resources-enme-war/src/main/resources/js/dijit
+
+encuestame-js/resources-enme-war/src/main/webapp/resource/js/dijit/
+encuestame-js/resources-enme-war/src/main/webapp/resource/js/dojo/
+encuestame-js/resources-enme-war/src/main/webapp/resource/js/dojox/
+encuestame-js/resources-enme-war/src/main/webapp/resource/js/static/
+encuestame-js/resources-enme-war/src/main/webapp/resource/js/util/
