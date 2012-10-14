@@ -812,9 +812,35 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @param tweetPoll tweetPoll
      * @return {@link TweetPollResult}
      */
+    @Deprecated
     public TweetPollResult validateTweetPollIP(final String ipVote, final TweetPoll tweetPoll){
         return getTweetPollDao().validateVoteIP(ipVote, tweetPoll);
     }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#validateIpVote(java
+	 * .lang.String, org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+	 */
+	public List<TweetPollResult> validateIpVote(final String ipVote,
+			final TweetPoll tweetPoll) throws EnmeFailOperation {
+		List<TweetPollResult> tpResult = new ArrayList<TweetPollResult>();
+		tpResult = getTweetPollDao().validateTweetPollResultsIP(ipVote, tweetPoll);
+		if (tpResult.size() > 0) {
+			if (tweetPoll.getAllowRepatedVotes()
+					&& (tpResult.size() < tweetPoll.getLimitVotes())) {
+				return tpResult;
+			} else {
+				throw new EnmeFailOperation(
+						"Maximum quota of votes has been exceeded");
+			}
+
+		} else {
+			return tpResult;
+		} 
+	}
 
     /**
      * Create TweetPoll Folder.

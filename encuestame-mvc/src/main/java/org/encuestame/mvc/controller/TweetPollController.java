@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;
@@ -67,17 +68,16 @@ public class TweetPollController extends AbstractSocialController {
      * @param model model
      * @param id id tweet
      * @return view to redirect.
+     * @throws UnknownHostException
      */
     @RequestMapping(value = "/tweetpoll/vote/{tweetId}", method = RequestMethod.GET)
     public String tweetPollController(
         ModelMap model,
         @PathVariable String tweetId,
-        final HttpServletRequest req) {
+        final HttpServletRequest req) throws UnknownHostException {
         log.debug("tweetId: "+tweetId);
         String pathVote = "badTweetVote";
-        String IP;
-        try {
-            IP = getIpClient(req);
+        String IP = getIpClient(req);
         // Check IP in BlackListFile
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             log.debug("Check Banned IP----> " + checkBannedIp);
@@ -107,9 +107,12 @@ public class TweetPollController extends AbstractSocialController {
                     }else {
                         log.info("Validate Votting");
                             log.info("IP" + IP);
-                            if (getTweetPollService().validateTweetPollIP(IP, tweetPoll.getTweetPoll()) == null) {
+                            try {
+                                getTweetPollService().validateIpVote(IP,
+                                        tweetPoll.getTweetPoll());
                                 if (!tweetPoll.getTweetPoll().getCaptcha()) {
-                                    getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
+                                    getTweetPollService().tweetPollVote(tweetPoll, IP,
+                                            Calendar.getInstance().getTime());
                                     model.put("message", "Tweet Poll Voted.");
                                     pathVote = "tweetVoted";
                                     log.debug("VOTED");
@@ -118,23 +121,16 @@ public class TweetPollController extends AbstractSocialController {
                                     log.debug("VOTE WITH CAPTCHA");
                                     pathVote = "voteCaptcha";
                                 }
-                            }
-                            else{
-                                log.debug("Tweet Vote Repeteaded.");
-                                model.put("message", "Tweet Vote Repeteaded.");
+                            } catch (Exception e) {
+                                // TODO: handle exception
+                                log.error("");
                                 pathVote = "repeatedTweetVote";
                             }
-                            model.get("message");
-                         }
                 }
             }
             log.info("redirect template WHERE "+pathVote);
-            return pathVote;
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return pathVote;
         }
+        return pathVote;
     }
 
     /**
@@ -161,6 +157,7 @@ public class TweetPollController extends AbstractSocialController {
      * @param result {@link BindingResult}.
      * @param model {@link ModelMap}.
      * @return view to redirect.
+     * @throws UnknownHostException
      */
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(
@@ -170,7 +167,7 @@ public class TweetPollController extends AbstractSocialController {
             @RequestParam("vote_code") String code,
             @ModelAttribute("captchaForm") UtilVoteCaptcha vote,
             BindingResult result,
-            Model model) {
+            Model model) throws UnknownHostException {
              log.info("recaptcha_challenge_field "+challenge);
              log.info("recaptcha_rforgotesponse_field "+response);
              log.info("code "+code.toString());
@@ -181,6 +178,7 @@ public class TweetPollController extends AbstractSocialController {
              code = filterValue(code);
              vote = (UtilVoteCaptcha) model.asMap().get("captchaForm");
              log.info("vote2--> "+vote.toString());
+             final String IP = getIpClient(req);
              //security service
              final SecurityOperations securityService = getServiceManager().getApplicationServices().getSecurityService();
              //check if captcha is valid
@@ -211,17 +209,17 @@ public class TweetPollController extends AbstractSocialController {
                      log.debug("tweetpoll answer not found");
                      return "badTweetVote";
                      //model.addAttribute("message", "Tweet Not Valid.");
-                 } else {
-                     //save the vote.
-                     String IP;
-                    try {
-                        IP = getIpClient(req);
-                         log.info("IP" + IP);
+                     }
+                 else {
+                     // Vote
+                     try {
+                         getTweetPollService().validateIpVote(IP, tweetPoll.getTweetPoll());
                          getTweetPollService().tweetPollVote(tweetPoll, IP, Calendar.getInstance().getTime());
                          return "tweetVoted";
-                    } catch (UnknownHostException e) {
-                        e.printStackTrace();
-                        return "badTweetVote";
+
+                    } catch (Exception e) {
+                         log.error("Bad tweetpoll process submit --- >" + e);
+                        return "repeatedTweetVote";
                     }
                  }
             }
@@ -334,13 +332,14 @@ public class TweetPollController extends AbstractSocialController {
      * @param id tweetpoll id
      * @param slug slug question name.
      * @return
+     * @throws UnknownHostException
      */
     @RequestMapping(value = "/tweetpoll/{id}/{slug}", method = RequestMethod.GET)
     public String detailTweetPollController(
             final ModelMap model,
             @PathVariable Long id,
             @PathVariable String slug,
-            final HttpServletRequest request) {
+            final HttpServletRequest request) throws UnknownHostException {
         log.debug("detailTweetPollController "+id);
         log.debug("detailTweetPollController "+slug);
         try {
