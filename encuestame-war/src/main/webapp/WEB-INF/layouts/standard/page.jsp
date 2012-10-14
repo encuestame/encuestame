@@ -22,7 +22,7 @@
 <body class="claro enme-web-context">
   <div id="mainWrapper" class="page">
     <header id="header">
-        <c:forEach items="${i18n}" var="entry">
+            <c:forEach items="${i18n}" var="entry">
                   <input type="hidden" name="${entry.key}" value="${entry.value}"/>
             </c:forEach>
             <input type="hidden" name="not_view_all" value="<spring:message code="not_view_all" />"/>

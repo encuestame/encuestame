@@ -14,7 +14,6 @@
   <packaging>war</packaging>
   <name>Encuestame Resources :: JavaScript ::CSS </name>
 
-
   <build>
     <plugins>
       <plugin>
@@ -37,7 +36,7 @@
                     includes="main.js" />
                 </delete>
                 <copy
-                  file="${project.build.directory}/war/work/org.encuestame/cometd-javascript-common/resource/js/dojox/cometd/main.js"
+                  file="${project.build.directory}/war/work/org.encuestame/enme-cometd-javascript-common/resource/js/dojox/cometd/main.js"
                   tofile="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd.js" />
               </target>
             </configuration>
@@ -82,7 +81,7 @@
             </overlay>
             <overlay>
               <groupId>org.encuestame</groupId>
-              <artifactId>cometd-javascript-common</artifactId>
+              <artifactId>enme-cometd-javascript-common</artifactId>
             </overlay>
             <overlay>
               <groupId>org.encuestame</groupId>
@@ -102,7 +101,6 @@
             resource/profiles/,
             resource/js/dojo/,
             resource/js/app/,
-            resource/js/dojox/,
             resource/js/dijit/,
             resource/js/util/,
             resource/js/index.html,
@@ -110,6 +108,10 @@
             resource/js/run.js,
             resource/js/server.sh,
           </warSourceExcludes>
+          <warSourceIncludes>
+             resource/js/dojox/cometd/,
+             resource/js/dojox/cometd.js,
+          </warSourceIncludes>
         </configuration>
       </plugin>
     </plugins>
@@ -142,7 +144,7 @@
     </dependency>
     <dependency>
       <groupId>org.encuestame</groupId>
-      <artifactId>cometd-javascript-common</artifactId>
+      <artifactId>enme-cometd-javascript-common</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>

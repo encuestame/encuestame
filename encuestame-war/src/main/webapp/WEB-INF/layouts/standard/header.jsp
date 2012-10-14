@@ -6,21 +6,24 @@
             <c:if test="${!logged}">
                 <span class="link"> <a
                     href="<%=request.getContextPath()%>/user/signin"> <spring:message
-                            code="header.signin" /> </a> </span>
+                            code="header.signin" /> </a>
+                </span>
             </c:if>
             <c:if test="${logged}">
                 <span class="link"> <a
                     href="<%=request.getContextPath()%>/home"> <spring:message
-                            code="header.public.line" /> </a> </span>
+                            code="header.public.line" /> </a>
+                </span>
             </c:if>
             <c:if test="${logged}">
                 <span class="link">
                     <div data-dojo-type="me/web/widget/menu/DashBoardMenu"
-                         contextPath="<%=request.getContextPath()%>"></div> </span> -
+                         contextPath="<%=request.getContextPath()%>"></div>
+                </span> -
             </c:if>
-            <span class="link web-search-wrapper">
-                <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
-            </span>
+                <span class="link web-search-wrapper">
+                    <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
+                </span>
         </div>
     </div>
 </div>

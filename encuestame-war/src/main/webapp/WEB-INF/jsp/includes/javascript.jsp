@@ -11,15 +11,15 @@
                        { name: "dojox", location: "dojox" },
                        { name: "me", location: "me" }
             ],
-                has: {
+            has: {
                     'dojo-firebug': true,
                     'dojo-debug-messages': true
                 },
-                useCommentedJson:true,
-                parseOnLoad: false,
-                isDebug: 1,
-                tlmSiblingOfDojo: false,
-                async: true
+            useCommentedJson:true,
+            parseOnLoad: false,
+            isDebug: 1,
+            tlmSiblingOfDojo: false,
+            async: true
             };
 </script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
@@ -27,6 +27,9 @@
 <!-- Temporal service to store all service. -->
 <script src="<%=request.getContextPath()%>/resources/js/commons.js"></script>
 <script>
+var config = {
+    contextPath: '${pageContext.request.contextPath}'
+};
 require([
     "dojo/_base/declare",
     "dojo/parser",
@@ -35,6 +38,7 @@ require([
 ], function(declare, parser, ready, _ENME){
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
+        console.log("DDDDDDDDDDDDDD");
         _ENME.init({
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
