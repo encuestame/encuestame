@@ -122,7 +122,10 @@
                  </connectors>
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
-                    </webAppConfig>
+<!--                         <baseResource implementation="org.mortbay.resource.ResourceCollection">
+                            <resources>src/main/webapp,target/foo,E:/my/other/source,/home/johndoe/path/to/my/other/source</resources>
+                        </baseResource>
+ -->                    </webAppConfig>
                     <scanIntervalSeconds>0</scanIntervalSeconds><!--
                         <requestLog implementation="org.mortbay.jetty.NCSARequestLog">
                             <filename>target/encuestame.log</filename>
@@ -133,7 +136,6 @@
                         </requestLog>
                 --></configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>keytool-maven-plugin</artifactId>

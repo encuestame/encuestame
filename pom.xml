@@ -168,18 +168,15 @@
     </properties>
 
     <modules>            
-        <module>encuestame-js</module>
         <module>encuestame-css</module>
+        <module>encuestame-js</module>        
         <module>encuestame-utils</module>
         <module>encuestame-core</module>
         <module>encuestame-social</module>
         <module>encuestame-oauth</module>
         <module>encuestame-persistence</module>
         <module>encuestame-business</module>
-        <module>encuestame-mvc</module>
-        <!--
-            Javascript Refactorization
-        -->                        
+        <module>encuestame-mvc</module>                    
         <module>encuestame-war</module>
     </modules>
 
