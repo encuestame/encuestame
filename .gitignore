@@ -33,3 +33,7 @@ encuestame-persistence/.DS_Store
 encuestame-war/src/main/webapp/resource/js/graphael
 encuestame-war/src/main/webapp/resource/js/raphael
 encuestame-war/src/main/webapp/resource/js/eve
+encuestame-js/resources-enme-war/src/main/resources/js/util
+encuestame-js/resources-enme-war/src/main/resources/js/dojox
+encuestame-js/resources-enme-war/src/main/resources/js/dojo
+encuestame-js/resources-enme-war/src/main/resources/js/dijit

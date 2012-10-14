@@ -15,44 +15,60 @@
 
     <build>
         <plugins>
-<!--             <plugin>
+            <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>main</id>
-                        <phase>prepare-package</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
                             <target>
-                                <copy file="${basedir}/src/main/webapp/dojox/cometd/main.js" tofile="${project.build.directory}/${project.build.finalName}/dojox/cometd.js" />
+                                 <delete verbose="true">
+                                       <fileset dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox" includes="cometd.js"/>
+                                       <fileset dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd" includes="main.js"/>
+                                 </delete>
+                                 <copy file="${project.build.directory}/war/work/org.encuestame/cometd-javascript-common/resource/js/dojox/cometd/main.js" tofile="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd.js" />
                             </target>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin> -->
+            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <!-- <configuration>
+               <configuration>
+                        <packagingExcludes>
+                             resource/js/dojox/cometd.js
+                        </packagingExcludes>
                     <overlays>
-                        <overlay />
                         <overlay>
-                            <groupId>org.cometd.javascript</groupId>
+                            <groupId>org.encuestame</groupId>
+                            <artifactId>encuestame-css</artifactId>
+                        </overlay>
+                        <overlay>
+                            <groupId>org.encuestame</groupId>
+                            <artifactId>widgets-web</artifactId>
+                        </overlay>
+                        <overlay>
+                            <groupId>org.encuestame</groupId>
+                            <artifactId>widgets-mobile</artifactId>
+                        </overlay>
+                        <overlay>
+                            <groupId>org.encuestame</groupId>
+                            <artifactId>deps</artifactId>
+                        </overlay>
+                        <overlay>
+                            <groupId>org.encuestame</groupId>
                             <artifactId>cometd-javascript-common</artifactId>
                         </overlay>
                         <overlay>
-                            <groupId>org.dojotoolkit</groupId>
-                            <artifactId>dojo-war</artifactId>
-                            <excludes>
-                                <exclude>META-INF/**</exclude>
-                                <exclude>dojox/cometd.js*</exclude>
-                                <exclude>dojox/cometd</exclude>
-                                <exclude>dojox/cometd/**</exclude>
-                            </excludes>
+                            <groupId>org.encuestame</groupId>
+                            <artifactId>chart</artifactId>
                         </overlay>
                     </overlays>
-                </configuration> -->
+                </configuration>
             </plugin>
         </plugins>
     </build>

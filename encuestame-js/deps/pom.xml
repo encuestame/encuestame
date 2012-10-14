@@ -12,15 +12,34 @@
     <name>Encuestame Dependencies JavaScript</name>
 
     <properties>
-        <jsSourceDir>${basedir}/src/main/resources/req</jsSourceDir>
+        <jsSourceDir>${project.build.directory}/compress/req</jsSourceDir>
     </properties>
 
     <build>
         <plugins>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+      </plugin>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>yuicompressor-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>1.3.2</version>
+                <configuration>
+                    <force>true</force>
+                    <statistics>true</statistics>
+                    <gzip>true</gzip>
+                     <nosuffix>true</nosuffix>
+                     <suffix>min</suffix>
+                    <preserveStringLiterals>false</preserveStringLiterals>
+                    <preserveAllSemiColons>false</preserveAllSemiColons>
+                    <failOnWarning>false</failOnWarning>
+                    <jswarn>false</jswarn>
+                    <excludes>
+                        <exclude>${basedir}/src/main/webapp/**</exclude>
+                    </excludes>
+                    <outputDirectory>${project.build.directory}/compress</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <id>aggregate-js</id>
@@ -42,15 +61,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <disableOptimizations>true</disableOptimizations>
-                    <nosuffix>true</nosuffix>
-                    <nomunge>true</nomunge>
-                    <jswarn>false</jswarn>
-                    <excludes>
-                        <exclude>${basedir}/src/main/webapp/**</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
