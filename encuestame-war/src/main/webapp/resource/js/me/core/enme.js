@@ -199,6 +199,7 @@ define(["dojo",
        * @param default_value {String} if value is undefined, display default
        */
       getMessage : function(value, default_value) {
+        var ENME = this;
         return this.params[value] == undefined
              ? (default_value == null
                  ? "NOT_DEFINED[" + value + "]"
@@ -431,8 +432,6 @@ define(["dojo",
                 throw new Error("hashtag name is required");
            }
       },
-
-
 
       shortAmmount : function(quantity){
         if (typeof(quantity) === "number") {

@@ -13,5 +13,5 @@
 }
 </style>
 <div class="defaultMarginWrapper">
-    <enme:widget type="encuestame.org.core.commons.dashboard.DashboardWrapper"></enme:widget>
+    <div data-dojo-type="me/web/widget/dashboard/DashboardWrapper"></div>
 </div>

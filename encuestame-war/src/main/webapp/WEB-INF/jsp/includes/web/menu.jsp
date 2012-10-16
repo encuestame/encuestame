@@ -3,7 +3,7 @@
     <div class="rightSide">
         <c:if test="${logged}">
             <span class="section">
-                <div dojoType="encuestame.org.core.commons.notifications.Notification"></div>
+                <div data-dojo-type="me/web/widget/notifications/Notification"></div>
             </span>
             <span class="section"> <%@ include
                     file="/WEB-INF/jsp/includes/profile.jsp"%>
