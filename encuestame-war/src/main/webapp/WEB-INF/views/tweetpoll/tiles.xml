@@ -6,7 +6,7 @@
     <definition name="tweetpoll" extends="page">
         <put-attribute name="title" value="TweetPoll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}tweetpoll.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}list-tweetpoll.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}list-js.jsp" />
     </definition>
 

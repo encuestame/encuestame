@@ -7,7 +7,7 @@
             </button>
         </a>
     </div>
-    <div dojoType="encuestame.org.core.commons.tweetPoll.TweetPollList"
+    <div data-dojo-type="me/web/widget/tweetpoll/TweetPollList"
          contextPath="<%=request.getContextPath()%>"></div>
 </div>
 
