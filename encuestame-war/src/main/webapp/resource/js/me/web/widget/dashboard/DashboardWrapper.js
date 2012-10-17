@@ -1,10 +1,13 @@
-define([
-         "dojo/_base/declare",
+define(["dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/stream/HashTagInfo",
+         "me/web/widget/dashboard/LayoutSelecter",
+         "me/web/widget/dashboard/GadgetDirectory",
+         "me/web/widget/dialog/Info",
+         "dijit/TooltipDialog",
+         "dijit/form/DropDownButton",
          "me/core/enme",
          "dojo/text!me/web/widget/dashboard/template/dashboardWrapper.html" ],
         function(
@@ -13,13 +16,17 @@ define([
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 main_widget,
-                hashTagInfo,
+                layoutSelecter,
+                gadgetDirectory,
+                Info,
+                TooltipDialog,
+                DropDownButton,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+          return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
           // template string.
-            templateString : template,
+          templateString : template,
 
           _addButtonWidget : null,
 
@@ -47,7 +54,7 @@ define([
              dojo.connect(this._gadgets, "onclick", dojo.hitch(this, this._openDirectory));
              dojo.connect(this._layout, "onclick", dojo.hitch(this, this._openLayout));
              // init layout select
-             this.layoutWidget = new encuestame.org.core.commons.dashboard.LayoutSelecter({});
+             this.layoutWidget = new layoutSelecter({});
              def.callback(true);
           },
 
@@ -62,7 +69,7 @@ define([
                       onComplete: dojo.hitch(this, function(items){
                           dojo.forEach(items, dojo.hitch(this, function(item, index) {
                               var dasboardId = this._addComboStoreWidget.getValues(item, "id");
-                              console.info("dashboard id ", dasboardId);
+                              //console.info("dashboard id ", dasboardId);
                               // load favorite dashboard.
                               this._createDashBoard(dasboardId);
                           }));
@@ -79,9 +86,9 @@ define([
            */
           _openDirectory : function(event){
               dojo.stopEvent(event);
-              console.info("open dialog gadgets");
+              //console.info("open dialog gadgets");
               var dialog = this._createDialog(this._loadGadgetDirectory().domNode);
-              console.info("open dialog show", dialog);
+              //console.info("open dialog show", dialog);
               dialog.show();
           },
 
@@ -100,8 +107,8 @@ define([
             */
           _loadGadgetDirectory : function(){
               if (this.dashboardWidget != null) {
-                  console.info("dashboardWidget", this.dashboardWidget);
-                  var directory = new encuestame.org.core.commons.dashboard.GadgetDirectory({dashboardWidget : this.dashboardWidget});
+                  //console.info("dashboardWidget", this.dashboardWidget);
+                  var directory = new gadgetDirectory({dashboardWidget : this.dashboardWidget});
                   return directory;
               } else {
                   //error.
@@ -115,7 +122,7 @@ define([
            */
           _createDialog : function(content){
               console.info("open dialog content", content);
-              var dialog = new encuestame.org.core.commons.dialog.Info({content:content});
+              var dialog = new Info({content:content});
               return dialog;
           },
 
@@ -126,6 +133,7 @@ define([
               var load = dojo.hitch(this, function(data){
                   if("success" in data) {
                       var store = data.success;
+                      //http://livedocs.dojotoolkit.org/dojo/data/ItemFileReadStore
                       this._addComboStoreWidget = new dojo.data.ItemFileReadStore({
                           data: store
                       });
@@ -176,37 +184,39 @@ define([
               var error = function(error) {
                   console.error("error", error);
               };
-              encuestame.service.xhrGet(encuestame.service.dashboard.select, {id : id}, load, error);
+              encuestame.service.xhrGet(this.getURLService().service('encuestame.service.dashboard.select'), {id : id}, load, error);
           },
 
           /**
            *
            */
           _createDashboardButton : function() {
-              var dialog = new dijit.TooltipDialog({
-                                                  content : '<div class="web-dashboard-create"><div  dojoType="dijit.form.Form" id="createDashBoard" data-dojo-id="createDashBoard" encType="multipart/form-data"><div class="web-dashboard-create-row"><label for="name">Name:</label> <input dojoType="dijit.form.ValidationTextBox" required="true"  id="name" name="name"></div>'
-                          + '<div class="web-dashboard-create-row"><label for="hobby">Description:</label> <input dojoType="dijit.form.ValidationTextBox" required="true"  id="desc" name="desc"></div>'
-                          + '<div class="web-dashboard-create-actions"><button id="createDashBoardAdd" dojoType="dijit.form.Button" type="button">Add</button>'
-                          + '<button dojoType="dijit.form.Button"  id="createDashBoardCancel" type="button">Cancel</button></div></div></div>'
+              var dialog = new TooltipDialog({
+                                                  content : '<div class="web-dashboard-create"><div  data-dojo-type="dijit/form/Form" id="createDashBoard" data-dojo-id="createDashBoard" encType="multipart/form-data"><div class="web-dashboard-create-row"><label for="name">Name:</label> <input dojoType="dijit.form.ValidationTextBox" required="true"  id="name" name="name"></div>'
+                          + '<div class="web-dashboard-create-row"><label for="hobby">Description:</label> <input data-dojo-type="dijit/form/ValidationTextBox" required="true"  id="desc" name="desc"></div>'
+                          + '<div class="web-dashboard-create-actions"><button id="createDashBoardAdd" data-dojo-type="dijit/form/Button" type="button">Add</button>'
+                          + '<button data-dojo-type="dijit/form/Button" id="createDashBoardCancel" type="button">Cancel</button></div></div></div>'
               });
-              this._addButtonWidget = new dijit.form.DropDownButton({
-                  label: "New Dashboard",
-                  dropDown: dialog
-              });
-              var form = dijit.byId("createDashBoard");
-              var add = dijit.byId("createDashBoardAdd");
-              add.onClick = dojo.hitch(this, function() {
-                  if(form.isValid()){
-                      this._createDashboardService(dojo.byId("createDashBoard"));
-                  } else {
-                      console.info("form is invalid");
-                  }
-              });
-              var cancel = dijit.byId("createDashBoardCancel");
-              cancel.onClick = function(){
-                  this._addButtonWidget.closeDropDown();
-              };
-              this._new.appendChild(this._addButtonWidget.domNode);
+              //http://livedocs.dojotoolkit.org/dijit/form/DropDownButton
+              //TODO: temp disabled, needed refactor this code.
+//              this._addButtonWidget = new DropDownButton({
+//                  label: "New Dashboard",
+//                  dropDown: dialog
+//              });
+//              var form = dijit.byId("createDashBoard");
+//              var add = dijit.byId("createDashBoardAdd");
+//              add.onClick = dojo.hitch(this, function() {
+//                  if(form.isValid()){
+//                      this._createDashboardService(dojo.byId("createDashBoard"));
+//                  } else {
+//                      console.info("form is invalid");
+//                  }
+//              });
+//              var cancel = dijit.byId("createDashBoardCancel");
+//              cancel.onClick = function(){
+//                  this._addButtonWidget.closeDropDown();
+//              };
+//              this._new.appendChild(this._addButtonWidget.domNode);
           },
 
           /**
@@ -222,7 +232,7 @@ define([
               var error = function(error) {
                   console.debug("error", error);
               };
-              encuestame.service.xhrPost(encuestame.service.dashboard.create, form, load, error);
+              encuestame.service.xhrPost(this.getURLService().service('encuestame.service.dashboard.create'), form, load, error);
           },
 
           /*
@@ -267,84 +277,3 @@ define([
           }
     });
 });
-
-
-//dojo.provide("encuestame.org.core.commons.dashboard.DashboardWrapper");
-//
-//dojo.require("dijit._Templated");
-//dojo.require("dijit._Widget");
-//dojo.require("dijit.form.ComboBox");
-//dojo.require("dijit.form.Button");
-//dojo.require("dijit.form.DropDownButton");
-//dojo.require("dijit.TooltipDialog");
-//dojo.require("dijit.form.Button");
-//dojo.require("dijit.form.TextBox");
-//dojo.require("dijit.form.Form");
-//dojo.require("dijit.form.Button");
-//dojo.require("dijit.form.ValidationTextBox");
-//
-//dojo.require("dojo.dnd.Source");
-//dojo.require("dojo.data.ItemFileReadStore");
-//
-//dojo.require("encuestame.org.core.commons.dashboard.DashboardGridContainer");
-//dojo.require("encuestame.org.core.commons.dashboard.GadgetDirectory");
-//dojo.require("encuestame.org.core.commons.dialog.Info");
-//
-///**
-// *
-// */
-//dojo.declare(
-//    "encuestame.org.core.commons.dashboard.DashboardWrapper",
-//    [dijit._Widget, dijit._Templated],{
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/dashboardWrapper.html"),
-//
-//        widgetsInTemplate: true,
-//
-
-//);
-//
-///*
-// *
-// */
-//dojo.declare(
-//        "encuestame.org.core.commons.dashboard.LayoutSelecter",
-//        [dijit._Widget, dijit._Templated],{
-//
-//
-//            templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard", "template/layout.html"),
-//
-//            widgetsInTemplate: true,
-//
-//            /*
-//             *
-//             */
-//            _selectLayout : function(layout) {
-//                console.info("SELECT LAYOUT", layout);
-//                if (typeof layout == "string") {
-//                    dojo.publish("/encuestame/dashboard/grid/layout", [layout]);
-//                }
-//            },
-//
-//            /*
-//             *
-//             */
-//            postCreate : function() {
-//                 console.info("layouta", this.layouta);
-//                 dojo.connect(this.layouta, "onclick", dojo.hitch(this, function() {
-//                     this._selectLayout("A");
-//                 }));
-//                 dojo.connect(this.layoutaa, "onclick", dojo.hitch(this,function() {
-//                     this._selectLayout("AA");
-//                 }));
-//                 dojo.connect(this.layoutba, "onclick", dojo.hitch(this, function() {
-//                     this._selectLayout("BA");
-//                 }));
-//                 dojo.connect(this.layoutab, "onclick", dojo.hitch(this,function() {
-//                     this._selectLayout("AB");
-//                 }));
-//                 dojo.connect(this.layoutaaa, "onclick", dojo.hitch(this,function() {
-//                     this._selectLayout("AAA");
-//                 }));
-//            }
-//
-//});
