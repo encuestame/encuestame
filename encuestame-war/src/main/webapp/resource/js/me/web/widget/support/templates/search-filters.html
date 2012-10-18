@@ -1,15 +1,15 @@
 <section class="web-filters-wrapper">
      <div class="web-filters-search">
          <div class="web-filters-search-input">
-             <input type="text" dojoAttachPoint="_suggest"
-                   dojoType="dijit.form.TextBox" placeholder="${i18nMessage.detail_manage_filters_advanced_type_to_search}"
+             <input type="text" data-dojo-attach-point="_suggest"
+                   data-dojo-type="dijit/form/TextBox" placeholder="${i18nMessage.detail_manage_filters_advanced_type_to_search}"
                    trim="true" class="inputClass"></input>
          </div>
          <div class="web-filters-search-multi">
-            <label>               
+            <label>
                 ${i18nMessage.detail_manage_filters_advanced_title}
             </label>
-            <select dojoType="dijit.form.MultiSelect" size="5">
+            <select data-dojo-type="dijit/form/MultiSelect" size="5">
                 <option value="FACEBOOK">Facebook</option>
                 <option value="TWITTER">Twitter</option>
                 <option value="LINKEDIN">Linked In</option>
@@ -18,47 +18,47 @@
          </div>
          <div class="web-filters-search-check">
             <div>
-                <input id="sched3ule_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule"> 
+                <input id="sched3ule_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <label for="schedule">
                     ${i18nMessage.detail_manage_published}
                 </label>
             </div>
             <div>
-                <input id="sch2edule_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
+                <input id="sch2edule_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
                 <label for="schedule">
-                    ${i18nMessage.detail_manage_only_completed} 
+                    ${i18nMessage.detail_manage_only_completed}
                 </label>
             </div>
             <div>
-                <input id="schdeduale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
+                <input id="schdeduale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
                 <label for="schedule">
-                    Un Published 
+                    Un Published
                     ${i18nMessage.detail_manage_unpublished}
                 </label>
             </div>
             <div>
-                <input id="schdeddsdsauale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule"> 
+                <input id="schdeddsdsauale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <label for="schedule">
                     ${i18nMessage.detail_manage_filters_advanced_all_results}
                 </label>
             </div>
          </div>
           <div class="web-filters-search-check">
             <div>
-                <input id="schassedule_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule"> 
+                <input id="schassedule_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <label for="schedule">
                     ${i18nMessage.detail_manage_scheduled}
                 </label>
             </div>
             <div>
-                <input id="schedusale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
+                <input id="schedusale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
                 <label for="schedule">
-                    ${i18nMessage.detail_manage_favorites} 
+                    ${i18nMessage.detail_manage_favorites}
                 </label>
             </div>
             <div>
-                <input id="schesdsdusale_${id}" name="schedule_${id}" dojoType="dijit.form.CheckBox">
-                <label for="schedule"> 
+                <input id="schesdsdusale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <label for="schedule">
                     ${i18nMessage.detail_manage_by_account}
                 </label>
             </div>
@@ -67,13 +67,13 @@
                 <label>
                     ${i18nMessage.detail_manage_filters_advanced_range_days}
                  </label>
-                <div id="horizontalSlider" dojoType="dijit.form.HorizontalSlider"
+                <div id="horizontalSlider" data-dojo-type="dijit/form/HorizontalRule"
                     value="6" minimum="1" maximum="365" discreteValues="40"
                     intermediateChanges="true"
                     showButtons="true" style="width:250px;" name="horizontalSlider">
-                  <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration"
+                  <div data-dojo-type="dijit/form/HorizontalRule" container="bottomDecoration"
                     count=11 style="height:5px;"></div>
-                  <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration"
+                  <ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="bottomDecoration"
                       style="height:1em;font-size:75%;color:gray;">
                     <li>1</li>
                     <li>90</li>
@@ -84,7 +84,7 @@
                 </div>
            </div>
           <div class="web-filters-search-button">
-              <button type="button" dojoType="dijit.form.Button" value="Search" dojoAttachPoint="_button">
+              <button type="button" data-dojo-type="dijit/form/Button" value="Search" data-dojo-attach-point="_button">
                  ${i18nMessage.detail_manage_search}
               </button>
          </div>

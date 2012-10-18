@@ -100,8 +100,8 @@ define([
                 });
               }
               if (this.folder_support && this._folder) {
-                  var folder = new FoldersActions({folderContext: "tweetpoll"});
-                  this._folder.appendChild(folder.domNode);
+                  //var folder = new FoldersActions({folderContext: "tweetpoll"});
+                  //this._folder.appendChild(folder.domNode);
               }
               //enable drag support.
               //Disable, needed review this page http://livedocs.dojotoolkit.org/dojo/dnd

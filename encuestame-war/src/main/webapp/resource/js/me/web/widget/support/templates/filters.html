@@ -1,45 +1,45 @@
 <section class="web-filters-options ">
     <nav class="enme-unselectable">
-        <a href="#" dojoAttachPoint="_search">
+        <a href="#" data-dojo-attach-point="_search">
             ${i18nMessage.detail_manage_filters_advanced}
-        </a>        
+        </a>
         |
-         <!-- 
-        <a href="#" dojoAttachPoint="_order">
+         <!--
+        <a href="#" data-dojo-attach-point="_order">
             ${i18nMessage.detail_manage_filters_order}
         </a>
          |
          -->
-        <a href="#" dojoAttachPoint="_social">
+        <a href="#" data-dojo-attach-point="_social">
             ${i18nMessage.detail_manage_filters_social_network}
-        </a> 
-       <!-- 
+        </a>
+       <!--
          |
-        <a href="#" dojoAttachPoint="_votes">
+        <a href="#" data-dojo-attach-point="_votes">
             ${i18nMessage.detail_manage_filters_votes_options}
         </a>
         -->
     </nav>
     <article class="enme-text-large enme-unselectable">
-        <section dojoAttachPoint="_search_o" class="" style="display:none;">
-            <div dojoType="encuestame.org.core.commons.support.SearchMenu"
+        <section data-dojo-attach-point="_search_o" class="" style="display:none;">
+            <div data-dojo-type="me/web/widget/support/SearchMenu"
                  typeItem="${typeItem}"
-                 dojoAttachPoint="_searchWidget"></div>
+                 data-dojo-attach-point="_searchWidget"></div>
         </section>
-         <section dojoAttachPoint="_order_o" class="" style="display:none;">
-            <div dojoType="encuestame.org.core.commons.support.OrderMenu"
+         <section data-dojo-attach-point="_order_o" class="" style="display:none;">
+            <div data-dojo-type="me/web/widget/support/OrderMenu"
                  typeItem="${typeItem}"
-                 dojoAttachPoint="_orderWidget"></div>
+                 data-dojo-attach-point="_orderWidget"></div>
         </section>
-        <section dojoAttachPoint="_social_o" class="" style="display:none;">
-            <div dojoType="encuestame.org.core.commons.support.SocialFilterMenu"
+        <section data-dojo-attach-point="_social_o" class="" style="display:none;">
+            <div data-dojo-type="me/web/widget/support/SocialFilterMenu"
                  typeItem="${typeItem}"
-                 dojoAttachPoint="_socialWidget"></div>
+                 data-dojo-attach-point="_socialWidget"></div>
         </section>
-        <section dojoAttachPoint="_votes_o" class="" style="display:none;">
-            <div dojoType="encuestame.org.core.commons.support.VotesFilterMenu"
+        <section data-dojo-attach-point="_votes_o" class="" style="display:none;">
+            <div data-dojo-type="me/web/widget/support/VotesFilterMenu"
                  typeItem="${typeItem}"
-                 dojoAttachPoint="_votesWidget"></div>
+                 data-dojo-attach-point="_votesWidget"></div>
         </section>
     </article>
 </section>
