@@ -10,3 +10,15 @@
 [submodule "encuestame-war/src/main/webapp/resource/js/chart/raphael"]
 	path = encuestame-war/src/main/webapp/resource/js/chart/raphael
 	url = git://github.com/encuestame/raphael.git
+[submodule "encuestame-js/resources-enme-war/src/main/resources/js/dojo"]
+	path = encuestame-js/resources-enme-war/src/main/resources/js/dojo
+	url = https://github.com/dojo/dojo.git
+[submodule "encuestame-js/resources-enme-war/src/main/resources/js/dojox"]
+	path = encuestame-js/resources-enme-war/src/main/resources/js/dojox
+	url = https://github.com/dojo/dojox.git
+[submodule "encuestame-js/resources-enme-war/src/main/resources/js/dijit"]
+	path = encuestame-js/resources-enme-war/src/main/resources/js/dijit
+	url = https://github.com/dojo/dijit.git
+[submodule "encuestame-js/resources-enme-war/src/main/resources/js/util"]
+	path = encuestame-js/resources-enme-war/src/main/resources/js/util
+	url = https://github.com/dojo/util.git
