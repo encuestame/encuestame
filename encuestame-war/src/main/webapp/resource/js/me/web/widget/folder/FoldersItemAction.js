@@ -6,7 +6,10 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/folder/FolderOperations",
          "me/web/widget/folder/FoldersItemAction",
+         "dijit/InlineEditBox",
          "me/core/enme",
+         "dojo/dnd/Target",
+         "dijit/registry",
          "dojo/text!me/web/widget/folder/templates/foldersItemAction.html" ],
         function(
                 declare,
@@ -16,12 +19,15 @@ define([
                 main_widget,
                 FolderOperations,
                 FoldersItemAction,
+                InlineEditBox,
                 _ENME,
-                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations,  _WidgetsInTemplateMixin], {
+                Target,
+                registry,
+                template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin], {
 
           // template string.
-            templateString : template,
+          templateString : template,
 
 
           name : "",
@@ -44,12 +50,12 @@ define([
            */
           postCreate : function(){
               if (this.dropSupport) {
-                  this._folderSourceWidget  = new dojo.dnd.Target(this._folder, {
+                  this._folderSourceWidget  = new Target(this._folder, {
                       accept: this._accept
                       });
                       dojo.connect(this._folderSourceWidget, "onDndDrop", dojo.hitch(this, this.onDndDropFolder));
                  };
-                 var name = dijit.byId(this._name);
+                 var name = this._name;
                  if (name != null) {
                      /*
                       * TODO: on change event issues, review.

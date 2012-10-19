@@ -58,11 +58,11 @@ define([
                 on(this._title, "onclick", dojo.hitch(this, this._onClickItem));
 
                 if (!this.data.favourites) {
-                    domClass.addClass(this._favourite, "emptyFavourite");
-                    domClass.removeClass(this._favourite, "selectedFavourite");
+                    domClass.add(this._favourite, "emptyFavourite");
+                    domClass.remove(this._favourite, "selectedFavourite");
                 } else {
-                    domClass.addClass(this._favourite, "selectedFavourite");
-                    domClass.removeClass(this._favourite, "emptyFavourite");
+                    domClass.add(this._favourite, "selectedFavourite");
+                    domClass.remove(this._favourite, "emptyFavourite");
                 }
 
                 this.panelWidget = new Wipe(this._panel, this._wipe.duration, this._wipe.height);
@@ -107,12 +107,12 @@ define([
                 var load = dojo.hitch(this, function(data) {
                     this.data.favourites = !this.data.favourites;
                     if (this.data.favourites) {
-                        domClass.addClass(this._favourite, "selectedFavourite");
-                        domClass.removeClass(this._favourite, "emptyFavourite");
+                        domClass.add(this._favourite, "selectedFavourite");
+                        domClass.remove(this._favourite, "emptyFavourite");
                         this.publishMessage(_ENME.getMessage('commons_favourite'), _ENME.MSG.SUCCESS);
                     } else {
-                        domClass.addClass(this._favourite, "emptyFavourite");
-                        domClass.removeClass(this._favourite, "selectedFavourite");
+                        domClass.add(this._favourite, "emptyFavourite");
+                        domClass.remove(this._favourite, "selectedFavourite");
                         this.publishMessage(_ENME.getMessage('commons_unfavourite'), _ENME.MSG.SUCCESS);
                     }
 
@@ -139,11 +139,11 @@ define([
                    this._setUnselected();
                    this.panelWidget.wipeOutOne();
                    dojo.empty(this._panel);
-                   domClass.addClass(this._panel, "tweet-poll-item-panel");
+                   domClass.add(this._panel, "tweet-poll-item-panel");
                 } else {
-                   domClass.addClass(this.domNode, "listItemTweetSeleted");
-                   domClass.removeClass(this._hashtags, "defaultDisplayHide");
-                   domClass.removeClass(this._panel, "tweet-poll-item-panel");
+                   domClass.add(this.domNode, "listItemTweetSeleted");
+                   domClass.remove(this._hashtags, "defaultDisplayHide");
+                   domClass.remove(this._panel, "tweet-poll-item-panel");
                    this._createDetail(this.data);
                    this.panelWidget.wipeInOne();
                 }
@@ -154,8 +154,8 @@ define([
              * un selected.
              */
             _setUnselected : function() {
-                domClass.removeClass(this.domNode, "listItemTweetSeleted");
-                domClass.addClass(this._hashtags, "defaultDisplayHide");
+                domClass.remove(this.domNode, "listItemTweetSeleted");
+                domClass.add(this._hashtags, "defaultDisplayHide");
             },
 
             /*

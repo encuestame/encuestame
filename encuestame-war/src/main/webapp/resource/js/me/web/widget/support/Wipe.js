@@ -11,8 +11,8 @@ define([
      "me/core/enme"],
     function(
     declare,
-    domClass,
     topic,
+    domClass,//
     _ENME) {
 
   return declare(null, {
@@ -109,7 +109,7 @@ define([
             this.wipeOutOne();
          } else {
             this.wipeInOne();
-            node == null ? null : domClass.addClass(node, "selected");
+            node == null ? null : domClass.add(node, "selected");
          }
          this._open =!this._open;
     }

@@ -9,6 +9,8 @@ define([
          "me/core/enme",
          "dojo/_base/lang",
          "dojo/topic",
+         "dojo/hash",
+         "dojo/io-query",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollList.html" ],
         function(
                 declare,
@@ -21,7 +23,9 @@ define([
                 _ENME,
                 _lang,
                 topic,
-                 template) {
+                hash,
+                ioQuery,
+                template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
           // template string.
@@ -87,21 +91,21 @@ define([
            * post create.
            */
           postCreate : function() {
-              var hash = dojo.queryToObject(dojo.hash());
+              var _hash = ioQuery.queryToObject(hash());
               if(this.listItems == null){
-                  this.loadTweetPolls({typeSearch : (hash.f == null ? this.defaultSearch: hash.f) });
+                  this.loadTweetPolls({typeSearch : (_hash.f == null ? this.defaultSearch: _hash.f) });
               }
               topic.subscribe(this._publish_update_channel, this, "_checkOptionItem");
-              if (hash.f) {
+              if (_hash.f) {
               dojo.query(".optionItem").forEach(function(node, index, arr) {
-                 if (node.getAttribute("type") == hash.f) {
+                 if (node.getAttribute("type") == _hash.f) {
                      dojo.addClass(node, "optionItemSelected");
                   }
                 });
               }
               if (this.folder_support && this._folder) {
-                  //var folder = new FoldersActions({folderContext: "tweetpoll"});
-                  //this._folder.appendChild(folder.domNode);
+                  var folder = new FoldersActions({folderContext: "tweetpoll"});
+                  this._folder.appendChild(folder.domNode);
               }
               //enable drag support.
               //Disable, needed review this page http://livedocs.dojotoolkit.org/dojo/dnd
@@ -156,11 +160,11 @@ define([
            * update the url hash.
            */
           _changeHash : function(id) {
-              var hash = dojo.queryToObject(dojo.hash());
-              params = {
+              //var hash = ioQuery.queryToObject(hash());
+             var params = {
                  f : id
               };
-              dojo.hash(dojo.objectToQuery(params));
+              hash(dojo.objectToQuery(params));
           },
 
           /*

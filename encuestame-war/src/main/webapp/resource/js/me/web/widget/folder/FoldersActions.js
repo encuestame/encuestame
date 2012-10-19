@@ -18,7 +18,7 @@ define([
                 FoldersItemAction,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations,  _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, FolderOperations, _WidgetsInTemplateMixin], {
 
           // template string.
             templateString : template,

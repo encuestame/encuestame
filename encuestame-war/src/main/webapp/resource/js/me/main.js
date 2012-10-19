@@ -39,7 +39,8 @@ define([ 'dojo/has', 'require' ], function (has, require) {
      * require just `dojo/domReady`, it would load that module just like any other module, without the special
      * plugin functionality.
      */
-    require([ 'dojo', 'me/activity/Activity' ], function (dojo, parser, c) {
+    //'me/activity/Activity'
+    require([ 'dojo',  ], function (dojo, parser, c) {
         console.log("APPPPPPPPPPPPP", dojo);
 //			console.log("APPPPPPPPPPPPP", parser);
 //			console.log("APPPPPPPPPPPPP search menu", c);
