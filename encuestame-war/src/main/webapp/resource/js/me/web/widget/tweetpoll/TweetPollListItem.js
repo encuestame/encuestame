@@ -170,8 +170,8 @@ define([
              * create detail.
              */
             _createDetail : function(data) {
-                //var detail = new TweetPollListDetail({data: data});
-                //this._panel.appendChild(detail.domNode);
+                var detail = new TweetPollListDetail({data: data});
+                this._panel.appendChild(detail.domNode);
             },
 
             /*

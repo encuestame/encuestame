@@ -77,8 +77,5 @@ define([
               encuestame.service.xhrGet(
                   this.getURLService().service('encuestame.service.list.cloud'), {}, load, error);
           }
-
-
-
-            });
-        });
+    });
+});

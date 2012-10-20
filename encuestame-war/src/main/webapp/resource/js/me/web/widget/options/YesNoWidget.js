@@ -1,70 +1,79 @@
-dojo.provide("encuestame.org.core.shared.utils.YesNoWidget");
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "dijit/Tooltip",
+         "me/core/enme",
+         "dojo/text!me/web/widget/options/templates/yesno.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                Tooltip,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.Tooltip");
-dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-dojo.require('encuestame.org.core.commons');
+          // template string.
+            templateString : template,
 
-dojo.declare(
-    "encuestame.org.core.shared.utils.YesNoWidget",
-    [encuestame.org.main.EnmeMainLayoutWidget],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/yesno.html"),
+            /**
+            * Default value.
+            */
+           data : false,
 
-        /** Allow other widgets in the template. **/
-        widgetsInTemplate: true,
+           /**
+            * Labels.
+            */
+           labels : ['Yes', 'No'],
 
-        /**
-         * Default value.
-         */
-        data : false,
+           /*
+            *
+            */
+           optionalParameters : "",
 
-        /**
-         * Labels.
-         */
-        labels : ['Yes', 'No'],
+           /*
+            *
+            */
+           labelsMessage : "Click to Change.",
 
-        /*
-         *
-         */
-        optionalParameters : "",
+           /** Post Create. **/
+           postCreate : function() {
+               if (this.data != null) {
+                   this._changeValue();
+               }
+               new Tooltip({
+                   connectId: [this.id + "_yesNo"],
+                   label: this.labelsMessage
+               });
+           },
 
-        /*
-         *
-         */
-        labelsMessage : "Click to Change.",
+           /** Change Value. **/
+           _changeValue : function(){
+               if(this.data){
+                   this._label.innerHTML = this.labels[0];
+               } else {
+                   this._label.innerHTML = this.labels[1];
+               }
+               //after change.
+               this._onChange(this.optionalParameters);
+           },
 
-        /** Post Create. **/
-        postCreate : function(){
-            if(this.data != null){
+           /** Change Data. **/
+           _change : function(event) {
+                dojo.stopEvent(event);
+                this.data = !this.data;
                 this._changeValue();
-            }
-            new dijit.Tooltip({
-                connectId: [this.id+"_yesNo"],
-                label: this.labelsMessage
-            });
-        },
+           },
 
-        /** Change Value. **/
-        _changeValue : function(){
-            if(this.data){
-                this._label.innerHTML = this.labels[0];
-            } else {
-                this._label.innerHTML = this.labels[1];
-            }
-            //after change.
-            this._onChange(this.optionalParameters);
-        },
+           /**
+            * Override.
+            */
+           _onChange : function(){}
 
-        /** Change Data. **/
-        _change : function(event) {
-             dojo.stopEvent(event);
-             this.data = !this.data;
-             this._changeValue();
-        },
-
-        /**
-         * Override.
-         */
-        _onChange : function(){}
+    });
 });
