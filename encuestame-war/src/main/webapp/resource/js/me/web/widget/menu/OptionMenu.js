@@ -1,90 +1,112 @@
-dojo.provide("encuestame.org.core.shared.utils.OptionMenu");
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/web/widget/menu/OptionMenuItem",
+         "me/web/widget/support/ToggleMenu",
+         "me/core/enme",
+         "dojo/text!me/web/widget/menu/templates/optionMenu.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                OptionMenuItem,
+                ToggleMenu,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ToggleMenu, _WidgetsInTemplateMixin], {
 
-dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
-dojo.require('encuestame.org.core.commons.support.ToggleMenu');
-dojo.require('encuestame.org.core.commons');
+       // template string.
+       templateString : template,
 
-dojo.declare("encuestame.org.core.shared.utils.OptionMenu",
-            [ encuestame.org.core.commons.support.ToggleMenu ],{
+       /*
+        *
+        */
+       _openBox : true,
 
-            /*
-             * template.
-             */
-            templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils", "template/optionMenu.html"),
+       /*
+        * Display icon by default.
+        */
+       enableIcon : true,
 
-            /*
-             *
-             */
-            _openBox : true,
+       /*
+        *
+        */
+       _classReplace : "",
 
-            /*
-             * Display icon by default.
-             */
-            enableIcon : true,
+       /*
+        *
+        */
+       menu_items : [{
+           label : "label1",
+           action : function() {
+           }},
+           {label : "label2",
+           action : function() {
+           }
+       }],
 
-            /*
-             *
-             */
-            _classReplace : "",
+       /*
+        *
+        */
+       postCreate : function() {
+           if (this.enableIcon) {
+               this.addMenuSupport(this._icon, "click");
+           } else {
+               //TODO: enable open context menu on click defined dom node.
+           }
+           this._buildMenus();
+       },
 
-            /*
-             *
-             */
-            menu_items : [{
-                label : "label1",
-                action : function() {
-                }},
-                {label : "label2",
-                action : function() {
-                }
-            }],
+       /*
+        * Build a item menu.
+        */
+       _buildMenus : function() {
+           dojo.forEach(this.menu_items,
+               dojo.hitch(this, function(item, action) {
+                    //console.debug("_buildMenus", item);
+                   var widget = new OptionMenuItem(
+                           {
+                               label : item.label,
+                               action : item.action
+                           });
+                   this._menu.appendChild(widget.domNode);
+          }));
+       }
 
-            /*
-             *
-             */
-            postCreate : function() {
-                if (this.enableIcon) {
-                    this.addMenuSupport(this._icon, "click");
-                } else {
-                    //TODO: enable open context menu on click defined dom node.
-                }
-                this._buildMenus();
-            },
-
-            /*
-             * Build a item menu.
-             */
-            _buildMenus : function() {
-                dojo.forEach(this.menu_items,
-                    dojo.hitch(this, function(item, action) {
-                         console.debug("_buildMenus", item);
-                        var widget = new encuestame.org.core.shared.utils.OptionMenuItem(
-                                {
-                                    label : item.label,
-                                    action : item.action
-                                });
-                        this._menu.appendChild(widget.domNode);
-               }));
-            }
+    });
 });
 
-/*
- *
- */
-dojo.declare("encuestame.org.core.shared.utils.OptionMenuItem",
-        [encuestame.org.core.commons.support.ToggleMenu], {
 
-            templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
-                    "template/optionMenuItem.html"),
+//dojo.provide("encuestame.org.core.shared.utils.OptionMenu");
+//
+//dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
+//dojo.require('encuestame.org.core.commons.support.ToggleMenu');
+//dojo.require('encuestame.org.core.commons');
+//
+//dojo.declare("encuestame.org.core.shared.utils.OptionMenu",
+//            [ encuestame.org.core.commons.support.ToggleMenu ],{
+//
+//            /*
+//             * template.
+//             */
+//            templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils", "template/optionMenu.html"),
 
-        label : "",
+//});
+//
+///*
+// *
+// */
+//dojo.declare("encuestame.org.core.shared.utils.OptionMenuItem",
+//        [encuestame.org.core.commons.support.ToggleMenu], {
+//
+//            templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
+//                    "template/optionMenuItem.html"),
+//
 
-        action : function(){},
-
-        postCreate: function() {
-            console.debug("OptionMenuItem", this.label);
-            console.debug("OptionMenuItem", this.label.action)
-            dojo.connect(this._item, "onclick", this, dojo.hitch(this, this.action));
-        }
-
-});
+//
+//});
