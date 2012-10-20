@@ -53,9 +53,8 @@ define([
 
             //post create
             postCreate : function() {
-
-                topic.subscribe("/encuestame/tweetpoll/item/unselect", this, "unselect");
-                on(this._title, "onclick", dojo.hitch(this, this._onClickItem));
+                dojo.subscribe("/encuestame/tweetpoll/item/unselect", this, "unselect");
+                on(this._title, "click", dojo.hitch(this, this._onClickItem));
 
                 if (!this.data.favourites) {
                     domClass.add(this._favourite, "emptyFavourite");
@@ -181,7 +180,7 @@ define([
             _onClickItem : function(event) {
                  dojo.stopEvent(event);
                  this._changeBackGroundSelected();
-                 topic.publish("/encuestame/tweetpoll/item/unselect", [this]);
+                 dojo.publish("/encuestame/tweetpoll/item/unselect", [this]);
             }
     });
 });

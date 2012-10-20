@@ -49,8 +49,12 @@ define([
       * Constructor of wipe.
       */
      constructor: function(node, duration, height, group, id) {
-         topic.subscribe("/encuestame/wipe/close", this, "_close");
-         topic.subscribe("/encuestame/wipe/close/group", this, "_group");
+         dojo.subscribe("/encuestame/wipe/close", this, dojo.hitch(this, function() {
+           this._close();
+         }));
+         dojo.subscribe("/encuestame/wipe/close/group", this, dojo.hitch(this, function() {
+           this._group();
+         }));
          this.node = node;
          this.duration = (duration == null) ? this.duration : duration;
          this.height = (height == null) ? this.height : height;

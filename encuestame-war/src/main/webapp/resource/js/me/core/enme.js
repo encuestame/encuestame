@@ -25,6 +25,33 @@ define(["dojo",
     // to store the default configuration
     _config = {};
 
+    // channel to publish
+    var channel = '/encuestame/message/publish';
+    // get the configuration default
+    var duration = 5000;
+    // message type
+    var	messageTypes = {
+      MESSAGE: "message",
+      WARNING: "warning",
+      ERROR: "error",
+      FATAL: "fatal"
+    };
+
+    /**
+     *
+     */
+    var _publish = function(message, description, type) {
+      description === null ? "" : description;
+      if (typeof(message === 'string')) {
+          dojo.publish(channel, [{
+            message: message,
+            type: type,
+            duration: duration,
+            description : description
+          }]);
+      }
+    };
+
     return {
       /**
        * @deprecated moved to constants.js
@@ -75,6 +102,21 @@ define(["dojo",
       // type of surveys
       TYPE_SURVEYS : [ 'TWEETPOLL', 'POLL', 'SURVEY', 'HASHTAG' ],
 
+      success : function (message, description) {
+          _publish(message, description, messageTypes.MESSAGE);
+        },
+
+        warning : function (message, description) {
+          _publish(message, description, messageTypes.WARNING);
+        },
+
+        error : function (message, description) {
+          _publish(message, description, messageTypes.ERROR);
+        },
+
+        fatal : function (message, description) {
+          _publish(message, description, messageTypes.FATAL);
+        },
 
       /**
        * Store a list of parameters.

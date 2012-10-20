@@ -95,7 +95,7 @@ define([
               if(this.listItems == null){
                   this.loadTweetPolls({typeSearch : (_hash.f == null ? this.defaultSearch: _hash.f) });
               }
-              topic.subscribe(this._publish_update_channel, this, "_checkOptionItem");
+              dojo.subscribe(this._publish_update_channel, this, "_checkOptionItem");
               if (_hash.f) {
               dojo.query(".optionItem").forEach(function(node, index, arr) {
                  if (node.getAttribute("type") == _hash.f) {
@@ -186,7 +186,7 @@ define([
               this.resetPagination();
               this.loadTweetPolls({typeSearch : "ALL"});
               //console.debug(event);
-              topic.publish(this._publish_update_channel, [event.currentTarget]);
+              dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
           /*
@@ -198,7 +198,7 @@ define([
               this._changeHash(this.currentSearch);
               this.resetPagination();
               this.loadTweetPolls({typeSearch : "ALL"});
-              topic.publish(this._publish_update_channel, [event.currentTarget]);
+              dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
           /*
@@ -210,7 +210,7 @@ define([
               this._changeHash(this.currentSearch);
               this.resetPagination();
               this.loadTweetPolls({typeSearch : "FAVOURITES"});
-              topic.publish(this._publish_update_channel, [event.currentTarget]);
+              dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
           /*
@@ -222,7 +222,7 @@ define([
               this._changeHash(this.currentSearch);
               this.resetPagination();
               this.loadTweetPolls({typeSearch : "SCHEDULED"});
-              topic.publish(this._publish_update_channel, [event.currentTarget]);
+              dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
           /*
@@ -234,7 +234,7 @@ define([
               this._changeHash(this.currentSearch);
               this.resetPagination();
               this.loadTweetPolls({typeSearch : "LASTDAY"});
-              topic.publish(this._publish_update_channel, [event.currentTarget]);
+              dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
           /*
@@ -246,15 +246,15 @@ define([
               this._changeHash(this.currentSearch);
               this.resetPagination();
               this.loadTweetPolls({typeSearch : "LASTWEEK"});
-              topic.publish(this._publish_update_channel, [event.currentTarget]);
+              dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
           /**
            * Load Tweet Polls.
            */
           loadTweetPolls : function(params) {
-              topic.publish("/encuestame/wipe/close/group", ["tp-options"]);
-              topic.publish("/encuestame/filters/selected/remove");
+              dojo.publish("/encuestame/wipe/close/group", "tp-options");
+              dojo.publish("/encuestame/filters/selected/remove");
               var i = false;
               var load = dojo.hitch(this, function(data){
                   dojo.empty(this._items);
