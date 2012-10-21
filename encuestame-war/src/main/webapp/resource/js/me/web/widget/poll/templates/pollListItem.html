@@ -1,13 +1,13 @@
 <section class="web-item-row">
      <div class="web-item-row-section web-item-row-section-input">
-        <input id="row_${id}" name="row_${id}" dojoType="dijit.form.CheckBox">
+        <input id="row_${id}" name="row_${id}" data-dojo-type="dijit/form/CheckBox">
      </div>
      <div class="web-item-row-section web-item-row-section-title">
         <div>
             ${data.question.question_name}
          </div>
         <nav class="nav-menu">
-           <a dojoAttachPoint="_edit">
+           <a data-dojo-attach-point="_edit">
                 ${i18nMessage.poll_admon_poll_edit}
             </a>|
            <a>
@@ -22,14 +22,14 @@
         </nav>
      </div>
      <div class="web-item-row-section web-item-row-section-votes">
-        <div class="web-item-row-section-votes-number" dojoAttachPoint="_votes"></div>
+        <div class="web-item-row-section-votes-number" data-dojo-attach-point="_votes"></div>
         <div class="web-item-row-section-votes-title">
             ${i18nMessage.poll_admon_poll_votes}
         </div>
      </div>
-     <div class="web-item-row-section web-item-row-section-date" dojoAttachPoint="_date">
+     <div class="web-item-row-section web-item-row-section-date" data-dojo-attach-point="_date">
 
      </div>
      <div class="web-item-row-section web-item-row-section-options"></div>
-     <div dojoAttachPoint="_more" id="more_${id}" class="web-list-more" style="clear: both;"></div>
+     <div data-dojo-attach-point="_more" id="more_${id}" class="web-list-more" style="clear: both;"></div>
 </section>

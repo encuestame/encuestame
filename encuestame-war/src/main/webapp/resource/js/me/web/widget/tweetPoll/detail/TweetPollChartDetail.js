@@ -17,8 +17,7 @@ define([
     _ENME,
      template) {
 
-  return declare([
-                   _WidgetBase,
+  return declare([_WidgetBase,
                    _TemplatedMixin,
                    main_widget,
                    abstractChartVoteSupport,

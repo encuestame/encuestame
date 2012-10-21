@@ -4,7 +4,7 @@
         ${tweetpoll.questionBean.questionName}</div>
     <div>
         <div id="chart"
-            dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollChartDetail"
+            dojoType="encuestame.org.core.commons.tweetpoll.detail.TweetPollChartDetail"
             tweetPollid="${tweetpoll.id}" completed="${tweetpoll.completed}"
             username="${tweetpoll.ownerUsername}"></div>
     </div>
@@ -13,7 +13,7 @@
             <tbody>
                 <c:forEach items="${answers}" var="a">
                     <tr class="answer"
-                        dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer"
+                        dojoType="encuestame.org.core.commons.tweetpoll.detail.TweetPollAnswer"
                         aId="${a.answers.questionAnswerId}" color="${a.answers.color}"
                         label="${a.answers.answer}" owner="${tweetpoll.ownerUsername}"
                         completed="${tweetpoll.completed}" url="${a.shortUrl}">

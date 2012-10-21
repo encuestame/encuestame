@@ -5,8 +5,8 @@
                 ${i18nMessage.poll_create_question_title}
              </div>
              <div class="space">
-                 <div id="question" dojoAttachPoint="_question" class="question web-poll-question"></div>
-                 <div dojoAttachPoint="_folder" class="web-poll-question-folder"></div>
+                 <div id="question" data-dojo-attach-point="_question" class="question web-poll-question"></div>
+                 <div data-dojo-attach-point="_folder" class="web-poll-question-folder"></div>
             </div>
         </div>
 
@@ -15,9 +15,9 @@
                    ${i18nMessage.poll_create_build_answers}
              </div>
              <div class="space">
-                  <ul class="web-poll-answers"  dojoAttachPoint="_source">
+                  <ul class="web-poll-answers"  data-dojo-attach-point="_source">
                  </ul>
-                 <div class="section-botton-wrapper" dojoAttachPoint="_addNew">
+                 <div class="section-botton-wrapper" data-dojo-attach-point="_addNew">
                     <a href="#">
                         ${i18nMessage.poll_create_add_new_answer}
                     </a>
@@ -63,10 +63,10 @@
          </div>
 
           <div class="botton-button-publish" style="text-align: right;">
-               <button class="enme-ui-button button-red" dojoAttachPoint="_cancel">
+               <button class="enme-ui-button button-red" data-dojo-attach-point="_cancel">
                     ${i18nMessage.commons_cancel}
                </button>
-               <button dojoAttachPoint="_publish"
+               <button data-dojo-attach-point="_publish"
                        dojoType="dijit.form.Button"
                        type="button"
                        name="submitButtonTwo"

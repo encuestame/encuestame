@@ -6,8 +6,10 @@
        </div>
    </div>
    <article class="emne-box">
-<%--         <section class="web-tweetpoll-info">
-            <div id="info" dojoType="encuestame.org.core.commons.tweetPoll.detail.TweetPollInfoDetail"
+       <section class="web-tweetpoll-info">
+<%--
+    @deprecated
+ <div id="info" data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollInfoDetail"
                 <c:if test="${tweetpoll.limitVotesDate}">
                     date="${tweetpoll.dateToLimit}"
                 </c:if>
@@ -16,11 +18,11 @@
                  hits="${tweetpoll.hits}"
                  completed="${tweetpoll.completed}"
                  owner="${tweetpoll.ownerUsername}"
-                 tweetPollid="${tweetpoll.id}"></div>
-       </section> --%>
+                 tweetPollid="${tweetpoll.id}"></div> --%>
+       </section>
         <section class="web-tweetpoll-answer-wrapper web-wrapper-detail-wrapper">
             <div class="web-tweetpoll-answer-chart">
-                <div id="chart" data-dojo-type="me/web/widget/tweetPoll/detail/TweetPollChartDetail"
+                <div id="chart" data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollChartDetail"
                      tweetPollid="${tweetpoll.id}"
                      completed="${tweetpoll.completed}"
                      username="${tweetpoll.ownerUsername}"></div>
@@ -39,7 +41,7 @@
                 </header>
                 <c:forEach items="${answers}" var="a">
                     <div class="answer"
-                         data-dojo-type="me/web/widget/tweetPoll/detail/TweetPollAnswer"
+                         data-dojo-type="me/web/widget/tweetpoll/detail/TweetPollAnswer"
                          aId="${a.answers.questionAnswerId}"
                          color="${a.answers.color}"
                          label="${a.answers.answer}"
