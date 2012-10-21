@@ -78,17 +78,51 @@ define([
            * Post Create Cycle Life.
            */
           postCreate : function() {
-              var def = new Deferred();
               //required subscribe to filter support.
               //should be in the parent class??
               dojo.subscribe("/encuestame/filter/list/call", this, "_callFilterList");
-              try {
-                  def.then(dojo.hitch(this, this._callServiceSearch));
-                  def.then(this._printRows);
-                  def.callback(true);
-              } catch(e) {
-                 def.errback(new Error("load poll failed."));
-              }
+
+//              var def = new Deferred();
+//              try {
+//                  def.then(dojo.hitch(this, this._callServiceSearch));
+//                  def.then(dojo.hitch(this,this._printRows));
+//                  def.callback(true);
+//              } catch(e) {
+//                 def.errback(new Error("load poll failed."));
+//              }
+
+              var deferred = new Deferred(function(reason){
+                  // do something when the Deferred is cancelled
+                });
+
+                // do something asynchronously
+
+                // provide an update on progress:
+                deferred.progress(function(e){
+                    console.log('progress', e);
+                });
+
+                // when the process finishes:
+                deferred.resolve(function(e){
+                    console.log('resolve', e);
+                });
+
+                // performing "callbacks" with the process:
+                deferred.then(dojo.hitch(this, this._callServiceSearch), function(err){
+                  // Do something when the process errors out
+                }, function(update){
+                  // Do something when the process provides progress information
+                });
+
+                deferred.then(dojo.hitch(this,this._printRows), function(err){
+                    // Do something when the process errors out
+                  }, function(update){
+                    // Do something when the process provides progress information
+                  });
+
+                // to cancel the asynchronous process:
+                //deferred.cancel(reason);
+
               //enable folder support.
               if (this.folder_support && this._folder) {
                  this.enableFolderSupport();

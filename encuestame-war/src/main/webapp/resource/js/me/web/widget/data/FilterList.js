@@ -1,3 +1,4 @@
+
 /**
  * A widget to provide filter support to administrative interfaces
  * like tables with large datasets.It's a extension of TableLinkedList.
@@ -37,7 +38,7 @@ define([
     * @param id the id of filter.
     */
    _changeHash : function(id) {
-       var hash = ioQuery.queryToObject(hash());
+       var _hash = ioQuery.queryToObject(hash());
        params = {
           f : id
        };

@@ -94,18 +94,21 @@ public class PollService extends AbstractSurveyService implements IPollService{
                     .findAllPollByEditorOwner(
                             getUserAccount(getUserPrincipalUsername()), max,
                             start)));
-       } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
-            list.addAll(ConvertDomainBean.convertListToPollBean(this.
-            getPollDao().retrievePollToday(
-                                        getUserAccount(getUserPrincipalUsername())
-                                                .getAccount(), max, start,
-                                        DateUtil.getNextDayMidnightDate())));
-      } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
+        } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
+            list.addAll(ConvertDomainBean.convertListToPollBean(this
+                    .getPollDao().retrievePollToday(
+                            getUserAccount(getUserPrincipalUsername())
+                                    .getAccount(), max, start,
+                            DateUtil.getNextDayMidnightDate())));
+        } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(this
                     .getPollDao().retrievePollLastWeek(
                             getUserAccount(getUserPrincipalUsername())
                                     .getAccount(), max, start,
                             DateUtil.getNextDayMidnightDate())));
+        } else if (TypeSearch.SCHEDULED.equals(typeSearch)) {
+            //TODO: ENCUESTAME-531
+            log.debug(":::::::::  TODO: ENCUESTAME-531 ::::::::::::");
         } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
                     .retrieveFavouritesPoll(
@@ -115,9 +118,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
             list.addAll(ConvertDomainBean.convertListToPollBean(this
                     .getPollsByRange(max, start, null)));
         } else {
-           throw new EnMeExpcetion("operation not valid");
+            throw new EnMeExpcetion("operation not valid");
         }
-        log.debug("Poll Search Items : "+list.size());
+        log.debug("Poll Search Items : " + list.size());
         return list;
     }
 
@@ -125,11 +128,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#createPoll(java.lang.String, java.lang.String[], java.lang.Boolean, java.lang.String, java.lang.Boolean, java.util.List)
      */
-	public Poll createPoll(final String questionName, final String[] answers,
-			final Boolean showResults, final String commentOption,
-			final Boolean notification, final List<HashTagBean> hashtags)
-			throws EnMeExpcetion {
-        final UserAccount user = getUserAccount(getUserPrincipalUsername()); 
+    public Poll createPoll(final String questionName, final String[] answers,
+            final Boolean showResults, final String commentOption,
+            final Boolean notification, final List<HashTagBean> hashtags)
+            throws EnMeExpcetion {
+        final UserAccount user = getUserAccount(getUserPrincipalUsername());
         Assert.notNull(answers);
         log.debug("poll list answer=>" + answers);
         Assert.notNull(user);
@@ -170,80 +173,80 @@ public class PollService extends AbstractSurveyService implements IPollService{
             pollDomain.setPublish(Boolean.TRUE);
             pollDomain.setNotifications(notification);
             pollDomain.setPublish(Boolean.TRUE);
-           
+
             if (hashtags.size() > 0) {
-            	//http://issues.encuestame.org/browse/ENCUESTAME-504 
-            	pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));	
-            } 
+                //http://issues.encuestame.org/browse/ENCUESTAME-504
+                pollDomain.getHashTags().addAll(retrieveListOfHashTags(hashtags));
+            }
             log.debug("poll list answer=>" + answers.length);
             // Add answers
             this.createQuestionAnswers(answers, question);
             this.getPollDao().saveOrUpdate(pollDomain);
             }
-        } catch (Exception e) { 
-        	e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             log.equals(e);
             throw new EnMeExpcetion(e);
         }
         return pollDomain;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#updatePoll(org.encuestame.utils.web.PollBean)
      */
-	public Poll updatePoll(final PollBean pollBean)
-			throws EnMeNoResultsFoundException {
-		final Poll poll = getPollById(pollBean.getId(),
-				getUserPrincipalUsername());
-		Assert.notNull(poll);
-		final Question questionDomain = poll.getQuestion();
-		questionDomain
-				.setQuestion(pollBean.getQuestionBean().getQuestionName());
-		questionDomain.setSlugQuestion(RestFullUtil.slugify(pollBean
-				.getQuestionBean().getQuestionName()));
-		questionDomain.setCreateDate(DateUtil.getCurrentCalendarDate());
-		getQuestionDao().saveOrUpdate(questionDomain);
-		Assert.notNull(questionDomain);
+    public Poll updatePoll(final PollBean pollBean)
+            throws EnMeNoResultsFoundException {
+        final Poll poll = getPollById(pollBean.getId(),
+                getUserPrincipalUsername());
+        Assert.notNull(poll);
+        final Question questionDomain = poll.getQuestion();
+        questionDomain
+                .setQuestion(pollBean.getQuestionBean().getQuestionName());
+        questionDomain.setSlugQuestion(RestFullUtil.slugify(pollBean
+                .getQuestionBean().getQuestionName()));
+        questionDomain.setCreateDate(DateUtil.getCurrentCalendarDate());
+        getQuestionDao().saveOrUpdate(questionDomain);
+        Assert.notNull(questionDomain);
 
-		poll.setPollCompleted(pollBean.getCompletedPoll());
-		poll.setShowResults(pollBean.getShowResults());
+        poll.setPollCompleted(pollBean.getCompletedPoll());
+        poll.setShowResults(pollBean.getShowResults());
 
-		poll.setShowComments(CommentOptions.getCommentOption(pollBean
-				.getShowComments()));
-		poll.setPublish(pollBean.getPublishPoll());
-		poll.setNotifications(pollBean.getCloseNotification());
-		poll.getHashTags().addAll(retrieveListOfHashTags(pollBean.getHashTags()));
-		return poll;
-	}
-    
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.encuestame.core.service.imp.IPollService#addHashTagToPoll(org.encuestame
-	 * .persistence.domain.survey.Poll, org.encuestame.utils.web.HashTagBean)
-	 */
-	public HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
-			throws EnMeNoResultsFoundException {
-		log.debug("Adding hashtag to Poll --->" + poll.getPollId());
-		log.debug("Adding hashTagBean to Poll ---> " + tagBean.getHashTagName());
-		tagBean.setHashTagName(ValidationUtils
-				.removeNonAlphanumericCharacters(tagBean.getHashTagName()));
-		HashTag tag = getHashTag(tagBean.getHashTagName(), Boolean.FALSE);
-		if (tag == null) {
-			tag = createHashTag(tagBean.getHashTagName().toLowerCase());
-			poll.getHashTags().add(tag);
-			getPollDao().saveOrUpdate(poll);
-			log.debug("Added new hashtag done :" + tag.getHashTagId());
-			return tag;
-		} else {
-			poll.getHashTags().add(tag);
-			getPollDao().saveOrUpdate(poll);
-			log.debug("Added previous hashtag done :" + tag.getHashTagId());
-			return tag;
-		}
-	}
+        poll.setShowComments(CommentOptions.getCommentOption(pollBean
+                .getShowComments()));
+        poll.setPublish(pollBean.getPublishPoll());
+        poll.setNotifications(pollBean.getCloseNotification());
+        poll.getHashTags().addAll(retrieveListOfHashTags(pollBean.getHashTags()));
+        return poll;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.IPollService#addHashTagToPoll(org.encuestame
+     * .persistence.domain.survey.Poll, org.encuestame.utils.web.HashTagBean)
+     */
+    public HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
+            throws EnMeNoResultsFoundException {
+        log.debug("Adding hashtag to Poll --->" + poll.getPollId());
+        log.debug("Adding hashTagBean to Poll ---> " + tagBean.getHashTagName());
+        tagBean.setHashTagName(ValidationUtils
+                .removeNonAlphanumericCharacters(tagBean.getHashTagName()));
+        HashTag tag = getHashTag(tagBean.getHashTagName(), Boolean.FALSE);
+        if (tag == null) {
+            tag = createHashTag(tagBean.getHashTagName().toLowerCase());
+            poll.getHashTags().add(tag);
+            getPollDao().saveOrUpdate(poll);
+            log.debug("Added new hashtag done :" + tag.getHashTagId());
+            return tag;
+        } else {
+            poll.getHashTags().add(tag);
+            getPollDao().saveOrUpdate(poll);
+            log.debug("Added previous hashtag done :" + tag.getHashTagId());
+            return tag;
+        }
+    }
 
     /**
      * Get Poll by Id without user session.
@@ -254,7 +257,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
      private Poll getPoll(final Long pollId) throws EnMeNoResultsFoundException{
          return this.getPollDao().getPollById(pollId);
      }
-     
+
      /**
       * Retrieve {@link Poll} by {@link UserAccount}
       * @param pollId
@@ -264,59 +267,59 @@ public class PollService extends AbstractSurveyService implements IPollService{
       */
      private Poll getPollbyUserAndId(final Long pollId, final UserAccount user) throws EnMeNoResultsFoundException{
          return this.getPollDao().getPollById(pollId, user);
-     } 
+     }
 
      /**
       * Remove Poll
       * @param pollId
       * @throws EnMeNoResultsFoundException
       */
-	 
-	public void removePoll(final Long pollId)
-			throws EnMeNoResultsFoundException { 
-		final Poll pollDomain = this.getPollbyUserAndId(pollId, getUserAccount(getUserPrincipalUsername()));
 
-		final List<PollResult> pollResults;
-		final List<QuestionAnswer> qAnswer;
-		Question question = new Question();
-	 
-		if (pollDomain != null) {
-			// Retrieve Poll results, answers and question.
-			pollResults = getPollDao().retrievePollResults(pollDomain);  
-			if (pollResults.size() > 0) {
-				// Delete poll results.
-				for (PollResult pollResult : pollResults) {
-					getPollDao().delete(pollResult);
-				}
-			}
-			question = pollDomain.getQuestion();
-		 
-			if (question != null) {
+    public void removePoll(final Long pollId)
+            throws EnMeNoResultsFoundException {
+        final Poll pollDomain = this.getPollbyUserAndId(pollId, getUserAccount(getUserPrincipalUsername()));
 
-				// Retrieve answers by Question id.
-				qAnswer = this
-						.getQuestionAnswersbyQuestionId(question.getQid());
-				if (qAnswer.size() > 0) {  
-					for (QuestionAnswer questionAnswer : qAnswer) {
-						getQuestionDao().delete(questionAnswer);
-					}
-				}
-				// Remove Poll
-				getPollDao().delete(pollDomain);
-				
-				 // TODO: Remove Hits and social network publications.
+        final List<PollResult> pollResults;
+        final List<QuestionAnswer> qAnswer;
+        Question question = new Question();
 
-				// Remove Question
-				getQuestionDao().delete(question);
+        if (pollDomain != null) {
+            // Retrieve Poll results, answers and question.
+            pollResults = getPollDao().retrievePollResults(pollDomain);
+            if (pollResults.size() > 0) {
+                // Delete poll results.
+                for (PollResult pollResult : pollResults) {
+                    getPollDao().delete(pollResult);
+                }
+            }
+            question = pollDomain.getQuestion();
 
-			} else {
-				throw new EnMeNoResultsFoundException("Question  not found");
-			}
+            if (question != null) {
 
-		} else {
-			throw new EnMeNoResultsFoundException("Poll not found");
-		}
-	}
+                // Retrieve answers by Question id.
+                qAnswer = this
+                        .getQuestionAnswersbyQuestionId(question.getQid());
+                if (qAnswer.size() > 0) {
+                    for (QuestionAnswer questionAnswer : qAnswer) {
+                        getQuestionDao().delete(questionAnswer);
+                    }
+                }
+                // Remove Poll
+                getPollDao().delete(pollDomain);
+
+                 // TODO: Remove Hits and social network publications.
+
+                // Remove Question
+                getQuestionDao().delete(question);
+
+            } else {
+                throw new EnMeNoResultsFoundException("Question  not found");
+            }
+
+        } else {
+            throw new EnMeNoResultsFoundException("Poll not found");
+        }
+    }
 
     /**
      * Search Polls by Question keyword.
@@ -471,8 +474,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final String urlPoll = this.createUrlPollAccess(poll);
         if(emailList !=null){
                  for (Email emails : emailsList) {
-                	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.disabled")) {
-                			getMailService().send(emails.getEmail(),"New Poll", urlPoll);
+                    if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.disabled")) {
+                            getMailService().send(emails.getEmail(),"New Poll", urlPoll);
                     }
                  }
          }
@@ -636,7 +639,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
         return poll;
     }
-  
+
     /**
      * Retrieve a {@link Poll} based on id.
      * @param pollId poll id.
@@ -645,8 +648,8 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @throws EnMeNoResultsFoundException
      */
     public Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException {
-    	 log.debug("getPollById pollId: "+pollId);
-    	 log.debug("getPollById account: "+account);
+         log.debug("getPollById pollId: "+pollId);
+         log.debug("getPollById account: "+account);
          final Poll poll = this.getPollById(pollId, getUserAccount(account));
          if (poll == null) {
              log.error("poll invalid with this id "+pollId+ " and username:{"+account);
@@ -815,9 +818,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @see org.encuestame.core.service.imp.IPollService#getResultVotes(org.encuestame.persistence.domain.survey.Poll)
      */
     public List<PollBeanResult> getResultVotes(final Poll poll) {
-    	log.debug("poll getResultVotes " + poll);
-    	final List<PollBeanResult> results = new ArrayList<PollBeanResult>();
-    	final List<Object[]> list = getPollDao().retrieveResultPolls(poll.getPollId(), poll.getQuestion().getQid());
+        log.debug("poll getResultVotes " + poll);
+        final List<PollBeanResult> results = new ArrayList<PollBeanResult>();
+        final List<Object[]> list = getPollDao().retrieveResultPolls(poll.getPollId(), poll.getQuestion().getQid());
         //log.debug("retrieveResultPolls==> "+list.size());
         for (Object[] objects : list) {
             final Long answerId = objects[0] == null ? null : Long.valueOf(objects[0].toString());
@@ -825,30 +828,30 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final String color = objects[2] == null ? null : objects[2].toString();
             final Long votes = objects[3] == null ? null : Long.valueOf(objects[3].toString());
             if (answerId != null) {
-	            final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes, poll.getQuestion());	            
-	            results.add(result);
+                final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes, poll.getQuestion());
+                results.add(result);
             } else {
                 throw new IllegalArgumentException("answer id is empty");
             }
         }
         log.debug("poll PollBeanResult " + results.size());
         this.calculatePercents(results);
-    	return results;
+        return results;
     }
-    
+
     /**
      * Calculate the percents.
      * @param beanResults
      */
-	private void calculatePercents(final List<PollBeanResult> beanResults) {
-		double totalVotes = 0;
-		for (PollBeanResult pollBeanResult : beanResults) {
-			totalVotes += totalVotes + pollBeanResult.getResult();
-		}
-		for (PollBeanResult pollBeanResult : beanResults) {
-			pollBeanResult.setPercent(EnMeUtils.calculatePercent(totalVotes, pollBeanResult.getResult()));
-		}
-	}
+    private void calculatePercents(final List<PollBeanResult> beanResults) {
+        double totalVotes = 0;
+        for (PollBeanResult pollBeanResult : beanResults) {
+            totalVotes += totalVotes + pollBeanResult.getResult();
+        }
+        for (PollBeanResult pollBeanResult : beanResults) {
+            pollBeanResult.setPercent(EnMeUtils.calculatePercent(totalVotes, pollBeanResult.getResult()));
+        }
+    }
 
     /*
      * (non-Javadoc)
@@ -868,12 +871,12 @@ public class PollService extends AbstractSurveyService implements IPollService{
         detail.getPollBean().setTotalComments(this.getTotalCommentsbyType(detail.getPollBean().getId(), TypeSearchResult.POLL));
         return detail;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#validatePollIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
      */
     public PollResult validatePollIP(final String ip, final Poll poll) {
-    	return getPollDao().validateVoteIP(ip, poll);
+        return getPollDao().validateVoteIP(ip, poll);
     }
 }
