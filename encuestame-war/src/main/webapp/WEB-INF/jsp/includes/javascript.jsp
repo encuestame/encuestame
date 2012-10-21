@@ -38,7 +38,6 @@ require([
 ], function(declare, parser, ready, _ENME){
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
-        console.log("DDDDDDDDDDDDDD");
         _ENME.init({
             contextPath: '<%=request.getContextPath()%>',
             domain : '<%=WidgetUtil.getDomain(request)%>',
