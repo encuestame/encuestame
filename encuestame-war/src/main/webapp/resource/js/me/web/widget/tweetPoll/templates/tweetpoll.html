@@ -1,141 +1,137 @@
-
-//TODO review this template
-
 <div class="web-tweetpoll-wrapper spaceBlock">
 
-    <div id="previewWrapperFixed" class="tweetPollPreviewRelative" style="opacity:0">
-        <div data-dojo-attach-point="_previewFixed"></div>
-    </div>
+  <div id="previewWrapperFixed" class="tweetPollPreviewRelative"
+    style="opacity: 0">
+    <div data-dojo-attach-point="_previewFixed"></div>
+  </div>
 
-    <div class="web-tweetpoll-preview-top web-tweetpoll-section spaceBlock spaceBlockTop">
-         <div data-dojo-attach-point="_preview"></div>
-    </div>
+  <div
+    class="web-tweetpoll-preview-top web-tweetpoll-section spaceBlock spaceBlockTop">
+    <div data-dojo-attach-point="_preview"></div>
+  </div>
 
-    <div class="web-tweetpoll-section spaceBlock spaceBlockTop" data-dojo-attach-point="_tweetQuestion">
-        <div class="web-tweetpoll-section-title default-background-dark-color">1. ${i18nMessage.question}</div>
-        <div class="tweetThis space">
-            <div id="question" data-dojo-type="dijit/form/TextBox"
-                  class="questionTextBox inputClass"
-                  maxSize="140"
-                  maxLength="140"
-                  selectOnClick="true"></div>
-         </div>
+  <div class="web-tweetpoll-section spaceBlock spaceBlockTop"
+    data-dojo-attach-point="_tweetQuestion">
+    <div class="web-tweetpoll-section-title default-background-dark-color">1.
+      ${i18nMessage.question}</div>
+    <div class="tweetThis space">
+      <div id="question" data-dojo-type="dijit/form/TextBox"
+        class="questionTextBox inputClass" maxSize="140" maxLength="140"
+        selectOnClick="true"></div>
     </div>
+  </div>
 
-    <div class="web-tweetpoll-section spaceBlock">
-        <div class="web-tweetpoll-section-title default-background-dark-color">2. ${i18nMessage.answer}</div>
-         <div class="space">
-            <div id="answers" data-dojod-type="me/web/widget/tweetpoll/Answers" class="answers"></div>
+  <div class="web-tweetpoll-section spaceBlock">
+    <div class="web-tweetpoll-section-title default-background-dark-color">2.
+      ${i18nMessage.answer}</div>
+    <div class="space">
+      <div id="answers" data-dojo-type="me/web/widget/tweetpoll/Answers"
+        class="answers"></div>
+    </div>
+  </div>
+
+  <div class="web-tweetpoll-section spaceBlock">
+    <div class="web-tweetpoll-section-title default-background-dark-color">3.
+      ${i18nMessage.hashtag}</div>
+    <div class="space">
+      <div id="hashtags" data-dojo-type="me/web/widget/tweetpoll/HashTags"
+        class="hashtags"></div>
+    </div>
+  </div>
+
+  <div class="tweetPollPublish web-tweetpoll-section spaceBlock">
+    <div class="web-tweetpoll-section-title default-background-dark-color">4.
+      ${i18nMessage.options}</div>
+    <div class="space">
+      <div style="overflow: auto;">
+        <div class="item">
+          <h4>${i18nMessage.squeduled}</h4>
+          <div class="section">
+            <input id="schedule" name="schedule"
+              data-dojo-type="dijit/form/CheckBox"> <label
+              for="schedule"> ${i18nMessage.squeduled_tp} </label>
+          </div>
+          <div class="section defaultDisplayHide"
+            data-dojo-attach-point="_scheduledTime">
+            <input type="text" name="scheduledTime" id="scheduledTime"
+              value="T15:00:00" data-dojo-type="dijit/form/TimeTextBox" />
+          </div>
+          <div class="section defaultDisplayHide"
+            data-dojo-attach-point="_scheduledDate">
+            <input id="scheduledDate" type="text" name="shortYear"
+              data-dojo-type="dijit/form/DateTextBox" required="true" />
+          </div>
         </div>
-    </div>
-
-     <div class="web-tweetpoll-section spaceBlock">
-        <div class="web-tweetpoll-section-title default-background-dark-color">3. ${i18nMessage.hashtag}</div>
-         <div class="space">
-            <div id="hashtags" datad-dojo-type="me/web/widget/tweetpoll/HashTags" class="hashtags"></div>
+        <div class="item item-padding">
+          <h4>${i18nMessage.chart_features}</h4>
+          <div class="section">
+            <input id="liveResults" name="liveResults"
+              " data-dojo-type="dijit/form/CheckBox"> <label
+              for="liveResults"> ${i18nMessage.allow_live_results} </label>
+          </div>
         </div>
-    </div>
-
-    <div class="tweetPollPublish web-tweetpoll-section spaceBlock">
-        <div class="web-tweetpoll-section-title default-background-dark-color">4. ${i18nMessage.options}</div>
-         <div class="space">
-             <div style="overflow: auto;">
-             <div class="item">
-                <h4>
-                    ${i18nMessage.squeduled}
-                </h4>
-                <div class="section">
-                    <input id="schedule" name="schedule" data-dojo-type="dijit/form/CheckBox">
-                    <label for="schedule">
-                        ${i18nMessage.squeduled_tp}
-                    </label>
-                </div>
-                <div class="section defaultDisplayHide" data-dojo-attach-point="_scheduledTime">
-                   <input type="text" name="scheduledTime" id="scheduledTime" value="T15:00:00" data-dojo-type="dijit/form/TimeTextBox"/>
-               </div>
-               <div class="section defaultDisplayHide" data-dojo-attach-point="_scheduledDate">
-                 <input id="scheduledDate" type="text" name="shortYear"  data-dojo-type="dijit/form/DateTextBox" required="true" />
-                </div>
-             </div>
-             <div class="item item-padding">
-                <h4>
-                    ${i18nMessage.chart_features}
-                </h4>
-                 <div class="section">
-                    <input id="liveResults" name="liveResults"" data-dojo-type="dijit/form/CheckBox">
-                    <label for="liveResults">
-                        ${i18nMessage.allow_live_results}
-                    </label>
-                </div>
-             </div>
-             <div class="item item-padding">
-                <h4>
-                    ${i18nMessage.anti_spam}
-                </h4>
-                 <div class="section">
-                    <input id="captcha" name="captcha"" data-dojo-type="dijit/form/CheckBox">
-                    <label for="captcha">
-                        ${i18nMessage.captcha}
-                    </label>
-                </div>
-                <div class="section">
-                    <input id="limitVotes" name="limitVotes"" data-dojo-type="dijit/form/CheckBox">
-                    <label for="limitVotes">
-                        ${i18nMessage.limit_votes}
-                    </label>
-                </div>
-                <div class="section defaultDisplayHide" data-dojo-attach-point="_limitNumbers">
-                    <div data-dojo-type="dijit/form/NumberSpinner" intermediateChanges="true" id="limitNumbers"
-                        constraints="{min:0,max:4000}" value="${tweetPoll.options.maxLimitVotes}">
-                    </div>
-                </div>
-                <div class="section">
-                    <input id="ip" name="ip" data-dojo-type="dijit/form/CheckBox">
-                    <label for="ip">
-                        ${i18nMessage.repeated_votes}
-                    </label>
-                </div>
-                <div class="section defaultDisplayHide" data-dojo-attach-point="_repeatedNumbers">
-                    <div data-dojo-type="dijit/form/NumberSpinner" intermediateChanges="true" id="repeatedNumbers"
-                        constraints="{min:2,max:10}" value="${tweetPoll.options.maxRepeatedVotes}">
-                    </div>
-                </div>
-             </div>
-             <div class="item item-padding">
-                    <h4>
-                        ${i18nMessage.tp_options_report}
-                    </h4>
-                 <div class="section">
-                    <input id="resume" name="resume" data-dojo-type="dijit/form/CheckBox">
-                    <label for="resume">
-                           ${i18nMessage.resume_live_results}
-                    </label>
-                </div>
-                <div class="section">
-                    <input id="dashboard" name="dashboard" data-dojo-type="dijit/form/CheckBox">
-                    <label for="dashboard">
-                        ${i18nMessage.follow_dashboard}
-                    </label>
-                </div>
-         </div>
-       </div>
-       </div>
-    </div>
-
-    <div class="web-tweetpoll-section spaceBlock">
-        <div class="web-tweetpoll-section-title default-background-dark-color">
-        5.  ${i18nMessage.tp_select_publish}
+        <div class="item item-padding">
+          <h4>${i18nMessage.anti_spam}</h4>
+          <div class="section">
+            <input id="captcha" name="captcha"
+              " data-dojo-type="dijit/form/CheckBox"> <label
+              for="captcha"> ${i18nMessage.captcha} </label>
+          </div>
+          <div class="section">
+            <input id="limitVotes" name="limitVotes"
+              " data-dojo-type="dijit/form/CheckBox"> <label
+              for="limitVotes"> ${i18nMessage.limit_votes} </label>
+          </div>
+          <div class="section defaultDisplayHide"
+            data-dojo-attach-point="_limitNumbers">
+            <div data-dojo-type="dijit/form/NumberSpinner"
+              intermediateChanges="true" id="limitNumbers"
+              constraints="{min:0,max:4000}"
+              value="${tweetPoll.options.maxLimitVotes}"></div>
+          </div>
+          <div class="section">
+            <input id="ip" name="ip" data-dojo-type="dijit/form/CheckBox">
+            <label for="ip"> ${i18nMessage.repeated_votes} </label>
+          </div>
+          <div class="section defaultDisplayHide"
+            data-dojo-attach-point="_repeatedNumbers">
+            <div data-dojo-type="dijit/form/NumberSpinner"
+              intermediateChanges="true" id="repeatedNumbers"
+              constraints="{min:2,max:10}"
+              value="${tweetPoll.options.maxRepeatedVotes}"></div>
+          </div>
         </div>
-        <div class="space">
-            <div id="social" data-dojo-ctype="me/web/widget/social/SocialAccountPicker" checkRequiredSocialAccounts="true"
-                 enableEasyAddAccount="true"></div>
+        <div class="item item-padding">
+          <h4>${i18nMessage.tp_options_report}</h4>
+          <div class="section">
+            <input id="resume" name="resume"
+              data-dojo-type="dijit/form/CheckBox"> <label for="resume">
+              ${i18nMessage.resume_live_results} </label>
+          </div>
+          <div class="section">
+            <input id="dashboard" name="dashboard"
+              data-dojo-type="dijit/form/CheckBox"> <label
+              for="dashboard"> ${i18nMessage.follow_dashboard} </label>
+          </div>
         </div>
-     </div>
+      </div>
+    </div>
+  </div>
 
-     <div class="tweetPollPublishButton" style="text-align: right;">
-           <button  data-dojo-attach-point="_publish"  data-dojo-type="dijit/form/Button" type="button" name="submitButtonTwo"
-                   value="Submit">
-                   ${i18nMessage.button_publish}
-           </button>
-     </div>
+  <div class="web-tweetpoll-section spaceBlock">
+    <div class="web-tweetpoll-section-title default-background-dark-color">
+      5. ${i18nMessage.tp_select_publish}</div>
+    <div class="space">
+      <div id="social"
+        data-dojo-type="me/web/widget/social/SocialAccountPicker"
+        checkRequiredSocialAccounts="true" enableEasyAddAccount="true"></div>
+    </div>
+  </div>
+
+  <div class="tweetPollPublishButton" style="text-align: right;">
+    <button data-dojo-attach-point="_publish"
+      data-dojo-type="dijit/form/Button" type="button"
+      name="submitButtonTwo" value="Submit">
+      ${i18nMessage.button_publish}</button>
+  </div>
 </div>

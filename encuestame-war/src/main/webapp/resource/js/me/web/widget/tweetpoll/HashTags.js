@@ -8,6 +8,7 @@ define([
          "me/web/widget/tweetpoll/HashTagsItem",
          "me/web/widget/tweetpoll/TweetPollCore",
          "me/core/enme",
+         "dijit/registry",
          "dojo/text!me/web/widget/tweetpoll/templates/hashtag.html" ],
         function(
                 declare,
@@ -19,6 +20,7 @@ define([
                 HashTagsItem,
                 TweetPollCore,
                 _ENME,
+                registry,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, TweetPollCore, _WidgetsInTemplateMixin], {
 
@@ -205,7 +207,7 @@ define([
             * Get Dialog.
             */
            getDialog : function() {
-               var dialog = dijit.byId("option_" + this.id);
+               var dialog = registry.byId("option_" + this.id);
                return dialog;
            },
 

@@ -1,9 +1,11 @@
 define([ "dojo/_base/declare",
      "me/core/URLServices",
+     "me/web/widget/dialog/ModalBox",
      "dijit/registry",
      "me/core/enme"], function(
     declare,
     _URL,
+    ModalBox,
     registry,
     _ENME) {
 
@@ -22,7 +24,7 @@ define([ "dojo/_base/declare",
       _createModalBox : function(type, handler) {
         var modal = dojo.byId("modal-box");
         if (modal != null) {
-          var modalBox = new encuestame.org.core.commons.dialog.ModalBox(dojo.byId("modal-box"), type, dojo.hitch(handler));
+          var modalBox = new ModalBox(dojo.byId("modal-box"), type, dojo.hitch(handler));
           return modalBox;
         } else {
           return null;

@@ -1,36 +1,58 @@
 define([
          "dojo/_base/declare",
+         "dojo/dom-geometry",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/Dialog",
+         "dijit/form/TextBox",
+         "dijit/form/Button",
+         "dijit/form/TimeTextBox",
+         "dijit/form/DateTextBox",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/stream/HashTagInfo",
-         //"me/web/widget/tweetpoll/TweetPollPublishInfo",
+         "me/web/widget/tweetpoll/TweetPollPublishInfo",
          "me/web/widget/tweetpoll/TweetPollCore",
-         //"me/web/widget/tweetpoll/TweetPollPreview",
+         "me/web/widget/tweetpoll/TweetPollPreview",
+         "me/web/widget/social/SocialAccountPicker",
+         "me/web/widget/tweetpoll/HashTags",
+         "dijit/form/CheckBox",
+         "dijit/form/NumberSpinner",
+         "me/web/widget/tweetpoll/Answers",
          "me/core/enme",
          "dojo/_base/lang",
          "dojo/topic",
          "dojo/hash",
          "dojo/io-query",
+         "dijit/registry",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetpoll.html" ],
         function(
                 declare,
+                domGeom,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 Dialog,
+                TextBox,
+                Button,
+                TimeTextBox,
+                DateTextBox,
                 main_widget,
                 hashTagInfo,
-                //TweetPollPublishInfo,
+                TweetPollPublishInfo,
                 TweetPollCore,
-                //TweetPollPreview,
+                TweetPollPreview,
+                SocialAccountPicker,
+                HashTags,
+                CheckBox,
+                NumberSpinner,
+                Answers,
                 _ENME,
                 _lang,
                 topic,
                 hash,
                 ioQuery,
+                registry,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, TweetPollCore, _WidgetsInTemplateMixin], {
 
@@ -203,9 +225,9 @@ define([
              * post create.
              */
             postCreate: function() {
-                this.questionWidget = dijit.byId("question");
-                this.answerWidget = dijit.byId("answers");
-                this.hashTagWidget = dijit.byId("hashtags");
+                this.questionWidget = registry.byId("question");
+                this.answerWidget = registry.byId("answers");
+                this.hashTagWidget = registry.byId("hashtags");
                 //create preview widget.
                 this.previeWidget = this._createPreviewWidget(this._preview);
                 //create preview fixed widet.
@@ -284,7 +306,7 @@ define([
                 //tweet poll options
 
                 //live results.
-                this.liveResultsWidget = dijit.byId("liveResults");
+                this.liveResultsWidget = registry.byId("liveResults");
                 this.liveResultsWidget.onChange = dojo.hitch(this, function(event){
                   this.tweetPoll.options.liveResults = event;
                   dojo.publish("/encuestame/tweetpoll/autosave");
@@ -294,7 +316,7 @@ define([
                  * replace by encuestame.org.core.shared.options.DateToClose.
                  */
                 //scheduled
-                this.scheduleWidget = dijit.byId("schedule");
+                this.scheduleWidget = registry.byId("schedule");
                 this.scheduleWidget.onChange = dojo.hitch(this, function(event){
                     //console.debug("shecduled", event);
                     if (event) {
@@ -316,7 +338,7 @@ define([
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //date widget.
-                this.scheduledDateWidget = dijit.byId("scheduledDate");
+                this.scheduledDateWidget = registry.byId("scheduledDate");
                 this.scheduledDateWidget.onChange = dojo.hitch(this, function(event){
                     //.debug("Scheduled Date", this.scheduledDateWidget.get("value"));
                   this.tweetPoll.options.scheduledDate = encuestame.date.getFormatTime(this.scheduledDateWidget.get("value"),
@@ -324,7 +346,7 @@ define([
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //time widget.
-                this.scheduledTimeWidget = dijit.byId("scheduledTime");
+                this.scheduledTimeWidget = registry.byId("scheduledTime");
                 this.scheduledTimeWidget.onChange = dojo.hitch(this, function(event){
                     //console.debug("Scheduled Time", encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
                      //       encuestame.date.timeFormat));
@@ -333,7 +355,7 @@ define([
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
 
-                this.captchaWidget = dijit.byId("captcha");
+                this.captchaWidget = registry.byId("captcha");
                 this.captchaWidget.onChange = dojo.hitch(this, function(event){
                     this.tweetPoll.options.captcha = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
@@ -346,7 +368,7 @@ define([
                 /*
                  * this code should be replace by encuestame.org.core.shared.options.LimitVotes.
                  */
-                this.limitVotesWidget = dijit.byId("limitVotes");
+                this.limitVotesWidget = registry.byId("limitVotes");
                 this.limitVotesWidget.onChange = dojo.hitch(this, function(event){
                     //console.debug("limitVotesWidget", event);
                     if (event) {
@@ -357,7 +379,7 @@ define([
                     this.tweetPoll.options.limitVotes = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                this.limitNumbersWidget = dijit.byId("limitNumbers");
+                this.limitNumbersWidget = registry.byId("limitNumbers");
                 this.limitNumbersWidget.onChange = dojo.hitch(this, function(event){
                   //console.debug("maxLimitVotes ", this.limitNumbersWidget.get("value"));
                   this.tweetPoll.options.maxLimitVotes = this.limitNumbersWidget.get("value");
@@ -371,7 +393,7 @@ define([
                 /*
                  * this code should be replace by encuestame.org.core.shared.options.RepeatedVotes.
                  */
-                this.ipWidget = dijit.byId("ip");
+                this.ipWidget = registry.byId("ip");
                 this.ipWidget.onChange = dojo.hitch(this, function(event) {
                     //console.debug("ipWidget", event);
                     if (event) {
@@ -382,7 +404,7 @@ define([
                     this.tweetPoll.options.repeatedVotes = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                this.repeatedNumbersWidget = dijit.byId("repeatedNumbers");
+                this.repeatedNumbersWidget = registry.byId("repeatedNumbers");
                 this.repeatedNumbersWidget.onChange = dojo.hitch(this, function(event) {
                   //console.debug("maxLimitVotes ", this.repeatedNumbersWidget.get("value"));
                   this.tweetPoll.options.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
@@ -393,13 +415,13 @@ define([
                  */
 
                 //report
-                this.resumeWidget = dijit.byId("resume");
+                this.resumeWidget = registry.byId("resume");
                 this.resumeWidget.onChange = dojo.hitch(this, function(event){
                     //console.debug("resumeWidget ", event);
                     this.tweetPoll.options.resumeLiveResults = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                this.dashboardWidget = dijit.byId("dashboard");
+                this.dashboardWidget = registry.byId("dashboard");
                 this.dashboardWidget.onChange = dojo.hitch(this, function(event){
                     this.tweetPoll.options.followDashBoard = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
@@ -516,7 +538,7 @@ define([
             scroll : function() {
                 var node = this._tweetQuestion;
                 var nodeFixed = dojo.byId("previewWrapperFixed");
-                var coords = dojo.coords(node);
+                var coords = domGeom.position(node);
                 if (coords.y < 0) {
                   this.previewFixedWiget.show(nodeFixed);
                 } else {
@@ -553,7 +575,7 @@ define([
                      this.tweetPoll.question.value = this.questionWidget.get("value");
                      dojo.publish("/encuestame/tweetpoll/autosave");
                  });
-                 this.socialWidget = dijit.byId("social");
+                 this.socialWidget = registry.byId("social");
                  //initialize publish widget.
                  this.tweetPollPublishWidget = new TweetPollPublishInfo(
                          {

@@ -6,6 +6,7 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/tweetpoll/TweetPollPublishItemStatus",
          "me/core/enme",
+         "dijit/registry",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetpollPublish.html" ],
         function(
                 declare,
@@ -15,6 +16,7 @@ define([
                 main_widget,
                 TweetPollPublishItemStatus,
                 _ENME,
+                registry,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
@@ -47,7 +49,7 @@ define([
            * Post create.
            */
           postCreate : function() {
-              var button = dijit.byId(this._close);
+              var button = registry.byId(this._close);
                   button.onClick = dojo.hitch(this, function(event) {
                      dojo.publish("/encuestame/dialog/close");
                      document.location.href = encuestame.contextDefault + "/user/tweetpoll/list";

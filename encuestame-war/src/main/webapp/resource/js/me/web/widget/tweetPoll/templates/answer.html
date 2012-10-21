@@ -2,15 +2,15 @@
     <div class="answerAddForm">
         <div class="labelQuestion">
             <input id="answerAddText" type="text" data-dojo-attach-point="_suggest"
-               dojoType="dijit.form.TextBox"
+               data-dojo-type="dijit/form/TextBox"
                maxLength="50"
                trim="true" class="littleInputClass">
              </input>
              <button id="answerAddButton" type="button" data-dojo-attach-point="_addButton">
                   ${i18nMessage.add_button} ${label}
-             </button>  
-             <span data-dojo-attach-point="_loader" class="answer-loader">             
-             </span>           
+             </button>
+             <span data-dojo-attach-point="_loader" class="answer-loader">
+             </span>
             <article class="listAnswerWrapper" data-dojo-attach-point="_listAnswers">
                 <!-- List of answers. -->
             </article>

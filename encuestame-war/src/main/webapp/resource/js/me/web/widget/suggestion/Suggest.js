@@ -1,46 +1,48 @@
 define([ "dojo/parser",
          "dojo/ready",
          "dijit/registry",
-         "dojo/_base/declare", 
-         "dijit/_WidgetBase", 
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
-		 "dijit/form/TextBox", 
-		 "dijit/form/Button",
-		 "dojox/data/QueryReadStore",
-		 "dijit/_WidgetsInTemplateMixin",
-		 "me/core/main_widgets/EnmeMainLayoutWidget",
-		 "dojo/text!me/web/widget/suggestion/templates/suggest.html" ], function(
-		parser,
-		ready,
-		registry,
-		declare,
-		_WidgetBase,
-		_TemplatedMixin, 
-		text_box,
-		button,
-		queryReadStore,
-		_WidgetsInTemplateMixin,
-		main_widget,
-		template) {
-	ready(function(){
-		   var myTextBox = new dijit.form.TextBox({
-	            name: "firstname",
-	            value: "" /* no or empty value! */,
-	            placeHolder: "type in your name"
-	        }, "firstname");
-		   console.debug("myTextBox", myTextBox);
-	});
-	return declare([ _WidgetBase, _TemplatedMixin, main_widget, queryReadStore ], {		
-		
-		templateString: template,
-		
+     "dijit/form/TextBox",
+     "dijit/form/Button",
+     "dojox/data/QueryReadStore",
+     "dijit/_WidgetsInTemplateMixin",
+     "me/core/enme",
+     "me/core/main_widgets/EnmeMainLayoutWidget",
+     "dojo/text!me/web/widget/suggestion/templates/suggest.html" ], function(
+    parser,
+    ready,
+    registry,
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    text_box,
+    button,
+    queryReadStore,
+    _WidgetsInTemplateMixin,
+    _ENME,
+    main_widget,
+    template) {
+//  ready(function(){
+//       var myTextBox = new dijit.form.TextBox({
+//              name: "firstname",
+//              value: "" /* no or empty value! */,
+//              placeHolder: "type in your name"
+//          }, "firstname");
+//       console.debug("myTextBox", myTextBox);
+//  });
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, queryReadStore ], {
+
+    templateString: template,
+
 //		postCreate: function() {
 //			console.log("SUGGESTION postCreate");
 //            this.domNode.innerHTML = template;
 //            parser.parse(this.domNode);
 //        }
-		
-		store: null,
+
+    store: null,
 
         label : ENME.getMessage("button_add"),
 
@@ -90,7 +92,7 @@ define([ "dojo/parser",
          * post create life cylce.
          */
         postCreate: function() {
-       	console.debug("POST CREATE DEBUG", main_widget);
+         console.debug("POST CREATE DEBUG", main_widget);
             this.textBoxWidget = registry.byId(this._suggest);
             if (this.textBoxWidget) {
               //enable keyword events
@@ -134,7 +136,7 @@ define([ "dojo/parser",
                   if (this._suggestButton) {
                       dojo.style(this._suggestButton, "display", "block");
                       this.buttonWidget = new dijit.form.Button({
-                          label: ENME.getMessage("button_add", "Add"),
+                          label: _ENME.getMessage("button_add", "Add"),
                           onClick: dojo.hitch(this, function(event) {
                               dojo.stopEvent(event);
                               this.processSelectedItemButton();
@@ -269,7 +271,7 @@ define([ "dojo/parser",
         processSelectedItem : function(selectedItem){
             console.info("implemt this method in the parent widget 2", selectedItem);
         }
-	});
+  });
 });
 
 
