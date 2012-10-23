@@ -17,6 +17,7 @@ If you want to download a build version of encuestame, they're hosted on the [So
 
 ## Direct Download Last Releases
 
+* [1.146.RC1](http://downloads.sourceforge.net/project/encuestame/encuestame_beta/1.146/encuestame-1.146.RC1-release.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fencuestame%2F%3Fsource%3Ddirectory&ts=1350930525&use_mirror=freefr)
 * [1.145](http://code.google.com/p/encuestame/downloads/detail?name=encuestame-1.145-release.zip&can=2&q=)
 * [1.144](http://sourceforge.net/projects/encuestame/files/encuestame_beta/1.144/encuestame-1.144-release.zip/download)
 
@@ -33,12 +34,26 @@ Pull requests are, of course, very welcome! A few "todos", if anyone is [interes
 
 * [JIRA](http://issues.encuestame.org)
 * [Encuestame Wiki](http://wiki.encuestame.org)
-* [Continuous Integration](http://ci.encuestame.org)
-* [Git Stats](http://stats.encuestame.org/git/)
 * [Metrics](http://metrics.encuestame.org)
-* [Twitter](http://www.twitter.com/encuestame)
-* [Facebook Page](https://www.facebook.com/pages/encuestame/80467777529)
 * [Demo Site](http://demo.encuestame.org)
 * [GitHub Repo](http://github.com/encuestame)
-* [Google Code Repo](http://code.google.com/p/encuestame/)
-* [SourceForge Repo](http://sourceforge.net/projects/encuestame/)
+* [Twitter](http://www.twitter.com/encuestame)
+* [Facebook Page](https://www.facebook.com/pages/encuestame/80467777529)
+
+
+Copyright and license
+---------------------
+
+Copyright 2012 Encuestame Team
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
