@@ -1,36 +1,57 @@
-dojo.provide("encuestame.org.core.shared.utils.Icon");
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/enme",
+         "dojo/text!me/web/widget/pictures/templates/icon.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.Tooltip");
-dojo.require('encuestame.org.core.commons');
+            /*
+             * template string.
+             */
+            templateString : template,
 
-dojo.declare(
-    "encuestame.org.core.shared.utils.Icon",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/icon.html"),
+            /*
+             *
+             */
+            src : "#",
 
-        /** Allow other widgets in the template. **/
-        widgetsInTemplate: true,
+            /*
+             *
+             */
+            title : "icon",
 
-        src : "#",
+            /*
+             *
+             */
+            height : "16",
 
-        title : "icon",
+            /*
+             *
+             */
+            width : "16",
 
-        height : "16",
+            /*
+            *
+            */
+           postMixInProperties: function() {
+               var src = this.src;
+               this.src = _ENME.config("contextPath") + "/resources/images/icons/" + src;
+               this.title = src;
+           },
 
-        width : "16",
+            postCreate : function(){
 
-        /*
-        *
-        */
-       postMixInProperties: function(){
-           var src = this.src;
-           this.src = encuestame.contextDefault+"/resources/images/icons/"+src;
-           this.title = src;
-       },
-
-        postCreate : function(){
-
-        }
+            }
+    });
 });
