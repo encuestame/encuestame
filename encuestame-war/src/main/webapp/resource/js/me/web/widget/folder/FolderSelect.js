@@ -30,7 +30,7 @@ define([
            /*
             * label.
             */
-           label : _ENME.getMessage("widget_folder_select_label"),
+           label :  _ENME.getMessage("widget_folder_select_label"),
 
            /*
             *
