@@ -1,74 +1,88 @@
-dojo.provide("encuestame.org.core.commons.questions.Question");
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/registry",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/enme",
+         "dojo/text!me/web/widget/questions/templates/question.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                registry,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-dojo.require("dijit.form.TextBox");
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require('encuestame.org.core.commons');
+            /*
+             * template string.
+             */
+            templateString : template,
 
-dojo.declare(
-    "encuestame.org.core.commons.questions.Question",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.questions", "templates/question.html"),
+            //
+            maxSize : "140",
 
-        widgetsInTemplate: true,
+            maxLength : "140",
 
-        maxSize : "140",
+            defaultValue : "",
 
-        maxLength : "140",
+            selectOnClick : true,
 
-        defaultValue : "",
+            classStyle : "questionTextBox inputClass",
 
-        selectOnClick : true,
+            questionWidget : null,
 
-        classStyle : "questionTextBox inputClass",
+            enableEvents : true,
 
-        questionWidget : null,
+            /*
+             * i18n message for this widget.
+             */
+            i18nMessage : {
+              widget_question_type : _ENME.getMessage("widget_question_type"),
+            },
 
-        enableEvents : true,
-        
-        /*
-         * i18n message for this widget.
-         */ 
-        i18nMessage : {
-        	widget_question_type : ENME.getMessage("widget_question_type"),
-        },         
+            postCreate : function(){
+                this.questionWidget = registry.byId(this._question);
+                //this.questionWidget = this.questionWidget.get('value', this.defaultValue);
+                if (this.enableEvents) {
+                    dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, this.onKeyUp));
+                    this.questionWidget.onChange = dojo.hitch(this, this.onChange);
+                }
+            },
 
-        postCreate : function(){
-            this.questionWidget = dijit.byId(this._question);
-            //this.questionWidget = this.questionWidget.get('value', this.defaultValue);
-            if (this.enableEvents) {
-                dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, this.onKeyUp));
-                this.questionWidget.onChange = dojo.hitch(this, this.onChange);
+            onKeyUp : function(event) {
+                //override.
+            },
+
+            onChange : function(event) {
+                //override.
+            },
+
+            /*
+             *
+             */
+            getQuestion : function(){
+                return this.questionWidget.get('value');
+            },
+
+            /*
+             *
+             */
+            block : function(){
+                this.questionWidget.block = true;
+            },
+
+            unblock : function(){
+                this.questionWidget.block = true;
+            },
+
+            countCharacteres : function(){
+
             }
-        },
 
-        onKeyUp : function(event) {
-            //override.
-        },
-
-        onChange : function(event) {
-            //override.
-        },
-
-        /*
-         *
-         */
-        getQuestion : function(){
-            return this.questionWidget.get('value');
-        },
-
-        /*
-         *
-         */
-        block : function(){
-            this.questionWidget.block = true;
-        },
-
-        unblock : function(){
-            this.questionWidget.block = true;
-        },
-
-        countCharacteres : function(){
-
-        }
+    });
 });

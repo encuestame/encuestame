@@ -6,11 +6,13 @@
 define([
      "dojo/_base/declare",
      "dojo/dnd/Source",
+     "dojo/dnd/Manager",
      "dojo/_base/lang",
      "me/core/enme"],
     function(
     declare,
     Source,
+    Manager,
     lang,
     _ENME) {
 
