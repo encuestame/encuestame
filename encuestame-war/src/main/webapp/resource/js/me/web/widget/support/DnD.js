@@ -8,48 +8,53 @@ define([
      "dojo/dnd/Source",
      "dojo/dnd/Manager",
      "dojo/_base/lang",
+     "me/web/widget/pictures/Avatar",
      "me/core/enme"],
     function(
     declare,
     Source,
     Manager,
     lang,
+    Avatar,
     _ENME) {
 
-   lang.extend(Manager.manager(), {
-   makeAvatar: function() {
-          return new encuestame.org.core.shared.utils.Avatar(this);
-   },
-   updateAvatar: function() {
-        this.avatar.update();
-   },
-   // avatar's offset from the mouse
-   OFFSET_X: 0,
-   OFFSET_Y: 0,
-   canDrop: function(flag){
-       //console.debug("canDrop flag", flag);
-       // summary:
-       //		called to notify if the current target can accept items
-       var canDropFlag = Boolean(this.target && flag);
-       //console.debug("canDrop canDropFlag", canDropFlag);
-       if(this.canDropFlag != canDropFlag){
-           this.canDropFlag = canDropFlag;
-           this.avatar.update();
-       }
-   },
-   overSource: function(source){
-       //console.debug("overSource source", source.node);
-       // summary:
-       //		called when a source detected a mouse-over condition
-       // source: Object
-       //		the reporter
-       if (this.avatar) {
-           this.target = (source && source.targetState != "Disabled") ? source : null;
-           this.canDropFlag = Boolean(this.target);
-           this.avatar.update();
-       }
-       dojo.publish("/dnd/source/over", [source]);
-   }
+   lang.extend(Manager.manager, {
+
+// 	   TODO: To customize the avatar
+//     makeAvatar: function() {
+//         return new Avatar(this);
+//     },
+
+     updateAvatar: function() {
+          this.avatar.update();
+     },
+     // avatar's offset from the mouse
+     OFFSET_X: 0,
+     OFFSET_Y: 0,
+     canDrop: function(flag){
+         //console.debug("canDrop flag", flag);
+         // summary:
+         //		called to notify if the current target can accept items
+         var canDropFlag = Boolean(this.target && flag);
+         //console.debug("canDrop canDropFlag", canDropFlag);
+         if(this.canDropFlag != canDropFlag){
+             this.canDropFlag = canDropFlag;
+             this.avatar.update();
+         }
+     },
+     overSource: function(source){
+         //console.debug("overSource source", source.node);
+         // summary:
+         //		called when a source detected a mouse-over condition
+         // source: Object
+         //		the reporter
+         if (this.avatar) {
+             this.target = (source && source.targetState != "Disabled") ? source : null;
+             this.canDropFlag = Boolean(this.target);
+             this.avatar.update();
+         }
+         dojo.publish("/dnd/source/over", [source]);
+     }
 });
 
   return declare(null, {

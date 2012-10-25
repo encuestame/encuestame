@@ -24,10 +24,10 @@
                  </div>
               </div>
               <div class="section-botton-wrapper">
-                  <div id="multiple" dojodType="encuestame.org.core.shared.options.CheckSingleOption"
+                  <div id="multiple" data-dojo-type="me/web/widget/options/CheckSingleOption"
                          value="multiples" class="sub-option"
                          label="${i18nMessage.poll_create_allow_multiple_selection}"></div>
-                  <div id="allow-add" dojodType="encuestame.org.core.shared.options.CheckSingleOption"
+                  <div id="allow-add" data-dojo-type="me/web/widget/options/CheckSingleOption"
                          value="add"  class="sub-option"
                          label="${i18nMessage.poll_create_allow_new_responses}"></div>
               </div>
@@ -42,7 +42,7 @@
                            <h2 class="default-dark-color">
                                 ${i18nMessage.poll_create_limits}
                            </h2>
-                           <div id="repeated" dojodType="encuestame.org.core.shared.options.RepeatedVotes" class="space"></div>
+                           <div id="repeated" data-dojo-type="me/web/widget/options/ConstrainNumberPicker" class="space"></div>
                            <div id="limit" dojodType="encuestame.org.core.shared.options.LimitVotes" class="space"></div>
                            <div id="close" dojodType="encuestame.org.core.shared.options.DateToClose" class="space"></div>
                       </div>
@@ -67,7 +67,7 @@
                     ${i18nMessage.commons_cancel}
                </button>
                <button data-dojo-attach-point="_publish"
-                       dojoType="dijit.form.Button"
+                       data-dojo-type="dijit/form/Button"
                        type="button"
                        name="submitButtonTwo"
                        value="Submit">

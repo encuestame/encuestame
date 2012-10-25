@@ -1,114 +1,101 @@
-/*
- ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: open source social survey Copyright (C) 2009
- * encuestame Development Team.
- * Licensed under the Apache Software License version 2.0
- * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to  in writing,  software  distributed
- * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
- * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
- * specific language governing permissions and limitations under the License.
- ************************************************************************************
- */
-dojo.provide("encuestame.org.core.shared.options.ConstrainNumberPicker");
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "dijit/form/CheckBox",
+         "dijit/form/NumberSpinner",
+         "dijit/registry",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/enme",
+         "dojo/text!me/web/widget/options/templates/constrainNumberPicker.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                CheckBox,
+                NumberSpinner,
+                registry,
+                main_widget,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.form.CheckBox");
-dojo.require('dijit.form.NumberSpinner');
-dojo.require('encuestame.org.core.commons');
-dojo.require('encuestame.org.core.shared.utils.ContextSupport');
-dojo.require('encuestame.org.core.shared.utils.PublishSupport');
+            // template string.
+            templateString : template,
 
-/**
- * Represents a option to repeate votes.
- */
-dojo.declare(
-    "encuestame.org.core.shared.options.ConstrainNumberPicker",
-    [dijit._Widget,
-     dijit._Templated,
-     encuestame.org.core.shared.utils.ContextSupport,
-     encuestame.org.core.shared.utils.PublishSupport],{
+            /*
+            * Allow Repeated Votes.
+            */
+           checkWidget  : null,
 
-        /*
-         *
-         */
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.options", "templates/constrainNumberPicker.html"),
+           /*
+            *
+            */
+           numberSpinner : null,
 
-        /*
-         * Allow Repeated Votes.
-         */
-        checkWidget  : null,
+           /*
+            *
+            */
+           label : "Allow Repeated Votes.",
 
-        /*
-         *
-         */
-        numberSpinner : null,
+           /*
+            *
+            */
+           contextPath : _ENME.config('contextPath'),
 
-        /*
-         * Allow other widgets in the template.
-         */
-        widgetsInTemplate: true,
+           /*
+            * to enable publish support, replace null value for publish valid url.
+            * eg: /encuestame/tweetpoll/autosave
+            */
+           publish_url : null,
 
-        /*
-         *
-         */
-        label : "Allow Repeated Votes.",
-
-        /*
-         *
-         */
-        contextPath : encuestame.contextDefault,
-
-        /*
-         * to enable publish support, replace null value for publish valid url.
-         * eg: /encuestame/tweetpoll/autosave
-         */
-        publish_url : null,
-
-        /*
-         *
-         */
-        options : { checked : false, items : 0},
+           /*
+            *
+            */
+           options : { checked : false, items : 0},
 
 
-        constraints : "{min:2, max:10}",
+           constraints : "{min:2, max:10}",
 
-        /*
-         *
-         */
-        postCreate : function(){
-            this.checkWidget = dijit.byId("check_widget_"+this.id);
-            this.checkWidget.onChange = dojo.hitch(this, function(event){
-                //console.debug("checkWidget", event);
-                if (event) {
-                    dojo.removeClass(this._repeatedNumbers, "defaultDisplayHide");
-                } else {
-                    dojo.addClass(this._repeatedNumbers, "defaultDisplayHide");
-                }
-                this.options.checked = event;
-                this.publish({});
-            });
-            this.numberSpinner = dijit.byId("spinner_"+this.id);
-            this.numberSpinner.onChange = dojo.hitch(this, function(event){
-            //console.debug("maxLimitVotes ", this.numberSpinner.get("value"));
-            this.options.items = this.numberSpinner.get("value");
-            if (this.publish_url != null) {
-                this.publish({});
-            }
-            });
-        },
+           /*
+            *
+            */
+           postCreate : function() {
+               this.checkWidget = registry.byId("check_widget_"+this.id);
+               this.checkWidget.onChange = dojo.hitch(this, function(event){
+                   //console.debug("checkWidget", event);
+                   if (event) {
+                       dojo.removeClass(this._repeatedNumbers, "defaultDisplayHide");
+                   } else {
+                       dojo.addClass(this._repeatedNumbers, "defaultDisplayHide");
+                   }
+                   this.options.checked = event;
+                   this.publish({});
+               });
+               this.numberSpinner = registry.byId("spinner_" + this.id);
+               this.numberSpinner.onChange = dojo.hitch(this, function(event){
+               //console.debug("maxLimitVotes ", this.numberSpinner.get("value"));
+               this.options.items = this.numberSpinner.get("value");
+               if (this.publish_url != null) {
+                   this.publish({});
+               }
+               });
+           },
 
-        /*
-         *
-         */
-        getOptions : function() {
-            if (this.checkWidget.get('checked')){
-                            dojo.mixin(this.options, {
-                            checked : true,
-                            items : this.numberSpinner.get("value")
-            });
-            }
-            return this.options;
-        }
+           /*
+            *
+            */
+           getOptions : function() {
+               if (this.checkWidget.get('checked')){
+                               dojo.mixin(this.options, {
+                               checked : true,
+                               items : this.numberSpinner.get("value")
+               });
+               }
+               return this.options;
+           }
+
+    });
 });

@@ -5,6 +5,7 @@ define([
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/enme",
+         "dojo/dom-attr",
          "dojo/text!me/web/widget/pictures/templates/icon.html" ],
         function(
                 declare,
@@ -13,6 +14,7 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 _ENME,
+                domAttr,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
@@ -24,7 +26,7 @@ define([
             /*
              *
              */
-            src : "#",
+            img_name : "#",
 
             /*
              *
@@ -41,17 +43,15 @@ define([
              */
             width : "16",
 
+            src : "",
+
             /*
             *
             */
            postMixInProperties: function() {
-               var src = this.src;
-               this.src = _ENME.config("contextPath") + "/resources/images/icons/" + src;
+               var src = _ENME.config("contextPath") + "/resources/images/icons/" + this.img_name;
                this.title = src;
-           },
-
-            postCreate : function(){
-
-            }
+               this.src = src;
+           }
     });
 });
