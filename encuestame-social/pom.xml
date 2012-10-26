@@ -14,11 +14,15 @@
     <dependencies>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-persistence</artifactId>
+            <artifactId>enme-dao</artifactId>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-persistence</artifactId>
+            <artifactId>enme-model</artifactId>
+        </dependency>   
+        <dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>enme-dao</artifactId>
             <scope>test</scope>
             <classifier>tests</classifier>
         </dependency>

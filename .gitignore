@@ -18,6 +18,8 @@ encuestame-js/widgets-mobile/*.settings/*
 encuestame-js/widgets-web/*.settings/*
 encuestame-js/doh/*.settings/*
 encuestame-js/deps/*.settings/*
+encuestame-persistence/enme-model/.settings
+encuestame-persistence/enme-dao/.settings
 */.classpath
 */.clover
 */.clover/*

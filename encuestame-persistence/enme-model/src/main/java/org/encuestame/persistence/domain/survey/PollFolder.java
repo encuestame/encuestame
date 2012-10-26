@@ -10,8 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-
-package org.encuestame.persistence.domain.tweetpoll;
+package org.encuestame.persistence.domain.survey;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,45 +18,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.AbstractFolder;
+import org.encuestame.persistence.interfaces.IFolder;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 
 /**
- * TweetPoll Folder Domain.
+ * Polls Folder.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since October 04, 2010
+ * @version $Id: $
  */
-
 @Entity
-@Table(name = "tweetPoll_Folder")
-@Indexed(index="TweetPollFolder")
+@Table(name = "poll_folder")
+@Indexed(index="PollFolder")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TweetPollFolder extends AbstractFolder implements IFolder{
+public class PollFolder extends AbstractFolder implements IFolder{
+     private Long id;
 
     /**
-     * Id.
-     */
-    private Long id;
-
-    /**
-     * @return the tweetPollFolderId
+     * @return the pollFolderId
      */
      @Id
      @DocumentId
      @GeneratedValue(strategy = GenerationType.AUTO)
-     @Column(name = "tweetPollFolderId", unique = true, nullable = true)
+     @Column(name = "pollFolderId", unique = true, nullable = true)
     public Long getId() {
         return id;
     }
 
     /**
-     * @param tweetPollFolderId the tweetPollFolderId to set
+     * @param pollFolderId the pollFolderId to set
      */
-    public void  setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

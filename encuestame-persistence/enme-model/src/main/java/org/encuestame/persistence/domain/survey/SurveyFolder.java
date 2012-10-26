@@ -20,8 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.encuestame.persistence.dao.IFolder;
 import org.encuestame.persistence.domain.AbstractFolder;
+import org.encuestame.persistence.interfaces.IFolder;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Indexed;
 
