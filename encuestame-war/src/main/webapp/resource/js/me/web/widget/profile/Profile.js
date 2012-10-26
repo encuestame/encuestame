@@ -12,6 +12,7 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/URLServices",
          "me/core/enme",
+         "dojox/form/BusyButton",
          "dojo/text!me/web/widget/profile/templates/profile.html" ],
         function(
                 dojo,
@@ -27,6 +28,7 @@ define([
                 main_widget,
                 URLServices,
                 _ENME,
+                BusyButton,
                  template) {
 
 dojo.require("dojox.form.BusyButton");
@@ -118,6 +120,12 @@ dojo.require("dojox.form.BusyButton");
              // create subcribe to display errors.
              dojo.subscribe("/encuestame/settings/profile/message", this, this._displayMessage);
              this.events();
+
+             //TODO: review the click event
+             // http://dojotoolkit.org/reference-guide/1.8/dojox/form/BusyButton.html
+             dojo.connect(this._submit, "onClick", dojo.hitch(this, function(event) {
+                 this._updateProfile(event);
+             }));
            },
 
            /**

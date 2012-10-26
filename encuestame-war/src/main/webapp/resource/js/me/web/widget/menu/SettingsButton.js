@@ -54,7 +54,7 @@ define([
           _click : function (event) {
               dojo.publish("/encuestame/settings/clean/buttons");
               dojo.publish('/encuestame/settings/hide/all');
-              var hash = ioQuery.queryToObject(hash());
+              //var _hash = ioQuery.queryToObject(hash());
               //console.debug("click button");
               this.clickEvent(this.ref_id);
               params = {
