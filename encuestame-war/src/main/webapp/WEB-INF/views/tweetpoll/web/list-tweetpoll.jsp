@@ -7,7 +7,6 @@
             </button>
         </a>
     </div>
-    <div data-dojo-type="me/web/widget/tweetpoll/TweetPollList"
-         contextPath="<%=request.getContextPath()%>"></div>
+    <div data-dojo-type="me/web/widget/tweetpoll/TweetPollList"></div>
 </div>
 

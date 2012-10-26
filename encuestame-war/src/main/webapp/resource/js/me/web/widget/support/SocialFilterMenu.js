@@ -3,8 +3,11 @@ define([
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "dijit/form/Button",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/support/AbstractFilterSupport",
+         "me/web/widget/social/SocialAccountsSupport",
+         "me/web/widget/support/SocialFilterMenuItem",
          "me/core/enme",
          "dojo/text!me/web/widget/support/templates/social-filters.html" ],
         function(
@@ -12,11 +15,14 @@ define([
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                Button,
                 main_widget,
                 AbstractFilterSupport,
+                SocialAccountsSupport,
+                SocialFilterMenuItem,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, AbstractFilterSupport, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, AbstractFilterSupport, SocialAccountsSupport, _WidgetsInTemplateMixin], {
 
           /**
            * The template reference.

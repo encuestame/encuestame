@@ -10,6 +10,7 @@ define([
          "me/core/enme",
          "dojo/_base/lang",
          "dojo/topic",
+         "dojo/dnd/Source",
          "dojo/hash",
          "dojo/io-query",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollList.html" ],
@@ -25,16 +26,23 @@ define([
                 _ENME,
                 _lang,
                 topic,
+                Source,
                 hash,
                 ioQuery,
                 template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
           // template string.
-            templateString : template,
+          templateString : template,
 
+          /*
+           * the url to search tweetpoll
+           */
           url : 'encuestame.service.list.listTweetPoll',
 
+          /*
+           * main channel
+           */
           _publish_update_channel : "/encuestame/tweetpoll/list/updateOptions",
           /*
            * store list of items.
@@ -77,34 +85,37 @@ define([
            * i18n message for this widget.
            */
           i18nMessage : {
-            detail_manage_by_account : _ENME.getMessage("detail_manage_by_account"),
-            detail_manage_today : _ENME.getMessage("detail_manage_today"),
-            detail_manage_last_week : _ENME.getMessage("detail_manage_last_week"),
-            detail_manage_favorites : _ENME.getMessage("detail_manage_favorites"),
-            detail_manage_scheduled : _ENME.getMessage("detail_manage_scheduled"),
-            detail_manage_all : _ENME.getMessage("detail_manage_all"),
-            detail_manage_published : _ENME.getMessage("detail_manage_published"),
-            detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
-            detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed")
+              detail_manage_by_account : _ENME.getMessage("detail_manage_by_account"),
+              detail_manage_today : _ENME.getMessage("detail_manage_today"),
+              detail_manage_last_week : _ENME.getMessage("detail_manage_last_week"),
+              detail_manage_favorites : _ENME.getMessage("detail_manage_favorites"),
+              detail_manage_scheduled : _ENME.getMessage("detail_manage_scheduled"),
+              detail_manage_all : _ENME.getMessage("detail_manage_all"),
+              detail_manage_published : _ENME.getMessage("detail_manage_published"),
+              detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
+              detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed")
           },
-
 
           /*
            * post create.
            */
           postCreate : function() {
               var _hash = ioQuery.queryToObject(hash());
-              if(this.listItems == null){
+              // load item by first time.
+              if (this.listItems == null) {
                   this.loadTweetPolls({typeSearch : (_hash.f == null ? this.defaultSearch: _hash.f) });
+                  if (!_hash.f) {
+                    var node = dojo.query('div.optionItem[type="' + this.defaultSearch + '"]');
+                    node.forEach(function(node, index, arr) {
+                          dojo.addClass(node, "optionItemSelected");
+                    });
+                  } else {
+                    dojo.query('div.optionItem[type="' + _hash.f + '"]').forEach(function(node, index, arr) {
+                          dojo.addClass(node, "optionItemSelected");
+                      });
+                  }
               }
               dojo.subscribe(this._publish_update_channel, this, "_checkOptionItem");
-              if (_hash.f) {
-              dojo.query(".optionItem").forEach(function(node, index, arr) {
-                 if (node.getAttribute("type") == _hash.f) {
-                     dojo.addClass(node, "optionItemSelected");
-                  }
-                });
-              }
               if (this.folder_support && this._folder) {
                   var folder = new FoldersActions({folderContext: "tweetpoll"});
                   this._folder.appendChild(folder.domNode);
@@ -113,7 +124,7 @@ define([
               //Disable, needed review this page http://livedocs.dojotoolkit.org/dojo/dnd
               this.dragSupport = false;
               if (this.dragSupport) {
-                  this._tweetpollListSourceWidget  = new dojo.dnd.Source(this._items, {
+                  this._tweetpollListSourceWidget  = new Source(this._items, {
                       accept: [],
                       copyOnly: true,
                       selfCopy : false,
@@ -145,7 +156,7 @@ define([
            *
            */
           _checkOptionItem : function(node) {
-              dojo.query(".optionItem").forEach(function(node, index, arr){
+               dojo.query(".optionItem").forEach(function(node, index, arr) {
                   dojo.removeClass(node, "optionItemSelected");
                 });
                dojo.addClass(node, "optionItemSelected");
@@ -196,10 +207,10 @@ define([
            */
           _searchByAccount : function(event) {
               dojo.stopEvent(event);
-              this.currentSearch = "ALL";
+              this.currentSearch = "ACCOUNT";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "ALL"});
+              this.loadTweetPolls({typeSearch : "ACCOUNT"});
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -287,7 +298,7 @@ define([
               var error = function(error) {
                   console.debug("error", error);
               };
-              encuestame.service.xhrGet(this.getURLService().service(this.url), params, load, error);
+              this.getURLService().xhrGet(this.url, params, load, error);
           },
 
           /*

@@ -5,6 +5,10 @@ define([
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/support/Wipe",
+         "me/web/widget/support/SearchMenu",
+         "me/web/widget/support/OrderMenu",
+         "me/web/widget/support/SocialFilterMenu",
+         "me/web/widget/support/VotesFilterMenu",
          "me/core/enme",
          "dojo/text!me/web/widget/support/templates/filters.html" ],
         function(
@@ -14,12 +18,18 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 Wipe,
+                SearchMenu,
+                OrderMenu,
+                SocialFilterMenu,
+                VotesFilterMenu,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-          // template string.
-            templateString : template,
+           /*
+            * template string.
+            */
+           templateString : template,
 
             /*
             * widgets.
@@ -30,10 +40,10 @@ define([
             * i18n message for this widget.
             */
            i18nMessage : {
-             detail_manage_filters_advanced : _ENME.getMessage("detail_manage_filters_advanced"),
-             detail_manage_filters_order : _ENME.getMessage("detail_manage_filters_order"),
-             detail_manage_filters_social_network : _ENME.getMessage("detail_manage_filters_social_network"),
-             detail_manage_filters_votes_options : _ENME.getMessage("detail_manage_filters_votes_options"),
+               detail_manage_filters_advanced : _ENME.getMessage("detail_manage_filters_advanced"),
+               detail_manage_filters_order : _ENME.getMessage("detail_manage_filters_order"),
+               detail_manage_filters_social_network : _ENME.getMessage("detail_manage_filters_social_network"),
+               detail_manage_filters_votes_options : _ENME.getMessage("detail_manage_filters_votes_options"),
            },
 
            /*
@@ -118,7 +128,5 @@ define([
   //             this._hideAllSelected();
   //             this.optionsWidget.votes.togglePanel(this._votes);
             }
-
-
     });
 });

@@ -327,26 +327,26 @@ define(["dojo",
        * @param original {String} original url path
        */
       fakeImage : function (size, original) {
-        var domain = ENME.config('domain'),
+        var domain = this.config('domain'),
         url = "";
-        if (!ENME.validURL(original)) {
-          switch(size) {
-          case "24":
-            url = domain  + "/resources/images/social/fake_24_24.png";
-            break;
-          case "32":
-            url = domain  + "/resources/images/social/fake_32_32.png";
+        if (!this.validURL(original)) {
+            switch(size) {
+            case "24":
+              url = domain  + "/resources/images/social/fake_24_24.png";
               break;
-          case "64":
-            url = domain  + "/resources/images/social/fake_64_64.png";
+            case "32":
+              url = domain  + "/resources/images/social/fake_32_32.png";
+                break;
+            case "64":
+              url = domain  + "/resources/images/social/fake_64_64.png";
+                break;
+            case "128":
+              url = domain  + "/resources/images/social/fake_128_128.png";
               break;
-          case "128":
-            url = domain  + "/resources/images/social/fake_128_128.png";
-            break;
-          default:
-            url = domain  + "/resources/images/social/fake_24_24.png";
-          }
-          return url;
+            default:
+              url = domain  + "/resources/images/social/fake_24_24.png";
+            }
+            return url;
         } else {
           return original;
         }

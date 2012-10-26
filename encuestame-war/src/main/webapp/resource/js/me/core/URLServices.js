@@ -1,12 +1,18 @@
-define([ "dojo",
-         "me/core/enme",
-         "dojo/_base/array" ],
-    function(dojo, _ENME, _array) {
+define(
+    [ "dojo", "me/core/enme", 'dojo/_base/xhr', 'dojo/_base/json',
+        "dojo/_base/array" ],
+    function(dojo, _ENME, xhr, _json, _array) {
 
       // config context path
-      var context_path = _ENME.config("contextPath");
+      var context_path = _ENME.config("contextPath"), _handleAs = "json", // json-comment-optional, json-comment-filtered
+      _failOk = true, // Indicates whether a request should be allowed to
+              // fail (and therefore no console error message in
+              // the event of a failure)
+      _timeout = ENME.config('delay'), _preventCache = true;
 
-      //
+      /*
+       * Append the context to each service @param
+       */
       var _appendContext = function(service) {
         var url = context_path;
         url = url.concat("/");
@@ -14,6 +20,83 @@ define([ "dojo",
         return url;
       };
 
+      /*
+       * @param error @param ioargs
+       */
+      var defaultError = function(error, ioargs) {
+        _ENME.log("default error " + error);
+      };
+
+      /*
+       *
+       * @param error @param ioargs
+       */
+      var _error_callback_handler = function(error, ioargs) {
+        var message = "error";
+        // if dialog is missing or is hide.
+        // if (encuestame.error.dialog == null ||
+        // !encuestame.error.dialog.open) {
+        // switch (ioargs.xhr.status) {
+        // case 403:
+        // var jsonError = _json.fromJson(ioargs.xhr.responseText);
+        // //console.info("queryObject", jsonError);
+        // message = "Application does not have permission for this
+        // action";
+        // if (!logginHandler) {
+        // encuestame.error.denied(message);
+        // } else {
+        // if (!jsonError.session || jsonERror.anonymousUser) {
+        // console.info("session is expired");
+        // encuestame.error.session(encuestame.error.messages.session);
+        // }
+        // }
+        // break;
+        // case 0:
+        // message = "A network error occurred. Check that you are
+        // connected to the internet.";
+        // encuestame.error.conexion(message);
+        // break;
+        // default:
+        // message = "An unknown error occurred";
+        // encuestame.error.unknown(message, ioargs.xhr.status);
+        // }
+        // }
+      };
+
+      /**
+       *
+       * @param response
+       * @param ioargs
+       */
+      var _callback_handler = function(response, ioargs) {
+        //var message = "";
+        switch (ioargs.xhr.status) {
+          case 200:
+            message = "Good request.";
+            break;
+          case 404:
+            message = "The page you requested was not found.";
+            break;
+           case 400:
+            message = "Bad Request";
+            break;
+           case 500:
+            message = "Service temporarily unavailable.";
+            break;
+           case 407:
+             message = "You need to authenticate with a proxy.";
+             break;
+           case 0:
+             message = "A network error occurred. Check that you are connected to the internet.";
+             break;
+           default:
+             message = "An unknown error occurred";
+        }
+      };
+
+      /**
+       *
+       */
       var _service_store = {
         "encuestame.service.list.userList" : _appendContext("api/admon/users.json"),
         "encuestame.service.list.getNotifications" : _appendContext("api/notifications/list.json"),
@@ -99,19 +182,72 @@ define([ "dojo",
         "encuestame.service.gadget.remove" : _appendContext("api/common/dashboard/gadget/remove.json")
       };
 
-      return {
-        service : function(key, params) {
-          if (!params) {
-            return _service_store[key];
-          } else {
-             var url = _service_store[key];
-             _array.forEach(params, function(entry, i) {
-               if (entry != "undefined" && entry != "") {
-                  url = url.replace("$"+ i, entry);
-               }
-             });
-            return url;
-          }
-        }
+      /**
+       *
+       */
+      var _services = {
+              service : function(key, params) {
+                if (!params) {
+                  return _service_store[key];
+                } else {
+                  var url = _service_store[key];
+                  _array.forEach(params, function(entry, i) {
+                    if (entry != "undefined" && entry != "") {
+                      url = url.replace("$" + i, entry);
+                    }
+                  });
+                  return url;
+                }
+              },
+
+              /*
+               *
+               */
+              xhrGet : function(url, params, load, error, logginHandler) {
+                if (logginHandler == null) {
+                  logginHandler = true;
+                }
+                if (error == null) {
+                  error = defaultError;
+                  _ENME.log("default error");
+                }
+                if (load == null || url == null || params == null) {
+                  throw new Error("error params required");
+                } else {
+                  dojo.xhrGet({
+                    url : this.service(url),
+                    handleAs : _handleAs,
+                    failOk : _failOk,
+                    timeout : _timeout,
+                    content : params,
+                    load : load,
+                    preventCache : _preventCache,
+                    error : _error_callback_handler,
+                    handle : _callback_handler
+                  });
+                }
+              },
+
+              /*
+               *
+               */
+              xhrPost : function() {
+
+              },
+
+              /*
+               *
+               */
+              xhrPut : function() {
+
+              },
+
+              /*
+               *
+               */
+              xhrDelete : function() {
+
+              }
       };
-    });
+      return _services || {};
+});
