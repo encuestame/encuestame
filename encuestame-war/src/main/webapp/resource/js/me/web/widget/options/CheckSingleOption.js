@@ -6,6 +6,8 @@ define([
          "dijit/form/CheckBox",
          "dijit/registry",
          "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/support/PublishSupport",
+         "me/core/support/ContextSupport",
          "me/core/enme",
          "dojo/text!me/web/widget/options/templates/checkSingleOption.html" ],
         function(
@@ -16,9 +18,11 @@ define([
                 CheckBox,
                 registry,
                 main_widget,
+                PublishSupport,
+                ContextSupport,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, PublishSupport, _WidgetsInTemplateMixin], {
 
           // template string.
             templateString : template,

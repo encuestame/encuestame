@@ -1,16 +1,9 @@
-//
-// @deprecated use me/core/support/ContextSupport
-//
-//
-
 define([
      "dojo/_base/declare",
      "me/core/enme"],
     function(
     declare,
     _ENME) {
-
-  dojo.deprecated('use me/core/support/ContextSupport');
 
   return declare(null, {
 

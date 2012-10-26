@@ -5,7 +5,8 @@ define([
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/utils/ContextSupport",
+         "me/core/support/ContextSupport",
+         "me/web/widget/social/SocialAccountPicker",
          "me/core/enme",
          "dojo/text!me/web/widget/publish/templates/socialPublishSupport.html" ],
         function(
@@ -16,6 +17,7 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 ContextSupport,
+                SocialAccountPicker,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin], {

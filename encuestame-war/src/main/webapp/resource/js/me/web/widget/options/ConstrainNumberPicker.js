@@ -7,6 +7,8 @@ define([
          "dijit/form/NumberSpinner",
          "dijit/registry",
          "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/support/PublishSupport",
+         "me/core/support/ContextSupport",
          "me/core/enme",
          "dojo/text!me/web/widget/options/templates/constrainNumberPicker.html" ],
         function(
@@ -18,9 +20,11 @@ define([
                 NumberSpinner,
                 registry,
                 main_widget,
+                PublishSupport,
+                ContextSupport,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, PublishSupport, ContextSupport, _WidgetsInTemplateMixin], {
 
             // template string.
             templateString : template,
@@ -64,7 +68,7 @@ define([
             */
            postCreate : function() {
                this.checkWidget = registry.byId("check_widget_"+this.id);
-               this.checkWidget.onChange = dojo.hitch(this, function(event){
+               this.checkWidget.onChange = dojo.hitch(this, function(event) {
                    //console.debug("checkWidget", event);
                    if (event) {
                        dojo.removeClass(this._repeatedNumbers, "defaultDisplayHide");

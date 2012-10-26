@@ -10,11 +10,15 @@ define([
          "me/web/widget/questions/Question",
          "me/web/widget/questions/patterns/SingleResponse",
          "me/web/widget/options/RepeatedVotes",
+         "me/web/widget/options/LimitVotes",
+         "me/web/widget/options/DateToClose",
          "me/web/widget/dialog/Dialog",
          "me/web/widget/publish/PublishSupport",
          "me/web/widget/support/ActionDialogHandler",
+         "me/web/widget/options/CommentsOptions",
          "me/web/widget/support/DnD",
          "me/web/widget/options/CheckSingleOption",
+         "me/web/widget/options/ResultsOptions",
          "me/core/enme",
          "dojo/text!me/web/widget/poll/templates/poll.html" ],
         function(
@@ -29,11 +33,15 @@ define([
                 Question,
                 SingleResponse,
                 RepeatedVotes,
+                LimitVotes,
+                DateToClose,
                 Dialog,
                 PublishSupport,
                 ActionDialogHandler,
+                CommentsOptions,
                 DnD,
                 CheckSingleOption,
+                ResultsOptions,
                 _ENME,
                  template) {
             return declare([ _WidgetBase,
@@ -178,7 +186,7 @@ define([
                  this._openFailureMessage(error);
              });
              encuestame.service.xhrPostParam(
-                     'encuestame.service.list.poll.create', params, load, error);
+                 this.getURLService().service('encuestame.service.list.poll.create'), params, load, error);
           },
 
           /*

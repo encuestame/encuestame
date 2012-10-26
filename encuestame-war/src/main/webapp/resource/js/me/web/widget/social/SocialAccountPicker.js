@@ -23,9 +23,7 @@ define([
           /*
            * template string.
            */
-           templateString : template,
-
-         widgetsInTemplate: true,
+          templateString : template,
 
          _listSocialAccounts : null,
 

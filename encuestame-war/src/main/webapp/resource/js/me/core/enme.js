@@ -3,7 +3,6 @@
 //    parser.parse();
 //
 //});
-
 define(["dojo",
         "dojo/dom",
         "dojo/number",
@@ -18,6 +17,8 @@ define(["dojo",
             on,
             query,
             domAttr) {
+
+    dojo.require( "dojo.date.locale" );
 
     //Define if is initialize.
     var isInitialised = false,
@@ -57,6 +58,16 @@ define(["dojo",
        * @deprecated moved to constants.js
        */
       STATUS : ['SUCCESS','FAILED', 'STAND_BY', 'RE_SCHEDULED', 'RE_SEND'],
+
+      /**
+       * Default time format.
+       */
+      timeFormat : "hh:mm:ss",
+
+      /**
+       * Default date format.
+       */
+      dateFormat : "M/d/yy",
 
       /**
        * @deprecated moved to constants.js
@@ -541,11 +552,28 @@ define(["dojo",
       fromNow : function(date, format) {
         try {
           format = format || "YYYY-MM-DD";
-          return moment(date, format).fromNow();
+          if (moment != "undefined") {
+            return moment(date, format).fromNow();
+          } else {
+            return date;
+          }
         } catch (error) {
           return date;
         }
-      }
+      },
+
+    /**
+     * Get format time based on format string.
+     * @param date
+     * @param fmt
+     * @returns
+     */
+     getFormatTime : function(date, fmt) {
+          return dojo.date.locale.format(date, {
+              selector: "date",
+              datePattern: fmt
+          });
+    }
     };
 });
 
