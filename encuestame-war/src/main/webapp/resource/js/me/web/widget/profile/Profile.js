@@ -12,7 +12,7 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/URLServices",
          "me/core/enme",
-         "dojox/form/BusyButton",
+         "dijit/form/Button",
          "dojo/text!me/web/widget/profile/templates/profile.html" ],
         function(
                 dojo,
@@ -31,7 +31,7 @@ define([
                 BusyButton,
                  template) {
 
-dojo.require("dojox.form.BusyButton");
+//dojo.require("dojox.form.BusyButton");
 
 
   lang.extend(ValidationTextBox, {
@@ -123,9 +123,22 @@ dojo.require("dojox.form.BusyButton");
 
              //TODO: review the click event
              // http://dojotoolkit.org/reference-guide/1.8/dojox/form/BusyButton.html
-             dojo.connect(this._submit, "onClick", dojo.hitch(this, function(event) {
-                 this._updateProfile(event);
-             }));
+             // Replaced by dijit button because http://bugs.dojotoolkit.org/ticket/9075 a long term bug on IE8
+//             dojo.connect(this._submit, "onClick", dojo.hitch(this, function(event) {
+//                 this._updateProfile(event);
+//             }));
+//               var button = new dojox.form.BusyButton({
+//                   id: "submit",
+//                   busyLabel: "Updating...",
+//                   label: this.i18nMessage.commons_update,
+//                   timeout: 5000
+//                   }, this._submit);
+//               button.onClick(function(){
+//                 console.log('ffff');
+//               });
+////                dojo.connect(this._submit, "_onClick", function(event){
+////                    this._updateProfile(event);
+////                });
            },
 
            /**
