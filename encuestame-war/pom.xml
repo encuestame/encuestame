@@ -387,10 +387,14 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-mvc</artifactId>
         </dependency>
+		<dependency>
+            <groupId>org.encuestame</groupId>
+            <artifactId>enme-dao</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
-            <artifactId>encuestame-persistence</artifactId>
-        </dependency>
+            <artifactId>enme-model</artifactId>
+        </dependency>   
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>

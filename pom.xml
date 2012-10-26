@@ -905,17 +905,21 @@
                 <scope>test</scope>
                 <classifier>tests</classifier>
             </dependency>
-
-            <dependency>
+             <dependency>
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-persistence</artifactId>
+                <artifactId>enme-model</artifactId>
                 <version>${encuestame.version}</version>
                 <type>jar</type>
-                <scope>compile</scope>
-            </dependency>
+            </dependency> 
+            <dependency>
+                <groupId>org.encuestame</groupId>
+                <artifactId>enme-dao</artifactId>
+                <version>${encuestame.version}</version>
+                <type>jar</type>
+            </dependency>             
             <dependency> <!-- reuse src/test/java code from encuestame-core! -->
                 <groupId>org.encuestame</groupId>
-                <artifactId>encuestame-persistence</artifactId>
+                <artifactId>enme-dao</artifactId>
                 <version>${encuestame.version}</version>
                 <scope>test</scope>
                 <classifier>tests</classifier>
