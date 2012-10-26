@@ -11,7 +11,7 @@
     data-label="<spring:message code="settings.config.myaccount" />"></div>
   <!-- Upload Profile Image Widget -->
   <div id="upload_image_settings"
-    dojdoType="encuestame.org.core.commons.profile.UploadProfilePicture"
+    data-dojo-type="me/web/widget/profile/UploadProfilePicture"
     data-enabled="false"
     username="${account.username}"
     pictureSource="${account.pictureSource}"
