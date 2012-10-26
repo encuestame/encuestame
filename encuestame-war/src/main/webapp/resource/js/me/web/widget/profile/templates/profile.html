@@ -7,14 +7,14 @@
                 ${i18nMessage.settings_config_profile_description}
             </p>
        </div>
-       <div dojoType="dijit.form.Form" id="profileForm" class="formDefault" style="display=none;" data-dojo-attach-point="_form">
+       <div data-dojo-type="dijit/form/Form" id="profileForm" class="formDefault" style="display=none;" data-dojo-attach-point="_form">
            <div class="web-settings-account-row">
                 <label for="email">
                     ${i18nMessage.settings_config_profile_email}
                </label>
                <div class="data">
                    <input type="text" name="email" id="email"
-                            dojoType="dijit.form.ValidationTextBox"
+                            data-dojo-type="dijit/form/ValidationTextBox"
                             required="true"
                             validateType="email"
                             regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
@@ -33,7 +33,7 @@
                 </label>
                <div class="data">
                    <input type="text" name="username" id="username"
-                            dojoType="dijit.form.ValidationTextBox"
+                            data-dojo-type="dijit/form/ValidationTextBox"
                             required="true"
                             validateType="username"
                             maxLength="18"
@@ -51,7 +51,7 @@
                 </label>
                 <div class="data">
                     <input type="text" name="completeName" id="completeName"
-                            dojoType="dijit.form.ValidationTextBox"
+                            data-dojo-type="dijit/form/ValidationTextBox"
                             required="false"
                             value="${complete_name}">
                  </div>
@@ -61,7 +61,7 @@
                       ${i18nMessage.settings_config_profile_language}
                 </label>
                  <div class="data">
-                     <select name="language" dojoType="dijit.form.Select" value="${language}">
+                     <select name="language" data-dojo-type="dijit/form/Select" value="${language}">
                         <option value="ES_es">
                             Spanish
                         </option>
@@ -73,10 +73,10 @@
              </div>
              <div class="web-settings-account-row" style="">
                    <div class="settings-submit">
-                        <button dojoType="dojox.form.BusyButton"
+                       <!--  <button data-dojo-type="dojox/form/BusyButton"
                                 data-dojo-attach-point="_submit"
                                 busyLabel="Sending data..."
-                                data-dojo-attach-event="ondijitclick: _updateProfile">
+                                data-dojo-attach-event="ondijitclick: _updateProfile"> -->
                          ${i18nMessage.commons_update}
             </button>
                    </div>
