@@ -1,14 +1,23 @@
 define(
-    [ "dojo", "me/core/enme", 'dojo/_base/xhr', 'dojo/_base/json',
-        "dojo/_base/array" ],
-    function(dojo, _ENME, xhr, _json, _array) {
+    [ "dojo",
+      "me/core/enme",
+      'dojo/_base/xhr',
+      'dojo/request/xhr',
+      "dojo/request",
+      'dojo/_base/json',
+      "dojo/request/notify",
+      "dojo/_base/array" ],
+    function(dojo, _ENME, xhr, xhrRequest, request, _json, notify, _array) {
 
       // config context path
-      var context_path = _ENME.config("contextPath"), _handleAs = "json", // json-comment-optional, json-comment-filtered
+      var context_path = _ENME.config("contextPath"),
+      _handleAs = "json", // json-comment-optional, json-comment-filtered
       _failOk = true, // Indicates whether a request should be allowed to
               // fail (and therefore no console error message in
               // the event of a failure)
-      _timeout = ENME.config('delay'), _preventCache = true;
+      _timeout = ENME.config('delay'),
+      //_cross_browsing = false,
+      _preventCache = true;
 
       /*
        * Append the context to each service @param
@@ -182,6 +191,20 @@ define(
         "encuestame.service.gadget.remove" : _appendContext("api/common/dashboard/gadget/remove.json")
       };
 
+
+      /*
+       *
+       */
+//      var _gateway = function () {
+//        if (_cross_browsing) {
+//             _xhr(arguments);
+//        } else {
+//            _request(arguments);
+//        }
+//      };
+
+
+
       /**
        *
        */
@@ -203,51 +226,49 @@ define(
               /*
                *
                */
-              xhrGet : function(url, params, load, error, logginHandler) {
-                if (logginHandler == null) {
-                  logginHandler = true;
-                }
-                if (error == null) {
-                  error = defaultError;
-                  _ENME.log("default error");
-                }
-                if (load == null || url == null || params == null) {
-                  throw new Error("error params required");
-                } else {
-                  dojo.xhrGet({
-                    url : this.service(url),
-                    handleAs : _handleAs,
-                    failOk : _failOk,
-                    timeout : _timeout,
-                    content : params,
-                    load : load,
-                    preventCache : _preventCache,
-                    error : _error_callback_handler,
-                    handle : _callback_handler
-                  });
-                }
+               get : function(url, params, load, error, logginHandler) {
+                    _makeCall(url, params, 'GET', load, error);
               },
 
               /*
                *
                */
-              xhrPost : function() {
-
+              post : function(url, params, load, error, logginHandler) {
+                    _makeCall(url, params, 'POST', load, error);
               },
 
               /*
                *
                */
-              xhrPut : function() {
-
+              del : function(url, params, load, error, logginHandler) {
+                   _makeCall(url, params, 'DELETE', load, error);
               },
 
               /*
                *
                */
-              xhrDelete : function() {
-
+              put : function(url, params, load, error, logginHandler) {
+                   _makeCall(url, params, 'PUT', load, error);
               }
       };
-      return _services || {};
+
+      /**
+       *
+       */
+      var _makeCall = function(url , params, method, response, error) {
+          request(_services.service(url), {
+             handleAs : _handleAs,
+               failOk : _failOk,
+               timeout : _timeout,
+               method : method,
+               preventCache : _preventCache,
+               query : params,
+               data : params,
+           }).then(response, error,
+                   function(evt) {
+                   console.log("!!!!!!!!!!!!!!! progress", evt);
+           });
+     };
+
+      return _services;
 });

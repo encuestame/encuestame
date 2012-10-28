@@ -3,34 +3,41 @@ define([
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
-         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/main_widgets/LoggedUtilities",
          "me/web/widget/tweetpoll/TweetPollListItem",
          "me/web/widget/folder/FoldersActions",
          "me/web/widget/support/ItemsFilterSupport",
+         "me/web/widget/ui/MessageSearch",
          "me/core/enme",
          "dojo/_base/lang",
          "dojo/topic",
          "dojo/dnd/Source",
          "dojo/hash",
          "dojo/io-query",
+         "dojo/dom-construct",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollList.html" ],
         function(
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
-                main_widget,
+                LoggedUtilities,
                 TweetPollListItem,
                 FoldersActions,
                 ItemsFilterSupport,
+                MessageSearch,
                 _ENME,
                 _lang,
                 topic,
                 Source,
                 hash,
                 ioQuery,
+                domConstruct,
                 template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase,
+                             _TemplatedMixin,
+                             LoggedUtilities,
+                             _WidgetsInTemplateMixin], {
 
           // template string.
           templateString : template,
@@ -100,6 +107,8 @@ define([
            * post create.
            */
           postCreate : function() {
+              var _loading = new MessageSearch();
+              domConstruct.place(_loading.domNode, this._custom_loading);
               var _hash = ioQuery.queryToObject(hash());
               // load item by first time.
               if (this.listItems == null) {
@@ -298,7 +307,8 @@ define([
               var error = function(error) {
                   console.debug("error", error);
               };
-              this.getURLService().xhrGet(this.url, params, load, error);
+              //dojo.publish('encuestame/search/loading/display/on', ['Cargando TweetPolls', _ENME.MESSAGES_TYPE.WARNING, 3000]);
+              this.getURLService().get(this.url, params, load, error);
           },
 
           /*
@@ -314,31 +324,3 @@ define([
 
     });
 });
-
-//dojo.provide("encuestame.org.core.commons.tweetPoll.TweetPollList");
-//
-//dojo.require("dijit.form.Form");
-//dojo.require("dijit.form.Button");
-//dojo.require("dijit.form.TextBox");
-//dojo.require("dijit.form.CheckBox");
-//dojo.require("dijit._Widget");
-//dojo.require("dijit._Templated");
-//dojo.require("dijit.Dialog");
-//dojo.require("dijit.layout.TabContainer");
-//dojo.require("dijit.layout.ContentPane");
-//dojo.require("dijit.layout.AccordionContainer");
-//dojo.require("dijit.layout.AccordionPane");
-//dojo.require("dojox.widget.Dialog");
-//dojo.require("dojox.form.Rating");
-//dojo.require("dojo.fx");
-//dojo.require("dojo.hash");
-//dojo.require("dojo.dnd.Source");
-//
-//dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-//dojo.require("encuestame.org.core.commons.tweetPoll.TweetPoll");
-//dojo.require("encuestame.org.core.commons.dashboard.chart.DashboardPie");
-//dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollListDetail");
-//dojo.require("encuestame.org.core.commons.support.Wipe");
-//dojo.require("encuestame.org.core.shared.utils.FoldersActions");
-//dojo.require("encuestame.org.core.commons.stream.HashTagInfo");
-//dojo.require("encuestame.org.core.commons.support.ItemsFilterSupport");

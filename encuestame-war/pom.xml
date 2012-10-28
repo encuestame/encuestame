@@ -209,7 +209,6 @@
                     </additionalBuildcommands>
                     <additionalProjectnatures>
                         <projectnature>org.eclipse.jdt.core.javanature</projectnature>
-                        <projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
                         <projectnature>org.eclipse.wst.jsdt.core.jsNature</projectnature>
                         <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
                     </additionalProjectnatures>
@@ -387,14 +386,14 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-mvc</artifactId>
         </dependency>
-		<dependency>
+    <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>enme-dao</artifactId>
         </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>enme-model</artifactId>
-        </dependency>   
+        </dependency>
         <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-business</artifactId>

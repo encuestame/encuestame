@@ -18,8 +18,6 @@
  * <http://dojotoolkit.org/reference-guide/loader/amd.html>.
  */
 define([ 'dojo/has', 'require' ], function (has, require) {
-  var app = {};
-  console.debug("MAIN me APP");
   /**
    * This main.js file conditionally executes different code depending upon the host environment it is loaded in.
    * This is an increasingly common pattern when dealing with applications that run in different environments that
@@ -40,23 +38,28 @@ define([ 'dojo/has', 'require' ], function (has, require) {
      * plugin functionality.
      */
     //'me/activity/Activity'
-    require([ 'dojo',  ], function (dojo, parser, c) {
-        console.log("APPPPPPPPPPPPP", dojo);
-//			console.log("APPPPPPPPPPPPP", parser);
-//			console.log("APPPPPPPPPPPPP search menu", c);
-//			app.dialog = new Dialog().placeAt(document.body);
-
+    require([
+              'dojo',
+              "dojo/dom",
+              "me/core/ui/Loading",
+              "dojo/dom-construct"], function (
+                      dojo,
+                      dom,
+                      Loading,
+                      domConstruct) {
+       var _dom = dom.byId('loading'),
+       _loading_widget = new Loading();
+       console.debug("MAIN me APP", _dom);
+       domConstruct.place(_loading_widget.domNode, _dom);
+      // app.dialog = new Dialog().placeAt(document.body);
       // It is important to remember to always call startup on widgets after you have added them to the DOM.
       // It will not hurt if you do it twice, but things will often not work right if you forget to do it.
-//			app.dialog.startup();
-
+      // app.dialog.startup();
       // And now we just show the dialog to demonstrate that, yes, the example app has loaded successfully.
-//			app.dialog.show();
-      //parser.parse();
+      // app.dialog.show();
+      // parser.parse();
     });
-  }
-  else {
-    // TODO: Eventually, the Boilerplate will actually have a useful server implementation here :)
-    console.log('Hello from the server!');
+  } else {
+    // console.log('Hello from the server!');
   }
 });

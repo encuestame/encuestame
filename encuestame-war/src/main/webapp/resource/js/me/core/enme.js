@@ -54,6 +54,12 @@ define(["dojo",
     };
 
     return {
+
+      /**
+       *
+       */
+      MESSAGES_TYPE : messageTypes,
+
       /**
        * @deprecated moved to constants.js
        */
@@ -373,98 +379,6 @@ define(["dojo",
         return number.format(value, {places: 0});
       },
 
-      /**
-       *
-       */
-      _serviceHander :  function(response, ioargs) {
-          //encuestame.filter.response(response);
-          var message = "";
-          switch (ioargs.xhr.status) {
-          case 200:
-              message = "Good request.";
-              break;
-          case 404:
-              message = "The page you requested was not found.";
-              //encuestame.error.createDialog(message, message);
-              break;
-          case 400:
-              message = "Bad Request";
-              //encuestame.error.createDialog(message, message);
-              break;
-          case 500:
-              break;
-              message = "Service temporarily unavailable.";
-              //encuestame.error.createDialog(message, message);
-              break;
-          case 407:
-              message = "You need to authenticate with a proxy.";
-              //encuestame.error.createDialog(message, message);
-              break;
-          case 0:
-              message = "A network error occurred. Check that you are connected to the internet.";
-              //encuestame.error.conexion(message);
-              break;
-          default:
-              message = "An unknown error occurred";
-              //encuestame.error.unknown(message, ioargs.xhr.status);
-          }
-      },
-
-      //params, service, load, error, loadingFunction
-      /**
-       * Make a GET json call to backend.
-       */
-      sGet : function(options) {
-          var defaultOptions = {
-            handleAs : "json",
-            failOk : true,
-            timeout : 60000,
-            preventCache : true,
-          };
-            params = options.params || {};
-            service = options.service || "";
-              var errorFunction = (options.error == null  ? this.$.hitch(this, function(errorMessage) {
-                 //this.infoMesage(errorMessage);
-                 _$self.log(errorMessage);
-              }) : error);
-              if (this.$.isFunction(load)) {
-                //encuestame.service.GET(service, params, load, errorFunction, loadingFunction);
-                var innerLoad = this.$.hitch(this, function(data) {
-                options.loadingFunction == null ? "" : options.loadingFunction.end();
-                if (this.$.isFunction(load)) {
-                  load(data);
-                }
-              });
-              // initialize the loading
-                options.loadingFunction == null ? "" : options.loadingFunction.init();
-                var argsGet = {
-                        url : url,
-                    handleAs : defaultOptions.handleAs,
-                    failOk : defaultOptions.failOk, //Indicates whether a request should be allowed to fail
-                    // (and therefore no console error message in the event of a failure)
-                    timeout : defaultOptions.timeout,
-                    content: params,
-                    load: innerLoad,
-                    preventCache: defaultOptions.preventCache,
-                    error: error,
-                    handle : _serviceHander
-               }
-               this.$.xhrGet(argsGet);
-              }
-       },
-
-      sPost : function(options) {
-
-      },
-
-      error : function(){
-
-      },
-
-      redirect : function(){
-
-      },
-
       isEmtpy : function() {
          return (!str || 0 === str.length);
       },
@@ -603,7 +517,6 @@ window.log = function () {
     }
 })((function () {
     try {
-        console.log();
         return window.console;
     } catch (err) {
         return window.console = {};

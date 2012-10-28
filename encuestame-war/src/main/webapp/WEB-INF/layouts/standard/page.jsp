@@ -47,31 +47,11 @@
       </footer>
     </div>
   </div>
-
-  <script type="text/javascript">
-    //dojo.require("dijit.dijit");
-    //dojo.require("dojo.parser");
-    //dojo.require("dojo.io.script");
-    //dojo.require("encuestame.org.core.commons");
-    //dojo.require("encuestame.org.core.commons.search.SearchMenu");
-    //dojo.require("encuestame.org.core.commons.error.ErrorSessionHandler");
-    //dojo.require("encuestame.org.core.commons.error.ErrorConexionHandler");
-    //dojo.require("encuestame.org.core.commons.error.ErrorHandler");
-    <c:if test="${logged}">
-      //dojo.require("encuestame.org.activity.Activity");
-      //dojo.require("encuestame.org.core.commons.dashboard.DashBoardMenu");
-      //dojo.require("encuestame.org.core.commons.notifications.Notification");
-      //dojo.require("encuestame.org.core.commons.profile.ProfileMenu");
-      //dojo.require("encuestame.org.core.shared.utils.Toaster");
-      //dojo.require("encuestame.org.core.shared.utils.Loading");
-      //encuestame.activity = new encuestame.org.activity.Activity(true);
-    </c:if>
-  </script>
   <!-- Insert additional javascript  -->
   <tiles:insertAttribute name="extra-js" ignore="true" />
   <c:if test="${logged}">
      <div id="modal-box"></div>
-     <div  data-dojo-type="me/web/widget/ui/Loading" id="loading"></div>
+     <div id="loading"></div>
   </c:if>
 </body>
 </html>

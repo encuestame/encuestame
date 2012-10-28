@@ -7,12 +7,12 @@
 
 //
 var ENME = {
-		config : function() {
-			return "";
-		},
-		getMessage : function(){
-			return "text";
-		}
+    config : function() {
+      return "";
+    },
+    getMessage : function(){
+      return "text";
+    }
 };
 
 //
@@ -58,75 +58,12 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler) {
             preventCache: true,
             error: function(error, ioargs) {
                 console.info("error function", ioargs);
-                var message = "";
-                console.info(ioargs.xhr.status, error);
-                //if dialog is missing or is hide.
-                if (encuestame.error.dialog == null || !encuestame.error.dialog.open) {
-                    switch (ioargs.xhr.status) {
-                    case 403:
-                        var jsonError = dojo.fromJson(ioargs.xhr.responseText);
-                        //console.info("queryObject", jsonError);
-                        message = "Application does not have permission for this action";
-                        if(!logginHandler){
-                            encuestame.error.denied(message);
-                        } else {
-                            if (!jsonError.session || jsonERror.anonymousUser) {
-                                console.info("session is expired");
-                                encuestame.error.session(encuestame.error.messages.session);
-                            }
-                        }
-                        break;
-                    case 0:
-                        message = "A network error occurred. Check that you are connected to the internet.";
-                        encuestame.error.conexion(message);
-                        break;
-                    default:
-                        message = "An unknown error occurred";
-                        encuestame.error.unknown(message, ioargs.xhr.status);
-                    }
-                }
               },
-            handle: function(response, ioargs) {
-                //encuestame.filter.response(response);
-                var message = "";
-                //console.info(ioargs.xhr.status, error);
-                switch (ioargs.xhr.status) {
-                case 200:
-                    message = "Good request.";
-                    //if (encuestame.error.dialog != null) {
-                     //   encuestame.error.clear();
-                    //}
-                    break;
-                case 404:
-                    message = "The page you requested was not found.";
-                    //encuestame.error.createDialog(message, message);
-                    break;
-                case 400:
-                    message = "Bad Request";
-                    //encuestame.error.createDialog(message, message);
-                    break;
-                case 500:
-                    break;
-                    message = "Service temporarily unavailable.";
-                    //encuestame.error.createDialog(message, message);
-                    break;
-                case 407:
-                    message = "You need to authenticate with a proxy.";
-                    //encuestame.error.createDialog(message, message);
-                    break;
-                case 0:
-                    message = "A network error occurred. Check that you are connected to the internet.";
-                    //encuestame.error.conexion(message);
-                    break;
-                default:
-                    message = "An unknown error occurred";
-                    //encuestame.error.unknown(message, ioargs.xhr.status);
-                }
-              }
+            handle: function(response, ioargs) {}
           });
     }
-};	
-	
+};
+
 /**
  * JSON GET call.
  * @param {String} url
@@ -536,8 +473,6 @@ encuestame.date.getFormatTime = function(date, fmt){
  * Json Post Call.
  */
 encuestame.service.xhrPost = function(url, form, load, error, formEnabled) {
-    //validate form param.
-    formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
     var defaultError = function(error, ioargs){
         console.error("default error ", error);
@@ -553,7 +488,7 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled) {
                 url: url,
                 timeout : encuestame.service.timeout,
                 handleAs: "json",
-                ailOk : true, //Indicates whether a request should be allowed to fail
+                failOk : true, //Indicates whether a request should be allowed to fail
                 //(and therefore no console error message in the event of a failure)
                 load: load,
                 preventCache: true,
@@ -568,41 +503,7 @@ encuestame.service.xhrPost = function(url, form, load, error, formEnabled) {
     }
 };
 
-encuestame.service.handler = {};	
-//encuestame.service.handler.serviceHander = dojo.hitch(this, function(response, ioargs) {
-//    //encuestame.filter.response(response);
-//    //console.info(ioargs.xhr.status, error);
-//    var message = "";
-//    switch (ioargs.xhr.status) {
-//    case 200:
-//        message = "Good request.";
-//        break;
-//    case 404:
-//        message = "The page you requested was not found.";
-//        //encuestame.error.createDialog(message, message);
-//        break;
-//    case 400:
-//        message = "Bad Request";
-//        //encuestame.error.createDialog(message, message);
-//        break;
-//    case 500:
-//        break;
-//        message = "Service temporarily unavailable.";
-//        //encuestame.error.createDialog(message, message);
-//        break;
-//    case 407:
-//        message = "You need to authenticate with a proxy.";
-//        //encuestame.error.createDialog(message, message);
-//        break;
-//    case 0:
-//        message = "A network error occurred. Check that you are connected to the internet.";
-//        //encuestame.error.conexion(message);
-//        break;
-//    default:
-//        message = "An unknown error occurred";
-//        //encuestame.error.unknown(message, ioargs.xhr.status);
-//    }
-//});
+encuestame.service.handler = {};
 
 
 /**
@@ -614,33 +515,35 @@ encuestame.service.handler = {};
  * @param {Boolean} logginHandler
  */
 encuestame.service.GET = function(url, params, load, error, loadingFunction) {
-    	var innerLoad = dojo.hitch(this, function(data) {
-    		loadingFunction == null ? "" : loadingFunction.end();
-    		if (dojo.isFunction(load)) {
-    			load(data);
-    		}
-    	});
-    	// initialize the loading
+      dojo.deprecated("Use URL Services");
+      var innerLoad = dojo.hitch(this, function(data) {
+        loadingFunction == null ? "" : loadingFunction.end();
+        if (dojo.isFunction(load)) {
+          load(data);
+        }
+      });
+      // initialize the loading
         loadingFunction == null ? "" : loadingFunction.init();
         var argsGet = {
                 url : url,
-		        handleAs : "json",
-		        failOk : true, //Indicates whether a request should be allowed to fail
-		        // (and therefore no console error message in the event of a failure)
-		        timeout : encuestame.service.timeout,
-		        content: params,
-		        load: innerLoad,
-		        preventCache: true,
-		        error: error,
-		        handle : encuestame.service.handler.serviceHander
+            handleAs : "json",
+            failOk : true, //Indicates whether a request should be allowed to fail
+            // (and therefore no console error message in the event of a failure)
+            timeout : encuestame.service.timeout,
+            content: params,
+            load: innerLoad,
+            preventCache: true,
+            error: error,
+            handle : encuestame.service.handler.serviceHander
        }
        dojo.xhrGet(argsGet);
-};		
+};
 
 /**
  * xhr POST param.
  */
 encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled, loadingFunction) {
+   dojo.deprecated("Use URL Services");
     //validate form param.
     formEnabled = formEnabled == null ? true : formEnabled;
     //default error.
@@ -652,22 +555,22 @@ encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled
     }
     //get the xhr encapsulated error message.
     errorWrapper = function (errorText, xhrError) {
-    	if (typeof(xhrError === "object")){
-	    	var responseText = dojo.fromJson(xhrError.xhr.response);
-	    	error(responseText.error.message);
-    	} else {
-    		error(errorText || "undefined error");
-    	}
+      if (typeof(xhrError === "object")){
+        var responseText = dojo.fromJson(xhrError.xhr.response);
+        error(responseText.error.message);
+      } else {
+        error(errorText || "undefined error");
+      }
     };
     //console.debug("Form POST ", form);
     if (load == null || url == null || params == null){
         console.error("error params required.");
     } else {
-    	var innerLoad = function(data) {
-    		loadingFunction == null ? "" : loadingFunction.end();
-    		load(data);
-    	};
-    	//load = innerLoad(load);    	
+      var innerLoad = function(data) {
+        loadingFunction == null ? "" : loadingFunction.end();
+        load(data);
+      };
+      //load = innerLoad(load);
         var xhrArgs = {
             url: url,
             postData: dojo.objectToQuery(params),
@@ -688,9 +591,9 @@ encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled
 /*
  * get context widget.
  */
-encuestame.contextWidget = function(){
+encuestame.contextWidget = function() {
         //return encuestame.contextDefault;
-	return "encuestame/";
+  return "encuestame/";
 };
 
 encuestame.contextDefault = "encuestame/";
