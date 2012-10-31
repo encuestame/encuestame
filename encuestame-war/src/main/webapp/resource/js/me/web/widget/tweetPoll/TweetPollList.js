@@ -107,8 +107,8 @@ define([
            * post create.
            */
           postCreate : function() {
-              var _loading = new MessageSearch();
-              domConstruct.place(_loading.domNode, this._custom_loading);
+              this._loading = new MessageSearch();
+              domConstruct.place(this._loading.domNode, this._custom_loading);
               var _hash = ioQuery.queryToObject(hash());
               // load item by first time.
               if (this.listItems == null) {
@@ -307,8 +307,11 @@ define([
               var error = function(error) {
                   console.debug("error", error);
               };
-              //dojo.publish('encuestame/search/loading/display/on', ['Cargando TweetPolls', _ENME.MESSAGES_TYPE.WARNING, 3000]);
-              this.getURLService().get(this.url, params, load, error);
+              this._loading.show('Cargando TweetPolls', _ENME.MESSAGES_TYPE.WARNING);
+              this.getURLService().get(this.url, params, load, error , dojo.hitch(this, function() {
+                  console.log('HIDEEEEEEEE LOADERRRR');
+                  this._loading.hide();
+              }));
           },
 
           /*

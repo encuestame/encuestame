@@ -85,5 +85,12 @@ define([ "dojo/_base/declare",
               setTimeout(x, _limit);
           }
         },
+        /**
+         * Hide the loader.
+         */
+        hide : function () {
+            console.log("HIDEEE MESSAGEEEE");
+            this._wipeWidget.wipeOutOne();
+        }
     });
 });
