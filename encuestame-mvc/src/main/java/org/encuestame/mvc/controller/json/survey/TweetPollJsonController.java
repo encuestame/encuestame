@@ -172,15 +172,20 @@ public class TweetPollJsonController extends AbstractJsonController {
             if(!tweetPoll.getPublishTweetPoll()){
             log.debug("action ANSWER--->"+type);
             if ("add".equals(type)) {
-                final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
-                answerBean.setShortUrlType(ShortUrlProvider.get(shortUrl));
-                log.debug("new answer bean:{ "+answerBean.toString());
-                final TweetPollSwitch tweetPollSwitch = getTweetPollService()
-                      .createTweetPollQuestionAnswer(answerBean, tweetPoll, request);
-                log.debug("new answer bean DOMAIN "+tweetPollSwitch.toString());
-                //log.debug("action questionAnswer "+questionAnswer);
-                jsonResponse.put("newAnswer", ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch));
-                setItemResponse(jsonResponse);
+            	if((answer.isEmpty()) || (answer == null)){
+            		   throw new EnmeFailOperation("Answer can not valid");
+            	} else {
+            		 final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
+                     answerBean.setShortUrlType(ShortUrlProvider.get(shortUrl));
+                     log.debug("new answer bean:{ "+answerBean.toString());
+                     final TweetPollSwitch tweetPollSwitch = getTweetPollService()
+                           .createTweetPollQuestionAnswer(answerBean, tweetPoll, request);
+                     log.debug("new answer bean DOMAIN "+tweetPollSwitch.toString());
+                     //log.debug("action questionAnswer "+questionAnswer);
+                     jsonResponse.put("newAnswer", ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch));
+                     setItemResponse(jsonResponse);
+            	}
+               
             } else if("remove".equals(type)) {
                 getTweetPollService().removeQuestionAnswer(getTweetPollService().getQuestionAnswerById(answerId));
                 setSuccesResponse();

@@ -404,5 +404,13 @@ public interface ITweetPoll extends IBaseDao{
 	
 	TweetPoll checkIfTweetPollHasHashTag(final String tagName, final SearchPeriods periods,
 			final Long id);
+	
+	/**
+	 * Validate {@link TweetPollResult} Ip.
+	 * @param ip
+	 * @param tweetPoll
+	 * @return
+	 */
+	List<TweetPollResult> validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll);
 	 
 }

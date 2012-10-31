@@ -268,14 +268,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     }
 
     /**
-     * Validate Vote IP.
-     *
-     * @param ip
-     *            ip
-     * @param tweetPoll
-     *            tweetPoll
+     * Validate Vote IP. 
+     * @param ip  ip
+     * @param tweetPoll tweetPoll
      * @return {@link TweetPollSwitch}
      */
+    @Deprecated
     @SuppressWarnings("unchecked")
     public TweetPollResult validateVoteIP(final String ip,
             final TweetPoll tweetPoll) {
@@ -286,7 +284,23 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                                 new String[] { "ipVote", "tweetPoll" },
                                 new Object[] { ip, tweetPoll }));
     }
-
+    
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#validateTweetPollResultsIP(
+	 * java.lang.String, org.encuestame.persistence.domain.tweetpoll.TweetPoll)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TweetPollResult> validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll) {
+		return getHibernateTemplate()
+				.findByNamedParam(
+						"from TweetPollResult where ipVote = :ipVote and  tweetPollSwitch.tweetPoll = :tweetPoll",
+						new String[] { "ipVote", "tweetPoll" },
+						new Object[] { ip, tweetPoll });
+	}
+	
     /**
      * Get Results By {@link TweetPoll} && {@link QuestionAnswer}.
      *
