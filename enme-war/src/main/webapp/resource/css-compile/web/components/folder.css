@@ -1,65 +1,78 @@
-div.web-folder-wrapper {
+.web-folder-wrapper {
     float: left;
     width: 100%;
 }
 
-div.web-folder-wrapper .web-folder-wrapper-item {
-    max-height: 300px;
+.web-folder-wrapper .web-folder-wrapper-item {
     overflow: auto;
 }
 
-div.web-folder-wrapper .folder-title {
+.web-folder-wrapper .folder-title {
 
 }
 
-div.web-folder-wrapper .folder-menu {
+.web-folder-wrapper .folder-menu {
 
 }
 
-div.web-folder-wrapper .web-folder-item {
+.web-folder-wrapper .web-folder-item {
     padding: 4px;
     border: 1px dotted #EEE;
+    background-color : #F0F0F0;
     clear: both;
     padding-left: 13px;
     overflow: auto;
     width: auto;
 }
 
-div.web-folder-wrapper .web-folder-item .dijitInlineEditBoxDisplayMode {
+.web-folder-wrapper .web-folder-item .dijitInlineEditBoxDisplayMode {
     background-color: transparent !important;
     border: 0;
 }
 
-div.web-folder-wrapper .web-folder-item .dijitInline {
+.web-folder-wrapper .web-folder-item .dijitInline {
     width: 100px !important;
 }
 
-div.web-folder-wrapper .web-folder-item input {
+.web-folder-wrapper .web-folder-item input {
     max-width: 50px !important;
 }
 
-div.web-folder-wrapper .web-folder-item:hover {
-    background-color: #6F6F6F;
+.web-folder-wrapper .web-folder-item:hover {
+    background-color: #6F6F6F !important;
     color: #FFF;
 }
 
-div.web-folder-wrapper .web-folder-item span:hover {
+.web-folder-wrapper .web-folder-item span:hover {
     color: #FFF;
 }
 
-div.web-folder-wrapper .web-folder-item .icon-folder {
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 16px;
-    margin-left: 2px;
-    min-width: 17px;
-    float: left;
-    margin-right: 3px;
+.web-folder-wrapper .web-folder-item .icon-folder {
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left;
+  height: 16px;
+  margin-left: 2px;
+  margin-right: 10px;
+  min-width: 17px;
 }
 
-div.web-folder-wrapper .web-folder-item .folder-name {
-    float: left;
-    font-size: 12px;
-    max-width: 135px;
-    width: 135px;
+.web-folder-wrapper .web-folder-item .folder-name {
+  font-size: 12px;
+  line-height: 20px;
+  max-width: 135px;
 }
+
+.web-folder-wrapper .web-folder-item .dijitTextBox {
+  position: absolute;
+  width: 119px !important;
+}
+
+.web-folder-wrapper .web-folder-item .dijitTextBox .dijitInputContainer {
+  width: 115px !important;
+}
+
+.web-folder-wrapper .web-folder-item .dijitTextBox .dijitInputContainer input {
+  max-width: 100% !important;
+}
+

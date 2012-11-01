@@ -9,14 +9,16 @@ define(["dojo",
         "dojo/cookie",
         "dojo/on",
         "dojo/query",
-        "dojo/dom-attr"], function(
+        "dojo/dom-attr",
+        "moment"], function(
             dojo,
             dom,
             number,
             cookie,
             on,
             query,
-            domAttr) {
+            domAttr,
+            moment) {
 
     dojo.require( "dojo.date.locale" );
 

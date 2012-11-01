@@ -216,10 +216,10 @@ define([
            */
           _searchByAccount : function(event) {
               dojo.stopEvent(event);
-              this.currentSearch = "ACCOUNT";
+              this.currentSearch = "BYOWNER";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "ACCOUNT"});
+              this.loadTweetPolls({typeSearch : "BYOWNER"});
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 

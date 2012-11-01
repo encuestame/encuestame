@@ -446,8 +446,6 @@
                     <goals>
                         <goal>perform</goal>
                     </goals>
-                    <configuration>
-                    </configuration>
                 </execution>
           </executions>
         </plugin>

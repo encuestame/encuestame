@@ -1,5 +1,7 @@
+dojo.require("dojox.fx");
 define([
          "dojo/_base/declare",
+         "dojo/dom-construct",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -10,6 +12,7 @@ define([
          "dojo/text!me/web/widget/folder/templates/foldersAction.html" ],
         function(
                 declare,
+                domConstruct,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -53,7 +56,8 @@ define([
            _addNewFolder : function(event){
                dojo.stopEvent(event);
                var node = this._createFolder({folderId: null, name : _ENME.getMessage("detail_manage_folder_replace_name")});
-               this._folders.appendChild(node.domNode);
+               domConstruct.place(node.domNode, this._folders, "first");
+               dojox.fx.highlight({node:node.domNode, duration: 800 }).play();
            },
 
            /*
