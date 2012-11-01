@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+ encuestame: system online surveys Copyright (C) 2009 encuestame Development
+ Team
+ 
+ This program is free software; you can redistribute it and/or modify it under
+ the terms of version 3 of the GNU General Public License as published by the
+ Free Software Foundation.
+ 
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ details.
+ 
+ You should have received a copy of the GNU General Public License along with
+ this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+ Date: 26/07/2009 15:22:10
+ 
+ @author juanpicado package: 
+
+
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:me="http://schemas.encuestame.org/me/" targetNamespace="http://schemas.encuestame.org/me/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>encuestame tipos complejos</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="seccionItem">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="question" type="me:question"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="seccionGroup">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="secionItem">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="me:seccionItem">
+							<xs:attribute name="ssid" use="required"/>
+							<xs:attribute name="decrip" use="required"/>
+							<xs:attribute name="id_state" use="required"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="encuestaInfo">
+		<xs:sequence>
+			<xs:element name="start_date"/>
+			<xs:element name="finish_date"/>
+			<xs:element name="date_interview"/>
+			<xs:element name="uid"/>
+			<xs:element name="completed"/>
+			<xs:element name="id_survey_format"/>
+			<xs:element name="ticket"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="question">
+		<xs:choice>
+			<xs:element name="email" type="me:patronEmail"/>
+			<xs:element name="selectUnique" type="me:patronSelectUnique"/>
+			<xs:element name="url" type="me:patronUrl"/>
+			<xs:element name="imageMultiple" type="me:patronImageMultiple"/>
+			<xs:element name="imageSingle" type="me:patronImageSingle"/>
+			<xs:element name="matrix" type="me:patronMatrix"/>
+			<xs:element name="paragraph" type="me:patronParagrahp"/>
+			<xs:element name="postalcode" type="me:patronPostalCode"/>
+			<xs:element name="selectMulti" type="me:patronSelectMultiple"/>
+			<xs:element name="uniqueText" type="me:patronUniqueText"/>
+			<xs:element name="html" type="me:patronHTML"/>
+		</xs:choice>
+		<xs:attribute name="id" use="required"/>
+		<xs:attribute name="question" use="required"/>
+		<xs:attribute name="version" use="required"/>
+		<xs:attribute name="id_state" use="required"/>
+		<xs:attribute name="qid_key" use="required"/>
+	</xs:complexType>
+	<xs:element name="encuesta">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="encuestaInfo" type="me:encuestaInfo"/>
+				<xs:element name="seccionGroup" type="me:seccionGroup"/>
+			</xs:sequence>
+			<xs:attribute name="attribute_1"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:annotation>
+		<xs:documentation>Patrones</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="patronSelectUnique">
+		<xs:sequence>
+			<xs:choice>
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element name="opcion">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="response"/>
+							</xs:sequence>
+							<xs:attribute name="selected" type="xs:boolean" use="required"/>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronEmail">
+		<xs:sequence>
+			<xs:element name="emailResponse"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronPostalCode">
+		<xs:sequence>
+			<xs:element name="postalCodeResponse"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronMatrix">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="patronImageMultiple">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="imageItem" type="me:patronImageSingle"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronImageSingle">
+		<xs:sequence>
+			<xs:element name="imageName">
+				<xs:complexType/>
+			</xs:element>
+			<xs:element name="imageSize"/>
+			<xs:element name="imageHeitght"/>
+			<xs:element name="imageWidth"/>
+			<xs:element name="imageContent"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronHTML">
+		<xs:sequence>
+			<xs:element name="htmlResponse"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronParagrahp">
+		<xs:sequence>
+			<xs:element name="paragrahpResponse"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronUniqueText">
+		<xs:sequence>
+			<xs:element name="uniqueTextResponse"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronSelectMultiple">
+		<xs:sequence>
+			<xs:choice maxOccurs="unbounded">
+				<xs:sequence maxOccurs="unbounded">
+					<xs:element name="opcion" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="response"/>
+							</xs:sequence>
+							<xs:attribute name="selected" type="xs:boolean" use="required"/>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="patronUrl">
+		<xs:sequence>
+			<xs:element name="urlResponse"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

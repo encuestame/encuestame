@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
+  <group name='web'>
+    <css>/resource/css-compile/reset.css</css>
+    <css>/resource/css-compile/common.css</css>
+    <css>/resource/css-compile/layout.css</css>          
+    <css>/resource/css-compile/web/public.css</css>
+    <css>/resource/css-compile/web/default.css</css>
+    <css>/resource/css-compile/web/admon.css</css>
+    <css>/resource/css-compile/web/menu.css</css>
+    <css>/resource/css-compile/web/question.css</css>
+    <css>/resource/css-compile/web/section.css</css>
+    <css>/resource/css-compile/web/table.css</css>
+    <css>/resource/css-compile/web/user.css</css>
+    <css>/resource/css-compile/web/components/*.css</css>
+  </group>
+  <group name='mobile'>
+    <css>/resource/css-compile/reset.css</css>
+    <css>/resource/css-compile/common.css</css>    
+    <css>/resource/css-compile/mobile/default.css</css>    
+    <css>/resource/css-compile/mobile/layout.css</css>
+    <css>/resource/css-compile/mobile/components/*.css</css>
+  </group>
+  <group name='common'>
+   	<js>/resource/js/core/*.js</js>
+   	<js>/resource/js/core/lib/*.js</js>
+   	<js>/resource/js/core/req/*.js</js>
+   	<js>/resource/js/core/graph/core/raphael-2.1.0.js</js>
+   </group>
+   <group name='graph'>        
+        <js>/resource/js/core/graph/core/g.raphael.0.5.0.js</js>
+<!--         <js>/resource/js/core/graph/core/popup.js</js> -->
+   		<js>/resource/js/core/graph/g.bar.js</js>
+   		<js>/resource/js/core/graph/g.dot.js</js>
+   		<js>/resource/js/core/graph/g.line.js</js>
+   		<js>/resource/js/core/graph/g.pie.js</js>
+   </group>        
+</groups>

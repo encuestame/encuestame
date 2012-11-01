@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:i="http://www.springframework.org/schema/integration"
+    xmlns:twitter="http://www.springframework.org/schema/integration/twitter"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/integration
+            http://www.springframework.org/schema/integration/spring-integration.xsd
+            http://www.springframework.org/schema/integration/twitter
+            http://www.springframework.org/schema/integration/twitter/spring-integration-twitter.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+        <bean id="twitterTemplate"
+        class="org.springframework.integration.twitter.core.Twitter4jTemplate">
+        <constructor-arg value="${twitter.oauth.consumerKey}" />
+        <constructor-arg value="${twitter.oauth.consumerSecret}" />
+        <constructor-arg value="xxxxxxxxxxxxxxxxxx" />
+        <constructor-arg value="xxxxxxxxxxxx" />
+    </bean>
+
+
+    <bean id="twitterRejector" class="org.encuestame.core.integration.TwitterMessageSelector"></bean>
+
+    <i:channel id="twitterChannel">
+    </i:channel>
+
+    <i:channel id="twitterRejectionChannel">
+        <i:queue capacity="25" />
+    </i:channel>
+
+    <i:transformer id="tinyUrlTransformer" ref="tinyUrlTransformerBean" input-channel="twitterChannel"
+        method="transform" output-channel="twitterTransformedChannel"/>
+
+      <bean id="tinyUrlTransformerBean"
+        class="org.encuestame.core.integration.transformer.TinyUrlTransformer" />
+
+    <i:channel id="twitterTransformedChannel">
+        <i:queue capacity="25" />
+    </i:channel>
+
+    <twitter:outbound-channel-adapter id="twitterAdapter"
+        twitter-template="twitterTemplate" channel="twitterTransformedChannel" />
+
+</beans>

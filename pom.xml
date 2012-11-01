@@ -168,16 +168,16 @@
     </properties>
 
     <modules>            
-        <module>encuestame-css</module>
-        <module>encuestame-js</module>        
-        <module>encuestame-utils</module>
-        <module>encuestame-core</module>
-        <module>encuestame-social</module>
-        <module>encuestame-oauth</module>
-        <module>encuestame-persistence</module>
-        <module>encuestame-business</module>
-        <module>encuestame-mvc</module>                    
-        <module>encuestame-war</module>
+        <module>enme-css</module>
+        <module>enme-js</module>        
+        <module>enme-utils</module>
+        <module>enme-core</module>
+        <module>enme-social</module>
+        <module>enme-oauth</module>
+        <module>enme-persistence</module>
+        <module>enme-business</module>
+        <module>enme-mvc</module>                    
+        <module>enme-war</module>
     </modules>
 
     <licenses>

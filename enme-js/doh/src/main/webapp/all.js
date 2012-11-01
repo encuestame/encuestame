@@ -1,0 +1,1 @@
+doh.registerUrl("encuestame adjust test", "../test.html");

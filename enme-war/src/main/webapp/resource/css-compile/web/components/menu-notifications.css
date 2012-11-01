@@ -1,0 +1,103 @@
+/** notifications **/
+.notificationWrapper {
+  height: 33px;
+  min-width: 25px;
+  padding: 0 4px;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div.notificationWrapper:hover {
+    background-color: #5A5959;
+}
+
+div.livePanel {
+    display: none;
+    position: absolute;
+    min-height: 5px;
+    width: 400px;
+    background-color: #FFF;
+    right: 3px;
+    top: 33px;
+    -moz-box-shadow: 2px 2px 5px #888888;
+    -webkit-box-shadow: 2px 2px 5px #888888;
+    box-shadow: 2px 2px 5px #888888;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
+    min-width: 345px;
+    max-width: 345px;
+    z-index: 20;
+}
+
+div.livePanel .panelItems {
+    min-height: 100%;
+}
+
+div.livePanel .final {
+    padding: 4px;
+    text-align: right;
+    font-weight: bold;
+    background-color: #E8E8E8;
+}
+
+div.livePanel .final a:link {
+    color: #000;
+}
+
+div.openLivePanel {
+    display: block;
+}
+
+.notificationItem {
+    padding: 5px;
+    min-height: 30px;
+    text-align: left;
+}
+
+.notificationItem:hover {
+    background-color: #E8E8E8;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div.livePanel .notificationItem .left {
+    float: left;
+    min-height: 30px;
+    margin-left: 10px;
+    width: 50px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+div.livePanel .notificationItem .right {
+
+}
+
+div.livePanel .notificationItem .right .title {
+    font-size: 100%;
+}
+
+div.livePanel .notificationItem .right .description {
+    font-size: 80%;
+    color: grey;
+    font-weight: normal;
+    margin-left: 60px;
+}
+
+div.counter {
+  color: #696868;
+  cursor: pointer;
+  left: 17px;
+  position: absolute;
+  top: 10px;
+}
+
+div.notificationWrapper div.new {
+    color: red !important;
+}
+
+div.counter:hover {
+
+}

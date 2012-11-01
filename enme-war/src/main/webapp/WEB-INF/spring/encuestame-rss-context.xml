@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:si="http://www.springframework.org/schema/integration"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+    <!--
+    Read from RSS and send message some place.
+    <si:channel id="inputRssFeedChannel" />
+
+    <si:inbound-channel-adapter channel="inputRssFeedChannel"
+        ref="rssReader">
+        <si:poller max-messages-per-poll="1">
+            <si:interval-trigger interval="200" time-unit="SECONDS" />
+        </si:poller>
+    </si:inbound-channel-adapter>
+
+    <si:service-activator input-channel="inputRssFeedChannel" ref="rssFeedMessageHandler" />
+
+    <bean id="rssReader" class="org.encuestame.core.rss.EnMeRssReader"/>
+    <bean id="rssFeedMessageHandler" class="org.encuestame.core.rss.EnMeRssFeedMessageHandler"/>
+    -->
+
+     <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
+    <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
+    <bean id="frontEndAtomFeedView" class="org.encuestame.mvc.view.FrontEndAtomFeedView"></bean>
+    <bean id="frontEndRssFeedView" class="org.encuestame.mvc.view.FrontEndRssFeedView"></bean>
+    <bean id="pollAtomFeedView" class="org.encuestame.mvc.view.PollAtomFeedView"></bean>
+    <bean id="pollRssFeedView" class="org.encuestame.mvc.view.PollRssFeedView"></bean>
+    <bean id="profileAtomFeedView" class="org.encuestame.mvc.view.ProfileAtomFeedView"></bean>
+    <bean id="profileRssFeedView" class="org.encuestame.mvc.view.ProfileRssFeedView"></bean>
+    <bean id="projectAtomFeedView" class="org.encuestame.mvc.view.ProjectAtomFeedView"></bean>
+    <bean id="projectRssFeedView" class="org.encuestame.mvc.view.ProjectRssFeedView"></bean>
+    <bean id="surveyAtomFeedView" class="org.encuestame.mvc.view.SurveyAtomFeedView"></bean>
+    <bean id="surveyRssFeedView" class="org.encuestame.mvc.view.SurveyRssFeedView"></bean>
+</beans>

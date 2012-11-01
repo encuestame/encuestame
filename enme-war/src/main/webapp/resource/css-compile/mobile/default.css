@@ -1,0 +1,545 @@
+div.mobile{
+}
+
+#mobile-header-wrapper{
+    background-color: #E8E8E8;
+    min-height: 27px;
+    padding: 5px;
+}
+
+#mobile-header-wrapper div.logo{
+     margin-left: 1px;
+     width: 128px;
+     float: left;
+}
+
+div.mobile-header-options{
+    width: auto;
+    text-align: right;
+    padding: 0 5px;
+    height: 30px;
+}
+
+div.mobile-header-options span{
+    display: inline-block;
+}
+
+div.mobile-header-options span.link{
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 4px 4px 3px 0;
+}
+
+div.mobile-header-options span.link a{
+    color: #275296;
+    text-decoration: none;
+    font-size: 110%;
+    font-style: italic;
+    font-weight: bold;
+}
+
+div.mobile-header-options span.link a:hover{
+    text-decoration: none;
+}
+
+div.mobile-header-options span.search{
+}
+
+
+div.mobile-enme-content{
+    width: 100%;
+}
+
+div.mobile-footer{
+    background-color: #E8E8E8;
+    padding: 6px;
+    min-height: 30px;
+}
+
+div.mobile div.mobile-signin{
+    padding: 1px;
+}
+
+div.mobile-signin div.formWrapper{
+    margin: 10px;
+}
+
+div.mobile div.enme-content{
+    padding: 15px;
+}
+
+div.mobile-signin div.formWrapper div.mobile-errorWrapper{
+    margin: 5px;
+}
+
+
+div.mobile-signin div.formWrapper div.field{
+    padding: 10px;
+}
+
+div.mobile-signin div.formWrapper div.forgotPassword{
+    font-size: 10px;
+    float: left;
+    margin-left: 100px;
+}
+
+div.mobile-signin div.formWrapper div.forgotPassword a{
+    color: #000;
+    text-decoration: none;
+}
+
+div.mobile-signin div.forgotPassword a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
+
+div.mobile-signin div.formWrapper div.field div.label{
+    float: left;
+    color: #564F4F;
+    padding-top: 6px;
+    width: 90px;
+    font-size: 130%;
+}
+
+div.mobile-signin div.formWrapper div.field div.output input[type="text"]{
+    height: 20px;
+    width: 220px;
+    font-size: 120%;
+    font-weight: normal;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 4px 2px;
+    border: 1px solid #AAAAAA;
+}
+
+div.mobile-signin div.formWrapper div.field div.output label{
+    margin-left: 90px;
+}
+
+div.mobile-signin div.formWrapper div.signIn{
+    text-align: center;
+}
+
+div.mobile-signin div.formWrapper div.field div.output input[type="password"]{
+    height: 20px;
+    width: 220px;
+    font-size: 120%;
+    font-weight: normal;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    padding: 4px 2px;
+    border: 1px solid #AAAAAA;
+}
+
+div.mobile-signin div.formWrapper div.field div.output span a{
+    text-decoration: none;
+    padding-left: 5px;
+}
+
+div.mobile-signin div.formWrapper div.buttonGroup{
+    margin-left: 95px;
+    margin-top: 25px;
+}
+
+div.mobile-signin div.formWrapper div.mobile-signin-options{
+    padding: 2px;
+}
+
+div.mobile-signin div.formWrapper div.mobile-signin-options a:link{
+    font-size: 12px;
+}
+
+div.mobile-signin div.formWrapper div.mobile-signin-options .item{
+    padding: 3px;
+}
+
+/*** FRONTEND ****/
+
+div.home-mobile{
+
+}
+
+div.home-mobile a{
+    text-decoration: none;
+    color: #275296;
+}
+
+div.home-mobile a:visited{
+    text-decoration: none;
+    color: #275296;
+}
+
+div.home-mobile a:link{
+    text-decoration: none;
+    color: #275296;
+}
+
+div.home-mobile a:hover{
+    text-decoration: underline;
+}
+
+div.home-mobile div.mobile-items{
+   /* font-size: 100%;*/
+}
+
+div.mobile-items div.mobile-items-more{
+    padding: 10px;
+    font-size: 110%;
+    text-align: center;
+    color: #275296;
+    font-weight: normal;
+}
+
+div.home-mobile div.mobile-home-subtitle{
+    min-height: 30px;
+    background-color: #E6E6E6;
+    font-size: 160%;
+    color: #FFF;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.home-mobile div.mobile-items div.mobile-item{
+    border-bottom: 1px solid #E6E6E6;
+    clear: both;
+    padding: 4px;
+
+}
+
+div.mobile-item{
+    min-height: 40px;
+}
+
+div.mobile-item div.mobile-view{
+    padding: 1px;
+    text-align: center;
+    width: 55px;
+    float: left;
+}
+
+div.mobile-item div.mobile-view div.votes{
+    background :none repeat scroll 0 0 #275296;
+    color: #FFF;
+    text-align: center;
+    min-height: 40px;
+    max-width: 40px;
+}
+
+div.mobile-item div.mobile-view div.votes span.count{
+    font-size: 170%;
+    font-weight: bold;
+}
+
+div.mobile-item div.mobile-view div.votes span.voteText{
+    font-size: 80%;
+}
+
+div.item div.mobile-content{
+     color:  #5C8397;
+     margin-left: 50px;
+}
+
+div.mobile-tweetpoll{
+     font-size: 120%;
+     margin-bottom: 4px;
+     font-weight: bold;
+}
+
+div.mobile-submit-bottom div.mobile-submit-option{
+
+}
+
+div.mobile-submit-bottom div.mobile-submit-options div.mobile-submit-text{
+     font-size: 85%;
+     color: #B3B3B3;
+}
+
+/*** MENU ***/
+
+div.mobile-categoryMenu{
+    font-size: 130%;
+    min-height: 60px;
+    padding-bottom: 2px;
+    color: #FFF;
+}
+
+div.menu-options{
+    margin-top: 0.4em;
+    max-width: 100%;
+    background-color: #275296;
+    text-align: center;
+}
+
+div.home-mobile div.mobile-categoryMenu span.option{
+    display: inline-block;
+    padding: 5px 5px 5px 5px ;
+    text-align: center;
+    max-width: 62px;
+    min-width: 75px;
+}
+
+div.home-mobile div.mobile-categoryMenu span.option a:link{
+    color: #FFFFFF;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+div.home-mobile div.mobile-categoryMenu span.option a:visited{
+    color: #B5E6F1;
+    font-size: 100%;
+    font-weight: bold;
+}
+
+div.mobile-MenuHotTags {
+    font-size: 75%;
+    text-align: center;
+    padding-top: 0.5em;
+    padding-top: 0.5em;
+    color: #000000;
+}
+
+div.mobile-MenuHotTags span.optionTags{
+    display: inline-block;
+    padding:2px 2px 2px 2px ;
+    text-align: center;
+    width: 60px;
+}
+
+div.mobile-footer div.mobile-HashTags span.mobile-optionTag {
+
+}
+
+div.mobile-footer div.mobile-HashTags span.mobile-optionTag a:link {
+    color: #022994;
+}
+
+
+div.mobile-subMenuFooter{
+    text-align: left;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-top: 2px;
+
+}
+div.mobile-footer div.mobile-subMenuFooter div.mobile-footerText{
+    font-size: 3px;
+    text-align: center;
+    margin-top: 3px;
+}
+
+div.home-mobile div.mobile-HashTags{
+    text-align: left;
+    padding-left: 6px;
+}
+
+div.mobile-hashTag-cloud {
+    margin-top:4px;
+}
+
+div.mobile-hashtagName{
+    color: #5C8397;
+    font-size: 130%;
+}
+
+div.mobile-tags-tweetpolls{
+    margin-top: 4px;
+    width: 100%;
+
+}
+
+div.mobile-tweetpolls{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #0F0E0E;
+    padding: 5px 5px 5px 5px;
+     margin: 4px;
+}
+
+
+
+div.mobile-tags-tweetpolls{
+
+}
+
+div.mobile-hashtagName {
+
+}
+
+div.mobile-tweetpolls{
+
+}
+
+div.mobile-tweetpolls-time{
+
+}
+/*** SEARCH ***/
+
+div.mobile-search{
+    margin-top: 8px;
+    padding: 1px;
+ }
+
+div.mobile-search input{
+   /* margin: 2em , 0.5em ,1em ,1em;*/
+    margin-left: 2px;
+    margin-right:1px;
+    border: 1.5px solid #DFDFDF;
+    width:98%;
+    height:30px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:15px;
+}
+
+/** ITEM DETAIL **/
+div.mobile-detail {
+    background-color: #EEEEEE;
+    font-weight: bold;
+}
+
+div.mobile-question-detail{
+    background-color: #275296;
+    margin-top: 4%;
+    max-width: 100%;
+    color: #FFF;
+    padding: 15px;
+}
+
+div.mobile-answers-questions {
+    text-align: left;
+    color: #275296;
+}
+
+/** menu **/
+
+div.mobile-menu-wrapper {
+    background-color: #858181;
+    font-size: 110%;
+    font-weight: bold;
+    max-width: 100%;
+    min-height: 40px;
+    padding: 3px;
+}
+
+div.mobile-menu-wrapper a {
+    color: #FFF;
+}
+
+div.mobile-menu-wrapper span{
+    float: left;
+    min-height: 20%;
+    padding: 5px;
+    max-width: 36px;
+}
+
+/** mobile notifications **/
+
+div.mobile-notification-list{
+
+}
+
+div.mobile-notification-list div.section{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+div.mobile-notification-list div.section h3{
+    padding: 2px;
+    background-color: #E3E3E3;
+    color: #C2C2C2;
+}
+
+div.mobile-notification-list-item {
+    clear: both;
+    background-color: #EDEDED;
+    min-height: 45px;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+    overflow: auto;
+}
+
+div.mobile-notification-list-item .title{
+    font-size: 110%;
+    color: #275296;
+}
+
+div.mobile-notification-list-item .mobile-description{
+    font-size: 90%;
+    float: left;
+    padding: 3px;
+}
+
+div.mobile-notification-list-item .mobile-description .date{
+    font-size: 60%;
+    color: #000;
+}
+
+div.mobile-notification-list-item .options{
+    float: right;
+}
+
+
+/** profile view **/
+
+div.mobile-profile-wrapper{
+
+}
+
+
+div.mobile-profile-wrapper div.profile-name{
+    padding: 15px;
+    margin-bottom: 0px;
+}
+
+div.mobile-profile-wrapper div.picture {
+    float: left;
+}
+
+div.mobile-profile-wrapper ul{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+div.mobile-profile-wrapper .rss li img{
+    float: left;
+    margin-right: 5px;
+}
+
+div.mobile-profile-wrapper .rss li {
+  border-bottom: 1px dotted #B8B7B7;
+  display: block;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+
+/** setup **/
+
+div.mobile-setup-content{
+    padding: 10px;
+}
+
+div.mobile-setup-header{
+  background-color: #F1721F;
+  border-bottom: 3px solid #888888;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 5px;
+  width: auto;
+}
+
+div.mobile-setup-header div.mobile-title{
+    font-size: 18px;
+    padding: 10px;
+}
+
+div.mobile-header-description{
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px;
+}

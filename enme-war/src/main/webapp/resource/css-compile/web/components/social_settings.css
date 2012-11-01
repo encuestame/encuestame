@@ -1,0 +1,81 @@
+/** Row Account */
+.socialWrapperRow {
+	font-size: 110%;
+	-moz-box-shadow: 1px 1px 3px #888888 inset;
+	-webkit-box-shadow: 1px 1px 3px #888888 inset;
+	box-shadow: 1px 1px 3px #888888 inset;
+	-webkit-border-radius: 2px 2px 2px 2px;
+	-moz-border-radius: 2px 2px 2px 2px;
+	border-radius: 2px 2px 2px 2px;
+	cursor: pointer;
+	overflow: auto;
+	background-color: #F9F9F9;
+	margin-bottom: 10px;
+}
+
+.socialWrapperRow .sub-title-account {
+	overflow: auto;
+}
+
+.socialWrapperRow .sub-title-account .image {
+	float: left;
+}
+
+.socialWrapperRow div.title {
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 30px;
+	padding: 5px;
+}
+
+.socialWrapperRow form {
+	padding: 10px;
+}
+
+.socialWrapperRow div.socialNewForm {
+	clear: both;
+	position: fixed;
+}
+
+.socialWrapperRow div.tokensWrapper {
+	padding: 5px;
+	border-top: 1px dotted;
+	overflow: auto;
+}
+
+.socialWrapperRow div.tokensWrapper div.tokenHideOptions {
+	min-height: 45px;
+}
+
+.socialWrapperRow div.tokensWrapper div.tokenHideOptions table{
+	
+}
+
+.socialWrapperRow div.tokensWrapper div.tokenHideOptions table tr{
+	
+}
+
+.socialWrapperRow div.tokensWrapper div.tokenHideOptions table td {
+  padding: 5px;
+}
+
+.socialWrapperRow div.tokensWrapper div.tokenHideOptions table td label {
+  color: #767676;
+  text-shadow: 1px 2px 1px #FFFFFF;
+}
+
+.socialWrapperRow  div.option-button {
+	text-align: right;
+	float: right;
+	font-size: 12px;
+}
+
+.socialWrapperRow div.tokensWrapper .dijitTextBox {
+	font-size: 100%;
+	min-width: 250px;
+}
+
+.socialWrapperRow div.tokensWrapper label {
+	font-weight: bold;
+	font-size: 90%;
+}

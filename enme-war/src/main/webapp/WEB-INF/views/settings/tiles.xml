@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition name="settings/account" extends="page">
+        <put-attribute name="title" value="Configuration | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/settings/${detectedDevice ? 'mobile/' : 'web/'}profile-settings.jsp" />
+    </definition>
+
+    <definition name="settings/social" extends="page">
+        <put-attribute name="title" value="Settings | encuestame" />
+        <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/settings/${detectedDevice ? 'mobile/' : 'web/'}social-settings.jsp" />
+    </definition>
+
+</tiles-definitions>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition name="signin" extends="login-page">
+        <put-attribute name="title" value="Sign In | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}signin.jsp" />
+    </definition>
+
+    <definition name="signup" extends="login-page">
+        <put-attribute name="title" value="Sign Up | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}signup.jsp" />
+        <put-attribute name="extra-js" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}signup-js.jsp" />
+    </definition>
+
+    <definition name="forgot" extends="login-page">
+        <put-attribute name="title" value="I forgot my password | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}forgot.jsp" />
+    </definition>
+
+    <definition name="connect/account" extends="login-page">
+        <put-attribute name="title" value="Google | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}connect.jsp" />
+    </definition>
+
+    <definition name="signin/provider/register" extends="login-page">
+        <put-attribute name="title" value="Social Register | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}register_provider.jsp" />
+    </definition>
+
+      <definition name="user/confirm/" extends="login-page">
+        <put-attribute name="title" value="Confirm User Account | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}user_confirm.jsp" />
+    </definition>
+
+    <definition name="/user/checkyouremail" extends="login-page">
+        <put-attribute name="title" value="Check Your Email | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}check.jsp" />
+    </definition>
+    
+</tiles-definitions>

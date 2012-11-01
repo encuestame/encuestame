@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<encuestame-configuration>
+    <database>
+        <version>2</version>
+        <last-update></last-update>
+    </database>
+    <version>1.140</version>
+    <administration>
+        <users>
+            <user>admin</user>
+            <user>dmorales</user>
+            <user>jpicado</user>
+        </users>
+    </administration>
+    <social-networks>
+        <social-network>
+            <social-network-name>Facebook My Account</social-network-name>
+            <type-provider>FACEBOOK</type-provider>
+            <consumer-secret>12345</consumer-secret>
+            <consumer-key>12345</consumer-key>
+            <url-access-token>
+            <![CDATA[ https://www.facebook.com/dialog/oauth?client_id={client_id}&redirect_uri={redirect_uri}]]>
+            </url-access-token>
+            <url-request-token>
+            <![CDATA[ https://graph.facebook.com/oauth/access_token]]></url-request-token>
+            <api-id>12312432543654343</api-id>
+        </social-network>
+        <social-network>
+            <social-network-name>Encuestame Twitter Account</social-network-name>
+            <consumer-secret>21354345322</consumer-secret>
+            <consumer-key>dsajl239321jiqjdioada</consumer-key>
+            <url-access-token><![CDATA[http://twitter.com/oauth/request_token]]></url-access-token>
+            <url-authorize><![CDATA[http://twitter.com/oauth/authorize?oauth_token={token}]]></url-authorize>
+            <url-request-token><![CDATA[http://twitter.com/oauth/access_token]]></url-request-token>
+            <api-id></api-id>
+        </social-network>
+        <social-network>
+            <social-network-name>Encuestame LinkedIn Account
+            </social-network-name>
+            <consumer-secret>21354345322</consumer-secret>
+            <consumer-key>dsajl239321jiqjdioada</consumer-key>
+            <url-access-token><![CDATA[https://api.linkedin.com/uas/oauth/accessToken]]></url-access-token>
+            <url-authorize><![CDATA[https://www.linkedin.com/uas/oauth/authorize?oauth_token={token}]]></url-authorize>
+            <url-request-token><![CDATA[https://api.linkedin.com/uas/oauth/requestToken]]></url-request-token>
+            <api-id></api-id>
+        </social-network>
+    </social-networks>
+</encuestame-configuration>

@@ -1,0 +1,29 @@
+/** web-profile-menu **/
+
+div.web-profile-menu {
+  color: #FFFFFF;
+  cursor: pointer;
+  height: 25px;
+  margin-right: 10px;
+  min-width: 100px;
+  overflow: hidden;
+  padding-top: 4px;
+  vertical-align: middle;
+}
+
+div.web-profile-menu:hover {
+    background-color: #555555;
+}
+
+div.web-profile-menu .image {
+    float: left;
+}
+
+div.web-profile-menu .real-name {
+  margin-left: 35px;
+  min-width: 119px;
+  padding-right: 4px;
+  text-align: center;
+  vertical-align: middle;
+  width: 145px;
+}

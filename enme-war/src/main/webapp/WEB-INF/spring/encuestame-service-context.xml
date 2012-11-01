@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+  <!-- Scans for application @Components to deploy -->
+  <context:component-scan base-package="org.encuestame.business.service" />
+  <context:component-scan base-package="org.encuestame.business.setup" />
+  <context:component-scan base-package="org.encuestame.core.service" />
+  <context:component-scan base-package="org.encuestame.social.connect.service" />
+
+  <!-- Social Support -->
+  <import resource="encuestame-service-social-context.xml"/>
+
+ <!-- Message Resources -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+         <property name="basename" value="/WEB-INF/messages/messages" />
+          <property name="defaultEncoding" value="UTF-8"/>
+          <property name="cacheSeconds" value="1"/>
+    </bean>
+
+    <!-- Startup Support -->
+    <bean id="install" class="org.encuestame.business.setup.install.DatabaseInstall"
+        scope="singleton" />
+    <bean id="applicationStartup" class="org.encuestame.business.setup.ApplicationStartup"
+        scope="singleton" />
+
+    <!--  Gadget Support -->
+    <bean id="gadgetLoader" init-method="load" class="org.encuestame.business.gadgets.GadgetsLoader" scope="singleton">
+       <property name="gadgets">
+          <list>
+            <value>classpath:org/encuestame/business/gadgets/activity-stream.properties</value>
+            <value>classpath:org/encuestame/business/gadgets/comments.properties</value>
+            <value>classpath:org/encuestame/business/gadgets/tweetpoll-votes.properties</value>
+          </list>
+        </property>
+    </bean>
+
+</beans>

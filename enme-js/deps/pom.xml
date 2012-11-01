@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+        <groupId>org.encuestame</groupId>
+        <artifactId>encuestame-js</artifactId>
+        <version>1.146</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>deps</artifactId>
+    <packaging>war</packaging>
+    <name>Encuestame Dependencies JavaScript</name>
+
+    <properties>
+        <jsSourceDir>${project.build.directory}/compress/req</jsSourceDir>
+    </properties>
+
+    <build>
+        <plugins>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+      </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <force>true</force>
+                    <statistics>true</statistics>
+                    <gzip>true</gzip>
+                     <nosuffix>true</nosuffix>
+                     <suffix>min</suffix>
+                    <preserveStringLiterals>false</preserveStringLiterals>
+                    <preserveAllSemiColons>false</preserveAllSemiColons>
+                    <failOnWarning>false</failOnWarning>
+                    <jswarn>false</jswarn>
+                    <excludes>
+                        <exclude>${basedir}/src/main/webapp/**</exclude>
+                    </excludes>
+                    <outputDirectory>${project.build.directory}/compress</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>aggregate-js</id>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                        <configuration>
+                            <aggregations>
+                                <aggregation>
+                                    <output>${project.build.directory}/${project.build.finalName}/resource/js/commons.js</output>
+                                    <insertNewLine>true</insertNewLine>
+                                    <includes>
+                                        <include>${jsSourceDir}/modernizr.js</include>
+                                        <include>${jsSourceDir}/json_services.js</include>
+                                        <include>${jsSourceDir}/moment.js</include>
+                                    </includes>
+                                </aggregation>
+                            </aggregations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

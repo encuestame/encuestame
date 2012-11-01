@@ -1,0 +1,88 @@
+<div id="web-poll-navigate">
+    <div id="tweetListContent" class="tweetListContent">
+        <aside style="float: left; width: 200px; border: 1px solid #E6E6E6;">
+            <div class="web-sidebar-options">
+                <div id="strapline"></div>
+                <div class="web-filter-sidebar-panel">
+                    <div class="folder-title default-background-dark-color default-sidebar-menu">
+                        ${i18nMessage.detail_manage_filters}
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAccount"
+                        type="ACCOUNT">
+                        <span>
+                           ${i18nMessage.detail_manage_by_account}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastDay"
+                        type="LASTDAY">
+                        <span>
+                            ${i18nMessage.detail_manage_today}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByLastWeek"
+                        type="LASTWEEK">
+                        <span> ${i18nMessage.detail_manage_last_week}</span>
+                    </div>
+                    <div class="optionItem"
+                        data-dojo-attach-event="onclick:_searchByFavourites" type="FAVOURITES">
+                        <span>
+                            ${i18nMessage.detail_manage_favorites}
+                        </span>
+                    </div>
+                    <div class="optionItem"
+                        data-dojo-attach-event="onclick:_searchByScheduled" type="SCHEDULED">
+                        <span>
+                            ${i18nMessage.detail_manage_scheduled}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAll"
+                        type="ALL">
+                        <span>
+                            ${i18nMessage.detail_manage_all}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAll"
+                        type="ALL">
+                        <span>
+                            ${i18nMessage.detail_manage_published}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAll"
+                        type="ALL">
+                        <span>
+                            ${i18nMessage.detail_manage_unpublished}
+                        </span>
+                    </div>
+                    <div class="optionItem" data-dojo-attach-event="onclick:_searchByAll"
+                        type="ALL">
+                        <span>
+                            ${i18nMessage.detail_manage_only_completed}
+                        </span>
+                    </div>
+                </div>
+                <div data-dojo-attach-point="_folder"></div>
+            </div>
+        </aside>
+        <article style="margin-left: 202px;">
+            <div class="web-list-tweet">
+                <!-- Drop Down Menu -->
+                <div style="padding: 10px; color: rgb(255, 255, 255);
+                     font-size: 16px;
+                     background-color: #595959;
+                     overflow: auto;">
+                     ${i18nMessage.detail_manage_poll_title}
+                    <div style="float: right;">
+                        <div data-dojo-attach-point="_dropdownmenu"  data-dojo-type="me/web/widget/menu/DropDownMenuSelect"
+                             defaultText="${i18nMessage.detail_manage_poll_dropdown_title}"></div>
+                    </div>
+                </div>
+                <article data-dojo-attach-point="_items" class="web-list-rows">
+                        <!-- List of items -->
+                </article>
+                <!-- NODE to load more items -->
+                <div data-dojo-attach-point="_more" class="web-list-more"></div>
+                <div data-dojo-attach-point="_item" class="web-row-detail"></div>
+            </div>
+        </article>
+    </div>
+</div>
