@@ -47,10 +47,11 @@ define([ 'dojo/has', 'require' ], function (has, require) {
                       dom,
                       Loading,
                       domConstruct) {
-       var _dom = dom.byId('loading'),
-       _loading_widget = new Loading();
-       console.debug("MAIN me APP", _dom);
-       domConstruct.place(_loading_widget.domNode, _dom);
+       var _dom = dom.byId('loading');
+       if (_dom) {
+           var _loading_widget = new Loading();
+           domConstruct.place(_loading_widget.domNode, _dom);
+       }
       // app.dialog = new Dialog().placeAt(document.body);
       // It is important to remember to always call startup on widgets after you have added them to the DOM.
       // It will not hurt if you do it twice, but things will often not work right if you forget to do it.
