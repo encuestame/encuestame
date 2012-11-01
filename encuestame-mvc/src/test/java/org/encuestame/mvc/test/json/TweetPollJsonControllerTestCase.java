@@ -146,10 +146,11 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         setParameter("max", "100");
         setParameter("start", "0");
         final JSONObject response7= callJsonService();
-        final JSONObject sucess7 = getSucess(response7);
-        Assert.assertNotNull(sucess7.get("tweetPolls"));
-        final JSONArray array7 = (JSONArray) sucess7.get("tweetPolls");
-        Assert.assertEquals(array7.size(), 4);
+        System.out.println(response7);
+        final JSONObject sucess7 = getErrors(response7);
+        Assert.assertNotNull(sucess7.get("message"));
+       final String text = (String) sucess7.get("message");
+        Assert.assertEquals(text, "filterTweetPollByItemsByType no type");
     }
 
     /**

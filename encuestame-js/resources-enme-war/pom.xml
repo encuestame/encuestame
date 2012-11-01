@@ -43,11 +43,11 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
+<!--       <plugin>
         <artifactId>exec-maven-plugin</artifactId>
         <groupId>org.codehaus.mojo</groupId>
         <executions>
-          <execution><!-- Run our version calculation script -->
+          <execution>
             <id>Version Calculation</id>
             <phase>generate-sources</phase>
             <goals>
@@ -58,7 +58,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </plugin> -->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <configuration>
