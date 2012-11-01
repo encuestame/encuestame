@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame-js</artifactId>
-    <version>1.146</version>
+    <version>1.146-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
