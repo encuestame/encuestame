@@ -219,8 +219,11 @@
         </mailingList>
     </mailingLists>
 
-    <scm>
+     <scm>
+        <connection>scm:git:git://github.com/encuestame/encuestame.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:encuestame/encuestame.git</developerConnection>
         <url>https://github.com/encuestame/encuestame.git</url>
+        <tag>1.146</tag>
     </scm>
 
     <distributionManagement>
