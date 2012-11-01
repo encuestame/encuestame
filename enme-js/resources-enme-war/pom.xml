@@ -1,11 +1,12 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 
   <parent>
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame-js</artifactId>
-    <version>1.146</version>
+    <version>1.146-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -27,10 +28,16 @@
             <configuration>
               <target>
                 <delete verbose="true">
-                  <fileset dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox" includes="cometd.js" />
-                  <fileset dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd" includes="main.js" />
+                  <fileset
+                    dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox"
+                    includes="cometd.js" />
+                  <fileset
+                    dir="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd"
+                    includes="main.js" />
                 </delete>
-                <copy file="${project.build.directory}/war/work/org.encuestame/enme-cometd-javascript-common/resource/js/dojox/cometd/main.js" tofile="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd.js" />
+                <copy
+                  file="${project.build.directory}/war/work/org.encuestame/enme-cometd-javascript-common/resource/js/dojox/cometd/main.js"
+                  tofile="${project.build.directory}/${project.build.finalName}/resource/js/dojox/cometd.js" />
               </target>
             </configuration>
           </execution>
