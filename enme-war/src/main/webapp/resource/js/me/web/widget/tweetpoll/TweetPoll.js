@@ -56,7 +56,7 @@ define([
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, TweetPollCore, _WidgetsInTemplateMixin], {
 
-          // template string.
+            // template string.
             templateString : template,
 
             /*
