@@ -1,8 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="home-mobile">
-    <%@ include file="search.jsp"%>
     <article class="mobile-item-wrapper">
-        <nav class="category-menu">
+        <nav class="category-menu category_color">
           <%@ include file="nav.jsp"%>
         </nav>
         <article class="items">
@@ -10,7 +9,7 @@
             <%@ include file="item.jsp"%>
         </c:forEach>
         <c:if test="${!empty items}">
-            <div data-dojo-type="me/mobile/widget/stream/FrontEnd"></div>
+            <div dadta-dojo-type="me/mobile/widget/stream/FrontEnd"></div>
         </c:if>
         </article>
     </article>

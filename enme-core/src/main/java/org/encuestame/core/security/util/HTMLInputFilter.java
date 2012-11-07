@@ -149,7 +149,7 @@ public class HTMLInputFilter {
 
     protected void debug(String msg) {
         if (vDebug){
-            log.debug(msg);
+            log.trace(msg);
         }
     }
 

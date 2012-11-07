@@ -34,10 +34,13 @@
         <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
         -->
         <%@ include file="/WEB-INF/jsp/includes/javascript-mobile.jsp"%>
+        <noscript><meta http-equiv="X-Frame-Options" content="deny" /></noscript>
+        <script>window.localStorage&&window.localStorage.clear();</script>
     </head>
     <body class="mobile claro">
         <header>
             <tiles:insertAttribute name="header" ignore="true" />
+            <%@ include file="search.jsp"%>
         </header>
         <article class="mobile-main">
               <tiles:insertAttribute name="menu" ignore="true" />

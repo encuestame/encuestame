@@ -94,13 +94,13 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
         criteria.addOrder(Order.desc("likeVote"));
         return (List<Comment>) filterByMaxorStart(criteria, maxResults, start);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.CommentsOperations#getCommentsbPoll(org.encuestame.persistence.domain.survey.Poll, java.lang.Integer, java.lang.Integer)
      */
     @SuppressWarnings("unchecked")
-	public List<Comment> getCommentsbPoll(final Poll poll, final Integer maxResults, final Integer start) {
+    public List<Comment> getCommentsbPoll(final Poll poll, final Integer maxResults, final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Comment.class);
         criteria.add(Restrictions.eq("poll",poll));
         criteria.addOrder(Order.desc("likeVote"));
@@ -128,7 +128,7 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
           }
           @SuppressWarnings("unchecked")
           List<Long> results = getHibernateTemplate().findByCriteria(criteria);
-          log.debug("Retrieve total comments by  " + itemType + "--->"
+          log.trace("Retrieve total comments by  " + itemType + "--->"
                   + results.size());
           return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
@@ -139,14 +139,14 @@ public class CommentDao extends AbstractHibernateDaoSupport implements CommentsO
      */
     @SuppressWarnings("unchecked")
     public List<Comment> getTopRatedComments(
-            final CommentsSocialOptions socialOption, 
+            final CommentsSocialOptions socialOption,
             final Integer timeRange,
             final Integer maxResults, final Integer startResults) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(Comment.class);
         log.debug("getTopRatedComments start date "+ getCommentTimeRange(timeRange));
         log.debug("getTopRatedComments end date "+  getNextDayMidnightDate());
-        
+
         criteria.add(Restrictions.between("createdAt",
                 getCommentTimeRange(timeRange), getNextDayMidnightDate()));
         if (socialOption != null) {

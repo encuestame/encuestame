@@ -65,37 +65,38 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(javax.servlet.http.HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-    	final String mobil = "detectedDevice";
+        final String mobil = "detectedDevice";
         final Device device = deviceResolver.resolveDevice(request);
         final Boolean enabledMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.enabled");
         final Boolean forceMobileDevice = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.mobile.only");
-        log.debug(" enabledMobileDevice => "+enabledMobileDevice);
-        log.debug(" forceMobileDevice => "+forceMobileDevice);
+        log.trace(" enabledMobileDevice => "+enabledMobileDevice);
+        log.trace(" forceMobileDevice => "+forceMobileDevice);
         // if is mobile device and if mobile supoort is enabled
         if (enabledMobileDevice && device.isMobile()) {
             //force to use mobile view.
             request.setAttribute(mobil, device.isMobile());
-            log.debug(" forceMobileDevice => 1");
-        // force to be a mobile device    
+            log.trace(" forceMobileDevice => 1");
+        // force to be a mobile device
         } else if (forceMobileDevice) {
-        	request.setAttribute(mobil, Boolean.TRUE);
-        	log.debug(" forceMobileDevice => 2");
+            request.setAttribute(mobil, Boolean.TRUE);
+            log.trace(" forceMobileDevice => 2");
         // if is a tablet and is not forced to be mobile
         } else if (!forceMobileDevice && device.isTablet()) {
-        	request.setAttribute(mobil, Boolean.FALSE);
-        	log.debug(" forceMobileDevice => 3");
-        // if is normal (NO MOBILE AND TABLE) and is not force to be a mobile device	
+            request.setAttribute(mobil, Boolean.FALSE);
+            log.trace(" forceMobileDevice => 3");
+        // if is normal (NO MOBILE AND TABLE) and is not force to be a mobile device
         } else if (!forceMobileDevice && device.isNormal()) {
-        	request.setAttribute(mobil, Boolean.FALSE);
-        	log.debug(" forceMobileDevice => 4");
-        // another options, display always NON mobile site 	
+            request.setAttribute(mobil, Boolean.FALSE);
+            log.trace(" forceMobileDevice => 4");
+        // another options, display always NON mobile site
         } else {
-        	request.setAttribute(mobil, Boolean.FALSE);
-        	log.debug(" forceMobileDevice => 5");
+            request.setAttribute(mobil, Boolean.FALSE);
+            log.trace(" forceMobileDevice => 5");
         }
-        log.debug(" DEVICE ==========> " + request.getAttribute("detectedDevice"));
+        log.debug(" IS MOBILE ? ==========> " + request.getAttribute("detectedDevice"));
+        log.debug(" DEVICE USER AGENT ==========> " + request.getHeader( "user-agent" ));
         return true;
     }
 }

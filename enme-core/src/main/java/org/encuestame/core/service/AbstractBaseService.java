@@ -98,133 +98,133 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      */
     public AbstractBaseService() {}
 
-    
-	/**
-	 * Create hashTag details stats.
-	 *
-	 * @param label
-	 * @param value
-	 * @param subLabel
-	 * @return
-	*/
-    public HashTagDetailStats createTagDetailsStats(final String label,
-	            final Long value, final String subLabel) {
-		final HashTagDetailStats tagDetails = new HashTagDetailStats();
-		tagDetails.setLabel(label);
-		tagDetails.setValue(value);
-		tagDetails.setSubLabel(subLabel);
-	return tagDetails;
-	}
-    
+
     /**
-     * 
+     * Create hashTag details stats.
+     *
+     * @param label
+     * @param value
+     * @param subLabel
+     * @return
+    */
+    public HashTagDetailStats createTagDetailsStats(final String label,
+                final Long value, final String subLabel) {
+        final HashTagDetailStats tagDetails = new HashTagDetailStats();
+        tagDetails.setLabel(label);
+        tagDetails.setValue(value);
+        tagDetails.setSubLabel(subLabel);
+    return tagDetails;
+    }
+
+    /**
+     *
      * @param tagRate
      * @param request
      * @param objects
      * @return
      */
     public String convertHashTagButtonStatsLabel(final HashTagRate tagRate,
-			final HttpServletRequest request, final Object[] objects) {
-		String message = null;
-		if (tagRate.equals(HashTagRate.LBL_USAGE)) {
-			message = getMessage("hashtag.stats.usage.label.hits", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.LBL_HITS)) {
-			message = getMessage("hashtag.stats.usage.label.visited", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.LBL_VOTES)) {
-			message = getMessage("hashtag.stats.usage.label.voted", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.LBL_SOCIAL_NETWORK)) {
-			message = getMessage("hashtag.stats.usage.label.social", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.SUB_LBL_TIMES)) {
-			message = getMessage("hashtag.stats.usage.sublabel.times", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.SUB_LBL_TWEETS)) {
-			message = getMessage("hashtag.stats.usage.sublabel.tweets",
-					request, null);
-		} else if (tagRate.equals(HashTagRate.SUB_LBL_VOTES)) {
-			message = getMessage("hashtag.stats.usage.sublabel.votes", request,
-					null);
-		}
-		return message;
-	}
-    
+            final HttpServletRequest request, final Object[] objects) {
+        String message = null;
+        if (tagRate.equals(HashTagRate.LBL_USAGE)) {
+            message = getMessage("hashtag.stats.usage.label.hits", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.LBL_HITS)) {
+            message = getMessage("hashtag.stats.usage.label.visited", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.LBL_VOTES)) {
+            message = getMessage("hashtag.stats.usage.label.voted", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.LBL_SOCIAL_NETWORK)) {
+            message = getMessage("hashtag.stats.usage.label.social", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.SUB_LBL_TIMES)) {
+            message = getMessage("hashtag.stats.usage.sublabel.times", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.SUB_LBL_TWEETS)) {
+            message = getMessage("hashtag.stats.usage.sublabel.tweets",
+                    request, null);
+        } else if (tagRate.equals(HashTagRate.SUB_LBL_VOTES)) {
+            message = getMessage("hashtag.stats.usage.sublabel.votes", request,
+                    null);
+        }
+        return message;
+    }
+
     /**
-     * 
+     *
      * @param tagRate
      * @param request
      * @param objects
      * @return
      */
-	public String convertHashTagDataRangeLabelMessage(
-			final HashTagRate tagRate,
-			final HttpServletRequest request, 
-			final Object[] objects) {
-		String message = null;
-		if (tagRate.equals(HashTagRate.JANUARY)) {
-			message = getMessage("hashtag.stats.range.label.month.january", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.FEBRUARY)) {
-			message = getMessage("hashtag.stats.range.label.month.february", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.MARCH)) {
-			message = getMessage("hashtag.stats.range.label.month.march", request,
-					objects);
-		} else if (tagRate.equals(HashTagRate.APRIL)) {
-			message = getMessage("hashtag.stats.range.label.month.april", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.MAY)) {
-			message = getMessage("hashtag.stats.range.label.month.may", request,
-					objects);
-		} else if (tagRate.equals(HashTagRate.JUNE)) {
-			message = getMessage("hashtag.stats.range.label.month.june",
-					request, null);
-		} else if (tagRate.equals(HashTagRate.JULY)) {
-			message = getMessage("hashtag.stats.range.label.month.july", request,
-					objects);
-		} else if (tagRate.equals(HashTagRate.AUGUST)) {
-			message = getMessage("hashtag.stats.range.label.month.august", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.SEPTEMBER)) {
-			message = getMessage("hashtag.stats.range.label.month.september", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.OCTOBER)) {
-			message = getMessage("hashtag.stats.range.label.month.october", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.NOVEMBER)) {
-			message = getMessage("hashtag.stats.range.label.month.november", request,
-					objects);
-		} else if (tagRate.equals(HashTagRate.DECEMBER)) {
-			message = getMessage("hashtag.stats.range.label.month.december", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.MONDAY)) {
-			message = getMessage("hashtag.stats.range.label.week.monday", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.TUESDAY)) {
-			message = getMessage("hashtag.stats.range.label.week.tuesday", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.WEDNESDAY)) {
-			message = getMessage("hashtag.stats.range.label.week.wednesday", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.THURSDAY)) {
-			message = getMessage("hashtag.stats.range.label.week.thursday", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.FRIDAY)) {
-			message = getMessage("hashtag.stats.range.label.week.friday", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.SATURDAY)) {
-			message = getMessage("hashtag.stats.range.label.week.saturday", request,
-					null);
-		} else if (tagRate.equals(HashTagRate.SUNDAY)) {
-			message = getMessage("hashtag.stats.range.label.week.sunday", request,
-					null);
-		}
-		
-		return message;
-	}
-	
+    public String convertHashTagDataRangeLabelMessage(
+            final HashTagRate tagRate,
+            final HttpServletRequest request,
+            final Object[] objects) {
+        String message = null;
+        if (tagRate.equals(HashTagRate.JANUARY)) {
+            message = getMessage("hashtag.stats.range.label.month.january", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.FEBRUARY)) {
+            message = getMessage("hashtag.stats.range.label.month.february", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.MARCH)) {
+            message = getMessage("hashtag.stats.range.label.month.march", request,
+                    objects);
+        } else if (tagRate.equals(HashTagRate.APRIL)) {
+            message = getMessage("hashtag.stats.range.label.month.april", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.MAY)) {
+            message = getMessage("hashtag.stats.range.label.month.may", request,
+                    objects);
+        } else if (tagRate.equals(HashTagRate.JUNE)) {
+            message = getMessage("hashtag.stats.range.label.month.june",
+                    request, null);
+        } else if (tagRate.equals(HashTagRate.JULY)) {
+            message = getMessage("hashtag.stats.range.label.month.july", request,
+                    objects);
+        } else if (tagRate.equals(HashTagRate.AUGUST)) {
+            message = getMessage("hashtag.stats.range.label.month.august", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.SEPTEMBER)) {
+            message = getMessage("hashtag.stats.range.label.month.september", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.OCTOBER)) {
+            message = getMessage("hashtag.stats.range.label.month.october", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.NOVEMBER)) {
+            message = getMessage("hashtag.stats.range.label.month.november", request,
+                    objects);
+        } else if (tagRate.equals(HashTagRate.DECEMBER)) {
+            message = getMessage("hashtag.stats.range.label.month.december", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.MONDAY)) {
+            message = getMessage("hashtag.stats.range.label.week.monday", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.TUESDAY)) {
+            message = getMessage("hashtag.stats.range.label.week.tuesday", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.WEDNESDAY)) {
+            message = getMessage("hashtag.stats.range.label.week.wednesday", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.THURSDAY)) {
+            message = getMessage("hashtag.stats.range.label.week.thursday", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.FRIDAY)) {
+            message = getMessage("hashtag.stats.range.label.week.friday", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.SATURDAY)) {
+            message = getMessage("hashtag.stats.range.label.week.saturday", request,
+                    null);
+        } else if (tagRate.equals(HashTagRate.SUNDAY)) {
+            message = getMessage("hashtag.stats.range.label.week.sunday", request,
+                    null);
+        }
+
+        return message;
+    }
+
     /**
      * Get total hash tag hits.
      *
@@ -232,14 +232,14 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @param filterby
      * @return
      */
-	public Long getTotalHits(
-			final Long id, 
-			final TypeSearchResult filterby,
-			final SearchPeriods periods) {
-		final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
-				TypeSearchResult.HASHTAG, periods.toDays());
-		return totalHashTagHits;
-	}
+    public Long getTotalHits(
+            final Long id,
+            final TypeSearchResult filterby,
+            final SearchPeriods periods) {
+        final Long totalHashTagHits = getFrontEndDao().getTotalHitsbyType(id,
+                TypeSearchResult.HASHTAG, periods.toDays());
+        return totalHashTagHits;
+    }
 
     /**
      *
@@ -248,13 +248,13 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @throws EnMeNoResultsFoundException
      */
     public HashTag getHashTag(
-    		String tagName, 
-    		final Boolean exceptionIfNotFound)
+            String tagName,
+            final Boolean exceptionIfNotFound)
             throws EnMeNoResultsFoundException {
         Assert.notNull(tagName);
-		final HashTag hashTag = getHashTagDao().getHashTagByName(
-				ValidationUtils.removeNonAlphanumericCharacters(tagName
-						.toLowerCase()));
+        final HashTag hashTag = getHashTagDao().getHashTagByName(
+                ValidationUtils.removeNonAlphanumericCharacters(tagName
+                        .toLowerCase()));
         log.warn("AService getHashTag - is "+tagName+" on  database ?->"+hashTag);
         if (hashTag == null) {
             //if possible we can't exception to allow create a new with the parameter.
@@ -264,7 +264,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 return null;
             }
         } else {
-        	log.debug("getHashTag "+hashTag);
+            log.debug("getHashTag "+hashTag);
             return hashTag;
         }
     }
@@ -281,40 +281,40 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         while (it.hasNext()) {
             @SuppressWarnings("unchecked")
             final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
-            if (log.isDebugEnabled()) {
-                log.debug("--"+e.getKey() + "**" + e.getValue());
+            if (log.isTraceEnabled()) {
+                log.trace("--"+e.getKey() + "**" + e.getValue());
             }
             tpbean.setRelativeTime(convertRelativeTimeMessage(e.getValue(), e.getKey(), request));
         }
         return tpbean;
     }
-    
+
     /**
-     * Fill the {@link HomeBean} relative Time. 
+     * Fill the {@link HomeBean} relative Time.
      * @param homeBean {@link HomeBean}
      * @param request {@link HttpServletRequest}.
      * @return
      */
-	public void fillHomeBeanRelativeTime(final List<HomeBean> listHomeBean,
-			final HttpServletRequest request) {
-		for (HomeBean homeBean : listHomeBean) {
-			final HashMap<Integer, RelativeTimeEnum> relativeTime = DateUtil
-					.getRelativeTime(homeBean.getCreateDateComparable());
-			@SuppressWarnings("rawtypes")
-			final Iterator it = relativeTime.entrySet().iterator();
-			while (it.hasNext()) {
-				@SuppressWarnings("unchecked")
-				final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>) it
-						.next();
-				if (log.isDebugEnabled()) {
-					log.debug("--" + e.getKey() + "**" + e.getValue());
-				}
-				homeBean.setRelativeTime(convertRelativeTimeMessage(
-						e.getValue(), e.getKey(), request));
-			}
+    public void fillHomeBeanRelativeTime(final List<HomeBean> listHomeBean,
+            final HttpServletRequest request) {
+        for (HomeBean homeBean : listHomeBean) {
+            final HashMap<Integer, RelativeTimeEnum> relativeTime = DateUtil
+                    .getRelativeTime(homeBean.getCreateDateComparable());
+            @SuppressWarnings("rawtypes")
+            final Iterator it = relativeTime.entrySet().iterator();
+            while (it.hasNext()) {
+                @SuppressWarnings("unchecked")
+                final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>) it
+                        .next();
+                if (log.isDebugEnabled()) {
+                    log.debug("--" + e.getKey() + "**" + e.getValue());
+                }
+                homeBean.setRelativeTime(convertRelativeTimeMessage(
+                        e.getValue(), e.getKey(), request));
+            }
 
-		}
-	}
+        }
+    }
 
     /**
      * Convert Relative Time Message.
@@ -331,9 +331,9 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         final StringBuilder builder = new StringBuilder();
         //builder.append(number);
         //builder.append(" ");
-        log.debug("Convert Message Relative Time");
-        log.debug("Relative ENUM -->"+relativeTimeEnum);
-        log.debug("NUMBER -->"+number);
+        //log.debug("Convert Message Relative Time");
+        //log.debug("Relative ENUM -->"+relativeTimeEnum);
+        //log.debug("NUMBER -->"+number);
         String str[] = {number.toString()};
         if (relativeTimeEnum.equals(RelativeTimeEnum.ONE_SECOND_AGO)) {
             builder.append(getMessage("relative.time.one.second.ago", request, str));
@@ -362,10 +362,10 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         } else if(relativeTimeEnum.equals(RelativeTimeEnum.DAYS_AGO)) {
             builder.append(getMessage("relative.time.daysago", request, str));
         }
-        log.debug("convertRelativeTimeMessage builder-->"+builder);
+        //log.debug("convertRelativeTimeMessage builder-->"+builder);
         return builder.toString();
     }
-    
+
     /**
      * Convert a relative time to {@link String}.
      * @param relative
@@ -373,11 +373,11 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return
      */
     public String convertRelativeTimeToString(
-    		final Date relativeDate,
-    		final HttpServletRequest request) {
-    	final HashMap<Integer, RelativeTimeEnum> relative = DateUtil.getRelativeTime(relativeDate);
-    	String timeValue = "";
-    	final Iterator<Entry<Integer, RelativeTimeEnum>> it = relative.entrySet().iterator();
+            final Date relativeDate,
+            final HttpServletRequest request) {
+        final HashMap<Integer, RelativeTimeEnum> relative = DateUtil.getRelativeTime(relativeDate);
+        String timeValue = "";
+        final Iterator<Entry<Integer, RelativeTimeEnum>> it = relative.entrySet().iterator();
         while (it.hasNext()) {
           final Map.Entry<Integer, RelativeTimeEnum> e = (Map.Entry<Integer, RelativeTimeEnum>)it.next();
           log.debug("convertRelativeTimeToString --"+e.getKey() + "**" + e.getValue());
@@ -385,14 +385,14 @@ public abstract class AbstractBaseService extends AbstractDataSource {
        }
         return timeValue;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IFrontEndService#getTweetPollsByHashTag(java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
      */
     public List<TweetPoll> getTweetPollsByHashTag(
-    		final String tagName,
-            final Integer initResults, 
+            final String tagName,
+            final Integer initResults,
             final Integer maxResults,
             final TypeSearchResult filter,
             final SearchPeriods searchPeriods) {
@@ -401,7 +401,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                         filter, searchPeriods);
         return tweetsbyTag;
     }
-    
+
     /**
      * Get surveys by HashTag.
      *
@@ -412,8 +412,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
      * @return
      */
     public List<Survey> getSurveysByHashTag(
-    		final String tagName,
-            final Integer initResults, 
+            final String tagName,
+            final Integer initResults,
             final Integer maxResults,
             final TypeSearchResult filter,
             final SearchPeriods searchPeriods) {
@@ -421,8 +421,8 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 .getSurveysByHashTagName(tagName, initResults, maxResults,
                         filter, searchPeriods);
         return surveysByTag;
-    }  
-  
+    }
+
     /**
      * Getter.
      * @return {@link MessageSourceFactoryBean}
@@ -528,7 +528,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
                 subscribe.setHashCode(codeSubscribe);
                 getEmailListsDao().saveOrUpdate(subscribe);
                 if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-                	getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
+                    getMailService().send(emailsDomain.getEmail(),"Invitation to Subscribe Encuestame List","Invitation to Subscribe");
                 }
                 //TODO:Enviamos correo al usuario para que confirme su subscripcion.
             }
@@ -752,7 +752,7 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         final Long totalComments = getCommentsOperations().getTotalCommentsbyItem(itemId, itemType);
         return totalComments;
     }
-    
+
     /**
      * Get {@link TweetPoll}.
      * @param tweetPollId
@@ -775,23 +775,23 @@ public abstract class AbstractBaseService extends AbstractDataSource {
         }
         return tweetPoll;
     }
-    
+
     /**
      * Get {@link TweetPoll} by id
      * @param id
      * @return
-     * @throws EnMeNoResultsFoundException 
+     * @throws EnMeNoResultsFoundException
      */
-	public TweetPoll getTweetPollById(final Long id) throws EnMeNoResultsFoundException { 
-		 return this.getTweetPollById(id, null);
-	}
-	
-	 /**
-	  * Get {@link Poll} by id.
-	  * @param pollId
-	  * @return
-	  * @throws EnMeNoResultsFoundException
-	  */
+    public TweetPoll getTweetPollById(final Long id) throws EnMeNoResultsFoundException {
+         return this.getTweetPollById(id, null);
+    }
+
+     /**
+      * Get {@link Poll} by id.
+      * @param pollId
+      * @return
+      * @throws EnMeNoResultsFoundException
+      */
     public Poll getPollById(final Long pollId)
             throws EnMeNoResultsFoundException {
         final Poll poll = this.getPollDao().getPollById(pollId);

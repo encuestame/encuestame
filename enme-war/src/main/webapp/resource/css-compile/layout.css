@@ -1,5 +1,7 @@
 html,body {
     height: 100%;
+    font-family: Verdana;
+    font-size: 12px;
 }
 
 /* Smartphones (portrait and landscape)  */
@@ -9,6 +11,12 @@ html,body {
         margin: 0;
         padding: 0;
     }
+
+    .mobile a {
+        color : gray;
+        text-decoration: none;
+    }
+
 
     .mobile > header {
 

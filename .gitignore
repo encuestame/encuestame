@@ -41,12 +41,12 @@ enme-war/src/main/resources/encuestame-config-custom.properties
 encuestame-persistence/.DS_Store
 .DS_Store
 enme-war/src/main/webapp/resource/js/graphael
-encuestame-war/src/main/webapp/resource/js/raphael
+enme-war/src/main/webapp/resource/js/raphael
 enme-war/src/main/webapp/resource/js/eve
 enme-js/resources-enme-war/src/main/resources/js/util
 enme-js/resources-enme-war/src/main/resources/js/dojox
 enme-js/resources-enme-war/src/main/resources/js/dojo
-encuestame-js/resources-enme-war/src/main/resources/js/dijit
+enme-js/resources-enme-war/src/main/resources/js/dijit
 enme-js/resources-enme-war/src/main/webapp/resource/js/dijit/
 enme-js/resources-enme-war/src/main/webapp/resource/js/dojo/
 enme-js/resources-enme-war/src/main/webapp/resource/js/dojox/

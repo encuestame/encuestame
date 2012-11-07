@@ -38,14 +38,14 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
     public void afterCompletion(HttpServletRequest arg0,
             HttpServletResponse arg1, Object arg2, Exception arg3)
             throws Exception {
-        log.debug("SetupInterceptor afterCompletion");
+        log.trace("SetupInterceptor afterCompletion");
         log.info(this.startup);
     }
 
     @Override
     public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
             Object arg2, ModelAndView arg3) throws Exception {
-         log.debug("SetupInterceptor postHandle");
+         log.trace("SetupInterceptor postHandle");
          log.info(this.startup);
 
     }
@@ -56,17 +56,17 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
         final String context = arg0.getContextPath();
         final StringBuilder path = new StringBuilder(context);
         path.append(PathUtil.setup);
-        log.debug("Request URI "+arg0.getRequestURI());
-        log.debug("Context Path URI "+path.toString());
-        log.debug("Context Path URI "+ (arg0.getRequestURI().equalsIgnoreCase(path.toString())));
-        log.debug("Context Path URI "+ (arg0.getRequestURI().equals(path.toString())));
+        log.trace("Request URI "+arg0.getRequestURI());
+        log.trace("Context Path URI "+path.toString());
+        log.trace("Context Path URI "+ (arg0.getRequestURI().equalsIgnoreCase(path.toString())));
+        log.trace("Context Path URI "+ (arg0.getRequestURI().equals(path.toString())));
         if (!arg0.getRequestURI().toString().equals(path.toString())) {
             final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
-            log.debug("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +
+            log.trace("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +
             EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFileName());
-            log.debug("intalled.uuid:->"+uuid);
+            log.trace("intalled.uuid:->"+uuid);
             if (uuid == null || uuid == "") {
-                     log.debug("system not installed ...");
+                     log.trace("system not installed ...");
                      final ModelAndView modelAndView = new ModelAndView("redirect:/setup");
                      throw new ModelAndViewDefiningException(modelAndView);
             } else {
@@ -77,10 +77,10 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
             }
 
         } else {
-            log.debug("you are on setup interface ...");
+            log.trace("you are on setup interface ...");
         }
 
-        log.debug("SetupInterceptor preHandle");
+        log.trace("SetupInterceptor preHandle");
         return true;
     }
 
