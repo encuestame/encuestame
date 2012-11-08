@@ -22,59 +22,12 @@ div.mobile{
     color : #444444;
 }
 
-#mobile-header-wrapper{
-    min-height: 27px;
-    padding: 5px;
-    box-shadow: 1px 2px 6px 0px #9c9393;
-    text-align: center;
-}
-
-#mobile-header-wrapper div.logo {
-    margin: 0 auto;
-}
-
-div.mobile-header-options{
-    width: auto;
-    text-align: right;
-    padding: 0 5px;
-    height: 30px;
-}
-
-div.mobile-header-options span{
-    display: inline-block;
-}
-
-div.mobile-header-options span.link{
-    padding-left: 5px;
-    padding-right: 5px;
-    margin: 4px 4px 3px 0;
-}
-
-div.mobile-header-options span.link a{
-    color: #275296;
-    text-decoration: none;
-    font-size: 110%;
-    font-style: italic;
-    font-weight: bold;
-}
-
-div.mobile-header-options span.link a:hover{
-    text-decoration: none;
-}
-
-div.mobile-header-options span.search{
-}
-
 
 div.mobile-enme-content{
     width: 100%;
 }
 
-div.mobile-footer{
-    background-color: #E8E8E8;
-    padding: 6px;
-    min-height: 30px;
-}
+
 
 div.mobile div.mobile-signin{
     padding: 1px;
@@ -238,39 +191,6 @@ div.mobile-footer div.mobile-HashTags span.mobile-optionTag a:link {
     color: #022994;
 }
 
-
-div.mobile-subMenuFooter{
-    text-align: left;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    margin-top: 2px;
-
-}
-div.mobile-footer div.mobile-subMenuFooter div.mobile-footerText{
-    font-size: 3px;
-    text-align: center;
-    margin-top: 3px;
-}
-
-div.home-mobile div.mobile-HashTags{
-    text-align: left;
-    padding-left: 6px;
-}
-
-div.mobile-hashTag-cloud {
-    margin-top:4px;
-}
-
-div.mobile-hashtagName{
-    color: #5C8397;
-    font-size: 130%;
-}
-
-div.mobile-tags-tweetpolls{
-    margin-top: 4px;
-    width: 100%;
-
-}
 
 div.mobile-tweetpolls{
     background: none repeat scroll 0 0 #EEEEEE;

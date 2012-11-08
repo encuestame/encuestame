@@ -13,7 +13,19 @@
         </c:if>
         </article>
     </article>
-    <section>
+    <section class="enme-mob-section">
+        <%@ include file="hashtag_home.jsp"%>
+    </section>
+    <section class="enme-mob-section">
+        <%@ include file="hashtag_home.jsp"%>
+    </section>
+    <section class="enme-mob-section">
+        <%@ include file="hashtag_home.jsp"%>
+    </section>
+    <section class="enme-mob-section">
+        <%@ include file="hashtag_home.jsp"%>
+    </section>
+    <section class="enme-mob-section">
         <%@ include file="hashtag_home.jsp"%>
     </section>
 </div>

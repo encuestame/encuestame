@@ -2,6 +2,14 @@
 
 }
 
+.home-mobile .mobile-home-subtitle {
+    padding: 10px;
+    background-color: #444;
+    color: white;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
 .home-mobile .mobile-search{
 
 }
@@ -144,4 +152,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 .home-mobile .mobile-item-wrapper > .items > .item .bottom .submited {
     font-size: 10px;
     margin-left: 60px;
+}
+
+
+/*** hashtag cloud ***/
+
+.home-mobile div.mobile-HashTags{
+    text-align: left;
+    padding-left: 6px;
+}
+
+.home-mobile div.mobile-HashTags .mobile-optionTag .tag{
+    margin: 4px;
 }
