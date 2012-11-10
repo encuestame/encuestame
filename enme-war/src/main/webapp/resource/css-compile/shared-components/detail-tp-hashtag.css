@@ -1,0 +1,15 @@
+/*
+ * TweetPoll Hashtag
+ */
+
+ .web-tweetpoll-hashtags {
+  padding: 20px;
+}
+
+ .web-tweetpoll-hashtags .tag {
+  background: none repeat scroll 0 0 transparent;
+  border: medium none;
+  color: #808080;
+  font-size: 1.4em;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}

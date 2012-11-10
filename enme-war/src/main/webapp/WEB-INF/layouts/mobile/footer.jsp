@@ -4,28 +4,30 @@
     <div class="footer-menu">
         <span>
             <a>
-                about
+                <spring:message code="footer.about" />
             </a>
           </span>
         |
           <span>
             <a>
-                faq
+                <spring:message code="footer.faq" />
             </a>
           </span>
         |
           <span>
-            <a>
-                blog
+            <a href="http://wiki.encuestame.org" target="_blank">
+                <spring:message code="footer.blog" />
             </a>
           </span>
         | <span>
             <a>
-                contact us
+                <spring:message code="footer.contact" />
             </a>
           </span>
     </div>
     <div class="mobile-footer-version">
-        <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
+        <a href="http://www.encuestame.org" target="_blank">
+            <spring:message code="footer.version" />  <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
+        </a>
     </div>
 </div>

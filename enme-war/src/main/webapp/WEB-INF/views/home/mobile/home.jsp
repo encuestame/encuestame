@@ -14,18 +14,23 @@
         </article>
     </article>
     <section class="enme-mob-section">
-        <%@ include file="hashtag_home.jsp"%>
+        <div class="mobile-home-subtitle category_color">
+            Hot HashTags
+        </div>
+         <div data-dojo-type="me/web/widget/hashtags/Cloud" class="web-aside-section"></div>
+    </section>
+    <section>
+       <div class="mobile-home-subtitle category_color">
+             <spring:message code="home.aside.rated.comments" />
+       </div>
+       <div data-dojo-type="me/web/widget/rated/Comments"
+            comments="5"
+            class="enme-mob-section"></div>
     </section>
     <section class="enme-mob-section">
-        <%@ include file="hashtag_home.jsp"%>
-    </section>
-    <section class="enme-mob-section">
-        <%@ include file="hashtag_home.jsp"%>
-    </section>
-    <section class="enme-mob-section">
-        <%@ include file="hashtag_home.jsp"%>
-    </section>
-    <section class="enme-mob-section">
-        <%@ include file="hashtag_home.jsp"%>
+        <div class="mobile-home-subtitle category_color">
+           <spring:message code="home.aside.rated.users" />
+        </div>
+        <div data-dojo-type="me/web/widget/rated/RatedProfile" class="web-aside-section"></div>
     </section>
 </div>

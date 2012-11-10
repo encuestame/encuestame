@@ -25,10 +25,11 @@ html,body {
         text-align: left;
         padding-top: 2px;
         padding-bottom: 2px;
-        margin-top: 10px;
-        background-color: #E8E8E8;
+        background-color: #585958;
+        color : white;
         padding: 6px;
         min-height: 30px;
+        box-shadow: 5px 6px 5px 8px black;
      }
 
      .mobile-footer .footer-menu {
@@ -43,13 +44,18 @@ html,body {
         font-size: 12px;
         text-align: center;
         margin-top: 3px;
+        color: white;
     }
 
     .mobile-footer .mobile-footer-version {
-        font-size: 10px;
+        font-size: 9px;
         text-align: right;
         margin-top: 3px;
         padding: 10px;
+    }
+
+    .mobile-footer .mobile-footer-version  a{
+        color : #acadab;
     }
 
     /** header **/

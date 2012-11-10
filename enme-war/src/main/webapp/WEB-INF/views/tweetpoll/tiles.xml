@@ -7,39 +7,33 @@
         <put-attribute name="title" value="TweetPoll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}list-tweetpoll.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}list-js.jsp" />
     </definition>
 
     <definition name="tweetpoll/new" extends="page">
         <put-attribute name="title" value="TweetPoll | encuestame" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}new.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}new-js.jsp" />
     </definition>
 
      <definition name="tweetpoll/detail" extends="page">
         <put-attribute name="title" value="TweetPoll Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}detail.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}detail-js.jsp" />
     </definition>
 
      <definition name="tweetpoll/social" extends="page">
         <put-attribute name="title" value="TweetPoll Social Networks Accounts" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}social.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}social-js.jsp" />
     </definition>
 
     <definition name="tweetVoted" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}voted.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}voted-js.jsp" />
     </definition>
 
     <definition name="repeatedTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Repeated Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}repeated.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}repeated-js.jsp" />
     </definition>
 
     <definition name="completeTweetVote" extends="main-vote">
@@ -50,19 +44,16 @@
     <definition name="voteCaptcha" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Captcha Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}voteCaptcha.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}captcha-js.jsp" />
     </definition>
 
     <definition name="badTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Bad Vote" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}bad.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}bad-js.jsp" />
     </definition>
 
     <definition name="banned" extends="main-vote">
         <put-attribute name="title" value="banned IP" />
         <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}banned.jsp" />
-        <put-attribute name="extra-js" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}banned-js.jsp" />
     </definition>
 
 </tiles-definitions>

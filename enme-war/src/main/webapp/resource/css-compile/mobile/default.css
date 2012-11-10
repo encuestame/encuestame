@@ -22,11 +22,20 @@ div.mobile{
     color : #444444;
 }
 
-
 div.mobile-enme-content{
     width: 100%;
 }
 
+.mobile .emne-box {
+    margin: 0;
+}
+
+.mobile .emne-box header{
+    padding: 15px;
+    color: white;
+}
+
+/** review below **/
 
 
 div.mobile div.mobile-signin{
@@ -232,24 +241,6 @@ div.mobile-search input{
     font-size:15px;
 }
 
-/** ITEM DETAIL **/
-div.mobile-detail {
-    background-color: #EEEEEE;
-    font-weight: bold;
-}
-
-div.mobile-question-detail{
-    background-color: #275296;
-    margin-top: 4%;
-    max-width: 100%;
-    color: #FFF;
-    padding: 15px;
-}
-
-div.mobile-answers-questions {
-    text-align: left;
-    color: #275296;
-}
 
 /** menu **/
 

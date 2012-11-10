@@ -15,7 +15,8 @@
 @import url("web/components/profile.css");
 @import url("web/components/publication-item.css");
 @import url("web/components/front-end-items.css");
-@import url("web/components/rated-comments.css");
+@import url("shared-components/rated-comments.css");
+@import url("shared-components/detail-tp-hashtag.css");
 @import url("web/components/hashtag.css");
 @import url("web/components/hashtag-tweetpoll.css");
 @import url("web/components/header.css");
@@ -27,7 +28,8 @@
 @import url("web/components/recover-password.css");
 @import url("web/components/cloud.css");
 @import url("web/components/more.css");
-@import url("web/components/detail-comments.css");
+@import url("shared-components/detail-comments.css");
+@import url("shared-components/detail-tp-answers.css");
 @import url("web/components/generic-results.css");
 @import url("web/components/poll-results.css");
 @import url("web/components/poll.css");
@@ -40,7 +42,7 @@
 @import url("web/components/admon-filter-side.css");
 @import url("web/components/admon-list-rows.css");
 @import url("web/components/search.css");
-@import url("web/components/social-links.css");
+@import url("shared-components/social-links.css");
 @import url("web/components/tags.css");
 @import url("web/components/tweetpoll.css");
 @import url("web/components/tweetpoll-detail.css");
@@ -48,7 +50,7 @@
 @import url("web/components/tweetpoll-vote.css");
 @import url("web/components/tweetpoll-publish.css");
 @import url("web/components/tweetpoll-create.css");
-@import url("web/components/rated_profile.css");
+@import url("shared-components/rated_profile.css");
 @import url("web/components/option-menu.css");
 @import url("web/components/list_filters.css");
 @import url("web/components/poll-create.css");
