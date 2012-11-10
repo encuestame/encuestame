@@ -25,7 +25,7 @@
 }
 
 .web-poll-wrapper-vote .votex-box {
-	background: none !important;
+    background: none !important;
 }
 
 .poll-vote-container{
@@ -76,6 +76,10 @@
   font-size: 25px;
   font-weight: bold;
   padding: 30px;
+}
+
+.web-poll-wrapper-vote .repeated {
+    background-color: #EEE78B;
 }
 
 .web-poll-wrapper-vote .bad {

@@ -34,7 +34,7 @@
 @import url("shared-components/detail-tp-answers.css");
 @import url("web/components/poll-results.css");
 @import url("web/components/poll.css");
-@import url("web/components/poll-vote.css");
+@import url("shared-components/poll-vote.css");
 @import url("web/components/poll-admon.css");
 @import url("web/components/button.css");
 @import url("web/components/menu-logged.css");
