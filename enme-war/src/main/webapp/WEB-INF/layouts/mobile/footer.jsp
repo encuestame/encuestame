@@ -27,7 +27,10 @@
     </div>
     <div class="mobile-footer-version">
         <a href="http://www.encuestame.org" target="_blank">
-            <spring:message code="footer.version" />  <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
+            <spring:message code="footer.version" />
+                <span>
+                     <%=EnMePlaceHolderConfigurer.getProperty("app.version")%>
+               </span>
         </a>
     </div>
 </div>

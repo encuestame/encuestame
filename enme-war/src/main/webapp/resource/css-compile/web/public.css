@@ -133,8 +133,8 @@ background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
     background: -webkit-linear-gradient(#444, #222);
     background: -moz-linear-gradient(#444, #222);
     background: -o-linear-gradient(#444, #222);
-    background: linear-gradient(#444, #222);   
-  	text-shadow: 0.1em 0.1em #333333;
+    background: linear-gradient(#444, #222);
+      text-shadow: 0.1em 0.1em #333333;
 }
 
 #web-main-public-line .categoryMenu a {
@@ -563,7 +563,7 @@ div.profilePanel li:hover {
 
 div.profilePanel li a:link {
     color: #BABABA !important;
-    font-weight: normal;   
+    font-weight: normal;
 }
 
 div.profilePanel li a:hover {
@@ -808,7 +808,7 @@ div.folder-selection  div.folder-selection-combo {
 }
 
 .section-botton-wrapper a{
-   text-decoration: none;   
+   text-decoration: none;
    font-weight: bold;
 }
 
@@ -914,12 +914,12 @@ div.link-published-space {
   text-align: left;
 }
 
-.web-rated-position .position-row .position-label a:link, 
+.web-rated-position .position-row .position-label a:link,
 .web-rated-position .position-row .position-label a,
 .web-rated-position .position-row .position-label a:active,
 .web-rated-position .position-row .position-label a:visited {
-	color: #CBCAC9;
-	text-decoration: none;
+    color: #CBCAC9;
+    text-decoration: none;
 }
 
 .web-rated-position span.position {
@@ -958,75 +958,6 @@ div.link-published-space {
     -o-text-overflow: ellipsis;
 }
 
-/** tweetpoll vote options **/
-.web-tweetpoll-vote-options {
-    margin: 0 auto;
-    padding-top: 60px;
-    width: 1000px;
-}
-
-.web-tweetpoll-vote-options h1 {
-  color: #565656;
-  font-weight: bold;
-  margin: 0;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.web-tweetpoll-vote-options h3 {
-    font-size: 15px;
-    font-weight: normal;
-    margin: 10px 0 0 0;
-}
-
-.web-tweetpoll-vote-options h3 b{
-    color: #565656;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.web-tweetpoll-vote-options .web-permatlink {
-  background-color: #ADE195;
-  border: 1px solid #E3E3E3;
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 0 1px 6px rgba(72, 72, 72, 0.46);
-  color: white;
-  margin: 0 auto;
-  min-height: 180px;
-  padding: 20px;
-  width: 50%;
-}
-
-.web-tweetpoll-vote-options .yellow{
-    background-color: #EEE78B;
-}
-
-.web-tweetpoll-vote-options .red{
-    background-color: #F58165;
-}
-
-.web-tweetpoll-vote-options .gradient-red h1 {
-    color: #FFF;
-    margin: 55px;
-}
-
-.web-tweetpoll-vote-options .web-permatlink .captcha {
-    margin: 2px;
-}
-
-.web-tweetpoll-vote-options .web-permatlink .captcha .recaptcha {
-    margin-bottom: 10px;
-    margin-left: 10px;
-}
-
-.web-tweetpoll-vote-options .web-tweetpoll-info {
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 25%;
-    text-align: right;
-}
-
-.web-tweetpoll-vote-options .web-tweetpoll-info a {
-    color: #444444;
-}
 
 /*** search page ***/
 .search-items-wrapper {

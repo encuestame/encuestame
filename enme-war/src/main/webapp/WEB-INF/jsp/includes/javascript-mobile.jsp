@@ -60,3 +60,9 @@ require([
 });
 </script>
 <%--<%=WidgetUtil.getAnalytics("analytics.inc")%>--%>
+
+<noscript>
+    <meta http-equiv="X-Frame-Options" content="deny" />
+</noscript>
+
+<script>window.localStorage&&window.localStorage.clear();</script>

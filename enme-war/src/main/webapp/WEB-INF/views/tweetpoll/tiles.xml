@@ -28,32 +28,32 @@
 
     <definition name="tweetVoted" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}voted.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/voted.jsp" />
     </definition>
 
     <definition name="repeatedTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Repeated Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}repeated.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/repeated.jsp" />
     </definition>
 
     <definition name="completeTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Completed" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}completed.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/completed.jsp" />
     </definition>
 
     <definition name="voteCaptcha" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Captcha Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}voteCaptcha.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/voteCaptcha.jsp" />
     </definition>
 
     <definition name="badTweetVote" extends="main-vote">
         <put-attribute name="title" value="TweetPoll Bad Vote" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}bad.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/bad.jsp" />
     </definition>
 
     <definition name="banned" extends="main-vote">
         <put-attribute name="title" value="banned IP" />
-        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/${detectedDevice ? 'mobile/' : 'web/'}banned.jsp" />
+        <put-attribute name="content" expression="/WEB-INF/views/tweetpoll/decorators/banned.jsp" />
     </definition>
 
 </tiles-definitions>

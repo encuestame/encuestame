@@ -1,6 +1,8 @@
 div.mobile{
 }
 
+#recaptcha_image img.newWidth {width: 100px }
+
 .mobile .tags a.tag {
     position: relative;
     display: inline-block;

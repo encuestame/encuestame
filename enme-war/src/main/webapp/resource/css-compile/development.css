@@ -17,6 +17,7 @@
 @import url("web/components/front-end-items.css");
 @import url("shared-components/rated-comments.css");
 @import url("shared-components/detail-tp-hashtag.css");
+@import url("shared-components/tp-vote.css");
 @import url("web/components/hashtag.css");
 @import url("web/components/hashtag-tweetpoll.css");
 @import url("web/components/header.css");

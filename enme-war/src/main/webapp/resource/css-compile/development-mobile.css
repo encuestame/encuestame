@@ -3,6 +3,7 @@
 @import url("common.css");
 @import url("mobile/default.css");
 @import url("mobile/component/home.css");
+@import url("mobile/component/tp-vote.css");
 @import url("mobile/component/home-detail.css");
 @import url("shared-components/social-links.css");
 @import url("shared-components/rated-comments.css");
@@ -10,4 +11,5 @@
 @import url("shared-components/detail-comments.css");
 @import url("shared-components/detail-tp-answers.css");
 @import url("shared-components/detail-tp-hashtag.css");
+@import url("shared-components/tp-vote.css");
 /* @import url("normalize.css"); */

@@ -1095,7 +1095,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             }
         }
 
-        log.debug("checkTweetPollCompleteStatus tweetPoll.getDateLimit() "+tweetPoll.getDateLimit());
+        log.debug("checkTweetPollCompleteStatus tweetPoll.getDateLimit() " + tweetPoll.getDateLimit());
         if (next && tweetPoll.getDateLimited() != null) {
             DateTime date = new DateTime(tweetPoll.getDateLimited());
             log.debug(date);
