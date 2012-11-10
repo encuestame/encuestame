@@ -7,10 +7,10 @@
        <div class="web-poll-vote">
                <article class="emne-box">
                     <section class="web-vote">
-                        <article dojoType="encuestame.org.core.commons.poll.vote.PollVote"
+                        <article data-dojo-type="me/web/widget/poll/vote/PollVote"
                                  pollId="${poll.id}">
                             <c:forEach items="${answers}" var="a">
-                                <section dojoType="${poll.questionBean.widget}"
+                                <section data-dojo-type="${poll.questionBean.widget}"
                                          itemId="${a.answerId}"
                                          name="poll"
                                          label="${a.answers}">
@@ -22,7 +22,6 @@
                <input name="itemId" type="hidden" value="${poll.id}">
                <input name="type" type="hidden" value="${poll.questionBean.pattern}">
                <input name="slugName" type="hidden" value="${poll.questionBean.slugName}">
-
        </div>
        <footer>
             <button class="enme-ui-button vote" type="submit">Vote</button>

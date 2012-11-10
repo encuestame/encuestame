@@ -66,11 +66,11 @@ public enum QuestionPattern {
         if (this == LINKS) {
             type = "LINKS";
         } else if (this == SINGLE_SELECTION) {
-            type = "encuestame.org.core.commons.questions.patterns.SingleOptionResponse";
+            type = "me/web/widget/questions/patterns/SingleOptionResponse";
         } else if (this == MULTIPLE_SELECTION) {
-            type = "encuestame.org.core.commons.questions.patterns.MultipleOptionResponse";
+            type = "me/web/widget/MultipleOptionResponse";
         } else if (this == CUSTOMIZABLE_SELECTION) {
-            type = "encuestame.org.core.commons.questions.patterns.CustomizableSelectionOptionResponse";
+            type = "me/web/widget/CustomizableSelectionOptionResponse";
         }
         return type;
     }
