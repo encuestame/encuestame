@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div class="nav-home-menu">
     <div class="main-options">
-           <span class="option">
+<%--            <span class="option">
                 <a href="<%=request.getContextPath()%>/home?view=survey">
                     <spring:message code="home.type.surveys" />
                </a>
-           </span>
+           </span> --%>
            <span class="option">
                <a href="<%=request.getContextPath()%>/home?view=tweetpoll">
                     <spring:message code="home.type.tweetpoll" />
