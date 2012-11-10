@@ -35,7 +35,7 @@ define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
               this._printRate(data.success.hashTagRankingStats);
             }
           });
-          this.callGET(params, this.getURLService().service('encuestame.service.list.ranking.hashtag'), load, null, null);
+          this.getURLService().get('encuestame.service.list.ranking.hashtag', params, load, null, null);
       },
 
      /**

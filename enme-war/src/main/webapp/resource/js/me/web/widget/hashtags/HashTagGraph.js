@@ -80,7 +80,7 @@ define([
                   }
                 }
               });
-              this.callGET(params, this.getURLService().service('encuestame.service.list.rate.buttons'), load, null, null);
+              this.getURLService().get('encuestame.service.list.rate.buttons', params, load, null, null);
            },
 
            /**
@@ -211,7 +211,8 @@ define([
                       }
                    }
                  });
-                 this.callGET(params, this.getURLService().service('encuestame.service.list.range.hashtag'), load, null, null);
+                 //this.callGET(params, this.getURLService().service('encuestame.service.list.range.hashtag'), load, null, null);
+                 this.getURLService().get('encuestame.service.list.range.hashtag', params, load, null, null);
            },
 
            /**
