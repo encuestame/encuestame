@@ -23,6 +23,11 @@ define([
     _timer : null,
 
     /**
+     * Display percents instead names.
+     */
+    percents : false,
+
+    /**
      * Default delay.
      */
     delay : 31000,

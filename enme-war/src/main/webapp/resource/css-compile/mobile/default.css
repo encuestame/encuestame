@@ -1,7 +1,12 @@
 div.mobile{
 }
 
-#recaptcha_image img.newWidth {width: 100px }
+.vote-page header.vote-logo .logo {
+    margin: 0 auto;
+    width: 300px;
+    text-align: center;
+    margin-top: 20px;
+}
 
 .mobile .tags a.tag {
     position: relative;

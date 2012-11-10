@@ -54,7 +54,7 @@ define([
                         votes,
                         dojo.hitch(this, function(data, index) {
                           var votes = data.answer_votes == null ? 0 : data.answer_votes;
-                            var answer = [data.answer.answers, (votes), data.color];
+                            var answer = [this.percents ? data.percent : data.answer.answers, (votes), data.color];
                             results.push(answer);
                             totalVotes += votes;
                             //dojo.publish("/encuestame/poll/detail/answer/reload", [data.id, [votes, data.percent]]);

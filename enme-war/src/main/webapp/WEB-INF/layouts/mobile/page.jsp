@@ -15,6 +15,7 @@
         <%@ include file="decorators/mobile-meta.jsp"%>
 
         <%@ include file="/WEB-INF/jsp/includes/javascript-mobile.jsp"%>
+
     </head>
     <body class="mobile claro">
         <header>

@@ -115,11 +115,11 @@ html,body {
     }
 
     .mobile .mobile-main {
-
+        min-height: 300px;
     }
 
     .mobile-main-vote {
-        min-height: 400px;
+        min-height: 350px;
     }
 
 }

@@ -16,9 +16,9 @@
 
         <%@ include file="/WEB-INF/jsp/includes/javascript-mobile.jsp"%>
     </head>
-    <body class="mobile claro">
-        <header>
-            <tiles:insertAttribute name="header" ignore="true" />
+    <body class="mobile claro vote-page">
+        <header class="vote-logo">
+            <%@ include file="/WEB-INF/layouts/logo.jsp"%>
         </header>
         <article class="mobile-main-vote">
               <tiles:insertAttribute name="content"/>

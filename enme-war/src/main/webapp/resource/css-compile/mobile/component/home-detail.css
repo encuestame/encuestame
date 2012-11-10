@@ -4,6 +4,10 @@
     font-weight: bold;
 }
 
+.mobile-detail .emne-box .onLive {
+    display: none;
+}
+
 .mobile-question-detail {
     color: #FFF;
     padding: 15px;
@@ -126,4 +130,35 @@ div.mobile-answers-questions {
 
 .mobile .web-tweetpoll-hashtags .tag {
     margin: 0 10px;
+}
+
+/** poll answers **/
+
+.mobile .web-generic-result {
+    position: relative;
+}
+
+.mobile .web-generic-result .color {
+    width: 10%;
+}
+
+.mobile .web-generic-result .label {
+    width: 40%;
+    padding: 0 8px;
+}
+
+.mobile .web-generic-result .votes {
+    width: 20%;
+    float: left;
+}
+
+.mobile .web-generic-result .percent {
+    float: left;
+    width: 20%;
+}
+
+
+.mobile .web-poll-options-button {
+  padding: 25px;
+  text-align: right;
 }

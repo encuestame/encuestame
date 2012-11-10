@@ -1,6 +1,4 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-
-<%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <article class="web-wrapper-detail web-poll-results web-wrapper-detail">
    <div class="web-detail-header">
        <div class="title">
@@ -15,6 +13,7 @@
                 <div
                    data-dojo-type="me/web/widget/poll/detail/PollChartDetail"
                    pollId="${poll.id}"
+                   percents="true"
                    username="${poll.ownerUsername}">
               </div>
             </article>

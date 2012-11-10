@@ -217,12 +217,12 @@ div.defaultSectionTitle {
    background-image: -ms-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
 
    background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.04, rgb(200,193,193)),
-		color-stop(1, rgb(112,110,110))
-	);
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.04, rgb(200,193,193)),
+        color-stop(1, rgb(112,110,110))
+    );
 }
 
 .gradient-yellow{
@@ -536,14 +536,14 @@ div.web-default-menu  li.first {
     background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
-    
+
     background-image: -webkit-gradient(
         linear,
         left bottom,
         left top,
         color-stop(0.04, rgb(255,255,255)),
         color-stop(1, rgb(242,242,242))
-    ); 
+    );
 }
 
 
@@ -617,44 +617,6 @@ div.web-default-menu  li.first {
   min-height: 315px;
   width: 510px;
 }
-
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header {
-  background-color: #8E8E8E;
-  overflow: hidden;
-}
-
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header .answer-label {
-  display: inline-block;
-  float: left;
-  padding-left: 30px;
-  width: 260px;
-}
-
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header > div {
-
-}
-
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header > div {
-  background-color: #8E8E8E;
-  box-shadow: 0 1px 0 0 #919191 inset;
-  color: #444444;
-  font-size: 1.2em;
-     line-height: 20px;
-     padding: 10px;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
-}
-
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header .answer-votes {
-  float: left;
-  width: 89px;
-}
-
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper > header .answer-percent {
-  float: right;
-  padding-right: 15px;
-}
-
-
 
 .web-wrapper-detail .web-button-wrapper{
     min-height: 30px;
@@ -739,11 +701,11 @@ background-image: -webkit-gradient(
     color-stop(1, rgb(68,68,68))
 ); */
 background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
-		color-stop(100%, #222) );
-	background: -webkit-linear-gradient(#444, #222);
-	background: -moz-linear-gradient(#444, #222);
-	background: -o-linear-gradient(#444, #222);
-	background: linear-gradient(#444, #222);
+        color-stop(100%, #222) );
+    background: -webkit-linear-gradient(#444, #222);
+    background: -moz-linear-gradient(#444, #222);
+    background: -o-linear-gradient(#444, #222);
+    background: linear-gradient(#444, #222);
   border-radius: 3px 3px 0 0;
   box-shadow: 0 1px 2px 1px #CDCDCD;
   margin: 4px 0px 0px 0px;
@@ -762,24 +724,24 @@ background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
   font-size: 1em;
   font-weight: 500;
   margin: 0 10px;
-}   
+}
 
 #nav-sign-in a {
-	display: block;
-	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #343434), color-stop(100%, #1E1E1E) );
-	background: -webkit-linear-gradient(top, #343434, #1E1E1E);
-	background: -moz-linear-gradient(top, #343434, #1E1E1E);
-	background: -o-linear-gradient(top, #343434, #1E1E1E);
-	background: linear-gradient(top, #343434, #1E1E1E);
-	-moz-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-	-webkit-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-	-o-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-	box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-o-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	border-radius: 5px;
-	padding: 3px 15px;
-	text-shadow: 0 -1px 0 black;}
+    display: block;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #343434), color-stop(100%, #1E1E1E) );
+    background: -webkit-linear-gradient(top, #343434, #1E1E1E);
+    background: -moz-linear-gradient(top, #343434, #1E1E1E);
+    background: -o-linear-gradient(top, #343434, #1E1E1E);
+    background: linear-gradient(top, #343434, #1E1E1E);
+    -moz-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+    -webkit-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+    -o-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+    box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    padding: 3px 15px;
+    text-shadow: 0 -1px 0 black;}
