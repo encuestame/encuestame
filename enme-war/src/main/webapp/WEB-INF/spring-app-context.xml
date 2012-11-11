@@ -19,12 +19,12 @@
      <import resource="spring/encuestame-param-context.xml" />
 
      <!-- MVC -->
-     <import resource="spring/encuestame-upload-context.xml" />
+     <!-- <import resource="spring/encuestame-upload-context.xml" /> -->
      <import resource="spring/encuestame-mvc-context.xml" />
      <import resource="spring/encuestame-web-flow-context.xml" />
-     <import resource="spring/encuestame-controller-context.xml" />
-     <import resource="spring/encuestame-json-context.xml" />
-     <import resource="spring/encuestame-rss-context.xml" />
+     <!-- <import resource="spring/encuestame-controller-context.xml" /> -->
+     <!-- <import resource="spring/encuestame-json-context.xml" /> -->
+     <!-- <import resource="spring/encuestame-rss-context.xml" /> -->
 
      <!-- Integration
      <import resource="spring/encuestame-integration.xml" />-->

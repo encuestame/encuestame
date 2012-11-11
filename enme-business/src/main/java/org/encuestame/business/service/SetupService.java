@@ -51,9 +51,9 @@ public class SetupService extends AbstractBaseService implements SetupOperations
      */
     @Autowired
     private InstallDatabaseOperations install;
-    
+
     /**
-     * 
+     *
      */
     @Autowired
     private CSVParser csvParser;
@@ -154,6 +154,25 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     }
 
     /**
+     * Clean the version to possible extra string like, release, rc, m1, m2.
+     * @param version
+     * @return
+     */
+    private String cleanVersion(final String version) {
+        final Integer _ = version.indexOf("-");
+        log.debug("******************************************");
+        log.debug("cleanVersion " + _);
+        if (_ != -1) {
+            final String new_version = version.substring(0, _);
+            log.debug("cleanVersion " + new_version);
+            return new_version;
+        } else {
+            log.debug("cleanVersion NO CHANGES");
+            return version;
+        }
+    }
+
+    /**
      * Check status version.
      * @return the status.
      */
@@ -162,13 +181,13 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         log.debug("Check Version Status");
         String status = "install";
         final String currentVersion = EnMePlaceHolderConfigurer.getProperty("app.version");
-        log.debug("Current Version : "+currentVersion);
+        log.debug("Current Version : "+ currentVersion);
         final String installedVersion = EnMePlaceHolderConfigurer.getConfigurationManager().getInstalledVersion();
         log.debug("Installed Version : "+installedVersion);
         if (installedVersion != null) {
-            float f1 = Float.valueOf(currentVersion);
+            float f1 = Float.valueOf(cleanVersion(currentVersion));
             log.debug("Current Version : "+f1);
-            float f2 = Float.valueOf(installedVersion);
+            float f2 = Float.valueOf(cleanVersion(installedVersion));
             log.debug("Installed Version : "+f2);
             if (f2 < f1) {
                 status = "upgrade";
@@ -233,12 +252,12 @@ public class SetupService extends AbstractBaseService implements SetupOperations
     @Override
     public void demoInstall() {
         try {
-			this.csvParser.executeCSVDemoInstall(EnMePlaceHolderConfigurer
-					.getIntegerProperty("demo.votes.by.tppoll"), 
-					EnMePlaceHolderConfigurer
-					.getIntegerProperty("demo.votes.by.poll"), 
-					EnMePlaceHolderConfigurer
-					.getIntegerProperty("demo.votes.by.survey"));
+            this.csvParser.executeCSVDemoInstall(EnMePlaceHolderConfigurer
+                    .getIntegerProperty("demo.votes.by.tppoll"),
+                    EnMePlaceHolderConfigurer
+                    .getIntegerProperty("demo.votes.by.poll"),
+                    EnMePlaceHolderConfigurer
+                    .getIntegerProperty("demo.votes.by.survey"));
         } catch (Exception e) {
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
@@ -303,17 +322,17 @@ public class SetupService extends AbstractBaseService implements SetupOperations
         return null;
     }
 
-	/**
-	 * @return the csvParser
-	 */
-	public CSVParser getCsvParser() {
-		return csvParser;
-	}
+    /**
+     * @return the csvParser
+     */
+    public CSVParser getCsvParser() {
+        return csvParser;
+    }
 
-	/**
-	 * @param csvParser the csvParser to set
-	 */
-	public void setCsvParser(CSVParser csvParser) {
-		this.csvParser = csvParser;
-	}
+    /**
+     * @param csvParser the csvParser to set
+     */
+    public void setCsvParser(CSVParser csvParser) {
+        this.csvParser = csvParser;
+    }
 }

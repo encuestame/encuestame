@@ -29,11 +29,18 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
  */
 public class SetupInterceptor extends AbstractEnMeInterceptor{
 
+    /**
+     *
+     */
     private Logger log = Logger.getLogger(this.getClass());
 
     //@Autowired
     public StartupProcess startup;
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, java.lang.Exception)
+     */
     @Override
     public void afterCompletion(HttpServletRequest arg0,
             HttpServletResponse arg1, Object arg2, Exception arg3)
@@ -42,6 +49,10 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
         log.info(this.startup);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.web.servlet.ModelAndView)
+     */
     @Override
     public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
             Object arg2, ModelAndView arg3) throws Exception {
@@ -50,30 +61,44 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
 
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
+     */
     @Override
-    public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1,
+    public boolean preHandle(
+            HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse,
             Object arg2) throws Exception {
-        final String context = arg0.getContextPath();
+        // get the current context path.
+        final String context = httpServletRequest.getContextPath();
+        // build the path
         final StringBuilder path = new StringBuilder(context);
         path.append(PathUtil.setup);
-        log.trace("Request URI "+arg0.getRequestURI());
-        log.trace("Context Path URI "+path.toString());
-        log.trace("Context Path URI "+ (arg0.getRequestURI().equalsIgnoreCase(path.toString())));
-        log.trace("Context Path URI "+ (arg0.getRequestURI().equals(path.toString())));
-        if (!arg0.getRequestURI().toString().equals(path.toString())) {
+        if (log.isTraceEnabled()) {
+            log.trace("Request URI "+httpServletRequest.getRequestURI());
+            log.trace("Context Path URI "+path.toString());
+            log.trace("Context Path URI "+ (httpServletRequest.getRequestURI().equalsIgnoreCase(path.toString())));
+            log.trace("Context Path URI "+ (httpServletRequest.getRequestURI().equals(path.toString())));
+        }
+        // check if the uri match with the setup uri
+        if (!httpServletRequest.getRequestURI().toString().equals(path.toString())) {
             final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
-            log.trace("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +
-            EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFileName());
-            log.trace("intalled.uuid:->"+uuid);
+            if (log.isTraceEnabled()) {
+                log.trace("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +  EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFileName());
+                log.trace("intalled.uuid:->"+uuid);
+            }
             if (uuid == null || uuid == "") {
                      log.trace("system not installed ...");
                      final ModelAndView modelAndView = new ModelAndView("redirect:/setup");
                      throw new ModelAndViewDefiningException(modelAndView);
             } else {
-                log.info("Encuestame Install Info:");
-                log.info("Version:			");
-                log.info("Last Update:		");
-                log.info("Tables:		");
+                if (log.isDebugEnabled()) {
+                    log.debug("Encuestame Install Info:");
+                    log.debug("Version:			");
+                    log.debug("Last Update:		");
+                    log.debug("Tables:		");
+                }
             }
 
         } else {
@@ -97,7 +122,4 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
     public void setStartup(StartupProcess startup) {
         this.startup = startup;
     }
-
-
-
 }

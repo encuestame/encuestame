@@ -22,7 +22,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @author Picado, Juan juanATencuestame.org
  * @since
  */
-public abstract class AbstractEnMeInterceptor extends AbstractBaseOperations implements HandlerInterceptor{
+public abstract class AbstractEnMeInterceptor extends AbstractBaseOperations implements HandlerInterceptor {
 
 
     /**
