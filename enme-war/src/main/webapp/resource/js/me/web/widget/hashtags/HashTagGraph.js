@@ -136,7 +136,7 @@ define([
                    id : graph,
                    valuesx : valuesx,
                    valuesy : valuesy,
-                   width : 630,
+                   width : 430,
                    radius : 1,
                    height : 280,
                };

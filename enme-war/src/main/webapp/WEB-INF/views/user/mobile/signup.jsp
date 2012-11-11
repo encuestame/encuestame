@@ -1,3 +1,1 @@
-<div>
-    mobile sign up
-</div>
+<%@ include file="/WEB-INF/jsp/includes/decorators/not-available.jsp"%>

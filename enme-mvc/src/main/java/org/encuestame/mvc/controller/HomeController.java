@@ -51,19 +51,19 @@ public class HomeController extends AbstractBaseOperations {
     * Log.
     */
     private Log log = LogFactory.getLog(this.getClass());
-    
+
     /**
      * Default max of home beans to display.
      */
     @Value("${front.home.items}") private Integer homeMaxItems;
-    
+
     /**
      * Default max of hashtag to display.
      */
     @Value("${front.hashtags.items}") private Integer homeHashtagMaxItems;
-    
+
     /**
-     * 
+     *
      */
     @Value("${front.profile.items}") private Integer profileDefaultItems;
 
@@ -98,13 +98,13 @@ public class HomeController extends AbstractBaseOperations {
                         model.addAttribute("items", ConvertDomainBean
                                 .convertTweetPollListToHomeBean(service
                                         .searchItemsByTweetPoll(period, EnMeUtils.DEFAULT_START,
-                                        		this.homeMaxItems, request)));
+                                                this.homeMaxItems, request)));
                     } else if ("poll".equals(view)) {
                         model.addAttribute("items",
                                 ConvertDomainBean
                                         .convertPollListToHomeBean(service
                                                 .searchItemsByPoll(period, EnMeUtils.DEFAULT_START,
-                                                		this.homeMaxItems)));
+                                                        this.homeMaxItems)));
                     } else if ("survey".equals(view)) {
                         //TODO: ENCUESTAME-345
                         model.addAttribute("items", ListUtils.EMPTY_LIST);
@@ -138,7 +138,7 @@ public class HomeController extends AbstractBaseOperations {
             HttpServletResponse response) {
         return "redirect:/home";
     }
-    
+
     /**
      * Help View.
      * @param model model
@@ -146,9 +146,9 @@ public class HomeController extends AbstractBaseOperations {
      */
     @RequestMapping(value = "/user/help", method = RequestMethod.GET)
     public String dashBoardController(ModelMap model, UserAccount account) {
-        return "help";
-    }    
-    
+        return "user/help";
+    }
+
     /**
      * Display a question view.
      * @param model {@link Model}
@@ -165,9 +165,9 @@ public class HomeController extends AbstractBaseOperations {
             @PathVariable String slug,
             HttpServletRequest request,
             HttpServletResponse response) {
-				return "question/detail";
+                return "question/detail";
     }
-    	
+
     /**
      * Display the user profile.
      * @param model
@@ -177,7 +177,7 @@ public class HomeController extends AbstractBaseOperations {
     @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
     public String userProfileController(
             final ModelMap model,
-            @PathVariable String username, 
+            @PathVariable String username,
             HttpServletRequest request,
             HttpServletResponse response) {
         username = filterValue(username);
@@ -185,43 +185,43 @@ public class HomeController extends AbstractBaseOperations {
         if (accountBean == null) {
             return "404";
         } else {
-        	//1 - load all items poll / survey / poll for {username} order by date
-        	//2 - hashtag created by {username}
-        	//3 - social link published by {username}
-        	//4 - last comments  
+            //1 - load all items poll / survey / poll for {username} order by date
+            //2 - hashtag created by {username}
+            //3 - social link published by {username}
+            //4 - last comments
             log.debug("user "+accountBean);
             model.put("profile", accountBean);
-			List<HomeBean> lastItems;
-			try {
-				lastItems = getFrontService()
-						.getLastItemsPublishedFromUserAccount(username, this.profileDefaultItems, false,
-								request);
-	            model.put("lastItems", lastItems);
-	            return "profile/view";
-			} catch (EnMeNoResultsFoundException e) {
-				return "profile/view";
-			}
+            List<HomeBean> lastItems;
+            try {
+                lastItems = getFrontService()
+                        .getLastItemsPublishedFromUserAccount(username, this.profileDefaultItems, false,
+                                request);
+                model.put("lastItems", lastItems);
+                return "profile/view";
+            } catch (EnMeNoResultsFoundException e) {
+                return "profile/view";
+            }
         }
     }
 
-	/**
-	 * @param profileDefaultItems the profileDefaultItems to set
-	 */
-	public void setProfileDefaultItems(final Integer profileDefaultItems) {
-		this.profileDefaultItems = profileDefaultItems;
-	}
+    /**
+     * @param profileDefaultItems the profileDefaultItems to set
+     */
+    public void setProfileDefaultItems(final Integer profileDefaultItems) {
+        this.profileDefaultItems = profileDefaultItems;
+    }
 
-	/**
-	 * @param homeMaxItems the homeMaxItems to set
-	 */
-	public void setHomeMaxItems(final Integer homeMaxItems) {
-		this.homeMaxItems = homeMaxItems;
-	}
+    /**
+     * @param homeMaxItems the homeMaxItems to set
+     */
+    public void setHomeMaxItems(final Integer homeMaxItems) {
+        this.homeMaxItems = homeMaxItems;
+    }
 
-	/**
-	 * @param homeHashtagMaxItems the homeHashtagMaxItems to set
-	 */
-	public void setHomeHashtagMaxItems(final Integer homeHashtagMaxItems) {
-		this.homeHashtagMaxItems = homeHashtagMaxItems;
-	}	
+    /**
+     * @param homeHashtagMaxItems the homeHashtagMaxItems to set
+     */
+    public void setHomeHashtagMaxItems(final Integer homeHashtagMaxItems) {
+        this.homeHashtagMaxItems = homeHashtagMaxItems;
+    }
 }

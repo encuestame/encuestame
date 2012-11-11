@@ -108,7 +108,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 }
 
 .home-mobile .mobile-item-wrapper > .items > .item .img  .title > div{
-    font-size: 9px;
+    font-size: 7px;
+    text-align: center;
 }
 
 .home-mobile .mobile-item-wrapper > .items > .item .img .button-home-item {

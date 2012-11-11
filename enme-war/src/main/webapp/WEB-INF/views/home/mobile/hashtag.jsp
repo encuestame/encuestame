@@ -2,21 +2,33 @@
 
 
 <article class="web-hashtag-wrapper mobile-hashtag-wrapper">
+   <div class="mobile-question-detail category_color">
+               ${tagName.hashTagName}
+   </div>
 
-    <section class="web-hashtag-header web-detail-header">
-        <div class="title">
-            <h2>
-                ${tagName.hashTagName}
-            </h2>
+   <div class="graph-missing">
+        <%--     <section class="web-hashtag-header web-detail-header">
+            <div class="web-hashtag-options">
+            <div channel="/encuestame/hashtag/time/range/refresh/graph"
+                 data-dojo-type="me/web/widget/menu/TimeRangeDropDownMenu"
+                 defaultDateRange="365">
+           </div>
         </div>
-        <div class="web-hashtag-options">
-    </div>
-    </section>
+        </section>
+
+        <section class="web-ht-graph-wrapper emne-box emne-box-gray">
+           <div data-dojo-type="me/web/widget/hashtags/HashTagGraph"
+               channel="/encuestame/hashtag/time/range/refresh/graph"
+               hashtagName="${tagName.hashTagName}"
+             ></div>
+        </section> --%>
+        Hashtag Graph In Progress
+   </div>
 
     <div class="web-ht-detail-wrapper">
        <div class="web-ht-wrapper-mainline">
            <article class="emne-box emne-box-gray">
-                <header>
+                <header class="category_color">
                   <spring:message code="home.hashtag.lastpub" />
                 </header>
                 <div class="web-pup-wrapper">
@@ -43,10 +55,8 @@
                      </div>
                 </section>
             </article>
-        </div>
-        <aside class="web-ht-wrapper-top">
             <article class="emne-box emne-box-gray">
-                 <header>
+                 <header class="category_color">
                     <spring:message code="home.hashtag.stats" />
                  </header>
                  <div  data-dojo-type="me/web/widget/stats/GenericStats"
@@ -58,7 +68,7 @@
                  </div>
              </article>
             <article class="emne-box emne-box-gray">
-                 <header>
+                 <header class="category_color">
                    <spring:message code="home.hashtag.position" />
                  </header>
                  <section data-dojo-type="me/web/widget/stats/RatePosition"
@@ -69,7 +79,7 @@
                  </section>
             </article>
             <article class="emne-box emne-box-gray">
-                 <header>
+                 <header class="category_color">
                     <spring:message code="home.hashtag.profile" />
                  </header>
                  <div data-dojo-type="me/web/widget/stats/TopProfiles"
@@ -79,7 +89,7 @@
                       key="HASHTAG" id="topprofiles">
                  </div>
             </article>
-        </aside>
+          </div>
     </div>
 </article>
 
