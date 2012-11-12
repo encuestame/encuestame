@@ -38,7 +38,7 @@ import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.social.SocialProvider; 
+import org.encuestame.utils.social.SocialProvider;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.junit.Assert;
@@ -76,23 +76,26 @@ public class TestTweetPollDao  extends AbstractBase{
     private TweetPollFolder tweetPollFolder;
 
     private HashTag hashTag1;
-    
+
     /** Maximum results query. **/
     private Integer MAX_RESULTS = 10;
 
     /** Init results query. **/
-    private Integer INIT_RESULTS = 0;      
-    
+    private Integer INIT_RESULTS = 0;
+
+    /** {@link Question} **/
+    private Question question;
+
     /**
      * Before.
      */
     @Before
     public void initData(){
       this.secondary = createUserAccount("jhonny", createAccount());
-      final Question question = createQuestion("Who I am?", "");
+      this.question = createQuestion("Who I am?", "");
       this.questionsAnswers1 = createQuestionAnswer("yes", question, "12345");
       this.questionsAnswers2 = createQuestionAnswer("no", question, "12346");
-      this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), question);
+      this.tweetPoll = createPublishedTweetPoll(secondary.getAccount(), this.question);
       this.hashTag1 = createHashTag("hash1");
       final HashTag hashTag2 = createHashTag("hash2");
       this.tweetPoll.getHashTags().add(hashTag1);
@@ -143,12 +146,12 @@ public class TestTweetPollDao  extends AbstractBase{
         final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollId(this.tweetPoll.getTweetPollId());
         assertEquals("Should be equals", 4, totalVotes.intValue());
     }
-    
+
     /**
      * Test to get total votes by tweetpoll and specific date range.
      */
     @Test
-	public void testGetTotalVotesByTweetPollIdAndDateRange(){ 
+	public void testGetTotalVotesByTweetPollIdAndDateRange(){
     	final Question myQuestion = createQuestion("Where are you from?", "");
     	final QuestionAnswer qaAmerica = createQuestionAnswer("America", myQuestion, "123457");
     	final QuestionAnswer qaEurope = createQuestionAnswer("Europa", myQuestion, "123469");
@@ -158,35 +161,35 @@ public class TestTweetPollDao  extends AbstractBase{
     	myTweetPoll.getHashTags().add(htCitizen);
     	myTweetPoll.getHashTags().add(htCitizenShip);
     	getTweetPoll().saveOrUpdate(myTweetPoll);
-         
+
     	TweetPollSwitch pollSwitchAmerica = createTweetPollSwitch(qaAmerica, myTweetPoll);
     	TweetPollSwitch pollSwitchEurope = createTweetPollSwitch(qaEurope, myTweetPoll);
-         
+
     	final Calendar pollingDate = Calendar.getInstance();
     	pollingDate.add(Calendar.MONTH, -1);
-    	
+
     	final TweetPollResult tpResultAmerica =  createTweetPollResultWithPollingDate(pollSwitchAmerica, "192.168.0.1", pollingDate.getTime());
-        
+
     	pollingDate.add(Calendar.MONTH, -5);
     	final TweetPollResult tpResultAmerica2 =  createTweetPollResultWithPollingDate(pollSwitchAmerica, "192.168.0.2", pollingDate.getTime());
-      	 
+
     	final TweetPollResult tpResultEurope =  createTweetPollResultWithPollingDate(pollSwitchEurope, "192.168.0.2", pollingDate.getTime());
-         
+
     	final Long totalVotes = getTweetPoll().getTotalVotesByTweetPollIdAndDateRange(myTweetPoll.getTweetPollId(), SearchPeriods.ONEYEAR.toDays());
-    	assertEquals("Should be equals", 3, totalVotes.intValue()); 
-          
-         
+    	assertEquals("Should be equals", 3, totalVotes.intValue());
+
+
     }
-    
+
     /**
      * Test get all {@link TweetPollResult} by {@link TweetPollSwitch}
      */
     @Test
     public void testGetTweetPollResultsByTweetPollSwitch(){
-    	final List<TweetPollResult> tpResults = getTweetPoll().getTweetPollResultsByTweetPollSwitch(this.pollSwitch1); 
-    	assertEquals("Should be equals", 2, tpResults.size());  
+    	final List<TweetPollResult> tpResults = getTweetPoll().getTweetPollResultsByTweetPollSwitch(this.pollSwitch1);
+    	assertEquals("Should be equals", 2, tpResults.size());
     }
-    
+
     /**
      * Test retrieve  counter value from {@link TweetPollResult} by {@link TweetPollSwitch}.
      */
@@ -194,9 +197,9 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testGetTotalTweetPollResultByTweetPollSwitch(){
     	final Long myvalue = this.getTweetPoll().getTotalTweetPollResultByTweetPollSwitch(pollSwitch1, SearchPeriods.ONEYEAR);
     	// See @Before on the top
-    	assertEquals("Should be equals", 2,  myvalue.intValue()); 
+    	assertEquals("Should be equals", 2,  myvalue.intValue());
     }
-  
+
     /**
      * Test Get TweetPoll by TweetPoll Id and User.
      */
@@ -331,8 +334,8 @@ public class TestTweetPollDao  extends AbstractBase{
      */
     @Test
     public void testgetTweetpollByHashTagName(){
-        assertNotNull(this.tweetPoll); 
-        
+        assertNotNull(this.tweetPoll);
+
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, -15);
         final Calendar calendar2 = Calendar.getInstance();
@@ -383,7 +386,7 @@ public class TestTweetPollDao  extends AbstractBase{
         assertEquals("Should be equals", 3, tweetPolls2.size());
     }
 
-    
+
 	@Test
 	public void testgetTweetpollByHashTagName2() {
 
@@ -401,7 +404,7 @@ public class TestTweetPollDao  extends AbstractBase{
 
 		getTweetPoll().saveOrUpdate(tweetPoll1);
 		//System.out.println(" TP 1 -->" +tweetPoll1.getTweetPollId());
-		
+
 		final TweetPoll tweetPollsbyTag = getTweetPoll()
 				.checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(),  SearchPeriods.ALLTIME,
 						tweetPoll1.getTweetPollId());
@@ -409,21 +412,21 @@ public class TestTweetPollDao  extends AbstractBase{
 		//System.out.println(" TP Result 1 -->" +tweetPollsbyTag);
 
 		// SIN TP Correcto
-		
+
 		  final TweetPoll tweetPoll2 = createPublishedTweetPoll(
 	                secondary.getAccount(),
 	                createQuestion("question2", secondary.getAccount()), calendar.getTime());
-	       
+
 	    	tweetPoll2.getHashTags().add(hashtag3);
 	    	tweetPoll2.getHashTags().add(this.hashTag1);
 
 			getTweetPoll().saveOrUpdate(tweetPoll2);
 			//System.out.println(" TP 2 -->" +tweetPoll2.getTweetPollId());
-		
+
 		final TweetPoll tweetPollsbyTag2 = getTweetPoll()
 				.checkIfTweetPollHasHashTag(this.hashTag1.getHashTag(), SearchPeriods.ALLTIME,
 						tweetPoll2.getTweetPollId());
-		
+
 		//System.out.println(" TP RESULT 2 -->" +tweetPollsbyTag2);
 	}
 
@@ -599,7 +602,7 @@ public class TestTweetPollDao  extends AbstractBase{
          final Long totalTweets = getTweetPoll().getTotalTweetPoll(this.secondary, Boolean.TRUE);
          Assert.assertEquals("Should be", 1, totalTweets.intValue());
     }
-    
+
     /**
      * Test Get total social links by type.
      */
@@ -609,28 +612,28 @@ public class TestTweetPollDao  extends AbstractBase{
     	final TweetPoll tweetPoll = createPublishedTweetPoll(
                 this.secondary.getAccount(),
                 createQuestion("What is your favorite pastime?", secondary.getAccount()), new Date());
-        assertNotNull(tweetPoll); 
-        
+        assertNotNull(tweetPoll);
+
         final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.secondary);
         assertNotNull(socialAccount);
         final String tweetContent = "Tweet content text";
         final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
                 tweetPoll, " ", socialAccount, tweetContent);
-       
+
         tpSaved.setApiType(SocialProvider.TWITTER);
         getTweetPoll().saveOrUpdate(tpSaved);
         assertNotNull(tpSaved);
-        
+
         final TweetPollSavedPublishedStatus tpSaved2= createTweetPollSavedPublishedStatus(
         		tweetPoll, " ", socialAccount, tweetContent);
         tpSaved2.setApiType(SocialProvider.FACEBOOK);
         getTweetPoll().saveOrUpdate(tpSaved2);
         assertNotNull(tpSaved2);
-        final Long tweetPollSocialLinks = getTweetPoll().getSocialLinksByType(tweetPoll, null, null, TypeSearchResult.TWEETPOLL); 
-         
+        final Long tweetPollSocialLinks = getTweetPoll().getSocialLinksByType(tweetPoll, null, null, TypeSearchResult.TWEETPOLL);
+
         Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
     }
-    
+
     /**
      * Test get total tweetpolls published by hashtag.
      */
@@ -660,8 +663,8 @@ public class TestTweetPollDao  extends AbstractBase{
 		final List<TweetPoll> tweetPollsbyHashTag = getTweetPoll()
 				.getTweetPollsbyHashTagNameAndDateRange(myHashTag.getHashTag(), SearchPeriods.SEVENDAYS);
 		Assert.assertEquals("Should be", 2, tweetPollsbyHashTag.size());
-	} 
-	
+	}
+
 	/**
 	 * Test Get social networks links by type and date range.
 	 */
@@ -696,10 +699,10 @@ public class TestTweetPollDao  extends AbstractBase{
 		assertNotNull(tpSaved2);
 		//final Long tweetPollSocialLinks = getTweetPoll()
 		//		.getSocialLinksByTypeAndDateRange(tweetPoll, null, null,
-		//					TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);  
+		//					TypeSearchResult.TWEETPOLL, 365, 0, this.MAX_RESULTS);
 		//Assert.assertEquals("Should be", 2, tweetPollSocialLinks.intValue());
 	}
-	
+
 	/**
 	 * Test finding the distance between two coordinate points.
 	 */
@@ -715,7 +718,7 @@ public class TestTweetPollDao  extends AbstractBase{
 		tweetPoll.setLocationLongitude(-3.70325F);
 		getTweetPoll().saveOrUpdate(tweetPoll);
 		assertNotNull(tweetPoll);
-		 
+
 		final TweetPoll tp1 = createPublishedTweetPoll(
 				this.secondary.getAccount(),
 				createQuestion("What is your favorite movie?",
@@ -723,10 +726,10 @@ public class TestTweetPollDao  extends AbstractBase{
 
 		tp1.setLocationLatitude(39.4167F);
 		tp1.setLocationLongitude(-2.70325F);
-	
+
 		getTweetPoll().saveOrUpdate(tp1);
 		assertNotNull(tp1);
-		
+
 		DateTime otherDate = new DateTime();
 		final DateTime creationDate = otherDate.minusDays(9);
 		final TweetPoll tp2 = createPublishedTweetPoll(
@@ -741,19 +744,55 @@ public class TestTweetPollDao  extends AbstractBase{
 		assertNotNull(tp2);
 		final double latiRadian = Math.toRadians(41.3879169F);
 		final double longRadian = Math.toRadians(2.16991870F);
-	  
-		 
+
+
 		final List<Object[]> distanceFromOrigin = getTweetPoll()
 				.retrieveTweetPollsBySearchRadiusOfGeoLocation(latiRadian,
 						longRadian, 510d, 6378, 10, TypeSearchResult.TWEETPOLL, SearchPeriods.SEVENDAYS);
 		Assert.assertEquals("Should be", 2, distanceFromOrigin.size());
-		 
+
 		/*for (Object[] objects : distanceFromOrigin) {
 			System.out.println(" ------------------");
 			System.out.println(" id values -->" + objects[0]);
 			System.out.println(" distance values -->" + objects[1]);
-			 
+
 		}*/
 	}
 
+	/**
+	 * Test Retrieve tweetpolls published/unpublished.
+	 */
+	@Test
+	public void testRetrievePublishedUnpublishedTweetPolls() {
+		createPublishedTweetPoll(secondary.getAccount(), this.question);
+		final List<TweetPoll> tweetPollsPublished = getTweetPoll()
+				.retrievePublishedUnpublishedTweetPoll(
+						this.secondary.getAccount(), 10, 0, Boolean.TRUE);
+		Assert.assertEquals("Should be", 2, tweetPollsPublished.size());
+		createNotPublishedTweetPoll(secondary.getAccount(), this.question);
+		final List<TweetPoll> tweetPollsUnpublished = getTweetPoll()
+				.retrievePublishedUnpublishedTweetPoll(
+						this.secondary.getAccount(), 10, 0, Boolean.FALSE);
+		Assert.assertEquals("Should be", 1, tweetPollsUnpublished.size());
+	}
+
+	/**
+	 * Test Retrieve completed/incompleted tweetpolls.
+	 */
+	@Test
+	public void testRetrieveCompletedTweetPolls() {
+		createPublishedTweetPoll(secondary.getAccount(), this.question);
+		final List<TweetPoll> completedTweetpolls = getTweetPoll()
+				.retrieveCompletedTweetPoll(this.secondary.getAccount(), 10, 0,
+						Boolean.TRUE);
+		Assert.assertEquals("Should be", 2, completedTweetpolls.size());
+		final TweetPoll tpoll = createPublishedTweetPoll(
+				secondary.getAccount(), this.question);
+		tpoll.setCompleted(Boolean.FALSE);
+		getTweetPoll().saveOrUpdate(tpoll);
+		final List<TweetPoll> inCompletedTweetpolls = getTweetPoll()
+				.retrieveCompletedTweetPoll(this.secondary.getAccount(), 10, 0,
+						Boolean.FALSE);
+		Assert.assertEquals("Should be", 1, inCompletedTweetpolls.size());
+	}
 }
