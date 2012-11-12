@@ -28,10 +28,8 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.json.TweetPollBean;
 import org.hibernate.HibernateException;
 
 /**
@@ -319,17 +317,17 @@ public interface ITweetPoll extends IBaseDao{
      */
 	Long getSocialLinksByType(final TweetPoll tweetPoll, final Survey survey,
 			final Poll poll, final TypeSearchResult itemType);
-	
+
 	/**
 	 * Get total tweepolls published by hashtag.
 	 * @param tagName
-	 * @param period 
+	 * @param period
 	 * @return
 	 */
 	List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
-					final String tagName, 
-					final SearchPeriods period);  
-	
+					final String tagName,
+					final SearchPeriods period);
+
 	/**
 	 * Get social links by type( {@link Poll}, {@link TweetPoll} or {@link Survey}) and date range.
 	 * @param tweetPoll
@@ -341,7 +339,7 @@ public interface ITweetPoll extends IBaseDao{
 	List<TweetPollSavedPublishedStatus> getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
             final Survey survey, final Poll poll,
             final TypeSearchResult itemType);
-	
+
 	/**
 	 * Return a list of tweetpoll by {username} order by recent.
 	 * @param limitResults
@@ -351,7 +349,7 @@ public interface ITweetPoll extends IBaseDao{
 	public List<TweetPoll> getTweetPollByUsername(
 			final Integer limitResults,
 			final UserAccount account);
-	
+
 	/**
 	 * Get List Answers(Votes) by TweetPoll And date range.
 	 * @param tweetPoll
@@ -362,15 +360,15 @@ public interface ITweetPoll extends IBaseDao{
 	 */
 	List<TweetPollSwitch> getListAnswersByTweetPollAndDateRange(
 			final TweetPoll tweetPoll);
-	
+
 	/**
-	 * 
+	 *
 	 * @param tweetPollId
 	 * @param period
 	 * @return
 	 */
 	Long getTotalVotesByTweetPollIdAndDateRange(final Long tweetPollId, final Integer period);
-	
+
 	/**
 	 * Get counter total tweetpoll results by {@link TweetPollSwitch}
 	 * @param pollSwitch
@@ -378,16 +376,16 @@ public interface ITweetPoll extends IBaseDao{
 	 */
 	Long getTotalTweetPollResultByTweetPollSwitch(
 			final TweetPollSwitch pollSwitch, final SearchPeriods period);
-	
+
 	/**
 	 * Get all tweetpoll results by tweetpoll switch.
 	 * @param pollSwitch
 	 * @return
 	 */
 	List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch);
-	
+
 	/**
-	 * 
+	 *
 	 * @param latitude
 	 * @param longitude
 	 * @param distance
@@ -398,13 +396,13 @@ public interface ITweetPoll extends IBaseDao{
 	 * @return
 	 */
 	List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
-			final double latitude, final double longitude, final double distance,  
+			final double latitude, final double longitude, final double distance,
 			final double radius, final int maxItems,
 			final TypeSearchResult type, final SearchPeriods period);
-	
+
 	TweetPoll checkIfTweetPollHasHashTag(final String tagName, final SearchPeriods periods,
 			final Long id);
-	
+
 	/**
 	 * Validate {@link TweetPollResult} Ip.
 	 * @param ip
@@ -412,5 +410,27 @@ public interface ITweetPoll extends IBaseDao{
 	 * @return
 	 */
 	List<TweetPollResult> validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll);
-	 
+
+	/**
+	 * Retrieve published and unpublished tweetpolls.
+	 * @param account
+	 * @param maxResults
+	 * @param start
+	 * @param isPublished
+	 * @return
+	 */
+	List<TweetPoll> retrievePublishedUnpublishedTweetPoll(final Account account,
+	            final Integer maxResults, final Integer start, final Boolean isPublished);
+
+	/**
+	 * Retrieve completed tweetpolls.
+	 * @param account
+	 * @param maxResults
+	 * @param start
+	 * @param isComplete
+	 * @return
+	 */
+	List<TweetPoll> retrieveCompletedTweetPoll(final Account account,
+	            final Integer maxResults, final Integer start, final Boolean isComplete);
+
 }

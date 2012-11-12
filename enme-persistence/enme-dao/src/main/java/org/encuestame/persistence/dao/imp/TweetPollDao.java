@@ -110,7 +110,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetsByUserId(
     		final Long userId,
-            final Integer maxResults, 
+            final Integer maxResults,
             final Integer start) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
@@ -236,6 +236,46 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
+    /*
+	 * (non-Javadoc)
+	 *
+	 * @see org.encuestame.persistence.dao.ITweetPoll#
+	 * retrievePublishedUnpublishedTweetPoll
+	 * (org.encuestame.persistence.domain.security.Account, java.lang.Integer,
+	 * java.lang.Integer, java.lang.Boolean)
+	 */
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> retrievePublishedUnpublishedTweetPoll(final Account account,
+            final Integer maxResults, final Integer start, final Boolean isPublished) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPoll.class);
+        criteria.createAlias("tweetOwner", "tweetOwner");
+        criteria.add(Restrictions.eq("publishTweetPoll", isPublished));
+        criteria.add(Restrictions.eq("tweetOwner", account));
+        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#retrieveCompletedTweetPoll(
+	 * org.encuestame.persistence.domain.security.Account, java.lang.Integer,
+	 * java.lang.Integer)
+	 */
+    @SuppressWarnings("unchecked")
+    public List<TweetPoll> retrieveCompletedTweetPoll(final Account account,
+            final Integer maxResults, final Integer start, final Boolean isComplete) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(TweetPoll.class);
+        criteria.createAlias("tweetOwner", "tweetOwner");
+        criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        criteria.add(Restrictions.eq("tweetOwner", account));
+        criteria.add(Restrictions.eq("completed",isComplete));
+        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
+    }
+
+
     /**
      * Retrieve {@link TweetPollSwitch} by code.
      *
@@ -268,7 +308,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     }
 
     /**
-     * Validate Vote IP. 
+     * Validate Vote IP.
      * @param ip  ip
      * @param tweetPoll tweetPoll
      * @return {@link TweetPollSwitch}
@@ -284,10 +324,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                                 new String[] { "ipVote", "tweetPoll" },
                                 new Object[] { ip, tweetPoll }));
     }
-    
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.encuestame.persistence.dao.ITweetPoll#validateTweetPollResultsIP(
 	 * java.lang.String, org.encuestame.persistence.domain.tweetpoll.TweetPoll)
@@ -300,7 +340,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 						new String[] { "ipVote", "tweetPoll" },
 						new Object[] { ip, tweetPoll });
 	}
-	
+
     /**
      * Get Results By {@link TweetPoll} && {@link QuestionAnswer}.
      *
@@ -562,9 +602,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> getTweetpollByHashTagName(
-    		final String tagName, 
+    		final String tagName,
     		final Integer startResults,
-            final Integer limitResults, 
+            final Integer limitResults,
             final TypeSearchResult filterby,
 			final SearchPeriods periods) {
         final DetachedCriteria detached = DetachedCriteria
@@ -591,12 +631,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         }
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
         calculateSearchPeriodsDates(periods, detached, "createDate");
-        return (List<TweetPoll>) filterByMaxorStart(criteria, limitResults, startResults);        
+        return (List<TweetPoll>) filterByMaxorStart(criteria, limitResults, startResults);
     }
-    
+
     @SuppressWarnings("unchecked")
     public TweetPoll checkIfTweetPollHasHashTag(
-    		final String tagName,  
+    		final String tagName,
 			final SearchPeriods periods, final Long tpoll) {
         final DetachedCriteria detached = DetachedCriteria
                 .forClass(TweetPoll.class)
@@ -612,9 +652,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                                         new String[] { tagName }))  ));
         final DetachedCriteria criteria = DetachedCriteria.forClass(
                 TweetPoll.class, "tweetPoll");
-        criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));  
+        criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
-        calculateSearchPeriodsDates(periods, detached, "createDate"); 
+        calculateSearchPeriodsDates(periods, detached, "createDate");
         return (TweetPoll) DataAccessUtils.uniqueResult(getHibernateTemplate()
                 .findByCriteria(criteria));
     }
@@ -643,9 +683,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         criteria.add(Subqueries.propertyIn("tweetPoll.tweetPollId", detached));
         criteria.addOrder(Order.desc("tweetPoll.createDate"));
         criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
-        
+
        // calculateSearchPeriodsDates(period, criteria, "createDate");
-        
+
         return getHibernateTemplate().findByCriteria(criteria);
     }
 
@@ -716,7 +756,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public List<TweetPoll> getTweetPolls(
     		final Integer maxResults,
-            final Integer start, 
+            final Integer start,
             final Date range) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
@@ -725,7 +765,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         criteria.addOrder(Order.desc("createDate"));
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
-    
+
    /*
     * (non-Javadoc)
     * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollByUsername(java.lang.Integer, org.encuestame.persistence.domain.security.UserAccount)
@@ -741,7 +781,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         criteria.addOrder(Order.desc("createDate"));
         return (List<TweetPoll>) filterByMaxorStart(criteria, limitResults, 0);
     }
-    
+
 
     /*
      * (non-Javadoc)
@@ -797,10 +837,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
     @SuppressWarnings("unchecked")
     public List<TweetPollSavedPublishedStatus> getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
             final Survey survey, final Poll poll,
-            final TypeSearchResult itemType) { 
-        
+            final TypeSearchResult itemType) {
+
         final DetachedCriteria criteria = DetachedCriteria
-                .forClass(TweetPollSavedPublishedStatus.class); 
+                .forClass(TweetPollSavedPublishedStatus.class);
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
             criteria.createAlias("tweetPoll", "tweetPoll");
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
@@ -815,38 +855,38 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         } else {
             log.error("Item type not valid: " + itemType);
         }
-        
+
         criteria.add(Restrictions.isNotNull("apiType"));
         criteria.add(Restrictions.isNotNull("tweetId"));
-        criteria.add(Restrictions.eq("status", Status.SUCCESS));   
+        criteria.add(Restrictions.eq("status", Status.SUCCESS));
         return getHibernateTemplate().findByCriteria(criteria);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getTotalVotesByTweetPollIdAndDateRange(java.lang.Long, java.lang.Integer)
      */
     public Long getTotalVotesByTweetPollIdAndDateRange(final Long tweetPollId, final Integer period) {
-        Long totalvotes = 0L; 
-        final TweetPoll tpoll = this.getTweetPollById(tweetPollId); 
+        Long totalvotes = 0L;
+        final TweetPoll tpoll = this.getTweetPollById(tweetPollId);
         final List<TweetPollSwitch> tpSwitchAnswers = this
-                .getListAnswersByTweetPollAndDateRange(tpoll);  
+                .getListAnswersByTweetPollAndDateRange(tpoll);
         final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period.toString());
-        for (TweetPollSwitch tweetPollSwitch : tpSwitchAnswers) { 
-        	totalvotes += this.getTotalTweetPollResultByTweetPollSwitch(tweetPollSwitch, searchPeriods); 
+        for (TweetPollSwitch tweetPollSwitch : tpSwitchAnswers) {
+        	totalvotes += this.getTotalTweetPollResultByTweetPollSwitch(tweetPollSwitch, searchPeriods);
             log.info("Total Votes: " + totalvotes);
         }
         return totalvotes;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getTotalTweetPollResultByTweetPollSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch)
      */
 	public final Long getTotalTweetPollResultByTweetPollSwitch(
-			final TweetPollSwitch pollSwitch, 
+			final TweetPollSwitch pollSwitch,
 			final SearchPeriods period) {
-    	  
+
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollResult.class);
         criteria.setProjection(Projections.rowCount());
@@ -858,37 +898,37 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
                 + "--->" + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.ITweetPoll#getListAnswersByTweetPollAndDateRange(org.encuestame.persistence.domain.tweetpoll.TweetPoll, java.lang.Integer)
      */
 	@SuppressWarnings("unchecked")
 	public List<TweetPollSwitch> getListAnswersByTweetPollAndDateRange(
-			final TweetPoll tweetPoll) {  
+			final TweetPoll tweetPoll) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(TweetPollSwitch.class);
 		criteria.createAlias("tweetPoll","tweetPoll");
-		criteria.add(Restrictions.eq("tweetPoll", tweetPoll)); 
+		criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
 		return getHibernateTemplate().findByCriteria(criteria);
-	}  
-	
-	 
+	}
+
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.encuestame.persistence.dao.ITweetPoll#getTweetPollResultsByTweetPollSwitch(org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch)
 	 */
 	@SuppressWarnings("unchecked")
-	public final List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch) {  
+	public final List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch) {
         final DetachedCriteria criteria = DetachedCriteria
-                .forClass(TweetPollResult.class); 
-        criteria.add(Restrictions.eq("tweetPollSwitch", pollSwitch)); 
+                .forClass(TweetPollResult.class);
+        criteria.add(Restrictions.eq("tweetPollSwitch", pollSwitch));
         return getHibernateTemplate().findByCriteria(criteria);
     }
-    
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.encuestame.persistence.dao.ITweetPoll#
 	 * retrieveTweetPollsBySearchRadiusOfGeoLocation(double, double, double,
 	 * double, int, org.encuestame.utils.enums.TypeSearchResult,
@@ -912,13 +952,13 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 		} else if (type.equals(TypeSearchResult.HASHTAG)) {
 			// TODO: Define how to should store geolocations for hashtags, maybe
 			// in tweetpoll_hashtags
-		} 
+		}
 		else {
 			log.error("Item type not valid: " + type);
-		} 
+		}
 		 //calculateSearchPeriodsDates(period, criteria, "tweetResponseDate");
 		getHibernateTemplate().setMaxResults(maxItems);
 		return this.findByNamedParamGeoLocationItems(queryStr, latitude,
 				longitude, distance, radius, maxItems, startDate.toDate(), endDate.toDate());
-	}  
+	}
 }
