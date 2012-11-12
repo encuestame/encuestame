@@ -456,7 +456,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return poll;
 
     }
-    
+
     /**
      * Helper create default poll.
      * @param question
@@ -468,7 +468,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 		return this.createPoll(new Date(), question, userAccount, Boolean.TRUE,
 				Boolean.TRUE);
 	}
-    
+
     /**
       * Helper to create poll
       * @param createdDate
@@ -1197,6 +1197,25 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
+	/**
+	 *
+	 * @param tweetOwner
+	 * @param question
+	 * @param isComplete
+	 * @param isPublished
+	 * @param isScheduled
+	 * @param creationDate
+	 * @return
+	 */
+	public TweetPoll createAdvancedTweetPoll(final Account tweetOwner,
+			final Question question, final Boolean isPublished,
+			final Boolean isComplete, final Boolean isScheduled,
+			final Date creationDate) {
+		return createTweetPoll(12345L, false, false, false, isPublished,
+				isScheduled, new Date(), creationDate, isComplete, tweetOwner,
+				question, null);
+	}
+
     /**
      * Create Not Published {@link TweetPoll}.
      * @param tweetOwner tweet owner
@@ -1236,7 +1255,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         getTweetPoll().saveOrUpdate(tweetPollResult);
         return tweetPollResult;
     }
-    
+
     /**
      * Create tweetpoll result data with polling date.
      * @param tweetPollSwitch
@@ -1324,7 +1343,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         final SurveySection surveySection = new SurveySection();
         surveySection.setDescSection(name);
         surveySection.setSurvey(survey);
-        surveySection.setSectionName(name); 
+        surveySection.setSectionName(name);
         getSurveyDaoImp().saveOrUpdate(surveySection);
         return surveySection;
     }
@@ -2211,19 +2230,19 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     public AccessRate createSurveyRate(final Boolean rate, final Survey survey, final String ipAddress){
         return this.createAccessRateItem(rate, null, survey, null, null, ipAddress);
     }
-    
+
 	/**
 	 * Create question preference
 	 * @param preference
 	 * @param value preference value
-	 * @param question 
+	 * @param question
 	 * @return
 	 */
 	public QuestionPreferences createQuestionPreference(
 			final String preference, final String value, final Question question) {
 		final QuestionPreferences questionPreference = new QuestionPreferences();
 		questionPreference.setPreference(preference);
-		questionPreference.setQuestion(question); 
+		questionPreference.setQuestion(question);
 		getQuestionDaoImp().saveOrUpdate(questionPreference);
 		return questionPreference;
 	}

@@ -433,4 +433,23 @@ public interface ITweetPoll extends IBaseDao{
 	List<TweetPoll> retrieveCompletedTweetPoll(final Account account,
 	            final Integer maxResults, final Integer start, final Boolean isComplete);
 
+	/**
+	 *
+	 * @param isPublished
+	 * @param isComplete
+	 * @param favourites
+	 * @param scheduled
+	 * @param user
+	 * @param start
+	 * @param max
+	 * @param period
+	 * @param keyword
+	 * @return
+	 */
+	List<TweetPoll> advancedSearch(final Boolean isPublished,
+			final Boolean isComplete, final Boolean favourites,
+			final Boolean scheduled, final Account user,
+			final Integer start, final Integer max,
+			final Integer period, final String keyword);
+
 }

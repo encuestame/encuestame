@@ -795,4 +795,65 @@ public class TestTweetPollDao  extends AbstractBase{
 						Boolean.FALSE);
 		Assert.assertEquals("Should be", 1, inCompletedTweetpolls.size());
 	}
+
+	/**
+	 * Test Advanced search tweetpolls.
+	 */
+	@Test
+	public void testTweetPollAdvancedSearch() {
+		final DateTime time1 = new DateTime();
+		final DateTime time2 = time1.minusDays(8);
+		// published - completed - scheduled
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("cabeza"), Boolean.TRUE, Boolean.TRUE,
+				Boolean.FALSE, new Date());
+
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("cara"), Boolean.TRUE, Boolean.TRUE,
+				Boolean.FALSE, new Date());
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("pelo"), Boolean.FALSE, Boolean.FALSE,
+				Boolean.FALSE, time2.toDate());
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("cana"), Boolean.TRUE, Boolean.TRUE,
+				Boolean.FALSE, new Date());
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("lentes"), Boolean.FALSE, Boolean.TRUE,
+				Boolean.FALSE, new Date());
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("dientes"), Boolean.TRUE, Boolean.FALSE,
+				Boolean.FALSE, time2.toDate());
+
+		/** published - completed - favourite - scheduled **/
+		final List<TweetPoll> search1 = getTweetPoll().advancedSearch(
+				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.FALSE,
+				this.secondary.getAccount(), 0, 10, 7, "ca");
+		Assert.assertEquals("Should be", 3, search1.size());
+
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("nariz"), Boolean.TRUE, Boolean.TRUE,
+				Boolean.TRUE, new Date());
+		createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("dedos"), Boolean.TRUE, Boolean.FALSE,
+				Boolean.FALSE, new Date());
+
+		final TweetPoll tp = createAdvancedTweetPoll(secondary.getAccount(),
+				createDefaultQuestion("boca"), Boolean.TRUE, Boolean.FALSE,
+				Boolean.FALSE, time2.toDate());
+		tp.setFavourites(Boolean.FALSE);
+		getTweetPoll().saveOrUpdate(tp);
+
+		final List<TweetPoll> search2 = getTweetPoll().advancedSearch(
+				Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE,
+				this.secondary.getAccount(), 0, 10, 30, "b");
+		Assert.assertEquals("Should be", 1, search2.size());
+
+		System.out.println("\n");
+
+		final List<TweetPoll> search3 = getTweetPoll().advancedSearch(
+				Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE,
+				this.secondary.getAccount(), 0, 10, 30, "d");
+		Assert.assertEquals("Should be", 2, search3.size());
+
+	}
 }
