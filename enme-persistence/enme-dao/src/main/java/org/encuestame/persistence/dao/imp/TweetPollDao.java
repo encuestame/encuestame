@@ -961,4 +961,27 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 		return this.findByNamedParamGeoLocationItems(queryStr, latitude,
 				longitude, distance, radius, maxItems, startDate.toDate(), endDate.toDate());
 	}
+
+	// NOTE: Missing search by Social Links and text
+	@SuppressWarnings("unchecked")
+	public List<TweetPoll> advancedSearch(final Boolean isPublished,
+			final Boolean isComplete, final Boolean favourites,
+			final Boolean scheduled, final Account user, final Integer start,
+			final Integer max, final Integer period, final String keyword) {
+		final SearchPeriods searchPeriods = SearchPeriods
+				.getPeriodString(period.toString());
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(TweetPoll.class);
+		criteria.createAlias("question", "question");
+		criteria.add(Restrictions.like("question.question", keyword,
+				MatchMode.ANYWHERE));
+
+		criteria.add(Restrictions.eq("completed", isComplete));
+		criteria.add(Restrictions.eq("scheduleTweetPoll", scheduled));
+		criteria.add(Restrictions.eq("publishTweetPoll", isPublished));
+		criteria.add(Restrictions.eq("favourites", favourites));
+		criteria.add(Restrictions.eq("tweetOwner", user));
+		calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
 }
