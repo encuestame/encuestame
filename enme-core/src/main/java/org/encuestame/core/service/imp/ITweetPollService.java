@@ -509,18 +509,9 @@ public interface ITweetPollService extends IMasterSurveyService{
 
  	 /**
  	  * Search advanced tweetpoll.
- 	  * @param keyword
- 	  * @param period
- 	  * @param isPublished
- 	  * @param isComplete
- 	  * @param isFavourite
- 	  * @param isScheduled
- 	  * @param start
- 	  * @param max
+ 	  * @param searchBean
  	  * @return
+ 	  * @throws EnMeNoResultsFoundException
  	  */
- 	 List<TweetPollBean> searchAdvancedTweetPoll(final String keyword,
-			final Integer period, final Boolean isPublished,
-			final Boolean isComplete, final Boolean isFavourite,
-			final Boolean isScheduled, final Integer start, final Integer max) throws EnMeNoResultsFoundException ;
+ 	List<TweetPollBean> searchAdvancedTweetPoll(final AdvancedSearchBean searchBean) throws EnMeNoResultsFoundException;
 }
