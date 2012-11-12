@@ -36,12 +36,6 @@ define(["dojo/_base/declare",
            _open : false,
 
            /**
-            * Default template.
-            */
-           templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
-               "template/timeDropDownTemplate.html"),
-
-           /**
             * post create.
             */
            postCreate : function() {

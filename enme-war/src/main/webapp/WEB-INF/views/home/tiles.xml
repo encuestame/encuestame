@@ -24,7 +24,7 @@
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}cloud.jsp" />
     </definition>
 
-    <definition name="help" extends="page">
+    <definition name="user/help" extends="page">
         <put-attribute name="title" value="Help | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}help.jsp" />
     </definition>

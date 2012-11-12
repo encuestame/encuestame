@@ -14,10 +14,10 @@
             <a href="<%=request.getContextPath()%>/home">
                 <spring:message code="home.category.all" /> </a> |
          </span>
-        <span>
+<%--         <span>
             <a href="<%=request.getContextPath()%>/home?view=survey">
                 <spring:message code="home.type.surveys" /> </a>
-         </span>
+         </span> --%>
          <span> |
             <a href="<%=request.getContextPath()%>/home?view=tweetpoll">
                 <spring:message code="home.type.tweetpoll" /> </a>

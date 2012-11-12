@@ -80,7 +80,7 @@ define([
                   }
                 }
               });
-              this.callGET(params, this.getURLService().service('encuestame.service.list.rate.buttons'), load, null, null);
+              this.getURLService().get('encuestame.service.list.rate.buttons', params, load, null, null);
            },
 
            /**
@@ -136,7 +136,7 @@ define([
                    id : graph,
                    valuesx : valuesx,
                    valuesy : valuesy,
-                   width : 630,
+                   width : 430,
                    radius : 1,
                    height : 280,
                };
@@ -211,7 +211,8 @@ define([
                       }
                    }
                  });
-                 this.callGET(params, this.getURLService().service('encuestame.service.list.range.hashtag'), load, null, null);
+                 //this.callGET(params, this.getURLService().service('encuestame.service.list.range.hashtag'), load, null, null);
+                 this.getURLService().get('encuestame.service.list.range.hashtag', params, load, null, null);
            },
 
            /**

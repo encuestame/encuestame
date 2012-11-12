@@ -13,7 +13,7 @@
 @import url("web/components/front-aside.css");
 @import url("web/components/front.css");
 @import url("web/components/profile.css");
-@import url("web/components/publication-item.css");
+
 @import url("web/components/front-end-items.css");
 @import url("shared-components/rated-comments.css");
 @import url("shared-components/detail-tp-hashtag.css");
@@ -32,9 +32,11 @@
 @import url("web/components/more.css");
 @import url("shared-components/detail-comments.css");
 @import url("shared-components/detail-tp-answers.css");
+@import url("shared-components/rated-hashtag.css");
+@import url("shared-components/publication-item.css");
 @import url("web/components/poll-results.css");
 @import url("web/components/poll.css");
-@import url("web/components/poll-vote.css");
+@import url("shared-components/poll-vote.css");
 @import url("web/components/poll-admon.css");
 @import url("web/components/button.css");
 @import url("web/components/menu-logged.css");

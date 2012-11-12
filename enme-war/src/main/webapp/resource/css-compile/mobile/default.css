@@ -1,11 +1,14 @@
-div.mobile{
+.mobile{}
+
+.mobile .enme-mobile-main-message {
+    padding: 30px;
+    font-size: 14px;
+    color: #888;
 }
 
-.vote-page header.vote-logo .logo {
-    margin: 0 auto;
-    width: 300px;
-    text-align: center;
-    margin-top: 20px;
+.mobile .enme-mobile-main-message a {
+    font-size: 12px;
+    text-decoration: underline;
 }
 
 .mobile .tags a.tag {
@@ -37,112 +40,9 @@ div.mobile-enme-content{
     margin: 0;
 }
 
-.mobile .emne-box header{
+.mobile .emne-box header {
     padding: 15px;
     color: white;
-}
-
-/** review below **/
-
-
-div.mobile div.mobile-signin{
-    padding: 1px;
-}
-
-div.mobile-signin div.formWrapper{
-    margin: 10px;
-}
-
-div.mobile div.enme-content{
-    padding: 15px;
-}
-
-div.mobile-signin div.formWrapper div.mobile-errorWrapper{
-    margin: 5px;
-}
-
-
-div.mobile-signin div.formWrapper div.field{
-    padding: 10px;
-}
-
-div.mobile-signin div.formWrapper div.forgotPassword{
-    font-size: 10px;
-    float: left;
-    margin-left: 100px;
-}
-
-div.mobile-signin div.formWrapper div.forgotPassword a{
-    color: #000;
-    text-decoration: none;
-}
-
-div.mobile-signin div.forgotPassword a:hover{
-    color: #000;
-    text-decoration: underline;
-}
-
-
-div.mobile-signin div.formWrapper div.field div.label{
-    float: left;
-    color: #564F4F;
-    padding-top: 6px;
-    width: 90px;
-    font-size: 130%;
-}
-
-div.mobile-signin div.formWrapper div.field div.output input[type="text"]{
-    height: 20px;
-    width: 220px;
-    font-size: 120%;
-    font-weight: normal;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    padding: 4px 2px;
-    border: 1px solid #AAAAAA;
-}
-
-div.mobile-signin div.formWrapper div.field div.output label{
-    margin-left: 90px;
-}
-
-div.mobile-signin div.formWrapper div.signIn{
-    text-align: center;
-}
-
-div.mobile-signin div.formWrapper div.field div.output input[type="password"]{
-    height: 20px;
-    width: 220px;
-    font-size: 120%;
-    font-weight: normal;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    padding: 4px 2px;
-    border: 1px solid #AAAAAA;
-}
-
-div.mobile-signin div.formWrapper div.field div.output span a{
-    text-decoration: none;
-    padding-left: 5px;
-}
-
-div.mobile-signin div.formWrapper div.buttonGroup{
-    margin-left: 95px;
-    margin-top: 25px;
-}
-
-div.mobile-signin div.formWrapper div.mobile-signin-options{
-    padding: 2px;
-}
-
-div.mobile-signin div.formWrapper div.mobile-signin-options a:link{
-    font-size: 12px;
-}
-
-div.mobile-signin div.formWrapper div.mobile-signin-options .item{
-    padding: 3px;
 }
 
 /*** FRONTEND ****/
@@ -163,27 +63,7 @@ div.menu-options{
     background-color: #275296;
     text-align: center;
 }
-/*
-div.home-mobile div.mobile-categoryMenu span.option{
-    display: inline-block;
-    padding: 5px 5px 5px 5px ;
-    text-align: center;
-    max-width: 62px;
-    min-width: 75px;
-}
 
-div.home-mobile div.mobile-categoryMenu span.option a:link{
-    color: #FFFFFF;
-    font-size: 100%;
-    font-weight: bold;
-}
-
-div.home-mobile div.mobile-categoryMenu span.option a:visited{
-    color: #B5E6F1;
-    font-size: 100%;
-    font-weight: bold;
-}
- */
 div.mobile-MenuHotTags {
     font-size: 75%;
     text-align: center;
@@ -215,40 +95,6 @@ div.mobile-tweetpolls{
      margin: 4px;
 }
 
-
-
-div.mobile-tags-tweetpolls{
-
-}
-
-div.mobile-hashtagName {
-
-}
-
-div.mobile-tweetpolls{
-
-}
-
-div.mobile-tweetpolls-time{
-
-}
-/*** SEARCH ***/
-
-div.mobile-search{
-    padding: 0px;
- }
-
-div.mobile-search input{
-   /* margin: 2em , 0.5em ,1em ,1em;*/
-    margin-left: 2px;
-    margin-right:1px;
-    border: 1.5px solid #DFDFDF;
-    width:98%;
-    height:30px;
-    font-size:15px;
-}
-
-
 /** menu **/
 
 div.mobile-menu-wrapper {
@@ -269,112 +115,4 @@ div.mobile-menu-wrapper span{
     min-height: 20%;
     padding: 5px;
     max-width: 36px;
-}
-
-/** mobile notifications **/
-
-div.mobile-notification-list{
-
-}
-
-div.mobile-notification-list div.section{
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-
-div.mobile-notification-list div.section h3{
-    padding: 2px;
-    background-color: #E3E3E3;
-    color: #C2C2C2;
-}
-
-div.mobile-notification-list-item {
-    clear: both;
-    background-color: #EDEDED;
-    min-height: 45px;
-    border-bottom: 1px solid gray;
-    padding: 5px;
-    overflow: auto;
-}
-
-div.mobile-notification-list-item .title{
-    font-size: 110%;
-    color: #275296;
-}
-
-div.mobile-notification-list-item .mobile-description{
-    font-size: 90%;
-    float: left;
-    padding: 3px;
-}
-
-div.mobile-notification-list-item .mobile-description .date{
-    font-size: 60%;
-    color: #000;
-}
-
-div.mobile-notification-list-item .options{
-    float: right;
-}
-
-
-/** profile view **/
-
-div.mobile-profile-wrapper{
-
-}
-
-
-div.mobile-profile-wrapper div.profile-name{
-    padding: 15px;
-    margin-bottom: 0px;
-}
-
-div.mobile-profile-wrapper div.picture {
-    float: left;
-}
-
-div.mobile-profile-wrapper ul{
-    padding: 0px !important;
-    margin: 0px !important;
-}
-
-div.mobile-profile-wrapper .rss li img{
-    float: left;
-    margin-right: 5px;
-}
-
-div.mobile-profile-wrapper .rss li {
-  border-bottom: 1px dotted #B8B7B7;
-  display: block;
-  padding-left: 5px;
-  vertical-align: middle;
-}
-
-/** setup **/
-
-div.mobile-setup-content{
-    padding: 10px;
-}
-
-div.mobile-setup-header{
-  background-color: #F1721F;
-  border-bottom: 3px solid #888888;
-  color: #FFFFFF;
-  font-weight: bold;
-  padding: 5px;
-  width: auto;
-}
-
-div.mobile-setup-header div.mobile-title{
-    font-size: 18px;
-    padding: 10px;
-}
-
-div.mobile-header-description{
-    background-color: black;
-    color: white;
-    text-align: center;
-    font-size: 14px;
-    padding: 5px;
 }

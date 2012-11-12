@@ -46,7 +46,7 @@ define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
           this._buildStats(data.success.generic);
         }
       });
-      this.callGET(params, this.getURLService().service(this._service), load, null, null);
+      this.getURLService().get(this._service, params,  load, null, null);
     },
 
     /**
