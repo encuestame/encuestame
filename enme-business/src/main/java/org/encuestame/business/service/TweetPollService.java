@@ -1210,4 +1210,30 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return ConvertDomainBean.convertListToTweetPollBean(tweetPollsbyFolder);
     }
 
+    /*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#searchAdvancedTweetPoll
+	 * (java.lang.String, java.lang.Integer, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.Integer, java.lang.Integer)
+	 */
+	public List<TweetPollBean> searchAdvancedTweetPoll(final String keyword,
+			final Integer period, final Boolean isPublished,
+			final Boolean isComplete, final Boolean isFavourite,
+			final Boolean isScheduled, final Integer start, final Integer max) throws EnMeNoResultsFoundException {
+		final List<TweetPollBean> searchTweetPollBeans = new ArrayList<TweetPollBean>();
+		System.out.println("SERVICE account  --> "+ getUserPrincipalUsername());
+
+		//publish - completed - favourite - scheduled
+		final List<TweetPoll> searchTweetPolls = getTweetPollDao()
+				.advancedSearch(isPublished, isComplete, isFavourite,
+						isScheduled,
+						getAccount(getUserPrincipalUsername()), start,
+						max, period, keyword);
+
+		return ConvertDomainBean.convertListToTweetPollBean(searchTweetPolls);
+	}
+
 }
