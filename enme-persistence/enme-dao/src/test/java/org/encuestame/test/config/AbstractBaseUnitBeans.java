@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.encuestame.persistence.domain.GeoPointFolderType;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
-import org.encuestame.persistence.domain.survey.Survey; 
+import org.encuestame.persistence.domain.survey.Survey;
 import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
@@ -26,6 +26,7 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.AdvancedSearchBean;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -520,7 +521,7 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
          surveyBean.setCreatedAt(createdAt);
          return surveyBean;
      }
-     
+
      /**
       * Create {@link UnitSurveySection}.
       * @param name
@@ -535,5 +536,34 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
  		sectionBean.setName(name);
  		return sectionBean;
  	}
- 	
+
+     /**
+     *
+     * @param isPublished
+     * @param isComplete
+     * @param isFavourite
+     * @param isScheduled
+     * @param keyword
+     * @param period
+     * @param max
+     * @param start
+     * @return
+     */
+	public AdvancedSearchBean createAdvancedSearchBean(
+			final Boolean isPublished, final Boolean isComplete,
+			final Boolean isFavourite, final Boolean isScheduled,
+			final String keyword, final Integer period, final Integer max,
+			final Integer start) {
+		final AdvancedSearchBean advBean = new AdvancedSearchBean();
+		advBean.setIsComplete(isComplete);
+		advBean.setIsFavourite(isFavourite);
+		advBean.setIsPublished(isPublished);
+		advBean.setIsScheduled(isScheduled);
+		advBean.setKeyword(keyword);
+		advBean.setMax(max);
+		advBean.setPeriod(period);
+		advBean.setStart(start);
+		return advBean;
+	}
+
 }
