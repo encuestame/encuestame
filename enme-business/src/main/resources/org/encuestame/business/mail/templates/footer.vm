@@ -1,6 +1,12 @@
-<div id="footer" style=" background-color: #F2F2F2; min-height: 27px; padding:5px;">
-        <div style="margin-bottom: 2px; margin-top:2px; color:#BDBDBD; font-size: 11px;">If you have any questions or comments, please let us know!<a href="#"> click here. </a> or feel free to contact us anytime at <span style="color:#0101DF;font-size:11px;">support@encuestame.org</span></div>
-  <div style= "color:#BDBDBD; font-size:12px; ">The Encuestame Team
-     <span style="color:#0101DF;font-size:11px;"><a href="#"> http://www.encuestame.org</a></span>
-    </div>
+ <div id="extras" style="font-size:12px;font-weight:normal; color:#ffffff; width:560;border:0;margin-left: auto ;margin-right: auto ; padding:9px 18px 0 18px;font-family:lucida grande,helvetica,arial;">
+
+        <div style="font-size:12px;font-weight:normal;font-family:lucida grande,helvetica,arial;">
+
+            <span style="margin-right:40px" class="sp1"> <a style="color:#616679" href="http://blog.encuestame.org/" target="_blank"> Demo2 </a> </span>
+            <span style="margin-right:30px" class="sp2"> <a style="color:#616679" href="http://blog.encuestame.org/" target="_blank">Login </a></span>
+            <span style="margin-right:30px" class="sp11"> <a style="color:#616679" href="http://blog.encuestame.org/" target="_blank">Blog </a></span>
+            <span style="margin-right:30px" class="sp12"> <a style="color:#616679" href="http://twitter.com/encuestame" target="_blank">Follow Us</a></span>
+            <span style="margin-right:30px"class="sp13"> <a style="color:#616679" href="http://www.facebook.com/pages/encuestame/" target="_blank">Facebook </a></span>
+            <span style="margin-right:30px" class="sp3"><a style="color:#616679" href="http://blog.encuestame.org/" target="_blank"> Release mailing lists </a> </span>
+        </div>
 </div>

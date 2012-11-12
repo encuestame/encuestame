@@ -1,3 +1,5 @@
-<div class="header" style=" background-color: #E8E8E8; min-height: 27px;  border-bottom: 1px solid #BDBDBD;">
-        <div style="font-size:16px; font-weidth:bold; padding:5px;"> Encuestame </div>
+<div id= "logo" style="margin:0 0 11px 0">
+	<span>
+		<a href="http://www.encuestame.org/" target="_blank"><img src="http://aplud.com/mb2wb.jpg" border="0" alt="Encuestame"></a>
+	</span>
 </div>
