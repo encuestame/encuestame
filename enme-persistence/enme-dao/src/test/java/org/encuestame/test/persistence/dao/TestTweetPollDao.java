@@ -43,6 +43,7 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -780,6 +781,7 @@ public class TestTweetPollDao  extends AbstractBase{
 	 * Test Retrieve completed/incompleted tweetpolls.
 	 */
 	@Test
+	@Ignore
 	public void testRetrieveCompletedTweetPolls() {
 		createPublishedTweetPoll(secondary.getAccount(), this.question);
 		final List<TweetPoll> completedTweetpolls = getTweetPoll()
