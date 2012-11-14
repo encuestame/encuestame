@@ -39,6 +39,7 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.AdvancedSearchBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
@@ -87,7 +88,7 @@ public interface ITweetPollService extends IMasterSurveyService{
     * @throws EnMeNoResultsFoundException
     */
    TweetPollSwitch createTweetPollQuestionAnswer(
-           final QuestionAnswerBean answerBean, 
+           final QuestionAnswerBean answerBean,
            final TweetPoll tp,
            final HttpServletRequest request)
            throws EnMeNoResultsFoundException;
@@ -204,8 +205,8 @@ public interface ITweetPollService extends IMasterSurveyService{
     List<TweetPollBean> getTweetsPollsByUserName(final String username,
             final Integer maxResults, final Integer start) throws EnMeNoResultsFoundException;
 
- 
-    
+
+
     /**
      * Public Multiples Tweet Accounts.
      * @param twitterAccounts List of {@link SocialAccount}.
@@ -479,14 +480,14 @@ public interface ITweetPollService extends IMasterSurveyService{
       * @param hashTag
       */
      void removeHashtagFromTweetPoll(final TweetPoll tweetPoll, final HashTag hashTag);
-     
+
      /**
       * Retrieve {@link TweetPollFolder} by id and user.
       * @param folderId
       * @return
       */
      TweetPollFolder getTweetPollFolderbyId(final Long folderId);
-     
+
      /**
  	 * Search tweetpolls by folder.
  	 * @param folderId
@@ -496,14 +497,22 @@ public interface ITweetPollService extends IMasterSurveyService{
  	 */
  	List<TweetPollBean> searchTweetPollsByFolder(final Long folderId,
  			final String username) throws EnMeNoResultsFoundException;
- 	
- 	/** 
+
+ 	/**
 	 * Validate TweetPoll IP.
      * @param ipVote  ipVote
      * @param tweetPoll tweetPoll
- 	 * @return 
+ 	 * @return
  	 * @throws EnmeFailOperation
  	 */
  	 List<TweetPollResult> validateIpVote(final String ipVote, final TweetPoll tweetPoll)
 			throws EnmeFailOperation;
+
+ 	 /**
+ 	  * Search advanced tweetpoll.
+ 	  * @param searchBean
+ 	  * @return
+ 	  * @throws EnMeNoResultsFoundException
+ 	  */
+ 	List<TweetPollBean> searchAdvancedTweetPoll(final AdvancedSearchBean searchBean) throws EnMeNoResultsFoundException;
 }

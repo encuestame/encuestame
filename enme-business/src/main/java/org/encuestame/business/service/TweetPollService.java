@@ -58,6 +58,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
+import org.encuestame.utils.web.AdvancedSearchBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
@@ -1209,5 +1210,18 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         log.info("search polls by folder size " + tweetPollsbyFolder.size());
         return ConvertDomainBean.convertListToTweetPollBean(tweetPollsbyFolder);
     }
+
+   /*
+    * (non-Javadoc)
+    * @see org.encuestame.core.service.imp.ITweetPollService#searchAdvancedTweetPoll(AdvancedSearchBean)
+    */
+	public List<TweetPollBean> searchAdvancedTweetPoll(final AdvancedSearchBean searchBean) throws EnMeNoResultsFoundException  {
+		// published - completed - favourite - scheduled
+		final List<TweetPoll> searchTweetPolls = getTweetPollDao()
+				.advancedSearch(searchBean.getIsPublished(), searchBean.getIsComplete(), searchBean.getIsFavourite(),
+						searchBean.getIsScheduled(), getAccount(getUserPrincipalUsername()),
+						searchBean.getStart(), searchBean.getMax(),searchBean.getPeriod(), searchBean.getKeyword());
+		return ConvertDomainBean.convertListToTweetPollBean(searchTweetPolls);
+	}
 
 }

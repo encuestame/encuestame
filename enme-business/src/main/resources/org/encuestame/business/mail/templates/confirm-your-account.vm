@@ -1,31 +1,34 @@
 <html>
-<body>
-<div class="container" style="border: 1px solid #BDBDBD;">
-    #parse("/org/encuestame/business/mail/templates/header.vm")
+    <body>
+        <div id="container" style="padding:44px 20px 30px 20px;background-color:#f9dba6;font-size:13px;color:#666666;line-height:150%;font-family:lucida grande,helvetica,arial">
+            <div id="containerBody" style="background-color:#ffffff;width:560;border:0;margin-left: auto ;margin-right: auto ; padding:22px 18px 10px 18px">
+                <div id= "logo" style="margin:0 0 11px 0">
+                    <span>
+                        <a href="http://www.encuestame.org/" target="_blank"><img src="http://aplud.com/mb2wb.jpg" border="0" alt="Encuestame"></a>
+                    </span>
+                </div>
+                <div style="font-size:15px;font-weight:normal;line-height:22px;margin:0 0 11px 0; text-align:left">
+                    <span> Estimado/a Diana Morales Urbina. </span> <span style="color:#0101DF;font-size:12px;"> ${user.username} </span>
+                        </div>
+                        <div style="margin:0 0 11px 0">
+                            <span>Your registration has been successful,  but you still haven't confirmed your account
+                            </span>
+                        </div>
+                        <div>
+                            <span>  To complete the signup process, please confirm your encuestame account by clicking this link  or paste it into the url field on your favorite browser:
+                                <div id= "containerLink" style="margin:10px 16px 3px 0px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
+                                    <a href="">${domain}/user/confirm/email/${inviteCode} </a>.
+                            </span>
+                                </div>
+                        </div>
 
-    <div id= containerBody style="margin-bottom:25px">
-        <div style= "margin:10px;font-size:12px; ">
-             Hi,
-             <br/>
-             Thank you <span style="color:#0101DF;font-size:12px;"> ${user.username} </span>. Your registration has been successful.
-        </div>
-
-        <div id= "containerLink" style="margin:10px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
-            <div style="font-weight: bold; margin-bottom: 2px; font-size: 11px;">
-                 Please confirm your encuestame account by clicking this link  or paste it into the url field on your favorite browser:
+                        <div style="margin:6px 0 11px 0">
+                            <span> Once you have confirmed your account, you'll have access to all.</span>
+                        </div>
+                </div>
+            <div style="text-align:center;background-color:#f2f2f2;width:560;border:0; padding:3px 18px 10px 18px;margin-left: auto ;margin-right: auto ;">
+                <span>Thank you, <strong>Encuestame team</strong></span>
             </div>
-             <div style="color: rgb(59, 89, 152); text-decoration: none; font-size: 11px;">
-                 <a href="${domain}/user/confirm/email/${inviteCode}">
-                    ${domain}/user/confirm/email/${inviteCode}
-                 </a>
-             </div>
-            <div style="margin-bottom: 2px; margin-top:2px; font-size: 11px;">
-               Once you have confirmed your account, you can access full access.
-            </div>
         </div>
-    </div>
-    #parse("/org/encuestame/business/mail/templates/footer.vm")
-</div>
-
-</body>
+    </body>
 </html>

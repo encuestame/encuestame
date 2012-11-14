@@ -18,16 +18,18 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import org.encuestame.core.service.imp.MailServiceOperations;
-import org.encuestame.persistence.domain.EmailList;
+import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.persistence.domain.Email;
+import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.security.UserAccount;
-import org.encuestame.persistence.dao.IProjectDao;
 import org.encuestame.test.business.service.config.AbstractServiceBase;
 import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.mail.InvitationBean;
-import org.junit.Before; 
-import org.junit.Ignore;
+import org.encuestame.utils.mail.NotificationBean;
+import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.web.UserAccountBean;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since June 24, 2010
  * @version $Id: $
- */ 
+ */
 @Category(InternetTest.class)
 public class TestCatEmailLists extends AbstractServiceBase {
 
@@ -57,7 +59,10 @@ public class TestCatEmailLists extends AbstractServiceBase {
         this.secondary = createUserAccount("paola", this.user);
         this.emailList = createDefaultListEmail(this.secondary.getAccount());
         createDefaultListEmail(this.user, "default");
-        this.emails = createDefaultEmails("paola@jotadeveloper.com", this.emailList);
+        //this.emails = createDefaultEmails("encuestameteam@gmail.com", this.emailList);
+        createDefaultEmails(getProperty("mail.test.email"), this.emailList);
+        createDefaultEmails(getProperty("mail.test.email2"), this.emailList);
+        createDefaultEmails(getProperty("mail.test.email3"), this.emailList);
     }
 
 
@@ -89,7 +94,117 @@ public class TestCatEmailLists extends AbstractServiceBase {
               }
       }
 
+    /**
+     * Test Send email notification
+     * template:notification.vm
+     */
+    @Test(timeout = 80000)
+    public void testSendNotificationEmail(){
+          final List<Email> emailList = getCatEmailDao().findEmailsByListId(
+                  this.emailList.getIdList());
+          for (Email emails : emailList) {
+                assertNotNull(emails.getEmail());
+                final NotificationBean notification = new NotificationBean();
+                notification.setCode("5678");
+                notification.setEmail(emails.getEmail());
+                notification.setMessage("My personal message");
+                notification.setUrlUnsuscribe(URLPOLL);
+                mailService.sendEmailNotification(notification);
+              }
+      }
 
+    /**
+     * Test Renew password email
+     * template: renew-password.vm
+     */
+    @Test(timeout = 80000)
+    public void testSendRenewPasswordEmail(){
+          final List<Email> emailList = getCatEmailDao().findEmailsByListId(
+                  this.emailList.getIdList());
+          for (Email emails : emailList) {
+                assertNotNull(emails.getEmail());
+                final UserAccountBean unitUserBean = new UserAccountBean();
+                unitUserBean.setUsername(this.secondary.getUsername());
+                unitUserBean.setPassword("password");
+                unitUserBean.setEmail(emails.getEmail());
+                mailService.sendRenewPasswordEmail(unitUserBean);
+              }
+      }
+
+    /**
+     * Test Notification status account email.
+     * template: notification-account.vm
+     */
+    @Test(timeout = 80000)
+    public void testSendNotificationStatusAccountEmail(){
+          final List<Email> emailList = getCatEmailDao().findEmailsByListId(
+                  this.emailList.getIdList());
+          for (Email emails : emailList) {
+                assertNotNull(emails.getEmail());
+                final SignUpBean signUpBean = new SignUpBean();
+                signUpBean.setCaptcha("mycaptcha");
+                signUpBean.setEmail(this.emails.toString());
+                signUpBean.setFullName("mifullname");
+                signUpBean.setPassword("mipassword");
+                signUpBean.setUsername("myusername");
+                mailService.sendNotificationStatusAccount(signUpBean, "Mi mensaje");
+              }
+      }
+
+    /**
+     * Test Confirm your account email.
+     * template: confirm-your-account.vm
+     */
+    @Test(timeout = 80000)
+    public void testSendConfirmYourAccountEmail(){
+          final List<Email> emailList = getCatEmailDao().findEmailsByListId(
+                  this.emailList.getIdList());
+          for (Email emails : emailList) {
+                assertNotNull(emails.getEmail());
+                final SignUpBean signUpBean = new SignUpBean();
+                signUpBean.setCaptcha("mycaptcha");
+                signUpBean.setEmail(this.emails.toString());
+                signUpBean.setFullName("mifullname");
+                signUpBean.setPassword("mipassword");
+                signUpBean.setUsername("myusername");
+                mailService.sendConfirmYourAccountEmail(signUpBean, "myCode");
+              }
+      }
+
+    /**
+     * Test password confirmation
+     * template: password-confirmation.vm
+     */
+    @Test(timeout = 80000)
+    public void testSendPasswordConfirmationEmail(){
+        final List<Email> emailList = getCatEmailDao().findEmailsByListId(
+                this.emailList.getIdList());
+        for (Email emails : emailList) {
+              assertNotNull(emails.getEmail());
+              final SignUpBean signUpBean = new SignUpBean();
+              signUpBean.setCaptcha("mycaptcha");
+              signUpBean.setEmail(emails.getEmail());
+              signUpBean.setFullName("mifullname");
+              signUpBean.setPassword("mipassword");
+              signUpBean.setUsername("myusername");
+              mailService.sendPasswordConfirmationEmail(signUpBean);
+            }
+    }
+
+    /**
+     * Test startup notification email.
+     * template: startup.vm
+     */
+    @Test(timeout = 80000)
+    public void testSendStartUpNotificationEmail(){
+        final List<Email> emailList = getCatEmailDao().findEmailsByListId(
+                this.emailList.getIdList());
+        for (Email emails : emailList) {
+              assertNotNull(emails.getEmail());
+              final String message= " My personal message";
+              mailService.sendStartUpNotification(message);
+            }
+    }
 
     /**
      * Test Find Emails By List Id.
