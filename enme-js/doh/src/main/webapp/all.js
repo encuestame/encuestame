@@ -1,1 +1,1 @@
-doh.registerUrl("encuestame adjust test", "../test.html");
+doh.registerUrl("encuestame adjust testr", "../test.html");
