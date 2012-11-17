@@ -51,7 +51,7 @@ public class EnMeRoleVoter extends RoleVoter {
         int result = ACCESS_GRANTED;
         final Collection<? extends GrantedAuthority> authorities = authentication
                 .getAuthorities();
-        log.debug("Authoritiez size "+authorities.size());
+        log.debug("Authoritiez size " + authorities.size());
         for (ConfigAttribute attribute : attributes) {
             if (this.supports(attribute)) {
                 result = ACCESS_DENIED;
