@@ -1,8 +1,17 @@
-define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
-    "dijit/_WidgetsInTemplateMixin",
-    "me/core/main_widgets/EnmeMainLayoutWidget", "me/core/enme",
-    "dojo/text!me/web/widget/ui/templates/standBy.html" ], function(declare,
-    _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, main_widget,
+define([ "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "dojox/widget/Standby",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/enme",
+         "dojo/text!me/web/widget/ui/templates/standBy.html" ], function(
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    _WidgetsInTemplateMixin,
+    Standby,
+    main_widget,
     _ENME, template) {
   return declare([ _WidgetBase, _TemplatedMixin, main_widget,
       _WidgetsInTemplateMixin ], {

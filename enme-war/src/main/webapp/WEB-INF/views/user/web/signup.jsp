@@ -43,6 +43,11 @@
                         </fieldset>
                         <fieldset>
                             <div class="center">
+                                 <c:if test="${signupError}">
+                                    <div class="error">
+                                      <spring:message code="signup.error" />
+                                    </div>
+                                </c:if>
                                 <div data-dojo-type="me/web/widget/signup/Signup"
                                      value="<spring:message code="signup.button" />"></div>
                             </div>
@@ -52,7 +57,8 @@
                         </fieldset>
                         </div>
                     </div>
-                    <div class="section-signup" title="Sign up with your favourite social network" collapsed="false">
+                    <div class="section-signup" title="Sign up with your favourite social network"
+                            collapsed="false">
                             <div class="web-social-signin">
                                 <h3>
                                    <spring:message code="signup.social.signup" />
@@ -60,9 +66,6 @@
                                 <%@ include file="/WEB-INF/jsp/includes/web/social.jsp" %>
                               </div>
                     </div>
-            <div class="standby">
-                <div id="standby" data-dojo-type="me/web/widget/ui/StandBy" target="mainWrapper"></div>
-            </div>
             </form>
     </div>
 </div>

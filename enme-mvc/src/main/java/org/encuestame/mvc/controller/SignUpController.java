@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.security.util.PasswordGenerator;
+import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.mvc.controller.security.AbstractSecurityController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -46,6 +48,9 @@ public class SignUpController extends AbstractSecurityController {
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     *
+     */
     private final Integer PASSWORD_LENGHT = 8;
 
     /**
@@ -57,14 +62,13 @@ public class SignUpController extends AbstractSecurityController {
     public String addHandler(
             final Model model,
             final HttpServletRequest request) {
-        final Boolean privateHome = EnMePlaceHolderConfigurer
-        .getBooleanProperty("application.signup.enabled");
+        final Boolean privateHome = EnMePlaceHolderConfigurer.getBooleanProperty("application.signup.enabled");
         if (!privateHome) {
             log.debug("signup is disabled");
             return "redirect:/signin";
         } else {
             final SignUpBean user = new SignUpBean();
-            final String captcha = getReCaptcha().createRecaptchaHtml(null, null); 
+            final String captcha = getReCaptcha().createRecaptchaHtml(null, null);
             log.debug(captcha);
             user.setCaptcha(captcha);
             log.info("username "+user);
@@ -85,35 +89,35 @@ public class SignUpController extends AbstractSecurityController {
      */
     @RequestMapping(value = "/user/signup/create", method = RequestMethod.POST)
     public String processSubmit(final ModelMap model,
-            @RequestParam("realName") String realName,
-            @RequestParam("password") String password,
-            @RequestParam("username") String usernameForm,
-            @RequestParam("email") String emailForm,
+            @RequestParam(value = "realName", required = true, defaultValue = "") String realName,
+            @RequestParam(value = "password", required = true) String password,
+            @RequestParam(value = "username", required = true) String usernameForm,
+            @RequestParam(value = "email", required = true) String emailForm,
             final HttpServletRequest req) {
         final SignUpBean user = new SignUpBean();
+        String finalPath = "redirect:/user/dashboard";
         user.setEmail(filterValue(emailForm));
         user.setPassword(password);
         user.setFullName(filterValue(realName));
         user.setUsername(filterValue(usernameForm));
-        final ValidateOperations validation = new ValidateOperations(
-                getSecurityService());
-        if (validation.validateUserEmail(user.getEmail(), null) != null) {
-            log.warn("Email NOT VALID");
-            // result.rejectValue("email", "secure.email.notvalid");
-            // //secure.email.notvalid
+        final SecurityOperations _service = getSecurityService();
+        final ValidateOperations validation = new ValidateOperations(_service);
+        if (validation.validateSignUpForm(usernameForm, emailForm, password)) {
+            log.debug(" the signup process successfull");
+            try {
+                _service.singupUser(user, false);
+            } catch (Exception e) {
+                 RequestSessionMap.getCurrent(req).put("signupError", Boolean.TRUE);
+                 finalPath = "redirect:/user/signup";
+                 log.error("error on signup : " + e.getMessage());
+                 e.printStackTrace();
+            }
+        } else {
+            log.warn(" the signup not valid");
+            RequestSessionMap.getCurrent(req).put("signupError", Boolean.TRUE);
+            finalPath = "redirect:/user/signup";
         }
-        if (!validation.validateUsername(user.getUsername(), null)) {
-            log.warn("Username NOT VALID");
-            // result.rejectValue("username", "secure.user.notvalid");
-            // //secure.user.notvalid
-        }
-        if (user.getPassword() == null) {
-            password = PasswordGenerator.getPassword(PASSWORD_LENGHT);
-            user.setPassword(password);
-        }
-        getSecurityService().singupUser(user, false);
-        return "redirect:/user/dashboard";
-        // }
+        return finalPath;
     }
 
     /**
