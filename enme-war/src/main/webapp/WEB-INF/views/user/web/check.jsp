@@ -1,28 +1,22 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-
-<div id="web-login-container">
-    <form:form modelAttribute="forgotPasswordBean">
-        <div class="section-wrapper">
-            <label class="section-wrapper" for="j_username">
-                 <spring:message code="forgot.username" />:
-             </label>
-            <div class="login-section-wrapper">
-                <fieldset>
-                    <form:input path="email" size="30" maxlength="25" /><br /><form:errors path="email" cssClass="errors" />
-                 </fieldset>
-            </div>
-        </div>
-
-        <div class="section-wrapper">
-            <div class="">
-                 <c:out value="${forgotPasswordBean.captcha}" escapeXml="false" />
-                        <br /><form:errors path="captcha" cssClass="error" />
-                 </div>
-        </div>
-        <div class="section-wrapper loginButtonWrapper">
-            <div class="login-buton">
-                <input type="submit" class="btn grey defaultButton" name="submit" value="<spring:message code="forgot.submit" />" />
-            </div>
-        </div>
-    </form:form>
+<div id="web-user-actions-form-wrapper" class="enme-auto-center">
+    <div class="web-form-wrapper recover-password-form" id="web-form-wrapper">
+          <div class="section-signup" title="Sign Up with Username"
+              collapsed="false">
+              <div class="web-form-singup-container">
+                  <div class="web-message-forgot">
+                      <h1>
+                            <spring:message code="forgot.checkyouremail" />
+                      </h1>
+                      <div class="web-message-forgor-link">
+                             <span class="link">
+                                <a href="<%=request.getContextPath()%>/user/signin">
+                                    <spring:message code="header.signin" />
+                                 </a>
+                             </span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    </div>
 </div>

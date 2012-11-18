@@ -21,46 +21,46 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 public class Messagei18nInterceptor extends AbstractBaseOperations implements HandlerInterceptor{
-	
-	 private Logger log = Logger.getLogger(this.getClass());
-	 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, java.lang.Exception)
-	 */
-	@Override
-	public void afterCompletion(HttpServletRequest arg0,
-			HttpServletResponse arg1, Object arg2, Exception arg3)
-			throws Exception {		
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.web.servlet.ModelAndView)
-	 */
-	@Override
-	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
-			Object arg2, ModelAndView arg3) throws Exception {	
-		//add profile message
-		if (arg3 != null) {
-			//TODO: this messages are displayed on json responses, we need filter by type, spring config?
+     private Logger log = Logger.getLogger(this.getClass());
+
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.HandlerInterceptor#afterCompletion(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, java.lang.Exception)
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest arg0,
+            HttpServletResponse arg1, Object arg2, Exception arg3)
+            throws Exception {
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.HandlerInterceptor#postHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.web.servlet.ModelAndView)
+     */
+    @Override
+    public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
+            Object arg2, ModelAndView arg3) throws Exception {
+        //add profile message
+        if (arg3 != null) {
+            //TODO: this messages are displayed on json responses, we need filter by type, spring config?
 //			addDefaulti18nMessages(arg3.getModelMap());
 //			addi18nProperty(arg3.getModelMap(), "loading_message",
 //					getMessage("loading_message"));
 //			addi18nProperty(arg3.getModelMap(), "save_message",
 //					getMessage("save_message"));
 //			addi18nProperty(arg3.getModelMap(), "e_023", getMessage("e_023"));
-		}
-	}
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
-	 */
-	@Override
-	public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1,
-			Object arg2) throws Exception {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.web.servlet.HandlerInterceptor#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
+     */
+    @Override
+    public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1,
+            Object arg2) throws Exception {
+        return true;
+    }
 
 }

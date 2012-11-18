@@ -13,6 +13,7 @@
 package org.encuestame.core.service;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
@@ -59,10 +60,23 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     /** VelocityEngine. **/
     @Autowired
     private VelocityEngine velocityEngine;
+
     /**
      *
      */
     private String domainDefault = EnMePlaceHolderConfigurer.getProperty("application.domain");
+
+
+    /**
+     *
+     */
+    private String logoUrl = EnMePlaceHolderConfigurer.getProperty("application.mail.logo.url");
+
+
+    /**
+     * Define the default locale on notifications emails.
+     */
+    private String defaultLocale = EnMePlaceHolderConfigurer.getProperty("mail.locale");
 
 
     /**
@@ -93,6 +107,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      * (non-Javadoc)
      * @see org.encuestame.core.mail.MailService#send(java.lang.String, java.lang.String, java.lang.String)
      */
+    @Deprecated
     public void send(
             final String to,
             final String subject,
@@ -120,27 +135,51 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
         final SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
         msg.setFrom(getNoEmailResponse());
         msg.setTo(to);
-        msg
-                .setText("<h1>Invitation to Encuestame</h1><p>Please confirm"
+        msg.setText("<h1>Invitation to Encuestame</h1><p>Please confirm"
                         +" this invitation <a>http://www.encuesta.me/cod/"
                         + code + "</a>");
         msg.setSubject(buildSubject("test"));
         try {
-            //log.info("Sending email");
-            //log.debug("Sending host "+mailSender.getHost());
-            //log.debug("Sending password "+mailSender.getPassword());
-            //log.debug("Sending username "+mailSender.getUsername());
-            //log.debug("Sending enconding "+mailSender.getDefaultEncoding());
-            //log.debug("Sending protocol "+mailSender.getProtocol());
-            //log.debug("Sending port "+mailSender.getPort());
-            //log.debug("Sending port auth "+mailSender.getJavaMailProperties().getProperty("mail.smtp.auth"));
-            //log.debug("Sending port starttls "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.enable"));
-            //log.debug("Sending port required "+mailSender.getJavaMailProperties().getProperty("mail.smtp.starttls.required"));
-            mailSender.send(msg);
-            //log.info("Sended email");
+        mailSender.send(msg);
         } catch (Exception e) {
             log.error("Error on send email "+e.getMessage());
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    private Locale buildCurrentLocale() {
+        log.debug("Default locale for Mail " + this.defaultLocale);
+        log.debug("Default locale for Mail " + new Locale(this.defaultLocale));
+        return new Locale(this.defaultLocale);
+    }
+
+
+    /**
+     * Build the greeting footer message.
+     * @return
+     */
+    private void getGreetingMessage(Map<String, Object> model) {
+        //mail.footer.greeting
+        final StringBuffer buffer = new StringBuffer();
+        final String[] properties = {EnMePlaceHolderConfigurer.getProperty("mail.footer.greeting")};
+        buffer.append(getMessageProperties("mail.message.greeting", buildCurrentLocale(), properties));
+        model.put("greeting", buffer.toString());
+    }
+
+    /**
+     * Get the logo source.
+     * @param model
+     */
+    private void getLogo(Map<String, Object> model) {
+        if (EnMePlaceHolderConfigurer.getProperty("application.mail.source").equals("url")) {
+            model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.url"));
+        } else {
+            model.put("mailLogo", EnMePlaceHolderConfigurer.getProperty("application.mail.logo.base64"));
+        }
+
     }
 
     /**
@@ -156,26 +195,28 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
         msg.setFrom(getNoEmailResponse());
         msg.setTo(to);
         msg.setText(body);
-        msg.setSubject(buildSubject(getMessageProperties("DeleteSubjectInvitation")));
+        msg.setSubject(buildSubject(getMessageProperties("email.message.delete.invitation",
+                buildCurrentLocale(),
+                null)));
         mailSender.send(msg);
     }
 
     /**
      * Send Email Invitation.
-     * @param user
+     * @param invitation {@link InvitationBean}
      */
     public void sendEmailInvitation(final InvitationBean invitation) {
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+        final MimeMessagePreparator preparator = new MimeMessagePreparator() {
         public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(invitation.getEmail());
-              message.setSubject(buildSubject("New Password Confirmation"));
+              message.setSubject(buildSubject(getMessageProperties("email.messages.new.confirmation")));
               message.setFrom(noEmailResponse);
               @SuppressWarnings("rawtypes")
               Map model = new HashMap();
               model.put("invitation", invitation);
               model.put("domain", domainDefault);
-              String text = VelocityEngineUtils.mergeTemplateIntoString(
+              final String text = VelocityEngineUtils.mergeTemplateIntoString(
                  velocityEngine, "/org/encuestame/business/mail/templates/invitation.vm", "utf-8", model);
               message.setText(text, true);
            }
@@ -184,9 +225,11 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      }
 
     /**
-     * Send Email Invitation.
-     * @param user
+     * Send email notification.
+     * @param notification {@link NotificationBean}
+     * Will by replaced by queued email
      */
+    @Deprecated
     public void sendEmailNotification(final NotificationBean notification) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
            public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -204,20 +247,19 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
         send(preparator);
      }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.mail.MailService#sendStartUpNotification(java.lang.String)
-     */
-    public void sendStartUpNotification(
-            final String startupMessage){
+   /**
+    * Sent a email after system startup.
+    */
+    public void sendStartUpNotification( final String startupMessage){
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
                message.setTo(EnMePlaceHolderConfigurer
                        .getProperty("setup.email.notification.webmaster"));
-               message.setSubject(buildSubject("Start Up Notification"));
+               message.setSubject(buildSubject(
+                       getMessageProperties("mail.message.startup", buildCurrentLocale(), null)));
                message.setFrom(noEmailResponse);
-               Map model = new HashMap();
+               final Map model = new HashMap();
                model.put("message", startupMessage);
                String text = VelocityEngineUtils.mergeTemplateIntoString(
                   velocityEngine, "/org/encuestame/business/mail/templates/startup.vm", model);
@@ -230,13 +272,15 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     /**
      * Send Password Confirmation Email.
      * @param user
+     * @deprecated will be removed on 1.147
      */
+    @Deprecated
     public void sendPasswordConfirmationEmail(final SignUpBean user) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
            public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
               message.setTo(user.getEmail());
-              message.setSubject(buildSubject(getMessageProperties("emailPasswordConfirmation")));
+              message.setSubject(buildSubject(getMessageProperties("email.password.remember.confirmation")));
               message.setFrom(noEmailResponse);
               Map model = new HashMap();
               model.put("user", user);
@@ -250,22 +294,51 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
 
     /**
      * Sent email to confirm user account by email.
-     * @param user
+     * @param user {@link SignUpBean}
+     * @param inviteCode invite code string.
      */
-    public void sendConfirmYourAccountEmail(final SignUpBean user, final String inviteCode) {
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+    public void sendConfirmYourAccountEmail(
+            final SignUpBean user,
+            final String inviteCode) {
+        final MimeMessagePreparator preparator = new MimeMessagePreparator() {
            public void prepare(MimeMessage mimeMessage) throws Exception {
-              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              final MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              log.debug("confirm account to " + user.getEmail());
               message.setTo(user.getEmail());
-              message.setSubject(buildSubject("Confirm Your Account"));
+              message.setSubject(buildSubject(
+                      getMessageProperties("email.message.confirmation.message",
+                      buildCurrentLocale(),
+                      null)));
               message.setFrom(noEmailResponse);
               final Map<String, Object> model = new HashMap<String, Object>();
+              if (user.getFullName() == null) {
+                  // build
+                  user.setFullName(getMessageProperties("mail.message.default.user.full.presentation",
+                          buildCurrentLocale(),
+                          null));
+              } else {
+                  // build anomymous the salute
+                  final String _fullName = user.getFullName();
+                  final StringBuffer salute = new StringBuffer(getMessageProperties("mail.message.default.user.presentation",
+                          buildCurrentLocale(),
+                          null));
+                  salute.append(" ");
+                  salute.append(_fullName);
+                  user.setFullName(salute.toString());
+              }
+              getLogo(model);
               model.put("user", user);
               model.put("inviteCode", inviteCode);
               model.put("domain", domainDefault);
-              String text = VelocityEngineUtils.mergeTemplateIntoString(
-                              velocityEngine, "/org/encuestame/business/mail/templates/confirm-your-account.vm", model);
-              message.setText(text, true);
+              model.put("successMessage", getMessageProperties("mail.message.registration.success", buildCurrentLocale(), null));
+              model.put("confirmMessage", getMessageProperties("mail.message.confirm.please", buildCurrentLocale(), null));
+              model.put("confirmMessageSubfooter", getMessageProperties("mail.message.confirm.subfooter", buildCurrentLocale(), null));
+              getGreetingMessage(model);
+              // create the template
+              final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                              velocityEngine, "/org/encuestame/business/mail/templates/confirm-your-account.vm",
+                              model);
+              message.setText(text, Boolean.TRUE);
            }
         };
         send(preparator);
@@ -275,11 +348,19 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
      * Send Renew Password Email.
      * @param unitUserBean {@link UserAccountBean}.
      */
-    public void sendRenewPasswordEmail(final UserAccountBean unitUserBean){
-        final Map<String, UserAccountBean> model = new HashMap<String, UserAccountBean>();
+    public void sendRenewPasswordEmail(final UserAccountBean unitUserBean) {
+        final Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", unitUserBean);
-        this.sendMimeEmail(model, unitUserBean.getEmail(), "Your New Password", this.noEmailResponse,
-                           "/org/encuestame/business/mail/templates/renew-password.vm");
+        getLogo(model);
+        model.put("domain", domainDefault);
+        model.put("passwordNewTitle", getMessageProperties("mail.message.new.title", buildCurrentLocale(), null));
+        model.put("passwordRequestMessage", getMessageProperties("mail.message.new.password.request", buildCurrentLocale(), null));
+        model.put("passwordNewConfirmed", getMessageProperties("mail.message.new.confirmed", buildCurrentLocale(), null));
+        getGreetingMessage(model);
+        this.sendMimeEmail(model, unitUserBean.getEmail(),
+                getMessageProperties("mail.message.new.password", buildCurrentLocale(), null),
+                this.noEmailResponse,
+                "/org/encuestame/business/mail/templates/renew-password.vm");
     }
 
     /**
@@ -338,7 +419,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     private String buildSubject(final String subject){
         final StringBuilder builder = new StringBuilder();
         builder.append(EnMePlaceHolderConfigurer.getProperty("application.name"));
-        builder.append(": ");
+        builder.append(" : ");
         builder.append(subject);
         return builder.toString();
     }

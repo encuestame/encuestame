@@ -15,6 +15,7 @@ package org.encuestame.mvc.controller.security;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.validator.ValidateOperations;
@@ -97,6 +98,8 @@ public class ForgetPasswordController extends AbstractSecurityController {
         //validate reCaptcha
         validation.validateCaptcha(reCaptchaResponse, result);
         if(reCaptchaResponse.getErrorMessage() != null) {
+            RequestSessionMap.getCurrent(req).put("resetError", Boolean.TRUE);
+            RequestSessionMap.getCurrent(req).put("resetErrorMessage", reCaptchaResponse.getErrorMessage());
             log.fatal("reCaptcha Fatal Error: "+reCaptchaResponse.getErrorMessage());
         }
         log.info("result.hasErrors() " + result.hasErrors());
