@@ -18,7 +18,6 @@ import java.io.Serializable;
  * Sing Up Bean.
  * @author Picado, Juan juanATencuestame.org
  * @since 08/05/2009 14:40:44
- * @version $Id$
  */
 public class SignUpBean implements Serializable {
 
@@ -93,8 +92,8 @@ public class SignUpBean implements Serializable {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("SignUpBean [fullName=").append(fullName)
-                .append(", username=").append(username).append(", password=")
-                .append(password).append(", email=").append(email)
+                .append(", username=").append(username)
+                .append(", email=").append(email)
                 .append(", captcha=").append(captcha).append("]");
         return builder.toString();
     }

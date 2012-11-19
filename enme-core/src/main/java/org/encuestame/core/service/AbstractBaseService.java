@@ -441,13 +441,27 @@ public abstract class AbstractBaseService extends AbstractDataSource {
     }
 
     /**
-     * Getter by propertie Id.
+     * Getter by property Id.
      * @param propertieId propertieId
-     * @return value of propertie
+     * @return value of properties
      */
-    public String getMessageProperties(String propertieId) {
+    public String getMessageProperties(final String propertieId) {
         return getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
                 .getMessage(propertieId, null, null);
+    }
+
+    /**
+     * Get the property id with {@link Locale}
+     * @param propertyId the id of the property
+     * @param locale {@link Locale}
+     * @param object list of items to embebed in the property text
+     * @return
+     */
+    public String getMessageProperties(final String propertieId, final Locale locale , final Object[] object) {
+        final String message = getMessageSourceFactoryBean() == null ? propertieId : getMessageSourceFactoryBean()
+                .getMessage(propertieId, object, locale);
+        log.debug(" ::: Translated Message " + message);
+        return message;
     }
 
     /**

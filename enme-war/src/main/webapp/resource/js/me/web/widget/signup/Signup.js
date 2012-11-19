@@ -20,15 +20,39 @@ define([
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-         // template string.
-         templateString : template,
+       /*
+        * template string.
+        */
+       templateString : template,
 
+       /*
+        *
+        */
         value : 'Sign Up Now',
 
+       /*
+        *
+        */
        userWidget: null,
+
+       /*
+        *
+        */
        passWidget: null,
+
+       /*
+        *
+        */
        emailWidget: null,
+
+       /*
+        *
+        */
        realWidget: null,
+
+       /*
+        *
+        */
        standWidget: null,
 
        /**
@@ -55,8 +79,8 @@ define([
         */
        _onSubmit : function(event) {
            dojo.stopEvent(event);
-           dijit.byId("standby").startup();
-           dijit.byId("standby").start();
+//           dijit.byId("standby").startup();
+//           dijit.byId("standby").start();
            this._checkValidWidgets();
        },
 
@@ -78,7 +102,7 @@ define([
                this.createNewAccountService(this.userWidget, this.passWidget, this.emailWidget, this.realWidget);
            } else {
                //console.debug("_checkValidWidgets 2");
-               dijit.byId("standby").stop();
+               //dijit.byId("standby").stop();
                this.userWidget.recheck("username");
                this.passWidget.validatePassword();
                this.emailWidget.recheck("email");

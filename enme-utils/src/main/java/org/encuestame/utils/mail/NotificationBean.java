@@ -16,19 +16,29 @@ package org.encuestame.utils.mail;
  * Notification Bean.
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since July 19, 2010
- * @version $Id: $
+ * @deprecated not used anymore.
  */
+@Deprecated
 public class NotificationBean {
 
-    /****/
+    /**
+     * Notification code
+     ***/
     private String code;
 
-    /****/
+    /**
+     * Url to unsubscribe
+     ***/
     private String urlUnsuscribe;
 
-    /****/
+    /**
+     * Email Message
+     ***/
     private String message;
 
+    /**
+     * Email
+     */
     private String email;
 
     /**

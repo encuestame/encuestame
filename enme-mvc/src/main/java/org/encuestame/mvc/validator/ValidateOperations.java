@@ -20,7 +20,6 @@ import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.captcha.ReCaptchaResponse;
-import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 
@@ -97,6 +96,28 @@ public class ValidateOperations {
     }
 
     /**
+     * Validate a user on signup process
+     * @param username the username
+     * @param password password
+     * @param email email
+     * @return
+     */
+    public Boolean validateSignUpForm(
+            final String username,
+            final String email,
+            final String password) {
+        log.debug("validate validateSignUpForm process");
+        log.debug("username " + username);
+        final Boolean validUsername = this.validateUsername(username, null);
+        log.debug("is valid ? username " + validUsername);
+        final Boolean validEmail = this.validateUserEmail(email, null);
+        log.debug("email " + email);
+        log.debug("is valid ? email " + email);
+        //TODO :: validate password
+        return (validUsername && validEmail) ? Boolean.TRUE : Boolean.FALSE;
+    }
+
+    /**
      * Validate Username.
      * @param username username
      * @param user
@@ -134,9 +155,9 @@ public class ValidateOperations {
     }
 
     /**
-     *
-     * @param username
-     * @return
+     * Find a user in the database.
+     * @param username user to find
+     * @return {@link UserAccount} if exist, if not, return null
      */
     private UserAccount getUser(final String username) {
         final UserAccount user = getSecurityService().findUserByUserName(username);
@@ -154,12 +175,12 @@ public class ValidateOperations {
     public Boolean validateUserEmail(final String email, final UserAccount userLogged){
         log.debug("validating email... ->"+email);
         if (this.validateEmail(email)) {
-        	final UserAccount user = getSecurityService().findUserAccountByEmail(email);
+            final UserAccount user = getSecurityService().findUserAccountByEmail(email);
             return this.validateUserEmail(email, user, userLogged);
         } else {
-        	 getMessages().put("email", "email wrong format");
-        	return false;
-        }                
+             getMessages().put("email", "email wrong format");
+            return false;
+        }
     }
 
     /**

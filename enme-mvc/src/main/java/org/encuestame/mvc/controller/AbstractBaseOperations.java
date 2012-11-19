@@ -351,15 +351,16 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @param args
      * @return
      */
-
     public String getMessage(final String message,
-            final HttpServletRequest request, Object[] args) {
+            final HttpServletRequest request,
+            final Object[] args) {
         String stringValue = "";
         try {
             stringValue = getServiceManager().getMessageSource().getMessage(
                     message, args, getLocale(request));
         } catch (Exception e) {
-            log.error(e);  //TODO: ENCUESTAME-223 - OPEN
+            log.error(e);
+            e.printStackTrace();
         }
         return stringValue;
     }
@@ -391,7 +392,7 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
      * @return
      */
     private Locale getLocale(final HttpServletRequest request) {
-        if(request == null){
+        if (request == null) {
             return Locale.ENGLISH;
         } else {
             return RequestContextUtils.getLocale(request);

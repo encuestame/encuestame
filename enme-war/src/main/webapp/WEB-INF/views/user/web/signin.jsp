@@ -64,7 +64,7 @@
                       </p>
                     </div>
                     <input placeholder="<spring:message code="signin.password" />"
-                      type="password" name="j_password" id="j_username"
+                      type="password" name="j_password" id="j_password"
                       autocomplete="off" autofocus="autofocus" />
                   </fieldset>
                 </div>

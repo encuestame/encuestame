@@ -8,14 +8,15 @@
        http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <!-- To enable @Pre and @Post Annotations -->
-    <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"
+    <security:global-method-security pre-post-annotations="enabled"
+                                     secured-annotations="enabled"
                                      jsr250-annotations="enabled" />
 
     <!-- Authentication Manager -->
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider
             ref="socialAccountProvider" />
-       <security:authentication-provider
+        <security:authentication-provider
             ref="enMeUserAccountProvider" />
         <security:authentication-provider
              user-service-ref="enMeAuthenticationUserService">
@@ -54,7 +55,8 @@
         entry-point-ref="authenticationEntryPoint"
         access-denied-page="${spring.sec.login.denied}">
         <security:remember-me key="${spring.sec.rememberMe.key}"
-            services-alias="_rememberMeServices" token-validity-seconds="10080" />
+                              services-alias="_rememberMeServices"
+                              token-validity-seconds="10080" />
         <security:anonymous enabled="true"  granted-authority="ENCUESTAME_ANONYMOUS" key="${spring.sec.anonymous.key}" />
         <security:logout logout-success-url="${spring.sec.logout.sucess}"
             invalidate-session="true" logout-url="${spring.sec.logout.url}" delete-cookies="JSESSIONID"/>

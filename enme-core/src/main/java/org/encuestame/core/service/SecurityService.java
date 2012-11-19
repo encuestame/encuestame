@@ -183,8 +183,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final UserAccount userDomain = getUserAccount(userBean.getUsername());
                 log.info("notify delete account");
                 if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-                	getMailService().sendDeleteNotification(userBean.getEmail().trim(),
-                			getMessageProperties("userMessageDeleteNotification"));
+                    getMailService().sendDeleteNotification(userBean.getEmail().trim(),
+                            getMessageProperties("userMessageDeleteNotification"));
                 }
                 log.info("deleting user");
                 getAccountDao().delete(userDomain);
@@ -650,7 +650,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return {@link UserAccountBean}.
      */
     public UserAccount singupUser(final SignUpBean singUpBean, boolean disableEmail) {
-    	//FIXME: Validate the email inside this service.
+        //FIXME: Validate the email inside this service.
         log.debug("singupUser "+singUpBean.toString());
         //create account/
         final Account account = this.createDefaultAccount();
@@ -688,12 +688,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         this.assingPermission(userAccount, permissions);
 
         if (!disableEmail) { //test proposes.
-	        //send new password
-        	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-		        getMailService().sendPasswordConfirmationEmail(singUpBean);
-		        //send confirmation account
-		        getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
-        	}
+            //send new password
+            if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+                //send confirmation account request
+                getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode); //TODO: ENCUESTAME-202
+            }
         }
 
         if (log.isDebugEnabled()) {
@@ -720,12 +719,6 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @return
      */
     private String encodingPassword(final String password){
-        //TODO: remove on stable versions, only for debug
-        if (log.isDebugEnabled()) {
-            log.debug("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-            log.debug("^^ "+password);
-            log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        }
         final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         return  passwordEncryptor.encryptPassword(password);
     }
@@ -758,9 +751,9 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @throws Exception excepcion
      */
     public void inviteUser(String email, String code) {
-    	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-    		getMailService().sendInvitation(email, code);
-    	}
+        if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+            getMailService().sendInvitation(email, code);
+        }
     }
 
     /**
@@ -801,10 +794,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public void sendUserPassword(final String email,
             final String password)
             throws MailSendException {
-    	if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-	        getMailService().send(email, getMessageProperties("NewPassWordMail"),
-	                password);
-    	}
+        if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
+            getMailService().send(email, getMessageProperties("NewPassWordMail"),
+                    password);
+        }
     }
 
     /**
@@ -900,8 +893,8 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
     public void updateAccountProfile(
             final Profile property,
             final String value) throws EnMeNoResultsFoundException{
-		log.debug("updating accoutn profile :" + property + " whith value "
-				+ value);
+        log.debug("updating accoutn profile :" + property + " whith value "
+                + value);
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
         if (Profile.USERNAME.equals(property)) {
             account.setUsername(value.trim());
@@ -1073,7 +1066,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
         singUp = ConvertDomainBean.convertUserAccountToSignUpBean(userAcc);
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-        	getMailService().sendNotificationStatusAccount(singUp, "User status");
+            getMailService().sendNotificationStatusAccount(singUp, "User status");
         }
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
@@ -1091,7 +1084,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         singUp.setUsername(userAccBean.getUsername());
         getAccountDao().saveOrUpdate(singUp);
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-        	getMailService().sendNotificationStatusAccount(singUp, "Change user status");
+            getMailService().sendNotificationStatusAccount(singUp, "Change user status");
         }
     }
 

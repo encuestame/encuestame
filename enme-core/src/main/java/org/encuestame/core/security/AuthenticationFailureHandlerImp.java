@@ -35,7 +35,7 @@ public class AuthenticationFailureHandlerImp implements
      */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        RequestSessionMap.getCurrent(request).put("signinError", true);
+        RequestSessionMap.getCurrent(request).put("signinError", Boolean.TRUE);
         response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/user/signin"));
     }
 

@@ -21,11 +21,20 @@ define([
           // template string.
            templateString : template,
 
-         focusDefault: true,
+       /*
+        * Set the focus on load.
+        */
+        focusDefault: true,
 
+         /*
+          * Place holder html5 text
+          */
          placeholder : "Write your Real Name",
 
-         postCreate : function(){
+         /*
+          *
+          */
+         postCreate : function() {
              this.inherited(arguments);
          },
 
