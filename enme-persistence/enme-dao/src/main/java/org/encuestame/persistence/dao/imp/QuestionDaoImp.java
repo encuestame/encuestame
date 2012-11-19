@@ -60,7 +60,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     public final void createQuestion(final Question question){
         saveOrUpdate(question);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IQuestionDao#retrieveQuestionbyId(java.lang.Long, java.lang.Long)
@@ -72,7 +72,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
 		// criteria.add(Restrictions.eq("qid", questionId));
 		return (Question) getHibernateTemplate().findByCriteria(criteria);
 
-	} 
+	}
 
     /*
      * (non-Javadoc)
@@ -125,7 +125,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                 if (userId != null) {
                     criteria.createAlias("accountQuestion", "accountQuestion");
                     criteria.add(Restrictions.eq("accountQuestion.uid", userId));
-                } 
+                }
                 //else {
                     //if user id is missing, the question should be shared to be listed.
                     //criteria.add(Restrictions.eq("sharedQuestion", Boolean.TRUE));
@@ -168,7 +168,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                                 new SimpleAnalyzer(), SIMILARITY_VALUE)
                                 ;
                         log.debug("fuzzyQueryFullTextResults: {" + fuzzyQueryFullTextResults.size());
-                        
+
                         listAllSearch.addAll(fuzzyQueryFullTextResults);
 
                         log.debug("listAllSearch size:{" + listAllSearch.size());
@@ -222,6 +222,19 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
                                                        "questionId", questionId);
     }
 
+
+	@SuppressWarnings("unchecked")
+	public final QuestionAnswer retrieveAnswersByQuestionId(
+			final Question question, final Long answerId)
+			throws HibernateException {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(QuestionAnswer.class);
+		criteria.add(Restrictions.eq("questions", question));
+		criteria.add(Restrictions.eq("questionAnswerId", answerId));
+		return (QuestionAnswer) DataAccessUtils
+				.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+	}
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IQuestionDao#loadAllQuestions()
@@ -241,7 +254,7 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
         criteria.add(Restrictions.eq("section", section));
         return getHibernateTemplate().findByCriteria(criteria);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IQuestionDao#getQuestionPreferences(org.encuestame.persistence.domain.question.Question)
@@ -252,32 +265,32 @@ public class QuestionDaoImp extends AbstractHibernateDaoSupport implements IQues
     	criteria.add(Restrictions.eq("question", question));
     	return getHibernateTemplate().findByCriteria(criteria);
     }
-    
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.encuestame.persistence.dao.IQuestionDao#getQuestionPreference(org
 	 * .encuestame.persistence.domain.question.Question, java.lang.String)
 	 */
     @SuppressWarnings("unchecked")
 	public List<QuestionPreferences> getQuestionPreference(final Question question, final String pref){
-    	final DetachedCriteria criteria = DetachedCriteria.forClass(QuestionPreferences.class); 
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(QuestionPreferences.class);
     	criteria.createAlias("question", "question");
     	criteria.add(Restrictions.eq("question", question));
     	//criteria.add(Restrictions.eq("preference", preference));
     	criteria.add(Restrictions.like("preference", pref, MatchMode.ANYWHERE));
     	return getHibernateTemplate().findByCriteria(criteria);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IQuestionDao#getPreferenceById(java.lang.Long)
-     */  
+     */
 	@SuppressWarnings("unchecked")
 	public QuestionPreferences getPreferenceById(final Long preferenceId) {
 		final DetachedCriteria criteria = DetachedCriteria
-				.forClass(QuestionPreferences.class); 
+				.forClass(QuestionPreferences.class);
 		criteria.add(Restrictions.eq("preferenceId", preferenceId));
 		return (QuestionPreferences) DataAccessUtils
 				.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
