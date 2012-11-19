@@ -304,13 +304,15 @@ public interface IPollService extends IMasterSurveyService{
      */
     PollDetailBean getPollDetailInfo(final Long pollId) throws EnMeNoResultsFoundException;
 
-    /**
-     * User vote a {@link Poll}.
-     * @param pollId poll id.
-     * @param slug question name slug.
-     * @throws EnMeNoResultsFoundException
-     */
-    void vote(final Long pollId, final String slug, final String ipAddress, final Long answerId) throws EnMeNoResultsFoundException;
+   /**
+    * User vote a {@link Poll}.
+    * @param poll
+    * @param slug
+    * @param ipAddress
+    * @param answerId
+    * @throws EnMeNoResultsFoundException
+    */
+    void vote(final Poll poll, final String slug, final String ipAddress, final Long answerId) throws EnMeNoResultsFoundException;
 
     /**
      * Get poll by id and slug.
@@ -328,7 +330,7 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     Poll getPollById(final Long pollId) throws EnMeNoResultsFoundException;
-    
+
     /**
      * Validate the poll id.
      * @param ip ip address.
@@ -336,14 +338,14 @@ public interface IPollService extends IMasterSurveyService{
      * @return
      */
     PollResult validatePollIP(final String ip, final Poll poll);
-    
+
     /**
      * Return a list of {@link PollBeanResult} with votes of a {@link Poll}.
      * @param poll
      * @return
      */
     List<PollBeanResult> getResultVotes(final Poll poll);
-    
+
     /**
      * Return {@link Poll} based on Id and String account.
      * @param pollId
@@ -352,14 +354,14 @@ public interface IPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      */
     Poll getPollById(final Long pollId, final String account) throws EnMeNoResultsFoundException;
-    
+
     /**
      * Remove {@link Poll}
      * @param pollId
      * @throws EnMeNoResultsFoundException
      */
 	void removePoll(final Long pollId) throws EnMeNoResultsFoundException;
-	
+
 	/**
 	 * Add {@link HashTag} to {@link Poll}.
 	 * @param poll
@@ -369,7 +371,7 @@ public interface IPollService extends IMasterSurveyService{
 	 */
 	HashTag addHashTagToPoll(final Poll poll, final HashTagBean tagBean)
 			throws EnMeNoResultsFoundException;
-	
+
 	/**
 	 * Update {@link Poll}
 	 * @param pollBean
@@ -378,4 +380,15 @@ public interface IPollService extends IMasterSurveyService{
 	 */
 	Poll updatePoll(final PollBean pollBean)
 			throws EnMeNoResultsFoundException;
+
+	/**
+	 *
+	 * @param pollId
+	 * @param answerId
+	 * @param account
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	Poll getPollByAnswerId(final Long pollId, final Long answerId,
+			final UserAccount account) throws EnMeNoResultsFoundException;
 }
