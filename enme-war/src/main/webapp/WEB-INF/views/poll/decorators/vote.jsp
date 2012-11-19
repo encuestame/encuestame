@@ -4,7 +4,13 @@
        <header>
            <h1>${poll.questionBean.questionName}</h1>
        </header>
+
        <div class="web-poll-vote">
+        <c:if test="${votePollError}">
+               <div class="error">
+                 <spring:message code="poll.error"/>
+               </div>
+             </c:if>
                <article class="emne-box">
                     <section class="web-vote">
                         <article data-dojo-type="me/web/widget/poll/vote/PollVote"

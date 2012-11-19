@@ -1045,6 +1045,25 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     }
 
     /**
+     * Create default {@link QuestionAnswer}
+     * @param answer
+     * @param question
+     * @return
+     */
+    public QuestionAnswer createDefaultQuestionAnswer(final String answer, final Question question){
+        final QuestionAnswer questionsAnswers = new QuestionAnswer();
+        questionsAnswers.setAnswer(answer);
+        questionsAnswers.setQuestions(question);
+        questionsAnswers.setUniqueAnserHash(RandomStringUtils.randomAlphabetic(18));
+        questionsAnswers.setColor(PictureUtils.getRandomHexColor());
+        questionsAnswers.setAnswerType(AnswerType.DEFAULT);
+        getQuestionDaoImp().saveOrUpdate(questionsAnswers);
+        //log.info("Q "+questionsAnswers.getQuestionAnswerId());
+        return questionsAnswers;
+    }
+
+
+    /**
      * Save survey responses.
      * @param answer
      * @param question
