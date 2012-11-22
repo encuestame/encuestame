@@ -170,7 +170,7 @@ and (orientation : portrait) {
 
        body {
         height: 100%;
-         word-wrap: break-word;
+        word-wrap: break-word;
         margin: 0;
         padding: 0;
         background-color: #EAEAEA;
@@ -178,9 +178,15 @@ and (orientation : portrait) {
 
     /** header **/
     header#header {
-      margin: 5px auto 20px;
-      width: 970px;
-      z-index: 4;
+       background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444), color-stop(100%, #222) );
+       background: -webkit-linear-gradient(#444, #222);
+       background: -moz-linear-gradient(#444, #222);
+       background: -o-linear-gradient(#444, #222);
+       background: linear-gradient(#444, #222);
+       height: 40px;
+       position: relative;
+       box-shadow : 2px 3px 4px #121212;
+       z-index: 9000;
     }
 
     .header {
@@ -248,23 +254,28 @@ and (orientation : portrait) {
     }
 
     div.web-header-options {
-        float: right;
+      float: right;
+      padding: 3px;
     }
 
     div.web-header div.logo {
-        width: 128px;
-        float: left;
+      background: none repeat scroll 0 0 transparent;
+      width: 128px;
+      float: left;
     }
 
-    div.web-header div.logoEncuestame {
-        background-image: url(../../images/logos/encuestame_logoalone.png);
-        background-repeat: no-repeat;
-        background-color: #EBE9E9;
+    div.web-header .logo > a {
+        display: block;
+        height: 12px;
+        padding: 5px 12px 15px;
+        font-weight: bold;
+        line-height: 1;
+        color: #BBB;
+        text-shadow: 0 -1px 1px rgba(0, 0, 0, .75);
     }
 
     div.web-header div.web-header-wrapper {
-      background-color: #EBE9E9;
-      padding: 4px;
+      width: 1024px;
     }
 
     div.web-header span {
@@ -277,10 +288,10 @@ and (orientation : portrait) {
     }
 
     div.web-header span.link a {
-      color: #444444;
+      color: #FFFFFF;
       font-size: 100%;
       text-decoration: none;
-      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 1px rgba(72, 72, 72, 0.9);
     }
 
     div.web-header span.link a:hover {
@@ -292,15 +303,25 @@ and (orientation : portrait) {
     }
 
     #mainWrapper {
-        margin: 0 auto;
+      height: 100%;
+      margin: 0 auto;
     }
 
     #content-container {
-        min-height: 450px;
+      height: 80%;
+      min-height: 450px;
     }
 
     #content-container #enme-content {
+        min-height: 100%;
+    }
 
+    #content-container #enme-content a:link {
+        text-decoration: none;
+    }
+
+    #content-container #enme-content a:hover {
+        text-decoration: underline;
     }
 
     footer {

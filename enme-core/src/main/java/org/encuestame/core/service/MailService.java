@@ -384,6 +384,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
         };
         send(preparator);
      }
+
     /**
      * Send Mime Email.
      * @param model

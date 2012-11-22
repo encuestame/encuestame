@@ -35,14 +35,12 @@
                             </div>
                         </div>
 
-                    </fieldset>
-                    <fieldset>
-                        <div class="center">
-                            <button type="submit" class="submit button" name="submit">
-                                 <spring:message code="forgot.submit" />
-                            </button>
-                        </div>
-                    </fieldset>
+                     <div class="center">
+                         <button type="submit" class="submit button" name="submit">
+                              <spring:message code="forgot.submit" />
+                         </button>
+                     </div>
+                     </fieldset>
                 </div>
             </div>
         </form:form>

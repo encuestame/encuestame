@@ -1,22 +1,54 @@
 
 /** sign up **/
 #web-user-actions-form-wrapper {
+
+  border-radius: 4px;
+  box-shadow: 0 3px 3px #D5D5D5;
+  color: white;
   margin: 0 auto;
-  width: 800px;
+  padding: 30px;
   z-index: 1;
+background: white;
+background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,white),color-stop(100%,#DDD));
+background: -webkit-linear-gradient(top,white 0,#DDD 100%);
+background: -moz-linear-gradient(top,white 0,#DDD 100%);
+background: -ms-linear-gradient(top,white 0,#DDD 100%);
+background: -o-linear-gradient(top,white 0,#DDD 100%);
+background: linear-gradient(top,white 0,#DDD 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dddddd',GradientType=0);
+border-left: solid 1px #EEE;
+border-right: solid 1px #EEE;
+border-bottom: solid 1px #CCC;
+-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+-moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
 }
+
+/** login **/
 
 #web-user-actions-form-wrapper .web-form-singup-container {
-    width: 300px;
 }
 
-#web-user-actions-form-wrapper h1 {
-    font-size: 18px;
-    margin-bottom: 10px;
+#web-form-wrapper h1 {
+ font-size: 24px;
+font-weight: 200;
+color: #444;
+  margin-bottom: 10px;
+  margin-left: 7px;
+  margin-top: 0;
+  text-shadow: 1px 0 0 white;
 }
 
-#web-user-actions-form-wrapper,#page-container {
+#web-form-wrapper .error {
+  color: #FFFFFF;
+  font-weight: normal;
+  margin: 5px;
+  padding: 5px;
+  width: 300px;
+}
 
+#web-user-actions-form-wrapper, #page-container {
+  width: 400px;
 }
 
 #web-user-actions-form-wrapper div.leftMessage {
@@ -26,11 +58,8 @@
     width: 250px;
 }
 
-div.web-form-wrapper form{
-    left: 400px;
-    margin: 20px 0 0 -200px;
-    position: relative;
-    width: 700px;
+div.web-form-wrapper form {
+  margin: 0 auto;
 }
 
 #web-user-actions-form-wrapper div.field {
@@ -46,13 +75,14 @@ div.web-form-wrapper form{
 }
 
 #web-user-actions-form-wrapper .section-signup {
-    margin-top: 20px;
+
 }
 
 #web-user-actions-form-wrapper h3 {
-    color: #919090;
-    margin: 0;
-    margin-bottom: 5px;
+  color: #444444;
+  font-weight: 200;
+  margin: 5px 3px;
+  text-shadow: 1px 0 0 white;
 }
 
 #web-user-actions-form-wrapper div.web-form-wrapper {
@@ -64,30 +94,12 @@ div.web-form-wrapper form{
 }
 
 #web-user-actions-form-wrapper div.sidetip {
-    left: 310px;
-    position: absolute;
-    width: 100%;
+  left: 310px;
+  position: absolute;
+  width: 150px;
+  word-wrap: break-word;
 }
 
-#web-user-actions-form-wrapper .section div.tooltip {
-    border: 1px solid #000000;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
-    border-radius: 3px 3px 3px 3px;
-    -moz-box-shadow: 0 1px 2px #888888;
-    -webkit-box-shadow: 0 1px 2px #888888;
-    box-shadow: 0 1px 2px #888888;
-    left: -269px;
-    padding: 10px;
-    position: absolute;
-    top: -2px;
-    width: 237px;
-    opacity: 0;
-    display: none;
-    color: #FFF;
-    background-color: #39568C;
-    z-index: 10;
-}
 
 #web-user-actions-form-wrapper div.sidetip p {
     background-position: left center;
@@ -110,18 +122,33 @@ div.web-form-wrapper form{
 }
 
 #web-user-actions-form-wrapper .textbox .section {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
+  padding: 5px;
+  width: 80%;
 }
 
-#web-user-actions-form-wrapper form .validator-wrapper {
-    overflow: visible;
-    position: relative;
+#web-user-actions-form-wrapper .textbox .web-section-option {
+  height: 15px;
+  margin-bottom: 5px;
+  overflow: auto;
+  padding: 5px;
+  position: relative;
+  width: 80%;
 }
 
-#web-user-actions-form-wrapper .textbox input,.textbox button,.textbox .shadow-input-message
-    {
-
+#web-user-actions-form-wrapper .textbox .web-section-button {
+  margin-bottom: 15px;
+  margin-right: 90px;
+  text-align: right;
 }
+
+#web-user-actions-form-wrapper  a {
+  color: #444444;
+  margin-left: 4px;
+  text-shadow: 1px 0 0 white;
+  top: 0;
+}
+
 
 #web-user-actions-form-wrapper  .shadow-input-message {
     -moz-transition: opacity 0.1s ease 0s, font-size 0.1s ease 0s;
@@ -133,6 +160,30 @@ div.web-form-wrapper form{
     white-space: nowrap;
     z-index: 1;
 }
+
+#web-user-actions-form-wrapper input, textarea, select {
+    display: inline-block;
+    width: 285px;
+    padding: 10px;
+    margin: 0;
+    outline: 0;
+    background-color: white;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+
+/* #web-user-actions-form-wrapper .input-design input:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+} */
+
+/* #web-user-actions-form-wrapper  input:focus, textarea:focus {
+    width: 340px;
+} */
 
 #web-user-actions-form-wrapper div.web-form-wrapper div.submit {
     margin: 0 auto;

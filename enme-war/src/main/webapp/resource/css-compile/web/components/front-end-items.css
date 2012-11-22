@@ -72,7 +72,7 @@
 .web-item-wrapper .item .loading{
     display: inline-block;
     min-width: 16px;
-    min-height: 16px;       
+    min-height: 16px;
 }
 
 .web-item-wrapper .item .stats .vote {
@@ -107,8 +107,7 @@
 }
 
 .web-item-wrapper .item .content div.title {
-    font-size: 120%;
-    font-weight: bold;
+    font-size: 16px;
     margin-bottom: 2px;
     text-transform: capitalize;
 }

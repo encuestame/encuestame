@@ -1,0 +1,7 @@
+@import url("input.css");
+
+a:-webkit-any-link {
+    color: -webkit-link;
+    text-decoration: underline;
+    cursor: auto;
+}

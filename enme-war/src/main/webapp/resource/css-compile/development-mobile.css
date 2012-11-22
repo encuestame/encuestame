@@ -1,5 +1,6 @@
 @import url("reset.css");
 @import url("layout.css");
+@import url("required.css");
 @import url("common.css");
 @import url("mobile/default.css");
 @import url("mobile/component/home.css");

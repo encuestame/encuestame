@@ -48,7 +48,7 @@
                  </div>
             </article>
        </section>
-       <section class="web-button-wrapper gradient-gray">
+       <section class="web-button-wrapper">
             <div>
                 <img src="<%=request.getContextPath()%>/resources/images/icons/enme_pie.png">
             </div>
