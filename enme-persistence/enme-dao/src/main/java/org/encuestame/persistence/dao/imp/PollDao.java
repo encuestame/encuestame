@@ -137,9 +137,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollByHashTagName(
-    		final String tagName, 
+    		final String tagName,
     		final Integer startResults,
-            final Integer limitResults, 
+            final Integer limitResults,
             final TypeSearchResult filterby,
             final SearchPeriods searchPeriods) {
         final DetachedCriteria detached = DetachedCriteria
@@ -267,7 +267,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
 
 		return (Long) (results.get(0) == null ? 0 : results.get(0));
 	}
-	
+
      /*
       * (non-Javadoc)
       * @see org.encuestame.persistence.dao.IPoll#getPollsByQuestionKeyword(java.lang.String, org.encuestame.persistence.domain.security.UserAccount, java.lang.Integer, java.lang.Integer)
@@ -388,9 +388,9 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollByUserIdDate(
-    		final Date date, 
+    		final Date date,
     		final UserAccount userAcc,
-            final Integer maxResults, 
+            final Integer maxResults,
             final Integer start ){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
@@ -522,7 +522,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#validateVoteIP(java.lang.String, org.encuestame.persistence.domain.survey.Poll)
@@ -539,4 +539,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
                                 new Object[] { ip, poll }));
     }
 
+    @SuppressWarnings("unchecked")
+	public Poll getPollbyQuestion(final Long questionId){
+    	final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+    	criteria.createAlias("question", "question");
+    	criteria.add(Restrictions.eq("question", questionId));
+    	return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
 }

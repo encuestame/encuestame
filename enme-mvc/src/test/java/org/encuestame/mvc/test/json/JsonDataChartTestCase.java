@@ -55,7 +55,7 @@ public class JsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
      * {@link TweetPollService}.
      */
     private ITweetPollService tweetPollService;
-    
+
     /**
      * {@link PollService}.
      */
@@ -70,15 +70,15 @@ public class JsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
      * Answer 2.
      */
     private TweetPollSwitch answer2;
-    
+
     /**
-     * 
+     *
      */
     private Poll poll;
 
     /**
      * Init
-     * @throws EnMeNoResultsFoundException 
+     * @throws EnMeNoResultsFoundException
      */
     @Before
     public void init() throws EnMeNoResultsFoundException{
@@ -99,13 +99,13 @@ public class JsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
         getTweetPollService().tweetPollVote(answer1, "80.33.13.13", Calendar.getInstance().getTime());
         //poll
         this.poll = createPoll(new Date(), question,  getSpringSecurityLoggedUserAccount(), true, true);
-        getPollService().vote(poll.getPollId(), question.getSlugQuestion(), "80.33.13.23", questionsAnswers1.getQuestionAnswerId());
-        getPollService().vote(poll.getPollId(), question.getSlugQuestion(), "80.33.13.25", questionsAnswers2.getQuestionAnswerId());
+        getPollService().vote(poll, question.getSlugQuestion(), "80.33.13.23", questionsAnswers1.getQuestionAnswerId());
+        getPollService().vote(poll, question.getSlugQuestion(), "80.33.13.25", questionsAnswers2.getQuestionAnswerId());
     }
-    
+
     /**
      * Test /api/{username}/poll/{id}/votes.json.
-     * 
+     *
      */
     @Test
     public void testPollDataChartTest() throws Exception{
@@ -193,7 +193,7 @@ public class JsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
     }
 
     /**
-     * 
+     *
      * @return
      */
 	public IPollService getPollService() {
@@ -201,13 +201,13 @@ public class JsonDataChartTestCase extends AbstractJsonMvcUnitBeans{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param pollService
 	 */
 	@Autowired
 	public void setPollService(final IPollService pollService) {
 		this.pollService = pollService;
 	}
-    
-    
+
+
 }

@@ -14,6 +14,7 @@
 package org.encuestame.test.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import org.encuestame.persistence.dao.imp.QuestionDaoImp;
 import org.encuestame.persistence.domain.question.Question;
+import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.question.QuestionPreferences;
 import org.encuestame.persistence.domain.security.Account;
 import org.encuestame.persistence.domain.survey.SurveySection;
@@ -44,7 +46,7 @@ public class TestQuestionDao extends AbstractBase{
     private Account user;
 
     private Question initQuestion;
-    
+
     /**
      * Before.
      * @throws ParseException
@@ -153,22 +155,22 @@ public class TestQuestionDao extends AbstractBase{
         assertEquals("Results for second section should be equals", 3,
                 questionsBySection2.size());
     }
-    
+
     /**
-     * 
+     *
      */
     @Test
     public void testGetQuestionPreferencesbyQid(){
     	createQuestionPreference("note", "1", this.initQuestion);
     	createQuestionPreference("field type", "multilines", this.initQuestion);
     	createQuestionPreference("size", "20", this.initQuestion);
-    	final List<QuestionPreferences> preferences = getQuestionDaoImp().getQuestionPreferences(this.initQuestion); 
+    	final List<QuestionPreferences> preferences = getQuestionDaoImp().getQuestionPreferences(this.initQuestion);
     	assertEquals("Total preferences found", 3,
     			preferences.size());
     }
-    
+
     /**
-     * 
+     *
      */
 	@Test
 	public void testGetQuestionPreferences() {
@@ -180,9 +182,9 @@ public class TestQuestionDao extends AbstractBase{
 				.getQuestionPreference(this.initQuestion, "field");
 		assertEquals("Total preferences found by name", 2, preferences.size());
 	}
-    
+
     /**
-     * 
+     *
      */
 	@Test
 	public void testGetQuestionPreferencesbyId() {
@@ -192,8 +194,30 @@ public class TestQuestionDao extends AbstractBase{
 		createQuestionPreference("field size", "multilines", this.initQuestion);
 
 		final QuestionPreferences qPreference = getQuestionDaoImp()
-				.getPreferenceById(qpref1.getPreferenceId()); 
+				.getPreferenceById(qpref1.getPreferenceId());
 		assertEquals(qpref1.getPreference(), qPreference.getPreference());
 	}
-    
+
+	/*
+	 * Test Retrieve answers by question.
+	 */
+	@Test
+	public void testRetrieveAnswersbyQuestion() {
+		final Question question1 = createDefaultQuestion(" Question 1");
+		final Question question2 = createDefaultQuestion(" Question 2");
+		final Question question3 = createDefaultQuestion(" Question 3");
+		final QuestionAnswer qA1 = createDefaultQuestionAnswer("Yes", question1);
+		final QuestionAnswer qA2 = createDefaultQuestionAnswer("No", question1);
+		final QuestionAnswer qA3 = createDefaultQuestionAnswer("Maybe",
+				question3);
+		final QuestionAnswer qAnswer = getQuestionDaoImp()
+				.retrieveAnswersByQuestionId(question1,
+						qA2.getQuestionAnswerId());
+		assertEquals(qA2.getAnswer(), qAnswer.getAnswer());
+		final QuestionAnswer qAnswer1 = getQuestionDaoImp()
+				.retrieveAnswersByQuestionId(question1,
+						qA3.getQuestionAnswerId());
+		assertNull(qAnswer1);
+
+	}
 }

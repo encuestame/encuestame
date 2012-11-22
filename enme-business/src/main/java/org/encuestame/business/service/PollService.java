@@ -384,18 +384,15 @@ public class PollService extends AbstractSurveyService implements IPollService{
     * (non-Javadoc)
     * @see org.encuestame.core.service.imp.IPollService#vote(java.lang.Long, java.lang.String, java.lang.String, java.lang.Long)
     */
-    public void vote(final Long pollId, final String slug,
+    public void vote(final Poll poll, final String slug,
             final String ipAddress,
             final Long answerId)
             throws EnMeNoResultsFoundException {
-        log.trace("vote "+pollId);
+        log.trace("vote "+poll);
         log.trace("vote "+slug);
         log.trace("vote "+ipAddress);
         log.trace("vote "+answerId);
-        final Poll poll = this.getPollDao().getPollById(pollId, slug, false);
-        if (poll == null) {
-            throw new EnMeNoResultsFoundException("poll not found");
-        }
+
         final PollResult pr = new PollResult();
         pr.setAnswer(this.getQuestionAnswerById(answerId));
         //validate IP address.
@@ -639,6 +636,25 @@ public class PollService extends AbstractSurveyService implements IPollService{
         }
         return poll;
     }
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.IPollService#getPollByAnswerId(java.lang
+	 * .Long, java.lang.Long,
+	 * org.encuestame.persistence.domain.security.UserAccount)
+	 */
+	public Poll getPollByAnswerId(final Long pollId, final Long answerId,
+			final UserAccount account) throws EnMeNoResultsFoundException {
+		final Poll poll = this.getPollById(pollId);
+		QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(
+				poll.getQuestion(), answerId);
+		if (qA == null) {
+			throw new EnMeNoResultsFoundException("Answer not found");
+		}
+		return poll;
+	}
 
     /**
      * Retrieve a {@link Poll} based on id.

@@ -107,14 +107,14 @@ public interface IQuestionDao extends IBaseDao {
      * @return
      */
     List<Question> getQuestionsbySection(final SurveySection section);
-    
+
     /**
      * Get {@link QuestionPreferences} by question.
      * @param question
      * @return
      */
     List<QuestionPreferences> getQuestionPreferences(final Question question);
-    
+
     /**
      * Get {@link QuestionPreferences} by question and preference name.
      * @param question
@@ -122,14 +122,14 @@ public interface IQuestionDao extends IBaseDao {
      * @return
      */
     List<QuestionPreferences> getQuestionPreference(final Question question, final String pref);
-    
+
     /**
      * Get {@link QuestionPreferences} by id.
      * @param questionId
      * @return
      */
 	QuestionPreferences getPreferenceById(final Long preferenceId);
-    
+
 	/**
 	 * Retrieve {@link Question} by id
 	 * @param questionId
@@ -137,4 +137,6 @@ public interface IQuestionDao extends IBaseDao {
 	 * @return
 	 */
 	Question retrieveQuestionbyId(Long questionId, final Long userId);
+
+	QuestionAnswer retrieveAnswersByQuestionId(final Question question, final Long answerId) throws HibernateException;
 }
