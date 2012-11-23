@@ -220,6 +220,11 @@ button.emne-menu button {
 input:focus {
     outline: none !important;
 }
+
+#mainWrapper .dijitTextBoxHover {
+    background-color: white !important;
+}
+
 .dijitTextBoxFocused {
     outline: none !important;
 }

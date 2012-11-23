@@ -1,6 +1,6 @@
 /** HASHTAGS */
 .web-hashtag-wrapper {
-  margin: 0 30px;
+  margin: 0;
   overflow: auto;
 }
 
@@ -26,10 +26,11 @@
 }
 
 .web-hashtag-wrapper .web-ht-detail-wrapper {
-  margin-top: 10px;
+  width: 75%;
+  float:left;
 }
 
-.web-hashtag-wrapper .web-ht-detail-wrapper .emne-box {
+/* .web-hashtag-wrapper .web-ht-detail-wrapper .emne-box {
   border-radius: 5px 5px 0 0;
   box-shadow: 0 1px 1px 1px #D2CFCF;
   margin-left: 4px;
@@ -45,13 +46,13 @@
   font-weight: normal;
   line-height: 20px;
   padding: 7px;
+} */
+
+.web-hashtag-wrapper .web-ht-wrapper-top {
+  margin-left: 75%;
 }
 
-.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-top {
-    float: right;
-}
-
-.web-hashtag-wrapper .web-ht-detail-wrapper .web-ht-wrapper-mainline {
+.web-hashtag-wrapper .web-ht-wrapper-mainline {
     float: left;
     width: 650px;
     max-width: 655px;

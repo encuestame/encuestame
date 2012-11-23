@@ -23,8 +23,8 @@
          ></div>
     </section>
 
-    <div class="web-ht-detail-wrapper">
-       <div class="web-ht-wrapper-mainline">
+    <div class="web-ht-detail">
+       <div class="web-wrapper-detail web-ht-detail-wrapper">
            <article class="emne-box emne-box-gray">
                 <header>
                   <spring:message code="home.hashtag.lastpub" />
@@ -54,7 +54,7 @@
                 </section>
             </article>
         </div>
-        <aside class="web-ht-wrapper-top">
+        <aside class="web-ht-wrapper-top web-wrapper-detail">
             <article class="emne-box emne-box-gray">
                  <header>
                     <spring:message code="home.hashtag.stats" />

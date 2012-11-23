@@ -1,3 +1,5 @@
+ @import url("html5/reset.css");
+/* @import url("html5/normalize.css"); */
 @import url("input.css");
 
 a:-webkit-any-link {
