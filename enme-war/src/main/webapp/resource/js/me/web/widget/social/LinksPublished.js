@@ -125,7 +125,10 @@ define([
     * Display a empty message.
     */
    displayEmptyMessage : function () {
-     //TODO: POR HACER
+       var _node = this._items,
+       _message = dojo.doc.createElement("h2");
+       _message.innerHTML = "No links refered with this hashtag";
+       dojo.place(_message, _node);
    },
 
    /**
@@ -155,80 +158,3 @@ define([
 
   });
 });
-
-//dojo.provide("encuestame.org.core.commons.social.LinksPublished");
-//
-//dojo.require("dijit.form.ValidationTextBox");
-//dojo.require("dijit.form.Textarea");
-//dojo.require("dijit.form.Select");
-//dojo.require("dijit.form.Button");
-//dojo.require("dijit.form.Form");
-//dojo.require("encuestame.org.core.commons.dialog.Dialog");
-//dojo.require("encuestame.org.core.commons.dialog.Confirm");
-//dojo.require("encuestame.org.core.shared.utils.CacheLinkedList");
-//
-//dojo.require("dojo.hash");
-//
-//dojo.declare(
-//    "encuestame.org.core.commons.social.LinksPublished",
-//    [encuestame.org.main.EnmeMainLayoutWidget,
-//     encuestame.org.core.shared.utils.CacheLinkedList],{
-//
-//    	/**
-//    	 * Template.
-//    	 */
-//    	templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublished.html"),
-//
-//        /**
-
-//});
-//
-///**
-// * Represents a social item external link.
-// */
-//dojo.declare(
-//        "encuestame.org.core.commons.social.LinksPublishedItem",
-//        [encuestame.org.main.EnmeMainLayoutWidget],{
-//
-//        	/**
-//        	 * Template.
-//        	 */
-//            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublishedItem.html"),
-//
-//            /**
-//             * Social data.
-//             */
-//            social : null,
-//
-//            /**
-//             * Date of publication
-//             */
-//            date : "",
-//
-//            /**
-//             * Text of publication
-//             */
-//            text : "",
-//
-//            /**
-//             * Default link.
-//             */
-//            link : "#",
-//
-//            /**
-//             * Triggered before render the template.
-//             */
-//            postMixInProperties : function() {
-//            	if ( this.date) {
-//            		this.date = ENME.fromNow(this.date, "YYYY-MM-DD");
-//            	}
-//            },
-//
-//            /*
-//             * post create.
-//             */
-//            postCreate : function() {
-//                this._image.src = encuestame.social.shortPicture(this.social);
-//            }
-//
-//});

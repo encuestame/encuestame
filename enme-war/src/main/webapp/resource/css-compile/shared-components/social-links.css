@@ -5,53 +5,55 @@
 }
 
 .web-social-links h2 {
-	color: #CBCBCB;
-	font-size: 14px;
-	font-weight: normal;
-	margin: 0;
-	padding: 15px;
+    color: #CBCBCB;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    padding: 15px;
 }
 
 .web-social-links .links .item {
-	font-size: 15px;
-	padding: 10px 20px;
-	position: relative;
-	cursor: pointer;
+    font-size: 15px;
+    padding: 10px 20px;
+    position: relative;
+    cursor: pointer;
 }
 
 .web-social-links .item .link a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .web-social-links .item {
-	font-size: 14px;
-	overflow: auto;
-	padding: 11px 7px 5px 20px;
-	cursor: pointer;
+    font-size: 14px;
+    overflow: auto;
+    padding: 13px;
+    line-height: 20px;
+    cursor: pointer;
 }
 
 .web-social-links .item:hover {
-	background-color: #E8E8E8;
-	box-shadow : 0 1px 2px #CCC;	
-	-webkit-box-shadow : 0 1px 2px #CCC;
-	-ms-box-shadow  : 0 1px 2px #ccc;
-	-moz-box-shadow : 0 1px 2px #ccc;
-	
+    background-color: #E8E8E8;
+    box-shadow : 0 1px 2px #CCC;
+    -webkit-box-shadow : 0 1px 2px #CCC;
+    -ms-box-shadow  : 0 1px 2px #ccc;
+    -moz-box-shadow : 0 1px 2px #ccc;
+
 }
 
 .web-social-links .item .img {
-	float: left;
-	overflow: hidden;
+    float: left;
+    overflow: hidden;
 }
 
 .web-social-links .item .link {
-	float: left;
-	margin-left: 16px;
-	width: 400px;
+    float: left;
+    margin-left: 16px;
+    width: 400px;
+    font-size: 14px;
 }
 
 .web-social-links .item .social-date {
-	float: right;
-	margin-right: 10px;
-	font-size: 10px;
+    float: right;
+    margin-right: 10px;
+    font-size: 10px;
 }

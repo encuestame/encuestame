@@ -4,7 +4,7 @@
 }
 
 .profile-content-wrapper .web-pup-wrapper {
-	box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
+    box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
 }
 
 .web-profile-wrapper > header {
@@ -15,7 +15,7 @@
 }
 
 .web-profile-wrapper .emne-box > header > span {
-	padding-left: 5px;
+    padding-left: 5px;
 }
 
 .web-profile-wrapper .profile-content-wrapper {
@@ -30,6 +30,7 @@
 
 .web-profile-wrapper .profile-right {
   margin-left: 255px;
+  overflow: hidden;
 }
 
 .web-profile-wrapper div.profile-name {
@@ -63,4 +64,3 @@
 .web-profile-wrapper .profile-left .rss li a, .web-profile-wrapper .profile-left .rss li a:link, .web-profile-wrapper .profile-left .rss li a:visited, .web-profile-wrapper .profile-left .rss li a:active {
   color: #A7A7A7;
 }
-	

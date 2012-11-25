@@ -31,7 +31,6 @@ import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.HomeBean;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;

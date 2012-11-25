@@ -77,6 +77,14 @@ a:hover{
  text-align: center;
 }
 
+.right {
+ text-align: right;
+}
+
+.left {
+ text-align: left;
+}
+
 .message{
     font-size: 14px;
 }
@@ -116,6 +124,7 @@ a:hover{
   color: #FFFFFF !important;
   font-weight: normal;
   text-shadow: none !important;
+  text-decoration: underline !important;
 }
 
 .mainError {
@@ -166,7 +175,7 @@ a:hover{
       font-weight: bold;
       outline: 0 none;
       padding: 8px 6px;
-      width: 170px;
+      width: auto;
       text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
       position: relative;
     display: inline-block;
@@ -187,12 +196,12 @@ a:hover{
 }
 
 .success-message{
-    color: #358852;
+    color: #55986D;
     padding: 2px;
 }
 
 .error-message{
-    color: #C88080;
+    color: #BA3B3B;
     padding: 2px;
 }
 
@@ -267,19 +276,14 @@ div.defaultSectionTitle {
 }
 
 .gradient-gray {
-   background-image: linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
-   background-image: -o-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
-   background-image: -moz-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
-   background-image: -webkit-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
-   background-image: -ms-linear-gradient(center top, rgb(200,193,193) 4%, rgb(112,110,110) 100%);
-
-   background-image: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.04, rgb(200,193,193)),
-        color-stop(1, rgb(112,110,110))
-    );
+background: rgb(238,238,238); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(204,204,204,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
 }
 
 .gradient-yellow{
@@ -586,6 +590,11 @@ div.web-default-menu  li.first {
 /** emne-box **/
 
 .emne-box { }
+
+.emne-box a:link, .emne-box a:visited{
+    color: #444;
+    text-decoration: none;
+}
 
 .emne-box-gray {
   background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);

@@ -7,26 +7,72 @@ define([
 
   return declare(null, {
 
+   /*
+    *
+    */
     templatePath : null,
-    widgetsInTemplate : true,
+
+    /*
+     *
+     */
     noEvents : false,
+
+    /*
+     *
+     */
     focusDefault : false,
+
+    /*
+     *
+     */
     enviroment : "external",
+
+    /*
+     *
+     */
     isValid : false,
+
+    /*
+     *
+     */
     inputTextValue : "",
+
+    /*
+     *
+     */
     toolTip : true,
+
+    /*
+     *
+     */
     placeholder:"",
 
     /**
-     * ?????????????????????
+     * Post create
      */
     postCreate : function() {
         this.inherited(arguments);
-        if (this.focusDefault) {
-            dijit.focus( dojo.byId("input_" + this.id));
+        var _input = dojo.byId("input_" + this.id);
+        dojo.connect(_input, "onkeyup", dojo.hitch(this, function(e) {
+            if (dojo.keys.ENTER == e.keyCode) {
+               dojo.stopEvent(e);
+               this._validate(e);
+            }
+        }));
+        dojo.connect(_input, "onkeypress", dojo.hitch(this, function(e) {
+            if (dojo.keys.ENTER == e.keyCode) {
+               dojo.stopEvent(e);
+               dojo.publish('/encuestame/singup/validate');
+            }
+        }));
+        if (_input) {
+            if (this.focusDefault) {
+                dijit.focus(_input);
+            }
         }
         if (!this.noEvents) {
             dojo.connect(this._input, "onchange", dojo.hitch(this, function(event) {
+                dojo.stopEvent(event);
                 this._validate(event);
             }));
         }
@@ -35,14 +81,14 @@ define([
     /**
      *
      */
-    getServiceUrl : function(){
+    getServiceUrl : function() {
         return "";
     },
 
     /**
      *
      */
-    recheck : function(data){
+    recheck : function(data) {
          this._loadService(
                    this.getServiceUrl(), {
                    context : this.enviroment,
@@ -54,7 +100,7 @@ define([
      *
      */
     error : function() {
-        console.info("override");
+        //console.info("override");
     },
 
     /**
@@ -115,7 +161,6 @@ define([
      *
      */
     _loadService : function(service, params, error) {
-            var i = false;
             var load = dojo.hitch(this, function(data) {
                     if (data.success.valid) {
                         this.isValid = true;
@@ -127,15 +172,6 @@ define([
                         this._additionalErrorHandler(data.success);
                     }
             });
-            // dojo.mixin(params,
-            // {
-            // max : this.max,
-            // start : this.start
-            // }
-            // );
-            // var error = function(error) {
-            // console.debug("error", error);
-            // };
             encuestame.service.xhrGet(this.getURLService().service(service), params, load, error);
         },
 
@@ -166,9 +202,8 @@ define([
         /**
          *
          */
-        _showErrorMessage : function(data){
-            var node = dojo.byId("_message_"+this.id);
-            //console.info("_showSuccessMessage", data);
+        _showErrorMessage : function(data) {
+            var node = dojo.byId("_message_" + this.id);
             if (node) {
                 dojo.empty(node);
                 var p = dojo.doc.createElement("p");
@@ -184,7 +219,5 @@ define([
         _validate : function(event) {
             //console.debug("validate", event);
         }
-
-
   });
 });

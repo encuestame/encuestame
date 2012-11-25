@@ -51,8 +51,13 @@
                             <a href="<%=request.getContextPath()%>/user/forgot"> <spring:message
                                     code="signin.forgot" />
                             </a>
+                            <br/>
+                            <br/>
+                            <a href="<%=request.getContextPath()%>/user/signup"> <spring:message
+                                    code="signin.signup" />
+                            </a>
                         </div>
-                        <div class="web-section-button">
+                        <div class="web-section-button right">
                             <button type="submit" class="submit button" name="submit">
                                 <spring:message code="signin.button" />
                             </button>

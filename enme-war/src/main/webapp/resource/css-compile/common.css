@@ -269,7 +269,7 @@ input:focus {
    font-weight: bold;
    min-width: 95px;
    padding: 5px;
-   color: white;
+   color: #222;
    text-align: center;
    position: relative;
 }

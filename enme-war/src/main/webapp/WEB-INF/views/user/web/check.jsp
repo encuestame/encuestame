@@ -6,15 +6,15 @@
               <div class="web-form-singup-container">
                   <div class="web-message-forgot">
                       <h1>
-                            <spring:message code="forgot.checkyouremail" />
-                      </h1>
-                      <div class="web-message-forgor-link">
-                             <span class="link">
-                                <a href="<%=request.getContextPath()%>/user/signin">
-                                    <spring:message code="header.signin" />
-                                 </a>
-                             </span>
-                      </div>
+                             <spring:message code="forgot.checkyouremail" />
+                             <div class="web-message-forgor-link">
+                                    <span class="link">
+                                      <spring:message code="commons_goto" />  <a href="<%=request.getContextPath()%>/user/signin">
+                                           <spring:message code="header.signin" />
+                                        </a>
+                                    </span>
+                             </div>
+                       </h1>
                   </div>
               </div>
           </div>

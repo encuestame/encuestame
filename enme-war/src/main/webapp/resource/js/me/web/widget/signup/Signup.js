@@ -69,9 +69,10 @@ define([
                    }
                    //dojo.connect(this._submit, "onclick", dojo.hitch(this, this._onSubmit()));
                    dojo.connect(this._input, "ondoubleclick", dojo.hitch(this, function(event) {
-                       console.debug("calm down cowboy !!");
+                       //console.debug("calm down cowboy !!");
                    }));
            //}
+           dojo.subscribe("/encuestame/singup/validate", this, this._checkValidWidgets);
        },
 
        /**
@@ -96,7 +97,7 @@ define([
         *
         */
        _checkValidWidgets : function(){
-           console.debug("standby init 3");
+           //console.debug("standby init 3");
            if (this.userWidget.isValid && this.passWidget.isValid && this.emailWidget.isValid && this.realWidget.isValid) {
                //console.debug("_checkValidWidgets 1");
                this.createNewAccountService(this.userWidget, this.passWidget, this.emailWidget, this.realWidget);

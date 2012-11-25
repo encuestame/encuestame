@@ -41,8 +41,7 @@ padding: 15px;
     width: 400px;
 }
 
-.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content-custom
-    {
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content-custom {
     margin-left: 480px;
     min-height: 48px;
 }
@@ -61,36 +60,17 @@ padding: 15px;
     position: relative;
 }
 
-.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title
-    {
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title {
     font-size: 16px;
-margin-bottom: 2px;
-text-transform: capitalize;
+    margin-bottom: 2px;
+    text-transform: capitalize;
 }
 
 .web-pup-wrapper .web-pub-hashtag {
-    background-color: #EFEFEF;
-    border: 1px solid #DDDDDD;
-    border-radius: 3px 3px 3px 3px;
-    color: #12122D;
-    font-size: 10px;
-    margin: 2px 2px 2px 0;
-    padding: 2px;
-    white-space: nowrap;
+    padding: 5px 0;
 }
 
-.web-pup-wrapper .web-pub-hashtag a:link {
-    color: #12122D;
-}
-
-.web-pup-wrapper .web-pub-hashtag:hover {
-    color: #F7FBFF;
-    background-color: #3E6D8E;
-    text-decoration: none;
-}
-
-.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title h2
-    {
+.web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper .web-pup-item-content .web-pup-item-title h2 {
     margin: 0;
     font-weight: normal;
     font-size: 15px;
