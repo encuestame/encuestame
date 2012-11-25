@@ -540,65 +540,6 @@ div.web-tweetpolls-time {
 
 /*** Profile Menu **/
 
-/** profile menu **/
-div.profilePanel {
-    display: none;
-    position: absolute;
-    min-height: 120px;
-    min-width: 245px;
-    background-color: #444444;
-    right: 0px;
-    top: 33px;
-    zoom: 1;
-    -moz-box-shadow: 1px 2px 3px #888888;
-    -webkit-box-shadow: 1px 2px 3px #888888;
-    box-shadow: 1px 2px 3px #888888;
-    -webkit-border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
-    border-radius: 0px 0px 5px 5px;
-    z-index: 99999;
-}
-
-div.profileOpenPanel {
-    display: block;
-}
-
-div.profilePanel ul {
-    max-height: 350px;
-    overflow: hidden;
-}
-
-div.profilePanel li {
-    background-image: none;
-    clear: both;
-    display: block;
-    width: 215px;
-    float: left;
-    text-align: left;
-    list-style: none;
-    margin: 0px;
-    padding: 6px 15px;
-}
-
-div.profilePanel li:hover {
-    background-color: #5F5F5F;
-}
-
-div.profilePanel li a:link {
-    color: #BABABA !important;
-    font-weight: normal;
-}
-
-div.profilePanel li a:hover {
-    color: white !important;
-    text-decoration: none;
-}
-
-div.profilePanel li a {
-    padding: 10px;
-    color: #BABABA !important;
-    font-weight: normal;
-}
 
 /** profile update wrapper **/
 div.accountUpdateWrapper {

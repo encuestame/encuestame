@@ -27,8 +27,8 @@
             </c:forEach>
             <input type="hidden" name="not_view_all" value="<spring:message code="not_view_all" />"/>
       <tiles:insertAttribute name="header" ignore="true" />
-      <tiles:insertAttribute name="menu" ignore="true" />
     </header>
+    <tiles:insertAttribute name="menu" ignore="true" />
     <div id="content-container" class="enme-auto-center">
       <div id="enme-content" class="enme-auto-center">
         <tiles:insertAttribute name="content" />
