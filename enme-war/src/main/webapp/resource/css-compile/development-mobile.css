@@ -1,4 +1,4 @@
-@import url("reset.css");
+@import url("required.css");
 @import url("layout.css");
 @import url("common.css");
 @import url("mobile/default.css");
@@ -21,4 +21,3 @@
 @import url("shared-components/poll-vote.css");
 @import url("shared-components/publication-item.css");
 @import url("shared-components/rated-hashtag.css");
-/* @import url("normalize.css"); */

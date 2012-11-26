@@ -82,11 +82,11 @@
     </logger>
 
     <logger name="org.apache.http">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="httpclient.wire">
-        <level value="warn" />
+        <level value="debug" />
     </logger>
 
     <logger name="org.springframework.security">

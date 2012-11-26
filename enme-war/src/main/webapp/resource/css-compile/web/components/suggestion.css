@@ -4,7 +4,7 @@
 }
 
 .web-search-wrapper .suggest {
-	position: relative;
+    position: relative;
 }
 
 .web-search-wrapper .suggestBox {
@@ -13,10 +13,11 @@
   -webkit-border-radius: 2px 2px 2px 2px;
   -moz-border-radius: 2px 2px 2px 2px;
   -moz-box-shadow: 0 0 2px 1px #444444;
-  -webkit-box-shadow: 0 0 2px 1px #444444;  
+  -webkit-box-shadow: 0 0 2px 1px #444444;
    min-height: 20px;
    right: 0;
    z-index: 9999;
+   top: 25px;
 }
 
 .web-search-wrapper .web-suggest-noresults {
@@ -69,13 +70,16 @@
     color: white;
 }
 
-.web-search-container-wrapper .web-search-section-container .web-search-item
-    {
+.web-search-container-wrapper .web-search-section-container .web-search-item {
     border-bottom: 1px dotted #EBEBEB;
     cursor: pointer;
     display: inline-block;
     padding: 5px;
     width: 95.5%;
+}
+
+.web-search-container-wrapper .web-search-section-container .web-search-item:hover {
+
 }
 
 .web-search-container-wrapper .web-search-section-container .web-search-item h4 {

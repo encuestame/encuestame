@@ -187,7 +187,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                                final Integer start) throws EnMeExpcetion{
         log.info("search keyword tweetPoll  "+keyword);
         List<TweetPoll> tweetPolls  = new ArrayList<TweetPoll>();
-        if(keyword == null){
+        if (keyword == null) {
            throw new EnMeExpcetion("keyword is missing");
         } else {
             //TODO: migrate search to Hibernate Search.
@@ -1215,13 +1215,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     * (non-Javadoc)
     * @see org.encuestame.core.service.imp.ITweetPollService#searchAdvancedTweetPoll(AdvancedSearchBean)
     */
-	public List<TweetPollBean> searchAdvancedTweetPoll(final AdvancedSearchBean searchBean) throws EnMeNoResultsFoundException  {
-		// published - completed - favourite - scheduled
-		final List<TweetPoll> searchTweetPolls = getTweetPollDao()
-				.advancedSearch(searchBean.getIsPublished(), searchBean.getIsComplete(), searchBean.getIsFavourite(),
-						searchBean.getIsScheduled(), getAccount(getUserPrincipalUsername()),
-						searchBean.getStart(), searchBean.getMax(),searchBean.getPeriod(), searchBean.getKeyword());
-		return ConvertDomainBean.convertListToTweetPollBean(searchTweetPolls);
-	}
+    public List<TweetPollBean> searchAdvancedTweetPoll(final AdvancedSearchBean searchBean) throws EnMeNoResultsFoundException  {
+        // published - completed - favourite - scheduled
+        final List<TweetPoll> searchTweetPolls = getTweetPollDao()
+                .advancedSearch(searchBean.getIsPublished(), searchBean.getIsComplete(), searchBean.getIsFavourite(),
+                        searchBean.getIsScheduled(), getAccount(getUserPrincipalUsername()),
+                        searchBean.getStart(), searchBean.getMax(),searchBean.getPeriod(), searchBean.getKeyword());
+        return ConvertDomainBean.convertListToTweetPollBean(searchTweetPolls);
+    }
 
 }

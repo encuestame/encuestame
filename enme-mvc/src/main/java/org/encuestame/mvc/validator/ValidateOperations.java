@@ -83,6 +83,9 @@ public class ValidateOperations {
         this.userAccount = currentUser;
     }
 
+    /**
+     * {@link SecurityOperations}
+     */
     private SecurityOperations securityService;
 
     /**
@@ -188,8 +191,9 @@ public class ValidateOperations {
      * @param email
      * @return
      */
-    public UserAccount checkifEmailExist(final String email) {
-        log.debug("checkifEmailExist email... ->"+email);
+    public UserAccount checkifEmailExist(String email) {
+        log.debug("checkifEmailExist email... -> " + email);        //
+        email = email == null ? "" : email;
         final UserAccount user = getSecurityService().findUserAccountByEmail(email);
         return user;
     }

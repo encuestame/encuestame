@@ -13,7 +13,9 @@
                         <div class="section name">
                             <div class="validator-wrapper" id="rm" widgetid="rm">
                                 <div id="_message_rm" class="sidetip">
-                                    <p><form:errors path="email" cssClass="error-message" /></p>
+                                    <p>
+                                        <form:errors path="email" cssClass="error-message" />
+                                    </p>
                                 </div>
                                 <div class="input-design">
                                     <fieldset>
@@ -28,21 +30,17 @@
                                     <p><form:errors path="captcha" cssClass="error-message" /></p>
                                 </div>
                                 <div class="captcha">
-                                    <fieldset>
-                                        <c:out value="${forgotPasswordBean.captcha}" escapeXml="false" />
-                                    </fieldset>
+                                     <c:out value="${forgotPasswordBean.captcha}" escapeXml="false" />
                                 </div>
                             </div>
                         </div>
 
-                    </fieldset>
-                    <fieldset>
-                        <div class="center">
-                            <button type="submit" class="submit button" name="submit">
-                                 <spring:message code="forgot.submit" />
-                            </button>
-                        </div>
-                    </fieldset>
+                     <div class="center">
+                         <button type="submit" class="submit button" name="submit">
+                              <spring:message code="forgot.submit" />
+                         </button>
+                     </div>
+                     </fieldset>
                 </div>
             </div>
         </form:form>

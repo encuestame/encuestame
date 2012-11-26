@@ -1,9 +1,9 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div id="web-main-public-line" class="enme-auto-center">
     <article class="web-item-wrapper">
-        <nav class="categoryMenu">
+        <div class="categoryMenu">
             <%@ include file="nav.jsp"%>
-        </nav>
+        </div>
         <article class="items">
         <c:forEach items="${items}" var="item">
             <%@ include file="item.jsp"%>

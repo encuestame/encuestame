@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp" %>
 <div id="web-user-actions-form-wrapper" class="enme-auto-center">
-    <div class="web-form-wrapper" id="web-form-wrapper">
+    <div class="web-form-wrapper sign-un-form" id="web-form-wrapper">
             <form method="POST" id="signupForm"
                 data-dojo-type="dijit/form/Form"
                 jsId="signupForm"
@@ -42,7 +42,7 @@
                             <input type="hidden" name="context" value="front">
                         </fieldset>
                         <fieldset>
-                            <div class="center">
+                            <div class="right">
                                  <c:if test="${signupError}">
                                     <div class="error">
                                       <spring:message code="signup.error" />
@@ -57,6 +57,7 @@
                         </fieldset>
                         </div>
                     </div>
+                </form>
                     <div class="section-signup" title="Sign up with your favourite social network"
                             collapsed="false">
                             <div class="web-social-signin">
@@ -66,6 +67,6 @@
                                 <%@ include file="/WEB-INF/jsp/includes/web/social.jsp" %>
                               </div>
                     </div>
-            </form>
+
     </div>
 </div>

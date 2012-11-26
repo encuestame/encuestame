@@ -10,19 +10,13 @@
                        maxlength="15"
                        class=""
                        name="username"
-                       dojoAttachPoint="_input">
+                       data-dojo-attach-point="_input">
              </fieldset>
         </div>
     </div>
-    <div class="tooltip" dojoAttachPoint="_tooltip" id="_tooltip_${id}">
-        <p>
-            <h1>Username</h1>
-                Username should be <b>unique</b>. 4 Minimum characters and only Alphabetic characters are allowed.
-        </p>
-     </div>
-     <div class="suggestions" style="display: none;" dojoAttachPoint="_block">
-        Suggestions:
-        <ul  dojoAttachPoint="_suggest">
+    <div class="suggestions" style="display: none;" data-dojo-attach-point="_block">
+        Select one of this suggestions or write another username
+        <ul  data-dojo-attach-point="_suggest">
        </ul>
     </div>
 </div>

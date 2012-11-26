@@ -21,9 +21,9 @@
                          contextPath="<%=request.getContextPath()%>"></div>
                 </span> -
             </c:if>
-                <span class="link web-search-wrapper">
+             <span class="link web-search-wrapper">
                     <div data-dojo-type="me/web/widget/menu/SearchMenu"></div>
-                </span>
+            </span>
         </div>
     </div>
 </div>

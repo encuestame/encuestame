@@ -77,54 +77,70 @@ public class ForgetPasswordController extends AbstractSecurityController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public String processSubmit(HttpServletRequest req,
+            Model model,
             @RequestParam("recaptcha_challenge_field") String challenge,
             @RequestParam("recaptcha_response_field") String response,
             @ModelAttribute ForgotPasswordBean user, BindingResult result,
             SessionStatus status) throws EnMeNoResultsFoundException {
         log.info("recaptcha_challenge_field " + challenge);
         log.info("recaptcha_response_field " + response);
-        final String email = user.getEmail();
-        log.debug("email " + email);
-        final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(
-                req.getRemoteAddr(), challenge, response);
-        final ValidateOperations validation = new ValidateOperations(
-                getSecurityService());
-        final UserAccount userValidate = validation.checkifEmailExist((email == null ? "" : email));
-        if (userValidate == null) {
-            result.rejectValue("email", "secure.email.notvalid",
-                    new Object[] { user.getEmail() }, "");
-        }
-        log.info("reCaptchaResponse " + reCaptchaResponse.isValid());
-        //validate reCaptcha
-        validation.validateCaptcha(reCaptchaResponse, result);
-        if(reCaptchaResponse.getErrorMessage() != null) {
-            RequestSessionMap.getCurrent(req).put("resetError", Boolean.TRUE);
-            RequestSessionMap.getCurrent(req).put("resetErrorMessage", reCaptchaResponse.getErrorMessage());
-            log.fatal("reCaptcha Fatal Error: "+reCaptchaResponse.getErrorMessage());
-        }
-        log.info("result.hasErrors() " + result.hasErrors());
-        if (result.hasErrors()) {
-            return "forgot";
+        log.info("result erros  " + result.getAllErrors().size());
+        log.info("result erros  " + result.getErrorCount());
+        final String email = user.getEmail() == null ? "" : user.getEmail();
+        if (!email.isEmpty()) {
+                log.debug("email " + email);
+                final ReCaptchaResponse reCaptchaResponse = getReCaptcha().checkAnswer(
+                        req.getRemoteAddr(), challenge, response);
+                final ValidateOperations validation = new ValidateOperations(
+                        getSecurityService());
+                boolean _isValidEmailFormat = validation.validateEmail(email);
+                log.info("EMAIL FORMAT NOT VALID --> " + _isValidEmailFormat);
+                if (_isValidEmailFormat) {
+                     final UserAccount userValidate = validation.checkifEmailExist(email);
+                     if (userValidate == null) {
+                         result.rejectValue("email", "secure.email.notvalid", new Object[] { user.getEmail() }, "");
+                     }
+                     log.info("reCaptchaResponse " + reCaptchaResponse.isValid());
+                     //validate reCaptcha
+                     validation.validateCaptcha(reCaptchaResponse, result);
+                     if(reCaptchaResponse.getErrorMessage() != null) {
+                         RequestSessionMap.getCurrent(req).put("resetError", Boolean.TRUE);
+                         RequestSessionMap.getCurrent(req).put("resetErrorMessage", reCaptchaResponse.getErrorMessage());
+                         log.fatal("reCaptcha Fatal Error: "+reCaptchaResponse.getErrorMessage());
+                     }
+                    log.info("result.hasErrors() " + result.hasErrors());
+                    if (result.hasErrors()) {
+                        return "forgot";
+                    } else {
+                        final String password = PasswordGenerator.getPassword(6);
+                        try {
+                            /*
+                             * Stuffs to change;
+                             * 1. user should be to change own password, not auto generate
+                             * 2. instead redirect to sign in page, should be to success page.
+                             */
+                            getSecurityService().renewPassword(
+                                            ConvertDomainBean
+                                                    .convertBasicSecondaryUserToUserBean(userValidate),
+                                            password);
+                        } catch (EnMeExpcetion e) {
+                            log.error("Error Renewd password " + e.getMessage());
+                            return "forgot";
+                        }
+                        status.setComplete();
+                        log.info("password generated: " + password);
+                        final ForgotPasswordBean forgot = new ForgotPasswordBean();
+                        model.addAttribute("forgotPasswordBean", forgot);
+                        return "/user/checkyouremail";
+                    }
+                } else {
+                    log.info("EMAIL FORMAT NOT VALID");
+                    result.rejectValue("email", "secure.email.notvalid", new Object[] { user.getEmail() }, "");
+                    return "forgot";
+                }
         } else {
-            final String password = PasswordGenerator.getPassword(6);
-            try {
-                /*
-                 * Stuffs to change;
-                 * 1. user should be to change own password, not auto generate
-                 * 2. instead redirect to sign in page, should be to success page.
-                 */
-                getSecurityService().renewPassword(
-                                ConvertDomainBean
-                                        .convertBasicSecondaryUserToUserBean(userValidate),
-                                password);
-                log.debug("foo");
-            } catch (EnMeExpcetion e) {
-                log.error("Error Renewd password " + e.getMessage());
-                return "forgot";
-            }
-            status.setComplete();
-            log.info("password generated: " + password);
-            return "/user/checkyouremail";
+            result.rejectValue("email", "secure.email.emtpy", null, "");
+            return "forgot";
         }
     }
 }

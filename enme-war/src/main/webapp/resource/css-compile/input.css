@@ -1,0 +1,50 @@
+
+/** default transition **/
+
+#enme-content input.enme-input {
+    outline:none;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+}
+
+#enme-content input[type="text"], input[type="password"] {
+    font-size : 13px
+}
+
+/** placeholder text **/
+
+input:-moz-placeholder {
+      color: #D0D0D0;
+}
+
+input::-webkit-input-placeholder {
+  color: #D0D0D0;
+}
+
+#enme-content input, textarea {
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05),0 1px 0 rgba(255, 255, 255, .075);
+    -moz-box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 1px 0 rgba(255,255,255,.075);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05),0 1px 0 rgba(255, 255, 255, .075);
+/*     -webkit-transition: .9s linear background;
+    -moz-transition: .9s linear background;
+    transition: .9s linear background; */
+}
+#enme-content input, textarea, select {
+    display: inline-block;
+    width: 210px;
+    padding: 4px;
+    margin: 0;
+    outline: 0;
+    background-color: white;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#enme-content input:focus {
+    box-shadow: 0 0 5px #ffb23c;
+    -webkit-box-shadow: 0 0 5px #ffb23c;
+    -moz-box-shadow: 0 0 5px #ffb23c;
+}

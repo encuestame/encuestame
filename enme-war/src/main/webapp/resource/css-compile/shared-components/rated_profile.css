@@ -16,15 +16,15 @@
 }
 
 .web-rated-profile-item .web-rated-profile-item-detail a {
-  color: white;
+  color: #222;
   font-size: 12px;
   text-decoration: none;
-  text-shadow: 1px 1px 1px #707070;
 }
 
-.web-rated-profile-item  .web-rated-profile-item-detail h2 {
-    margin: 0;
-    font-size: 14px;
+.web-rated-profile-item .web-rated-profile-item-detail h2 {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
 }
 
 .web-top-profile {
