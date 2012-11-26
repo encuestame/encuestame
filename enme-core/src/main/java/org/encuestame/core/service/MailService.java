@@ -214,8 +214,15 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
               message.setFrom(noEmailResponse);
               @SuppressWarnings("rawtypes")
               Map model = new HashMap();
+              getLogo(model);
+
               model.put("invitation", invitation);
               model.put("domain", domainDefault);
+			  model.put("username", "MyUsername");
+              model.put("presentationMessage", getMessageProperties("mail.message.default.user.presentation", buildCurrentLocale(), null));
+              model.put("subscribeMessage", getMessageProperties("mail.message.subscribe", buildCurrentLocale(), null));
+              model.put("unSubscribeMessage", getMessageProperties("mail.message.unsubscribe", buildCurrentLocale(), null));
+              getGreetingMessage(model);
               final String text = VelocityEngineUtils.mergeTemplateIntoString(
                  velocityEngine, "/org/encuestame/business/mail/templates/invitation.vm", "utf-8", model);
               message.setText(text, true);
@@ -376,7 +383,13 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
               message.setSubject(buildSubject("Notificaction status account"));
               message.setFrom(noEmailResponse);
               Map model = new HashMap();
+              getLogo(model);
               model.put("user", user);
+              final String[] properties = {EnMePlaceHolderConfigurer.getProperty("mail.message.app.name")};
+              model.put("presentationMessage", getMessageProperties("mail.message.default.user.presentation", buildCurrentLocale(), null));
+              model.put("userActivateMessage", getMessageProperties("mail.message.user.activate", buildCurrentLocale(), properties));
+
+              getGreetingMessage(model);
               String text = VelocityEngineUtils.mergeTemplateIntoString(
                  velocityEngine, "/org/encuestame/business/mail/templates/notification-account.vm", model);
               message.setText(text, true);
