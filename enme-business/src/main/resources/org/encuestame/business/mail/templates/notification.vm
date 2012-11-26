@@ -7,19 +7,21 @@
                 <div style="font-size:15px;font-weight:normal;line-height:22px;margin:0 0 11px 0; text-align:left"> Hi,
                              <span style="color:#0101DF;font-size:12px;"> ${user.username} </span>.
                 </div>
-                <div style="margin:0 0 11px 0"> <span>This notification has sended to you from Encuestame </span>
+                <div style="margin:0 0 11px 0"> <span> ${notificationMessage} </span>
                     <span style="color:#0101DF;font-size:12pxs;"> ${notification.message}</span>.
                 </div>
                 <div style="margin:6px 0 11px 0">
-                    <span>To Unsubscribe to this Email List, follow this link
+                    <span>${unsubscribeMessage}
 
                     <div id= "containerLink" style="margin:10px 16px 3px 0px; padding: 10px; background-color:#F8ECE0; border: 1px solid #FE9A2E;">
                         <a href="${domain}/account/confirm/email/${inviteCode}"> ${notification.urlUnsuscribe} </a></span>
                     </div>
                 </div>
             </div>
-       <div style="text-align:center;background-color:#f2f2f2;width:560;border:0; padding:3px 18px 10px 18px;margin-left: auto ;margin-right: auto ;"><span>Thank you, <strong>Encuestame team</strong></span></div>
-		#parse("/org/encuestame/business/mail/templates/footer.vm")
+      #parse("/org/encuestame/business/mail/templates/greeting.vm")
+            <div id="extras" style="font-size:12px;font-weight:normal; color:#ffffff; width:560;border:0;margin-left: auto ;margin-right: auto ; padding:9px 18px 0 18px;font-family:lucida grande,helvetica,arial;">
+                #parse("/org/encuestame/business/mail/templates/footer.vm")
+            </div>
  </div>
 </body>
 </html>
