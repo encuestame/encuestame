@@ -2,7 +2,7 @@
 <div id="web-tweetpoll-wrapper" class="emne-box web-wrapper-detail">
     <div class="web-tweetpoll-menu">
         <a href="<%=request.getContextPath()%>/user/tweetpoll/new">
-            <button class="enme-ui-button">
+            <button class="button">
                 <spring:message code="tweetpoll.new" />
             </button>
         </a>

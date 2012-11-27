@@ -1,6 +1,6 @@
 
 .web-filters-options {
-	
+
 }
 
 .web-filters-options nav {
@@ -8,20 +8,21 @@
   overflow: hidden;
 }
 
-.web-filters-options nav  a.selected {
+.web-filters-options nav  a.selected, .web-filters-options nav  a:hover {
     background-color: #E6E6E6;
-    color: #606060;
+    color: #333;
+    text-decoration: none;
 }
 
-.web-filters-options nav a {
+.web-filters-options nav a, .web-filters-options nav a:link, .web-filters-options nav a:visited {
     border-radius: 4px 4px 4px 4px;
     margin: 3px;
     padding: 3px;
     color: white;
 }
 
-/** 
-    web-filters-wrapper     
+/**
+    web-filters-wrapper
 **/
 .web-filters-wrapper {
     margin:  10px 2px;
@@ -132,7 +133,7 @@
 }
 
 .web-social-filter-items .web-social-filter-item .web-social-filter-image img{
-	
+
 }
 
 .web-social-filter-items .web-social-filter-item .web-social-filter-name {

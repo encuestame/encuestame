@@ -1,0 +1,17 @@
+#enme-content input, textarea, select .dijitInputField{
+  width: 16px;
+}
+
+#enme-content .dijitInputField input:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+#enme-content .dijitSelectFocused,
+    #enme-content .dijitSelectFocused .dijitButtonContents,
+    #enme-content .dijitTextBoxFocused,
+    #enme-content .dijitTextBoxFocused .dijitButtonNode {
+  border-color: #ffb23c;
+  transition-duration: 0.1s;
+}

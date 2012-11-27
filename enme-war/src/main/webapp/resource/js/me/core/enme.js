@@ -5,6 +5,7 @@
 //});
 define(["dojo",
         "dojo/dom",
+        'dojo/_base/json',
         "dojo/number",
         "dojo/cookie",
         "dojo/on",
@@ -13,6 +14,7 @@ define(["dojo",
         "moment"], function(
             dojo,
             dom,
+            json,
             number,
             cookie,
             on,
@@ -446,6 +448,28 @@ define(["dojo",
               //encuestame.error.session(encuestame.error.messages.denied);
           } else {
               log("session is valid");
+          }
+      },
+
+      /*
+       *
+       */
+      storeItem : function (key, value) {
+          if (Modernizr.sessionstorage) {
+              sessionStorage.setItem(key, json.toJson(value));
+          } else {
+              //TODO: save on COOKIE
+          }
+      },
+
+      /*
+       *
+       */
+      restoreItem : function (key) {
+          if (Modernizr.sessionstorage) {
+              return sessionStorage.getItem(key);
+          } else {
+            //TODO: get on COOKIE
           }
       },
 
