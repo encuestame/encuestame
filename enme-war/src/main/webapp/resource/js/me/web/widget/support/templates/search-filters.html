@@ -1,7 +1,7 @@
 <section class="web-filters-wrapper">
      <div class="web-filters-search">
          <div class="web-filters-search-input">
-             <input type="text" data-dojo-attach-point="_suggest"
+             <input type="text" data-dojo-attach-point="_keyword"
                    data-dojo-type="dijit/form/TextBox" placeholder="${i18nMessage.detail_manage_filters_advanced_type_to_search}"
                    trim="true" class="inputClass"></input>
          </div>
@@ -9,7 +9,7 @@
             <label>
                 ${i18nMessage.detail_manage_filters_advanced_title}
             </label>
-            <select data-dojo-type="dijit/form/MultiSelect" size="5">
+            <select data-dojo-type="dijit/form/MultiSelect" size="5" data-dojo-attach-point="_social">
                 <option value="FACEBOOK">Facebook</option>
                 <option value="TWITTER">Twitter</option>
                 <option value="LINKEDIN">Linked In</option>
@@ -18,26 +18,26 @@
          </div>
          <div class="web-filters-search-check">
             <div>
-                <input id="sched3ule_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <input id="published_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_published">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_published}
                 </label>
             </div>
             <div>
-                <input id="sch2edule_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <input id="completed_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_complete">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_only_completed}
                 </label>
             </div>
             <div>
-                <input id="schdeduale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <input id="unpublished_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_unpublished">
                 <label for="schedule">
                     Un Published
                     ${i18nMessage.detail_manage_unpublished}
                 </label>
             </div>
             <div>
-                <input id="schdeddsdsauale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <input id="all_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_all">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_filters_advanced_all_results}
                 </label>
@@ -45,19 +45,19 @@
          </div>
           <div class="web-filters-search-check">
             <div>
-                <input id="schassedule_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <input id="scheduled_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_schedule">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_scheduled}
                 </label>
             </div>
             <div>
-                <input id="schedusale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <input id="favorites_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_favorites">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_favorites}
                 </label>
             </div>
             <div>
-                <input id="schesdsdusale_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox">
+                <input id="by_account_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_by_account">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_by_account}
                 </label>

@@ -1,13 +1,71 @@
+button.button:hover {
+     background-color: #E7A441;
+        background-repeat: repeat-x;
+        background-image: -khtml-gradient(linear,left top,left bottom,from(#FFB952),to(#BF5A02));
+        background-image: -moz-linear-gradient(#E7A441,#BC870D);
+        background-image: -ms-linear-gradient(#E7A441,#BC870D);
+        background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#E7A441),color-stop(100%,#BC870D));
+        background-image: -webkit-linear-gradient(#E7A441,#BC870D);
+        background-image: -o-linear-gradient(#E7A441,#BC870D);
+        background-image: linear-gradient(#E7A441,#BC870D);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E7A441',endColorstr='#BC870D',GradientType=0);
+}
+
+button.button {
+        /** #FFB952, #BC870D **/
+        background-color: #BC870D;
+        background-repeat: repeat-x;
+        background-image: -khtml-gradient(linear,left top,left bottom,from(#FFB952),to(#BF5A02));
+        background-image: -moz-linear-gradient(#FFB952,#BC870D);
+        background-image: -ms-linear-gradient(#FFB952,#BC870D);
+        background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#FFB952),color-stop(100%,#BC870D));
+        background-image: -webkit-linear-gradient(#FFB952,#BC870D);
+        background-image: -o-linear-gradient(#FFB952,#BC870D);
+        background-image: linear-gradient(#FFB952,#BC870D);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFB952',endColorstr='#BC870D',GradientType=0);
+        border-color: #096EB3;
+      -webkit-border-radius:  4px 4px 4px 4px;
+      -moz-border-radius:  4px 4px 4px 4px;
+      border-radius:  4px 4px 4px 4px;
+      -moz-box-shadow: 0px 0px 1px #888;
+      -webkit-box-shadow: 0px 0px 1px #888;
+      box-shadow: 0px 0px 1px #888;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-weight: bold;
+      outline: 0 none;
+      padding: 8px 6px;
+      width: auto;
+      text-shadow: 0 -1px 1px rgba(0, 0, 0, .25);
+      position: relative;
+    display: inline-block;
+    overflow: visible;
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 18px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, .5);
+    border: 1px solid #CCC;
+    cursor: pointer;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,.5);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+
 .enme-web-context button.vote {
-	background-color: #E0E0E0;
-	background-image: -moz-linear-gradient(center top, #FAFAFA 0px, #DCDCDC 100%);
-	border-color: #CCCCCC #CCCCCC #AAAAAA;
-	box-shadow: 0 0 1px #FFFFFF inset;
-	text-shadow: 0 1px 0 #FFFFFF;
+    background-color: #E0E0E0;
+    background-image: -moz-linear-gradient(center top, #FAFAFA 0px, #DCDCDC 100%);
+    border-color: #CCCCCC #CCCCCC #AAAAAA;
+    box-shadow: 0 0 1px #FFFFFF inset;
+    text-shadow: 0 1px 0 #FFFFFF;
 }
 
 .enme-web-context button:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .enme-ui-button {
@@ -20,7 +78,7 @@
   cursor: pointer;
   font-size: 12px;
   font-weight: bold;
-  -moz-user-select: none;  
+  -moz-user-select: none;
   height: 27px;
   outline: 0 none;
   padding: 0 0.2em;
@@ -32,8 +90,8 @@
 }
 
 .button-red {
-	background: -moz-linear-gradient(center top , #F1ADAD 0px, #9F6161 100%) repeat scroll 0 0 transparent !important;
-	color: white;
+    background: -moz-linear-gradient(center top , #F1ADAD 0px, #9F6161 100%) repeat scroll 0 0 transparent !important;
+    color: white;
 }
 
 /** override dijit buttons **/
@@ -45,20 +103,29 @@
     border: 1px solid #ADADAD !important;
     padding: 5px 13px !important;
     font-weight: bold;
-    color: black;
+    color: white !important;
     background-image: none !important;
-    background: -moz-linear-gradient(center top , #FAFAFA 0px, #DCDCDC 100%) repeat scroll 0 0 transparent !important;
-    border-radius: 4px !important;        
+    background-color: #BC870D !important;;
+    background-repeat: repeat-x;
+    background-image: -khtml-gradient(linear,left top,left bottom,from(#FFB952),to(#BF5A02)) !important;;
+    background-image: -moz-linear-gradient(#FFB952,#BC870D) !important;;
+    background-image: -ms-linear-gradient(#FFB952,#BC870D) !important;;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#FFB952),color-stop(100%,#BC870D)) !important;;
+    background-image: -webkit-linear-gradient(#FFB952,#BC870D) !important;;
+    background-image: -o-linear-gradient(#FFB952,#BC870D) !important;;
+    background-image: linear-gradient(#FFB952,#BC870D) !important;;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFB952',endColorstr='#BC870D',GradientType=0) !important;;
+    border-radius: 4px !important;
     -moz-border-radius: 4px !important;
     -webkit-border-radius: 4px !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;    
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;     
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* .dijitButton .dijitButtonNode:hover {
-	background: -moz-linear-gradient(center top , #F1ADAD 0px, #9F6161 100%) repeat scroll 0 0 transparent !important;
+    background: -moz-linear-gradient(center top , #F1ADAD 0px, #9F6161 100%) repeat scroll 0 0 transparent !important;
 } */
 
 /* .dijitButton .dijitButtonNode {
@@ -75,9 +142,18 @@
 
 /** hover color need to be fixed, it's blue **/
 
-.enme-web-context .dijitButtonHover{
+.enme-web-context .dijitButtonHover .dijitButtonNode{
   color: #FFFFFF !important;
-  background-color: #A1D988 !important;
+   background-color: #E7A441 !important;
+   background-repeat: repeat-x !important;
+   background-image: -khtml-gradient(linear,left top,left bottom,from(#FFB952),to(#BF5A02)) !important;
+   background-image: -moz-linear-gradient(#E7A441,#BC870D) !important;
+   background-image: -ms-linear-gradient(#E7A441,#BC870D) !important;
+   background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#E7A441),color-stop(100%,#BC870D)) !important;
+   background-image: -webkit-linear-gradient(#E7A441,#BC870D)!important ;
+   background-image: -o-linear-gradient(#E7A441,#BC870D)!important ;
+   background-image: linear-gradient(#E7A441,#BC870D)!important ;
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E7A441',endColorstr='#BC870D',GradientType=0) !important ;
 }
 
 .enme-web-context .dijitTextBoxHover, .enme-web-context .dijitTextBoxHover .dijitButtonNode {
@@ -98,24 +174,24 @@
 }
 
 .enme-web-context .dijitSelect {
-	
+
 }
 
 .enme-web-context .dijitSelect .dijitButtonText {
-	min-width: 110px;
+    min-width: 110px;
     padding: 5px !important;
     text-align: left;
 }
 
 .enme-web-context  .dijitMenuActive .dijitMenuItemHover, .enme-web-context .dijitMenuActive .dijitMenuItemSelected {
-	background-color: none !important;
+    background-color: none !important;
 }
 
 /** float messages window **/
 
 .enme-web-context .dijitToasterContent {
-	background: none repeat scroll 0 0 transparent !important;
-	padding: 0 !important;
+    background: none repeat scroll 0 0 transparent !important;
+    padding: 0 !important;
 }
 
 .enme-web-context .dijitToasterContent .message_toaster {
@@ -146,12 +222,12 @@
 
 .enme-web-context  .dijitToasterFatal  .message_toaster {
       background: none repeat scroll 0 0 red;
-      color: #FFFFFF;    	
+      color: #FFFFFF;
 }
 
 .enme-web-context  .dijitToasterError  .message_toaster {
       background: none repeat scroll 0 0 red;
-      color: #FFFFFF;    
+      color: #FFFFFF;
 }
 
 .enme-web-context  .dijitToasterMessage .message_toaster {
@@ -162,5 +238,5 @@
 .enme-web-context  .dijitToasterWarning .message_toaster {
       background: none repeat scroll 0 0 yellow;
       color: black;
-	
+
 }
