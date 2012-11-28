@@ -136,6 +136,11 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          //criteria.createAlias("question", "question");
         // TODO: Complete method, adding criteria params
+
+        calculateSearchPeriodsDates(period, criteria, "createdAt");
+        criteria.add(Restrictions.gt("relevance", 0L));
+        criteria.addOrder(Order.desc("relevance"));
+        criteria.addOrder(Order.desc("createdAt"));
         return (List<Survey>) filterByMaxorStart(criteria, maxResults, start);
     }
 

@@ -1026,12 +1026,26 @@ public class ConvertDomainBean {
         unitSurvey.setClosedQuota(survey.getClosedQuota());
         unitSurvey.setShowResults(survey.getShowResults());
         unitSurvey.setNumbervotes(survey.getNumbervotes());
-        // unitSurvey.setHits(survey.getHits());
+        unitSurvey.setHits(survey.getHits() == null ? EnMeUtils.VOTE_MIN : survey
+                .getHits());
         unitSurvey.setAdditionalInfo(survey.getAdditionalInfo());
         unitSurvey.setShowAdditionalInfo(survey.getShowAdditionalInfo());
         unitSurvey.setNotifications(survey.getNotifications());
         unitSurvey.setName(survey.getName());
         unitSurvey.setRelevance(survey.getRelevance());
+        unitSurvey.setSurveySlugName(survey.getSurveySlugName());
+        unitSurvey.setCreatedAt(survey.getCreatedAt());
+        unitSurvey.setTotalVotes(survey.getNumbervotes() == null ? EnMeUtils.VOTE_MIN
+                : Long.valueOf(survey.getNumbervotes()));
+        unitSurvey.setLikeVote(survey.getLikeVote() == null ? EnMeUtils.LIKE_DEFAULT
+                : Long.valueOf(survey.getLikeVote()));
+        unitSurvey.setDislikeVote(survey.getDislikeVote() == null ? EnMeUtils.DISLIKE_DEFAULT
+                : Long.valueOf(survey.getDislikeVote()));
+        unitSurvey.setHashTags(ConvertDomainBean
+                .convertListHashTagsToBean(new ArrayList<HashTag>(survey
+                        .getHashTags())));
+    //    unitSurvey.setItemType(TypeSearchResult.POLL.toString().toLowerCase());
+
         return unitSurvey;
     }
 
@@ -1361,17 +1375,33 @@ public class ConvertDomainBean {
         // TODO: ENCUESTAME-312
         final HomeBean homeBean = new HomeBean();
         homeBean.setId(surveyBean.getSid());
-        homeBean.setQuestionBean(null);
+        homeBean.setQuestionBean(convertSurveyToQuestionBean(surveyBean));
         homeBean.setOwnerUsername(surveyBean.getOwnerUsername());
         homeBean.setHits(surveyBean.getHits());
-        homeBean.setCreateDate(surveyBean.getCreatedAt() == null ? "no date"
+        homeBean.setCreateDate(surveyBean.getCreatedAt() == null ? null
                 : DateUtil.DOJO_DATE_FORMAT.format(surveyBean.getCreatedAt()));
         homeBean.setTotalVotes(surveyBean.getTotalVotes());
         homeBean.setRelativeTime(surveyBean.getRelativeTime());
-        homeBean.setTotalComments(surveyBean.getTotalComments());
+        homeBean.setTotalComments(surveyBean.getTotalComments() == null ? 0
+                : surveyBean.getTotalComments());
         homeBean.setItemType(TypeSearchResult.SURVEY.toString().toLowerCase());
+        homeBean.setRelevance(surveyBean.getRelevance());
+        homeBean.setHashTags(surveyBean.getHashTags());
         return homeBean;
     }
+
+    /**
+     * Convert {@link SurveyBean} to {@link QuestionBean}.
+     * @param surveyBean2
+     * @return
+     */
+	public static final QuestionBean convertSurveyToQuestionBean(final SurveyBean surveyBean2){
+		final QuestionBean qbean = new QuestionBean();
+		qbean.setQuestionName(surveyBean2.getName());
+		qbean.setId(surveyBean2.getSid());
+		qbean.setSlugName(surveyBean2.getSurveySlugName());
+		return qbean;
+	}
 
     /**
      * Convert userAccount top profile top rated.
