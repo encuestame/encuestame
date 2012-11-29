@@ -22,12 +22,24 @@ define([
                 SocialFilterMenuItem,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, AbstractFilterSupport, SocialAccountsSupport, _WidgetsInTemplateMixin], {
+          return declare([ _WidgetBase, _TemplatedMixin, main_widget, AbstractFilterSupport, SocialAccountsSupport, _WidgetsInTemplateMixin], {
 
           /**
            * The template reference.
            */
           templateString : template,
+
+         /*
+          * the key to restore / save the status of the widget in the browser
+          */
+          _key_save : 'filter-social',          
+
+          /**
+           * Object to save the status of the widget.--
+           */
+          _status : {
+                social_networks : []
+          },
 
          /**
           * i18n message for this widget.

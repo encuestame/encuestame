@@ -41,8 +41,6 @@ define([
                social_networks : []
            },
 
-           _session : sessionStorage,
-
             /*
             * i18n message for this widget.
             */
@@ -61,27 +59,16 @@ define([
            },
 
            /*
-            *
+            * the key to restore / save the status of the widget in the browser
             */
            _key_save : 'filter-search',
 
-           /*
-            *
-            */
-           _saveStatus : function(val) {
-               _ENME.storeItem(this._key_save, val);
-           },
 
            /*
-            *
+            * 
             */
-           _restoreStatus : function() {
-               var _saved = _ENME.restoreItem(this._key_save);
-               console.log("RESTORE STATUS", _saved);
-               if(_saved) {
-                   this._status = json.fromJson(_saved);
-                   console.log("RESTORE STATUS this._status", this._status);
-               }
+           _buildStatusObject : function () {
+
            },
 
 
