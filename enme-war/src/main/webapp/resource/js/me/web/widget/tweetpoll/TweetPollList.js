@@ -124,6 +124,9 @@ define([
                       });
                   }
               }
+              // channel to invoke search service
+              dojo.subscribe("/encuestame/tweetpoll/list/search", this, "loadTweetPolls");
+
               dojo.subscribe(this._publish_update_channel, this, "_checkOptionItem");
               if (this.folder_support && this._folder) {
                   var folder = new FoldersActions({folderContext: "tweetpoll"});
@@ -298,18 +301,26 @@ define([
                       this._tweetpollListSourceWidget.insertNodes(false, itemArray);
                   }
               });
+
+              //check if typeSearch is missing
+              if (!("typeSearch" in params)) {
+                  var _hash = ioQuery.queryToObject(hash());
+                  params.typeSearch = (typeof _hash.f == 'undefined' ? this.defaultSearch : _hash.f)
+              }
+              // mixin params with required params
               _lang.mixin(params,
                   {
                   max : this.max,
                   start : this.start
                   }
               );
+              // error handlers
               var error = function(error) {
                   console.debug("error", error);
               };
-              this._loading.show('Cargando TweetPolls', _ENME.MESSAGES_TYPE.WARNING);
+              //
+              this._loading.show('Loading TweetPolls', _ENME.MESSAGES_TYPE.WARNING);
               this.getURLService().get(this.url, params, load, error , dojo.hitch(this, function() {
-                  console.log('HIDEEEEEEEE LOADERRRR');
                   this._loading.hide();
               }));
           },

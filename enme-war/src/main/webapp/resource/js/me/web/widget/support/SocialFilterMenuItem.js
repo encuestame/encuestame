@@ -18,8 +18,10 @@ define([
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, SocialAccountsSupport, _WidgetsInTemplateMixin], {
 
-           //template string.
-           templateString : template,
+        /*
+         * template
+         */
+        templateString : template,
 
           /*
           * item data.

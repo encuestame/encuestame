@@ -3,7 +3,7 @@ define([
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
-         "dijit/form/Button",
+         //"dijit/form/Button",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/support/AbstractFilterSupport",
          "me/web/widget/social/SocialAccountsSupport",
@@ -15,7 +15,7 @@ define([
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
-                Button,
+                //Button,
                 main_widget,
                 AbstractFilterSupport,
                 SocialAccountsSupport,
@@ -55,9 +55,8 @@ define([
          postCreate : function() {
              dojo.subscribe("/encuestame/social/picker/counter/reload", this, "_reloadCounter");
              this._loadSocialConfirmedAccounts();
-             this._button.onClick = dojo.hitch(this, function() {
-
-             });
+             // on click in the filter button
+             //this._button.onClick = dojo.hitch(this, function() {});
          },
 
          /**
@@ -74,6 +73,28 @@ define([
          _reloadCounter : function() {
              var counter = this._countSelected();
              this._counter.innerHTML =  counter + " " + this.i18nMessage.social_picker_filter_selected;
+             if (typeof this.arrayAccounts === 'object') {
+                this.storeSelected(this.arrayAccounts);
+             }             
+         },
+
+
+         /**
+          *  Store the selected social networks.
+          *  @param {Array} list of social
+          */
+         storeSelected : function (_arrayList) {
+            // list to social id to store.
+            var _iAccount = [];
+            dojo.forEach(_arrayList,
+               dojo.hitch(this, function(data, index) {
+                  if ("id" in data) {
+                      _iAccount.push(data.id);
+                  }
+                  
+            }));
+            this._status.social_networks = _iAccount;
+            this._saveStatus(this._status);
          },
 
          /**
@@ -83,7 +104,7 @@ define([
          createPickSocialAccount : function(data) {
              var widget = new SocialFilterMenuItem({data : data});
              this._items.appendChild(widget.domNode);
-             this.arrayWidgetAccounts.push(widget);
+             this.arrayWidgetAccounts.push(widget);          
          }
 
     });

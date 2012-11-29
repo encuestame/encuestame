@@ -36,14 +36,14 @@
                     ${i18nMessage.detail_manage_unpublished}
                 </label>
             </div>
-            <div>
+            <div class="hidden">
                 <input id="all_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_all">
                 <label for="schedule">
                     ${i18nMessage.detail_manage_filters_advanced_all_results}
                 </label>
             </div>
          </div>
-          <div class="web-filters-search-check">
+          <div class="web-filters-search-check hidden">
             <div>
                 <input id="scheduled_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_schedule">
                 <label for="schedule">
@@ -83,10 +83,10 @@
                   </ol>
                 </div>
            </div>
-          <div class="web-filters-search-button">
+<!--           <div class="web-filters-search-button">
               <button type="button" data-dojo-type="dijit/form/Button" value="Search" data-dojo-attach-point="_button">
                  ${i18nMessage.detail_manage_search}
               </button>
-         </div>
+         </div> -->
      </div>
 </section>

@@ -76,9 +76,8 @@ define([
             * post create life cycle.
             */
            postCreate : function () {
-               console.log('Modernizr.sessionstorage', Modernizr.sessionstorage);
-               console.log('Modernizr.this._keyword', this._keyword);
-               var parent = window;
+
+               //restore
                this._restoreStatus();
 
                this._keyword.onChange = dojo.hitch(this, function(e) {
@@ -113,26 +112,6 @@ define([
 
                this._unpublished.onChange = dojo.hitch(this, function(e) {
                    this._status._unpublished = this._unpublished.get('checked');
-                   this._saveStatus(this._status);
-               });
-
-               this._all.onChange = dojo.hitch(this, function(e) {
-                   this._status._all = this._all.get('checked');
-                   this._saveStatus(this._status);
-               });
-
-               this._schedule.onChange = dojo.hitch(this, function(e) {
-                   this._status._schedule = this._schedule.get('checked');
-                   this._saveStatus(this._status);
-               });
-
-               this._favorites.onChange = dojo.hitch(this, function(e) {
-                   this._status._favorites = this._favorites.get('checked');
-                   this._saveStatus(this._status);
-               });
-
-               this._by_account.onChange = dojo.hitch(this, function(e) {
-                   this._status._by_account = this._by_account.get('checked');
                    this._saveStatus(this._status);
                });
            }

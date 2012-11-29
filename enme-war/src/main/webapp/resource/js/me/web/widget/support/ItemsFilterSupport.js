@@ -1,5 +1,7 @@
 define([
          "dojo/_base/declare",
+         "dojo/_base/lang",
+         "dojo/_base/json",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -13,6 +15,8 @@ define([
          "dojo/text!me/web/widget/support/templates/filters.html" ],
         function(
                 declare,
+                _lang,
+                _json,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -60,17 +64,33 @@ define([
             *
             */
            postCreate : function() {
+               // add filters to main search and execute it
+               dojo.subscribe("/encuestame/filters/invoke", this, "_invokeSearchWithFilters");
+               // hide all selected items            
                dojo.subscribe("/encuestame/filters/selected/remove", this, "_hideAllSelected");
                dojo.connect(this._search, "onclick", dojo.hitch(this, this._openSearch));
                dojo.connect(this._order, "onclick", dojo.hitch(this, this._openOrder));
                dojo.connect(this._social, "onclick", dojo.hitch(this, this._openSocial));
                dojo.connect(this._votes, "onclick", dojo.hitch(this, this._openVotes));
-               this.optionsWidget.search = new Wipe(this._search_o, this._wipe.duration, 270, "tp-options", "1");
+               this.optionsWidget.search = new Wipe(this._search_o, this._wipe.duration, 210, "tp-options", "1");
                //FUTURE: disabled
                //this.optionsWidget.order = new encuestame.org.core.commons.support.Wipe(this._order_o, this._wipe.duration, 140, "tp-options", "3");
-               this.optionsWidget.social = new Wipe(this._social_o, this._wipe.duration, 200, "tp-options", "4");
+               this.optionsWidget.social = new Wipe(this._social_o, this._wipe.duration, 180, "tp-options", "4");
                //FUTURE: disabled
                //this.optionsWidget.votes = new encuestame.org.core.commons.support.Wipe(this._votes_o, this._wipe.duration, 140, "tp-options", "5");
+           },
+
+            /*
+             * Invoke the search with filters
+             */
+           _invokeSearchWithFilters : function() {
+                console.log(this._searchWidget._key_save);
+                console.log(this._socialWidget._key_save);
+                var _params = _json.fromJson(_ENME.restoreItem(this._searchWidget._key_save));
+                _lang.mixin(_params, 
+                  _json.fromJson(_ENME.restoreItem(this._socialWidget._key_save))
+                );
+                dojo.publish('/encuestame/tweetpoll/list/search', [_params]);
            },
 
            /*

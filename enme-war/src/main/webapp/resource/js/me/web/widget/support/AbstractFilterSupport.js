@@ -1,8 +1,10 @@
 define([
      "dojo/_base/declare",
+     "dojo/_base/json",
      "me/core/enme"],
     function(
     declare,
+    json,
     _ENME) {
 
   return declare(null, {
@@ -22,6 +24,7 @@ define([
         */
        _saveStatus : function(val) {
            _ENME.storeItem(this._key_save, val);
+           dojo.publish('/encuestame/filters/invoke');
        },
 
        /*
