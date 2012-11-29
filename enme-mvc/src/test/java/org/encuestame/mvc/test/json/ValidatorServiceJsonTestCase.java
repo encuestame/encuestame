@@ -54,7 +54,7 @@ public class ValidatorServiceJsonTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject response = callJsonService();
         final JSONObject sucess = getSucess(response);
         Assert.assertEquals(sucess.get("valid").toString(), "false");
-        Assert.assertEquals(sucess.get("msg").toString(), "This email is already registered");
+        Assert.assertEquals(sucess.get("msg").toString(), "This email is not valid");
     }
 
     /**
