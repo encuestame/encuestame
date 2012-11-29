@@ -106,9 +106,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
                             getUserAccount(getUserPrincipalUsername())
                                     .getAccount(), max, start,
                             DateUtil.getNextDayMidnightDate())));
-        } else if (TypeSearch.SCHEDULED.equals(typeSearch)) {
-            //TODO: ENCUESTAME-531
-            log.debug(":::::::::  TODO: ENCUESTAME-531 ::::::::::::");
         } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
             list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao()
                     .retrieveFavouritesPoll(

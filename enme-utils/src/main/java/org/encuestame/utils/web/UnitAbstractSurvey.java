@@ -239,6 +239,14 @@ public abstract class UnitAbstractSurvey implements Serializable {
     @JsonProperty(value = "total_comments")
     private Long totalComments;
 
+    /** **/
+    @JsonProperty(value = "survey_name")
+    private String surveyName;
+
+    /** **/
+    @JsonProperty(value = "survey_slug_name")
+    private String surveySlugName;
+
     /**
      * @return the customMessage
      */
@@ -698,5 +706,33 @@ public abstract class UnitAbstractSurvey implements Serializable {
 	 */
 	public void setTotalVotes(final Long totalVotes) {
 		this.totalVotes = totalVotes;
-	}  
+	}
+
+	/**
+	 * @return the surveyName
+	 */
+	public String getSurveyName() {
+		return surveyName;
+	}
+
+	/**
+	 * @param surveyName the surveyName to set
+	 */
+	public void setSurveyName(final String surveyName) {
+		this.surveyName = surveyName;
+	}
+
+	/**
+	 * @return the surveySlugName
+	 */
+	public String getSurveySlugName() {
+		return surveySlugName;
+	}
+
+	/**
+	 * @param surveySlugName the surveySlugName to set
+	 */
+	public void setSurveySlugName(final String surveySlugName) {
+		this.surveySlugName = surveySlugName;
+	}
 }
