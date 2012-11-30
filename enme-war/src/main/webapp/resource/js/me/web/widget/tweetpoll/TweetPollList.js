@@ -1,4 +1,5 @@
 define([
+         "dojo",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -17,6 +18,7 @@ define([
          "dojo/dom-construct",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollList.html" ],
         function(
+                dojo,
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
@@ -207,7 +209,7 @@ define([
           getFilterData : function (params) {
             var _filter_widget = this._filters;
             if (_filter_widget) {
-
+              _lang.mixin(params, _filter_widget.getFilterData());
             }
             return params;
           },
@@ -220,7 +222,7 @@ define([
               this.currentSearch = "ALL";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "ALL"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "ALL"}));
               //console.debug(event);
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
@@ -233,7 +235,7 @@ define([
               this.currentSearch = "BYOWNER";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "BYOWNER"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "BYOWNER"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -245,7 +247,7 @@ define([
               this.currentSearch = "FAVOURITES";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "FAVOURITES"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "FAVOURITES"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -257,7 +259,7 @@ define([
               this.currentSearch = "SCHEDULED";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "SCHEDULED"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "SCHEDULED"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -269,7 +271,7 @@ define([
               this.currentSearch = "LASTDAY";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "LASTDAY"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "LASTDAY"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -281,7 +283,7 @@ define([
               this.currentSearch = "LASTWEEK";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "LASTWEEK"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "LASTWEEK"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
