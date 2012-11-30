@@ -111,7 +111,7 @@ public class CalculateHashTagSize {
 
             log.debug("Calculate for: "+hashTag.getHashTag()+" size before calculate: "+logFrecuency);
 
-            hashTag.setUpdatedDate(Calendar.getInstance().getTime());
+            hashTag.setCreatedAt(Calendar.getInstance().getTime());
             getHashTagDao().saveOrUpdate(hashTag);
             // Save table
             if(hashTagRankingList.size() == 0){

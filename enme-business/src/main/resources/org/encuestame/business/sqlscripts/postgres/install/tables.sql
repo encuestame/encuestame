@@ -322,7 +322,8 @@ CREATE TABLE hash_tags (
     tag character varying(255),
     hits bigint,
     size bigint,
-    hashtag_updated_date timestamp without time zone
+    hashtag_updated_date timestamp without time zone,
+    created_updated timestamp without time zone
 );
 
 
@@ -990,8 +991,8 @@ CREATE TABLE tweetpoll_switch (
     last_date_updated timestamp without time zone NOT NULL,
     short_url character varying(255),
     q_answer_id bigint NOT NULL,
-    tweet_poll_id bigint NOT NULL, 
-	relative_url  character varying(400) 
+    tweet_poll_id bigint NOT NULL,
+	relative_url  character varying(400)
 );
 
 
@@ -1073,9 +1074,9 @@ CREATE TABLE question_preferences (
    question_qid bigint,
    preference_value character varying(255)
 );
- 
+
 CREATE TABLE hash_tags_ranking (
    rank_id bigint NOT NULL,
    average real,
-   ranking_updated timestamp without time zone, 
+   ranking_updated timestamp without time zone,
    hashTag_hash_tag_id bigint);

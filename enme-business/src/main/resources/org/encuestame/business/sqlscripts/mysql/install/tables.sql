@@ -333,6 +333,7 @@ CREATE TABLE IF NOT EXISTS `hash_tags` (
   `hits` bigint(20) DEFAULT NULL,
   `size` bigint(20) DEFAULT NULL,
   `hashtag_updated_date` datetime DEFAULT NULL,
+  `created_updated` datetime DEFAULT NULL,
   PRIMARY KEY (`hash_tag_id`),
   UNIQUE KEY `hash_tag_id` (`hash_tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

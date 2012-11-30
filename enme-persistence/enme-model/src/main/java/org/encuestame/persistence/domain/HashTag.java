@@ -69,6 +69,9 @@ public class HashTag {
     /** Size Tag**/
     private Long size;
 
+    /** **/
+    private Date createdAt;
+
     /**
      * @return the hashTagId
      */
@@ -167,4 +170,21 @@ public class HashTag {
     public void setUpdatedDate(final Date updatedDate) {
         this.updatedDate = updatedDate;
     }
+
+	/**
+	 * This property is exchanged with the update_date.
+	 * This property holds the date of the last update of cron.
+	 * @return the createdAt
+	 */
+    @Column(name = "created_updated")
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	/**
+	 * @param createdAt the createdAt to set
+	 */
+	public void setCreatedAt(final Date createdAt) {
+		this.createdAt = createdAt;
+	}
 }
