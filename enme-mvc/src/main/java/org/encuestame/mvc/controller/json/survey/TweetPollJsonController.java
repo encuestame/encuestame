@@ -81,12 +81,26 @@ public class TweetPollJsonController extends AbstractJsonController {
     public ModelMap getListTweetPoll(
             @RequestParam(value = "typeSearch", required = true) String typeSearch,
             @RequestParam(value = "keyword", required = false) String keyword,
-            @RequestParam(value = "max", required = false)Integer max,
-            @RequestParam(value = "start", required = false)Integer start,
+            @RequestParam(value = "max", required = true) Integer max,
+            @RequestParam(value = "start", required = true) Integer start,
+            @RequestParam(value = "social_networks", required = false)  List<String> socialNetworks,
+            @RequestParam(value = "social_account_networks", required = false) List<Long> socialAccountNetworks,
+            @RequestParam(value = "_published", required = false) Boolean isPublished,
+            @RequestParam(value = "_complete", required = false) Boolean isCompleted,
+            @RequestParam(value = "_unpublished", required = false) Boolean isUnpublished,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         try {
+            log.debug("search.json" + typeSearch);
+            log.debug("search.json" + keyword);
+            log.debug("search.json" + max);
+            log.debug("search.json" + start);
+            log.debug("search.json socialNetworks" + socialNetworks);
+            log.debug("search.json socialAccountNetworks " + socialAccountNetworks);
+            log.debug("search.json isCompleted " + isPublished);
+            log.debug("search.json" + isCompleted);
+            log.debug("search.json isUnpublished" + isUnpublished);
             final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
                     TypeSearch.getSearchString(typeSearch), keyword, max,
                     start, TypeSearchResult.TWEETPOLL);
@@ -172,10 +186,10 @@ public class TweetPollJsonController extends AbstractJsonController {
             if(!tweetPoll.getPublishTweetPoll()){
             log.debug("action ANSWER--->"+type);
             if ("add".equals(type)) {
-            	if((answer.isEmpty()) || (answer == null)){
-            		   throw new EnmeFailOperation("Answer can not valid");
-            	} else {
-            		 final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
+                if((answer.isEmpty()) || (answer == null)){
+                       throw new EnmeFailOperation("Answer can not valid");
+                } else {
+                     final QuestionAnswerBean answerBean = new QuestionAnswerBean(answer);
                      answerBean.setShortUrlType(ShortUrlProvider.get(shortUrl));
                      log.debug("new answer bean:{ "+answerBean.toString());
                      final TweetPollSwitch tweetPollSwitch = getTweetPollService()
@@ -184,8 +198,8 @@ public class TweetPollJsonController extends AbstractJsonController {
                      //log.debug("action questionAnswer "+questionAnswer);
                      jsonResponse.put("newAnswer", ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch));
                      setItemResponse(jsonResponse);
-            	}
-               
+                }
+
             } else if("remove".equals(type)) {
                 getTweetPollService().removeQuestionAnswer(getTweetPollService().getQuestionAnswerById(answerId));
                 setSuccesResponse();

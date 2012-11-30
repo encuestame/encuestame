@@ -789,7 +789,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      */
     public TweetPollResultsBean getVotesByTweetPollAnswerId(final Long tweetPollId, final QuestionAnswer answer) {
         final List<Object[]> result = getTweetPollDao().getResultsByTweetPoll(tweetPollId, answer.getQuestionAnswerId());
-        log.debug("result getVotesByTweetPollAnswerId- "+result.size());
+        //log.debug("result getVotesByTweetPollAnswerId- "+result.size());
         final TweetPollResultsBean tweetPollResult = new TweetPollResultsBean();
         tweetPollResult.setAnswerName(answer.getAnswer());
         if (result.size() == 0) {
