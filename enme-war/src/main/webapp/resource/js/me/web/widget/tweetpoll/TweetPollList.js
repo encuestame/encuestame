@@ -201,6 +201,17 @@ define([
               this.loadTweetPolls({typeSearch : this.currentSearch});
           },
 
+          /**
+           * Get filter data, if exist
+           */
+          getFilterData : function (params) {
+            var _filter_widget = this._filters;
+            if (_filter_widget) {
+
+            }
+            return params;
+          },
+
           /*
            * search by all.
            */
@@ -278,8 +289,8 @@ define([
            * Load Tweet Polls.
            */
           loadTweetPolls : function(params) {
-              dojo.publish("/encuestame/wipe/close/group", "tp-options");
-              dojo.publish("/encuestame/filters/selected/remove");
+              //dojo.publish("/encuestame/wipe/close/group", "tp-options");
+              //dojo.publish("/encuestame/filters/selected/remove");
               var i = false;
               var load = dojo.hitch(this, function(data){
                   dojo.empty(this._items);

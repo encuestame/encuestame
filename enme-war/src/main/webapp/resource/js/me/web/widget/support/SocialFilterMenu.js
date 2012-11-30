@@ -38,7 +38,7 @@ define([
            * Object to save the status of the widget.--
            */
           _status : {
-                social_networks : []
+                social_account_networks : []
           },
 
          /**
@@ -93,7 +93,7 @@ define([
                   }
                   
             }));
-            this._status.social_networks = _iAccount;
+            this._status.social_account_networks = _iAccount;
             this._saveStatus(this._status);
          },
 
