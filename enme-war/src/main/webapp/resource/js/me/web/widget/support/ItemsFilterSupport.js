@@ -92,7 +92,10 @@ define([
            cleanFilterData : function () {
                   _ENME.removeItem(this._searchWidget._key_save);
                   _ENME.removeItem(this._socialWidget._key_save);
-                  //TODO: Reset all filter templates
+                  this._searchWidget.clean();
+                  this._socialWidget.clean();
+                  dojo.publish("/encuestame/wipe/close/group", "tp-options");
+                  dojo.publish("/encuestame/filters/selected/remove");
            },
 
 

@@ -20,10 +20,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import junit.framework.Assert;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.persistence.domain.Comment;
 import org.encuestame.persistence.domain.EmailList;
 import org.encuestame.persistence.domain.GeoPoint;
@@ -122,30 +125,38 @@ public class ConvertDomainBean {
      * @return
      */
     public static final List<TweetPollAnswerSwitchBean> convertListTweetPollSwitchToBean(
-            final List<TweetPollSwitch> pollSwitchs) {
+            final List<TweetPollSwitch> pollSwitchs,
+            final HttpServletRequest request) {
         final List<TweetPollAnswerSwitchBean> listSwitchs = new ArrayList<TweetPollAnswerSwitchBean>();
         for (TweetPollSwitch account : pollSwitchs) {
             listSwitchs.add(ConvertDomainBean
-                    .convertTweetPollSwitchToBean(account));
+                    .convertTweetPollSwitchToBean(account, request));
         }
         return listSwitchs;
     }
 
     /**
      *
-     * @param pollSwitch
+     * @param tweetPollSwitch
      * @return
      */
     public static final TweetPollAnswerSwitchBean convertTweetPollSwitchToBean(
-            final TweetPollSwitch pollSwitch) {
+            final TweetPollSwitch tweetPollSwitch,
+            final HttpServletRequest request) {
         final TweetPollAnswerSwitchBean answerSwitchBean = new TweetPollAnswerSwitchBean();
-        answerSwitchBean.setTweetPollId(pollSwitch.getTweetPoll()
+        answerSwitchBean.setTweetPollId(tweetPollSwitch.getTweetPoll()
                 .getTweetPollId());
         answerSwitchBean.setAnswerBean(ConvertDomainBean
-                .convertAnswerToBean(pollSwitch.getAnswers()));
-        answerSwitchBean.setShortUrl(pollSwitch.getShortUrl());
-        answerSwitchBean.setRelativeUrl(pollSwitch.getRelativeUrl());
-        answerSwitchBean.setId(pollSwitch.getSwitchId());
+                .convertAnswerToBean(tweetPollSwitch.getAnswers()));
+        answerSwitchBean.setShortUrl(tweetPollSwitch.getShortUrl());
+        if (request == null) {
+            answerSwitchBean.setRelativeUrl(tweetPollSwitch.getRelativeUrl());
+        } else {
+            final StringBuffer buffer = new StringBuffer(WidgetUtil.getDomain(request));
+            buffer.append(tweetPollSwitch.getRelativeUrl());
+            answerSwitchBean.setRelativeUrl(buffer.toString());
+        }
+        answerSwitchBean.setId(tweetPollSwitch.getSwitchId());
         return answerSwitchBean;
     }
 
@@ -1395,13 +1406,13 @@ public class ConvertDomainBean {
      * @param surveyBean2
      * @return
      */
-	public static final QuestionBean convertSurveyToQuestionBean(final SurveyBean surveyBean2){
-		final QuestionBean qbean = new QuestionBean();
-		qbean.setQuestionName(surveyBean2.getName());
-		qbean.setId(surveyBean2.getSid());
-		qbean.setSlugName(surveyBean2.getSurveySlugName());
-		return qbean;
-	}
+    public static final QuestionBean convertSurveyToQuestionBean(final SurveyBean surveyBean2){
+        final QuestionBean qbean = new QuestionBean();
+        qbean.setQuestionName(surveyBean2.getName());
+        qbean.setId(surveyBean2.getSid());
+        qbean.setSlugName(surveyBean2.getSurveySlugName());
+        return qbean;
+    }
 
     /**
      * Convert userAccount top profile top rated.

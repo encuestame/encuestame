@@ -457,7 +457,7 @@ define(["dojo",
        * @param value
        */
       storeItem : function (key, value) {
-          if (Modernizr.sessionstorage) {
+          if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               sessionStorage.setItem(key, json.toJson(value));
           } else {
               //TODO: save on COOKIE
@@ -470,7 +470,7 @@ define(["dojo",
        * @param key the key item
        */  
       removeItem : function (key) {
-          if (Modernizr.sessionstorage) {
+          if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               sessionStorage.removeItem(key);
           } else {
               //TODO: remove on COOKIE
@@ -482,7 +482,7 @@ define(["dojo",
        * @param value
        */
       restoreItem : function (key) {
-          if (Modernizr.sessionstorage) {
+          if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               return sessionStorage.getItem(key);
           } else {
             //TODO: get on COOKIE

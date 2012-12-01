@@ -129,6 +129,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
     position: absolute;
     top: 8px;
     right: 10px;
+    cursor: pointer;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {

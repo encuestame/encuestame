@@ -65,8 +65,6 @@ import org.encuestame.utils.captcha.ReCaptcha;
 import org.encuestame.utils.json.ProfileUserAccount;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.net.InetAddresses;
-import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.springframework.beans.factory.annotation.Autowired;

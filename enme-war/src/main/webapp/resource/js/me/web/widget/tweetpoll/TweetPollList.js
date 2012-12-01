@@ -1,5 +1,6 @@
 define([
          "dojo",
+         'dojo/_base/json',
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -19,6 +20,7 @@ define([
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollList.html" ],
         function(
                 dojo,
+                json,
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
@@ -91,6 +93,11 @@ define([
           _tweetpollListSourceWidget : null,
 
           /*
+           * The storage  key.
+           */
+          _tp_storage_key : "tp-key",
+
+          /*
            * i18n message for this widget.
            */
           i18nMessage : {
@@ -112,17 +119,17 @@ define([
           postCreate : function() {
               this._loading = new MessageSearch();
               domConstruct.place(this._loading.domNode, this._custom_loading);
-              var _hash = ioQuery.queryToObject(hash());
+              var _hash = this._restoreHash();
               // load item by first time.
               if (this.listItems == null) {
-                  this.loadTweetPolls({typeSearch : (_hash.f == null ? this.defaultSearch: _hash.f) });
-                  if (!_hash.f) {
+                  this.loadTweetPolls({typeSearch : (_hash == null ? this.defaultSearch: _hash) });
+                  if (!_hash) {
                     var node = dojo.query('div.optionItem[type="' + this.defaultSearch + '"]');
                     node.forEach(function(node, index, arr) {
                           dojo.addClass(node, "optionItemSelected");
                     });
                   } else {
-                    dojo.query('div.optionItem[type="' + _hash.f + '"]').forEach(function(node, index, arr) {
+                    dojo.query('div.optionItem[type="' + _hash + '"]').forEach(function(node, index, arr) {
                           dojo.addClass(node, "optionItemSelected");
                       });
                   }
@@ -188,11 +195,17 @@ define([
            * update the url hash.
            */
           _changeHash : function(id) {
-              //var hash = ioQuery.queryToObject(hash());
-             var params = {
-                 f : id
-              };
-              hash(dojo.objectToQuery(params));
+              if(typeof id === 'string'){
+                _ENME.storeItem(this._tp_storage_key, {key : id.toString()});
+              }
+          },
+
+          /**
+           *
+           */
+          _restoreHash : function () {
+            var _r = _ENME.restoreItem(this._tp_storage_key);
+            return _r == null ? null : json.fromJson(_r).key;
           },
 
           /*
@@ -219,7 +232,6 @@ define([
            */
           _cleanFilters : function (e) {
                 dojo.stopEvent(e);
-                console.log("dsadsakjdklsajdklas");
                 this.cleanFilterData();
           },
 
@@ -335,8 +347,8 @@ define([
 
               //check if typeSearch is missing
               if (!("typeSearch" in params)) {
-                  var _hash = ioQuery.queryToObject(hash());
-                  params.typeSearch = (typeof _hash.f == 'undefined' ? this.defaultSearch : _hash.f)
+                  var _hash = this._restoreHash();
+                  params.typeSearch = (typeof _hash == 'undefined' ? this.defaultSearch : _hash)
               }
               // mixin params with required params
               _lang.mixin(params,

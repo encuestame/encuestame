@@ -55,7 +55,7 @@ define([
              detail_manage_by_account : _ENME.getMessage("detail_manage_by_account"),
              detail_manage_filters_advanced_range_days : _ENME.getMessage("detail_manage_filters_advanced_range_days"),
              detail_manage_search : _ENME.getMessage("detail_manage_search"),
-             detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed"),
+             detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed")
            },
 
            /*
@@ -65,19 +65,43 @@ define([
 
 
            /*
-            * 
+            * Customized method to restore the status.
             */
-           _buildStatusObject : function () {
-
+           _buildStatusObject : function (status) {
+              this._setValues(status);
            },
 
+
+           /*
+            * Clean the search menu widget.
+            */
+           clean : function () {
+              // clean the keyword field
+             this._setValues({
+                  keyword : "",
+                  social_networks : [],
+                  _published : false,
+                  _complete : false,
+                  _unpublished : false
+              });
+           },
+
+           /*
+            * 
+            */
+           _setValues : function (status) {
+                this._keyword.set('value', status.keyword);
+                this._social.set('value', status.social_networks);
+                this._published.set('checked', status._published);
+                this._unpublished.set('checked', status._unpublished);
+                this._complete.set('checked', status._complete);
+           },
 
            /*
             * post create life cycle.
             */
            postCreate : function () {
-
-               //restore
+               // restore
                this._restoreStatus();
 
                this._keyword.onChange = dojo.hitch(this, function(e) {
@@ -100,18 +124,8 @@ define([
                    this._saveStatus(this._status);
                });
 
-               this._published.onChange = dojo.hitch(this, function(e) {
-                   this._status._published = this._published.get('checked');
-                   this._saveStatus(this._status);
-               });
-
                this._complete.onChange = dojo.hitch(this, function(e) {
                    this._status._complete = this._complete.get('checked');
-                   this._saveStatus(this._status);
-               });
-
-               this._unpublished.onChange = dojo.hitch(this, function(e) {
-                   this._status._unpublished = this._unpublished.get('checked');
                    this._saveStatus(this._status);
                });
            }

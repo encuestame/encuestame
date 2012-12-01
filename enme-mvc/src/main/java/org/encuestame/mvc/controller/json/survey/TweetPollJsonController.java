@@ -103,7 +103,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             log.debug("search.json isUnpublished" + isUnpublished);
             final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
                     TypeSearch.getSearchString(typeSearch), keyword, max,
-                    start, TypeSearchResult.TWEETPOLL);
+                    start, TypeSearchResult.TWEETPOLL, request);
             log.debug("/api/survey/tweetpoll/search.json---------------->"+list.size());
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
@@ -196,7 +196,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                            .createTweetPollQuestionAnswer(answerBean, tweetPoll, request);
                      log.debug("new answer bean DOMAIN "+tweetPollSwitch.toString());
                      //log.debug("action questionAnswer "+questionAnswer);
-                     jsonResponse.put("newAnswer", ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch));
+                     jsonResponse.put("newAnswer", ConvertDomainBean.convertTweetPollSwitchToBean(tweetPollSwitch, request));
                      setItemResponse(jsonResponse);
                 }
 

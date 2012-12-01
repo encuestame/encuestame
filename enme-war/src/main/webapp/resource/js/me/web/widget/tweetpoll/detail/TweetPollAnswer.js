@@ -25,19 +25,22 @@ define([
       */
      templateString : template,
 
-    //answer id.
+    // answer id.
     aId : null,
 
-    //label
+    // label
     label : "",
 
+    // is completed?
     completed : false,
 
     //url
     url : "",
 
+    // tweetpoll owner
     owner: "",
 
+    // default color
     color : "#000",
 
     /**
@@ -45,10 +48,11 @@ define([
      */
     postCreate : function() {
         dojo.subscribe("/encuestame/tweetpoll/detail/answer/reload", this, this._reloadAnswerInfo);
-//        dojo.connect(this._url, "onclick", dojo.hitch(this, function(event){
-//            dojo.stopEvent(event);
-//            location.href = this.url;
-//        }));
+           // dojo.connect(this._url, "onclick", dojo.hitch(this, function(event){
+           //     dojo.stopEvent(event);
+           //     //location.target = "_blank";
+           //     window.location.href = this.url;
+           // }));
     },
 
     /**
@@ -74,29 +78,3 @@ define([
 
   });
 });
-
-//dojo.provide("encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer");
-//
-//dojo.require("dijit.form.Form");
-//dojo.require("dijit.form.Button");
-//dojo.require("dijit.form.TextBox");
-//dojo.require("dijit._Widget");
-//dojo.require("dijit._Templated");
-//dojo.require("dijit.Dialog");
-//dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-//dojo.require('dojox.timing');
-//
-//dojo.require("encuestame.org.core.commons.dashboard.chart.EncuestamePieChart");
-//
-//dojo.declare(
-//    "encuestame.org.core.commons.tweetPoll.detail.TweetPollAnswer",
-//    [encuestame.org.main.EnmeMainLayoutWidget],{
-//        //template
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll.detail", "templates/tweetPollAnswer.html"),
-//        //widget
-//        widgetsInTemplate: true,
-//
-
-//
-//
-//});
