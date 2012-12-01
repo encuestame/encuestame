@@ -57,6 +57,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
     -moz-box-shadow: -5px 0 5px -6px #000000 inset;
     -webkit-box-shadow: -5px 0 5px -6px #000000 inset;
     box-shadow: -5px 0 5px -6px #000000 inset;
+    border-right: 1px solid #E0E0E0;
 }
 
 div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel

@@ -191,7 +191,7 @@ define([
                               label : data.results.question_label,
                               owner : this.data.ownerUsername,
                               completed : this.data.completed,
-                              url : data.short_url
+                              url : data.short_url || data.relative_url
                           };
                       var row = new TweetPollAnswer(
                               param

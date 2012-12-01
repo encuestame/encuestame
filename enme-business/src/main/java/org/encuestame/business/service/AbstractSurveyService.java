@@ -311,7 +311,7 @@ public class AbstractSurveyService extends AbstractChartService {
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
             } else {
-                urlShort = url;
+                urlShort = null;
             }
         }
         log.debug("shortUrlProvider SHORT: " + urlShort);
