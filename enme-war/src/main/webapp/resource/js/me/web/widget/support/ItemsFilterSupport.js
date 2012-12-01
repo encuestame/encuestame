@@ -47,7 +47,7 @@ define([
                detail_manage_filters_advanced : _ENME.getMessage("detail_manage_filters_advanced"),
                detail_manage_filters_order : _ENME.getMessage("detail_manage_filters_order"),
                detail_manage_filters_social_network : _ENME.getMessage("detail_manage_filters_social_network"),
-               detail_manage_filters_votes_options : _ENME.getMessage("detail_manage_filters_votes_options"),
+               detail_manage_filters_votes_options : _ENME.getMessage("detail_manage_filters_votes_options")
            },
 
            /*
@@ -58,7 +58,7 @@ define([
            /*
             * type support.
             */
-           typeItem : "", 
+           typeItem : "",
 
            /*
             *
@@ -71,7 +71,7 @@ define([
            postCreate : function() {
                // add filters to main search and execute it
                dojo.subscribe("/encuestame/filters/invoke", this, "_invokeSearchWithFilters");
-               // hide all selected items            
+               // hide all selected items      
                dojo.subscribe("/encuestame/filters/selected/remove", this, "_hideAllSelected");
                dojo.connect(this._search, "onclick", dojo.hitch(this, this._openSearch));
                dojo.connect(this._order, "onclick", dojo.hitch(this, this._openOrder));
@@ -90,7 +90,9 @@ define([
             * Clean the filter data.
             */
            cleanFilterData : function () {
-
+                  _ENME.removeItem(this._searchWidget._key_save);
+                  _ENME.removeItem(this._socialWidget._key_save);
+                  //TODO: Reset all filter templates
            },
 
 
@@ -104,7 +106,7 @@ define([
                     )
                 );
                 // fixed params
-                _lang.mixin(params, 
+                _lang.mixin(params,
                   _json.fromJson(
                     _ENME.restoreItem(this._socialWidget._key_save))
                 );
@@ -134,7 +136,7 @@ define([
             _hideAllSelected : function() {
                 dojo.query('.web-filters-options nav a').forEach(function(node, index, arr){
                     dojo.removeClass(node, "selected");
-                });;
+                });
             },
 
            /*

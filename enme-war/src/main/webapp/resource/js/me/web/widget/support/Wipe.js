@@ -48,8 +48,8 @@ define([
      /*
       * Constructor of wipe.
       * @param {String} node 
-      * @param {String} duration 
-      * @param {String} height 
+      * @param {Number} duration 
+      * @param {Number} height 
       * @param {String} group 
       * @param {Number} id       
       */

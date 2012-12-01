@@ -102,7 +102,8 @@ define([
               detail_manage_all : _ENME.getMessage("detail_manage_all"),
               detail_manage_published : _ENME.getMessage("detail_manage_published"),
               detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
-              detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed")
+              detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed"),
+              detail_clean_filters : _ENME.getMessage("detail_clean_filters")
           },
 
           /*
@@ -207,11 +208,28 @@ define([
            * Get filter data, if exist
            */
           getFilterData : function (params) {
-            var _filter_widget = this._filters;
-            if (_filter_widget) {
-              _lang.mixin(params, _filter_widget.getFilterData());
+            if (this._filters) {
+              _lang.mixin(params, this._filters.getFilterData());
             }
             return params;
+          },
+
+          /**
+           * Clean filters trigger function
+           */
+          _cleanFilters : function (e) {
+                dojo.stopEvent(e);
+                console.log("dsadsakjdklsajdklas");
+                this.cleanFilterData();
+          },
+
+          /**
+           * Clean the widget
+           */
+          cleanFilterData : function () {
+            if (this._filters) {
+                this._filters.cleanFilterData();
+            }
           },
 
           /*
