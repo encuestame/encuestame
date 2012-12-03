@@ -136,11 +136,10 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
     border-bottom: 0;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.rownDetail div.label
-    {
-    float: left;
-    font-weight: bold;
-    width: 185px;
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.rownDetail div.label {
+  float: left;
+  font-weight: bold;
+  width: auto;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.rownDetail div.data

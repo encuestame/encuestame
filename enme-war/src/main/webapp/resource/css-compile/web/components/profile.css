@@ -4,7 +4,8 @@
 }
 
 .profile-content-wrapper .web-pup-wrapper {
-    box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
+    -webkit-box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
+  box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
 }
 
 .web-profile-wrapper > header {

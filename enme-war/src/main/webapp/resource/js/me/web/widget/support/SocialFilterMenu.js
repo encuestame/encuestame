@@ -3,7 +3,6 @@ define([
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
-         //"dijit/form/Button",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/support/AbstractFilterSupport",
          "me/web/widget/social/SocialAccountsSupport",
@@ -15,7 +14,6 @@ define([
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
-                //Button,
                 main_widget,
                 AbstractFilterSupport,
                 SocialAccountsSupport,
@@ -38,7 +36,7 @@ define([
            * Object to save the status of the widget.--
            */
           _status : {
-                social_networks : []
+                social_account_networks : []
           },
 
          /**
@@ -78,6 +76,13 @@ define([
              }             
          },
 
+       /*
+        * Customized re-build
+        */
+       _buildStatusObject : function(data) {
+          //TODO: Restore selected social accounts, need refactorize some methods on SocialFilterMenuItem
+       },
+
 
          /**
           *  Store the selected social networks.
@@ -90,10 +95,9 @@ define([
                dojo.hitch(this, function(data, index) {
                   if ("id" in data) {
                       _iAccount.push(data.id);
-                  }
-                  
+                  }                
             }));
-            this._status.social_networks = _iAccount;
+            this._status.social_account_networks = _iAccount;
             this._saveStatus(this._status);
          },
 

@@ -1,4 +1,6 @@
 define([
+         "dojo",
+         'dojo/_base/json',
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -17,6 +19,8 @@ define([
          "dojo/dom-construct",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollList.html" ],
         function(
+                dojo,
+                json,
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
@@ -89,6 +93,11 @@ define([
           _tweetpollListSourceWidget : null,
 
           /*
+           * The storage  key.
+           */
+          _tp_storage_key : "tp-key",
+
+          /*
            * i18n message for this widget.
            */
           i18nMessage : {
@@ -100,7 +109,8 @@ define([
               detail_manage_all : _ENME.getMessage("detail_manage_all"),
               detail_manage_published : _ENME.getMessage("detail_manage_published"),
               detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
-              detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed")
+              detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed"),
+              detail_clean_filters : _ENME.getMessage("detail_clean_filters")
           },
 
           /*
@@ -109,17 +119,17 @@ define([
           postCreate : function() {
               this._loading = new MessageSearch();
               domConstruct.place(this._loading.domNode, this._custom_loading);
-              var _hash = ioQuery.queryToObject(hash());
+              var _hash = this._restoreHash();
               // load item by first time.
               if (this.listItems == null) {
-                  this.loadTweetPolls({typeSearch : (_hash.f == null ? this.defaultSearch: _hash.f) });
-                  if (!_hash.f) {
+                  this.loadTweetPolls({typeSearch : (_hash == null ? this.defaultSearch: _hash) });
+                  if (!_hash) {
                     var node = dojo.query('div.optionItem[type="' + this.defaultSearch + '"]');
                     node.forEach(function(node, index, arr) {
                           dojo.addClass(node, "optionItemSelected");
                     });
                   } else {
-                    dojo.query('div.optionItem[type="' + _hash.f + '"]').forEach(function(node, index, arr) {
+                    dojo.query('div.optionItem[type="' + _hash + '"]').forEach(function(node, index, arr) {
                           dojo.addClass(node, "optionItemSelected");
                       });
                   }
@@ -185,11 +195,17 @@ define([
            * update the url hash.
            */
           _changeHash : function(id) {
-              //var hash = ioQuery.queryToObject(hash());
-             var params = {
-                 f : id
-              };
-              hash(dojo.objectToQuery(params));
+              if(typeof id === 'string'){
+                _ENME.storeItem(this._tp_storage_key, {key : id.toString()});
+              }
+          },
+
+          /**
+           *
+           */
+          _restoreHash : function () {
+            var _r = _ENME.restoreItem(this._tp_storage_key);
+            return _r == null ? null : json.fromJson(_r).key;
           },
 
           /*
@@ -201,6 +217,33 @@ define([
               this.loadTweetPolls({typeSearch : this.currentSearch});
           },
 
+          /**
+           * Get filter data, if exist
+           */
+          getFilterData : function (params) {
+            if (this._filters) {
+              _lang.mixin(params, this._filters.getFilterData());
+            }
+            return params;
+          },
+
+          /**
+           * Clean filters trigger function
+           */
+          _cleanFilters : function (e) {
+                dojo.stopEvent(e);
+                this.cleanFilterData();
+          },
+
+          /**
+           * Clean the widget
+           */
+          cleanFilterData : function () {
+            if (this._filters) {
+                this._filters.cleanFilterData();
+            }
+          },
+
           /*
            * search by all.
            */
@@ -209,7 +252,7 @@ define([
               this.currentSearch = "ALL";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "ALL"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "ALL"}));
               //console.debug(event);
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
@@ -222,7 +265,7 @@ define([
               this.currentSearch = "BYOWNER";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "BYOWNER"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "BYOWNER"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -234,7 +277,7 @@ define([
               this.currentSearch = "FAVOURITES";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "FAVOURITES"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "FAVOURITES"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -246,7 +289,7 @@ define([
               this.currentSearch = "SCHEDULED";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "SCHEDULED"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "SCHEDULED"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -258,7 +301,7 @@ define([
               this.currentSearch = "LASTDAY";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "LASTDAY"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "LASTDAY"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -270,7 +313,7 @@ define([
               this.currentSearch = "LASTWEEK";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls({typeSearch : "LASTWEEK"});
+              this.loadTweetPolls(this.getFilterData({typeSearch : "LASTWEEK"}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -278,8 +321,8 @@ define([
            * Load Tweet Polls.
            */
           loadTweetPolls : function(params) {
-              dojo.publish("/encuestame/wipe/close/group", "tp-options");
-              dojo.publish("/encuestame/filters/selected/remove");
+              //dojo.publish("/encuestame/wipe/close/group", "tp-options");
+              //dojo.publish("/encuestame/filters/selected/remove");
               var i = false;
               var load = dojo.hitch(this, function(data){
                   dojo.empty(this._items);
@@ -304,8 +347,8 @@ define([
 
               //check if typeSearch is missing
               if (!("typeSearch" in params)) {
-                  var _hash = ioQuery.queryToObject(hash());
-                  params.typeSearch = (typeof _hash.f == 'undefined' ? this.defaultSearch : _hash.f)
+                  var _hash = this._restoreHash();
+                  params.typeSearch = (typeof _hash == 'undefined' ? this.defaultSearch : _hash)
               }
               // mixin params with required params
               _lang.mixin(params,

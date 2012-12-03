@@ -47,7 +47,7 @@ define([
                detail_manage_filters_advanced : _ENME.getMessage("detail_manage_filters_advanced"),
                detail_manage_filters_order : _ENME.getMessage("detail_manage_filters_order"),
                detail_manage_filters_social_network : _ENME.getMessage("detail_manage_filters_social_network"),
-               detail_manage_filters_votes_options : _ENME.getMessage("detail_manage_filters_votes_options"),
+               detail_manage_filters_votes_options : _ENME.getMessage("detail_manage_filters_votes_options")
            },
 
            /*
@@ -63,34 +63,64 @@ define([
            /*
             *
             */
+           wipe_group : "tp-options",
+
+           /*
+            *
+            */
            postCreate : function() {
                // add filters to main search and execute it
                dojo.subscribe("/encuestame/filters/invoke", this, "_invokeSearchWithFilters");
-               // hide all selected items            
+               // hide all selected items      
                dojo.subscribe("/encuestame/filters/selected/remove", this, "_hideAllSelected");
                dojo.connect(this._search, "onclick", dojo.hitch(this, this._openSearch));
                dojo.connect(this._order, "onclick", dojo.hitch(this, this._openOrder));
                dojo.connect(this._social, "onclick", dojo.hitch(this, this._openSocial));
                dojo.connect(this._votes, "onclick", dojo.hitch(this, this._openVotes));
-               this.optionsWidget.search = new Wipe(this._search_o, this._wipe.duration, 210, "tp-options", "1");
+               this.optionsWidget.search = new Wipe(this._search_o, this._wipe.duration, 210, this.wipe_group, "1");
                //FUTURE: disabled
                //this.optionsWidget.order = new encuestame.org.core.commons.support.Wipe(this._order_o, this._wipe.duration, 140, "tp-options", "3");
-               this.optionsWidget.social = new Wipe(this._social_o, this._wipe.duration, 180, "tp-options", "4");
+               this.optionsWidget.social = new Wipe(this._social_o, this._wipe.duration, 180, this.wipe_group, "4");
                //FUTURE: disabled
                //this.optionsWidget.votes = new encuestame.org.core.commons.support.Wipe(this._votes_o, this._wipe.duration, 140, "tp-options", "5");
+           },
+
+
+           /*
+            * Clean the filter data.
+            */
+           cleanFilterData : function () {
+                  _ENME.removeItem(this._searchWidget._key_save);
+                  _ENME.removeItem(this._socialWidget._key_save);
+                  this._searchWidget.clean();
+                  this._socialWidget.clean();
+                  dojo.publish("/encuestame/wipe/close/group", "tp-options");
+                  dojo.publish("/encuestame/filters/selected/remove");
+           },
+
+
+           /*
+            * Get stored filter data.
+            */
+           getFilterData : function() {
+               var params = _json.fromJson(
+                   _ENME.restoreItem(
+                         this._searchWidget._key_save
+                    )
+                );
+                // fixed params
+                _lang.mixin(params,
+                  _json.fromJson(
+                    _ENME.restoreItem(this._socialWidget._key_save))
+                );
+                return params;
            },
 
             /*
              * Invoke the search with filters
              */
            _invokeSearchWithFilters : function() {
-                console.log(this._searchWidget._key_save);
-                console.log(this._socialWidget._key_save);
-                var _params = _json.fromJson(_ENME.restoreItem(this._searchWidget._key_save));
-                _lang.mixin(_params, 
-                  _json.fromJson(_ENME.restoreItem(this._socialWidget._key_save))
-                );
-                dojo.publish('/encuestame/tweetpoll/list/search', [_params]);
+                dojo.publish('/encuestame/tweetpoll/list/search', [this.getFilterData()]);
            },
 
            /*
@@ -109,7 +139,7 @@ define([
             _hideAllSelected : function() {
                 dojo.query('.web-filters-options nav a').forEach(function(node, index, arr){
                     dojo.removeClass(node, "selected");
-                });;
+                });
             },
 
            /*

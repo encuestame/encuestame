@@ -1,7 +1,7 @@
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
   border: 1px solid #BCBCBC;
-  border-radius: 3px 3px 3px 3px;
+  border-radius: 3px 3px 3px 3px;  
   margin-top: 2em;
   background-color: #F0F0F0;
 }
@@ -57,6 +57,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
     -moz-box-shadow: -5px 0 5px -6px #000000 inset;
     -webkit-box-shadow: -5px 0 5px -6px #000000 inset;
     box-shadow: -5px 0 5px -6px #000000 inset;
+    border-right: 1px solid #E0E0E0;
 }
 
 div.tweetListContent div.web-tweetpoll-options div.web-tweetpoll-sidebar-panel
@@ -122,6 +123,14 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
 
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
     padding: 5px;
+    position: relative;
+}
+
+.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    cursor: pointer;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item {

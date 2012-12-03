@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Calendar; 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -145,7 +145,7 @@ public class AbstractSurveyService extends AbstractChartService {
     public QuestionAnswer createQuestionAnswer(
             final QuestionAnswerBean answerBean,
             final Question question){
-        log.debug("action createQuestionAnswer "+answerBean.toString());
+        log.debug("action createQuestionAnswer "+ answerBean.toString());
         final QuestionAnswer answer = new QuestionAnswer();
         answer.setQuestions(question);
         answer.setAnswer(answerBean.getAnswers());
@@ -166,7 +166,7 @@ public class AbstractSurveyService extends AbstractChartService {
     public QuestionAnswer createAnswers(final Question question, final String answerText){
          final QuestionAnswer answer = new QuestionAnswer();
           answer.setQuestions(question);
-          answer.setAnswer(answerText); 
+          answer.setAnswer(answerText);
           answer.setColor(PictureUtils.getRandomHexColor());
           this.getQuestionDao().saveOrUpdate(answer);
           log.debug("createAnswers =>" + answer.getQuestionAnswerId());
@@ -241,7 +241,7 @@ public class AbstractSurveyService extends AbstractChartService {
         final Question questionDomain = createQuestion(questionBean, user, QuestionPattern.LINKS);
         return questionDomain;
     }
-    
+
     /**
      * Create {@link TweetPollSwitch}.
      * @return {@link TweetPollSwitch}.
@@ -250,34 +250,38 @@ public class AbstractSurveyService extends AbstractChartService {
             final TweetPoll tweetPoll,
             final QuestionAnswer answer,
             final HttpServletRequest request) {
-		final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
-		tPollSwitch.setAnswers(answer);
-		tPollSwitch.setTweetPoll(tweetPoll);
-		tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance()
-				.getTimeInMillis() + answer.getAnswer()));
-		tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
-		final StringBuffer voteUrlWithoutDomain = new StringBuffer();
-		voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
-		voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
-		tPollSwitch.setRelativeUrl(voteUrlWithoutDomain.toString());
-		final StringBuffer completeDomain = new StringBuffer();
-		if (request != null) {
-			final String domain = WidgetUtil.getDomain(request);
-			completeDomain.append(domain);
-		}
-		completeDomain.append(voteUrlWithoutDomain.toString());
-		log.debug("tweet poll answer vote :{" + voteUrlWithoutDomain.toString());
-		if (InternetUtils.validateUrl(completeDomain.toString())) {
-			log.debug("createTweetPollSwitch: URL IS VALID");
+        final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
+        tPollSwitch.setAnswers(answer);
+        tPollSwitch.setTweetPoll(tweetPoll);
+        tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance()
+                .getTimeInMillis() + answer.getAnswer()));
+        tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());
+
+        // vote without domain
+        final StringBuffer voteUrlWithoutDomain = new StringBuffer();
+        voteUrlWithoutDomain.append(this.TWEETPOLL_VOTE);
+        voteUrlWithoutDomain.append(tPollSwitch.getCodeTweet());
+        tPollSwitch.setRelativeUrl(voteUrlWithoutDomain.toString());
+
+
+        final StringBuffer completeDomain = new StringBuffer();
+        if (request != null) {
+            final String domain = WidgetUtil.getDomain(request);
+            completeDomain.append(domain);
+        }
+        completeDomain.append(voteUrlWithoutDomain.toString());
+        log.debug("tweet poll answer vote :{" + voteUrlWithoutDomain.toString());
+        if (InternetUtils.validateUrl(completeDomain.toString())) {
+            log.debug("createTweetPollSwitch: URL IS VALID");
 //			log.debug("createTweetPollSwitch: short url provider "+ answer.getProvider());
-			tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
-		} else {
-			log.debug("createTweetPollSwitch: url IS NOT valid");
-			tPollSwitch.setShortUrl(completeDomain.toString());
-			log.warn("Invalid format vote url:{" + voteUrlWithoutDomain.toString());
-		}
-		getTweetPollDao().saveOrUpdate(tPollSwitch);
-		return tPollSwitch;
+            tPollSwitch.setShortUrl(this.createShortUrl(answer.getProvider(), completeDomain.toString()));
+        } else {
+            log.debug("createTweetPollSwitch: url IS NOT valid");
+            tPollSwitch.setShortUrl(completeDomain.toString());
+            log.warn("Invalid format vote url:{" + voteUrlWithoutDomain.toString());
+        }
+        getTweetPollDao().saveOrUpdate(tPollSwitch);
+        return tPollSwitch;
     }
 
     /**
@@ -299,7 +303,7 @@ public class AbstractSurveyService extends AbstractChartService {
                 urlShort = SocialUtils.getGoGl(url,
                         EnMePlaceHolderConfigurer.getProperty("short.google.key"));
             } else if (provider.equals(ShortUrlProvider.NONE)) {
-            	urlShort = url;
+                urlShort = url;
             } else if (provider.equals(ShortUrlProvider.TINYURL)) {
                 urlShort = SocialUtils.getTinyUrl(url);
             } else if (provider.equals(ShortUrlProvider.BITLY)) {
@@ -307,7 +311,7 @@ public class AbstractSurveyService extends AbstractChartService {
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
                          EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
             } else {
-            	urlShort = url;
+                urlShort = null;
             }
         }
         log.debug("shortUrlProvider SHORT: " + urlShort);
@@ -407,7 +411,7 @@ public class AbstractSurveyService extends AbstractChartService {
      */
     public void updateAnswerByAnswerId(final Long answerId, String nameUpdated) throws EnMeExpcetion{
             final QuestionAnswer answer = getQuestionDao().retrieveAnswerById(answerId);
-            if(answer==null){
+            if (answer==null) {
                 throw new EnMeExpcetion("answer not found");
             }
             answer.setAnswer(nameUpdated);
@@ -503,7 +507,7 @@ public class AbstractSurveyService extends AbstractChartService {
                 published = identicaAPIOperations.updateStatus(tweetText);
                 log.debug("Publish on Identica...... "+published);
             } catch (Exception e) {
-            	published.setDatePublished(Calendar.getInstance().getTime());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
                 e.printStackTrace();
             }
@@ -527,7 +531,7 @@ public class AbstractSurveyService extends AbstractChartService {
                 log.error("-----------------------FACEBOOK EXPIRED TOKEN----------------------- 2");
                 e.printStackTrace();
             } catch (Exception e) {
-            	published.setDatePublished(Calendar.getInstance().getTime());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
                 e.printStackTrace();
             }
@@ -546,7 +550,7 @@ public class AbstractSurveyService extends AbstractChartService {
                 published.setTweetId(RandomStringUtils.randomAscii(15));
                 log.debug("Publish on LinkedIn 2...... "+published);
             } catch (Exception e) {
-            	published.setDatePublished(Calendar.getInstance().getTime());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
                 e.printStackTrace();
             }
@@ -555,16 +559,16 @@ public class AbstractSurveyService extends AbstractChartService {
             try {
                 log.debug("Publish on LinkedIn............>");
                 published = buzzInAPIOperations.updateStatus(tweetText);
-                published.setTextTweeted(tweetText);   
+                published.setTextTweeted(tweetText);
                 published.setDatePublished(Calendar.getInstance().getTime());
                 published.setTweetId(RandomStringUtils.randomAscii(15));
                 log.debug("Publish on LinkedIn...... "+published);
             } catch (Exception e) {
-            	published.setDatePublished(Calendar.getInstance().getTime());
+                published.setDatePublished(Calendar.getInstance().getTime());
                 log.error(e);
                 e.printStackTrace();
             }
-        }        
+        }
         if (published != null) {
             log.debug("publicTweetPoll:s "+published.toString());
         }
@@ -655,54 +659,54 @@ public class AbstractSurveyService extends AbstractChartService {
              getQuestionDao().saveOrUpdate(question);
          }
      }
-      
-   
+
+
     /**
-     * Retrieve {@link QuestionAnswer} by {@link Question} id.  
+     * Retrieve {@link QuestionAnswer} by {@link Question} id.
      * @param questionId
      * @return
      */
-	public List<QuestionAnswer> getQuestionAnswersbyQuestionId(final Long questionId) {
-		final List<QuestionAnswer> qAnswers = getQuestionDao()
-				.getAnswersByQuestionId(questionId);
-		return qAnswers;
-	}
-	
-	  /**
-     * Create {@link QuestionAnswer} from an String array 
+    public List<QuestionAnswer> getQuestionAnswersbyQuestionId(final Long questionId) {
+        final List<QuestionAnswer> qAnswers = getQuestionDao()
+                .getAnswersByQuestionId(questionId);
+        return qAnswers;
+    }
+
+      /**
+     * Create {@link QuestionAnswer} from an String array
      * @param answers
      * @param question
      */
-	public void createQuestionAnswers(final String[] answers,
-			final Question question) {
-		for (int row = 0; row < answers.length; row++) {
-			final String answersText = answers[row];
-			Assert.assertNotNull(answersText);
-			if (!answersText.isEmpty()) {
-				log.debug("creatong answer=>" + question.getQidKey());
-				log.debug("creatong answer=>" + answersText.trim());
-				createAnswers(question, answersText.trim());
+    public void createQuestionAnswers(final String[] answers,
+            final Question question) {
+        for (int row = 0; row < answers.length; row++) {
+            final String answersText = answers[row];
+            Assert.assertNotNull(answersText);
+            if (!answersText.isEmpty()) {
+                log.debug("creatong answer=>" + question.getQidKey());
+                log.debug("creatong answer=>" + answersText.trim());
+                createAnswers(question, answersText.trim());
 
-			}
-		}
-	}
-	
-	/**
-	 * Retrieve {@link Question} by id.
-	 * @param id
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	public Question getQuestionById(final Long id)
-			throws EnMeNoResultsFoundException {
-		final Question question = getQuestionDao().retrieveQuestionById(id);
-		if (question == null) {
-			throw new EnMeNoResultsFoundException(
-					"Question not found with this id:" + id);
-		} else {
-			return question;
-		} 
-	}
+            }
+        }
+    }
+
+    /**
+     * Retrieve {@link Question} by id.
+     * @param id
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    public Question getQuestionById(final Long id)
+            throws EnMeNoResultsFoundException {
+        final Question question = getQuestionDao().retrieveQuestionById(id);
+        if (question == null) {
+            throw new EnMeNoResultsFoundException(
+                    "Question not found with this id:" + id);
+        } else {
+            return question;
+        }
+    }
 
     /**
      * @return the answerPollPath

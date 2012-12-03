@@ -42,6 +42,11 @@
                     -->
                    <div data-dojo-attach-point="_filters" data-dojo-type="me/web/widget/support/ItemsFilterSupport"
                         typeItem="TWEETPOLL"></div>
+                   <div class="web-list-filter-clean">
+                        <span data-dojo-attach-event="onclick:_cleanFilters">
+                            ${i18nMessage.detail_clean_filters}
+                        </span>
+                   </div>     
                 </div>
                 <div data-dojo-attach-point="_custom_loading"></div>
                 <div data-dojo-attach-point="_items"></div>

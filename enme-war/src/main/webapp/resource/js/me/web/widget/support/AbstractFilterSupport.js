@@ -28,12 +28,19 @@ define([
        },
 
        /*
-        *
+        * Clean the storage
         */
-       _buildStatusObject : function() {},
+       clean : function () {
+           _ENME.log("clean filter should be implemented");
+       },
+
+       /*
+        * Customized re-build
+        */
+       _buildStatusObject : function(data) {},
 
        /* 
-        * 
+        * Restore the status form storage data.
         */
        _restoreStatus : function() {
            var _saved = _ENME.restoreItem(this._key_save);

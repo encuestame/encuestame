@@ -47,6 +47,11 @@ define([
 
      /*
       * Constructor of wipe.
+      * @param {String} node 
+      * @param {Number} duration 
+      * @param {Number} height 
+      * @param {String} group 
+      * @param {Number} id       
       */
      constructor: function(node, duration, height, group, id) {
          dojo.subscribe("/encuestame/wipe/close", this, dojo.hitch(this, function(id, group) {

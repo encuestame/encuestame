@@ -170,7 +170,8 @@ define([
                   this.createTextContent(_ENME.fromNow(this.data.createDate, "YYYY-MM-DD"))));
               this.addDetail(this.builDetailRow(_ENME.getMessage("commons_captcha"), this.addYesNoWidget(this.data.captcha,
                        dojo.hitch(this,this._setCaptcha))));
-              this.addDetail(this.builDetailRow(_ENME.getMessage("tp_options_allow_results"), this.addYesNoWidget(this.data.allowLiveResults
+              this.addDetail(this.builDetailRow(_ENME.getMessage("tp_options_allow_results"), 
+                               this.addYesNoWidget(this.data.allowLiveResults
                               , dojo.hitch(this, this._setAllowLiveResults))));
               this.addDetail(this.builDetailRow(_ENME.getMessage("tp_options_follow_dashboard"), this.addYesNoWidget(this.data.resumeLiveResults
                               , dojo.hitch(this, this._setResumeLiveResults))));
@@ -190,7 +191,7 @@ define([
                               label : data.results.question_label,
                               owner : this.data.ownerUsername,
                               completed : this.data.completed,
-                              url : data.short_url
+                              url : data.short_url || data.relative_url
                           };
                       var row = new TweetPollAnswer(
                               param
