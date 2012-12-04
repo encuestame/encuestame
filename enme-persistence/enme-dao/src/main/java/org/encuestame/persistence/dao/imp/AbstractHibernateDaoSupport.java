@@ -39,6 +39,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
@@ -114,9 +115,9 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       */
      public List<?> filterByMaxorStart(final DetachedCriteria criteria,
     		 final Integer maxResults,
-             final Integer start) {          
+             final Integer start) {
           //if (maxResults == 0) {
-        	//  log.warn("Max Results === 0 ??");          
+        	//  log.warn("Max Results === 0 ??");
           //}
           @SuppressWarnings("rawtypes")
           List<?> results = new ArrayList();
@@ -312,25 +313,48 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
                 });
         return searchResult;
     }
-    
+
     /**
      * Set a Criteria between date calculating start and end date.
      * @param searchPeriods {@link SearchPeriods}.
      * @param criteria DetachedCriteria
      */
     protected void calculateSearchPeriodsDates(
-    		final SearchPeriods searchPeriods, 
+    		final SearchPeriods searchPeriods,
     		final DetachedCriteria criteria,
     		final String dateProperty){
         if (searchPeriods != null) {
-            final DateTime endDateTime = new DateTime();                      
-            final DateTime startDateTime =  endDateTime.minusDays(searchPeriods.toDays());             
+            final DateTime endDateTime = new DateTime();
+            final DateTime startDateTime =  endDateTime.minusDays(searchPeriods.toDays());
              if (endDateTime.isAfter(startDateTime)) {
             	 criteria.add(Restrictions.between(dateProperty, startDateTime.toDate(), endDateTime.toDate()));
-             }             
+             }
          }
     }
-    
+
+    protected void advancedSearchOptions(final DetachedCriteria criteria,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished, final String keyword, final Integer period){
+    	criteria.createAlias("question", "question");
+		criteria.add(Restrictions.like("question.question", keyword,
+				MatchMode.ANYWHERE));
+		final SearchPeriods searchPeriods = SearchPeriods
+				.getPeriodString(period.toString());
+		calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
+		if (isCompleted) {
+			criteria.add(Restrictions.eq("completed", isCompleted));
+		}
+		if (isScheduled) {
+			criteria.add(Restrictions.eq("scheduleTweetPoll", isScheduled));
+		}
+		if (isFavourite) {
+			criteria.add(Restrictions.eq("publishTweetPoll", isFavourite));
+		}
+		if (isPublished) {
+			criteria.add(Restrictions.eq("favourites", isPublished));
+		}
+	}
+
 	/**
 	 * Create query to get  {@link TweetPoll}, {@link Poll}, {@link Survey} by geolocation.
 	 * @param idProperty
@@ -357,7 +381,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
     }
 
 	/**
-	 * 
+	 *
 	 * @param searchPeriods
 	 * @return
 	 */
@@ -374,7 +398,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
 
 	/**
 	 * Retrieve geoLocation data from a point.
-	 * 
+	 *
 	 * @param query
 	 * @param latitude
 	 * @param longitude
@@ -398,7 +422,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
 				new Object[] { latitude, longitude, distance, radius,
 						startDate, endDate });
 	}
-    
+
     /**
      * @return the version
      */

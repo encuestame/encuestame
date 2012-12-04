@@ -30,6 +30,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.social.SocialProvider;
 import org.hibernate.HibernateException;
 
 /**
@@ -96,7 +97,9 @@ public interface ITweetPoll extends IBaseDao{
        */
       List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId,
               final Integer maxResults,
-              final Integer start);
+              final Integer start,
+  			final Boolean isCompleted, final Boolean isScheduled,
+  			final Boolean isFavourite, final Boolean isPublished, final Integer period);
 
       /**
        * Get List of Switch Answers by TweetPoll.
@@ -186,9 +189,15 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       List<TweetPoll> retrieveTweetPollLastWeek(
-              final Account account,
+    		  final Account account,
               final Integer maxResults,
-              final Integer start);
+              final Integer start,
+              final Boolean isCompleted,
+              final Boolean isScheduled,
+              final Boolean isFavourite,
+              final Boolean isPublished,
+              final String keyword,
+              final Integer period);
 
       /**
        * Retrieve Favourites TweetPolls.
@@ -199,7 +208,13 @@ public interface ITweetPoll extends IBaseDao{
       List<TweetPoll> retrieveScheduledTweetPoll(
               final Long userId,
               final Integer maxResults,
-              final Integer start);
+              final Integer start,
+              final Boolean isCompleted,
+              final Boolean isScheduled,
+              final Boolean isFavourite,
+              final Boolean isPublished,
+              final String keyword,
+              final Integer period);
 
       /**
        * Retrieve Favourites TweetPolls.
@@ -210,7 +225,13 @@ public interface ITweetPoll extends IBaseDao{
       List<TweetPoll> retrieveFavouritesTweetPoll(
               final Account account,
               final Integer maxResults,
-              final Integer start);
+              final Integer start,
+              final Boolean isCompleted,
+              final Boolean isScheduled,
+              final Boolean isFavourite,
+              final Boolean isPublished,
+              final String keyword,
+              final Integer period);
 
       /**
        * Retrieve Total Votes by TweetPoll Id.
@@ -452,4 +473,14 @@ public interface ITweetPoll extends IBaseDao{
 			final Integer start, final Integer max,
 			final Integer period, final String keyword);
 
+	/**
+	 * Get social Links by tweetpoll.
+	 * @param tweetPoll
+	 * @param itemType
+	 * @param splist
+	 * @return
+	 */
+	List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
+			final TweetPoll tweetPoll, final TypeSearchResult itemType,
+			final List<SocialProvider> splist);
 }
