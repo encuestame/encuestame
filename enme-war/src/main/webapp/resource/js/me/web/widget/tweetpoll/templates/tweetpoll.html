@@ -5,13 +5,16 @@
     <div data-dojo-attach-point="_previewFixed"></div>
   </div>
 
-  <div
-    class="web-tweetpoll-preview-top web-tweetpoll-section spaceBlock spaceBlockTop">
-    <div data-dojo-attach-point="_preview"></div>
+  <div class="web-tweetpoll-preview-top web-tweetpoll-section spaceBlock spaceBlockTop">
+       <div data-dojo-attach-point="_preview"></div>
   </div>
 
+  <!--
+      First part of the form, add question
+   -->
+
   <div class="web-tweetpoll-section spaceBlock spaceBlockTop"
-    data-dojo-attach-point="_tweetQuestion">
+    data-dojo-attach-point="_tweetQuestion" data-step="1">
     <div class="web-tweetpoll-section-title default-background-dark-color">1.
       ${i18nMessage.question}</div>
     <div class="tweetThis space">
@@ -21,7 +24,7 @@
     </div>
   </div>
 
-  <div class="web-tweetpoll-section spaceBlock">
+  <div class="web-tweetpoll-section spaceBlock" data-step="2">
     <div class="web-tweetpoll-section-title default-background-dark-color">2.
       ${i18nMessage.answer}</div>
     <div class="space">
@@ -30,7 +33,7 @@
     </div>
   </div>
 
-  <div class="web-tweetpoll-section spaceBlock">
+  <div class="web-tweetpoll-section spaceBlock" data-step="3">
     <div class="web-tweetpoll-section-title default-background-dark-color">3.
       ${i18nMessage.hashtag}</div>
     <div class="space">
@@ -39,7 +42,7 @@
     </div>
   </div>
 
-  <div class="tweetPollPublish web-tweetpoll-section spaceBlock">
+  <div class="tweetPollPublish web-tweetpoll-section spaceBlock" data-step="4">
     <div class="web-tweetpoll-section-title default-background-dark-color">4.
       ${i18nMessage.options}</div>
     <div class="space">
@@ -48,8 +51,8 @@
           <h4>${i18nMessage.squeduled}</h4>
           <div class="section">
             <input id="schedule" name="schedule"
-              data-dojo-type="dijit/form/CheckBox"> <label
-              for="schedule"> ${i18nMessage.squeduled_tp} </label>
+              data-dojo-type="dijit/form/CheckBox">
+                 <label for="schedule"> ${i18nMessage.squeduled_tp} </label>
           </div>
           <div class="section defaultDisplayHide"
             data-dojo-attach-point="_scheduledTime">
@@ -66,21 +69,21 @@
           <h4>${i18nMessage.chart_features}</h4>
           <div class="section">
             <input id="liveResults" name="liveResults"
-              " data-dojo-type="dijit/form/CheckBox"> <label
-              for="liveResults"> ${i18nMessage.allow_live_results} </label>
+                   data-dojo-type="dijit/form/CheckBox"> 
+                   <label for="liveResults"> ${i18nMessage.allow_live_results} </label>
           </div>
         </div>
         <div class="item item-padding">
           <h4>${i18nMessage.anti_spam}</h4>
           <div class="section">
             <input id="captcha" name="captcha"
-              " data-dojo-type="dijit/form/CheckBox"> <label
-              for="captcha"> ${i18nMessage.captcha} </label>
+               data-dojo-type="dijit/form/CheckBox"> 
+               <label for="captcha"> ${i18nMessage.captcha} </label>
           </div>
           <div class="section">
             <input id="limitVotes" name="limitVotes"
-              " data-dojo-type="dijit/form/CheckBox"> <label
-              for="limitVotes"> ${i18nMessage.limit_votes} </label>
+              data-dojo-type="dijit/form/CheckBox"> 
+              <label for="limitVotes"> ${i18nMessage.limit_votes} </label>
           </div>
           <div class="section defaultDisplayHide"
             data-dojo-attach-point="_limitNumbers">
@@ -118,7 +121,7 @@
     </div>
   </div>
 
-  <div class="web-tweetpoll-section spaceBlock">
+  <div class="web-tweetpoll-section spaceBlock" data-step="5">
     <div class="web-tweetpoll-section-title default-background-dark-color">
       5. ${i18nMessage.tp_select_publish}</div>
     <div class="space">
@@ -128,7 +131,7 @@
     </div>
   </div>
 
-  <div class="tweetPollPublishButton" style="text-align: right;">
+  <div class="tweetPollPublishButton" style="text-align: right;" data-step="final">
     <button data-dojo-attach-point="_publish"
       data-dojo-type="dijit/form/Button" type="button"
       name="submitButtonTwo" value="Submit">

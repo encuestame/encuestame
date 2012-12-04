@@ -58,6 +58,7 @@ public class TweetPollCometService extends AbstractCometService {
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @Listener("/service/tweetpoll/autosave")
     @SuppressWarnings("unchecked")
+    @Deprecated
     public void processAutoSave(final ServerSession remote, final ServerMessage.Mutable message) {;
         log.debug("--------- TweetPoll COMMET AUTOSAVE ----------");
         final Map<String, Object> inputMessage = message.getDataAsMap();

@@ -13,6 +13,7 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -38,9 +40,11 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
+import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -217,6 +221,124 @@ public class TweetPollJsonController extends AbstractJsonController {
     }
 
     /**
+     *
+     * @param tweetPollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/tweetpoll/autosave.json", method = RequestMethod.POST)
+    public ModelMap create(
+            @RequestParam(value = "tweetPollId", required = false) final Long tweetPollId,
+            @RequestParam(value = "question", required = false) final String question,
+            @RequestParam(value = "scheduled", required = false) final Boolean isScheduled,
+            @RequestParam(value = "live_results", required = false) final Boolean liveResults,
+            @RequestParam(value = "scheduled_time", required = false) final String scheduldedTime,
+            @RequestParam(value = "scheduled_date", required = false) final String scheduledDate,
+            @RequestParam(value = "captcha", required = false) final Boolean captcha,
+            @RequestParam(value = "limit_votes", required = false) final Boolean limitVotes,
+            @RequestParam(value = "on_live", required = false) final Boolean onLive,
+            @RequestParam(value = "on_dashboard", required = false) final Boolean onDashboard,
+            @RequestParam(value = "votes_to_limit", required = false) final Integer votesToLimit,
+            //@PathVariable final String type,
+            HttpServletRequest request,
+            HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final UserAccount user = getUserAccount();
+            final Options options = new Options();
+            options.setCaptcha(captcha);
+            options.setFollowDashBoard(onDashboard);
+            options.setLimitVotes(limitVotes);
+            options.setLiveResults(liveResults);
+
+              if (tweetPollId == null) {
+                  final TweetPollBean tweetPollBean = this.fillTweetPoll(
+                          options, question, user, null);
+                  //new tweetpoll domain.
+                  final TweetPoll tp = createTweetPoll(tweetPollBean);
+                  //retrieve answers stored.
+                  log.debug("tweet poll created.");
+                  final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+                  jsonResponse.put("socialPublish", ConvertDomainBean.convertTweetPollToBean(tp));
+              } else {
+                  //update tweetPoll
+                  final TweetPollBean tweetPollBean = this.fillTweetPoll(options, question, user, tweetPollId);
+                  //final TweetPoll tweetPoll = updateTweetPoll(tweetPollId, question, hastagsArray.toArray(new String[]{}),
+                   //       answerArray.toArray(new Long[]{}));
+                  updateTweetPoll(tweetPollBean);
+              }
+        } catch (Exception e) {
+            log.fatal(e);
+            e.printStackTrace();
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
+
+    /**
+     *
+     * @param options
+     * @param question
+     * @param user
+     * @param hastagsArray
+     * @param tweetPollId
+     * @return
+     * @throws ParseException
+     */
+    private TweetPollBean fillTweetPoll(
+            final Options options,
+            final String question,
+            final UserAccount user,
+            final Long tweetPollId) throws ParseException{
+        final TweetPollBean tweetPollBean = new TweetPollBean();
+        if (tweetPollId != null) {
+            tweetPollBean.setId(tweetPollId);
+        }
+        // save create tweet poll
+        tweetPollBean.setUserId(user.getAccount().getUid());
+        //defined values.
+        tweetPollBean.setCloseNotification(Boolean.TRUE); //TOOD: ????
+        tweetPollBean.setResultNotification(Boolean.TRUE);
+        //resume live results.
+        tweetPollBean.setResumeLiveResults(options.getResumeLiveResults());
+        //follow on dashboard.
+        tweetPollBean.setResumeTweetPollDashBoard(options.getFollowDashBoard());
+        //captcha.
+        tweetPollBean.setCaptcha(options.getCaptcha());
+        //live results
+        tweetPollBean.setAllowLiveResults(options.getLiveResults());
+        //repeated votes
+        tweetPollBean.setAllowRepeatedVotes(options.getRepeatedVotes());
+        if (options.getRepeatedVotes()) {
+            tweetPollBean.setMaxRepeatedVotes(options.getMaxRepeatedVotes());
+        }
+        //scheduled
+        tweetPollBean.setSchedule(options.getScheduled());
+        if (options.getScheduled()) {
+            //eg. format 5/25/11 10:45:00
+            final StringBuilder builder = new StringBuilder(options.getScheduledDate());
+            builder.append(" ");
+            builder.append(options.getScheduledTime());
+            tweetPollBean.setScheduleDate(DateUtil.parseDate(builder.toString(), DateUtil.COMPLETE_FORMAT_TIME));
+        }
+        //limit votes
+        tweetPollBean.setLimitVotesEnabled(options.getLimitVotes());
+        if (options.getLimitVotes()) {
+            tweetPollBean.setLimitVotes(options.getMaxLimitVotes());
+        }
+        //question
+        tweetPollBean.setQuestionBean(new QuestionBean(question));
+        log.debug("fillTweetPoll: "+tweetPollBean);
+        return tweetPollBean;
+    }
+
+    /**
      * Publish tweetPoll.
      * @param tweetPollId
      * @param twitterAccountsId
@@ -379,5 +501,199 @@ public class TweetPollJsonController extends AbstractJsonController {
             setError(e.getMessage(), response);
         }
         return returnData();
+    }
+}
+
+/**
+ *
+ * @author jpicado
+ *
+ */
+class Options {
+    private Boolean repeatedVotes;
+    private Boolean resumeLiveResults;
+    private Boolean scheduled;
+    private Boolean limitVotes;
+    private Boolean followDashBoard;
+    private Boolean captcha;
+    private Boolean liveResults;
+
+    private Integer maxRepeatedVotes;
+    private Integer maxLimitVotes;
+    private String scheduledDate;
+    private String scheduledTime;
+
+    /**
+     *
+     */
+    public Options() {}
+
+    /**
+     * @return the repeatedVotes
+     */
+    public Boolean getRepeatedVotes() {
+        return repeatedVotes;
+    }
+
+    /**
+     * @return the resumeLiveResults
+     */
+    public Boolean getResumeLiveResults() {
+        return resumeLiveResults;
+    }
+
+    /**
+     * @return the scheduled
+     */
+    public Boolean getScheduled() {
+        return scheduled;
+    }
+
+    /**
+     * @return the limitVotes
+     */
+    public Boolean getLimitVotes() {
+        return limitVotes;
+    }
+
+    /**
+     * @return the followDashBoard
+     */
+    public Boolean getFollowDashBoard() {
+        return followDashBoard;
+    }
+
+    /**
+     * @return the captcha
+     */
+    public Boolean getCaptcha() {
+        return captcha;
+    }
+
+    /**
+     * @return the liveResults
+     */
+    public Boolean getLiveResults() {
+        return liveResults;
+    }
+
+    /**
+     * @return the maxRepeatedVotes
+     */
+    public Integer getMaxRepeatedVotes() {
+        return maxRepeatedVotes;
+    }
+
+    /**
+     * @return the maxLimitVotes
+     */
+    public Integer getMaxLimitVotes() {
+        return maxLimitVotes;
+    }
+
+    /**
+     * @return the scheduledDate
+     */
+    public String getScheduledDate() {
+        return scheduledDate;
+    }
+
+    /**
+     * @return the scheduledTime
+     */
+    public String getScheduledTime() {
+        return scheduledTime;
+    }
+
+    /**
+     * @param repeatedVotes the repeatedVotes to set
+     */
+    public void setRepeatedVotes(Boolean repeatedVotes) {
+        this.repeatedVotes = repeatedVotes;
+    }
+
+    /**
+     * @param resumeLiveResults the resumeLiveResults to set
+     */
+    public void setResumeLiveResults(Boolean resumeLiveResults) {
+        this.resumeLiveResults = resumeLiveResults;
+    }
+
+    /**
+     * @param scheduled the scheduled to set
+     */
+    public void setScheduled(Boolean scheduled) {
+        this.scheduled = scheduled;
+    }
+
+    /**
+     * @param limitVotes the limitVotes to set
+     */
+    public void setLimitVotes(Boolean limitVotes) {
+        this.limitVotes = limitVotes;
+    }
+
+    /**
+     * @param followDashBoard the followDashBoard to set
+     */
+    public void setFollowDashBoard(Boolean followDashBoard) {
+        this.followDashBoard = followDashBoard;
+    }
+
+    /**
+     * @param captcha the captcha to set
+     */
+    public void setCaptcha(Boolean captcha) {
+        this.captcha = captcha;
+    }
+
+    /**
+     * @param liveResults the liveResults to set
+     */
+    public void setLiveResults(Boolean liveResults) {
+        this.liveResults = liveResults;
+    }
+
+    /**
+     * @param maxRepeatedVotes the maxRepeatedVotes to set
+     */
+    public void setMaxRepeatedVotes(Integer maxRepeatedVotes) {
+        this.maxRepeatedVotes = maxRepeatedVotes;
+    }
+
+    /**
+     * @param maxLimitVotes the maxLimitVotes to set
+     */
+    public void setMaxLimitVotes(Integer maxLimitVotes) {
+        this.maxLimitVotes = maxLimitVotes;
+    }
+
+    /**
+     * @param scheduledDate the scheduledDate to set
+     */
+    public void setScheduledDate(String scheduledDate) {
+        this.scheduledDate = scheduledDate;
+    }
+
+    /**
+     * @param scheduledTime the scheduledTime to set
+     */
+    public void setScheduledTime(String scheduledTime) {
+        this.scheduledTime = scheduledTime;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Options [repeatedVotes=" + repeatedVotes
+                + ", resumeLiveResults=" + resumeLiveResults
+                + ", scheduled=" + scheduled + ", limitVotes=" + limitVotes
+                + ", followDashBoard=" + followDashBoard + ", captcha="
+                + captcha + ", liveResults=" + liveResults
+                + ", maxRepeatedVotes=" + maxRepeatedVotes
+                + ", maxLimitVotes=" + maxLimitVotes + ", scheduledDate="
+                + scheduledDate + ", scheduledTime=" + scheduledTime + "]";
     }
 }

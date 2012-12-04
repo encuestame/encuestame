@@ -98,6 +98,18 @@ define([
           _tp_storage_key : "tp-key",
 
           /*
+           * Tist of filters, this content should coincide with api enum.
+           */
+          _type_filter : {
+              BYOWNER : 'BYOWNER',
+              LASTDAY : 'LASTDAY',
+              LASTWEEK : 'LASTWEEK',
+              FAVOURITES : 'FAVOURITES',
+              SCHEDULED : 'SCHEDULED',
+              ALL : 'ALL'
+          },
+
+          /*
            * i18n message for this widget.
            */
           i18nMessage : {
@@ -110,7 +122,8 @@ define([
               detail_manage_published : _ENME.getMessage("detail_manage_published"),
               detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
               detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed"),
-              detail_clean_filters : _ENME.getMessage("detail_clean_filters")
+              detail_clean_filters : _ENME.getMessage("detail_clean_filters"),
+              loading_message : _ENME.getMessage("loading_message")
           },
 
           /*
@@ -252,7 +265,7 @@ define([
               this.currentSearch = "ALL";
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls(this.getFilterData({typeSearch : "ALL"}));
+              this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.ALL}));
               //console.debug(event);
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
@@ -262,10 +275,10 @@ define([
            */
           _searchByAccount : function(event) {
               dojo.stopEvent(event);
-              this.currentSearch = "BYOWNER";
+              this.currentSearch = this._type_filter.BYOWNER;
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls(this.getFilterData({typeSearch : "BYOWNER"}));
+              this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.BYOWNER}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -274,10 +287,10 @@ define([
            */
           _searchByFavourites : function(event) {
               dojo.stopEvent(event);
-              this.currentSearch = "FAVOURITES";
+              this.currentSearch = this._type_filter.FAVOURITES;
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls(this.getFilterData({typeSearch : "FAVOURITES"}));
+              this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.FAVOURITES}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -286,10 +299,10 @@ define([
            */
           _searchByScheduled : function(event) {
               dojo.stopEvent(event);
-              this.currentSearch = "SCHEDULED";
+              this.currentSearch = this._type_filter.SCHEDULED;
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls(this.getFilterData({typeSearch : "SCHEDULED"}));
+              this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.SCHEDULED}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -298,10 +311,10 @@ define([
            */
           _searchByLastDay : function(event) {
               dojo.stopEvent(event);
-              this.currentSearch = "LASTDAY";
+              this.currentSearch = this._type_filter.LASTDAY;
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls(this.getFilterData({typeSearch : "LASTDAY"}));
+              this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.LASTDAY}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -310,10 +323,10 @@ define([
            */
           _searchByLastWeek : function(event) {
               dojo.stopEvent(event);
-              this.currentSearch = "LASTWEEK";
+              this.currentSearch = this._type_filter.LASTWEEK;
               this._changeHash(this.currentSearch);
               this.resetPagination();
-              this.loadTweetPolls(this.getFilterData({typeSearch : "LASTWEEK"}));
+              this.loadTweetPolls(this.getFilterData({typeSearch : this._type_filter.LASTWEEK}));
               dojo.publish(this._publish_update_channel, [event.currentTarget]);
           },
 
@@ -359,10 +372,10 @@ define([
               );
               // error handlers
               var error = function(error) {
-                  console.debug("error", error);
+                  console.error("error", error);
               };
               //
-              this._loading.show('Loading TweetPolls', _ENME.MESSAGES_TYPE.WARNING);
+              this._loading.show(this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING);
               this.getURLService().get(this.url, params, load, error , dojo.hitch(this, function() {
                   this._loading.hide();
               }));

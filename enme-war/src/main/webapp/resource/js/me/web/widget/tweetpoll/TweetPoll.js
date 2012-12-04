@@ -1,4 +1,5 @@
 define([
+         "dojo",
          "dojo/_base/declare",
          "dojo/dom-geometry",
          "dijit/_WidgetBase",
@@ -27,6 +28,7 @@ define([
          "dijit/registry",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetpoll.html" ],
         function(
+                dojo,
                 declare,
                 domGeom,
                 _WidgetBase,
@@ -54,7 +56,11 @@ define([
                 ioQuery,
                 registry,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, TweetPollCore, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase,
+                             _TemplatedMixin,
+                              main_widget,
+                              TweetPollCore,
+                              _WidgetsInTemplateMixin], {
 
             // template string.
             templateString : template,
@@ -232,10 +238,7 @@ define([
                 this.previeWidget = this._createPreviewWidget(this._preview);
                 //create preview fixed widet.
                 this.previewFixedWiget  = this._createPreviewWidget(this._previewFixed);
-                if(this.questionWidget
-                        || this.answerWidget
-                        || this.hashTagWidget
-                        ){
+                if(this.questionWidget || this.answerWidget|| this.hashTagWidget){
                     this.initialize();
                 }
 
@@ -571,6 +574,8 @@ define([
                          }
                      }
                  }));
+
+                 // send the data to comed service
                  this.questionWidget.onChange = dojo.hitch(this, function(){
                      this.tweetPoll.question.value = this.questionWidget.get("value");
                      dojo.publish("/encuestame/tweetpoll/autosave");
