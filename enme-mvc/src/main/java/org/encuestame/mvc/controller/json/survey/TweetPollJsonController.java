@@ -241,8 +241,9 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "scheduled_date", required = false) final String scheduledDate,
             @RequestParam(value = "captcha", required = false) final Boolean captcha,
             @RequestParam(value = "limit_votes", required = false) final Boolean limitVotes,
-            @RequestParam(value = "on_live", required = false) final Boolean onLive,
             @RequestParam(value = "on_dashboard", required = false) final Boolean onDashboard,
+            @RequestParam(value = "repated_votes", required = false) final Boolean repeatedVotes,
+            @RequestParam(value = "repated_votes_num", required = false) final Integer repeatedVotesNum,
             @RequestParam(value = "votes_to_limit", required = false) final Integer votesToLimit,
             //@PathVariable final String type,
             HttpServletRequest request,
@@ -251,27 +252,39 @@ public class TweetPollJsonController extends AbstractJsonController {
         try {
             final UserAccount user = getUserAccount();
             final Options options = new Options();
-            options.setCaptcha(captcha);
-            options.setFollowDashBoard(onDashboard);
-            options.setLimitVotes(limitVotes);
-            options.setLiveResults(liveResults);
-
-              if (tweetPollId == null) {
+            log.debug("Autosave TweetPoll Id --> " + tweetPollId);
+            log.debug("Autosave Question --> " + question);
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            if (tweetPollId == null && question != null && !question.isEmpty()) {
                   final TweetPollBean tweetPollBean = this.fillTweetPoll(
                           options, question, user, null);
                   //new tweetpoll domain.
                   final TweetPoll tp = createTweetPoll(tweetPollBean);
                   //retrieve answers stored.
-                  log.debug("tweet poll created.");
-                  final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                  jsonResponse.put("socialPublish", ConvertDomainBean.convertTweetPollToBean(tp));
-              } else {
+                  final TweetPollBean tpB = ConvertDomainBean.convertTweetPollToBean(tp);
+                  log.debug("Tweetpoll Created --->" + tpB.toString());
+                  jsonResponse.put("tweetPoll", tpB);
+             } else if (tweetPollId != null && question != null) {
+                 options.setCaptcha(captcha);
+                 options.setFollowDashBoard(onDashboard);
+                 options.setLimitVotes(limitVotes);
+                 options.setLiveResults(liveResults);
+                 options.setScheduled(isScheduled);
+                 options.setScheduledDate(filterValue(scheduledDate));
+                 options.setScheduledTime(scheduldedTime);
+                 options.setMaxLimitVotes(votesToLimit);
+                 options.setFollowDashBoard(onDashboard);
+                 options.setRepeatedVotes(repeatedVotes);
+                 options.setMaxRepeatedVotes(repeatedVotesNum);
                   //update tweetPoll
-                  final TweetPollBean tweetPollBean = this.fillTweetPoll(options, question, user, tweetPollId);
-                  //final TweetPoll tweetPoll = updateTweetPoll(tweetPollId, question, hastagsArray.toArray(new String[]{}),
-                   //       answerArray.toArray(new Long[]{}));
-                  updateTweetPoll(tweetPollBean);
-              }
+                 final TweetPollBean tweetPollBean = this.fillTweetPoll(options, question, user, tweetPollId);
+                 ConvertDomainBean.convertTweetPollToBean(updateTweetPoll(tweetPollBean));
+                 log.debug("Tweetpoll Updated --->" + tweetPollBean.toString());
+                 jsonResponse.put("tweetPoll", tweetPollBean);
+             } else {
+                 setError("create tweetpoll bad request", response);
+             }
+            setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.fatal(e);
             e.printStackTrace();
@@ -297,6 +310,10 @@ public class TweetPollJsonController extends AbstractJsonController {
             final UserAccount user,
             final Long tweetPollId) throws ParseException{
         final TweetPollBean tweetPollBean = new TweetPollBean();
+        log.debug("fillTweetPoll options" + options.toString());
+        log.debug("fillTweetPoll user" +user.toString());
+        log.debug("fillTweetPoll question" + question.toString());
+        log.debug("fillTweetPoll tweetPollId" + tweetPollId);
         if (tweetPollId != null) {
             tweetPollBean.setId(tweetPollId);
         }
@@ -510,13 +527,13 @@ public class TweetPollJsonController extends AbstractJsonController {
  *
  */
 class Options {
-    private Boolean repeatedVotes;
-    private Boolean resumeLiveResults;
-    private Boolean scheduled;
-    private Boolean limitVotes;
-    private Boolean followDashBoard;
-    private Boolean captcha;
-    private Boolean liveResults;
+    private Boolean repeatedVotes = false;
+    private Boolean resumeLiveResults = false;
+    private Boolean scheduled  = false;
+    private Boolean limitVotes  = false;
+    private Boolean followDashBoard  = true;
+    private Boolean captcha  = false;
+    private Boolean liveResults  = true;
 
     private Integer maxRepeatedVotes;
     private Integer maxLimitVotes;
