@@ -22,11 +22,11 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPoll;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.LayoutEnum;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SignUpBean;
-import org.encuestame.utils.web.AdvancedSearchBean;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
@@ -40,6 +40,8 @@ import org.encuestame.utils.web.PollBean;
 import org.encuestame.utils.web.UnitProjectBean;
 import org.encuestame.utils.web.UnitSurveySection;
 import org.encuestame.utils.web.UserAccountBean;
+import org.encuestame.utils.web.search.Search;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
 
 /**
  * Abstract Base Unit Beans.
@@ -549,21 +551,22 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param start
      * @return
      */
-	public AdvancedSearchBean createAdvancedSearchBean(
+	public TweetPollSearchBean createTweetpollSearchBean(
 			final Boolean isPublished, final Boolean isComplete,
 			final Boolean isFavourite, final Boolean isScheduled,
 			final String keyword, final Integer period, final Integer max,
-			final Integer start) {
-		final AdvancedSearchBean advBean = new AdvancedSearchBean();
-		advBean.setIsComplete(isComplete);
-		advBean.setIsFavourite(isFavourite);
-		advBean.setIsPublished(isPublished);
-		advBean.setIsScheduled(isScheduled);
-		advBean.setKeyword(keyword);
-		advBean.setMax(max);
-		advBean.setPeriod(period);
-		advBean.setStart(start);
-		return advBean;
+			final Integer start, final  TypeSearch typeSearch) {
+		final TweetPollSearchBean tpollSearchBean = new TweetPollSearchBean();
+		tpollSearchBean.setIsComplete(isComplete);
+		tpollSearchBean.setIsFavourite(isFavourite);
+		tpollSearchBean.setIsPublished(isPublished);
+		tpollSearchBean.setIsScheduled(isScheduled);
+		tpollSearchBean.setKeyword(keyword);
+		tpollSearchBean.setMax(max);
+		tpollSearchBean.setPeriod(period);
+		tpollSearchBean.setStart(start);
+		tpollSearchBean.setTypeSearch(typeSearch);
+		return tpollSearchBean;
 	}
 
 }

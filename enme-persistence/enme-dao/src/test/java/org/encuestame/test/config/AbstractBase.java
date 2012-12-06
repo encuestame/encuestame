@@ -13,6 +13,8 @@
 package org.encuestame.test.config;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -92,6 +94,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
+import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
 import org.encuestame.utils.enums.CommentOptions;
 import org.encuestame.utils.enums.EnMePermission;
@@ -2264,5 +2267,22 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 		questionPreference.setQuestion(question);
 		getQuestionDaoImp().saveOrUpdate(questionPreference);
 		return questionPreference;
+	}
+
+	/**
+	 * Create random question for tweetpolls and polls.
+	 *
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * @throws UnsupportedEncodingException
+	 */
+	public Question createQuestionRandom() throws NoSuchAlgorithmException,
+			UnsupportedEncodingException {
+		final Question randomQuestion = createQuestion(
+				"What is your favorite season? "
+						+ MD5Utils
+								.md5(RandomStringUtils.randomAlphanumeric(15)),
+				"");
+		return randomQuestion;
 	}
 }
