@@ -236,15 +236,16 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "tweetPollId", required = false) final Long tweetPollId,
             @RequestParam(value = "question", required = false) final String question,
             @RequestParam(value = "scheduled", required = false) final Boolean isScheduled,
-            @RequestParam(value = "live_results", required = false) final Boolean liveResults,
-            @RequestParam(value = "scheduled_time", required = false) final String scheduldedTime,
-            @RequestParam(value = "scheduled_date", required = false) final String scheduledDate,
+            @RequestParam(value = "liveResults", required = false) final Boolean liveResults,
+            @RequestParam(value = "scheduledTime", required = false) final String scheduldedTime,
+            @RequestParam(value = "scheduledDate", required = false) final String scheduledDate,
             @RequestParam(value = "captcha", required = false) final Boolean captcha,
-            @RequestParam(value = "limit_votes", required = false) final Boolean limitVotes,
-            @RequestParam(value = "on_dashboard", required = false) final Boolean onDashboard,
-            @RequestParam(value = "repated_votes", required = false) final Boolean repeatedVotes,
-            @RequestParam(value = "repated_votes_num", required = false) final Integer repeatedVotesNum,
-            @RequestParam(value = "votes_to_limit", required = false) final Integer votesToLimit,
+            @RequestParam(value = "limitVotes", required = false) final Boolean limitVotes,
+            @RequestParam(value = "followDashBoard", required = false) final Boolean onDashboard,
+            @RequestParam(value = "repeatedVotes", required = false) final Boolean repeatedVotes,
+            @RequestParam(value = "maxLimitVotes", required = false) final Integer repeatedVotesNum,
+            @RequestParam(value = "maxRepeatedVotes", required = false) final Integer votesToLimit,
+            @RequestParam(value = "resumeLiveResults", required = false) final Boolean resumeLiveResults,
             //@PathVariable final String type,
             HttpServletRequest request,
             HttpServletResponse response)
@@ -276,6 +277,7 @@ public class TweetPollJsonController extends AbstractJsonController {
                  options.setFollowDashBoard(onDashboard);
                  options.setRepeatedVotes(repeatedVotes);
                  options.setMaxRepeatedVotes(repeatedVotesNum);
+                 options.setResumeLiveResults(resumeLiveResults);
                   //update tweetPoll
                  final TweetPollBean tweetPollBean = this.fillTweetPoll(options, question, user, tweetPollId);
                  ConvertDomainBean.convertTweetPollToBean(updateTweetPoll(tweetPollBean));

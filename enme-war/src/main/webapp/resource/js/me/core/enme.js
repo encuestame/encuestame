@@ -42,6 +42,12 @@ define(["dojo",
       FATAL: "fatal"
     };
 
+    // default time / formats
+    var time = {
+        timeFormat : "hh:mm:ss",
+        dateFormat : "M/d/yy"
+    };
+
     /**
      *
      */
@@ -63,6 +69,11 @@ define(["dojo",
        *
        */
       MESSAGES_TYPE : messageTypes,
+
+      /**
+       * default time / formats
+       */
+      TIME : time,
 
       /**
        * @deprecated moved to constants.js
@@ -468,14 +479,14 @@ define(["dojo",
       /*
        * Remove a item from session storage
        * @param key the key item
-       */  
+       */
       removeItem : function (key) {
           if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               sessionStorage.removeItem(key);
           } else {
               //TODO: remove on COOKIE
           }
-      },      
+      },
 
       /*
        * @param key

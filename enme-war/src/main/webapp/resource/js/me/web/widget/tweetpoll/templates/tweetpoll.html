@@ -69,7 +69,7 @@
           <h4>${i18nMessage.chart_features}</h4>
           <div class="section">
             <input id="liveResults" name="liveResults"
-                   data-dojo-type="dijit/form/CheckBox"> 
+                   data-dojo-type="dijit/form/CheckBox">
                    <label for="liveResults"> ${i18nMessage.allow_live_results} </label>
           </div>
         </div>
@@ -77,12 +77,12 @@
           <h4>${i18nMessage.anti_spam}</h4>
           <div class="section">
             <input id="captcha" name="captcha"
-               data-dojo-type="dijit/form/CheckBox"> 
+               data-dojo-type="dijit/form/CheckBox">
                <label for="captcha"> ${i18nMessage.captcha} </label>
           </div>
           <div class="section">
             <input id="limitVotes" name="limitVotes"
-              data-dojo-type="dijit/form/CheckBox"> 
+              data-dojo-type="dijit/form/CheckBox">
               <label for="limitVotes"> ${i18nMessage.limit_votes} </label>
           </div>
           <div class="section defaultDisplayHide"
@@ -90,7 +90,7 @@
             <div data-dojo-type="dijit/form/NumberSpinner"
               intermediateChanges="true" id="limitNumbers"
               constraints="{min:0,max:4000}"
-              value="${tweetPoll.options.maxLimitVotes}"></div>
+              value="${tweetPoll.maxLimitVotes}"></div>
           </div>
           <div class="section">
             <input id="ip" name="ip" data-dojo-type="dijit/form/CheckBox">
@@ -101,7 +101,7 @@
             <div data-dojo-type="dijit/form/NumberSpinner"
               intermediateChanges="true" id="repeatedNumbers"
               constraints="{min:2,max:10}"
-              value="${tweetPoll.options.maxRepeatedVotes}"></div>
+              value="${tweetPoll.maxRepeatedVotes}"></div>
           </div>
         </div>
         <div class="item item-padding">

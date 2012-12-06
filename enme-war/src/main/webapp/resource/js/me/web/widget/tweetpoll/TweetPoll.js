@@ -197,25 +197,21 @@ define([
              * Stored save tweetPoll.
              **/
             tweetPoll : {
-                tweetPollId : null,
-                started : false,
-                question: {},
-                answers : [],
-                hashtags : [],
-                options : {
-                       scheduled : false,
-                           scheduledTime : null,
-                           scheduledDate : null,
-                           liveResults: false,
-                           captcha : false,
-                           limitVotes: false,
-                           maxLimitVotes : 100,
-                           repeatedVotes : false,
-                           maxRepeatedVotes : 2,
-                           resumeLiveResults : false,
-                           followDashBoard : false
-                           }
-              },
+               tweetPollId : null,
+               started : false,
+               question: {},
+               scheduled : false,
+               scheduledTime : null,
+               scheduledDate : null,
+               liveResults: false,
+               captcha : false,
+               limitVotes: false,
+               maxLimitVotes : 100,
+               repeatedVotes : false,
+               maxRepeatedVotes : 2,
+               resumeLiveResults : false,
+               followDashBoard : false
+            },
 
             /*
              * enable or disable autosave.
@@ -311,7 +307,7 @@ define([
                 //live results.
                 this.liveResultsWidget = registry.byId("liveResults");
                 this.liveResultsWidget.onChange = dojo.hitch(this, function(event){
-                  this.tweetPoll.options.liveResults = event;
+                  this.tweetPoll.liveResults = event;
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
 
@@ -329,38 +325,38 @@ define([
                         dojo.addClass(this._scheduledTime, "defaultDisplayHide");
                         dojo.addClass(this._scheduledDate, "defaultDisplayHide");
                     }
-                    this.tweetPoll.options.scheduledTime = encuestame.date.getFormatTime(new Date(),
-                            encuestame.date.timeFormat);
+                    this.tweetPoll.scheduledTime = _ENME.getFormatTime(new Date(),
+                            _ENME.TIME.timeFormat);
                     this.scheduledDateWidget.set("value", new Date());
                     this.scheduledTimeWidget.set("value", new Date());
-                    this.tweetPoll.options.scheduledTime = encuestame.date.getFormatTime(new Date(),
-                            encuestame.date.timeFormat);
-                    this.tweetPoll.options.scheduledDate = encuestame.date.getFormatTime(new Date(),
-                            encuestame.date.dateFormat);
-                    this.tweetPoll.options.scheduled = event;
+                    this.tweetPoll.scheduledTime = _ENME.getFormatTime(new Date(),
+                            _ENME.TIME.timeFormat);
+                    this.tweetPoll.scheduledDate = _ENME.getFormatTime(new Date(),
+                            _ENME.TIME.dateFormat);
+                    this.tweetPoll.scheduled = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //date widget.
                 this.scheduledDateWidget = registry.byId("scheduledDate");
                 this.scheduledDateWidget.onChange = dojo.hitch(this, function(event){
                     //.debug("Scheduled Date", this.scheduledDateWidget.get("value"));
-                  this.tweetPoll.options.scheduledDate = encuestame.date.getFormatTime(this.scheduledDateWidget.get("value"),
-                          encuestame.date.dateFormat);
+                  this.tweetPoll.scheduledDate = _ENME.getFormatTime(this.scheduledDateWidget.get("value"),
+                          _ENME.TIME.dateFormat);
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //time widget.
                 this.scheduledTimeWidget = registry.byId("scheduledTime");
                 this.scheduledTimeWidget.onChange = dojo.hitch(this, function(event){
-                    //console.debug("Scheduled Time", encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
-                     //       encuestame.date.timeFormat));
-                    this.tweetPoll.options.scheduledTime = encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
-                            encuestame.date.timeFormat);
+                    //console.debug("Scheduled Time", _ENME.getFormatTime(this.scheduledTimeWidget.get("value"),
+                     //       _ENME.TIME.timeFormat));
+                    this.tweetPoll.scheduledTime = _ENME.getFormatTime(this.scheduledTimeWidget.get("value"),
+                            _ENME.TIME.timeFormat);
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
 
                 this.captchaWidget = registry.byId("captcha");
                 this.captchaWidget.onChange = dojo.hitch(this, function(event){
-                    this.tweetPoll.options.captcha = event;
+                    this.tweetPoll.captcha = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 /*
@@ -379,13 +375,13 @@ define([
                     } else {
                         dojo.addClass(this._limitNumbers, "defaultDisplayHide");
                     }
-                    this.tweetPoll.options.limitVotes = event;
+                    this.tweetPoll.limitVotes = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 this.limitNumbersWidget = registry.byId("limitNumbers");
                 this.limitNumbersWidget.onChange = dojo.hitch(this, function(event){
                   //console.debug("maxLimitVotes ", this.limitNumbersWidget.get("value"));
-                  this.tweetPoll.options.maxLimitVotes = this.limitNumbersWidget.get("value");
+                  this.tweetPoll.maxLimitVotes = this.limitNumbersWidget.get("value");
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 /*
@@ -404,13 +400,13 @@ define([
                     } else {
                         dojo.addClass(this._repeatedNumbers, "defaultDisplayHide");
                     }
-                    this.tweetPoll.options.repeatedVotes = event;
+                    this.tweetPoll.repeatedVotes = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 this.repeatedNumbersWidget = registry.byId("repeatedNumbers");
                 this.repeatedNumbersWidget.onChange = dojo.hitch(this, function(event) {
                   //console.debug("maxLimitVotes ", this.repeatedNumbersWidget.get("value"));
-                  this.tweetPoll.options.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
+                  this.tweetPoll.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 /*
@@ -421,12 +417,12 @@ define([
                 this.resumeWidget = registry.byId("resume");
                 this.resumeWidget.onChange = dojo.hitch(this, function(event){
                     //console.debug("resumeWidget ", event);
-                    this.tweetPoll.options.resumeLiveResults = event;
+                    this.tweetPoll.resumeLiveResults = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 this.dashboardWidget = registry.byId("dashboard");
                 this.dashboardWidget.onChange = dojo.hitch(this, function(event){
-                    this.tweetPoll.options.followDashBoard = event;
+                    this.tweetPoll.followDashBoard = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //button publish event.
@@ -504,15 +500,35 @@ define([
              * @param anseerws { id, question}
              */
             _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags) {
+                var params = this.tweetPoll;
                 if (this.tweetPoll.tweetPollId == null) {
-                   //TODO: error?
+                    params = { question : params.question };
                 } else {
                    this.tweetPoll.hashtags = this.hashTagWidget.getHashTags();
                    this.tweetPoll.answers = this.answerWidget.getAnswersId();
                 }
                 this.loading_show();
+
                 //TODO cometD refatorization
                 //encuestame.activity.cometd.publish('/service/tweetpoll/autosave', { tweetPoll: this.tweetPoll});
+
+               //var params = _lang.mixin(this.tweetPoll,{});
+
+                var load = dojo.hitch(this, function(data) {
+                    console.log('data', data)
+                    if ('success' in data) {
+                        this.tweetPoll.tweetPollId = data.success.tweetPoll.id;
+                        this._autoSaveStatus("message");
+                    }
+                });
+
+
+                var error = function(error) {
+                      console.debug("error", error);
+                };
+
+                this.getURLService().post("encuestame.service.tweetpoll.autosave", params, load, error , dojo.hitch(this, function() {
+                }));
              },
 
              /**
@@ -530,7 +546,8 @@ define([
                    this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
                    this.answerWidget.tweetPollId = this.tweetPoll.tweetPollId;
                    //update the hash
-                   hash(ioQuery.objectToQuery(tweetPoll));
+                   //hash(ioQuery.objectToQuery(tweetPoll));
+                   _ENME.storeItem('cr.tp', tweetPoll);
                  }
                  this.tweetPoll.started = true;
              },
@@ -553,10 +570,10 @@ define([
              * Initialize new tweetpoll create.
              */
             initialize : function() {
-               var hash = ioQuery.queryToObject(dojo.hash());
-                 if (hash.id) {
-                   //if hash id previously exist, not do anything.
-                 }
+                 // var hash = ioQuery.queryToObject(dojo.hash());
+                 // if (hash.id) {
+                   // if hash id previously exist, not do anything.
+                 //}
                  //dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
                  this.questionWidget.block = false;
                  dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(event) {
@@ -569,6 +586,7 @@ define([
                          dojo.publish("/encuestame/tweetpoll/updatePreview");
                          if (!this.questionWidget.block) {
                              this._questionTextLastSucessMessage = this.questionWidget.get("value");
+                             this.tweetPoll.question = this._questionTextLastSucessMessage;
                          } else {
                              this.questionWidget.set('value', this._questionTextLastSucessMessage);
                          }
