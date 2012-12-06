@@ -153,55 +153,66 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * @return
      */
     public List<TweetPoll> retrieveTweetPollToday(final Account account,
-            final Integer maxResults, final Integer start) {
+			final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished, final String keyword, final Integer period) {
         final Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         return retrieveTweetPollByDate(account, cal.getTime(), maxResults,
-                start);
+                start, isCompleted, isScheduled, isFavourite, isPublished, keyword, period);
     }
 
-    /**
-     * Retrieve tweetpoll by date
-     *
-     * @param keyWord
-     *            keyword.
-     * @param userId
-     *            {@link Account} uid.
-     * @param initDate
-     *            start date.
-     * @return
-     */
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#retrieveTweetPollByDate(org
+	 * .encuestame.persistence.domain.security.Account, java.util.Date,
+	 * java.lang.Integer, java.lang.Integer, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.String, java.lang.Integer)
+	 */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetPollByDate(final Account account,
-            final Date initDate, final Integer maxResults, final Integer start) {
-        final DetachedCriteria criteria = DetachedCriteria
-                .forClass(TweetPoll.class);
-        criteria.createAlias("tweetOwner", "tweetOwner");
-        criteria.add(Restrictions.between("createDate", initDate,
-                getNextDayMidnightDate()));
-        criteria.add(Restrictions.eq("tweetOwner", account));
-        return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
-    }
+			final Date initDate, final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished,
+			final String keyword, final Integer period) {
+		final DetachedCriteria criteria = DetachedCriteria
+				.forClass(TweetPoll.class);
+		criteria.createAlias("tweetOwner", "tweetOwner");
+		criteria.add(Restrictions.between("createDate", initDate,
+				getNextDayMidnightDate()));
+		criteria.add(Restrictions.eq("tweetOwner", account));
+		advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
+				isPublished, keyword, period);
+		return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
+	}
 
-    /**
-     * Retrieve TweetPoll Last Week.
-     *
-     * @param keyWord
-     * @param userId
-     * @return
-     */
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.persistence.dao.ITweetPoll#retrieveTweetPollLastWeek(org
+	 * .encuestame.persistence.domain.security.Account, java.lang.Integer,
+	 * java.lang.Integer, java.lang.Boolean, java.lang.Boolean,
+	 * java.lang.Boolean, java.lang.Boolean, java.lang.String,
+	 * java.lang.Integer)
+	 */
     public List<TweetPoll> retrieveTweetPollLastWeek(final Account account,
 			final Integer maxResults, final Integer start,
 			final Boolean isCompleted, final Boolean isScheduled,
 			final Boolean isFavourite, final Boolean isPublished,
 			final String keyword, final Integer period) {
 
-        return retrieveTweetPollByDate2(account,
-                DateUtil.decreaseDateAsWeek(Calendar.getInstance().getTime()),
-                maxResults, start, isCompleted, isScheduled, isFavourite, isPublished, keyword, period);
+		return retrieveTweetPollByDate(account,
+				DateUtil.decreaseDateAsWeek(Calendar.getInstance().getTime()),
+				maxResults, start, isCompleted, isScheduled, isFavourite,
+				isPublished, keyword, period);
     }
 
     /**
@@ -1011,4 +1022,6 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 		calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
+
+
 }

@@ -173,14 +173,22 @@ public interface ITweetPoll extends IBaseDao{
 
       /**
        * Retrieve TweetPoll Today.
-       * @param keyWord
-       * @param userId
+       * @param account
+       * @param maxResults
+       * @param start
+       * @param isCompleted
+       * @param isScheduled
+       * @param isFavourite
+       * @param isPublished
+       * @param keyword
+       * @param period
        * @return
        */
-      List<TweetPoll> retrieveTweetPollToday(
-                final Account account,
-                final Integer maxResults,
-                final Integer start);
+	List<TweetPoll> retrieveTweetPollToday(final Account account,
+			final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished,
+			final String keyword, final Integer period);
 
       /**
        * Retrieve TweetPoll Last Week.
@@ -243,17 +251,23 @@ public interface ITweetPoll extends IBaseDao{
 
      /**
       * Retrieve TweetPoll by Date
-      * @param userId
+      * @param account
       * @param initDate
       * @param maxResults
       * @param start
+      * @param isCompleted
+      * @param isScheduled
+      * @param isFavourite
+      * @param isPublished
+      * @param keyword
+      * @param period
       * @return
       */
-     List<TweetPoll> retrieveTweetPollByDate(
-             final Account account,
-             final Date initDate,
-             final Integer maxResults,
-             final Integer start);
+	List<TweetPoll> retrieveTweetPollByDate(final Account account,
+			final Date initDate, final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isFavourite, final Boolean isPublished,
+			final String keyword, final Integer period);
 
     /**
      * Retrieve {@link TweetPollSwitch} by tweetpoll and answer. (should be unique)
