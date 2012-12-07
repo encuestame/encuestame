@@ -39,10 +39,10 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
-import org.encuestame.utils.web.AdvancedSearchBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
 
 /**
  * Tweet Poll Service.
@@ -147,15 +147,21 @@ public interface ITweetPollService extends IMasterSurveyService{
 
     /**
      * Search {@link TweetPoll} by Keyword.
-     * @param username username session
-     * @param keyword keyword.
+     * @param username
+     * @param keyword
+     * @param maxResults
+     * @param start
+     * @param httpServletRequest
+     * @param tpollSearch
      * @return
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
-    List<TweetPollBean> searchTweetsPollsByKeyWord(final String username,
-            final String keyword,
-            final Integer maxResults, final Integer start, final HttpServletRequest httpServletRequest) throws EnMeNoResultsFoundException, EnMeExpcetion;
+	List<TweetPollBean> searchTweetsPollsByKeyWord(final String username,
+			final String keyword, final Integer maxResults,
+			final Integer start, final HttpServletRequest httpServletRequest,
+			final TweetPollSearchBean tpollSearch)
+			throws EnMeNoResultsFoundException, EnMeExpcetion;
 
     /**
      * Save Tweet Id.
@@ -270,7 +276,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
-    List<TweetPollBean> filterTweetPollByItemsByType(final TypeSearch typeSearch,
+    List<TweetPollBean> filterTweetPollByItemsByType(final TweetPollSearchBean tpollSearch, final TypeSearch typeSearch,
             String keyword, Integer max, Integer start,
             final TypeSearchResult searchResult,
             final HttpServletRequest httpServletRequest)
@@ -509,11 +515,4 @@ public interface ITweetPollService extends IMasterSurveyService{
       List<TweetPollResult> validateIpVote(final String ipVote, final TweetPoll tweetPoll)
             throws EnmeFailOperation;
 
-      /**
-       * Search advanced tweetpoll.
-       * @param searchBean
-       * @return
-       * @throws EnMeNoResultsFoundException
-       */
-     List<TweetPollBean> searchAdvancedTweetPoll(final AdvancedSearchBean searchBean) throws EnMeNoResultsFoundException;
 }
