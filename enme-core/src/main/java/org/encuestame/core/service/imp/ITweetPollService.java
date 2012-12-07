@@ -363,22 +363,30 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @param username
      * @param maxResults
      * @param start
+     * @param httpServletRequest
+     * @param tpollSearch
      * @return
      * @throws EnMeExpcetion
      */
-    List<TweetPollBean> searchTweetsPollsLastWeek(final String username,
-            final Integer maxResults, final Integer start, final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
+	List<TweetPollBean> searchTweetsPollsLastWeek(final String username,
+			final Integer maxResults, final Integer start,
+			final HttpServletRequest httpServletRequest,
+			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
 
     /**
      * Search Tweet Polls Today.
      * @param username
      * @param maxResults
      * @param start
+     * @param httpServletRequest
+     * @param tpollSearch
      * @return
      * @throws EnMeExpcetion
      */
     List<TweetPollBean> searchTweetsPollsToday(final String username,
-            final Integer maxResults, final Integer start, final HttpServletRequest httpServletRequest) throws EnMeExpcetion;
+			final Integer maxResults, final Integer start,
+			final HttpServletRequest httpServletRequest,
+			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
 
     /**
      * Set Favourite TweetPoll.
