@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module Tweetpoll
+ *  @namespace Widgets
+ *  @class TweetPoll
+ */
 define([
          "dojo",
          "dojo/_base/declare",
@@ -65,112 +88,112 @@ define([
             // template string.
             templateString : template,
 
-            /*
-             * hashtag widgets
+            /***
+             * @param hashTagWidget hashtag widgets
              */
             hashTagWidget: null,
 
-            /*
-             * answer widget reference.
+            /**
+             * @param answer widget reference.
              */
             answerWidget : null,
 
-            /*
-             * question widget.
+            /**
+             * @param question widget.
              */
             questionWidget : null,
 
-            /*
-             * preview widget.
+            /**
+             * @param preview widget.
              */
             previeWidget : null,
 
-            /*
-             * the fixed preview appear on the top of the page.
+            /**
+             * @param the fixed preview appear on the top of the page.
              */
             previewFixedWiget : null,
 
-            /*
-             * social widget.
+            /**
+             * @param social widget.
              */
             socialWidget : null,
 
-            /*
-             * the publish dialog to alocate the publish widget.
+            /**
+             * @param the publish dialog to alocate the publish widget.
              */
             dialogWidget : null,
 
-            /*
+            /**
              * schedule widget.
              */
             scheduleWidget : null,
 
-            /*
+            /**
              *
              */
             scheduledDateWidget  : null,
 
-            /*
+            /**
              *
              */
             scheduledTimeWidget  : null,
 
-            /*
+            /**
              *
              */
             captchaWidget : null,
 
-            /*
+            /**
              * Limit Votes
              */
             limitVotesWidget  : null,
 
-            /*
+            /**
              *
              */
             limitNumbersWidget  : null,
 
-            /*
+            /**
              * Allow Repeated Votes.
              */
             ipWidget  : null,
 
-            /*
+            /**
              *
              */
             repeatedNumbersWidget  : null,
 
-            /*
+            /**
              * report widget.
              */
             resumeWidget  : null,
 
-            /*
+            /**
              *
              */
             _isValidMessage : null,
 
-            /*
+            /**
              * dashboard widget.
              */
             dashboardWidget  : null,
 
-            /*
+            /**
              *
              */
             timerAutoSave: null,
 
-            /*
+            /**
              *
              */
             _questionTextLastSucessMessage : "",
 
-            /*
+            /**
              * every 5 minutes.
              */
             delay: 300000, //
 
-           /*
+           /**
             * i18n Message.
             */
            i18nMessage : {
@@ -193,7 +216,7 @@ define([
              tp_select_publish : _ENME.getMessage("tp_select_publish")
            },
 
-            /**
+            /***
              * Stored save tweetPoll.
              **/
             tweetPoll : {
@@ -213,17 +236,17 @@ define([
                followDashBoard : false
             },
 
-            /*
+            /**
              * enable or disable autosave.
              */
             autosave : true,
 
-            /*
+            /**
              * tweet poll publish widget reference.
              */
             tweetPollPublishWidget : null,
 
-            /*
+            /**
              * post create.
              */
             postCreate: function() {
@@ -243,7 +266,7 @@ define([
                 // scroll wheel for
                 window.onscroll = dojo.hitch(this, this.scroll);
 
-                /*
+                /**
            * Bug on Table / iPads We need use dojo.touch
            * http://dojotoolkit.org/reference-guide/1.7/dojo/touch.html
            */
@@ -311,7 +334,7 @@ define([
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
 
-                /*
+                /**
                  * replace by encuestame.org.core.shared.options.DateToClose.
                  */
                 //scheduled
@@ -359,12 +382,12 @@ define([
                     this.tweetPoll.captcha = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                /*
+                /**
                  * end warning.
                  */
 
                 //Limit Votes
-                /*
+                /**
                  * this code should be replace by encuestame.org.core.shared.options.LimitVotes.
                  */
                 this.limitVotesWidget = registry.byId("limitVotes");
@@ -384,12 +407,12 @@ define([
                   this.tweetPoll.maxLimitVotes = this.limitNumbersWidget.get("value");
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                /*
+                /**
                  * end warning.
                  */
 
                 //Allow Repeated Votes.
-                /*
+                /**
                  * this code should be replace by encuestame.org.core.shared.options.RepeatedVotes.
                  */
                 this.ipWidget = registry.byId("ip");
@@ -409,7 +432,7 @@ define([
                   this.tweetPoll.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                /*
+                /**
                  * end warning.
                  */
 
@@ -435,8 +458,8 @@ define([
                 this.enableBlockTweetPollOnProcess();
             },
 
-            /**
-             * Hide the current dialog.
+            /***
+             *  @method Hide the current dialog.
              */
             _hideDialog : function(){
                 if (this.dialogWidget != null) {
@@ -444,8 +467,8 @@ define([
                 }
             },
 
-            /**
-             * create preview widget.
+            /***
+             * @method create preview widget.
              */
             _createPreviewWidget : function(node) {
                 var widget = new TweetPollPreview(
@@ -456,8 +479,8 @@ define([
                  return widget;
             },
 
-            /*
-             * block widgets.
+            /**
+             * @method block widgets.
              */
             _block : function() {
                 this.answerWidget.block();
@@ -466,8 +489,8 @@ define([
                 this.questionWidget.block = true;
             },
 
-            /*
-             * unblock items.
+            /**
+             * @method unblock items.
              */
             _unblock : function() {
                 //console.info("unblock");
@@ -476,8 +499,8 @@ define([
                 this.hashTagWidget.unblock();
             },
 
-            /**
-             * Load AutoSave timer
+            /***
+             * @method Load AutoSave timer
              * Create timer to autosave the tweetpoll.
              */
             loadAutoSaveTimer : function() {
@@ -492,14 +515,14 @@ define([
                 this.timerAutoSave.start();
             },
 
-            /**
-             * Auto save tweetPoll.
+            /***
+             * @method Auto save tweetPoll.
              * @param tweetPollId if is null we crete new tweetPoll.
              * @param question { id, question}
              * @param hastags [id,id,id,id]
              * @param anseerws { id, question}
              */
-            _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags) {
+            _autoSave : function(tweetPollId, /*** widget **/ question, /*** answers. **/ answers, /***hashtags **/ hashtags) {
                 var params = this.tweetPoll;
                 if (this.tweetPoll.tweetPollId === null) {
                     params = { question : params.question };
@@ -532,8 +555,8 @@ define([
                 }));
              },
 
-             /**
-              * Get activity services response after save tweetpoll.
+             /***
+              * @method Get activity services response after save tweetpoll.
               * @param status {Object}
               */
              _autoSaveStatus : function(status) {
@@ -553,8 +576,8 @@ define([
                  this.tweetPoll.started = true;
              },
 
-            /**
-             * Auto-scroll publish top bar.
+            /***
+             * @method Auto-scroll publish top bar.
              */
             scroll : function() {
                 var node = this._tweetQuestion;
@@ -567,8 +590,8 @@ define([
                 }
               },
 
-            /**
-             * Initialize new tweetpoll create.
+            /***
+             * @method Initialize new tweetpoll create.
              */
             initialize : function() {
                  // var hash = ioQuery.queryToObject(dojo.hash());
@@ -607,8 +630,8 @@ define([
                          });
             },
 
-            /*
-             * check if tweetpoll is valid and start the process to publish.
+            /**
+             * @method check if tweetpoll is valid and start the process to publish.
              */
             _checkPublish : function() {
                 var valid = this.previeWidget.isValid();
@@ -637,8 +660,8 @@ define([
                 }
             },
 
-            /*
-             * show error message.
+            /**
+             * @method show error message.
              */
             _showErrorMessage : function(errorMessage) {
                 //var widget = new encuestame.org.core.shared.utils.GenericDialogContent({content : errorMessage});
@@ -651,8 +674,8 @@ define([
                 this.infoMesage(errorMessage);
             },
 
-            /*
-             *  publish tweet poll.
+            /**
+             *  @method publish tweet poll.
              */
             _publishTweet : function() {
                 var params = {
@@ -667,7 +690,7 @@ define([
                     this.autosave = false;
                     this.tweetPollPublishWidget.process(socialArray);
                 });
-                /**
+                /***
                  * On publish error.
                  *  - Close dialog
                  *  - Display a Error message

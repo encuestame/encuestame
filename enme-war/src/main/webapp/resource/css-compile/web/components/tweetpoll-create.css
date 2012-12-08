@@ -22,6 +22,10 @@ div.web-tweetpoll-section {
     border-radius: 10px 10px 10px 10px;
 }
 
+div.web-tweetpoll-section .left-button{
+
+}
+
 div.web-tweetpoll-section div.web-tweetpoll-section-title {
     /** #737373 D7D7D7 #8EA5B7  */
     color: #FFFFFF;
@@ -175,7 +179,7 @@ div.tweetPollPublishButton {
     color: #808080;
     font-size: 100%;
     font-weight: bold;
-    width: 70%;
+    width: 100%;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;

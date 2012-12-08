@@ -15,3 +15,8 @@
   border-color: #ffb23c;
   transition-duration: 0.1s;
 }
+
+/** avoid shadows and other effects inside widgets text box **/
+#enme-content .dijitInputField > input{
+	box-shadow: none !important;
+}

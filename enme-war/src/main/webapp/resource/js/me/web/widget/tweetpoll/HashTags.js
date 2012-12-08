@@ -1,3 +1,27 @@
+/**
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/**
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module TweetPoll.Hashtag
+ *  @namespace Widgets
+ *  @class Hashtag
+ */
+
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -27,29 +51,29 @@ define([
           // template string.
             templateString : template,
 
-            /*
+            /**
             * suggest widget.
             */
            suggestWidget : null,
 
-           /*
+           /**
             * tweetpoll id ref.
             */
            tweetPollId : null,
 
-           /*
+           /**
             * list of items.
             */
            listItems : [],
 
-           /*
+           /**
             * item selected.
             */
            _itemsSelected : [],
 
            _hashtahButtonLabel : _ENME.getMessage("button_add"),
 
-           /*
+           /**
             * pots create life cycle.
             */
            postCreate: function() {
@@ -119,7 +143,7 @@ define([
                this.enableBlockTweetPollOnProcess();
            },
 
-           /**
+           /***
             * Add hashtag item.
             */
            _addHastahToItem : function(data) {
@@ -161,7 +185,7 @@ define([
                //dojo.byId("hashTagSuggest_"+this.id).unblock();
            },
 
-           /**
+           /***
             * Add New Hash Tag.
             * @param hashTag hashtag item
             */
@@ -176,7 +200,7 @@ define([
                this.newHashTag(data);
            },
 
-           /*
+           /**
             * get list of hashtags.
             */
            getHashTags : function() {
@@ -206,7 +230,7 @@ define([
                dojo.publish("/encuestame/tweetpoll/autosave");
            },
 
-           /*
+           /**
             * Get Dialog.
             */
            getDialog : function() {
@@ -214,7 +238,7 @@ define([
                return dialog;
            },
 
-           /*
+           /**
             * remove hashtag.
             */
            _removeItem : function(event) {
@@ -246,7 +270,7 @@ define([
 //    "encuestame.org.core.commons.tweetPoll.HashTags",
 //    [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.tweetPoll.TweetPollCore],{
 //
-//        /*
+//        /**
 //         * template.
 //         */
 //        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtag.html"),
@@ -255,7 +279,7 @@ define([
 //    }
 //);
 //
-///**
+///***
 // * HashTag Item.
 // */
 //dojo.declare(
@@ -266,29 +290,29 @@ define([
 //        //widgets in template
 //        wigetsInTemplate: true,
 //
-//        /**
+//        /***
 //         * the body of hashtag.
 //         */
 //        data : null,
 //
-//        /**
+//        /***
 //         * the label of the hashtag.
 //         */
 //        label : null,
 //
-//        /**
+//        /***
 //         * Parent widget reference.
 //         */
 //        parentWidget : null,
 //
-//        /**
+//        /***
 //         *
 //         */
 //        postCreate : function() {
 //            //console.debug("new HashTag", this.label);
 //        },
 //
-//        /**
+//        /***
 //         *
 //         * @param event
 //         */
@@ -304,7 +328,7 @@ define([
 //    "encuestame.org.core.commons.tweetPoll.HashTagsSuggest",
 //    [encuestame.org.core.shared.utils.Suggest],{
 //
-//    	/**
+//    	/***
 //    	 * Template.
 //    	 */
 //        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html"),

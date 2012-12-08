@@ -1,0 +1,45 @@
+.suggest {
+  width: 60%;
+}
+
+.suggest .wrapper-suggest {
+    max-width: 400px;
+    position: relative;
+}
+
+.suggest .wrapper-suggest input {
+
+}
+
+.suggest .wrapper-suggest .suggestBox {
+  border: 1px solid #E0D6D6;
+  left: 0;
+  position: absolute;
+  top: 30px;
+  width: 100%;
+}
+
+/** Suggest. **/
+
+.suggest .wrapper-suggest .suggestBox {
+    position: absolute;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+.suggest .wrapper-suggest .suggestBox  .suggesItem{
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.suggest .wrapper-suggest .suggestBox .suggesItem:hover{
+    background-color: #939397;
+    color: #FFF;
+}
+
+.suggest button {
+
+}

@@ -1,6 +1,5 @@
 /** Hash Tags **/
 div.hashTagWrapper {
-    max-width: 90%;
 }
 
 .wrapperHashTagItems {
@@ -19,9 +18,6 @@ div.wrapperHashTagItems div.addNewHashTag {
 }
 
 div.hashTagWrapper .suggestBox {
-    max-width: 56%;
-    width: 56%;
-    position: absolute;
     border: 1px solid #E0D6D6;
 }
 
