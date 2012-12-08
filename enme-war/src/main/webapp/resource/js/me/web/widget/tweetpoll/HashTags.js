@@ -144,8 +144,11 @@ define([
               var error = dojo.hitch(this, function(error) {
                   this.errorMesage(error.message);
               });
-              encuestame.service.xhrPostParam(
-                  this.getURLService().service('encuestame.service.list.hashtagsAction.getAction', ["tweetpoll", "add"]), params, load, error);
+              this.getURLService().post(['encuestame.service.list.hashtagsAction.getAction',
+                      ["tweetpoll", "add"]],
+                      params,
+                      load,
+                      error);
            },
 
            //block add more items.

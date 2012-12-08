@@ -27,10 +27,10 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title {
     color: #FFFFFF;
     font-size: 110%;
     padding: 10px;
-    font-weight: bold;
     border-radius : 10px 10px 0 0;
     -webkit-border-radius : 10px 10px 0 0;
     -moz-border-radius : 10px 10px 0 0;
+    background-color: #555555 !important;
 }
 
 .web-tweetpoll-section .space {
@@ -44,7 +44,7 @@ div.web-tweetpoll-section .info {
 div.web-tweetpoll-section .counterGlobal {
 	border-radius: 100px 100px 100px 100px;
     -webkit-border-radius: 100px 100px 100px 100px;
-    -moz-border-radius: 100px 100px 100px 100px;    
+    -moz-border-radius: 100px 100px 100px 100px;
     background-color: green;
     color: white;
     float: right;

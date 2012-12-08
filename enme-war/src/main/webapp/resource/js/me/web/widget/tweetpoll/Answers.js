@@ -8,6 +8,7 @@ define([
          "dijit/registry",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/tweetpoll/TweetPollCore",
+         "me/web/widget/tweetpoll/AnswerItem",
          "me/core/enme",
          "dojo/text!me/web/widget/tweetpoll/templates/answer.html" ],
         function(
@@ -20,6 +21,7 @@ define([
                 registry,
                 main_widget,
                 TweetPollCore,
+                AnswerItem,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, TweetPollCore, _WidgetsInTemplateMixin], {
@@ -204,10 +206,13 @@ define([
                 };
                 if (this.tweetPollId != null) {
                   this.loading_show();
-                    encuestame.service.xhrGet(this.getURLService().service('encuestame.service.list.addAnswer'), params, load, error);
+                    this.getURLService().get('encuestame.service.list.addAnswer',
+                      params,
+                      load,
+                      error);
                 } else {
                   //TODO: replace by EMNE.getMessage();
-                    dojo.publish("/encuestame/tweetpoll/dialog/error", [ENME.getMessage("e_024")]);
+                    dojo.publish("/encuestame/tweetpoll/dialog/error", [_ENME.getMessage("e_024")]);
                 }
          },
 

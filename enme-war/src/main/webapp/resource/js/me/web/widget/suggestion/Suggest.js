@@ -1,5 +1,6 @@
 define([ "dojo/parser",
          "dojo/ready",
+         "dojo/_base/lang",
          "dijit/registry",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -7,12 +8,15 @@ define([ "dojo/parser",
      "dijit/form/TextBox",
      "dijit/form/Button",
      "dojox/data/QueryReadStore",
+     "dijit/form/FilteringSelect",
      "dijit/_WidgetsInTemplateMixin",
      "me/core/enme",
      "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/web/widget/suggestion/SuggestItem",
      "dojo/text!me/web/widget/suggestion/templates/suggest.html" ], function(
     parser,
     ready,
+    lang,
     registry,
     declare,
     _WidgetBase,
@@ -20,18 +24,19 @@ define([ "dojo/parser",
     text_box,
     button,
     queryReadStore,
+    FilteringSelect,
     _WidgetsInTemplateMixin,
     _ENME,
     main_widget,
+    SuggestItem,
     template) {
-//  ready(function(){
-//       var myTextBox = new dijit.form.TextBox({
-//              name: "firstname",
-//              value: "" /* no or empty value! */,
-//              placeHolder: "type in your name"
-//          }, "firstname");
-//       console.debug("myTextBox", myTextBox);
-//  });
+
+  lang.extend(dojox.data.QueryReadStore, {
+        _filterResponse: function(data) {
+         data = data.success;
+         return data;
+     }
+  });
   return declare([ _WidgetBase, _TemplatedMixin, main_widget, queryReadStore ], {
 
     templateString: template,
@@ -46,7 +51,7 @@ define([ "dojo/parser",
 
         label : ENME.getMessage("button_add"),
 
-        url : encuestame.service.list.hashtags,
+        url : 'encuestame.service.list.hashtags',
 
         textBoxWidget : null,
 
@@ -57,6 +62,8 @@ define([ "dojo/parser",
         selectedItem : null,
 
         addButton : true,
+
+        ignoreCase: true,
 
         modeMultiSearch : false,
 
@@ -92,7 +99,6 @@ define([ "dojo/parser",
          * post create life cylce.
          */
         postCreate: function() {
-         console.debug("POST CREATE DEBUG", main_widget);
             this.textBoxWidget = registry.byId(this._suggest);
             if (this.textBoxWidget) {
               //enable keyword events
@@ -125,7 +131,7 @@ define([ "dojo/parser",
                 }));
                 //query read store.
                 this.store = new dojox.data.QueryReadStore({
-                    url: this.url,
+                    url: this.getURLService().service(this.url),
                     sortFields : this.sortFields,
                     requestMethod : this.modeQuery}
                 );
@@ -236,7 +242,7 @@ define([ "dojo/parser",
          *  Build Row.
          */
         buildRow : function(/** hashtag item. **/ data){
-            var widget = new encuestame.org.core.shared.utils.SuggestItem(
+            var widget = new SuggestItem(
                     {
                         data: { id : data.id, label : data.hashTagName},
                         parentWidget : this

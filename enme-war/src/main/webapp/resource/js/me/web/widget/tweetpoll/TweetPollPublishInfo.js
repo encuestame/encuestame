@@ -52,7 +52,7 @@ define([
               var button = registry.byId(this._close);
                   button.onClick = dojo.hitch(this, function(event) {
                      dojo.publish("/encuestame/dialog/close");
-                     document.location.href = encuestame.contextDefault + "/user/tweetpoll/list";
+                     document.location.href = _ENME.config("contextPath") + "/user/tweetpoll/list";
               });
           },
 

@@ -6,7 +6,7 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/tweetpoll/HashTagsSuggest",
          "me/core/enme",
-         "dojo/text!me/web/widget/tweetpoll/templates/hashtag.html" ],
+         "dojo/text!me/web/widget/tweetpoll/templates/hashtagItem.html" ],
         function(
                 declare,
                 _WidgetBase,
@@ -16,7 +16,10 @@ define([
                 HashTagsSuggest,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase,
+                             _TemplatedMixin,
+                             main_widget,
+                             _WidgetsInTemplateMixin], {
 
           // template string.
             templateString : template,

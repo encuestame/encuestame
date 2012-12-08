@@ -361,7 +361,7 @@ define([
               //check if typeSearch is missing
               if (!("typeSearch" in params)) {
                   var _hash = this._restoreHash();
-                  params.typeSearch = (typeof _hash == 'undefined' ? this.defaultSearch : _hash)
+                  params.typeSearch = _hash == null ? this.defaultSearch : _hash;
               }
               // mixin params with required params
               _lang.mixin(params,

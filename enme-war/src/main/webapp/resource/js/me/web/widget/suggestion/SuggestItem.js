@@ -1,25 +1,43 @@
-define([ "dojo/parser",
-         "dojo/_base/declare", 
-         "dijit/_WidgetBase", 
+define([
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
-         "dijit/form/TextBox", 
          "dijit/_WidgetsInTemplateMixin",
-         "dojo/text!me/web/widget/shared/template/searchMenu.html" ], function(
-        parser,
-        declare,
-        _WidgetBase,
-        _TemplatedMixin, 
-        text,  
-        _WidgetsInTemplateMixin,
-        template) {
-    console.log("SEARCHHHHHHH MENU", parser);
-    
-    return declare([ _WidgetBase, _TemplatedMixin], {       
-        templateString: template,
-        postCreate: function() {
-            console.log("SEARCHHHHHHH postCreate");
-            this.domNode.innerHTML = template;
-            parser.parse(this.domNode);
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/web/widget/stream/HashTagInfo",
+         "me/core/enme",
+         "dojo/text!me/web/widget/suggestion/templates/suggestItem.html" ],
+        function(
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                hashTagInfo,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+
+        // template string.
+        templateString : template,
+
+         data : null,
+
+         parentWidget  : null,
+
+         selected : false,
+
+         postCreate : function(){},
+
+        /**
+         * select item
+         */
+        _selectItem: function(event) {
+            dojo.stopEvent(event);
+            this.selected = !this.selected;
+            this.parentWidget.selectedItem = this.data;
+            this.parentWidget.hide();
+            this.processItem(this.data);
         }
     });
 });

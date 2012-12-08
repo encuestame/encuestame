@@ -501,7 +501,7 @@ define([
              */
             _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags) {
                 var params = this.tweetPoll;
-                if (this.tweetPoll.tweetPollId == null) {
+                if (this.tweetPoll.tweetPollId === null) {
                     params = { question : params.question };
                 } else {
                    this.tweetPoll.hashtags = this.hashTagWidget.getHashTags();
@@ -515,9 +515,10 @@ define([
                //var params = _lang.mixin(this.tweetPoll,{});
 
                 var load = dojo.hitch(this, function(data) {
-                    console.log('data', data)
                     if ('success' in data) {
                         this.tweetPoll.tweetPollId = data.success.tweetPoll.id;
+                        this.hashTagWidget.tweetPollId = data.success.tweetPoll.id;
+                        this.answerWidget.tweetPollId = data.success.tweetPoll.id;
                         this._autoSaveStatus("message");
                     }
                 });

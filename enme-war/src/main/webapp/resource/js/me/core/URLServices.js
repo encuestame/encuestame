@@ -190,7 +190,7 @@ define(
         "encuestame.service.list.hashtagsAction.getAction" : _appendContext("api/survey/hashtag/$0/$1.json"),
         "encuestame.service.list.cloud" : _appendContext("api/common/hashtags/cloud.json"),
         "encuestame.service.list.allSocialAccount" : _appendContext("api/common/social/accounts.json"),
-        "encuestame.service.list.publishTweetPoll" : _appendContext("api/admon/users.json"),
+        "encuestame.service.list.publishTweetPoll" : _appendContext("/api/survey/tweetpoll/publish.json"),
         "encuestame.service.list.listTweetPoll" : _appendContext("api/survey/tweetpoll/search.json"),
         "encuestame.service.list.changeTweetPollStatus" : _appendContext("api/survey/tweetpoll/change-open-status-tweetpoll.json"),
         "encuestame.service.list.resumeliveResultsTweetPoll" : _appendContext("api/survey/tweetpoll/resumeliveResults-tweetpoll.json"),
@@ -320,7 +320,6 @@ define(
           var _load = response;
           var _error = error;
           if (loaderHandler != 'undefined' && typeof loaderHandler === 'function') {
-              console.log("loader handler viene y es una funcion");
               _load = function(r) {
                   try{
                       response(r);
@@ -360,10 +359,21 @@ define(
                 });
            }
 
-          // make the request
-          request(_services.service(url), _params).then(_load, _error,
-                   function(evt) {
-           });
+           // resolve complex url
+           var _service_url = null;
+           if (typeof url === 'string') {
+               _service_url = _services.service(url);
+           } else if (lang.isArray(url) && url.length === 2) {
+               _service_url = _services.service(url[0], url[1]);
+           } else if (lang.isArray(url) && url.length === 1) {
+               _service_url = _services.service(url[0]);
+           }
+           console.log("url to call -->", _service_url);
+           if (_service_url !== null ) {
+                // make the request
+                request(_service_url, _params).then(_load, _error,
+                         function(evt) {});
+              }
      };
 
       return _services;
