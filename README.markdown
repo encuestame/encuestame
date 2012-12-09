@@ -1,5 +1,7 @@
-encuestame open source social survey
-====================
+![Example](http://api.encuestame.org/mail.png)
+
+Encuestame Open Source Social Survey
+=====================================
 
 For information on how to build check out [documentation](http://wiki.encuestame.org/display/DOC/How+to+build+Encuestame).
 
@@ -7,13 +9,14 @@ For information on how to build check out [documentation](http://wiki.encuestame
 
 ## Current Version Info
 
-The last release versions are defined [here](http://wiki.encuestame.org/display/RELEASE/Home).
+The last release versions are defined [here](http://wiki.encuestame.org/display/~juanpicado/About+Encuestame+1.146-M2), if you are interested in the Roadmap click [here](http://issues.encuestame.org/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
 If you want to download a build version of encuestame, they're hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
 ## Maintainers
 * [Diana Paola Morales](http://about.me/dianmorales)
 * [Juan Carlos Picado](http://about.me/jotadeveloper)
+* [Contributors](http://www.encuestame.org/contributors)
 
 ## Direct Download Last Releases
 
@@ -26,25 +29,26 @@ If you want to download a build version of encuestame, they're hosted on the [So
 Pull requests are, of course, very welcome! A few "todos", if anyone is [interested](http://wiki.encuestame.org/display/DEVELOPMENT/Commiters+Guidelines).
 
 ## Acknowledgments
-* Thanks to [Atlassian Open Source Program](http://www.atlassian.com/software/views/opensource-license-request.jsp).
-* Thanks to you, for spent your time reviewing our job.
-* All our friends.
+* Thanks to [Atlassian Open Source Program](http://www.atlassian.com/)
+* Thanks to you, for spent your time reviewing our job
+* All our friends
 
 ## Related Sites
 
 * [JIRA](http://issues.encuestame.org)
-* [Encuestame Wiki](http://wiki.encuestame.org)
+* [Wiki](http://wiki.encuestame.org)
 * [Metrics](http://metrics.encuestame.org)
+* [API Javadoc](http://api.encuestame.org)
 * [Demo Site](http://demo.encuestame.org)
-* [GitHub Repo](http://github.com/encuestame)
+* [GitHub](http://github.com/encuestame)
 * [Twitter](http://www.twitter.com/encuestame)
-* [Facebook Page](https://www.facebook.com/pages/encuestame/80467777529)
+* [Facebook](https://www.facebook.com/pages/encuestame/80467777529)
 
 
 Copyright and license
 ---------------------
 
-Copyright 2012 Encuestame Team
+Copyright 2013 encuestame
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
