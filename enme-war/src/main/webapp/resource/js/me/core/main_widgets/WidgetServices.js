@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@il.com
+ *  @version 1.146
+ *  @module Services
+ *  @namespace Widget
+ *  @class WidgetServices
+ */
 define([ "dojo/_base/declare",
      "me/core/URLServices",
      "me/web/widget/dialog/ModalBox",
@@ -11,8 +34,9 @@ define([ "dojo/_base/declare",
 
   return declare(null, {
 
-      /*
-       *
+      /**
+       * Return the url service
+       * @method getURLService
        */
       getURLService : function() {
         return _URL;
@@ -20,8 +44,11 @@ define([ "dojo/_base/declare",
 
       /**
        * Create a modal box.
+       * @method _createModalBox
+       * @private
        */
       _createModalBox : function(type, handler) {
+        //FUTURE: replace by Dojo Dialog
         var modal = dojo.byId("modal-box");
         if (modal != null) {
           var modalBox = new ModalBox(dojo.byId("modal-box"), type, dojo.hitch(handler));
@@ -33,6 +60,7 @@ define([ "dojo/_base/declare",
 
       /**
        * Display the loading process.
+       * @method loading_show
        */
       loading_show : function (message) {
         var loading = registry.byId("loading");
@@ -43,6 +71,7 @@ define([ "dojo/_base/declare",
 
       /**
        * Hide the loading process.
+       * @method loading_hide
        */
       loading_hide : function () {
         var loading = registry.byId("loading");
@@ -53,6 +82,7 @@ define([ "dojo/_base/declare",
 
       /**
        * Publish a message on the context
+       * @method publishMessage
        * @param message the message
        * @param type error, warning, info, success
        */
@@ -70,6 +100,7 @@ define([ "dojo/_base/declare",
 
       /**
        * Display a success message.
+       * @method successMesage
        */
       successMesage : function(message, description) {
           //console.info("Successfull message");
@@ -78,6 +109,7 @@ define([ "dojo/_base/declare",
 
       /**
        * Display a warning message.
+       * @method successMesage
        */
       warningMesage : function(message, description) {
         _ENME.warning(message, description);
@@ -85,13 +117,15 @@ define([ "dojo/_base/declare",
 
       /**
        * Display a warning message.
+       * @method errorMessage
        */
       errorMessage : function(message, description) {
         _ENME.success(message, description);
       },
 
      /**
-      * Display a fatal message
+      * Display a fatal message.
+       * @method fatalMesage
       */
      fatalMesage : function(message) {
        _ENME.fatal(message, description);
@@ -99,6 +133,7 @@ define([ "dojo/_base/declare",
 
       /**
        * Display a default loader.
+       * @method loadingDefaultMessage
        */
       loadingDefaultMessage : function() {
        var loading = {
@@ -117,6 +152,8 @@ define([ "dojo/_base/declare",
        * Succesfull === {"error":{},"success":{"r":0}}
        * or
        * Failed === {"error":{},"success":{"r":-1}}
+       * @method getDefaultResponse
+       * @param data
        */
       getDefaultResponse : function(data) {
         if ("success" in data) {
@@ -131,8 +168,9 @@ define([ "dojo/_base/declare",
         }
       },
 
-      /*
-       *
+      /**
+       * Display a error message
+       * @method errorMessage
        */
       errorMesage : function(error) {
           var modal = this._createModalBox("alert", null);
@@ -151,10 +189,10 @@ define([ "dojo/_base/declare",
            }
       },
 
-       /**
-        *
-        * @param e
-        */
+      /**
+       * Stop the event
+       * @method stopEvent
+       */
        stopEvent : function (e) {
          _ENME.stopEvent(e);
        }

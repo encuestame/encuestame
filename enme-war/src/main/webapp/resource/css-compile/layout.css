@@ -5,7 +5,6 @@ html,body {
 }
 
 
-
 /* Smartphones (portrait and landscape)  */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 
@@ -116,6 +115,7 @@ html,body {
 
     .mobile .mobile-main {
         min-height: 300px;
+        background-color: white;
     }
 
     .mobile-main-vote {
@@ -166,9 +166,7 @@ and (orientation : portrait) {
 }
 
 /* Desktops and laptops  */
-@media only screen and (min-width : 1224px) {
-
-       body {
+    body {
         height: 100%;
         word-wrap: break-word;
         margin: 0;
@@ -186,7 +184,7 @@ and (orientation : portrait) {
        height: 40px;
        position: relative;
        box-shadow : 2px 3px 4px #121212;
-       z-index: 9000;
+       z-index: 500;
     }
 
     .header {
@@ -275,7 +273,7 @@ and (orientation : portrait) {
     }
 
     div.web-header div.web-header-wrapper {
-      width: 1024px;
+      width: auto;
     }
 
     div.web-header span {
@@ -348,7 +346,6 @@ and (orientation : portrait) {
         text-align: right;
         white-space: nowrap;
     }
-}
 
 /* Large screens  */
 @media only screen and (min-width : 1824px) {

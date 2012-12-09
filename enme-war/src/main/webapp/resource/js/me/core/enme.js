@@ -468,10 +468,13 @@ define(["dojo",
 
       /*
        * Store a item into session storage
+       * @method storeItem
        * @param key
        * @param value
+       * @param local
        */
-      storeItem : function (key, value) {
+      storeItem : function (key, value, local) {
+          local = local || false;
           if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               sessionStorage.setItem(key, json.toJson(value));
           } else {
@@ -482,9 +485,12 @@ define(["dojo",
 
       /*
        * Remove a item from session storage
+       * @method removeItem
        * @param key the key item
+       * @param local define if the source is local
        */
-      removeItem : function (key) {
+      removeItem : function (key, local) {
+          local = local || false;
           if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               sessionStorage.removeItem(key);
           } else {
@@ -492,11 +498,13 @@ define(["dojo",
           }
       },
 
-      /*
+      /**
+       * @method restoreItem
        * @param key
-       * @param value
+       * @param local
        */
-      restoreItem : function (key) {
+      restoreItem : function (key, local) {
+          local = local || false;
           if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               return sessionStorage.getItem(key);
           } else {

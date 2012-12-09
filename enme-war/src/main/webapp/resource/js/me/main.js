@@ -49,7 +49,7 @@ define([ 'dojo/has', 'require' ], function (has, require) {
                       domConstruct) {
        var _dom = dom.byId('loading');
        if (_dom) {
-           var _loading_widget = new Loading();
+           var _loading_widget = new Loading({id : 'loading'});
            domConstruct.place(_loading_widget.domNode, _dom);
        }
       // app.dialog = new Dialog().placeAt(document.body);

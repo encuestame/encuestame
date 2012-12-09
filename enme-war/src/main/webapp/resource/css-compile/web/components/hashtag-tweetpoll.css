@@ -1,9 +1,22 @@
-/** Hash Tags **/
-div.hashTagWrapper {
+
+.hashTagWrapper {
+}
+
+.hashTagWrapper .suggest{
+
+}
+
+.hashTagWrapper .suggest .wrapper-suggest {
+  float: left;
+  margin-right: 15px;
+  width: 500px;
+}
+
+hashTagWrapper .suggest .wrapper-suggest .littleInputClass {
+    width: 100%;
 }
 
 .wrapperHashTagItems {
-    overflow: auto;
     padding: 10px 0 5px;
 }
 

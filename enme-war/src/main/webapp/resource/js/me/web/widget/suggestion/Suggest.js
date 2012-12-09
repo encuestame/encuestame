@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module Suggest
+ *  @namespace Widget
+ *  @class Suggest
+ */
 define([ "dojo/parser",
          "dojo/ready",
          "dojo/_base/lang",
@@ -37,46 +60,92 @@ define([ "dojo/parser",
          return data;
      }
   });
+
   return declare([ _WidgetBase, _TemplatedMixin, main_widget, queryReadStore ], {
 
-    templateString: template,
+        /**
+         * @property templateString
+         */
+        templateString: template,
 
-//		postCreate: function() {
-//			console.log("SUGGESTION postCreate");
-//            this.domNode.innerHTML = template;
-//            parser.parse(this.domNode);
-//        }
+        /**
+         * @property store
+         */
+        store: null,
 
-    store: null,
-
+        /**
+         * @property label
+         */
         label : ENME.getMessage("button_add"),
 
+        /**
+         * @property url
+         */
         url : 'encuestame.service.list.hashtags',
 
+        /**
+         * @property textBoxWidget
+         */
         textBoxWidget : null,
 
+        /**
+         * @property buttonWidget
+         */
         buttonWidget : null,
 
+        /**
+         * @property hideLabel
+         */
         hideLabel : false,
 
+        /**
+         * @property selectedItem
+         */
         selectedItem : null,
 
+        /**
+         * @property addButton
+         */
         addButton : true,
 
+        /**
+         * @property ignoreCase
+         */
         ignoreCase: true,
 
+        /**
+         * @property modeMultiSearch
+         */
         modeMultiSearch : false,
 
+        /**
+         * @property multiStores
+         */
         multiStores : [],
 
+        /**
+         * @property modeQuery
+         */
         modeQuery : "get",
 
+        /**
+         * @property limit
+         */
         limit : 10,
 
+        /**
+         * @property label
+         */
         label : "Label",
 
+        /**
+         * @property query
+         */
         query :  {hashTagName : "*"},
 
+        /**
+         * @property sortFields
+         */
         sortFields : [{attribute: 'hashTagName', descending: true}],
 
         /*

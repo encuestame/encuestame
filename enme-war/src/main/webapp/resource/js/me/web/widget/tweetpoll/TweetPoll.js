@@ -25,6 +25,8 @@ define([
          "dojo",
          "dojo/_base/declare",
          "dojo/dom-geometry",
+         "dojo/_base/array",
+         "dojo/dom-construct",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -43,6 +45,7 @@ define([
          "dijit/form/CheckBox",
          "dijit/form/NumberSpinner",
          "me/web/widget/tweetpoll/Answers",
+         "me/web/widget/ui/HelpContext",
          "me/core/enme",
          "dojo/_base/lang",
          "dojo/topic",
@@ -54,6 +57,8 @@ define([
                 dojo,
                 declare,
                 domGeom,
+                array,
+                domConstruct,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -72,6 +77,7 @@ define([
                 CheckBox,
                 NumberSpinner,
                 Answers,
+                HelpContext,
                 _ENME,
                 _lang,
                 topic,
@@ -87,6 +93,12 @@ define([
 
             // template string.
             templateString : template,
+
+            /**
+             * @private
+             * @param _started manage the
+             */
+            _started : false,
 
             /***
              * @param hashTagWidget hashtag widgets
@@ -247,9 +259,41 @@ define([
             tweetPollPublishWidget : null,
 
             /**
+             * Help Widget.
+             * @param helpWidget
+             */
+            helpWidget: null,
+
+            /**
+             * Return the help status.
+             */
+            getHelpStatus : function () {
+                return _ENME.getBoolean(_ENME.restoreItem("tp-help", true) || true);
+            },
+
+            /**
              * post create.
              */
             postCreate: function() {
+                var _help_status = this.getHelpStatus();
+                this.helpWidget = new HelpContext({
+                        status : _help_status,
+                        list_messages : [
+                            "First you need write your <strong>question</strong> ",
+                            "Add at least 2 answers",
+                            "Add hashtag, like in Twitter, useful to navigate on it and found your tweetpoll",
+                            "Select all Social Networks to Publish your beautiful creation ",
+                        ]
+                });
+                if (this._help) {
+                    dojo.empty(this._help);
+                    domConstruct.place( this.helpWidget.domNode, this._help);
+                }
+
+                this.cancelButton = this._cancelButton;
+                this.cancelButton.onClick = dojo.hitch(this, function(){
+                    this._redirectList();
+                });
                 this.questionWidget = registry.byId("question");
                 this.answerWidget = registry.byId("answers");
                 this.hashTagWidget = registry.byId("hashtags");
@@ -573,7 +617,34 @@ define([
                    //hash(ioQuery.objectToQuery(tweetPoll));
                    _ENME.storeItem('cr.tp', tweetPoll);
                  }
-                 this.tweetPoll.started = true;
+                 this._started = true;
+                 this.initializeInterface();
+             },
+
+
+
+             /**
+              * Initialize the interface after user create the question
+              * @method initializeInterface
+              */
+             initializeInterface : function () {
+                    var _steps = dojo.query('div [data-step]');
+                    array.forEach(_steps, function(entry, i){
+                        dojo.removeClass(entry, "hidden");
+                        var fadeArgs = {
+                            node: entry
+                        };
+                        dojo.fadeIn(fadeArgs).play();
+                    });
+
+                    dojo.empty(this._pre_cancel);
+
+                    // hide the help if iexist
+                   if (this.helpWidget.status) {
+                       this.helpWidget.hide();
+                      _ENME.storeItem("tp-help", false, true);
+                    }
+
              },
 
             /***
@@ -690,6 +761,7 @@ define([
                     this.autosave = false;
                     this.tweetPollPublishWidget.process(socialArray);
                 });
+
                 /***
                  * On publish error.
                  *  - Close dialog
@@ -703,8 +775,24 @@ define([
                 });
                 encuestame.service.xhrPostParam(
                     this.getURLService().service('encuestame.service.list.publishTweetPoll'), params, load, error);
-            }
+            },
 
+            /**
+             * Redirect to list page.
+             * @method _redirectList
+             */
+            _redirectList : function(){
+                document.location.href = _ENME.config('contextPath') + "/user/tweetpoll/list";
+            },
+
+            /**
+             * Cancel the tweetpoll.
+             * @method _cancelTweetPoll
+             */
+            _cancelTweetPoll : function (e) {
+                     dojo.stopEvent(e);
+                     this._redirectList();
+            }
     });
 });
 ;
