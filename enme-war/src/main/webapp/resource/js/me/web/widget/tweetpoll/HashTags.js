@@ -71,10 +71,15 @@ define([
             */
            _itemsSelected : [],
 
+           /**
+            * Message for add butotn
+            * @property _hashtahButtonLabel
+            */
            _hashtahButtonLabel : _ENME.getMessage("button_add"),
 
            /**
             * pots create life cycle.
+            * @method postCreate
             */
            postCreate: function() {
                //create new hashtahg suggest.
@@ -143,8 +148,9 @@ define([
                this.enableBlockTweetPollOnProcess();
            },
 
-           /***
+           /**
             * Add hashtag item.
+            * @method _addHastahToItem
             */
            _addHastahToItem : function(data) {
                var params = {

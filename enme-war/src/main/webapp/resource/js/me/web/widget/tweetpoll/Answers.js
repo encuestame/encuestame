@@ -203,7 +203,7 @@ define([
                 //console.debug("params", params);
                 var load = dojo.hitch(this, function(data) {
                     //console.debug(data);
-                  this.loading_hide();
+                    this.loading_hide();
                     var items = [];
                     var answerWidget = new AnswerItem({
                         answer :{

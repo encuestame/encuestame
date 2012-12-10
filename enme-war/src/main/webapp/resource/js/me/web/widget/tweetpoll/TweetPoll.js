@@ -203,7 +203,13 @@ define([
             /**
              * every 5 minutes.
              */
-            delay: 300000, //
+            delay: 300000,
+
+            /**
+             * The key to store / restore the last tweetpoll.
+             * @property
+             */
+            _tp_storage_key : "tp_new",
 
            /**
             * i18n Message.
@@ -297,6 +303,11 @@ define([
                 this.questionWidget = registry.byId("question");
                 this.answerWidget = registry.byId("answers");
                 this.hashTagWidget = registry.byId("hashtags");
+
+                // save a reference of main object
+                this.answerWidget.tweetPoll = this.tweetPoll;
+                this.hashTagWidget.tweetPoll = this.tweetPoll;
+
                 //create preview widget.
                 this.previeWidget = this._createPreviewWidget(this._preview);
                 //create preview fixed widet.
@@ -613,9 +624,8 @@ define([
                    };
                    this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
                    this.answerWidget.tweetPollId = this.tweetPoll.tweetPollId;
-                   //update the hash
-                   //hash(ioQuery.objectToQuery(tweetPoll));
-                   _ENME.storeItem('cr.tp', tweetPoll);
+                   // store the tweetpoll data
+                   _ENME.storeItem(this._tp_storage_key, this.tweetPoll);
                  }
                  this._started = true;
                  this.initializeInterface();
