@@ -126,18 +126,18 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             //TODO: this method return only the tweetpoll by owner.
             list.addAll(this.getTweetsPollsByUserName(
                     getUserPrincipalUsername(), max, start, httpServletRequest));
-        } else if (TypeSearch.LASTDAY.equals(typeSearch)) {
+        } else if (TypeSearch.LASTDAY.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
-                        max, start, httpServletRequest, tpollSearch));
-        } else if (TypeSearch.LASTWEEK.equals(typeSearch)) {
+            		tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));
+        } else if (TypeSearch.LASTWEEK.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollsLastWeek(
-                    getUserPrincipalUsername(), max, start, httpServletRequest, tpollSearch));
-        } else if (TypeSearch.FAVOURITES.equals(typeSearch)) {
+                    getUserPrincipalUsername(), tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));
+        } else if (TypeSearch.FAVOURITES.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollFavourites(
-                    getUserPrincipalUsername(), max, start, httpServletRequest));
-        } else if (TypeSearch.SCHEDULED.equals(typeSearch)) {
+                    getUserPrincipalUsername(), tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));
+        } else if (TypeSearch.SCHEDULED.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollScheduled(
-                    getUserPrincipalUsername(), max, start, httpServletRequest));
+                    getUserPrincipalUsername(), tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));
         } else {
             log.error("filterTweetPollByItemsByType no type");
             throw new EnMeExpcetion("filterTweetPollByItemsByType no type");
@@ -274,35 +274,56 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 				httpServletRequest);
     }
 
-    /**
-     * Search Favourites TweetPolls.
-     * @param username
-     * @param keyword
-     * @param maxResults
-     * @param start
-     * @return
-     * @throws EnMeExpcetion
-     */
-    public List<TweetPollBean> searchTweetsPollFavourites(final String username,
-            final Integer maxResults, final Integer start, final HttpServletRequest httpServletRequest) throws EnMeExpcetion{
-        return this.setTweetPollListAnswers(getTweetPollDao().retrieveFavouritesTweetPoll(
-                getAccount(username), maxResults, start), Boolean.TRUE, httpServletRequest);
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#searchTweetsPollFavourites
+	 * (java.lang.String, java.lang.Integer, java.lang.Integer,
+	 * javax.servlet.http.HttpServletRequest,
+	 * org.encuestame.utils.web.search.TweetPollSearchBean)
+	 */
+	public List<TweetPollBean> searchTweetsPollFavourites(
+			final String username, final Integer maxResults,
+			final Integer start, final HttpServletRequest httpServletRequest,
+			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
+    	List<TweetPoll> tpSocial = new ArrayList<TweetPoll>();
+    	final List<TweetPoll> favouriteTweetPolls = getTweetPollDao().retrieveFavouritesTweetPoll(
+				getAccount(username), maxResults,
+				start, tpollSearch.getIsComplete(),
+				tpollSearch.getIsScheduled(),
+				tpollSearch.getIsFavourite(),
+				tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
+    	tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(favouriteTweetPolls, tpollSearch.getProviders());
+        return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
     }
 
-    /**
-     * Search Scheduled TweetsPoll.
-     * @param username
-     * @param keyword
-     * @param maxResults
-     * @param start
-     * @return
-     * @throws EnMeExpcetion
-     */
-    public List<TweetPollBean> searchTweetsPollScheduled(final String username,
-            final Integer maxResults, final Integer start, final HttpServletRequest httpServletRequest) throws EnMeExpcetion{
-        return this.setTweetPollListAnswers(getTweetPollDao().retrieveScheduledTweetPoll(
-                getUserAccountId(username), maxResults, start), Boolean.TRUE, httpServletRequest);
-    }
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * org.encuestame.core.service.imp.ITweetPollService#searchTweetsPollScheduled
+	 * (java.lang.String, java.lang.Integer, java.lang.Integer,
+	 * javax.servlet.http.HttpServletRequest,
+	 * org.encuestame.utils.web.search.TweetPollSearchBean)
+	 */
+	public List<TweetPollBean> searchTweetsPollScheduled(final String username,
+			final Integer maxResults, final Integer start,
+			final HttpServletRequest httpServletRequest,
+			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
+		List<TweetPoll> tpSocial = new ArrayList<TweetPoll>();
+		final List<TweetPoll> tpoll = getTweetPollDao()
+				.retrieveScheduledTweetPoll(getUserAccountId(username),
+						maxResults, start, tpollSearch.getIsComplete(),
+						tpollSearch.getIsScheduled(),
+						tpollSearch.getIsFavourite(),
+						tpollSearch.getIsPublished(), tpollSearch.getKeyword(),
+						tpollSearch.getPeriod());
+		tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpoll,
+				tpollSearch.getProviders());
+		return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
+				httpServletRequest);
+	}
 
     /**
      * Create tweetPoll.
