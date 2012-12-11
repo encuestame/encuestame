@@ -99,22 +99,21 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE, httpServletRequest);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.encuestame.core.service.imp.ITweetPollService#filterTweetPollByItemsByType(org.encuestame.utils.enums.TypeSearch, java.lang.String, java.lang.Integer, java.lang.Integer, org.encuestame.utils.enums.TypeSearchResult)
-     */
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.encuestame.core.service.imp.ITweetPollService#
+	 * filterTweetPollByItemsByType
+	 * (org.encuestame.utils.web.search.TweetPollSearchBean,
+	 * javax.servlet.http.HttpServletRequest)
+	 */
     public List<TweetPollBean> filterTweetPollByItemsByType(final TweetPollSearchBean tpollSearch,
-            final TypeSearch typeSearch,
-            final String keyword,
-            final Integer max,
-            final Integer start,
-            final TypeSearchResult searchResult,
             final HttpServletRequest httpServletRequest)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
-        log.info("filterTweetPollByItemsByType typeSearch: "+typeSearch);
-        log.info("filterTweetPollByItemsByType keyword: "+keyword);
-        log.info("filterTweetPollByItemsByType max: "+max);
-        log.info("filterTweetPollByItemsByType start: "+start);
+    	log.info("filterTweetPollByItemsByType typeSearch: "+tpollSearch.getTypeSearch());
+        log.info("filterTweetPollByItemsByType keyword: "+ tpollSearch.getKeyword());
+        log.info("filterTweetPollByItemsByType max: "+ tpollSearch.getMax());
+        log.info("filterTweetPollByItemsByType start: "+ tpollSearch.getStart());
         final List<TweetPollBean> list = new ArrayList<TweetPollBean>();
         if (TypeSearch.KEYWORD.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
@@ -122,10 +121,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         } else if (TypeSearch.BYOWNER.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
             		tpollSearch.getKeyword(), tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));
-        } else if (TypeSearch.ALL.equals(typeSearch)) {
+        } else if (TypeSearch.ALL.equals(tpollSearch.getTypeSearch())) {
             //TODO: this method return only the tweetpoll by owner.
             list.addAll(this.getTweetsPollsByUserName(
-                    getUserPrincipalUsername(), max, start, httpServletRequest));
+                    getUserPrincipalUsername(), tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest));
         } else if (TypeSearch.LASTDAY.equals(tpollSearch.getTypeSearch())) {
             list.addAll(this.searchTweetsPollsToday(getUserPrincipalUsername(),
             		tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));

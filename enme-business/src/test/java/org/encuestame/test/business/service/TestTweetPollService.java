@@ -39,15 +39,16 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
 import org.encuestame.utils.categories.test.DefaultTest;
 import org.encuestame.utils.categories.test.InternetTest;
+import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.json.LinksSocialBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.social.SocialProvider;
-import org.encuestame.utils.web.AdvancedSearchBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
 import org.encuestame.utils.web.TweetPollResultsBean;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -362,18 +363,54 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         createAdvancedTweetPoll(getSpringSecurityLoggedUserAccount()
                 .getAccount(), createDefaultQuestion("What is your favourite movie"), Boolean.TRUE,
                 Boolean.TRUE, Boolean.FALSE, time2.toDate());
-        final AdvancedSearchBean adv1 = createAdvancedSearchBean(Boolean.TRUE, Boolean.TRUE,
-                        Boolean.TRUE, Boolean.FALSE, "fav", 7, 0, 10);
+       // final Search adv1 = createAdvancedSearchBean(Boolean.TRUE, Boolean.TRUE,
+          //              Boolean.TRUE, Boolean.FALSE, "fav", 7, 0, 10);
         // published-completed-favourite-scheduled
-        final List<TweetPollBean> tpBean = getTweetPollService()
+       /* final List<TweetPollBean> tpBean = getTweetPollService()
                 .searchAdvancedTweetPoll(adv1);
         //("fav", 7, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, 0, 10);
-          assertEquals("Should be equals", 1 , tpBean.size());
-          final AdvancedSearchBean adv2 = createAdvancedSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, "fav", 30, 0, 10);
-        final List<TweetPollBean> tpBean30 = getTweetPollService()
+          assertEquals("Should be equals", 1 , tpBean.size());*/
+        //  final Search adv2 = createAdvancedSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, "fav", 30, 0, 10);
+          /*   final List<TweetPollBean> tpBean30 = getTweetPollService()
                 .searchAdvancedTweetPoll(adv2);
         //("fav", 30, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, 0, 10);
-        assertEquals("Should be equals", 2, tpBean30.size());
+        assertEquals("Should be equals", 2, tpBean30.size());*/
+    }
+
+    /**
+     * Test Filter {@link TweetPoll} by type.
+     * @throws EnMeNoResultsFoundException
+     * @throws EnMeExpcetion
+     */
+    @Test
+    public void testFilterTweetPollByItemsByType() throws EnMeNoResultsFoundException, EnMeExpcetion{
+    	final DateTime date1 = new DateTime();
+    	DateTime dt2 = date1.minusDays(5);
+    	DateTime dt3 = date1.minusDays(4);
+    	final Question q1 = createDefaultQuestion("What is your favourite movie");
+    	final Question q2 = createDefaultQuestion("What is your favourite book");
+    	final Question q3 = createDefaultQuestion("What is your favourite song");
+
+    	final String keyword = "favourite";
+
+    	final TweetPoll tp1 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
+    	tp1.setCreateDate(dt3.toDate());
+    	tp1.setCompleted(Boolean.TRUE);
+    	getTweetPoll().saveOrUpdate(tp1);
+
+    	final TweetPoll tp2 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q2);
+    	tp2.setCreateDate(dt2.toDate());
+    	tp2.setCompleted(Boolean.TRUE);
+
+    	getTweetPoll().saveOrUpdate(tp2);
+
+    	// publish : true - Sheduled: true - Completed: false - Favourite: true
+    	final TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
+
+    	// Published - Completed - Favourite - Scheduled
+    	final TweetPollSearchBean tpSearch = createTweetpollSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, "name", 24, 10, 0, TypeSearch.LASTWEEK);
+    	final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, null);
+
     }
 
 }

@@ -267,18 +267,14 @@ public interface ITweetPollService extends IMasterSurveyService{
     FolderBean updateTweetPollFolder(final Long folderId, final String folderName, final String username) throws EnMeNoResultsFoundException;
 
     /**
-     *
-     * @param typeSearch
-     * @param keyword
-     * @param max
-     * @param start
-     * @param searchResult
+     * Filter {@link TweetPoll}
+     * @param tpollSearch
+     * @param httpServletRequest
+     * @return
      * @throws EnMeNoResultsFoundException
      * @throws EnMeExpcetion
      */
-    List<TweetPollBean> filterTweetPollByItemsByType(final TweetPollSearchBean tpollSearch, final TypeSearch typeSearch,
-            String keyword, Integer max, Integer start,
-            final TypeSearchResult searchResult,
+    List<TweetPollBean> filterTweetPollByItemsByType(final TweetPollSearchBean tpollSearch,
             final HttpServletRequest httpServletRequest)
             throws EnMeNoResultsFoundException, EnMeExpcetion;
 
