@@ -58,7 +58,7 @@ define([
           });
          dojo.subscribe("/encuestame/social/list/reload", this, "_callListSocialAccounts");
          var myForm = dojo.byId(this._form);
-         myForm.setAttribute("action",encuestame.contextDefault + "/connect/" + this.socialProvider.toLowerCase());
+         myForm.setAttribute("action", _ENME.config('contextPath') + "/connect/" + this.socialProvider.toLowerCase());
          var _hash = ioQuery.queryToObject(hash());
          if (_hash.refresh && _hash.refresh) {
              if (_hash.successful && _hash.provider == this.socialProvider) {

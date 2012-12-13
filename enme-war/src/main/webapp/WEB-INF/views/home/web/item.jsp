@@ -2,15 +2,15 @@
 <section class="item">
     <div class="img">
     	<!--
-    		TODO: votes == relevance???    		
+    		TODO: votes == relevance???
     	  -->
-        <div data-dojo-type="me/web/widget/home/votes/ItemVote"  
+        <div data-dojo-type="me/web/widget/home/votes/ItemVote"
         	 voteMessage="<spring:message code="home.item.votes" />"
         	 viewMessage="<spring:message code="home.item.views" />"
-        	 votes="${item.totalVotes}" 
+        	 votes="${item.totalVotes}"
         	 hits="${item.hits}"
         	 itemType="${item.itemType}"
-        	 itemId="${item.id}"        	 
+        	 itemId="${item.id}"
        	></div>
     </div>
     <div class="content">

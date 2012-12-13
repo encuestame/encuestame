@@ -1,6 +1,32 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module Tweetpoll
+ *  @namespace Widgets
+ *  @class TweetPoll
+ */
 define([
+         "dojo",
          "dojo/_base/declare",
          "dojo/dom-geometry",
+         "dojo/_base/array",
+         "dojo/dom-construct",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -19,6 +45,7 @@ define([
          "dijit/form/CheckBox",
          "dijit/form/NumberSpinner",
          "me/web/widget/tweetpoll/Answers",
+         "me/web/widget/ui/HelpContext",
          "me/core/enme",
          "dojo/_base/lang",
          "dojo/topic",
@@ -27,8 +54,11 @@ define([
          "dijit/registry",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetpoll.html" ],
         function(
+                dojo,
                 declare,
                 domGeom,
+                array,
+                domConstruct,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -47,6 +77,7 @@ define([
                 CheckBox,
                 NumberSpinner,
                 Answers,
+                HelpContext,
                 _ENME,
                 _lang,
                 topic,
@@ -54,117 +85,133 @@ define([
                 ioQuery,
                 registry,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, TweetPollCore, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase,
+                             _TemplatedMixin,
+                              main_widget,
+                              TweetPollCore,
+                              _WidgetsInTemplateMixin], {
 
             // template string.
             templateString : template,
 
-            /*
-             * hashtag widgets
+            /**
+             * @private
+             * @param _started manage the
+             */
+            _started : false,
+
+            /***
+             * @param hashTagWidget hashtag widgets
              */
             hashTagWidget: null,
 
-            /*
-             * answer widget reference.
+            /**
+             * @param answer widget reference.
              */
             answerWidget : null,
 
-            /*
-             * question widget.
+            /**
+             * @param question widget.
              */
             questionWidget : null,
 
-            /*
-             * preview widget.
+            /**
+             * @param preview widget.
              */
             previeWidget : null,
 
-            /*
-             * the fixed preview appear on the top of the page.
+            /**
+             * @param the fixed preview appear on the top of the page.
              */
             previewFixedWiget : null,
 
-            /*
-             * social widget.
+            /**
+             * @param social widget.
              */
             socialWidget : null,
 
-            /*
-             * the publish dialog to alocate the publish widget.
+            /**
+             * @param the publish dialog to alocate the publish widget.
              */
             dialogWidget : null,
 
-            /*
+            /**
              * schedule widget.
              */
             scheduleWidget : null,
 
-            /*
+            /**
              *
              */
             scheduledDateWidget  : null,
 
-            /*
+            /**
              *
              */
             scheduledTimeWidget  : null,
 
-            /*
+            /**
              *
              */
             captchaWidget : null,
 
-            /*
+            /**
              * Limit Votes
              */
             limitVotesWidget  : null,
 
-            /*
+            /**
              *
              */
             limitNumbersWidget  : null,
 
-            /*
+            /**
              * Allow Repeated Votes.
              */
             ipWidget  : null,
 
-            /*
+            /**
              *
              */
             repeatedNumbersWidget  : null,
 
-            /*
+            /**
              * report widget.
              */
             resumeWidget  : null,
 
-            /*
+            /**
              *
              */
             _isValidMessage : null,
 
-            /*
+            /**
              * dashboard widget.
              */
             dashboardWidget  : null,
 
-            /*
+            /**
              *
              */
             timerAutoSave: null,
 
-            /*
+            /**
              *
              */
             _questionTextLastSucessMessage : "",
 
-            /*
+            /**
              * every 5 minutes.
              */
-            delay: 300000, //
+            delay: 300000,
 
-           /*
+            /**
+             * The key to store / restore the last tweetpoll.
+             * @property
+             */
+            _tp_storage_key : "tp_new",
+
+           /**
             * i18n Message.
             */
            i18nMessage : {
@@ -187,55 +234,85 @@ define([
              tp_select_publish : _ENME.getMessage("tp_select_publish")
            },
 
-            /**
+            /***
              * Stored save tweetPoll.
              **/
             tweetPoll : {
-                tweetPollId : null,
-                started : false,
-                question: {},
-                answers : [],
-                hashtags : [],
-                options : {
-                       scheduled : false,
-                           scheduledTime : null,
-                           scheduledDate : null,
-                           liveResults: false,
-                           captcha : false,
-                           limitVotes: false,
-                           maxLimitVotes : 100,
-                           repeatedVotes : false,
-                           maxRepeatedVotes : 2,
-                           resumeLiveResults : false,
-                           followDashBoard : false
-                           }
-              },
+               tweetPollId : null,
+               started : false,
+               question: {},
+               scheduled : false,
+               scheduledTime : null,
+               scheduledDate : null,
+               liveResults: false,
+               captcha : false,
+               limitVotes: false,
+               maxLimitVotes : 100,
+               repeatedVotes : false,
+               maxRepeatedVotes : 2,
+               resumeLiveResults : false,
+               followDashBoard : false
+            },
 
-            /*
+            /**
              * enable or disable autosave.
              */
             autosave : true,
 
-            /*
+            /**
              * tweet poll publish widget reference.
              */
             tweetPollPublishWidget : null,
 
-            /*
+            /**
+             * Help Widget.
+             * @param helpWidget
+             */
+            helpWidget: null,
+
+            /**
+             * Return the help status.
+             */
+            getHelpStatus : function () {
+                return _ENME.getBoolean(_ENME.restoreItem("tp-help", true) || true);
+            },
+
+            /**
              * post create.
              */
             postCreate: function() {
+                var _help_status = this.getHelpStatus();
+                this.helpWidget = new HelpContext({
+                        status : _help_status,
+                        list_messages : [
+                            "First you need write your <strong>question</strong> ",
+                            "Add at least 2 answers",
+                            "Add hashtag, like in Twitter, useful to navigate on it and found your tweetpoll",
+                            "Select all Social Networks to Publish your beautiful creation ",
+                        ]
+                });
+                if (this._help) {
+                    dojo.empty(this._help);
+                    domConstruct.place( this.helpWidget.domNode, this._help);
+                }
+
+                this.cancelButton = this._cancelButton;
+                this.cancelButton.onClick = dojo.hitch(this, function(){
+                    this._redirectList();
+                });
                 this.questionWidget = registry.byId("question");
                 this.answerWidget = registry.byId("answers");
                 this.hashTagWidget = registry.byId("hashtags");
+
+                // save a reference of main object
+                this.answerWidget.tweetPoll = this.tweetPoll;
+                this.hashTagWidget.tweetPoll = this.tweetPoll;
+
                 //create preview widget.
                 this.previeWidget = this._createPreviewWidget(this._preview);
                 //create preview fixed widet.
                 this.previewFixedWiget  = this._createPreviewWidget(this._previewFixed);
-                if(this.questionWidget
-                        || this.answerWidget
-                        || this.hashTagWidget
-                        ){
+                if(this.questionWidget || this.answerWidget|| this.hashTagWidget){
                     this.initialize();
                 }
 
@@ -244,7 +321,7 @@ define([
                 // scroll wheel for
                 window.onscroll = dojo.hitch(this, this.scroll);
 
-                /*
+                /**
            * Bug on Table / iPads We need use dojo.touch
            * http://dojotoolkit.org/reference-guide/1.7/dojo/touch.html
            */
@@ -308,11 +385,11 @@ define([
                 //live results.
                 this.liveResultsWidget = registry.byId("liveResults");
                 this.liveResultsWidget.onChange = dojo.hitch(this, function(event){
-                  this.tweetPoll.options.liveResults = event;
+                  this.tweetPoll.liveResults = event;
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
 
-                /*
+                /**
                  * replace by encuestame.org.core.shared.options.DateToClose.
                  */
                 //scheduled
@@ -326,46 +403,46 @@ define([
                         dojo.addClass(this._scheduledTime, "defaultDisplayHide");
                         dojo.addClass(this._scheduledDate, "defaultDisplayHide");
                     }
-                    this.tweetPoll.options.scheduledTime = encuestame.date.getFormatTime(new Date(),
-                            encuestame.date.timeFormat);
+                    this.tweetPoll.scheduledTime = _ENME.getFormatTime(new Date(),
+                            _ENME.TIME.timeFormat);
                     this.scheduledDateWidget.set("value", new Date());
                     this.scheduledTimeWidget.set("value", new Date());
-                    this.tweetPoll.options.scheduledTime = encuestame.date.getFormatTime(new Date(),
-                            encuestame.date.timeFormat);
-                    this.tweetPoll.options.scheduledDate = encuestame.date.getFormatTime(new Date(),
-                            encuestame.date.dateFormat);
-                    this.tweetPoll.options.scheduled = event;
+                    this.tweetPoll.scheduledTime = _ENME.getFormatTime(new Date(),
+                            _ENME.TIME.timeFormat);
+                    this.tweetPoll.scheduledDate = _ENME.getFormatTime(new Date(),
+                            _ENME.TIME.dateFormat);
+                    this.tweetPoll.scheduled = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //date widget.
                 this.scheduledDateWidget = registry.byId("scheduledDate");
                 this.scheduledDateWidget.onChange = dojo.hitch(this, function(event){
                     //.debug("Scheduled Date", this.scheduledDateWidget.get("value"));
-                  this.tweetPoll.options.scheduledDate = encuestame.date.getFormatTime(this.scheduledDateWidget.get("value"),
-                          encuestame.date.dateFormat);
+                  this.tweetPoll.scheduledDate = _ENME.getFormatTime(this.scheduledDateWidget.get("value"),
+                          _ENME.TIME.dateFormat);
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //time widget.
                 this.scheduledTimeWidget = registry.byId("scheduledTime");
                 this.scheduledTimeWidget.onChange = dojo.hitch(this, function(event){
-                    //console.debug("Scheduled Time", encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
-                     //       encuestame.date.timeFormat));
-                    this.tweetPoll.options.scheduledTime = encuestame.date.getFormatTime(this.scheduledTimeWidget.get("value"),
-                            encuestame.date.timeFormat);
+                    //console.debug("Scheduled Time", _ENME.getFormatTime(this.scheduledTimeWidget.get("value"),
+                     //       _ENME.TIME.timeFormat));
+                    this.tweetPoll.scheduledTime = _ENME.getFormatTime(this.scheduledTimeWidget.get("value"),
+                            _ENME.TIME.timeFormat);
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
 
                 this.captchaWidget = registry.byId("captcha");
                 this.captchaWidget.onChange = dojo.hitch(this, function(event){
-                    this.tweetPoll.options.captcha = event;
+                    this.tweetPoll.captcha = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                /*
+                /**
                  * end warning.
                  */
 
                 //Limit Votes
-                /*
+                /**
                  * this code should be replace by encuestame.org.core.shared.options.LimitVotes.
                  */
                 this.limitVotesWidget = registry.byId("limitVotes");
@@ -376,21 +453,21 @@ define([
                     } else {
                         dojo.addClass(this._limitNumbers, "defaultDisplayHide");
                     }
-                    this.tweetPoll.options.limitVotes = event;
+                    this.tweetPoll.limitVotes = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 this.limitNumbersWidget = registry.byId("limitNumbers");
                 this.limitNumbersWidget.onChange = dojo.hitch(this, function(event){
                   //console.debug("maxLimitVotes ", this.limitNumbersWidget.get("value"));
-                  this.tweetPoll.options.maxLimitVotes = this.limitNumbersWidget.get("value");
+                  this.tweetPoll.maxLimitVotes = this.limitNumbersWidget.get("value");
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                /*
+                /**
                  * end warning.
                  */
 
                 //Allow Repeated Votes.
-                /*
+                /**
                  * this code should be replace by encuestame.org.core.shared.options.RepeatedVotes.
                  */
                 this.ipWidget = registry.byId("ip");
@@ -401,16 +478,16 @@ define([
                     } else {
                         dojo.addClass(this._repeatedNumbers, "defaultDisplayHide");
                     }
-                    this.tweetPoll.options.repeatedVotes = event;
+                    this.tweetPoll.repeatedVotes = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 this.repeatedNumbersWidget = registry.byId("repeatedNumbers");
                 this.repeatedNumbersWidget.onChange = dojo.hitch(this, function(event) {
                   //console.debug("maxLimitVotes ", this.repeatedNumbersWidget.get("value"));
-                  this.tweetPoll.options.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
+                  this.tweetPoll.maxRepeatedVotes = this.repeatedNumbersWidget.get("value");
                   dojo.publish("/encuestame/tweetpoll/autosave");
                 });
-                /*
+                /**
                  * end warning.
                  */
 
@@ -418,12 +495,12 @@ define([
                 this.resumeWidget = registry.byId("resume");
                 this.resumeWidget.onChange = dojo.hitch(this, function(event){
                     //console.debug("resumeWidget ", event);
-                    this.tweetPoll.options.resumeLiveResults = event;
+                    this.tweetPoll.resumeLiveResults = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 this.dashboardWidget = registry.byId("dashboard");
                 this.dashboardWidget.onChange = dojo.hitch(this, function(event){
-                    this.tweetPoll.options.followDashBoard = event;
+                    this.tweetPoll.followDashBoard = event;
                     dojo.publish("/encuestame/tweetpoll/autosave");
                 });
                 //button publish event.
@@ -436,8 +513,8 @@ define([
                 this.enableBlockTweetPollOnProcess();
             },
 
-            /**
-             * Hide the current dialog.
+            /***
+             *  @method Hide the current dialog.
              */
             _hideDialog : function(){
                 if (this.dialogWidget != null) {
@@ -445,8 +522,8 @@ define([
                 }
             },
 
-            /**
-             * create preview widget.
+            /***
+             * @method create preview widget.
              */
             _createPreviewWidget : function(node) {
                 var widget = new TweetPollPreview(
@@ -457,8 +534,8 @@ define([
                  return widget;
             },
 
-            /*
-             * block widgets.
+            /**
+             * @method block widgets.
              */
             _block : function() {
                 this.answerWidget.block();
@@ -467,8 +544,8 @@ define([
                 this.questionWidget.block = true;
             },
 
-            /*
-             * unblock items.
+            /**
+             * @method unblock items.
              */
             _unblock : function() {
                 //console.info("unblock");
@@ -477,8 +554,8 @@ define([
                 this.hashTagWidget.unblock();
             },
 
-            /**
-             * Load AutoSave timer
+            /***
+             * @method Load AutoSave timer
              * Create timer to autosave the tweetpoll.
              */
             loadAutoSaveTimer : function() {
@@ -493,27 +570,48 @@ define([
                 this.timerAutoSave.start();
             },
 
-            /**
-             * Auto save tweetPoll.
+            /***
+             * @method Auto save tweetPoll.
              * @param tweetPollId if is null we crete new tweetPoll.
              * @param question { id, question}
              * @param hastags [id,id,id,id]
              * @param anseerws { id, question}
              */
-            _autoSave : function(tweetPollId, /** widget **/ question, /** answers. **/ answers, /**hashtags **/ hashtags) {
-                if (this.tweetPoll.tweetPollId == null) {
-                   //TODO: error?
+            _autoSave : function(tweetPollId, /*** widget **/ question, /*** answers. **/ answers, /***hashtags **/ hashtags) {
+                var params = this.tweetPoll;
+                if (this.tweetPoll.tweetPollId === null) {
+                    params = { question : params.question };
                 } else {
                    this.tweetPoll.hashtags = this.hashTagWidget.getHashTags();
                    this.tweetPoll.answers = this.answerWidget.getAnswersId();
                 }
                 this.loading_show();
+
                 //TODO cometD refatorization
                 //encuestame.activity.cometd.publish('/service/tweetpoll/autosave', { tweetPoll: this.tweetPoll});
+
+               //var params = _lang.mixin(this.tweetPoll,{});
+
+                var load = dojo.hitch(this, function(data) {
+                    if ('success' in data) {
+                        this.tweetPoll.tweetPollId = data.success.tweetPoll.id;
+                        this.hashTagWidget.tweetPollId = data.success.tweetPoll.id;
+                        this.answerWidget.tweetPollId = data.success.tweetPoll.id;
+                        this._autoSaveStatus("message");
+                    }
+                });
+
+
+                var error = function(error) {
+                      console.debug("error", error);
+                };
+
+                this.getURLService().post("encuestame.service.tweetpoll.autosave", params, load, error , dojo.hitch(this, function() {
+                }));
              },
 
-             /**
-              * Get activity services response after save tweetpoll.
+             /***
+              * @method Get activity services response after save tweetpoll.
               * @param status {Object}
               */
              _autoSaveStatus : function(status) {
@@ -526,14 +624,41 @@ define([
                    };
                    this.hashTagWidget.tweetPollId = this.tweetPoll.tweetPollId;
                    this.answerWidget.tweetPollId = this.tweetPoll.tweetPollId;
-                   //update the hash
-                   hash(ioQuery.objectToQuery(tweetPoll));
+                   // store the tweetpoll data
+                   _ENME.storeItem(this._tp_storage_key, this.tweetPoll);
                  }
-                 this.tweetPoll.started = true;
+                 this._started = true;
+                 this.initializeInterface();
              },
 
-            /**
-             * Auto-scroll publish top bar.
+
+
+             /**
+              * Initialize the interface after user create the question
+              * @method initializeInterface
+              */
+             initializeInterface : function () {
+                    var _steps = dojo.query('div [data-step]');
+                    array.forEach(_steps, function(entry, i){
+                        dojo.removeClass(entry, "hidden");
+                        var fadeArgs = {
+                            node: entry
+                        };
+                        dojo.fadeIn(fadeArgs).play();
+                    });
+
+                    dojo.empty(this._pre_cancel);
+
+                    // hide the help if iexist
+                   if (this.helpWidget.status) {
+                       this.helpWidget.hide();
+                      _ENME.storeItem("tp-help", false, true);
+                    }
+
+             },
+
+            /***
+             * @method Auto-scroll publish top bar.
              */
             scroll : function() {
                 var node = this._tweetQuestion;
@@ -546,14 +671,14 @@ define([
                 }
               },
 
-            /**
-             * Initialize new tweetpoll create.
+            /***
+             * @method Initialize new tweetpoll create.
              */
             initialize : function() {
-               var hash = ioQuery.queryToObject(dojo.hash());
-                 if (hash.id) {
-                   //if hash id previously exist, not do anything.
-                 }
+                 // var hash = ioQuery.queryToObject(dojo.hash());
+                 // if (hash.id) {
+                   // if hash id previously exist, not do anything.
+                 //}
                  //dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
                  this.questionWidget.block = false;
                  dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(event) {
@@ -566,11 +691,14 @@ define([
                          dojo.publish("/encuestame/tweetpoll/updatePreview");
                          if (!this.questionWidget.block) {
                              this._questionTextLastSucessMessage = this.questionWidget.get("value");
+                             this.tweetPoll.question = this._questionTextLastSucessMessage;
                          } else {
                              this.questionWidget.set('value', this._questionTextLastSucessMessage);
                          }
                      }
                  }));
+
+                 // send the data to comed service
                  this.questionWidget.onChange = dojo.hitch(this, function(){
                      this.tweetPoll.question.value = this.questionWidget.get("value");
                      dojo.publish("/encuestame/tweetpoll/autosave");
@@ -583,8 +711,8 @@ define([
                          });
             },
 
-            /*
-             * check if tweetpoll is valid and start the process to publish.
+            /**
+             * @method check if tweetpoll is valid and start the process to publish.
              */
             _checkPublish : function() {
                 var valid = this.previeWidget.isValid();
@@ -613,8 +741,8 @@ define([
                 }
             },
 
-            /*
-             * show error message.
+            /**
+             * @method show error message.
              */
             _showErrorMessage : function(errorMessage) {
                 //var widget = new encuestame.org.core.shared.utils.GenericDialogContent({content : errorMessage});
@@ -627,8 +755,8 @@ define([
                 this.infoMesage(errorMessage);
             },
 
-            /*
-             *  publish tweet poll.
+            /**
+             *  @method publish tweet poll.
              */
             _publishTweet : function() {
                 var params = {
@@ -643,7 +771,8 @@ define([
                     this.autosave = false;
                     this.tweetPollPublishWidget.process(socialArray);
                 });
-                /**
+
+                /***
                  * On publish error.
                  *  - Close dialog
                  *  - Display a Error message
@@ -656,8 +785,24 @@ define([
                 });
                 encuestame.service.xhrPostParam(
                     this.getURLService().service('encuestame.service.list.publishTweetPoll'), params, load, error);
-            }
+            },
 
+            /**
+             * Redirect to list page.
+             * @method _redirectList
+             */
+            _redirectList : function(){
+                document.location.href = _ENME.config('contextPath') + "/user/tweetpoll/list";
+            },
+
+            /**
+             * Cancel the tweetpoll.
+             * @method _cancelTweetPoll
+             */
+            _cancelTweetPoll : function (e) {
+                     dojo.stopEvent(e);
+                     this._redirectList();
+            }
     });
 });
 ;

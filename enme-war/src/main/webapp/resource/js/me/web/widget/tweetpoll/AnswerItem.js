@@ -1,3 +1,27 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/****
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module TweetPoll.AnswerItem
+ *  @namespace Widgets
+ *  @class AnswerItem
+ */
+
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -27,33 +51,33 @@ define([
          // template string.
          templateString : template,
 
-           /*
+           /**
            * tweetpoll Id reference.
            */
           tweetPollId : null,
 
-          /*
+          /**
            * provider list.
            */
           _provider : null,
 
-          /*
+          /**
            * answer data.
            */
           answer : {},
 
-          /*
+          /**
            * parent answer.
            */
           parentAnswer : null,
 
-          /*
+          /**
            * loading reference.
            */
           loadingRef : null,
 
-          /*
-           * constructor.
+          /**
+           * @method constructor.
            */
           postCreate : function() {
               this._provider = encuestame.shortUrlProvider;
@@ -84,7 +108,7 @@ define([
               }
           },
 
-          /*
+          /**
            * display or short url
            */
           editShortUrl : function(event) {
@@ -92,18 +116,18 @@ define([
               //console.debug(event);
           },
 
-          /**
+          /***
            * start the process to remove this answer.
            */
           _removeAnswer : function() {
-              /*
+              /**
                * parameters.
                */
             var params = {
                        "id" : this.tweetPollId,
                        "answerId" : this.answer.answerId
               };
-              /*
+              /**
                * on success
                */
               var load = dojo.hitch(this, function(data) {
@@ -115,7 +139,7 @@ define([
                   dojo.destroy(this.domNode, true);
               });
 
-              /*
+              /**
                * on error.
                */
               var error = function(error) {
@@ -127,7 +151,7 @@ define([
                   this.getURLService().service('encuestame.service.list.removeAnswer'), params, load, error);
           },
 
-          /*
+          /**
            * answer text.
            */
           getAnswerText: function() {
@@ -149,7 +173,7 @@ define([
 //dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
 //dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore");
 //
-///**
+///***
 // * Widget to list of answers.
 // */
 //dojo.declare(
@@ -160,7 +184,7 @@ define([
 
 //);
 //
-///**
+///***
 // * Widget to represent an answer item.
 // */
 //dojo.declare(

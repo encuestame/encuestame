@@ -1,3 +1,27 @@
+/**
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/*****
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module TweetPoll.Answer
+ *  @namespace Widgets
+ *  @class Answer
+ */
+
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -8,6 +32,7 @@ define([
          "dijit/registry",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/tweetpoll/TweetPollCore",
+         "me/web/widget/tweetpoll/AnswerItem",
          "me/core/enme",
          "dojo/text!me/web/widget/tweetpoll/templates/answer.html" ],
         function(
@@ -20,6 +45,7 @@ define([
                 registry,
                 main_widget,
                 TweetPollCore,
+                AnswerItem,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, TweetPollCore, _WidgetsInTemplateMixin], {
@@ -27,49 +53,49 @@ define([
          // template string.
          templateString : template,
 
-          /*
+          /**
           * list of items.
           */
          listItems : [],
 
-         /*
+         /**
           * default short url provider.
           */
          _provider : encuestame.shortUrlProvider,
 
-         /*
+         /**
           * button widget.
           */
          buttonWidget : null,
 
-         /*
+         /**
           * default label.
           */
          label : "Answer",
 
-         /*
+         /**
           * tweetpollId.
           */
          tweetPollId : null,
 
-         /*
+         /**
           * Answer source.
           */
          answerSource : null,
 
-         /*
+         /**
           * Flag to control bloked.
           */
          _blocked : false,
 
-         /*
+         /**
           * i18n Messages
           */
          i18nMessage : {
            add_button : _ENME.getMessage("button_add")
          },
 
-         /**
+         /***
           * Post create lifecycle.
           */
          postCreate: function() {
@@ -100,7 +126,7 @@ define([
               this.enableBlockTweetPollOnProcess();
          },
 
-         /*
+         /**
           *
           */
          block : function() {
@@ -108,7 +134,7 @@ define([
              registry.byId("answerAddText").disabled = true;
          },
 
-         /*
+         /**
           *
           */
          unblock : function() {
@@ -116,7 +142,7 @@ define([
              registry.byId("answerAddText").disabled = false;
          },
 
-         /*
+         /**
           *
           */
          getAnswers : function(){
@@ -128,7 +154,7 @@ define([
              return array;
          },
 
-         /*
+         /**
           *
           */
          getAnswersId : function() {
@@ -141,7 +167,7 @@ define([
              return array;
          },
 
-         /*
+         /**
           *
           */
          onDrop : function() {
@@ -164,7 +190,7 @@ define([
                }
          },
 
-         /**
+         /***
           * start the process to save the answer.
           */
          addAnswer : function() {
@@ -177,7 +203,7 @@ define([
                 //console.debug("params", params);
                 var load = dojo.hitch(this, function(data) {
                     //console.debug(data);
-                  this.loading_hide();
+                    this.loading_hide();
                     var items = [];
                     var answerWidget = new AnswerItem({
                         answer :{
@@ -195,7 +221,7 @@ define([
                     text.set('value', "");
                     dojo.publish("/encuestame/tweetpoll/updatePreview");
                 });
-                /**
+                /***
                  * On error.
                  */
                 var error = function(error) {
@@ -204,14 +230,17 @@ define([
                 };
                 if (this.tweetPollId != null) {
                   this.loading_show();
-                    encuestame.service.xhrGet(this.getURLService().service('encuestame.service.list.addAnswer'), params, load, error);
+                    this.getURLService().get('encuestame.service.list.addAnswer',
+                      params,
+                      load,
+                      error);
                 } else {
                   //TODO: replace by EMNE.getMessage();
-                    dojo.publish("/encuestame/tweetpoll/dialog/error", [ENME.getMessage("e_024")]);
+                    dojo.publish("/encuestame/tweetpoll/dialog/error", [_ENME.getMessage("e_024")]);
                 }
          },
 
-         /*
+         /**
           *
           */
          getDialog : function() {

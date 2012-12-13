@@ -5,6 +5,7 @@
 
 .web-search-wrapper .suggest {
     position: relative;
+    width: auto;
 }
 
 .web-search-wrapper .suggestBox {

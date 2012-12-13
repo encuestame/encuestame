@@ -7,7 +7,7 @@ define([
          "me/web/widget/menu/OptionMenuItem",
          "me/web/widget/support/ToggleMenu",
          "me/core/enme",
-         "dojo/text!me/web/widget/menu/templates/optionMenu.html" ],
+         "dojo/text!me/web/widget/menu/template/optionMenu.html" ],
         function(
                 declare,
                 _WidgetBase,
@@ -74,39 +74,10 @@ define([
                                label : item.label,
                                action : item.action
                            });
+                   dojo.connect(widget.domNode, "onclick", this, item.action);
                    this._menu.appendChild(widget.domNode);
           }));
        }
 
     });
 });
-
-
-//dojo.provide("encuestame.org.core.shared.utils.OptionMenu");
-//
-//dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
-//dojo.require('encuestame.org.core.commons.support.ToggleMenu');
-//dojo.require('encuestame.org.core.commons');
-//
-//dojo.declare("encuestame.org.core.shared.utils.OptionMenu",
-//            [ encuestame.org.core.commons.support.ToggleMenu ],{
-//
-//            /*
-//             * template.
-//             */
-//            templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils", "template/optionMenu.html"),
-
-//});
-//
-///*
-// *
-// */
-//dojo.declare("encuestame.org.core.shared.utils.OptionMenuItem",
-//        [encuestame.org.core.commons.support.ToggleMenu], {
-//
-//            templatePath : dojo.moduleUrl("encuestame.org.core.shared.utils",
-//                    "template/optionMenuItem.html"),
-//
-
-//
-//});

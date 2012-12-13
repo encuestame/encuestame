@@ -1,5 +1,6 @@
 define([
          "dojo/_base/declare",
+         "dojo/dom-construct",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -7,15 +8,16 @@ define([
          "me/web/widget/tweetpoll/TweetPollPublishItemSUCCESStatus",
          "me/web/widget/tweetpoll/TweetPollPublishItemFAILUREStatus",
          "me/core/enme",
-         "dojo/text!me/web/widget/tweetpoll/templates/tweetPollPublishItemStatus.html" ],
+         "dojo/text!me/web/widget/tweetpoll/templates/tweetPollPublishItemStatus.html"],
         function(
                 declare,
+                domConstruct,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                main_widget,
                 TweetPollPublishItemSUCCESStatus,
                 TweetPollPublishItemFAILUREStatus,
-                main_widget,
                 _ENME,
                  template) {
         return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
@@ -45,10 +47,16 @@ define([
           * initialize widget.
           */
          initialize : function() {
-             if (this.data.status_tweet == encuestame.status[0]) {  SUCCESS
-                 this._detailStatus.appendChild(this._showSuccessMessage());
-             } else if (this.data.status_tweet == encuestame.status[1]) { FAILURE
-                 this._detailStatus.appendChild(this._showFailureMessage());
+             if (this.data.status_tweet == _ENME.STATUS[0]) {  //SUCCESS
+                 var _node = this._showSuccessMessage();
+                 if (_node)
+                   domConstruct.place(_node, this._detailStatus);
+                 //this._detailStatus.appendChild();
+             } else if (this.data.status_tweet == _ENME.STATUS[1]) { //FAILURE
+                 var _node = this._showFailureMessage();
+                 //this._detailStatus.appendChild(this._showFailureMessage());
+                 if (_node)
+                 domConstruct.place(_node, this._detailStatus);
              }
              this._accountProviderIcon.src = _ENME.shortPicture(this.socialAccount.type_account);
          },

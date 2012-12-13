@@ -157,13 +157,11 @@ div.tweetPollPublishDialog {
 }
 
 div.tweetPollPublishDialog div.info {
-    background-color: #F7F5C9;
-    border : 1px solid #E0E443;
-    padding: 10px;
-    font-weight: bold;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 20px;
+  margin: 10px;
+  padding: 10px;
 }
 
 div.tweetPollPublishDialog div.items {
@@ -185,7 +183,7 @@ div.tweetPollPublishDialog div.items div.item div.image {
     float: left;
     margin-right: 5px;
     padding: 3px;
-    width: 30px;
+    width: 20px;
 }
 
 div.tweetPollPublishDialog div.items div.item div.detail {
@@ -207,10 +205,9 @@ div.tweetPollPublishDialog div.items div.item div.detail {
 div.tweetPollPublishDialog div.items div.item div.detail .success-message
     {
     padding: 3px;
-    background-color: #B1ECB1;
     max-width: 50%;
     padding: 4px;
-    color: #358852;
+    color: #26A526;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -219,10 +216,11 @@ div.tweetPollPublishDialog div.items div.item div.detail .success-message
 }
 
 div.tweetPollPublishDialog div.items div.item div.detail .success-url {
-    padding: 3px;
-    padding: 4px;
-    color: #358852;
-    font-weight: bold;
+  color: #444444;
+  font-weight: normal;
+  line-height: 25px;
+  padding: 4px;
+  text-decoration: underline;
 }
 
 div.tweetPollPublishDialog div.items div.item div.detail .success-url a:hover

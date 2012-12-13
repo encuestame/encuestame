@@ -4,7 +4,6 @@ define([
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/tweetpoll/TweetPollPublishItemStatus",
          "me/core/enme",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollPublishItemSUCCESSStatus.html" ],
         function(
@@ -13,7 +12,6 @@ define([
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 main_widget,
-                TweetPollPublishItemStatus,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
@@ -22,12 +20,22 @@ define([
           templateString : template,
 
           metadata : null,
-          /**
-           * i18N Message.
-           */
+
+          parentStatusWidget : null,
+
+        /**
+          * i18N Message.
+          */
           i18nMessage : {
-            commons_success : ENME.getMessage("commons_success", "SUCCESS"),
-            pubication_success_status : ENME.getMessage("pubication_success_status", "pubication_success_status")
-          }
+            commons_success : _ENME.getMessage("commons_success", "SUCCESS"),
+            pubication_success_status : _ENME.getMessage("pubication_success_status", "Your tweet has been sent"),
+            link_to_publication : _ENME.getMessage("link_to_publication", "Link to your Publication")
+          },
+
+             /**
+          *
+          * @param events
+          */
+         _scheduleTweet : function(events) {}
     });
 });

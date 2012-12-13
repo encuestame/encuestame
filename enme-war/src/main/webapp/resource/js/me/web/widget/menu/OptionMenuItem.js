@@ -4,9 +4,8 @@ define([
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/support/ToggleMenu",
          "me/core/enme",
-         "dojo/text!me/web/widget/menu/templates/optionMenuItem.html" ],
+         "dojo/text!me/web/widget/menu/template/optionMenuItem.html" ],
         function(
                 declare,
                 _WidgetBase,
@@ -15,10 +14,13 @@ define([
                 main_widget,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ToggleMenu, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase,
+                            _TemplatedMixin,
+                            main_widget,
+                            _WidgetsInTemplateMixin], {
 
        // template string.
-       templateString : template,
+       templateString : template
 
 
     });

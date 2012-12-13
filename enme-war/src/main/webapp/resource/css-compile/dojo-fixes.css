@@ -15,3 +15,46 @@
   border-color: #ffb23c;
   transition-duration: 0.1s;
 }
+
+/** avoid shadows and other effects inside widgets text box **/
+#enme-content .dijitInputField > input{
+	box-shadow: none !important;
+}
+
+#enme-content .dijitButtonText {
+  font-weight: normal;
+}
+
+/** display the background black with diji dialogs **/
+
+.enme-web-context .dijitDialogUnderlay {
+  background: none repeat scroll 0 0 #444444 !important;
+}
+
+.enme-web-context  .dijitBackgroundIframe {
+  background-color: #000000 !important;
+}
+
+/** DND style **/
+
+.enme-web-context  .dojoDndItem {
+    border-color: transparent;
+    -webkit-transition-duration: 0.25s;
+    -moz-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+    -webkit-transition-property: background-color, border-color;
+    -moz-transition-property: background-color, border-color;
+    transition-property: background-color, border-color;
+}
+
+.enme-web-context  .dojoDndItemOver {
+  background-image: none !important;
+
+}
+
+.enme-web-context .dojoDndItemAnchor,
+.enme-web-context .dojoDndItemSelected {
+   background-color: none !important;
+   background-image: none !important;
+}
+

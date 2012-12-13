@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module TweetPoll
+ *  @namespace Widgets
+ *  @class TweetPollPublishInfo
+ */
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -52,7 +75,7 @@ define([
               var button = registry.byId(this._close);
                   button.onClick = dojo.hitch(this, function(event) {
                      dojo.publish("/encuestame/dialog/close");
-                     document.location.href = encuestame.contextDefault + "/user/tweetpoll/list";
+                     document.location.href = _ENME.config("contextPath") + "/user/tweetpoll/list";
               });
           },
 

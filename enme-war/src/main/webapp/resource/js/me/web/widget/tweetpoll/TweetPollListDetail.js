@@ -1,3 +1,27 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgmail.com
+ *  @version 1.146
+ *  @module TweetpollListDetail
+ *  @namespace Widgets
+ *  @class TweetpollListDetail
+ */
+
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -30,7 +54,7 @@ define([
 
           widgetChart : null,
 
-          /*
+          /**
            * i18n message for this widget.
            */
           i18nMessage : {
@@ -62,7 +86,7 @@ define([
 
           },
 
-          /**
+          /***
            * Update Detail.
            */
           updateDetail : function(data) {
@@ -73,10 +97,10 @@ define([
               }
           },
 
-         /**
+         /***
           * Call Service.
           */
-         _callService : function(/* function after response */ load, url) {
+         _callService : function(/** function after response */ load, url) {
              var error = function(error) {
                  console.debug("error", error);
              };
@@ -86,14 +110,14 @@ define([
              encuestame.service.xhrGet(this.getURLService().service(url), params, load, error);
          },
 
-         /**
+         /***
           *
           */
          successDetailUpdateMessage : function () {
            this.publishMessage(_ENME.getMessage('commons_success'), _ENME.MSG.SUCCESS);
          },
 
-         /**
+         /***
           *
           */
          _setAllowLiveResults : function() {
@@ -104,7 +128,7 @@ define([
              dojo.hitch(this, this._callService(load, 'encuestame.service.list.liveResultsTweetPoll'));
          },
 
-         /**
+         /***
           *
           */
          _setResumeLiveResults : function(){
@@ -115,7 +139,7 @@ define([
              dojo.hitch(this, this._callService(load, 'encuestame.service.list.resumeliveResultsTweetPoll'));
          },
 
-         /**
+         /***
           *
           */
          _setCaptcha : function() {
@@ -126,7 +150,7 @@ define([
              dojo.hitch(this, this._callService(load, 'encuestame.service.list.captchaTweetPoll'));
          },
 
-         /**
+         /***
           *
           */
          _setNotification : function() {
@@ -137,7 +161,7 @@ define([
              dojo.hitch(this, this._callService(load, 'encuestame.service.list.notificationTweetPoll'));
          },
 
-         /**
+         /***
           * Set as repeated
           */
          _setRepeated : function(){
@@ -148,7 +172,7 @@ define([
              dojo.hitch(this, this._callService(load, 'encuestame.service.list.repeatedTweetPoll'));
          },
 
-         /**
+         /***
           * Error messages.
           */
           error : function() {
@@ -156,7 +180,7 @@ define([
               this.publishMessage(_ENME.getMessage('e_023'), _ENME.MSG.ERROR);
           },
 
-          /**
+          /***
            * Load Content.
            * @param data
            */
@@ -170,7 +194,7 @@ define([
                   this.createTextContent(_ENME.fromNow(this.data.createDate, "YYYY-MM-DD"))));
               this.addDetail(this.builDetailRow(_ENME.getMessage("commons_captcha"), this.addYesNoWidget(this.data.captcha,
                        dojo.hitch(this,this._setCaptcha))));
-              this.addDetail(this.builDetailRow(_ENME.getMessage("tp_options_allow_results"), 
+              this.addDetail(this.builDetailRow(_ENME.getMessage("tp_options_allow_results"),
                                this.addYesNoWidget(this.data.allowLiveResults
                               , dojo.hitch(this, this._setAllowLiveResults))));
               this.addDetail(this.builDetailRow(_ENME.getMessage("tp_options_follow_dashboard"), this.addYesNoWidget(this.data.resumeLiveResults
@@ -202,7 +226,7 @@ define([
               }
           },
 
-          /**
+          /***
            *  Add a detail
            *  @param the node
            */
@@ -210,7 +234,7 @@ define([
               this._detailItems.appendChild(node);
           },
 
-          /**
+          /***
            * Yes / No.
            * @param value
            * @param onChange
@@ -223,7 +247,7 @@ define([
               return widget.domNode;
           },
 
-          /**
+          /***
            * Create a text content.
            * //TODO move to WidgetServices
            */
@@ -233,7 +257,7 @@ define([
               return textData;
           },
 
-          /**
+          /***
            * Build Detail Row.
            * @param labelText
            * @param dataContent
@@ -254,7 +278,7 @@ define([
               return rowDetail;
           },
 
-          /**
+          /***
            * Display Data.
            * @type
            */
@@ -264,7 +288,7 @@ define([
               this._callVotes(type);
           },
 
-          /**
+          /***
            * Call Votes.
            * @param type
            */
@@ -295,7 +319,7 @@ define([
               this._callService(response, 'encuestame.service.list.VotesTweetPoll');
           },
 
-          /**
+          /***
            * Render.
            */
           render : function() {

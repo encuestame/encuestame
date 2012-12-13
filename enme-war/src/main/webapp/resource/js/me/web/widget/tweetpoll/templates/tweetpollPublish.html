@@ -1,9 +1,15 @@
 <div class="tweetPollPublishDialog">
     <div data-dojo-attach-point="_message" class="info defaultDisplayHide"></div>
-    <div data-dojo-attach-point="_container" class="items"></div>
+
+    <h1 data-dojo-attach-point="_list_title" class="publis-tp-title">
+    		${i18nMessage.button_finish}
+    </h1>
+    <div data-dojo-attach-point="_container" class="items">
+
+    </div>
     <div class="options hidden" style="text-align: right;" data-dojo-attach-point="_closeWrapper">
        <button dojoType="dijit.form.Button"  data-dojo-attach-point="_close">
-            ${i18nMessage.button_finish}
+             ${i18nMessage.button_finish}
        </button>
    </div>
 </div>

@@ -42,6 +42,12 @@ define(["dojo",
       FATAL: "fatal"
     };
 
+    // default time / formats
+    var time = {
+        timeFormat : "hh:mm:ss",
+        dateFormat : "M/d/yy"
+    };
+
     /**
      *
      */
@@ -63,6 +69,11 @@ define(["dojo",
        *
        */
       MESSAGES_TYPE : messageTypes,
+
+      /**
+       * default time / formats
+       */
+      TIME : time,
 
       /**
        * @deprecated moved to constants.js
@@ -394,10 +405,11 @@ define(["dojo",
        */
       hashtagContext : function(hashtagName) {
          if (hashtagName) {
+                // http://jsperf.com/concat-test-jc
                 var url = this.config("contextPath");
-                url = url.concat("/tag/");
-                url = url.concat(hashtagName);
-                url = url.concat("/");
+                url = url + "/tag/";
+                url = url + hashtagName;
+                url = url + "/";
                 return url;
             } else {
                 throw new Error("hashtag name is required");
@@ -412,7 +424,7 @@ define(["dojo",
               if (quantity > 1000) {
                   var quantityReduced = Math.round(quantity / 100);
                   text = quantityReduced.toString();
-                  text = text.concat("K");
+                  text = text + "K";
               }
           return text;
           } else {
@@ -441,6 +453,9 @@ define(["dojo",
           return parent;
       },
 
+      /**
+       * Return the session id saved in cookie by spring security.
+       */
       getSession : function() {
           //JSESSIONID=dh3u2xvj7fwd1llbddl33dhcq; path=/encuestame; domain=demo2.encuestame.org
           var sessionCookie = cookie("JSESSIONID");
@@ -453,10 +468,13 @@ define(["dojo",
 
       /*
        * Store a item into session storage
+       * @method storeItem
        * @param key
        * @param value
+       * @param local
        */
-      storeItem : function (key, value) {
+      storeItem : function (key, value, local) {
+          local = local || false;
           if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               sessionStorage.setItem(key, json.toJson(value));
           } else {
@@ -467,21 +485,26 @@ define(["dojo",
 
       /*
        * Remove a item from session storage
+       * @method removeItem
        * @param key the key item
-       */  
-      removeItem : function (key) {
+       * @param local define if the source is local
+       */
+      removeItem : function (key, local) {
+          local = local || false;
           if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               sessionStorage.removeItem(key);
           } else {
               //TODO: remove on COOKIE
           }
-      },      
+      },
 
-      /*
+      /**
+       * @method restoreItem
        * @param key
-       * @param value
+       * @param local
        */
-      restoreItem : function (key) {
+      restoreItem : function (key, local) {
+          local = local || false;
           if (typeof Modernizr != 'undefined' && Modernizr.sessionstorage) {
               return sessionStorage.getItem(key);
           } else {

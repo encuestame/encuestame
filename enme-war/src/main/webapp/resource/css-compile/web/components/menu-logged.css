@@ -9,6 +9,36 @@
   border-radius: 0px 0px 5px 5px;
 }
 
+@media only screen and (max-width : 980px) {
+
+  .menuWrapper {
+     border-radius: 0px;
+     -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;width: 100%;
+     padding: 5px;
+  }
+
+  .menuWrapper div.rightSide {
+      float: right;
+      text-align: left;
+      width: 25%;
+  }
+
+  .menuWrapper div.leftSide {
+    float: left;
+    height: 33px;
+  }
+
+  .menuWrapper .item a {
+    float: left;
+    text-decoration: none;
+    color: white;
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+}
+
 .menuWrapper > .clearfix {
     width: 100%;
     display: block;
@@ -128,7 +158,6 @@ div ..menuWrapper .item a:hover,.menuWrapper .item .current {
 
 .menuWrapper div.rightSide div {
     float: left;
-    margin-right: -1px;
     position: relative;
 }
 

@@ -15,17 +15,16 @@
     </install>
     <information>
         <metatags>
-            <keywords>survey, twitter, social, open source, etc, etc</keywords>
-            <description>encuestame survey system</description>
-        </metatags>
-    </information>
-    <administration>
-        <users>
-            <user>admin</user>
-        </users>
-    </administration>
-    <social>
-        <accounts>
-        </accounts>
-    </social>
+        <keywords>survey, twitter, social, open source, etc, etc</keywords>
+        <description>encuestame survey system</description>
+    </metatags>
+</information>
+<administration>
+    <users>
+        <user>admin</user>
+    </users>
+</administration>
+<social>
+    <accounts></accounts>
+</social>
 </encuestame-configuration>

@@ -4,7 +4,6 @@ define([
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/tweetpoll/TweetPollPublishItemStatus",
          "me/core/enme",
          "dojo/text!me/web/widget/tweetpoll/templates/tweetPollPublishItemFAILUREStatus.html" ],
         function(
@@ -13,7 +12,6 @@ define([
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 main_widget,
-                TweetPollPublishItemStatus,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {

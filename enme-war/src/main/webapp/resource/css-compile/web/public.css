@@ -113,6 +113,19 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     background-color: #F9E5E5;
 }
 
+
+/** main public line **/
+
+@media only screen and (max-width : 980px) {
+    #web-main-public-line .web-item-wrapper {
+        width: 100% !important;
+    }
+
+    #web-main-public-line .web-left-wrapper {
+        width: 100% !important;
+    }
+}
+
 #web-main-public-line {
     margin: 0 auto;
     position: relative;

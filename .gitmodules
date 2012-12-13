@@ -1,6 +1,3 @@
-[submodule "enme-doc"]
-	path = enme-doc
-	url = git://github.com/encuestame/doc.git
 [submodule "enme-war/src/main/webapp/resource/js/chart/eve"]
 	path = enme-war/src/main/webapp/resource/js/chart/eve
 	url = git://github.com/encuestame/eve.git
@@ -22,3 +19,6 @@
 [submodule "enme-js/resources-enme-war/src/main/resources/js/util"]
 	path = enme-js/resources-enme-war/src/main/resources/js/util
 	url = https://github.com/dojo/util.git
+[submodule "enme-doc"]
+	path = enme-doc
+	url = git@github.com:encuestame/doc.git

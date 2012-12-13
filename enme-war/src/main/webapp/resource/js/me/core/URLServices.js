@@ -63,10 +63,11 @@ define(
       'dojo/_base/xhr',
       'dojo/request/xhr',
       "dojo/request",
+      "dojo/_base/lang",
       'dojo/_base/json',
       "dojo/request/notify",
       "dojo/_base/array" ],
-    function(dojo, _ENME, xhr, xhrRequest, request, _json, notify, _array) {
+    function(dojo, _ENME, xhr, xhrRequest, request, lang, _json, notify, _array) {
 
       // config context path
       var context_path = _ENME.config("contextPath"),
@@ -189,7 +190,7 @@ define(
         "encuestame.service.list.hashtagsAction.getAction" : _appendContext("api/survey/hashtag/$0/$1.json"),
         "encuestame.service.list.cloud" : _appendContext("api/common/hashtags/cloud.json"),
         "encuestame.service.list.allSocialAccount" : _appendContext("api/common/social/accounts.json"),
-        "encuestame.service.list.publishTweetPoll" : _appendContext("api/admon/users.json"),
+        "encuestame.service.list.publishTweetPoll" : _appendContext("/api/survey/tweetpoll/publish.json"),
         "encuestame.service.list.listTweetPoll" : _appendContext("api/survey/tweetpoll/search.json"),
         "encuestame.service.list.changeTweetPollStatus" : _appendContext("api/survey/tweetpoll/change-open-status-tweetpoll.json"),
         "encuestame.service.list.resumeliveResultsTweetPoll" : _appendContext("api/survey/tweetpoll/resumeliveResults-tweetpoll.json"),
@@ -247,7 +248,8 @@ define(
         "encuestame.service.gadget.move" : _appendContext("api/common/dashboard/move-gadget.json"),
         "encuestame.service.gadget.add" : _appendContext("api/common/gadgets/add.json"),
         "encuestame.service.gadget.load" : _appendContext("api/common/dashboard/gadget/load.json"),
-        "encuestame.service.gadget.remove" : _appendContext("api/common/dashboard/gadget/remove.json")
+        "encuestame.service.gadget.remove" : _appendContext("api/common/dashboard/gadget/remove.json"),
+        "encuestame.service.tweetpoll.autosave" : _appendContext("api/survey/tweetpoll/autosave.json")
       };
 
 
@@ -318,13 +320,12 @@ define(
           var _load = response;
           var _error = error;
           if (loaderHandler != 'undefined' && typeof loaderHandler === 'function') {
-              console.log("loader handler viene y es una funcion");
               _load = function(r) {
                   try{
                       response(r);
                       loaderHandler();
                   } catch(error) {
-                      ENME.log(error);
+                      _ENME.log(error);
                   }
               };
               _error = function(e) {
@@ -332,22 +333,47 @@ define(
                       error(e);
                       loaderHandler();
                   } catch(error) {
-                      ENME.log(error);
+                      _ENME.log(error);
                   }
               };
           }
-          request(_services.service(url), {
+
+          // defaultt params
+          var _params = {
              handleAs : _handleAs,
                failOk : _failOk,
                timeout : _timeout,
                method : method,
-               preventCache : _preventCache,
-               query : params,
-               data : params,
-           }).then(_load, _error,
-                   function(evt) {
-                   console.log("!!!!!!!!!!!!!!! progress", evt);
-           });
+               preventCache : _preventCache
+           };
+
+           // on dependes the method, the way to send the data it's different
+
+           if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+                _params = lang.mixin(_params, {
+                    data : params
+                });
+           } else if (method === 'GET') {
+                _params = lang.mixin(_params, {
+                    query : params
+                });
+           }
+
+           // resolve complex url
+           var _service_url = null;
+           if (typeof url === 'string') {
+               _service_url = _services.service(url);
+           } else if (lang.isArray(url) && url.length === 2) {
+               _service_url = _services.service(url[0], url[1]);
+           } else if (lang.isArray(url) && url.length === 1) {
+               _service_url = _services.service(url[0]);
+           }
+           console.log("url to call -->", _service_url);
+           if (_service_url !== null ) {
+                // make the request
+                request(_service_url, _params).then(_load, _error,
+                         function(evt) {});
+              }
      };
 
       return _services;

@@ -1,7 +1,7 @@
 /** TweetPoll **/
 #web-tweetpoll-wrapper {
   border: 1px solid #BCBCBC;
-  border-radius: 3px 3px 3px 3px;  
+  border-radius: 3px 3px 3px 3px;
   margin-top: 2em;
   background-color: #F0F0F0;
 }
@@ -11,6 +11,7 @@
   font-size: 100%;
   padding: 10px;
   text-align: right;
+  background-color: #F0F0F0;
 }
 
 #web-tweetpoll-wrapper div.web-tweetpoll-menu  a {
