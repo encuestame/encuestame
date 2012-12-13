@@ -48,6 +48,7 @@ import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.QuestionAnswerBean;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -95,8 +96,9 @@ public class TweetPollJsonController extends AbstractJsonController {
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        final TweetPollSearchBean tpollSearchBean = new TweetPollSearchBean();
         try {
-            log.debug("search.json" + typeSearch);
+        	log.debug("search.json" + typeSearch);
             log.debug("search.json" + keyword);
             log.debug("search.json" + max);
             log.debug("search.json" + start);
@@ -105,12 +107,24 @@ public class TweetPollJsonController extends AbstractJsonController {
             log.debug("search.json isCompleted " + isPublished);
             log.debug("search.json" + isCompleted);
             log.debug("search.json isUnpublished" + isUnpublished);
+            // Create TweetpollSearchBean
+            tpollSearchBean.setIsComplete(isCompleted);
+            tpollSearchBean.setIsFavourite(null);
+            tpollSearchBean.setIsPublished(isPublished);
+            tpollSearchBean.setIsScheduled(null);
+            tpollSearchBean.setKeyword(keyword);
+            tpollSearchBean.setMax(max);
+            tpollSearchBean.setPeriod(null);
+            tpollSearchBean.setSearchResult(null);
+            tpollSearchBean.setStart(start);
+            tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));
+
             final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
-                    TypeSearch.getSearchString(typeSearch), keyword, max,
-                    start, TypeSearchResult.TWEETPOLL, request);
+            		tpollSearchBean, request);
             log.debug("/api/survey/tweetpoll/search.json---------------->"+list.size());
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
+
         } catch (EnMeExpcetion e) {
              log.error(e);
              setError(e.getMessage(), response);
