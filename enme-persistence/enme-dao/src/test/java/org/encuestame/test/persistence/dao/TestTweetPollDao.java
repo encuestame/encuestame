@@ -379,50 +379,6 @@ public class TestTweetPollDao  extends AbstractBase{
 		 assertEquals("Should be equals", 11, tweetpollsResultsLastMonth.size());
     }
 
-    /**
-     *
-     * @param randomDate
-     * @param providers
-     * @param tweetOwner
-     * @param isCompleted
-     * @param isFavourites
-     * @param isScheduled
-     * @param socialAccount
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     */
-	private void createTweetPollItems(final Date randomDate, final Account tweetOwner,
-			final Boolean isCompleted, final Boolean isFavourites,
-			final Boolean isScheduled, final Boolean isPublished)
-			throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		int j = 0;
-		final String randomTweetContent = RandomStringUtils
-				.randomAlphanumeric(6);
-		final Question tpollQuestion = createQuestionRandom();
-		final TweetPoll tweetPoll = createPublishedTweetPoll(tweetOwner,
-				tpollQuestion);
-		tweetPoll.setCompleted(isCompleted);
-		tweetPoll.setFavourites(isFavourites);
-		tweetPoll.setScheduleTweetPoll(isScheduled);
-		tweetPoll.setPublishTweetPoll(isPublished);
-		tweetPoll.setCreateDate(randomDate);
-		getTweetPoll().saveOrUpdate(tweetPoll);
-
-	}
-
-	private void createTweetPollSavedPublishStatus(final TweetPoll tpoll,
-			final SocialAccount socialAccount, final String randomTweetContent,
-			final SocialProvider provider) {
-
-		final TweetPollSavedPublishedStatus tpSaved = createTweetPollSavedPublishedStatus(
-				tweetPoll, " ", socialAccount, randomTweetContent);
-
-		tpSaved.setApiType(provider);
-		tpSaved.setPublicationDateTweet(new Date());
-		getTweetPoll().saveOrUpdate(tpSaved);
-		assertNotNull(tpSaved);
-
-	}
 
     /**
      * Test Retrieve TweetPoll Today.
@@ -431,7 +387,8 @@ public class TestTweetPollDao  extends AbstractBase{
     public void testRetrieveTweetPollToday(){
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
-        final List<TweetPoll> tweetsToday = getTweetPoll().retrieveTweetPollToday(this.secondary.getAccount(), 10, 0, null, null, null, null, null, null);
+        System.out.println("Secondary account --->" + this.secondary.getAccount());
+        final List<TweetPoll> tweetsToday = getTweetPoll().retrieveTweetPollToday(this.secondary.getAccount(), 10, 0, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, "who", 24);
         assertEquals("Should be equals", 1, tweetsToday.size());
     }
 

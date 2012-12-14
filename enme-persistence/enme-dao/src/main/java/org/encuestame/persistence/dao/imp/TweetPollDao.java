@@ -184,8 +184,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(TweetPoll.class);
 		criteria.createAlias("tweetOwner", "tweetOwner");
-		criteria.add(Restrictions.between("createDate", initDate,
-				getNextDayMidnightDate()));
+		//criteria.add(Restrictions.between("createDate", initDate,
+	//			getNextDayMidnightDate()));
 		criteria.add(Restrictions.eq("tweetOwner", account));
 		advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
 				isPublished, keyword, period);

@@ -15,6 +15,8 @@ package org.encuestame.test.business.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -411,6 +413,107 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     	final TweetPollSearchBean tpSearch = createTweetpollSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, "name", 24, 10, 0, TypeSearch.LASTWEEK);
     	final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, null);
 
+    }
+
+    /**
+     * Test filter tweetpolls.
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
+    @Test
+    public void testFilterTweetpoll() throws NoSuchAlgorithmException, UnsupportedEncodingException{
+
+    	// Completed - Favourites - Scheduled - Published
+    			DateTime creationDate = new DateTime();
+    			creationDate = creationDate.minusHours(3);
+    			final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.userAccount);
+
+    			final List<SocialProvider> providers = new ArrayList<SocialProvider>();
+    			providers.add(SocialProvider.FACEBOOK);
+    			providers.add(SocialProvider.LINKEDIN);
+    			providers.add(SocialProvider.TWITTER);
+    			providers.add(SocialProvider.IDENTICA);
+
+    			// Completed - Favourites - Scheduled - Published
+    			final TweetPoll tp1 = this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.TRUE);
+    			createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
+
+    			final TweetPoll tp2 =this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.TRUE);
+
+    			createTweetPollSavedPublishStatusMultiple(tp2, providers, socialAccount);
+
+
+    			final TweetPoll tp3 =this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.TRUE, Boolean.TRUE);
+
+    			createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
+
+    			final TweetPoll tp4 =this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.FALSE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+/*
+    			// 24 hours
+    			creationDate = creationDate.minusDays(3);
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.FALSE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.TRUE	);
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+
+
+    			creationDate = creationDate.minusDays(2);
+
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+
+    			creationDate = creationDate.minusDays(4);
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);
+
+    			this.createTweetPollItems(creationDate.toDate(),
+    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+    					Boolean.FALSE, Boolean.FALSE);*/
+
+    }
+
+    /**
+     *
+     * @param provider1
+     * @param provider2
+     * @return
+     */
+    private List<SocialProvider> socialProvider (final SocialProvider provider1, final SocialProvider provider2){
+    	final List<SocialProvider> searchproviders = new ArrayList<SocialProvider>();
+    	searchproviders.add(provider1);
+    	searchproviders.add(provider2);
+    	return searchproviders;
     }
 
 }

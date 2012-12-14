@@ -12,11 +12,14 @@
  */
 package org.encuestame.test.config;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -2284,5 +2287,79 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
 								.md5(RandomStringUtils.randomAlphanumeric(15)),
 				"");
 		return randomQuestion;
+	}
+
+
+	/**
+    *
+    * @param randomDate
+    * @param providers
+    * @param tweetOwner
+    * @param isCompleted
+    * @param isFavourites
+    * @param isScheduled
+    * @param socialAccount
+    * @throws NoSuchAlgorithmException
+    * @throws UnsupportedEncodingException
+    */
+	public TweetPoll createTweetPollItems(final Date randomDate, final Account tweetOwner,
+			final Boolean isCompleted, final Boolean isFavourites,
+			final Boolean isScheduled, final Boolean isPublished)
+			throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		int j = 0;
+		final String randomTweetContent = RandomStringUtils
+				.randomAlphanumeric(6);
+		final Question tpollQuestion = createQuestionRandom();
+		final TweetPoll tweetPoll = createPublishedTweetPoll(tweetOwner,
+				tpollQuestion);
+		tweetPoll.setCompleted(isCompleted);
+		tweetPoll.setFavourites(isFavourites);
+		tweetPoll.setScheduleTweetPoll(isScheduled);
+		tweetPoll.setPublishTweetPoll(isPublished);
+		tweetPoll.setCreateDate(randomDate);
+		getTweetPoll().saveOrUpdate(tweetPoll);
+		return tweetPoll;
+	}
+
+    /**
+    *
+    * @param tpoll
+    * @param socialAccount
+    * @param provider
+    */
+	public void createTweetPollSavedPublishStatus(final TweetPoll tpoll,
+			final SocialAccount socialAccount, final SocialProvider provider) {
+		final String randomTweetContent = RandomStringUtils
+				.randomAlphanumeric(6);
+
+		final TweetPollSavedPublishedStatus tpSaved = this
+				.createTweetPollSavedPublishedStatus(tpoll, " ", socialAccount,
+						randomTweetContent);
+
+		tpSaved.setApiType(provider);
+		tpSaved.setPublicationDateTweet(new Date());
+		getTweetPoll().saveOrUpdate(tpSaved);
+		assertNotNull(tpSaved);
+
+	}
+
+	/**
+	 *
+	 * @param tpoll
+	 * @param socialAccount
+	 * @param provider
+	 */
+	public void createTweetPollSavedPublishStatusMultiple(
+			final TweetPoll tpoll, final List<SocialProvider> provider,
+			final SocialAccount socialAccount) {
+		final String randomTweetContent = RandomStringUtils
+				.randomAlphanumeric(6);
+		for (SocialProvider providerList : provider) {
+			final TweetPollSavedPublishedStatus tpSaved = this.createTweetPollSavedPublishedStatus(tpoll, "", socialAccount, randomTweetContent);
+			tpSaved.setApiType(providerList);
+			tpSaved.setPublicationDateTweet(new Date());
+			getTweetPoll().saveOrUpdate(tpSaved);
+			assertNotNull(tpSaved);
+		}
 	}
 }
