@@ -109,10 +109,11 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
      * @return list of tweet pools.
      */
     @SuppressWarnings("unchecked")
-    public List<TweetPoll> retrieveTweetsByUserId(
-    		final Long userId,
-            final Integer maxResults,
-            final Integer start) {
+	public List<TweetPoll> retrieveTweetsByUserId(final Long userId,
+			final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isPublished, final Boolean isFavourite,
+			final Integer period) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");

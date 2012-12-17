@@ -158,8 +158,7 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeExpcetion
      */
 	List<TweetPollBean> searchTweetsPollsByKeyWord(final String username,
-			final String keyword, final Integer maxResults,
-			final Integer start, final HttpServletRequest httpServletRequest,
+			final String keyword, final HttpServletRequest httpServletRequest,
 			final TweetPollSearchBean tpollSearch)
 			throws EnMeNoResultsFoundException, EnMeExpcetion;
 
@@ -203,14 +202,15 @@ public interface ITweetPollService extends IMasterSurveyService{
     List<TweetPollResultsBean> getResultsByTweetPollId(final Long tweetPollId) throws EnMeNoResultsFoundException;
 
     /**
-     *
-     * @param username username
-     * @return
-     * @throws EnMeNoResultsFoundException
-     */
-    List<TweetPollBean> getTweetsPollsByUserName(final String username,
-            final Integer maxResults, final Integer start, final HttpServletRequest httpServletRequest) throws EnMeNoResultsFoundException;
-
+	 *
+	 * @param username
+	 *            username
+	 * @return
+	 * @throws EnMeNoResultsFoundException
+	 */
+	List<TweetPollBean> getTweetsPollsByUserName(final String username, final HttpServletRequest httpServletRequest,
+			final TweetPollSearchBean tpollSearch)
+			throws EnMeNoResultsFoundException;
 
 
     /**
@@ -343,7 +343,6 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeExpcetion
      */
 	List<TweetPollBean> searchTweetsPollScheduled(final String username,
-			final Integer maxResults, final Integer start,
 			final HttpServletRequest httpServletRequest,
 			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
 
@@ -358,7 +357,6 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeExpcetion
      */
     List<TweetPollBean> searchTweetsPollFavourites(final String username,
-			final Integer maxResults, final Integer start,
 			final HttpServletRequest httpServletRequest,
 			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
 
@@ -373,7 +371,6 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeExpcetion
      */
 	List<TweetPollBean> searchTweetsPollsLastWeek(final String username,
-			final Integer maxResults, final Integer start,
 			final HttpServletRequest httpServletRequest,
 			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
 
@@ -388,7 +385,6 @@ public interface ITweetPollService extends IMasterSurveyService{
      * @throws EnMeExpcetion
      */
     List<TweetPollBean> searchTweetsPollsToday(final String username,
-			final Integer maxResults, final Integer start,
 			final HttpServletRequest httpServletRequest,
 			final TweetPollSearchBean tpollSearch) throws EnMeExpcetion;
 

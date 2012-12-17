@@ -62,9 +62,11 @@ public interface ITweetPoll extends IBaseDao{
      * @param userId userId
      * @return list of tweet pools.
      */
-     List<TweetPoll> retrieveTweetsByUserId(final Long userId,
-             final Integer maxResults,
-             final Integer start);
+	List<TweetPoll> retrieveTweetsByUserId(final Long userId,
+			final Integer maxResults, final Integer start,
+			final Boolean isCompleted, final Boolean isScheduled,
+			final Boolean isPublished, final Boolean isFavourite,
+			final Integer period);
 
      /**
       * Retrieve Tweets Poll Switch.
