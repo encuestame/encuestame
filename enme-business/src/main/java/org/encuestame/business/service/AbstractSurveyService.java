@@ -360,7 +360,7 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param userId user Id.
      * @return list of Tweet polls bean
      */
-    public List<TweetPollBean> getTweetsPollsByUserId(final Long userId){
+    public List<TweetPollBean> getTweetsPollsByUserId(final Long userId, final Integer start, final Integer max){
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(userId, null, null);
         final List<TweetPollBean> tweetPollsBean = new ArrayList<TweetPollBean>();
         for (TweetPoll tweetPoll : tweetPolls) {
@@ -370,6 +370,7 @@ public class AbstractSurveyService extends AbstractChartService {
         }
         return tweetPollsBean;
     }
+
 
     /**
      * Retrieve Answer By Question Id.

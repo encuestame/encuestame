@@ -119,8 +119,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
             		tpollSearch.getKeyword(), tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));
         } else if (TypeSearch.BYOWNER.equals(tpollSearch.getTypeSearch())) {
-            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
-            		tpollSearch.getKeyword(), tpollSearch.getMax(), tpollSearch.getStart(), httpServletRequest, tpollSearch));
+			list.addAll(this.getTweetsPollsByUserId(
+					getUserAccountId(getUserPrincipalUsername()),
+					tpollSearch.getStart(), tpollSearch.getMax()));
+
         } else if (TypeSearch.ALL.equals(tpollSearch.getTypeSearch())) {
             //TODO: this method return only the tweetpoll by owner.
             list.addAll(this.getTweetsPollsByUserName(

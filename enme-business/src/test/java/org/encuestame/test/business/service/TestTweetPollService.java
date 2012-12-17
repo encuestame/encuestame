@@ -94,6 +94,9 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     /** {@link SocialAccountBean} **/
     private List<SocialAccountBean> socialBeans;
 
+    /** **/
+    private DateTime creationDate;
+
     /**
     * Before.
     */
@@ -111,6 +114,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
                    this.answers);
         this.tweetText = RandomStringUtils.randomAlphabetic(5);
         this.socialBeans = this.createSocialAccounts();
+        this.creationDate = new DateTime();
    }
 
 
@@ -502,6 +506,34 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     					Boolean.FALSE, Boolean.FALSE);*/
 
     }
+
+    // Test Filter tweetpolls by owner.
+	@Test
+	public void testFilterTweetpollByOwner() throws NoSuchAlgorithmException,
+			UnsupportedEncodingException, EnMeNoResultsFoundException,
+			EnMeExpcetion {
+
+		// Completed - Favourites - Scheduled - Published
+		this.createTweetPollItems(this.creationDate.toDate(),
+				getSpringSecurityLoggedUserAccount().getAccount(),
+				Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE);
+
+		this.createTweetPollItems(this.creationDate.toDate(),
+				getSpringSecurityLoggedUserAccount().getAccount(),
+				Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+
+		this.createTweetPollItems(this.creationDate.toDate(),
+				getSpringSecurityLoggedUserAccount().getAccount(),
+				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
+
+		// Published - completed - Favourite - Scheduled
+		final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
+				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE,
+				"What", 24, 10, 0, TypeSearch.BYOWNER);
+		final List<TweetPollBean> tpollsByOwner = getTweetPollService()
+				.filterTweetPollByItemsByType(tpSearch, null);
+		assertEquals("Should be equals", 3, tpollsByOwner.size());
+	}
 
     /**
      *
