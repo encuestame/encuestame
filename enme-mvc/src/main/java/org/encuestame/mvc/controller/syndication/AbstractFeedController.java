@@ -48,7 +48,7 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
      * @throws EnMeNoResultsFoundException
      */
     public List<TweetPollBean> getTweetPolls(final String username, final HttpServletRequest httpServletRequest) throws EnMeNoResultsFoundException{
-        return getTweetPollService().getTweetsPollsByUserName(username, null, null, httpServletRequest);
+        return getTweetPollService().getTweetsPollsByUserName(username, httpServletRequest, null);
     }
 
     /**

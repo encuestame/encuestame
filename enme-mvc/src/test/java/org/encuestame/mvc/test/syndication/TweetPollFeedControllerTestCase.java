@@ -128,7 +128,7 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws JDOMException
      *
      */
-    @Test
+    //@Test
     public void testTweetpollDOTatom() throws ServletException, IOException, JDOMException{
           initService("/feed/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll.atom", MethodJson.GET);
           final Document response = callFeedService();
@@ -141,7 +141,7 @@ public class TweetPollFeedControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws JDOMException
      *
      */
-    @Test
+    //@Test
     public void testTweetpollDOTrss() throws ServletException, IOException, JDOMException{
           initService("/feed/"+getSpringSecurityLoggedUserAccount().getUsername()+"/tweetpoll.rss", MethodJson.GET);
           final Document response = callFeedService();
