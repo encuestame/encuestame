@@ -266,7 +266,7 @@ public interface ITweetPoll extends IBaseDao{
       * @return
       */
 	List<TweetPoll> retrieveTweetPollByDate(final Account account,
-			final Date initDate, final Integer maxResults, final Integer start,
+			final Integer maxResults, final Integer start,
 			final Boolean isCompleted, final Boolean isScheduled,
 			final Boolean isFavourite, final Boolean isPublished,
 			final String keyword, final Integer period);

@@ -15,7 +15,6 @@ package org.encuestame.persistence.dao.imp;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +32,6 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollFolder;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollResult;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.domain.tweetpoll.TweetPollSwitch;
-import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.RestFullUtil;
 import org.encuestame.utils.enums.SearchPeriods;
 import org.encuestame.utils.enums.Status;
@@ -157,12 +155,12 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 			final Integer maxResults, final Integer start,
 			final Boolean isCompleted, final Boolean isScheduled,
 			final Boolean isFavourite, final Boolean isPublished, final String keyword, final Integer period) {
-        final Calendar cal = Calendar.getInstance();
+       /* final Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return retrieveTweetPollByDate(account, cal.getTime(), maxResults,
+        cal.set(Calendar.MILLISECOND, 0);*/
+        return retrieveTweetPollByDate(account,  maxResults,
                 start, isCompleted, isScheduled, isFavourite, isPublished, keyword, period);
     }
 
@@ -178,15 +176,13 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 	 */
     @SuppressWarnings("unchecked")
     public List<TweetPoll> retrieveTweetPollByDate(final Account account,
-			final Date initDate, final Integer maxResults, final Integer start,
+			final Integer maxResults, final Integer start,
 			final Boolean isCompleted, final Boolean isScheduled,
 			final Boolean isFavourite, final Boolean isPublished,
 			final String keyword, final Integer period) {
 		final DetachedCriteria criteria = DetachedCriteria
 				.forClass(TweetPoll.class);
 		criteria.createAlias("tweetOwner", "tweetOwner");
-		//criteria.add(Restrictions.between("createDate", initDate,
-	//			getNextDayMidnightDate()));
 		criteria.add(Restrictions.eq("tweetOwner", account));
 		advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
 				isPublished, keyword, period);
@@ -209,9 +205,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
 			final Boolean isCompleted, final Boolean isScheduled,
 			final Boolean isFavourite, final Boolean isPublished,
 			final String keyword, final Integer period) {
-
 		return retrieveTweetPollByDate(account,
-				DateUtil.decreaseDateAsWeek(Calendar.getInstance().getTime()),
 				maxResults, start, isCompleted, isScheduled, isFavourite,
 				isPublished, keyword, period);
     }
@@ -254,9 +248,10 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");
-        criteria.add(Restrictions.eq("scheduleTweetPoll", Boolean.TRUE));
-        criteria.add(Restrictions.isNotNull("scheduleDate"));
         criteria.add(Restrictions.eq("tweetOwner.uid", userId));
+        // To retrieve all and only scheduled Tweetpoll period should be = ALLTIME
+        advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite,
+				isPublished, keyword, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 

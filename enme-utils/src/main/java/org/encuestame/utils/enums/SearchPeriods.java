@@ -36,7 +36,7 @@ public enum SearchPeriods {
      * Represent All Time.
      */
     ALLTIME,
-    
+
     /**
      * Represent last 12 months.
      */
@@ -61,12 +61,12 @@ public enum SearchPeriods {
         //If last 30 days
         else if (this == THIRTYDAYS) { period = "30"; }
         //If select all time.
-        else if (this == ALLTIME) { period = "all"; } 
+        else if (this == ALLTIME) { period = "all"; }
         //If select all time.
         else if (this == ONEYEAR) { period = "365"; }
         return period;
     }
-    
+
     /**
      * Convert the {@link SearchPeriods} to {@link Integer}
      * @return
@@ -80,12 +80,12 @@ public enum SearchPeriods {
         //If last 30 days
         else if (this == THIRTYDAYS) { period = 30; }
         //If select all time.
-        else if (this == ALLTIME) { period = 1095; } 
+        else if (this == ALLTIME) { period = 1095; }
         //If select all time.
         else if (this == ONEYEAR) { period = 365; }
         return period;
     }
-    
+
     /**
      * Return the period on days.
      * @return
@@ -117,6 +117,7 @@ public enum SearchPeriods {
         else if (period.equalsIgnoreCase("30")) { return THIRTYDAYS; }
         else if (period.equalsIgnoreCase("all")) { return ALLTIME; }
         else if (period.equalsIgnoreCase("365")) { return ONEYEAR; }
+        else if (period.equalsIgnoreCase("1095")) { return ALLTIME; }
         else return TWENTYFOURHOURS;
     }
 }

@@ -245,8 +245,11 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         createTweetPollPublicated(true, true, new Date(), this.userAccount, question1);
         createTweetPollPublicated(true, true, new Date(), this.userAccount, question2);
         final UserAccount secUser = createUserAccount("diana", this.user);
-        final List<TweetPollBean> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(secUser.getUsername(), null, null);
-                //secUser.getUsername(), 5, 0, null);
+		final TweetPollSearchBean tpSearchBean = createTweetpollSearchBean(
+				Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, " xxx",
+				7, 10, 0, TypeSearch.BYOWNER);
+        final List<TweetPollBean> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(secUser.getUsername(), null, tpSearchBean);
+
         //assertEquals("Should be equals", 2 , tweetPollsByUser.size());
     }
 

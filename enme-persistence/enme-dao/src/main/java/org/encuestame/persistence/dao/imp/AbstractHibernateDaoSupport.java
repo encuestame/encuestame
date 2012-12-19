@@ -332,20 +332,34 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
          }
     }
 
+    /**
+     *
+     * @param criteria
+     * @param isCompleted
+     * @param isScheduled
+     * @param isFavourite
+     * @param isPublished
+     * @param keyword
+     * @param period
+     */
     protected void advancedSearchOptions(final DetachedCriteria criteria,
 			final Boolean isCompleted, final Boolean isScheduled,
 			final Boolean isFavourite, final Boolean isPublished, final String keyword, final Integer period){
     	criteria.createAlias("question", "question");
-		criteria.add(Restrictions.like("question.question", keyword,
-				MatchMode.ANYWHERE));
+
 		final SearchPeriods searchPeriods = SearchPeriods
 				.getPeriodString(period.toString());
 		calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
+		if (keyword!=null) {
+			criteria.add(Restrictions.like("question.question", keyword,
+					MatchMode.ANYWHERE));
+		}
 		if (isCompleted) {
 			criteria.add(Restrictions.eq("completed", isCompleted));
 		}
 		if (isScheduled) {
 			criteria.add(Restrictions.eq("scheduleTweetPoll", isScheduled));
+			  criteria.add(Restrictions.isNotNull("scheduleDate"));
 		}
 		if (isFavourite) {
 			criteria.add(Restrictions.eq("publishTweetPoll", isFavourite));
