@@ -92,7 +92,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 			throws EnMeNoResultsFoundException {
         log.debug("tweetPoll username: "+username);
         final List<TweetPoll> tweetPolls = getTweetPollDao()
-				.retrieveTweetsByUserId(getUserAccountId(username),
+				.retrieveTweetsByUserId(tpollSearch.getKeyword(), getUserAccountId(username),
 						tpollSearch.getMax(), tpollSearch.getStart(),
 						tpollSearch.getIsComplete(),
 						tpollSearch.getIsScheduled(),
@@ -119,7 +119,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         log.info("filterTweetPollByItemsByType start: "+ tpollSearch.getStart());
         final List<TweetPollBean> list = new ArrayList<TweetPollBean>();
         if (TypeSearch.KEYWORD.equals(tpollSearch.getTypeSearch())) {
-            list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
+        	 list.addAll(this.searchTweetsPollsByKeyWord(getUserPrincipalUsername(),
             		tpollSearch.getKeyword(), httpServletRequest, tpollSearch));
         } else if (TypeSearch.BYOWNER.equals(tpollSearch.getTypeSearch())) {
 			list.addAll(this.getTweetsPollsByUserName(getUserPrincipalUsername(), httpServletRequest, tpollSearch));
@@ -198,10 +198,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          List<TweetPoll> tpollsbysocialNetwork = new ArrayList<TweetPoll>();
 
          if (keyword == null) {
-            throw new EnMeExpcetion("keyword is missing");
+             throw new EnMeExpcetion("keyword is missing");
          } else {
              //TODO: migrate search to Hibernate Search.
-             tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(keyword, getUserAccountId(username), tpollSearch.getMax(),
+             tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(tpollSearch.getKeyword(), getUserAccountId(username), tpollSearch.getMax(),
             		 tpollSearch.getStart(), tpollSearch.getIsComplete(),
  					tpollSearch.getIsScheduled(),
  					tpollSearch.getIsFavourite(),
@@ -212,7 +212,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
               * 3- If the value returned by the search of publications on social networks eses greater than 0
               * 4- Tweetpoll add to the list of search results
               */
-             tpollsbysocialNetwork = this.retrieveTweetPollsPostedOnSocialNetworks(tweetPolls, tpollSearch.getProviders());
+			if (tpollSearch.getProviders().size() > 0) {
+				tpollsbysocialNetwork = this
+						.retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
+								tpollSearch.getProviders());
+			}
 
          }
          log.info("search keyword tweetPoll size "+tweetPolls.size());

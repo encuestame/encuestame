@@ -69,6 +69,7 @@ import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.json.TweetPollAnswerSwitchBean;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.security.SignUpBean;
+import org.encuestame.utils.social.SocialProvider;
 import org.encuestame.utils.social.TypeAuth;
 import org.encuestame.utils.web.CommentBean;
 import org.encuestame.utils.web.DashboardBean;
@@ -1830,4 +1831,22 @@ public class ConvertDomainBean {
         }
         return surveySections;
     }
+
+	/**
+	 *
+	 * @param socialProviders
+	 * @return
+	 */
+    public static final List<SocialProvider> convertSocialProviderStringToProvider(
+			final List<String> socialProviders) {
+		final List<SocialProvider> socialNetworksProviders = new ArrayList<SocialProvider>();
+		SocialProvider socialNetworkProv;
+		for (String provider : socialProviders) {
+			socialNetworkProv = SocialProvider.getProvider(provider);
+			if (socialNetworkProv != null) {
+				socialNetworksProviders.add(socialNetworkProv);
+			}
+		}
+		return socialNetworksProviders;
+	}
 }

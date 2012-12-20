@@ -360,12 +360,12 @@ public class AbstractSurveyService extends AbstractChartService {
      * @param userId user Id.
      * @return list of Tweet polls bean
      */
-    public List<TweetPollBean> getTweetsPollsByUserId(final Long userId,
+    public List<TweetPollBean> getTweetsPollsByUserId(final String keyword, final Long userId,
 			final Integer maxResults, final Integer start,
 			final Boolean isCompleted, final Boolean isScheduled,
 			final Boolean isPublished, final Boolean isFavourite,
 			final Integer period){
-        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(userId, maxResults, start, isCompleted, isScheduled, isPublished, isFavourite, period);
+        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(keyword, userId, maxResults, start, isCompleted, isScheduled, isPublished, isFavourite, period);
         final List<TweetPollBean> tweetPollsBean = new ArrayList<TweetPollBean>();
         for (TweetPoll tweetPoll : tweetPolls) {
             final TweetPollBean unitTweetPoll = ConvertDomainBean.convertTweetPollToBean(tweetPoll);
