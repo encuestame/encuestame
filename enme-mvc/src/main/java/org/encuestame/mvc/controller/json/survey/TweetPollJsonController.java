@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.collections.ListUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -92,7 +92,9 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "social_account_networks", required = false) List<Long> socialAccountNetworks,
             @RequestParam(value = "_published", required = false) Boolean isPublished,
             @RequestParam(value = "_complete", required = false) Boolean isCompleted,
-            @RequestParam(value = "_unpublished", required = false) Boolean isUnpublished,
+            @RequestParam(value = "_favourite", required = false) Boolean isFavourite,
+            @RequestParam(value = "_scheduled", required = false) Boolean isScheduled,
+            @RequestParam(value = "period", required = false) Integer period,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
@@ -106,21 +108,25 @@ public class TweetPollJsonController extends AbstractJsonController {
             log.debug("search.json socialAccountNetworks " + socialAccountNetworks);
             log.debug("search.json isCompleted " + isPublished);
             log.debug("search.json" + isCompleted);
-            log.debug("search.json isUnpublished" + isUnpublished);
+            log.debug("search.json favourite" + isFavourite);
             // Create TweetpollSearchBean
             tpollSearchBean.setIsComplete(isCompleted);
-            tpollSearchBean.setIsFavourite(null);
+            tpollSearchBean.setIsFavourite(isFavourite);
             tpollSearchBean.setIsPublished(isPublished);
-            tpollSearchBean.setIsScheduled(null);
+            tpollSearchBean.setIsScheduled(isScheduled);
             tpollSearchBean.setKeyword(keyword);
             tpollSearchBean.setMax(max);
-            tpollSearchBean.setPeriod(null);
+            tpollSearchBean.setPeriod(period);
             tpollSearchBean.setSearchResult(null);
             tpollSearchBean.setStart(start);
             tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));
+            tpollSearchBean.setProviders(ListUtils.EMPTY_LIST);
+            		//socialNetworks.size() == 0 ? null : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
 
             final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
             		tpollSearchBean, request);
+
+            System.out.println("Json Controller --> " + list.size());
             log.debug("/api/survey/tweetpoll/search.json---------------->"+list.size());
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);

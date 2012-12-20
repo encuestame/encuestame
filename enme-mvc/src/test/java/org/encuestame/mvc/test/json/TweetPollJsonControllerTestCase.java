@@ -77,7 +77,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
      * @throws ServletException
      * @throws IOException
      */
-    //@Test
+    @Test
     public void testTweetPollJsonService() throws ServletException, IOException{
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "ALL");
@@ -88,19 +88,23 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject sucess = getSucess(response);
         Assert.assertNotNull(sucess.get("tweetPolls"));
         final JSONArray array = (JSONArray) sucess.get("tweetPolls");
+
         Assert.assertEquals(array.size(), 4);
         //search by keyword
-        initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
+     initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "KEYWORD");
         setParameter("keyword", "a");
         setParameter("max", "100");
         setParameter("start", "0");
+        setParameter("period", "7");
+
         final JSONObject response2 = callJsonService();
         final JSONObject sucess2 = getSucess(response2);
         Assert.assertNotNull(sucess2.get("tweetPolls"));
         final JSONArray array2 = (JSONArray) sucess2.get("tweetPolls");
         Assert.assertEquals(array2.size(), 4);
-        //LASTDAY
+        System.out.println("Json Array Controller 2 --> " + array2.size());
+        /*  //LASTDAY
         initService("/api/survey/tweetpoll/search.json", MethodJson.GET);
         setParameter("typeSearch", "LASTDAY");
         setParameter("max", "100");
@@ -150,7 +154,7 @@ public class TweetPollJsonControllerTestCase extends AbstractJsonMvcUnitBeans{
         final JSONObject sucess7 = getErrors(response7);
         Assert.assertNotNull(sucess7.get("message"));
        final String text = (String) sucess7.get("message");
-        Assert.assertEquals(text, "filterTweetPollByItemsByType no type");
+        Assert.assertEquals(text, "filterTweetPollByItemsByType no type");*/
     }
 
     /**
