@@ -45,7 +45,7 @@
   padding: 2px;
 }
 
-.suggest .wrapper-suggest .suggestBox .suggesItem:hover{
+.suggest .wrapper-suggest .suggestBox .suggesItem:hover, .suggest-selected {
     background-color: #939397;
     color: #FFF;
 }

@@ -8,9 +8,14 @@
     </div>
     <div data-dojo-type="dijit/Dialog" id="option_${id}" title="Options" style="width: 400px;">
              <div class="web-generic-dialog-content">
+                 <span>
+                   <h3>
+                      Are you sure?
+                   </h3>
+               </span>
                  <div class="button">
                        <span class="optionItem">
-                           <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onclick:_removeItem">
+                           <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:_removeItem">
                                Remove
                            </button>
                        </span>

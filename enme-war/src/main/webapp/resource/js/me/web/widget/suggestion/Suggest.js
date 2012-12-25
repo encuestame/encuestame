@@ -168,7 +168,7 @@ define([ "dojo/parser",
          *
          * @property
          */
-        _delay : 700,
+        _delay : 50,
 
         /**
          *
@@ -200,6 +200,8 @@ define([ "dojo/parser",
                             parent._inProcessKey = false;
                             if (dojo.keys.SPACE == e.keyCode || dojo.keys.ENTER == e.keyCode) {
                                 parent.processSpaceAction();
+                            } else if (dojo.keys.ESCAPE == e.keyCode) {
+                                parent.hide();
                             } else if (dojo.keys.UP_ARROW == e.keyCode) {
                                 //TODO: down by suggestion list.
                                 parent.moveBetweenItems(-1);
@@ -339,20 +341,63 @@ define([ "dojo/parser",
          * @param
          */
         moveBetweenItems : function (flag) {
-            var isAnySelected = true;
-            dojo.forEach(this._temp_suggestion_items, dojo.hitch(this, function(entry, i) {
-                // move to  up
+            // create a selected item after keyboard select
+            var isAnySelected = true,
+            parent = this,
+            t_length = this._temp_suggestion_items.length,
+            create_item = function(id, hashTagName) {
+                 return {
+                        data: { id : id,
+                                label : hashTagName
+                              },
+                        parentWidget : parent
+                        };
+            };
+            for (var i = 0; i < t_length; i++) {
+                var entry = parent._temp_suggestion_items[i];
                 if( entry.isSelected()) {
                     isAnySelected = false;
                     entry.unSelect();
-                    var next_item = this._temp_suggestion_items[i + flag];
-                    next_item.selected();
-                    return false;
+                    if (t_length -1  === i) { // is the last one
+                        var next_item;
+                        if (flag < 0 ) { // up -1
+                            next_item = parent._temp_suggestion_items[t_length - 2];
+                        } else { // down +1
+                            next_item = parent._temp_suggestion_items[0];
+                        }
+                        if (next_item) {
+                            next_item.selected();
+                        }
+                        parent.selectedItem = create_item(next_item.data.id, next_item.data.label);
+                        return true;
+                    } else if ( i === 0 && flag < 0) {
+                        next_item = parent._temp_suggestion_items[t_length - 1];
+                        if (next_item) {
+                            next_item.selected();
+                        }
+                        parent.selectedItem = create_item(next_item.data.id, next_item.data.label);
+                        return true;
+                    } else {
+                        var next_item = parent._temp_suggestion_items[i + flag];
+                        if (next_item) {
+                            next_item.selected();
+                        }
+                        parent.selectedItem = create_item(next_item.data.id, next_item.data.label);
+                        return true;
+                    }
                 }
-            }));
-
-            if (isAnySelected)
-            this._temp_suggestion_items[flag ? 0 : this._temp_suggestion_items.length - 1].selected();
+            }
+            if (isAnySelected) {
+                var entry;
+                if (flag < 0) {
+                    entry = this._temp_suggestion_items[t_length - 1];
+                    entry.selected();
+                } else {
+                    entry = this._temp_suggestion_items[0];
+                    entry.selected();
+                }
+                parent.selectedItem = create_item(entry.data.id, entry.data.label);
+            }
         },
 
        /**
@@ -375,10 +420,14 @@ define([ "dojo/parser",
         processSelectedItemButton : function() {
             if (this.textBoxWidget && this.addButton) {
                 this.hide();
-                var newValue = {id:null, label:"", newValue: true};
+                var newValue = {
+                    id : null,
+                    label: "",
+                    newValue: true
+                };
                 newValue.label = this.textBoxWidget.get("value");
                 this.selectedItem = newValue;
-                if (!encuestame.utilities.isEmpty(newValue.label)) {
+                if (!_ENME.isEmpty(newValue.label)) {
                     this.processSelectedItem(this.selectedItem);
                 }
                 this.clear();
@@ -395,7 +444,7 @@ define([ "dojo/parser",
 
         //Process Selected Item.
         processSelectedItem : function(selectedItem){
-            console.info("implemt this method in the parent widget 2", selectedItem);
+            _ENME.log("implemt this method in the parent widget 2", selectedItem);
         }
   });
 });
