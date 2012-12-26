@@ -1,37 +1,100 @@
-dojo.provide("encuestame.org.core.commons.notifications.NotificationList");
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 
-dojo.require('dojox.timing');
-dojo.require("dojox.widget.Dialog");
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.layout.ContentPane");
-dojo.require('encuestame.org.core.commons');
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module Notifications
+ *  @namespace Widget
+ *  @class NotificationList
+ */
 
-dojo.declare(
-    "encuestame.org.core.commons.notifications.NotificationList",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notificationList.html"),
+define([
+         "dojo",
+         'dojo/_base/json',
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/web/widget/notifications/NotificationListItem",
+         "me/core/enme",
+         "dojo/text!me/web/widget/notifications/template/notificationList.html" ],
+        function(
+                dojo,
+                json,
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                NotificationListItem,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-        widgetsInTemplate: true,
+        /**
+         * template string.
+         * @property templateString
+         */
+        templateString : template,
 
+        /**
+         *
+         * @property arrayNotifications
+         */
         arrayNotifications : null,
 
+        /**
+         *
+         * @property mobile
+         */
         mobile : false,
 
+        /**
+         *
+         * @property _start
+         */
         _start : 0,
 
-        _limit :  encuestame.notification.load.limit,
+        /**
+         *
+         * @property _limit
+         */
+        _limit :  _ENME.config('activity').limit,
 
+        /**
+         *
+         * @property
+         */
         _seeMoreValue : false,
 
-        postCreate : function(){
+        /**
+         * postCreate life cycle
+         * @method postCreate
+         */
+        postCreate : function() {
             this._loadNotifications(this._start);
         },
 
-        /*
-         * load notifications.
+        /**
+         * Load notifications.
+         * @method _loadNotifications
          */
-        _loadNotifications : function(start){
+        _loadNotifications : function(start) {
             var load = dojo.hitch(this, function(data) {
                  this.arrayNotifications = data.success.notifications;
                  this._showListCategories();
@@ -43,29 +106,35 @@ dojo.declare(
              if (start == null) {
                  start = 0;
              }
-             var params = {limit : this._limit, start: start, categorized: true};
-             encuestame.service.xhrGet(
-                     encuestame.service.list.getAllNotifications, params, load, error);
+             var params = {
+                    limit : this._limit,
+                    start: start,
+                    categorized: true
+                };
+             this.getURLService().get("encuestame.service.list.getAllNotifications", params, load, error , dojo.hitch(this, function() { }));
         },
 
         /*
          *
+         * @method _loadMoreNotifications
          */
         _loadMoreNotifications : function(event){
-                console.debug("MORE ENCUESTAME-234", event);
+                //console.debug("MORE ENCUESTAME-234", event);
         },
 
-        /*
+        /**
          * see more items.
+         * @method _seeMore
          */
         _seeMore : function(){
             //only for mobile interface. override.
-        } ,
+        },
 
-        /*
+        /**
          * build notification category section.
+         * @method _buildSection
          */
-        _buildSection : function(name, content){
+        _buildSection : function(name, content) {
              var section = dojo.doc.createElement("div");
              dojo.addClass(section, "section");
 
@@ -76,14 +145,18 @@ dojo.declare(
              //add content
              section.appendChild(content);
              //add see more
-             if(this._seeMoreValue){
+             if( this._seeMoreValue) {
                  section.appendChild(this._seeMore());
              }
              this._list.appendChild(section);
         },
 
-        _createNotificationItem : function(item, category){
-             var widget = new encuestame.org.core.commons.notifications.NotificationListItem({
+        /**
+         * Create a notification list item
+         * @method _createNotificationItem
+         */
+        _createNotificationItem : function(item, category) {
+             var widget = new NotificationListItem({
                  item : item,
                  category : "TODAY"});
             return widget;
@@ -93,7 +166,6 @@ dojo.declare(
          * show list categories.
          */
         _showListCategories : function() {
-            console.debug("_showListCategories");
             var today = this.arrayNotifications.TODAY;
             var items = dojo.doc.createElement("div");
             if (today.length > 0) {
@@ -118,57 +190,6 @@ dojo.declare(
             console.debug("lastYear", lastYear);
             console.debug("longTimeAgo", longTimeAgo);
         }
-});
 
-/**
- *
- */
-dojo.declare(
-        "encuestame.org.core.commons.notifications.NotificationListItem",
-        [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notificationListItem.html"),
-
-            widgetsInTemplate: true,
-
-            item : null,
-
-            category : null,
-
-            postCreate : function() {
-                console.debug("item", this.item);
-                if (this.item.url != null) {
-                    this._description
-                    .appendChild(encuestame.notification
-                    .buildURLDescription(
-                            this.item.type,
-                            this.item.additionalDescription,
-                            this.item.url));
-                } else {
-                    this._description.innerHTML = this.item.additionalDescription;
-                }
-            },
-
-            /*
-             * remove.
-             */
-            _remove : function(event){
-                //TODO: display dialog.
-                this._removeNotification();
-            },
-
-            /*
-             * remove notification
-             */
-            _removeNotification : function(){
-                var load = dojo.hitch(this, function(data) {
-                     dojo.destroy(this.domNode);
-                 });
-                 var error = function(error) {
-                     console.debug("error", error);
-                 };
-                 var params = {notificationId : this.item.id};
-                 encuestame.service.xhrGet(
-                         encuestame.service.list.removeNotification, params, load, error);
-            }
-
+    });
 });

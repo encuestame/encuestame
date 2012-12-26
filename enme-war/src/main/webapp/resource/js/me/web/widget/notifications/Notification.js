@@ -60,8 +60,12 @@ define([
           */
          limit: _ENME.config('activity').limit,
 
+        /**
+         *
+         * @property
+         */
          i18nMessage : {
-           not_view_all : _ENME.getMessage("not_view_all"),
+           not_view_all : _ENME.getMessage("not_view_all")
          },
 
          /*
@@ -164,7 +168,7 @@ define([
          _viewAll : function(event){
               dojo.stopEvent(event);
               //dijit.byId("allNot").show();
-              document.location.href = encuestame.contextDefault+"/user/notifications";
+              document.location.href = _ENME.config('contextPath') + "/user/notifications";
          },
 
          /*
