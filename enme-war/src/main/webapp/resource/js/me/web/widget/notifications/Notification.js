@@ -2,6 +2,7 @@ dojo.require('dojox.timing');
 
 define([
          "dojo",
+         'dojo/_base/json',
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -12,6 +13,7 @@ define([
          "dojo/text!me/web/widget/notifications/template/notification.html" ],
         function(
                 dojo,
+                json,
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
@@ -23,12 +25,12 @@ define([
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
           // template string.
-            templateString : template,
+          templateString : template,
 
           /*
           * delay to retrieve new notification.
           */
-         delay: _ENME.config('notification_delay'),
+         delay: _ENME.config('activity').delay,
 
          /*
           * limit of notifications.
@@ -69,35 +71,32 @@ define([
           */
          _originalTitle : null,
 
+         /**
+          *
+          * @property
+          */
+          storage_key : "enme-not",
+
          /*
           *
           */
          postCreate: function() {
+            // after refresh, clean all possible storage key.
+             _ENME.removeItem(this.storage_key);
+             // get the current activity
              this.activity = _ENME.getActivity();
-             console.log("NOTIFICATION", this.activity.cometd);
              var parent = this;
 
-             var jota = function () {
+             // create a timer to get possible new notifications
+             var _timer = function () {
                 console.log("enviando jota /service/notification/status");
-                parent.activity.cometd.publish('/service/notification/status', { name: 'World' });
+                parent.activity.cometd.publish('/service/notification/status', { r : 0 });
              };
+            window.setInterval(_timer, this.delay || 20000);
 
-              window.setInterval(jota, 20000);
+            dojo.subscribe("/notifications/service/messages", this, "_updateStatus");
 
-            //  load from cookie.
-            //  this._count.innerHTML = encuestame.session.activity.cookie().n;
-            //  //loadin notification subscription.
-            //  var subscriptionNotification;
-             dojo.addOnLoad(dojo.hitch(this, function() {
-                  //this.loadStatus();
-                  //this.loadTimer();
-                  dojo.subscribe("/encuestame/notifications/update/status", this, "_updateStatus");
-                  subscriptionNotification  = parent.activity.cometd.subscribe('/service/notification/status',
-                      dojo.hitch(this, function(message) {
-                          this._updateStatus(message.data.totalNewNot, message.data.totalNot);
-                  }));
-              }));
-              dojo.addOnUnload(function() {
+            dojo.addOnUnload(function() {
                 if (subscriptionNotification !== null) {
                     parent.activity.cometd.unsubscribe(subscriptionNotification);
                 }
@@ -149,24 +148,28 @@ define([
           * @param totalNew
           * @param lastNew
           */
-         _updateStatus : function(totalNew, total){
-             if (totalNew < encuestame.session.activity.cookie().n
-                 || totalNew == encuestame.session.activity.cookie().n) {
+         _updateStatus : function(notStatus) {
+             var _storage =  (json.fromJson(_ENME.restoreItem(this.storage_key)) || ({ n : null , t : null }));
+             if (notStatus.totalNewNot < _storage.n || notStatus.totalNewNot == _storage.n) {
                  //highlight new notifications.
                  this._updateNotifications = true;
                  this._displayNewHighlight();
                  //update title to show number of new notifications
-                 var newTitle = this._originalTitle + " ("+totalNew+")";
+                 var newTitle = this._originalTitle + " ("+  notStatus.totalNewNot + ")";
                  //console.debug("newTitle", newTitle);
                  document.title = newTitle;
              } else {
                  this._hideNewHighlight();
                  this._updateNotifications = false;
              }
-             //update cookie
-             encuestame.session.activity.updateNot(total, totalNew);
-             this.totalNot = totalNew;
-             this._count.innerHTML = this.totalNot;
+             // update cookie
+             _ENME.storeItem(this.storage_key, {
+                t : notStatus.totalNot,
+                n : notStatus.totalNewNot
+             });
+             //encuestame.session.activity.updateNot(total, notStatus.totalNewNot);
+             notStatus.totalNot = notStatus.totalNewNot;
+             this._count.innerHTML = notStatus.totalNot;
          },
 
          /*

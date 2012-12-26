@@ -93,23 +93,20 @@ define(["dojo",
                 }
             };
 
-
             /**
              * Function invoked when first contacting the server and when the server has lost the state of this client
              * @method _metaHandshake
              */
             var _metaHandshake = function(handshake) {
-                console.warn("_metaHandshake =====");
-                if (handshake.successful === true)
-                {
-                    cometd.batch(function()
-                    {
-                        cometd.subscribe('/service/notification/status', function(message)
-                        {
-                           console.info("****************************** /service/notification/status", message);
+                console.warn("_metaHandshake =====", handshake);
+                if (handshake.successful === true) {
+                    parent.clientId = handshake.clientId;
+                    cometd.batch(function() {
+                        cometd.subscribe('/service/notification/status', function(message) {
+                           dojo.publish('/notifications/service/messages', message.data);
                         });
                         // Publish on a service channel since the message is for the server only
-                        cometd.publish('/service/notification/status', { name: 'World' });
+                        cometd.publish('/service/notification/status', { r: '0' });
                     });
                 }
             };
