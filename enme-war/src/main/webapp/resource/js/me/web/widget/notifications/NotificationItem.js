@@ -1,45 +1,97 @@
-dojo.provide("encuestame.org.core.commons.notifications.NotificationItem");
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 
-dojo.require('dojox.timing');
-dojo.require("dojox.widget.Dialog");
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.layout.ContentPane");
-dojo.require('encuestame.org.core.commons');
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module Notifications
+ *  @namespace Widget
+ *  @class NotificationItem
+ */
+define([
+         "dojo",
+         "dojo/_base/declare",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/enme",
+         "dojo/text!me/web/widget/notifications/template/notificationItem.html" ],
+        function(
+                dojo,
+                declare,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
+            /**
+             * template as stirng
+             * @property templateString
+             */
+            templateString : template,
 
-dojo.declare(
-        "encuestame.org.core.commons.notifications.NotificationItem",
-        [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notificationItem.html"),
-
-            widgetsInTemplate: true,
-
+            /**
+             * item
+             * @property
+             */
             item : null,
 
+            /**
+             *
+             * @property
+             */
             clickItem : null,
 
-            postCreate : function(){
+            /**
+             * Post create life cycle.
+             * @method postCreate
+             */
+            postCreate : function() {
                 this.clickItem = dojo.connect(this.domNode, "onclick", dojo.hitch(this, function(e) {
                     this._markAsReaded();
                }));
             },
 
-            _markAsReaded : function(){
+            /**
+             * Mark the notification as readed
+             * @method _markAsReaded
+             */
+            _markAsReaded : function() {
                  var load = dojo.hitch(this, function(data){
                      encuestame.activity.cometd.publish('/service/notification/status', {});
                      dojo.disconnect(this.clickItem);
                  });
                  var error =  dojo.hitch(this, function(error) {
+                    //TODO: error handler.
                  });
-                 encuestame.service.xhrGet(encuestame.service.list.changeStatusNotification, {id:this.item.id}, load, error);
+                 this.getURLService().get("encuestame.service.list.changeStatusNotification", {id:this.item.id}, load, error , dojo.hitch(this, function() {
+                  }));
             },
 
-            /*
+            /**
              * Remove Notification
+             * @method removeNotification
              */
             removeNotification : function(notificationId){
                 var url = '/encuestame/api/remove-notification.json';
             }
 
-        });
+    });
+});

@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module Notifications
+ *  @namespace Widget
+ *  @class Notification
+ */
 dojo.require('dojox.timing');
 
 define([
@@ -8,7 +31,7 @@ define([
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/stream/HashTagInfo",
+         "me/web/widget/notifications/NotificationItem",
          "me/core/enme",
          "dojo/text!me/web/widget/notifications/template/notification.html" ],
         function(
@@ -19,7 +42,7 @@ define([
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 main_widget,
-                hashTagInfo,
+                NotificationItem,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
@@ -35,7 +58,7 @@ define([
          /*
           * limit of notifications.
           */
-         limit: _ENME.config('notification_limit'),
+         limit: _ENME.config('activity').limit,
 
          i18nMessage : {
            not_view_all : _ENME.getMessage("not_view_all"),
@@ -125,9 +148,9 @@ define([
              dojo.stopEvent(event);
              if(!this.openNot){
                  dojo.addClass(this._panel, "openLivePanel");
-                 if(this._updateNotifications){
+                 //if(this._updateNotifications){
                      this.loadNotifications();
-                 }
+                 //}
              } else {
                  dojo.removeClass(this._panel, "openLivePanel");
              }
@@ -192,8 +215,9 @@ define([
              encuestame.activity.cometd.endBatch();
          },
 
-         /*
+         /**
           * load notifications.
+          * @method
           */
          loadNotifications : function() {
              var load = dojo.hitch(this, function(data){
@@ -205,7 +229,8 @@ define([
                  this.timer.stop();
              });
              dojo.empty(this._not);
-             encuestame.service.xhrGet(encuestame.service.list.getNotifications, {limit:this.limit}, load, error);
+             this.getURLService().get("encuestame.service.list.getNotifications", { limit: this.limit}, load, error , dojo.hitch(this, function() {
+             }));
          },
 
          /*
@@ -250,7 +275,7 @@ define([
           * Create Notification.
           */
          createNotification : function(item){
-             var not = new encuestame.org.core.commons.notifications.NotificationItem({item:item});
+             var not = new NotificationItem({item:item});
              this._not.appendChild(not.domNode);
          }
 
