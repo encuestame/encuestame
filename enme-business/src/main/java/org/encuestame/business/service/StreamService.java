@@ -45,6 +45,11 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
      */
     private Logger log = Logger.getLogger(this.getClass());
 
+    /**
+     * default start
+     */
+    private static final Integer defaultStart = 0;
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.StreamOperations#retrieveLastNotifications(java.lang.Integer, javax.servlet.http.HttpServletRequest)
@@ -68,7 +73,9 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
             throws EnMeNoResultsFoundException {
          UserAccount user = getUserAccount(getUserPrincipalUsername());
          final List<Notification> notifications = getNotificationDao()
-                 .loadNotificationByUserAndLimit(user.getAccount(), limit, 0,
+                 .loadNotificationByUserAndLimit(user.getAccount(),
+                         limit,
+                         defaultStart,
                          onlyReaded);
          return convertNotificationList(notifications, request);
     }
@@ -177,6 +184,7 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
         utilNotification.setIcon(convertNotificationIconMessage(notification.getDescription()));
         utilNotification.setType(notification.getDescription().name());
         utilNotification.setUrl(notification.getUrlReference());
+        utilNotification.setReaded(notification.getReaded());
         utilNotification.setAdditionalDescription(notification.getAdditionalDescription());
         return utilNotification;
    }

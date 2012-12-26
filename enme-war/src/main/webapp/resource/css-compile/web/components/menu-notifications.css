@@ -8,41 +8,57 @@
   vertical-align: middle;
 }
 
-div.livePanel {
+.not-menu-not-selected {
+    background-color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.livePanel {
     display: none;
     position: absolute;
     min-height: 5px;
     width: 400px;
     background-color: #FFF;
-    right: 3px;
+    right: 0px;
     top: 33px;
+    box-shadow: 2px 2px 5px #888888;
+    border-radius: 0px 0px 5px 5px;
     -moz-box-shadow: 2px 2px 5px #888888;
     -webkit-box-shadow: 2px 2px 5px #888888;
-    box-shadow: 2px 2px 5px #888888;
     -webkit-border-radius: 0px 0px 5px 5px;
     -moz-border-radius: 0px 0px 5px 5px;
-    border-radius: 0px 0px 5px 5px;
     min-width: 345px;
     max-width: 345px;
     z-index: 20;
 }
 
-div.livePanel .panelItems {
+.livePanel .panelItems {
     min-height: 100%;
 }
 
-div.livePanel .final {
-    padding: 4px;
+.livePanel .final {
+    padding: 8px;
     text-align: right;
     font-weight: bold;
-    background-color: #E8E8E8;
+    background-color: #222;
 }
 
-div.livePanel .final a:link {
-    color: #000;
+.livePanel .web-not-item-removed {
+    background-color: #DFDFDF !important;
+    color: #EC9191 !important;
+    -moz-opacity: 0.50;
+    opacity: 0.50;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=50);
+
 }
 
-div.openLivePanel {
+.livePanel .final a:link {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.openLivePanel {
     display: block;
 }
 
@@ -50,15 +66,27 @@ div.openLivePanel {
     padding: 5px;
     min-height: 30px;
     text-align: left;
+    border-top: solid 1px #E9E9E9;
+    border-bottom: solid 1px #E9E9E9;
+    color: #333;
+    display: block;
+    text-decoration: none;
+    margin-bottom: -1px;
+    z-index: 2;
+    zoom: 1;
+    line-height: 15px;
+}
+
+.notificationItem .not-item-description {
+    margin-left: 60px;
 }
 
 .notificationItem:hover {
-    background-color: #E8E8E8;
-    font-weight: bold;
     cursor: pointer;
+    background-color: #F0F0F0;
 }
 
-div.livePanel .notificationItem .left {
+.livePanel .notificationItem .left {
     float: left;
     min-height: 30px;
     margin-left: 10px;
@@ -67,32 +95,29 @@ div.livePanel .notificationItem .left {
     background-repeat: no-repeat;
 }
 
-div.livePanel .notificationItem .right {
+.livePanel .notificationItem .not-item-description {
 
 }
 
-div.livePanel .notificationItem .right .title {
-    font-size: 100%;
+.livePanel .notificationItem .not-item-description .title {
+    font-weight: bold;
 }
 
-div.livePanel .notificationItem .right .description {
-    font-size: 80%;
+.livePanel .notificationItem .not-item-description .description {
+    font-size: 10px;
     color: grey;
     font-weight: normal;
-    margin-left: 60px;
+    padding: 5px 0;
 }
 
-div.counter {
+.counter {
   color: #696868;
   cursor: pointer;
   position: absolute;
   top: 10px;
+  width: 28px;
 }
 
 div.notificationWrapper div.new {
     color: red !important;
-}
-
-div.counter:hover {
-
 }

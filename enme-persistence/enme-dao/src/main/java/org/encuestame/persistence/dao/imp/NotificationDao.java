@@ -101,7 +101,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
          final DetachedCriteria crit = DetachedCriteria.forClass(Notification.class);
          crit.setProjection(Projections.rowCount());
          crit.add(Restrictions.eq("readed", Boolean.FALSE));
-         List<Long> results = getHibernateTemplate().findByCriteria(crit);
+         final List<Long> results = getHibernateTemplate().findByCriteria(crit);
          log.debug("retrieveTotalNotReadedNotificationStatus "+results.size());
          return (Long) (results.get(0) == null ? 0 : results.get(0));
     }

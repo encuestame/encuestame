@@ -64,6 +64,7 @@ define([
              * @method postCreate
              */
             postCreate : function() {
+                this.activity = _ENME.getActivity();
                 this.clickItem = dojo.connect(this.domNode, "onclick", dojo.hitch(this, function(e) {
                     this._markAsReaded();
                }));
@@ -74,11 +75,13 @@ define([
              * @method _markAsReaded
              */
             _markAsReaded : function() {
-                 var load = dojo.hitch(this, function(data){
-                     encuestame.activity.cometd.publish('/service/notification/status', {});
+                var parent = this,
+                 load = dojo.hitch(this, function(data) {
+                     parent.activity.cometd.publish('/service/notification/status', { r : 0 });
                      dojo.disconnect(this.clickItem);
-                 });
-                 var error =  dojo.hitch(this, function(error) {
+                     dojo.addClass(parent.domNode, "web-not-item-removed");
+                 }),
+                 error =  dojo.hitch(this, function(error) {
                     //TODO: error handler.
                  });
                  this.getURLService().get("encuestame.service.list.changeStatusNotification", {id:this.item.id}, load, error , dojo.hitch(this, function() {

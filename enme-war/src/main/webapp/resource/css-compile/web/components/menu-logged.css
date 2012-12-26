@@ -156,7 +156,7 @@ div ..menuWrapper .item a:hover,.menuWrapper .item .current {
   width: 25%;
 }
 
-.menuWrapper div.rightSide div {
+.menuWrapper div.rightSide > div {
     float: left;
     position: relative;
 }

@@ -43,6 +43,8 @@ public class UtilNotification implements Serializable {
 
     private String url;
 
+    private Boolean readed;
+
     /**
      * @return the description
      */
@@ -153,5 +155,19 @@ public class UtilNotification implements Serializable {
      */
     public void setUrl(final String url) {
         this.url = url;
+    }
+
+    /**
+     * @return the readed
+     */
+    public Boolean getReaded() {
+        return readed;
+    }
+
+    /**
+     * @param readed the readed to set
+     */
+    public void setReaded(final Boolean readed) {
+        this.readed = readed;
     }
 }

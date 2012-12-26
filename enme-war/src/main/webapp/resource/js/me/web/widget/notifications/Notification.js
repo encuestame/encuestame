@@ -112,7 +112,6 @@ define([
 
              // create a timer to get possible new notifications
              var _timer = function () {
-                console.log("enviando jota /service/notification/status");
                 parent.activity.cometd.publish('/service/notification/status', { r : 0 });
              };
             window.setInterval(_timer, this.delay || 20000);
@@ -144,15 +143,17 @@ define([
          /*
           * open dialog notification.
           */
-         open: function(event){
+         open: function(event) {
              dojo.stopEvent(event);
-             if(!this.openNot){
+             if (!this.openNot) {
                  dojo.addClass(this._panel, "openLivePanel");
+                 dojo.addClass(this._parent_wrapper, 'not-menu-not-selected');
                  //if(this._updateNotifications){
                      this.loadNotifications();
                  //}
              } else {
                  dojo.removeClass(this._panel, "openLivePanel");
+                 dojo.removeClass(this._parent_wrapper, 'not-menu-not-selected');
              }
              this.openNot = !this.openNot;
          },
@@ -220,12 +221,14 @@ define([
           * @method
           */
          loadNotifications : function() {
-             var load = dojo.hitch(this, function(data){
+             var parent = this,
+             load = dojo.hitch(this, function(data) {
+                 parent.activity.cometd.publish('/service/notification/status', { r : 0 });
                  this.notifications = data.success.notifications;
                  this.buildNotifications();
                  this._updateNotifications = false;
-             });
-             var error =  dojo.hitch(this, function(error) {
+             }),
+             error =  dojo.hitch(this, function(error) {
                  this.timer.stop();
              });
              dojo.empty(this._not);
@@ -236,7 +239,7 @@ define([
          /*
           * build notifications node.
           */
-         buildNotifications : function(){
+         buildNotifications : function() {
               dojo.empty(this._not);
               dojo.forEach(this.notifications,
                       dojo.hitch(this, function(item, index) {
@@ -257,7 +260,7 @@ define([
          /*
           * Create Network Error.
           */
-         createNetworkError : function(error, additional){
+         createNetworkError : function(error, additional) {
              var item = {
                  type : "",
                  description : error,
@@ -267,7 +270,7 @@ define([
              this.createNotification(item);
          },
 
-         cleanNot : function(){
+         cleanNot : function() {
              dojo.empty(this._not);
          },
 
@@ -275,29 +278,12 @@ define([
           * Create Notification.
           */
          createNotification : function(item){
-             var not = new NotificationItem({item:item});
+             var not = new NotificationItem({
+              item : item
+             });
+             console.log("ITEM", item);
              this._not.appendChild(not.domNode);
          }
 
-            });
-        });
-
-//dojo.provide("encuestame.org.core.commons.notifications.Notification");
-//
-//dojo.require('dojox.timing');
-//dojo.require("dojox.widget.Dialog");
-//dojo.require("dijit._Templated");
-//dojo.require("dijit._Widget");
-//dojo.require("dijit.layout.ContentPane");
-//dojo.require('encuestame.org.core.commons');
-//dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
-//dojo.require('encuestame.org.core.commons.notifications.NotificationItem');
-//
-//dojo.declare(
-//    "encuestame.org.core.commons.notifications.Notification",
-//    [encuestame.org.main.EnmeMainLayoutWidget],{
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notification.html"),
-//
-
-//    }
-//);
+    });
+});
