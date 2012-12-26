@@ -37,15 +37,19 @@ define([ 'dojo/has', 'require' ], function (has, require) {
      * require just `dojo/domReady`, it would load that module just like any other module, without the special
      * plugin functionality.
      */
-    //'me/activity/Activity'
+    //
     require([
               'dojo',
               "dojo/dom",
+              "me/core/enme",
               "me/core/ui/Loading",
+              //'me/activity/Activity',
               "dojo/dom-construct"], function (
                       dojo,
                       dom,
+                      _ENME,
                       Loading,
+                      //Activity,
                       domConstruct) {
        var _dom = dom.byId('loading');
        if (_dom) {

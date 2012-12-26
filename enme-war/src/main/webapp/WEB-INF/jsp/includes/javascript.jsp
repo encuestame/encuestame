@@ -34,8 +34,9 @@ require([
     "dojo/_base/declare",
     "dojo/parser",
     "dojo/ready",
+    'me/activity/Activity',
     "me/core/enme",
-], function(declare, parser, ready, _ENME) {
+], function(declare, parser, ready, Activity, _ENME) {
     console.log("Initialize the ENME");
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
@@ -45,17 +46,25 @@ require([
             suggest_limit : 10,
             delay : 1800000,
             message_delay : 5000,
-            activity_levelDebug : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
-            activity_maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,
-            activity_maxNetworkDelay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxNetworkDelay")%>,
-            notification_delay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.delay")%>,
-            notification_limit : <%=EnMePlaceHolderConfigurer.getProperty("not.main.limit")%>,
+            activity : {
+                url : "<%=WidgetUtil.getDomain(request)%>/activity",
+                logLevel : "<%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.levelDebug")%>",
+                maxConnections : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxConnections")%>,
+                maxNetworkDelay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.activity.maxNetworkDelay")%>,
+                delay : <%=EnMePlaceHolderConfigurer.getProperty("not.main.delay")%>,
+                limit : <%=EnMePlaceHolderConfigurer.getProperty("not.main.limit")%>
+            },
             tp_a : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.allowed")%>,
             tp_hr : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.hr")%>,
             tp_minsoa : <%=EnMePlaceHolderConfigurer.getProperty("tp.min.answer.minsoa")%>
         });
         //parse all widgets.
         parser.parse();
+        // initialize the activity support
+        var _E = _ENME.config('activity');
+        var  activity = new Activity(_E, Modernizr.websockets);
+        activity.connect();
+        _ENME.setActivity(activity);
     });
 });
 </script>

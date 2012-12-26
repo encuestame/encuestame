@@ -1,6 +1,7 @@
 dojo.require('dojox.timing');
 
 define([
+         "dojo",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -10,6 +11,7 @@ define([
          "me/core/enme",
          "dojo/text!me/web/widget/notifications/template/notification.html" ],
         function(
+                dojo,
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
@@ -71,25 +73,36 @@ define([
           *
           */
          postCreate: function() {
-             //load from cookie.
-             this._count.innerHTML = encuestame.session.activity.cookie().n;
-             //loadin notification subscription.
-             var subscriptionNotification;
-//             dojo.addOnLoad(dojo.hitch(this, function() {
-//                 this.loadStatus();
-//                 this.loadTimer();
-//             dojo.subscribe("/encuestame/notifications/update/status", this, "_updateStatus");
-//             subscriptionNotification  = encuestame.activity.cometd.subscribe('/service/notification/status',
-//                 dojo.hitch(this, function(message) {
-//                     this._updateStatus(message.data.totalNewNot, message.data.totalNot);
-//               }));
-//             }));
-//             dojo.addOnUnload(function() {
-//                 if (subscriptionNotification != null) {
-//                     encuestame.activity.cometd.unsubscribe(subscriptionNotification);
-//                 }
-//             });
-             this._originalTitle = document.title;
+             this.activity = _ENME.getActivity();
+             console.log("NOTIFICATION", this.activity.cometd);
+             var parent = this;
+
+             var jota = function () {
+                console.log("enviando jota /service/notification/status");
+                parent.activity.cometd.publish('/service/notification/status', { name: 'World' });
+             };
+
+              window.setInterval(jota, 20000);
+
+            //  load from cookie.
+            //  this._count.innerHTML = encuestame.session.activity.cookie().n;
+            //  //loadin notification subscription.
+            //  var subscriptionNotification;
+             dojo.addOnLoad(dojo.hitch(this, function() {
+                  //this.loadStatus();
+                  //this.loadTimer();
+                  dojo.subscribe("/encuestame/notifications/update/status", this, "_updateStatus");
+                  subscriptionNotification  = parent.activity.cometd.subscribe('/service/notification/status',
+                      dojo.hitch(this, function(message) {
+                          this._updateStatus(message.data.totalNewNot, message.data.totalNot);
+                  }));
+              }));
+              dojo.addOnUnload(function() {
+                if (subscriptionNotification !== null) {
+                    parent.activity.cometd.unsubscribe(subscriptionNotification);
+                }
+            });
+            this._originalTitle = document.title;
          },
 
          /*

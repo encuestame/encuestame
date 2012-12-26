@@ -27,6 +27,8 @@ define(["dojo",
     //Define if is initialize.
     var isInitialised = false,
 
+    activity = null,
+
     // to store the default configuration
     _config = {};
 
@@ -552,8 +554,25 @@ define(["dojo",
               selector: "date",
               datePattern: fmt
           });
+    },
+
+    /**
+     * Save the current activity object
+     * @param _activity the activity object
+     * @method  setActivity
+     */
+    setActivity : function(_activity) {
+      activity = _activity;
+    },
+
+    /**
+     * Get the current activity object
+     * @method  getActivity
+     */
+    getActivity : function () {
+       return activity;
     }
-    };
+  };
 });
 
 //	var ENME = (function() {
