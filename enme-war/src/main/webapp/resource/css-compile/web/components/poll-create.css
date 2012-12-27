@@ -1,16 +1,16 @@
 /** poll */
-div.web-poll-wrapper {
+.web-poll-wrapper {
     padding: 10px;
     margin: 0 auto;
     padding: 35px 0;
     width: auto;
 }
 
-div.web-poll-wrapper .web-poll-question {
+.web-poll-wrapper .web-poll-question {
 
 }
 
-div.web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
+.web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
     font-size: 130%;
     padding: 3px;
     width: 610px;
@@ -21,48 +21,67 @@ div.web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
 /*   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6); */
 /*   outline: 0 none; */
 /* } */
-div.web-poll-wrapper .web-poll-question .web-question {
+.web-poll-wrapper .web-poll-question .web-question {
     float: left;
     width: 100px;
 }
 
-div.web-poll-wrapper .web-poll-question-folder {
+.web-poll-wrapper .web-poll-question-folder {
     float: right;
     left: 0;
     margin-right: 35px;
     position: relative;
 }
 
-div.web-poll-wrapper ul.web-poll-answers {
+.web-poll-wrapper ul.web-poll-answers {
 
 }
 
-div.web-poll-wrapper ul.web-poll-answers li {
+.web-poll-wrapper ul.web-poll-answers li {
     list-style: none;
     padding: 5px;
 }
 
-.web-poll-question .web-tweetpoll-section {
-    width: auto;
-    margin: auto 0;
-}
-
-.web-poll-question .web-poll-section {
-  background-color: #F6F6F6;
-  border: 1px solid #E5E5E5;
-  border-radius: 10px 10px 10px 10px;
-  z-index: 5;
-}
-
 .web-poll-question .web-poll-section .space {
   overflow: auto;
-  padding: 10px;
+  padding: 20px 10px;
 }
 
-.web-poll-question .web-poll-section div.web-poll-section-title {
-  border-radius: 10px 10px 0 0;
-  color: #FFFFFF;
-  font-size: 110%;
-  font-weight: bold;
-  padding: 10px;
+.web-poll-wrapper .web-poll-question .web-question .dijitInputField {
+    padding: 0px;
+}
+
+.web-poll-wrapper .web-poll-question .web-question .dijitInputField  > input, .web-poll-answers .dijitInputField  > input{
+    font-size: 13px;
+    padding: 5px;
+}
+
+.web-poll-wrapper .dijitPlaceHolder {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.web-poll-question .web-poll-section .section-option-wrapper .section-default  > div {
+    padding : 5px;
+}
+
+.web-poll-question .web-poll-section .section-option-wrapper .dijitSpinner .dijitSpinnerButtonInner {
+  width: 13px;
+}
+
+.web-poll-question .web-poll-section .section-option-wrapper .section-default .dijitTextBox, .web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
+  border-radius: 0px !important;
+}
+
+.dijitValidationContainer > input {
+    width: 15px;
+}
+
+.repeated-votes .section, .date-to-close .section {
+    padding: 5px 0;
+    margin-top: 1px;
+}
+
+.botton-button-publish {
+  margin-top: 5px;
 }

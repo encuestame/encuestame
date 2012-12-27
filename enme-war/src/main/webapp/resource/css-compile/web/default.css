@@ -483,14 +483,13 @@ div.web-default-menu  li.first {
 }
 
 .enme-text .dijitTextBox .dijitInputField {
-  font-size: 13px;
   padding: 1px 2px;
 }
 
 .enme-text-large .dijitTextBox {
   border-radius: 7px 7px 7px 7px;
   padding: 2px;
-  width: 250px;
+  /*width: 250px;*/
 }
 
 .enme-text-large .dijitTextBox .dijitInputContainer {

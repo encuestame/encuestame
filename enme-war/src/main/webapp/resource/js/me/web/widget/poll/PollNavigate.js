@@ -57,7 +57,6 @@ define([
             detail_manage_published : _ENME.getMessage("detail_manage_published"),
             detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
             detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed"),
-
             detail_manage_poll_title : _ENME.getMessage("detail_manage_poll_title"),
             detail_manage_filters : _ENME.getMessage("detail_manage_filters"),
             detail_manage_filters : _ENME.getMessage("detail_manage_filters"),

@@ -54,7 +54,7 @@ define([
           postCreate : function() {
               //dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
               this._remove.onClick = dojo.hitch(this, function() {
-                  console.info("json service to remove");
+                  _ENME.log("json service to remove");
               });
           },
 
@@ -137,18 +137,18 @@ define([
               this.addRow("Display aditional information", data.poll_bean.is_show_additional_info, dojo.hitch(this, this._updatePollParameters), "additional-info");
               this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
               this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
-              var nodeId = this.id+"_chart";
+              var nodeId = this.id + "_chart";
               dojo.empty(dojo.byId(nodeId));
               //if results are empty it's needed display a "no results" option
               if (data.poll_results.length > 0) {
-            this.widgetChart = this.buildChart({
-             id : nodeId,
-             results : this._convertToChartAnswer(
-                   this._mergeResultsAnswers(
-                       data.poll_list_answers,
-                       data.poll_results))
-             });
-                this.renderChart(this.widgetChart);
+                 this.widgetChart = this.buildChart({
+                 id : nodeId,
+                 results : this._convertToChartAnswer(
+                       this._mergeResultsAnswers(
+                           data.poll_list_answers,
+                           data.poll_results))
+                 });
+                 this.renderChart(this.widgetChart);
               } else {
                 var node = dojo.byId(nodeId),
                 no_results = dojo.create('div');
@@ -211,7 +211,7 @@ define([
           _convertToChartAnswer : function(answers) {
               var array = [];
               dojo.forEach(answers, function(answer) {
-                 array.push([answer.answers, answer.votes == undefined ? 0 : answer.votes , answer.color]);
+                 array.push([answer.answers.substring(0, 8), answer.votes == undefined ? 0 : answer.votes , answer.color]);
               });
               return array;
           }

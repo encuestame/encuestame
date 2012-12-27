@@ -697,6 +697,18 @@ div.web-dashboard-create div.web-dashboard-create-actions {
 
 }
 
+li.over {
+    border: 2px dashed #000;
+}
+
+.me_opa {
+    opacity: 0.5
+}
+
+.all_opa {
+    opacity: 1
+}
+
 .single-response .single-response-handle {
     float: left;
     margin-right: 10px;

@@ -40,15 +40,6 @@
             </div>
         </c:if>
         <tiles:insertAttribute name="content" />
-            <c:if test="${logged}">
-            <!--
-               <div dojoType="encuestame.org.core.shared.utils.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
-                     messageTopic="/encuestame/message/publish"
-                     positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
-                     id="toasted_message">
-              </div>
-            -->
-                    </c:if>
       </div>
       <footer id="footer">
         <tiles:insertAttribute name="footer" />

@@ -634,24 +634,24 @@ public class PollService extends AbstractSurveyService implements IPollService{
         return poll;
     }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.core.service.imp.IPollService#getPollByAnswerId(java.lang
-	 * .Long, java.lang.Long,
-	 * org.encuestame.persistence.domain.security.UserAccount)
-	 */
-	public Poll getPollByAnswerId(final Long pollId, final Long answerId,
-			final UserAccount account) throws EnMeNoResultsFoundException {
-		final Poll poll = this.getPollById(pollId);
-		QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(
-				poll.getQuestion(), answerId);
-		if (qA == null) {
-			throw new EnMeNoResultsFoundException("Answer not found");
-		}
-		return poll;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.IPollService#getPollByAnswerId(java.lang
+     * .Long, java.lang.Long,
+     * org.encuestame.persistence.domain.security.UserAccount)
+     */
+    public Poll getPollByAnswerId(final Long pollId, final Long answerId,
+            final UserAccount account) throws EnMeNoResultsFoundException {
+        final Poll poll = this.getPollById(pollId);
+        QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(
+                poll.getQuestion(), answerId);
+        if (qA == null) {
+            throw new EnMeNoResultsFoundException("Answer not found");
+        }
+        return poll;
+    }
 
     /**
      * Retrieve a {@link Poll} based on id.
@@ -834,7 +834,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         log.debug("poll getResultVotes " + poll);
         final List<PollBeanResult> results = new ArrayList<PollBeanResult>();
         final List<Object[]> list = getPollDao().retrieveResultPolls(poll.getPollId(), poll.getQuestion().getQid());
-        //log.debug("retrieveResultPolls==> "+list.size());
+        log.debug("retrieveResultPolls==> "+list.size());
         for (Object[] objects : list) {
             final Long answerId = objects[0] == null ? null : Long.valueOf(objects[0].toString());
             final String answerString = objects[1] == null ? null : objects[1].toString();

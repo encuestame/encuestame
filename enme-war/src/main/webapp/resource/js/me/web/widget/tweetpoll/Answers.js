@@ -201,9 +201,10 @@ define([
                      "shortUrl" : encuestame.shortUrlProvider[1].code
                 };
                 //console.debug("params", params);
+                var parent = this;
                 var load = dojo.hitch(this, function(data) {
                     //console.debug(data);
-                    this.loading_hide();
+                    parent.loading_hide();
                     var items = [];
                     var answerWidget = new AnswerItem({
                         answer :{

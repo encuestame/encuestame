@@ -15,6 +15,13 @@
     user-select: none;
 }
 
+.enme-dnd [draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 a.point {
   cursor: pointer;
   text-decoration: none;

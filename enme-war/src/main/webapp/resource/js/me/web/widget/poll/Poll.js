@@ -1,5 +1,29 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module Poll
+ *  @namespace Widget
+ *  @class Poll
+ */
 define([
          "dojo/_base/declare",
+         "dojo/dom-attr",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -23,6 +47,7 @@ define([
          "dojo/text!me/web/widget/poll/templates/poll.html" ],
         function(
                 declare,
+                domAttr,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -112,6 +137,7 @@ define([
            *
            */
           postCreate : function() {
+              var parent = this;
               this._folderWidget = new FolderSelect({folderContext : "poll"});
               this._questionWidget = new Question(
                       {
@@ -123,12 +149,90 @@ define([
               if (this._folder) {
                   this._folder.appendChild(this._folderWidget.domNode);
               }
-              this.enableDndSupport(this._source, true);
               //add default answers.
+              var dnd_sources = [];
               for (var i= 0; i <= this._default_answers; i++) {
-                   var li = this._newAnswer({ dndEnabled : true});
+                   var li = this._newAnswer({ dndEnabled : false});
                    this.addItem(li);
+                   if (parent.isDnD) {
+                       dnd_sources.push(li);
+                   }
               }
+
+              if (parent.isDnD) {
+                  var dragSrcEl = null;
+                  this.enableDnDSupport(dnd_sources,
+                    {
+                      dragstart : function (e) {
+                        var node = this;
+                        //this.style.opacity = '0.4';
+                        dojo.addClass(this, "me_opa");
+                        dragSrcEl = this;
+                        console.log("iniciando drag", dragSrcEl);
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('poll-answer', domAttr.get(node, 'd-id'));
+                      },
+                      dragenter : function (e) {
+                        // this / e.target is the current hover target.
+                        var node = this;
+                        //console.log('drag dragenter', node, e.target);
+                        this.classList.add('over');
+                      },
+                      dragover : function (e) {
+                        if (e.preventDefault) {
+                            e.preventDefault(); // Necessary. Allows us to drop.
+                        }
+                        e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+                        return false;
+                      },
+                      dragleave : function (e) {
+                        var node = this;
+                        //console.log('drag dragleave', node, e.target);
+                       this.classList.remove('over');  // this / e.target is previous target element.
+                      },
+                      drop : function (e) {
+                        var node = this;
+                        //dragSrcEl = this.innerHTML;
+                        var origin_id  = e.dataTransfer.getData('poll-answer');
+                        var target_id = domAttr.get(node, 'd-id');
+                        var _w = registry.byId(origin_id);
+                        var _w_t = registry.byId(target_id);
+                        //var idelt = ev.dataTransfer.getData("poll-answer");
+                        console.log('DROPEDDD', _w.domNode, _w_t.domNode);
+                        console.log("this target node", node);
+                        console.log("this source node", dragSrcEl);
+                        node.appendChild(_w.domNode);
+                        domAttr.set(node, 'd-id', _w.id);
+                        dragSrcEl.appendChild(_w_t.domNode);
+                        domAttr.set(dragSrcEl, 'd-id', _w_t.id);
+                        //ev.target.appendChild(document.getElementById(idelt));
+                        // return false so the event will not be propagated to the browser
+                        // this / e.target is current target element.
+                        if (e.stopPropagation) {
+                          e.stopPropagation(); // stops the browser from redirecting.
+                        }
+                        e.dataTransfer.clearData("poll-answer");
+                        // See the section on the DataTransfer object.
+                        return false;
+                      },
+                      dragend : function (e) {
+                        var node = this;
+                        //this.style.opacity = '1';
+                        console.log('DROP ENDDDD', node);
+                         [].forEach.call(dnd_sources, function (col) {
+                            //console.info("---> col ",col);
+                            //col.classList.remove('over');
+                            dojo.removeClass(col, "me_opa");
+                            //this.style.opacity = '1';
+                         });
+
+                      }
+                    });
+              } else {
+                //TODO: remove icons to drag
+              }
+
+
               // trigger the validate poll or publish and create
               dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
               // trigger the add new answer
@@ -138,6 +242,14 @@ define([
               dojo.connect(this._cancel, "onclick", dojo.hitch(this, function() {
                 window.location.href = _ENME.config('contextPath') + "/user/poll/list";
               }));
+          },
+
+          /**
+           *
+           * @method
+           */
+          addItem : function (node) {
+            this._source.appendChild(node);
           },
 
           /**
@@ -157,9 +269,12 @@ define([
            */
           _newAnswer : function(params){
               params = params == null ? {} : params;
-              var li = dojo.create("li");
-              dojo.addClass(li, "dojoDndItem");
               var answer = new SingleResponse(params);
+              var li = dojo.create("li");
+              //dojo.addClass(li, "dojoDndItem");
+              //draggable="true"
+              domAttr.set(li, 'draggable', true);
+              domAttr.set(li, 'd-id', answer.id);
               this._answer_widget_array.push(answer);
               li.appendChild(answer.domNode);
               //console.info("_newAnswer", li);

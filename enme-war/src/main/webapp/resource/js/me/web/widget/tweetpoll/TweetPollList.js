@@ -377,6 +377,7 @@ define([
                   parent._loading.hide();
                   parent.errorMessage(error);
               };
+
               //
               this._loading.show(this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING);
               this.getURLService().get(this.url, params, load, error , dojo.hitch(this, function() {
