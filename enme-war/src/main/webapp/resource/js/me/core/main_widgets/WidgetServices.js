@@ -103,7 +103,6 @@ define([ "dojo/_base/declare",
        * @method successMesage
        */
       successMesage : function(message, description) {
-          //console.info("Successfull message");
         _ENME.success(message, description);
       },
 
@@ -120,7 +119,7 @@ define([ "dojo/_base/declare",
        * @method errorMessage
        */
       errorMessage : function(message, description) {
-        _ENME.success(message, description);
+        _ENME.error(message, description);
       },
 
      /**

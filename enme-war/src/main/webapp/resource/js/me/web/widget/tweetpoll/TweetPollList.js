@@ -371,8 +371,11 @@ define([
                   }
               );
               // error handlers
+              var parent = this;
               var error = function(error) {
-                  console.error("error", error);
+                  _ENME.log("TweetPollList error : ", error);
+                  parent._loading.hide();
+                  parent.errorMessage(error);
               };
               //
               this._loading.show(this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING);

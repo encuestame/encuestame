@@ -312,6 +312,7 @@ and (orientation : portrait) {
 
     #content-container #enme-content {
         min-height: 100%;
+        position: relative;
     }
 
     #content-container #enme-content a:link {
