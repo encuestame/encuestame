@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module SignUp
+ *  @namespace Widgets
+ *  @class AbstractValidator
+ */
 define([
      "dojo/_base/declare",
      "me/core/enme"],
@@ -7,45 +30,44 @@ define([
 
   return declare(null, {
 
-   /*
-    *
-    */
-    templatePath : null,
-
     /*
      *
      */
     noEvents : false,
 
     /*
-     *
+     * Define if has the focus on load
      */
     focusDefault : false,
 
-    /*
-     *
+    /**
+     * Default enviroment to validate.
+     * @property
      */
     enviroment : "external",
 
-    /*
+    /**
      *
+     * @property
      */
     isValid : false,
 
-    /*
+    /**
      *
+     * @property inputTextValue
      */
     inputTextValue : "",
 
     /*
-     *
+     * @deprecated
      */
     toolTip : true,
 
-    /*
-     *
+    /**
+     * HTML5 Input placegolder
+     * @property placeholder
      */
-    placeholder:"",
+    placeholder: "",
 
     /**
      * Post create
@@ -76,6 +98,11 @@ define([
                 this._validate(event);
             }));
         }
+        // insert placeholder support for browsers that not support this feature
+        // http://caniuse.com/#search=placeholder
+        if( !Modernizr.input.placeholder) {
+            //FUTURE: NON HTML5 placeholder
+        }
     },
 
     /**
@@ -89,11 +116,11 @@ define([
      *
      */
     recheck : function(data) {
-         this._loadService(
-                   this.getServiceUrl(), {
-                   context : this.enviroment,
-                   data : this.inputTextValue
-               }, this.error);
+        var params = {
+            context : this.enviroment
+        };
+        params[data] = this.inputTextValue;
+         this._loadService( this.getServiceUrl(), params, this.error);
     },
 
     /**

@@ -98,7 +98,6 @@ define(["dojo",
              * @method _metaHandshake
              */
             var _metaHandshake = function(handshake) {
-                console.warn("_metaHandshake =====", handshake);
                 if (handshake.successful === true) {
                     parent.clientId = handshake.clientId;
                     cometd.batch(function() {

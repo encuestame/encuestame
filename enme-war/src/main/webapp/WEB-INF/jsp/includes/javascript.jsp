@@ -37,7 +37,6 @@ require([
     'me/activity/Activity',
     "me/core/enme",
 ], function(declare, parser, ready, Activity, _ENME) {
-    console.log("Initialize the ENME");
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
         _ENME.init({
@@ -45,6 +44,7 @@ require([
             domain : '<%=WidgetUtil.getDomain(request)%>',
             suggest_limit : 10,
             delay : 1800000,
+            debug : <%=EnMePlaceHolderConfigurer.getProperty("application.debug.mode")%>,
             message_delay : 5000,
             activity : {
                 url : "<%=WidgetUtil.getDomain(request)%>/activity",

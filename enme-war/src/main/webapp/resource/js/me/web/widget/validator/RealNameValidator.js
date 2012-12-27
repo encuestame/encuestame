@@ -41,7 +41,7 @@ define([
         /**
          *
          */
-        _validate : function(event){
+        _validate : function(event) {
             this.inputTextValue = this._input.value;
                 this._loadService(
             this.getServiceUrl(), {

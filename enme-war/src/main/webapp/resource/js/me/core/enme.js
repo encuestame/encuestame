@@ -179,7 +179,7 @@ define(["dojo",
        *
        */
       log : function(obj) {
-        if (typeof console != "undefined" && console.log ) { //TODO: Add verbose condition.
+        if (typeof console != "undefined" && console.log && this.config('debug')) { //TODO: Add verbose condition.
           log(obj);
         }
       },
