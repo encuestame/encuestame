@@ -99,12 +99,12 @@ define([
 
                 // provide an update on progress:
                 deferred.progress(function(e){
-                    console.log('progress', e);
+                    _ENME.log('progress', e);
                 });
 
                 // when the process finishes:
                 deferred.resolve(function(e){
-                    console.log('resolve', e);
+                    _ENME.log('resolve', e);
                 });
 
                 // performing "callbacks" with the process:

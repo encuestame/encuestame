@@ -1,4 +1,4 @@
-require(["dojo", "dojo/request/notify"], function(dojo, notify) {
+require(["dojo", "dojo/request/notify", "me/core/enme"], function(dojo, notify, _ENME) {
 
   notify("start", function(){
     // Do something when the request queue has started
@@ -368,7 +368,7 @@ define(
            } else if (lang.isArray(url) && url.length === 1) {
                _service_url = _services.service(url[0]);
            }
-           console.log("url to call -->", _service_url);
+           _ENME.log("url to call -->", _service_url);
            if (_service_url !== null ) {
                 // make the request
                 request(_service_url, _params).then(_load, _error,

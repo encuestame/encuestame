@@ -184,17 +184,17 @@ encuestame.utilities.HIDDEN_CLASS = "hidden";
 /*
  * create a username profile link.
  */
-encuestame.utilities.usernameLink = function(username) {
-    var url = encuestame.contextDefault;
-    if (username) {
-        url = url.concat("/profile/");
-        url = url.concat(username);
-        return url;
-    } else {
-        url = url.concat("/404");
-        return url;
-    }
-};
+// encuestame.utilities.usernameLink = function(username) {
+//     var url = encuestame.contextDefault;
+//     if (username) {
+//         url = url.concat("/profile/");
+//         url = url.concat(username);
+//         return url;
+//     } else {
+//         url = url.concat("/404");
+//         return url;
+//     }
+// };
 
 /**
  * Create a no results message node.
