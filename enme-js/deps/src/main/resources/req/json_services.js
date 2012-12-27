@@ -399,22 +399,22 @@ encuestame.notification = {};
 encuestame.notification.load = {};
 encuestame.notification.load.limit = 100;
 
-encuestame.notification.buildURLDescription = function(type, description, url) {
-    var multi = dojo.doc.createElement("div");
-    var a = dojo.doc.createElement("a");
-    a.target = "_blank";
-    if (type == "TWEETPOLL_PUBLISHED") {
-        multi.innerHTML = description+ "<br/> ";
-        a.href = encuestame.contextDefault + url;
-        a.innerHTML = "See details here.";
-    } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
-        multi.innerHTML = "";
-        a.href = url;
-        a.innerHTML = description;
-    }
-    multi.appendChild(a);
-    return multi;
-};
+// encuestame.notification.buildURLDescription = function(type, description, url) {
+//     var multi = dojo.doc.createElement("div");
+//     var a = dojo.doc.createElement("a");
+//     a.target = "_blank";
+//     if (type == "TWEETPOLL_PUBLISHED") {
+//         multi.innerHTML = description+ "<br/> ";
+//         a.href = encuestame.contextDefault + url;
+//         a.innerHTML = "See details here.";
+//     } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
+//         multi.innerHTML = "";
+//         a.href = url;
+//         a.innerHTML = description;
+//     }
+//     multi.appendChild(a);
+//     return multi;
+// };
 
 encuestame.session.activity = {};
 

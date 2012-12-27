@@ -65,17 +65,3 @@ define([
 
   });
 });
-
-//
-//dojo.declare(
-//        "encuestame.org.core.commons.social.LinksPublishedItem",
-//        [encuestame.org.main.EnmeMainLayoutWidget],{
-//
-//        	/**
-//        	 * Template.
-//        	 */
-//            templatePath: dojo.moduleUrl("encuestame.org.core.commons.social", "templates/linksPublishedItem.html"),
-//
-
-//
-//});

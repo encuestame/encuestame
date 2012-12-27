@@ -25,6 +25,7 @@
 define([
          "dojo",
          'dojo/_base/json',
+         "dojo/dom-construct",
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -36,6 +37,7 @@ define([
         function(
                 dojo,
                 json,
+                domConstruct,
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
@@ -74,7 +76,7 @@ define([
          *
          * @property _limit
          */
-        _limit :  _ENME.config('activity').limit,
+        _limit :  600,
 
         /**
          *
@@ -138,9 +140,14 @@ define([
              var section = dojo.doc.createElement("div");
              dojo.addClass(section, "section");
 
-             var title = dojo.doc.createElement("h3");
-             title.innerHTML = name;
+             var title = domConstruct.create("div"),
+             inner_title = domConstruct.create("span");
+             dojo.addClass(title, 'web-sub-tittle');
+             dojo.addClass(title, 'web-b-top-bottom');
+             dojo.addClass(title, 'web-bottomborder');
+             inner_title.innerHTML = name;
              //add title
+             title.appendChild(inner_title);
              section.appendChild(title);
              //add content
              section.appendChild(content);
@@ -167,7 +174,7 @@ define([
          */
         _showListCategories : function() {
             var today = this.arrayNotifications.TODAY;
-            var items = dojo.doc.createElement("div");
+            var items = dojo.doc.createElement("ul");
             if (today.length > 0) {
                 dojo.forEach(today,
                         dojo.hitch(this, function(item, index) {

@@ -64,15 +64,48 @@ define([
          */
         category : null,
 
+
+        formatDate : "",
+
+
+        /**
+         *
+         * @method buildURLDescription
+         */
+        buildURLDescription : function(type, description, url) {
+            var multi = dojo.doc.createElement("div");
+            var a = dojo.doc.createElement("a");
+            a.target = "_blank";
+            if (type == "TWEETPOLL_PUBLISHED") {
+                multi.innerHTML = description+ " ";
+                a.href = _ENME.config('contextPath') + url;
+                a.innerHTML = "see detail";
+            } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
+                multi.innerHTML = "";
+                a.href = url;
+                a.innerHTML = description;
+            }
+            multi.appendChild(a);
+            return multi;
+        },
+
+        /**
+         *
+         * @method
+         */
+        postMixInProperties : function () {
+            //console.log("juan", this.item);
+             var _time = this.item.date + this.item.hour;
+            this.formatDate = _ENME.fromNow(_time, "YYYY-MM-DD");
+        },
+
         /**
          *
          * @method
          */
         postCreate : function() {
             if (this.item.url != null) {
-                this._description
-                .appendChild(encuestame.notification
-                .buildURLDescription(
+                this._description.appendChild(this.buildURLDescription(
                         this.item.type,
                         this.item.additionalDescription,
                         this.item.url));

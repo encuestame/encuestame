@@ -15,6 +15,22 @@
     user-select: none;
 }
 
+.web-sub-tittle {
+  background-color: white;
+  border: 1px solid #CCC;
+}
+
+.web-b-white-box {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.web-bottomborder {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
 .clearfix {
     display: inline-block;
 }
