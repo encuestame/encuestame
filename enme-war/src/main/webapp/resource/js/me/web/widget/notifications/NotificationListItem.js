@@ -118,8 +118,9 @@ define([
          * remove notification.
          * @method _removeNotification
          */
-        _remove : function(event) {
+        _remove : function(e) {
             //TODO: display dialog.
+            e.stopPropagation();
             this._removeNotification();
         },
 
@@ -128,10 +129,12 @@ define([
          * @method _removeNotification
          */
         _removeNotification : function() {
-            var load = dojo.hitch(this, function(data) {
+            var parent = this,
+            load = dojo.hitch(this, function(data) {
                  dojo.destroy(this.domNode);
-             });
-             var error = function(error) {
+                 dojo.publish('/notifications/service/update');
+             }),
+            error = function(error) {
                  console.debug("error", error);
              };
              var params = {

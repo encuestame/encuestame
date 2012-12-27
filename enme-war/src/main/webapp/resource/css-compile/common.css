@@ -15,6 +15,11 @@
     user-select: none;
 }
 
+a.point {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .web-sub-tittle {
   background-color: white;
   border: 1px solid #CCC;

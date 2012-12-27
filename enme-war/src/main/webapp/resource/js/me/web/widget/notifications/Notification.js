@@ -121,6 +121,10 @@ define([
             window.setInterval(_timer, this.delay || 20000);
 
             dojo.subscribe("/notifications/service/messages", this, "_updateStatus");
+            dojo.subscribe("/notifications/service/update", this, function() {
+                console.log("dskald;ksal;dksal;kdlaskl;dsaldsa");
+                _timer();
+            });
 
             dojo.addOnUnload(function() {
                 if (subscriptionNotification !== null) {

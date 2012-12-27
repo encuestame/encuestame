@@ -11,6 +11,7 @@
 .web-notification-list .list a:link, .web-notification-list .list a:visited {
     color: #4A52AC;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .web-notification-list .list .web-sub-tittle {
