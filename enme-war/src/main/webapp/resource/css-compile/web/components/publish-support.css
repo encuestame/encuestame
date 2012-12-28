@@ -80,14 +80,14 @@ div.web-publish-support .footer-section {
     background-color: #F4F4F4;
     border-top: 2px solid #D7D7D7;
     min-height: 40px;
-    padding: 20px 50px 0px 10px;
+    padding: 15px 10px 0px 10px;
     text-align: right;
     width: auto;
 }
 
 div.web-publish-support div.web-support-panel-item-title {
     background-color: #F2F2F2;
-    border-bottom: 1px dotted #DEDEDE;
+    border-bottom: 1px dotted #979797;
     color: #7D7D7D;
     cursor: pointer;
     font-size: 115%;
@@ -98,7 +98,7 @@ div.web-publish-support div.web-support-panel-item-title {
 
 div.web-publish-support div.web-support-panel-item-content {
     min-height: 150px !important;
-    padding: 5px;
+    padding: 0px;
 }
 
 div.web-support-embebed {
@@ -129,3 +129,55 @@ div.web-support-embebed textarea {
     padding: 6px;
     width: 520px;
 }
+
+/** social status support */
+
+.web-support-panel-item .tweetPollPublishDialog  .item .detail{
+    margin-left: 5px;
+}
+
+.web-support-panel-item .web-support-panel-item-content {
+
+}
+
+.web-support-panel-item .social-account-wrapper {
+
+}
+
+.web-support-panel-item .social-account-wrapper .selected{
+    background-color: #FDDF63;
+    color: #F58A16;
+}
+
+.web-support-panel-item .social-account-wrapper .publish-counter{
+    padding: 5px;
+    text-align: right;
+    font-weight: bold;
+    background-color: #888;
+    color: white;
+}
+
+.web-support-panel-item  .publish-social-button {
+    padding: 5px 20px;
+    text-align: right;
+}
+
+.web-support-panel-item .web-support-panel-item-content .web-social-filter-item {
+    overflow: auto;
+    padding: 5px;
+    border-bottom: 1px solid lightGrey;
+    cursor: pointer;
+}
+
+.web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-image {
+    float: left;
+    padding: 5px;
+}
+
+.web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-name {
+    line-height: 30px;
+    margin-left: 40px;
+}
+
+
+

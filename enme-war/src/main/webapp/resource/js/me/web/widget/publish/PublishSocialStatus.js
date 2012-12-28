@@ -19,7 +19,7 @@
  *  @version 1.146
  *  @module TweetPoll
  *  @namespace Widgets
- *  @class TweetPollPublishInfo
+ *  @class PublishSocialStatus
  */
 define([
          "dojo/_base/declare",
@@ -30,7 +30,7 @@ define([
          "me/web/widget/tweetpoll/TweetPollPublishItemStatus",
          "me/core/enme",
          "dijit/registry",
-         "dojo/text!me/web/widget/tweetpoll/templates/tweetpollPublish.html" ],
+         "dojo/text!me/web/widget/publish/templates/publish_social_status.html" ],
         function(
                 declare,
                 _WidgetBase,
@@ -49,7 +49,13 @@ define([
           /**
            * The list of social accounts.
            */
-          _socialAccounts : [],
+          socialPublish : [],
+
+          /**
+           *
+           * @property
+           */
+          socialAccounts : [],
 
           /**
            * i18N Message.
@@ -72,26 +78,18 @@ define([
            * Post create.
            */
           postCreate : function() {
-              var button = registry.byId(this._close);
-                  button.onClick = dojo.hitch(this, function(event) {
-                     dojo.publish("/encuestame/dialog/close");
-                     document.location.href = _ENME.config("contextPath") + "/user/tweetpoll/list";
-              });
-          },
-
-          /**
-           * set social account array.
-           */
-          setListOfSocialAccounts : function(accounts) {
-              this._socialAccounts = accounts;
-          },
-
-          /**
-           * initialize widget.
-           */
-          initialize : function() {
-              this._inProcess = true;
-              this._showProcessingMessage();
+              if (this.socialPublish) {
+                  dojo.forEach(this.socialPublish,
+                          dojo.hitch(this,function(tweet) {
+                              var row = this._buildTweetProcessView(tweet);
+                              if (row) {
+                                  this._container.appendChild(row);
+                              }
+                 }));
+                 //dojo.removeClass(this._closeWrapper, "hidden");
+              } else {
+                  this.errorMesage("data tweet process is empty");
+              }
           },
 
           /**
@@ -121,21 +119,7 @@ define([
            * @param socialPublish
            */
           process: function(socialPublish) {
-              if (socialPublish) {
-                  this._hideProcessingMessage();
-                  dojo.empty(this._container);
-                  dojo.empty(this._message);
-                  dojo.forEach(socialPublish,
-                          dojo.hitch(this,function(tweet) {
-                              var row = this._buildTweetProcessView(tweet);
-                              if (row) {
-                                  this._container.appendChild(row);
-                              }
-                 }));
-                 dojo.removeClass(this._closeWrapper, "hidden");
-              } else {
-                  this.errorMesage("data tweet process is empty");
-              }
+
           },
 
           /**
@@ -144,7 +128,7 @@ define([
           _getSocialAccountWidget : function(id) {
               //this._socialAccounts
               var selected = null;
-              dojo.forEach(this._socialAccounts,
+              dojo.forEach(this.socialAccounts,
                       dojo.hitch(this,function(account) {
                           if (account.id == id) {
                               selected = account;
@@ -166,7 +150,7 @@ define([
           _createStatusTweet : function(data){
               var widget = new TweetPollPublishItemStatus(
                       {
-                          data:data,
+                          data : data,
                           socialAccount : this._getSocialAccountWidget(data.social_account_id)
                       });
               return widget.domNode;

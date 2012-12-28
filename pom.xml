@@ -88,7 +88,7 @@
         <!-- Site Path -->
         <apache>file:///var/www/encuestame</apache>
         <!-- Jetty -->
-        <jetty.default.port>8084</jetty.default.port>
+        <jetty.default.port>8080</jetty.default.port>
         <jetty.default.ssl.port>8443</jetty.default.ssl.port>
         <!-- -->
         <taglibs.version>1.1.2</taglibs.version>

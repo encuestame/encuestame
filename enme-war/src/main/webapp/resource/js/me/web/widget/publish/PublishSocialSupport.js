@@ -1,26 +1,30 @@
 define([
          "dojo/_base/declare",
          "dojo/Deferred",
+         "dojo/dom-construct",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "me/web/widget/ui/MessageSearch",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/support/ContextSupport",
          "me/web/widget/support/SocialFilterMenuItem",
-         "me/web/widget/social/SocialAccountPicker",
+         "me/web/widget/publish/PublishSocialStatus",
          "me/web/widget/social/SocialAccountsSupport",
          "me/core/enme",
          "dojo/text!me/web/widget/publish/templates/socialPublishSupport.html" ],
         function(
                 declare,
                 Deferred,
+                domConstruct,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                MessageSearch,
                 main_widget,
                 ContextSupport,
                 SocialFilterMenuItem,
-                SocialAccountPicker,
+                PublishSocialStatus,
                 SocialAccountsSupport,
                 _ENME,
                  template) {
@@ -51,19 +55,25 @@ define([
           */
          i18nMessage : {
            social_picker_filter_selected : _ENME.getMessage("social_picker_filter_selected"),
-           commons_filter : _ENME.getMessage("commons_filter")
+           commons_filter : _ENME.getMessage("commons_filter"),
+           counter_zero : _ENME.getMessage("counter_zero"),
+           loading_message : _ENME.getMessage("loading_message"),
+           publish_social : _ENME.getMessage("publish_social")
          },
 
         /**
          *
          */
          postCreate : function() {
+             this._loading = new MessageSearch();
+             domConstruct.place(this._loading.domNode, this._custom_loading);
+             dojo.subscribe("/encuestame/social/picker/counter/reload", this, "_reloadCounter");
              this._loadSocialConfirmedAccounts();
              dojo.connect(this._button, "onclick", dojo.hitch(this, function(event) {
                 if(this.getSocialAccounts().length > 0) {
                     this.publish();
                 } else {
-                    console.info("eeror social count");
+                    _ENME.log("error social count");
                 }
              }));
          },
@@ -73,17 +83,30 @@ define([
           * @method
           */
          publish : function() {
-               console.log('publish polll', this.getSocialAccounts());
+               var parent = this;
                var load = dojo.hitch(this, function(data) {
-                   console.info("social publish", data);
+                    _ENME.log("social publish", data);
+                    if( 'success' in data) {
+                       var widget = new PublishSocialStatus({
+                            socialAccounts : this.getSocialCompleteAccounts(),
+                            socialPublish : data.success.socialPublish
+                       });
+                       dojo.removeClass(this._social_status, "hidden");
+                       this._social_status.appendChild(widget.domNode);
+                       parent._loading.hide();
+                    }
                });
                var error = function(error) {
                    console.error("error", error);
                };
+               dojo.addClass(this._social_accounts_wrapper, "hidden");
+               this._loading.show(this.i18nMessage.loading_message, _ENME.MESSAGES_TYPE.WARNING);
                this.getURLService().post('encuestame.poll.publish.social', {
                     id : this.itemId,
                     "twitterAccounts" : this.getSocialAccounts()
-               }, load, error , dojo.hitch(this, function() {}));
+               }, load, error , dojo.hitch(this, function() {
+
+               }));
            },
 
          /**
@@ -92,9 +115,9 @@ define([
          _reloadCounter : function() {
              var counter = this._countSelected();
              this._counter.innerHTML =  counter + " " + this.i18nMessage.social_picker_filter_selected;
-             if (typeof this.arrayAccounts === 'object') {
-                this.storeSelected(this.arrayAccounts);
-             }
+             // if (typeof this.arrayAccounts === 'object') {
+             //    this.storeSelected(this.arrayAccounts);
+             // }
          },
 
          /**
