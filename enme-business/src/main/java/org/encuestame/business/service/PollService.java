@@ -81,11 +81,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
-        log.debug("filterPollByItemsByType");
-        log.debug("--> "+typeSearch);
-        log.debug("--> "+keyword);
-        log.debug("--> "+max);
-        log.debug("--> "+start);
+        log.trace("filterPollByItemsByType");
+        log.trace("--> "+typeSearch);
+        log.trace("--> "+keyword);
+        log.trace("--> "+max);
+        log.trace("--> "+start);
         final List<PollBean> list = new ArrayList<PollBean>();
         if (TypeSearch.KEYWORD.equals(typeSearch)) {
             list.addAll(this.searchPollByKeyword(keyword, max, start));
@@ -149,9 +149,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
             else{
             //TODO: move hash to util.
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
-            log.debug("OPTION SHOW COMMENTS GETTED BEFORE---> " +commentOption);
+            log.trace("OPTION SHOW COMMENTS GETTED BEFORE---> " +commentOption);
             final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
-            log.debug("OPTION SHOW COMMENTS GETTED ENUM---> " +commentOpt);
+            log.trace("OPTION SHOW COMMENTS GETTED ENUM---> " +commentOpt);
             pollDomain.setEditorOwner(user);
             pollDomain.setCreatedAt(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);

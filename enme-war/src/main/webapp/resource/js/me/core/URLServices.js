@@ -173,6 +173,7 @@ define(
         "encuestame.service.list.changeStatusNotification" : _appendContext("api/notifications/readed.json"),
         "encuestame.service.list.removeNotification" : _appendContext("api/remove-notification.json"),
         "encuestame.service.list.userInfo" : _appendContext("api/admon/user-info.json"),
+        "encuestame.poll.publish.social" : _appendContext("/api/survey/poll/social/publish.json"),
         "encuestame.service.list.createUser" : _appendContext("api/admon/create-user.json"),
         "encuestame.service.list.profile.my" : _appendContext("api/settings/profile/my.json"),
         "encuestame.service.list.upgradeProfile" : _appendContext("api/user/profile/upgrade.json"),

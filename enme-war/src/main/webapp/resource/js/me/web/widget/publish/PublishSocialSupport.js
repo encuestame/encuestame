@@ -6,7 +6,9 @@ define([
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/support/ContextSupport",
+         "me/web/widget/support/SocialFilterMenuItem",
          "me/web/widget/social/SocialAccountPicker",
+         "me/web/widget/social/SocialAccountsSupport",
          "me/core/enme",
          "dojo/text!me/web/widget/publish/templates/socialPublishSupport.html" ],
         function(
@@ -17,10 +19,12 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 ContextSupport,
+                SocialFilterMenuItem,
                 SocialAccountPicker,
+                SocialAccountsSupport,
                 _ENME,
                  template) {
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, _WidgetsInTemplateMixin], {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, ContextSupport, SocialAccountsSupport, _WidgetsInTemplateMixin], {
 
          /*
           * template string.
@@ -42,87 +46,65 @@ define([
          */
         _socialWidget : null,
 
+         /**
+          * i18n message for this widget.
+          */
+         i18nMessage : {
+           social_picker_filter_selected : _ENME.getMessage("social_picker_filter_selected"),
+           commons_filter : _ENME.getMessage("commons_filter")
+         },
+
         /**
          *
          */
          postCreate : function() {
-             this._socialWidget = new SocialAccountPicker(
-                  {
-                      checkRequiredSocialAccounts : true,
-                      enableEasyAddAccount : true
-                  }
-             );
+             this._loadSocialConfirmedAccounts();
+             dojo.connect(this._button, "onclick", dojo.hitch(this, function(event) {
+                if(this.getSocialAccounts().length > 0) {
+                    this.publish();
+                } else {
+                    console.info("eeror social count");
+                }
+             }));
+         },
+
+         /**
+          *
+          * @method
+          */
+         publish : function() {
+               console.log('publish polll', this.getSocialAccounts());
+               var load = dojo.hitch(this, function(data) {
+                   console.info("social publish", data);
+               });
+               var error = function(error) {
+                   console.error("error", error);
+               };
+               this.getURLService().post('encuestame.poll.publish.social', {
+                    id : this.itemId,
+                    "twitterAccounts" : this.getSocialAccounts()
+               }, load, error , dojo.hitch(this, function() {}));
+           },
+
+         /**
+          * reload counter
+          */
+         _reloadCounter : function() {
+             var counter = this._countSelected();
+             this._counter.innerHTML =  counter + " " + this.i18nMessage.social_picker_filter_selected;
+             if (typeof this.arrayAccounts === 'object') {
+                this.storeSelected(this.arrayAccounts);
+             }
+         },
+
+         /**
+          * Create a pick social account.
+          * @param data
+          */
+         createPickSocialAccount : function(data) {
+             var widget = new SocialFilterMenuItem({data : data, account : data});
+             this._social.appendChild(widget.domNode);
+             this.arrayWidgetAccounts.push(widget);
          }
     });
 });
-
-//
-//
-//dojo.declare(
-//        "encuestame.org.core.shared.publish.PublishSocialSupport",
-//        [dijit._Widget, dijit._Templated,
-//         encuestame.org.core.shared.utils.ContextSupport],{
-//
-//        templatePath : dojo.moduleUrl("encuestame.org.core.shared.publish", "templates/socialPublishSupport.html"),
-//
-
-//
-//});
-//
-//dojo.declare(
-//        "encuestame.org.core.shared.publish.PublishEmbebedSupport",
-//        [dijit._Widget, dijit._Templated,
-//         encuestame.org.core.shared.utils.ContextSupport],{
-//
-//        templatePath : dojo.moduleUrl("encuestame.org.core.shared.publish", "templates/embebedSupport.html"),
-//
-//        widgetsInTemplate: true,
-//
-//        itemId : null,
-//
-//        name : null,
-//
-//        _domain : null,
-//
-//        _pollPath : "/poll/",
-//
-//        postMixInProperties: function(){
-//            this._domain = ENME.config('domain');
-//        },
-//
-//        postCreate : function(){
-//            this._buildJavascriptEmbebed();
-//        },
-//
-//        _buildJsUrl : function(){
-//            return this._domain+this._pollPath+this.itemId+".js";
-//        },
-//
-//        _buildUrl : function(){
-//            return this._domain+this._pollPath+this.itemId+"/";
-//        },
-//
-//        /*
-//         * <script type="text/javascript" charset="utf-8" src="http://demo.encuestame.org/poll/5439680.js"></script>
-//         * <noscript><a href="http://demo.encuestame.org/poll/5439680/">My New Poll</a></noscript>
-//         */
-//        _buildJavascriptEmbebed : function(){
-//            var script = "<script type=\"text/javascript\" charset=\"utf-8\" src=\""+this._buildJsUrl()+"\"></script>";
-//            var noscript = "<noscript><a href=\""+this._buildUrl()+"\">"+this.name+"</a></noscript>";
-//            this._textarea.value = script + noscript;
-//        }
-//
-//});
-//
-//dojo.declare(
-//        "encuestame.org.core.shared.publish.PublishEmailSupport",
-//        [dijit._Widget, dijit._Templated,
-//         encuestame.org.core.shared.utils.ContextSupport],{
-//
-//        templatePath : dojo.moduleUrl("encuestame.org.core.shared.publish", "templates/emailSupport.html"),
-//
-//        widgetsInTemplate: true,
-//
-//        itemId : null
-//
-//});
