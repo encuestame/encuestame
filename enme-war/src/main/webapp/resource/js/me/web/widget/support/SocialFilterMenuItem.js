@@ -38,6 +38,7 @@ define([
            postMixInProperties: function() {
               // if the social link is not valid, reset a fake social image.
              this.data.picture_url = _ENME.fakeImage("24", this.data.picture_url || "");
+             this.data.image_social = _ENME.shortPicture(this.data.type_account);
            },
 
             /*

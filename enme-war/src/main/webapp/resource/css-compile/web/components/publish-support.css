@@ -167,11 +167,18 @@ div.web-support-embebed textarea {
     padding: 5px;
     border-bottom: 1px solid lightGrey;
     cursor: pointer;
+    position: relative;
 }
 
 .web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-image {
     float: left;
     padding: 5px;
+}
+
+.web-support-panel-item .social-account-wrapper .web-social-icon-image {
+    position: absolute;
+    top: 15px;
+    right: 25px;
 }
 
 .web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-name {
