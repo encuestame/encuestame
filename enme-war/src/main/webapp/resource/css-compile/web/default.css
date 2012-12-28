@@ -309,6 +309,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
     display: none;
 }
 
+.hidden{
+    display: none;
+}
+
 .default-background-dark-color {
     background-color: #555555 !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
 }

@@ -53,6 +53,9 @@ define([
           */
          dialogContext : null,
 
+
+         _buttons : [],
+
          /*
           *
           */
@@ -67,46 +70,62 @@ define([
              this.initializeSocial(false);
              this.initializeEmail(true);
              this.initializeEmbebed(true);
-             //console.info("ITEM", this.item);
              dojo.connect(this._close, "onClick", dojo.hitch(this, function() {
-                 // console.info("closing dialog..", this.dialogContext);
-                 // this.dialogContext.hide(); //TODO: destroy dialog after close.
                  document.location.href = _ENME.config('contextPath') + "/user/" + this.context + "/list";
              }));
+             dojo.subscribe("/encuestame/support/publish/buttons/unselect", this, "unselect");
+         },
+
+         /**
+          *
+          * @method
+          */
+         unselect : function () {
+            dojo.forEach(this._buttons, dojo.hitch(this,function(item) {
+                dojo.removeClass(item, 'li-pb-selected');
+            }));
          },
 
          /*
           * Create a button.
-          * @param widget
-          * @para title
+          * @param widget widget reference
+          * @para title the button title
+          * @param selected define if is selected by default
           */
-         _createButton : function(widget, title) {
+         _createButton : function(widget, title, selected) {
              //  <li><a href="#">Social Networks</a>
              var li = dojo.create("li");
               dojo.connect(li, "onclick", dojo.hitch(this, function(){
+                  dojo.publish('/encuestame/support/panel/unselect');
                   dojo.publish("/encuestame/support/panel/remote/select", [widget]);
+                  dojo.publish('/encuestame/support/publish/buttons/unselect');
+                  dojo.addClass(li, 'li-pb-selected');
               }));
              var a = dojo.create("a");
-             a.href = "#";
              a.innerHTML = title;
              li.appendChild(a);
+             if (!selected) {
+                dojo.addClass(li, 'li-pb-selected');
+             }
+             this._buttons.push(li);
              this._ul.appendChild(li);
          },
 
          /*
           * Create a wipe panel.
-          * @param widget
-          * @param defaultDisplayHide
-          * @param title
+          * @param widget the widget to display in the panel
+          * @param defaultDisplayHide define if visible by default
+          * @param title title of the button
           */
-         _createWipePanel : function(widget, defaultDisplayHide, title){
+         _createWipePanel : function(widget, defaultDisplayHide, title) {
             var panel = new PublishPanelItem(
-                    {contentWidget : widget,
+                    {
+                     contentWidget : widget,
                      context : this.context,
                      title : title,
                      defaultDisplayHide : defaultDisplayHide
                     });
-            this._createButton(widget, title);
+            this._createButton(panel, title, defaultDisplayHide);
             this._detail.appendChild(panel.domNode);
 
          },
@@ -115,7 +134,7 @@ define([
           * Initialize the email support.
           * @param defaultDisplayHide
           */
-         initializeEmail : function(defaultDisplayHide){
+         initializeEmail : function(defaultDisplayHide) {
              var email = new PublishEmailSupport(
                      {
                          context : this.context,
@@ -125,9 +144,10 @@ define([
              this._createWipePanel(email, defaultDisplayHide, "Email");
          },
 
-         /*
+         /**
           * Initialize the social picker support.
           * @param defaultDisplayHide
+          * @methodinitializeSocial
           */
          initializeSocial : function(defaultDisplayHide) {
              var social = new PublishSocialSupport({

@@ -24,6 +24,7 @@
 define([
          "dojo/_base/declare",
          "dojo/dom-attr",
+         "dojo/query",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -48,6 +49,7 @@ define([
         function(
                 declare,
                 domAttr,
+                query,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -133,6 +135,9 @@ define([
            */
           _answer_widget_array : [],
 
+
+          dnd_sources : [],
+
           /*
            *
            */
@@ -150,84 +155,13 @@ define([
                   this._folder.appendChild(this._folderWidget.domNode);
               }
               //add default answers.
-              var dnd_sources = [];
               for (var i= 0; i <= this._default_answers; i++) {
                    var li = this._newAnswer({ dndEnabled : false});
                    this.addItem(li);
-                   if (parent.isDnD) {
-                       dnd_sources.push(li);
-                   }
               }
 
               if (parent.isDnD) {
-                  var dragSrcEl = null;
-                  this.enableDnDSupport(dnd_sources,
-                    {
-                      dragstart : function (e) {
-                        var node = this;
-                        //this.style.opacity = '0.4';
-                        dojo.addClass(this, "me_opa");
-                        dragSrcEl = this;
-                        console.log("iniciando drag", dragSrcEl);
-                        e.dataTransfer.effectAllowed = 'move';
-                        e.dataTransfer.setData('poll-answer', domAttr.get(node, 'd-id'));
-                      },
-                      dragenter : function (e) {
-                        // this / e.target is the current hover target.
-                        var node = this;
-                        //console.log('drag dragenter', node, e.target);
-                        this.classList.add('over');
-                      },
-                      dragover : function (e) {
-                        if (e.preventDefault) {
-                            e.preventDefault(); // Necessary. Allows us to drop.
-                        }
-                        e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-                        return false;
-                      },
-                      dragleave : function (e) {
-                        var node = this;
-                        //console.log('drag dragleave', node, e.target);
-                       this.classList.remove('over');  // this / e.target is previous target element.
-                      },
-                      drop : function (e) {
-                        var node = this;
-                        //dragSrcEl = this.innerHTML;
-                        var origin_id  = e.dataTransfer.getData('poll-answer');
-                        var target_id = domAttr.get(node, 'd-id');
-                        var _w = registry.byId(origin_id);
-                        var _w_t = registry.byId(target_id);
-                        //var idelt = ev.dataTransfer.getData("poll-answer");
-                        console.log('DROPEDDD', _w.domNode, _w_t.domNode);
-                        console.log("this target node", node);
-                        console.log("this source node", dragSrcEl);
-                        node.appendChild(_w.domNode);
-                        domAttr.set(node, 'd-id', _w.id);
-                        dragSrcEl.appendChild(_w_t.domNode);
-                        domAttr.set(dragSrcEl, 'd-id', _w_t.id);
-                        //ev.target.appendChild(document.getElementById(idelt));
-                        // return false so the event will not be propagated to the browser
-                        // this / e.target is current target element.
-                        if (e.stopPropagation) {
-                          e.stopPropagation(); // stops the browser from redirecting.
-                        }
-                        e.dataTransfer.clearData("poll-answer");
-                        // See the section on the DataTransfer object.
-                        return false;
-                      },
-                      dragend : function (e) {
-                        var node = this;
-                        //this.style.opacity = '1';
-                        console.log('DROP ENDDDD', node);
-                         [].forEach.call(dnd_sources, function (col) {
-                            //console.info("---> col ",col);
-                            //col.classList.remove('over');
-                            dojo.removeClass(col, "me_opa");
-                            //this.style.opacity = '1';
-                         });
-
-                      }
-                    });
+                  this.addDnDSupport();
               } else {
                 //TODO: remove icons to drag
               }
@@ -242,6 +176,71 @@ define([
               dojo.connect(this._cancel, "onclick", dojo.hitch(this, function() {
                 window.location.href = _ENME.config('contextPath') + "/user/poll/list";
               }));
+          },
+
+          /**
+           * Add dnd support to a list of nodes.
+           * @method addDnDSupport
+           */
+          addDnDSupport : function () {
+            var parent = this;
+            var dragSrcEl = null;
+            this.enableDnDSupport(this.dnd_sources,
+                    {
+                      dragstart : function (e) {
+                        var node = this;
+                        dojo.addClass(this, "me_opa");
+                        dragSrcEl = this;
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('poll-answer', domAttr.get(node, 'd-id'));
+                      },
+                      dragenter : function (e) {
+                        // this / e.target is the current hover target.
+                        var node = this;
+                        dojo.addClass(node, 'over');
+                      },
+                      dragover : function (e) {
+                        if (e.preventDefault) {
+                            e.preventDefault(); // Necessary. Allows us to drop.
+                        }
+                        e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+                        dojo.removeClass(this, 'over');
+                        return false;
+                      },
+                      dragleave : function (e) {
+                        var node = this;
+                        dojo.removeClass(node, 'over');
+                        dojo.removeClass(e.target, 'over');
+                      },
+                      drop : function (e) {
+                        var node = this;
+                        var origin_id  = e.dataTransfer.getData('poll-answer');
+                        var target_id = domAttr.get(node, 'd-id');
+                        var _w = registry.byId(origin_id);
+                        var _w_t = registry.byId(target_id);
+                        node.appendChild(_w.domNode);
+                        domAttr.set(node, 'd-id', _w.id);
+                        dragSrcEl.appendChild(_w_t.domNode);
+                        domAttr.set(dragSrcEl, 'd-id', _w_t.id);
+                        // return false so the event will not be propagated to the browser
+                        // this / e.target is current target element.
+                        if (e.stopPropagation) {
+                          e.stopPropagation(); // stops the browser from redirecting.
+                        }
+                        e.dataTransfer.clearData("poll-answer");
+                        // See the section on the DataTransfer object.
+                         [].forEach.call(parent.dnd_sources, function (col) {
+                            //console.info("---> col ",col);
+                            //col.classList.remove('over');
+                            dojo.removeClass(col, "me_opa");
+                            //this.style.opacity = '1';
+                         });
+                        return false;
+                      },
+                      dragend : function (e) {
+                        dojo.removeClass(this, "me_opa");
+                      }
+                    });
           },
 
           /**
@@ -260,6 +259,7 @@ define([
               dojo.stopEvent(event);
               var li = this._newAnswer({ dndEnabled : true});
               this.addItem(li);
+              this.addDnDSupport();
           },
 
 
@@ -271,13 +271,12 @@ define([
               params = params == null ? {} : params;
               var answer = new SingleResponse(params);
               var li = dojo.create("li");
-              //dojo.addClass(li, "dojoDndItem");
-              //draggable="true"
               domAttr.set(li, 'draggable', true);
               domAttr.set(li, 'd-id', answer.id);
-              this._answer_widget_array.push(answer);
               li.appendChild(answer.domNode);
-              //console.info("_newAnswer", li);
+              if (this.isDnD) {
+                    this.dnd_sources.push(li);
+              }
               return li;
           },
 
@@ -286,22 +285,23 @@ define([
            *
            */
           _createPoll : function(params) {
-             var load = dojo.hitch(this, function(data) {
-                 //console.info("create poll", data);
+            var parent = this,
+            load = dojo.hitch(this, function(data) {
+                 parent.loading_hide();
                  if ("success" in data) {
                  var pollBean = data.success.pollBean;
                  //console.info("create poll pollBean ", pollBean);
                      if (pollBean != null) {
-                         this._createDialogSupport();
-                         this._openSuccessMessage(pollBean);
+                         parent._createDialogSupport();
+                         parent._openSuccessMessage(pollBean);
                      }
                  }
+             }),
+             error = dojo.hitch(this, function(error) {
+                 parent.errorMessage(error);
              });
-             var error = dojo.hitch(this, function(error) {
-                 this._openFailureMessage(error);
-             });
-             encuestame.service.xhrPostParam(
-                 this.getURLService().service('encuestame.service.list.poll.create'), params, load, error);
+             this.loading_show();
+             this.getURLService().post('encuestame.service.list.poll.create', params, load, error , dojo.hitch(this, function() {}));
           },
 
           /*
@@ -311,12 +311,18 @@ define([
               this._createPoll(params);
           },
 
-          /*
-           *
+
+          /**
+           * Validate the poll.
+           * @param event Event
+           * @method
            */
           _validatePoll : function(event) {
               dojo.stopEvent(event);
-              var valid = { status : false , message : null};
+              var valid = {
+                   status : false ,
+                   message : null
+                 };
               /*
                * options : {
                           multiples : true,
@@ -340,29 +346,41 @@ define([
                       }
                */
               var params = {
-                              questionName : "",
-                              listAnswers : []
-                           };
+                    questionName : '',
+                    listAnswers : []
+                 };
 
-              if (this._questionWidget.getQuestion() != "" &&
-                  this._questionWidget.getQuestion() != null) {
+              if (this._questionWidget.getQuestion() !== '' && this._questionWidget.getQuestion() !== null) {
                   valid.status = true;
-                  dojo.mixin(params, { questionName : this._questionWidget.getQuestion()});
+                  dojo.mixin(params, {
+                      questionName : this._questionWidget.getQuestion()
+                  });
               } else {
                   valid.status = false;
               }
 
-              var c = 0;
+              var c = 0,
+              parent = this;
+              // search the draggable nodes in order
+              this._answer_widget_array = [];
+              query("[draggable]").forEach(function(node) {
+                  var target_id = domAttr.get(node, 'd-id');
+                  var _w = registry.byId(target_id);
+                  parent._answer_widget_array.push(_w);
+              });
+
+              // iterate all answers
               dojo.forEach(this._answer_widget_array,
                       dojo.hitch(this,function(item) {
                       if (item != null) {
-                           //console.debug("_answer_widget_item", item);
                           var response = item.getResponse();
-                          //console.debug("_answer_widget_array params", response);
-                          if (response != null && response != "") {
+                          if (response !== null && response !== '') {
                               var newArray = params.listAnswers;
                               newArray.push(response.trim());
-                              dojo.mixin(params, { listAnswers : newArray});
+                              dojo.mixin(params, {
+                                listAnswers : newArray
+                              }
+                              );
                               c++;
                           }
                       }
@@ -371,8 +389,7 @@ define([
               if (c < this._min_answer_allowed) {
                   valid.status = false;
                   valid.message = _ENME.getMessage("m_025");
-                  //console.info("error", valid);
-                  this.infoMesage(valid.message);
+                  this.warningMesage(valid.message);
                   c = 0;
               } else {
                   valid.status = true;
@@ -380,7 +397,7 @@ define([
 
               var repeated_votes = registry.byId("repeated");
               //console.info("repeated_votes params", repeated_votes.getOptions().checked);
-              if (repeated_votes.getOptions().checked){
+              if (repeated_votes.getOptions().checked) {
                   dojo.mixin(params, {repeated_votes : repeated_votes.getOptions().items});
               }
 
@@ -416,7 +433,16 @@ define([
               }
           },
 
+          /**
+           *
+           * @method
+           */
           _addHashTags : function(){},
+
+          /**
+           *
+           * @method
+           */
           _publishPoll : function(){},
 
 
@@ -458,54 +484,3 @@ define([
 
     });
 });
-
-///*
-// ************************************************************************************
-// * Copyright (C) 2001-2011 encuestame: open source social survey Copyright (C) 2009
-// * encuestame Development Team.
-// * Licensed under the Apache Software License version 2.0
-// * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-// * Unless required by applicable law or agreed to  in writing,  software  distributed
-// * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
-// * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
-// * specific language governing permissions and limitations under the License.
-// ************************************************************************************
-// */
-//dojo.provide("encuestame.org.core.commons.poll.Poll");
-//
-//dojo.require("dijit._Templated");
-//dojo.require("dijit._Widget");
-//dojo.require('dijit.form.Button');
-//dojo.require("dijit.form.CheckBox");
-//dojo.require('dijit.form.TimeTextBox');
-//dojo.require('dijit.form.DateTextBox');
-//dojo.require('encuestame.org.core.commons');
-//dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
-//dojo.require('encuestame.org.core.shared.utils.FolderSelect');
-//dojo.require("encuestame.org.core.commons.social.SocialAccountPicker");
-//dojo.require("encuestame.org.core.commons.dialog.Dialog");
-//dojo.require('encuestame.org.core.commons.questions.patterns.SingleResponse');
-//dojo.require('encuestame.org.core.commons.questions.Question');
-//dojo.require('encuestame.org.core.commons.support.DnD');
-//dojo.require('encuestame.org.core.shared.options.RepeatedVotes');
-//dojo.require('encuestame.org.core.shared.options.LimitVotes');
-//dojo.require('encuestame.org.core.shared.publish.PublishSupport');
-//dojo.require('encuestame.org.core.shared.options.CommentsOptions');
-//dojo.require('encuestame.org.core.shared.options.DateToClose');
-//dojo.require('encuestame.org.core.shared.options.ResultsOptions');
-//dojo.require('encuestame.org.core.shared.options.CheckSingleOption');
-//dojo.require('encuestame.org.core.commons.support.ActionDialogHandler');
-//
-//
-///**
-// *
-// */
-//dojo.declare(
-//    "encuestame.org.core.commons.poll.Poll",
-//    [encuestame.org.main.EnmeMainLayoutWidget,
-//        encuestame.org.core.commons.support.DnD,
-//        encuestame.org.core.commons.support.ActionDialogHandler],{
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.poll", "templates/poll.html"),
-//
-
-//});

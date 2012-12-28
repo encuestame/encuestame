@@ -1,18 +1,34 @@
 define([
+     "dojo",
      "dojo/_base/declare",
      "me/core/enme"],
     function(
-    declare,
-    _ENME) {
+      dojo,
+      declare,
+      _ENME) {
 
   return declare(null, {
 
+    /**
+     * Check if the client has drag and drop support
+     * @property isDnD
+     */
     isDnD : false,
 
+    /**
+     *
+     * @property DnDManager
+     */
     DnDManager : null,
 
+    /**
+     * Private array to store connect event handlers.
+     * @property _events
+     */
+    _events  : [],
+
    /**
-    *
+    * Constructor.
     */
     constructor : function() {
         this.isDnD = Modernizr.draganddrop;
@@ -25,21 +41,40 @@ define([
      * @method
      */
     enableDnDSupport : function (nodes , handlers) {
+      var parent = this;
+      //remove previous events
+      dojo.forEach(this._events, dojo.hitch(this, function(item) {
+            dojo.disconnect(item);
+      }));
+      this._events = [];
+      // iterate all nodes and add the DnD events.
       [].forEach.call(nodes, function(col) {
-          col.addEventListener('dragstart', handlers.dragstart || function(){}, false);
-          col.addEventListener('dragenter', handlers.dragenter || function(){}, false);
-          col.addEventListener('dragover', handlers.dragover || function(){}, false);
-          col.addEventListener('dragleave', handlers.dragleave || function(){}, false);
-          col.addEventListener('drop', handlers.drop || function(){}, false);
-          col.addEventListener('dragend', handlers.dragend || function(){}, false);
-          col.addEventListener('drag', handlers.drag || function(){}, false);
+          if (handlers.dragstart) {
+              var dragstart = dojo.connect(col, "dragstart", handlers.dragstart);
+              parent._events.push(dragstart);
+          }
+          if (handlers.dragenter) {
+              var dragenter = dojo.connect(col, "dragenter", handlers.dragenter);
+              parent._events.push(dragenter);
+          }
+          if (handlers.dragover) {
+              var dragover = dojo.connect(col, "dragover", handlers.dragover);
+              parent._events.push(dragover);
+          }
+          if (handlers.drop) {
+              var drop = dojo.connect(col, "drop", handlers.drop);
+              parent._events.push(drop);
+          }
+          if (handlers.dragend) {
+              var dragend = dojo.connect(col, "dragend", handlers.dragend);
+              parent._events.push(dragend);
+          }
+          if (handlers.drag) {
+              var drag = dojo.connect(col, "drag", handlers.drag);
+              parent._events.push(drag);
+          }
       });
-    },
-
-    // function handleDragStart(e) {
-    //    this.style.opacity = '0.4';  // this / e.target is the source node.
-    // }
-
+    }
   });
 });
 // /**
