@@ -53,9 +53,10 @@
 
 }
 
-.livePanel .final a:link {
+.livePanel .final a:link, .livePanel .final a:visited, .livePanel .final a {
     color: #FFF;
     text-decoration: none;
+    font-weight: normal;
 }
 
 .openLivePanel {
