@@ -10,3 +10,15 @@
 [submodule "enme-doc"]
 	path = enme-doc
 	url = git@github.com:encuestame/doc.git
+[submodule "enme-js/resources-enme-war/src/main/webapp/resource/js/dojo"]
+	path = enme-js/resources-enme-war/src/main/webapp/resource/js/dojo
+	url = git://github.com/dojo/dojo.git
+[submodule "enme-js/resources-enme-war/src/main/webapp/resource/js/dojox"]
+	path = enme-js/resources-enme-war/src/main/webapp/resource/js/dojox
+	url = git://github.com/dojo/dojox.git
+[submodule "enme-js/resources-enme-war/src/main/webapp/resource/js/dijit"]
+	path = enme-js/resources-enme-war/src/main/webapp/resource/js/dijit
+	url = git://github.com/dojo/dijit.git
+[submodule "enme-js/resources-enme-war/src/main/webapp/resource/js/util"]
+	path = enme-js/resources-enme-war/src/main/webapp/resource/js/util
+	url = git://github.com/dojo/util.git
