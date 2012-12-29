@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module Admon
+ *  @namespace Widget
+ *  @class User
+ */
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -118,81 +141,3 @@ define([
 
     });
 });
-
-
-//});
-// /*
-//  ************************************************************************************
-//  * Copyright (C) 2001-2011 encuestame: system online surveys Copyright (C) 2011
-//  * encuestame Development Team.
-//  * Licensed under the Apache Software License version 2.0
-//  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-//  * Unless required by applicable law or agreed to  in writing,  software  distributed
-//  * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
-//  * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
-//  * specific language governing permissions and limitations under the License.
-//  ************************************************************************************
-//  */
-// dojo.provide("encuestame.org.core.admon.user.Users");
-
-// dojo.require("dijit.Dialog");
-// dojo.require("dijit.form.TextBox");
-// dojo.require("dijit.form.TimeTextBox");
-// dojo.require("dijit.form.Button");
-// dojo.require("dijit.Menu");
-// dojo.require("dojox.widget.Standby");
-// dojo.require("dojox.widget.Dialog");
-// dojo.require("dijit.form.ToggleButton");
-// dojo.require("dijit.form.DateTextBox");
-// dojo.require("dijit.layout.TabContainer");
-// dojo.require("dijit.layout.ContentPane");
-// dojo.require("dijit.layout.AccordionContainer");
-// dojo.require("dijit.form.ValidationTextBox");
-// dojo.require("encuestame.org.core.shared.utils.Table");
-
-// dojo.declare(
-//     "encuestame.org.core.admon.user.Users",
-//     [encuestame.org.core.shared.utils.Table],{
-
-//         templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/Users.html"),
-
-//         widgetsInTemplate: true,
-
-
-// );
-
-// dojo.declare(
-//         "encuestame.org.core.admon.user.UserTableRow",
-//         [dijit._Widget, dijit._Templated],{
-//             templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserTableRow.html"),
-
-//             /** Allow other widgets in the template. **/
-//             widgetsInTemplate: true,
-
-
-//         }
-// );
-
-// dojo.declare(
-//         "encuestame.org.core.admon.user.UserPermissions",
-//         [dijit._Widget, dijit._Templated],{
-//             templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserPermissions.html"),
-
-//             /** Allow other widgets in the template. **/
-//             widgetsInTemplate: true,
-
-
-// });
-
-// /**
-//  * Group.
-//  */
-// dojo.declare(
-//         "encuestame.org.core.admon.user.UserGroup",
-//         [dijit._Widget, dijit._Templated],{
-//             templatePath: dojo.moduleUrl("encuestame.org.core.admon.user", "template/UserGroup.html"),
-
-//             /** Allow other widgets in the template. **/
-//             widgetsInTemplate: true,
-
-// });
