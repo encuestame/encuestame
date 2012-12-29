@@ -7,18 +7,6 @@
 [submodule "enme-war/src/main/webapp/resource/js/chart/raphael"]
 	path = enme-war/src/main/webapp/resource/js/chart/raphael
 	url = git://github.com/encuestame/raphael.git
-[submodule "enme-js/resources-enme-war/src/main/resources/js/dojo"]
-	path = enme-js/resources-enme-war/src/main/resources/js/dojo
-	url = https://github.com/dojo/dojo.git
-[submodule "enme-js/resources-enme-war/src/main/resources/js/dojox"]
-	path = enme-js/resources-enme-war/src/main/resources/js/dojox
-	url = https://github.com/dojo/dojox.git
-[submodule "enme-js/resources-enme-war/src/main/resources/js/dijit"]
-	path = enme-js/resources-enme-war/src/main/resources/js/dijit
-	url = https://github.com/dojo/dijit.git
-[submodule "enme-js/resources-enme-war/src/main/resources/js/util"]
-	path = enme-js/resources-enme-war/src/main/resources/js/util
-	url = https://github.com/dojo/util.git
 [submodule "enme-doc"]
 	path = enme-doc
 	url = git@github.com:encuestame/doc.git
