@@ -1,3 +1,3 @@
 <div class="defaultMarginWrapper">
-    <div dojoType="encuestame.org.core.admon.user.Users"></div>
+     <div data-dojo-type="me/web/widget/admon/user/Users"></div>
 </div>
