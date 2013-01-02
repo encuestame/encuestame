@@ -120,7 +120,7 @@ define([
            * Process date published.
            * @param socialPublish
            */
-          process: function(socialPublish){
+          process: function(socialPublish) {
               if (socialPublish) {
                   this._hideProcessingMessage();
                   dojo.empty(this._container);

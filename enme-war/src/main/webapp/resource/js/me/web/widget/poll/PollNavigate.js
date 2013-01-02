@@ -57,7 +57,6 @@ define([
             detail_manage_published : _ENME.getMessage("detail_manage_published"),
             detail_manage_unpublished : _ENME.getMessage("detail_manage_unpublished"),
             detail_manage_only_completed : _ENME.getMessage("detail_manage_only_completed"),
-
             detail_manage_poll_title : _ENME.getMessage("detail_manage_poll_title"),
             detail_manage_filters : _ENME.getMessage("detail_manage_filters"),
             detail_manage_filters : _ENME.getMessage("detail_manage_filters"),
@@ -99,12 +98,12 @@ define([
 
                 // provide an update on progress:
                 deferred.progress(function(e){
-                    console.log('progress', e);
+                    _ENME.log('progress', e);
                 });
 
                 // when the process finishes:
                 deferred.resolve(function(e){
-                    console.log('resolve', e);
+                    _ENME.log('resolve', e);
                 });
 
                 // performing "callbacks" with the process:

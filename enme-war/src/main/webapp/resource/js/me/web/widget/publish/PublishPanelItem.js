@@ -39,56 +39,29 @@ define([
 
          postCreate : function(){
              this._content.appendChild(this.contentWidget.domNode);
-             this.panelWidget = new Wipe(this._content, 300, 200);
-             dojo.connect(this._title, "onclick", dojo.hitch(this, this._onClickItem));
              dojo.subscribe("/encuestame/support/panel/remote/select", this, "remoteClick");
              dojo.subscribe("/encuestame/support/panel/unselect", this, "unselect");
              if (this.defaultDisplayHide) {
-                 dojo.addClass(this._content, "defaultDisplayHide");
+                 dojo.addClass(this.domNode, "hidden");
              } else {
-                 this.panelWidget.wipeOutOne();
-                 dojo.removeClass(this._content, "defaultDisplayHide");
+                 dojo.removeClass(this.domNode, "hidden");
              }
          },
 
          /*
           *
           */
-         unselect : function(id){
-             if (this._open && this != id) {
-                 this._switchSuport();
-             }
+         unselect : function(id) {
+            dojo.addClass(this.domNode, 'hidden');
          },
 
          /*
           *
           */
-         remoteClick : function(id){
-             if(this.contentWidget == id){
-                 if (!this._open) {
-                     this._switchSuport();
-                 }
+         remoteClick : function(id) {
+             if (id === this) {
+                 dojo.removeClass(this.domNode, 'hidden');
              }
-         },
-
-         /*
-          *
-          */
-         _switchSuport : function(){
-             if(this._open){
-                 this.panelWidget.wipeOutOne();
-                 //dojo.addClass(this._content, "defaultDisplayHide");
-            } else {
-                 this.panelWidget.wipeInOne();
-                 dojo.removeClass(this._content, "defaultDisplayHide");
-            }
-            this._open = !this._open;
-         },
-
-         _onClickItem : function(){
-             dojo.publish("/encuestame/support/panel/unselect", [this]);
-             this._switchSuport();
          }
-
     });
 });

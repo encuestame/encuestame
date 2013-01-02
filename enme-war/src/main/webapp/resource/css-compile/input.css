@@ -9,7 +9,7 @@
 }
 
 #enme-content input[type="text"], input[type="password"] {
-    font-size : 13px
+    /*font-size : 13px*/
 }
 
 /** placeholder text **/
@@ -32,7 +32,7 @@ input::-webkit-input-placeholder {
 }
 #enme-content input, textarea, select {
     display: inline-block;
-    width: 210px;
+  /*  width: 210px;*/
     padding: 4px;
     margin: 0;
     outline: 0;

@@ -84,7 +84,8 @@ define([
            postCreate: function() {
                //create new hashtahg suggest.
                var hashTagWidget = new HashTagsSuggest({label: this._hashtahButtonLabel});
-                //the action after push "add" button.
+
+                // the action after push "add" button.
                 hashTagWidget.processSelectedItemButton = dojo.hitch(this, function() {
                     if (hashTagWidget.textBoxWidget && hashTagWidget.addButton) {
                         var newValue = {id : null, label :"" , newValue : true};
@@ -100,32 +101,40 @@ define([
                 //the action if user push on space bar.
                 hashTagWidget.processSpaceAction =  dojo.hitch(this, function() {
                     if (hashTagWidget.textBoxWidget) {
-                        var currentText = dojo.trim(hashTagWidget.textBoxWidget.get("value"));
-                        var added = false;
-                        if (hashTagWidget._itemStored.length > 0) {
-                            dojo.forEach(
-                                hashTagWidget._itemStored,
-                                dojo.hitch(this, function(data, index) {
-                                    if (!added) {
-                                        if (currentText.toLowerCase() == data.i.hashTagName.toLowerCase()){
-                                            //console.debug("adding existing item", data.i);
-                                            hashTagWidget.processSelectedItem({id:data.i.id, label:data.i.hashTagName, newValue: false});
-                                            hashTagWidget.hide();
-                                            added = true;
-                                        } else { // TODO: this loop is invalid, always is "else" after first loop, works because
-                                                 //  the unique results always === 1
-                                           // console.debug("adding existing NEW item",{id:null, label:currentText, newValue: true} );
-                                           if (currentText != '') {
-                                             hashTagWidget.processSelectedItem({id:null, label:currentText, newValue: true});
-                                             hashTagWidget.hide();
-                                             added = true;
-                                           }
-                                        }
-                                   }
-                                }));
+                        // check if the selected item (object saved if user select with the mouse or the keyboard) exist
+                        if (typeof hashTagWidget.selectedItem === 'undefined' || hashTagWidget.selectedItem === null) {
+                            var currentText = dojo.trim(hashTagWidget.textBoxWidget.get("value"));
+                            var added = false;
+                            if (hashTagWidget._itemStored.length > 0) {
+                                dojo.forEach(
+                                    hashTagWidget._itemStored,
+                                    dojo.hitch(this, function(data, index) {
+                                        if (!added) {
+                                            if (currentText.toLowerCase() == data.i.hashTagName.toLowerCase()){
+                                                //console.debug("adding existing item", data.i);
+                                                hashTagWidget.processSelectedItem({id:data.i.id, label:data.i.hashTagName, newValue: false});
+                                                hashTagWidget.hide();
+                                                added = true;
+                                            } else { // TODO: this loop is invalid, always is "else" after first loop, works because
+                                                     //  the unique results always === 1
+                                               // console.debug("adding existing NEW item",{id:null, label:currentText, newValue: true} );
+                                               if (currentText != '') {
+                                                 hashTagWidget.processSelectedItem({id:null, label:currentText, newValue: true});
+                                                 hashTagWidget.hide();
+                                                 added = true;
+                                               }
+                                            }
+                                       }
+                                    }));
+                             } else {
+                                 hashTagWidget.processSelectedItem({id:null, label: currentText, newValue: true});
+                                 hashTagWidget.hide();
+                             }
                          } else {
-                             hashTagWidget.processSelectedItem({id:null, label: currentText, newValue: true});
-                             hashTagWidget.hide();
+                            var _selected_item = hashTagWidget.selectedItem.data;
+                            _selected_item .newValue = false;
+                            hashTagWidget.processSelectedItem(_selected_item);
+                            hashTagWidget.hide();
                          }
                       //console.debug(hashTagWidget._itemStored);
                     }
@@ -262,86 +271,3 @@ define([
 
     });
 });
-
-//dojo.provide("encuestame.org.core.commons.tweetPoll.HashTags");
-//
-//dojo.require("dijit.form.Form");
-//dojo.require("dijit.Dialog");
-//dojo.require('encuestame.org.core.commons');
-//dojo.require("encuestame.org.core.shared.utils.Suggest");
-//dojo.require("encuestame.org.main.EnmeMainLayoutWidget");
-//dojo.require("encuestame.org.core.commons.tweetPoll.TweetPollCore");
-//
-//dojo.declare(
-//    "encuestame.org.core.commons.tweetPoll.HashTags",
-//    [encuestame.org.main.EnmeMainLayoutWidget, encuestame.org.core.commons.tweetPoll.TweetPollCore],{
-//
-//        /**
-//         * template.
-//         */
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtag.html"),
-//
-
-//    }
-//);
-//
-///***
-// * HashTag Item.
-// */
-//dojo.declare(
-//        "encuestame.org.core.commons.tweetPoll.HashTagsItem",
-//        [encuestame.org.main.EnmeMainLayoutWidget],{
-//        //template
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/hashtagItem.html"),
-//        //widgets in template
-//        wigetsInTemplate: true,
-//
-//        /***
-//         * the body of hashtag.
-//         */
-//        data : null,
-//
-//        /***
-//         * the label of the hashtag.
-//         */
-//        label : null,
-//
-//        /***
-//         * Parent widget reference.
-//         */
-//        parentWidget : null,
-//
-//        /***
-//         *
-//         */
-//        postCreate : function() {
-//            //console.debug("new HashTag", this.label);
-//        },
-//
-//        /***
-//         *
-//         * @param event
-//         */
-//        _options : function(event){
-//            var dialog = this.parentWidget.getDialog();
-//            dialog.item = this;
-//            dialog.show();
-//        }
-//});
-//
-//
-//dojo.declare(
-//    "encuestame.org.core.commons.tweetPoll.HashTagsSuggest",
-//    [encuestame.org.core.shared.utils.Suggest],{
-//
-//    	/***
-//    	 * Template.
-//    	 */
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.tweetPoll", "templates/suggest.html"),
-//
-//        block : function(){
-//        },
-//
-//        unblock : function(){
-//        }
-//});

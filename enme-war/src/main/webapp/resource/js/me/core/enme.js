@@ -1,8 +1,26 @@
-//require(["dojo/parser", "ready!"], function(AuthoredDialog, parser) {
-//    // Parse the page
-//    parser.parse();
-//
-//});
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module ENME
+ *  @namespace Widget
+ *  @class enme
+ */
 define(["dojo",
         "dojo/dom",
         'dojo/_base/json',
@@ -26,6 +44,8 @@ define(["dojo",
 
     //Define if is initialize.
     var isInitialised = false,
+
+    activity = null,
 
     // to store the default configuration
     _config = {};
@@ -177,7 +197,7 @@ define(["dojo",
        *
        */
       log : function(obj) {
-        if (typeof console != "undefined" && console.log ) { //TODO: Add verbose condition.
+        if (typeof console != "undefined" && console.log && this.config('debug')) { //TODO: Add verbose condition.
           log(obj);
         }
       },
@@ -188,6 +208,23 @@ define(["dojo",
        */
       config : function (value) {
         return _config[value];
+      },
+
+      /**
+       * Build a user profile url.
+       * @param username the user name
+       * @method
+       */
+     usernameLink :function(username) {
+          var url = this.config('contextPath');
+          if (username) {
+              url = url.concat("/profile/");
+              url = url.concat(username);
+              return url;
+          } else {
+              url = url.concat("/404");
+              return url;
+          }
       },
 
       /**
@@ -552,8 +589,25 @@ define(["dojo",
               selector: "date",
               datePattern: fmt
           });
+    },
+
+    /**
+     * Save the current activity object
+     * @param _activity the activity object
+     * @method  setActivity
+     */
+    setActivity : function(_activity) {
+      activity = _activity;
+    },
+
+    /**
+     * Get the current activity object
+     * @method  getActivity
+     */
+    getActivity : function () {
+       return activity;
     }
-    };
+  };
 });
 
 //	var ENME = (function() {

@@ -117,6 +117,13 @@
   padding: 1px;
   width: 80%;
   margin-top: 5px;
+  position: relative;
+}
+
+.web-social-filter-items .web-social-filter-item .web-social-icon-image {
+    position: absolute;
+    top: 5px;
+    right: 25px;
 }
 
 .web-social-filter-items .selected {

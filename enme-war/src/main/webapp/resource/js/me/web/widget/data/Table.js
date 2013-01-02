@@ -1,197 +1,148 @@
-dojo.provide("encuestame.org.core.shared.utils.Table");
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.form.CheckBox");
-dojo.require("dijit.form.Form");
-dojo.require("dijit.form.Button");
-dojo.require("dijit.form.ValidationTextBox");
-dojo.require("dijit.form.DateTextBox");
-dojo.require('encuestame.org.core.commons');
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module Data
+ *  @namespace Widget
+ *  @class Table
+ */
+define([
+         "dojo/_base/declare",
+         "dojo/dom-construct",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/web/widget/data/TableRow",
+         "me/core/enme",
+         "dojo/text!me/web/widget/data/templates/Table.html" ],
+        function(
+                declare,
+                domConstruct,
+                _WidgetBase,
+                _TemplatedMixin,
+                _WidgetsInTemplateMixin,
+                main_widget,
+                _ENME,
+                 template) {
+            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-dojo.declare(
-    "encuestame.org.core.shared.utils.Table",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/Table.html"),
+          // template string.
+            templateString : template,
 
-        /** Allow other widgets in the template. **/
-        widgetsInTemplate: true,
+            /** Principal service. **/
+            jsonServiceUrl : null,
 
-        /** Principal service. **/
-        jsonServiceUrl : null,
+            limit : 10,
 
-        limit : 10,
+            start : 0,
 
-        start : 0,
+            total : null,
 
-        total : null,
-
-        showPagination : false,
-
-        postMixInProperties: function(){
-        },
-
-        postCreate: function() {
-            this.loadItems();
-        },
-
-        cleanTable : function(){
-            if(this._body){
-                dojo.empty(this._body);
-            }
-        },
-
-        /**
-         * Load Users.
-         */
-        loadItems : function(){
-            var load = dojo.hitch(this, function(data){
-                console.debug("data", data);
-                this.cleanTable();
-                this.iterateResponseItems(data);
-            });
-            var error = dojo.hitch(this, function(error) {
-                console.debug("error table", error);
-            });
-            encuestame.service.xhrGet(this.jsonServiceUrl, {limit: this.limit, start: this.start}, load, error);
-        },
-
-        /**
-         * Iterate Response Items.
-         */
-        iterateResponseItems : function(response){
-            console.error('this function should be override');
-        },
-
-        /**
-         * Error Response.
-         */
-        errorResponse : function(error){
-            console.error('this function should be override');
-        },
-
-        /**
-         * Build Row.
-         */
-        buildRow : function(data){
-            var widgetRow = new encuestame.org.core.shared.utils.TableRow({data: data });
-            this._body.appendChild(widgetRow.domNode);
-        },
-
-        /**
-         * Next.
-         */
-        next : function(event){
-            dojo.stopEvent(event);
-            this.start = this.start + this.limit;
-            this.loadItems();
-        },
-
-        /**
-         * Previous.
-         */
-        previous : function(event){
-            dojo.stopEvent(event);
-            this.start = this.start - this.limit;
-            if(this.start < 0){
-                this.start = 0;
-            }
-            this.loadItems();
-        },
-
-        /**
-         * Last.
-         */
-        last : function(event){
-            dojo.stopEvent(event);
-        },
-
-        /**
-         * First.
-         */
-        first : function(event){
-          dojo.stopEvent(event);
-          this.start = 0;
-          this.loadItems();
-        }
-    }
-);
-
-dojo.declare(
-        "encuestame.org.core.shared.utils.TableRow",
-        [dijit._Widget, dijit._Templated],{
-            templatePath: dojo.moduleUrl("encuestame.org.core.shared.utils", "template/TableRow.html"),
-
-            /** Allow other widgets in the template. **/
-            widgetsInTemplate: true,
-
-            data: null,
+            showPagination : false,
 
             postMixInProperties: function(){
             },
 
-            /**
-             * Post Create.
-             */
             postCreate: function() {
-                this.buildDefaultRow();
+                this.loadItems();
+            },
+
+            cleanTable : function(){
+                if(this._body){
+                    dojo.empty(this._body);
+                }
             },
 
             /**
-             * Build Default Row.
+             * Load Users.
              */
-            buildDefaultRow : function(){
-                var data = this.data;
-                this.createInput(data.id)
-                this.createColumnDialog(data.name);
-                this.createColumn(data.email);
-                this.createColumn(data.email);
-                this.createColumn(data.email);
-                this.buildStatus(data.status);
-                this.createColumn(data.id);
+            loadItems : function(){
+                var load = dojo.hitch(this, function(data){
+                    console.debug("data", data);
+                    this.cleanTable();
+                    this.iterateResponseItems(data);
+                });
+                var error = dojo.hitch(this, function(error) {
+                    console.debug("error table", error);
+                });
+                //encuestame.service.xhrGet(this.jsonServiceUrl, {limit: this.limit, start: this.start}, load, error);
+                this.getURLService().get(this.jsonServiceUrl, {limit: this.limit, start: this.start}, load, error , dojo.hitch(this, function() {}));
             },
 
             /**
-             * Build Options.
+             * Iterate Response Items.
              */
-            buildOptions : function(id){
-
+            iterateResponseItems : function(response){
+                console.error('this function should be override');
             },
 
             /**
-             * Create Column.
+             * Error Response.
              */
-            createColumnDialog : function(text){
-                 var td = dojo.doc.createElement('td');
-                 td.innerHTML = text;
-                 this._trbody.appendChild(td);
-                 dojo.connect(this.source, "onClick", this, this.onDndDrop);
-            },
-
-
-
-            /**
-             * Create Column.
-             */
-            createColumn : function(text){
-                 var td = dojo.doc.createElement('td');
-                 td.innerHTML = text;
-                 this._trbody.appendChild(td);
+            errorResponse : function(error){
+                console.error('this function should be override');
             },
 
             /**
-             * Create Input.
+             * Build Row.
              */
-            createInput : function(id){
-                var widgetInput = new dijit.form.CheckBox({});
-                widgetInput.setValue(id);
-                this._trbody.appendChild(widgetInput.domNode);
+            buildRow : function(data){
+                var widgetRow = new TableRow({data: data });
+                this._body.appendChild(widgetRow.domNode);
             },
 
-            buildStatus : function(status){
-                var td = dojo.doc.createElement('td');
-                td.innerHTML = status;
-                this._trbody.appendChild(td);
+            /**
+             * Next.
+             */
+            next : function(event){
+                dojo.stopEvent(event);
+                this.start = this.start + this.limit;
+                this.loadItems();
+            },
+
+            /**
+             * Previous.
+             */
+            previous : function(event){
+                dojo.stopEvent(event);
+                this.start = this.start - this.limit;
+                if(this.start < 0){
+                    this.start = 0;
+                }
+                this.loadItems();
+            },
+
+            /**
+             * Last.
+             */
+            last : function(event){
+                dojo.stopEvent(event);
+            },
+
+            /**
+             * First.
+             */
+            first : function(event){
+              dojo.stopEvent(event);
+              this.start = 0;
+              this.loadItems();
             }
-        }
-);
+
+    });
+});

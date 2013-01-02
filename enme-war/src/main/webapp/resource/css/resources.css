@@ -16,7 +16,7 @@
 }
 
 .web-item-wrapper .item .loading{
-	background-image: url(../../images/ball-loader.gif);
+    /*background-image: url(../../images/ball-loader.gif);*/
 }
 
 div.options .saveButton {

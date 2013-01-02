@@ -9,7 +9,7 @@ define([
 
   return declare(null, {
 
-  	   /*
+         /*
         * the key to restore / save the status of the widget in the browser
         */
        _key_save : 'filter-default',
@@ -17,7 +17,7 @@ define([
        /*
         * save the status of all components.
         */
-       _status : {},       
+       _status : {},
 
        /*
         * Save the status of widget in the browser
@@ -39,18 +39,18 @@ define([
         */
        _buildStatusObject : function(data) {},
 
-       /* 
+       /*
         * Restore the status form storage data.
         */
        _restoreStatus : function() {
            var _saved = _ENME.restoreItem(this._key_save);
-           console.log("RESTORE STATUS", _saved);
+           _ENME.log("RESTORE STATUS", _saved);
            if(_saved) {
                this._status = json.fromJson(_saved);
-               console.log("RESTORE STATUS this._status", this._status);
+               _ENME.log("RESTORE STATUS this._status", this._status);
                this._buildStatusObject(this._status);
            }
-       },       
+       },
 
   });
 });

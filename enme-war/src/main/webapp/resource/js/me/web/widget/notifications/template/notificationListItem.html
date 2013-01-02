@@ -1,18 +1,20 @@
-<div class="web-notification-list-item">
-    <span class="icon">
-        <img alt="icon" dojoAttachPoint="_list">
-    </span>
+<li class="web-notification-list-item">
+<!--     <span class="icon">
+        <img alt="icon" data-dojo-attach-point="_list">
+    </span> -->
     <span class="title">
         ${item.description}
     </span>
-    <span class="description" dojoAttachPoint="_description">
+    <span class="description" data-dojo-attach-point="_description">
     </span>
     <span class="date">
-          ${item.date} | ${item.hour}
+          ${formatDate}
     </span>
      <span class="options">
         <span class="">
-            <a href="#" dojoAttachEvent="onclick:_remove">Delete</a>
+            <a class="unselectable point"  data-dojo-attach-event="onclick:_remove">
+                Delete
+            </a>
         </span>
      </span>
-</div>
+</li>

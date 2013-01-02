@@ -1,5 +1,5 @@
 #enme-content input, textarea, select .dijitInputField{
-  width: 16px;
+  /*width: 16px;*/
 }
 
 #enme-content .dijitInputField input:focus {

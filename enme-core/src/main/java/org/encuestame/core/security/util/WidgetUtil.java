@@ -23,9 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.files.PathUtil;
+import org.encuestame.core.util.SocialUtils;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.utils.MD5Utils;
 import org.encuestame.utils.PictureUtils;
+import org.encuestame.utils.ShortUrlProvider;
 import org.jfree.util.Log;
 import org.springframework.core.io.ClassPathResource;
 
@@ -50,6 +52,33 @@ public class WidgetUtil {
         final StringBuilder domain = new StringBuilder(WidgetUtil.getDomain(request));
         domain.append(PathUtil.profileUserImage);
         return domain.toString();
+    }
+
+    /**
+     * Create a short Url.
+     * @param provider
+     * @param url
+     * @return
+     */
+    public static String createShortUrl(final ShortUrlProvider provider, final String url) {
+        String urlShort = url;
+        if (!EnMePlaceHolderConfigurer.getBooleanProperty("application.offline.mode")) {
+            if (provider.equals(ShortUrlProvider.GOOGL)) {
+                urlShort = SocialUtils.getGoGl(url,
+                        EnMePlaceHolderConfigurer.getProperty("short.google.key"));
+            } else if (provider.equals(ShortUrlProvider.NONE)) {
+                urlShort = url;
+            } else if (provider.equals(ShortUrlProvider.TINYURL)) {
+                urlShort = SocialUtils.getTinyUrl(url);
+            } else if (provider.equals(ShortUrlProvider.BITLY)) {
+                 urlShort = SocialUtils.getBitLy(url,
+                         EnMePlaceHolderConfigurer.getProperty("short.bitLy.key"),
+                         EnMePlaceHolderConfigurer.getProperty("short.bitLy.login"));
+            } else {
+                urlShort = null;
+            }
+        }
+        return urlShort;
     }
 
     /**

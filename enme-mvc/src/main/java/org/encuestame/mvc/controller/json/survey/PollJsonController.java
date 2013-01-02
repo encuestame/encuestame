@@ -13,6 +13,7 @@
 package org.encuestame.mvc.controller.json.survey;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +24,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.core.util.ConvertDomainToJson;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.survey.Poll;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.DateUtil;
+import org.encuestame.utils.ShortUrlProvider;
 import org.encuestame.utils.enums.TypeSearch;
+import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,6 +60,11 @@ public class PollJsonController extends AbstractJsonController{
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
+
+    /**
+     *
+     */
+    private final Integer POLL_PUBLISH_STRING_LIMIT = 100;
 
     /**
      * Search polls.
@@ -90,6 +103,70 @@ public class PollJsonController extends AbstractJsonController{
        }
         return returnData();
      }
+
+    /**
+     * Publish a {@link Poll} on a list of {@link SocialAccount}
+     * @param twitterAccountsId
+     * @param pollId
+     * @param request
+     * @param response
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/api/survey/poll/social/publish.json", method = RequestMethod.POST)
+    public ModelMap publishSocialPolls(
+             @RequestParam(value = "twitterAccounts", required = false) final Long[] twitterAccountsId,
+             @RequestParam(value = "id", required = true) final Long pollId,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+        try{
+             final Poll poll = getPollService().getPollById(pollId, getUserPrincipalUsername());
+             final List<SocialAccountBean> accountBeans = new ArrayList<SocialAccountBean>();
+             //convert accounts id to real social accounts objects.
+             for (int row = 0; row < twitterAccountsId.length; row++) {
+                 final SocialAccountBean socialAccount = new SocialAccountBean();
+                 socialAccount.setAccountId(twitterAccountsId[row]);
+                 accountBeans.add(socialAccount);
+             }
+             log.debug("Accounts:{" + accountBeans.size());
+             String tweetText = poll.getQuestion().getQuestion();
+             final String url = WidgetUtil.createShortUrl(ShortUrlProvider.TINYURL, this.buildPollURL(poll, request));
+             if (tweetText.length() > this.POLL_PUBLISH_STRING_LIMIT) {
+                 tweetText = tweetText.substring(0, this.POLL_PUBLISH_STRING_LIMIT) + " " + url;
+             } else {
+                 tweetText = tweetText + " " + url;
+             }
+             log.debug("poll tweet text length --> " + tweetText.length());
+             final List<TweetPollSavedPublishedStatus> results = getTweetPollService().publishMultiplesOnSocialAccounts(
+                   accountBeans, null, tweetText ,TypeSearchResult.POLL, poll, null);
+             log.debug("/api/survey/poll/search.json "+jsonResponse);
+             jsonResponse.put("socialPublish", ConvertDomainToJson.convertTweetPollStatusToJson(results));
+             setItemResponse(jsonResponse);
+        } catch (EnMeExpcetion e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+       }
+        return returnData();
+    }
+
+    /**
+     *
+     * @param poll
+     * @param request
+     * @return
+     */
+    private String buildPollURL(final Poll poll, final HttpServletRequest request) {
+        //poll/20/which-superhero-gave-the-avengers-their-name%3F
+        final StringBuilder stringBuilder = new StringBuilder(WidgetUtil.getDomain(request));
+        stringBuilder.append("/poll/");
+        stringBuilder.append(poll.getPollId());
+        stringBuilder.append("/");
+        stringBuilder.append(poll.getQuestion().getSlugQuestion());
+        return stringBuilder.toString();
+    }
 
     /**
      * Remove Poll.
@@ -250,7 +327,7 @@ public class PollJsonController extends AbstractJsonController{
               setError(e.getMessage(), response);
           }
           return returnData();
-      } 
+      }
 
     /**
      *

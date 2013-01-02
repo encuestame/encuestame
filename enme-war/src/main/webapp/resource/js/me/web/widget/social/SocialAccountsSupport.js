@@ -41,8 +41,7 @@ define([
        var error = function(error) {
            console.debug("error", error);
        };
-       encuestame.service.xhrGet(this.getURLService().service('encuestame.service.list.allSocialAccount'), {},
-               load, error);
+       this.getURLService().get('encuestame.service.list.allSocialAccount', {}, load, error , dojo.hitch(this, function() {}));
    },
 
 

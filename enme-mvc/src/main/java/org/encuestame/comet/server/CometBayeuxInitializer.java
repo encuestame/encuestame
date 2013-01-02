@@ -17,10 +17,14 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.cometd.annotation.ServerAnnotationProcessor;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.server.BayeuxServerImpl;
 import org.cometd.server.ext.AcknowledgedMessagesExtension;
+import org.cometd.server.transport.JSONPTransport;
+import org.cometd.server.transport.JSONTransport;
+import org.cometd.websocket.server.WebSocketTransport;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.DestructionAwareBeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -36,67 +40,46 @@ import org.springframework.web.context.ServletContextAware;
 public class CometBayeuxInitializer implements DestructionAwareBeanPostProcessor,
         ServletContextAware {
 
-    /**
-     * Bayeux Server.
+    /*
+     * Log.
      */
-    private BayeuxServer bayeuxServer;
+    private Logger log = Logger.getLogger(this.getClass());
 
-    /**
-     * Server Annotation Procesor.
-     */
+    private BayeuxServer bayeuxServer;
     private ServerAnnotationProcessor processor;
 
-    /**
-     * Set {@link BayeuxServer}.
-     * @param bayeuxServer
-     */
-    @SuppressWarnings("unused")
     @Inject
-    private void setBayeuxServer(BayeuxServer bayeuxServer) {
+    private void setBayeuxServer(BayeuxServer bayeuxServer)
+    {
         this.bayeuxServer = bayeuxServer;
     }
 
-    /**
-     * Post Construct method.
-     */
-    @SuppressWarnings("unused")
     @PostConstruct
-    private void init() {
+    private void init()
+    {
         this.processor = new ServerAnnotationProcessor(bayeuxServer);
     }
 
-    /**
-     * Destroy bean.
-     */
-    @SuppressWarnings("unused")
     @PreDestroy
-    private void destroy() {
+    private void destroy()
+    {
     }
 
-    /**
-     * Post process before initialization.
-     */
-    public Object postProcessBeforeInitialization(Object bean, String name)
-            throws BeansException {
+    public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException
+    {
         processor.processDependencies(bean);
         processor.processConfigurations(bean);
         processor.processCallbacks(bean);
         return bean;
     }
 
-    /**
-     * Post process after initialization.
-     */
-    public Object postProcessAfterInitialization(Object bean, String name)
-            throws BeansException {
+    public Object postProcessAfterInitialization(Object bean, String name) throws BeansException
+    {
         return bean;
     }
 
-    /**
-     * Post process before destruction.
-     */
-    public void postProcessBeforeDestruction(Object bean, String name)
-            throws BeansException {
+    public void postProcessBeforeDestruction(Object bean, String name) throws BeansException
+    {
         processor.deprocessCallbacks(bean);
     }
 
@@ -104,13 +87,19 @@ public class CometBayeuxInitializer implements DestructionAwareBeanPostProcessor
      * Bayeux Server.
      * @return {@link BayeuxServer}.
      */
-    @Bean(initMethod = "start", destroyMethod = "stop", name="bayeux")
+    @Bean(initMethod = "start", destroyMethod = "stop")
     public BayeuxServer bayeuxServer() {
         BayeuxServerImpl bean = new BayeuxServerImpl();
         bean.setOption(BayeuxServerImpl.LOG_LEVEL, "0");
         //http://cometdaily.com/2009/03/27/cometd-acknowledged-message-extension/
         bean.addExtension(new AcknowledgedMessagesExtension());
         return bean;
+//         log.debug("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+//         log.debug("&&&&&&&&&&&&   COMET SERVER INITIALIZED &&&&&&&&&&&&&&&&&&&&");
+//         BayeuxServerImpl bean = new BayeuxServerImpl();
+//         bean.setTransports(new WebSocketTransport(bean), new JSONTransport(bean), new JSONPTransport(bean));
+//         log.debug("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+         //return bean;
     }
 
     /**

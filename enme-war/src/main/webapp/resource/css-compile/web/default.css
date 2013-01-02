@@ -309,6 +309,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
     display: none;
 }
 
+.hidden{
+    display: none;
+}
+
 .default-background-dark-color {
     background-color: #555555 !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
 }
@@ -483,14 +487,13 @@ div.web-default-menu  li.first {
 }
 
 .enme-text .dijitTextBox .dijitInputField {
-  font-size: 13px;
   padding: 1px 2px;
 }
 
 .enme-text-large .dijitTextBox {
   border-radius: 7px 7px 7px 7px;
   padding: 2px;
-  width: 250px;
+  /*width: 250px;*/
 }
 
 .enme-text-large .dijitTextBox .dijitInputContainer {

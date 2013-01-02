@@ -67,9 +67,9 @@ public abstract class AbstractSecurityContext {
             if (log.isDebugEnabled()) {
                 log.debug("info logged user account: "+account);
                 if (account != null) {
-                    log.debug("info logged user account: "+account.getUserEmail());
-                    log.debug("info logged user account: "+account.getUsername());
-                    log.debug("info logged user account: "+account.getUid());
+                    log.debug("info logged user account: "+ account.getUserEmail());
+                    log.debug("info logged user account: "+ account.getUsername());
+                    log.debug("info logged user account: "+ account.getUid());
                 }
             }
         }
@@ -97,7 +97,7 @@ public abstract class AbstractSecurityContext {
             final UserAccount account,
             final String password,
             final Boolean socialSignIn){
-         log.info("Register login user: "+account.getUsername());
+         log.info("Register login user: "+ account.getUsername());
          //building granted authorities
          final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext.convertEnMePermission(account.getSecUserPermissions());
          //create user detail based on user account.
@@ -115,6 +115,7 @@ public abstract class AbstractSecurityContext {
      * @return the secCtx
      */
     public SecurityContext getSecCtx() {
+        //log.debug("SecurityContextHolder.getContext();" + SecurityContextHolder.getContext());
         return this.securityContext = SecurityContextHolder.getContext();
     }
 
@@ -124,7 +125,7 @@ public abstract class AbstractSecurityContext {
     public EnMeUserAccountDetails getSecurityDetails(){
         EnMeUserAccountDetails details = null;
         log.trace("Authentication Object:{"+getSecCtx().getAuthentication());
-        if(getSecCtx().getAuthentication() != null){
+        if (getSecCtx().getAuthentication() != null) {
             if(getSecCtx().getAuthentication().getPrincipal() instanceof EnMeUserAccountDetails){
                 details =  (EnMeUserAccountDetails) getSecCtx().getAuthentication().getPrincipal();
             }

@@ -9,7 +9,7 @@ define([
     RaphaelLine,
     _ENME) {
 
-  console.log("_RaphaelLine", RaphaelLine);
+    _ENME.log("_RaphaelLine", RaphaelLine);
 
    var line_default = {
           smoot : false,

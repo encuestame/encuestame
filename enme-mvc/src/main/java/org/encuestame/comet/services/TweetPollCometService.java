@@ -42,7 +42,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 @Named
 @Singleton
-@Service("tweetPollCometService")
+//@Service("tweetPollCometService")
+@Deprecated
 public class TweetPollCometService extends AbstractCometService {
 
     /**

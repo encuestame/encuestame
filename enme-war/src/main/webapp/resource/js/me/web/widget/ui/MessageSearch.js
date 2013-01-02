@@ -89,7 +89,7 @@ define([ "dojo/_base/declare",
          * Hide the loader.
          */
         hide : function () {
-            console.log("HIDEEE MESSAGEEEE");
+            _ENME.log("HIDEEE MESSAGEEEE");
             this._wipeWidget.wipeOutOne();
         }
     });

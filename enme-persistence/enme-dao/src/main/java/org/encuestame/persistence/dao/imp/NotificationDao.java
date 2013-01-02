@@ -70,9 +70,8 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @param secUser
      * @return
      */
-    public final Long retrieveTotalNotificationStatus(final Account secUser){
-        return retrieveCountNotification(secUser, "select count(*) from Notification "
-                +" WHERE account = :secUser");
+    public final Long retrieveTotalNotificationStatus(final Account secUser) {
+        return retrieveCountNotification(secUser, "select count(*) from Notification WHERE account = :secUser");
     }
 
     /**
@@ -82,11 +81,11 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return
      */
     @SuppressWarnings("unchecked")
-    private Long retrieveCountNotification(final Account account, final String query){
+    private Long retrieveCountNotification(final Account account, final String query) {
         Long resultsSize = 0L;
         final List<Object> list =  getHibernateTemplate().findByNamedParam("select count(*) from Notification "
                 +" WHERE account =:user", "user", account);
-        if (list.get(0) instanceof Long){
+        if (list.get(0) instanceof Long) {
             resultsSize = (Long) list.get(0);
         }
         return resultsSize;
@@ -102,7 +101,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
          final DetachedCriteria crit = DetachedCriteria.forClass(Notification.class);
          crit.setProjection(Projections.rowCount());
          crit.add(Restrictions.eq("readed", Boolean.FALSE));
-         List<Long> results = getHibernateTemplate().findByCriteria(crit);
+         final List<Long> results = getHibernateTemplate().findByCriteria(crit);
          log.debug("retrieveTotalNotReadedNotificationStatus "+results.size());
          return (Long) (results.get(0) == null ? 0 : results.get(0));
     }

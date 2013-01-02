@@ -104,7 +104,7 @@ define([
         */
         _selectItem: function(event) {
             dojo.stopEvent(event);
-            this._selected = !this._selected;
+            this._selected = false;
             this.parentWidget.selectedItem = this.data;
             this.parentWidget.hide();
             this.processItem(this.data);

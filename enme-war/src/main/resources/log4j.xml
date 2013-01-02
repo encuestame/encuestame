@@ -101,6 +101,10 @@
         <level value="warn" />
     </logger>
 
+    <logger name="org.cometd">
+        <level value="warn" />
+    </logger>
+
     <!-- Root Logger -->
     <root>
         <priority value="warn" />

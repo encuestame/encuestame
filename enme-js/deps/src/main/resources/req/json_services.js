@@ -184,17 +184,17 @@ encuestame.utilities.HIDDEN_CLASS = "hidden";
 /*
  * create a username profile link.
  */
-encuestame.utilities.usernameLink = function(username) {
-    var url = encuestame.contextDefault;
-    if (username) {
-        url = url.concat("/profile/");
-        url = url.concat(username);
-        return url;
-    } else {
-        url = url.concat("/404");
-        return url;
-    }
-};
+// encuestame.utilities.usernameLink = function(username) {
+//     var url = encuestame.contextDefault;
+//     if (username) {
+//         url = url.concat("/profile/");
+//         url = url.concat(username);
+//         return url;
+//     } else {
+//         url = url.concat("/404");
+//         return url;
+//     }
+// };
 
 /**
  * Create a no results message node.
@@ -399,22 +399,22 @@ encuestame.notification = {};
 encuestame.notification.load = {};
 encuestame.notification.load.limit = 100;
 
-encuestame.notification.buildURLDescription = function(type, description, url) {
-    var multi = dojo.doc.createElement("div");
-    var a = dojo.doc.createElement("a");
-    a.target = "_blank";
-    if (type == "TWEETPOLL_PUBLISHED") {
-        multi.innerHTML = description+ "<br/> ";
-        a.href = encuestame.contextDefault + url;
-        a.innerHTML = "See details here.";
-    } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
-        multi.innerHTML = "";
-        a.href = url;
-        a.innerHTML = description;
-    }
-    multi.appendChild(a);
-    return multi;
-};
+// encuestame.notification.buildURLDescription = function(type, description, url) {
+//     var multi = dojo.doc.createElement("div");
+//     var a = dojo.doc.createElement("a");
+//     a.target = "_blank";
+//     if (type == "TWEETPOLL_PUBLISHED") {
+//         multi.innerHTML = description+ "<br/> ";
+//         a.href = encuestame.contextDefault + url;
+//         a.innerHTML = "See details here.";
+//     } else if (type == "SOCIAL_MESSAGE_PUBLISHED") {
+//         multi.innerHTML = "";
+//         a.href = url;
+//         a.innerHTML = description;
+//     }
+//     multi.appendChild(a);
+//     return multi;
+// };
 
 encuestame.session.activity = {};
 

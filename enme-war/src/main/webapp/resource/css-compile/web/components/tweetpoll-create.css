@@ -8,7 +8,7 @@ margin-top: 10px;
 
 div.spaceBlock {}
 
-div.web-tweetpoll-section {
+div.web-tweetpoll-section, .web-poll-question .web-tweetpoll-section  {
     background-color: white;
     border: 1px solid #E5E5E5;
     margin: 0 auto;
@@ -20,7 +20,7 @@ div.web-tweetpoll-section .left-button{
 
 }
 
-div.web-tweetpoll-section div.web-tweetpoll-section-title {
+div.web-tweetpoll-section div.web-tweetpoll-section-title, .web-poll-question .web-poll-section div.web-poll-section-title {
     /** #737373 D7D7D7 #8EA5B7  */
     color: white;
     font-size: 15px;

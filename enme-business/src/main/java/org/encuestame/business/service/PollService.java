@@ -81,11 +81,11 @@ public class PollService extends AbstractSurveyService implements IPollService{
             final TypeSearch typeSearch,
             String keyword, Integer max, Integer start)
             throws EnMeNoResultsFoundException, EnMeExpcetion {
-        log.debug("filterPollByItemsByType");
-        log.debug("--> "+typeSearch);
-        log.debug("--> "+keyword);
-        log.debug("--> "+max);
-        log.debug("--> "+start);
+        log.trace("filterPollByItemsByType");
+        log.trace("--> "+typeSearch);
+        log.trace("--> "+keyword);
+        log.trace("--> "+max);
+        log.trace("--> "+start);
         final List<PollBean> list = new ArrayList<PollBean>();
         if (TypeSearch.KEYWORD.equals(typeSearch)) {
             list.addAll(this.searchPollByKeyword(keyword, max, start));
@@ -149,9 +149,9 @@ public class PollService extends AbstractSurveyService implements IPollService{
             else{
             //TODO: move hash to util.
             final String hashPoll = MD5Utils.md5(RandomStringUtils.randomAlphanumeric(500));
-            log.debug("OPTION SHOW COMMENTS GETTED BEFORE---> " +commentOption);
+            log.trace("OPTION SHOW COMMENTS GETTED BEFORE---> " +commentOption);
             final CommentOptions commentOpt = CommentOptions.getCommentOption(commentOption);
-            log.debug("OPTION SHOW COMMENTS GETTED ENUM---> " +commentOpt);
+            log.trace("OPTION SHOW COMMENTS GETTED ENUM---> " +commentOpt);
             pollDomain.setEditorOwner(user);
             pollDomain.setCreatedAt(Calendar.getInstance().getTime());
             pollDomain.setPollHash(hashPoll);
@@ -634,24 +634,24 @@ public class PollService extends AbstractSurveyService implements IPollService{
         return poll;
     }
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * org.encuestame.core.service.imp.IPollService#getPollByAnswerId(java.lang
-	 * .Long, java.lang.Long,
-	 * org.encuestame.persistence.domain.security.UserAccount)
-	 */
-	public Poll getPollByAnswerId(final Long pollId, final Long answerId,
-			final UserAccount account) throws EnMeNoResultsFoundException {
-		final Poll poll = this.getPollById(pollId);
-		QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(
-				poll.getQuestion(), answerId);
-		if (qA == null) {
-			throw new EnMeNoResultsFoundException("Answer not found");
-		}
-		return poll;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.core.service.imp.IPollService#getPollByAnswerId(java.lang
+     * .Long, java.lang.Long,
+     * org.encuestame.persistence.domain.security.UserAccount)
+     */
+    public Poll getPollByAnswerId(final Long pollId, final Long answerId,
+            final UserAccount account) throws EnMeNoResultsFoundException {
+        final Poll poll = this.getPollById(pollId);
+        QuestionAnswer qA = getQuestionDao().retrieveAnswersByQuestionId(
+                poll.getQuestion(), answerId);
+        if (qA == null) {
+            throw new EnMeNoResultsFoundException("Answer not found");
+        }
+        return poll;
+    }
 
     /**
      * Retrieve a {@link Poll} based on id.
@@ -834,7 +834,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
         log.debug("poll getResultVotes " + poll);
         final List<PollBeanResult> results = new ArrayList<PollBeanResult>();
         final List<Object[]> list = getPollDao().retrieveResultPolls(poll.getPollId(), poll.getQuestion().getQid());
-        //log.debug("retrieveResultPolls==> "+list.size());
+        log.debug("retrieveResultPolls==> "+list.size());
         for (Object[] objects : list) {
             final Long answerId = objects[0] == null ? null : Long.valueOf(objects[0].toString());
             final String answerString = objects[1] == null ? null : objects[1].toString();

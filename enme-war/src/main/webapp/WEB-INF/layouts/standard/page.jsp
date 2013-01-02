@@ -31,16 +31,15 @@
     <tiles:insertAttribute name="menu" ignore="true" />
     <div id="content-container" class="enme-auto-center">
       <div id="enme-content" class="enme-auto-center">
+         <c:if test="${logged}">
+             <div data-dojo-type="me/web/widget/ui/Toaster"
+               duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
+               messageTopic="/encuestame/message/publish"
+               positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
+               id="toasted_message">
+            </div>
+        </c:if>
         <tiles:insertAttribute name="content" />
-            <c:if test="${logged}">
-            <!--
-               <div dojoType="encuestame.org.core.shared.utils.Toaster" duration="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.duration")%>"
-                     messageTopic="/encuestame/message/publish"
-                     positionDirection="<%=EnMePlaceHolderConfigurer.getProperty("not.toaster.position")%>"
-                     id="toasted_message">
-              </div>
-            -->
-                    </c:if>
       </div>
       <footer id="footer">
         <tiles:insertAttribute name="footer" />
@@ -53,7 +52,6 @@
      <div id="modal-box"></div>
      <div id="loading"></div>
   </c:if>
-  <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 
 </html>

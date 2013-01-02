@@ -23,6 +23,7 @@ import org.cometd.annotation.Listener;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.encuestame.persistence.domain.security.UserAccount;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 
 /**
@@ -42,34 +43,40 @@ public class NotificationCometService extends AbstractCometService {
 
     /**
      * Notification services response.
-     * @param remote
+     * @param service
      * @param message
      */
     @Listener("/service/notification/status")
-    public void processNotification(final ServerSession remote, final ServerMessage.Mutable message) {
+    public void processNotification(final ServerSession service, final ServerMessage.Mutable message) {
         final Map<String, Object> input = message.getDataAsMap();
         //log.debug("Notification Input "+input);
         final Map<String, Object> output = new HashMap<String, Object>();
         UserAccount userAccount;
         try {
-            userAccount = getByUsername(getUserPrincipalUsername());
-            if (userAccount != null) {
-                final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
-                log.debug("totalNot "+totalNot);
-                final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
-                log.debug("totalNewNot "+totalNewNot);
-                output.put("totalNot", totalNot);
-                output.put("totalNewNot", totalNewNot);
-                log.debug(totalNewNot + " NEW of "+totalNot+" total not");
+            final String username = getUserPrincipalUsername();
+            //log.debug("User get by getUserPrincipalUsername ---> " + getUserPrincipalUsername());
+            if(!username.isEmpty()) {
+                userAccount = getByUsername(username);
+                if (userAccount != null) {
+                    final Long totalNot = getNotificationDao().retrieveTotalNotificationStatus(userAccount.getAccount());
+                    log.debug("totalNot "+totalNot);
+                    final Long totalNewNot = getNotificationDao().retrieveTotalNotReadedNotificationStatus(userAccount.getAccount());
+                    log.debug("totalNewNot "+totalNewNot);
+                    output.put("totalNot", totalNot);
+                    output.put("totalNewNot", totalNewNot);
+                    log.debug(totalNewNot + " NEW of "+totalNot+" total not");
+                } else {
+                    output.put("totalNot", 0);
+                    output.put("totalNewNot", 0);
+                }
             } else {
-                output.put("totalNot", 0);
-                output.put("totalNewNot", 0);
+                throw new EnMeExpcetion("Auth object is not valid");
             }
-        } catch (EnMeNoResultsFoundException e) {
+        } catch (EnMeExpcetion e) {
              output.put("totalNot", 0);
              output.put("totalNewNot", 0);
              log.fatal("cometd: username invalid");
         }
-        remote.deliver(getServerSession(), message.getChannel(), output, null);
+        service.deliver(getServerSession(), message.getChannel(), output, null);
     }
 }

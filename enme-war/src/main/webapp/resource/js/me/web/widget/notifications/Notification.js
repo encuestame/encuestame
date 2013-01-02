@@ -1,40 +1,71 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module Notifications
+ *  @namespace Widget
+ *  @class Notification
+ */
 dojo.require('dojox.timing');
 
 define([
+         "dojo",
+         'dojo/_base/json',
          "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/stream/HashTagInfo",
+         "me/web/widget/notifications/NotificationItem",
          "me/core/enme",
          "dojo/text!me/web/widget/notifications/template/notification.html" ],
         function(
+                dojo,
+                json,
                 declare,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 main_widget,
-                hashTagInfo,
+                NotificationItem,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
           // template string.
-            templateString : template,
+          templateString : template,
 
           /*
           * delay to retrieve new notification.
           */
-         delay: _ENME.config('notification_delay'),
+         delay: _ENME.config('activity').delay,
 
          /*
           * limit of notifications.
           */
-         limit: _ENME.config('notification_limit'),
+         limit: _ENME.config('activity').limit,
 
+        /**
+         *
+         * @property
+         */
          i18nMessage : {
-           not_view_all : _ENME.getMessage("not_view_all"),
+           not_view_all : _ENME.getMessage("not_view_all")
          },
 
          /*
@@ -67,29 +98,40 @@ define([
           */
          _originalTitle : null,
 
+         /**
+          *
+          * @property
+          */
+          storage_key : "enme-not",
+
          /*
           *
           */
          postCreate: function() {
-             //load from cookie.
-             this._count.innerHTML = encuestame.session.activity.cookie().n;
-             //loadin notification subscription.
-             var subscriptionNotification;
-//             dojo.addOnLoad(dojo.hitch(this, function() {
-//                 this.loadStatus();
-//                 this.loadTimer();
-//             dojo.subscribe("/encuestame/notifications/update/status", this, "_updateStatus");
-//             subscriptionNotification  = encuestame.activity.cometd.subscribe('/service/notification/status',
-//                 dojo.hitch(this, function(message) {
-//                     this._updateStatus(message.data.totalNewNot, message.data.totalNot);
-//               }));
-//             }));
-//             dojo.addOnUnload(function() {
-//                 if (subscriptionNotification != null) {
-//                     encuestame.activity.cometd.unsubscribe(subscriptionNotification);
-//                 }
-//             });
-             this._originalTitle = document.title;
+            // after refresh, clean all possible storage key.
+             _ENME.removeItem(this.storage_key);
+             // get the current activity
+             this.activity = _ENME.getActivity();
+             var parent = this;
+
+             // create a timer to get possible new notifications
+             var _timer = function () {
+                parent.activity.cometd.publish('/service/notification/status', { r : 0 });
+             };
+            window.setInterval(_timer, this.delay || 20000);
+
+            dojo.subscribe("/notifications/service/messages", this, "_updateStatus");
+            dojo.subscribe("/notifications/service/update", this, function() {
+                console.log("dskald;ksal;dksal;kdlaskl;dsaldsa");
+                _timer();
+            });
+
+            dojo.addOnUnload(function() {
+                if (subscriptionNotification !== null) {
+                    parent.activity.cometd.unsubscribe(subscriptionNotification);
+                }
+            });
+            this._originalTitle = document.title;
          },
 
          /*
@@ -109,15 +151,17 @@ define([
          /*
           * open dialog notification.
           */
-         open: function(event){
+         open: function(event) {
              dojo.stopEvent(event);
-             if(!this.openNot){
+             if (!this.openNot) {
                  dojo.addClass(this._panel, "openLivePanel");
-                 if(this._updateNotifications){
+                 dojo.addClass(this._parent_wrapper, 'not-menu-not-selected');
+                 //if(this._updateNotifications){
                      this.loadNotifications();
-                 }
+                 //}
              } else {
                  dojo.removeClass(this._panel, "openLivePanel");
+                 dojo.removeClass(this._parent_wrapper, 'not-menu-not-selected');
              }
              this.openNot = !this.openNot;
          },
@@ -128,7 +172,7 @@ define([
          _viewAll : function(event){
               dojo.stopEvent(event);
               //dijit.byId("allNot").show();
-              document.location.href = encuestame.contextDefault+"/user/notifications";
+              document.location.href = _ENME.config('contextPath') + "/user/notifications";
          },
 
          /*
@@ -136,24 +180,28 @@ define([
           * @param totalNew
           * @param lastNew
           */
-         _updateStatus : function(totalNew, total){
-             if (totalNew < encuestame.session.activity.cookie().n
-                 || totalNew == encuestame.session.activity.cookie().n) {
+         _updateStatus : function(notStatus) {
+             var _storage =  (json.fromJson(_ENME.restoreItem(this.storage_key)) || ({ n : null , t : null }));
+             if (notStatus.totalNewNot < _storage.n || notStatus.totalNewNot == _storage.n) {
                  //highlight new notifications.
                  this._updateNotifications = true;
                  this._displayNewHighlight();
                  //update title to show number of new notifications
-                 var newTitle = this._originalTitle + " ("+totalNew+")";
+                 var newTitle = this._originalTitle + " ("+  notStatus.totalNewNot + ")";
                  //console.debug("newTitle", newTitle);
                  document.title = newTitle;
              } else {
                  this._hideNewHighlight();
                  this._updateNotifications = false;
              }
-             //update cookie
-             encuestame.session.activity.updateNot(total, totalNew);
-             this.totalNot = totalNew;
-             this._count.innerHTML = this.totalNot;
+             // update cookie
+             _ENME.storeItem(this.storage_key, {
+                t : notStatus.totalNot,
+                n : notStatus.totalNewNot
+             });
+             //encuestame.session.activity.updateNot(total, notStatus.totalNewNot);
+             notStatus.totalNot = notStatus.totalNewNot;
+             this._count.innerHTML = notStatus.totalNot;
          },
 
          /*
@@ -176,26 +224,30 @@ define([
              encuestame.activity.cometd.endBatch();
          },
 
-         /*
+         /**
           * load notifications.
+          * @method
           */
          loadNotifications : function() {
-             var load = dojo.hitch(this, function(data){
+             var parent = this,
+             load = dojo.hitch(this, function(data) {
+                 parent.activity.cometd.publish('/service/notification/status', { r : 0 });
                  this.notifications = data.success.notifications;
                  this.buildNotifications();
                  this._updateNotifications = false;
-             });
-             var error =  dojo.hitch(this, function(error) {
+             }),
+             error =  dojo.hitch(this, function(error) {
                  this.timer.stop();
              });
              dojo.empty(this._not);
-             encuestame.service.xhrGet(encuestame.service.list.getNotifications, {limit:this.limit}, load, error);
+             this.getURLService().get("encuestame.service.list.getNotifications", { limit: this.limit}, load, error , dojo.hitch(this, function() {
+             }));
          },
 
          /*
           * build notifications node.
           */
-         buildNotifications : function(){
+         buildNotifications : function() {
               dojo.empty(this._not);
               dojo.forEach(this.notifications,
                       dojo.hitch(this, function(item, index) {
@@ -216,7 +268,7 @@ define([
          /*
           * Create Network Error.
           */
-         createNetworkError : function(error, additional){
+         createNetworkError : function(error, additional) {
              var item = {
                  type : "",
                  description : error,
@@ -226,7 +278,7 @@ define([
              this.createNotification(item);
          },
 
-         cleanNot : function(){
+         cleanNot : function() {
              dojo.empty(this._not);
          },
 
@@ -234,29 +286,12 @@ define([
           * Create Notification.
           */
          createNotification : function(item){
-             var not = new encuestame.org.core.commons.notifications.NotificationItem({item:item});
+             var not = new NotificationItem({
+              item : item
+             });
+             console.log("ITEM", item);
              this._not.appendChild(not.domNode);
          }
 
-            });
-        });
-
-//dojo.provide("encuestame.org.core.commons.notifications.Notification");
-//
-//dojo.require('dojox.timing');
-//dojo.require("dojox.widget.Dialog");
-//dojo.require("dijit._Templated");
-//dojo.require("dijit._Widget");
-//dojo.require("dijit.layout.ContentPane");
-//dojo.require('encuestame.org.core.commons');
-//dojo.require('encuestame.org.main.EnmeMainLayoutWidget');
-//dojo.require('encuestame.org.core.commons.notifications.NotificationItem');
-//
-//dojo.declare(
-//    "encuestame.org.core.commons.notifications.Notification",
-//    [encuestame.org.main.EnmeMainLayoutWidget],{
-//        templatePath: dojo.moduleUrl("encuestame.org.core.commons.notifications", "template/notification.html"),
-//
-
-//    }
-//);
+    });
+});

@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module SignUp
+ *  @namespace Widgets
+ *  @class PasswordValidator
+ */
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -46,17 +69,12 @@ define([
          */
         postCreate : function() {
             this.inherited(arguments);
-            dojo.connect(this._input, "onkeyup", dojo.hitch(this, function(event) {
-                 this.inputTextValue = this._input.value.toLowerCase();
-                 console.debug(this.inputTextValue);
-                 if(this.inputTextValue.length > 0){
-                     this._validate(this.inputTextValue);
-                 } else {
-                     var data = {};
-                     data.msg = encuestame.constants.errorCodes["015"];
-                     this._showErrorMessage(data);
-                 }
-
+            dojo.connect(this._input, "onkeyup", dojo.hitch(this, function(e) {
+              if (dojo.keys.TAB != e.keyCode) {
+                dojo.stopEvent(e);
+                this.inputTextValue = this._input.value.toLowerCase();
+                this._validate(this.inputTextValue);
+              }
             }));
         },
 
@@ -67,7 +85,7 @@ define([
             var valid = false;
             dojo.forEach(encuestame.constants.passwordExcludes,
                     dojo.hitch(this,function(item) {
-                        console.debug(item);
+                        //console.debug(item);
             }));
             return valid;
         },
@@ -75,18 +93,18 @@ define([
         /**
          *
          */
-        validatePassword :function() {
-            this._validate(this.inputTextValue);
+        validatePassword : function() {
+            this._validate(this.inputTextValue, true);
         },
 
         /**
-         *
+         * Evaluate the password strong
+         * @method
          */
         evaluateStrong : function(passwd) {
-            var intScore = 0;
-            var strVerdict = "weak";
-            var strLog = "";
-
+            var intScore = 0,
+            strVerdict = "weak",
+            strLog = "";
             if (passwd.length < 5) {
                 intScore = (intScore + 3);
             } else if (passwd.length > 4 && passwd.length < 8) {
@@ -96,63 +114,56 @@ define([
             } else if (passwd.length > 15) {
                 intScore = (intScore + 18);
             }
-
             if (passwd.match(/[a-z]/)) {
                 intScore = (intScore + 1);
             }
-
             if (passwd.match(/[A-Z]/)) {
                 intScore = (intScore + 5);
             }
-
             if (passwd.match(/\d+/)) {
                 intScore = (intScore + 5);
             }
-
             if (passwd.match(/(.*[0-9].*[0-9].*[0-9])/)) {
                 intScore = (intScore + 5);
             }
-
             if (passwd.match(/.[!,@,#,$,%,^,&,*,?,_,~]/)) {
                 intScore = (intScore + 5);
             }
-
             if (passwd.match(/(.*[!,@,#,$,%,^,&,*,?,_,~].*[!,@,#,$,%,^,&,*,?,_,~])/)) {
                 intScore = (intScore + 5);
             }
-
             if (passwd.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
                 intScore = (intScore + 2);
             }
-
             if (passwd.match(/([a-zA-Z])/) && passwd.match(/([0-9])/)) {
                 intScore = (intScore + 2);
             }
-
             if (passwd.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) {
                 intScore = (intScore + 2);
             }
-
             return intScore;
         },
 
        /**
         *
         */
-       _validate : function(password) {
-               var banned = false;
+       _validate : function(password, validateBlank) {
+               var banned = false,
+               validateBlank = validateBlank || false;
                // check banned password.
-               if (encuestame.constants.passwordExcludes.indexOf(password.toLowerCase()) != -1) {
-                   console.info(password.toLowerCase());
-                   var data = {};
-                   data.msg = encuestame.constants.errorCodes["012"];
-                   banned = true;
-                   this._showErrorMessage(data);
-               }
               if (!banned) {
                   var data = {};
                   var intScore = this.evaluateStrong(password);
-                  if (intScore < 16) {
+                  if (validateBlank && password === '') {
+                    data.msg = encuestame.constants.errorCodes["015"];
+                      this.isValid = false;
+                      this._showErrorMessage(data);
+                  } else if (encuestame.constants.passwordExcludes.length > 0 && encuestame.constants.passwordExcludes.indexOf(password.toLowerCase()) != -1) {
+                     var data = {};
+                     data.msg = encuestame.constants.errorCodes["012"];
+                     this.isValid = false;
+                     this._showErrorMessage(data);
+                  } else if (intScore < 16 && intScore > 1) {
                       data.msg = encuestame.constants.errorCodes["012"];
                       this.isValid = false;
                       this._showErrorMessage(data);
