@@ -1,0 +1,190 @@
+/* publish support */
+.web-publish-support {
+    max-height: 500px;
+    min-height: 450px;
+    min-width: 500px;
+}
+
+div.web-publish-support .sidebar {
+    float: left;
+    width: 155px;
+}
+
+div.web-publish-support .title {
+    background-color: #D5D5D5;
+    color: #8B8B8B;
+    font-size: 14px;
+    padding: 10px;
+    border-bottom: 1px solid #A8A8A8;
+}
+
+div.web-publish-support .title h2 {
+    margin: 0px;
+}
+div.web-publish-support .title h2 b {
+	color: #F58A16;
+}
+div.web-publish-support .sub-section {
+    min-height: 395px;
+    overflow: auto;
+}
+
+div.web-publish-support .wrapper {
+    overflow: auto;
+}
+
+div.web-publish-support .detail {
+    margin-left: 155px;
+}
+
+div.web-publish-support ul.menu {
+    background: none repeat scroll 0 0 #F4F4F4;
+    border-right: 1px solid #D9D9D9;
+    height: 394px;
+    padding: 0px;
+}
+
+div.web-publish-support ul.menu li {
+    border-width: 1px;
+    cursor: pointer;
+    list-style: none outside none;
+    padding: 5px 0;
+    border-bottom: 1px solid #E2E2E2;
+}
+
+div.web-publish-support ul.menu li a {
+    padding-left: 10px;
+    text-decoration: none;
+    color: #8A8A8A;
+}
+
+.li-pb-selected  {
+    background-color: #A4BCCB;
+    color: white !important;
+}
+
+.li-pb-selected > a:link, .li-pb-selected > a:visited, .li-pb-selected > a {
+    color: white !important;
+}
+
+div.web-publish-support ul.menu li:hover, div.web-publish-support ul.menu li:hover a{
+    background-color: #A4BCCB;
+    color: white;
+}
+
+div.web-publish-support ul.menu li a:hover {
+    color: white;
+}
+
+div.web-publish-support .footer-section {
+    background-color: #F4F4F4;
+    border-top: 2px solid #D7D7D7;
+    min-height: 40px;
+    padding: 15px 10px 0px 10px;
+    text-align: right;
+    width: auto;
+}
+
+div.web-publish-support div.web-support-panel-item-title {
+    background-color: #F2F2F2;
+    border-bottom: 1px dotted #979797;
+    color: #7D7D7D;
+    cursor: pointer;
+    font-size: 115%;
+    padding: 6px;
+    text-transform: capitalize;
+    width: auto;
+}
+
+div.web-publish-support div.web-support-panel-item-content {
+    min-height: 150px !important;
+    padding: 0px;
+}
+
+div.web-support-embebed {
+    padding: 15px;
+    font-size: 12px;
+}
+
+div.web-support-embebed .emebed-title {
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 26px;
+    padding: 0 0 5px;
+}
+
+div.web-support-embebed .embebed-des {
+    color: #666666;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+div.web-support-embebed textarea {
+    color: #000000;
+    font-family: courier;
+    font-size: 120%;
+    height: 100px;
+    margin-top: 0;
+    padding: 6px;
+    width: 520px;
+}
+
+/** social status support */
+
+.web-support-panel-item .tweetPollPublishDialog  .item .detail{
+    margin-left: 5px;
+}
+
+.web-support-panel-item .web-support-panel-item-content {
+
+}
+
+.web-support-panel-item .social-account-wrapper {
+
+}
+
+.web-support-panel-item .social-account-wrapper .selected{
+    background-color: #FDDF63;
+    color: #F58A16;
+}
+
+.web-support-panel-item .social-account-wrapper .publish-counter{
+    padding: 5px;
+    text-align: right;
+    font-weight: bold;
+    background-color: #888;
+    color: white;
+}
+
+.web-support-panel-item  .publish-social-button {
+    padding: 5px 20px;
+    text-align: right;
+}
+
+.web-support-panel-item .web-support-panel-item-content .web-social-filter-item {
+    overflow: auto;
+    padding: 5px;
+    border-bottom: 1px solid lightGrey;
+    cursor: pointer;
+    position: relative;
+}
+
+.web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-image {
+    float: left;
+    padding: 5px;
+}
+
+.web-support-panel-item .social-account-wrapper .web-social-icon-image {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+}
+
+.web-support-panel-item .web-support-panel-item-content .web-social-filter-item .web-social-filter-name {
+    line-height: 30px;
+    margin-left: 40px;
+}
+
+
+

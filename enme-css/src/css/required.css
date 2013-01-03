@@ -1,0 +1,10 @@
+ @import url("html5/reset.css");
+/* @import url("html5/normalize.css"); */
+@import url("input.css");
+@import url("dojo-fixes.css");
+
+a:-webkit-any-link {
+    color: -webkit-link;
+    text-decoration: underline;
+    cursor: auto;
+}

@@ -1,0 +1,288 @@
+
+/**
+    sign ip
+ **/
+#web-user-actions-form-wrapper {
+
+    border-radius: 4px;
+    box-shadow: 0 3px 3px #D5D5D5;
+    color: white;
+    margin: 0 auto;
+    padding: 30px;
+    z-index: 1;
+    background: white;
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,white),color-stop(100%,#DDD));
+    background: -webkit-linear-gradient(top,white 0,#DDD 100%);
+    background: -moz-linear-gradient(top,white 0,#DDD 100%);
+    background: -ms-linear-gradient(top,white 0,#DDD 100%);
+    background: -o-linear-gradient(top,white 0,#DDD 100%);
+    background: linear-gradient(top,white 0,#DDD 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dddddd',GradientType=0);
+    border-left: solid 1px #EEE;
+    border-right: solid 1px #EEE;
+    border-bottom: solid 1px #CCC;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+}
+
+/** login **/
+
+#web-user-actions-form-wrapper .web-form-singup-container {
+}
+
+#web-form-wrapper h1 {
+ font-size: 24px;
+font-weight: 200;
+color: #444;
+  margin-bottom: 10px;
+  margin-left: 7px;
+  margin-top: 0;
+  text-shadow: 1px 0 0 white;
+}
+
+#web-form-wrapper .error {
+  color: #FFFFFF;
+  font-weight: normal;
+  margin: 5px;
+  padding: 5px;
+  width: auto;
+  text-align: center;
+}
+
+#web-user-actions-form-wrapper, #page-container {
+  width: 60%;
+}
+
+#web-user-actions-form-wrapper div.leftMessage {
+    left: 20px;
+    position: absolute;
+    top: 10px;
+    width: 250px;
+}
+
+div.web-form-wrapper form {
+  margin: 0 auto;
+}
+
+#web-user-actions-form-wrapper div.field {
+    padding: 17px;
+}
+
+#web-user-actions-form-wrapper div.field div.label {
+    color: #000;
+    float: left;
+    font-size: 133%;
+    padding-top: 6px;
+    width: 90px;
+}
+
+#web-user-actions-form-wrapper .section-signup {
+
+}
+
+#web-user-actions-form-wrapper h3 {
+  color: #444444;
+  font-weight: 200;
+  margin: 5px 3px;
+  text-shadow: 1px 0 0 white;
+}
+
+#web-user-actions-form-wrapper .sign-in-form{
+    margin: 0 auto;
+    width: 69%;
+}
+
+#web-user-actions-form-wrapper div.sidetip {
+  position: absolute;
+  top: 38px;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+
+#web-user-actions-form-wrapper div.sidetip p {
+    background-position: left center;
+    background-repeat: no-repeat;
+    font-weight: bold;
+    font-size: 13px;
+    margin: 2px;
+}
+
+#web-user-actions-form-wrapper  .textbox .validator-wrapper .shadow-input-message {
+    -moz-user-select: none;
+    display: inline;
+}
+
+#web-user-actions-form-wrapper  .textbox .validator-wrapper .shadow-input-message {
+    color: #DDDDDD;
+    line-height: 37px;
+    padding-left: 1px;
+    font-size: 150%;
+}
+
+#web-user-actions-form-wrapper .textbox .section {
+  margin-bottom: 15px;
+  padding: 5px;
+  position: relative;
+  width: 93%;
+}
+
+#web-user-actions-form-wrapper .textbox .web-section-option {
+  height: 15px;
+  margin-bottom: 5px;
+  padding: 5px;
+  position: relative;
+  width: 80%;
+}
+
+#web-user-actions-form-wrapper .textbox .web-section-button {
+  margin-bottom: 15px;
+  margin-right: 90px;
+  width: 100%;
+}
+
+#web-user-actions-form-wrapper  a {
+  color: #444444;
+  margin-left: 4px;
+  text-shadow: 1px 0 0 white;
+  top: 0;
+}
+
+
+#web-user-actions-form-wrapper  .shadow-input-message {
+    -moz-transition: opacity 0.1s ease 0s, font-size 0.1s ease 0s;
+    cursor: text;
+    left: 150px;
+    position: absolute;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    top: 0;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+#web-user-actions-form-wrapper input, textarea, select {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    margin: 0;
+    outline: 0;
+    background-color: white;
+    border: 1px solid #CCC;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+
+/* #web-user-actions-form-wrapper .input-design input:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+} */
+
+/* #web-user-actions-form-wrapper  input:focus, textarea:focus {
+    width: 340px;
+} */
+
+#web-user-actions-form-wrapper div.web-form-wrapper div.submit {
+    margin: 0 auto;
+    padding: 3px;
+    width: 37em;
+}
+
+#web-user-actions-form-wrapper div.web-form-wrapper div.suggestions {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #D2D2D2;
+  border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  color: #717171;
+  font-size: 13px;
+  margin: 25px auto 0;
+  overflow: auto;
+  padding: 5px 10px 10px;
+  text-align: left;
+  width: 376px;
+}
+
+#web-user-actions-form-wrapper div.web-form-wrapper div.suggestions ul {
+    display: inline;
+    line-height: 26px;
+}
+
+#web-user-actions-form-wrapper div.web-form-wrapper div.suggestions ul {
+    list-style: disc outside none;
+}
+
+#web-user-actions-form-wrapper div.web-form-wrapper div.suggestions li {
+  background-color: #444444;
+  border: 1px solid #929292;
+  border-radius: 3px 3px 3px 3px;
+   -webkit-border-radius: 3px 3px 3px 3px;
+  -moz-border-radius: 3px 3px 3px 3px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: -moz-box;
+  font-size: 90%;
+  margin: 2px 2px 2px 0;
+  padding: 2px;
+  white-space: nowrap;
+  float: left;
+}
+
+/** sign up */
+
+#web-user-actions-form-wrapper .sign-un-form {
+    margin: 0 auto;
+    width: 60%;
+}
+
+/** social sign in **/
+
+.web-social-signin {
+  margin: 25px 0;
+}
+
+.web-social-signin h3 {
+  margin: 10px 0 !important;
+}
+
+.web-social-signin  > .section{
+
+}
+
+/** confirm message **/
+
+.web-user-confirm-message {
+  padding: 20px;
+  width: 100%;
+}
+
+.web-user-confirm-message h2{
+    color: #222222;
+    font-size: 18px;
+}
+
+.web-user-confirm-message span{
+    color: #222222;
+    font-size: 18px;
+}
+
+.web-user-confirm-message span a {
+  color: #E7A441 !important;
+}
+.web-user-confirm-message div {
+  margin-top: 10px;
+}
+
+
+/** web-message-forgor-link **/
+
+.web-message-forgor-link {
+  margin-top: 20px;
+}
+
+.web-message-forgor-link a {
+  color: #E7A441 !important;
+}

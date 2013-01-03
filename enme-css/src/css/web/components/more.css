@@ -1,0 +1,16 @@
+.pagination {
+  cursor: pointer;
+  margin: 2px;
+  padding: 10px;
+  text-align: center;
+}
+
+div.pagination:hover {
+   
+}
+
+.pagination .titleNext {
+  color: #7C7C7D;
+  font-size: 122%;
+  font-weight: normal;
+}

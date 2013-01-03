@@ -1,0 +1,168 @@
+.home-mobile{
+
+}
+
+.home-mobile .mobile-home-subtitle {
+    padding: 10px;
+    background-color: #444;
+    color: white;
+    margin: 0;
+    font-size: 16px;
+}
+
+.home-mobile .mobile-search{
+
+}
+
+.home-mobile .mobile-search > input[type="text"] {
+
+}
+
+.home-mobile .mobile-item-wrapper {
+
+}
+
+.home-mobile .mobile-item-wrapper .category-menu {
+    padding: 5px;
+
+}
+
+.home-mobile .mobile-item-wrapper .category-menu .nav-home-menu {
+
+}
+
+.home-mobile .mobile-item-wrapper .category-menu .nav-home-menu a {
+    color: white;
+}
+
+.home-mobile .mobile-item-wrapper .category-menu .nav-home-menu a:link {
+    color: white;
+    margin: 0 6px;
+}
+
+.home-mobile .nav-home-menu .main-options {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.home-mobile  .nav-home-menu .hot-tags .option {
+
+}
+
+.home-mobile  .nav-home-menu .hot-tags{
+    text-align: center;
+    margin-top: 5px;
+}
+
+.home-mobile  .nav-home-menu .hot-tags .optionTags {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items{
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item{
+    clear: both;
+    padding: 5px;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img {
+    float: left;
+    padding: 5px;
+    width: 40px;
+    margin: 5px;
+   background: rgb(76,76,76); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(76,76,76,1)), color-stop(12%,rgba(89,89,89,1)), color-stop(25%,rgba(102,102,102,1)), color-stop(39%,rgba(71,71,71,1)), color-stop(50%,rgba(44,44,44,1)), color-stop(51%,rgba(0,0,0,1)), color-stop(60%,rgba(17,17,17,1)), color-stop(76%,rgba(43,43,43,1)), color-stop(91%,rgba(28,28,28,1)), color-stop(100%,rgba(19,19,19,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+   color: white;
+   box-shadow: 1px 1px 1px 1px #888;
+    border-radius: 5px;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img .vote {
+    text-align: center;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img .vote .count {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img .vote .viewcount {
+    font-size: 10px;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img .vote .views {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img  .title {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img  .title > div{
+    font-size: 7px;
+    text-align: center;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .img .button-home-item {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .content {
+    margin-left: 60px;
+    overflow: auto;
+}
+.home-mobile .mobile-item-wrapper > .items > .item .content .title {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .content .title h1{
+    font-size: 17px;
+    color: #444444;
+    font-weight: normal;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .content .image {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .content .title {
+    padding: 7px;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .content .tags {
+    padding: 5px 0;
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .bottom {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .bottom .options {
+
+}
+
+.home-mobile .mobile-item-wrapper > .items > .item .bottom .submited {
+    font-size: 10px;
+    margin-left: 60px;
+}
+
+
+/*** hashtag cloud ***/
+
+.home-mobile div.mobile-HashTags{
+    text-align: left;
+    padding-left: 6px;
+}
+
+.home-mobile div.mobile-HashTags .mobile-optionTag .tag{
+    margin: 4px;
+}

@@ -1,0 +1,44 @@
+.defaultTable{
+    background: #fff;
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+}
+
+.defaultTable  th{
+    font-size: 110%;
+    font-weight: normal;
+    color: #FFF;
+    padding: 6px 10px;
+    background-color: #444444;
+    cursor: pointer;
+}
+
+.defaultTable  th:hover{
+    background-color: #706D6D;
+}
+
+.defaultTable td{
+    color: #4444444;
+    padding: 6px 8px;
+    font-size: 105%;
+}
+
+.defaultTable .link{
+  color: #4444444;
+}
+
+.defaultTable td .link:hover{
+    color: #4444444;
+    text-decoration: underline;
+}
+
+.defaultTable tbody tr:hover td{
+    color: #444444;
+    background-color: #D7D7D7;
+}
+
+.defaultTable tfoot{
+    background-color: #D7D7D7;
+    font-weight: bold;
+}
