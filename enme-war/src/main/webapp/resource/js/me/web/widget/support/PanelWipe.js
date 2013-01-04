@@ -2,12 +2,14 @@
  * Panel Wipe Support.
  * @author Picado, Juan juanATencuestame.org
  */
-dojo.require("dojox.fx");
+//dojo.require("dojox.fx");
 define([
      "dojo/_base/declare",
+     "dojo/fx",
      "me/core/enme"],
     function(
     declare,
+    coreFx,
     _ENME) {
 
   return declare(null, {
@@ -50,7 +52,7 @@ define([
   wipeInOne: function() {
       //console.info("connect wipeInOne", this.content);
       this.preWipe();
-      dojox.fx.wipeTo({
+      coreFx.wipeIn({
            node: this.content,
           duration: this.duration,
           height: this.height
@@ -64,7 +66,7 @@ define([
       //console.info("connect wipeOutOne", this.content);
       if (this.content) {
           this.postWipe();
-          dojox.fx.wipeOut({
+          coreFx.wipeOut({
               node: this.content,
               duration: this.duration
           }).play();
@@ -101,7 +103,7 @@ define([
                //console.info("connect click", this.selected);
            }));
        }
-   },
+   }
 
   });
 });

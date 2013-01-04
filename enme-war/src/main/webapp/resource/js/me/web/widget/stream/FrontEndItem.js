@@ -1,21 +1,26 @@
-dojo.provide("encuestame.org.core.commons.stream.FrontEndItem");
+define([
+     "dojo/_base/declare",
+     "dijit/_WidgetBase",
+     "dijit/_TemplatedMixin",
+     "dijit/_WidgetsInTemplateMixin",
+     "me/core/main_widgets/EnmeMainLayoutWidget",
+     "me/core/enme",
+     "dojo/text!me/web/widget/stream/templates/frontEndItem.html" ],
+    function(
+    declare,
+    _WidgetBase,
+    _TemplatedMixin,
+    _WidgetsInTemplateMixin,
+    main_widget,
+    _ENME,
+     template) {
 
-dojo.require('dojox.timing');
-dojo.require("dojox.widget.Dialog");
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
-dojo.require("dijit.layout.ContentPane");
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-dojo.require('encuestame.org.core.commons');
-dojo.require('encuestame.org.core.commons.stream.HashTagInfo');
+      // template string.
+        templateString : template,
 
-dojo.declare(
-    "encuestame.org.core.commons.stream.FrontEndItem",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.stream", "templates/frontEndItem.html"),
-
-        widgetsInTemplate: true,
-        contextPath : encuestame.contextDefault,
+        contextPath : _ENME.config('contextPaht'),
         questionName : "",
         id : 0,
         owner : "dasd",
@@ -28,12 +33,14 @@ dojo.declare(
          * Post create.
          */
         postCreate : function() {
-            if (this._hashtag) {
-               // this._hashtag.href = encuestame.contextDefault+"/tag/"+this.hashTagName+"/";
-            }
+            // if (this._hashtag) {
+            //    // this._hashtag.href = encuestame.contextDefault+"/tag/"+this.hashTagName+"/";
+            // }
         },
 
         _geTtotalVotes : function(){
 
         }
+
+  });
 });

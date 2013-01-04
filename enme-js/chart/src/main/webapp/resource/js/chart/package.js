@@ -21,7 +21,7 @@ var profile = {
     // are typically binaries (images, etc.) and may be corrupted by the build system if it attempts to process
     // them and naively assumes they are scripts.
     copyOnly: function (filename, mid) {
-      return (/^me\/resources\//.test(filename) && !/\.css$/.test(filename));
+      return (/^chart\/resources\//.test(filename) && !/\.css$/.test(filename));
     },
 
     // Files that are AMD modules.
@@ -36,7 +36,7 @@ var profile = {
     // the application.
     miniExclude: function (filename, mid) {
       return mid in {
-        'me/package': 1
+        'chart/package': 1
       };
     }
   }

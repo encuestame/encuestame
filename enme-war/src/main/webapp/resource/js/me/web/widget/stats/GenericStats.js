@@ -37,15 +37,16 @@ define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
      *
      */
     _callGenericStats : function() {
-      var params = {
+      var parent = this,
+      params = {
         id : this.generic,
-        filter : this.typeGeneric,
-      };
-      var load = dojo.hitch(this, function(data) {
+        filter : this.typeGeneric
+      },
+      load = function(data) {
         if ("success" in data) {
           this._buildStats(data.success.generic);
         }
-      });
+      };
       this.getURLService().get(this._service, params,  load, null, null);
     },
 

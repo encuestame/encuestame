@@ -52,7 +52,7 @@ define([
    /**
     * The percent result.
     */
-   percent : "0%",
+   percent : "0%"
 
 
   });

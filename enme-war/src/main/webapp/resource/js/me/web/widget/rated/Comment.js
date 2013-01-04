@@ -62,7 +62,7 @@ define([
            negative : negative
          });
          return widget.domNode;
-       },
+       }
 
   });
 });

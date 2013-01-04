@@ -95,7 +95,7 @@ define([
                          "value" : button_data.value,
                          "label" : button_data.sub_label,
                          "filter" : button_data.filter
-                     },
+                     }
              };
                //if period exist, override the default period.
                if (period) {
@@ -138,7 +138,7 @@ define([
                    valuesy : valuesy,
                    width : 430,
                    radius : 1,
-                   height : 280,
+                   height : 280
                };
                //create a line graph
                this.line(option);
@@ -153,7 +153,7 @@ define([
              var params = {
                      tagName : this.hashtagName,
                      period : range || this.default_range,
-                     filter  : filter || this.default_filter,
+                     filter  : filter || this.default_filter
                  };
                  var load = dojo.hitch(this, function(data) {
                    /*

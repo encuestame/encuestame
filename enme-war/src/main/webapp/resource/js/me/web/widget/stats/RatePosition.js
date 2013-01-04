@@ -28,7 +28,7 @@ define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
       */
      _callService : function () {
          var params = {
-             tagName : this.tagName,
+             tagName : this.tagName
           };
           var load = dojo.hitch(this, function(data) {
             if ("success" in data) {

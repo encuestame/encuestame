@@ -26,9 +26,13 @@ define([
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "dijit/form/Form",
          "me/core/main_widgets/EnmeMainLayoutWidget",
-         "me/web/widget/stream/HashTagInfo",
          "me/core/enme",
+         'me/web/widget/validator/RealNameValidator',
+         'me/web/widget/validator/PasswordValidator',
+         'me/web/widget/validator/EmailValidator',
+         'me/web/widget/validator/UsernameValidator',
          "dijit/registry",
          "dojo/text!me/web/widget/signup/templates/signup.html" ],
         function(
@@ -36,11 +40,15 @@ define([
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                Form,
                 main_widget,
-                hashTagInfo,
                 _ENME,
+                RealNameValidator,
+                PasswordValidator,
+                EmailValidator,
+                UsernameValidator,
                 registry,
-                 template) {
+                template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
        /*
@@ -82,10 +90,22 @@ define([
         *
         */
        postCreate : function() {
-           this.userWidget = registry.byId("usrva");
-           this.passWidget = registry.byId("pssw");
-           this.emailWidget = registry.byId("em");
-           this.realWidget = registry.byId("rm");
+           var rn = dojo.byId("rm"),
+           pssw = dojo.byId("pssw"),
+           em = dojo.byId("em"),
+           _form = dojo.byId('signupForm'),
+           usrva = dojo.byId("usrva");
+           this.passWidget =  new PasswordValidator({enviroment : "ext"});
+           this.userWidget =  new UsernameValidator({enviroment : "ext"});
+           this.realWidget =  new RealNameValidator({enviroment : "ext"});
+           this.emailWidget = new EmailValidator({enviroment : "ext"});
+           var widget_form = new Form();
+           rn.appendChild(this.realWidget.domNode);
+           pssw.appendChild(this.passWidget.domNode);
+           em.appendChild(this.emailWidget.domNode);
+           usrva.appendChild(this.userWidget.domNode);
+           _form.appendChild(widget_form.domNode);
+
                    if (this.userWidget == null || this.passWidget == null
                    || this.emailWidget == null || this.realWidget == null) {
                        console.error("NO WIDGETS FOUND");

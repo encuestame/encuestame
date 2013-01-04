@@ -5,7 +5,7 @@ define([
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/enme",
-         "dojo/text!me/web/widget/vote/templates/answervote.html" ],
+         "dojo/text!me/web/widget/poll/vote/templates/answervote.html" ],
         function(
                 declare,
                 _WidgetBase,

@@ -7,13 +7,14 @@ define([
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
      "me/core/enme",
+     "me/web/widget/stream/FrontEndItem",
      "dojo/dom-construct",
      "dojo/dom-class",
      "dojo/dom-attr",
      "dojo/on",
      "dojo/text!me/web/widget/stream/templates/frontEnd.html" ],
     function(parser, registry, declare, _WidgetBase, _TemplatedMixin,
-        _WidgetsInTemplateMixin, main_widget, _ENME, domConstruct, domClass, domAttr, on, template) {
+        _WidgetsInTemplateMixin, main_widget, _ENME, FrontEndItem, domConstruct, domClass, domAttr, on, template) {
 
       return declare([ _WidgetBase, _TemplatedMixin, main_widget,
           _WidgetsInTemplateMixin ], {
@@ -41,7 +42,7 @@ define([
             _printItems : function(items){
                 dojo.forEach(items,
                     dojo.hitch(this,function(item) {
-                      var widget = new encuestame.org.core.commons.stream.FrontEndItem(
+                      var widget = new FrontEndItem(
                               {   questionName : item.question.question_name,
                                   id : item.id,
                                   owner : item.owner_username,

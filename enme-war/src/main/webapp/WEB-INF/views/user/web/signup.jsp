@@ -2,8 +2,6 @@
 <div id="web-user-actions-form-wrapper" class="enme-auto-center">
     <div class="web-form-wrapper sign-un-form" id="web-form-wrapper">
             <form method="POST" id="signupForm"
-                data-dojo-type="dijit/form/Form"
-                jsId="signupForm"
                 data-dojo-id="signupForm"
                 encType="multipart/form-data"
                 action="<%=request.getContextPath()%>/user/signup/create"
@@ -17,25 +15,21 @@
                         <fieldset class="textbox">
                             <div class="section name">
                                 <div id="rm"
-                                    data-dojo-type="me/web/widget/validator/RealNameValidator"
                                     placeholder="<spring:message code="signup.complete" />"
                                     enviroment="ext"></div>
                             </div>
                             <div class="section password">
                                  <div id="pssw"
-                                      data-dojo-type="me/web/widget/validator/PasswordValidator"
                                       placeholder="<spring:message code="signup.password" />"
                                       enviroment="ext"></div>
                             </div>
                             <div class="section email">
                                 <div id="em"
-                                     data-dojo-type="me/web/widget/validator/EmailValidator"
                                      placeholder="<spring:message code="signup.email" />"
                                      enviroment="ext"></div>
                             </div>
                              <div class="section username">
                                 <div id="usrva"
-                                     data-dojo-type="me/web/widget/validator/UsernameValidator"
                                      placeholder="<spring:message code="signup.username" />"
                                      enviroment="ext"></div>
                             </div>

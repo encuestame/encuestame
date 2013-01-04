@@ -15,7 +15,7 @@ define([ "dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin",
      */
     pagination : {
       _maxResults : 0,
-      _start : 0,
+      _start : 0
     },
 
     /*

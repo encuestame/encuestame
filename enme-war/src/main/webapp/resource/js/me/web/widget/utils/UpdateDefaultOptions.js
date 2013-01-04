@@ -1,4 +1,4 @@
-dojo.require('dojox.timing');
+//dojo.require('dojox.timing');
 define([
      "dojo/_base/declare",
      "me/web/widget/options/YesNoWidget",

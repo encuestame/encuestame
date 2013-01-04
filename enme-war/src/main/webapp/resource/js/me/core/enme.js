@@ -28,8 +28,7 @@ define(["dojo",
         "dojo/cookie",
         "dojo/on",
         "dojo/query",
-        "dojo/dom-attr",
-        "moment"], function(
+        "dojo/dom-attr"], function(
             dojo,
             dom,
             json,
@@ -37,10 +36,9 @@ define(["dojo",
             cookie,
             on,
             query,
-            domAttr,
-            moment) {
+            domAttr) {
 
-    dojo.require( "dojo.date.locale" );
+    //dojo.require( "dojo.date.locale" );
 
     //Define if is initialize.
     var isInitialised = false,
@@ -72,7 +70,7 @@ define(["dojo",
      *
      */
     var _publish = function(message, description, type) {
-      description === null ? "" : description;
+      description = description === null ? '' : description;
       if (typeof(message === 'string')) {
           dojo.publish(channel, [{
             message: message,
@@ -609,35 +607,3 @@ define(["dojo",
     }
   };
 });
-
-//	var ENME = (function() {
-//		var fn = {};
-//
-//		return fn;
-//
-//	})();
-//});
-
-/**
- * default log.
- */
-window.log = function () {
-    log.history = log.history || [];
-    log.history.push(arguments);
-    if (this.console) {
-        arguments.callee = arguments.callee.caller;
-        var a = [].slice.call(arguments);
-        (typeof console.log === "object" ? log.apply.call(console.log, console, a) : console.log.apply(console, a));
-    }
-};
-(function (b) {function c() {}
-    for (var d = "assert,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,timeStamp,profile,profileEnd,time,timeEnd,trace,warn".split(","), a; a = d.pop();) {
-        b[a] = b[a] || c;
-    }
-})((function () {
-    try {
-        return window.console;
-    } catch (err) {
-        return window.console = {};
-    }
-})());

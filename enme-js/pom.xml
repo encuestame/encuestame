@@ -16,8 +16,6 @@
   <modules>
     <module>cometd</module>
     <module>deps</module>
-    <module>widgets-core</module>
-    <module>widgets-mobile</module>
     <module>widgets-web</module>
     <module>chart</module>
     <module>resources-enme-war</module>

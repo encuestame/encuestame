@@ -12,14 +12,14 @@
                        { name: "me", location: "me" }
             ],
             has: {
-                    'dojo-firebug': true,
-                    'dojo-debug-messages': true
+                    'dojo-firebug': false,
+                    'dojo-debug-messages': false
                 },
-            useCommentedJson:true,
-            parseOnLoad: false,
-            isDebug: 1,
-            tlmSiblingOfDojo: false,
-            async: true
+            useCommentedJson : true,
+            parseOnLoad : false,
+            isDebug : 1,
+            tlmSiblingOfDojo : false,
+            async : true
             };
 </script>
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
@@ -31,12 +31,13 @@ var config = {
     contextPath: '${pageContext.request.contextPath}'
 };
 require([
+    "dojo",
     "dojo/_base/declare",
     "dojo/parser",
     "dojo/ready",
     'me/activity/Activity',
     "me/core/enme",
-], function(declare, parser, ready, Activity, _ENME) {
+], function(dojo, declare, parser, ready, Activity, _ENME) {
     ready(function(){
         // Call the parser manually so it runs after our widget is defined, and page has finished loading
         _ENME.init({
@@ -65,14 +66,40 @@ require([
         var  activity = new Activity(_E, Modernizr.websockets);
         activity.connect();
         _ENME.setActivity(activity);
+        // reference, it' not possible add to the build.
+        dojo.require("dojox.fx");
+        dojo.require( "dojo.date.locale" );
+        dojo.require('dojox.timing');
     });
 });
 </script>
 <!--
 <script src="<%=request.getContextPath()%>/resources/js/default.js"></script>
  -->
-<c:if test="${!development}">
-    <script src="<%=request.getContextPath()%>/resources/js/dojo/encuestame-commons.js?<%=EnMePlaceHolderConfigurer.getProperty("app.version")%>"></script>
-</c:if>
+<script type="text/javascript">
+/**
+ * default log.
+ */
+window.log = function () {
+    log.history = log.history || [];
+    log.history.push(arguments);
+    if (this.console) {
+        arguments.callee = arguments.callee.caller;
+        var a = [].slice.call(arguments);
+        (typeof console.log === "object" ? log.apply.call(console.log, console, a) : console.log.apply(console, a));
+    }
+};
+(function (b) {function c() {}
+    for (var d = "assert,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,timeStamp,profile,profileEnd,time,timeEnd,trace,warn".split(","), a; a = d.pop();) {
+        b[a] = b[a] || c;
+    }
+})((function () {
+    try {
+        return window.console;
+    } catch (err) {
+        return window.console = {};
+    }
+})());
+</script>
 <%-- <script src="<%=request.getContextPath()%>/resources/js/encuestame/encuestame.js"></script> --%>
 <%--<%=WidgetUtil.getAnalytics("analytics.inc")%>--%>

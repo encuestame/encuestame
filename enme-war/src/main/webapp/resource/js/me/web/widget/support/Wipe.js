@@ -3,16 +3,18 @@
  * @author Picado, Juan juanATencuestame.org
  * @since
  */
-dojo.require("dojox.fx");
+//dojo.require("dojox.fx");
 define([
      "dojo/_base/declare",
      "dojo/topic",
      "dojo/dom-class",
+     "dojo/fx",
      "me/core/enme"],
     function(
     declare,
     topic,
-    domClass,//
+    domClass,
+    coreFx,
     _ENME) {
 
   return declare(null, {
@@ -47,11 +49,11 @@ define([
 
      /*
       * Constructor of wipe.
-      * @param {String} node 
-      * @param {Number} duration 
-      * @param {Number} height 
-      * @param {String} group 
-      * @param {Number} id       
+      * @param {String} node
+      * @param {Number} duration
+      * @param {Number} height
+      * @param {String} group
+      * @param {Number} id
       */
      constructor: function(node, duration, height, group, id) {
          dojo.subscribe("/encuestame/wipe/close", this, dojo.hitch(this, function(id, group) {
@@ -71,7 +73,7 @@ define([
      * on wite in.
      */
     wipeInOne: function() {
-        dojox.fx.wipeTo({
+        coreFx.wipeIn({
             node: this.node,
             duration: this.duration,
             height: this.height
@@ -103,7 +105,7 @@ define([
      */
     wipeOutOne : function() {
         if (this.node) {
-            dojox.fx.wipeOut({
+            coreFx.wipeOut({
                 node: this.node,
                 duration: this.duration
             }).play();

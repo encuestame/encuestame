@@ -1,21 +1,36 @@
-dojo.provide("encuestame.org.core.commons.dashboard.chart.DashboardLine");
+define([
+     "dojo/_base/declare",
+     "me/core/enme"],
+    function(
+    declare,
+    _ENME) {
 
-dojo.require("dijit._Templated");
-dojo.require("dijit._Widget");
+  return declare(null, {
 
-dojo.declare(
-    "encuestame.org.core.commons.dashboard.chart.DashboardLine",
-    [dijit._Widget, dijit._Templated],{
-        templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardLine.html"),
+   /**
+    * PostCreate life cycle.
+    */
+     postCreate : function() {}
+  });
+});
+// dojo.provide("encuestame.org.core.commons.dashboard.chart.DashboardLine");
 
-        widgetsInTemplate: true,
+// dojo.require("dijit._Templated");
+// dojo.require("dijit._Widget");
 
-        postMixInProperties: function(){
+// dojo.declare(
+//     "encuestame.org.core.commons.dashboard.chart.DashboardLine",
+//     [dijit._Widget, dijit._Templated],{
+//         templatePath: dojo.moduleUrl("encuestame.org.core.commons.dashboard.chart", "template/dashboardLine.html"),
 
-        },
+//         widgetsInTemplate: true,
 
-        postCreate: function() {
+//         postMixInProperties: function(){
 
-        }
-    }
-);
+//         },
+
+//         postCreate: function() {
+
+//         }
+//     }
+// );

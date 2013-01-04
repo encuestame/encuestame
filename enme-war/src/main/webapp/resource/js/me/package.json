@@ -6,7 +6,8 @@
         "dojo": "1.8.0",
         "dijit": "1.8.0",
         "dojox": "1.8.0",
-        "util": "1.8.0"
+        "util": "1.8.0",
+        "chart": "1.0"
     },
     "description": "Encuestame Web Application",
     "licenses": [

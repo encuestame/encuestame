@@ -1,28 +1,15 @@
-/*
- ************************************************************************************
- * Copyright (C) 2001-2011 encuestame: open source social survey Copyright (C) 2009
- * encuestame Development Team.
- * Licensed under the Apache Software License version 2.0
- * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to  in writing,  software  distributed
- * under the License is distributed  on  an  "AS IS"  BASIS,  WITHOUT  WARRANTIES  OR
- * CONDITIONS OF ANY KIND, either  express  or  implied.  See  the  License  for  the
- * specific language governing permissions and limitations under the License.
- ************************************************************************************
- */
-dojo.provide("encuestame.org.core.commons.dashboard.DashboardGridContainer");
+define([
+     "dojo",
+     "dojo/_base/declare",
+     "me/web/widget/dashboard/Gadget",
+     "me/core/enme"],
+    function(
+    dojo,
+    declare,
+    Gadget,
+    _ENME) {
 
-dojo.require("dojox.layout.GridContainer");
-dojo.require("dojox.widget.Portlet");
-dojo.require("dijit.form.DropDownButton");
-dojo.require("dijit.TooltipDialog");
-
-dojo.require("encuestame.org.core.commons.dashboard.Gadget");
-
-/**
- *
- */
-dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", null, {
+  return declare(null, {
 
     /*
      * grid container widget.
@@ -100,8 +87,8 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
     *
     */
    _addGadget : function(dasboardId, name) {
-       console.info("_addGadget", dasboardId);
-       console.info("_addGadget", name);
+       //console.info("_addGadget", dasboardId);
+       //console.info("_addGadget", name);
        if (dasboardId == this._dasboardId) {
            var params = {boardId: dasboardId, gadgetId: name};
            var load = dojo.hitch(this, function(data) {
@@ -155,7 +142,7 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
      *
      */
     _removeAllGadgets : function() {
-        console.info("removing... size", this._portlet_widget.length);
+        //console.info("removing... size", this._portlet_widget.length);
         dojo.forEach(this._portlet_widget,
                 dojo.hitch(this,function(item) {
                 console.info("removing... gadget", item);
@@ -168,8 +155,8 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
      *
      */
     _createGadget : function(data /* gadget info*/) {
-        console.info("_createGadget", data);
-        var gatget = new encuestame.org.core.commons.dashboard.Gadget({data : data, dashboardId: this._dasboardId});
+        //console.info("_createGadget", data);
+        var gatget = new Gadget({data : data, dashboardId: this._dasboardId});
         gatget.startup();
         return gatget;
     },
@@ -177,27 +164,27 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
 
     /*
      *  summary: create a portlet object.
-     *  id :	142
-     *  gadget_name:	"comments"
+     *  id : 142
+     *  gadget_name: "comments"
      *  gadget_color:  "#7B2E02"
      *  gadget_column : 1
      *  gadget_position : 1
-     *  gadget_status : 	true
+     *  gadget_status :  true
      */
     _createPortlet : function(/** gadget node **/ node, /** gadget **/ gadget) {
-        var portlet = new dojox.widget.Portlet({
-            id : 'portlet_'+gadget.id+"_"+gadget.gadget_name+"_"+encuestame.utilities.randomString(),
-            closable : true,
-            dndType : 'Portlet',
-            title : gadget.gadget_name,
-            content : node
-        });
-        portlet.gadgetId = gadget.id;
-        portlet.onClose = function(evt) {
-            dojo.publish("/encuestame/dashboard/gadget/remove", [gadget.id]);
-            dojo.style(this.domNode, "display", "none");
-        };
-        this.addPortlet(portlet, gadget.gadget_column, gadget.gadget_position);
+        // var portlet = new dojox.widget.Portlet({
+        //     id : 'portlet_'+gadget.id+"_"+gadget.gadget_name+"_"+encuestame.utilities.randomString(),
+        //     closable : true,
+        //     dndType : 'Portlet',
+        //     title : gadget.gadget_name,
+        //     content : node
+        // });
+        // portlet.gadgetId = gadget.id;
+        // portlet.onClose = function(evt) {
+        //     dojo.publish("/encuestame/dashboard/gadget/remove", [gadget.id]);
+        //     dojo.style(this.domNode, "display", "none");
+        // };
+        // this.addPortlet(portlet, gadget.gadget_column, gadget.gadget_position);
     },
 
 
@@ -271,4 +258,6 @@ dojo.declare("encuestame.org.core.commons.dashboard.DashboardGridContainer", nul
         this.gridContainer.startup();
     }
 
+
+  });
 });

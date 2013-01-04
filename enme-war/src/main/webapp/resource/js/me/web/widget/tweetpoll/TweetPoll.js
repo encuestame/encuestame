@@ -288,7 +288,7 @@ define([
                             "First you need write your <strong>question</strong> ",
                             "Add at least 2 answers",
                             "Add hashtag, like in Twitter, useful to navigate on it and found your tweetpoll",
-                            "Select all Social Networks to Publish your beautiful creation ",
+                            "Select all Social Networks to Publish your beautiful creation "
                         ]
                 });
                 if (this._help) {

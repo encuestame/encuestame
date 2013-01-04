@@ -50,7 +50,7 @@ define([
                _ENME.log("RESTORE STATUS this._status", this._status);
                this._buildStatusObject(this._status);
            }
-       },
+       }
 
   });
 });

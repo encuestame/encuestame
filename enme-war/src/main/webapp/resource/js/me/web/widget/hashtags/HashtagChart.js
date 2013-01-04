@@ -56,6 +56,6 @@ define([
                     lines.symbols[0].attr({stroke: "#888"});
                     return lines;
           }
-      },
+      }
   });
 });

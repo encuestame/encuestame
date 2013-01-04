@@ -1,6 +1,6 @@
-define([ 
+define([
          "dojo/_base/declare",
-		 "dijit/_WidgetBase", 
+		 "dijit/_WidgetBase",
 		 "dijit/_TemplatedMixin",
 		 "dijit/_WidgetsInTemplateMixin",
 		 "me/core/main_widgets/EnmeMainLayoutWidget",
@@ -10,11 +10,11 @@ define([
 
 			return declare([ _WidgetBase, _TemplatedMixin,
 					_WidgetsInTemplateMixin ], {
-				
+
 				contextPath : "/",
 
 				// template string.
-				templateString : template,
+				templateString : template
 
 			});
 		});

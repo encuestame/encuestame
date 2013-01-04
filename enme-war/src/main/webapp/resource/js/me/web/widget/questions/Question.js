@@ -42,7 +42,7 @@ define([
              * i18n message for this widget.
              */
             i18nMessage : {
-              widget_question_type : _ENME.getMessage("widget_question_type"),
+              widget_question_type : _ENME.getMessage("widget_question_type")
             },
 
             postCreate : function(){

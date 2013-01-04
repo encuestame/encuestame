@@ -12,16 +12,16 @@ SRCDIR="$BASEDIR/js"
 TOOLSDIR="$SRCDIR/util/buildscripts"
 
 # Destination directory for built code
-DISTDIR="$BASEDIR/js/static"
+DISTDIR="$BASEDIR/release"
 
 # Module ID of the main application package loader configuration
-LOADERMID="app/run"
+LOADERMID="me/run"
 
 # Main application package loader configuration
 LOADERCONF="$SRCDIR/$LOADERMID.js"
 
 # Main application package build configuration
-PROFILE="$BASEDIR/profiles/app.profile.js"
+PROFILE="$BASEDIR/profiles/me.profile.js"
 
 # Configuration over. Main application start up!
 

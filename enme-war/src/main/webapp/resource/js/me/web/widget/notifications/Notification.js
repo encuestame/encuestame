@@ -21,7 +21,7 @@
  *  @namespace Widget
  *  @class Notification
  */
-dojo.require('dojox.timing');
+//dojo.require('dojox.timing');
 
 define([
          "dojo",

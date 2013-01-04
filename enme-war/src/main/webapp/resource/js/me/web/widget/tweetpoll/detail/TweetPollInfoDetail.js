@@ -6,7 +6,7 @@ define([
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/enme",
          "dijit/registry",
-         "dojo/text!me/web/widget/tweetpoll/templates/tweetPollInfoDetail.htmll" ],
+         "dojo/text!me/web/widget/tweetpoll/detail/templates/tweetPollInfoDetail.html" ],
         function(
                 declare,
                 _WidgetBase,

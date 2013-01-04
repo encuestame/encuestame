@@ -19,7 +19,7 @@ define([
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, AbstractFilterSupport, _WidgetsInTemplateMixin], {
 
           // template string.
-            templateString : template,
+            templateString : template
 
     });
 });

@@ -25,7 +25,7 @@ define([
     /*
      *
      */
-    data : null,
+    data : null
 
   });
 });

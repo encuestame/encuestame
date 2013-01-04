@@ -41,11 +41,11 @@ require(["dojo", "dojo/request/notify", "me/core/enme"], function(dojo, notify, 
       dojo.subscribe("/encuestame/status/done", this, dojo.hitch(this, function(_f) {
           _f();
       }));
-    if (responseOrError instanceof Error) {
-      // Do something when a request has failed
-    } else {
-      // Do something when a request has succeeded
-    }
+    // if (responseOrError instanceof Error) {
+    //   // Do something when a request has failed
+    // } else {
+    //   // Do something when a request has succeeded
+    // }
   });
 
   notify("stop", function() {
