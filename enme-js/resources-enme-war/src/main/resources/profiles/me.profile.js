@@ -239,7 +239,7 @@ var profile = {
           'dijit/form/Select',
           'dijit/MenuSeparator',
           'dijit/MenuItem',
-          'dijit/_KeyNavMixin',
+          //'dijit/_KeyNavMixin',
           'dijit/form/Form',
           'dijit/DropDownMenu',
           'dijit/_KeyNavContainer',
