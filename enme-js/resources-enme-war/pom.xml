@@ -23,9 +23,9 @@
             <phase>compile</phase>
             <configuration>
               <classpath>
-                <pathelement location="${basedir}/src/main/resources/lib/js.jar"/>
-                <pathelement location="${basedir}/src/main/resources/lib/shrinksafe.jar"/>
-                <pathelement location="${basedir}/src/main/resources/lib/compiler.jar"/>
+                <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar"/>
               </classpath>
               <target>
                 <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
@@ -40,9 +40,9 @@
                      dir="${basedir}"
                      classname="org.mozilla.javascript.tools.shell.Main">
                   <classpath>
-                    <pathelement location="${basedir}/src/main/resources/lib/js.jar"/>
-                    <pathelement location="${basedir}/src/main/resources/lib/shrinksafe.jar"/>
-                    <pathelement location="${basedir}/src/main/resources/lib/compiler.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar"/>
                   </classpath>
                   <jvmarg value="-Xmx512M"/>
                   <arg value="${basedir}/src/main/resources/js/dojo/dojo.js"/>
