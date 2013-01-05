@@ -12,7 +12,6 @@
     <name>encuestame app builders</name>
 
      <modules>
-      <module>app-builder</module>
       <module>enme-tomcat-app</module>
       <module>enme-weblogic-app</module>
       <module>enme-jboss-app</module>

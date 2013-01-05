@@ -1,12 +1,3 @@
 [submodule "enme-doc"]
 	path = enme-doc
 	url = git@github.com:encuestame/doc.git
-[submodule "enme-js/chart/src/main/webapp/resource/js/chart/eve"]
-	path = enme-js/chart/src/main/webapp/resource/js/chart/eve
-	url = git://github.com/encuestame/eve.git
-[submodule "enme-js/chart/src/main/webapp/resource/js/chart/g.raphael"]
-	path = enme-js/chart/src/main/webapp/resource/js/chart/g.raphael
-	url = git://github.com/encuestame/g.raphael.git
-[submodule "enme-js/chart/src/main/webapp/resource/js/chart/raphael"]
-	path = enme-js/chart/src/main/webapp/resource/js/chart/raphael
-	url = git://github.com/encuestame/raphael.git

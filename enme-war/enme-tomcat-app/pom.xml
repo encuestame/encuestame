@@ -32,17 +32,6 @@
                     <groupId>org.encuestame</groupId>
                     <artifactId>resources-enme-war</artifactId>
                  </overlay>
-                <!--  <overlay>
-                    <groupId>org.dojotoolkit</groupId>
-                    <artifactId>dojo-war</artifactId>
-                    <excludes>
-                        <exclude>META-INF/**</exclude>
-                        <exclude>dojox/cometd.js*</exclude>
-                        <exclude>dojox/cometd</exclude>
-                        <exclude>dojox/cometd/**</exclude>
-                    </excludes>
-                    <targetPath>resource/js</targetPath>
-                 </overlay> -->
                </overlays>
             </configuration>
         </plugin>
@@ -169,27 +158,6 @@
                     </additionalProjectnatures>
                 </configuration>
             </plugin>
-              <!--   <plugin>
-                   <groupId>ro.isdc.wro4j</groupId>
-                   <artifactId>wro4j-maven-plugin</artifactId>
-                   <version>${wro4j.plugin}</version>
-                   <executions>
-                     <execution>
-                       <phase>compile</phase>
-                       <goals>
-                         <goal>run</goal>
-                       </goals>
-                     </execution>
-                   </executions>
-                   <configuration>
-                     <targetGroups>web,mobile,common,graph</targetGroups>
-                     <minimize>${javascript.minimize}</minimize>
-                     <wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>
-                     <destinationFolder>${basedir}/src/main/webapp/resource/static/</destinationFolder>
-                     <contextFolder>${basedir}/src/main/webapp/</contextFolder>
-                     <wroManagerFactory>ro.isdc.wro.extensions.manager.standalone.YUIStandaloneManagerFactory</wroManagerFactory>
-                   </configuration>
-                </plugin> -->
           </plugins>
         <resources>
             <resource>
@@ -201,124 +169,6 @@
             </resource>
         </resources>
     </build>
-    <!-- <profile>
-        <id>demo</id>
-        <properties>
-            <env>demo</env>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>${maven.war.plugin}</version>
-                        <configuration>
-                            <packagingIncludes>
-                                WEB-INF/lib/*,
-                                WEB-INF/**/*.xml,
-                                WEB-INF/**/*.inc,
-                                WEB-INF/tld/**/*,
-                                WEB-INF/messages/**/*,
-                                resource/static/**/*,
-                                resource/images/**/*,
-                                resource/css/resources.css,
-                                resource/js/dojo/**/*,
-                                resource/js/dijit/**/*,
-                                resource/js/dojox/**/*,
-                                resource/js/org/**/*,
-                                resource/js/org/**/*,
-                                resource/js/encuestame.profile.js,
-                                resource/js/req/*,
-                                resource/js/default.js, This file is because a issue on Dojo 1.6 with AMD modules.
-                                **/*.properties,
-                                **/*.tld,
-                                **/*.class,
-                                **/*.ico,
-                                **/*.xsd,
-                                **/*.jsp
-                            </packagingIncludes>
-                            <packagingExcludes>
-                                WEB-INF/classes/rebel.xml,
-                                resource/js/util/**/*,
-                                resource/css-compile/**/*,
-                                resource/encuestame-config-custom.properties,
-                                WEB-INF/classes/encuestame-config-custom.properties
-                             </packagingExcludes>
-                            <archive>
-                                <manifest>
-                                    <addClasspath>true</addClasspath>
-                                    <classpathPrefix>lib/</classpathPrefix>
-                                </manifest>
-                            </archive>
-                            <webResources>
-                               <resource>
-                                    <directory>${project.build.directory}/dojo-compiled/dojo/</directory>
-                                    <targetPath>resource/js</targetPath>
-                                     <excludes>
-                                        <exclude>**/encuestame-config-custom.properties</exclude>
-                                     </excludes>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                        </plugin>
-                         <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-antrun-plugin</artifactId>
-                            <version>${maven-antrun-plugin}</version>
-                            <executions>
-                                <execution>
-                                    <phase>compile</phase>
-                                    <configuration>
-                                        <classpath>
-                                          <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/js.jar"/>
-                                          <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/shrinksafe.jar"/>
-                                        </classpath>
-                                        <property file="${basedir}/dojo.properties"/>
-                                        <target unless="build">
-                                            <java
-                                             fork="true"
-                                             failonerror="true"
-                                             dir="${basedir}/src/main/webapp/resource/js/util/buildscripts"
-                                             classname="org.mozilla.javascript.tools.shell.Main">
-                                            <classpath>
-                                              <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/js.jar"/>
-                                              <pathelement location="${basedir}/src/main/webapp/resource/js/util/shrinksafe/shrinksafe.jar"/>
-                                            </classpath>
-                                            <jvmarg value="-Xmx512M"/>
-                                            <arg value="build.js"/>
-                                            <arg value="version=1.6.1"/>
-                                            <arg value="profileFile=${basedir}/src/main/webapp/resource/js/encuestame.profile.js"/>
-                                            <arg value="action=clean,release"/>
-                                            <arg value="releaseDir=${project.build.directory}/dojo-compiled"/>
-                                            <arg value="optimize=shrinksafe"/>
-                                            <arg value="layerOptimize=shrinksafe"/>
-                                            <arg value="cssOptimize=comments"/>
-                                            <arg value="mini=true"/>
-                                          </java>
-                                          <delete includeEmptyDirs="true" verbose="true">
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="tests/**/"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/tests/**/"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/demos/**/"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="util/**"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.psd"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.fla"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.svg"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.as"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dojo" includes="**/*.swf"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/dijit/themes/" excludes="**/claro/**/"/>
-                                               <fileset dir="${basedir}/target/dojo-compiled/dojo/" includes="**/*.uncompressed.js"/>
-                                           </delete>
-                                          <echo message="Dojo optimized." />
-                                        </target>
-                                    </configuration>
-                                    <goals>
-                                        <goal>run</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                </plugins>
-            </build>
-        </profile> -->
 
     <pluginRepositories>
         <pluginRepository>
@@ -674,13 +524,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--
         <dependency>
-            <groupId>org.cometd.javascript</groupId>
-            <artifactId>cometd-javascript-dojo</artifactId>
-            <type>war</type>
-        </dependency>
-        --><dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>cometd-java-server</artifactId>
         </dependency>
@@ -713,11 +557,6 @@
         <dependency>
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>
             <artifactId>ehcache-spring-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.dojotoolkit</groupId>
-            <artifactId>dojo-war</artifactId>
-            <type>war</type>
         </dependency>
         <dependency>
           <groupId>org.encuestame</groupId>

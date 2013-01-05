@@ -1,0 +1,16 @@
+{
+    "name": "org",
+    "version": "1.0",
+    "main": "main",
+    "description": "cometd org package",
+    "licenses": [
+        {
+            "type": "APLv2",
+            "url": "https://raw.github.com/encuestame/encuestame/development/LICENSE.txt"
+        }
+    ],
+    "bugs": "http://issues.encuestame.org",
+    "keywords": ["org"],
+    "homepage": "https://www.encuestame.org",
+    "dojoBuild": "package.js"
+}

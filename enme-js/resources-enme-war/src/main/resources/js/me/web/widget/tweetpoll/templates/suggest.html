@@ -1,0 +1,19 @@
+<div class="suggest">
+    <div class="wrapper-suggest">
+        <div>
+          <input type="text"
+                 data-dojo-attach-point="_suggest"
+                 dojoType="dijit.form.TextBox"
+                 maxLength="25"
+                 trim="true"
+                 class="littleInputClass">
+          </input>
+        </div>
+        <div class="suggestBox" style="opacity :0;" data-dojo-attach-point="_suggestItems"></div>
+    </div>
+    <span class="left-button">
+      <button id="suggestButton" class="left-button" type="button" style="display: none;" data-dojo-attach-point="_suggestButton">
+              Add
+      </button>
+  </span>
+</div>
