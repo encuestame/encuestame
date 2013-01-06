@@ -12,6 +12,9 @@
     <name>encuestame app builders</name>
 
      <modules>
+      <module>enme-config</module>
+      <module>enme-spring</module>
+      <module>enme-views</module>
       <module>enme-tomcat-app</module>
       <module>enme-weblogic-app</module>
       <module>enme-jboss-app</module>

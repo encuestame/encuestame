@@ -31,6 +31,32 @@
                  <overlay>
                     <groupId>org.encuestame</groupId>
                     <artifactId>resources-enme-war</artifactId>
+                    <excludes>
+                      <exclude>WEB-INF/web.xml</exclude>
+                    </excludes>
+                 </overlay>
+               </overlays>
+               <overlays>
+                 <overlay>
+                    <groupId>org.encuestame</groupId>
+                    <artifactId>enme-config</artifactId>
+                    <excludes>
+                      <exclude>WEB-INF/web.xml</exclude>
+                    </excludes>
+                 </overlay>
+                 <overlay>
+                    <groupId>org.encuestame</groupId>
+                    <artifactId>enme-views</artifactId>
+                    <excludes>
+                      <exclude>WEB-INF/web.xml</exclude>
+                    </excludes>
+                 </overlay>
+                <overlay>
+                    <groupId>org.encuestame</groupId>
+                    <artifactId>resources-enme-war</artifactId>
+                    <excludes>
+                      <exclude>WEB-INF/web.xml</exclude>
+                    </excludes>
                  </overlay>
                </overlays>
             </configuration>
@@ -109,7 +135,7 @@
                     <keyalg>RSA</keyalg>
                 </configuration>
             </plugin>
-            <plugin>
+          <!--   <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jasperreports-maven-plugin</artifactId>
                 <version>${jasperreports-maven-plugin}</version>
@@ -131,7 +157,7 @@
                         <version>${jasper.report}</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
@@ -561,6 +587,24 @@
         <dependency>
           <groupId>org.encuestame</groupId>
           <artifactId>resources-enme-war</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.encuestame</groupId>
+          <artifactId>enme-config</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.encuestame</groupId>
+          <artifactId>enme-spring</artifactId>
+          <version>${project.version}</version>
+          <type>war</type>
+        </dependency>
+        <dependency>
+          <groupId>org.encuestame</groupId>
+          <artifactId>enme-views</artifactId>
           <version>${project.version}</version>
           <type>war</type>
         </dependency>
