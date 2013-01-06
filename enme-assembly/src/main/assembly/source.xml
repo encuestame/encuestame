@@ -19,8 +19,6 @@
 				<exclude>bin/**</exclude>
 				<exclude>lib/**</exclude>
 				<exclude>dist/**</exclude>
-				<exclude>dojo/**</exclude>
-				<exclude>dojo/**</exclude>
 				<exclude>**/target/**</exclude>
 				<exclude>**/._*</exclude>
 				<exclude>**/.*</exclude>
@@ -33,9 +31,6 @@
 				<exclude>**/.project</exclude>
 				<exclude>**/.settings/**</exclude>
 				<exclude>**/.clover/**</exclude>
-				<exclude>encuestame-war/src/main/webapp/resource/js/dojo/**</exclude>
-				<exclude>encuestame-war/src/main/webapp/resource/js/dijit/**</exclude>
-				<exclude>encuestame-war/src/main/webapp/resource/js/dojox/**</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>

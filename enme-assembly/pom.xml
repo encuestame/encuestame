@@ -38,7 +38,7 @@
                 <property>
                     <name>release</name>
                 </property>
-            </activation> 
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -46,7 +46,9 @@
                         <artifactId>maven-assembly-plugin</artifactId>
                         <configuration>
                             <descriptors>
-                                <descriptor>src/main/assembly/release.xml</descriptor>
+                                <descriptor>src/main/assembly/tomcat-release.xml</descriptor>
+                                <descriptor>src/main/assembly/jboss-release.xml</descriptor>
+                                <descriptor>src/main/assembly/weblogic-release.xml</descriptor>
                                 <descriptor>src/main/assembly/source.xml</descriptor>
                             </descriptors>
 			                <finalName>encuestame-${pom.version}</finalName>
