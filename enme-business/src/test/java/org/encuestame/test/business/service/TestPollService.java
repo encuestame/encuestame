@@ -42,6 +42,7 @@ import org.encuestame.utils.json.FolderBean;
 import org.encuestame.utils.json.QuestionBean;
 import org.encuestame.utils.web.HashTagBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.PollBeanResult;
 import org.encuestame.utils.web.UnitLists;
 import org.hibernate.HibernateException;
 import org.junit.Assert;
@@ -370,4 +371,45 @@ public class TestPollService extends AbstractSpringSecurityContext{
  		// final Poll mp2 = this.pollService.getPollByAnswerId(p.getPollId(), a2.getQuestionAnswerId(), null);
 
 	}
+
+	/*
+	 * Test for retrieve poll results.
+	 */
+	@Test
+	public void testGetResultVotes(){
+	        final Question quest = createQuestion("Do you like action movies", "Yes/No");
+	        final Poll poll = createPoll(new Date(), quest, "ACTMOV", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+	        final QuestionAnswer qansw = createQuestionAnswer("Yes", quest, "2023");
+	        final QuestionAnswer qansw2 =createQuestionAnswer("No", quest, "2024");
+	        // Create poll results for QuestionAnswer2 = 3
+	        createPollResults(qansw2, poll);
+	        createPollResults(qansw2, poll);
+	        createPollResults(qansw2, poll);
+	        // Create poll results for QuestionAnswer1 = 7
+	        createPollResults(qansw, poll);
+	        createPollResults(qansw, poll);
+	        createPollResults(qansw, poll);
+	        createPollResults(qansw, poll);
+	        createPollResults(qansw, poll);
+	        createPollResults(qansw, poll);
+	        createPollResults(qansw, poll);
+
+		final List<PollBeanResult> pollbean = this.pollService
+				.getResultVotes(poll);
+		assertEquals(pollbean.size(), 2);
+		for (PollBeanResult pollBeanResult : pollbean) {
+			if (pollBeanResult.getAnswerBean().getAnswerId()
+					.equals(qansw.getQuestionAnswerId())) {
+				assertEquals("For answer1 should be equals",
+						pollBeanResult.getResult().toString(), "7");
+			}
+			if (pollBeanResult.getAnswerBean().getAnswerId()
+					.equals(qansw2.getQuestionAnswerId())) {
+				assertEquals("For answer2 should be equals",
+						pollBeanResult.getResult().toString(), "3");
+			}
+		}
+
+	}
+
 }
