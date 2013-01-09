@@ -231,7 +231,7 @@
             <id>www.encuestame.org</id>
             <url>${apache}</url>
         </site>
-         <repository>
+<!--          <repository>
             <id>archiva.internal</id>
             <name>Encuestame Release Repository</name>
             <url>http://archive.encuestame.org/repository/internal</url>
@@ -240,7 +240,7 @@
             <id>archiva.snapshots</id>
             <name>Internal Snapshot Repository</name>
             <url>http://archive.encuestame.org/repository/snapshots</url>
-        </snapshotRepository>
+        </snapshotRepository> -->
     </distributionManagement>
 
     <organization>
@@ -250,7 +250,7 @@
 
     <!-- Repositories -->
     <repositories>
-        <repository>
+        <!-- <repository>
             <id>internal</id>
             <name>Encuestame Internal Repository</name>
             <url>http://archive.encuestame.org/repository/internal/</url>
@@ -271,7 +271,7 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
+        </repository> -->
         <repository>
             <id>repository.jboss.com</id>
             <name>Jboss Repository for Maven</name>
