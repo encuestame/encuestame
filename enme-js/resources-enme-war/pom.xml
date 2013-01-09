@@ -40,18 +40,18 @@
                      dir="${basedir}"
                      classname="org.mozilla.javascript.tools.shell.Main">
                   <classpath>
-                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar"/>
-                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar"/>
-                    <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/shrinksafe.jar"/>
+                    <pathelement location="${basedir}/src/main/resources/resource/js/util/closureCompiler/compiler.jar"/>
                   </classpath>
                   <jvmarg value="-Xmx512M"/>
-                  <arg value="${basedir}/src/main/resources/js/dojo/dojo.js"/>
-                  <arg value="baseUrl=${basedir}/src/main/resources/js/dojo"/>
+                  <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js"/>
+                  <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo"/>
                   <arg value="load=build"/>
                   <arg value="--require"/>
-                  <arg value="${basedir}/src/main/resources/js/me/run.js"/>
+                  <arg value="${basedir}/src/main/resources/resource/js/me/run.js"/>
                   <arg value="--profile"/>
-                  <arg value="${basedir}/src/main/resources/profiles/me.profile.js"/>
+                  <arg value="${basedir}/src/main/resources/resource/profiles/me.profile.js"/>
                   <arg value="--releaseDir"/>
                   <arg value="${project.build.directory}/dojo-compiled"/>
                 </java>

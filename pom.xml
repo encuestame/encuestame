@@ -157,7 +157,7 @@
         <taglist-maven-plugin>2.4</taglist-maven-plugin>
         <maven-checkstyle-plugin>2.5</maven-checkstyle-plugin>
         <site.version>2.3</site.version>
-        <jetty7.version>7.6.8.v20121106</jetty7.version>
+        <jetty7.version>8.1.0.RC5</jetty7.version>
         <jetty-plugin-version>${jetty7.version}</jetty-plugin-version>
         <jetty.ssl>7.0.0.pre5</jetty.ssl>
         <keytool.maven.plugin>1.0</keytool.maven.plugin>
@@ -857,23 +857,23 @@
     <developers>
         <developer>
             <id>juanpicado</id>
-            <name>Juan Picado</name>
-            <email>juan AT encuestame.org</email>
+            <name>Juan Carlos Picado</name>
+            <email>juanpicado19@gmail.com</email>
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>Lead Developer (Project founder)</role>
+                <role>Lead Developer, Senior Front-End Engineer</role>
             </roles>
             <timezone>1</timezone>
         </developer>
         <developer>
             <id>dianmorales</id>
             <name>Diana Paola Morales</name>
-            <email>paola AT encuestame.org</email>
+            <email>dianmorales@gmail.com</email>
             <organization>encuestame.org</organization>
             <organizationUrl>http://www.encuestame.org</organizationUrl>
             <roles>
-                <role>Lead Developer (Project founder)</role>
+                <role>Lead Developer, Java Software Engineer</role>
             </roles>
             <timezone>1</timezone>
         </developer>

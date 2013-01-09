@@ -39,7 +39,7 @@ define(["dojo",
         });
 
         /**
-         * Create a Activity Object
+         * Create a Activity Object..
          * @param _options a list of options to customize the connection with cometd server
          * @param wekbsocketSupport enable the websocket support
          * @constructor Activity
