@@ -546,4 +546,20 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     	criteria.add(Restrictions.eq("question", questionId));
     	return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
+
+    /**
+    *
+    * @param pollId
+    * @param answerId
+    * @return
+    */
+   public List<Object[]> retrieveResultPollsbyAnswer(final Long pollId,
+           final Long answerId) {
+   	final String pollResultsCounter = "select answer.questionAnswerId, answer.answer, answer.color,"
+               + "count(poll.pollId) FROM PollResult "
+               + "where poll.pollId= :pollId AND answer.questionAnswerId= :answerId "
+               + "group by answer.answer, answer.questionAnswerId, answer.color";
+       final List<Object[]> myObject = getHibernateTemplate().findByNamedParam(pollResultsCounter, new String[] {"pollId", "answerId"}, new Long[] {pollId, answerId});
+       return myObject;
+}
 }

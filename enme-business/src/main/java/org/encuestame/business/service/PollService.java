@@ -831,22 +831,30 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * @see org.encuestame.core.service.imp.IPollService#getResultVotes(org.encuestame.persistence.domain.survey.Poll)
      */
     public List<PollBeanResult> getResultVotes(final Poll poll) {
-        log.debug("poll getResultVotes " + poll);
-        final List<PollBeanResult> results = new ArrayList<PollBeanResult>();
-        final List<Object[]> list = getPollDao().retrieveResultPolls(poll.getPollId(), poll.getQuestion().getQid());
-        log.debug("retrieveResultPolls==> "+list.size());
-        for (Object[] objects : list) {
-            final Long answerId = objects[0] == null ? null : Long.valueOf(objects[0].toString());
-            final String answerString = objects[1] == null ? null : objects[1].toString();
-            final String color = objects[2] == null ? null : objects[2].toString();
-            final Long votes = objects[3] == null ? null : Long.valueOf(objects[3].toString());
-            if (answerId != null) {
-                final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes, poll.getQuestion());
-                results.add(result);
-            } else {
-                throw new IllegalArgumentException("answer id is empty");
-            }
-        }
+    	 log.debug("poll getResultVotes " + poll);
+         final List<PollBeanResult> results = new ArrayList<PollBeanResult>();
+         /*
+          * 1. Get all poll answers by question.
+          * 2. Retrieve the votes - results for each response.
+          */
+         final List<QuestionAnswer> answerList = getQuestionDao().getAnswersByQuestionId(poll.getQuestion().getQid());
+         for (QuestionAnswer questionAnswer : answerList) {
+         	final List<Object[]> myPoll = getPollDao().retrieveResultPollsbyAnswer(poll.getPollId(), questionAnswer.getQuestionAnswerId());
+         	log.debug(" Resultpolls by answer  --->  " + myPoll.size() + "\n");
+         	for (Object[] objects2 : myPoll) {
+         		final Long answerId = objects2[0] == null ? null : Long.valueOf(objects2[0].toString());
+                 final String answerString = objects2[1] == null ? null : objects2[1].toString();
+                 final String color = objects2[2] == null ? null : objects2[2].toString();
+                 final Long votes = objects2[3] == null ? null : Long.valueOf(objects2[3].toString());
+                 if (answerId != null) {
+                     final PollBeanResult result = ConvertDomainBean.convertPollResultToBean(answerId, answerString, color, votes, poll.getQuestion());
+                     results.add(result);
+                 } else {
+                     throw new IllegalArgumentException("answer id is empty");
+                 }
+ 			}
+ 		}
+
         log.debug("poll PollBeanResult " + results.size());
         this.calculatePercents(results);
         return results;
