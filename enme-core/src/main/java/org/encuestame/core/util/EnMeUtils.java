@@ -96,7 +96,7 @@ public class EnMeUtils {
     public static String calculatePercent(double total, double value) {
         if (total != 0 && value !=0) {
             double myAprValue = (value / total);
-            final DecimalFormat percent = new DecimalFormat("#0.00%");
+            final DecimalFormat percent = new DecimalFormat("##.##%");
             return percent.format(myAprValue);
         } else {
             return "0.00%";

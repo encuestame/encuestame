@@ -867,7 +867,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
     private void calculatePercents(final List<PollBeanResult> beanResults) {
         double totalVotes = 0;
         for (PollBeanResult pollBeanResult : beanResults) {
-            totalVotes += totalVotes + pollBeanResult.getResult();
+            totalVotes = totalVotes + pollBeanResult.getResult();
         }
         for (PollBeanResult pollBeanResult : beanResults) {
             pollBeanResult.setPercent(EnMeUtils.calculatePercent(totalVotes, pollBeanResult.getResult()));
