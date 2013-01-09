@@ -278,4 +278,13 @@ public interface IPoll extends IBaseDao {
      * @return
      */
 	Poll getPollbyQuestion(final Long questionId);
+
+	/**
+	 * Get result polls by answer.
+	 * @param pollId
+	 * @param answerId
+	 * @return
+	 */
+	List<Object[]> retrieveResultPollsbyAnswer(final Long pollId,
+	           final Long answerId);
 }

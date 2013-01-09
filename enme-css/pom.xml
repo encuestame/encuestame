@@ -25,5 +25,78 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>${maven-antrun-plugin}</version>
+            <executions>
+                <execution>
+                    <id>web</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar"/>
+                          <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                        </classpath>
+                        <target>
+                          <echo message="CSS Web optimized Initialized" />
+                            <java
+                             fork="true"
+                             failonerror="true"
+                             dir="${basedir}/src/css/"
+                             classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar"/>
+                              <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                            </classpath>
+                            <jvmarg value="-Xmx512M"/>
+                            <arg value="${basedir}/src/lib/r.js"/>
+                            <arg value="-o"/>
+                            <arg value="cssIn=me.css"/>
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/me.web.css"/>
+                          </java>
+                          <echo message="CSS Web optimized Finished" />
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>mobile</id>
+                    <phase>compile</phase>
+                    <configuration>
+                        <classpath>
+                          <pathelement location="${basedir}/src/lib/js.jar"/>
+                          <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                        </classpath>
+                         <target>
+                          <echo message="CSS Mobile optimized Initialized" />
+                            <java
+                             fork="true"
+                             failonerror="true"
+                             dir="${basedir}/src/css/"
+                             classname="org.mozilla.javascript.tools.shell.Main">
+                            <classpath>
+                              <pathelement location="${basedir}/src/lib/js.jar"/>
+                              <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                            </classpath>
+                            <jvmarg value="-Xmx512M"/>
+                            <arg value="${basedir}/src/lib/r.js"/>
+                            <arg value="-o"/>
+                            <arg value="cssIn=mobile-me.css"/>
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/me.mobile.css"/>
+                          </java>
+                          <echo message="CSS Mobile optimized Initialized" />
+                        </target>
+                    </configuration>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
   </build>
 </project>

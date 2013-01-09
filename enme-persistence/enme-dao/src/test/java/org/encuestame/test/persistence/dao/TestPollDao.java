@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Calendar;
-import java.util.Date; 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.IPoll;
@@ -309,4 +309,43 @@ public class TestPollDao extends AbstractBase {
         final List<Poll> getTotalPollsbyHashTag = getPollDao().getPollsbyHashTagNameAndDateRange(hashtag1.getHashTag(), SearchPeriods.SEVENDAYS);
         Assert.assertEquals("Should be", 2, getTotalPollsbyHashTag.size());
     }
+
+    /**
+     * Test for recovering all poll results by answer.
+     */
+    @Test
+    public void testRetrievePollResultsByAnswer(){
+        final Poll poll = createPoll(myDate.getTime(), this.question, "FDKL1", this.userAccount, Boolean.TRUE, Boolean.TRUE);
+        final Question quest = createQuestion("Do you like futboll", "Yes/No");
+        final QuestionAnswer qansw = createQuestionAnswer("Yes", quest, "2020");
+        final QuestionAnswer qansw2 =createQuestionAnswer("No", quest, "2021");
+        // Create poll results for QuestionAnswer2 = 3
+        createPollResults(qansw2, poll);
+        createPollResults(qansw2, poll);
+        createPollResults(qansw2, poll);
+        // Create poll results for QuestionAnswer = 3
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+        createPollResults(qansw, poll);
+
+        final List<Object[]> pollsResultsbyAnswer = getPollDao().retrieveResultPollsbyAnswer(poll.getPollId(), qansw.getQuestionAnswerId());
+        assertEquals("Should be equals", 1, pollsResultsbyAnswer.size());
+
+
+        for (Object[] objects : pollsResultsbyAnswer) {
+        	if (objects[0] ==  qansw.getQuestionAnswerId()) {
+				assertEquals("For answer1 should be equals",
+						objects[3], "7");
+			}
+        	if (objects[0] ==  qansw2.getQuestionAnswerId()) {
+				assertEquals("For answer2 should be equals",
+						objects[3], "3");
+			}
+        }
+    }
+
 }

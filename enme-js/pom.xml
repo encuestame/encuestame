@@ -14,14 +14,9 @@
   <name>Encuestame Javascript POM</name>
 
   <modules>
-    <module>cometd</module>
-    <module>deps</module>
-    <module>widgets-core</module>
-    <module>widgets-mobile</module>
-    <module>widgets-web</module>
-    <module>chart</module>
-    <module>resources-enme-war</module>
     <module>doh</module>
+    <module>deps</module>
+    <module>resources-enme-war</module>
   </modules>
   <build>
     <pluginManagement>
