@@ -62,11 +62,11 @@ public interface ITweetPoll extends IBaseDao{
      * @param userId userId
      * @return list of tweet pools.
      */
-	List<TweetPoll> retrieveTweetsByUserId(final String keyword, final Long userId,
-			final Integer maxResults, final Integer start,
-			final Boolean isCompleted, final Boolean isScheduled,
-			final Boolean isPublished, final Boolean isFavourite,
-			final Integer period);
+    List<TweetPoll> retrieveTweetsByUserId(final String keyword, final Long userId,
+            final Integer maxResults, final Integer start,
+            final Boolean isCompleted, final Boolean isScheduled,
+            final Boolean isPublished, final Boolean isFavourite,
+            final String period);
 
      /**
       * Retrieve Tweets Poll Switch.
@@ -100,8 +100,8 @@ public interface ITweetPoll extends IBaseDao{
       List<TweetPoll> retrieveTweetsByQuestionName(final String keyWord, final Long userId,
               final Integer maxResults,
               final Integer start,
-  			final Boolean isCompleted, final Boolean isScheduled,
-  			final Boolean isFavourite, final Boolean isPublished, final Integer period);
+              final Boolean isCompleted, final Boolean isScheduled,
+              final Boolean isFavourite, final Boolean isPublished, final String period);
 
       /**
        * Get List of Switch Answers by TweetPoll.
@@ -186,11 +186,11 @@ public interface ITweetPoll extends IBaseDao{
        * @param period
        * @return
        */
-	List<TweetPoll> retrieveTweetPollToday(final Account account,
-			final Integer maxResults, final Integer start,
-			final Boolean isCompleted, final Boolean isScheduled,
-			final Boolean isFavourite, final Boolean isPublished,
-			final String keyword, final Integer period);
+    List<TweetPoll> retrieveTweetPollToday(final Account account,
+            final Integer maxResults, final Integer start,
+            final Boolean isCompleted, final Boolean isScheduled,
+            final Boolean isFavourite, final Boolean isPublished,
+            final String keyword, final String period);
 
       /**
        * Retrieve TweetPoll Last Week.
@@ -199,7 +199,7 @@ public interface ITweetPoll extends IBaseDao{
        * @return
        */
       List<TweetPoll> retrieveTweetPollLastWeek(
-    		  final Account account,
+              final Account account,
               final Integer maxResults,
               final Integer start,
               final Boolean isCompleted,
@@ -207,7 +207,7 @@ public interface ITweetPoll extends IBaseDao{
               final Boolean isFavourite,
               final Boolean isPublished,
               final String keyword,
-              final Integer period);
+              final String period);
 
       /**
        * Retrieve Favourites TweetPolls.
@@ -224,7 +224,7 @@ public interface ITweetPoll extends IBaseDao{
               final Boolean isFavourite,
               final Boolean isPublished,
               final String keyword,
-              final Integer period);
+              final String period);
 
       /**
        * Retrieve Favourites TweetPolls.
@@ -241,7 +241,7 @@ public interface ITweetPoll extends IBaseDao{
               final Boolean isFavourite,
               final Boolean isPublished,
               final String keyword,
-              final Integer period);
+              final String period);
 
       /**
        * Retrieve Total Votes by TweetPoll Id.
@@ -265,11 +265,11 @@ public interface ITweetPoll extends IBaseDao{
       * @param period
       * @return
       */
-	List<TweetPoll> retrieveTweetPollByDate(final Account account,
-			final Integer maxResults, final Integer start,
-			final Boolean isCompleted, final Boolean isScheduled,
-			final Boolean isFavourite, final Boolean isPublished,
-			final String keyword, final Integer period);
+    List<TweetPoll> retrieveTweetPollByDate(final Account account,
+            final Integer maxResults, final Integer start,
+            final Boolean isCompleted, final Boolean isScheduled,
+            final Boolean isFavourite, final Boolean isPublished,
+            final String keyword, final String period);
 
     /**
      * Retrieve {@link TweetPollSwitch} by tweetpoll and answer. (should be unique)
@@ -294,10 +294,10 @@ public interface ITweetPoll extends IBaseDao{
      * @param filterby
      * @return
      */
-	List<TweetPoll> getTweetpollByHashTagName(final String tagName,
-			final Integer startResults, final Integer limit,
-			final TypeSearchResult filterby,
-			final SearchPeriods periods);
+    List<TweetPoll> getTweetpollByHashTagName(final String tagName,
+            final Integer startResults, final Integer limit,
+            final TypeSearchResult filterby,
+            final SearchPeriods periods);
 
 
   /**
@@ -352,151 +352,151 @@ public interface ITweetPoll extends IBaseDao{
      * @param itemType
      * @return
      */
-	Long getSocialLinksByType(final TweetPoll tweetPoll, final Survey survey,
-			final Poll poll, final TypeSearchResult itemType);
+    Long getSocialLinksByType(final TweetPoll tweetPoll, final Survey survey,
+            final Poll poll, final TypeSearchResult itemType);
 
-	/**
-	 * Get total tweepolls published by hashtag.
-	 * @param tagName
-	 * @param period
-	 * @return
-	 */
-	List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
-					final String tagName,
-					final SearchPeriods period);
+    /**
+     * Get total tweepolls published by hashtag.
+     * @param tagName
+     * @param period
+     * @return
+     */
+    List<TweetPoll> getTweetPollsbyHashTagNameAndDateRange(
+                    final String tagName,
+                    final SearchPeriods period);
 
-	/**
-	 * Get social links by type( {@link Poll}, {@link TweetPoll} or {@link Survey}) and date range.
-	 * @param tweetPoll
-	 * @param survey
-	 * @param poll
-	 * @param itemType
-	 * @return
-	 */
-	List<TweetPollSavedPublishedStatus> getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
+    /**
+     * Get social links by type( {@link Poll}, {@link TweetPoll} or {@link Survey}) and date range.
+     * @param tweetPoll
+     * @param survey
+     * @param poll
+     * @param itemType
+     * @return
+     */
+    List<TweetPollSavedPublishedStatus> getSocialLinksByTypeAndDateRange(final TweetPoll tweetPoll,
             final Survey survey, final Poll poll,
             final TypeSearchResult itemType);
 
-	/**
-	 * Return a list of tweetpoll by {username} order by recent.
-	 * @param limitResults
-	 * @param account
-	 * @return
-	 */
-	public List<TweetPoll> getTweetPollByUsername(
-			final Integer limitResults,
-			final UserAccount account);
+    /**
+     * Return a list of tweetpoll by {username} order by recent.
+     * @param limitResults
+     * @param account
+     * @return
+     */
+    public List<TweetPoll> getTweetPollByUsername(
+            final Integer limitResults,
+            final UserAccount account);
 
-	/**
-	 * Get List Answers(Votes) by TweetPoll And date range.
-	 * @param tweetPoll
-	 * @param period
-	 * @param startResults
-	 * @param limit
-	 * @return
-	 */
-	List<TweetPollSwitch> getListAnswersByTweetPollAndDateRange(
-			final TweetPoll tweetPoll);
+    /**
+     * Get List Answers(Votes) by TweetPoll And date range.
+     * @param tweetPoll
+     * @param period
+     * @param startResults
+     * @param limit
+     * @return
+     */
+    List<TweetPollSwitch> getListAnswersByTweetPollAndDateRange(
+            final TweetPoll tweetPoll);
 
-	/**
-	 *
-	 * @param tweetPollId
-	 * @param period
-	 * @return
-	 */
-	Long getTotalVotesByTweetPollIdAndDateRange(final Long tweetPollId, final Integer period);
+    /**
+     *
+     * @param tweetPollId
+     * @param period
+     * @return
+     */
+    Long getTotalVotesByTweetPollIdAndDateRange(final Long tweetPollId, final String period);
 
-	/**
-	 * Get counter total tweetpoll results by {@link TweetPollSwitch}
-	 * @param pollSwitch
-	 * @return
-	 */
-	Long getTotalTweetPollResultByTweetPollSwitch(
-			final TweetPollSwitch pollSwitch, final SearchPeriods period);
+    /**
+     * Get counter total tweetpoll results by {@link TweetPollSwitch}
+     * @param pollSwitch
+     * @return
+     */
+    Long getTotalTweetPollResultByTweetPollSwitch(
+            final TweetPollSwitch pollSwitch, final SearchPeriods period);
 
-	/**
-	 * Get all tweetpoll results by tweetpoll switch.
-	 * @param pollSwitch
-	 * @return
-	 */
-	List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch);
+    /**
+     * Get all tweetpoll results by tweetpoll switch.
+     * @param pollSwitch
+     * @return
+     */
+    List<TweetPollResult> getTweetPollResultsByTweetPollSwitch(final TweetPollSwitch pollSwitch);
 
-	/**
-	 *
-	 * @param latitude
-	 * @param longitude
-	 * @param distance
-	 * @param radius
-	 * @param maxItems
-	 * @param type
-	 * @param period
-	 * @return
-	 */
-	List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
-			final double latitude, final double longitude, final double distance,
-			final double radius, final int maxItems,
-			final TypeSearchResult type, final SearchPeriods period);
+    /**
+     *
+     * @param latitude
+     * @param longitude
+     * @param distance
+     * @param radius
+     * @param maxItems
+     * @param type
+     * @param period
+     * @return
+     */
+    List<Object[]> retrieveTweetPollsBySearchRadiusOfGeoLocation(
+            final double latitude, final double longitude, final double distance,
+            final double radius, final int maxItems,
+            final TypeSearchResult type, final SearchPeriods period);
 
-	TweetPoll checkIfTweetPollHasHashTag(final String tagName, final SearchPeriods periods,
-			final Long id);
+    TweetPoll checkIfTweetPollHasHashTag(final String tagName, final SearchPeriods periods,
+            final Long id);
 
-	/**
-	 * Validate {@link TweetPollResult} Ip.
-	 * @param ip
-	 * @param tweetPoll
-	 * @return
-	 */
-	List<TweetPollResult> validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll);
+    /**
+     * Validate {@link TweetPollResult} Ip.
+     * @param ip
+     * @param tweetPoll
+     * @return
+     */
+    List<TweetPollResult> validateTweetPollResultsIP(final String ip, final TweetPoll tweetPoll);
 
-	/**
-	 * Retrieve published and unpublished tweetpolls.
-	 * @param account
-	 * @param maxResults
-	 * @param start
-	 * @param isPublished
-	 * @return
-	 */
-	List<TweetPoll> retrievePublishedUnpublishedTweetPoll(final Account account,
-	            final Integer maxResults, final Integer start, final Boolean isPublished);
+    /**
+     * Retrieve published and unpublished tweetpolls.
+     * @param account
+     * @param maxResults
+     * @param start
+     * @param isPublished
+     * @return
+     */
+    List<TweetPoll> retrievePublishedUnpublishedTweetPoll(final Account account,
+                final Integer maxResults, final Integer start, final Boolean isPublished);
 
-	/**
-	 * Retrieve completed tweetpolls.
-	 * @param account
-	 * @param maxResults
-	 * @param start
-	 * @param isComplete
-	 * @return
-	 */
-	List<TweetPoll> retrieveCompletedTweetPoll(final Account account,
-	            final Integer maxResults, final Integer start, final Boolean isComplete);
+    /**
+     * Retrieve completed tweetpolls.
+     * @param account
+     * @param maxResults
+     * @param start
+     * @param isComplete
+     * @return
+     */
+    List<TweetPoll> retrieveCompletedTweetPoll(final Account account,
+                final Integer maxResults, final Integer start, final Boolean isComplete);
 
-	/**
-	 *
-	 * @param isPublished
-	 * @param isComplete
-	 * @param favourites
-	 * @param scheduled
-	 * @param user
-	 * @param start
-	 * @param max
-	 * @param period
-	 * @param keyword
-	 * @return
-	 */
-	List<TweetPoll> advancedSearch(final Boolean isPublished,
-			final Boolean isComplete, final Boolean favourites,
-			final Boolean scheduled, final Account user,
-			final Integer start, final Integer max,
-			final Integer period, final String keyword);
+    /**
+     *
+     * @param isPublished
+     * @param isComplete
+     * @param favourites
+     * @param scheduled
+     * @param user
+     * @param start
+     * @param max
+     * @param period
+     * @param keyword
+     * @return
+     */
+    List<TweetPoll> advancedSearch(final Boolean isPublished,
+            final Boolean isComplete, final Boolean favourites,
+            final Boolean scheduled, final Account user,
+            final Integer start, final Integer max,
+            final Integer period, final String keyword);
 
-	/**
-	 * Get social Links by tweetpoll.
-	 * @param tweetPoll
-	 * @param itemType
-	 * @param splist
-	 * @return
-	 */
-	List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
-			final TweetPoll tweetPoll, final TypeSearchResult itemType,
-			final List<SocialProvider> splist);
+    /**
+     * Get social Links by tweetpoll.
+     * @param tweetPoll
+     * @param itemType
+     * @param splist
+     * @return
+     */
+    List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
+            final TweetPoll tweetPoll, final TypeSearchResult itemType,
+            final List<SocialProvider> splist);
 }

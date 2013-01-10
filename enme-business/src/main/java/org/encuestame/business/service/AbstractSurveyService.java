@@ -327,10 +327,10 @@ public class AbstractSurveyService extends AbstractChartService {
      * @return list of Tweet polls bean
      */
     public List<TweetPollBean> getTweetsPollsByUserId(final String keyword, final Long userId,
-			final Integer maxResults, final Integer start,
-			final Boolean isCompleted, final Boolean isScheduled,
-			final Boolean isPublished, final Boolean isFavourite,
-			final Integer period){
+            final Integer maxResults, final Integer start,
+            final Boolean isCompleted, final Boolean isScheduled,
+            final Boolean isPublished, final Boolean isFavourite,
+            final String period){
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(keyword, userId, maxResults, start, isCompleted, isScheduled, isPublished, isFavourite, period);
 
         final List<TweetPollBean> tweetPollsBean = new ArrayList<TweetPollBean>();

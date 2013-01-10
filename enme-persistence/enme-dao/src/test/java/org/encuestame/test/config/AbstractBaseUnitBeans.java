@@ -532,12 +532,12 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
       * @return
       */
      public UnitSurveySection createSurveySection(final String name,
- 			final String description, final Survey survey) {
- 		final UnitSurveySection sectionBean = new UnitSurveySection();
- 		sectionBean.setDescription(description);
- 		sectionBean.setName(name);
- 		return sectionBean;
- 	}
+             final String description, final Survey survey) {
+         final UnitSurveySection sectionBean = new UnitSurveySection();
+         sectionBean.setDescription(description);
+         sectionBean.setName(name);
+         return sectionBean;
+     }
 
      /**
      *
@@ -551,22 +551,22 @@ public abstract class AbstractBaseUnitBeans extends AbstractBase{
      * @param start
      * @return
      */
-	public TweetPollSearchBean createTweetpollSearchBean(
-			final Boolean isPublished, final Boolean isComplete,
-			final Boolean isFavourite, final Boolean isScheduled,
-			final String keyword, final Integer period, final Integer max,
-			final Integer start, final  TypeSearch typeSearch) {
-		final TweetPollSearchBean tpollSearchBean = new TweetPollSearchBean();
-		tpollSearchBean.setIsComplete(isComplete);
-		tpollSearchBean.setIsFavourite(isFavourite);
-		tpollSearchBean.setIsPublished(isPublished);
-		tpollSearchBean.setIsScheduled(isScheduled);
-		tpollSearchBean.setKeyword(keyword);
-		tpollSearchBean.setMax(max);
-		tpollSearchBean.setPeriod(period);
-		tpollSearchBean.setStart(start);
-		tpollSearchBean.setTypeSearch(typeSearch);
-		return tpollSearchBean;
-	}
+    public TweetPollSearchBean createTweetpollSearchBean(
+            final Boolean isPublished, final Boolean isComplete,
+            final Boolean isFavourite, final Boolean isScheduled,
+            final String keyword, final String period, final Integer max,
+            final Integer start, final  TypeSearch typeSearch) {
+        final TweetPollSearchBean tpollSearchBean = new TweetPollSearchBean();
+        tpollSearchBean.setIsComplete(isComplete);
+        tpollSearchBean.setIsFavourite(isFavourite);
+        tpollSearchBean.setIsPublished(isPublished);
+        tpollSearchBean.setIsScheduled(isScheduled);
+        tpollSearchBean.setKeyword(keyword);
+        tpollSearchBean.setMax(max);
+        tpollSearchBean.setPeriod(period);
+        tpollSearchBean.setStart(start);
+        tpollSearchBean.setTypeSearch(typeSearch);
+        return tpollSearchBean;
+    }
 
 }

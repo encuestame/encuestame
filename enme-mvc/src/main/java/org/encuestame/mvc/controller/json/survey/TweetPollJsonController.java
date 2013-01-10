@@ -94,13 +94,13 @@ public class TweetPollJsonController extends AbstractJsonController {
             @RequestParam(value = "_complete", required = false) Boolean isCompleted,
             @RequestParam(value = "_favourite", required = false) Boolean isFavourite,
             @RequestParam(value = "_scheduled", required = false) Boolean isScheduled,
-            @RequestParam(value = "period", required = false) Integer period,
+            @RequestParam(value = "period", required = false) String period,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         final TweetPollSearchBean tpollSearchBean = new TweetPollSearchBean();
         try {
-        	log.debug("search.json" + typeSearch);
+            log.debug("search.json" + typeSearch);
             log.debug("search.json" + keyword);
             log.debug("search.json" + max);
             log.debug("search.json" + start);
@@ -121,10 +121,10 @@ public class TweetPollJsonController extends AbstractJsonController {
             tpollSearchBean.setStart(start);
             tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));
             tpollSearchBean.setProviders(ListUtils.EMPTY_LIST);
-            		//socialNetworks.size() == 0 ? null : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
+                    //socialNetworks.size() == 0 ? null : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
 
             final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
-            		tpollSearchBean, request);
+                    tpollSearchBean, request);
 
             System.out.println("Json Controller --> " + list.size());
             log.debug("/api/survey/tweetpoll/search.json---------------->"+list.size());

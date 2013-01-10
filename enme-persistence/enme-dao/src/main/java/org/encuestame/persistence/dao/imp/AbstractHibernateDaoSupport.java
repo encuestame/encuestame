@@ -114,10 +114,10 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
       * @return
       */
      public List<?> filterByMaxorStart(final DetachedCriteria criteria,
-    		 final Integer maxResults,
+             final Integer maxResults,
              final Integer start) {
           //if (maxResults == 0) {
-        	//  log.warn("Max Results === 0 ??");
+            //  log.warn("Max Results === 0 ??");
           //}
           @SuppressWarnings("rawtypes")
           List<?> results = new ArrayList();
@@ -320,14 +320,14 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param criteria DetachedCriteria
      */
     protected void calculateSearchPeriodsDates(
-    		final SearchPeriods searchPeriods,
-    		final DetachedCriteria criteria,
-    		final String dateProperty){
+            final SearchPeriods searchPeriods,
+            final DetachedCriteria criteria,
+            final String dateProperty){
         if (searchPeriods != null) {
             final DateTime endDateTime = new DateTime();
             final DateTime startDateTime =  endDateTime.minusDays(searchPeriods.toDays());
              if (endDateTime.isAfter(startDateTime)) {
-            	 criteria.add(Restrictions.between(dateProperty, startDateTime.toDate(), endDateTime.toDate()));
+                 criteria.add(Restrictions.between(dateProperty, startDateTime.toDate(), endDateTime.toDate()));
              }
          }
     }
@@ -342,100 +342,103 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @param keyword
      * @param period
      */
-    protected void advancedSearchOptions(final DetachedCriteria criteria,
-			final Boolean isCompleted, final Boolean isScheduled,
-			final Boolean isFavourite, final Boolean isPublished, final String keyword, final Integer period){
-    	criteria.createAlias("question", "question");
-
-		final SearchPeriods searchPeriods = SearchPeriods
-				.getPeriodString(period.toString());
-		calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
-		if (keyword!=null) {
-			criteria.add(Restrictions.like("question.question", keyword,
-					MatchMode.ANYWHERE));
-		}
-		if (isCompleted) {
-			criteria.add(Restrictions.eq("completed", isCompleted));
-		}
-		if (isScheduled) {
-			criteria.add(Restrictions.eq("scheduleTweetPoll", isScheduled));
-			  criteria.add(Restrictions.isNotNull("scheduleDate"));
-		}
-		if (isFavourite) {
-			criteria.add(Restrictions.eq("publishTweetPoll", isFavourite));
-		}
-		if (isPublished) {
-			criteria.add(Restrictions.eq("favourites", isPublished));
-		}
-	}
-
-	/**
-	 * Create query to get  {@link TweetPoll}, {@link Poll}, {@link Survey} by geolocation.
-	 * @param idProperty
-	 * @param latitudeProperty
-	 * @param fieldLongitude
-	 * @param questionNameProperty
-	 * @param tableName
-	 * @param creationDateProperty
-	 * @return
-	 */
-	public String getQueryStringForGeoLocation(final String idProperty,
-			final String latitudeProperty, final String fieldLongitude,
-			final String questionNameProperty, final String tableName,
-			final String creationDateProperty) {
-		 //final String queryBetween = this.calculateSearchPeriodForGeo(period, creationDateProperty);
-    	final String queryStr ="SELECT " + idProperty + "," + latitudeProperty + "," + fieldLongitude + "," + questionNameProperty +", (acos(sin(radians(lat)) * sin((:latitude)) +"
-				+ "cos(radians(lat)) * cos((:latitude)) * "
-				+ "cos(radians(lng) - (:longitude))) * :radius) AS "
-				+ "distanceFrom FROM " + tableName
-				+ " WHERE (acos(sin(radians(lat)) * sin((:latitude)) + "
-				+ "cos(radians(lat)) * cos((:latitude)) * cos(radians(lng) - (:longitude))) * :radius) <= :distance AND " + creationDateProperty +
-				" BETWEEN :startDate AND :endDate";
-	  	return queryStr;
+    protected void advancedSearchOptions(
+            final DetachedCriteria criteria,
+            final Boolean isCompleted,
+            final Boolean isScheduled,
+            final Boolean isFavourite,
+            final Boolean isPublished,
+            final String keyword,
+            final String period) {
+        criteria.createAlias("question", "question");
+        final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
+        calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
+        if (keyword != null) {
+            criteria.add(Restrictions.like("question.question", keyword,
+                    MatchMode.ANYWHERE));
+        }
+        if (isCompleted != null && isCompleted) {
+            criteria.add(Restrictions.eq("completed", isCompleted));
+        }
+        if (isScheduled != null && isScheduled) {
+            criteria.add(Restrictions.eq("scheduleTweetPoll", isScheduled));
+              criteria.add(Restrictions.isNotNull("scheduleDate"));
+        }
+        if (isFavourite != null && isFavourite) {
+            criteria.add(Restrictions.eq("publishTweetPoll", isFavourite));
+        }
+        if (isPublished != null && isPublished) {
+            criteria.add(Restrictions.eq("favourites", isPublished));
+        }
     }
 
-	/**
-	 *
-	 * @param searchPeriods
-	 * @return
-	 */
-	protected DateTime calculateSearchPeriodForGeo(
-			final SearchPeriods searchPeriods) {
-		DateTime startDateTime = null;
-		if (searchPeriods != null) {
-			final DateTime endDateTime = new DateTime();
-			startDateTime = endDateTime.minusDays(searchPeriods.toDays());
+    /**
+     * Create query to get  {@link TweetPoll}, {@link Poll}, {@link Survey} by geolocation.
+     * @param idProperty
+     * @param latitudeProperty
+     * @param fieldLongitude
+     * @param questionNameProperty
+     * @param tableName
+     * @param creationDateProperty
+     * @return
+     */
+    public String getQueryStringForGeoLocation(final String idProperty,
+            final String latitudeProperty, final String fieldLongitude,
+            final String questionNameProperty, final String tableName,
+            final String creationDateProperty) {
+         //final String queryBetween = this.calculateSearchPeriodForGeo(period, creationDateProperty);
+        final String queryStr ="SELECT " + idProperty + "," + latitudeProperty + "," + fieldLongitude + "," + questionNameProperty +", (acos(sin(radians(lat)) * sin((:latitude)) +"
+                + "cos(radians(lat)) * cos((:latitude)) * "
+                + "cos(radians(lng) - (:longitude))) * :radius) AS "
+                + "distanceFrom FROM " + tableName
+                + " WHERE (acos(sin(radians(lat)) * sin((:latitude)) + "
+                + "cos(radians(lat)) * cos((:latitude)) * cos(radians(lng) - (:longitude))) * :radius) <= :distance AND " + creationDateProperty +
+                " BETWEEN :startDate AND :endDate";
+          return queryStr;
+    }
 
-		}
-		return startDateTime;
-	}
+    /**
+     *
+     * @param searchPeriods
+     * @return
+     */
+    protected DateTime calculateSearchPeriodForGeo(
+            final SearchPeriods searchPeriods) {
+        DateTime startDateTime = null;
+        if (searchPeriods != null) {
+            final DateTime endDateTime = new DateTime();
+            startDateTime = endDateTime.minusDays(searchPeriods.toDays());
 
-	/**
-	 * Retrieve geoLocation data from a point.
-	 *
-	 * @param query
-	 * @param latitude
-	 * @param longitude
-	 * @param distance
-	 * @param radius
-	 * @param maxItems
-	 * @param startDate
-	 * @param endDate
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Object[]> findByNamedParamGeoLocationItems(final String query,
-			final double latitude, final double longitude,
-			final double distance, final double radius, final int maxItems,
-			final Date startDate, final Date endDate) {
+        }
+        return startDateTime;
+    }
 
-		return getHibernateTemplate().findByNamedParam(
-				query,
-				new String[] { "latitude", "longitude", "distance", "radius",
-						"startDate", "endDate" },
-				new Object[] { latitude, longitude, distance, radius,
-						startDate, endDate });
-	}
+    /**
+     * Retrieve geoLocation data from a point.
+     *
+     * @param query
+     * @param latitude
+     * @param longitude
+     * @param distance
+     * @param radius
+     * @param maxItems
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public List<Object[]> findByNamedParamGeoLocationItems(final String query,
+            final double latitude, final double longitude,
+            final double distance, final double radius, final int maxItems,
+            final Date startDate, final Date endDate) {
+
+        return getHibernateTemplate().findByNamedParam(
+                query,
+                new String[] { "latitude", "longitude", "distance", "radius",
+                        "startDate", "endDate" },
+                new Object[] { latitude, longitude, distance, radius,
+                        startDate, endDate });
+    }
 
     /**
      * @return the version

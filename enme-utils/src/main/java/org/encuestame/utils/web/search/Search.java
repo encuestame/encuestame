@@ -25,181 +25,181 @@ import org.encuestame.utils.social.SocialProvider;
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since December 4, 2012
  */
-public class Search  implements Serializable {
+public class Search implements Serializable {
 
 
-	/** **/
-	private static final long serialVersionUID = 2164671051410597590L;
+    /** **/
+    private static final long serialVersionUID = 2164671051410597590L;
 
-	/** **/
-	private String keyword;
+    /** **/
+    private String keyword;
 
-	/** **/
-	private Integer period;
+    /** **/
+    private String period;
 
-	/** **/
-	private TypeSearch typeSearch;
+    /** **/
+    private TypeSearch typeSearch;
 
-	/** **/
-	private TypeSearchResult searchResult;
+    /** **/
+    private TypeSearchResult searchResult;
 
-	/** **/
-	private Boolean isComplete = Boolean.FALSE;
+    /** **/
+    private Boolean isComplete = Boolean.FALSE;
 
-	/** **/
-	private Boolean isFavourite = Boolean.FALSE;
+    /** **/
+    private Boolean isFavourite = Boolean.FALSE;
 
-	/** **/
-	private Boolean isScheduled = Boolean.FALSE;
+    /** **/
+    private Boolean isScheduled = Boolean.FALSE;
 
-	/** **/
-	private Integer start = 0;
+    /** **/
+    private Integer start = 0;
 
-	/** **/
-	private Integer max = 20;
+    /** **/
+    private Integer max = 20;
 
-	/** **/
-	private List<SocialProvider> providers;
-
-
-	/**
-	 * @return the keyword
-	 */
-	public String getKeyword() {
-		return keyword;
-	}
-
-	/**
-	 * @param keyword the keyword to set
-	 */
-	public void setKeyword(final String keyword) {
-		this.keyword = keyword;
-	}
-
-	/**
-	 * @return the period
-	 */
-	public Integer getPeriod() {
-		return period;
-	}
-
-	/**
-	 * @param period the period to set
-	 */
-	public void setPeriod(final Integer period) {
-		this.period = period;
-	}
+    /** **/
+    private List<SocialProvider> providers;
 
 
-	/**
-	 * @return the isComplete
-	 */
-	public Boolean getIsComplete() {
-		return isComplete;
-	}
+    /**
+     * @return the keyword
+     */
+    public String getKeyword() {
+        return keyword;
+    }
 
-	/**
-	 * @param isComplete the isComplete to set
-	 */
-	public void setIsComplete(final Boolean isComplete) {
-		this.isComplete = isComplete;
-	}
+    /**
+     * @param keyword the keyword to set
+     */
+    public void setKeyword(final String keyword) {
+        this.keyword = keyword;
+    }
 
-	/**
-	 * @return the isFavourite
-	 */
-	public Boolean getIsFavourite() {
-		return isFavourite;
-	}
+    /**
+     * @return the period
+     */
+    public String getPeriod() {
+        return period;
+    }
 
-	/**
-	 * @param isFavourite the isFavourite to set
-	 */
-	public void setIsFavourite(final Boolean isFavourite) {
-		this.isFavourite = isFavourite;
-	}
+    /**
+     * @param period the period to set
+     */
+    public void setPeriod(final String period) {
+        this.period = period;
+    }
 
-	/**
-	 * @return the isScheduled
-	 */
-	public Boolean getIsScheduled() {
-		return isScheduled;
-	}
 
-	/**
-	 * @param isScheduled the isScheduled to set
-	 */
-	public void setIsScheduled(final Boolean isScheduled) {
-		this.isScheduled = isScheduled;
-	}
+    /**
+     * @return the isComplete
+     */
+    public Boolean getIsComplete() {
+        return isComplete;
+    }
 
-	/**
-	 * @return the start
-	 */
-	public Integer getStart() {
-		return start;
-	}
+    /**
+     * @param isComplete the isComplete to set
+     */
+    public void setIsComplete(final Boolean isComplete) {
+        this.isComplete = isComplete;
+    }
 
-	/**
-	 * @param start the start to set
-	 */
-	public void setStart(final Integer start) {
-		this.start = start;
-	}
+    /**
+     * @return the isFavourite
+     */
+    public Boolean getIsFavourite() {
+        return isFavourite;
+    }
 
-	/**
-	 * @return the max
-	 */
-	public Integer getMax() {
-		return max;
-	}
+    /**
+     * @param isFavourite the isFavourite to set
+     */
+    public void setIsFavourite(final Boolean isFavourite) {
+        this.isFavourite = isFavourite;
+    }
 
-	/**
-	 * @param max the max to set
-	 */
-	public void setMax(final Integer max) {
-		this.max = max;
-	}
+    /**
+     * @return the isScheduled
+     */
+    public Boolean getIsScheduled() {
+        return isScheduled;
+    }
 
-	/**
-	 * @return the typeSearch
-	 */
-	public TypeSearch getTypeSearch() {
-		return typeSearch;
-	}
+    /**
+     * @param isScheduled the isScheduled to set
+     */
+    public void setIsScheduled(final Boolean isScheduled) {
+        this.isScheduled = isScheduled;
+    }
 
-	/**
-	 * @param typeSearch the typeSearch to set
-	 */
-	public void setTypeSearch(final TypeSearch typeSearch) {
-		this.typeSearch = typeSearch;
-	}
+    /**
+     * @return the start
+     */
+    public Integer getStart() {
+        return start;
+    }
 
-	/**
-	 * @return the searchResult
-	 */
-	public TypeSearchResult getSearchResult() {
-		return searchResult;
-	}
+    /**
+     * @param start the start to set
+     */
+    public void setStart(final Integer start) {
+        this.start = start;
+    }
 
-	/**
-	 * @param searchResult the searchResult to set
-	 */
-	public void setSearchResult(final TypeSearchResult searchResult) {
-		this.searchResult = searchResult;
-	}
+    /**
+     * @return the max
+     */
+    public Integer getMax() {
+        return max;
+    }
 
-	/**
-	 * @return the providers
-	 */
-	public List<SocialProvider> getProviders() {
-		return providers;
-	}
+    /**
+     * @param max the max to set
+     */
+    public void setMax(final Integer max) {
+        this.max = max;
+    }
 
-	/**
-	 * @param providers the providers to set
-	 */
-	public void setProviders(List<SocialProvider> providers) {
-		this.providers = providers;
-	}
+    /**
+     * @return the typeSearch
+     */
+    public TypeSearch getTypeSearch() {
+        return typeSearch;
+    }
+
+    /**
+     * @param typeSearch the typeSearch to set
+     */
+    public void setTypeSearch(final TypeSearch typeSearch) {
+        this.typeSearch = typeSearch;
+    }
+
+    /**
+     * @return the searchResult
+     */
+    public TypeSearchResult getSearchResult() {
+        return searchResult;
+    }
+
+    /**
+     * @param searchResult the searchResult to set
+     */
+    public void setSearchResult(final TypeSearchResult searchResult) {
+        this.searchResult = searchResult;
+    }
+
+    /**
+     * @return the providers
+     */
+    public List<SocialProvider> getProviders() {
+        return providers;
+    }
+
+    /**
+     * @param providers the providers to set
+     */
+    public void setProviders(List<SocialProvider> providers) {
+        this.providers = providers;
+    }
 }

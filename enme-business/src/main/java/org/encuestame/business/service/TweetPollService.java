@@ -91,14 +91,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final TweetPollSearchBean tpollSearch)
             throws EnMeNoResultsFoundException {
         log.debug("tweetPoll username: "+username);
-        final List<TweetPoll> tweetPolls = getTweetPollDao()
-				.retrieveTweetsByUserId(tpollSearch.getKeyword(), getUserAccountId(username),
-						tpollSearch.getMax(), tpollSearch.getStart(),
-						tpollSearch.getIsComplete(),
-						tpollSearch.getIsScheduled(),
-						tpollSearch.getIsPublished(),
-						tpollSearch.getIsFavourite(), tpollSearch.getPeriod());
-		log.info("tweetPoll size: " + tweetPolls.size());
+        final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(tpollSearch.getKeyword(), getUserAccountId(username),
+                        tpollSearch.getMax(), tpollSearch.getStart(),
+                        tpollSearch.getIsComplete(),
+                        tpollSearch.getIsScheduled(),
+                        tpollSearch.getIsPublished(),
+                        tpollSearch.getIsFavourite(), tpollSearch.getPeriod());
+        log.info("tweetPoll size: " + tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE, httpServletRequest);
     }
 
@@ -204,21 +203,21 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
          } else {
              //TODO: migrate search to Hibernate Search.
              tweetPolls = getTweetPollDao().retrieveTweetsByQuestionName(tpollSearch.getKeyword(), getUserAccountId(username), tpollSearch.getMax(),
-            		 tpollSearch.getStart(), tpollSearch.getIsComplete(),
- 					tpollSearch.getIsScheduled(),
- 					tpollSearch.getIsFavourite(),
- 					tpollSearch.getIsPublished(), tpollSearch.getPeriod());
+                     tpollSearch.getStart(), tpollSearch.getIsComplete(),
+                     tpollSearch.getIsScheduled(),
+                     tpollSearch.getIsFavourite(),
+                     tpollSearch.getIsPublished(), tpollSearch.getPeriod());
              /*
               * 1- Iterate Tweetpoll list retrieved by questionName
               * 2- For every tweetpoll verify if published in a social network through social network list.
               * 3- If the value returned by the search of publications on social networks eses greater than 0
               * 4- Tweetpoll add to the list of search results
               */
-			if (tpollSearch.getProviders().size() > 0) {
-				tpollsbysocialNetwork = this
-						.retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
-								tpollSearch.getProviders());
-			}
+            if (tpollSearch.getProviders().size() > 0) {
+                tpollsbysocialNetwork = this
+                        .retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
+                                tpollSearch.getProviders());
+            }
 
          }
          log.info("search keyword tweetPoll size "+tweetPolls.size());

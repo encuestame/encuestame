@@ -245,9 +245,9 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         createTweetPollPublicated(true, true, new Date(), this.userAccount, question1);
         createTweetPollPublicated(true, true, new Date(), this.userAccount, question2);
         final UserAccount secUser = createUserAccount("diana", this.user);
-		final TweetPollSearchBean tpSearchBean = createTweetpollSearchBean(
-				Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, " xxx",
-				7, 10, 0, TypeSearch.BYOWNER);
+        final TweetPollSearchBean tpSearchBean = createTweetpollSearchBean(
+                Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, " xxx",
+                "7", 10, 0, TypeSearch.BYOWNER);
         final List<TweetPollBean> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(secUser.getUsername(), null, tpSearchBean);
 
         //assertEquals("Should be equals", 2 , tweetPollsByUser.size());
@@ -393,32 +393,32 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      */
     @Test
     public void testFilterTweetPollByItemsByType() throws EnMeNoResultsFoundException, EnMeExpcetion{
-    	final DateTime date1 = new DateTime();
-    	DateTime dt2 = date1.minusDays(5);
-    	DateTime dt3 = date1.minusDays(4);
-    	final Question q1 = createDefaultQuestion("What is your favourite movie");
-    	final Question q2 = createDefaultQuestion("What is your favourite book");
-    	final Question q3 = createDefaultQuestion("What is your favourite song");
+        final DateTime date1 = new DateTime();
+        DateTime dt2 = date1.minusDays(5);
+        DateTime dt3 = date1.minusDays(4);
+        final Question q1 = createDefaultQuestion("What is your favourite movie");
+        final Question q2 = createDefaultQuestion("What is your favourite book");
+        final Question q3 = createDefaultQuestion("What is your favourite song");
 
-    	final String keyword = "favourite";
+        final String keyword = "favourite";
 
-    	final TweetPoll tp1 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
-    	tp1.setCreateDate(dt3.toDate());
-    	tp1.setCompleted(Boolean.TRUE);
-    	getTweetPoll().saveOrUpdate(tp1);
+        final TweetPoll tp1 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
+        tp1.setCreateDate(dt3.toDate());
+        tp1.setCompleted(Boolean.TRUE);
+        getTweetPoll().saveOrUpdate(tp1);
 
-    	final TweetPoll tp2 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q2);
-    	tp2.setCreateDate(dt2.toDate());
-    	tp2.setCompleted(Boolean.TRUE);
+        final TweetPoll tp2 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q2);
+        tp2.setCreateDate(dt2.toDate());
+        tp2.setCompleted(Boolean.TRUE);
 
-    	getTweetPoll().saveOrUpdate(tp2);
+        getTweetPoll().saveOrUpdate(tp2);
 
-    	// publish : true - Sheduled: true - Completed: false - Favourite: true
-    	final TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
+        // publish : true - Sheduled: true - Completed: false - Favourite: true
+        final TweetPoll tp3 = createPublishedTweetPoll(getSpringSecurityLoggedUserAccount().getAccount(), q1);
 
-    	// Published - Completed - Favourite - Scheduled
-    	final TweetPollSearchBean tpSearch = createTweetpollSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, "name", 24, 10, 0, TypeSearch.LASTWEEK);
-    	final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, null);
+        // Published - Completed - Favourite - Scheduled
+        final TweetPollSearchBean tpSearch = createTweetpollSearchBean(Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, "name", "24", 10, 0, TypeSearch.LASTWEEK);
+        final List<TweetPollBean> tpoll = getTweetPollService().filterTweetPollByItemsByType(tpSearch, null);
 
     }
 
@@ -430,113 +430,113 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
     @Test
     public void testFilterTweetpoll() throws NoSuchAlgorithmException, UnsupportedEncodingException{
 
-    	// Completed - Favourites - Scheduled - Published
-    			DateTime creationDate = new DateTime();
-    			creationDate = creationDate.minusHours(3);
-    			final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.userAccount);
+        // Completed - Favourites - Scheduled - Published
+                DateTime creationDate = new DateTime();
+                creationDate = creationDate.minusHours(3);
+                final SocialAccount socialAccount = createDefaultSettedSocialAccount(this.userAccount);
 
-    			final List<SocialProvider> providers = new ArrayList<SocialProvider>();
-    			providers.add(SocialProvider.FACEBOOK);
-    			providers.add(SocialProvider.LINKEDIN);
-    			providers.add(SocialProvider.TWITTER);
-    			providers.add(SocialProvider.IDENTICA);
+                final List<SocialProvider> providers = new ArrayList<SocialProvider>();
+                providers.add(SocialProvider.FACEBOOK);
+                providers.add(SocialProvider.LINKEDIN);
+                providers.add(SocialProvider.TWITTER);
+                providers.add(SocialProvider.IDENTICA);
 
-    			// Completed - Favourites - Scheduled - Published
-    			final TweetPoll tp1 = this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.TRUE);
-    			createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
+                // Completed - Favourites - Scheduled - Published
+                final TweetPoll tp1 = this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.TRUE);
+                createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
 
-    			final TweetPoll tp2 =this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.TRUE);
+                final TweetPoll tp2 =this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.TRUE);
 
-    			createTweetPollSavedPublishStatusMultiple(tp2, providers, socialAccount);
+                createTweetPollSavedPublishStatusMultiple(tp2, providers, socialAccount);
 
 
-    			final TweetPoll tp3 =this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.TRUE, Boolean.TRUE);
+                final TweetPoll tp3 =this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.TRUE, Boolean.TRUE);
 
-    			createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
+                createTweetPollSavedPublishStatusMultiple(tp1, providers, socialAccount);
 
-    			final TweetPoll tp4 =this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.FALSE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
+                final TweetPoll tp4 =this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.FALSE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
 /*
-    			// 24 hours
-    			creationDate = creationDate.minusDays(3);
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.FALSE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.TRUE	);
+                // 24 hours
+                creationDate = creationDate.minusDays(3);
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.FALSE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.TRUE	);
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
-
-
-    			creationDate = creationDate.minusDays(2);
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
 
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
+                creationDate = creationDate.minusDays(2);
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
 
-    			creationDate = creationDate.minusDays(4);
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
 
-    			this.createTweetPollItems(creationDate.toDate(),
-    					this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
-    					Boolean.FALSE, Boolean.FALSE);*/
+                creationDate = creationDate.minusDays(4);
+
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);
+
+                this.createTweetPollItems(creationDate.toDate(),
+                        this.userAccount.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                        Boolean.FALSE, Boolean.FALSE);*/
 
     }
 
     // Test Filter tweetpolls by owner.
-	@Test
-	public void testFilterTweetpollByOwner() throws NoSuchAlgorithmException,
-			UnsupportedEncodingException, EnMeNoResultsFoundException,
-			EnMeExpcetion {
+    @Test
+    public void testFilterTweetpollByOwner() throws NoSuchAlgorithmException,
+            UnsupportedEncodingException, EnMeNoResultsFoundException,
+            EnMeExpcetion {
 
-		// Completed - Favourites - Scheduled - Published
-		this.createTweetPollItems(this.creationDate.toDate(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE);
+        // Completed - Favourites - Scheduled - Published
+        this.createTweetPollItems(this.creationDate.toDate(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                Boolean.TRUE, Boolean.FALSE, Boolean.FALSE, Boolean.TRUE);
 
-		this.createTweetPollItems(this.creationDate.toDate(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
+        this.createTweetPollItems(this.creationDate.toDate(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE);
 
-		this.createTweetPollItems(this.creationDate.toDate(),
-				getSpringSecurityLoggedUserAccount().getAccount(),
-				Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
+        this.createTweetPollItems(this.creationDate.toDate(),
+                getSpringSecurityLoggedUserAccount().getAccount(),
+                Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
 
-		// Published - completed - Favourite - Scheduled
-		final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
-				Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE,
-				"What", 24, 10, 0, TypeSearch.BYOWNER);
-		final List<TweetPollBean> tpollsByOwner = getTweetPollService()
-				.filterTweetPollByItemsByType(tpSearch, null);
-		assertEquals("Should be equals", 3, tpollsByOwner.size());
-	}
+        // Published - completed - Favourite - Scheduled
+        final TweetPollSearchBean tpSearch = createTweetpollSearchBean(
+                Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, Boolean.FALSE,
+                "What", "24", 10, 0, TypeSearch.BYOWNER);
+        final List<TweetPollBean> tpollsByOwner = getTweetPollService()
+                .filterTweetPollByItemsByType(tpSearch, null);
+        assertEquals("Should be equals", 3, tpollsByOwner.size());
+    }
 
     /**
      *
@@ -545,10 +545,10 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
      * @return
      */
     private List<SocialProvider> socialProvider (final SocialProvider provider1, final SocialProvider provider2){
-    	final List<SocialProvider> searchproviders = new ArrayList<SocialProvider>();
-    	searchproviders.add(provider1);
-    	searchproviders.add(provider2);
-    	return searchproviders;
+        final List<SocialProvider> searchproviders = new ArrayList<SocialProvider>();
+        searchproviders.add(provider1);
+        searchproviders.add(provider2);
+        return searchproviders;
     }
 
 }
