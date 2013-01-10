@@ -23,18 +23,24 @@
  */
 define([
          "dojo/_base/declare",
+         "dojo/dom-construct",
+         "dijit/registry",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "dijit/form/CheckBox",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/admon/user/UserGroup",
          "me/core/enme",
          "dojo/text!me/web/widget/admon/user/template/UserTableRow.html" ],
         function(
                 declare,
+                domConstruct,
+                registry,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                CheckBox,
                 main_widget,
                 UserGroup,
                 _ENME,
@@ -83,10 +89,13 @@ define([
 
             /**
              * Create Column.
+             * @method
+             * @param
+             * @param
              */
-            createColumnDialog : function(text, centered){
-                 var td = dojo.doc.createElement('td');
-                 var a = dojo.doc.createElement('a');
+            createColumnDialog : function(text, centered) {
+                 var td = domConstruct.create('td');
+                 var a = domConstruct.create('a');
                  dojo.addClass(a, "link");
                  a.innerHTML = text;
                  a.href = "#";
@@ -99,7 +108,7 @@ define([
              *
              */
             createGroupWidget : function(data){
-                var td = dojo.doc.createElement('td');
+                var td = domConstruct.create('td');
                 var groupWidget = new UserGroup(
                         {
                          dataUser: data,
@@ -113,31 +122,32 @@ define([
              * Edit User.
              */
             editUSer : function(){
-                var userEdit = dijit.byId("userEdit");
+                var userEdit = registry.byId("userEdit");
                 userEdit.data = this.data;
-                if(userEdit != null){
+                if (userEdit != null) {
                     this.getUserInfo(this.data.id);
                 }
             },
 
             /**
              * Get User.
+             * @method
              */
-            getUserInfo : function(id){
-                var load = dojo.hitch(this, function(response){
-                     dijit.byId("userEdit").show();
+            getUserInfo : function(id ){
+                var load = dojo.hitch(this, function(response) {
+                    registry.byId("userEdit").show();
                     var data = response.success.user;
-                    dijit.byId("userEdit").title = data.username;
-                    var name = dijit.byId("name");
+                    registry.byId("userEdit").title = data.username;
+                    var name = registry.byId("name");
                     name.setValue(data.username);
-                    var email = dijit.byId("email");
+                    var email = registry.byId("email");
                     email.setValue(data.email);
-                    var realName = dijit.byId("realName");
+                    var realName = registry.byId("realName");
                     realName.setValue(data.name);
                     //set widgets
-                    if(dijit.byId("widgetPermission")){
-                        dijit.byId("widgetPermission").user = data;
-                        dijit.byId("widgetPermission").initialize();
+                    if (registry.byId("widgetPermission")) {
+                        registry.byId("widgetPermission").user = data;
+                        registry.byId("widgetPermission").initialize();
                     } else {
                         console.info("Permission Widget not found");
                     }
@@ -151,10 +161,11 @@ define([
 
             /**
              * Create Column.
+             * @method
              */
-            createColumn : function(text, centered){
-                var td = dojo.doc.createElement('td');
-                if(centered){
+            createColumn : function(text, centered) {
+                var td = domConstruct.create('td');
+                if (centered) {
                     td.setAttribute("align", "center");
                 }
                 td.innerHTML = text;
@@ -163,21 +174,24 @@ define([
 
             /**
              * Create Input.
+             * @method
              */
-            createInput : function(id){
-                var td = dojo.doc.createElement('td');
-                var widgetInput = new dijit.form.CheckBox({});
+            createInput : function(id) {
+                var td = domConstruct.create('td');
+                var widgetInput = new CheckBox({});
                 widgetInput.setValue(id);
                 td.appendChild(widgetInput.domNode);
                 this._trbody.appendChild(td);
             },
 
-            buildStatus : function(status){
-                var td = dojo.doc.createElement('td');
+            /**
+             *
+             * @method
+             */
+             buildStatus : function(status) {
+                var td = domConstruct.create('td');
                 td.innerHTML = status;
                 this._trbody.appendChild(td);
-            }
-
-
+             }
     });
 });

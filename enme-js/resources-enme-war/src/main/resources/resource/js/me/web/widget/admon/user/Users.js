@@ -105,32 +105,35 @@ define([
                 dijit.byId("realName");
             },
 
-            _newUser : function(event){
+            /**
+             *
+             * @method
+             */
+            _newUser : function(event) {
                 var userEdit = dijit.byId("newUser");
                 if(userEdit){
                     userEdit.show();
                 }
             },
 
-            _createDirectlyUser : function(event){
-                basicStandby6.show();
+            /**
+             *
+             * @method
+             */
+            _createDirectlyUser : function(event) {
                 var form = dojo.byId("newUserSimpleForm");
                 var formDijit = dijit.byId("newUserSimpleForm");
                 if(formDijit.isValid()){
                     var load = dojo.hitch(this, function(data){
-                        basicStandby6.hide();
-                        if(data.success){
-                            if(data.success.userAdded == "ok"){
+                        //basicStandby6.hide();
+                        if ('success' in data) {
+                            if(data.success.userAdded === "ok"){
                                 this.loadItems();
                                 dijit.byId("newUser").hide();
                             }
                         }
                     });
-                    var error = function(error) {
-                        basicStandby6.hide();
-                        console.debug("error", error);
-                    };
-                    //encuestame.service.xhrPost(encuestame.service.list.createUser, form, load, error);
+                    var error = function(error) {};
                     this.getURLService().post('encuestame.service.list.createUser', form, load, error , dojo.hitch(this, function() {
 
                     }));

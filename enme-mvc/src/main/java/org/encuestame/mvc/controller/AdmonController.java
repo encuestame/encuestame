@@ -49,7 +49,17 @@ public class AdmonController extends AbstractBaseOperations {
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
     public String membersLocation(ModelMap model) {
-        log.debug("MEMGERS");
+        log.debug("MEMBERS");
+        addi18nProperty(model, "admon_create_user", getMessage("admon_create_user"));
+        addi18nProperty(model, "admon_username", getMessage("admon_username"));
+        addi18nProperty(model, "admon_group", getMessage("admon_group"));
+        addi18nProperty(model, "admon_user_from", getMessage("admon_user_from"));
+        addi18nProperty(model, "admon_status", getMessage("admon_status"));
+        addi18nProperty(model, "admon_tweetpoll_count", getMessage("admon_tweetpoll_count"));
+        addi18nProperty(model, "admon_poll_count", getMessage("admon_poll_count"));
+        addi18nProperty(model, "admon_survey_count", getMessage("admon_survey_count"));
+        addi18nProperty(model, "admon_last_logged", getMessage("admon_last_logged"));
+        addi18nProperty(model, "followers", getMessage("followers"));
         return "members";
     }
 
