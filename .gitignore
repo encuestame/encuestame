@@ -16,6 +16,7 @@ enme-js/resources-enme-war/*.settings/*
 enme-js/widgets-core/*.settings/*
 enme-js/widgets-mobile/*.settings/*
 enme-js/widgets-web/*.settings/*
+enme-war/*.settings/*
 enme-js/doh/*.settings/*
 enme-js/deps/*.settings/*
 enme-persistence/enme-model/.settings
