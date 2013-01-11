@@ -26,6 +26,7 @@ define([
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "dijit/registry",
          "dijit/Dialog",
          "dijit/layout/AccordionContainer",
          "dijit/layout/ContentPane",
@@ -45,6 +46,7 @@ define([
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                registry,
                 Dialog,
                 AccordionContainer,
                 ContentPane,
@@ -100,9 +102,9 @@ define([
              * Update User.
              */
             _updateUser : function(event){
-                dijit.byId("name");
-                dijit.byId("email");
-                dijit.byId("realName");
+                registry.byId("name");
+                registry.byId("email");
+                registry.byId("realName");
             },
 
             /**
@@ -110,7 +112,7 @@ define([
              * @method
              */
             _newUser : function(event) {
-                var userEdit = dijit.byId("newUser");
+                var userEdit = registry.byId("newUser");
                 if(userEdit){
                     userEdit.show();
                 }
@@ -121,20 +123,25 @@ define([
              * @method
              */
             _createDirectlyUser : function(event) {
-                var form = dojo.byId("newUserSimpleForm");
-                var formDijit = dijit.byId("newUserSimpleForm");
-                if(formDijit.isValid()){
-                    var load = dojo.hitch(this, function(data){
+                var formDijit = registry.byId("newUserSimpleForm");
+                if (formDijit.isValid()) {
+                    var newUsername = registry.byId("newUsername"),
+                    newEmailUser = registry.byId("newEmailUser"),
+                    load = dojo.hitch(this, function(data) {
                         //basicStandby6.hide();
                         if ('success' in data) {
-                            if(data.success.userAdded === "ok"){
+                            if (data.success.userAdded === "ok") {
                                 this.loadItems();
-                                dijit.byId("newUser").hide();
+                                registry.byId("newUser").hide();
                             }
                         }
-                    });
-                    var error = function(error) {};
-                    this.getURLService().post('encuestame.service.list.createUser', form, load, error , dojo.hitch(this, function() {
+                    }),
+                    error = function(error) {},
+                    params = {
+                        newUsername : newUsername.get('value'),
+                        newEmailUser : newEmailUser.get('value')
+                    };
+                    this.getURLService().post('encuestame.service.list.createUser', params, load, error , dojo.hitch(this, function() {
 
                     }));
                 } else {

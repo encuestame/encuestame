@@ -218,7 +218,7 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
 
               model.put("invitation", invitation);
               model.put("domain", domainDefault);
-			  model.put("username", "MyUsername");
+              model.put("username", "MyUsername");
               model.put("presentationMessage", getMessageProperties("mail.message.default.user.presentation", buildCurrentLocale(), null));
               model.put("subscribeMessage", getMessageProperties("mail.message.subscribe", buildCurrentLocale(), null));
               model.put("unSubscribeMessage", getMessageProperties("mail.message.unsubscribe", buildCurrentLocale(), null));
@@ -279,21 +279,40 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
     /**
      * Send Password Confirmation Email.
      * @param user
-     * @deprecated will be removed on 1.147
      */
-    @Deprecated
     public void sendPasswordConfirmationEmail(final SignUpBean user) {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
            public void prepare(MimeMessage mimeMessage) throws Exception {
-              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              final MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              log.debug("sendPasswordConfirmationEmail account to " + user.getEmail());
               message.setTo(user.getEmail());
               message.setSubject(buildSubject(getMessageProperties("email.password.remember.confirmation")));
               message.setFrom(noEmailResponse);
-              Map model = new HashMap();
+              final Map<String, Object> model = new HashMap<String, Object>();
+              // build anomymous the salute
+              final String _fullName = user.getUsername();
+              final StringBuffer salute = new StringBuffer(getMessageProperties("mail.message.default.user.presentation",
+                      buildCurrentLocale(),
+                      null));
+              salute.append(" ");
+              salute.append("<b>");
+              salute.append(_fullName);
+              salute.append("</b>");
+              user.setFullName(salute.toString());
+              getLogo(model);
               model.put("user", user);
-              String text = VelocityEngineUtils.mergeTemplateIntoString(
-                 velocityEngine, "/org/encuestame/business/mail/templates/password-confirmation.vm", model);
-              message.setText(text, true);
+              model.put("password", user.getPassword());
+              model.put("domain", domainDefault);
+              model.put("passwordMessage", getMessageProperties("mail.message.password.passwordMessage", buildCurrentLocale(), null));
+              model.put("passwordIntroMessage", getMessageProperties("mail.message.password.passwordIntroMessage", buildCurrentLocale(), null));
+              model.put("signInMessage", getMessageProperties("mail.message.signInMessage", buildCurrentLocale(), null));
+              getGreetingMessage(model);
+              // create the template
+              final String text = VelocityEngineUtils.mergeTemplateIntoString(
+                              velocityEngine, "/org/encuestame/business/mail/templates/password-confirmation.vm",
+                              model);
+              message.setText(text, Boolean.TRUE);
+
            }
         };
         send(preparator);

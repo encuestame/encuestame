@@ -53,7 +53,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Picado, Juan juanATencuestame.org
  * @since 08/11/2009 11:35:01
  */
-@Category(DefaultTest.class)
 public class TestSecurityService extends AbstractSpringSecurityContext {
 
     /** {@link SecurityService}. **/
@@ -95,6 +94,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Test findUserByUserName.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testfindUserByUserName() {
         final UserAccount secondary = this.securityService
@@ -109,6 +109,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Test findUserByEmail.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testfindUserByEmail() {
         final UserAccountBean secondary = this.securityService
@@ -126,6 +127,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeNoResultsFoundException
      */
+    @Category(DefaultTest.class)
     @Test
     public void testloadGroups() throws EnMeNoResultsFoundException {
         createGroups("admin", this.userPrimary);
@@ -140,6 +142,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeNoResultsFoundException
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeNoResultsFoundException.class)
     public void testloadGroupsException() throws EnMeNoResultsFoundException {
         this.securityService.loadGroups("xxxxxx");
@@ -148,6 +151,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * test updateTwitterAccount.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testupdateTwitterAccount() {
         // SocialAccount account =
@@ -170,6 +174,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test
     public void testupdateSecretTwitterCredentials() throws EnMeExpcetion {
         // SocialAccount account =
@@ -217,6 +222,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeExpcetion.class)
     @Ignore
     public void testupdateOAuthTokenSocialAccountException()
@@ -228,6 +234,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * test getTwitterAccount.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testgetTwitterAccount() {
         // SocialAccount account =
@@ -243,7 +250,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeNoResultsFoundException
      */
     @Category(SlowTest.class)
-    @Test(timeout = 30000) 
+    @Test(timeout = 30000)
     public void testdeleteUser() throws EnMeNoResultsFoundException {
         final UserAccount tempUser = createUserAccount("second user",
                 this.userPrimary);
@@ -262,6 +269,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeNoResultsFoundException
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeNoResultsFoundException.class)
     public void testdeleteUserNotFound() throws EnMeNoResultsFoundException {
         this.securityService.deleteUser(ConvertDomainBean
@@ -274,6 +282,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeNoResultsFoundException
      */
     @Test
+    @Category(DefaultTest.class)
     @Ignore
     public void testaddNewTwitterAccount() throws EnMeNoResultsFoundException {
         // this.securityService.addNewTwitterAccount("encuestameTest",
@@ -286,6 +295,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Generate Hash Code Invitation.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testGenerateHashCodeInvitation() {
         assertNotNull(securityService.generateHashCodeInvitation());
@@ -294,6 +304,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Test Load All Permissions.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testLoadAllListPermission() {
         assertEquals("Should be equals", 8, securityService
@@ -303,6 +314,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * @throws Exception
      */
+    @Category(DefaultTest.class)
     @Test
     public void testLoadListUsers() throws Exception {
         addGroupUser(super.createUserAccount("user 1", this.userPrimary),
@@ -319,6 +331,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test
     public void testSearchUserByUsername() throws EnMeExpcetion {
         final UserAccount userDomain = createUserAccount("user 1",
@@ -334,6 +347,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+
     @Test
     public void testSearchUserByUsernameNotFound() throws EnMeExpcetion {
         assertNull(securityService.searchUserByUsername("user test"));
@@ -342,6 +356,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Test Default User Permission.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testDefaulUserPermission() {
         final String defaultPermission = securityService
@@ -353,6 +368,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Test Delete Group.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testDeleteGroup() {
         final Group groupDomain = createGroups("admin");
@@ -377,6 +393,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Test delete Group.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testdeleteGroup() {
         final Group groupDomain = createGroups("admin");
@@ -395,6 +412,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             exception
      */
+    @Category(DefaultTest.class)
     @Test
     public void testDeleteUser() throws EnMeExpcetion {
         final UserAccount secUsers = createUserAccount("administrator",
@@ -413,6 +431,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test
     public void testUpdateGroup() throws EnMeExpcetion {
         Group secgroups = createGroups("guests");
@@ -432,6 +451,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             exception
      **/
+    @Category(DefaultTest.class)
     @Test
     public void testUpdateUser() throws EnMeExpcetion {
         final UserAccount secUsers = createUserAccount("developer",
@@ -449,6 +469,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     /**
      * Test Create Permission.
      */
+    @Category(DefaultTest.class)
     @Test
     public void testCreatePermission() {
         final Permission secPerm = createPermission("writer");
@@ -469,8 +490,8 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             exception
      */
-    //@Category(InternetTest.class)
-    @Test 
+    @Category(InternetTest.class)
+    @Test
     public void testRenewPassword() throws EnMeExpcetion {
         final UserAccount secUser = createUserAccount("paola", this.userPrimary);
         final String passwd = secUser.getPassword();
@@ -487,6 +508,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeExpcetion.class)
     public void testRenewPasswordwithoutPass() throws EnMeExpcetion {
         final UserAccount secUser = createUserAccount("diana", this.userPrimary);
@@ -503,6 +525,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      **/
+    @Category(DefaultTest.class)
     @Test(expected = EnMeExpcetion.class)
     public void testCreateUserwithoutEmail() throws EnMeExpcetion {
         final UserAccountBean userCreateBean = new UserAccountBean();
@@ -518,6 +541,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeExpcetion.class)
     public void testCreateUserwithoutUsername() throws EnMeExpcetion {
         final UserAccountBean userCreateBean = new UserAccountBean();
@@ -541,7 +565,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *             EnMeExpcetion
      */
     @Category(InternetTest.class)
-    @Test  
+    @Test
     public void testCreateUserwithUsernameEmail() throws EnMeExpcetion {
         createDefaultPermission();
         final UserAccountBean userCreateBean = new UserAccountBean();
@@ -567,6 +591,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(InternetTest.class)
     @Test
     public void testCreateUserwithoutPassword() throws EnMeExpcetion {
         createDefaultPermission();
@@ -595,6 +620,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(InternetTest.class)
     @Test
     public void testCreateUserwithPassword() throws EnMeExpcetion {
         createDefaultPermission();
@@ -622,6 +648,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *
      * @throws EnMeNoResultsFoundException
      */
+    @Category(DefaultTest.class)
     @Test
     public void testCreateGroup() throws EnMeNoResultsFoundException {
         Group secCreateGroup = new Group();
@@ -642,6 +669,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test
     public void testAssignPermissionwithIdUsername() throws EnMeExpcetion {
         final UserAccount secUser = createUserAccount("demo", this.userPrimary);
@@ -662,6 +690,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeExpcetion.class)
     public void testAssignPermissionwithoutIdUsername() throws EnMeExpcetion {
         final UserAccountBean userPermissionBean = new UserAccountBean();
@@ -678,6 +707,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeExpcetion.class)
     public void testAssignPermissionwithPermission() throws EnMeExpcetion {
         final UserAccount secUser = createUserAccount("juanpicado2",
@@ -697,6 +727,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test(expected = EnMeExpcetion.class)
     public void testAssignPermissionwithPermissionIdandUserId()
             throws EnMeExpcetion {
@@ -712,6 +743,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeExpcetion
      *             EnMeExpcetion
      */
+    @Category(DefaultTest.class)
     @Test
     public void testAssignGroup() throws EnMeExpcetion {
         final UserAccount users = createUserAccount("juanpicado",
@@ -728,6 +760,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * Test searchUsersByEmail.
      */
     @Test
+    @Category(DefaultTest.class)
     public void testsearchUsersByEmail() {
         final UserAccount email = createUserAccount("emailUser1",
                 this.userPrimary);
@@ -775,6 +808,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      *             EnMeExpcetion
      */
     @Test
+    @Category(DefaultTest.class)
     public void testloadBeanPermission() throws EnMeExpcetion {
         final UnitPermission permission = securityService
                 .loadBeanPermission(this.permission.getPermission());
@@ -785,6 +819,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * Test singupUser.
      */
     @Test
+    @Category(DefaultTest.class)
     public void testsingupUser() {
         final SignUpBean bean = createSignUpBean("newUser",
                 "newUser@gmail.com", "12345");
@@ -797,6 +832,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
      * @throws EnMeNoResultsFoundException
      */
     @Test
+    @Category(DefaultTest.class)
     public void testGetUserAccountbyCode() throws EnMeNoResultsFoundException {
         final String inviteCode = RandomStringUtils.randomNumeric(6);
         final UserAccount account = createUserAccount("jota", "jota@jota.com",
@@ -809,6 +845,7 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
     }
 
     @Test
+    @Category(DefaultTest.class)
     public void testRemoveUnconfirmedAccount() {
         final Calendar createdAt = Calendar.getInstance();
         createdAt.add(Calendar.DATE, -2);
@@ -816,7 +853,6 @@ public class TestSecurityService extends AbstractSpringSecurityContext {
         createUserAccount(Boolean.FALSE, createdAt.getTime(), "diana", acc1);
         createUserAccount(Boolean.FALSE, createdAt.getTime(), "paola", acc1);
         createUserAccount(Boolean.FALSE, createdAt.getTime(), "isabella", acc1);
-        System.out.println("Account Id before --->" + acc1.getUid());
         securityService.removeUnconfirmedAccount(Boolean.FALSE);
         // System.out.println("UserAccount without to set --->"+ msg);
         assertEquals(acc1.getEnabled(), Boolean.FALSE);

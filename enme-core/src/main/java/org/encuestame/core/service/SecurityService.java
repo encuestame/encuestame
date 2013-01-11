@@ -363,7 +363,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             throw new EnMeExpcetion("needed email and username to create user");
         }
         String password = null;
-        if (userBean.getPassword()!=null) {
+        if (userBean.getPassword() != null) {
              password = userBean.getPassword();
              userAccount.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
@@ -372,19 +372,25 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             userAccount.setPassword(EnMePasswordUtils.encryptPassworD(password));
         }
         //TODO: maybe we need create a table for editor permissions
-        userAccount.setCompleteName(userBean.getName() == null ? "" : userBean.getName());
+        userAccount.setCompleteName(userBean.getName() == null ? "" : userBean.getUsername());
         userAccount.setUserStatus(Boolean.TRUE);
-        userAccount.setEnjoyDate(new Date());
+        userAccount.setEnjoyDate(Calendar.getInstance().getTime());
             // send to user the password to her emails
-            //if((getSuspendedNotification())) {
-            sendUserPassword(userBean.getEmail(), password);
-            //}
+            final SignUpBean singUpBean = new SignUpBean();
+            singUpBean.setEmail(userBean.getEmail());
+            singUpBean.setFullName(userAccount.getCompleteName());
+            singUpBean.setUsername(userBean.getUsername());
+            singUpBean.setPassword(password);
+            final String inviteCode =  UUID.randomUUID().toString();
+            userAccount.setInviteCode(inviteCode);
+            getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
+            getMailService().sendPasswordConfirmationEmail(singUpBean);
             // save user
             getAccountDao().saveOrUpdate(userAccount);
             // assing first default group to user
             final UserAccount retrievedUser = getAccountDao().getUserAccountById(userAccount.getUid());
             final Permission permission = getPermissionByName(SecurityService.DEFAULT);
-            if(permission != null){
+            if (permission != null) {
                 final List<Permission> all = getPermissionDao().findAllPermissions();
                 log.info("all permission "+all.size());
                 log.info("default permission "+permission);
@@ -790,13 +796,14 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
      * @param email email
      * @param password password
      * @throws MailSendException
+     * @deprecated should user invitation mail service
      */
+    @Deprecated
     public void sendUserPassword(final String email,
             final String password)
             throws MailSendException {
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-            getMailService().send(email, getMessageProperties("NewPassWordMail"),
-                    password);
+            getMailService().send(email, getMessageProperties("NewPassWordMail"), password);
         }
     }
 

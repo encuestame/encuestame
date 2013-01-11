@@ -22,6 +22,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.mvc.controller.security.json.JsonUsersController;
 import org.encuestame.mvc.test.config.AbstractJsonMvcUnitBeans;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.categories.test.InternetTest;
 import org.encuestame.utils.enums.MethodJson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,7 +34,6 @@ import org.junit.experimental.categories.Category;
  * @author Picado, Juan juanATencuestame.org
  * @since 25/07/2011
  */
-@Category(DefaultTest.class)
 public class JsonUsersControllerTestCase extends AbstractJsonMvcUnitBeans {
 
     /**
@@ -41,6 +41,7 @@ public class JsonUsersControllerTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
+    @Category(DefaultTest.class)
     @Test
     public void testUsers()
             throws ServletException, IOException {
@@ -72,6 +73,7 @@ public class JsonUsersControllerTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
+    @Category(DefaultTest.class)
     @Test
     public void testUserInfo()
             throws ServletException, IOException {
@@ -90,6 +92,7 @@ public class JsonUsersControllerTestCase extends AbstractJsonMvcUnitBeans {
     * @throws ServletException
     * @throws IOException
     */
+   @Category(InternetTest.class)
    @Test
    public void testCreateUser()
            throws ServletException, IOException {
