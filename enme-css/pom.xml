@@ -44,7 +44,7 @@
                             <java
                              fork="true"
                              failonerror="true"
-                             dir="${basedir}/src/css/"
+                             dir="${basedir}/src/css/resource/css"
                              classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar"/>
@@ -76,7 +76,7 @@
                             <java
                              fork="true"
                              failonerror="true"
-                             dir="${basedir}/src/css/"
+                             dir="${basedir}/src/css/resource/css"
                              classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar"/>

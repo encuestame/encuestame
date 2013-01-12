@@ -37,7 +37,7 @@
                     <webAppConfig>
                         <contextPath>/encuestame</contextPath>
                         <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
-                            <resourcesAsCSV>src/main/webapp,../enme-views/src/main/webapp, ../../enme-js/resources-enme-war/src/main/resources</resourcesAsCSV>
+                            <resourcesAsCSV>src/main/webapp,../enme-views/src/main/webapp, ../../enme-js/resources-enme-war/src/main/resources, ../../enme-css/src/css</resourcesAsCSV>
                         </baseResource>
                     </webAppConfig>
                     <scanIntervalSeconds>0</scanIntervalSeconds>

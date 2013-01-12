@@ -29,6 +29,7 @@ define([
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/CheckBox",
+         "me/web/widget/pictures/AccountPicture",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/admon/user/UserGroup",
          "me/core/enme",
@@ -41,6 +42,7 @@ define([
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 CheckBox,
+                AccountPicture,
                 main_widget,
                 UserGroup,
                 _ENME,
@@ -64,11 +66,10 @@ define([
             /**
              * Build Default Row.
              */
-            buildDefaultRow : function(){
+            buildDefaultRow : function() {
                 var data = this.data;
-                //this.createInput(data.id)
+                this.createInput(data)
                 this.createColumnDialog(data.username);
-                this.createColumn(data.name);
                 this.createGroupWidget(data);
                 this.createColumn(data.relateTimeEnjoy);
                 this.buildStatus(data.status);
@@ -176,10 +177,9 @@ define([
              * Create Input.
              * @method
              */
-            createInput : function(id) {
+            createInput : function(data) {
                 var td = domConstruct.create('td');
-                var widgetInput = new CheckBox({});
-                widgetInput.setValue(id);
+                var widgetInput = new AccountPicture({ username : data.username});
                 td.appendChild(widgetInput.domNode);
                 this._trbody.appendChild(td);
             },
