@@ -598,6 +598,15 @@
     </build>
 
 	<profiles>
+        <profile>
+            <id>production</id>
+            <properties>
+                <env>development</env>
+            </properties>
+             <activation>
+                <activeByDefault>true</activeByDefault>
+           </activation>
+        </profile>
 		<profile>
 			<id>development</id>
 			<properties>

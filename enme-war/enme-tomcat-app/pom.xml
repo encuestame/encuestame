@@ -10,68 +10,75 @@
     <artifactId>enme-tomcat-app</artifactId>
     <packaging>war</packaging>
     <name>encuestame tomcat war</name>
-    <build>
-    <filters>
-          <filter>../../env/${env}.properties</filter>
-    </filters>
-    <finalName>encuestame</finalName>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>${maven.war.plugin}</version>
-            <configuration>
-                <packagingExcludes>WEB-INF/classes/rebel.xml, resource/js/dojo,resource/js/dojox, resource/js/dijit </packagingExcludes>
-                <archive>
-                    <manifest>
-                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                    </manifest>
-                </archive>
-               <overlays>
-                 <overlay>
-                    <groupId>org.encuestame</groupId>
-                    <artifactId>resources-enme-war</artifactId>
-                    <excludes>
-                      <exclude>WEB-INF/web.xml</exclude>
-                    </excludes>
-                 </overlay>
-               </overlays>
-               <overlays>
-                 <overlay>
-                    <groupId>org.encuestame</groupId>
-                    <artifactId>enme-config</artifactId>
-                    <excludes>
-                      <exclude>WEB-INF/web.xml</exclude>
-                    </excludes>
-                 </overlay>
-                 <overlay>
-                    <groupId>org.encuestame</groupId>
-                    <artifactId>enme-views</artifactId>
-                    <excludes>
-                      <exclude>WEB-INF/web.xml</exclude>
-                    </excludes>
-                 </overlay>
-                <overlay>
-                    <groupId>org.encuestame</groupId>
-                    <artifactId>resources-enme-war</artifactId>
-                    <excludes>
-                      <exclude>WEB-INF/web.xml</exclude>
-                    </excludes>
-                 </overlay>
-               </overlays>
-            </configuration>
-           </plugin>
-          </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources/</directory>
-                <includes>
-                    <include>*.*</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
+    <profiles>
+        <profile>
+            <id>production</id>
+            <build>
+                <filters>
+                    <filter>../../env/${env}.properties</filter>
+                </filters>
+                <finalName>encuestame</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>${maven.war.plugin}</version>
+                        <configuration>
+                            <packagingExcludes>
+                                WEB-INF/classes/rebel.xml, resource/js/dojo,resource/js/dojox, resource/js/dijit
+                            </packagingExcludes>
+                            <archive>
+                                <manifest>
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                </manifest>
+                            </archive>
+                            <overlays>
+                                <overlay>
+                                    <groupId>org.encuestame</groupId>
+                                    <artifactId>resources-enme-war</artifactId>
+                                    <excludes>
+                                        <exclude>WEB-INF/web.xml</exclude>
+                                    </excludes>
+                                </overlay>
+                            </overlays>
+                            <overlays>
+                                <overlay>
+                                    <groupId>org.encuestame</groupId>
+                                    <artifactId>enme-config</artifactId>
+                                    <excludes>
+                                        <exclude>WEB-INF/web.xml</exclude>
+                                    </excludes>
+                                </overlay>
+                                <overlay>
+                                    <groupId>org.encuestame</groupId>
+                                    <artifactId>enme-views</artifactId>
+                                    <excludes>
+                                        <exclude>WEB-INF/web.xml</exclude>
+                                    </excludes>
+                                </overlay>
+                                <overlay>
+                                    <groupId>org.encuestame</groupId>
+                                    <artifactId>resources-enme-war</artifactId>
+                                    <excludes>
+                                        <exclude>WEB-INF/web.xml</exclude>
+                                    </excludes>
+                                </overlay>
+                            </overlays>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/</directory>
+                        <includes>
+                            <include>*.*</include>
+                        </includes>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -86,7 +93,7 @@
             <groupId>org.encuestame</groupId>
             <artifactId>encuestame-mvc</artifactId>
         </dependency>
-    <dependency>
+        <dependency>
             <groupId>org.encuestame</groupId>
             <artifactId>enme-dao</artifactId>
         </dependency>
@@ -246,93 +253,93 @@
             <groupId>rome</groupId>
             <artifactId>rome-fetcher</artifactId>
         </dependency>
-            <dependency>
-              <groupId>org.opensymphony.quartz</groupId>
-              <artifactId>quartz</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-mapper-asl</artifactId>
-            </dependency>
-          <dependency>
-             <groupId>joda-time</groupId>
-             <artifactId>joda-time</artifactId>
-         </dependency>
+        <dependency>
+            <groupId>org.opensymphony.quartz</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
 
-         <!-- Spring Framework Dependencies -->
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-webmvc</artifactId>
-                </dependency>
-               <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.webflow</groupId>
-                <artifactId>org.springframework.webflow</artifactId>
-            </dependency>
-            <dependency>
-              <groupId>org.springframework.webflow</groupId>
-               <artifactId>spring-js</artifactId>
-            </dependency>
-            <!-- Spring Integration  -->
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-core</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-http</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-mail</artifactId>
-            </dependency>
-              <!-- Spring Security -->
-             <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>${spring.security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-ldap</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-openid</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-taglibs</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-config</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security.oauth</groupId>
-                <artifactId>spring-security-oauth</artifactId>
-            </dependency>
-          <dependency>
+        <!-- Spring Framework Dependencies -->
+        <dependency>
             <groupId>org.springframework</groupId>
-                <artifactId>spring-tx</artifactId>
-          </dependency>
-          <dependency>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>org.springframework.webflow</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-js</artifactId>
+        </dependency>
+        <!-- Spring Integration  -->
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-mail</artifactId>
+        </dependency>
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-openid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
         </dependency>
@@ -342,21 +349,21 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.ldap</groupId>
-                <artifactId>spring-ldap-core</artifactId>
+            <artifactId>spring-ldap-core</artifactId>
         </dependency>
         <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-expression</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-orm</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
         </dependency>
-     <!-- Aspect J -->
+        <!-- Aspect J -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -370,12 +377,12 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-           <groupId>org.scribe</groupId>
-           <artifactId>scribe</artifactId>
+            <groupId>org.scribe</groupId>
+            <artifactId>scribe</artifactId>
         </dependency>
         <dependency>
-               <groupId>org.springframework.mobile</groupId>
-               <artifactId>spring-mobile-device</artifactId>
+            <groupId>org.springframework.mobile</groupId>
+            <artifactId>spring-mobile-device</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
@@ -388,24 +395,24 @@
                 </exclusion>
             </exclusions>
         </dependency>
-            <dependency>
-        <groupId>org.apache.tiles</groupId>
-        <artifactId>tiles-extras</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.tiles</groupId>
-        <artifactId>tiles-servlet</artifactId>
-      </dependency>
-       <dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-extras</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-servlet</artifactId>
+        </dependency>
+        <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
         </dependency>
         <dependency>
-             <groupId>javax.servlet.jsp</groupId>
-             <artifactId>jsp-api</artifactId>
-             <scope>provided</scope>
-       </dependency>
-       <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>bayeux-api</artifactId>
         </dependency>
@@ -454,28 +461,28 @@
             <artifactId>ehcache-spring-annotations</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.encuestame</groupId>
-          <artifactId>resources-enme-war</artifactId>
-          <version>${project.version}</version>
-          <type>war</type>
+            <groupId>org.encuestame</groupId>
+            <artifactId>resources-enme-war</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
         </dependency>
         <dependency>
-          <groupId>org.encuestame</groupId>
-          <artifactId>enme-config</artifactId>
-          <version>${project.version}</version>
-          <type>war</type>
+            <groupId>org.encuestame</groupId>
+            <artifactId>enme-config</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
         </dependency>
         <dependency>
-          <groupId>org.encuestame</groupId>
-          <artifactId>enme-spring</artifactId>
-          <version>${project.version}</version>
-          <type>war</type>
+            <groupId>org.encuestame</groupId>
+            <artifactId>enme-spring</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
         </dependency>
         <dependency>
-          <groupId>org.encuestame</groupId>
-          <artifactId>enme-views</artifactId>
-          <version>${project.version}</version>
-          <type>war</type>
+            <groupId>org.encuestame</groupId>
+            <artifactId>enme-views</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
         </dependency>
-     </dependencies>
+    </dependencies>
 </project>

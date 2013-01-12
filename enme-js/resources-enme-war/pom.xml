@@ -11,85 +11,87 @@
   <artifactId>resources-enme-war</artifactId>
   <packaging>war</packaging>
   <name>Encuestame Resources :: JavaScript</name>
-  <build>
-    <plugins>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>${maven-antrun-plugin}</version>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <configuration>
-              <classpath>
-                <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar"/>
+  <profiles>
+    <profile>
+      <id>production</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>${maven-antrun-plugin}</version>
+            <executions>
+              <execution>
+                <phase>compile</phase>
+                <configuration>
+                  <classpath>
+                    <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/js.jar"/>
                     <pathelement location="${basedir}/src/main/resources/js/util/shrinksafe/shrinksafe.jar"/>
                     <pathelement location="${basedir}/src/main/resources/js/util/closureCompiler/compiler.jar"/>
-              </classpath>
-              <target>
-                <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                <echo message="$$$$$$ ENCUESTAME DOJO COMPILE PROCESS $$$$$$$$$$$" />
-                <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
-                <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-                <mkdir dir="${project.build.directory}/dojo-compiled" />
-                <java
+                  </classpath>
+                  <target>
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$ ENCUESTAME DOJO COMPILE PROCESS $$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$ DOJO IS THE ROCK !!! $$$$$$$$$$$$$$$" />
+                    <echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+                    <mkdir dir="${project.build.directory}/dojo-compiled" />
+                    <java
                      fork="true"
                      failonerror="true"
                      dir="${basedir}"
                      classname="org.mozilla.javascript.tools.shell.Main">
-                  <classpath>
-                    <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar"/>
-                    <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/shrinksafe.jar"/>
-                    <pathelement location="${basedir}/src/main/resources/resource/js/util/closureCompiler/compiler.jar"/>
-                  </classpath>
-                  <jvmarg value="-Xmx512M"/>
-                  <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js"/>
-                  <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo"/>
-                  <arg value="load=build"/>
-                  <arg value="--require"/>
-                  <arg value="${basedir}/src/main/resources/resource/js/me/run.js"/>
-                  <arg value="--profile"/>
-                  <arg value="${basedir}/src/main/resources/resource/profiles/me.profile.js"/>
-                  <arg value="--releaseDir"/>
-                  <arg value="${project.build.directory}/dojo-compiled"/>
-                </java>
-                <delete includeEmptyDirs="true" verbose="true">
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="tests/**/"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/tests/**/"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/demos/**/"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="util/**"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.psd"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.fla"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.svg"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.as"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.swf"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dijit/themes/" excludes="**/claro/**/"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.uncompressed.js"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dijit" includes="**/*.uncompressed.js"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojox" includes="**/*.uncompressed.js"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/chart" includes="**/*.uncompressed.js"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/org" includes="**/*.uncompressed.js"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0/me" includes="**/*.uncompressed.js"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.json"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.js"/>
-                  <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="build-report.txt"/>
-                </delete>
-                <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-      <artifactId>maven-war-plugin</artifactId>
-      <configuration>
-          <packagingIncludes>
-              WEB-INF/lib/*,
+                      <classpath>
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/js.jar"/>
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/shrinksafe/shrinksafe.jar"/>
+                        <pathelement location="${basedir}/src/main/resources/resource/js/util/closureCompiler/compiler.jar"/>
+                      </classpath>
+                      <jvmarg value="-Xmx512M"/>
+                      <arg value="${basedir}/src/main/resources/resource/js/dojo/dojo.js"/>
+                      <arg value="baseUrl=${basedir}/src/main/resources/resource/js/dojo"/>
+                      <arg value="load=build"/>
+                      <arg value="--require"/>
+                      <arg value="${basedir}/src/main/resources/resource/js/me/run.js"/>
+                      <arg value="--profile"/>
+                      <arg value="${basedir}/src/main/resources/resource/profiles/me.profile.js"/>
+                      <arg value="--releaseDir"/>
+                      <arg value="${project.build.directory}/dojo-compiled"/>
+                    </java>
+                    <delete includeEmptyDirs="true" verbose="true">
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="tests/**/"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/tests/**/"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/demos/**/"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="util/**"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.psd"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.fla"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.svg"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.as"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.swf"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dijit/themes/" excludes="**/claro/**/"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojo" includes="**/*.uncompressed.js"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dijit" includes="**/*.uncompressed.js"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/dojox" includes="**/*.uncompressed.js"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/chart" includes="**/*.uncompressed.js"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/org" includes="**/*.uncompressed.js"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0/me" includes="**/*.uncompressed.js"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.json"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="**/package.js"/>
+                      <fileset dir="${project.build.directory}/dojo-compiled/2.0" includes="build-report.txt"/>
+                    </delete>
+                    <echo message="ENCUESTAME :: Dojo AMD optimized ::" />
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+              <packagingIncludes>
+                WEB-INF/lib/*,
               WEB-INF/**/*.xml,
               WEB-INF/**/*.inc,
               WEB-INF/tld/**/*,
@@ -111,58 +113,59 @@
               **/*.ico,
               **/*.xsd,
               **/*.jsp
-          </packagingIncludes>
-          <packagingExcludes>
-              WEB-INF/classes/build.sh,
+              </packagingIncludes>
+              <packagingExcludes>
+                WEB-INF/classes/build.sh,
               resource/js/util/**/*
-
-           </packagingExcludes>
-          <archive>
-              <manifest>
+              </packagingExcludes>
+              <archive>
+                <manifest>
                   <addClasspath>true</addClasspath>
                   <classpathPrefix>lib/</classpathPrefix>
-              </manifest>
-          </archive>
-          <webResources>
-             <resource>
+                </manifest>
+              </archive>
+              <webResources>
+                <resource>
                   <directory>${project.build.directory}/dojo-compiled/2.0</directory>
                   <targetPath>resource/js</targetPath>
-              </resource>
-          </webResources>
-      </configuration>
-    </plugin>
+                </resource>
+              </webResources>
+            </configuration>
+          </plugin>
 
-  </plugins>
-</build>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
-<dependencies>
-  <dependency>
-    <groupId>org.encuestame</groupId>
-    <artifactId>encuestame-css</artifactId>
-    <version>${project.version}</version>
-    <type>war</type>
-  </dependency>
-  <dependency>
-    <groupId>org.encuestame</groupId>
-    <artifactId>deps</artifactId>
-    <version>${project.version}</version>
-    <type>war</type>
-  </dependency>
-  <dependency>
-    <groupId>com.google.javascript</groupId>
-    <artifactId>closure-compiler</artifactId>
-    <version>r2388</version>
-  </dependency>
-  <dependency>
-    <groupId>rhino</groupId>
-    <artifactId>js</artifactId>
-    <version>1.7R2</version>
-  </dependency>
-  <dependency>
-    <groupId>org.dojotoolkit</groupId>
-    <artifactId>dojo-shrinksafe</artifactId>
-    <version>1.8.0</version>
-  </dependency>
-</dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>encuestame-css</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.encuestame</groupId>
+      <artifactId>deps</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>com.google.javascript</groupId>
+      <artifactId>closure-compiler</artifactId>
+      <version>r2388</version>
+    </dependency>
+    <dependency>
+      <groupId>rhino</groupId>
+      <artifactId>js</artifactId>
+      <version>1.7R2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.dojotoolkit</groupId>
+      <artifactId>dojo-shrinksafe</artifactId>
+      <version>1.8.0</version>
+    </dependency>
+  </dependencies>
 
 </project>
