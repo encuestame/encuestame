@@ -25,10 +25,10 @@
                             <th scope="col" class="enme-ui-gradient-header-color">
                                 Username
                             </th>
-                            <th scope="col" class="enme-ui-gradient-header-color">
+                            <th scope="col" class="enme-ui-gradient-header-color group">
                                 Group
                             </th>
-                            <th scope="col" width="150px" class="enme-ui-gradient-header-color">
+                            <th scope="col" class="enme-ui-gradient-header-color">
                                Since
                             </th>
                             <th scope="col" class="enme-ui-gradient-header-color">
@@ -76,48 +76,61 @@
             <div data-dojo-type="dijit/layout/AccordionContainer" style="min-height: 300px; width: 1024px;">
                 <div data-dojo-type="dijit/layout/ContentPane" title="Add User Directly" selected="true">
 
-                    <div data-dojo-type="dijit/form/Form" id="newUserSimpleForm" class="formDefault">
+                    <div data-dojo-type="dijit/form/Form" id="web-user-actions-form-wrapper" class="web-admon-user-create">
                         <table>
                             <tr>
                               <td>
-                                  <label for="name">Username </label>
-                              </td>
-                              <td>
-                                  <input data-dojo-type="dijit/form/ValidationTextBox"
+                                  <input data-dojo-type="me/web/widget/validator/UsernameValidator"
                                          required="true"
                                          size="30"
                                          type="text"
+                                         placeholder="Write a username"
                                          name="newUsername"
                                          id="newUsername">
                               </td>
                             </tr>
                             <tr>
                               <td>
-                                  <label for="loc">Email </label>
-                              </td>
-                              <td>
-                                  <input data-dojo-type="dijit/form/ValidationTextBox"
+                                  <input data-dojo-type="me/web/widget/validator/EmailValidator"
                                    size="30"
                                    required="true"
+                                   placeholder="Write a valid email"
                                    regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                                    type="text" name="newEmailUser" id="newEmailUser">
                               </td>
                             </tr>
                           </table>
-                          <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_createDirectlyUser">Save</button>
+                          <div style="padding: 20px 0;">
+                              <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_createDirectlyUser">
+                                  Send Member Request
+                              </button>
+                          </div>
                       </div>
                 </div>
                 <div data-dojo-type="dijit/layout/ContentPane" title="Invitate User" >
                      <div style="padding: 20px;">
-                         <label for="desc">Write list of emails: </label>
-                         <input data-dojo-type="dijit/form/TextBox" type="text" name="emailList" id="emailList">
+                         <label for="desc">
+                             Write a email
+                          </label>
+                          <br/>
+                         <input data-dojo-type="dijit/form/TextBox" class="questionTextBox" type="text" name="emailList" id="emailList">
+                         <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_invitation_button">
+                              Send an Invitation
+                         </button>
                      </div>
                 </div>
+              <!--
+                  TODO: Search user from LDAP.
                 <div data-dojo-type="dijit/layout/ContentPane" title="Search User (LDAP..)">
                     <div style="padding: 20px;">
                         LDAP Search
                     </div>
-                </div>
+                </div> -->
+        </div>
+        <div class="options" style="text-align: right;" data-dojo-attach-point="_closeWrapper">
+           <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_close">
+                Close
+           </button>
         </div>
     </div>
     <div data-dojo-type="dijit/Dialog" id="userEdit" title="User Edit"  width="400px">

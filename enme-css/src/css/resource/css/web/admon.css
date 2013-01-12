@@ -84,45 +84,101 @@ div.userWidget div.controlsTable a{
     color: white;
 }
 
-div.userWidget div.groupWidget div.menu{
-    max-width: 160px;
-    min-width: 157px;
-    min-height:15px;
-    cursor: pointer;
-    padding: 3px;
+/*** groupWidget **/
+
+.groupWidget {
+    width: 150px;
+    margin: 0;
+    position: relative;
 }
 
-div.userWidget div.groupWidget div.item{
-    padding: 4px;
+.groupWidget div.menu {
+    padding: 3px;
+    text-align: center;
+    cursor: pointer;
+    min-height: 20px;
+}
+
+.groupWidget div.item {
     font-style: italic;
     cursor: pointer;
     color: #444444;
+    padding: 0px 5px;
+    cursor: pointer;
+    border-bottom: 1px dotted rgb(197, 197, 197);
 }
 
-div.userWidget div.groupWidget div.showMenu{
+.groupWidget-menu-ab {
+    background-color: #EEE;
+    border: 1px solid #9A9A9A;
+    position: absolute;
+    width: 150px;
+    z-index: 700;
+}
+
+.groupWidget div.showMenu{
+    cursor: pointer;
     border: 1px solid #A29B9B;
     /* old browsers  http://www.colorzilla.com/gradient-editor/ */
     background: #F6F7E8; /* old browsers */
-    background: -moz-linear-gradient(top, #F6F7E8 5%, #AFAFAF 97%); /* firefox */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#F6F7E8), color-stop(97%,#AFAFAF)); /* webkit */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F6F7E8', endColorstr='#AFAFAF',GradientType=0 ); /* ie */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
 }
 
-div.userWidget div.groupWidget div.openMenu{
-     border: 1px solid #A29B9B;
-     background-color: #444444;
-     color: #FFF !important;
+.groupWidget div.openMenu {
+    text-align: center;
+    width: 150px;
+    padding: 3px 0;
+    border: 1px solid #A29B9B;
 }
 
-div.userWidget div.groupWidget div.selected{
+.groupWidget div.selected{
     background-color: #928E8E;
 }
 
-div.userWidget div.groupWidget div.selected{
+groupWidget div.selected{
     font-weight: bold;
 }
 
-div.userWidget div.groupWidget div.item:hover{
+.groupWidget div.item:hover{
     font-style: italic;
     background-color: #D9D9D9;
+}
+
+/**web-admon-user-create **/
+
+#web-user-actions-form-wrapper.web-admon-user-create {
+    padding: 20px;
+    margin: 0;
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+
+#web-user-actions-form-wrapper.web-admon-user-create div.sidetip {
+    top: 15px;
+    left: 205px;
+}
+
+.web-admon-user-create table{
+
+}
+
+.web-admon-user-create td {
+    padding: 10px 0;
+    position: relative;
+}
+
+.web-admon-user-create .suggestions ul {
+
+}
+
+.web-admon-user-create .suggestions ul > li {
+
 }

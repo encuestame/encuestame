@@ -41,41 +41,67 @@ define([
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin], {
 
+
         /**
          * template string.
+         * @property
          */
         templateString : template,
 
+
         /**
-         *
+         * placeholder
+         * @property
          */
         placeholder : "Write your email",
 
+
         /**
          *
+         * @method
          */
         postCreate : function() {
             this.inherited(arguments);
         },
 
-       /**
-        *
-        */
-       _validate : function(event) {
+
+        /**
+         *
+         * @method
+         */
+        _validate : function(event) {
                this.inputTextValue = this._input.value;
                this._loadService(
                    this.getServiceUrl(), {
                    context : this.enviroment,
                    email : this._input.value
                }, this.error);
-       },
+        },
+
+        /**
+         *
+         * @method
+         */
+        getValue : function () {
+            return  this._input.value;
+        },
+
+        /**
+         *
+         * @method
+         */
+        clear : function () {
+              this.cleanMessage();
+              this._input.value = "";
+        },
 
        /**
-        *
-        */
-       getServiceUrl : function() {
-           return 'encuestame.service.publicService.validate.email';
-       },
+         *
+         * @method
+         */
+        getServiceUrl : function() {
+            return 'encuestame.service.publicService.validate.email';
+        },
 
        /**
         *

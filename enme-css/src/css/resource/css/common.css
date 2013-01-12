@@ -166,6 +166,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     text-align: right;
 }
 
+.center-alg{
+    text-align: right;
+}
+
 .warning{
     background-color: #F3F085;
      max-width: 50%;

@@ -46,7 +46,7 @@ define([
     */
    //this.getURLService().service(
    _callFolderService : function(onLoad, params, action, enableStorFormat) {
-       var load = dojo.hitch(this, onLoad );
+       var load = dojo.hitch(this, onLoad);
        var error = dojo.hitch(this,  function(error) {
            this._showError(error, null);
        });
@@ -58,6 +58,9 @@ define([
                       params,
                       load,
                       error);
+//           this.getURLService().get(url, params, load, error , dojo.hitch(this, function() {
+//
+//           }));
        }
    },
 

@@ -98,7 +98,9 @@ define([
                     id : this.data.id
             };
             dojo.addClass(this.widget_detail.domNode, "hidden");
-            encuestame.service.xhrGet(this.getURLService().service('encuestame.service.list.poll.detail'), params, load, error);
+            this.getURLService().get('encuestame.service.list.poll.detail', params, load, error , dojo.hitch(this, function() {
+
+            }));
         }
     });
 });

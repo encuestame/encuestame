@@ -35,9 +35,12 @@ define([
          "dijit/form/ValidationTextBox",
          "dijit/form/Button",
          "dijit/form/TextBox",
+         "dijit/ProgressBar",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/admon/user/UserTableRow",
          "me/web/widget/admon/user/UserPermissions",
+         "me/web/widget/validator/UsernameValidator",
+         'me/web/widget/validator/EmailValidator',
          "me/web/widget/data/Table",
          "me/core/enme",
          "dojo/text!me/web/widget/admon/user/template/Users.html" ],
@@ -55,23 +58,35 @@ define([
                 ValidationTextBox,
                 Button,
                 TextBox,
+                ProgressBar,
                 main_widget,
                 UserTableRow,
                 UserPermissions,
+                UsernameValidator,
+                EmailValidator,
                 Table,
                 _ENME,
-                 template) {
+                template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, Table, _WidgetsInTemplateMixin], {
 
           // template string.
             templateString : template,
 
+            /**
+             *
+             * @property
+             */
             jsonServiceUrl : 'encuestame.service.list.userList',
 
+            /**
+             *
+             * @property
+             */
             total : 0,
 
             /**
              * Build Row.
+             * @method
              */
             buildRow : function(data) {
                 var widgetRow = new UserTableRow({data: data });
@@ -80,6 +95,7 @@ define([
 
             /**
              * Iterate Items.
+             * @method
              */
             iterateResponseItems : function(data){
                 this.total = data.success.total;
@@ -93,15 +109,16 @@ define([
 
             /**
              * Error Resonse.
+             * @method
              */
-            errorResponse : function(error){
+            errorResponse : function(error) {
                 console.error("error", error);
             },
 
             /**
              * Update User.
              */
-            _updateUser : function(event){
+            _updateUser : function(event) {
                 registry.byId("name");
                 registry.byId("email");
                 registry.byId("realName");
@@ -113,7 +130,7 @@ define([
              */
             _newUser : function(event) {
                 var userEdit = registry.byId("newUser");
-                if(userEdit){
+                if (userEdit) {
                     userEdit.show();
                 }
             },
@@ -123,30 +140,34 @@ define([
              * @method
              */
             _createDirectlyUser : function(event) {
-                var formDijit = registry.byId("newUserSimpleForm");
-                if (formDijit.isValid()) {
-                    var newUsername = registry.byId("newUsername"),
-                    newEmailUser = registry.byId("newEmailUser"),
-                    load = dojo.hitch(this, function(data) {
-                        //basicStandby6.hide();
-                        if ('success' in data) {
-                            if (data.success.userAdded === "ok") {
-                                this.loadItems();
-                                registry.byId("newUser").hide();
+                    var parent = this;
+                    var newUsername = registry.byId("newUsername");
+                    var newEmailUser = registry.byId("newEmailUser");
+                    if (newUsername.isValid && newEmailUser.isValid) {
+                        var load = dojo.hitch(this, function(data) {
+                            if ('success' in data) {
+                                if (data.success.userAdded === "ok") {
+                                     this.loadItems();
+                                     registry.byId("newUser").hide();
+                                     parent.successMesage("The request has been sent to " + newEmailUser.getValue());
+                                     newUsername.clear();
+                                     newEmailUser.clear();
+                                }
                             }
-                        }
-                    }),
-                    error = function(error) {},
-                    params = {
-                        newUsername : newUsername.get('value'),
-                        newEmailUser : newEmailUser.get('value')
-                    };
-                    this.getURLService().post('encuestame.service.list.createUser', params, load, error , dojo.hitch(this, function() {
+                        }),
+                        error = function(error) {
+                            parent.errorMessage(error);
+                        };
+                        var params = {
+                            newUsername : newUsername.getValue(),
+                            newEmailUser : newEmailUser.getValue()
+                        };
+                        this.getURLService().post('encuestame.service.list.createUser', params, load, error , dojo.hitch(this, function() {
 
-                    }));
-                } else {
-                    console.info("form not valid");
-                }
+                        }));
+                    } else {
+                        this.warningMesage("the new member data it's not valid, recheck your data");
+                    }
             }
 
     });

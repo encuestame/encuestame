@@ -74,8 +74,9 @@ define([
               var error = function(error) {
                   //console.debug("error", error);
               };
-              encuestame.service.xhrGet(
-                  this.getURLService().service('encuestame.service.list.cloud'), {}, load, error);
+              this.getURLService().get('encuestame.service.list.cloud', {}, load, error , dojo.hitch(this, function() {
+
+              }));
           }
     });
 });

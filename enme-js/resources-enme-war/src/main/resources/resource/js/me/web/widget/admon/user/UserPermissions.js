@@ -120,11 +120,6 @@ define([
                          } else {
                             service = 'encuestame.service.list.removePermission';
                          }
-                         // encuestame.service.xhrGet(service,
-                         //         {id: this.user.id,
-                         //          permission : response.description
-                         //         },
-                         // load, error);
                        this.getURLService().get(service, {
                                       id: this.user.id,
                                       permission : response.description

@@ -80,10 +80,9 @@ define([
         var error = function(error) {
             console.debug("error", error);
         };
-        encuestame.service.xhrGet(
-            this.getURLService().service(
-            "encuestame.service.list.poll.getVotes",
-            [this.username]), { id : this.pollId}, response, error);
+        this.getURLService().get(["encuestame.service.list.poll.getVotes", [this.username]], { id : this.pollId }, response, error , dojo.hitch(this, function() {
+
+        }));
     }
 
   });

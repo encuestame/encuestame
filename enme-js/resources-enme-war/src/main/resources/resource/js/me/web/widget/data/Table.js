@@ -81,7 +81,6 @@ define([
                 var error = dojo.hitch(this, function(error) {
                     console.debug("error table", error);
                 });
-                //encuestame.service.xhrGet(this.jsonServiceUrl, {limit: this.limit, start: this.start}, load, error);
                 this.getURLService().get(this.jsonServiceUrl, {limit: this.limit, start: this.start}, load, error , dojo.hitch(this, function() {}));
             },
 

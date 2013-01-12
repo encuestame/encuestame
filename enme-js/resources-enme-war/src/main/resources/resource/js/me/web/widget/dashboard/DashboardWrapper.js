@@ -172,7 +172,9 @@ define(["dojo/_base/declare",
               var error = function(error) {
                   console.debug("error", error);
               };
-              encuestame.service.xhrGet(encuestame.service.dashboard.list, {}, load, error);
+              this.getURLService().get('encuestame.service.dashboard.list', {}, load, error , dojo.hitch(this, function() {
+
+              }));
           },
 
           /*
@@ -207,7 +209,9 @@ define(["dojo/_base/declare",
               var error = function(error) {
                   console.error("error", error);
               };
-              encuestame.service.xhrGet(this.getURLService().service('encuestame.service.dashboard.select'), {id : id}, load, error);
+              this.getURLService().get('encuestame.service.dashboard.select', {id : id}, load, error , dojo.hitch(this, function() {
+
+              }));
           },
 
           /**

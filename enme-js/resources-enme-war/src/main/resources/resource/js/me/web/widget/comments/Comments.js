@@ -97,11 +97,9 @@ define([
                 var error = function(error) {
                     console.error("error", error);
                 };
-            encuestame.service.xhrGet(
-                this.getURLService().service("encuestame.service.comments.list", [this.type]),
-                { id : this.item_id,
-                  max: 10
-                  }, load, error);
+                this.getURLService().get(['encuestame.service.comments.list', [this.type]], { id : this.item_id, max: 10}, load, error , dojo.hitch(this, function() {
+
+                }));
         },
 
         /*

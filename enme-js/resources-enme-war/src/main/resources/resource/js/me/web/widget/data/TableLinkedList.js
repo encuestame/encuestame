@@ -112,9 +112,9 @@ define([
            }
        });
        var error = this.handlerError;
-       //console.info("url", url);
-       //console.info("this.getParams", this.getParams());
-       encuestame.service.xhrGet(this.getURLService().service(url), this.getParams(), load, error);
+       this.getURLService().get(url, this.getParams(), load, error , dojo.hitch(this, function() {
+
+       }));
    },
 
    /*

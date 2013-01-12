@@ -57,7 +57,10 @@ define([
          var error = function(error) {
              this.errorMesage(error);
          };
-         encuestame.service.xhrGet(this.getURLService().service(this.service), this.getParams(), load, error);
+//         /encuestame.service.xhrGet(this.getURLService().service(this.service), this.getParams(), load, error);
+         this.getURLService().get(this.service, this.getParams(), load, error , dojo.hitch(this, function() {
+
+         }));
      }
 
   });

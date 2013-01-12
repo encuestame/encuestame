@@ -147,8 +147,9 @@ define([
                   dojo.publish("/encuestame/tweetpoll/dialog/error", [error]);
               };
               this.loading_show();
-              encuestame.service.xhrGet(
-                  this.getURLService().service('encuestame.service.list.removeAnswer'), params, load, error);
+              this.getURLService().get("encuestame.service.list.removeAnswer", params, load, error , dojo.hitch(this, function() {
+
+              }));
           },
 
           /**

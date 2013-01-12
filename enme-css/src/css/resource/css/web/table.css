@@ -14,6 +14,12 @@
 .defaultTable td {
   line-height: 25px;
   padding: 15px 8px;
+  border-bottom: 1px dotted rgb(226, 226, 226);
+}
+
+.defaultTable .group {
+   padding-left: 70px;
+   text-align: left;
 }
 
 .defaultTable a:link, .defaultTable a:visited, .defaultTable a{

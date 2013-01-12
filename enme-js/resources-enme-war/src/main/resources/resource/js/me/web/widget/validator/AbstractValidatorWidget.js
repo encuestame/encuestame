@@ -153,7 +153,7 @@ define([
     /**
      *
      */
-    _hideToolTip : function(){
+    _hideToolTip : function() {
         var node = dojo.byId("_tooltip_"+this.id);
         //console.info("_hideToolTip", node);
         if (node) {
@@ -163,7 +163,6 @@ define([
                 duration: 500
             };
             dojo.fadeOut(fadeArgs).play();
-            //dojo.style(node, "display", "none");
         }
     },
 
@@ -172,11 +171,11 @@ define([
      *
      */
     _evaluateShadowMessage : function(event) {
-        if (this._shadow && dojo.byId("input_"+this.id) != null) {
-            var textLenght = dojo.byId("input_"+this.id).value.length;
+        if (this._shadow && dojo.byId("input_" + this.id) != null) {
+            var textLenght = dojo.byId("input_" + this.id).value.length;
             //console.info(textLenght);
             if (textLenght > 0) {
-               dojo.style(this._shadow, "display", "none");
+                dojo.style(this._shadow, "display", "none");
             } else {
                 dojo.style(this._shadow, "display", "block");
             }
@@ -199,7 +198,9 @@ define([
                         this._additionalErrorHandler(data.success);
                     }
             });
-            encuestame.service.xhrGet(this.getURLService().service(service), params, load, error);
+            this.getURLService().get(service, params, load, error , dojo.hitch(this, function() {
+
+            }));
         },
 
         /**
@@ -214,9 +215,20 @@ define([
 
         /**
          *
+         * @method
+         */
+        cleanMessage : function () {
+            var node = dojo.byId("_message_" + this.id);
+            if (node) {
+                dojo.empty(node);
+            }
+        },
+
+        /**
+         *
          */
         _showSuccessMessage : function(data){
-             var node = dojo.byId("_message_"+this.id);
+             var node = dojo.byId("_message_" + this.id);
              if (node) {
                  dojo.empty(node);
                  var p = dojo.doc.createElement("p");
