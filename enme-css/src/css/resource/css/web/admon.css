@@ -59,6 +59,11 @@ div.userWidget{
     padding-top: 5px;
 }
 
+.web-new-user p {
+    padding-left: 20px;
+    margin: 0;
+}
+
 div.userWidget div.menuOptions{
     padding: 10px 0;
 
@@ -154,7 +159,7 @@ groupWidget div.selected{
 /**web-admon-user-create **/
 
 #web-user-actions-form-wrapper.web-admon-user-create {
-    padding: 20px;
+    padding: 10px 20px;
     margin: 0;
     background: none;
     box-shadow: none;
@@ -162,7 +167,7 @@ groupWidget div.selected{
 }
 
 #web-user-actions-form-wrapper.web-admon-user-create div.sidetip {
-    top: 15px;
+    top: 10px;
     left: 205px;
 }
 
@@ -175,10 +180,23 @@ groupWidget div.selected{
     position: relative;
 }
 
-.web-admon-user-create .suggestions ul {
+.web-admon-user-create .suggestions {
+    width: 400px;
+}
 
+#web-user-actions-form-wrapper.web-admon-user-create  input {
+    padding: 5px;
 }
 
 .web-admon-user-create .suggestions ul > li {
-
+    margin: 5px 0 0px 0;
+    list-style: none;
+    margin-right: 5px;
+    float: left;
+    background-color: #444;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(206, 202, 206);
+    cursor: pointer;
+    color: white;
 }

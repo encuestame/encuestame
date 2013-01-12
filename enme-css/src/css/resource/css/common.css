@@ -371,6 +371,19 @@ input:focus {
   text-shadow: 0 1px white;
 }
 
+.dialog-title {
+  padding: 10px;
+}
+
+.dialog-title h2{
+  margin: 0;
+}
+
+.dialog-close-button {
+  padding: 10px;
+  text-align: right;
+}
+
 .enme-unselectable {
    -webkit-touch-callout: none;
    -webkit-user-select: none;

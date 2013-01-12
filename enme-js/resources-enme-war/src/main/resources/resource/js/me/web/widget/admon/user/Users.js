@@ -139,6 +139,26 @@ define([
              *
              * @method
              */
+            _closeNewDialog : function (event) {
+                registry.byId("newUser").hide();
+                this._clearForms();
+            },
+
+            /**
+             *
+             * @method
+             */
+            _clearForms : function () {
+                var newUsername = registry.byId("newUsername");
+                var newEmailUser = registry.byId("newEmailUser");
+                newUsername.clear();
+                newEmailUser.clear();
+            },
+
+            /**
+             *
+             * @method
+             */
             _createDirectlyUser : function(event) {
                     var parent = this;
                     var newUsername = registry.byId("newUsername");
@@ -146,6 +166,8 @@ define([
                     if (newUsername.isValid && newEmailUser.isValid) {
                         var load = dojo.hitch(this, function(data) {
                             if ('success' in data) {
+                                this.loading_hide();
+                                parent._request_button.disabled = false;
                                 if (data.success.userAdded === "ok") {
                                      this.loadItems();
                                      registry.byId("newUser").hide();
@@ -156,12 +178,16 @@ define([
                             }
                         }),
                         error = function(error) {
+                            parent.loading_hide();
                             parent.errorMessage(error);
+                            parent._request_button.disabled = false;
                         };
                         var params = {
                             newUsername : newUsername.getValue(),
                             newEmailUser : newEmailUser.getValue()
                         };
+                        this.loading_show();
+                        this._request_button.disabled = true;
                         this.getURLService().post('encuestame.service.list.createUser', params, load, error , dojo.hitch(this, function() {
 
                         }));

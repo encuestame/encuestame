@@ -100,7 +100,7 @@ define([
                  dojo.addClass(a, "link");
                  a.innerHTML = text;
                  a.href = "#";
-                 dojo.connect(a, "onclick", this, this.editUSer);
+                 //dojo.connect(a, "onclick", this, this.editUSer);
                  td.appendChild(a);
                  this._trbody.appendChild(td);
             },
@@ -134,7 +134,7 @@ define([
              * Get User.
              * @method
              */
-            getUserInfo : function(id ){
+            getUserInfo : function(id ) {
                 var load = dojo.hitch(this, function(response) {
                     registry.byId("userEdit").show();
                     var data = response.success.user;

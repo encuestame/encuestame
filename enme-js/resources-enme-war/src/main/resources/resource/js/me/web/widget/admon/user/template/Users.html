@@ -72,10 +72,17 @@
         </div>
     </div>
     <!-- <div jsId="basicStandby6" data-dojo-type="dojox.widget.Standby" target="newUser"/> -->
-    <div data-dojo-type="dijit/Dialog" id="newUser">
-            <div data-dojo-type="dijit/layout/AccordionContainer" style="min-height: 300px; width: 1024px;">
+    <div data-dojo-type="dijit/Dialog" id="newUser" class="web-new-user">
+           <div class="dialog-title">
+              <h2>
+                  New Request Member
+              </h2>
+           </div>
+            <div data-dojo-type="dijit/layout/AccordionContainer" style="min-height: 300px; width: 800px;">
                 <div data-dojo-type="dijit/layout/ContentPane" title="Add User Directly" selected="true">
-
+                   <p>
+                      Useful to create a new member account, this member share all content created by single group
+                  </p>
                     <div data-dojo-type="dijit/form/Form" id="web-user-actions-form-wrapper" class="web-admon-user-create">
                         <table>
                             <tr>
@@ -101,13 +108,16 @@
                             </tr>
                           </table>
                           <div style="padding: 20px 0;">
-                              <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_createDirectlyUser">
+                              <button data-dojo-type="dijit/form/Button" type="button"  data-dojo-attach-point="_request_button" data-dojo-attach-event="onClick:_createDirectlyUser">
                                   Send Member Request
                               </button>
                           </div>
                       </div>
                 </div>
                 <div data-dojo-type="dijit/layout/ContentPane" title="Invitate User" >
+                    <p>
+                        Invite your friends to connect to Encuestame
+                    </p>
                      <div style="padding: 20px;">
                          <label for="desc">
                              Write a email
@@ -127,8 +137,8 @@
                     </div>
                 </div> -->
         </div>
-        <div class="options" style="text-align: right;" data-dojo-attach-point="_closeWrapper">
-           <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_close">
+        <div class="options dialog-close-button" data-dojo-attach-point="_closeWrapper">
+           <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_close" data-dojo-attach-event="onClick:_closeNewDialog">
                 Close
            </button>
         </div>
