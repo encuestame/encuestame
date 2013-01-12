@@ -1,6 +1,3 @@
-[submodule "enme-doc"]
-	path = enme-doc
-	url = git@github.com:encuestame/doc.git
 [submodule "enme-js/resources-enme-war/src/main/resources/resource/js/dojo"]
 	path = enme-js/resources-enme-war/src/main/resources/resource/js/dojo
 	url = git://github.com/encuestame/dojo.git
