@@ -1,3 +1,24 @@
+.admon-table-options  {
+    overflow: auto;
+    padding: 15px;
+}
+
+
+.admon-table-options h2{
+    margin: 0;
+}
+
+.admon-table-options p{
+    margin: 0;
+    font-style: italic;
+}
+
+.admon-table-options .tb-left{
+    float: left;
+}
+.admon-table-options .tb-right{
+    float: right;
+}
 
 /* Templates Admon */
 
@@ -39,9 +60,7 @@ div.userWidget{
 }
 
 div.userWidget div.menuOptions{
-    padding: 10px;
-    font-size: 105%;
-    border-bottom: 1px solid #FFFFFF;
+    padding: 10px 0;
 
 }
 
@@ -62,6 +81,7 @@ div.userWidget .total{
 div.userWidget div.controlsTable a{
     padding-left: 5px;
     padding-right: 5px;
+    color: white;
 }
 
 div.userWidget div.groupWidget div.menu{

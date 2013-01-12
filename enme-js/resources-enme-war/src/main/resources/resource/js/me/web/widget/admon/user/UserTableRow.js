@@ -179,7 +179,10 @@ define([
              */
             createInput : function(data) {
                 var td = domConstruct.create('td');
-                var widgetInput = new AccountPicture({ username : data.username});
+                var widgetInput = new AccountPicture({
+                     username : data.username,
+                     target : "_blank"
+                 });
                 td.appendChild(widgetInput.domNode);
                 this._trbody.appendChild(td);
             },

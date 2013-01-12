@@ -6,39 +6,50 @@
 }
 
 .defaultTable  th{
-    font-size: 110%;
     font-weight: normal;
     color: #FFF;
-    padding: 6px 10px;
-    background-color: #444444;
-    cursor: pointer;
+    padding: 10px 0;
 }
 
-.defaultTable  th:hover{
-    background-color: #706D6D;
+.defaultTable td {
+  line-height: 25px;
+  padding: 15px 8px;
 }
 
-.defaultTable td{
-    color: #4444444;
-    padding: 6px 8px;
-    font-size: 105%;
+.defaultTable a:link, .defaultTable a:visited, .defaultTable a{
+    color: #888;
+    font-weight: bold;
 }
 
 .defaultTable .link{
   color: #4444444;
 }
 
-.defaultTable td .link:hover{
+.defaultTable td .link:hover {
     color: #4444444;
     text-decoration: underline;
 }
 
-.defaultTable tbody tr:hover td{
+.defaultTable tbody tr:hover{
     color: #444444;
     background-color: #D7D7D7;
 }
 
-.defaultTable tfoot{
-    background-color: #D7D7D7;
-    font-weight: bold;
+.defaultTable tfoot {
+  background-color: #444444;
+  border-top: 1px solid #B4B4B4;
+  color: white;
+  font-weight: bold;
+}
+
+.defaultTable tfoot td{
+  padding: 5px;
+}
+
+.defaultTable tfoot .total {
+    padding: 0px 10px;
+}
+
+.defaultTable tfoot td a:link{
+    color: white;
 }
