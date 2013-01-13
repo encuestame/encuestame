@@ -1063,7 +1063,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             throw new EnMeNoResultsFoundException("confirmation code is missing");
         } else {
             userAcc = getAccountDao().getUserAccountbyInvitationCode(inviteCode);
-            if (userAcc!=null){
+            if (userAcc!=null) {
                 userAcc.setInviteCode(null);
                 userAcc.setUserStatus(Boolean.TRUE);
                 getAccountDao().saveOrUpdate(userAcc);
@@ -1076,6 +1076,26 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             getMailService().sendNotificationStatusAccount(singUp, "User status");
         }
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
+    }
+
+    /**
+     * Refresh the invite code and send new email to user account.
+     * @throws EnMeNoResultsFoundException
+     */
+    public void refreshInviteCode() throws EnMeNoResultsFoundException {
+            final UserAccount userAccount = getUserAccount(getUserPrincipalUsername());
+            if (userAccount.getInviteCode() != null) {
+                final SignUpBean singUpBean = new SignUpBean();
+                singUpBean.setEmail(userAccount.getUserEmail());
+                singUpBean.setFullName(userAccount.getCompleteName());
+                singUpBean.setUsername(userAccount.getUsername());
+                final String inviteCode = UUID.randomUUID().toString();
+                userAccount.setInviteCode(inviteCode);
+                getAccountDao().saveOrUpdate(userAccount);
+                getMailService().sendConfirmYourAccountEmail(singUpBean, inviteCode);
+            } else {
+                log.warn("invite code requested by " + userAccount.getUsername() + " it's null");
+            }
     }
 
     /**

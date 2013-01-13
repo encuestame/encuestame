@@ -92,6 +92,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
                 //cookies
                 log.trace("session is valid");
                 final UserAccount user = getByUsername(getUserPrincipalUsername());
+                request.setAttribute("isActivated", user.getInviteCode() == null ? true : false);
                 log.trace("Account User Interceptor "+user);
                 request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);

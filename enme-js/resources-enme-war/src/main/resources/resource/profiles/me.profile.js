@@ -154,7 +154,8 @@ var profile = {
                    'dijit/form/ValidationTextBox',
                    "dijit/_WidgetsInTemplateMixin",
                    "dojox/data/QueryReadStore",
-                   'dojox/widget/Toaster'
+                   'dojox/widget/Toaster',
+                   'dojox/widget/UpgradeBar'
             ]
     },
     'dojox/cometd' : {
