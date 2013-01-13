@@ -1073,7 +1073,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         }
         singUp = ConvertDomainBean.convertUserAccountToSignUpBean(userAcc);
         if (EnMePlaceHolderConfigurer.getBooleanProperty("application.email.enabled")) {
-            getMailService().sendNotificationStatusAccount(singUp, "User status");
+            getMailService().welcomeNotificationAccount(userAcc);
         }
         return ConvertDomainBean.convertBasicSecondaryUserToUserBean(userAcc);
     }
