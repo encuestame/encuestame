@@ -399,6 +399,13 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
            public void prepare(MimeMessage mimeMessage) throws Exception {
               MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              final String _fullName = user.getCompleteName();
+              final StringBuffer salute = new StringBuffer(getMessageProperties("mail.message.default.user.presentation",
+                      buildCurrentLocale(),
+                      null));
+              salute.append(" ");
+              salute.append(_fullName);
+              user.setCompleteName(salute.toString());
               message.setTo(user.getUserEmail());
               message.setSubject(buildSubject(getMessageProperties("mail.message.welcome.message.subject", buildCurrentLocale(), null)));
               message.setFrom(noEmailResponse);
