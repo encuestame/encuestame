@@ -91,12 +91,18 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final TweetPollSearchBean tpollSearch)
             throws EnMeNoResultsFoundException {
         log.debug("tweetPoll username: "+username);
+        List<TweetPoll> tpollsbysocialNetwork = new ArrayList<TweetPoll>();
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(tpollSearch.getKeyword(), getUserAccountId(username),
                         tpollSearch.getMax(), tpollSearch.getStart(),
                         tpollSearch.getIsComplete(),
                         tpollSearch.getIsScheduled(),
                         tpollSearch.getIsPublished(),
                         tpollSearch.getIsFavourite(), tpollSearch.getPeriod());
+        if (tpollSearch.getProviders().size() > 0) {
+            tpollsbysocialNetwork = this
+                    .retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
+                            tpollSearch.getProviders());
+        }
         log.info("tweetPoll size: " + tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE, httpServletRequest);
     }
@@ -243,8 +249,12 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsScheduled(),
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
+		if (tpollSearch.getProviders().size() > 0) {
+			tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpolls,
+					tpollSearch.getProviders());
+		}
         // Retrieve only tweetpolls published on social networks
-        tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpolls, tpollSearch.getProviders());
+
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
     }
 
@@ -268,9 +278,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(),
                         tpollSearch.getPeriod());
-
-        tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpbeanlast,
-                tpollSearch.getProviders());
+        List<SocialProvider> enums = new ArrayList<SocialProvider>();
+        enums.add(SocialProvider.TWITTER);
+        tpollSearch.setProviders(enums);
+		if (tpollSearch.getProviders().size() > 0) {
+			  tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpbeanlast,
+					  tpollSearch.getProviders());
+		}
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
                 httpServletRequest);
     }
@@ -294,7 +308,11 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tpollSearch.getIsScheduled(),
                 tpollSearch.getIsFavourite(),
                 tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
-        tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(favouriteTweetPolls, tpollSearch.getProviders());
+
+		if (tpollSearch.getProviders().size() > 0) {
+			tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(
+					favouriteTweetPolls, tpollSearch.getProviders());
+		}
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
     }
 
@@ -318,8 +336,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(),
                         tpollSearch.getPeriod());
-        tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpoll,
-                tpollSearch.getProviders());
+        if (tpollSearch.getProviders().size() > 0) {
+        	tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpoll,
+                    tpollSearch.getProviders());
+		}
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
                 httpServletRequest);
     }
