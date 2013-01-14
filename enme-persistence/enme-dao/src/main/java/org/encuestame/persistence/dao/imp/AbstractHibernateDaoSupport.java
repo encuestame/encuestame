@@ -350,10 +350,11 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final Boolean isPublished,
             final String keyword,
             final String period) {
-        criteria.createAlias("question", "question");
-        final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
-        calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
+
+        //final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
+        //  calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
         if (keyword != null) {
+        	criteria.createAlias("question", "question");
             criteria.add(Restrictions.like("question.question", keyword,
                     MatchMode.ANYWHERE));
         }

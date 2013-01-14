@@ -269,7 +269,7 @@ public interface ITweetPoll extends IBaseDao{
             final Integer maxResults, final Integer start,
             final Boolean isCompleted, final Boolean isScheduled,
             final Boolean isFavourite, final Boolean isPublished,
-            final String keyword, final String period);
+            final String keyword, final String period, final Date initDate);
 
     /**
      * Retrieve {@link TweetPollSwitch} by tweetpoll and answer. (should be unique)

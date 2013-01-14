@@ -131,8 +131,8 @@ public class DateUtil {
      */
     public static Date decreaseDateAsWeek(final Date startDate){
         final DateTime midnightDate = new DateTime(startDate);
-        midnightDate.minusWeeks(1);
-        return midnightDate.toDate();
+        final DateTime weekDate =  midnightDate.minusWeeks(1);
+        return weekDate.toDate();
     }
 
     /**

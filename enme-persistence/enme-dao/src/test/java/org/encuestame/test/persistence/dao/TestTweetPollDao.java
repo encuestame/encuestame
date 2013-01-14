@@ -443,7 +443,7 @@ public class TestTweetPollDao extends AbstractBase {
         final List<TweetPoll> tweetsByDate = getTweetPoll()
                 .retrieveTweetPollByDate(this.secondary.getAccount(), 5, 0,
                         defaultOption, defaultOption, defaultOption,
-                        defaultOption, null, "30");
+                        defaultOption, null, "30", new Date());
         assertEquals("Should be equals", 2, tweetsByDate.size());
     }
 
