@@ -1111,8 +1111,11 @@ public class TestTweetPollDao extends AbstractBase {
         getTweetPoll().saveOrUpdate(tpSaved);
         assertNotNull(tpSaved);
         // /////
+        final UserAccount userAccount = createUserAccount("johannes", createAccount());
+        final SocialAccount socialAccount2 = createDefaultSettedSocialAccount(userAccount);
+
         final TweetPollSavedPublishedStatus tpSaved12 = createTweetPollSavedPublishedStatus(
-                tweetPoll, " ", socialAccount, "TCPTEN2");
+                tweetPoll, " ", socialAccount2, "TCPTEN3");
 
         tpSaved12.setApiType(SocialProvider.FACEBOOK);
         tpSaved12.setPublicationDateTweet(new Date());
@@ -1128,11 +1131,16 @@ public class TestTweetPollDao extends AbstractBase {
 
         // Enum list providers to search tweetpoll published
         List<SocialProvider> enums = new ArrayList<SocialProvider>();
-        enums.add(SocialProvider.LINKEDIN);
+        enums.add(SocialProvider.FACEBOOK);
         enums.add(SocialProvider.TWITTER);
+
+        final List<SocialAccount> socials = new ArrayList<SocialAccount>();
+        socials.add(socialAccount);
+        socials.add(socialAccount2);
 
         final List<TweetPollSavedPublishedStatus> tpsp = getTweetPoll()
                 .getSocialLinksByTweetPollSearch(tweetPoll,
-                        TypeSearchResult.TWEETPOLL, enums);
+                        TypeSearchResult.TWEETPOLL, enums, socials);
+        System.out.println("\n Total size ---------------->" + tpsp.size());
     }
 }

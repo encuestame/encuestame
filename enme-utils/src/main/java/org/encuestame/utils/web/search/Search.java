@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
+import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.social.SocialProvider;
 
 /**
@@ -60,6 +61,9 @@ public class Search implements Serializable {
 
     /** **/
     private List<SocialProvider> providers;
+
+    /** **/
+    private List<SocialAccountBean> socialAccounts;
 
 
     /**
@@ -202,4 +206,18 @@ public class Search implements Serializable {
     public void setProviders(List<SocialProvider> providers) {
         this.providers = providers;
     }
+
+	/**
+	 * @return the socialAccounts
+	 */
+	public List<SocialAccountBean> getSocialAccounts() {
+		return socialAccounts;
+	}
+
+	/**
+	 * @param socialAccounts the socialAccounts to set
+	 */
+	public void setSocialAccounts(final List<SocialAccountBean> socialAccounts) {
+		this.socialAccounts = socialAccounts;
+	}
 }

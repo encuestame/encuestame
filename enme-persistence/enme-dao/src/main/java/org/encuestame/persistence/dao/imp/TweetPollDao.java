@@ -25,6 +25,7 @@ import org.encuestame.persistence.dao.ITweetPoll;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -756,14 +757,16 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
 
     @SuppressWarnings("unchecked")
     public List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
-            final TweetPoll tweetPoll, final TypeSearchResult itemType, final List<SocialProvider> splist) {
+            final TweetPoll tweetPoll, final TypeSearchResult itemType, final List<SocialProvider> splist, final List<SocialAccount> socialAccounts) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
+        criteria.createAlias("socialAccount", "socialAccount");
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
             criteria.add(Restrictions.eq("tweetPoll", tweetPoll));
             criteria.add(Restrictions.isNotNull("tweetId"));
             criteria.add(Restrictions.eq("status", Status.SUCCESS));
             criteria.add(Restrictions.in("apiType", splist));
+            criteria.add(Restrictions.in("socialAccount", socialAccounts));
         }
         return getHibernateTemplate().findByCriteria(criteria);
     }

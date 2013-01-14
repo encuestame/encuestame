@@ -101,7 +101,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         if (tpollSearch.getProviders().size() > 0) {
             tpollsbysocialNetwork = this
                     .retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
-                            tpollSearch.getProviders());
+                            tpollSearch.getProviders(), null);
         }
         log.info("tweetPoll size: " + tweetPolls.size());
         return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE, httpServletRequest);
@@ -222,7 +222,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             if (tpollSearch.getProviders().size() > 0) {
                 tpollsbysocialNetwork = this
                         .retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
-                                tpollSearch.getProviders());
+                                tpollSearch.getProviders(), null);
             }
 
          }
@@ -251,7 +251,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
 		if (tpollSearch.getProviders().size() > 0) {
 			tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpolls,
-					tpollSearch.getProviders());
+					tpollSearch.getProviders(), null);
 		}
         // Retrieve only tweetpolls published on social networks
 
@@ -283,7 +283,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         tpollSearch.setProviders(enums);
 		if (tpollSearch.getProviders().size() > 0) {
 			  tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpbeanlast,
-					  tpollSearch.getProviders());
+					  tpollSearch.getProviders(), null);
 		}
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
                 httpServletRequest);
@@ -311,7 +311,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
 
 		if (tpollSearch.getProviders().size() > 0) {
 			tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(
-					favouriteTweetPolls, tpollSearch.getProviders());
+					favouriteTweetPolls, tpollSearch.getProviders(), null);
 		}
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
     }
@@ -338,7 +338,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getPeriod());
         if (tpollSearch.getProviders().size() > 0) {
         	tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpoll,
-                    tpollSearch.getProviders());
+                    tpollSearch.getProviders(), null);
 		}
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
                 httpServletRequest);
@@ -1308,13 +1308,13 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      */
     private List<TweetPoll> retrieveTweetPollsPostedOnSocialNetworks(
-            final List<TweetPoll> tpolls, final List<SocialProvider> providers) {
+            final List<TweetPoll> tpolls, final List<SocialProvider> providers, final List<SocialAccount> socialAccounts) {
         final List<TweetPoll> tpollsPostedOnSocialNet = new ArrayList<TweetPoll>();
         List<TweetPollSavedPublishedStatus> tpSavedPublished = new ArrayList<TweetPollSavedPublishedStatus>();
         for (TweetPoll tweetPoll : tpolls) {
             tpSavedPublished = getTweetPollDao()
                     .getSocialLinksByTweetPollSearch(tweetPoll,
-                            TypeSearchResult.TWEETPOLL, providers);
+                            TypeSearchResult.TWEETPOLL, providers, socialAccounts);
             if (tpSavedPublished.size() > 0) {
                 tpollsPostedOnSocialNet.add(tweetPoll);
             }

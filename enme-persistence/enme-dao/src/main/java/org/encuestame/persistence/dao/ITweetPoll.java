@@ -20,6 +20,7 @@ import java.util.List;
 import org.encuestame.persistence.dao.imp.TweetPollDao;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.Account;
+import org.encuestame.persistence.domain.security.SocialAccount;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.Survey;
@@ -498,5 +499,5 @@ public interface ITweetPoll extends IBaseDao{
      */
     List<TweetPollSavedPublishedStatus> getSocialLinksByTweetPollSearch(
             final TweetPoll tweetPoll, final TypeSearchResult itemType,
-            final List<SocialProvider> splist);
+            final List<SocialProvider> splist, final List<SocialAccount> socialAccounts);
 }
