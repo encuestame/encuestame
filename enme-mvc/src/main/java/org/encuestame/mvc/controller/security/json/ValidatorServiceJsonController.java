@@ -29,6 +29,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Validator json controller.
@@ -42,7 +43,7 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
     private Logger log = Logger.getLogger(this.getClass());
 
     @RequestMapping(value = "/api/public/validator/email.json", method = RequestMethod.GET)
-    public ModelMap validateEmail(
+    public @ResponseBody ModelMap validateEmail(
             @RequestParam(value = "context", required = false) String context,
             @RequestParam(value = "email", required = false) String email,
             HttpServletRequest request, HttpServletResponse response){
@@ -56,7 +57,7 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
     }
 
     @RequestMapping(value = "/api/public/validator/realName.json", method = RequestMethod.GET)
-    public ModelMap validateRealName(
+    public @ResponseBody ModelMap validateRealName(
             @RequestParam(value = "context", required = false) String context,
             @RequestParam(value = "real_name", required = false) String name,
             HttpServletRequest request, HttpServletResponse response) {
@@ -70,7 +71,7 @@ public class ValidatorServiceJsonController extends AbstractJsonController {
     }
 
     @RequestMapping(value = "/api/public/validator/username.json", method = RequestMethod.GET)
-    public ModelMap validateUsername(
+    public @ResponseBody ModelMap validateUsername(
             @RequestParam(value = "context", required = false) String context,
             @RequestParam(value = "username", required = false) String username,
             HttpServletRequest request, HttpServletResponse response) {

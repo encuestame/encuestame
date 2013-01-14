@@ -14,15 +14,27 @@
                         http://www.springframework.org/schema/mobile/device
                         http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
 
-  <!-- Scans for application @Components to deploy -->
-  <context:component-scan base-package="org.encuestame.mvc" />
-  <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
-  <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
-  <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
-  <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
-  <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
-  <bean name="openSessionInViewInterceptor"
-            class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+    <!-- Scans for application @Components to deploy -->
+    <context:component-scan base-package="org.encuestame.mvc" />
+
+    <mvc:annotation-driven/>
+
+
+    <mvc:interceptors>
+          <bean class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
+          <bean class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
+          <bean  class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
+          <bean  class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
+          <bean  class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
+    </mvc:interceptors>
+
+    <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
+    <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
+    <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
+    <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
+    <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
+    <bean name="openSessionInViewInterceptor"
+              class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
@@ -89,28 +101,8 @@
                     </property>
                 </bean>
                 <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
-
                 <!-- Converter for images -->
                 <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
-
-                <!-- Handle JAXB XML objects
-                <bean id="marshallingHttpMessageConverter"
-                 class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-                    <constructor-arg>
-                        <bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-                            <property name="classesToBeBound">
-                                <list>
-                                    <value>PictureFolders</value>
-                                    <value>Pictures</value>
-                                </list>
-                            </property>
-                        </bean>
-                    </constructor-arg>
-                </bean> -->
-
-                <!-- This must come after our image converter
-                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
-                -->
             </list>
         </property>
   </bean>
@@ -131,23 +123,7 @@
         <property name="checkRefresh" value="false" />
     </bean>
 
-    <bean id="contentNegotiatingViewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="order" value="2"/>
-        <property name="mediaTypes">
-            <map>
-                <entry key="json" value="application/json" />
-            </map>
-        </property>
-        <property name="defaultContentType" value="application/json" />
-        <property name="defaultViews">
-            <list>
-                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
-                    <property name="prefixJson" value="false"/>
-                    <property name="disableCaching" value="true"></property>
-                </bean>
-            </list>
-        </property>
-    </bean>
+
 
    <!-- Tiles Configuration -->
    <!-- <import resource="encuestame-tiles-context.xml"/> -->

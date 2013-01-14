@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Social Account Json Service.
@@ -62,7 +63,7 @@ public class SocialAccountsJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/social/actions/account/{type}.json", method = RequestMethod.GET)
-    public ModelMap actionTwitterAccount(
+    public @ResponseBody ModelMap actionTwitterAccount(
             @PathVariable String type,
             @RequestParam(value = "socialAccountId", required = true) Long socialAccountId,
             HttpServletRequest request,
@@ -91,13 +92,13 @@ public class SocialAccountsJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/social/accounts.json", method = RequestMethod.GET)
-    public ModelMap getSocialAccountByType(
+    public @ResponseBody ModelMap getSocialAccountByType(
             HttpServletRequest request,
             HttpServletResponse response,
             @RequestParam(value = "provider", required = false) String provider)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-        	provider = provider == null ? "all" : provider; 
+            provider = provider == null ? "all" : provider;
             final List<SocialAccountBean> accounts = getSecurityService()
                     .getValidSocialAccounts(
                             SocialProvider.getProvider(provider), true);

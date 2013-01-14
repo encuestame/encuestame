@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Settings Controller.
@@ -64,7 +65,7 @@ public class SettingsJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/settings/profile/my.json", method = RequestMethod.GET)
-    public ModelMap myAccountProfile(HttpServletRequest request,
+    public @ResponseBody ModelMap myAccountProfile(HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
@@ -86,12 +87,12 @@ public class SettingsJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/settings/profile/{type}/update.json", method = RequestMethod.POST)
-    public ModelMap upgradeProfile(HttpServletRequest request,
+    public @ResponseBody ModelMap upgradeProfile(HttpServletRequest request,
             @PathVariable String type,
             @RequestParam(value = "data", required = false) String data,
             HttpServletResponse response) throws JsonGenerationException,
             JsonMappingException, IOException {
-        	
+
         log.debug("update profile type:" + type);
         log.debug("update profile data:" + data);
         try {
@@ -156,7 +157,7 @@ public class SettingsJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/settings/profile/update.json", method = RequestMethod.POST)
-    public ModelMap upgradePostProfile(HttpServletRequest request,
+    public @ResponseBody ModelMap upgradePostProfile(HttpServletRequest request,
             @RequestParam(value = "email", required = true) String email,
             @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "completeName", required = false) String completeName,

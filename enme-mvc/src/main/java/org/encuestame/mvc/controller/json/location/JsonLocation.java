@@ -29,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Location Service.
@@ -55,7 +56,7 @@ public class JsonLocation extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/admon/location/folders.json", method = RequestMethod.GET)
-    public ModelMap get(
+    public @ResponseBody ModelMap get(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {

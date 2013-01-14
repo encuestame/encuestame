@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Folder Json Service Controller.
@@ -61,7 +62,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/create.json", method = RequestMethod.GET)
-    public ModelMap createFolder(
+    public @ResponseBody ModelMap createFolder(
             @PathVariable String actionType,
             @RequestParam(value = "name", required = true) String folderName,
             HttpServletRequest request,
@@ -103,7 +104,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/update.json", method = RequestMethod.GET)
-    public ModelMap updateFolder(
+    public @ResponseBody ModelMap updateFolder(
             @PathVariable String actionType,
             @RequestParam(value = "folderName", required = true) String folderName,
             @RequestParam(value = "folderId", required = true) Long folderId,
@@ -147,7 +148,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/remove.json", method = RequestMethod.GET)
-    public ModelMap removeFolder(
+    public @ResponseBody ModelMap removeFolder(
             @PathVariable String actionType,
             @RequestParam(value = "folderId", required = true) Long folderId,
             HttpServletRequest request,
@@ -188,7 +189,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/move.json", method = RequestMethod.GET)
-    public ModelMap addToFolder(
+    public @ResponseBody ModelMap addToFolder(
              @PathVariable String actionType,
              @RequestParam(value = "folderId", required = true) Long folderId,
              @RequestParam(value = "itemId", required = true) Long itemId,
@@ -231,7 +232,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/folder/{actionType}/list.json", method = RequestMethod.GET)
-    public ModelMap retrieveItemsbyFolder(
+    public @ResponseBody ModelMap retrieveItemsbyFolder(
              @PathVariable String actionType,
              @RequestParam(value = "store", required = false) Boolean store,
              HttpServletRequest request,
@@ -260,7 +261,7 @@ public class FolderJsonServiceController extends AbstractJsonController{
             }
         return returnData();
     }
-    
+
     /**
      * Retrieve Surveys contained in a folder.
      * @param actionType
@@ -269,39 +270,39 @@ public class FolderJsonServiceController extends AbstractJsonController{
      * @param response
      * @return
      */
-	@PreAuthorize("hasRole('ENCUESTAME_USER')")
-	@RequestMapping(value = "/api/survey/folder/{actionType}/items.json", method = RequestMethod.GET)
-	public ModelMap retrieveItemListbyFolder(@PathVariable String actionType,
-			@RequestParam(value = "folderId", required = false) Long folderId,
-			HttpServletRequest request, HttpServletResponse response) {
-		log.debug("type:{ " + actionType);
-		final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/survey/folder/{actionType}/items.json", method = RequestMethod.GET)
+    public @ResponseBody ModelMap retrieveItemListbyFolder(@PathVariable String actionType,
+            @RequestParam(value = "folderId", required = false) Long folderId,
+            HttpServletRequest request, HttpServletResponse response) {
+        log.debug("type:{ " + actionType);
+        final Map<String, Object> jsonResponse = new HashMap<String, Object>();
 
-		try {
-			if ("poll".equals(actionType)) {
-				final List<PollBean> pollsByFolder = getPollService()
-						.searchPollsByFolder(folderId,
-								getUserPrincipalUsername());
-				jsonResponse.put("PollsByFolder", pollsByFolder);
-			} else if ("tweetpoll".equals(actionType)) {
-				final List<TweetPollBean> tweetPollsByFolder = getTweetPollService()
-						.searchTweetPollsByFolder(folderId,
-								getUserPrincipalUsername());
-				jsonResponse.put("TweetPollsByFolder", tweetPollsByFolder);
-			} else if ("survey".equals(actionType)) {
-				final List<SurveyBean> surveyBeanList = new ArrayList<SurveyBean>();
-				final List<Survey> surveysByFolder = getSurveyService()
-						.retrieveSurveyByFolder(
-								getUserAccountonSecurityContext().getUid(),
-								folderId);
-				surveyBeanList.addAll(ConvertDomainBean
-						.convertListSurveyToBean(surveysByFolder));
-				jsonResponse.put("surveysByFolder", surveyBeanList);
-			}
-		} catch (Exception e) {
-			log.error(e);
-			setError(e.getMessage(), response);
-		}
-		return returnData(); 
-	} 
+        try {
+            if ("poll".equals(actionType)) {
+                final List<PollBean> pollsByFolder = getPollService()
+                        .searchPollsByFolder(folderId,
+                                getUserPrincipalUsername());
+                jsonResponse.put("PollsByFolder", pollsByFolder);
+            } else if ("tweetpoll".equals(actionType)) {
+                final List<TweetPollBean> tweetPollsByFolder = getTweetPollService()
+                        .searchTweetPollsByFolder(folderId,
+                                getUserPrincipalUsername());
+                jsonResponse.put("TweetPollsByFolder", tweetPollsByFolder);
+            } else if ("survey".equals(actionType)) {
+                final List<SurveyBean> surveyBeanList = new ArrayList<SurveyBean>();
+                final List<Survey> surveysByFolder = getSurveyService()
+                        .retrieveSurveyByFolder(
+                                getUserAccountonSecurityContext().getUid(),
+                                folderId);
+                surveyBeanList.addAll(ConvertDomainBean
+                        .convertListSurveyToBean(surveysByFolder));
+                jsonResponse.put("surveysByFolder", surveyBeanList);
+            }
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 }

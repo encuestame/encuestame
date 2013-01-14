@@ -30,6 +30,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Quick search json controller.
@@ -63,7 +64,7 @@ public class QuickSearchJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "api/search/quick-suggest.json", method = RequestMethod.GET)
-    public ModelMap quickSuggestionSearchService(
+    public @ResponseBody ModelMap quickSuggestionSearchService(
             @RequestParam(value = "keyword", required = true) String keyword,
             @RequestParam(value = "limitByItem", required = false) Integer limitByItem,
             HttpServletRequest request,

@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * HashTag Json Controller.
@@ -44,13 +45,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class GeoLocationJsonController extends AbstractJsonController {
 
-	 /**
+     /**
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
-    
+
    /**
-    * 
+    *
     * @param range
     * @param maxItem
     * @param type
@@ -67,66 +68,66 @@ public class GeoLocationJsonController extends AbstractJsonController {
     * @throws IOException
     */
     @RequestMapping(value = "/api/common/geolocation/search/{typeOfSearch}.json", method = RequestMethod.GET)
-    public ModelMap getItemsbyGeoLocationRange(
+    public @ResponseBody ModelMap getItemsbyGeoLocationRange(
             @RequestParam(value = "range", required = true) Double range,
             @RequestParam(value = "maxItem", required = true) Integer maxItem,
             @RequestParam(value = "type", required = true) String type,
             @RequestParam(value = "longitude", required = true) Double longitude,
             @RequestParam(value = "latitude", required = true) Double latitude,
             @RequestParam(value = "period", required = true) String period,
-        	@RequestParam(value = "tag", required = false) String tagName,
-        	@PathVariable final String typeOfSearch,
+            @RequestParam(value = "tag", required = false) String tagName,
+            @PathVariable final String typeOfSearch,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-    	
-		try {
-			log.debug("Range " + range);
-			log.debug("Maximum " + maxItem);
 
-			SearchPeriods periodValue = (period.isEmpty() ? SearchPeriods.ALLTIME
-					: SearchPeriods.getPeriodString(period));
-			TypeSearchResult typeValue = (type.isEmpty() ? TypeSearchResult.ALL
-					: TypeSearchResult.getTypeSearchResult(type));
-			TypeSearchResult searchType = TypeSearchResult
-					.getTypeSearchResult(typeOfSearch);
-			List<ItemGeoLocationBean> itemsByLocation = new ArrayList<ItemGeoLocationBean>();
-			final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-			if (searchType.equals(TypeSearchResult.ALL)) {
-				itemsByLocation = getLocationService().retrieveItemsByGeo(
-						range, maxItem, typeValue, longitude, latitude,
-						periodValue);
-				log.debug("Items by geo location " + itemsByLocation.size());
-				jsonResponse.put("itemsByGeo", itemsByLocation);
-			} else if (searchType.equals(TypeSearchResult.HASHTAG)) {
-				if (tagName == null) {
-					throw new EnMeSearchException("search params required.");
-				} else {
+        try {
+            log.debug("Range " + range);
+            log.debug("Maximum " + maxItem);
 
-					itemsByLocation = getLocationService()
-							.retreiveHashTagUsebyGeoLo(range, maxItem,
-									typeValue, longitude, latitude, tagName,
-									periodValue);
-					log.debug("Hashtag use by geo location "
-							+ itemsByLocation.size());
-					jsonResponse.put("hashtagUsebyGeo", itemsByLocation);
-				}
+            SearchPeriods periodValue = (period.isEmpty() ? SearchPeriods.ALLTIME
+                    : SearchPeriods.getPeriodString(period));
+            TypeSearchResult typeValue = (type.isEmpty() ? TypeSearchResult.ALL
+                    : TypeSearchResult.getTypeSearchResult(type));
+            TypeSearchResult searchType = TypeSearchResult
+                    .getTypeSearchResult(typeOfSearch);
+            List<ItemGeoLocationBean> itemsByLocation = new ArrayList<ItemGeoLocationBean>();
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            if (searchType.equals(TypeSearchResult.ALL)) {
+                itemsByLocation = getLocationService().retrieveItemsByGeo(
+                        range, maxItem, typeValue, longitude, latitude,
+                        periodValue);
+                log.debug("Items by geo location " + itemsByLocation.size());
+                jsonResponse.put("itemsByGeo", itemsByLocation);
+            } else if (searchType.equals(TypeSearchResult.HASHTAG)) {
+                if (tagName == null) {
+                    throw new EnMeSearchException("search params required.");
+                } else {
 
-			} else if (searchType.equals(TypeSearchResult.SOCIALNETWORK)) {
-				itemsByLocation = getLocationService()
-						.retrieveSocialNetworksPublicationsbyGeoLocation(range,
-								maxItem, typeValue, longitude, latitude,
-								periodValue);
-				log.debug("Social publications  by geo location "
-						+ itemsByLocation.size());
-				jsonResponse.put("socialGeo", itemsByLocation);
-			}   
-			setItemResponse(jsonResponse);
+                    itemsByLocation = getLocationService()
+                            .retreiveHashTagUsebyGeoLo(range, maxItem,
+                                    typeValue, longitude, latitude, tagName,
+                                    periodValue);
+                    log.debug("Hashtag use by geo location "
+                            + itemsByLocation.size());
+                    jsonResponse.put("hashtagUsebyGeo", itemsByLocation);
+                }
 
-		} catch (Exception e) {
-			log.error(e);
-			setError(e.getMessage(), response);
-		}
-		return returnData();
-	}
-	
+            } else if (searchType.equals(TypeSearchResult.SOCIALNETWORK)) {
+                itemsByLocation = getLocationService()
+                        .retrieveSocialNetworksPublicationsbyGeoLocation(range,
+                                maxItem, typeValue, longitude, latitude,
+                                periodValue);
+                log.debug("Social publications  by geo location "
+                        + itemsByLocation.size());
+                jsonResponse.put("socialGeo", itemsByLocation);
+            }
+            setItemResponse(jsonResponse);
+
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
+
 }

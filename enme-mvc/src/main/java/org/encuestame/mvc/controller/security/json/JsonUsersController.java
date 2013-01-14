@@ -38,6 +38,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Json users controller.
@@ -66,7 +67,7 @@ public class JsonUsersController extends AbstractJsonController{
     @SuppressWarnings("unchecked")
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/admon/users.json", method = RequestMethod.GET)
-    public ModelMap get(
+    public @ResponseBody ModelMap get(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
             HttpServletRequest request,
@@ -116,7 +117,7 @@ public class JsonUsersController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/user-info.json", method = RequestMethod.GET)
-    public ModelMap getUserInfo(
+    public @ResponseBody ModelMap getUserInfo(
             @RequestParam(value = "id", required = true) Long userId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -151,7 +152,7 @@ public class JsonUsersController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/create-user.json", method = RequestMethod.POST)
-    public ModelMap createUser(
+    public @ResponseBody ModelMap createUser(
             @RequestParam(value = "newUsername", required = true) String username,
             @RequestParam(value = "newEmailUser", required = true) String email,
             HttpServletRequest request,
@@ -193,7 +194,7 @@ public class JsonUsersController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/remove-user.json", method = RequestMethod.GET)
-    public ModelMap removeUser(
+    public @ResponseBody ModelMap removeUser(
             @RequestParam(value = "id", required = true) String id,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -213,7 +214,7 @@ public class JsonUsersController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/reset-password-user.json", method = RequestMethod.GET)
-    public ModelMap resetUserPassword(
+    public @ResponseBody ModelMap resetUserPassword(
             @RequestParam(value = "id", required = true) String id,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -232,7 +233,7 @@ public class JsonUsersController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/groups/assingToUser.json", method = RequestMethod.GET)
-    public ModelMap assingUserToGroup(
+    public @ResponseBody ModelMap assingUserToGroup(
             @RequestParam(value = "id", required = true) Long groupId,
             @RequestParam(value = "userId", required = true) Long userId,
             HttpServletRequest request,
@@ -249,7 +250,7 @@ public class JsonUsersController extends AbstractJsonController{
 
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/changeUserStatus.json", method = RequestMethod.GET)
-    public ModelMap changeUserStatus(
+    public @ResponseBody ModelMap changeUserStatus(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
        try {
@@ -275,7 +276,7 @@ public class JsonUsersController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/user/profile/upgrade.json", method = RequestMethod.GET)
-    public ModelMap upgradeProfile(HttpServletRequest request,
+    public @ResponseBody ModelMap upgradeProfile(HttpServletRequest request,
             @RequestParam(value = "property", required = true) String property,
             @RequestParam(value = "value", required = true) String value,
             HttpServletResponse response) throws JsonGenerationException,
@@ -304,7 +305,7 @@ public class JsonUsersController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/user/account/validate.json", method = RequestMethod.GET)
-    public ModelMap validateItem(HttpServletRequest request,
+    public @ResponseBody ModelMap validateItem(HttpServletRequest request,
             @RequestParam(value = "type", required = true) String type,
             @RequestParam(value = "value", required = true) String value,
             HttpServletResponse response) throws JsonGenerationException,

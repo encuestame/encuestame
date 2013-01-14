@@ -47,6 +47,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Poll Json Controller.
@@ -81,7 +82,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/search.json", method = RequestMethod.GET)
-    public ModelMap searchPolls(
+    public @ResponseBody ModelMap searchPolls(
             @RequestParam(value = "typeSearch", required = true) String typeSearch,
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "max", required = false) Integer max,
@@ -116,7 +117,7 @@ public class PollJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @RequestMapping(value = "/api/survey/poll/social/publish.json", method = RequestMethod.POST)
-    public ModelMap publishSocialPolls(
+    public @ResponseBody ModelMap publishSocialPolls(
              @RequestParam(value = "twitterAccounts", required = false) final Long[] twitterAccountsId,
              @RequestParam(value = "id", required = true) final Long pollId,
             HttpServletRequest request, HttpServletResponse response)
@@ -180,7 +181,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/remove.json", method = RequestMethod.GET)
-    public ModelMap deletePoll(
+    public @ResponseBody ModelMap deletePoll(
             @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -207,7 +208,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/detail.json", method = RequestMethod.GET)
-    public ModelMap retrieveDetail(
+    public @ResponseBody ModelMap retrieveDetail(
             @RequestParam(value = "id", required = true) Long pollId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -240,7 +241,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/searchby-{type}.json", method = RequestMethod.GET)
-    public ModelMap searchPollByType(
+    public @ResponseBody ModelMap searchPollByType(
               @RequestParam(value = "pollId", required = false) Long pollId,
               @RequestParam(value = "keyword", required = false) String keyword,
               @RequestParam(value = "maxResults", required = false) Integer maxResults,
@@ -298,7 +299,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/poll/create.json", method = RequestMethod.POST)
-    public ModelMap createGroup(
+    public @ResponseBody ModelMap createGroup(
             @RequestParam(value = "questionName", required = true) String questionName,
             @RequestParam(value = "listAnswers", required = true) String[] answers,
             @RequestParam(value = "showResults", required = false) Boolean showResults,
@@ -342,7 +343,7 @@ public class PollJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value ="/api/survey/poll/{propertyType}-poll.json", method = RequestMethod.POST)
-    public ModelMap changeTweetPollProperties(
+    public @ResponseBody ModelMap changeTweetPollProperties(
             @PathVariable String propertyType,
             @RequestParam(value = "pollId", required = true) Long pollId,
             HttpServletRequest request,

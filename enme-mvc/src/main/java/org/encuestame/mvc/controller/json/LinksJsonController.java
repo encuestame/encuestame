@@ -32,6 +32,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Links json controller.
@@ -58,13 +59,13 @@ public class LinksJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @RequestMapping(value = "/api/public/social/links/published.json", method = RequestMethod.GET)
-    public ModelMap getPublishedSocialLinks(
+    public @ResponseBody ModelMap getPublishedSocialLinks(
             @RequestParam(value = "id", required = true) String id,
             @RequestParam(value = "type", required = true) String type,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
-        	//FUTURE: Add SEARCHPERIODS Filter.
+            //FUTURE: Add SEARCHPERIODS Filter.
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             final TypeSearchResult searchResult = TypeSearchResult.getTypeSearchResult(type);
             if (TypeSearchResult.TWEETPOLL.equals(searchResult) && !id.isEmpty()) {
@@ -72,12 +73,12 @@ public class LinksJsonController extends AbstractJsonController{
                 jsonResponse.put("links", getTweetPollService()
                         .getTweetPollLinks(tweetPoll, null, null, TypeSearchResult.getTypeSearchResult(type)));
             } else if (TypeSearchResult.POLL.equals(searchResult) && !id.isEmpty()) {
-            	final Poll poll = getPollService().getPollById(Long.valueOf(id));
-				jsonResponse.put(
-						"links",
-						getTweetPollService().getTweetPollLinks(null, poll,
-								null,
-								TypeSearchResult.getTypeSearchResult(type))); 
+                final Poll poll = getPollService().getPollById(Long.valueOf(id));
+                jsonResponse.put(
+                        "links",
+                        getTweetPollService().getTweetPollLinks(null, poll,
+                                null,
+                                TypeSearchResult.getTypeSearchResult(type)));
             } else if (TypeSearchResult.SURVEY.equals(searchResult) && !id.isEmpty()) {
                  //TODO: retrieve social links by SURVEY
             } else if (TypeSearchResult.PROFILE.equals(searchResult) && !id.isEmpty()) {
@@ -85,8 +86,8 @@ public class LinksJsonController extends AbstractJsonController{
             } else if (TypeSearchResult.HASHTAG.equals(searchResult) && !id.isEmpty()) {
                  jsonResponse.put("links", getFrontService().getHashTagLinks(getFrontService().getHashTagItem(id)));
             } else {
-            	 // if not exist a type, send emtpy list.
-            	 jsonResponse.put("links", ListUtils.EMPTY_LIST);
+                 // if not exist a type, send emtpy list.
+                 jsonResponse.put("links", ListUtils.EMPTY_LIST);
             }
             setItemResponse(jsonResponse);
         } catch (Exception e) {

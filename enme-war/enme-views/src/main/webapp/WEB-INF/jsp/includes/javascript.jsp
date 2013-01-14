@@ -15,9 +15,9 @@
                     'dojo-firebug': false,
                     'dojo-debug-messages': false
                 },
-            useCommentedJson : true,
+            // useCommentedJson : false,
             parseOnLoad : false,
-            isDebug : 1,
+            isDebug : 0,
             tlmSiblingOfDojo : false,
             async : true
             };

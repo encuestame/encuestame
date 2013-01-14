@@ -12,7 +12,10 @@
  */
 package org.encuestame.mvc.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -27,11 +30,19 @@ import org.encuestame.persistence.dao.imp.NotificationDao;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 /**
  * Abstract Json Controller.
@@ -134,7 +145,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
         response.put("r", 0);
         setItemResponse(response);
     }
-    
+
     /**
      * Create a success response with message
      * @param message the message
@@ -144,8 +155,8 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
         response.put("r", 0);
         response.put("message", message == null ? "" : message);
         setItemResponse(response);
-    }    
-    
+    }
+
     /**
      * Set a failed response.
      */
@@ -174,6 +185,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      * @param ex exception
      * @return {@link ModelAndView}.
      */
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     public ModelAndView handleException (final AccessDeniedException ex, HttpServletResponse httpResponse) {
       log.error("handleException "+ ex.getMessage());
@@ -189,6 +201,38 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
       response.put(EnMeUtils.ANONYMOUS_USER, SecurityUtils.checkIsSessionIsAnonymousUser(getSecCtx().getAuthentication()));
       mav.addObject("error",  response);
       return mav;
+    }
+
+    @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
+    public ModelAndView handleException (NoSuchRequestHandlingMethodException ex) {
+      ModelAndView mav = new ModelAndView();
+      log.error("Exception found: " + ex);
+      mav.setViewName("404");
+      return mav;
+    }
+
+    public class BadStatus {
+        String errorMessage;
+        boolean status = false;
+
+        public BadStatus(String msg) { errorMessage = msg; }
+    }
+
+    @ExceptionHandler(Exception.class)
+    public BadStatus handleException(Exception ex, HttpServletRequest request) {
+      return new BadStatus(ex.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ModelAndView notFoundHandler(NotFoundException e){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("MappingJacksonJsonView");
+        final Map<String, Object> response = new HashMap<String, Object>();
+        response.put("message", e.getMessage());
+        //TODO: add internationalitazion
+        mav.addObject("error",  response);
+        return mav;
     }
 
     /**

@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * TweetPoll Json Data Chart.
@@ -49,7 +50,7 @@ public class JsonDataChart extends AbstractJsonController {
      * Log.
      */
     private Logger log = Logger.getLogger(this.getClass());
-    
+
     /**
      * JSON service to retrieve vote of a {@link Poll}.
      * @param username username
@@ -62,8 +63,8 @@ public class JsonDataChart extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "/api/{username}/poll/votes.json", method = RequestMethod.GET)
-    public ModelMap getPollVotes(
-    		@PathVariable String username,
+    public @ResponseBody ModelMap getPollVotes(
+            @PathVariable String username,
             @RequestParam(value = "id") Long pollId,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
@@ -88,7 +89,7 @@ public class JsonDataChart extends AbstractJsonController {
             setError(e.getMessage(), response);
         }
         return returnData();
-    }    
+    }
 
 
     /**
@@ -103,7 +104,7 @@ public class JsonDataChart extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "/api/{username}/tweetpoll/votes.json", method = RequestMethod.GET)
-    public ModelMap get(@PathVariable String username,
+    public @ResponseBody ModelMap get(@PathVariable String username,
             @RequestParam(value = "tweetPollId") Long tweetPollId,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
@@ -127,7 +128,7 @@ public class JsonDataChart extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "/api/{username}/tweetpoll/{id}/votes.json", method = RequestMethod.GET)
-    public ModelMap getVotes(
+    public @ResponseBody ModelMap getVotes(
             @PathVariable String username,
             @PathVariable Long id,
             HttpServletRequest request, HttpServletResponse response)
@@ -150,7 +151,7 @@ public class JsonDataChart extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "/api/tweetpoll/{username}/answer/{id}/votes.json", method = RequestMethod.GET)
-    public ModelMap getAnswerVotes(
+    public @ResponseBody ModelMap getAnswerVotes(
             @PathVariable String username,
             @PathVariable Long id,
             HttpServletRequest request, HttpServletResponse response)
@@ -164,18 +165,18 @@ public class JsonDataChart extends AbstractJsonController {
     }
 
     /**
-     * Retrieve a list of votes of one tweetpoll. 
+     * Retrieve a list of votes of one tweetpoll.
      * @param tweetPollId tweetpoll id.
      * @param request {@link HttpServletRequest}
      * @param response {@link HttpServletResponse}
-     * @return 
+     * @return
      * @throws JsonGenerationException
      * @throws JsonMappingException
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/chart/tweetpoll/votes.json", method = RequestMethod.GET)
-    public ModelMap getVotes(
+    public @ResponseBody ModelMap getVotes(
             @RequestParam(value = "tweetPollId") Long tweetPollId,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {

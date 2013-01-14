@@ -33,12 +33,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Group Json Service Controller.
+ *
  * @author Morales, Diana Paola paolaATencuestame.org
  * @since December 16, 2010
- * @version $Id:$
  */
 
 @Controller
@@ -51,6 +52,7 @@ public class JsonGroupServiceController extends AbstractJsonController {
 
     /**
      * Create or Update Group.
+     *
      * @param groupName
      * @param groupDesc
      * @param stateId
@@ -62,48 +64,59 @@ public class JsonGroupServiceController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/groups/{type}Group.json", method = RequestMethod.GET)
-    public ModelMap createGroup(
+    @RequestMapping(value = "/api/groups/{type}Group.json", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap createGroup(
             @RequestParam(value = "groupName", required = true) String groupName,
             @RequestParam(value = "groupDescription", required = false) String groupDesc,
             @RequestParam(value = "stateId", required = false) Long stateId,
             @RequestParam(value = "groupId", required = false) Long groupId,
-            @PathVariable String type,
-            HttpServletRequest request,
-            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-           try {
-              // log.debug(" "+folderName);
-               final Map<String, Object> sucess = new HashMap<String, Object>();
-               if("create".equals(type)){
-                   final UnitGroupBean unitGroupBean = new UnitGroupBean();
-                   unitGroupBean.setGroupDescription(groupDesc == null ? "" : groupDesc);
-                   unitGroupBean.setGroupName(groupName);
-                   unitGroupBean.setStateId(stateId); //TODO: remove
-                   sucess.put("groupBean", getSecurityService().createGroup(unitGroupBean, getUserPrincipalUsername()));
-                   setItemResponse(sucess);
-               } else if ("update".equals(type)) {
-                   final Group groupDomain = getSecurityService().getGroupbyIdandUser(groupId, getUserPrincipalUsername());//find by group Id and principal User.
-                   if (groupDomain != null){
-                       final UnitGroupBean groupBean = ConvertDomainBean.convertGroupDomainToBean(groupDomain);
-                       groupBean.setGroupDescription(groupDesc);
-                       //TODO: Set state
-                        if (!groupName.isEmpty()){
-                           groupBean.setGroupName(groupName);
-                       }
-                       getSecurityService().updateGroup(groupBean);
-                       sucess.put("g", groupBean);
-                       setItemResponse(sucess);
-                   }
-               }
-          } catch (Exception e) {
-              log.error(e);
-              setError(e.getMessage(), response);
-          }
-          return returnData();
-      }
+            @PathVariable String type, HttpServletRequest request,
+            HttpServletResponse response) throws JsonGenerationException,
+            JsonMappingException, IOException {
+        try {
+            // log.debug(" "+folderName);
+            final Map<String, Object> sucess = new HashMap<String, Object>();
+            if ("create".equals(type)) {
+                final UnitGroupBean unitGroupBean = new UnitGroupBean();
+                unitGroupBean.setGroupDescription(groupDesc == null ? ""
+                        : groupDesc);
+                unitGroupBean.setGroupName(groupName);
+                unitGroupBean.setStateId(stateId); // TODO: remove
+                sucess.put(
+                        "groupBean",
+                        getSecurityService().createGroup(unitGroupBean,
+                                getUserPrincipalUsername()));
+                setItemResponse(sucess);
+            } else if ("update".equals(type)) {
+                final Group groupDomain = getSecurityService()
+                        .getGroupbyIdandUser(groupId,
+                                getUserPrincipalUsername());// find by group Id
+                                                            // and principal
+                                                            // User.
+                if (groupDomain != null) {
+                    final UnitGroupBean groupBean = ConvertDomainBean
+                            .convertGroupDomainToBean(groupDomain);
+                    groupBean.setGroupDescription(groupDesc);
+                    // TODO: Set state
+                    if (!groupName.isEmpty()) {
+                        groupBean.setGroupName(groupName);
+                    }
+                    getSecurityService().updateGroup(groupBean);
+                    sucess.put("g", groupBean);
+                    setItemResponse(sucess);
+                }
+            }
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 
     /**
      * Remove Group.
+     *
      * @param groupId
      * @param request
      * @param response
@@ -113,47 +126,53 @@ public class JsonGroupServiceController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/groups/removeGroup.json", method = RequestMethod.GET)
-    public ModelMap deleteGroup(
+    @RequestMapping(value = "/api/groups/removeGroup.json", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap deleteGroup(
             @RequestParam(value = "groupId", required = true) Long groupId,
-            HttpServletRequest request,
-            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-           try {
-               log.debug("Group Id"+ groupId);
-               getSecurityService().deleteGroup(groupId);
-               setSuccesResponse();
-          } catch (Exception e) {
-              log.error(e);
-              setError(e.getMessage(), response);
-          }
-          return returnData();
-      }
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            log.debug("Group Id" + groupId);
+            getSecurityService().deleteGroup(groupId);
+            setSuccesResponse();
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
+    }
 
     /**
      * Load Groups.
+     *
      * @return
      * @throws JsonGenerationException
      * @throws JsonMappingException
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/groups/groups.json", method = RequestMethod.GET)
-    public ModelMap loadGroups(
-            HttpServletRequest request,
-            HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-           try {
-               final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-               jsonResponse.put("groups", getSecurityService().loadGroups(getUserPrincipalUsername()));
-               setItemResponse(jsonResponse);
-          } catch (Exception e) {
-              log.error(e);
-              setError(e.getMessage(), response);
-          }
-          return returnData();
+    @RequestMapping(value = "/api/groups/groups.json", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap loadGroups(HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+            jsonResponse
+                    .put("groups",
+                            getSecurityService().loadGroups(
+                                    getUserPrincipalUsername()));
+            setItemResponse(jsonResponse);
+        } catch (Exception e) {
+            log.error(e);
+            setError(e.getMessage(), response);
+        }
+        return returnData();
     }
 
     /**
      * Get Users by Group.
+     *
      * @param request
      * @param response
      * @return
@@ -162,48 +181,24 @@ public class JsonGroupServiceController extends AbstractJsonController {
      * @throws IOException
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/groups/countUsersByGroup.json", method = RequestMethod.GET)
-    public ModelMap countUsersByGroup(
-              @RequestParam(value = "groupId", required = true) Long groupId,
-              HttpServletRequest request,
-              HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-             try {
-                 final Map<String, Object> sucess = new HashMap<String, Object>();
-                 log.debug("Group Id"+ groupId);
-                 sucess.put("userGroup", getSecurityService().getUserbyGroup(groupId, getUserPrincipalUsername()));
-                 setItemResponse(sucess);
-            } catch (Exception e) {
-                log.error(e);
-                e.printStackTrace();
-            }
-            return returnData();
+    @RequestMapping(value = "/api/groups/countUsersByGroup.json", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelMap countUsersByGroup(
+            @RequestParam(value = "groupId", required = true) Long groupId,
+            HttpServletRequest request, HttpServletResponse response)
+            throws JsonGenerationException, JsonMappingException, IOException {
+        try {
+            final Map<String, Object> sucess = new HashMap<String, Object>();
+            log.debug("Group Id " + groupId);
+            sucess.put(
+                    "userGroup",
+                    getSecurityService().getUserbyGroup(groupId,
+                            getUserPrincipalUsername()));
+            setItemResponse(sucess);
+        } catch (Exception e) {
+            log.error(e);
+            e.printStackTrace();
         }
-
-    /**
-     * Get Count users by Groups.
-     * @param groupId
-     * @param request
-     * @param response
-     * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
-    @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    @RequestMapping(value = "api/groups/countUsersByGroup.json", method = RequestMethod.GET)
-    public ModelMap countUsersByGroups(
-              @RequestParam(value = "groupId", required = true) Long groupId,
-              HttpServletRequest request,
-              HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-             try {
-                 final Map<String, Object> sucess = new HashMap<String, Object>();
-                 log.debug("Group Id"+ groupId);
-                 sucess.put("counterUsers", getSecurityService().countUsersbyGroups(groupId, getUserPrincipalUsername()));
-                 setItemResponse(sucess);
-            } catch (Exception e) {
-                log.error(e);
-                setError(e.getMessage(), response);
-            }
-            return returnData();
-        }
+        return returnData();
+    }
 }

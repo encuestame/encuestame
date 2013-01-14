@@ -20,6 +20,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.security.SecurityUtils;
+import org.encuestame.core.security.util.WidgetUtil;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.joda.time.DateTimeZone;
@@ -110,6 +111,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
         request.setAttribute("development", EnMePlaceHolderConfigurer.getBooleanProperty("encuestame.development"));
         //customized logo
         request.setAttribute("logo", this.getCustomizedHeaderLogo());
+        request.setAttribute("domain", WidgetUtil.getDomain(request));
         return true;
     }
 

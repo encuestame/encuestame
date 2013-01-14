@@ -38,6 +38,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * DashBoard Json Controller.
@@ -60,7 +61,7 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/gadgets/list.json", method = RequestMethod.GET)
-    public ModelMap getAllWidgets(
+    public @ResponseBody ModelMap getAllWidgets(
             @RequestParam(value = "dashboardId", required = true) Long dashboardId,
             HttpServletRequest request,
             HttpServletResponse response){
@@ -88,7 +89,7 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard/list.json", method = RequestMethod.GET)
-    public ModelMap getMyDashboards(
+    public @ResponseBody ModelMap getMyDashboards(
             HttpServletRequest request,
             HttpServletResponse response){
          try {
@@ -109,7 +110,7 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/gadgets/directory.json", method = RequestMethod.GET)
-    public ModelMap getGadgetsDirectory(HttpServletRequest request,
+    public @ResponseBody ModelMap getGadgetsDirectory(HttpServletRequest request,
             HttpServletResponse response){
          try {
              final List<Properties> gadgets = GadgetsLoader.getDirectoy();
@@ -224,7 +225,7 @@ public class DashboardJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/dashboard/create-dashboard.json", method = RequestMethod.POST)
-    public ModelMap createtDashboard(
+    public @ResponseBody ModelMap createtDashboard(
             @RequestParam(value = "name", required = true) String boardName,
             @RequestParam(value = "desc", required = true) String boardDesc,
             @RequestParam(value = "favorite", required = false) Boolean favorite,
@@ -287,7 +288,7 @@ public class DashboardJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/dashboard/move-gadget.json", method = RequestMethod.GET)
-    public ModelMap moveGadget(
+    public @ResponseBody ModelMap moveGadget(
             @RequestParam(value = "gadgetId", required = false) Long gadgetId,
             @RequestParam(value = "position", required = false) Integer position,
             @RequestParam(value = "column", required = false) Integer column,
@@ -313,7 +314,7 @@ public class DashboardJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/dashboard/select.json", method = RequestMethod.GET)
-    public ModelMap moveGadget(
+    public @ResponseBody ModelMap moveGadget(
             @RequestParam(value = "id", required = true) Long dashBoardId,
             HttpServletRequest request,
             HttpServletResponse response){
@@ -335,7 +336,7 @@ public class DashboardJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/dashboard/gadget/load.json", method = RequestMethod.GET)
-    public ModelMap loadGadget(
+    public @ResponseBody ModelMap loadGadget(
             @RequestParam(value = "gadgetId", required = true) String gadgetId,
             HttpServletRequest request,
             HttpServletResponse response){
@@ -357,7 +358,7 @@ public class DashboardJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/dashboard/gadget/remove.json", method = RequestMethod.GET)
-    public ModelMap removeGadget(
+    public @ResponseBody ModelMap removeGadget(
             @RequestParam(value = "gadgetId", required = true) Long gadgetId,
             @RequestParam(value = "dashboardId", required = true) Long dashboardId,
             HttpServletRequest request,
