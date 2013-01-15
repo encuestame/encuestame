@@ -63,7 +63,7 @@ public class Search implements Serializable {
     private List<SocialProvider> providers;
 
     /** **/
-    private List<SocialAccountBean> socialAccounts;
+    private List<Long> socialAccounts;
 
 
     /**
@@ -210,14 +210,14 @@ public class Search implements Serializable {
 	/**
 	 * @return the socialAccounts
 	 */
-	public List<SocialAccountBean> getSocialAccounts() {
+	public List<Long> getSocialAccounts() {
 		return socialAccounts;
 	}
 
 	/**
 	 * @param socialAccounts the socialAccounts to set
 	 */
-	public void setSocialAccounts(final List<SocialAccountBean> socialAccounts) {
+	public void setSocialAccounts(List<Long> socialAccounts) {
 		this.socialAccounts = socialAccounts;
 	}
 }
