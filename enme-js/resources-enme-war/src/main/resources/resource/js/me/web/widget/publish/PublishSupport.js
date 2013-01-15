@@ -27,6 +27,7 @@ define([
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         'dijit/form/Button',
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/utils/ContextSupport",
          "me/web/widget/publish/PublishPanelItem",
@@ -41,6 +42,7 @@ define([
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                Button,
                 main_widget,
                 ContextSupport,
                 PublishPanelItem,
@@ -59,12 +61,12 @@ define([
          /*
           *
           */
-         message : "Your (item) has been created successfully.",
+         text_message : "Your item has been created successfully",
 
          /*
           *
           */
-         messageClass : "succesfully",
+         cssClass : "succesfully",
 
          /*
           *
@@ -83,7 +85,7 @@ define([
           *
           */
          postMixInProperties: function() {
-             this.message = "Your "+ this.context + " <b>"+this.item.name+"</b> has been created successfully.";
+             this.text_message = "Your "+ this.context + " <b>" + this.item.name + "</b> has been created successfully.";
          },
 
          /*

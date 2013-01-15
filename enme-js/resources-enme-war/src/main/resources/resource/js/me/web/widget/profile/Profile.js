@@ -31,8 +31,8 @@ define([
                 BusyButton,
                  template) {
 
-//dojo.require("dojox.form.BusyButton");
 
+//dojo.require("dojox.form.BusyButton");
 
   lang.extend(ValidationTextBox, {
 

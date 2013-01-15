@@ -249,10 +249,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsScheduled(),
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
-		if (tpollSearch.getProviders().size() > 0) {
-			tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpolls,
-					tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-		}
+        if (tpollSearch.getProviders().size() > 0) {
+            tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpolls,
+                    tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
+        }
         // Retrieve only tweetpolls published on social networks
 
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
@@ -281,10 +281,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         List<SocialProvider> enums = new ArrayList<SocialProvider>();
         enums.add(SocialProvider.TWITTER);
         tpollSearch.setProviders(enums);
-		if (tpollSearch.getProviders().size() > 0) {
-			  tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpbeanlast,
-					  tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-		}
+        if (tpollSearch.getProviders().size() > 0) {
+              tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpbeanlast,
+                      tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
+        }
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
                 httpServletRequest);
     }
@@ -309,10 +309,10 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                 tpollSearch.getIsFavourite(),
                 tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
 
-		if (tpollSearch.getProviders().size() > 0) {
-			tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(
-					favouriteTweetPolls, tpollSearch.getProviders(), null);
-		}
+        if (tpollSearch.getProviders().size() > 0) {
+            tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(
+                    favouriteTweetPolls, tpollSearch.getProviders(), null);
+        }
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
     }
 
@@ -337,9 +337,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(),
                         tpollSearch.getPeriod());
         if (tpollSearch.getProviders().size() > 0) {
-        	tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpoll,
+            tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpoll,
                     tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-		}
+        }
         return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
                 httpServletRequest);
     }
@@ -861,7 +861,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     private void calculatePercents(final List<TweetPollResultsBean> list) {
         double totalVotes = 0;
         for (TweetPollResultsBean tweetPollResultsBean : list) {
-            totalVotes += totalVotes + tweetPollResultsBean.getVotes();
+            totalVotes = totalVotes + tweetPollResultsBean.getVotes();
         }
         //System.out.println("**********************");
         //System.out.println("*******totalVotes*************** "+totalVotes);
@@ -1331,37 +1331,37 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeNoResultsFoundException
      */
-	private SocialAccount getSocialAccountsbyId(
-			final Long socialAccountId, final String username)
-			throws EnMeNoResultsFoundException {
-		final SocialAccount socialAccount = getAccountDao().getSocialAccount(
-				socialAccountId, getAccount(username));
-		if (socialAccount == null) {
-			throw new EnMeNoResultsFoundException("Social Account id not valid");
-		}
-		return socialAccount;
-	}
+    private SocialAccount getSocialAccountsbyId(
+            final Long socialAccountId, final String username)
+            throws EnMeNoResultsFoundException {
+        final SocialAccount socialAccount = getAccountDao().getSocialAccount(
+                socialAccountId, getAccount(username));
+        if (socialAccount == null) {
+            throw new EnMeNoResultsFoundException("Social Account id not valid");
+        }
+        return socialAccount;
+    }
 
-	/**
-	 * Retrieve {@link SocialAccount} by a list of id.
-	 * @param socialId
-	 * @param username
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	private List<SocialAccount> retrieveSocialAccountsbyId(
-			final List<Long> socialId, final String username)
-			throws EnMeNoResultsFoundException {
-		final List<SocialAccount> socialAccountList = new ArrayList<SocialAccount>();
-		for (Long socialAccountId : socialId) {
-			final SocialAccount account = this.getSocialAccountsbyId(
-					socialAccountId, username);
-			if (account != null) {
-				socialAccountList.add(account);
+    /**
+     * Retrieve {@link SocialAccount} by a list of id.
+     * @param socialId
+     * @param username
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    private List<SocialAccount> retrieveSocialAccountsbyId(
+            final List<Long> socialId, final String username)
+            throws EnMeNoResultsFoundException {
+        final List<SocialAccount> socialAccountList = new ArrayList<SocialAccount>();
+        for (Long socialAccountId : socialId) {
+            final SocialAccount account = this.getSocialAccountsbyId(
+                    socialAccountId, username);
+            if (account != null) {
+                socialAccountList.add(account);
 
-			}
-		}
-		return socialAccountList;
-	}
+            }
+        }
+        return socialAccountList;
+    }
 
 }

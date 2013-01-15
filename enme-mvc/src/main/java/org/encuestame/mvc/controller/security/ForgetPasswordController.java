@@ -78,8 +78,8 @@ public class ForgetPasswordController extends AbstractSecurityController {
     @RequestMapping(value = "/user/forgot", method = RequestMethod.POST)
     public String forgotSubmitForm(HttpServletRequest req,
             Model model,
-            @RequestParam("recaptcha_challenge_field") String challenge,
-            @RequestParam("recaptcha_response_field") String response,
+            @RequestParam( value = "recaptcha_challenge_field", required = false) String challenge,
+            @RequestParam(value = "recaptcha_response_field", required = false) String response,
             @ModelAttribute ForgotPasswordBean user, BindingResult result,
             SessionStatus status) throws EnMeNoResultsFoundException {
         log.info("recaptcha_challenge_field " + challenge);
