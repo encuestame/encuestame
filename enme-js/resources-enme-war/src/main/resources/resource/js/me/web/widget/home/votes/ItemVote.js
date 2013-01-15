@@ -70,8 +70,9 @@ define([
          * Post create.
          */
         postCreate : function() {
-          dojo.connect(this.domNode, "onmouseover", dojo.hitch(this, this._displayVoteButtonIn));
-          dojo.connect(this.domNode, "onmouseout", dojo.hitch(this, this._displayVoteButtonOut));
+          //FIXME ENCUESTAME-519
+          // dojo.connect(this.domNode, "onmouseover", dojo.hitch(this, this._displayVoteButtonIn));
+          // dojo.connect(this.domNode, "onmouseout", dojo.hitch(this, this._displayVoteButtonOut));
           var button = this._createButton();
           dojo.addClass(this._button, encuestame.utilities.HIDDEN_CLASS);
           dojo.addClass(this._loading, encuestame.utilities.HIDDEN_CLASS);
