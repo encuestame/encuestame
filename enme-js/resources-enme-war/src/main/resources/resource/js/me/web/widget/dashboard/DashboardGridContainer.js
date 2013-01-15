@@ -102,7 +102,9 @@ define([
            var error = function(error) {
                //console.debug("error", error);
            };
-           encuestame.service.xhrGet(encuestame.service.gadget.add, params, load, error);
+           this.getURLService().get('encuestame.service.gadget.add', params, load, error , dojo.hitch(this, function() {
+
+           }));
        }
    },
 
@@ -123,7 +125,9 @@ define([
         var error = function(error) {
             console.debug("error", error);
         };
-        encuestame.service.xhrGet(encuestame.service.gadget.list, {dashboardId :dasboardId}, load, error);
+        this.getURLService().get('encuestame.service.gadget.list',  {dashboardId :dasboardId}, load, error , dojo.hitch(this, function() {
+
+        }));
     },
 
     /*

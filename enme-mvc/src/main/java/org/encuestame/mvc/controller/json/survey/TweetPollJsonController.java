@@ -56,6 +56,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * TweetPoll Json Controller.
@@ -83,7 +84,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/search.json", method = RequestMethod.GET)
-    public ModelMap getListTweetPoll(
+    public @ResponseBody ModelMap getListTweetPoll(
             @RequestParam(value = "typeSearch", required = true) String typeSearch,
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "max", required = true) Integer max,
@@ -126,7 +127,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
                     tpollSearchBean, request);
 
-            System.out.println("Json Controller --> " + list.size());
+            //System.out.println("Json Controller --> " + list.size());
             log.debug("/api/survey/tweetpoll/search.json---------------->"+list.size());
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
@@ -154,7 +155,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/save.json", method = RequestMethod.POST)
-    public ModelMap get(
+    public @ResponseBody ModelMap get(
             @RequestParam(value = "question", required = true) final String question,
             @RequestParam(value = "hashtags", required = false) String[] hashtags,
             @RequestParam(value = "answers", required = false) final Long[] answers,
@@ -189,7 +190,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/answer/{type}.json", method = RequestMethod.GET)
-    public ModelMap manageAnswer(
+    public @ResponseBody ModelMap manageAnswer(
             @RequestParam(value = "id", required = true) final Long tweetPollId,
             @RequestParam(value = "answer", required = false) final String answer,
             @RequestParam(value = "answerId", required = false) final Long answerId,
@@ -252,7 +253,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/autosave.json", method = RequestMethod.POST)
-    public ModelMap create(
+    public @ResponseBody ModelMap create(
             @RequestParam(value = "tweetPollId", required = false) final Long tweetPollId,
             @RequestParam(value = "question", required = false) final String question,
             @RequestParam(value = "scheduled", required = false) final Boolean isScheduled,
@@ -391,7 +392,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/tweetpoll/publish.json", method = RequestMethod.POST)
-    public ModelMap publish(
+    public @ResponseBody ModelMap publish(
             @RequestParam(value = "id", required = true) final Long tweetPollId,
             @RequestParam(value = "twitterAccounts", required = false) final Long[] twitterAccountsId,
             @RequestParam(value = "ip", required = false) final Boolean ip,
@@ -460,7 +461,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value ="/api/survey/tweetpoll/{propertyType}-tweetpoll.json", method = RequestMethod.GET)
-    public ModelMap changeTweetPollProperties(
+    public @ResponseBody ModelMap changeTweetPollProperties(
             @PathVariable String propertyType,
             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
             HttpServletRequest request,
@@ -518,7 +519,7 @@ public class TweetPollJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "/api/short/url/{type}.json", method = RequestMethod.GET)
-    public ModelMap getShortUrl(
+    public @ResponseBody ModelMap getShortUrl(
             @PathVariable String type,
             @RequestParam(value = "url", required = true) String url,
             HttpServletRequest request, HttpServletResponse response)

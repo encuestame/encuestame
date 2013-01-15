@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
-import org.encuestame.core.security.util.PasswordGenerator;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.mvc.controller.security.AbstractSecurityController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.security.SignUpBean;
 import org.encuestame.utils.web.UserAccountBean;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -149,5 +149,29 @@ public class SignUpController extends AbstractSecurityController {
         }
         log.debug("confirmation Account");
         return "user/confirm/";
+    }
+
+
+    /**
+     *
+     * @param inviteCode
+     * @param model
+     * @param response
+     * @param request
+     * @return
+     */
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/user/confirm/email/refresh/code", method = RequestMethod.GET)
+    public String refreshCodeController(
+            final ModelMap model,
+            HttpServletResponse response,
+            HttpServletRequest request) {
+        try {
+            getSecurityService().refreshInviteCode();
+        } catch (EnMeNoResultsFoundException e) {
+            log.error(e.getMessage());
+            return "user/dashboard";
+        }
+        return "redirect:/user/dashboard";
     }
 }

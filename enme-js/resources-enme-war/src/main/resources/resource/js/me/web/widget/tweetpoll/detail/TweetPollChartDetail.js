@@ -108,9 +108,9 @@ define([
      var error = function(error) {
          console.debug("error", error);
      };
-     encuestame.service.xhrGet(
-         this.getURLService().service('encuestame.service.list.getTweetPollVotes',
-             [this.username, this.tweetPollId]), {}, response, error);
+     this.getURLService().get(["encuestame.service.list.getTweetPollVotes", [this.username, this.tweetPollId]], { id : this.pollId }, response, error , dojo.hitch(this, function() {
+
+     }));
   }
 
   });

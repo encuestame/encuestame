@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 /**
  * Unit Use rBean.
  * @author Picado, Juan juanATencuestame.org
@@ -30,6 +32,8 @@ public class UserAccountBean implements Serializable {
     private String name;
     private String username;
     private Boolean status;
+    private Boolean activated;
+    @JsonIgnore
     private String password;
     private String inviteCode;
     private Date dateNew;
@@ -111,6 +115,7 @@ public class UserAccountBean implements Serializable {
     /**
      * @return the password
      */
+    @JsonIgnore
     public final String getPassword() {
         return password;
     }
@@ -302,6 +307,19 @@ public class UserAccountBean implements Serializable {
      */
     public void setPictureSource(final String pictureSource) {
         this.pictureSource = pictureSource;
+    }
+
+    /**
+     * @return the activated
+     */
+    public Boolean getActivated() {
+        return activated;
+    }
+    /**
+     * @param activated the activated to set
+     */
+    public void setActivated(Boolean activated) {
+        this.activated = activated;
     }
     /* (non-Javadoc)
      * @see java.lang.Object#toString()

@@ -6,7 +6,7 @@
                 #parse("/org/encuestame/business/mail/templates/presentation.vm")
                 <div style="margin:0 0 11px 0">
                         <span>
-                            ${successMessage}.
+                            ${successMessage}
                         </span>
                 </div>
                 <div>

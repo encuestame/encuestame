@@ -118,9 +118,10 @@ define([
           var error = function(error) {
               //console.debug("error", error);
                   };
-                  encuestame.service.xhrGet(
-                        this.getURLService().service('encuestame.service.social.action.remove'),
-                        {socialAccountId : this.account.id}, load, error);
+                  this.getURLService().get("encuestame.service.social.action.remove",
+                          { socialAccountId : this.account.id }, load, error , dojo.hitch(this, function() {
+
+                  }));
               },
 
       /*
@@ -144,9 +145,10 @@ define([
               console.debug("error", error);
                   };
                   var params = {socialAccountId : this.account.id};
-                  encuestame.service.xhrGet(
-                        this.getURLService().service('encuestame.service.social.action.defaultState'),
-                        params, load, error);
+                  this.getURLService().get("encuestame.service.social.action.defaultState",
+                          params, load, error , dojo.hitch(this, function() {
+
+                  }));
               },
 
               _showHideAction : function(){

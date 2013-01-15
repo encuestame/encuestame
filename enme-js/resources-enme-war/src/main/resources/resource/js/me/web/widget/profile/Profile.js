@@ -75,6 +75,9 @@ define([
                   console.debug("error", error);
               };
               encuestame.service.xhrGet(URLServices.service('encuestame.service.list.checkProfile'), {type:type, value: this.textbox.value}, load, error);
+//              this.getURLService().get('encuestame.service.list.checkProfile',  {type:type, value: this.textbox.value}, load, error , dojo.hitch(this, function() {
+//
+//              }));
           }
       }
   });

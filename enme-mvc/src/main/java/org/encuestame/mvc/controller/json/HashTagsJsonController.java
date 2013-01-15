@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * HashTag Json Controller.
@@ -56,12 +57,12 @@ public class HashTagsJsonController extends AbstractJsonController{
     /**
      * Limit of results by default.
      */
-    @Value("${hashtags.suggests.items}") private Integer hashtagsSuggestLimit; 
+    @Value("${hashtags.suggests.items}") private Integer hashtagsSuggestLimit;
 
     /**
      * Limit of cloud results.
      */
-    @Value("${hashtags.cloud.items}") private Integer hashtagsCloudLimit; 
+    @Value("${hashtags.cloud.items}") private Integer hashtagsCloudLimit;
 
      /**
      * Get List of Users.
@@ -75,13 +76,13 @@ public class HashTagsJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/common/hashtags.json", method = RequestMethod.GET)
-    public ModelMap getHashTags(
+    public @ResponseBody ModelMap getHashTags(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "excludes", required = false) Long[] excludes,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
-            try { 
+            try {
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
                 if(limit == null){
                     limit = hashtagsSuggestLimit;
@@ -89,16 +90,16 @@ public class HashTagsJsonController extends AbstractJsonController{
                 log.debug("Limit "+limit);
                 log.debug("Keyword "+keyword);
                 log.debug("excludes "+excludes);
-                log.debug("Hashtag Suggestion Before Validation :::"+keyword);                
-                keyword = ValidationUtils.removeNonAlphanumericCharacters(keyword); 
+                log.debug("Hashtag Suggestion Before Validation :::"+keyword);
+                keyword = ValidationUtils.removeNonAlphanumericCharacters(keyword);
                 log.debug("Hashtag Suggestion After Validation :::"+keyword);
                 if(keyword == null || keyword.isEmpty()){
                     jsonResponse.put("hashtags", ListUtils.EMPTY_LIST);
                     setItemResponse(jsonResponse);
                 } else {
                     final List<HashTagBean> hashTags = getTweetPollService().listSuggestHashTags(
-                    		keyword,
-                          limit, excludes); 
+                            keyword,
+                          limit, excludes);
                     log.debug("List Hash Tags "+hashTags.size());
                     setItemReadStoreResponse("hashTagName", "id", hashTags);
                 }
@@ -119,7 +120,7 @@ public class HashTagsJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @RequestMapping(value = "/api/common/hashtags/cloud.json", method = RequestMethod.GET)
-    public ModelMap getHashTagsCloud(
+    public @ResponseBody ModelMap getHashTagsCloud(
             @RequestParam(value = "limit", required = false) Integer limit,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -154,7 +155,7 @@ public class HashTagsJsonController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/survey/hashtag/{type}/{action}.json", method = RequestMethod.POST)
-    public ModelMap manageHashtag(
+    public @ResponseBody ModelMap manageHashtag(
             @RequestParam(value = "id", required = true) final String hashtag,
             @RequestParam(value = "itemId", required = true) final Long id,
             @PathVariable final String action,
@@ -178,32 +179,32 @@ public class HashTagsJsonController extends AbstractJsonController{
                                             new HashTagBean(hashtag)));
                     log.debug("New TweetPoll HT Bean: "+bean);
                     if (bean.getHashTagName().isEmpty()) {
-                    	setFailedResponse();
+                        setFailedResponse();
                     } else {
-                    	jsonResponse.put("hashtag", bean);
-                    	setItemResponse(jsonResponse);
+                        jsonResponse.put("hashtag", bean);
+                        setItemResponse(jsonResponse);
                     }
                 }
-			} else if (typeItem.equals(TypeSearchResult.POLL)) {
-				if ("remove".equals(action)) {
-					log.debug("Remove option has been disabled");
-					setSuccesResponse();
-				} else if ("add".equals(action)) {
-					final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-					final HashTagBean bean = ConvertDomainBean
-							.convertHashTagDomain(getPollService()
-									.addHashTagToPoll(
-											getPollService().getPollById(id),
-											new HashTagBean(hashtag)));
-					log.debug("New TweetPoll HT Bean: " + bean);
-					if (bean.getHashTagName().isEmpty()) {
-						setFailedResponse();
-					} else {
-						jsonResponse.put("hashtag", bean);
-						setItemResponse(jsonResponse);
-					}
-					setSuccesResponse();
-				}
+            } else if (typeItem.equals(TypeSearchResult.POLL)) {
+                if ("remove".equals(action)) {
+                    log.debug("Remove option has been disabled");
+                    setSuccesResponse();
+                } else if ("add".equals(action)) {
+                    final Map<String, Object> jsonResponse = new HashMap<String, Object>();
+                    final HashTagBean bean = ConvertDomainBean
+                            .convertHashTagDomain(getPollService()
+                                    .addHashTagToPoll(
+                                            getPollService().getPollById(id),
+                                            new HashTagBean(hashtag)));
+                    log.debug("New TweetPoll HT Bean: " + bean);
+                    if (bean.getHashTagName().isEmpty()) {
+                        setFailedResponse();
+                    } else {
+                        jsonResponse.put("hashtag", bean);
+                        setItemResponse(jsonResponse);
+                    }
+                    setSuccesResponse();
+                }
             } else if (typeItem.equals(TypeSearchResult.SURVEY)) {
                 //TODO: no yet.
                  setSuccesResponse();

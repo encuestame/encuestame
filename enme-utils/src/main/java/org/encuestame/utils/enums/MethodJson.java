@@ -21,5 +21,6 @@ package org.encuestame.utils.enums;
 public enum MethodJson {
     GET,
     POST,
-    PUT
+    PUT,
+    DELETE
 }

@@ -94,7 +94,9 @@ define([
        //console.info("url", url);
        //console.info("this.getParams", this.getParams());
        if (real_url) {
-         encuestame.service.xhrGet(this.getURLService().service(real_url), this.getParams(), load, error);
+         this.getURLService().get(real_url, this.getParams(), load, error , dojo.hitch(this, function() {
+
+         }));
        } else {
          this.handlerError("error");
        }

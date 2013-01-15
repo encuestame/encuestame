@@ -26,4 +26,16 @@
             </span>
         </div>
     </div>
+    <c:if test="${logged}">
+    <div data-dojo-type="dojox/widget/UpgradeBar" id="upgradeBar2" data-dojo-props="noRemindButton:''" style="display:none;">
+        <div validate="${!isActivated}">
+            <span>
+                <spring:message code="singup.account.not.validated" />
+            </span>
+            <a href="<%=request.getContextPath()%>/user/confirm/email/refresh/code">
+                   <spring:message code="singup.account.send.code" />
+            </a>
+        </div>
+    </div>
+    </c:if>
 </div>

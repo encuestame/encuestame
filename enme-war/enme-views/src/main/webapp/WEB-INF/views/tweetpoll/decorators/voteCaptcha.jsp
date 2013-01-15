@@ -10,7 +10,7 @@
                 <spring:message code="tweetpoll.votes.captcha" />
             </h3>
             <div class="captcha">
-                 <form:form modelAttribute="captchaForm">
+                 <form:form modelAttribute="captchaForm" action="${domain}/tweetpoll/vote/process">
                         <div class="recaptcha">
                             <c:out value="${captchaForm.captcha}" escapeXml="false" />
                             <br />

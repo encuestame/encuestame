@@ -53,6 +53,12 @@ public interface SecurityOperations extends ServiceOperations {
     UserAccount getUserAccount(final String username) throws EnMeNoResultsFoundException;
 
     /**
+     * Refresh the invite code and send new email to user account.
+     * @throws EnMeNoResultsFoundException
+     */
+    void refreshInviteCode() throws EnMeNoResultsFoundException;
+
+    /**
      *
      * @return
      */

@@ -13,6 +13,7 @@
 package org.encuestame.core.service.imp;
 
 import org.encuestame.core.service.ServiceOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
@@ -35,6 +36,13 @@ public interface MailServiceOperations extends ServiceOperations {
      */
     void send(final String to, final String subject, final String text)
     throws MailSendException;
+
+    /**
+     * Send a welcome notification after validate the account
+     * @param user
+     * @param message
+     */
+    void welcomeNotificationAccount(final UserAccount user);
 
     /**
      * Send Password Confirmation Email.

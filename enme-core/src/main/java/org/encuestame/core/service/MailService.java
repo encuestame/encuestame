@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.MailServiceOperations;
+import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.utils.mail.InvitationBean;
 import org.encuestame.utils.mail.NotificationBean;
 import org.encuestame.utils.security.SignUpBean;
@@ -388,6 +389,41 @@ public class MailService extends AbstractBaseService implements MailServiceOpera
                 this.noEmailResponse,
                 "/org/encuestame/business/mail/templates/renew-password.vm");
     }
+
+    /**
+     * Send a welcome notification after validate the account
+     * @param user
+     * @param message
+     */
+    public void welcomeNotificationAccount(final UserAccount user) {
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+           public void prepare(MimeMessage mimeMessage) throws Exception {
+              MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+              final String _fullName = user.getCompleteName();
+              final StringBuffer salute = new StringBuffer(getMessageProperties("mail.message.default.user.presentation",
+                      buildCurrentLocale(),
+                      null));
+              salute.append(" ");
+              salute.append(_fullName);
+              user.setCompleteName(salute.toString());
+              message.setTo(user.getUserEmail());
+              message.setSubject(buildSubject(getMessageProperties("mail.message.welcome.message.subject", buildCurrentLocale(), null)));
+              message.setFrom(noEmailResponse);
+              Map model = new HashMap();
+              getLogo(model);
+              model.put("domain", domainDefault);
+              model.put("user", user);
+              final String[] properties = {EnMePlaceHolderConfigurer.getProperty("mail.message.app.name")};
+              model.put("welcomeMessage", getMessageProperties("mail.message.welcome.message.description", buildCurrentLocale(), null));
+              model.put("enjoyMessage", getMessageProperties("mail.message.welcome.message.enjoyMessage", buildCurrentLocale(), null));
+              getGreetingMessage(model);
+              String text = VelocityEngineUtils.mergeTemplateIntoString(
+                 velocityEngine, "/org/encuestame/business/mail/templates/welcome-account.vm", model);
+              message.setText(text, true);
+           }
+        };
+        send(preparator);
+     }
 
     /**
      * Send notification status account.

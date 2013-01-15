@@ -358,7 +358,6 @@ public abstract class AbstractBaseOperations extends AbstractSecurityContext{
                     message, args, getLocale(request));
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
         }
         return stringValue;
     }

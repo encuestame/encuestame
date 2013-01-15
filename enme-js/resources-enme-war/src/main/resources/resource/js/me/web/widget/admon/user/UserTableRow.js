@@ -29,6 +29,7 @@ define([
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/CheckBox",
+         "me/web/widget/pictures/AccountPicture",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/admon/user/UserGroup",
          "me/core/enme",
@@ -41,6 +42,7 @@ define([
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
                 CheckBox,
+                AccountPicture,
                 main_widget,
                 UserGroup,
                 _ENME,
@@ -64,11 +66,10 @@ define([
             /**
              * Build Default Row.
              */
-            buildDefaultRow : function(){
+            buildDefaultRow : function() {
                 var data = this.data;
-                //this.createInput(data.id)
+                this.createInput(data)
                 this.createColumnDialog(data.username);
-                this.createColumn(data.name);
                 this.createGroupWidget(data);
                 this.createColumn(data.relateTimeEnjoy);
                 this.buildStatus(data.status);
@@ -99,7 +100,7 @@ define([
                  dojo.addClass(a, "link");
                  a.innerHTML = text;
                  a.href = "#";
-                 dojo.connect(a, "onclick", this, this.editUSer);
+                 //dojo.connect(a, "onclick", this, this.editUSer);
                  td.appendChild(a);
                  this._trbody.appendChild(td);
             },
@@ -133,7 +134,7 @@ define([
              * Get User.
              * @method
              */
-            getUserInfo : function(id ){
+            getUserInfo : function(id ) {
                 var load = dojo.hitch(this, function(response) {
                     registry.byId("userEdit").show();
                     var data = response.success.user;
@@ -176,10 +177,12 @@ define([
              * Create Input.
              * @method
              */
-            createInput : function(id) {
+            createInput : function(data) {
                 var td = domConstruct.create('td');
-                var widgetInput = new CheckBox({});
-                widgetInput.setValue(id);
+                var widgetInput = new AccountPicture({
+                     username : data.username,
+                     target : "_blank"
+                 });
                 td.appendChild(widgetInput.domNode);
                 this._trbody.appendChild(td);
             },

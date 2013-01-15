@@ -32,6 +32,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Project Json Controller.
@@ -58,7 +59,7 @@ public class JsonProjectController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/admon/project/projects.json", method = RequestMethod.GET)
-    public ModelMap get(
+    public @ResponseBody ModelMap get(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
@@ -96,7 +97,7 @@ public class JsonProjectController extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/project/create-project.json", method = RequestMethod.POST)
-    public ModelMap createUser(
+    public @ResponseBody ModelMap createUser(
             @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "dateInit", required = true) String dateInit,
             @RequestParam(value = "dateFinish", required = true) String dateFinish,

@@ -342,6 +342,7 @@ public class ConvertDomainBean {
             unitUserBean.setStatus(secUserSecondary.isUserStatus());
             unitUserBean.setGroupBean(convertGroupDomainToBean(secUserSecondary
                     .getGroup()));
+            unitUserBean.setActivated(secUserSecondary.getInviteCode() == null ? true : false);
             unitUserBean.setGroupId(secUserSecondary.getGroup() == null ? null
                     : secUserSecondary.getGroup().getGroupId());
             unitUserBean
@@ -1832,21 +1833,21 @@ public class ConvertDomainBean {
         return surveySections;
     }
 
-	/**
-	 *
-	 * @param socialProviders
-	 * @return
-	 */
+    /**
+     *
+     * @param socialProviders
+     * @return
+     */
     public static final List<SocialProvider> convertSocialProviderStringToProvider(
-			final List<String> socialProviders) {
-		final List<SocialProvider> socialNetworksProviders = new ArrayList<SocialProvider>();
-		SocialProvider socialNetworkProv;
-		for (String provider : socialProviders) {
-			socialNetworkProv = SocialProvider.getProvider(provider);
-			if (socialNetworkProv != null) {
-				socialNetworksProviders.add(socialNetworkProv);
-			}
-		}
-		return socialNetworksProviders;
-	}
+            final List<String> socialProviders) {
+        final List<SocialProvider> socialNetworksProviders = new ArrayList<SocialProvider>();
+        SocialProvider socialNetworkProv;
+        for (String provider : socialProviders) {
+            socialNetworkProv = SocialProvider.getProvider(provider);
+            if (socialNetworkProv != null) {
+                socialNetworksProviders.add(socialNetworkProv);
+            }
+        }
+        return socialNetworksProviders;
+    }
 }

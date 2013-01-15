@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Frontend json controller.
@@ -63,7 +64,7 @@ public class FrontEndJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @RequestMapping(value = "/api/common/frontend/stream.json", method = RequestMethod.GET)
-    public ModelMap getFrontendItems(
+    public @ResponseBody ModelMap getFrontendItems(
             @RequestParam(value = "period", required = false) String period,
             @RequestParam(value = "maxResults", required = false) Integer maxResults,
             @RequestParam(value = "start", required = false) Integer start,
@@ -95,7 +96,7 @@ public class FrontEndJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @RequestMapping(value = "/api/common/frontend/topusers.json", method = RequestMethod.GET)
-    public ModelMap getUserRatedTop(
+    public @ResponseBody ModelMap getUserRatedTop(
         @RequestParam(value = "status", required = false) Boolean status,
         HttpServletRequest request,
         HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -127,8 +128,8 @@ public class FrontEndJsonController extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @RequestMapping(value = "/api/common/frontend/{type}/stats.json", method = RequestMethod.GET)
-    public ModelMap getGenericStats(
+    @RequestMapping(value = "/api/common/frontend/{type}/stats.json", method = RequestMethod.GET )
+    public @ResponseBody ModelMap getGenericStats(
             @RequestParam(value = "id", required = false) String id,
             @PathVariable final String type,
             HttpServletRequest request,
@@ -154,7 +155,7 @@ public class FrontEndJsonController extends AbstractJsonController{
         }
         return returnData();
     }
-    
+
     /**
      * API JSON service to vote a published item.
      * @param id
@@ -167,19 +168,19 @@ public class FrontEndJsonController extends AbstractJsonController{
      * @throws IOException
      */
     @RequestMapping(value = "/api/frontend/home/vote.json", method = RequestMethod.POST)
-    public ModelMap voteHome(
+    public @ResponseBody ModelMap voteHome(
             @RequestParam(value = "id", required = false) Long id,
             @RequestParam(value = "type", required = false) String type,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException,
-            JsonMappingException, IOException {    
-    		final String ip = EnMeUtils.getIP(request, EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass"));
-    		final Status status = getFrontService().registerVote(id, TypeSearchResult.getTypeSearchResult(type), ip);
-    		if (status.equals(Status.SUCCESS)) {
-    			setSuccesResponse();
-    		} else {
-    			setFailedResponse();    			
-    		}
-			return returnData();    	
+            JsonMappingException, IOException {
+            final String ip = EnMeUtils.getIP(request, EnMePlaceHolderConfigurer.getBooleanProperty("application.proxyPass"));
+            final Status status = getFrontService().registerVote(id, TypeSearchResult.getTypeSearchResult(type), ip);
+            if (status.equals(Status.SUCCESS)) {
+                setSuccesResponse();
+            } else {
+                setFailedResponse();
+            }
+            return returnData();
     }
 }

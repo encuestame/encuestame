@@ -62,13 +62,13 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
-    //@Test
+    @Test
     public void testGetCommentsbyUnknownTweetPoll() throws ServletException, IOException {
         initService("/api/common/comment/comments/tweetpoll.json", MethodJson.GET);
-        setParameter("id", "1");
+        setParameter("id", "3213213721321");
         final JSONObject response = callJsonService();
         final String error = getErrorsMessage(response);
-        Assert.assertEquals(error, "tweetpoll [1] is not published");
+        Assert.assertEquals(error, "tweetpoll [3213213721321] is not published");
     }
 
     /**
@@ -124,7 +124,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
-    @Test
+   @Test
     public void testDislikeVoteComment() throws ServletException, IOException{
         initService("/api/common/comment/dislike_vote.json", MethodJson.GET);
         setParameter("commentId", this.comment.getCommentId().toString());
@@ -137,7 +137,7 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
-     @Test
+    @Test
      public void testCreateComment() throws ServletException, IOException{
          initService("/api/common/comment/create.json", MethodJson.POST);
          setParameter("comment", "My Comment");
@@ -154,19 +154,19 @@ public class CommentJsonControllerTestCase extends AbstractJsonMvcUnitBeans {
      * @throws ServletException
      * @throws IOException
      */
-    @Test
+   @Test
     public void testGetTopRatedComments() throws ServletException, IOException {
         final Calendar myCal = Calendar.getInstance();
         myCal.add(Calendar.DATE, -1);
-        
+
         createDefaultTweetPollCommentVoted("first comment", tweetPoll,
                 getSpringSecurityLoggedUserAccount(), 150L, 420L,
                 myCal.getTime());
-        
+
         createDefaultTweetPollCommentVoted("second comment", tweetPoll,
                 getSpringSecurityLoggedUserAccount(), 35L, 580L, new Date());
         myCal.add(Calendar.DATE, -2);
-        
+
         createDefaultTweetPollCommentVoted("third comment", tweetPoll,
                 getSpringSecurityLoggedUserAccount(), 325L, 70L,
                 myCal.getTime());

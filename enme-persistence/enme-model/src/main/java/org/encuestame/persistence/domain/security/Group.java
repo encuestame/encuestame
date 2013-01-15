@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.domain.security;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,9 +39,14 @@ import org.encuestame.persistence.domain.Project;
  */
 @Entity
 @Table(name = "groups")
-public class Group {
+public class Group implements Serializable{
 
      /**
+     *
+     */
+    private static final long serialVersionUID = 9053105218072115948L;
+
+    /**
      */
     public enum Type {
     /**

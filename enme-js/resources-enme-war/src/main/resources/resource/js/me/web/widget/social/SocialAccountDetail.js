@@ -89,9 +89,10 @@ define([
              var error = function(error) {
                  //console.debug("error", error);
              };
-            // console.debug("PROVIDER", this.socialProvider.toLowerCase());
-             encuestame.service.xhrGet(
-                 this.getURLService().service('encuestame.service.list.allSocialAccount'), {provider : this.socialProvider.toLowerCase()}, load, error);
+             this.getURLService().get("encuestame.service.list.allSocialAccount",
+                     {provider : this.socialProvider.toLowerCase()}, load, error , dojo.hitch(this, function() {
+
+             }));
          },
 
          /*

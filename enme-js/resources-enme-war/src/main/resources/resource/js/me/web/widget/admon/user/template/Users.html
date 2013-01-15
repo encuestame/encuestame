@@ -1,8 +1,16 @@
 <div class="userWidget">
-    <div class="menuOptions">
-         <a data-dojo-attach-event="onclick:_newUser">
-            New User
-    </a>
+    <div class="admon-table-options">
+       <div class="tb-left">
+            <h2>
+                Member administration
+            </h2>
+            <p>Add, remove and update permissions</p>
+       </div>
+       <div class="tb-right">
+        <button class="button" data-dojo-attach-event="onclick:_newUser">
+              New User
+        </button>
+      </div>
     </div>
     <div>
         <div>
@@ -11,22 +19,36 @@
             <table cellpadding="5" cellspacing="4" class="defaultTable" width="100%">
                     <thead>
                         <tr>
-                            <th scope="col">
+                            <th scope="col" class="enme-ui-gradient-header-color">
+
+                            </th>
+                            <th scope="col" class="enme-ui-gradient-header-color">
                                 Username
                             </th>
-                            <th scope="col" width="150px">
-                                Real Name
-                            </th>
-                            <th scope="col">
+                            <th scope="col" class="enme-ui-gradient-header-color group">
                                 Group
                             </th>
-                            <th scope="col" width="150px">User from</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">TweetPoll</th>
-                            <th scope="col">Poll</th>
-                            <th scope="col">Survey</th>
-                            <th scope="col" width="100px">Last Logged</th>
-                            <th scope="col">Followers</th>
+                            <th scope="col" class="enme-ui-gradient-header-color">
+                               Since
+                            </th>
+                            <th scope="col" class="enme-ui-gradient-header-color">
+                                Status
+                            </th>
+                            <th scope="col" class="enme-ui-gradient-header-color">
+                                TweetPoll
+                            </th>
+                            <th scope="col" class="enme-ui-gradient-header-color">
+                                Poll
+                            </th>
+                            <th scope="col" class="enme-ui-gradient-header-color">
+                                Survey
+                            </th>
+                            <th scope="col" width="100px" class="enme-ui-gradient-header-color">
+                                Last Access
+                            </th>
+                            <th scope="col" class="enme-ui-gradient-header-color">
+                                Followers
+                            </th>
                         </tr>
                      </thead>
                       <tfoot>
@@ -50,52 +72,75 @@
         </div>
     </div>
     <!-- <div jsId="basicStandby6" data-dojo-type="dojox.widget.Standby" target="newUser"/> -->
-    <div data-dojo-type="dijit/Dialog" id="newUser">
-            <div data-dojo-type="dijit/layout/AccordionContainer" style="min-height: 300px; width: 1024px;">
+    <div data-dojo-type="dijit/Dialog" id="newUser" class="web-new-user">
+           <div class="dialog-title">
+              <h2>
+                  New Request Member
+              </h2>
+           </div>
+            <div data-dojo-type="dijit/layout/AccordionContainer" style="min-height: 300px; width: 800px;">
                 <div data-dojo-type="dijit/layout/ContentPane" title="Add User Directly" selected="true">
-
-                    <div data-dojo-type="dijit/form/Form" id="newUserSimpleForm" class="formDefault">
+                   <p>
+                      Useful to create a new member account, this member share all content created by single group
+                  </p>
+                    <div data-dojo-type="dijit/form/Form" id="web-user-actions-form-wrapper" class="web-admon-user-create">
                         <table>
                             <tr>
                               <td>
-                                  <label for="name">Username </label>
-                              </td>
-                              <td>
-                                  <input data-dojo-type="dijit/form/ValidationTextBox"
+                                  <input data-dojo-type="me/web/widget/validator/UsernameValidator"
                                          required="true"
                                          size="30"
                                          type="text"
+                                         placeholder="Write a username"
                                          name="newUsername"
                                          id="newUsername">
                               </td>
                             </tr>
                             <tr>
                               <td>
-                                  <label for="loc">Email </label>
-                              </td>
-                              <td>
-                                  <input data-dojo-type="dijit/form/ValidationTextBox"
+                                  <input data-dojo-type="me/web/widget/validator/EmailValidator"
                                    size="30"
                                    required="true"
+                                   placeholder="Write a valid email"
                                    regExp="[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"
                                    type="text" name="newEmailUser" id="newEmailUser">
                               </td>
                             </tr>
                           </table>
-                          <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="onClick:_createDirectlyUser">Save</button>
+                          <div style="padding: 20px 0;">
+                              <button data-dojo-type="dijit/form/Button" type="button"  data-dojo-attach-point="_request_button" data-dojo-attach-event="onClick:_createDirectlyUser">
+                                  Send Member Request
+                              </button>
+                          </div>
                       </div>
                 </div>
                 <div data-dojo-type="dijit/layout/ContentPane" title="Invitate User" >
+                    <p>
+                        Invite your friends to connect to Encuestame
+                    </p>
                      <div style="padding: 20px;">
-                         <label for="desc">Write list of emails: </label>
-                         <input data-dojo-type="dijit/form/TextBox" type="text" name="emailList" id="emailList">
+                         <label for="desc">
+                             Write a email
+                          </label>
+                          <br/>
+                         <input data-dojo-type="dijit/form/TextBox" class="questionTextBox" type="text" name="emailList" id="emailList">
+                         <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_invitation_button">
+                              Send an Invitation
+                         </button>
                      </div>
                 </div>
+              <!--
+                  TODO: Search user from LDAP.
                 <div data-dojo-type="dijit/layout/ContentPane" title="Search User (LDAP..)">
                     <div style="padding: 20px;">
                         LDAP Search
                     </div>
-                </div>
+                </div> -->
+        </div>
+        <div class="options dialog-close-button" data-dojo-attach-point="_closeWrapper">
+           <button data-dojo-type="dijit/form/Button"  data-dojo-attach-point="_close" data-dojo-attach-event="onClick:_closeNewDialog">
+                Close
+           </button>
         </div>
     </div>
     <div data-dojo-type="dijit/Dialog" id="userEdit" title="User Edit"  width="400px">

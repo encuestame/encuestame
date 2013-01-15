@@ -19,7 +19,6 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceResolver;
-import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.mobile.device.LiteDeviceResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

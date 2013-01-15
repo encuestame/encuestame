@@ -23,77 +23,121 @@
  */
 define([
          "dojo/_base/declare",
+         "dojo/dom-construct",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "dijit/form/TextBox",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/admon/user/UserGroup",
          "me/core/enme",
          "dojo/text!me/web/widget/admon/user/template/UserGroup.html" ],
         function(
                 declare,
+                domConstruct,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
+                TextBox,
                 main_widget,
                 UserGroup,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-          // template string.
+            /**
+             * template string.
+             * @property templateString
+             */
             templateString : template,
 
-
+            /**
+             *
+             * @property _stateMenu
+             */
             _stateMenu : false,
 
+            /**
+             *
+             * @property _groups
+             */
             _groups : [],
 
+            /**
+             *
+             * @property parentWidget
+             */
             parentWidget : null,
 
+            /**
+             *
+             * @property _groupId
+             */
             _groupId : null,
 
+            /**
+             *
+             * @property dataUser
+             */
             dataUser : {},
 
+            /**
+             *
+             * @property _groupSelectedName
+             */
             _groupSelectedName : "",
 
+            /**
+             *
+             * @property _timer
+             */
             _timer : null,
 
-            /*
-             * Post Create.
+            /**
+             *
+             * @method
              */
-            postCreate : function(){
-                if(this.dataUser.groupId){
+            postCreate : function() {
+                if (this.dataUser.groupId) {
                     this._groupId = this.dataUser.groupId;
-                    if(this.dataUser.groupBean != null){
+                    if (this.dataUser.groupBean != null) {
                         this._groupName.innerHTML = this.dataUser.groupBean.groupName;
                     }
                 }
                 dojo.subscribe("/encuestame/admon/user/hide", this, "_close");
             },
 
-            _setLabelSelected : function(label){
+            /**
+             *
+             * @method
+             */
+            _setLabelSelected : function(label) {
                 this._groupName.innerHTML = label;
             },
 
-            /*
-             * Call Groups.
-             */
-            _callGroups : function(){
-                var load = dojo.hitch(this, function(response){
+           /**
+            * Call Groups.
+            * @method
+            */
+            _callGroups : function() {
+                var parent = this;
+                var load = dojo.hitch(this, function(response) {
                     this._groups = response.success.groups;
                     this.buildGroups();
                 });
                 var error = function(error) {
-                    console.debug("error", error);
+                    parent.errorMessage(error);
                 };
-                encuestame.service.xhrGet(encuestame.service.list.loadGroups, {}, load, error);
+                this.getURLService().get('encuestame.service.list.loadGroups', {}, load, error , dojo.hitch(this, function() {
+
+                }));
             },
 
-            /*
-             * Build Groups.
-             */
-            buildGroups : function(){
+           /**
+            * Build the list of groups
+            * @method
+            */
+            buildGroups : function() {
                 dojo.empty(this._items);
                 dojo.forEach(this._groups,
                 dojo.hitch(this, function(data, index) {
@@ -102,13 +146,14 @@ define([
                 this._items.appendChild(this._buildCreateGroup().domNode);
             },
 
-            /*
+            /**
              * Build Menu Item.
+             * @method
              */
-            _buildItemMenu : function(data){
+            _buildItemMenu : function(data) {
                  var div = dojo.doc.createElement('div');
                  dojo.addClass(div, "item");
-                 if(this._groupId == data.id){
+                 if (this._groupId == data.id) {
                     dojo.addClass(div, "selected");
                  }
                  //console.debug(data);
@@ -122,12 +167,18 @@ define([
                  this._items.appendChild(div);
             },
 
-            _buildCreateGroup : function(){
-                var myTextBox = new dijit.form.TextBox({
+            /**
+             *
+             * @method
+             */
+            _buildCreateGroup : function() {
+                var myTextBox = new TextBox({
                     name: "newGroupTextBox",
                     value: "",
-                    style: "max-width:160px",
-                    placeHolder: "enter new group"
+                    style: "max-width: 150px;padding: 0px;",
+                    maxLength : 49,
+                    placeHolder: "enter new group",
+
                 }, "newGroupTextBox");
                 dojo.connect(myTextBox, "onKeyDown", this, dojo.hitch(this, function(event){
                     // dojo.stopEvent(event);
@@ -138,27 +189,39 @@ define([
                 return myTextBox;
             },
 
-            /*
+
+            /**
              * Create Group.
+             * @method
              */
-            _createGroup : function(data){
-                var load = dojo.hitch(this, function(response){
+            _createGroup : function(data) {
+                var load = dojo.hitch(this, function(response) {
                     this._callGroups();
                 });
                 var error = function(error) {
                     console.debug("error", error);
                 };
-                encuestame.service.xhrGet(encuestame.service.list.groupCreate, {groupName:data}, load, error);
+                this.getURLService().get('encuestame.service.list.groupCreate', {
+                    groupName : data
+                }, load, error , dojo.hitch(this, function() {
+
+                }));
             },
 
+            /**
+             *
+             * @method _markAsSelected
+             */
             _markAsSelected : function(node){
                 dojo.addClass(node, "selected");
              },
 
-            /*
-             * Select Item.
+            /**
+             *
+             * @method _selectItem
              */
-            _selectItem : function(data, node){
+            _selectItem : function(data, node) {
+                var parent = this;
                 var load = dojo.hitch(this, function(response){
                     this._markAsSelected(node);
                     dojo.addClass(this._items, "defaultDisplayHide");
@@ -167,16 +230,22 @@ define([
                     this._stateMenu = false;
                 });
                 var error = function(error) {
-                    console.debug("error", error);
+                     parent.errorMessage(error);
                 };
-                var params = {id: data.id, userId: this.parentWidget.data.id };
-                encuestame.service.xhrGet(encuestame.service.list.assingGroups, params, load, error);
+                var params = {
+                    id: data.id,
+                    userId: this.parentWidget.data.id
+                 };
+                 this.getURLService().get('encuestame.service.list.assingGroups', params, load, error , dojo.hitch(this, function() {
+
+                }));
             },
 
-            /*
-             * Close.
+            /**
+             *
+             * @method _close
              */
-            _close : function(widget){
+            _close : function(widget) {
                  if(widget != this){
                      dojo.addClass(this._items, "defaultDisplayHide");
                      dojo.removeClass(this._items, "defaultDisplayBlock");
@@ -185,7 +254,11 @@ define([
                  }
              },
 
-             _changeMenu : function(){
+             /**
+              *
+              * @method _changeMenu
+              */
+             _changeMenu : function() {
                  if(this._stateMenu){
                      dojo.addClass(this._items, "defaultDisplayHide");
                      dojo.removeClass(this._items, "defaultDisplayBlock");
@@ -198,27 +271,36 @@ define([
                  }
              },
 
-             /*
-              * On Open Menu.
-              */
-            _onOpenMenu : function(event){
+            /**
+             *
+             * @method _onOpenMenu
+             */
+            _onOpenMenu : function(event) {
                 dojo.stopEvent(event);
                 dojo.publish("/encuestame/admon/user/hide", [this]);
                 this._changeMenu();
                 this._stateMenu = !this._stateMenu;
             },
 
-            _onMouseOver: function(event){
+
+            /**
+             *
+             * @method _onMouseOver
+             */
+            _onMouseOver: function(event) {
                 dojo.stopEvent(event);
-                //console.debug("on mouse over");
                 this._timer = setTimeout(dojo.hitch(this, function() {
                     dojo.addClass(this._groupWrapper, "showMenu");
-                    } ), 200);
+                }), 200);
             },
 
-            _onMouseOut : function(event){
+
+            /**
+             *
+             * @method _onMouseOut
+             */
+            _onMouseOut : function(event) {
                  dojo.stopEvent(event);
-                 //console.debug("on mouse out");
                  clearTimeout(this._timer);
                  dojo.removeClass(this._groupWrapper, "showMenu");
             }

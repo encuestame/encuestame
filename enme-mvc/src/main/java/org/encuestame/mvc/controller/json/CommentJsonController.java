@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Comment Json Controller.
@@ -65,7 +66,7 @@ public class CommentJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/comment/comments/{type}.json", method = RequestMethod.GET)
-    public ModelMap getCommentsbyTweetPoll(
+    public @ResponseBody ModelMap getCommentsbyTweetPoll(
             @PathVariable String type,
             @RequestParam(value = "id", required = true) Long itemId,
             @RequestParam(value = "max", required = false) Integer max,
@@ -84,7 +85,6 @@ public class CommentJsonController extends AbstractJsonController {
             setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();
@@ -103,7 +103,7 @@ public class CommentJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "/api/common/comment/search.json", method = RequestMethod.GET)
-    public ModelMap getComments(
+    public @ResponseBody ModelMap getComments(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "excludes", required = false) Long[] excludes,
@@ -144,7 +144,7 @@ public class CommentJsonController extends AbstractJsonController {
      * @throws IOException
      */
     @RequestMapping(value = "/api/common/comment/{option}.json", method = RequestMethod.GET)
-    public ModelMap voteComment(
+    public @ResponseBody ModelMap voteComment(
             @RequestParam(value = "commentId", required = true) Long commentId,
             @PathVariable String option,
             HttpServletRequest request,
@@ -170,7 +170,7 @@ public class CommentJsonController extends AbstractJsonController {
      */
     @RequestMapping(value = "/api/common/comment/create.json", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
-    public ModelMap createComment(
+    public @ResponseBody ModelMap createComment(
             @RequestParam(value = "comment", required = true) String mycomment,
             @RequestParam(value = "tweetPollId", required = true) Long tweetPollId,
             HttpServletRequest request,
@@ -201,7 +201,7 @@ public class CommentJsonController extends AbstractJsonController {
      * @return
      */
     @RequestMapping(value = "/api/common/comment/rate/top.json", method = RequestMethod.GET)
-    public ModelMap getTopRatedComments(
+    public @ResponseBody ModelMap getTopRatedComments(
             @RequestParam(value = "commentOption", required = false) String commentOption,
             @RequestParam(value = "max", required = false) Integer max,
             @RequestParam(value = "start", required = false) Integer start,

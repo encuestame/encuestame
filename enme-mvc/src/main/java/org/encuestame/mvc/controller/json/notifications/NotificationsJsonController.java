@@ -36,6 +36,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Notification Json Controller.
@@ -62,7 +63,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/status-notifications.json", method = RequestMethod.GET)
-    public ModelMap status(
+    public @ResponseBody ModelMap status(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> responseJson = new HashMap<String, Object>();
@@ -106,7 +107,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/list.json", method = RequestMethod.GET)
-    public ModelMap get(
+    public @ResponseBody ModelMap get(
             @RequestParam(value = "limit") Integer limit,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -139,7 +140,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/all/list.json", method = RequestMethod.GET)
-    public ModelMap getClassifiedNotifications(
+    public @ResponseBody ModelMap getClassifiedNotifications(
             @RequestParam(value = "limit", required = false) Integer limit,
             @RequestParam(value = "start", required = false) Integer start,
             @RequestParam(value = "categorized", required = true) Boolean categorized,
@@ -187,7 +188,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/api/notifications/readed.json", method = RequestMethod.GET)
-    public ModelMap changeStatus(
+    public @ResponseBody ModelMap changeStatus(
             @RequestParam(value = "id", required = true) Long id,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -214,7 +215,7 @@ public class NotificationsJsonController extends AbstractJsonController {
      */
     @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
     @RequestMapping(value = "/api/remove-notification.json", method = RequestMethod.GET)
-    public ModelMap removeNotification(
+    public @ResponseBody ModelMap removeNotification(
             @RequestParam(value = "notificationId") Long notificationId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {

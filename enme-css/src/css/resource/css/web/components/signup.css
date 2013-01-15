@@ -142,13 +142,14 @@ div.web-form-wrapper form {
   width: 100%;
 }
 
-#web-user-actions-form-wrapper  a {
+/* commented, broke the captcha style **/
+/*#web-user-actions-form-wrapper  a {
   color: #444444;
   margin-left: 4px;
   text-shadow: 1px 0 0 white;
   top: 0;
 }
-
+*/
 
 #web-user-actions-form-wrapper  .shadow-input-message {
     -moz-transition: opacity 0.1s ease 0s, font-size 0.1s ease 0s;

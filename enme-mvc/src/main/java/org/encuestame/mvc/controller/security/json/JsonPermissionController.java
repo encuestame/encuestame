@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Json Permission.
@@ -60,7 +61,7 @@ public class JsonPermissionController  extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-permissions.json", method = RequestMethod.GET)
-    public ModelMap getPermissions(
+    public @ResponseBody ModelMap getPermissions(
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
@@ -80,7 +81,7 @@ public class JsonPermissionController  extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
     @RequestMapping(value = "/api/admon/list-user-permissions.json", method = RequestMethod.GET)
-    public ModelMap getUserPermissions(
+    public @ResponseBody ModelMap getUserPermissions(
             @RequestParam(value = "id", required = true) Long userId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
@@ -110,7 +111,7 @@ public class JsonPermissionController  extends AbstractJsonController{
      */
     @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
     @RequestMapping(value = "/api/admon/{action}-permission.json", method = RequestMethod.GET)
-    public ModelMap addPermission(
+    public @ResponseBody ModelMap addPermission(
              @PathVariable String action,
              @RequestParam(value = "id", required = true) Long userId,
              @RequestParam(value = "permission", required = true) String permission,

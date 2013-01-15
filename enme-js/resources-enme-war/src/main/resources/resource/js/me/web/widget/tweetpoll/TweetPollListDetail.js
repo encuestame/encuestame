@@ -107,7 +107,9 @@ define([
              var params = {
                      tweetPollId : this.data.id
              };
-             encuestame.service.xhrGet(this.getURLService().service(url), params, load, error);
+             this.getURLService().get(url, params, load, error , dojo.hitch(this, function() {
+
+             }));
          },
 
          /***

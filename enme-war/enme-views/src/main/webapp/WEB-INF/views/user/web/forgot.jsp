@@ -2,7 +2,7 @@
 
 <div id="web-user-actions-form-wrapper" class="enme-auto-center">
     <div class="web-form-wrapper recover-password-form" id="web-form-wrapper">
-        <form:form modelAttribute="forgotPasswordBean" cssClass="signup-form defaultForm">
+        <form:form modelAttribute="forgotPasswordBean" cssClass="signup-form defaultForm" action="${domain}/user/forgot">
             <div class="section-signup" title="Sign Up with Username"
                 collapsed="false">
                 <div class="web-form-singup-container">
@@ -27,7 +27,9 @@
                         <div class="section name">
                             <div class="validator-wrapper" id="rm" widgetid="rm">
                                 <div id="_message_rm" class="sidetip">
-                                    <p><form:errors path="captcha" cssClass="error-message" /></p>
+                                    <p>
+                                        <form:errors path="captcha" cssClass="error-message" />
+                                    </p>
                                 </div>
                                 <div class="captcha">
                                      <c:out value="${forgotPasswordBean.captcha}" escapeXml="false" />

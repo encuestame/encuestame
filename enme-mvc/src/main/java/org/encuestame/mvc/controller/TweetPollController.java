@@ -24,7 +24,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
-import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;
@@ -159,7 +158,7 @@ public class TweetPollController extends AbstractSocialController {
      * @return view to redirect.
      * @throws UnknownHostException
      */
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/tweetpoll/vote/process", method = RequestMethod.POST)
     public String processSubmit(
             HttpServletRequest req,
             @RequestParam("recaptcha_challenge_field") String challenge,

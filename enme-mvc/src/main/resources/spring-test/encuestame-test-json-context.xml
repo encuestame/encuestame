@@ -13,13 +13,13 @@
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-      
+
 
       <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
 
       <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
 
-      <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+     <!--  <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
           <property name="order" value="1"/>
            <property name="mediaTypes">
              <map>
@@ -51,7 +51,7 @@
         </property>
         <property name="ignoreAcceptHeader" value="true" />
     </bean>
-
+ -->
     <!--
     Maps requests to @Controllers based on @RequestMapping("path")
     annotation values If no annotation-based path mapping is found, Spring

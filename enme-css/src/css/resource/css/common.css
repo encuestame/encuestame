@@ -1,3 +1,10 @@
+.enme-main-section {
+  border: 1px solid #BCBCBC;
+  border-radius: 3px 3px 3px 3px;
+  margin-top: 2em;
+  background-color: #F0F0F0;
+}
+
 .clearfix:after {
     content: ".";
     display: block;
@@ -156,6 +163,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 }
 
 .default-rigth-aling{
+    text-align: right;
+}
+
+.center-alg{
     text-align: right;
 }
 
@@ -358,6 +369,19 @@ input:focus {
   background-color: white;
   color: black;
   text-shadow: 0 1px white;
+}
+
+.dialog-title {
+  padding: 10px;
+}
+
+.dialog-title h2{
+  margin: 0;
+}
+
+.dialog-close-button {
+  padding: 10px;
+  text-align: right;
 }
 
 .enme-unselectable {

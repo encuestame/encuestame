@@ -41,11 +41,22 @@ define([
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, abstractValidatorWidget, _WidgetsInTemplateMixin], {
 
-          // template string.
+           /**
+            * template string.
+            * @property
+            */
            templateString : template,
 
-           placeholder : "Write your username",
+           /**
+            *
+            * @property
+            */
+            placeholder : "Write your username",
 
+           /**
+            *
+            * @method
+            */
             postCreate : function() {
                 this.inherited(arguments);
             },
@@ -53,7 +64,7 @@ define([
             /*
              *
              */
-            _validate : function(event){
+            _validate : function(event) {
                 this.inputTextValue = this._input.value;
                     this._loadService(
                     this.getServiceUrl(), {
@@ -62,7 +73,11 @@ define([
                 }, this.error);
             },
 
-            getServiceUrl : function(){
+            /**
+             *
+             * @method
+             */
+            getServiceUrl : function() {
                 return 'encuestame.service.publicService.validate.username';
             },
 
@@ -98,7 +113,11 @@ define([
                 }
             },
 
-            _additionalSuccessHandler : function(data){
+            /**
+             *
+             * @method
+             */
+            _additionalSuccessHandler : function(data) {
                 var fadeArgs = {
                         node: this._suggest,
                         duration: 500
@@ -107,22 +126,44 @@ define([
                     dojo.empty(this._suggest);
             },
 
-            _replaceUsername : function(item){
-                console.debug("replace", item);
+            /**
+             *
+             * @method
+             */
+            getValue : function () {
+                return this._input.value;
+            },
+
+            /**
+             *
+             * @method
+             */
+            clear : function () {
+                  this.cleanMessage();
+                  this._input.value = "";
+            },
+
+            /**
+             *
+             * @method
+             */
+            _replaceUsername : function(item) {
                 dojo.style(this._block, "display", "none");
                 this._input.value = item;
                 this._loadService(
-                        encuestame.service.publicService.validate.username, {
+                        'encuestame.service.publicService.validate.username', {
                             context : this.enviroment,
                             username :  item
                         }, this.error);
             },
 
-
-             error : function(error) {
+            /**
+             *
+             * @method
+             */
+            error : function(error) {
                 console.debug("error", error);
-             }
-
+            }
 
     });
 });
