@@ -237,7 +237,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         assertEquals("Should be equals", 0 , tweetsResultsBad.size());
     }*/
 
-    @Test
+  //  @Test
     @Category(DefaultTest.class)
     public void testGetTweetsPollsByUserName() throws EnMeNoResultsFoundException{
         final Question question1 = createQuestion("Why the sea is salad?","html");

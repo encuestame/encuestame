@@ -322,7 +322,7 @@ public class TestTweetPollDao extends AbstractBase {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    @Test
+   // @Test
     public void testRetrieveTweetsByQuestionName()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         assertNotNull(this.secondary);
@@ -435,7 +435,7 @@ public class TestTweetPollDao extends AbstractBase {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    @Test
+    //@Test
     public void testRetrieveTweetPollByDate() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         assertNotNull(this.secondary);
 
