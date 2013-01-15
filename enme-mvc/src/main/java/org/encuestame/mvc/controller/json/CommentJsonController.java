@@ -85,7 +85,6 @@ public class CommentJsonController extends AbstractJsonController {
             setItemResponse(jsonResponse);
         } catch (Exception e) {
             log.error(e);
-            e.printStackTrace();
             setError(e.getMessage(), response);
         }
         return returnData();

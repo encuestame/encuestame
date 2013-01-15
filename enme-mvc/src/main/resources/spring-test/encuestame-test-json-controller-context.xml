@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:device="http://www.springframework.org/schema/mobile/device"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                        http://www.springframework.org/schema/mobile/device
+                        http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd">
+
+    <!-- Scans for application @Components to deploy -->
+    <context:component-scan base-package="org.encuestame.mvc" />
+
+    <mvc:annotation-driven/>
+
+
+    <mvc:interceptors>
+          <bean class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
+    </mvc:interceptors>
+
+    <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
+    <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
+    <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
+    <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
+    <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
+    <bean name="openSessionInViewInterceptor"
+              class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="singleSession" value="true" />
+   </bean>
+   <bean id="imageThumbnailGenerator" class="org.encuestame.core.image.ImageThumbnailGeneratorImpl" />
+   <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
+   <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
+   <bean id="frontEndAtomFeedView" class="org.encuestame.mvc.view.FrontEndAtomFeedView"></bean>
+   <bean id="frontEndRssFeedView" class="org.encuestame.mvc.view.FrontEndRssFeedView"></bean>
+   <bean id="pollAtomFeedView" class="org.encuestame.mvc.view.PollAtomFeedView"></bean>
+   <bean id="pollRssFeedView" class="org.encuestame.mvc.view.PollRssFeedView"></bean>
+   <bean id="profileAtomFeedView" class="org.encuestame.mvc.view.ProfileAtomFeedView"></bean>
+   <bean id="profileRssFeedView" class="org.encuestame.mvc.view.ProfileRssFeedView"></bean>
+   <bean id="projectAtomFeedView" class="org.encuestame.mvc.view.ProjectAtomFeedView"></bean>
+   <bean id="projectRssFeedView" class="org.encuestame.mvc.view.ProjectRssFeedView"></bean>
+   <bean id="surveyAtomFeedView" class="org.encuestame.mvc.view.SurveyAtomFeedView"></bean>
+   <bean id="surveyRssFeedView" class="org.encuestame.mvc.view.SurveyRssFeedView"></bean>
+
+ <!--
+    Maps requests to @Controllers based on @RequestMapping("path")
+    annotation values If no annotation-based path mapping is found, Spring
+    MVC proceeds to the next HandlerMapping (order=0 below).
+  -->
+  <bean
+    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+      <property name="interceptors">
+          <list>
+               <ref bean="openSessionInViewInterceptor"/>
+               <ref bean="messagesInterceptor"/>
+          </list>
+      </property>
+     <property name="order" value="0"/>
+  </bean>
+
+  <!--
+    Enables annotated @Controllers; responsible for invoking an annotated
+    POJO @Controller when one is mapped.
+  -->
+  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="order" value="0"/>
+        <!--
+            NOTE: it is important to specify the order property, so this
+            adapter will be attempted before the HandlerAdapter that
+            Spring MVC automatically configures. This is because a
+            MappingJacksonHttpMessageConverter is registered
+            automatically with the default adapter that will attempt to
+            handle any Java object including BufferedImage.
+        -->
+        <property name="messageConverters">
+            <list>
+                <!-- Default converters -->
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>image/jpeg</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+                <!-- Converter for images -->
+                <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
+            </list>
+        </property>
+  </bean>
+
+  <!-- Maps request paths to @Controller classes;
+       e.g. a path of /signup looks for a controller named SignUpController -->
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+        <property name="order" value="3" />
+        <property name="defaultHandler">
+            <ref bean="urlFilenameViewController"></ref>
+        </property>
+    </bean>
+
+    <!-- Resolvers -->
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+         <property name="order" value="0"/>
+    </bean>
+
+  <!-- Controller Views -->
+  <bean id="urlFilenameViewController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+
+  <!-- Dispatches requests mapped to
+    org.springframework.web.servlet.mvc.Controller implementations
+    required to render urlFilenameViewController.
+    -->
+  <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+
+    <!-- Create Cookie Default Locale-->
+    <bean id="localeResolver"
+           class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+           <property name="cookieName" value="enme-locale" />
+           <property name="cookieMaxAge" value="30" />
+    </bean>
+
+
+
+  <!--
+    - This bean resolves specific types of exceptions to corresponding
+    logical - view names for error views. The default behaviour of
+    DispatcherServlet - is to propagate all exceptions to the servlet
+    container: this will happen - here with all other types of exceptions.
+    http://forum.springsource.org/showthread.php?t=36960-->
+  <bean class="org.encuestame.core.exception.EnMeMappingExceptionResolver"/>
+
+
+  <!-- thumbnail generator engine
+         thanks to raulraja.
+     -->
+    <bean id="thumbnailGeneratorEngine" class="org.encuestame.core.image.ThumbnailGeneratorEngineImpl">
+
+        <!-- the file extension for the thumbnail files -->
+        <property name="generatedExtension">
+            <value>.jpg</value>
+        </property>
+
+        <!-- the different sizes we want to generate, adjusting the aspect ratio based on the biggest dimension -->
+        <property name="supportedSizes">
+            <list>
+                <value>900</value>
+                <value>375</value>
+                <value>256</value>
+                <value>128</value>
+                <value>64</value>
+                <value>22</value>
+            </list>
+        </property>
+
+        <!-- mappings from the different content types to the right generator that handles each type -->
+        <property name="thumbnailGenerators">
+            <map>
+                <entry key="image/jpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/jpg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/pjpeg" value-ref="imageThumbnailGenerator" />
+                <entry key="image/gif" value-ref="imageThumbnailGenerator" />
+                <entry key="image/png" value-ref="imageThumbnailGenerator" />
+                <entry key="image/tiff" value-ref="imageThumbnailGenerator" />
+                <entry key="image/bmp" value-ref="imageThumbnailGenerator" />
+                <!--<entry key="application/pdf" value-ref="pdfThumbnailGenerator" />-->
+            </map>
+        </property>
+
+        <!-- A default thumbnail generator to be used for unregistered mime types -->
+        <property name="defaultThumbnailGenerator" ref="imageThumbnailGenerator"/>
+    </bean>
+
+</beans>
+
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+ <mvc:annotation-driven/>
+
+
+    <mvc:interceptors>
+          <bean class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
+          <bean class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
+          <bean  class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
+          <bean  class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
+          <bean  class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
+    </mvc:interceptors>
+
+    <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
+    <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
+    <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
+    <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
+    <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
+    <bean name="openSessionInViewInterceptor"
+              class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+        <property name="singleSession" value="true" />
+   </bean>
+   <bean id="imageThumbnailGenerator" class="org.encuestame.core.image.ImageThumbnailGeneratorImpl" />
+   <bean id="tweetPollAtomFeedView" class="org.encuestame.mvc.view.TweetPollAtomFeedView"></bean>
+   <bean id="tweetPollRssFeedView" class="org.encuestame.mvc.view.TweetPollRssFeedView"></bean>
+   <bean id="frontEndAtomFeedView" class="org.encuestame.mvc.view.FrontEndAtomFeedView"></bean>
+   <bean id="frontEndRssFeedView" class="org.encuestame.mvc.view.FrontEndRssFeedView"></bean>
+   <bean id="pollAtomFeedView" class="org.encuestame.mvc.view.PollAtomFeedView"></bean>
+   <bean id="pollRssFeedView" class="org.encuestame.mvc.view.PollRssFeedView"></bean>
+   <bean id="profileAtomFeedView" class="org.encuestame.mvc.view.ProfileAtomFeedView"></bean>
+   <bean id="profileRssFeedView" class="org.encuestame.mvc.view.ProfileRssFeedView"></bean>
+   <bean id="projectAtomFeedView" class="org.encuestame.mvc.view.ProjectAtomFeedView"></bean>
+   <bean id="projectRssFeedView" class="org.encuestame.mvc.view.ProjectRssFeedView"></bean>
+   <bean id="surveyAtomFeedView" class="org.encuestame.mvc.view.SurveyAtomFeedView"></bean>
+   <bean id="surveyRssFeedView" class="org.encuestame.mvc.view.SurveyRssFeedView"></bean>
+
+
+    Maps requests to @Controllers based on @RequestMapping("path")
+    annotation values If no annotation-based path mapping is found, Spring
+    MVC proceeds to the next HandlerMapping (order=0 below).
+
+  <bean
+    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+      <property name="interceptors">
+          <list>
+               <ref bean="enMeInterceptor"/>
+               <ref bean="openSessionInViewInterceptor"/>
+               <ref bean="setupInterceptor"/>
+               <ref bean="mobileInterceptor"/>
+               <ref bean="signInInterceptor"/>
+               <ref bean="messagesInterceptor"/>
+          </list>
+      </property>
+     <property name="order" value="0"/>
+  </bean>
+
+  Scans for application @Components to deploy
+  <context:component-scan base-package="org.encuestame.mvc" />
+
+
+    Enables annotated @Controllers; responsible for invoking an annotated
+    POJO @Controller when one is mapped.
+
+  <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="order" value="0"/>
+
+            NOTE: it is important to specify the order property, so this
+            adapter will be attempted before the HandlerAdapter that
+            Spring MVC automatically configures. This is because a
+            MappingJacksonHttpMessageConverter is registered
+            automatically with the default adapter that will attempt to
+            handle any Java object including BufferedImage.
+
+        <property name="messageConverters">
+            <list>
+                Default converters
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>image/jpeg</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+
+                Converter for images
+                <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
+
+                Handle JAXB XML objects
+                <bean id="marshallingHttpMessageConverter"
+                 class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                    <constructor-arg>
+                        <bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+                            <property name="classesToBeBound">
+                                <list>
+                                    <value>PictureFolders</value>
+                                    <value>Pictures</value>
+                                </list>
+                            </property>
+                        </bean>
+                    </constructor-arg>
+                </bean>
+
+                This must come after our image converter
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+
+            </list>
+        </property>
+  </bean>
+</beans>
+ -->

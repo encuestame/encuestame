@@ -19,10 +19,10 @@
         * Yahoo Connect
 
   -->
-
+<!--
      <bean id="abstractSocialProvider" class="org.encuestame.business.service.social.connect.AbstractSocialProvider"
            abstract="true">
-    </bean>
+    </bean> -->
 
 
 <!--     <bean id="twitterServiceConnect" autowire="byName" -->

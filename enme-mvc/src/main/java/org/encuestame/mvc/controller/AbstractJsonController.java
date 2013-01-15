@@ -203,37 +203,37 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
       return mav;
     }
 
-    @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
-    public ModelAndView handleException (NoSuchRequestHandlingMethodException ex) {
-      ModelAndView mav = new ModelAndView();
-      log.error("Exception found: " + ex);
-      mav.setViewName("404");
-      return mav;
-    }
+//    @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
+//    public ModelAndView handleException (NoSuchRequestHandlingMethodException ex) {
+//      ModelAndView mav = new ModelAndView();
+//      log.error("Exception found: " + ex);
+//      mav.setViewName("404");
+//      return mav;
+//    }
 
-    public class BadStatus {
-        String errorMessage;
-        boolean status = false;
+//    public class BadStatus {
+//        String errorMessage;
+//        boolean status = false;
+//
+//        public BadStatus(String msg) { errorMessage = msg; }
+//    }
 
-        public BadStatus(String msg) { errorMessage = msg; }
-    }
-
-    @ExceptionHandler(Exception.class)
-    public BadStatus handleException(Exception ex, HttpServletRequest request) {
-      return new BadStatus(ex.getMessage());
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ModelAndView notFoundHandler(NotFoundException e){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("MappingJacksonJsonView");
-        final Map<String, Object> response = new HashMap<String, Object>();
-        response.put("message", e.getMessage());
-        //TODO: add internationalitazion
-        mav.addObject("error",  response);
-        return mav;
-    }
+//    @ExceptionHandler(Exception.class)
+//    public BadStatus handleException(Exception ex, HttpServletRequest request) {
+//      return new BadStatus(ex.getMessage());
+//    }
+//
+//    @ExceptionHandler
+//    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+//    public ModelAndView notFoundHandler(NotFoundException e){
+//        ModelAndView mav = new ModelAndView();
+//        mav.setViewName("MappingJacksonJsonView");
+//        final Map<String, Object> response = new HashMap<String, Object>();
+//        response.put("message", e.getMessage());
+//        //TODO: add internationalitazion
+//        mav.addObject("error",  response);
+//        return mav;
+//    }
 
     /**
      * Get Url Domain.

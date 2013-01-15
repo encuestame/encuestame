@@ -57,10 +57,9 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
 @Scope("singleton")
-@ContextConfiguration(locations = {
-        "classpath:spring-test/encuestame-test-json-context.xml",
-        "classpath:spring-test/encuestame-test-rss-context.xml",
-        "classpath:spring-test/encuestame-test-upload-context.xml"})
+@ContextConfiguration(locations = {"classpath:spring-test/encuestame-test-json-controller-context.xml",
+    "classpath:spring-test/encuestame-test-rss-context.xml",
+    "classpath:spring-test/encuestame-test-upload-context.xml"})
 public abstract class AbstractJsonMvcUnitBeans extends AbstractSpringSecurityContext {
 
     /**
