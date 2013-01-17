@@ -75,7 +75,7 @@ define([
                   console.debug("error", error);
               };
               encuestame.service.xhrGet(URLServices.service('encuestame.service.list.checkProfile'), {type:type, value: this.textbox.value}, load, error);
-//              this.getURLService().get('encuestame.service.list.checkProfile',  {type:type, value: this.textbox.value}, load, error , dojo.hitch(this, function() {
+//              URLServices.get('encuestame.service.list.checkProfile',  {type:type, value: this.textbox.value}, load, error , dojo.hitch(this, function() {
 //
 //              }));
           }
@@ -215,6 +215,9 @@ define([
                var formDijit = registry.byId("profileForm");
                //console.debug("form", formDijit);
                if (formDijit.isValid()) {
+                   var  params = {
+                      //TODO: LLENAR ESTOS PARAMETROS
+                   };
                    var load = dojo.hitch(this, function(data) {
                        //console.debug(data);
                      if ("success" in data) {
@@ -225,16 +228,20 @@ define([
                      }
                      this._submit.cancel();
                    });
+
                    var error = dojo.hitch(this,function(error) {
                        //console.debug("error", error);
                      dojo.publish('/encuestame/settings/profile/message', [error.message, 'error']);
                      this._submit.cancel();
                    });
-                   //var query = {};
-                   //query.username =  registry.byId("username").get("value") ;
-                   //query.email = registry.byId("email").get("value");
-                   //var queryStr = dojo.objectToQuery(query);
-                   encuestame.service.xhrPost(this.getURLService().service('encuestame.service.list.updateProfile'), form, load, error, true);
+                    //var query = {};
+                    //query.username =  registry.byId("username").get("value") ;
+                    //query.email = registry.byId("email").get("value");
+                    //var queryStr = dojo.objectToQuery(query);
+                    //encuestame.service.xhrPost(this.getURLService().service('encuestame.service.list.updateProfile'), form, load, error, true);
+                    URLServices.post('encuestame.service.list.updateProfile',  params, load, error , dojo.hitch(this, function() {
+
+                    }));
                } else {
                  dojo.publish('/encuestame/settings/profile/message', [_ENME.getMessage('settings_config_profile_form_not_valid'), 'error']);
                }

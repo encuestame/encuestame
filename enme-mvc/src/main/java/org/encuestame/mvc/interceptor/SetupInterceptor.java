@@ -84,23 +84,11 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
         // check if the uri match with the setup uri
         if (!httpServletRequest.getRequestURI().toString().equals(path.toString())) {
             final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
-            if (log.isTraceEnabled()) {
-                log.trace("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +  EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFileName());
-                log.trace("intalled.uuid:->"+uuid);
-            }
-            if (uuid == null || uuid == "") {
+            if (uuid == null) {
                      log.trace("system not installed ...");
                      final ModelAndView modelAndView = new ModelAndView("redirect:/setup");
                      throw new ModelAndViewDefiningException(modelAndView);
-            } else {
-                if (log.isDebugEnabled()) {
-                    log.debug("Encuestame Install Info:");
-                    log.debug("Version:			");
-                    log.debug("Last Update:		");
-                    log.debug("Tables:		");
-                }
             }
-
         } else {
             log.trace("you are on setup interface ...");
         }

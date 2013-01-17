@@ -8,12 +8,17 @@
         <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
         <put-attribute name="profile" value="/WEB-INF/jsp/includes/profile.jsp" />
     </definition>
-    
+
+
+    <definition name="setup-page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup-page.jsp">
+        <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
+    </definition>
+
     <definition name="login-page" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}page.jsp">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}login-header.jsp" />
         <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />
         <put-attribute name="profile" value="/WEB-INF/jsp/includes/profile.jsp" />
-    </definition>    
+    </definition>
 
     <definition name="main-vote" templateExpression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}vote.jsp">
          <put-attribute name="footer" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}footer.jsp" />

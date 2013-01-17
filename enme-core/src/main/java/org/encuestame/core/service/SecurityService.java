@@ -634,7 +634,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                     .add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
             this.assingPermission(userAccount, permissions);
             log.debug("administration user ----> Adding Security label");
-            SecurityUtils.authenticate(userAccount);
+
+            //Disabled auto-autenticate, the administrative user should sign in manually
+            //SecurityUtils.authenticate(userAccount);
+
             if (log.isDebugEnabled()) {
                 log.debug("new user " + userAccount.getUsername());
                 log.debug("Get Authoritie Name:{ "
