@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
@@ -116,13 +117,14 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      public List<?> filterByMaxorStart(final DetachedCriteria criteria,
              final Integer maxResults,
              final Integer start) {
-          //if (maxResults == 0) {
-            //  log.warn("Max Results === 0 ??");
-          //}
           @SuppressWarnings("rawtypes")
           List<?> results = new ArrayList();
           if (maxResults != null && start != null) {
-              results = getHibernateTemplate().findByCriteria(criteria, start, maxResults);
+              if (maxResults == 0 ) {
+                  results = ListUtils.EMPTY_LIST;
+              } else {
+                  results = getHibernateTemplate().findByCriteria(criteria, start, maxResults);
+              }
           } else {
               results = getHibernateTemplate().findByCriteria(criteria);
           }
@@ -354,7 +356,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
         //final SearchPeriods searchPeriods = SearchPeriods.getPeriodString(period);
         //  calculateSearchPeriodsDates(searchPeriods, criteria, "createDate");
         if (keyword != null) {
-        	criteria.createAlias("question", "question");
+            criteria.createAlias("question", "question");
             criteria.add(Restrictions.like("question.question", keyword,
                     MatchMode.ANYWHERE));
         }

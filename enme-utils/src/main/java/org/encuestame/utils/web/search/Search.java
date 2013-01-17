@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
-import org.encuestame.utils.json.SocialAccountBean;
 import org.encuestame.utils.social.SocialProvider;
 
 /**
@@ -36,6 +35,7 @@ public class Search implements Serializable {
     private String keyword;
 
     /** **/
+    @Deprecated
     private String period;
 
     /** **/
@@ -83,6 +83,7 @@ public class Search implements Serializable {
     /**
      * @return the period
      */
+    @Deprecated
     public String getPeriod() {
         return period;
     }
@@ -90,6 +91,7 @@ public class Search implements Serializable {
     /**
      * @param period the period to set
      */
+    @Deprecated
     public void setPeriod(final String period) {
         this.period = period;
     }
@@ -207,17 +209,17 @@ public class Search implements Serializable {
         this.providers = providers;
     }
 
-	/**
-	 * @return the socialAccounts
-	 */
-	public List<Long> getSocialAccounts() {
-		return socialAccounts;
-	}
+    /**
+     * @return the socialAccounts
+     */
+    public List<Long> getSocialAccounts() {
+        return socialAccounts;
+    }
 
-	/**
-	 * @param socialAccounts the socialAccounts to set
-	 */
-	public void setSocialAccounts(List<Long> socialAccounts) {
-		this.socialAccounts = socialAccounts;
-	}
+    /**
+     * @param socialAccounts the socialAccounts to set
+     */
+    public void setSocialAccounts(List<Long> socialAccounts) {
+        this.socialAccounts = socialAccounts;
+    }
 }

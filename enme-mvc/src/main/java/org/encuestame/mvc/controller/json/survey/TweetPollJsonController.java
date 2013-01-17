@@ -117,7 +117,7 @@ public class TweetPollJsonController extends AbstractJsonController {
             tpollSearchBean.setIsScheduled(isScheduled);
             tpollSearchBean.setKeyword(keyword);
             tpollSearchBean.setMax(max);
-            tpollSearchBean.setPeriod(period);
+            //tpollSearchBean.setPeriod(period); it's not used, will be removed in the future.
             tpollSearchBean.setSearchResult(null);
             tpollSearchBean.setStart(start);
             tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));

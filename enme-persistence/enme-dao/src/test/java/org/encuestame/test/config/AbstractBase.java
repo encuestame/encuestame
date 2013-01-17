@@ -469,11 +469,11 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @param userAccount
      * @return
      */
-	public Poll createDefaultPoll(final Question question,
-			final UserAccount userAccount) {
-		return this.createPoll(new Date(), question, userAccount, Boolean.TRUE,
-				Boolean.TRUE);
-	}
+    public Poll createDefaultPoll(final Question question,
+            final UserAccount userAccount) {
+        return this.createPoll(new Date(), question, userAccount, Boolean.TRUE,
+                Boolean.TRUE);
+    }
 
     /**
       * Helper to create poll
@@ -1222,24 +1222,24 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return createTweetPoll(id, false, false, false, true, true, new Date(), new Date(), false, user.getAccount(), question, user);
      }
 
-	/**
-	 *
-	 * @param tweetOwner
-	 * @param question
-	 * @param isComplete
-	 * @param isPublished
-	 * @param isScheduled
-	 * @param creationDate
-	 * @return
-	 */
-	public TweetPoll createAdvancedTweetPoll(final Account tweetOwner,
-			final Question question, final Boolean isPublished,
-			final Boolean isComplete, final Boolean isScheduled,
-			final Date creationDate) {
-		return createTweetPoll(12345L, false, false, false, isPublished,
-				isScheduled, new Date(), creationDate, isComplete, tweetOwner,
-				question, null);
-	}
+    /**
+     *
+     * @param tweetOwner
+     * @param question
+     * @param isComplete
+     * @param isPublished
+     * @param isScheduled
+     * @param creationDate
+     * @return
+     */
+    public TweetPoll createAdvancedTweetPoll(final Account tweetOwner,
+            final Question question, final Boolean isPublished,
+            final Boolean isComplete, final Boolean isScheduled,
+            final Date creationDate) {
+        return createTweetPoll(12345L, false, false, false, isPublished,
+                isScheduled, new Date(), creationDate, isComplete, tweetOwner,
+                question, null);
+    }
 
     /**
      * Create Not Published {@link TweetPoll}.
@@ -1289,10 +1289,10 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * @return
      */
     public TweetPollResult createTweetPollResultWithPollingDate(final TweetPollSwitch tweetPollSwitch, final String Ip, final Date pollingDate){
-    	final TweetPollResult tpResults = this.createTweetPollResult(tweetPollSwitch, Ip);
-    	tpResults.setTweetResponseDate(pollingDate);
-    	getTweetPoll().saveOrUpdate(tpResults);
-    	return tpResults;
+        final TweetPollResult tpResults = this.createTweetPollResult(tweetPollSwitch, Ip);
+        tpResults.setTweetResponseDate(pollingDate);
+        getTweetPoll().saveOrUpdate(tpResults);
+        return tpResults;
     }
 
     /**
@@ -2256,70 +2256,70 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
         return this.createAccessRateItem(rate, null, survey, null, null, ipAddress);
     }
 
-	/**
-	 * Create question preference
-	 * @param preference
-	 * @param value preference value
-	 * @param question
-	 * @return
-	 */
-	public QuestionPreferences createQuestionPreference(
-			final String preference, final String value, final Question question) {
-		final QuestionPreferences questionPreference = new QuestionPreferences();
-		questionPreference.setPreference(preference);
-		questionPreference.setQuestion(question);
-		getQuestionDaoImp().saveOrUpdate(questionPreference);
-		return questionPreference;
-	}
+    /**
+     * Create question preference
+     * @param preference
+     * @param value preference value
+     * @param question
+     * @return
+     */
+    public QuestionPreferences createQuestionPreference(
+            final String preference, final String value, final Question question) {
+        final QuestionPreferences questionPreference = new QuestionPreferences();
+        questionPreference.setPreference(preference);
+        questionPreference.setQuestion(question);
+        getQuestionDaoImp().saveOrUpdate(questionPreference);
+        return questionPreference;
+    }
 
-	/**
-	 * Create random question for tweetpolls and polls.
-	 *
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 * @throws UnsupportedEncodingException
-	 */
-	public Question createQuestionRandom() throws NoSuchAlgorithmException,
-			UnsupportedEncodingException {
-		final Question randomQuestion = createQuestion(
-				"What is your favorite season? "
-						+ MD5Utils
-								.md5(RandomStringUtils.randomAlphanumeric(15)),
-				"");
-		return randomQuestion;
-	}
+    /**
+     * Create random question for tweetpolls and polls.
+     *
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+    public Question createQuestionRandom() throws NoSuchAlgorithmException,
+            UnsupportedEncodingException {
+        final Question randomQuestion = createQuestion(
+                "What is your favorite season? "
+                        + MD5Utils
+                                .md5(RandomStringUtils.randomAlphanumeric(15)),
+                "");
+        return randomQuestion;
+    }
 
 
-	/**
-    *
-    * @param randomDate
-    * @param providers
-    * @param tweetOwner
-    * @param isCompleted
-    * @param isFavourites
-    * @param isScheduled
-    * @param socialAccount
-    * @throws NoSuchAlgorithmException
-    * @throws UnsupportedEncodingException
-    */
-	public TweetPoll createTweetPollItems(final Date randomDate, final Account tweetOwner,
-			final Boolean isCompleted, final Boolean isFavourites,
-			final Boolean isScheduled, final Boolean isPublished)
-			throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		int j = 0;
-		final String randomTweetContent = RandomStringUtils
-				.randomAlphanumeric(6);
-		final Question tpollQuestion = createQuestionRandom();
-		final TweetPoll tweetPoll = createPublishedTweetPoll(tweetOwner,
-				tpollQuestion);
-		tweetPoll.setCompleted(isCompleted);
-		tweetPoll.setFavourites(isFavourites);
-		tweetPoll.setScheduleTweetPoll(isScheduled);
-		tweetPoll.setPublishTweetPoll(isPublished);
-		tweetPoll.setCreateDate(randomDate);
-		getTweetPoll().saveOrUpdate(tweetPoll);
-		return tweetPoll;
-	}
+    /**
+     *
+     * @param randomDate
+     * @param tweetOwner
+     * @param isCompleted
+     * @param isFavourites
+     * @param isScheduled
+     * @param isPublished
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws UnsupportedEncodingException
+     */
+    public TweetPoll createTweetPollItems(final Date randomDate, final Account tweetOwner,
+            final Boolean isCompleted, final Boolean isFavourites,
+            final Boolean isScheduled, final Boolean isPublished)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        int j = 0;
+        final String randomTweetContent = RandomStringUtils
+                .randomAlphanumeric(6);
+        final Question tpollQuestion = createQuestionRandom();
+        final TweetPoll tweetPoll = createPublishedTweetPoll(tweetOwner,
+                tpollQuestion);
+        tweetPoll.setCompleted(isCompleted);
+        tweetPoll.setFavourites(isFavourites);
+        tweetPoll.setScheduleTweetPoll(isScheduled);
+        tweetPoll.setPublishTweetPoll(isPublished);
+        tweetPoll.setCreateDate(randomDate);
+        getTweetPoll().saveOrUpdate(tweetPoll);
+        return tweetPoll;
+    }
 
     /**
     *
@@ -2327,39 +2327,39 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
     * @param socialAccount
     * @param provider
     */
-	public void createTweetPollSavedPublishStatus(final TweetPoll tpoll,
-			final SocialAccount socialAccount, final SocialProvider provider) {
-		final String randomTweetContent = RandomStringUtils
-				.randomAlphanumeric(6);
+    public void createTweetPollSavedPublishStatus(final TweetPoll tpoll,
+            final SocialAccount socialAccount, final SocialProvider provider) {
+        final String randomTweetContent = RandomStringUtils
+                .randomAlphanumeric(6);
 
-		final TweetPollSavedPublishedStatus tpSaved = this
-				.createTweetPollSavedPublishedStatus(tpoll, " ", socialAccount,
-						randomTweetContent);
+        final TweetPollSavedPublishedStatus tpSaved = this
+                .createTweetPollSavedPublishedStatus(tpoll, " ", socialAccount,
+                        randomTweetContent);
 
-		tpSaved.setApiType(provider);
-		tpSaved.setPublicationDateTweet(new Date());
-		getTweetPoll().saveOrUpdate(tpSaved);
-		assertNotNull(tpSaved);
+        tpSaved.setApiType(provider);
+        tpSaved.setPublicationDateTweet(new Date());
+        getTweetPoll().saveOrUpdate(tpSaved);
+        assertNotNull(tpSaved);
 
-	}
+    }
 
-	/**
-	 *
-	 * @param tpoll
-	 * @param socialAccount
-	 * @param provider
-	 */
-	public void createTweetPollSavedPublishStatusMultiple(
-			final TweetPoll tpoll, final List<SocialProvider> provider,
-			final SocialAccount socialAccount) {
-		final String randomTweetContent = RandomStringUtils
-				.randomAlphanumeric(6);
-		for (SocialProvider providerList : provider) {
-			final TweetPollSavedPublishedStatus tpSaved = this.createTweetPollSavedPublishedStatus(tpoll, "", socialAccount, randomTweetContent);
-			tpSaved.setApiType(providerList);
-			tpSaved.setPublicationDateTweet(new Date());
-			getTweetPoll().saveOrUpdate(tpSaved);
-			assertNotNull(tpSaved);
-		}
-	}
+    /**
+     *
+     * @param tpoll
+     * @param socialAccount
+     * @param provider
+     */
+    public void createTweetPollSavedPublishStatusMultiple(
+            final TweetPoll tpoll, final List<SocialProvider> provider,
+            final SocialAccount socialAccount) {
+        final String randomTweetContent = RandomStringUtils
+                .randomAlphanumeric(6);
+        for (SocialProvider providerList : provider) {
+            final TweetPollSavedPublishedStatus tpSaved = this.createTweetPollSavedPublishedStatus(tpoll, "", socialAccount, randomTweetContent);
+            tpSaved.setApiType(providerList);
+            tpSaved.setPublicationDateTweet(new Date());
+            getTweetPoll().saveOrUpdate(tpSaved);
+            assertNotNull(tpSaved);
+        }
+    }
 }

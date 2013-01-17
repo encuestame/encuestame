@@ -91,7 +91,7 @@ public class TestTweetPollDao extends AbstractBase {
     /** {@link Question} **/
     private Question question;
 
-    private Boolean defaultOption = Boolean.FALSE;
+    private Boolean defaultFalseValue = Boolean.FALSE;
 
     /**
      * Before.
@@ -411,7 +411,7 @@ public class TestTweetPollDao extends AbstractBase {
     @Test
     public void testRetrieveTweetPollToday() throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-    	 DateTime creationDate = new DateTime();
+         DateTime creationDate = new DateTime();
          creationDate = creationDate.plusMinutes(3);
         assertNotNull(this.secondary);
 
@@ -433,7 +433,7 @@ public class TestTweetPollDao extends AbstractBase {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-	@Test
+    @Test
     public void testRetrieveTweetPollByDate() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         assertNotNull(this.secondary);
         final DateTime dt = new DateTime();
@@ -445,8 +445,8 @@ public class TestTweetPollDao extends AbstractBase {
         // Completed - Scheduled - Favourite - Published
         final List<TweetPoll> tweetsByDate = getTweetPoll()
                 .retrieveTweetPollByDate(this.secondary.getAccount(), 5, 0,
-                        defaultOption, defaultOption, defaultOption,
-                        defaultOption, null, "30", new Date());
+                        defaultFalseValue, defaultFalseValue, defaultFalseValue,
+                        defaultFalseValue, null, "30", new Date());
         assertEquals("Should be equals", 1, tweetsByDate.size());
     }
 
@@ -477,8 +477,8 @@ public class TestTweetPollDao extends AbstractBase {
         final DateTime dt = new DateTime();
 
         final TweetPoll tp = createTweetPollItems(dt.toDate(),
-                this.secondary.getAccount(), this.defaultOption,
-                this.defaultOption, Boolean.TRUE, Boolean.TRUE);
+                this.secondary.getAccount(), this.defaultFalseValue,
+                this.defaultFalseValue, Boolean.TRUE, Boolean.TRUE);
         tp.setCreateDate(dt.minusDays(1091).toDate());
         getTweetPoll().saveOrUpdate(tp);
 
@@ -502,29 +502,72 @@ public class TestTweetPollDao extends AbstractBase {
         assertNotNull(this.secondary);
         assertNotNull(tweetPoll);
         final DateTime dt = new DateTime();
-        final TweetPoll tp = createTweetPollItems(dt.toDate(),
-                this.secondary.getAccount(), this.defaultOption,
-                this.defaultOption, Boolean.TRUE, Boolean.TRUE);
+        final TweetPoll tp = createTweetPollItems(
+                dt.toDate(),
+                this.secondary.getAccount(),
+                this.defaultFalseValue, //is completed
+                Boolean.TRUE, //is favorite
+                Boolean.TRUE,
+                Boolean.TRUE);
         tp.setCreateDate(dt.minusDays(5).toDate());
         getTweetPoll().saveOrUpdate(tp);
 
-        createTweetPollItems(dt.minusDays(4).toDate(),
-                this.secondary.getAccount(), this.defaultOption,
-                this.defaultOption, Boolean.TRUE, Boolean.TRUE);
+        final TweetPoll tp2 = createTweetPollItems(
+                dt.minusDays(4).toDate(),
+                this.secondary.getAccount(),
+                this.defaultFalseValue,
+                this.defaultFalseValue,
+                Boolean.TRUE,
+                Boolean.TRUE);
 
         final Long userId = this.secondary.getAccount().getUid();
         // To retrieve all tweetpolls scheduled, period should be 1095(ALLTIME)
         final List<TweetPoll> scheduledTweets = this.retrieveTweetPolls(userId,
                 this.MAX_RESULTS, this.INIT_RESULTS, Boolean.FALSE,
-                Boolean.TRUE, Boolean.TRUE, Boolean.FALSE, "What", "7");
-
+                Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, "What", "7");
         assertEquals("Should be equals", 2, scheduledTweets.size());
-    }
+        // To retrieve all tweetpolls scheduled, period should be 1095(ALLTIME)
 
+        final List<TweetPoll> scheduledTweets2 = this.retrieveTweetPolls(userId,
+                1, this.INIT_RESULTS,
+                Boolean.FALSE,
+                Boolean.TRUE,
+                Boolean.FALSE,
+                Boolean.TRUE, "What", "1");
+        assertEquals("Should be equals", 1, scheduledTweets2.size());
+
+        final List<TweetPoll> scheduledTweets3 = this.retrieveTweetPolls(userId,
+                1, 1,
+                Boolean.FALSE,
+                Boolean.TRUE,
+                Boolean.FALSE,
+                Boolean.TRUE, "What", "1");
+        assertEquals("Should be equals", 1, scheduledTweets3.size());
+
+        final List<TweetPoll> scheduledTweets4 = this.retrieveTweetPolls(userId,
+                0, 0,
+                Boolean.FALSE,
+                Boolean.TRUE,
+                Boolean.FALSE,
+                Boolean.TRUE, "What", "1");
+        assertEquals("Should be equals", 0, scheduledTweets4.size());
+
+
+        final List<TweetPoll> scheduledTweets5 = this.retrieveTweetPolls(userId,
+                this.MAX_RESULTS, this.INIT_RESULTS, Boolean.FALSE,
+                Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, "What12345", "7");
+        assertEquals("Should be equals", 0, scheduledTweets5.size());
+
+        final List<TweetPoll> scheduledTweets6 = this.retrieveTweetPolls(userId,
+                this.MAX_RESULTS, this.INIT_RESULTS, Boolean.FALSE,
+                Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, "What", "1");
+        assertEquals("Should be equals", 2, scheduledTweets6.size());
+    }
     /**
      *
      * @param userId
-     * @param creationDate
+     * @param maxResults
+     * @param initResults
      * @param isCompleted
      * @param isScheduled
      * @param isFavourite
