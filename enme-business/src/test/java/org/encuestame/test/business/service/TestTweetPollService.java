@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.encuestame.business.service.TweetPollService;
 import org.encuestame.core.service.imp.ITweetPollService;
@@ -237,7 +238,7 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         assertEquals("Should be equals", 0 , tweetsResultsBad.size());
     }*/
 
-  //  @Test
+    @Test
     @Category(DefaultTest.class)
     public void testGetTweetsPollsByUserName() throws EnMeNoResultsFoundException{
         final Question question1 = createQuestion("Why the sea is salad?","html");
@@ -246,9 +247,14 @@ public class TestTweetPollService  extends AbstractSpringSecurityContext{
         createTweetPollPublicated(true, true, new Date(), this.userAccount, question2);
         final UserAccount secUser = createUserAccount("diana", this.user);
         final TweetPollSearchBean tpSearchBean = createTweetpollSearchBean(
-                Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, " xxx",
+                Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, "xxx",
                 "7", 10, 0, TypeSearch.BYOWNER);
-        final List<TweetPollBean> tweetPollsByUser = this.tweetPollService.getTweetsPollsByUserName(secUser.getUsername(), null, tpSearchBean);
+        List<SocialProvider> enums = new ArrayList<SocialProvider>();
+        enums.add(SocialProvider.FACEBOOK);
+        enums.add(SocialProvider.TWITTER);
+        tpSearchBean.setProviders(ListUtils.EMPTY_LIST);
+        tpSearchBean.setSocialAccounts(ListUtils.EMPTY_LIST);
+        final List<TweetPollBean> tweetPollsByUser =getTweetPollService().getTweetsPollsByUserName(getUsernameLogged(), null, tpSearchBean);
 
         //assertEquals("Should be equals", 2 , tweetPollsByUser.size());
     }

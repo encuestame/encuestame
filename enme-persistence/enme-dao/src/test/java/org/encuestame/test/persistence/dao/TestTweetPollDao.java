@@ -322,7 +322,7 @@ public class TestTweetPollDao extends AbstractBase {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-   // @Test
+   @Test
     public void testRetrieveTweetsByQuestionName()
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         assertNotNull(this.secondary);
@@ -399,34 +399,32 @@ public class TestTweetPollDao extends AbstractBase {
                 .retrieveTweetsByQuestionName(keyword, userId,
                         this.MAX_RESULTS, this.INIT_RESULTS, Boolean.TRUE,
                         Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, "24");
-        assertEquals("Should be equals", 3, tweetpollsResults.size());
+        assertEquals("Should be equals", 11, tweetpollsResults.size());
 
-        final List<TweetPoll> tweetpollsResultsLastWeek = getTweetPoll()
-                .retrieveTweetsByQuestionName(keyword, userId,
-                        this.MAX_RESULTS, this.INIT_RESULTS, Boolean.TRUE,
-                        Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, "7");
-        assertEquals("Should be equals", 9, tweetpollsResultsLastWeek.size());
-
-        final List<TweetPoll> tweetpollsResultsLastMonth = getTweetPoll()
-                .retrieveTweetsByQuestionName(keyword, userId,
-                        this.MAX_RESULTS, this.INIT_RESULTS, Boolean.TRUE,
-                        Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, "30");
-        assertEquals("Should be equals", 11, tweetpollsResultsLastMonth.size());
-    }
+   }
 
     /**
      * Test Retrieve TweetPoll Today.
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
      */
-    // @Test
-    public void testRetrieveTweetPollToday() {
+    @Test
+    public void testRetrieveTweetPollToday() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+    	 DateTime creationDate = new DateTime();
+         creationDate = creationDate.plusMinutes(3);
         assertNotNull(this.secondary);
-        assertNotNull(tweetPoll);
-        System.out.println("Secondary account --->"
-                + this.secondary.getAccount());
+
+        // Compeleted - Favourite - Scheduled -Published.
+        final TweetPoll tp2 =   createTweetPollItems(new Date(),
+                this.secondary.getAccount(), Boolean.TRUE, Boolean.FALSE,
+                Boolean.FALSE, Boolean.TRUE);
+
+        // Completed - Scheduled - Favourite - Published
         final List<TweetPoll> tweetsToday = getTweetPoll()
                 .retrieveTweetPollToday(this.secondary.getAccount(), 10, 0,
-                        Boolean.FALSE, Boolean.FALSE, Boolean.FALSE,
-                        Boolean.FALSE, "who", "24");
+                        Boolean.TRUE, Boolean.FALSE, Boolean.FALSE,
+                        Boolean.TRUE, null, "24");
         assertEquals("Should be equals", 1, tweetsToday.size());
     }
 
@@ -435,16 +433,21 @@ public class TestTweetPollDao extends AbstractBase {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    //@Test
+	@Test
     public void testRetrieveTweetPollByDate() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         assertNotNull(this.secondary);
+        final DateTime dt = new DateTime();
+        final DateTime dtplus =dt.plusMinutes(5);
 
-        createTweetPollItems(new Date(), this.secondary.getAccount(), Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE);
+        // Completed - Favourites - Scheduled - Published
+        final TweetPoll tp =  createTweetPollItems(dtplus.toDate(), this.secondary.getAccount(), Boolean.FALSE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE);
+
+        // Completed - Scheduled - Favourite - Published
         final List<TweetPoll> tweetsByDate = getTweetPoll()
                 .retrieveTweetPollByDate(this.secondary.getAccount(), 5, 0,
                         defaultOption, defaultOption, defaultOption,
                         defaultOption, null, "30", new Date());
-        assertEquals("Should be equals", 2, tweetsByDate.size());
+        assertEquals("Should be equals", 1, tweetsByDate.size());
     }
 
     /**
@@ -1141,6 +1144,6 @@ public class TestTweetPollDao extends AbstractBase {
         final List<TweetPollSavedPublishedStatus> tpsp = getTweetPoll()
                 .getSocialLinksByTweetPollSearch(tweetPoll,
                         TypeSearchResult.TWEETPOLL, enums, socials);
-        System.out.println("\n Total size ---------------->" + tpsp.size());
+
     }
 }

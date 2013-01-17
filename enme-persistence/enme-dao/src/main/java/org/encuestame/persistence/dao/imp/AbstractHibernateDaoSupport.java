@@ -363,13 +363,13 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
         }
         if (isScheduled != null && isScheduled) {
             criteria.add(Restrictions.eq("scheduleTweetPoll", isScheduled));
-              criteria.add(Restrictions.isNotNull("scheduleDate"));
+            criteria.add(Restrictions.isNotNull("scheduleDate"));
         }
         if (isFavourite != null && isFavourite) {
-            criteria.add(Restrictions.eq("publishTweetPoll", isFavourite));
+            criteria.add(Restrictions.eq("favourites", isFavourite));
         }
         if (isPublished != null && isPublished) {
-            criteria.add(Restrictions.eq("favourites", isPublished));
+            criteria.add(Restrictions.eq("publishTweetPoll", isPublished));
         }
     }
 
