@@ -37,8 +37,8 @@ public class CheckInstallInterceptor extends AbstractEnMeInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1,
             Object arg2) throws Exception {
-         final File conFile = EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFile();
-         if (conFile.exists()) {
+         final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
+         if (uuid != null) {
                   final ModelAndView modelAndView = new ModelAndView("redirect:/home");
                   throw new ModelAndViewDefiningException(modelAndView);
          }
