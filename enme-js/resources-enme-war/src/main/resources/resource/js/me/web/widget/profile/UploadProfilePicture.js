@@ -92,21 +92,21 @@ define([
                  *
                  */
                 _updatePictureSource : function(value) {
-
-                  var params = {
+                  var parent = this,
+                  params = {
                             "data" : value
                    };
                    //console.debug("params", params);
 
                    var load = dojo.hitch(this, function(data) {
-                       this._reloadPicture();
-                       this.successMesage(data.success.message);
+                       parent._reloadPicture();
+                       parent.successMesage(data.success.message);
                    });
 
-                   var error = function(error) {
+                   var error = dojo.hitch(this, function(error) {
                        //console.error(error);
-                       this.errorMessage(error.message);
-                   };
+                       parent.errorMessage(error);
+                   });
                    encuestame.service.xhrPostParam(
                        this.getURLService().service('encuestame.service.list.updatePicture'), params, load, error);
                 },

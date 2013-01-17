@@ -333,6 +333,7 @@ public class ConvertDomainBean {
      */
     public static final UserAccountBean convertSecondaryUserToUserBean(
             final UserAccount secUserSecondary) {
+        System.out.println("convertSecondaryUserToUserBean --->"+ secUserSecondary);
         final UserAccountBean unitUserBean = new UserAccountBean();
         if (secUserSecondary != null) {
             unitUserBean.setId(secUserSecondary.getUid());
@@ -340,14 +341,15 @@ public class ConvertDomainBean {
             unitUserBean.setEmail(secUserSecondary.getUserEmail());
             unitUserBean.setUsername(secUserSecondary.getUsername());
             unitUserBean.setStatus(secUserSecondary.isUserStatus());
-            unitUserBean.setGroupBean(convertGroupDomainToBean(secUserSecondary
-                    .getGroup()));
+            if (secUserSecondary.getGroup() != null) {
+                unitUserBean.setGroupBean(convertGroupDomainToBean(secUserSecondary.getGroup()));
+            }
             unitUserBean.setActivated(secUserSecondary.getInviteCode() == null ? true : false);
             unitUserBean.setGroupId(secUserSecondary.getGroup() == null ? null
                     : secUserSecondary.getGroup().getGroupId());
-            unitUserBean
-                    .setListPermission(convertSetToUnitPermission(secUserSecondary
-                            .getSecUserPermissions()));
+            if (secUserSecondary.getSecUserPermissions() != null) {
+                unitUserBean.setListPermission(convertSetToUnitPermission(secUserSecondary.getSecUserPermissions()));
+            }
             // System.out.println("Convert Enjoy Date "+secUserSecondary.getEnjoyDate());
             unitUserBean.setDateNew(secUserSecondary.getEnjoyDate());
             // System.out.println("Convert Enjoy Date 1"+unitUserBean.getDateNew());
@@ -449,6 +451,7 @@ public class ConvertDomainBean {
     public static final Collection<UnitPermission> convertSetToUnitPermission(
             final Set<Permission> permissions) {
         final Collection<UnitPermission> loadListPermission = new LinkedList<UnitPermission>();
+        System.out.println("convertSetToUnitPermission --->" + permissions.size());
         for (Permission permission : permissions) {
             loadListPermission.add(ConvertDomainBean
                     .convertPermissionToBean(permission));
@@ -475,16 +478,15 @@ public class ConvertDomainBean {
     }
 
     /**
-     * Convert {@link Group} to {@link UnitGroupBean}
-     *
-     * @param groupDomain
-     *            {@link Group}
+     * Convert {@link Group} to {@link UnitGroupBean}.
+     * @param groupDomain{@link Group}
      * @return {@link UnitGroupBean}
      */
-    public static final UnitGroupBean convertGroupDomainToBean(
-            final Group groupDomain) {
+    public static final UnitGroupBean convertGroupDomainToBean(final Group groupDomain) {
         final UnitGroupBean groupBean = new UnitGroupBean();
+        System.out.println("convertGroupDomainToBean 1 --> "+groupDomain);
         if (groupDomain != null) {
+            System.out.println("convertGroupDomainToBean 2 --> "+groupDomain);
             groupBean.setId(groupDomain.getGroupId());
             groupBean.setGroupName(groupDomain.getGroupName());
             groupBean

@@ -24,6 +24,7 @@
     <bean id="enMeInterceptor" class=" org.encuestame.mvc.interceptor.EnMeSecurityInterceptor" />
     <bean id="setupInterceptor" class=" org.encuestame.mvc.interceptor.SetupInterceptor" />
     <bean id="signInInterceptor" class=" org.encuestame.mvc.interceptor.SignInInterceptor" />
+    <bean id="checkInstallInterceptor" class=" org.encuestame.mvc.interceptor.CheckInstallInterceptor" />
 
     <mvc:interceptors>
           <mvc:interceptor>
@@ -55,6 +56,12 @@
             <mvc:exclude-mapping path="/resource/**"/>
             <mvc:exclude-mapping path="/resources/**"/>
             <ref bean="signInInterceptor"/>
+          </mvc:interceptor>
+          <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/resource/**"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <ref bean="openSessionInViewInterceptor"/>
           </mvc:interceptor>
     </mvc:interceptors>
 
@@ -217,6 +224,7 @@
         <property name="order" value="0"/>
          <property name="interceptors">
             <list>
+                <ref bean="checkInstallInterceptor"/>
                 <ref bean="enMeInterceptor"/>
                 <ref bean="mobileInterceptor"/>
                 <ref bean="openSessionInViewInterceptor"/>

@@ -180,26 +180,26 @@ public class HomeController extends AbstractBaseOperations {
             HttpServletRequest request,
             HttpServletResponse response) {
         username = filterValue(username);
+        try {
         final UserAccountBean accountBean = getSecurityService().searchUserByUsername(username);
-        if (accountBean == null) {
-            return "404";
-        } else {
-            //1 - load all items poll / survey / poll for {username} order by date
-            //2 - hashtag created by {username}
-            //3 - social link published by {username}
-            //4 - last comments
-            log.debug("user "+accountBean);
-            model.put("profile", accountBean);
-            List<HomeBean> lastItems;
-            try {
-                lastItems = getFrontService()
-                        .getLastItemsPublishedFromUserAccount(username, this.profileDefaultItems, false,
-                                request);
+            if (accountBean == null) {
+                return "404";
+            } else {
+                //1 - load all items poll / survey / poll for {username} order by date
+                //2 - hashtag created by {username}
+                //3 - social link published by {username}
+                //4 - last comments
+                log.debug("user --> "+accountBean);
+                model.put("profile", accountBean);
+                final List<HomeBean> lastItems = getFrontService().getLastItemsPublishedFromUserAccount(username, this.profileDefaultItems, false,
+                                     request);
                 model.put("lastItems", lastItems);
                 return "profile/view";
-            } catch (EnMeNoResultsFoundException e) {
-                return "profile/view";
             }
+        } catch (EnMeNoResultsFoundException e) {
+             e.printStackTrace();
+             log.error(e);
+            return "500";
         }
     }
 

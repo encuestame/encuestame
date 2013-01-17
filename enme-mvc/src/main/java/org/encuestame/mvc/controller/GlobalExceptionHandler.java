@@ -9,6 +9,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public @ResponseBody String handleBusinessException(Exception ex) {
+        System.out.print(ex);
+        ex.printStackTrace();
         return "Handled BusinessException";
     }
 

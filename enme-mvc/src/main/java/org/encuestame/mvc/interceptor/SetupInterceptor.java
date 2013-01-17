@@ -12,6 +12,8 @@
  */
 package org.encuestame.mvc.interceptor;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -83,24 +85,12 @@ public class SetupInterceptor extends AbstractEnMeInterceptor{
         }
         // check if the uri match with the setup uri
         if (!httpServletRequest.getRequestURI().toString().equals(path.toString())) {
-            final String uuid = EnMePlaceHolderConfigurer.getConfigurationManager().getProperty("install.uuid");
-            if (log.isTraceEnabled()) {
-                log.trace("EnMePlaceHolderConfigurer.getConfigurationManager() -> " +  EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFileName());
-                log.trace("intalled.uuid:->"+uuid);
-            }
-            if (uuid == null || uuid == "") {
+            final File conFile = EnMePlaceHolderConfigurer.getConfigurationManager().getXmlConfiguration().getFile();
+            if (!conFile.exists()) {
                      log.trace("system not installed ...");
                      final ModelAndView modelAndView = new ModelAndView("redirect:/setup");
                      throw new ModelAndViewDefiningException(modelAndView);
-            } else {
-                if (log.isDebugEnabled()) {
-                    log.debug("Encuestame Install Info:");
-                    log.debug("Version:			");
-                    log.debug("Last Update:		");
-                    log.debug("Tables:		");
-                }
             }
-
         } else {
             log.trace("you are on setup interface ...");
         }
