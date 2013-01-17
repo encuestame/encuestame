@@ -245,8 +245,7 @@ public abstract class AbstractBase extends AbstractConfigurationBase{
      * This is useful to test full text session search on test cases.
      */
     public void flushIndexes(){
-        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate()
-                                                .getSessionFactory().getCurrentSession());
+        final FullTextSession fullTextSession = Search.getFullTextSession(getHibernateTemplate().getSessionFactory().getCurrentSession());
         fullTextSession.flushToIndexes();
     }
 
