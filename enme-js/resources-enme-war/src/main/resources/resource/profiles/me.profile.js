@@ -21,7 +21,9 @@ var profile = {
   // 0.4.
   // If you do use this, you will need to update build.sh, too.
    //releaseDir : '/release',
-   releaseName: '2.0',
+  releaseName: '2.0',
+
+  version : "2.0",
 
   // Builds a new release.
   action: 'release',
@@ -35,7 +37,7 @@ var profile = {
   // Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe,
   // though ShrinkSafe is deprecated and not recommended.
   // This option defaults to "" (no compression) if not provided.
-  optimize: 'closure',
+  optimize: 'comments',
 
   // We're building layers, so we need to set the minifier to use for those, too.
   // This defaults to "shrinksafe" if not provided.

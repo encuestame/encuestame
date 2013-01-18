@@ -67,9 +67,9 @@ require([
         activity.connect();
         _ENME.setActivity(activity);
         // reference, it' not possible add to the build.
-        dojo.require("dojox.fx");
-        dojo.require( "dojo.date.locale" );
-        dojo.require('dojox.timing');
+        //dojo.require("dojox.fx");
+        //dojo.require( "dojo.date.locale" );
+        //dojo.require('dojox.timing');
     });
 });
 </script>

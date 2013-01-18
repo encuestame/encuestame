@@ -25,6 +25,8 @@ import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
 import org.encuestame.utils.json.TweetPollBean;
 import org.encuestame.utils.web.PollBean;
+import org.encuestame.utils.web.search.TweetPollSearchBean;
+
 import com.sun.syndication.feed.atom.Entry;
 import com.sun.syndication.feed.rss.Item;
 
@@ -48,7 +50,7 @@ public abstract class AbstractFeedController extends AbstractBaseOperations{
      * @throws EnMeNoResultsFoundException
      */
     public List<TweetPollBean> getTweetPolls(final String username, final HttpServletRequest httpServletRequest) throws EnMeNoResultsFoundException{
-        return getTweetPollService().getTweetsPollsByUserName(username, httpServletRequest, null);
+        return getTweetPollService().getTweetsPollsByUserName(username, httpServletRequest, new TweetPollSearchBean());
     }
 
     /**

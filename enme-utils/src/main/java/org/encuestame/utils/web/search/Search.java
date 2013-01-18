@@ -13,8 +13,10 @@
 package org.encuestame.utils.web.search;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.ListUtils;
 import org.encuestame.utils.enums.TypeSearch;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.social.SocialProvider;
@@ -60,10 +62,10 @@ public class Search implements Serializable {
     private Integer max = 20;
 
     /** **/
-    private List<SocialProvider> providers;
+    private List<SocialProvider> providers = new ArrayList<SocialProvider>();
 
     /** **/
-    private List<Long> socialAccounts;
+    private List<Long> socialAccounts = new ArrayList<Long>();
 
 
     /**
