@@ -37,7 +37,7 @@ var profile = {
   // Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe,
   // though ShrinkSafe is deprecated and not recommended.
   // This option defaults to "" (no compression) if not provided.
-  optimize: 'comments',
+  optimize: 'shrinksafe',
 
   // We're building layers, so we need to set the minifier to use for those, too.
   // This defaults to "shrinksafe" if not provided.
@@ -46,13 +46,13 @@ var profile = {
   // Strips all calls to console functions within the code. You can also set this to "warn" to strip everything
   // but console.error, and any other truthy value to strip everything but console.warn and console.error.
   // This defaults to "normal" (strip all but warn and error) if not provided.
-  stripConsole: 'all',
+  stripConsole: 'normal',
 
   // The default selector engine is not included by default in a dojo.js build in order to make mobile builds
   // smaller. We add it back here to avoid that extra HTTP request. There is also a "lite" selector available; if
   // you use that, you will need to set the `selectorEngine` property in `app/run.js`, too. (The "lite" engine is
   // only suitable if you are not supporting IE7 and earlier.)
-  selectorEngine: 'lite',
+  selectorEngine: 'acme',
 
   packages:[{
             name: "dojo",
@@ -130,6 +130,7 @@ var profile = {
     'me/main' : {
          include :[
                    "me/core/enme",
+                   "me/core/URLServices",
                    "me/core/main_widgets/WidgetServices",
                    "me/core/main_widgets/EnmeMainLayoutWidget",
                    "me/web/widget/dialog/ModalBox",

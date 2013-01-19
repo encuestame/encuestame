@@ -1,84 +1,28 @@
-require(["dojo", "dojo/request/notify", "me/core/enme"], function(dojo, notify, _ENME) {
-
-  notify("start", function(){
-    // Do something when the request queue has started
-    // This event won't fire again until "stop" has fired
-      //console.log("NOTIFYYYY start", arguments);
-      dojo.subscribe("/encuestame/status/start", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-  });
-
-  notify("send", function(response, cancel) {
-    // Do something before a request has been sent
-    // Calling cancel() will prevent the request from
-    // being sent
-      //console.log("NOTIFYYYY send", arguments);
-      dojo.subscribe("/encuestame/status/sent", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-  });
-
-  notify("load", function(response) {
-    // Do something when a request has succeeded
-      //console.log("NOTIFYYYY load", arguments);
-      dojo.subscribe("/encuestame/status/load", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-  });
-
-  notify("error", function(error){
-    // Do something when a request has failed
-      //console.log("NOTIFYYYY error", arguments);
-      dojo.subscribe("/encuestame/status/error", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-  });
-
-  notify("done", function(responseOrError) {
-    // Do something whether a request has succeeded or failed
-      //console.log("NOTIFYYYY done", arguments);
-      dojo.subscribe("/encuestame/status/done", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    // if (responseOrError instanceof Error) {
-    //   // Do something when a request has failed
-    // } else {
-    //   // Do something when a request has succeeded
-    // }
-  });
-
-  notify("stop", function() {
-     // console.log("NOTIFYYYY stop", arguments);
-      dojo.subscribe("/encuestame/status/stop", this, dojo.hitch(this, function(_f) {
-          _f();
-      }));
-    // Do something when all in-flight requests have finished
-  });
-});
-
 define(
     [ "dojo",
-      "me/core/enme",
-      'dojo/_base/xhr',
-      'dojo/request/xhr',
       "dojo/request",
       "dojo/_base/lang",
       'dojo/_base/json',
       "dojo/request/notify",
-      "dojo/_base/array" ],
-    function(dojo, _ENME, xhr, xhrRequest, request, lang, _json, notify, _array) {
+      "dojo/_base/array",
+      "me/core/enme" ],
+    function(dojo,
+             request,
+              lang,
+              _json,
+              notify,
+              _array,
+              _ENME) {
 
       // config context path
       var context_path = _ENME.config("contextPath"),
-      _handleAs = "json", // json-comment-optional, json-comment-filtered
-      _failOk = true, // Indicates whether a request should be allowed to
-              // fail (and therefore no console error message in
-              // the event of a failure)
+      // json-comment-optional, json-comment-filtered
+      _handleAs = "json",
+      // Indicates whether a request should be allowed to
+      _failOk = true,
       _timeout = ENME.config('delay'),
       //_cross_browsing = false,
       _preventCache = true;
-
       /*
        * Append the context to each service @param
        */
@@ -87,80 +31,6 @@ define(
         url = url.concat("/");
         url = url.concat(service);
         return url;
-      };
-
-      /*
-       * @param error @param ioargs
-       */
-      var defaultError = function(error, ioargs) {
-        _ENME.log("default error " + error);
-      };
-
-      /*
-       *
-       * @param error @param ioargs
-       */
-      var _error_callback_handler = function(error, ioargs) {
-        var message = "error";
-        // if dialog is missing or is hide.
-        // if (encuestame.error.dialog == null ||
-        // !encuestame.error.dialog.open) {
-        // switch (ioargs.xhr.status) {
-        // case 403:
-        // var jsonError = _json.fromJson(ioargs.xhr.responseText);
-        // //console.info("queryObject", jsonError);
-        // message = "Application does not have permission for this
-        // action";
-        // if (!loaderHandler) {
-        // encuestame.error.denied(message);
-        // } else {
-        // if (!jsonError.session || jsonERror.anonymousUser) {
-        // console.info("session is expired");
-        // encuestame.error.session(encuestame.error.messages.session);
-        // }
-        // }
-        // break;
-        // case 0:
-        // message = "A network error occurred. Check that you are
-        // connected to the internet.";
-        // encuestame.error.conexion(message);
-        // break;
-        // default:
-        // message = "An unknown error occurred";
-        // encuestame.error.unknown(message, ioargs.xhr.status);
-        // }
-        // }
-      };
-
-      /**
-       *
-       * @param response
-       * @param ioargs
-       */
-      var _callback_handler = function(response, ioargs) {
-        //var message = "";
-        switch (ioargs.xhr.status) {
-          case 200:
-            message = "Good request.";
-            break;
-          case 404:
-            message = "The page you requested was not found.";
-            break;
-           case 400:
-            message = "Bad Request";
-            break;
-           case 500:
-            message = "Service temporarily unavailable.";
-            break;
-           case 407:
-             message = "You need to authenticate with a proxy.";
-             break;
-           case 0:
-             message = "A network error occurred. Check that you are connected to the internet.";
-             break;
-           default:
-             message = "An unknown error occurred";
-        }
       };
 
       /**
@@ -252,20 +122,6 @@ define(
         "encuestame.service.gadget.remove" : _appendContext("api/common/dashboard/gadget/remove.json"),
         "encuestame.service.tweetpoll.autosave" : _appendContext("api/survey/tweetpoll/autosave.json")
       };
-
-
-      /*
-       *
-       */
-//      var _gateway = function () {
-//        if (_cross_browsing) {
-//             _xhr(arguments);
-//        } else {
-//            _request(arguments);
-//        }
-//      };
-
-
 
       /**
        *
@@ -377,6 +233,65 @@ define(
                          function(evt) {});
               }
      };
-
+     console.log("SERVICES", _services);
       return _services;
+});
+
+require(["dojo", "dojo/request/notify", "me/core/enme"], function(dojo, notify, _ENME) {
+
+  notify("start", function(){
+    // Do something when the request queue has started
+    // This event won't fire again until "stop" has fired
+      //console.log("NOTIFYYYY start", arguments);
+      dojo.subscribe("/encuestame/status/start", this, dojo.hitch(this, function(_f) {
+          _f();
+      }));
+  });
+
+  notify("send", function(response, cancel) {
+    // Do something before a request has been sent
+    // Calling cancel() will prevent the request from
+    // being sent
+      //console.log("NOTIFYYYY send", arguments);
+      dojo.subscribe("/encuestame/status/sent", this, dojo.hitch(this, function(_f) {
+          _f();
+      }));
+  });
+
+  notify("load", function(response) {
+    // Do something when a request has succeeded
+      //console.log("NOTIFYYYY load", arguments);
+      dojo.subscribe("/encuestame/status/load", this, dojo.hitch(this, function(_f) {
+          _f();
+      }));
+  });
+
+  notify("error", function(error){
+    // Do something when a request has failed
+      //console.log("NOTIFYYYY error", arguments);
+      dojo.subscribe("/encuestame/status/error", this, dojo.hitch(this, function(_f) {
+          _f();
+      }));
+  });
+
+  notify("done", function(responseOrError) {
+    // Do something whether a request has succeeded or failed
+      //console.log("NOTIFYYYY done", arguments);
+      dojo.subscribe("/encuestame/status/done", this, dojo.hitch(this, function(_f) {
+          _f();
+      }));
+    // if (responseOrError instanceof Error) {
+    //   // Do something when a request has failed
+    // } else {
+    //   // Do something when a request has succeeded
+    // }
+  });
+
+  notify("stop", function() {
+     // console.log("NOTIFYYYY stop", arguments);
+      dojo.subscribe("/encuestame/status/stop", this, dojo.hitch(this, function(_f) {
+          _f();
+      }));
+    // Do something when all in-flight requests have finished
+  });
 });

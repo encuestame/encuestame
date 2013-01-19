@@ -23,10 +23,12 @@
  */
 define([
      "dojo/_base/declare",
-     "me/core/enme"],
+     "me/core/enme",
+     "me/core/URLServices"],
     function(
     declare,
-    _ENME) {
+    _ENME,
+    URLServices) {
 
   return declare(null, {
 
@@ -68,6 +70,9 @@ define([
      * @property placeholder
      */
     placeholder: "",
+
+
+    urlService : URLServices,
 
     /**
      * Post create
@@ -198,7 +203,7 @@ define([
                         this._additionalErrorHandler(data.success);
                     }
             });
-            this.getURLService().get(service, params, load, error , dojo.hitch(this, function() {
+            this.urlService.get(service, params, load, error , dojo.hitch(this, function() {
 
             }));
         },

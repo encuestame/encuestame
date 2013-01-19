@@ -5,6 +5,7 @@ define([
          "dijit/_WidgetsInTemplateMixin",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/web/widget/stream/HashTagInfo",
+         "me/core/URLServices",
          "me/core/enme",
          "dojo/text!me/web/widget/hashtags/template/cloud.html" ],
         function(
@@ -14,6 +15,7 @@ define([
                 _WidgetsInTemplateMixin,
                 main_widget,
                 hashTagInfo,
+                URLServices,
                 _ENME,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
@@ -74,7 +76,7 @@ define([
               var error = function(error) {
                   //console.debug("error", error);
               };
-              this.getURLService().get('encuestame.service.list.cloud', {}, load, error , dojo.hitch(this, function() {
+              URLServices.get('encuestame.service.list.cloud', {}, load, error , dojo.hitch(this, function() {
 
               }));
           }
