@@ -15,6 +15,8 @@ package org.encuestame.mvc.controller;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.PictureType;
@@ -69,7 +71,7 @@ public class PictureProfileFactoryController extends AbstractBaseOperations {
     @RequestMapping( value = "/picture/profile/{username}/thumbnail", method = RequestMethod.GET )
     @ResponseBody
     public byte[] getPictureThumbnail(
-            @PathVariable String username){
+            @PathVariable String username, final HttpServletResponse response){
         return this.getPicture(username, PictureType.THUMBNAIL);
     }
 

@@ -17,7 +17,24 @@
     <!-- Scans for application @Components to deploy -->
     <context:component-scan base-package="org.encuestame.mvc" />
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+         <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+              <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
+            </bean>
+              <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+              <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+                  <property name="supportedMediaTypes">
+                      <list>
+                          <value>image/jpeg</value>
+                      </list>
+                  </property>
+              </bean>
+              <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+              <!-- Converter for images -->
+              <bean class="org.encuestame.mvc.converter.EnhancedBufferedImageHttpMessageConverter"/>
+          </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <bean id="messagesInterceptor" class="org.encuestame.mvc.interceptor.Messagei18nInterceptor" />
     <bean id="mobileInterceptor" class="org.encuestame.mvc.interceptor.EnMeMobileInterceptor" />
@@ -91,6 +108,7 @@
     Maps requests to @Controllers based on @RequestMapping("path")
     annotation values If no annotation-based path mapping is found, Spring
     MVC proceeds to the next HandlerMapping (order=0 below).
+    This configuration it's deprecated by mvc:annotation-driver
   -->
   <bean
     class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
@@ -110,6 +128,7 @@
   <!--
     Enables annotated @Controllers; responsible for invoking an annotated
     POJO @Controller when one is mapped.
+    This configuration it's deprecated by mvc:annotation-driver
   -->
   <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="order" value="0"/>
