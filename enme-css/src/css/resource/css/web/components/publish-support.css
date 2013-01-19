@@ -22,11 +22,10 @@ div.web-publish-support .title h2 {
     margin: 0px;
 }
 div.web-publish-support .title h2 b {
-	color: #F58A16;
+    color: #F58A16;
 }
 div.web-publish-support .sub-section {
     min-height: 395px;
-    overflow: auto;
 }
 
 div.web-publish-support .wrapper {
@@ -34,7 +33,8 @@ div.web-publish-support .wrapper {
 }
 
 div.web-publish-support .detail {
-    margin-left: 155px;
+  margin-left: 155px;
+  overflow: auto;
 }
 
 div.web-publish-support ul.menu {
@@ -140,13 +140,18 @@ div.web-support-embebed textarea {
 
 }
 
-.web-support-panel-item .social-account-wrapper {
-
-}
-
 .web-support-panel-item .social-account-wrapper .selected{
     background-color: #FDDF63;
     color: #F58A16;
+}
+
+.web-support-panel-item .social-account-wrapper .social-acount-list-publish {
+  height: 300px;
+  overflow: auto;
+}
+
+.web-support-panel-item .social-account-wrapper .social-acount-list-publish-options {
+
 }
 
 .web-support-panel-item .social-account-wrapper .publish-counter{
