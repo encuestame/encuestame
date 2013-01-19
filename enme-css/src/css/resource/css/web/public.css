@@ -436,6 +436,7 @@ div.socialAccountPicker div.account div.detail {
 div.socialAccountPicker div.account div.icon {
     float: right;
     padding: 5px;
+    margin-right: 10px;
 }
 
 

@@ -21,6 +21,7 @@ import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,7 +94,7 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
      */
     @RequestMapping(value="/social/back/facebook", method=RequestMethod.GET, params="code")
     public String oauth2Callback(
-            @RequestParam("code") String code,
+            @RequestParam(value = "code", required = true) String code,
             HttpServletRequest httpRequest,
             WebRequest request) throws Exception {
         final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
@@ -101,5 +102,27 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
         log.debug(accessGrant.getRefreshToken());
         checkOAuth2SocialAccount(SocialProvider.FACEBOOK, accessGrant);
         return this.redirect+"#provider="+SocialProvider.FACEBOOK.toString().toLowerCase()+"&refresh=true&successful=true";
+    }
+
+    /**
+     *
+     * @param socialProvider
+     * @param error_code
+     * @param httpRequest
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/social/back/{socialProvider}", method=RequestMethod.GET)
+    public String errorOauth2Callback(
+            @PathVariable final String socialProvider,
+            @RequestParam(value = "error_code", required = false) String error_code,
+            @RequestParam(value = "error_msg", required = false) String error_msg,
+            HttpServletRequest httpRequest,
+            WebRequest request) throws Exception {
+        log.error("ERROR error_code" + error_code);
+        log.error("ERROR error_msg" + error_msg);
+        final SocialProvider soProvider = SocialProvider.getProvider("socialProvider");
+        return this.redirect+"#provider=" + soProvider.toString().toLowerCase() + "&refresh=true&successful=false";
     }
 }

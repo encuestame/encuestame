@@ -94,7 +94,7 @@ public class TweetPollController extends AbstractSocialController {
                     log.info("search code->"+tweetId);
                     final TweetPollSwitch tweetPoll = getTweetPollService()
                             .getTweetPollDao().retrieveTweetsPollSwitch(tweetId);
-                    model.addAttribute("switch", tweetPoll);
+                    model.addAttribute("tp_switch", tweetPoll);
                     //NOTE: tweetpoll should be published to able to vote !!
                     if (tweetPoll == null || !tweetPoll.getTweetPoll().getPublishTweetPoll()) {
                         log.debug("tweetpoll answer not found");

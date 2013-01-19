@@ -7,13 +7,13 @@
                 <spring:message code="tweetpoll.votes.repeated" />
             </h1>
             <h2>
-               ${switch.tweetPoll.question.question}
+               ${tp_switch.tweetPoll.question.question}
             </h2>
             <h3>
-                <spring:message code="tweetpoll.votes.selection" />: <b>${switch.answers.answer}</b>
+                <spring:message code="tweetpoll.votes.selection" />: <b>${tp_switch.answers.answer}</b>
             </h3>
             <div class="web-tweetpoll-info">
-                <a href="<%=request.getContextPath()%>/tweetpoll/${switch.tweetPoll.tweetPollId}/${switch.tweetPoll.question.slugQuestion}">
+                <a href="<%=request.getContextPath()%>/tweetpoll/${tp_switch.tweetPoll.tweetPollId}/${tp_switch.tweetPoll.question.slugQuestion}">
                     <spring:message code="tweetpoll.votes.link" />
                 </a>
             </div>

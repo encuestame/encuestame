@@ -48,7 +48,7 @@
 .web-social-links .item .link {
     float: left;
     margin-left: 16px;
-    width: 400px;
+    width: auto;
     font-size: 14px;
 }
 

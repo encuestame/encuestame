@@ -82,7 +82,9 @@ define([
     enableVoteTime : function(liveNode) {
       dojo.addOnLoad(dojo.hitch(this, function() {
             if (this.enableLiveVotes) {
-                this.setTimer();
+                // /this.setTimer();
+                // Disabled because dojo timing need to be migrated to amd modules
+                // http://dojotoolkit.org/reference-guide/1.8/dojox/timing.html
                 //liveNode.innerHTML = "ON LIVE: Results refreshed every "+(this.delay/1000)+" seconds";
                 dojo.removeClass(liveNode, "defaultDisplayHide");
             } else{
