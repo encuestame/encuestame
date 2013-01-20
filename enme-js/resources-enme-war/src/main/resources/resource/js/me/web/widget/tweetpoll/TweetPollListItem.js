@@ -117,7 +117,7 @@ define([
                         domClass.remove(this._favourite, "selectedFavourite");
                         this.publishMessage(_ENME.getMessage('commons_unfavourite'), _ENME.MSG.SUCCESS);
                     }
-
+                    dojo.publish('encuestame/search/loading/display/off');
                 });
                 this._callService(load, 'encuestame.service.list.favouriteTweetPoll');
             },

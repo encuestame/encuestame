@@ -40,14 +40,14 @@ define([
             this._createDetail("twitterDetail", "Twitter");
             this._createDetail("facebookDetail", "Facebook");
             this._createDetail("linkedinDetail", "LinkedIn");
-            this._createDetail("googleplusDetail", "GooglePlus");
+            //this._createDetail("googleplusDetail", "GooglePlus");
             this._createDetail("identicaDetail", "Identica");
             //this._createDetail("yahooDetail", "Yahoo"); DISABLED
             //buttons
             this._cretateButton("twitter", "Twitter");
             this._cretateButton("facebook", "Facebook");
             this._cretateButton("linkedin", "LinkedIn");
-            this._cretateButton("googleplus", "Google +");
+            //this._cretateButton("googleplus", "Google +");
             this._cretateButton("identica", "Identi.ca");
             //this._cretateButton("yahoo", "Yahoo"); DISABLED
         },

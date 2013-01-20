@@ -93,8 +93,8 @@ define([
           */
          postCreate : function() {
              this.initializeSocial(false);
-             this.initializeEmail(true);
-             this.initializeEmbebed(true);
+             //this.initializeEmail(false);
+             //this.initializeEmbebed(true);
              dojo.connect(this._close, "onClick", dojo.hitch(this, function() {
                  document.location.href = _ENME.config('contextPath') + "/user/" + this.context + "/list";
              }));

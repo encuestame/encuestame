@@ -29,10 +29,9 @@
                     ${i18nMessage.detail_manage_only_completed}
                 </label>
             </div>
-            <div>
-                <input id="unpublished_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="_unpublished">
+            <div class="hidden">
+                <input id="unpublished_${id}" name="schedule_${id}" data-dojo-type="dijit/form/CheckBox"  data-dojo-attach-point="_unpublished">
                 <label for="schedule">
-                    Un Published
                     ${i18nMessage.detail_manage_unpublished}
                 </label>
             </div>
@@ -63,7 +62,7 @@
                 </label>
             </div>
           </div>
-           <div class="web-filters-search-check">
+<!--            <div class="web-filters-search-check">
                 <label>
                     ${i18nMessage.detail_manage_filters_advanced_range_days}
                  </label>
@@ -82,7 +81,7 @@
                     <li>365</li>
                   </ol>
                 </div>
-           </div>
+           </div> -->
 <!--           <div class="web-filters-search-button">
               <button type="button" data-dojo-type="dijit/form/Button" value="Search" data-dojo-attach-point="_button">
                  ${i18nMessage.detail_manage_search}
