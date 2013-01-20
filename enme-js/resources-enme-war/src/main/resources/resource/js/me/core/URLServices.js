@@ -179,16 +179,20 @@ define(
           if (loaderHandler != 'undefined' && typeof loaderHandler === 'function') {
               _load = function(r) {
                   try{
-                      response(r);
-                      loaderHandler();
+                    if (typeof loaderHandler === 'function') {
+                       loaderHandler();
+                    }
+                    response(r);
                   } catch(error) {
                       _ENME.log(error);
                   }
               };
               _error = function(e) {
                   try{
+                      if (typeof loaderHandler === 'function') {
+                         loaderHandler();
+                      }
                       error(e);
-                      loaderHandler();
                   } catch(error) {
                       _ENME.log(error);
                   }
