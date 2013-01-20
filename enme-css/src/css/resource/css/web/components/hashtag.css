@@ -20,6 +20,10 @@
   width: 500px;
 }
 
+.web-hashtag-wrapper .web-rated-profile-item .web-rated-profile-item-detail a {
+    color: #888;
+}
+
 .web-hashtag-wrapper .web-ht-detail {
 
 }
