@@ -3,29 +3,44 @@
 
 <tiles-definitions>
 
+    <!--
+        //FIXME: connectionError it's used?
+     -->
     <definition name="connectionError" extends="errorPage">
         <put-attribute name="title" value="Error" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}connectionError.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}connectionError.jsp" />
     </definition>
 
+    <!--
+        //FIXME: htmlerror it's used?
+     -->
     <definition name="htmlerror" extends="errorPage">
         <put-attribute name="title" value="Error" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}connectionError.jsp" />
     </definition>
 
+    <!--
+        //FIXME: jsonerror it's used?
+     -->
      <definition name="jsonerror" extends="errorPage">
         <put-attribute name="title" value="Error" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}connectionError.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}connectionError.jsp" />
     </definition>
 
+    <!--
+        //FIXME: xmlerror it's used?
+     -->
      <definition name="xmlerror" extends="errorPage">
         <put-attribute name="title" value="Error" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}connectionError.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}connectionError.jsp" />
     </definition>
 
+    <!--
+        //FIXME: Deprecated by 404, please remove.
+     -->
     <definition name="pageNotFound" extends="errorPage">
         <put-attribute name="title" value="Page Not Found" />
         <put-attribute name="content" expression="/WEB-INF/views/error/${detectedDevice ? 'mobile/' : 'web/'}404.jsp" />

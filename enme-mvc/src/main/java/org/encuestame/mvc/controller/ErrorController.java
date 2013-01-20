@@ -50,13 +50,11 @@ public class ErrorController  extends AbstractBaseOperations {
     }
 
     /**
-     *
+     * Display a user denied view, used by spring security, see the main configuration.
      * @param model
      * @return
      */
     @RequestMapping("/user/denied")
-    @Deprecated
-    //FIXME it's used?
     public String errorDeniedController(final ModelMap model) {
         return "error/denied";
     }
