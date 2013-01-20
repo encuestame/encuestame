@@ -142,7 +142,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
     background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
     background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
-    overflow: auto;
+    overflow: hidden;
 }
 
 #web-main-public-line .categoryMenu span {

@@ -16,9 +16,12 @@
             <form:form method="post">
                 <div class="default-rigth-aling">
                     <button type="submit" name="_eventId_home"
-                        class="btn-default">
+                        class="btn-default" onclick="hideButtonsDisplayLoading(this);">
                         <spring:message code="setup.step7.button"></spring:message>
                     </button>
+                    <div class="hidden" id="loading">
+                        <img src="<%=request.getContextPath()%>/resources/images/loaders/setup.gif"/>
+                    </div>
                  </div>
             </form:form>
         </div>

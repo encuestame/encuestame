@@ -27,6 +27,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
+import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.HashTagBean;
@@ -133,8 +134,7 @@ public class HashTagsJsonController extends AbstractJsonController{
              // TODO: ENCUESTAME-347
              jsonResponse.put("cloud", hashTagList);
              setItemResponse(jsonResponse);
-            }
-         catch (Exception e) {
+            } catch (Exception e) {
             log.error(e);
             setError(e.getMessage(), response);
         }

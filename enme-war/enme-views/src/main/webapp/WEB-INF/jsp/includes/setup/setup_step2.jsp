@@ -40,9 +40,12 @@
         <form:form method="post">
             <div class="default-rigth-aling">
                 <button type="submit" name="_eventId_create" value="Install"
-                    class="btn-default">
+                    class="btn-default" onclick="hideButtonsDisplayLoading(this);">
                     <spring:message code="setup.step2.button"></spring:message>
                 </button>
+                <div class="hidden" id="loading">
+                    <img src="<%=request.getContextPath()%>/resources/images/loaders/setup.gif"/>
+                </div>
             </div>
         </form:form>
     </c:if>

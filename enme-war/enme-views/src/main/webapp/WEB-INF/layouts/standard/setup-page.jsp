@@ -16,6 +16,19 @@
 <%@ include file="/WEB-INF/jsp/includes/meta.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/web/css.jsp"%>
 <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp"%>
+<script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
+<script>
+  function hideButtonsDisplayLoading(node) {
+      var _n = dojo.query('button');
+      _n.forEach(function(node){
+          dojo.addClass(node, 'hidden');
+      });
+      var _m = dojo.byId('loading');
+      if (_m) {
+          dojo.removeClass(_m, 'hidden');
+      }
+  }
+</script>
 </head>
 <body class="enme-web-context">
   <div id="mainWrapper" class="page">

@@ -8,9 +8,12 @@
                         </div>
                         <div class="default-rigth-aling">
                             <button type="submit" name="_eventId_install-submit"
-                                value="Install" class="btn-default" >
+                                value="Install" class="btn-default" onclick="hideButtonsDisplayLoading(this);">
                                 <spring:message code="setup.step1.button"></spring:message>
-                                </button>
+                            </button>
+                            <div class="hidden" id="loading">
+                                <img src="<%=request.getContextPath()%>/resources/images/loaders/setup.gif"/>
+                            </div>
                         </div>
                     </c:if>
                     <c:if test="${state == 'upgrade'}">
@@ -22,8 +25,7 @@
                             <div class="release-notes"></div>
                         </div>
                         <div class="default-rigth-aling">
-                            <button type="submit" name="_eventId_upgrade-submit"
-                                    class="btn-default" >
+                            <button type="submit" name="_eventId_upgrade-submit" class="btn-default" >
                                 <spring:message code="setup.step1.update.button"></spring:message>
                             </button>
                         </div>

@@ -16,8 +16,11 @@
                     <spring:message code="setup.step3.button.no"></spring:message>
                 </button>
                 <button type="submit" name="_eventId_yes"
-                    class="btn-default">
+                    class="btn-default" onclick="hideButtonsDisplayLoading(this);">
                     <spring:message code="setup.step3.button.yes"></spring:message>
                 </button>
+                <div class="hidden" id="loading">
+                    <img src="<%=request.getContextPath()%>/resources/images/loaders/setup.gif"/>
+                </div>
             </div>
         </form:form>

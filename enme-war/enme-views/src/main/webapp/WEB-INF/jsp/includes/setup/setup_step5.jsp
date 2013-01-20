@@ -18,9 +18,12 @@
                 <!--             <input type="submit" name="_eventId_edit-user" value="Edit User" /> -->
                  <div class="default-rigth-aling">
                     <button type="submit" name="_eventId_valid-user"
-                        class="btn-default">
+                        class="btn-default" onclick="hideButtonsDisplayLoading(this);">
                         <spring:message code="setup.step.next"></spring:message>
                     </button>
+                    <div class="hidden" id="loading">
+                        <img src="<%=request.getContextPath()%>/resources/images/loaders/setup.gif"/>
+                    </div>
                  </div>
             </form:form>
         </div>

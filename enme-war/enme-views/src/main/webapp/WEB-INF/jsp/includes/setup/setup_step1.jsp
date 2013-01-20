@@ -19,13 +19,29 @@
     <li><b><spring:message code="setup.social"></spring:message> -</b> <spring:message code="setup.social.des"></spring:message></li>
 </ul>
 </p>
-<h2><spring:message code="setup.stepHeader"></spring:message>:</h2>
+<h2>
+    <spring:message code="setup.stepHeader"></spring:message>:
+</h2>
 <ol>
-    <li><spring:message code="setup.stepDes1"></spring:message></li>
-    <li><spring:message code="setup.stepDes2"></spring:message></li>
-    <li><spring:message code="setup.stepDes3"></spring:message></li>
-    <li><spring:message code="setup.stepDes4"></spring:message></li>
-    <li><spring:message code="setup.stepDes5"></spring:message></li>
-    <li><spring:message code="setup.stepDes6"></spring:message></li>
-    <li><spring:message code="setup.stepDes7"></spring:message></li>
+    <li>
+        <spring:message code="setup.stepDes1"></spring:message>
+    </li>
+    <li>
+        <spring:message code="setup.stepDes2"></spring:message>
+    </li>
+    <li>
+        <spring:message code="setup.stepDes3"></spring:message>
+    </li>
+    <li>
+        <spring:message code="setup.stepDes4"></spring:message>
+    </li>
+    <li>
+        <spring:message code="setup.stepDes5"></spring:message>
+    </li>
+    <li>
+        <spring:message code="setup.stepDes6"></spring:message>
+    </li>
+    <li>
+        <spring:message code="setup.stepDes7"></spring:message>
+    </li>
 </ol>
