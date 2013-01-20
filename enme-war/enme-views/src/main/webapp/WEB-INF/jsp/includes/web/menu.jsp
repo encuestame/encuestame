@@ -52,11 +52,11 @@
                     <spring:message code="menu.poll" />
                 </a>
             </span>
-             <span class="item">
+<!--              <span class="item">
                 <a href="<%=request.getContextPath()%>/user/survey">
                     <spring:message code="menu.survey" />
                 </a>
-            </span>
+            </span> -->
         </div>
     </div>
 </div>

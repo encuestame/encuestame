@@ -15,7 +15,6 @@ package org.encuestame.core.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -155,7 +154,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 .hasNext();) {
             final UnitPermission permissionBean = new UnitPermission();
             Permission permission = iterator.next();
-            if(!permission.equals(EnMePermission.ENCUESTAME_USER)){ //this permissions not should be included.
+            if (!permission.equals(EnMePermission.ENCUESTAME_USER)) { //this permissions not should be included.
                 permissionBean.setId(permission.getIdPermission());
                 permissionBean.setPermission(permission.getPermission().toString());
                 permissionBean.setDescription(permission.getPermissionDescription());
@@ -628,10 +627,11 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("administration user ----> "+userAccount.toString());
             // default permissions.
             final Set<Permission> permissions = new HashSet<Permission>();
-            permissions
-                    .add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
-            permissions
-                    .add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
+            permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_USER));
+            permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_ADMIN));
+            permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_OWNER));
+            permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_PUBLISHER));
+            permissions.add(getPermissionByName(EnMePermission.ENCUESTAME_EDITOR));
             this.assingPermission(userAccount, permissions);
             log.debug("administration user ----> Adding Security label");
 

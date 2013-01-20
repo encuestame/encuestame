@@ -46,6 +46,11 @@ public class AdmonController extends AbstractBaseOperations {
         return "location";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
     public String membersLocation(ModelMap model) {
@@ -63,6 +68,11 @@ public class AdmonController extends AbstractBaseOperations {
         return "members";
     }
 
+    /**
+     *
+     * @param model
+     * @return
+     */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/project", method = RequestMethod.GET)
     public String admonProject(ModelMap model) {
