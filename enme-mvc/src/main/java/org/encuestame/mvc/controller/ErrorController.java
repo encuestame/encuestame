@@ -13,6 +13,9 @@
 
 package org.encuestame.mvc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -36,9 +39,14 @@ public class ErrorController  extends AbstractBaseOperations {
      * @return
      */
     @RequestMapping("/error")
-    public String errorController(final ModelMap model) {
-        log.error("errorController");
-        return "error";
+    public String errorController(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
+        // if the error message is missing, nothing to display, it's redirected to home
+        if (request.getAttribute("message") == null) {
+             log.debug("no error message, redirect to home");
+             return "redirect:/home";
+        } else {
+            return "error";
+        }
     }
 
     /**
@@ -47,8 +55,9 @@ public class ErrorController  extends AbstractBaseOperations {
      * @return
      */
     @RequestMapping("/user/denied")
+    @Deprecated
+    //FIXME it's used?
     public String errorDeniedController(final ModelMap model) {
-        log.error("errorController");
         return "error/denied";
     }
 

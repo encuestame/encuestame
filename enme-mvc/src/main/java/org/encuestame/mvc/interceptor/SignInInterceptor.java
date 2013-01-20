@@ -79,7 +79,7 @@ public class SignInInterceptor extends AbstractEnMeInterceptor{
                                 auth.getAuthority()).equals(
                                 EnMePermission.ENCUESTAME_USER)) {
                             log.debug("User is logged, redirec to dashboard");
-                            arg1.sendRedirect(arg0.getContextPath()+"/user/dashboard");
+                            arg1.sendRedirect(arg0.getContextPath() + "/user/dashboard");
                             break;
                         }
                     }

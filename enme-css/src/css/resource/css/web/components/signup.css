@@ -287,3 +287,19 @@ div.web-form-wrapper form {
 .web-message-forgor-link a {
   color: #E7A441 !important;
 }
+
+/** error message **/
+
+.error-page  .web-user-confirm-message{
+  padding: 0;
+}
+
+.web-user-confirm-message .error{
+
+}
+
+.web-user-confirm-message .extra {
+  color: #888888;
+  height: 300px;
+  overflow: auto;
+}

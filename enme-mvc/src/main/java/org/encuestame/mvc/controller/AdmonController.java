@@ -15,6 +15,7 @@ package org.encuestame.mvc.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,10 +51,11 @@ public class AdmonController extends AbstractBaseOperations {
      *
      * @param model
      * @return
+     * @throws EnMeExpcetion
      */
     @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/admon/members", method = RequestMethod.GET)
-    public String membersLocation(ModelMap model) {
+    public String membersLocation(ModelMap model) throws EnMeExpcetion {
         log.debug("MEMBERS");
         addi18nProperty(model, "admon_create_user", getMessage("admon_create_user"));
         addi18nProperty(model, "admon_username", getMessage("admon_username"));
@@ -65,7 +67,7 @@ public class AdmonController extends AbstractBaseOperations {
         addi18nProperty(model, "admon_survey_count", getMessage("admon_survey_count"));
         addi18nProperty(model, "admon_last_logged", getMessage("admon_last_logged"));
         addi18nProperty(model, "followers", getMessage("followers"));
-        return "members";
+        throw new EnMeExpcetion("porque si");
     }
 
     /**

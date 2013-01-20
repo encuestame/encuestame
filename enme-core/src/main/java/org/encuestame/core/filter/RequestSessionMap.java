@@ -91,10 +91,17 @@ public final class RequestSessionMap {
         put(MESSAGE_ATTRIBUTE, new WebMessage(WebMessage.WebInfoType.SUCCESS, success));
     }
 
+    /**
+     *
+     * @param requestAttributes
+     * @return
+     */
     private static HttpServletRequest getRequest(RequestAttributes requestAttributes) {
         return ((ServletRequestAttributes)requestAttributes).getRequest();
     }
 
-    private RequestSessionMap() {
-    }
+    /**
+     *
+     */
+    private RequestSessionMap() {}
 }
