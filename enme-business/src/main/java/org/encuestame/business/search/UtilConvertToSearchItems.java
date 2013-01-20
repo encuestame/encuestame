@@ -38,12 +38,13 @@ public class UtilConvertToSearchItems {
     public static GlobalSearchItem convertQuestionToSearchItem(
             final Question question) {
         final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
-        globalSearchItem
-                .setUrlLocation("/question/detail/" + question.getQid()+"/"+RestFullUtil.slugify(question.getQuestion()));
+        globalSearchItem.setUrlLocation("/question/detail/" + question.getQid() + "/" + RestFullUtil.slugify(question.getQuestion()));
         globalSearchItem.setHits(question.getHits());
         globalSearchItem.setItemSearchTitle(question.getQuestion());
+        globalSearchItem.setDateCreated(question.getCreateDate());
+        globalSearchItem.setItemPattern(question.getQuestionPattern().name());
         globalSearchItem.setTypeSearchResult(TypeSearchResult.QUESTION);
-        globalSearchItem.setScore(100L);
+        globalSearchItem.setScore(100L); //FIXME: fixed number?
         return globalSearchItem;
     }
 
@@ -57,10 +58,10 @@ public class UtilConvertToSearchItems {
         final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
         globalSearchItem
                 .setUrlLocation("/resource/detail/" + item.getAttachId()+"/"+RestFullUtil.slugify(item.getDescription()));
-        globalSearchItem.setHits(200L);
+        globalSearchItem.setHits(200L); //FIXME: fixed number?
         globalSearchItem.setItemSearchTitle(item.getDescription());
         globalSearchItem.setTypeSearchResult(TypeSearchResult.ATTACHMENT);
-        globalSearchItem.setScore(100L);
+        globalSearchItem.setScore(100L); //FIXME: fixed number?
         return globalSearchItem;
     }
 
@@ -91,7 +92,7 @@ public class UtilConvertToSearchItems {
         globalSearchItem.setHits(tag.getHits());
         globalSearchItem.setItemSearchTitle(tag.getHashTag());
         globalSearchItem.setTypeSearchResult(TypeSearchResult.HASHTAG);
-        globalSearchItem.setScore(100L);
+        globalSearchItem.setScore(100L); //FIXME: fixed number?
         return globalSearchItem;
     }
 
@@ -103,12 +104,11 @@ public class UtilConvertToSearchItems {
     public static GlobalSearchItem convertProfileToSearchItem(
             final UserAccount profile) {
         final GlobalSearchItem globalSearchItem = new GlobalSearchItem();
-        globalSearchItem.setUrlLocation("/profile/"
-                + profile.getUsername());
+        globalSearchItem.setUrlLocation("/profile/" + profile.getUsername());
         globalSearchItem.setHits(0L);
         globalSearchItem.setItemSearchTitle(profile.getCompleteName());
         globalSearchItem.setTypeSearchResult(TypeSearchResult.PROFILE);
-        globalSearchItem.setScore(100L);
+        globalSearchItem.setScore(100L); //FIXME: fixed number?
         return globalSearchItem;
     }
 

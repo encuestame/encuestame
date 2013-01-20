@@ -12,12 +12,14 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.business.service.AbstractSurveyService;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.cron.CalculateHashTagSize;
 import org.encuestame.core.cron.CalculateRelevance;
+import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.service.imp.ICommentService;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.service.imp.IPollService;
@@ -54,6 +56,7 @@ import org.encuestame.utils.web.QuestionAnswerBean;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -307,8 +310,9 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
             final TweetPollBean tweetPollBean = new TweetPollBean();
             //tweetPollBean.getHashTags().addAll();
             // save create tweet poll
-            double randomUser = getRandomNumberRange(0, totalUsers) - 1;
+            double randomUser = RandomUtils.nextInt(totalUsers);
             UserAccount u = userAccount.get(Double.valueOf(randomUser).intValue());
+            SecurityUtils.authenticate(u);
             tweetPollBean.setUserId(u.getAccount().getUid());
             tweetPollBean.setCloseNotification(Boolean.FALSE);
             tweetPollBean.setResultNotification(Boolean.FALSE);
@@ -390,7 +394,7 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
                     }
                     //social links.
                     //final List<SocialAccountBean> eeeee = getSecurity().getValidSocialAccounts(SocialProvider.TWITTER, true);
-                   final List<SocialAccount>eeee =  getAccountDao().getSocialVerifiedAccountByUserAccount(getUserAccount(getUserPrincipalUsername()).getAccount(), SocialProvider.TWITTER);
+                   final List<SocialAccount>eeee =  getAccountDao().getSocialVerifiedAccountByUserAccount(u.getAccount(), SocialProvider.TWITTER);
                    for (SocialAccount socialAccountBean : eeee) {
                        for (int i = 0; i < EnMePlaceHolderConfigurer
                                 .getIntegerProperty("demo.max.tweetpoll.social.network.published"); i++) {
@@ -509,6 +513,8 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
         long end = System.currentTimeMillis();
         log.debug("Demo Data : took " + (end - start) + " milliseconds");
         log.debug(" :::::::::::::::::::::::::::::::::::::::::::::::::::  ");
+
+        SecurityContextHolder.clearContext();
     }
 
     /**

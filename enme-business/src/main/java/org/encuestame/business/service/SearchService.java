@@ -83,13 +83,13 @@ public class SearchService extends AbstractIndexService implements
             throws EnMeNoResultsFoundException, IOException, ParseException {
         @SuppressWarnings("unchecked")
         final Map<String, List<GlobalSearchItem>> hashset = new HashedMap();
-        limitByItem = limitByItem == null ? 0 : limitByItem; 
+        limitByItem = limitByItem == null ? 0 : limitByItem;
         if (resultsAllowed.indexOf(TypeSearchResult.QUESTION) != -1) {
             List<GlobalSearchItem> questionResult = UtilConvertToSearchItems
                     .convertQuestionToSearchItem(retrieveQuestionByKeyword(keyword,
-                            null));           
+                            null));
             if (limitByItem != 0 && questionResult.size() > limitByItem) {
-            	questionResult = questionResult.subList(0, limitByItem);           	
+                questionResult = questionResult.subList(0, limitByItem);
             }
             log.debug("questionResult " + questionResult.size());
             hashset.put("questions", questionResult);
@@ -99,7 +99,7 @@ public class SearchService extends AbstractIndexService implements
              List<GlobalSearchItem> profiles = UtilConvertToSearchItems
                     .convertProfileToSearchItem(getAccountDao().getPublicProfiles(keyword, limit, start));
             if (limitByItem != 0 && profiles.size() > limitByItem) {
-            	profiles = profiles.subList(0, limitByItem);           	
+                profiles = profiles.subList(0, limitByItem);
             }
             log.debug("profiles " + profiles.size());
             hashset.put("profiles", profiles);
@@ -109,7 +109,7 @@ public class SearchService extends AbstractIndexService implements
             List<GlobalSearchItem> tags = UtilConvertToSearchItems
             .convertHashTagToSearchItem(getHashTagDao().getListHashTagsByKeyword(keyword, limit, null));
             if (limitByItem != 0 && tags.size() > limitByItem) {
-            	tags = tags.subList(0, limitByItem);           	
+                tags = tags.subList(0, limitByItem);
             }
             log.debug("tags " + tags.size());
             hashset.put("tags", tags);
@@ -119,7 +119,7 @@ public class SearchService extends AbstractIndexService implements
             List<GlobalSearchItem> attachments = UtilConvertToSearchItems
                                         .convertAttachmentSearchToSearchItem(getAttachmentItem(keyword, 10, "content"));
             if (limitByItem != 0 && attachments.size() > limitByItem) {
-            	attachments = attachments.subList(0, limitByItem);           	
+                attachments = attachments.subList(0, limitByItem);
             }
             log.debug("attachments " + attachments.size());
             hashset.put("attachments", attachments);

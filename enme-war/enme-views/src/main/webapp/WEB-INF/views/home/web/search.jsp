@@ -1,36 +1,49 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
-
 <article class="web-tweetpoll-detail web-wrapper-detail">
-   <header>
-       <h1>Search</h1>
-   </header>
+   <section class="web-hashtag-header web-detail-header">
+        <div class="title">
+            <h2>
+                ${q}
+            </h2>
+        </div>
+    </section>
    <article class="emne-box">
-        <header>
-            Results for:
-       </header>
        <article class="search-items-wrapper">
             <article class="search-items">
                  <header>
-                     <h4>Questions</h4>
+                     <h4>
+                        Questions
+                    </h4>
                  </header>
                  <c:if test="${not empty results.questions}">
                     <c:forEach items="${results.questions}" var="item">
                           <section class="search-item">
-                            ${item.itemSearchTitle}
+                            <div class="post-title">
+                                Question added at ${item.dateCreated}
+                            </div>
+                            <a href="<%=request.getContextPath()%>${item.urlLocation}">
+                               <h3>
+                                    ${item.itemSearchTitle}
+                               </h3>
+                            </a>
                           </section>
                     </c:forEach>
                 </c:if>
                 <!-- No results -->
                 <c:if test="${empty results.questions}">
                      <div class="search-item no-results">
-                        <h3>No Results</h3>
+                        <h3>
+                            No Results
+                        </h3>
                      </div>
                 </c:if>
             </article>
             <aside>
                 <section class="search-hashtag">
                     <header>
-                        <h4>Hashtags</h4>
+                        <h4>
+                            Hashtags
+                        </h4>
                     </header>
                      <c:if test="${not empty results.tags}">
                         <div>
@@ -46,7 +59,9 @@
                     <!-- No results -->
                     <c:if test="${empty results.tags}">
                           <div class="no-results">
-                            <h3>No Results</h3>
+                            <h3>
+                                No Results
+                            </h3>
                          </div>
                     </c:if>
                 </section>

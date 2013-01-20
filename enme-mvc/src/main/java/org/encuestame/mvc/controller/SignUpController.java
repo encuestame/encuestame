@@ -95,7 +95,7 @@ public class SignUpController extends AbstractSecurityController {
             @RequestParam(value = "email", required = true) String emailForm,
             final HttpServletRequest req) {
         final SignUpBean user = new SignUpBean();
-        String finalPath = "redirect:/user/dashboard";
+        String finalPath = "/user/created";
         user.setEmail(filterValue(emailForm));
         user.setPassword(password);
         user.setFullName(filterValue(realName));

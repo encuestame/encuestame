@@ -164,7 +164,9 @@ public class HomeController extends AbstractBaseOperations {
             @PathVariable String slug,
             HttpServletRequest request,
             HttpServletResponse response) {
-                return "question/detail";
+
+
+            return "question/detail";
     }
 
     /**

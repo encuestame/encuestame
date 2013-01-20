@@ -38,5 +38,10 @@
         <put-attribute name="title" value="Check Your Email | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}check.jsp" />
     </definition>
-    
+
+    <definition name="/user/created" extends="login-page">
+        <put-attribute name="title" value="Welcometo Encuestame, check Your Email | encuestame" />
+        <put-attribute name="content" expression="/WEB-INF/views/user/${detectedDevice ? 'mobile/' : 'web/'}user_created.jsp" />
+    </definition>
+
 </tiles-definitions>

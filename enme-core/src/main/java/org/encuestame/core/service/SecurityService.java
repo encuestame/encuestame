@@ -708,7 +708,10 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("new user "+userAccount.getUsername());
             log.debug("Get Authoritie Name:{ "+SecurityContextHolder.getContext().getAuthentication().getName());
         }
-        SecurityUtils.authenticate(userAccount);
+
+        // disable, user should sign in from web.
+        // SecurityUtils.authenticate(userAccount);
+
         return userAccount;
     }
 

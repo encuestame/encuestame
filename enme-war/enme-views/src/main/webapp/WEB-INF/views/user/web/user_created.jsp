@@ -4,10 +4,11 @@
         <article>
             <section class="web-user-confirm-message">
                 <h1>
-                    <spring:message code="signup.register.confirm.message" />.
+                    <spring:message code="signup.user.created" />.
                     <div>
-                        <spring:message code="commons_goto" />  <div data-dojo-type="me/web/widget/menu/DashBoardMenu"
-                           contextPath="<%=request.getContextPath()%>"></div>
+                        <a href="<%=request.getContextPath()%>/user/signin">
+                             <spring:message code="signin.button" />
+                        </a>
                     </div>
                </h1>
             </section>

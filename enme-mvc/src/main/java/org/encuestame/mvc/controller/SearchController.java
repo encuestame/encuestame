@@ -13,7 +13,6 @@
 
 package org.encuestame.mvc.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.queryParser.ParseException;
 import org.encuestame.core.search.GlobalSearchItem;
-import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -104,6 +101,7 @@ public class SearchController extends AbstractBaseOperations {
        types.add(TypeSearchResult.QUESTION);
        //TODO: add survey to results.
        try {
+           model.addAttribute("q", keyword);
            log.debug("search get");
            //keyword stats.
            model.addAttribute("keywordStats", null);

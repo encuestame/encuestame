@@ -12,6 +12,8 @@
  */
 package org.encuestame.core.search;
 
+import java.util.Date;
+
 import org.encuestame.utils.enums.TypeSearchResult;
 
 /**
@@ -30,6 +32,16 @@ public class GlobalSearchItem {
      * URI path.
      */
     private String urlLocation;
+
+    /**
+     * The username of the owner.
+     */
+    private String itemPattern;
+
+    /**
+     *
+     */
+    private Date dateCreated;
 
     /**
      * Score.
@@ -158,6 +170,34 @@ public class GlobalSearchItem {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the dateCreated
+     */
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    /**
+     * @param dateCreated the dateCreated to set
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    /**
+     * @return the itemPattern
+     */
+    public String getItemPattern() {
+        return itemPattern;
+    }
+
+    /**
+     * @param itemPattern the itemPattern to set
+     */
+    public void setItemPattern(String itemPattern) {
+        this.itemPattern = itemPattern;
     }
 
     /* (non-Javadoc)
