@@ -272,19 +272,23 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
         List<QuestionBean> tpListQuestions = getTpPollQuestions();
         final List<UserAccount> userAccount = getAccountDao().findAll();
         for (UserAccount userAccount2 : userAccount) {
-            SocialUserProfile x = new SocialUserProfile();
-            x.setEmail(userAccount2.getUserEmail());
-            x.setId(Long.valueOf(getRandomNumberRange(400, 5000)).toString());
-            x.setProfileImageUrl("xxxxx");
-            x.setProfileUrl("url");
-            x.setUsername(userAccount2.getUsername());
-            x.setName(userAccount2.getCompleteName());
+            SocialUserProfile socialProfileId = new SocialUserProfile();
+            socialProfileId.setEmail(userAccount2.getUserEmail());
+            final Long id = Long.valueOf(getRandomNumberRange(50, 5000) );
+            final StringBuffer stringBuffer = new StringBuffer(id.toString());
+            stringBuffer.append("-");
+            stringBuffer.append(RandomStringUtils.randomAlphanumeric(100));
+            socialProfileId.setId(stringBuffer.toString());
+            socialProfileId.setProfileImageUrl("xxxxx");
+            socialProfileId.setProfileUrl("url");
+            socialProfileId.setUsername(userAccount2.getUsername());
+            socialProfileId.setName(userAccount2.getCompleteName());
             //create social account.
             getSecurity().addNewSocialAccount(
                     "12345",
                     "12345",
                     null,
-                    x,
+                    socialProfileId,
                     SocialProvider.TWITTER, userAccount2);
         }
         final List<CommentBean> comments = getComments();
