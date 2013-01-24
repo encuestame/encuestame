@@ -259,6 +259,7 @@ public class SetupService extends AbstractBaseService implements SetupOperations
                     EnMePlaceHolderConfigurer
                     .getIntegerProperty("demo.votes.by.survey"));
         } catch (Exception e) {
+            e.printStackTrace();
             log.fatal(e);
             RequestSessionMap.setErrorMessage(e.getMessage());
         }

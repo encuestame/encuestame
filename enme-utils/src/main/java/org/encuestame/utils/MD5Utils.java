@@ -16,6 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.commons.lang.math.RandomUtils;
+
 /**
  * MD5 Utils.
  * @author Picado, Juan juanATencuestame.org
@@ -71,8 +73,9 @@ public class MD5Utils {
      */
     public static String shortMD5(String text) {
         try {
-            return md5(text).substring(0, 6);
+            return md5(text).substring(0, RandomUtils.nextInt(15));
         } catch (NoSuchAlgorithmException e) {
+
         } catch (UnsupportedEncodingException e) {
         }
         return "";

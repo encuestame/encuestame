@@ -253,6 +253,7 @@ public class AbstractSurveyService extends AbstractChartService {
         final TweetPollSwitch tPollSwitch = new TweetPollSwitch();
         tPollSwitch.setAnswers(answer);
         tPollSwitch.setTweetPoll(tweetPoll);
+        //FIXME: Verfy if it these code already exist.
         tPollSwitch.setCodeTweet(MD5Utils.shortMD5(Calendar.getInstance()
                 .getTimeInMillis() + answer.getAnswer()));
         tPollSwitch.setDateUpdated(Calendar.getInstance().getTime());

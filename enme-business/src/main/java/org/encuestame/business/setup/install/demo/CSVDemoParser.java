@@ -316,7 +316,12 @@ public class CSVDemoParser extends AbstractSurveyService implements CSVParser {
             tweetPollBean.setUserId(u.getAccount().getUid());
             tweetPollBean.setCloseNotification(Boolean.FALSE);
             tweetPollBean.setResultNotification(Boolean.FALSE);
-            //tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
+            // publish aleatory a publish poll.
+            int publish = RandomUtils.nextInt(10);
+            if (publish <= 7) {
+                tweetPollBean.setPublishPoll(Boolean.TRUE); // always TRUE
+            }
+
             tweetPollBean.setSchedule(Boolean.FALSE);
             try {
                 //final Question qm = createQuestion(question, u, QuestionPattern.CUSTOMIZABLE_SELECTION);
