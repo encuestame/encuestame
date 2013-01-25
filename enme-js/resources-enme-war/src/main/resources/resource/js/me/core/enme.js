@@ -576,6 +576,21 @@ define(["dojo",
         }
       },
 
+      /**
+       * Convert huge number to relative quantities
+       * @method
+       */
+      relativeQuantity : function (quantity) {
+         if (typeof quantity === 'number') {
+              if (quantity > 9999) {
+                  var q = "" + quantity;
+                  return ">1K";
+              } else if (quantity < 9999) {
+                  return quantity;
+              }
+         }
+      },
+
     /**
      * Get format time based on format string.
      * @param date

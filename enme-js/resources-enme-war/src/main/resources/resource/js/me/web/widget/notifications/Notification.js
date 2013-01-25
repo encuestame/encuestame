@@ -122,7 +122,6 @@ define([
 
             dojo.subscribe("/notifications/service/messages", this, "_updateStatus");
             dojo.subscribe("/notifications/service/update", this, function() {
-                console.log("dskald;ksal;dksal;kdlaskl;dsaldsa");
                 _timer();
             });
 
@@ -201,7 +200,7 @@ define([
              });
              //encuestame.session.activity.updateNot(total, notStatus.totalNewNot);
              notStatus.totalNot = notStatus.totalNewNot;
-             this._count.innerHTML = notStatus.totalNot;
+             this._count.innerHTML = _ENME.relativeQuantity(notStatus.totalNot);
          },
 
          /*
