@@ -48,7 +48,8 @@ define([
           settings_social_su_published_whith_this_account : _ENME.getMessage("settings_social_su_published_whith_this_account"),
           settings_social_profile_url :  _ENME.getMessage("settings_social_profile_url"),
           button_remove : _ENME.getMessage("button_remove"),
-          settings_social_set_default : _ENME.getMessage("settings_social_set_default")
+          settings_social_set_default : _ENME.getMessage("settings_social_set_default"),
+          settings_social_seted_as_default : _ENME.getMessage("settings_social_seted_as_default")
        },
 
        _secrets : false,
@@ -58,28 +59,77 @@ define([
        */
       type : "twitter",
 
-              /**
+
+      favourite_picture  : "",
+
+      /**
+       *
+       * @method
+       */
+      postMixInProperties: function() {
+            this.favourite_picture = _ENME.config("contextPath") + "/resources/images/icons/enme_full_star.png";
+      },
+
+      /**
        * Post create cycle lufe.
        */
       postCreate : function() {
-        console.debug("account", this.account);
-        if (this._removeButton) {
-            if (this.account.tweetpoll_stats > 0 || this.account.poll_stats > 0 || this.account.survey_stats > 0) {
-                //console.debug("remove this button ", this._removeButton);
-                dojo.destroy(this._removeButton.domNode);
-            } else {
-                //console.debug("add this button ", this._removeButton);
-                dojo.connect(this._removeButton, "onClick", dojo.hitch(this, "_remove"));
-                    }
-                }
+          if (this._removeButton) {
+              if (this.account.tweetpoll_stats > 0 || this.account.poll_stats > 0 || this.account.survey_stats > 0) {
+                  dojo.destroy(this._removeButton.domNode);
+              } else {
+                  dojo.connect(this._removeButton, "onClick", dojo.hitch(this, "_remove"));
+              }
+          }
+          dojo.subscribe("/encuestame/social/account/row/show", this, function(widget) {
+              if (this.id != widget.id) {
+                  this._secrets = true;
+                  this._showHideAction();
+              }
+          });
+          //
+          this.changeDefaultStatus();
+      },
 
-                dojo.subscribe("/encuestame/social/account/row/show", this, function(widget) {
-                    if (this.id != widget.id) {
-                        this._secrets = true;
-                        this._showHideAction();
-                    }
-                });
-              },
+      /**
+       *
+       * @method
+       */
+      changeDefaultStatus : function () {
+          if (this.account.default_selected) {
+             this._defaultButton.set("label", this.i18nMessage.settings_social_seted_as_default);
+             dojo.removeClass(this._favorite, "hidden");
+          } else {
+             this._defaultButton.set("label", this.i18nMessage.settings_social_set_default);
+             dojo.addClass(this._favorite, "hidden");
+          }
+      },
+
+
+      /*
+       * Change status account
+       * @method
+       * @event Event
+       */
+      _changeStatusAccount : function(event) {
+          dojo.stopEvent(event);
+          // success handler
+          var load = dojo.hitch(this, function(data){
+              console.debug("data", data);
+              //dojo.publish("/encuestame/social/list/reload");
+              this.account.default_selected = !this.account.default_selected;
+              this.changeDefaultStatus();
+          });
+          // error handler
+          var error = function(error) {
+              console.debug("error", error);
+                  };
+                  var params = {socialAccountId : this.account.id};
+                  this.getURLService().get("encuestame.service.social.action.defaultState",
+                          params, load, error , dojo.hitch(this, function() {
+
+          }));
+       },
 
        /*
         *
@@ -110,13 +160,13 @@ define([
        * Remove Action.
        */
       _removeAction : function() {
-          //console.debug("_removeAction");
+          // load handler
           var load = dojo.hitch(this, function(data) {
               //console.debug("data", data);
               dojo.publish("/encuestame/social/list/reload");
           });
+          // error handler
           var error = function(error) {
-              //console.debug("error", error);
                   };
                   this.getURLService().get("encuestame.service.social.action.remove",
                           { socialAccountId : this.account.id }, load, error , dojo.hitch(this, function() {
@@ -132,27 +182,11 @@ define([
           this._openDialog("title", "");
       },
 
-      /*
-       * change status account.
+      /**
+       *
+       * @method
        */
-      _changeStatusAccount : function(event){
-          dojo.stopEvent(event);
-          var load = dojo.hitch(this, function(data){
-              console.debug("data", data);
-              dojo.publish("/encuestame/social/list/reload");
-          });
-          var error = function(error) {
-              console.debug("error", error);
-                  };
-                  var params = {socialAccountId : this.account.id};
-                  this.getURLService().get("encuestame.service.social.action.defaultState",
-                          params, load, error , dojo.hitch(this, function() {
-
-                  }));
-              },
-
-              _showHideAction : function(){
-                  //console.debug("_showHideAction ", this);
+      _showHideAction : function(){
           if (this._secrets) {
               dojo.addClass(this._secretView, "defaultDisplayHide");
           } else {
@@ -161,10 +195,14 @@ define([
                   this._secrets = !this._secrets;
               },
 
-              _showHideSecrets : function(event){
-                  dojo.stopEvent(event);
-                  this._showHideAction();
-                  dojo.publish("/encuestame/social/account/row/show", [this]);
+      /**
+       *
+       * @method
+       */
+      _showHideSecrets : function(event) {
+          dojo.stopEvent(event);
+          this._showHideAction();
+          dojo.publish("/encuestame/social/account/row/show", [this]);
       }
 
    });

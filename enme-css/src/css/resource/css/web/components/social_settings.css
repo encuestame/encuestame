@@ -15,6 +15,7 @@
 
 .socialWrapperRow .sub-title-account {
 	overflow: auto;
+	position: relative;
 }
 
 .socialWrapperRow .sub-title-account .image {
@@ -26,6 +27,12 @@
 	font-weight: bold;
 	margin-left: 30px;
 	padding: 5px;
+}
+
+.socialWrapperRow .favorite {
+	position: absolute;
+	right: 5px;
+	top: 5px;
 }
 
 .socialWrapperRow form {
@@ -48,11 +55,11 @@
 }
 
 .socialWrapperRow div.tokensWrapper div.tokenHideOptions table{
-	
+
 }
 
 .socialWrapperRow div.tokensWrapper div.tokenHideOptions table tr{
-	
+
 }
 
 .socialWrapperRow div.tokensWrapper div.tokenHideOptions table td {
