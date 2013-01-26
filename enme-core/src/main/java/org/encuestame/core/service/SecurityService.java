@@ -53,7 +53,9 @@ import org.encuestame.utils.web.UnitLists;
 import org.encuestame.utils.web.UnitPermission;
 import org.encuestame.utils.web.UserAccountBean;
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.springframework.ldap.core.AuthenticatedLdapEntryContextCallback;
 import org.springframework.mail.MailSendException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -936,16 +938,22 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             final String bio,
             final String language,
             final String completeName,
-            final String loggedUsername) throws EnMeNoResultsFoundException{
+            final String username,
+            final String email) throws EnMeNoResultsFoundException{
         final UserAccount account = getUserAccount(getUserPrincipalUsername());
-        log.debug("update Account user to update " + account.getUsername());
-        log.debug("update Account Profile bio " + bio);
-        log.debug("update Account Profile language " + language);
-        log.debug("update Account Profile language " + loggedUsername);
-        account.setCompleteName(completeName);
-        //TODO: ENCUESTAME-20
-        //this.updateAccountProfile()
-        getAccountDao().saveOrUpdate(account);
+            log.debug("update Account user to update " + account.getUsername());
+            log.debug("update Account Profile bio " + bio);
+            log.debug("update Account Profile language " + language);
+            log.debug("update Account Profile language " + username);
+            account.setCompleteName(completeName);
+            //TODO: ENCUESTAME-20
+            //account.set
+            final Authentication auth = getSecCtx().getAuthentication();
+            account.setUserEmail(email);
+            account.setUsername(username);
+            getAccountDao().saveOrUpdate(account);
+            SecurityContextHolder.clearContext();
+            SecurityUtils.authenticate(account);
     }
 
     /*

@@ -386,7 +386,8 @@ public interface SecurityOperations extends ServiceOperations {
             final String bio,
             final String language,
             final String completeName,
-            final String loggedUsername) throws EnMeNoResultsFoundException;
+            final String username,
+            final String email) throws EnMeNoResultsFoundException;
 
     /**
      * User Account Is Activated.

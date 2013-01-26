@@ -203,7 +203,7 @@ public class SettingsJsonController extends AbstractJsonController{
             } else {
                 log.debug("updating profile ....");
                 //setError("invalid type", response);
-                getSecurityService().updateAccountProfile(bio, language, completeName, username);
+                getSecurityService().updateAccountProfile(bio, language, completeName, username, email);
                 setSuccesResponse(getMessage("settings_config_profile_success", request, null));
             }
         } catch (Exception e) {
