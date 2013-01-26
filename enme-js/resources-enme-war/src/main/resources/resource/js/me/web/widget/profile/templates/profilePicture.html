@@ -1,11 +1,10 @@
 <div class="pictureProfileNew">
-
   <div>
     <h2>
-      ${i18nMessage.settings_config_picture_title}
+        ${i18nMessage.settings_config_picture_title}
     </h2>
     <p>
-      ${i18nMessage.settings_config_picture_description}
+        ${i18nMessage.settings_config_picture_description}
     </p>
   </div>
   <div style="float: left; padding: 10px;">
@@ -14,15 +13,20 @@
   <div style="margin-left: 120px;">
     <div>
       <form id="pictureSourceForm">
-        <input type="radio" name="pictureSource" id="gravatar_radio"
-          data-dojo-type="dijit/form/RadioButton" value="GRAVATAR" /> <label
-          for="radioOne"> Gravatar <a href="http://www.gravatar.com/"
-          target="_blank">
-             http://www.gravatar.com/
-        </a>
-        </label> <br /> <input type="radio" data-dojo-type="dijit/form/RadioButton"
-          name="pictureSource" id="uploaded_radio" value="UPLOADED" /> <label
-          for="radioTwo">
+          <span dojoAttachPoint="_gravatar_source">
+
+          </span>
+           <label for="radioOne">
+                Gravatar
+            <a href="http://www.gravatar.com/" target="_blank">
+                http://www.gravatar.com/
+            </a>
+        </label>
+        <br />
+        <span dojoAttachPoint="_upload_source">
+
+        </span>
+        <label for="radioTwo">
             ${i18nMessage.settings_config_picture_own}
        </label>
       </form>
@@ -36,7 +40,9 @@
             <div>
               <input type="file" class="medium" id="file" name="file"
                 style="width: 300px;">
-              <button dojoAttachEvent="onclick:_uploadImage" type="button">Go</button>
+              <button dojoAttachEvent="onclick:_uploadImage" type="button">
+                  Go
+              </button>
               <p>
                ${i18nMessage.settings_config_picture_restrictions}
               </p>

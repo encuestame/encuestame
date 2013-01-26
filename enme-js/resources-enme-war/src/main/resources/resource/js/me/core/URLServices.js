@@ -237,8 +237,7 @@ define(
                          function(evt) {});
               }
      };
-     console.log("SERVICES", _services);
-      return _services;
+    return _services;
 });
 
 require(["dojo", "dojo/request/notify", "me/core/enme"], function(dojo, notify, _ENME) {

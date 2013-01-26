@@ -1,3 +1,26 @@
+/*
+ * Copyright 2013 encuestame
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/***
+ *  @author juanpicado19D0Tgm@ilDOTcom
+ *  @version 1.146
+ *  @module UploadProfilePicture
+ *  @namespace Widget
+ *  @class UploadProfilePicture
+ */
 define([
          "dojo/_base/declare",
          "dijit/_WidgetBase",
@@ -89,55 +112,49 @@ define([
                 },
 
                 /**
-                 *
+                 * Create the radio buttons dynamically picture
                  * @method postCreate
                  */
                 postCreate : function() {
                     if (this.username != null) {
                         this._reloadPicture();
                     }
-                    var radioGravatar = registry.byId("gravatar_radio");
-                    if (this.pictureSource == "GRAVATAR") {
-                        radioGravatar.setValue('checked', true);
-                    }
+                    // create the gravatar radio
+                    var radioGravatar = new RadioButton({
+                        value : 'GRAVATAR',
+                        checked: this.pictureSource == "GRAVATAR"
+                    });
                     radioGravatar.onChange = dojo.hitch(this, function(e) {
                          if (e) {
                              this._updatePictureSource("gravatar");
                              dojo.addClass(this._uploadedForm, "defaultDisplayHide");
                          }
                     });
-                    var uploadedRadio = registry.byId("uploaded_radio");
-                    if (this.pictureSource === 'UPLOADED') {
-                      uploadedRadio.setValue('checked', true);
-                    }
-                },
+                    this._gravatar_source.appendChild(radioGravatar.domNode);
 
-                /**
-                 *
-                 * @method
-                 */
-                startup : function () {
-                  var uploadedRadio = registry.byId("uploaded_radio");
+                    // create the uploader radio
+                    var uploadedRadio = new RadioButton({
+                        value : 'UPLOADED',
+                        checked: this.pictureSource == "UPLOADED"
+                    });
                     uploadedRadio.onChange = dojo.hitch(this, function(e) {
-                        if(e){
+                        if (e) {
                             this._updatePictureSource("uploaded");
                             dojo.removeClass(this._uploadedForm, "defaultDisplayHide");
                         }
                    });
-
+                    this._upload_source.appendChild(uploadedRadio.domNode);
                 },
-
 
                 /**
                  *
-                 * @method
+                 * @method _updatePictureSource
                  */
                 _updatePictureSource : function(value) {
                       var parent = this,
                       params = {
                                 "data" : value
                       };
-
                       // succes handler
                        var load = dojo.hitch(this, function(data) {
                            parent._reloadPicture();
@@ -156,8 +173,9 @@ define([
                 },
 
                 /**
-                 *
+                 * Reload the picture.
                  * @param url
+                 * @method _reloadPicture
                  */
                 _reloadPicture : function(){
                     dojo.empty(this._pictureWrapper);
@@ -165,7 +183,7 @@ define([
                     var textData = new AccountPicture({
                       username : this.username,
                       picture_width :"128",
-                        picture_height : "128", type : "default"}, "a");
+                      picture_height : "128", type : "default"}, "a");
                     //console.log("textData", textData.domNode);
                     this._pictureWrapper.appendChild(textData.domNode);
                 },
@@ -191,13 +209,14 @@ define([
                         timeoutSeconds: 2000,
                         // error handler
                         error: dojo.hitch(this,function (res,ioArgs) {
-                            console.error("handle error: " + res);
-                            console.error("handle error: " + ioArgs);
+                            //console.error("handle error: " + res);
+                            //console.error("handle error: " + ioArgs);
                             this.errorMessage("error");
                         }),
                         // Callback on successful call:
                         load: dojo.hitch(this, function(response, ioArgs) {
                             this.successMesage(parent.i18nMessage.commons_update);
+                            parent._reloadPicture();
                             // return the response for succeeding callbacks
                             return response;
                         })
