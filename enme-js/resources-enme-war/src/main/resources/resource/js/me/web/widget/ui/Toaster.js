@@ -23,14 +23,13 @@
  */
 define([
          "dojo/_base/declare",
+         "dojo/dom-construct",
    		 "dojox/widget/Toaster",
-   		 "me/web/widget/ui/Message",
-     	  "me/core/enme"],
-    function(
-    declare,
-    Toaster,
-    Message,
-    _ENME) {
+     	 "me/core/enme"], function(
+	    declare,
+	    domConstruct,
+	    Toaster,
+	    _ENME) {
 
   return declare([Toaster], {
 
@@ -42,7 +41,7 @@ define([
 
  	/**
  	 *
- 	 * @method
+ 	 * @methodpostCreate
  	 */
 	postCreate: function() {
 		//this.inherited(arguments);
@@ -58,25 +57,23 @@ define([
 	/**
 	 *
 	 * @param method
+	 * @method _setContent
 	 */
 	_setContent: function(message) {
-		var widget = new Message({
-			message : message,
-			descriptiom : "",
-			type : this.messageCurrentType || 'message'
-		});
-
+		var widget = domConstruct.create("div", { innerHTML: "<div> " + message + " </div>" });
+			dojo.addClass(widget, 'message_toaster');
 		if (message && this.isVisible) {
-			this.contentNode.appendChild(widget.domNode);
+			this.contentNode.appendChild(widget);
 		} else {
 			dojo.empty(this.contentNode);
-			this.contentNode.appendChild(widget.domNode);
+			this.contentNode.appendChild(widget);
 		}
 	},
 
 	/**
 	 *
 	 * @param message
+	 * @method _handleMessage
 	 */
 	_handleMessage: function(/*String|Object*/message) {
 		if (dojo.isString(message)) {

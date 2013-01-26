@@ -32,24 +32,7 @@ define([
                  template) {
 
 
-//dojo.require("dojox.form.BusyButton");
-
   lang.extend(ValidationTextBox, {
-
-  //
-//	    isValid: function(/*Boolean*/ isFocused){
-//	        // summary:
-//	        //		Tests if value is valid.
-//	        //		Can override with your own routine in a subclass.
-//	        // tags:
-//	        //		protected
-//	        var defaultValid =  this.validator(this.textbox.value, this.constraints);
-//	        var backEndValid =  true;
-//	        if(isFocused){
-//	            backEndValid = this.validateBackEnd(this.textbox.value);
-//	        }
-//	        return (defaultValid && backEndValid);
-//	    },
 
       /*
        * validate back end.
@@ -72,9 +55,14 @@ define([
                   }
               });
               var error = function(error) {
-                  console.debug("error", error);
+                  dojo.publish('/encuestame/settings/profile/message', [message, 'error']);
               };
-              encuestame.service.xhrGet(URLServices.service('encuestame.service.list.checkProfile'), {type:type, value: this.textbox.value}, load, error);
+              encuestame.service.xhrGet(URLServices.service('encuestame.service.list.checkProfile'),
+              {
+                type:type,
+                value : this.textbox.value
+              },
+              load, error);
 //              URLServices.get('encuestame.service.list.checkProfile',  {type:type, value: this.textbox.value}, load, error , dojo.hitch(this, function() {
 //
 //              }));
@@ -82,22 +70,42 @@ define([
       }
   });
 
-            return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
+  return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-          // template string.
-            templateString : template,
+          /**
+           * template string.
+           * @property templateString
+           */
+           templateString : template,
 
-            /**
-            *
-            */
+          /**
+           *
+           * @property
+           */
            _openBox : false,
 
+           /**
+            *
+            * @property
+            */
            username : "",
 
+           /**
+            *
+            * @method
+            */
            email : "",
 
+           /**
+            *
+            * @method
+            */
            complete_name : "",
 
+           /**
+            *
+            * @method
+            */
            language : "",
 
            /**
@@ -202,7 +210,12 @@ define([
                var error = function(error) {
                    console.error("error", error);
                };
-               encuestame.service.xhrGet(this.getURLService().service('encuestame.service.list.profile.my'), {}, load, error);
+              //encuestame.service.xhrGet(this.getURLService().service('encuestame.service.list.profile.my'), {}, load, error);
+              URLServices.get('encuestame.service.list.profile.my',  {
+
+              }, load, error , dojo.hitch(this, function() {
+
+              }));
            },
 
            /*
@@ -215,18 +228,16 @@ define([
                var formDijit = registry.byId("profileForm");
                //console.debug("form", formDijit);
                if (formDijit.isValid()) {
-                   var  params = {
-                      //TODO: LLENAR ESTOS PARAMETROS
-                   };
+                   var params = formDijit.getValues();
                    var load = dojo.hitch(this, function(data) {
                        //console.debug(data);
                      if ("success" in data) {
                        var message = data.success.message;
                        if (message != 'undefined') {
-                         dojo.publish('/encuestame/settings/profile/message', [message, 'success']);
+                          this.successMesage(message);
                        }
                      }
-                     this._submit.cancel();
+                     //this._submit.cancel();
                    });
 
                    var error = dojo.hitch(this,function(error) {

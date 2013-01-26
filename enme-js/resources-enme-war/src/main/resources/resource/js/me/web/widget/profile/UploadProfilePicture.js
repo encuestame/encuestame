@@ -8,6 +8,7 @@ define([
          "me/web/widget/pictures/AccountPicture",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/enme",
+         "me/core/URLServices",
          "dojo/io/iframe",
          "dojo/text!me/web/widget/profile/templates/profilePicture.html" ],
         function(
@@ -20,30 +21,63 @@ define([
                 AccountPicture,
                 main_widget,
                 _ENME,
+                URLServices,
                 ioIframe,
                  template) {
             return declare([ _WidgetBase, _TemplatedMixin, main_widget, _WidgetsInTemplateMixin], {
 
-          // template string.
-            templateString : template,
+                /**
+                 * template string.
+                 * @property templateString
+                 */
+                templateString : template,
 
-            contextPath : _ENME.config('contextPath'),
+                /**
+                 *
+                 * @property contextPath
+                 */
+                contextPath : _ENME.config('contextPath'),
 
+                /**
+                 * i18n Messages
+                 * @property i18nMessage
+                 */
                 i18nMessage : {
                   settings_config_picture_title : _ENME.getMessage("settings_config_picture_title"),
                   settings_config_picture_description : _ENME.getMessage("settings_config_picture_description"),
                   settings_config_picture_own : _ENME.getMessage("settings_config_picture_own"),
-                  settings_config_picture_restrictions : _ENME.getMessage("settings_config_picture_restrictions")
+                  settings_config_picture_restrictions : _ENME.getMessage("settings_config_picture_restrictions"),
+                  commons_update :  _ENME.getMessage("commons_update")
                 },
 
+                /**
+                 *
+                 * @property _size
+                 */
                 _size : ["preview", "default", "web"],
 
+                /**
+                 *
+                 * @property
+                 */
                 upgradeProfileService : 'encuestame.service.list.upgradeProfile',
 
+                /**
+                 *
+                 * @property
+                 */
                 username : "",
 
+                /**
+                 *
+                 * @property
+                 */
                 pictureSource : "",
 
+                /**
+                 *
+                 * @property
+                 */
                 imagePath : '/',
 
                 /**
@@ -56,6 +90,7 @@ define([
 
                 /**
                  *
+                 * @method postCreate
                  */
                 postCreate : function() {
                     if (this.username != null) {
@@ -77,6 +112,10 @@ define([
                     }
                 },
 
+                /**
+                 *
+                 * @method
+                 */
                 startup : function () {
                   var uploadedRadio = registry.byId("uploaded_radio");
                     uploadedRadio.onChange = dojo.hitch(this, function(e) {
@@ -88,27 +127,32 @@ define([
 
                 },
 
-                /*
+
+                /**
                  *
+                 * @method
                  */
                 _updatePictureSource : function(value) {
-                  var parent = this,
-                  params = {
-                            "data" : value
-                   };
-                   //console.debug("params", params);
+                      var parent = this,
+                      params = {
+                                "data" : value
+                      };
 
-                   var load = dojo.hitch(this, function(data) {
-                       parent._reloadPicture();
-                       parent.successMesage(data.success.message);
-                   });
+                      // succes handler
+                       var load = dojo.hitch(this, function(data) {
+                           parent._reloadPicture();
+                           parent.successMesage(data.success.message);
+                       });
 
-                   var error = dojo.hitch(this, function(error) {
-                       //console.error(error);
-                       parent.errorMessage(error);
-                   });
-                   encuestame.service.xhrPostParam(
-                       this.getURLService().service('encuestame.service.list.updatePicture'), params, load, error);
+                       // error handler
+                       var error = dojo.hitch(this, function(error) {
+                           parent.errorMessage(error);
+                       });
+                       // encuestame.service.xhrPostParam(
+                       //     this.getURLService().service('encuestame.service.list.updatePicture'), params, load, error);
+                       URLServices.post('encuestame.service.list.updatePicture',  params, load, error , dojo.hitch(this, function() {
+
+                        }));
                 },
 
                 /**
@@ -127,10 +171,12 @@ define([
                 },
 
 
-                /**
-                 *
-                 */
+               /**
+                * Update the image to the server
+                * @method uploadImage
+                */
                 uploadImage : function() {
+                  var parent = this;
                   ioIframe.send({
                         url:  this.contextPath + "/file/upload/profile",
                         form : "imageForm",
@@ -138,12 +184,12 @@ define([
                         method: "POST",
                         handle : dojo.hitch(this, function(ioResponse, args) {
                             if (ioResponse instanceof Error) {
-                                console.error("handle error: " + ioResponse);
-                            } else {
-                                console.debug(args);
+                                this.errorMessage("handle error: " + ioResponse);
                             }
                         }),
+                        // time out
                         timeoutSeconds: 2000,
+                        // error handler
                         error: dojo.hitch(this,function (res,ioArgs) {
                             console.error("handle error: " + res);
                             console.error("handle error: " + ioArgs);
@@ -151,11 +197,7 @@ define([
                         }),
                         // Callback on successful call:
                         load: dojo.hitch(this, function(response, ioArgs) {
-                            // do something
-                            // ...
-                            console.debug("response: " + response);
-                            console.debug("ioArgs: " + ioArgs);
-                            this.successMesage(response);
+                            this.successMesage(parent.i18nMessage.commons_update);
                             // return the response for succeeding callbacks
                             return response;
                         })
