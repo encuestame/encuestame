@@ -407,3 +407,12 @@ input:focus {
       padding: 10px;
       margin: 0 auto;
 }
+
+.web-confirm-wrapper {
+    padding: 20px;
+}
+
+.web-confirm-wrapper h2{
+    margin: 0;
+    margin-bottom: 5px;
+}

@@ -8,6 +8,7 @@ define([
          "dijit/form/Button",
          "me/core/main_widgets/EnmeMainLayoutWidget",
          "me/core/enme",
+         "me/web/widget/dialog/Confirm",
          "dojo/hash",
          "dojo/io-query",
          "dojo/text!me/web/widget/social/templates/socialAccountRow.html" ],
@@ -21,6 +22,7 @@ define([
                 Button,
                 main_widget,
                 _ENME,
+                Confirm,
                 has,
                 ioQuery,
                 template) {
@@ -49,7 +51,10 @@ define([
           settings_social_profile_url :  _ENME.getMessage("settings_social_profile_url"),
           button_remove : _ENME.getMessage("button_remove"),
           settings_social_set_default : _ENME.getMessage("settings_social_set_default"),
-          settings_social_seted_as_default : _ENME.getMessage("settings_social_seted_as_default")
+          settings_social_seted_as_default : _ENME.getMessage("settings_social_seted_as_default"),
+          commons_confirm : _ENME.getMessage("commons_confirm"),
+          commons_yes : _ENME.getMessage("commons_yes"),
+          commons_no : _ENME.getMessage("commons_no")
        },
 
        _secrets : false,
@@ -63,18 +68,20 @@ define([
       favourite_picture  : "",
 
       /**
-       *
-       * @method
+       * postMixInProperties lyfe cycle.
+       * @method postMixInProperties
        */
       postMixInProperties: function() {
             this.favourite_picture = _ENME.config("contextPath") + "/resources/images/icons/enme_full_star.png";
       },
 
       /**
-       * Post create cycle lufe.
+       * Post create cycle life.
+       * @method postCreate
        */
       postCreate : function() {
           if (this._removeButton) {
+              // right now, i's not possible remove a social account if has elements pubished
               if (this.account.tweetpoll_stats > 0 || this.account.poll_stats > 0 || this.account.survey_stats > 0) {
                   dojo.destroy(this._removeButton.domNode);
               } else {
@@ -93,7 +100,7 @@ define([
 
       /**
        *
-       * @method
+       * @method changeDefaultStatus
        */
       changeDefaultStatus : function () {
           if (this.account.default_selected) {
@@ -108,7 +115,7 @@ define([
 
       /*
        * Change status account
-       * @method
+       * @method _changeStatusAccount
        * @event Event
        */
       _changeStatusAccount : function(event) {
@@ -146,7 +153,12 @@ define([
           var myDialog = new Confirm({
               title: title,
               content: content,
-              style: "width: 350px"
+              style: "width: 350px",
+              label : {
+                  question : this.i18nMessage.commons_confirm,
+                  yes : this.i18nMessage.commons_yes,
+                  no : this.i18nMessage.commons_no
+              }
           });
           //console.debug("dialog 1 ", myDialog);
           myDialog.functionYes = dojo.hitch(this, function(){
@@ -158,6 +170,7 @@ define([
 
        /*
        * Remove Action.
+       * @method _removeAction
        */
       _removeAction : function() {
           // load handler
@@ -184,7 +197,7 @@ define([
 
       /**
        *
-       * @method
+       * @method _showHideAction
        */
       _showHideAction : function(){
           if (this._secrets) {
@@ -197,7 +210,7 @@ define([
 
       /**
        *
-       * @method
+       * @method _showHideSecrets
        */
       _showHideSecrets : function(event) {
           dojo.stopEvent(event);

@@ -81,7 +81,6 @@ public class SettingsController extends AbstractBaseOperations{
    @RequestMapping(value = "/settings/social", method = RequestMethod.GET)
    public String socialSettingsController(ModelMap model) {
        log.debug("social");
-
        addi18nProperty(model, "settings_config_profile_email");
        addi18nProperty(model, "settings_config_profile_complete_name");
        addi18nProperty(model, "settings_social_tp_published_whith_this_account");
@@ -91,6 +90,9 @@ public class SettingsController extends AbstractBaseOperations{
        addi18nProperty(model, "settings_social_set_default");
        addi18nProperty(model, "settings_social_profile_url");
        addi18nProperty(model, "settings_social_seted_as_default");
+       addi18nProperty(model, "commons_confirm");
+       addi18nProperty(model, "commons_no");
+       addi18nProperty(model, "commons_yes");
        return "settings/social";
    }
 }

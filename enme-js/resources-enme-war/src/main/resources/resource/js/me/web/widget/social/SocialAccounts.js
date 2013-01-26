@@ -44,7 +44,7 @@ define([
             this._createDetail("identicaDetail", "Identica");
             //this._createDetail("yahooDetail", "Yahoo"); DISABLED
             //buttons
-            this._cretateButton("twitter", "Twitter");
+            this._cretateButton("twitter", "Twitter", true);
             this._cretateButton("facebook", "Facebook");
             this._cretateButton("linkedin", "LinkedIn");
             //this._cretateButton("googleplus", "Google +");

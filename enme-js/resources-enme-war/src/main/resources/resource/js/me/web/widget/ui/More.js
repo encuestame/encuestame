@@ -17,9 +17,9 @@
 /***
  *  @author juanpicado19D0Tgm@ilDOTcom
  *  @version 1.146
- *  @module
- *  @namespace
- *  @class
+ *  @module UI
+ *  @namespace Widget
+ *  @class More
  */
 define([ "dojo/_base/declare",
     "dijit/_WidgetBase",
