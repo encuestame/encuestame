@@ -151,7 +151,7 @@ define([
           displayEmptyMessage : function() {
               var node = dojo.create("div");
               dojo.addClass(node, "web-items-no-results");
-              node.innerHTML = _ENME.getMessage("024");
+              node.innerHTML = _ENME.getMessage("commons_no_results");
               dojo.place(node, this._items);
           },
 

@@ -167,13 +167,24 @@ public interface IFrontEndDao extends IBaseDao{
             final Poll poll,
             final TypeSearchResult itemType,
             final SearchPeriods searchPeriods);
-    
+
     /**
      * Get total hashTag hits by date range.
      * @param tagId
-     * @param period 
+     * @param period
      * @return
      */
     public List<Hit> getHashTagHitsbyDateRange(final Long tagId,
             final Integer period);
+
+    /**
+     * Get all hits by type
+     * @param tweetpoll {@link TweetPoll}
+     * @param poll {@link Poll}
+     * @param survey {@link Survey}
+     * @return
+     */
+    List<Hit> getAllHitsByType(final TweetPoll tweetpoll,
+            final Poll poll,
+            final Survey survey);
 }

@@ -69,6 +69,7 @@ define([
             this.widget_detail = new PollNavigateItemDetail(
                 {
                   data : this.data ,
+                  parentWidget : this,
                   label : _ENME.getMessage('poll_admon_poll_options')
                 });
             dojo.addClass(this.widget_detail.domNode, "hidden");

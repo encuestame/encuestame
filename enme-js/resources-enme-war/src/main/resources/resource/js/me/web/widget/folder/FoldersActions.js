@@ -57,7 +57,9 @@ define([
                dojo.stopEvent(event);
                var node = this._createFolder({folderId: null, name : _ENME.getMessage("detail_manage_folder_replace_name")});
                domConstruct.place(node.domNode, this._folders, "first");
-               dojox.fx.highlight({node:node.domNode, duration: 800 }).play();
+               // Not ready for AMD modules
+               // http://dojotoolkit.org/reference-guide/1.8/dojox/fx.html
+               //dojox.fx.highlight({node:node.domNode, duration: 800 }).play();
            },
 
            /*

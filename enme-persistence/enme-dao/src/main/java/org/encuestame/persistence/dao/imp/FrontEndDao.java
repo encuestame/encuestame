@@ -64,7 +64,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
     /** {@link PollDao}. **/
     @Autowired
     private IPoll poll;
-    
+
     /** Represent All Items in the time. **/
     private final Integer WITHOUT_FIRST_RESULTS = -1;
 
@@ -86,11 +86,11 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @return list of tweetPoll.
      */
     @SuppressWarnings("unchecked")
-	public final List<TweetPoll> getTweetPollFrontEnd(
-			final SearchPeriods period,
-			final Integer start, 
-			final Integer maxResults,
-			final Integer firstResult) {
+    public final List<TweetPoll> getTweetPollFrontEnd(
+            final SearchPeriods period,
+            final Integer start,
+            final Integer maxResults,
+            final Integer firstResult) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(TweetPoll.class);
         criteria.createAlias("question", "question");
         calculateSearchPeriodsDates(period, criteria, "createDate");
@@ -110,11 +110,11 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
      * @return list of poll.
      */
     @SuppressWarnings("unchecked")
-	public final List<Poll> getPollFrontEnd(
-			final SearchPeriods period,
-			final Integer start, 
-			final Integer maxResults,
-			final Integer firstResult) {
+    public final List<Poll> getPollFrontEnd(
+            final SearchPeriods period,
+            final Integer start,
+            final Integer maxResults,
+            final Integer firstResult) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.createAlias("question", "question");
         calculateSearchPeriodsDates(period, criteria, "createdAt");
@@ -127,12 +127,12 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
     }
 
     /*
-     * 
+     *
      */
     @SuppressWarnings("unchecked")
-	public final List<Survey> getSurveyFrontEnd(final SearchPeriods period,
-			final Integer start, final Integer maxResults,
-			final Integer firstResult) {
+    public final List<Survey> getSurveyFrontEnd(final SearchPeriods period,
+            final Integer start, final Integer maxResults,
+            final Integer firstResult) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Survey.class);
          //criteria.createAlias("question", "question");
         // TODO: Complete method, adding criteria params
@@ -304,6 +304,29 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         this.poll = poll;
     }
 
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IFrontEndDao#getAllHitsByType(org.encuestame.persistence.domain.tweetpoll.TweetPoll, org.encuestame.persistence.domain.survey.Poll, org.encuestame.persistence.domain.survey.Survey)
+     */
+    @SuppressWarnings("unchecked")
+    public List<Hit> getAllHitsByType(final TweetPoll tweetpoll,
+            final Poll poll,
+            final Survey survey) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
+        if (poll != null) {
+            criteria.createAlias("poll", "poll");
+            criteria.add(Restrictions.eq("poll", poll));
+        } else if (tweetpoll != null) {
+            criteria.createAlias("tweetPoll", "tweetPoll");
+            criteria.add(Restrictions.eq("tweetPoll", tweetpoll));
+        } else if (survey != null) {
+            criteria.createAlias("survey", "survey");
+            criteria.add(Restrictions.eq("survey", survey));
+        }
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getHitsByIpAndType(java.lang.String, java.lang.Long, org.encuestame.persistence.domain.TypeSearchResult)
@@ -356,7 +379,7 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         Date startDate = null;
         Date endDate = null;
         if (period != null) {
-            final DateTime dateTime = new DateTime();           
+            final DateTime dateTime = new DateTime();
              endDate  = dateTime.toDate();
              startDate = DateUtil.minusDaysToCurrentDate(period, dateTime.toDate());
          }
@@ -377,11 +400,11 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         } else {
             log.error(" Search hit result type undefined " + searchHitby);
         }
-        
+
         if (startDate != null && endDate != null) {
-        	  criteria.add(Restrictions.between("hitDate", startDate, endDate));
+              criteria.add(Restrictions.between("hitDate", startDate, endDate));
         }
-        
+
         //define as a VISIT category
         criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
         @SuppressWarnings("unchecked")
@@ -389,40 +412,40 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         log.debug("Retrieve total hits by  " + searchHitby + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
-    } 
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsbyDateRange
-	 * (java.lang.Long, java.lang.Integer, java.lang.Integer, java.lang.Integer,
-	 * java.lang.Integer)
-	 */
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * org.encuestame.persistence.dao.IFrontEndDao#getHashTagHitsbyDateRange
+     * (java.lang.Long, java.lang.Integer, java.lang.Integer, java.lang.Integer,
+     * java.lang.Integer)
+     */
     @SuppressWarnings("unchecked")
-	public List<Hit> getHashTagHitsbyDateRange(final Long tagId,
-			final Integer period) {
-		Date startDate = null;
-		Date endDate = null;
-		if (period != null) {
-			final Calendar hi = Calendar.getInstance();
-			hi.add(Calendar.DAY_OF_YEAR, -period);
-			startDate = hi.getTime();
-			endDate = Calendar.getInstance().getTime();
+    public List<Hit> getHashTagHitsbyDateRange(final Long tagId,
+            final Integer period) {
+        Date startDate = null;
+        Date endDate = null;
+        if (period != null) {
+            final Calendar hi = Calendar.getInstance();
+            hi.add(Calendar.DAY_OF_YEAR, -period);
+            startDate = hi.getTime();
+            endDate = Calendar.getInstance().getTime();
 
-		}
+        }
 
-		final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
-		criteria.createAlias("hashTag", "hashTag");
-		criteria.add(Restrictions.eq("hashTag.hashTagId", tagId));
-		criteria.addOrder(Order.desc("hitDate")); 
-		criteria.add(Restrictions.between("hitDate", startDate, endDate)); 
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Hit.class);
+        criteria.createAlias("hashTag", "hashTag");
+        criteria.add(Restrictions.eq("hashTag.hashTagId", tagId));
+        criteria.addOrder(Order.desc("hitDate"));
+        criteria.add(Restrictions.between("hitDate", startDate, endDate));
         //define as a VISIT category
         criteria.add(Restrictions.eq("hitCategory", HitCategory.VISIT));
-		return getHibernateTemplate().findByCriteria(criteria);
+        return getHibernateTemplate().findByCriteria(criteria);
 
-	}
-    
+    }
+
     /*
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IFrontEndDao#getAccessRatebyItem(java.lang.String, java.lang.Long, java.lang.String)
@@ -482,21 +505,21 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
         } else if (itemType.equals(TypeSearchResult.HASHTAG)) {
             //social links by hashtag
             final List<TweetPoll> d = getTweetPoll().getTweetpollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG,
-            		searchPeriods); 
+                    searchPeriods);
             final List<Poll> polls = getPoll().getPollByHashTagName(hashTag.getHashTag(), null, null, TypeSearchResult.HASHTAG, searchPeriods);
             // FUTURE: We need include Surveys by Hashtag
-            // include on the query all published items by tweetpoll 
+            // include on the query all published items by tweetpoll
             if (d.size() != 0) {
                 criteria.add(Restrictions.in("tweetPoll", d));
             }
-            // include on the query all published items by poll            
+            // include on the query all published items by poll
             if (polls.size() != 0) {
                 criteria.add(Restrictions.in("poll", polls));
             }
             //BUG: We have a serial problem here, if poll and tweetpoll are null the criteria retrieve ALL items. ENCUESTAME-490
         } else if (itemType.equals(TypeSearchResult.PROFILE)) {
             //TODO: future
-        	//return ListUtils.EMPTY_LIST;
+            //return ListUtils.EMPTY_LIST;
         } else {
             log.error("Item type not valid: " + itemType);
         }

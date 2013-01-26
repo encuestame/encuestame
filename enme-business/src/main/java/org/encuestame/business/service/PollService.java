@@ -29,12 +29,14 @@ import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.domain.Email;
 import org.encuestame.persistence.domain.HashTag;
+import org.encuestame.persistence.domain.Hit;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollFolder;
 import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus;
 import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
@@ -279,7 +281,6 @@ public class PollService extends AbstractSurveyService implements IPollService{
         final List<PollResult> pollResults;
         final List<QuestionAnswer> qAnswer;
         Question question = new Question();
-
         if (pollDomain != null) {
             // Retrieve Poll results, answers and question.
             pollResults = getPollDao().retrievePollResults(pollDomain);
@@ -290,22 +291,27 @@ public class PollService extends AbstractSurveyService implements IPollService{
                 }
             }
             question = pollDomain.getQuestion();
-
             if (question != null) {
-
                 // Retrieve answers by Question id.
-                qAnswer = this
-                        .getQuestionAnswersbyQuestionId(question.getQid());
+                qAnswer = this.getQuestionAnswersbyQuestionId(question.getQid());
                 if (qAnswer.size() > 0) {
                     for (QuestionAnswer questionAnswer : qAnswer) {
                         getQuestionDao().delete(questionAnswer);
                     }
                 }
+                // remove all social links and remove all of them
+                final List<TweetPollSavedPublishedStatus> list = getTweetPollDao().getLinksByTweetPoll(null, null, pollDomain, TypeSearchResult.POLL);
+                for (TweetPollSavedPublishedStatus tweetPollSavedPublishedStatus : list) {
+                     getQuestionDao().delete(tweetPollSavedPublishedStatus);
+                }
+                // remove all hits
+                final List<Hit> hits = getFrontEndDao().getAllHitsByType(null, pollDomain, null);
+                for (Hit hit : hits) {
+                    getQuestionDao().delete(hit);
+                }
                 // Remove Poll
                 getPollDao().delete(pollDomain);
-
-                 // TODO: Remove Hits and social network publications.
-
+                // TODO: Remove Hits and social network publications.
                 // Remove Question
                 getQuestionDao().delete(question);
 

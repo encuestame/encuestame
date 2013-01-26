@@ -42,6 +42,12 @@ define([
           label : "",
 
           /**
+           *
+           * @property
+           */
+          parentWidget : null,
+
+          /**
            * The information of poll detail.
            */
           data : {},
@@ -90,14 +96,16 @@ define([
                       no : this.i18nMessage.commons_no
                   }
               });
+              // success handler
               var load = dojo.hitch(this, function() {
                   this.successMesage("Poll Removed");
                    myDialog.hide();
+                   dojo.destroy(this.parentWidget.domNode);
               });
+              // error handler
               var error = dojo.hitch(this, function(error) {
                  myDialog.hide();
-                this.errorMesage(error);
-                console.error(error);
+                 this.errorMesage(error);
               });
               myDialog.functionYes = dojo.hitch(this, function(){
                      this.getURLService().del("encuestame.service.list.poll.remove", { pollId : this.data.id} , load, error , dojo.hitch(this, function() {
@@ -119,6 +127,7 @@ define([
               var load = dojo.hitch(this, function(data) {
                   if ("success" in data) {
                       console.info("success", data);
+                      this.successMesage(_ENME.getMessage("commons_success"));
                   }
               });
 

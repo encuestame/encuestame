@@ -61,7 +61,7 @@ define([
         /**
          * Create  Yes / No Widget.
          */
-        addYesNoWidget : function(value, onChange, options){
+        addYesNoWidget : function(value, onChange, options) {
             var widget = new YesNoWidget({data: value, optionalParameters : options});
             if (onChange != null) {
                 widget._onChange = onChange;
