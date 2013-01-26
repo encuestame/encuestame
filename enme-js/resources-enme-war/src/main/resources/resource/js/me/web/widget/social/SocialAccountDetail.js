@@ -49,7 +49,6 @@ define([
      postCreate : function() {
          dojo.subscribe("/encuestame/social/change", this, function(type) {
              if (this.id == type.id) {
-                 //console.debug("SELECTED "+this.socialProvider);
                  dojo.removeClass(this.domNode, "defaultDisplayHide");
                  this._callListSocialAccounts();
              } else {

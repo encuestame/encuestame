@@ -36,6 +36,7 @@ define([
          }));
          var _hash = ioQuery.queryToObject(hash());
          if (_hash.provider && _hash.provider == this.id) {
+             dojo.addClass(this.domNode, "selected");
              this._loadAccountInterface(_hash.provider);
          }
      },
