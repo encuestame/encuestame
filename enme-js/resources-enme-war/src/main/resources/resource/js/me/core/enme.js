@@ -578,7 +578,7 @@ define(["dojo",
 
       /**
        * Convert huge number to relative quantities
-       * @method
+       * @method a number to evaluate
        */
       relativeQuantity : function (quantity) {
          if (typeof quantity === 'number') {

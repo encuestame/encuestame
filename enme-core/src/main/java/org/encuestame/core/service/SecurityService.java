@@ -966,7 +966,7 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
         if ("default".equals(action)) {
            social.setDefaultSelected(!social.getDefaultSelected());
            getAccountDao().saveOrUpdate(social);
-        } else if("remove".equals(action)){
+        } else if("remove".equals(action)) {
             getAccountDao().delete(social);
         } else {
             throw new IllegalSocialActionException();

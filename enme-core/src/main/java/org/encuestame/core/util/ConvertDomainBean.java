@@ -179,8 +179,7 @@ public class ConvertDomainBean {
                 .getDescriptionProfile());
         socialAccount.setEmail(socialAccount.getEmail() == null ? ""
                 : socialAccount.getEmail());
-        socialAccount
-                .setDefaultSelected(socialAccount.getDefaultSelected() == null ? false
+        socialAccountBean.setDefaultSelected(socialAccount.getDefaultSelected() == null ? false
                         : socialAccount.getDefaultSelected());
         socialAccountBean.setAddedAccount(socialAccount.getAddedAccount());
         socialAccountBean.setPrictureUrl(socialAccount.getPrictureUrl());

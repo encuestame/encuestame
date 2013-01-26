@@ -62,7 +62,7 @@ define([
        * Post create cycle lufe.
        */
       postCreate : function() {
-        //console.debug("account", this.account);
+        console.debug("account", this.account);
         if (this._removeButton) {
             if (this.account.tweetpoll_stats > 0 || this.account.poll_stats > 0 || this.account.survey_stats > 0) {
                 //console.debug("remove this button ", this._removeButton);
@@ -138,7 +138,7 @@ define([
       _changeStatusAccount : function(event){
           dojo.stopEvent(event);
           var load = dojo.hitch(this, function(data){
-              //console.debug("data", data);
+              console.debug("data", data);
               dojo.publish("/encuestame/social/list/reload");
           });
           var error = function(error) {
