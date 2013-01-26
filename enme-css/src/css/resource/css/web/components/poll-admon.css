@@ -42,11 +42,12 @@
   margin-top: 15px;
   opacity: 0.2;
   text-align: center;
-  border-radius : 3px;  
+  border-radius : 3px;
 }
 
 .web-item-row .web-list-more .web-poll-info .web-poll-options {
-	margin-left: 545px;
+	margin-left: 340px;
+	margin-top: 35px;
 	padding: 6px;
 }
 
@@ -127,6 +128,7 @@
 .web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail {
 	border-bottom: 1px dotted #E0E0E0;
 	padding: 5px;
+	overflow: auto;
 }
 
 .web-item-row .web-poll-switch {
@@ -139,7 +141,7 @@
 }
 
 .web-item-row .web-poll-switch ul{
-	
+
 }
 
 .web-item-row .web-poll-switch li {
@@ -166,13 +168,12 @@
 	{
 	float: left;
 	font-weight: bold;
-	width: 215px;
+	width: 180px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail .data
-	{
-	margin-left: 140px;
-	overflow: auto;
+.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail .data {
+  float: left;
+  width: 30px;
 }
 
 .web-item-row .web-list-more .web-poll-detail-bttm-bar {
@@ -188,16 +189,16 @@
 	float: left;
 	padding: 7px;
 	color: #1E1D1D;
-	-khtml-opacity:.50; 
-    -moz-opacity:.50; 
+	-khtml-opacity:.50;
+    -moz-opacity:.50;
     -ms-filter:"alpha(opacity=50)";
     filter:alpha(opacity=50);
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
-    opacity:.50; 
+    opacity:.50;
 }
 
 .web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info > div{
-    width: 30px !important;	
+    width: 30px !important;
 }
 
 .web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info img{
@@ -206,7 +207,7 @@
 
 .web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info>div
 	{
-	
+
 }
 
 .web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove {

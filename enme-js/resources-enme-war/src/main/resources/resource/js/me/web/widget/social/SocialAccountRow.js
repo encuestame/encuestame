@@ -179,13 +179,12 @@ define([
               dojo.publish("/encuestame/social/list/reload");
           });
           // error handler
-          var error = function(error) {
-                  };
-                  this.getURLService().get("encuestame.service.social.action.remove",
-                          { socialAccountId : this.account.id }, load, error , dojo.hitch(this, function() {
+          var error = function(error) {};
+          this.getURLService().get("encuestame.service.social.action.remove",
+                  { socialAccountId : this.account.id }, load, error , dojo.hitch(this, function() {
 
-                  }));
-              },
+          }));
+      },
 
       /*
        * Remove Social Account.

@@ -190,6 +190,7 @@ public class PollJsonController extends AbstractJsonController{
                getPollService().removePoll(pollId);
                setSuccesResponse();
           } catch (Exception e) {
+              e.printStackTrace();
               log.error(e);
               setError(e.getMessage(), response);
           }

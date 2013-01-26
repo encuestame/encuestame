@@ -68,7 +68,7 @@ define([
              */
             buildDefaultRow : function() {
                 var data = this.data;
-                this.createInput(data)
+                this.createInput(data);
                 this.createColumnDialog(data.username);
                 this.createGroupWidget(data);
                 this.createColumn(data.relateTimeEnjoy);
@@ -76,8 +76,9 @@ define([
                 this.createColumn(data.tweetPoll, true);
                 this.createColumn(data.poll, true);
                 this.createColumn(data.survey, true);
-                this.createColumn(
-                        dojo.date.locale.format(new Date(), {datePattern: "MM/dd/yy" , selector:'date'}), true);
+                // moment replace by ENME.fromNow
+                var _date = moment(data.lastTimeLogged).fromNow();
+                this.createColumn(_date, true);
                 this.createColumn(data.followers == null ? 0 : data.followers, true);
             },
 

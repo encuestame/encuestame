@@ -75,6 +75,7 @@ define(
         "encuestame.service.list.listPoll" : _appendContext("api/survey/poll/search.json"),
         "encuestame.service.list.poll.create" : _appendContext("api/survey/poll/create.json"),
         "encuestame.service.list.poll.publish" : _appendContext("api/survey/poll/publish.json"),
+        "encuestame.service.list.poll.remove" : _appendContext("/api/survey/poll/remove.json"),
         "encuestame.service.list.poll.detail" : _appendContext("api/survey/poll/detail.json"),
         "encuestame.service.list.poll.setParameter" : _appendContext("api/survey/poll/$0-poll.json"),
         "encuestame.service.list.poll.getVotes" : _appendContext("api/$0/poll/votes.json"),
@@ -210,11 +211,11 @@ define(
 
            // on dependes the method, the way to send the data it's different
 
-           if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+           if (method === 'POST' || method === 'PUT') {
                 _params = lang.mixin(_params, {
                     data : params
                 });
-           } else if (method === 'GET') {
+           } else if (method === 'GET' || method === 'DELETE') {
                 _params = lang.mixin(_params, {
                     query : params,
                     headers: { "Content-Type": "application/json"},

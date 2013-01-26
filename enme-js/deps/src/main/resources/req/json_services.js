@@ -424,28 +424,28 @@ encuestame.session.activity.notification = {t:0,n:0};
 /*
  * Return activity cookie.
  */
-encuestame.session.activity.cookie = function(){
-    var sessionCookie = dojo.cookie(encuestame.session.activity.name);
-    if(!sessionCookie) {
-        //new cookie.
-        encuestame.session.update(encuestame.session.activity.name,
-                encuestame.session.activity.notification);
-        sessionCookie = dojo.cookie(encuestame.session.activity.name);
-    }
-    return dojo.fromJson(sessionCookie);
-};
+//encuestame.session.activity.cookie = function(){
+//    var sessionCookie = dojo.cookie(encuestame.session.activity.name);
+//    if(!sessionCookie) {
+//        //new cookie.
+//        encuestame.session.update(encuestame.session.activity.name,
+//                encuestame.session.activity.notification);
+//        sessionCookie = dojo.cookie(encuestame.session.activity.name);
+//    }
+//    return dojo.fromJson(sessionCookie);
+//};
 
 /*
  * Update notification cookie info.
  */
-encuestame.session.activity.updateNot = function(t,n) {
-    var cokienotification = encuestame.session.activity.cookie();
-    if (cokienotification) {
-        cokienotification.t = t;
-        cokienotification.n = n;
-        encuestame.session.update(encuestame.session.activity.name, cokienotification);
-    }
-};
+//encuestame.session.activity.updateNot = function(t,n) {
+//    var cokienotification = encuestame.session.activity.cookie();
+//    if (cokienotification) {
+//        cokienotification.t = t;
+//        cokienotification.n = n;
+//        encuestame.session.update(encuestame.session.activity.name, cokienotification);
+//    }
+//};
 
 /*
  *  Creates the cookie with default values.
@@ -472,36 +472,36 @@ encuestame.date.getFormatTime = function(date, fmt){
 /**
  * Json Post Call.
  */
-encuestame.service.xhrPost = function(url, form, load, error, formEnabled) {
-    //default error.
-    var defaultError = function(error, ioargs){
-        console.error("default error ", error);
-    };
-    if(error == null){
-      error = defaultError;
-    }
-    console.debug("Form POST ", form);
-    if(load == null || url == null || form == null){
-        console.error("error params required.");
-    } else {
-        var xhrArgs = {
-                url: url,
-                timeout : encuestame.service.timeout,
-                handleAs: "json",
-                failOk : true, //Indicates whether a request should be allowed to fail
-                //(and therefore no console error message in the event of a failure)
-                load: load,
-                preventCache: true,
-                error: error
-            };
-        if (formEnabled) {
-            dojo.mixin(xhrArgs, { form: form });
-        } else {
-            dojo.mixin(xhrArgs, { postData: form });
-        }
-        var deferred = dojo.xhrPost(xhrArgs);
-    }
-};
+//encuestame.service.xhrPost = function(url, form, load, error, formEnabled) {
+//    //default error.
+//    var defaultError = function(error, ioargs){
+//        console.error("default error ", error);
+//    };
+//    if(error == null){
+//      error = defaultError;
+//    }
+//    console.debug("Form POST ", form);
+//    if(load == null || url == null || form == null){
+//        console.error("error params required.");
+//    } else {
+//        var xhrArgs = {
+//                url: url,
+//                timeout : encuestame.service.timeout,
+//                handleAs: "json",
+//                failOk : true, //Indicates whether a request should be allowed to fail
+//                //(and therefore no console error message in the event of a failure)
+//                load: load,
+//                preventCache: true,
+//                error: error
+//            };
+//        if (formEnabled) {
+//            dojo.mixin(xhrArgs, { form: form });
+//        } else {
+//            dojo.mixin(xhrArgs, { postData: form });
+//        }
+//        var deferred = dojo.xhrPost(xhrArgs);
+//    }
+//};
 
 encuestame.service.handler = {};
 
@@ -514,78 +514,78 @@ encuestame.service.handler = {};
  * @param {Function} error
  * @param {Boolean} logginHandler
  */
-encuestame.service.GET = function(url, params, load, error, loadingFunction) {
-      dojo.deprecated("Use URL Services");
-      var innerLoad = dojo.hitch(this, function(data) {
-        loadingFunction == null ? "" : loadingFunction.end();
-        if (dojo.isFunction(load)) {
-          load(data);
-        }
-      });
-      // initialize the loading
-        loadingFunction == null ? "" : loadingFunction.init();
-        var argsGet = {
-                url : url,
-            handleAs : "json",
-            failOk : true, //Indicates whether a request should be allowed to fail
-            // (and therefore no console error message in the event of a failure)
-            timeout : encuestame.service.timeout,
-            content: params,
-            load: innerLoad,
-            preventCache: true,
-            error: error,
-            handle : encuestame.service.handler.serviceHander
-       }
-       dojo.xhrGet(argsGet);
-};
+//encuestame.service.GET = function(url, params, load, error, loadingFunction) {
+//      dojo.deprecated("Use URL Services");
+//      var innerLoad = dojo.hitch(this, function(data) {
+//        loadingFunction == null ? "" : loadingFunction.end();
+//        if (dojo.isFunction(load)) {
+//          load(data);
+//        }
+//      });
+//      // initialize the loading
+//        loadingFunction == null ? "" : loadingFunction.init();
+//        var argsGet = {
+//                url : url,
+//            handleAs : "json",
+//            failOk : true, //Indicates whether a request should be allowed to fail
+//            // (and therefore no console error message in the event of a failure)
+//            timeout : encuestame.service.timeout,
+//            content: params,
+//            load: innerLoad,
+//            preventCache: true,
+//            error: error,
+//            handle : encuestame.service.handler.serviceHander
+//       }
+//       dojo.xhrGet(argsGet);
+//};
 
 /**
  * xhr POST param.
  */
-encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled, loadingFunction) {
-   dojo.deprecated("Use URL Services");
-    //validate form param.
-    formEnabled = formEnabled == null ? true : formEnabled;
-    //default error.
-    var defaultError = function(error, ioargs) {
-        console.error("default error ", error);
-    };
-    if (error == null) {
-      error = defaultError;
-    }
-    //get the xhr encapsulated error message.
-    errorWrapper = function (errorText, xhrError) {
-      if (typeof(xhrError === "object")){
-        var responseText = dojo.fromJson(xhrError.xhr.response);
-        error(responseText.error.message);
-      } else {
-        error(errorText || "undefined error");
-      }
-    };
-    //console.debug("Form POST ", form);
-    if (load == null || url == null || params == null){
-        console.error("error params required.");
-    } else {
-      var innerLoad = function(data) {
-        loadingFunction == null ? "" : loadingFunction.end();
-        load(data);
-      };
-      //load = innerLoad(load);
-        var xhrArgs = {
-            url: url,
-            postData: dojo.objectToQuery(params),
-            handleAs: "json",
-            //headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            load: innerLoad,
-            preventCache: true,
-            error: errorWrapper
-        };
-        //initialize the loading
-        loadingFunction == null ? "" : loadingFunction.init();
-        //make the call
-        var deferred = dojo.xhrPost(xhrArgs);
-    }
-};
+//encuestame.service.xhrPostParam = function(url, params, load, error, formEnabled, loadingFunction) {
+//   dojo.deprecated("Use URL Services");
+//    //validate form param.
+//    formEnabled = formEnabled == null ? true : formEnabled;
+//    //default error.
+//    var defaultError = function(error, ioargs) {
+//        console.error("default error ", error);
+//    };
+//    if (error == null) {
+//      error = defaultError;
+//    }
+//    //get the xhr encapsulated error message.
+//    errorWrapper = function (errorText, xhrError) {
+//      if (typeof(xhrError === "object")){
+//        var responseText = dojo.fromJson(xhrError.xhr.response);
+//        error(responseText.error.message);
+//      } else {
+//        error(errorText || "undefined error");
+//      }
+//    };
+//    //console.debug("Form POST ", form);
+//    if (load == null || url == null || params == null){
+//        console.error("error params required.");
+//    } else {
+//      var innerLoad = function(data) {
+//        loadingFunction == null ? "" : loadingFunction.end();
+//        load(data);
+//      };
+//      //load = innerLoad(load);
+//        var xhrArgs = {
+//            url: url,
+//            postData: dojo.objectToQuery(params),
+//            handleAs: "json",
+//            //headers: { "Content-Type": "application/json", "Accept": "application/json" },
+//            load: innerLoad,
+//            preventCache: true,
+//            error: errorWrapper
+//        };
+//        //initialize the loading
+//        loadingFunction == null ? "" : loadingFunction.init();
+//        //make the call
+//        var deferred = dojo.xhrPost(xhrArgs);
+//    }
+//};
 
 
 /*

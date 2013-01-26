@@ -42,6 +42,7 @@ define([
          "me/web/widget/tweetpoll/TweetPollPreview",
          "me/web/widget/social/SocialAccountPicker",
          "me/web/widget/tweetpoll/HashTags",
+         "me/core/URLServices",
          "dijit/form/CheckBox",
          "dijit/form/NumberSpinner",
          "me/web/widget/tweetpoll/Answers",
@@ -74,6 +75,7 @@ define([
                 TweetPollPreview,
                 SocialAccountPicker,
                 HashTags,
+                URLServices,
                 CheckBox,
                 NumberSpinner,
                 Answers,
@@ -783,8 +785,9 @@ define([
                     this.dialogWidget.hide();
                     this._showErrorMessage(error || _ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
                 });
-                encuestame.service.xhrPostParam(
-                    this.getURLService().service('encuestame.service.list.publishTweetPoll'), params, load, error);
+                URLServices.post('encuestame.service.list.publishTweetPoll',  params, load, error , dojo.hitch(this, function() {
+
+                }));
             },
 
             /**

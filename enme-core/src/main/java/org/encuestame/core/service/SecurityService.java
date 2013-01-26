@@ -946,13 +946,12 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
             log.debug("update Account Profile language " + language);
             log.debug("update Account Profile language " + username);
             account.setCompleteName(completeName);
-            //TODO: ENCUESTAME-20
-            //account.set
-            final Authentication auth = getSecCtx().getAuthentication();
             account.setUserEmail(email);
             account.setUsername(username);
             getAccountDao().saveOrUpdate(account);
+            //clear the security context
             SecurityContextHolder.clearContext();
+            // login the user
             SecurityUtils.authenticate(account);
     }
 

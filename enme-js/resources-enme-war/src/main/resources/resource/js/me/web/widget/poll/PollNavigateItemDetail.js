@@ -1,5 +1,6 @@
 define([
          "dojo/_base/declare",
+         "dojo/query",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -7,10 +8,13 @@ define([
          "me/web/widget/chart/ChartLayerSupport",
          "me/web/widget/utils/UpdateDefaultOptions",
          "me/core/main_widgets/EnmeMainLayoutWidget",
+         "me/core/URLServices",
+         "me/web/widget/dialog/Confirm",
          "me/core/enme",
          "dojo/text!me/web/widget/poll/templates/pollListItemDetail.html" ],
         function(
                 declare,
+                query,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -18,6 +22,8 @@ define([
                 ChartLayerSupport,
                 UpdateDefaultOptions,
                 main_widget,
+                URLServices,
+                Confirm,
                 _ENME,
                  template) {
             return declare([ _WidgetBase,
@@ -45,18 +51,62 @@ define([
            */
           i18nMessage : {
             poll_admon_poll_answers : _ENME.getMessage("poll_admon_poll_answers"),
-            commons_remove : _ENME.getMessage("commons_remove")
+            commons_remove : _ENME.getMessage("commons_remove"),
+            poll_options_close : _ENME.getMessage("poll_options_close"),
+            poll_options_quota : _ENME.getMessage("poll_options_quota"),
+            poll_options_ip : _ENME.getMessage("poll_options_ip"),
+            poll_options_password : _ENME.getMessage("poll_options_password"),
+            poll_options_info : _ENME.getMessage("poll_options_info"),
+            poll_options_public : _ENME.getMessage("poll_options_public"),
+            poll_options_close : _ENME.getMessage("poll_options_close"),
+            poll_options_notifications : _ENME.getMessage("poll_options_notifications"),
+            commons_confirm : _ENME.getMessage("commons_confirm"),
+            commons_yes : _ENME.getMessage("commons_yes"),
+            commons_no : _ENME.getMessage("commons_no")
           },
 
           /**
            * Post create.
            */
           postCreate : function() {
-              //dojo.connect(this._publish, "onClick", dojo.hitch(this, this._validatePoll));
               this._remove.onClick = dojo.hitch(this, function() {
-                  _ENME.log("json service to remove");
+                  this._openDialog("", "");
               });
           },
+
+          /**
+           * open dialog.
+           * @param title
+           * @param content
+           */
+          _openDialog : function(title, content) {
+              var myDialog = new Confirm({
+                  title: title,
+                  content: content,
+                  style: "width: 350px",
+                  label : {
+                      question : this.i18nMessage.commons_confirm,
+                      yes : this.i18nMessage.commons_yes,
+                      no : this.i18nMessage.commons_no
+                  }
+              });
+              var load = dojo.hitch(this, function() {
+                  this.successMesage("Poll Removed");
+                   myDialog.hide();
+              });
+              var error = dojo.hitch(this, function(error) {
+                 myDialog.hide();
+                this.errorMesage(error);
+                console.error(error);
+              });
+              myDialog.functionYes = dojo.hitch(this, function(){
+                     this.getURLService().del("encuestame.service.list.poll.remove", { pollId : this.data.id} , load, error , dojo.hitch(this, function() {
+
+                     }));
+                    myDialog.hide();
+                });
+               myDialog.show();
+            },
 
           /**
            *
@@ -76,8 +126,8 @@ define([
                   this._showErrorMessage(error.message);
               });
               if (property) {
-                  encuestame.service.xhrPostParam(
-                       encuestame.service.list.poll.setParameter(property), params, load, error);
+                  this.getURLService().post(["encuestame.service.list.poll.setParameter",[property]], params, load, error , dojo.hitch(this, function() {
+                  }));
               } else {
                   this._showErrorMessage("error on update parameter");
               }
@@ -123,20 +173,46 @@ define([
           },
 
           /**
+           *
+           * @method _displayAnswers
+           */
+          _displayAnswers : function (e) {
+              dojo.addClass(this._detailWrapperItems, 'hidden');
+              dojo.removeClass(this._detailWrapperAnswers, 'hidden');
+              console.log(e.target);
+              query(".selected", this.domNode).forEach(function(node){
+                    dojo.removeClass(node, 'selected');
+              });
+              dojo.addClass(e.target, 'selected');
+          },
+
+          /**
+           *
+           * @method _displayOptions
+           */
+          _displayOptions : function (e) {
+              dojo.addClass(this._detailWrapperAnswers, 'hidden');
+              dojo.removeClass(this._detailWrapperItems, 'hidden');
+              query(".selected", this.domNode).forEach(function(node){
+                    dojo.removeClass(node, 'selected');
+              });
+              dojo.addClass(e.target, 'selected');
+          },
+
+          /**
            * Set results.
            * @param data a object with answer data
            */
           setResults : function(data) {
               dojo.empty(this._detailItems);
               this.setNodeAppend(this._detailItems);
-              this.addRow("Close after date", data.poll_bean.is_close_after_date, dojo.hitch(this, this._updatePollParameters), "change-open-status");
-              this.addRow("Close after quota", data.poll_bean.is_close_after_quota, dojo.hitch(this, this._updatePollParameters), "close-after-quota");
-              this.addRow("Enable IP restrictions", data.poll_bean.is_ip_restricted, dojo.hitch(this, this._updatePollParameters), "ip-protection");
-              this.addRow("Enable notifications", data.poll_bean.close_notification, dojo.hitch(this, this._updatePollParameters), "notifications");
-              this.addRow("Enable password restriction", data.poll_bean.is_password_restriction, dojo.hitch(this, this._updatePollParameters), "password-restrictions");
-              this.addRow("Display aditional information", data.poll_bean.is_show_additional_info, dojo.hitch(this, this._updatePollParameters), "additional-info");
-              this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
-              this.addRow("Make result public", data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
+              this.addRow(this.i18nMessage.poll_options_close, data.poll_bean.is_close_after_date, dojo.hitch(this, this._updatePollParameters), "change-open-status");
+              this.addRow(this.i18nMessage.poll_options_quota, data.poll_bean.is_close_after_quota, dojo.hitch(this, this._updatePollParameters), "close-after-quota");
+              this.addRow(this.i18nMessage.poll_options_ip, data.poll_bean.is_ip_restricted, dojo.hitch(this, this._updatePollParameters), "ip-protection");
+              this.addRow(this.i18nMessage.poll_options_notifications, data.poll_bean.close_notification, dojo.hitch(this, this._updatePollParameters), "notifications");
+              this.addRow(this.i18nMessage.poll_options_password, data.poll_bean.is_password_restriction, dojo.hitch(this, this._updatePollParameters), "password-restrictions");
+              this.addRow(this.i18nMessage.poll_options_info, data.poll_bean.is_show_additional_info, dojo.hitch(this, this._updatePollParameters), "additional-info");
+              this.addRow(this.i18nMessage.poll_options_public, data.poll_bean.show_resultsPoll, dojo.hitch(this, this._updatePollParameters), "change-display-results");
               var nodeId = this.id + "_chart";
               dojo.empty(dojo.byId(nodeId));
               //if results are empty it's needed display a "no results" option
