@@ -34,26 +34,26 @@ public class ProfileRatedTopBean implements Serializable, Comparable<Object> {
     private String username;
 
     /** **/
-    private Long topValue; 
-    
+    private Long topValue;
+
     /** **/
     private Long totalbyItems;
-    
+
     /** **/
     private String url;
-    
+
     /** **/
     private Long likeVotes;
-    
+
     /** **/
     private Long disLikeVotes;
-    
+
     /** **/
     private Integer currentPos;
-    
+
     /** **/
     private Integer lastPos;
-    
+
 
     /**
      * @return the username
@@ -83,95 +83,93 @@ public class ProfileRatedTopBean implements Serializable, Comparable<Object> {
         this.topValue = topValue;
     }
 
-    
+
     /**
-	 * @return the totalbyItems
-	 */
-	public Long getTotalbyItems() {
-		return totalbyItems;
-	}
+     * @return the totalbyItems
+     */
+    public Long getTotalbyItems() {
+        return totalbyItems;
+    }
 
-	/**
-	 * @param totalbyItems the totalbyItems to set
-	 */
-	public void setTotalbyItems(Long totalbyItems) {
-		this.totalbyItems = totalbyItems;
-	} 
-	
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * @param totalbyItems the totalbyItems to set
+     */
+    public void setTotalbyItems(Long totalbyItems) {
+        this.totalbyItems = totalbyItems;
+    }
 
-	/**
-	 * @param url the url to set
-	 */
-	public void setUrl(final String url) {
-		this.url = url;
-	}
+    /**
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
 
-	/**
-	 * @return the likeVotes
-	 */
-	public Long getLikeVotes() {
-		return likeVotes;
-	}
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(final String url) {
+        this.url = url;
+    }
 
-	/**
-	 * @param likeVotes the likeVotes to set
-	 */
-	public void setLikeVotes(final Long likeVotes) {
-		this.likeVotes = likeVotes;
-	}
+    /**
+     * @return the likeVotes
+     */
+    public Long getLikeVotes() {
+        return likeVotes;
+    }
 
-	/**
-	 * @return the disLikeVotes
-	 */
-	public Long getDisLikeVotes() {
-		return disLikeVotes;
-	}
+    /**
+     * @param likeVotes the likeVotes to set
+     */
+    public void setLikeVotes(final Long likeVotes) {
+        this.likeVotes = likeVotes;
+    }
 
-	/**
-	 * @param disLikeVotes the disLikeVotes to set
-	 */
-	public void setDisLikeVotes(final Long disLikeVotes) {
-		this.disLikeVotes = disLikeVotes;
-	}
+    /**
+     * @return the disLikeVotes
+     */
+    public Long getDisLikeVotes() {
+        return disLikeVotes;
+    }
 
-	/**
-	 * @return the currentPos
-	 */
-	public Integer getCurrentPos() {
-		return currentPos;
-	}
+    /**
+     * @param disLikeVotes the disLikeVotes to set
+     */
+    public void setDisLikeVotes(final Long disLikeVotes) {
+        this.disLikeVotes = disLikeVotes;
+    }
 
-	/**
-	 * @param currentPos the currentPos to set
-	 */
-	public void setCurrentPos(final Integer currentPos) {
-		this.currentPos = currentPos;
-	}
+    /**
+     * @return the currentPos
+     */
+    public Integer getCurrentPos() {
+        return currentPos;
+    }
 
-	/**
-	 * @return the lastPos
-	 */
-	public Integer getLastPos() {
-		return lastPos;
-	}
+    /**
+     * @param currentPos the currentPos to set
+     */
+    public void setCurrentPos(final Integer currentPos) {
+        this.currentPos = currentPos;
+    }
 
-	/**
-	 * @param lastPos the lastPos to set
-	 */
-	public void setLastPos(final Integer lastPos) {
-		this.lastPos = lastPos;
-	}
+    /**
+     * @return the lastPos
+     */
+    public Integer getLastPos() {
+        return lastPos;
+    }
 
-	public int compareTo(Object o) {
+    /**
+     * @param lastPos the lastPos to set
+     */
+    public void setLastPos(final Integer lastPos) {
+        this.lastPos = lastPos;
+    }
+
+    public int compareTo(Object o) {
         ProfileRatedTopBean profile = (ProfileRatedTopBean) o;
-        log.debug("Profile Value: " + profile.getTopValue());
-        log.debug("This profile Value: " + this.getTopValue());
         int CompareToValue = Float.compare(profile.getTopValue() == null ? 0
                 : profile.getTopValue(),
                 this.getTopValue() == null ? 0 : this.getTopValue());

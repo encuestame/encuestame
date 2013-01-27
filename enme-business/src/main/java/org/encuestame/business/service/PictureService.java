@@ -67,8 +67,8 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @throws EnMeGenericException
      */
     private byte[] getGravatarPicture(final String email, final PictureType size) throws EnMeGenericException {
-        log.debug("getGravatarPicture:{ "+size);
-        log.debug("getGravatarPicture:{ "+email);
+        log.trace("getGravatarPicture:{ "+size);
+        log.trace("getGravatarPicture:{ "+email);
         return PictureUtils.downloadGravatar(email, size.toInt());
     }
 
@@ -141,8 +141,8 @@ public class PictureService extends AbstractBaseService implements IPictureServi
      * @throws EnMeGenericException
      */
     public byte[] getProfilePicture(final String username, final PictureType pictureType) throws IOException, EnMeGenericException {
-        log.debug("getProfilePicture "+username);
-        log.debug("getProfilePicture "+pictureType.toString());
+        log.trace("getProfilePicture "+username);
+        log.trace("getProfilePicture "+pictureType.toString());
         final UserAccount user = getUserAccount(username);
         if (user.getPictureSource().equals(PictureSource.UPLOADED)) {
             return this.getProfilePicture(pictureType, user);

@@ -21,48 +21,78 @@
  *  @namespace Widget
  *  @class More
  */
-define([ "dojo/_base/declare",
+define([
+    "dojo/_base/declare",
+    "dojo/_base/lang",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "me/core/main_widgets/EnmeMainLayoutWidget",
     "me/core/enme",
-    "dojo/text!me/web/widget/ui/templates/more.html" ], function(declare,
-    _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, main_widget,
-    _ENME, template) {
-  return declare([ _WidgetBase, _TemplatedMixin, main_widget,
-      _WidgetsInTemplateMixin ], {
+    "dojo/text!me/web/widget/ui/templates/more.html" ], function(
+      declare,
+      lang,
+      _WidgetBase,
+      _TemplatedMixin,
+      _WidgetsInTemplateMixin,
+      main_widget,
+      _ENME,
+      template) {
+  return declare([ _WidgetBase,
+                   _TemplatedMixin,
+                    main_widget,
+                   _WidgetsInTemplateMixin ], {
 
-    // template string.
+    /**
+     * template string.
+     * @property templateString
+     */
     templateString : template,
 
-    /*
+    /**
      *
+     * @property pagination
      */
     pagination : {
-      _maxResults : 0,
-      _start : 0
+       end : 10,
+       start : 0
     },
 
-    /*
+    more_max : 5,
+
+
+    parentWidget : 0,
+
+    /**
+     * Merge external object with more pagination
+     * @property
+     */
+    merge : function (params) {
+      return lang.mixin(this.pagination, params);
+    },
+
+    /**
      *
+     * @property
      */
     postCreate : function() {
-      dojo.connect(this._stream, "onclick", dojo.hitch(this, function(
-          event) {
+      dojo.connect(this._stream, "onclick", dojo.hitch(this, function(event) {
         if (dojo.isFunction(this.loadItems)) {
-          this.loadItems();
-          this.pagination._start = this.pagination._start
-              + this.pagination._maxResults;
+           this.pagination.start = this.parentWidget.items;
+           this.pagination.end = this.pagination.start + this.more_max;
+           this.loadItems();
+           this.pagination.start = this.pagination.start + this.pagination.end;
         }
       }));
     },
+
+
 
     /**
      *
      */
     loadItems : function() {
-
+        // override method
     },
 
     /**

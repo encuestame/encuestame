@@ -210,8 +210,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             final Boolean isCompleted, final Boolean isScheduled,
             final Boolean isFavourite, final Boolean isPublished,
             final String keyword, final String period) {
-     	 final Date initDate = DateUtil.decreaseDateAsWeek(Calendar.getInstance().getTime());
-    	 return retrieveTweetPollByDate(account,
+          final Date initDate = DateUtil.decreaseDateAsWeek(Calendar.getInstance().getTime());
+         return retrieveTweetPollByDate(account,
                 maxResults, start, isCompleted, isScheduled, isFavourite,
                 isPublished, keyword, period, initDate);
     }
@@ -838,7 +838,7 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         criteria.add(Restrictions.eq("publishTweetPoll", publishTweetPoll));
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
-        log.debug("Retrieve total tweetPolls by  " + user.getUsername()
+        log.trace("Retrieve total tweetPolls by  " + user.getUsername()
                 + "--->" + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }

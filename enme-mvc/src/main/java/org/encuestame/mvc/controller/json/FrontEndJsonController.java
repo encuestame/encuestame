@@ -20,7 +20,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.collections.ListUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
@@ -50,7 +52,7 @@ public class FrontEndJsonController extends AbstractJsonController{
 
 
     /** Log. **/
-    private Logger log = Logger.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     /**
      * Get frontend items.
@@ -108,10 +110,22 @@ public class FrontEndJsonController extends AbstractJsonController{
                 throw new EnMeSearchException("search params required.");
             } else {
                 List<ProfileRatedTopBean> itemList = getFrontService().getTopRatedProfile(status);
-                if (start != null && end != null && start < end && end <= itemList.size()) {
-                    itemList = itemList.subList(start, end);
-                } else if(start != null && end == null) {
-                     itemList = itemList.subList(start, itemList.size());
+                log.debug("topppp user getTopRatedProfile1 "+itemList.size());
+                log.debug("topppp user start < end2 "+(start < end));
+                log.debug("topppp user start < end3 "+(end <= itemList.size()));
+                log.debug("topppp user start < end4 "+(start < itemList.size()));
+                if (start != null && end != null && start < end) {
+                    if (end <= itemList.size()) {
+                        itemList = itemList.subList(start, end);
+                        log.debug("topppp user 111");
+                    } else if (start <= itemList.size()) {
+                        itemList = itemList.subList(start, itemList.size());
+                    } else if (start > itemList.size()) {
+                        itemList = ListUtils.EMPTY_LIST;
+                        log.debug("topppp user 3333");
+                    } else {
+                        log.debug("topppp user 4444");
+                    }
                 }
                 jsonResponse.put("profile", itemList);
                 setItemResponse(jsonResponse);

@@ -7,6 +7,7 @@ define([
      "me/web/widget/rated/Comment",
      "me/web/widget/rated/RatedOperations",
      "me/web/widget/rated/UsersProfile",
+     "me/web/widget/ui/More",
      "me/core/enme",
      "dojo/text!me/web/widget/rated/templates/profile-rate.html" ],
     function(
@@ -18,13 +19,22 @@ define([
     comment,
     ratedOperations,
     userProfile,
+    More,
     _ENME,
      template) {
 
   return declare([ _WidgetBase, _TemplatedMixin, ratedOperations,  main_widget, _WidgetsInTemplateMixin], {
 
-      // template string.
-      templateString : template,
+     // template string.
+     templateString : template,
+
+     /**
+      *
+      * @property
+      */
+     _params : {
+        status : true
+     },
 
       /*
       *
@@ -36,10 +46,26 @@ define([
       */
      _key : ["profile"],
 
+
+     clean_after_reload : false,
+
     /*
      *
      */
     postCreate : function() {
+      this.more = new More({
+           parentWidget : this
+      });
+
+      var parent = this;
+      this.more.loadItems = dojo.hitch(this, function () {
+          parent._loadItems();
+      });
+      // if more
+      if(this._more) {
+        this._more.appendChild(this.more.domNode);
+      }
+      // if service exist, load items.
       if (this.service != null) {
           this._loadItems();
       }
@@ -55,11 +81,12 @@ define([
           return widget.domNode;
       },
 
-      /*
-       * comment params.
+      /**
+       * Return a list of service parameters.
+       * @method getParams
        */
       getParams : function() {
-          return { status : true };
+          return this.more.merge(this._params);
       }
   });
 });

@@ -137,8 +137,8 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollByHashTagName(
-    		final String tagName,
-    		final Integer startResults,
+            final String tagName,
+            final Integer startResults,
             final Integer limitResults,
             final TypeSearchResult filterby,
             final SearchPeriods searchPeriods) {
@@ -243,30 +243,30 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      * (non-Javadoc)
      * @see org.encuestame.persistence.dao.IPoll#retrievePollResults(org.encuestame.persistence.domain.survey.Poll)
      */
-	@SuppressWarnings("unchecked")
-	public List<PollResult> retrievePollResults(final Poll poll) {
-		final DetachedCriteria criteria = DetachedCriteria
-				.forClass(PollResult.class);
-		criteria.add(Restrictions.eq("poll", poll));
-		return getHibernateTemplate().findByCriteria(criteria);
-	}
+    @SuppressWarnings("unchecked")
+    public List<PollResult> retrievePollResults(final Poll poll) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(PollResult.class);
+        criteria.add(Restrictions.eq("poll", poll));
+        return getHibernateTemplate().findByCriteria(criteria);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.encuestame.persistence.dao.IPoll#getTotalVotesByPollIdAndDateRange(java.lang.Long, org.encuestame.utils.enums.SearchPeriods)
-	 */
-	public Long getTotalVotesByPollIdAndDateRange(final Long pollId,
-			final SearchPeriods period) {
-		final DetachedCriteria criteria = DetachedCriteria
-				.forClass(PollResult.class);
-		criteria.setProjection(Projections.rowCount());
-		criteria.add(Restrictions.eq("poll.pollId", pollId));
-		calculateSearchPeriodsDates(period, criteria, "votationDate");
-		@SuppressWarnings("unchecked")
-		List<Long> results = getHibernateTemplate().findByCriteria(criteria);
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.persistence.dao.IPoll#getTotalVotesByPollIdAndDateRange(java.lang.Long, org.encuestame.utils.enums.SearchPeriods)
+     */
+    public Long getTotalVotesByPollIdAndDateRange(final Long pollId,
+            final SearchPeriods period) {
+        final DetachedCriteria criteria = DetachedCriteria
+                .forClass(PollResult.class);
+        criteria.setProjection(Projections.rowCount());
+        criteria.add(Restrictions.eq("poll.pollId", pollId));
+        calculateSearchPeriodsDates(period, criteria, "votationDate");
+        @SuppressWarnings("unchecked")
+        List<Long> results = getHibernateTemplate().findByCriteria(criteria);
 
-		return (Long) (results.get(0) == null ? 0 : results.get(0));
-	}
+        return (Long) (results.get(0) == null ? 0 : results.get(0));
+    }
 
      /*
       * (non-Javadoc)
@@ -388,14 +388,14 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public List<Poll> getPollByUserIdDate(
-    		final Date date,
-    		final UserAccount userAcc,
+            final Date date,
+            final UserAccount userAcc,
             final Integer maxResults,
             final Integer start ){
         final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
         criteria.add(Restrictions.eq("editorOwner", userAcc));
         if ( date != null) {
-        	criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
+            criteria.add(Restrictions.between("createdAt", date, getNextDayMidnightDate()));
         }
         return (List<Poll>) filterByMaxorStart(criteria, maxResults, start);
     }
@@ -518,7 +518,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
         criteria.add(Restrictions.eq("publish", publishStatus));
         @SuppressWarnings("unchecked")
         List<Long> results = getHibernateTemplate().findByCriteria(criteria);
-        log.debug("Retrieve total polls by  " + user.getUsername() + "--->"
+        log.trace("Retrieve total polls by  " + user.getUsername() + "--->"
                 + results.size());
         return (Long) (results.get(0) == null ? 0 : results.get(0));
     }
@@ -529,7 +529,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
      */
     @SuppressWarnings("unchecked")
     public PollResult validateVoteIP(
-    		final String ip,
+            final String ip,
             final Poll poll) {
         return (PollResult) DataAccessUtils
                 .uniqueResult(getHibernateTemplate()
@@ -540,11 +540,11 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     }
 
     @SuppressWarnings("unchecked")
-	public Poll getPollbyQuestion(final Long questionId){
-    	final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
-    	criteria.createAlias("question", "question");
-    	criteria.add(Restrictions.eq("question", questionId));
-    	return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    public Poll getPollbyQuestion(final Long questionId){
+        final DetachedCriteria criteria = DetachedCriteria.forClass(Poll.class);
+        criteria.createAlias("question", "question");
+        criteria.add(Restrictions.eq("question", questionId));
+        return (Poll) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
     /**
@@ -555,7 +555,7 @@ public class PollDao extends AbstractHibernateDaoSupport implements IPoll {
     */
    public List<Object[]> retrieveResultPollsbyAnswer(final Long pollId,
            final Long answerId) {
-   	final String pollResultsCounter = "select answer.questionAnswerId, answer.answer, answer.color,"
+       final String pollResultsCounter = "select answer.questionAnswerId, answer.answer, answer.color,"
                + "count(poll.pollId) FROM PollResult "
                + "where poll.pollId= :pollId AND answer.questionAnswerId= :answerId "
                + "group by answer.answer, answer.questionAnswerId, answer.color";
