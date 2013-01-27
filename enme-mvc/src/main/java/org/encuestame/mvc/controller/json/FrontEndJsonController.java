@@ -98,6 +98,8 @@ public class FrontEndJsonController extends AbstractJsonController{
     @RequestMapping(value = "/api/common/frontend/topusers.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getUserRatedTop(
         @RequestParam(value = "status", required = false) Boolean status,
+        @RequestParam(value = "end", required = false) Integer end,
+        @RequestParam(value = "start", required = false) Integer start,
         HttpServletRequest request,
         HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
         try {
@@ -105,7 +107,12 @@ public class FrontEndJsonController extends AbstractJsonController{
             if (status == null ){
                 throw new EnMeSearchException("search params required.");
             } else {
-                final  List<ProfileRatedTopBean> itemList = getFrontService().getTopRatedProfile(status);
+                List<ProfileRatedTopBean> itemList = getFrontService().getTopRatedProfile(status);
+                if (start != null && end != null && start < end && end <= itemList.size()) {
+                    itemList = itemList.subList(start, end);
+                } else if(start != null && end == null) {
+                     itemList = itemList.subList(start, itemList.size());
+                }
                 jsonResponse.put("profile", itemList);
                 setItemResponse(jsonResponse);
                }
