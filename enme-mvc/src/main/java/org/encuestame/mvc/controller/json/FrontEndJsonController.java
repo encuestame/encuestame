@@ -74,7 +74,7 @@ public class FrontEndJsonController extends AbstractJsonController{
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             try {
                 final Map<String, Object> jsonResponse = new HashMap<String, Object>();
-                if (period == null ){
+                if (period == null ) {
                     throw new EnMeSearchException("search params required.");
                 } else {
                     final  List<HomeBean> itemList = getFrontService().getFrontEndItems(period, start, maxResults, request);
@@ -82,6 +82,7 @@ public class FrontEndJsonController extends AbstractJsonController{
                     setItemResponse(jsonResponse);
                    }
             } catch (Exception e) {
+                 e.printStackTrace();
                  log.error(e);
             }
             return returnData();
@@ -110,21 +111,13 @@ public class FrontEndJsonController extends AbstractJsonController{
                 throw new EnMeSearchException("search params required.");
             } else {
                 List<ProfileRatedTopBean> itemList = getFrontService().getTopRatedProfile(status);
-                log.debug("topppp user getTopRatedProfile1 "+itemList.size());
-                log.debug("topppp user start < end2 "+(start < end));
-                log.debug("topppp user start < end3 "+(end <= itemList.size()));
-                log.debug("topppp user start < end4 "+(start < itemList.size()));
                 if (start != null && end != null && start < end) {
                     if (end <= itemList.size()) {
                         itemList = itemList.subList(start, end);
-                        log.debug("topppp user 111");
                     } else if (start <= itemList.size()) {
                         itemList = itemList.subList(start, itemList.size());
                     } else if (start > itemList.size()) {
                         itemList = ListUtils.EMPTY_LIST;
-                        log.debug("topppp user 3333");
-                    } else {
-                        log.debug("topppp user 4444");
                     }
                 }
                 jsonResponse.put("profile", itemList);

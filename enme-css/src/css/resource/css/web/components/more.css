@@ -1,15 +1,15 @@
-.pagination {
+.pagination, .web-list-more {
   cursor: pointer;
   margin: 2px;
   padding: 10px;
   text-align: center;
 }
 
-div.pagination:hover {
-   
+.pagination:hover, .web-list-more:hover {
+
 }
 
-.pagination .titleNext {
+.pagination .titleNext, .web-list-more .titleNext {
   color: #7C7C7D;
   font-size: 122%;
   font-weight: normal;

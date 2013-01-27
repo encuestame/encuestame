@@ -81,6 +81,11 @@ public class HomeController extends AbstractBaseOperations {
             HttpServletResponse response) {
         final Boolean privateHome = EnMePlaceHolderConfigurer
                 .getBooleanProperty("application.private");
+        addi18nProperty(model, "home_item_comments");
+        addi18nProperty(model, "submited_by");
+        addi18nProperty(model, "home_item_votes");
+        addi18nProperty(model, "home_item_views");
+        addi18nProperty(model, "added");
         if (privateHome) {
             log.debug("signup is disabled");
             return "redirect:/user/signin";
