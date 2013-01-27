@@ -81,6 +81,12 @@ define([
              */
             items : 0,
 
+            /**
+             * Display profile pictures.
+             * @property
+             */
+            enableImage : true,
+
 
           /**
             * i18n Message.
@@ -126,6 +132,7 @@ define([
                                   id : item.id,
                                   owner : item.owner_username,
                                   item : item,
+                                  enableImage : this.enableImage,
                                   contextPath : _ENME.config('contextPath'),
                                   questionName : item.question.question_name,
                                   slugName : item.question.slug,

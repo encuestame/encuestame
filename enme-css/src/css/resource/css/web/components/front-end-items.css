@@ -108,9 +108,13 @@
 }
 
 .web-item-wrapper .item .content div.title {
-    font-size: 16px;
     margin-bottom: 2px;
     text-transform: capitalize;
+}
+
+.web-item-wrapper .item .content div.title h1{
+    font-size: 16px;
+    margin: 0;
 }
 
 .web-item-wrapper .item .content div.title a {

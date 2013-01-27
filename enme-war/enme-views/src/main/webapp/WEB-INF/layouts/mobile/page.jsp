@@ -18,7 +18,10 @@
 
     </head>
     <body class="mobile claro">
-        <header>
+        <header class="header_input_hidden">
+            <c:forEach items="${i18n}" var="entry">
+                  <input type="hidden" name="${entry.key}" value="${entry.value}"/>
+            </c:forEach>
             <tiles:insertAttribute name="header" ignore="true" />
             <%@ include file="search.jsp"%>
         </header>

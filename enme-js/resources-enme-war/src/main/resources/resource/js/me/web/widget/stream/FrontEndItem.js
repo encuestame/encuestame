@@ -34,6 +34,7 @@ define([
         item : {},
         votesMessage : "votes",
         viewMessage : "views",
+        enableImage : true,
         totalCommentMessage : "home.item.comments",
         addedMessage: "added",
         submiteddByMessage : "submited by",
@@ -48,6 +49,12 @@ define([
          */
         postCreate : function() {
             var parent = this;
+            if (this._picture && this.enableImage) {
+                var widget = new AccountPicture({
+                        username : this.owner
+                });
+                this._picture.appendChild(widget.domNode);
+            }
             if (this._tags) {
                 // url="<%=request.getContextPath()%>/tag/${h.hashTagName}/"
                 //hashTagName="${h.hashTagName}">

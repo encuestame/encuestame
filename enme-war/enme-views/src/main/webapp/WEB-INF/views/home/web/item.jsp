@@ -15,7 +15,11 @@
     </div>
     <div class="content">
         <div class="title">
-            <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">${item.questionBean.questionName}</a>
+            <a href="<%=request.getContextPath()%>/${item.itemType}/${item.id}/${item.questionBean.slugName}">
+                <h1>
+                    ${item.questionBean.questionName}
+                </h1>
+            </a>
         </div>
         <!-- general information -->
         <div class="bottom">

@@ -61,11 +61,13 @@ require([
         });
         //parse all widgets.
         parser.parse();
-        // initialize the activity support
-        var _E = _ENME.config('activity');
-        var  activity = new Activity(_E, Modernizr.websockets);
-        activity.connect();
-        _ENME.setActivity(activity);
+        <c:if test="${!detectedDevice}">
+            // initialize the activity support
+            var _E = _ENME.config('activity');
+            var  activity = new Activity(_E, Modernizr.websockets);
+            activity.connect();
+            _ENME.setActivity(activity);
+        </c:if>
         // reference, it' not possible add to the build.
         //dojo.require("dojox.fx");
         //dojo.require( "dojo.date.locale" );

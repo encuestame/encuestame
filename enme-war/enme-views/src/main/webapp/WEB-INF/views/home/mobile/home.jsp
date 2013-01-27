@@ -9,7 +9,8 @@
             <%@ include file="item.jsp"%>
         </c:forEach>
         <c:if test="${!empty items}">
-            <div dadta-dojo-type="me/mobile/widget/stream/FrontEnd"></div>
+              <div data-dojo-type="me/web/widget/stream/FrontEnd"
+                 items="20" enableImage="false"></div>
         </c:if>
         </article>
     </article>

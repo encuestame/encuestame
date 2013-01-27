@@ -15,14 +15,16 @@
     </div>
     <div class="content">
         <div class="title" data-dojo-attach-point="_title">
-            <a href="${contextPath}/${item.item_type}/${item.id}/${slugName}">${questionName}</a>
+            <a href="${contextPath}/${item.item_type}/${item.id}/${slugName}">
+                <h1>
+                    ${questionName}
+                </h1>
+            </a>
         </div>
         <!-- general information -->
         <div class="bottom">
             <div class="options">
-                <div class="image">
-                    <a data-dojo-attach-point="_picture" data-dojo-type="me/web/widget/pictures/AccountPicture"
-                        username=${owner}></a>
+                <div class="image" data-dojo-attach-point="_picture">
                 </div>
                 <div class="submited">
                     ${submiteddByMessage}

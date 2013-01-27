@@ -21,7 +21,7 @@
 </head>
 <body class="claro enme-web-context">
   <div id="mainWrapper" class="page">
-    <header id="header">
+    <header id="header" class="header_input_hidden">
             <c:forEach items="${i18n}" var="entry">
                   <input type="hidden" name="${entry.key}" value="${entry.value}"/>
             </c:forEach>

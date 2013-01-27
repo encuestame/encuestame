@@ -320,7 +320,7 @@ define(["dojo",
       init : function(config) {
         var ENME = this;
         _config = config || {};
-        query("#header input[type='hidden']").forEach(
+        query(".header_input_hidden input[type='hidden']").forEach(
           function(item, index) {
             ENME.params[domAttr.get(item, "name")] = domAttr.get(item, "value");
           });

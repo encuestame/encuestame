@@ -2,6 +2,17 @@
 
 }
 
+.home-mobile .web-stream-more, .home-mobile .web-rated-comments-more {
+    padding: 15px;
+    background-color:  #F5F5F5;
+    border-top: 1px solid  #DBD7D7;
+}
+
+.home-mobile .web-stream-more .titleNext,  .home-mobile .web-rated-comments-more .titleNext {
+    font-size: 17px;
+    text-align: center;
+}
+
 .home-mobile .mobile-home-subtitle {
     padding: 10px;
     background-color: #444;
@@ -59,16 +70,16 @@
 
 }
 
-.home-mobile .mobile-item-wrapper > .items{
+.home-mobile .mobile-item-wrapper  .items{
 
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item{
+.home-mobile .mobile-item-wrapper  .items  .item{
     clear: both;
     padding: 5px;
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img {
+.home-mobile .mobile-item-wrapper  .items  .item .img {
     float: left;
     padding: 5px;
     width: 40px;
@@ -86,37 +97,37 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
     border-radius: 5px;
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img .vote {
+.home-mobile .mobile-item-wrapper  .items  .item .img .vote {
     text-align: center;
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img .vote .count {
+.home-mobile .mobile-item-wrapper  .items  .item .img .vote .count {
     font-size: 18px;
     font-weight: bold;
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img .vote .viewcount {
+.home-mobile .mobile-item-wrapper .items  .item .img .vote .viewcount {
     font-size: 10px;
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img .vote .views {
+.home-mobile .mobile-item-wrapper .items .item .img .vote .views {
 
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img  .title {
+.home-mobile .mobile-item-wrapper .items .item .img  .title {
 
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img  .title > div{
+.home-mobile .mobile-item-wrapper .items .item .img  .title > div{
     font-size: 7px;
     text-align: center;
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .img .button-home-item {
+.home-mobile .mobile-item-wrapper .items .item .img .button-home-item {
 
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .content {
+.home-mobile .mobile-item-wrapper .items .item .content {
     margin-left: 60px;
     overflow: auto;
 }
@@ -124,7 +135,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .content .title h1{
+.home-mobile .mobile-item-wrapper .items .item .content .title h1{
     font-size: 17px;
     color: #444444;
     font-weight: normal;
@@ -134,11 +145,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .content .title {
+.home-mobile .mobile-item-wrapper .items .item .content .title {
     padding: 7px;
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .content .tags {
+.home-mobile .mobile-item-wrapper .items .item .content .tags {
     padding: 5px 0;
 }
 
@@ -150,7 +161,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
 }
 
-.home-mobile .mobile-item-wrapper > .items > .item .bottom .submited {
+.home-mobile .mobile-item-wrapper .items .item .bottom .submited {
     font-size: 10px;
     margin-left: 60px;
 }
@@ -165,4 +176,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
 .home-mobile div.mobile-HashTags .mobile-optionTag .tag{
     margin: 4px;
+}
+
+
+/** rated profile **/
+
+
+.home-mobile .web-rated-comments-items {
+
+}
+
+.home-mobile .web-rated-profile-picture {
+
+}
+
+.home-mobile .web-rated-profile-item {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.home-mobile .web-rated-profile-item-detail {
+
+}
+
+.home-mobile .web-rated-profile-item .web-rated-profile-item-detail a {
+    color : #222;
 }
