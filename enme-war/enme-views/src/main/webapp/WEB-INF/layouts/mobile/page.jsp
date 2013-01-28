@@ -23,7 +23,7 @@
                   <input type="hidden" name="${entry.key}" value="${entry.value}"/>
             </c:forEach>
             <tiles:insertAttribute name="header" ignore="true" />
-            <%@ include file="search.jsp"%>
+            <!-- <%@ include file="search.jsp"%> -->
         </header>
         <article class="mobile-main">
               <tiles:insertAttribute name="menu" ignore="true" />
