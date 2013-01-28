@@ -225,6 +225,7 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "commons_confirm");
         addi18nProperty(model, "commons_no");
         addi18nProperty(model, "commons_yes");
+        addi18nProperty(model, "detail_manage_today");
         return "poll/list";
     }
 
@@ -266,6 +267,7 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "social_picker_filter_selected");
         addi18nProperty(model, "publish_social");
         addi18nProperty(model, "loading_message");
+        addi18nProperty(model, "counter_zero");
         return "poll/new";
     }
 

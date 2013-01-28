@@ -114,8 +114,7 @@ public class PollService extends AbstractSurveyService implements IPollService{
                             getUserAccount(getUserPrincipalUsername()), max,
                             start)));
         } else if (TypeSearch.ALL.equals(typeSearch)) {
-            list.addAll(ConvertDomainBean.convertListToPollBean(this
-                    .getPollsByRange(max, start, null)));
+            list.addAll(ConvertDomainBean.convertListToPollBean(getPollDao().retrievePollsByUserId(getUserAccountonSecurityContext(), max, start)));
         } else {
             throw new EnMeExpcetion("operation not valid");
         }
@@ -711,8 +710,10 @@ public class PollService extends AbstractSurveyService implements IPollService{
      * (non-Javadoc)
      * @see org.encuestame.core.service.imp.IPollService#getPolls(java.lang.Integer, java.lang.Integer, java.util.Date)
      */
-    public List<Poll> getPollsByRange(final Integer maxResults,
-            final Integer start, final Date range) {
+    public List<Poll> getPollsByRange(
+            final Integer maxResults,
+            final Integer start,
+            final Date range) {
         final List<Poll> polls = getPollDao().getPolls(
                 maxResults, start, range);
         return polls;

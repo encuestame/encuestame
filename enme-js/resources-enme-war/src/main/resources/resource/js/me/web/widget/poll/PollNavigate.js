@@ -49,7 +49,7 @@ define([
            */
           i18nMessage : {
             detail_manage_by_account : _ENME.getMessage("detail_manage_by_account"),
-            detail_manage_today : ENME.getMessage("detail_manage_today"),
+            detail_manage_today : _ENME.getMessage("detail_manage_today"),
             detail_manage_last_week : _ENME.getMessage("detail_manage_last_week"),
             detail_manage_favorites : _ENME.getMessage("detail_manage_favorites"),
             detail_manage_scheduled : _ENME.getMessage("detail_manage_scheduled"),

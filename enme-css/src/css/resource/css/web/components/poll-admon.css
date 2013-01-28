@@ -8,7 +8,7 @@
 /**
  * expand zone of detail of list POLL
  **/
-.web-item-row .web-list-more .web-poll-item-detail {
+.web-item-row .web-list-detail-more .web-poll-item-detail {
 	border: 1px solid #EEEEEE;
 	border-radius: 5px 5px 5px 5px;
 	margin: 5px;
@@ -21,13 +21,13 @@
 	-webkit-box-shadow: inset 0px 0px 4px #E0E0E0;
 }
 
-.web-item-row .web-list-more .web-poll-info {
+.web-item-row .web-list-detail-more .web-poll-info {
 	clear: both;
 	overflow: auto;
 	position: relative;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-char-detail {
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail {
 	float: left;
 	min-width: 280px;
 	max-width: 280px;
@@ -35,7 +35,7 @@
 	min-height: 308px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-char-detail .no_results {
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results {
   border: 1px solid #CFCBCB;
   font-size: 18px;
   line-height: 221px;
@@ -45,26 +45,26 @@
   border-radius : 3px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options {
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options {
 	margin-left: 340px;
 	margin-top: 35px;
 	padding: 6px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer {
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer {
 	float: right;
 	padding: 6px;
 	width: 355px;
 	margin-top: 40px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer>div
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer>div
 	{
 	max-height: 265px;
 	overflow: auto;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results
 	{
 	border: 1px solid #EBEBEB;
 	border-radius: 6px 6px 6px 6px;
@@ -76,7 +76,7 @@
 	text-align: center;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row
 	{
 	border-bottom: 1px dotted #DED8D8;
 	overflow: auto;
@@ -93,7 +93,7 @@
 	padding: 120px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color
 	{
 	border-radius: 11px 11px 11px 11px;
 	float: left;
@@ -104,7 +104,7 @@
 	width: 20px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label
 	{
 	color: #9C9B99;
 	float: left;
@@ -113,22 +113,23 @@
 	width: 165px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent
 	{
 	color: #70706F;
 	font-weight: bold;
     float: left;
 }
 
-.web-item-row .web-list-more .web-poll-info h2 {
+.web-item-row .web-list-detail-more .web-poll-info h2 {
 	border-bottom: 1px solid #AEACA3;
 	margin: 0 0 10px 5px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail {
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail {
 	border-bottom: 1px dotted #E0E0E0;
 	padding: 5px;
-	overflow: auto;
+	overflow: hidden;
+	text-align: left;
 }
 
 .web-item-row .web-poll-switch {
@@ -164,19 +165,19 @@
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail .label
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label
 	{
 	float: left;
 	font-weight: bold;
 	width: 180px;
 }
 
-.web-item-row .web-list-more .web-poll-info .web-poll-options .rownDetail .data {
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data {
   float: left;
   width: 30px;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar {
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar {
 	background-color: #E6E6E6;
 	border: 1px solid #D6D6D6;
 	border-radius: 3px 3px 3px 3px;
@@ -185,7 +186,7 @@
 	padding: 4px;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info {
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info {
 	float: left;
 	padding: 7px;
 	color: #1E1D1D;
@@ -197,19 +198,19 @@
     opacity:.50;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info > div{
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info > div{
     width: 30px !important;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info img{
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info img{
 	opacity : 0.8;
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-info>div
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info>div
 	{
 
 }
 
-.web-item-row .web-list-more .web-poll-detail-bttm-bar .web-poll-detail-remove {
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-remove {
 	text-align: right;
 }

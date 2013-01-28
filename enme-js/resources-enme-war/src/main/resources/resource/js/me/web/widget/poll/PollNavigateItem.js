@@ -59,6 +59,13 @@ define([
             var panel = new PanelWipe(this._more, null, null, 390);
             //add event on click edit link
             panel.connect(this._edit, dojo.hitch(this, this._callEditInfo));
+            if (this._preview) {
+                dojo.connect(this._preview, "onclick", dojo.hitch(this, function(event) {
+                    var url = _ENME.pollDetailContext(this.data.id, this.data.question.slug);
+                    window.open(url, '_blank');
+                    //console.log("this.", this.data);
+                }));
+            }
             panel.preWipe = dojo.hitch(this, function() {
                 dojo.addClass(this.domNode, "selected-row");
             });

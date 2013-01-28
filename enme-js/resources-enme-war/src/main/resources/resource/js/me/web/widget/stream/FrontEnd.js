@@ -168,7 +168,6 @@ define([
             _loadItems : function() {
               var load = dojo.hitch(this, function(data) {
                     var items = data.success.frontendItems;
-                    console.log('items', items.length);
                     this.items += items.length;
                     if(items.length > 0) {
                         this._printItems(items);
@@ -181,7 +180,6 @@ define([
                     console.debug("error", error);
                 };
                 var query = _ENME.getURLParametersAsObject();
-                 console.log('items more_max', this.more.pagination.more_max);
                 this.getURLService().get("encuestame.service.stream",
                         {
                             period : query.period || "all",

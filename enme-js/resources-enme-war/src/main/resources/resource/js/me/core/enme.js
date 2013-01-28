@@ -476,6 +476,28 @@ define(["dojo",
            }
       },
 
+      /**
+       *
+       * @method
+       */
+      pollDetailContext : function(id, slug) {
+         if (id != null && slug != null) {
+                // http://jsperf.com/concat-test-jc
+                var url = this.config("contextPath");
+                url +="/poll/";
+                url += id;
+                url += "/";
+                url += slug;
+                return url;
+            } else {
+                throw new Error("poll id is required");
+           }
+      },
+
+      /**
+       *
+       * @method
+       */
       shortAmmount : function(quantity){
         if (typeof(quantity) === "number") {
               quantity = ( quantity < 0 ? 0  : quantity);
