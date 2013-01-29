@@ -166,7 +166,9 @@ public interface IFrontEndDao extends IBaseDao{
             final Survey survey,
             final Poll poll,
             final TypeSearchResult itemType,
-            final SearchPeriods searchPeriods);
+            final SearchPeriods searchPeriods,
+            final Integer start,
+            final Integer max);
 
     /**
      * Get total hashTag hits by date range.

@@ -17,7 +17,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.collections.ListUtils;
 import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.encuestame.persistence.dao.IFrontEndDao;
 import org.encuestame.persistence.dao.IHashTagDao;
@@ -35,6 +34,7 @@ import org.encuestame.persistence.domain.tweetpoll.TweetPollSavedPublishedStatus
 import org.encuestame.utils.DateUtil;
 import org.encuestame.utils.enums.HitCategory;
 import org.encuestame.utils.enums.SearchPeriods;
+import org.encuestame.utils.enums.Status;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -493,7 +493,9 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             final Survey survey,
             final Poll poll,
             final TypeSearchResult itemType,
-            final SearchPeriods searchPeriods) {
+            final SearchPeriods searchPeriods,
+            final Integer start,
+            final Integer max) {
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPollSavedPublishedStatus.class);
         if (itemType.equals(TypeSearchResult.TWEETPOLL)) {
@@ -524,9 +526,10 @@ public class FrontEndDao extends AbstractHibernateDaoSupport implements IFrontEn
             log.error("Item type not valid: " + itemType);
         }
         criteria.addOrder(Order.desc("publicationDateTweet"));
+        //FIXME: why this line are commented?
         //criteria.add(Restrictions.isNotNull("apiType"));
         //criteria.add(Restrictions.isNotNull("tweetId"));
-        //criteria.add(Restrictions.eq("status", Status.SUCCESS));
-        return (List<TweetPollSavedPublishedStatus>) getHibernateTemplate().findByCriteria(criteria);
+        criteria.add(Restrictions.eq("status", Status.SUCCESS));
+        return (List<TweetPollSavedPublishedStatus>) getHibernateTemplate().findByCriteria(criteria, start, max);
     }
 }

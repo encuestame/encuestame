@@ -43,13 +43,14 @@
                 </div>
             </article>
              <article class="emne-box emne-box-gray">
-                     <header>
+                     <header class="category_color">
                         <spring:message code="home.hashtag.tweets" />
                      </header>
                 <section>
                      <div data-dojo-type="me/web/widget/social/LinksPublished"
                           channel="/encuestame/hashtag/time/range/refresh/graph"
                           class="web-social-links"
+                          overrideMax="5"
                           itemId="${tagName.hashTagName}"
                           type="HASHTAG">
                      </div>

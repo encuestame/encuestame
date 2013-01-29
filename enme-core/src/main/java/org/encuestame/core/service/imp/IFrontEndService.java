@@ -175,11 +175,11 @@ public interface IFrontEndService extends ServiceOperations {
      * @param datebefore
      * @param todayDate
      */
-	void processItemstoCalculateRelevance(
-			final List<TweetPoll> tweetPollList,
-			final List<Poll> pollList, 
-			final List<Survey> surveyList,
-			final SearchPeriods periods);
+    void processItemstoCalculateRelevance(
+            final List<TweetPoll> tweetPollList,
+            final List<Poll> pollList,
+            final List<Survey> surveyList,
+            final SearchPeriods periods);
 
     /**
      * Get the list with the users rated top.
@@ -205,62 +205,65 @@ public interface IFrontEndService extends ServiceOperations {
                final String filter, final HttpServletRequest request);
 
 
-    /**
+   /**
     *
     * @param hash
+    * @param start
+    * @param max
     * @return
     */
-   List<LinksSocialBean> getHashTagLinks(final HashTag hash);  
-  
-	/**
-	 * Get hashTag ranking.
-	 * @param tagName
-	 * @return 
-	 */
-	List<HashTagRankingBean> getHashTagRanking(final String tagName);  
-	
-	/**
-	 * Generic stats for {@link TweetPoll}, {@link Poll}, {@link Survey} or {@link HashTag}.
-	 * @param itemId
-	 * @param itemType
-	 * @return
-	 * @throws EnMeNoResultsFoundException
-	 */
-	GenericStatsBean retrieveGenericStats(final String itemId,
-			final TypeSearchResult itemType, final HttpServletRequest request)
-			throws EnMeNoResultsFoundException;
-	  
-	/**
-	 * Return the last items published from {@link UserAccount}.
-	 * @param username
-	 * @param maxResults
-	 * @param showUnSharedItems
-	 * @param request
-	 * @return
-	 * @throws EnMeNoResultsFoundException 
-	 */
-	List<HomeBean> getLastItemsPublishedFromUserAccount(
-			final String username, 
-			final Integer maxResults,
-			final Boolean showUnSharedItems,
-			final HttpServletRequest request) throws EnMeNoResultsFoundException;
-	
-	
+   List<LinksSocialBean> getHashTagLinks(final HashTag hash, final Integer start,
+           final Integer max);
+
     /**
-     * Get TweetPolls by hashTag. 
+     * Get hashTag ranking.
+     * @param tagName
+     * @return
+     */
+    List<HashTagRankingBean> getHashTagRanking(final String tagName);
+
+    /**
+     * Generic stats for {@link TweetPoll}, {@link Poll}, {@link Survey} or {@link HashTag}.
+     * @param itemId
+     * @param itemType
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    GenericStatsBean retrieveGenericStats(final String itemId,
+            final TypeSearchResult itemType, final HttpServletRequest request)
+            throws EnMeNoResultsFoundException;
+
+    /**
+     * Return the last items published from {@link UserAccount}.
+     * @param username
+     * @param maxResults
+     * @param showUnSharedItems
+     * @param request
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+    List<HomeBean> getLastItemsPublishedFromUserAccount(
+            final String username,
+            final Integer maxResults,
+            final Boolean showUnSharedItems,
+            final HttpServletRequest request) throws EnMeNoResultsFoundException;
+
+
+    /**
+     * Get TweetPolls by hashTag.
      * @param tagId
      * @param initResults
      * @param maxResults
      * @param filter
      * @return
-     
-	List<TweetPoll> getTweetPollsByHashTag(final String tagName,
-	            final Integer initResults, final Integer maxResults,
-	            final TypeSearchResult filter);*/
-	
-	/**
-	 * 
-	 * @return
-	 */
-	Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final String ipAddress);
+
+    List<TweetPoll> getTweetPollsByHashTag(final String tagName,
+                final Integer initResults, final Integer maxResults,
+                final TypeSearchResult filter);*/
+
+    /**
+     *
+     * @return
+     */
+    Status registerVote(final Long itemId, final TypeSearchResult searchResult,  final String ipAddress);
 }

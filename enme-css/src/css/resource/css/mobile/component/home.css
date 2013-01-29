@@ -2,13 +2,13 @@
 
 }
 
-.home-mobile .web-stream-more, .home-mobile .web-rated-comments-more {
+.mobile .web-stream-more, .home-mobile .web-rated-comments-more {
     padding: 15px;
     background-color:  #F5F5F5;
     border-top: 1px solid  #DBD7D7;
 }
 
-.home-mobile .web-stream-more .titleNext,  .home-mobile .web-rated-comments-more .titleNext {
+.mobile .web-stream-more .titleNext,  .mobile .web-rated-comments-more .titleNext {
     font-size: 17px;
     text-align: center;
 }
@@ -199,6 +199,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', end
 
 }
 
-.home-mobile .web-rated-profile-item .web-rated-profile-item-detail a {
+.mobile .web-rated-profile-item .web-rated-profile-item-detail a {
     color : #222;
 }
