@@ -16,11 +16,15 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.SocialUtils;
+import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -97,11 +101,19 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
             @RequestParam(value = "code", required = true) String code,
             HttpServletRequest httpRequest,
             WebRequest request) throws Exception {
-        final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
-        log.debug(accessGrant.getAccessToken());
-        log.debug(accessGrant.getRefreshToken());
-        checkOAuth2SocialAccount(SocialProvider.FACEBOOK, accessGrant);
-        return this.redirect+"#provider="+SocialProvider.FACEBOOK.toString().toLowerCase()+"&refresh=true&successful=true";
+        try {
+             final AccessGrant accessGrant = auth2RequestProvider.getAccessGrant(code, httpRequest);
+             log.debug(accessGrant.getAccessToken());
+             log.debug(accessGrant.getRefreshToken());
+             checkOAuth2SocialAccount(SocialProvider.FACEBOOK, accessGrant);
+        } catch (EnMeOAuthSecurityException e1) {
+            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+        } catch (EnMeExistPreviousConnectionException e1) {
+            RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
+        } catch (Exception e) {
+            RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+        }
+        return this.redirect + "#provider=" + SocialProvider.FACEBOOK.toString().toLowerCase() + "&refresh=true&successful=true";
     }
 
     /**
@@ -122,7 +134,8 @@ public class FacebookConnectSocialAccount extends AbstractAccountConnect{
             WebRequest request) throws Exception {
         log.error("ERROR error_code" + error_code);
         log.error("ERROR error_msg" + error_msg);
-        final SocialProvider soProvider = SocialProvider.getProvider("socialProvider");
+        log.error("ERROR socialProvider" + socialProvider);
+        final SocialProvider soProvider = SocialProvider.getProvider(socialProvider);
         return this.redirect+"#provider=" + soProvider.toString().toLowerCase() + "&refresh=true&successful=false";
     }
 }

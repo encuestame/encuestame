@@ -38,7 +38,7 @@ import org.springframework.dao.support.DataAccessUtils;
  * @author Picado, Juan juanATencuestame.org
  * @since Jun 30, 2011
  */
-public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
+public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport {
 
     /**
      * Return a {@link SocialAccount} by account Id.
@@ -58,10 +58,29 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
     @SuppressWarnings("unchecked")
     public final SocialAccount getSocialAccount(
             final SocialProvider socialProvider,
-            final String socialProfileId){
+            final String socialProfileId) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("accounType", socialProvider));
         criteria.add(Restrictions.eq("socialProfileId", socialProfileId));
+        return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
+    }
+
+    /**
+     * Return a {@link SocialAccount} by {@link SocialProvider} and social profile id (unique) and social user name.
+     * @param socialProvider
+     * @param socialProfileId
+     * @param socialUsername
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public final SocialAccount getSocialAccount(
+            final SocialProvider socialProvider,
+            final String socialProfileId,
+            final String socialUsername) {
+        final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
+        criteria.add(Restrictions.eq("accounType", socialProvider));
+        criteria.add(Restrictions.eq("socialProfileId", socialProfileId));
+        criteria.add(Restrictions.eq("socialAccountName", socialUsername));
         return (SocialAccount) DataAccessUtils.uniqueResult(getHibernateTemplate().findByCriteria(criteria));
     }
 
@@ -74,7 +93,7 @@ public abstract class AbstractSocialAccount extends AbstractHibernateDaoSupport{
     @SuppressWarnings("unchecked")
     public final SocialAccount getSocialAccount(
             final Long socialAccountId,
-            final Account account){
+            final Account account) {
         final DetachedCriteria criteria = DetachedCriteria.forClass(SocialAccount.class);
         criteria.add(Restrictions.eq("account", account));
         criteria.add(Restrictions.eq("id", socialAccountId));

@@ -88,7 +88,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
          final List list =  getHibernateTemplate().findByNamedParam("select count(*) from UserAccount "
                  +" WHERE account = :account", "account", account);
          if (list.get(0) instanceof Long){
-             log.trace("instace of Long");
+             log.debug("instace of Long");
              resultsSize = (Long) list.get(0);
          }
          return resultsSize;
@@ -116,7 +116,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      */
     //@Cacheable(cacheName = "userByUsername")
     public final UserAccount getUserByUsername(final String username)throws HibernateException {
-        log.trace("getUserByUsername by :{"+username);
+        log.debug("getUserByUsername by :{"+username);
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("username", username));
         getHibernateTemplate().setQueryCacheRegion("query.user.by.username");

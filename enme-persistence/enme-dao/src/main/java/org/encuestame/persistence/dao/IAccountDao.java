@@ -118,6 +118,19 @@ public interface IAccountDao extends IBaseDao {
      */
     SocialAccount getSocialAccount(final SocialProvider socialProvider, final String socialAccountId);
 
+
+    /**
+     * Return a {@link SocialAccount} by {@link SocialProvider} and social profile id (unique) and social user name.
+     * @param socialProvider
+     * @param socialProfileId
+     * @param socialUsername
+     * @return
+     */
+    SocialAccount getSocialAccount(
+            final SocialProvider socialProvider,
+            final String socialProfileId,
+            final String socialUsername);
+
     /**
      * Get Social Account.
      * @param socialAccountId

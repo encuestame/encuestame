@@ -16,9 +16,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
+import org.encuestame.utils.oauth.AccessGrant;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -108,11 +110,20 @@ public class IdenticaConnectSocialAccount extends AbstractAccountConnect {
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
+            HttpServletRequest httpRequest,
             WebRequest request,
             final UserAccount account) throws Exception {
-        final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-        log.debug("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
-        this.checkOAuth1SocialAccount(SocialProvider.IDENTICA, accessToken);
+        try {
+             final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
+             log.debug("OAUTH 1 ACCESS TOKEN " + accessToken.toString());
+             this.checkOAuth1SocialAccount(SocialProvider.IDENTICA, accessToken);
+        } catch (EnMeOAuthSecurityException e1) {
+               RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+        } catch (EnMeExistPreviousConnectionException e1) {
+               RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
+        } catch (Exception e) {
+               RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+        }
         return this.redirect+"#provider="+SocialProvider.IDENTICA.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }

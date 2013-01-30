@@ -130,9 +130,9 @@ a:hover{
 .mainError {
   background-color: #F4A1A1;
   color: #FEFEFE;
-  font-size: 125%;
+  font-size: 120%;
   margin-top: 15px;
-  padding: 15px;
+  padding: 10px;
   -webkit-box-shadow: 3px 3px 7px rgba(50, 50, 48, 0.7);
   -moz-box-shadow:    3px 3px 7px rgba(50, 50, 48, 0.7);
    box-shadow:         3px 3px 7px rgba(50, 50, 48, 0.7);

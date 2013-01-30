@@ -996,14 +996,20 @@ public class SecurityService extends AbstractBaseService implements SecurityOper
                 socialProvider, userAccount);
     }
 
-    /**
-     *
-     * @param socialProvider
-     * @param socialAccountId
-     * @return
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.SecurityOperations#getCurrentSocialAccount(org.encuestame.utils.social.SocialProvider, java.lang.String)
      */
     public SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId){
         return getAccountDao().getSocialAccount(socialProvider, socialProfileId);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.encuestame.core.service.imp.SecurityOperations#getCurrentSocialAccount(org.encuestame.utils.social.SocialProvider, java.lang.String, java.lang.String)
+     */
+    public SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId, final String socialUserName) {
+        return getAccountDao().getSocialAccount(socialProvider, socialProfileId, socialUserName);
     }
 
     /**
