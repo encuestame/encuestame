@@ -28,7 +28,7 @@ import org.encuestame.mvc.controller.AbstractJsonController;
 import org.encuestame.persistence.domain.notifications.Notification;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.DateClasificatedEnum;
+import org.encuestame.utils.enums.DateClasificatedEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -156,15 +156,11 @@ public class NotificationsJsonController extends AbstractJsonController {
         //define if notifications are categorized.
         try{
             if (categorized) {
-                List<UtilNotification> stream = getStreamOperations().loadNotificationByUserAndLimit(limit, start,
-                                Boolean.FALSE, request);
-                final HashMap<DateClasificatedEnum, List<UtilNotification>> list = getStreamOperations()
-                        .classifyNotificationList(stream);
+                List<UtilNotification> stream = getStreamOperations().loadNotificationByUserAndLimit(limit, start, Boolean.FALSE, request);
+                final HashMap<DateClasificatedEnum, List<UtilNotification>> list = getStreamOperations().classifyNotificationList(stream, request);
                 responseJson.put("notifications", list);
             } else {
-                responseJson.put("notifications", getStreamOperations()
-                        .loadNotificationByUserAndLimit(limit, start,
-                                Boolean.FALSE, request));
+                responseJson.put("notifications", getStreamOperations().loadNotificationByUserAndLimit(limit, start, Boolean.FALSE, request));
             }
             setItemResponse(responseJson);
         } catch (EnMeNoResultsFoundException e) {

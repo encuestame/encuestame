@@ -136,7 +136,6 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @return midnight date
      */
     public Date getNextDayMidnightDate(){
-       //TODO: update references with DateUtil.
        return DateUtil.getNextDayMidnightDate();
     }
 

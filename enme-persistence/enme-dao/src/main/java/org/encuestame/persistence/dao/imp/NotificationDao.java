@@ -80,8 +80,6 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
             final Boolean onlyUnread) {
          final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
             criteria.add(Restrictions.or(Restrictions.eq("account", user), Restrictions.isNull("account")));
-            //criteria.add(Restrictions.eq("readed", Boolean.FALSE));
-            criteria.createAlias("tweetOwner", "tweetOwner");
             criteria.add(Restrictions.between("created", startDate, endDate));
             criteria.addOrder(Order.desc("created"));
             return getHibernateTemplate().findByCriteria(criteria, start, limit);

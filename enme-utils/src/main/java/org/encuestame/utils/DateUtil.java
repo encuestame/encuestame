@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.encuestame.utils.enums.DateClasificatedEnum;
+import org.encuestame.utils.enums.RelativeTimeEnum;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -156,14 +158,14 @@ public class DateUtil {
         endtDate.minusDays(1);
         return endtDate.toDate();
     }
-    
+
     /**
-     * 
+     *
      * @param days
      * @return
      */
     public static Date minusDaysToCurrentDate(final Integer days, final Date date) {
-        final DateTime dateTime = date == null ? new DateTime() : new DateTime(date);           
+        final DateTime dateTime = date == null ? new DateTime() : new DateTime(date);
         return  dateTime.minusDays(days).toDate();
     }
 
@@ -298,91 +300,104 @@ public class DateUtil {
         }
         return numbers;
     }
-    
+
     /**
      * Retrieve start Date to perform searches for a period of time(Month, Year, Hours, etc).
      * @param period
      * @return
      */
-	public static Date retrieveStartDateByPeriod(final Integer period) {
-		final Calendar currentDate = Calendar.getInstance();
-		Date startDate = null; 
-		currentDate.add(Calendar.DAY_OF_YEAR, -period);
-		startDate = currentDate.getTime(); 
-		return startDate;
+    public static Date retrieveStartDateByPeriod(final Integer period) {
+        final Calendar currentDate = Calendar.getInstance();
+        Date startDate = null;
+        currentDate.add(Calendar.DAY_OF_YEAR, -period);
+        startDate = currentDate.getTime();
+        return startDate;
 
-	}
-	
-	/**
-	 * Get current Date by Calendar instance.
-	 * @return
-	 */
-	public static Date getCurrentCalendarDate() {
-		final Date endDate = Calendar.getInstance().getTime();
-		return endDate;
-	}
-	
-	 /**
-	  * Get value of the current month.
-	  * @param currentDate
-	  * @return
-	  */
-	public static Integer getValueCurrentMonthOfTheYear(final Date currentDate) {
-		 Integer monthValue;
-		 monthValue = new DateTime(currentDate).getMonthOfYear();  
-		 return monthValue;
-	}
-	
-	/**
-	 * Get value of the current day of the month.
-	 * @param currentDate
-	 * @return
-	 */
-	public static Integer getValueCurrentDateOfTheMonths(final Date currentDate) { 
-		 return new DateTime(currentDate).getDayOfMonth();
-	}
-	
-	/**
-	 * Get the current year.
-	 * @param currentDate {@link Date}/
-	 * @return
-	 */
-	public static Integer getValueCurrentYear(final Date currentDate) {
-		 return new DateTime(currentDate).getYear(); 
-	}	
-	
-	/**
-	 * Get value of the day of the week.
-	 * @param currentDate
-	 * @return
-	 */
-	public static Integer getValueCurrentDayOfTheWeek(final Date currentDate) {
-		return new DateTime(currentDate).getDayOfWeek();
-	}
+    }
 
-	/**
-	 * Get value hour of the day.
-	 * @param currentDate
-	 * @return
-	 */
-	public static Integer getValueHourOfTheDay(final Date currentDate) {
-		return new DateTime(currentDate).getHourOfDay();
-	}
-	
-	/**
-	 * Check if date is within allowed range.
-	 * @param period
-	 * @param itemDate
-	 * @return
-	 */
-	public static Boolean checkDatedWithinAllowableRange(final Integer period, final Date itemDate){
-		Boolean allowedRange = Boolean.FALSE;
-		Date endDate = DateUtil.getCurrentCalendarDate();
-		Date startDate = DateUtil.retrieveStartDateByPeriod(period);   
-		// Check if date is between starDate by period and currentDate(itemDate is > startDate, itemDate < endDate)
-		if ((itemDate.after(startDate)) && (itemDate.before(endDate))) { 
-			allowedRange = Boolean.TRUE;
-		} 
-		return allowedRange;
-	}
+    /**
+     * Get current Date by Calendar instance.
+     * @return
+     */
+    public static Date getCurrentCalendarDate() {
+        final Date endDate = Calendar.getInstance().getTime();
+        return endDate;
+    }
+
+     /**
+      * Get value of the current month.
+      * @param currentDate
+      * @return
+      */
+    public static Integer getValueCurrentMonthOfTheYear(final Date currentDate) {
+         Integer monthValue;
+         monthValue = new DateTime(currentDate).getMonthOfYear();
+         return monthValue;
+    }
+
+    /**
+     * Get value of the current day of the month.
+     * @param currentDate
+     * @return
+     */
+    public static Integer getValueCurrentDateOfTheMonths(final Date currentDate) {
+         return new DateTime(currentDate).getDayOfMonth();
+    }
+
+    /**
+     * Get the current year.
+     * @param currentDate {@link Date}/
+     * @return
+     */
+    public static Integer getValueCurrentYear(final Date currentDate) {
+         return new DateTime(currentDate).getYear();
+    }
+
+    /**
+     * Get value of the day of the week.
+     * @param currentDate
+     * @return
+     */
+    public static Integer getValueCurrentDayOfTheWeek(final Date currentDate) {
+        return new DateTime(currentDate).getDayOfWeek();
+    }
+
+    /**
+     * Get value hour of the day.
+     * @param currentDate
+     * @return
+     */
+    public static Integer getValueHourOfTheDay(final Date currentDate) {
+        return new DateTime(currentDate).getHourOfDay();
+    }
+
+    /**
+     * Check if date is within allowed range.
+     * @param period
+     * @param itemDate
+     * @return
+     */
+    public static Boolean checkDatedWithinAllowableRange(final Integer period, final Date itemDate){
+        Boolean allowedRange = Boolean.FALSE;
+        Date endDate = DateUtil.getCurrentCalendarDate();
+        Date startDate = DateUtil.retrieveStartDateByPeriod(period);
+        // Check if date is between starDate by period and currentDate(itemDate is > startDate, itemDate < endDate)
+        if ((itemDate.after(startDate)) && (itemDate.before(endDate))) {
+            allowedRange = Boolean.TRUE;
+        }
+        return allowedRange;
+    }
+
+    /**
+     * Get the date on the start moment
+     * @return {@link Date}
+     */
+    public static Date getTodayStartDate(){
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
 }

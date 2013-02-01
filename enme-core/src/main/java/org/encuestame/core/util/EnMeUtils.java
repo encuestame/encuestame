@@ -26,7 +26,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.encuestame.utils.net.InetAddresses;
 import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 
 /**
