@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.domain.notifications.Notification;
@@ -36,6 +37,25 @@ public interface INotification extends IBaseDao{
             final Account user,
             final Integer limit,
             final Integer start,
+            final Boolean onlyUnread);
+
+
+    /**
+     * Load notifications between two dates
+     * @param user
+     * @param limit
+     * @param start
+     * @param startDate
+     * @param endDate
+     * @param onlyUnread
+     * @return
+     */
+    List<Notification> loadNotificationByDate(
+            final Account user,
+            final Integer limit,
+            final Integer start,
+            final Date startDate,
+            final Date endDate,
             final Boolean onlyUnread);
 
     /**

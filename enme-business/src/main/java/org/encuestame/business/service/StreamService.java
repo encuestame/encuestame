@@ -92,8 +92,7 @@ public class StreamService extends AbstractBaseService implements StreamOperatio
             final Integer start,
             final Boolean onlyUnread,
             final HttpServletRequest request) throws EnMeNoResultsFoundException {
-         final List<Notification> notifications = getNotificationDao()
-                 .loadNotificationByUserAndLimit(
+         final List<Notification> notifications = getNotificationDao().loadNotificationByUserAndLimit(
                          getUserAccount(getUserPrincipalUsername()).getAccount(), limit, start, onlyUnread);
          return convertNotificationList(notifications, request);
     }

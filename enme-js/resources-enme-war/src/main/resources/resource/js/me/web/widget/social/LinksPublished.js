@@ -85,7 +85,7 @@ define([
         }
         var parent = this;
         this.more = new More({
-                   parentWidget : this,
+                   parentWidget : this
                    more_max : 5
         });
         this.more.loadItems = dojo.hitch(this, function () {

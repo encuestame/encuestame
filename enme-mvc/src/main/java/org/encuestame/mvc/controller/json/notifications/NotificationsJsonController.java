@@ -156,8 +156,7 @@ public class NotificationsJsonController extends AbstractJsonController {
         //define if notifications are categorized.
         try{
             if (categorized) {
-                List<UtilNotification> stream = getStreamOperations()
-                        .loadNotificationByUserAndLimit(limit, start,
+                List<UtilNotification> stream = getStreamOperations().loadNotificationByUserAndLimit(limit, start,
                                 Boolean.FALSE, request);
                 final HashMap<DateClasificatedEnum, List<UtilNotification>> list = getStreamOperations()
                         .classifyNotificationList(stream);
