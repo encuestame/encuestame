@@ -22,6 +22,7 @@
  *  @class DasboardWrapper
  */
 define(["dojo/_base/declare",
+         "dojo/data/ItemFileReadStore",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -30,11 +31,13 @@ define(["dojo/_base/declare",
          "me/web/widget/dashboard/GadgetDirectory",
          "me/web/widget/dialog/Info",
          "dijit/TooltipDialog",
+         "dijit/form/ComboBox",
          "dijit/form/DropDownButton",
          "me/core/enme",
          "dojo/text!me/web/widget/dashboard/template/dashboardWrapper.html" ],
         function(
                 declare,
+                ItemFileReadStore,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -43,6 +46,7 @@ define(["dojo/_base/declare",
                 gadgetDirectory,
                 Info,
                 TooltipDialog,
+                ComboBox,
                 DropDownButton,
                 _ENME,
                  template) {
@@ -157,10 +161,10 @@ define(["dojo/_base/declare",
                   if("success" in data) {
                       var store = data.success;
                       //http://livedocs.dojotoolkit.org/dojo/data/ItemFileReadStore
-                      this._addComboStoreWidget = new dojo.data.ItemFileReadStore({
+                      this._addComboStoreWidget = new ItemFileReadStore({
                           data: store
                       });
-                      if (this._addComboWidget == null) {
+                      if (this._addComboWidget === null) {
                           this._buildCombo();
                           //load favorite dashboard by default.
                           this._displayFavouriteDashboard();
@@ -181,7 +185,7 @@ define(["dojo/_base/declare",
            * create a dijit combo box.
            */
           _buildCombo : function(){
-              this._addComboWidget = new dijit.form.ComboBox({
+              this._addComboWidget = new ComboBox({
                   name: "dashboard",
                   store:  this._addComboStoreWidget,
                   searchAttr: "dashboard_name"

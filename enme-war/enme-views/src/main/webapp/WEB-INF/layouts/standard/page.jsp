@@ -20,7 +20,7 @@
 <tiles:insertAttribute name="rss" ignore="true" />
 </head>
 <body class="claro enme-web-context">
-  <div id="mainWrapper" class="page">
+  <div id="mainWrapper" class="page cfix">
     <header id="header" class="header_input_hidden">
             <c:forEach items="${i18n}" var="entry">
                   <input type="hidden" name="${entry.key}" value="${entry.value}"/>
@@ -29,7 +29,7 @@
       <tiles:insertAttribute name="header" ignore="true" />
     </header>
     <tiles:insertAttribute name="menu" ignore="true" />
-    <div id="content-container" class="enme-auto-center">
+    <div id="content-container" class="enme-auto-center cfix">
       <div id="enme-content" class="enme-auto-center">
          <c:if test="${logged}">
              <div data-dojo-type="me/web/widget/ui/Toaster"
@@ -41,10 +41,10 @@
         </c:if>
         <tiles:insertAttribute name="content" />
       </div>
-      <footer id="footer">
-        <tiles:insertAttribute name="footer" />
-      </footer>
     </div>
+    <footer id="footer" class="cfix">
+        <tiles:insertAttribute name="footer" />
+    </footer>
   </div>
   <!-- Insert additional javascript  -->
   <tiles:insertAttribute name="extra-js" ignore="true" />

@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/jsp/includes/taglibs.jsp"%>
 <div id="web-tweetpoll-wrapper" class="emne-box web-wrapper-detail">
-    <div class="web-tweetpoll-menu">
+    <div class="web-tweetpoll-menu panel-header">
+
         <a href="<%=request.getContextPath()%>/user/tweetpoll/new">
             <button class="button">
                 <spring:message code="tweetpoll.new" />
