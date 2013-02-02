@@ -545,7 +545,8 @@ div.web-default-menu  li.first {
 }
 
 .emne-box-gray {
-  background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-color: white;
+    background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);

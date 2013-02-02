@@ -113,7 +113,7 @@ define(["dojo",
          * @method _connectionEstablished
          */
         Activity.prototype._connectionEstablished = function () {
-                _ENME.log('CometD Connection Established');
+                //_ENME.log('CometD Connection Established');
                 dojo.publish('/activity/connection/established');
         };
 
@@ -122,7 +122,7 @@ define(["dojo",
          * @method _connectionBroken
          */
         Activity.prototype._connectionBroken = function () {
-                _ENME.log('CometD Connection Broken');
+                //_ENME.log('CometD Connection Broken');
                 dojo.publish('/activity/connection/broken');
         };
 
@@ -131,7 +131,7 @@ define(["dojo",
          * @method _connectionClosed
          */
         Activity.prototype._connectionClosed = function() {
-                _ENME.log('<div>CometD Connection Closed');
+                //_ENME.log('<div>CometD Connection Closed');
                 dojo.publish('/activity/connection/closed');
         };
 

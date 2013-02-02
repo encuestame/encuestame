@@ -131,8 +131,8 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     position: relative;
     text-align: left;
     overflow: auto;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
-        color-stop(100%, #222) );
+    background: #444;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444), color-stop(100%, #222) );
     background: -webkit-linear-gradient(#444, #222);
     background: -moz-linear-gradient(#444, #222);
     background: -o-linear-gradient(#444, #222);
@@ -279,7 +279,7 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
     width: 100%;
     overflow: auto;
     padding: 5px;
-    background: #ffffff; /* Old browsers */
+    background: #e5e5e5; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),

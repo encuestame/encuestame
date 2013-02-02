@@ -1,6 +1,11 @@
+.web-list-tweet {
+    width: 768px;
+}
+
 .web-list-rows .selected-row {
     background-color: #F8F8F8;
     border: 1px solid #EEEEEE;
+    width: 101%;
 }
 
 .web-item-row {

@@ -27,6 +27,7 @@ define([
          "dojo/dom-geometry",
          "dojo/_base/array",
          "dojo/dom-construct",
+         "dojo/ready",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -60,6 +61,7 @@ define([
                 domGeom,
                 array,
                 domConstruct,
+                ready,
                 _WidgetBase,
                 _TemplatedMixin,
                 _WidgetsInTemplateMixin,
@@ -233,7 +235,8 @@ define([
              tp_options_report : _ENME.getMessage("tp_options_report"),
              follow_dashboard : _ENME.getMessage("tp_options_follow_dashboard"),
              button_publish : _ENME.getMessage("button_publish"),
-             tp_select_publish : _ENME.getMessage("tp_select_publish")
+             tp_select_publish : _ENME.getMessage("tp_select_publish"),
+             leave_mesage : _ENME.getMessage("leave_mesage")
            },
 
             /***
@@ -322,6 +325,8 @@ define([
                 document.addEventListener(!dojo.isMozilla ? "onmousewheel" : "DOMMouseScroll", dojo.hitch(this, this.scroll), false);
                 // scroll wheel for
                 window.onscroll = dojo.hitch(this, this.scroll);
+                // leave message
+                this.unLoadSupport(this.i18nMessage.leave_mesage);
 
                 /**
            * Bug on Table / iPads We need use dojo.touch
@@ -771,6 +776,7 @@ define([
                         socialArray = data.success.socialPublish;
                     }
                     this.autosave = false;
+                    this.cancelUnLoadSupport();
                     this.tweetPollPublishWidget.process(socialArray);
                 });
 

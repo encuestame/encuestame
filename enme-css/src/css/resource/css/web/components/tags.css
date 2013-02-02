@@ -18,6 +18,7 @@
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
+    background: #606060;
     background-image: linear-gradient(bottom, #606060 20%, #828282 100% );
     background-image: -o-linear-gradient(bottom, #606060 20%, #828282 100% );
     background-image: -moz-linear-gradient(bottom, #606060 20%, #828282 100% );
@@ -25,10 +26,6 @@
     background-image: -ms-linear-gradient(bottom, #606060 20%, #828282 100% );
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.6, #606060 ), color-stop(1, #828282 ) );
     color: white !important;
-}
-
-a.tag:link,a.tag:visited,a.tag:active {
-    color: #FFF;
 }
 
 .tag:hover {

@@ -4,6 +4,7 @@ div.profilePanel {
     position: absolute;
     min-height: 120px;
     min-width: 202px;
+    background:  #222;
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
         color-stop(100%, #222) );
     background: -webkit-linear-gradient(#444, #222);
@@ -11,8 +12,8 @@ div.profilePanel {
     background: -o-linear-gradient(#444, #222);
     background: linear-gradient(#444, #222);
     right: 0px;
-    left: -3px;
-    top: 35px;
+    left: 0px;
+    top: 32px;
     zoom: 1;
     -moz-box-shadow: 1px 2px 3px #888888;
     -webkit-box-shadow: 1px 2px 3px #888888;

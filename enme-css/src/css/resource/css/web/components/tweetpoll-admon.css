@@ -124,6 +124,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
     padding: 5px;
     position: relative;
+    width: 101%;
 }
 
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean{
@@ -137,6 +138,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     min-height: 35px;
     border-bottom: 1px solid #D2D2D2;
     background-color: white;
+    width: 101%;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags

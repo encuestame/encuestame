@@ -176,11 +176,13 @@ and (orientation : portrait) {
 
     /** header **/
     header#header {
-       background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444), color-stop(100%, #222) );
-       background: -webkit-linear-gradient(#444, #222);
-       background: -moz-linear-gradient(#444, #222);
-       background: -o-linear-gradient(#444, #222);
-       background: linear-gradient(#444, #222);
+      background: #1b1b1b;
+      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#353535), to(#010101));
+      background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#353535), to(#010101));
+      background: -moz-linear-gradient(center top, #353535, #010101);
+      background: linear-gradient(#353535, #010101);
+      -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
        height: 40px;
        position: relative;
        box-shadow : 2px 3px 4px #121212;
@@ -316,7 +318,7 @@ and (orientation : portrait) {
     }
 
     #content-container #enme-content {
-      background-color: white;
+      /*background-color: white;*/
       min-height: 100%;
       position: relative;
     }

@@ -39,6 +39,7 @@ public class EnMeMappingExceptionResolver extends SimpleMappingExceptionResolver
      */
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        ex.printStackTrace();
         String errorView = "redirect:/error";
         if (ex.equals(DataAccessResourceFailureException.class)) {
             errorView = "redirect:/error";
