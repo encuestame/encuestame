@@ -292,6 +292,7 @@ define([
             load = dojo.hitch(this, function(data) {
                  parent.loading_hide();
                  if ("success" in data) {
+                 parent.cancelUnLoadSupport();
                  var pollBean = data.success.pollBean;
                  //console.info("create poll pollBean ", pollBean);
                      if (pollBean != null) {
