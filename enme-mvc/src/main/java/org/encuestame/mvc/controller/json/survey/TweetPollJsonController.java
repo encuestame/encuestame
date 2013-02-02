@@ -121,14 +121,15 @@ public class TweetPollJsonController extends AbstractJsonController {
             tpollSearchBean.setSearchResult(null);
             tpollSearchBean.setStart(start);
             tpollSearchBean.setTypeSearch(TypeSearch.getSearchString(typeSearch));
-            tpollSearchBean.setProviders(ListUtils.EMPTY_LIST);
+            tpollSearchBean.setProviders(socialNetworks == null ? ListUtils.EMPTY_LIST : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
+            tpollSearchBean.setSocialAccounts(socialAccountNetworks == null ? ListUtils.EMPTY_LIST : socialAccountNetworks);
                     //socialNetworks.size() == 0 ? null : ConvertDomainBean.convertSocialProviderStringToProvider(socialNetworks));
 
             final List<TweetPollBean> list = (List<TweetPollBean>) getTweetPollService().filterTweetPollByItemsByType(
                     tpollSearchBean, request);
 
             //System.out.println("Json Controller --> " + list.size());
-            log.debug("/api/survey/tweetpoll/search.json---------------->"+list.size());
+            log.debug("/api/survey/tweetpoll/search.json---------------->  "+ list.size());
             jsonResponse.put("tweetPolls", list);
             setItemResponse(jsonResponse);
 

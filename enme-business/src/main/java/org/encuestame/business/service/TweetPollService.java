@@ -92,7 +92,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
             final TweetPollSearchBean tpollSearch)
             throws EnMeNoResultsFoundException {
         log.debug("tweetPoll username: " + username);
-        List<TweetPoll> tpollsbysocialNetwork = new ArrayList<TweetPoll>();
+        List<TweetPoll> tweetpollsSearchResult = new ArrayList<TweetPoll>();
         final List<TweetPoll> tweetPolls = getTweetPollDao().retrieveTweetsByUserId(tpollSearch.getKeyword(), getUserAccountId(username),
                         tpollSearch.getMax(), tpollSearch.getStart(),
                         tpollSearch.getIsComplete(),
@@ -100,13 +100,9 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
                         tpollSearch.getIsPublished(),
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getPeriod());
-        if (tpollSearch.getProviders().size() > 0) {
-            tpollsbysocialNetwork = this
-                    .retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
-                            tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-        }
-        log.info("tweetPoll size: " + tweetPolls.size());
-        return this.setTweetPollListAnswers(tweetPolls, Boolean.TRUE, httpServletRequest);
+        tweetpollsSearchResult = this.getTweetPollSearchResult(tweetPolls, tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
+        log.info("tweetPoll size: " + tweetpollsSearchResult.size());
+        return this.setTweetPollListAnswers(tweetpollsSearchResult, Boolean.TRUE, httpServletRequest);
     }
 
     /*
@@ -222,16 +218,36 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
               * 3- If the value returned by the search of publications on social networks eses greater than 0
               * 4- Tweetpoll add to the list of search results
               */
-            if (tpollSearch.getProviders().size() > 0) {
-                tpollsbysocialNetwork = this
-                        .retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
-                                tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-            }
-
+             tpollsbysocialNetwork = this.getTweetPollSearchResult(tweetPolls, tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
          }
          log.info("search keyword tweetPoll size "+tweetPolls.size());
          return this.setTweetPollListAnswers(tpollsbysocialNetwork, Boolean.TRUE, httpServletRequest);
      }
+
+    /**
+     *
+     * @param tweetPolls
+     * @param socialNetworks
+     * @param socialAccounts
+     * @return
+     * @throws EnMeNoResultsFoundException
+     */
+	private List<TweetPoll> getTweetPollSearchResult(
+			final List<TweetPoll> tweetPolls,
+			final List<SocialProvider> socialNetworks,
+			final List<Long> socialAccounts) throws EnMeNoResultsFoundException {
+		List<TweetPoll> tpollsbysocialNetwork = new ArrayList<TweetPoll>();
+
+		if ((socialNetworks.size() > 0) || (socialAccounts.size() > 0)) {
+			tpollsbysocialNetwork = this
+					.retrieveTweetPollsPostedOnSocialNetworks(tweetPolls,
+							socialNetworks, socialAccounts);
+		} else {
+			tpollsbysocialNetwork = tweetPolls;
+		}
+		log.info("tweetPoll size: " + tweetPolls.size());
+		return tpollsbysocialNetwork;
+    }
 
     /*
      * (non-Javadoc)
@@ -245,20 +261,15 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollsToday(
             final String username,
             final HttpServletRequest httpServletRequest, final TweetPollSearchBean tpollSearch) throws EnMeExpcetion{
-        List<TweetPoll> tpSocial = new ArrayList<TweetPoll>();
+        List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
         final List<TweetPoll> tpolls = getTweetPollDao().retrieveTweetPollToday(
                         getAccount(username), tpollSearch.getMax(),
                         tpollSearch.getStart(), tpollSearch.getIsComplete(),
                         tpollSearch.getIsScheduled(),
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
-        if (tpollSearch.getProviders().size() > 0) {
-            tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpolls,
-                    tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-        }
-        // Retrieve only tweetpolls published on social networks
-
-        return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
+        tweetPollSearchResult = this.getTweetPollSearchResult(tpolls, tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
+        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE, httpServletRequest);
     }
 
     /*
@@ -273,22 +284,17 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollsLastWeek(final String username,
             final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
-        List<TweetPoll> tpSocial = new ArrayList<TweetPoll>();
-        final List<TweetPoll> tpbeanlast = getTweetPollDao()
+        List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
+        final List<TweetPoll> tweetPolls = getTweetPollDao()
                 .retrieveTweetPollLastWeek(getAccount(username), tpollSearch.getMax(),
                         tpollSearch.getStart(), tpollSearch.getIsComplete(),
                         tpollSearch.getIsScheduled(),
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(),
-                        tpollSearch.getPeriod());
-        List<SocialProvider> enums = new ArrayList<SocialProvider>();
-        enums.add(SocialProvider.TWITTER);
-        tpollSearch.setProviders(enums);
-        if (tpollSearch.getProviders().size() > 0) {
-              tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpbeanlast,
-                      tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-        }
-        return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
+						tpollSearch.getPeriod());
+		tweetPollSearchResult = this.getTweetPollSearchResult(tweetPolls,
+				tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
+        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE,
                 httpServletRequest);
     }
 
@@ -304,19 +310,17 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollFavourites(
             final String username, final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
-        List<TweetPoll> tpSocial = new ArrayList<TweetPoll>();
+        List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
         final List<TweetPoll> favouriteTweetPolls = getTweetPollDao().retrieveFavouritesTweetPoll(
                 getAccount(username), tpollSearch.getMax(),
                 tpollSearch.getStart(), tpollSearch.getIsComplete(),
                 tpollSearch.getIsScheduled(),
                 tpollSearch.getIsFavourite(),
                 tpollSearch.getIsPublished(), tpollSearch.getKeyword(), tpollSearch.getPeriod());
-
-        if (tpollSearch.getProviders().size() > 0) {
-            tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(
-                    favouriteTweetPolls, tpollSearch.getProviders(), null);
-        }
-        return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE, httpServletRequest);
+		tweetPollSearchResult = this.getTweetPollSearchResult(
+				favouriteTweetPolls, tpollSearch.getProviders(),
+				tpollSearch.getSocialAccounts());
+        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE, httpServletRequest);
     }
 
     /*
@@ -331,19 +335,16 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
     public List<TweetPollBean> searchTweetsPollScheduled(final String username,
             final HttpServletRequest httpServletRequest,
             final TweetPollSearchBean tpollSearch) throws EnMeExpcetion {
-        List<TweetPoll> tpSocial = new ArrayList<TweetPoll>();
-        final List<TweetPoll> tpoll = getTweetPollDao()
+        List<TweetPoll> tweetPollSearchResult = new ArrayList<TweetPoll>();
+        final List<TweetPoll> tweetPolls = getTweetPollDao()
                 .retrieveScheduledTweetPoll(getUserAccountId(username),
                         tpollSearch.getMax(), tpollSearch.getStart(), tpollSearch.getIsComplete(),
                         tpollSearch.getIsScheduled(),
                         tpollSearch.getIsFavourite(),
                         tpollSearch.getIsPublished(), tpollSearch.getKeyword(),
                         tpollSearch.getPeriod());
-        if (tpollSearch.getProviders().size() > 0) {
-            tpSocial = this.retrieveTweetPollsPostedOnSocialNetworks(tpoll,
-                    tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
-        }
-        return this.setTweetPollListAnswers(tpSocial, Boolean.TRUE,
+        tweetPollSearchResult = this.getTweetPollSearchResult(tweetPolls, tpollSearch.getProviders(), tpollSearch.getSocialAccounts());
+        return this.setTweetPollListAnswers(tweetPollSearchResult, Boolean.TRUE,
                 httpServletRequest);
     }
 
@@ -1311,6 +1312,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
      * @return
      * @throws EnMeNoResultsFoundException
      */
+
     private List<TweetPoll> retrieveTweetPollsPostedOnSocialNetworks(
             final List<TweetPoll> tpolls, final List<SocialProvider> providers, final List<Long> socialAccounts) throws EnMeNoResultsFoundException {
         final List<TweetPoll> tpollsPostedOnSocialNet = new ArrayList<TweetPoll>();
@@ -1344,6 +1346,7 @@ public class TweetPollService extends AbstractSurveyService implements ITweetPol
         }
         return socialAccount;
     }
+
 
     /**
      * Retrieve {@link SocialAccount} by a list of id.
