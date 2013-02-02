@@ -18,7 +18,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
-import org.encuestame.utils.DateClasificatedEnum;
+import org.encuestame.utils.enums.DateClasificatedEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 
 /**
@@ -65,7 +65,9 @@ public interface StreamOperations {
      *
      * @param utilNotifications
      * @return
+     * @throws EnMeNoResultsFoundException
      */
     HashMap<DateClasificatedEnum, List<UtilNotification>> classifyNotificationList(
-            final List<UtilNotification> utilNotifications);
+            final List<UtilNotification> utilNotifications,
+            final HttpServletRequest request) throws EnMeNoResultsFoundException;
 }

@@ -62,16 +62,21 @@ public class LinksJsonController extends AbstractJsonController{
     public @ResponseBody ModelMap getPublishedSocialLinks(
             @RequestParam(value = "id", required = true) String id,
             @RequestParam(value = "type", required = true) String type,
+            @RequestParam(value = "start", required = false) Integer start,
+            @RequestParam(value = "max", required = false) Integer max,
             HttpServletRequest request, HttpServletResponse response)
             throws JsonGenerationException, JsonMappingException, IOException {
         try {
             //FUTURE: Add SEARCHPERIODS Filter.
             final Map<String, Object> jsonResponse = new HashMap<String, Object>();
             final TypeSearchResult searchResult = TypeSearchResult.getTypeSearchResult(type);
+            // by tweetpoll
             if (TypeSearchResult.TWEETPOLL.equals(searchResult) && !id.isEmpty()) {
                 final TweetPoll tweetPoll = getTweetPollService().getTweetPollById(Long.valueOf(id), null);
                 jsonResponse.put("links", getTweetPollService()
                         .getTweetPollLinks(tweetPoll, null, null, TypeSearchResult.getTypeSearchResult(type)));
+
+            // by poll
             } else if (TypeSearchResult.POLL.equals(searchResult) && !id.isEmpty()) {
                 final Poll poll = getPollService().getPollById(Long.valueOf(id));
                 jsonResponse.put(
@@ -83,8 +88,9 @@ public class LinksJsonController extends AbstractJsonController{
                  //TODO: retrieve social links by SURVEY
             } else if (TypeSearchResult.PROFILE.equals(searchResult) && !id.isEmpty()) {
                 //TODO: retrieve social links by PROFILE
+            // by hashtag
             } else if (TypeSearchResult.HASHTAG.equals(searchResult) && !id.isEmpty()) {
-                 jsonResponse.put("links", getFrontService().getHashTagLinks(getFrontService().getHashTagItem(id)));
+                 jsonResponse.put("links", getFrontService().getHashTagLinks(getFrontService().getHashTagItem(id), start, max));
             } else {
                  // if not exist a type, send emtpy list.
                  jsonResponse.put("links", ListUtils.EMPTY_LIST);

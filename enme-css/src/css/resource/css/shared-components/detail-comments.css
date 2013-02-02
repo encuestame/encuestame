@@ -1,9 +1,10 @@
 .web-default-comments {
-	
+
 }
 
 .comments {
     overflow: auto;
+    background-color: #EAEAEA;
 }
 
 .comments .comment-wrapper {
@@ -60,7 +61,7 @@
 }
 
 .comments .comment-wrapper .comment .comment-data .comment-info-data .date{
-    margin-left: 10px;	
+    margin-left: 10px;
 }
 
 .comments .comment-wrapper .comment .comment-data .comment-info-data .date a {
@@ -74,7 +75,7 @@
 }
 
 
-/* 
+/*
 .comments .comment-wrapper .comment .comment-data .comment-date {
   padding: 1px;
   position: absolute;

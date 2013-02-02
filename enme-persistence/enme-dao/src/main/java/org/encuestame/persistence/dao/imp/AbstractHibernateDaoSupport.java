@@ -136,7 +136,6 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
      * @return midnight date
      */
     public Date getNextDayMidnightDate(){
-       //TODO: update references with DateUtil.
        return DateUtil.getNextDayMidnightDate();
     }
 
@@ -218,7 +217,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
         while (st.hasMoreTokens()) {
                 query.add(new Term(field, st.nextToken()));
         }
-        log.debug("fetchPhraseFullText Query :{"+query.toString()+"}");
+        log.trace("fetchPhraseFullText Query :{"+query.toString()+"}");
         return fetchFullTextSession(clazz, criteria, analyzer, query);
     }
 
@@ -238,7 +237,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final Analyzer analyzer) {
         final WildcardQuery query = new WildcardQuery(new Term(field,
                 regExp));
-        log.debug("fetchWildcardFullText Query :{"+query.toString()+"}");
+        log.trace("fetchWildcardFullText Query :{"+query.toString()+"}");
         return fetchFullTextSession(clazz, criteria, analyzer, query);
     }
 
@@ -258,7 +257,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final Analyzer analyzer) {
         final PrefixQuery query = new PrefixQuery(new Term(field,
                 keyword));
-        log.debug("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
+        log.trace("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
         return fetchFullTextSession(clazz, criteria, analyzer, query);
     }
 
@@ -281,7 +280,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
             final Float similarity) {
         final FuzzyQuery query = new FuzzyQuery(new Term(field,
                 keyword), similarity);
-        log.debug("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
+        log.trace("fetchPrefixQueryFullText Query :{"+query.toString()+"}");
         return fetchFullTextSession(clazz, criteria, analyzer, query);
     }
 
@@ -304,7 +303,7 @@ public abstract class AbstractHibernateDaoSupport extends HibernateDaoSupport {
                     public Object doInHibernate(org.hibernate.Session session) {
                         final FullTextSession fullTextSession = Search
                                 .getFullTextSession(session);
-                        log.debug("fetchFullTextSession query:{" + queryOperation.toString()+"}");
+                        log.trace("fetchFullTextSession query:{" + queryOperation.toString()+"}");
                         final FullTextQuery hibernateQuery = fullTextSession
                                 .createFullTextQuery(queryOperation, clazz);
                         hibernateQuery.setCriteriaQuery(criteria);

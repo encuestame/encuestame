@@ -289,6 +289,7 @@ public class TweetPollController extends AbstractSocialController {
         }
         log.debug("newTweetPollController "+path);
         //log.debug("tweetpoll new");
+        addi18nProperty(model, "leave_mesage");
         addi18nProperty(model, "tp_write_questions", getMessage("tp_write_questions"));
         addi18nProperty(model, "tp_add_answer", getMessage("tp_add_answer"));
         addi18nProperty(model, "tp_add_hashtag", getMessage("tp_add_hashtag"));

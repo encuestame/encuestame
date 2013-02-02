@@ -240,6 +240,7 @@ public class PollController extends AbstractBaseOperations {
     @RequestMapping(value = "/user/poll/new", method = RequestMethod.GET)
     public String newPollController(final ModelMap model) {
         log.debug("new poll render view");
+        addi18nProperty(model, "leave_mesage");
         addi18nProperty(model, "poll_create_question_title");
         addi18nProperty(model, "poll_create_build_answers");
         addi18nProperty(model, "poll_create_add_new_answer");
@@ -268,6 +269,10 @@ public class PollController extends AbstractBaseOperations {
         addi18nProperty(model, "publish_social");
         addi18nProperty(model, "loading_message");
         addi18nProperty(model, "counter_zero");
+        addi18nProperty(model, "pubication_failure_status");
+        addi18nProperty(model, "button_try_later");
+        addi18nProperty(model, "button_ignore");
+        addi18nProperty(model, "button_try_again");
         return "poll/new";
     }
 

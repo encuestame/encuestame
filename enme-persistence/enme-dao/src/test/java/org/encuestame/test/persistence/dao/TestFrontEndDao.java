@@ -136,35 +136,35 @@ public class TestFrontEndDao extends AbstractBase {
         createTweetPollSavedPublishedStatus(tp2, "432d123432532", null, "test tweettxt c cxz");
         List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(this.hashTag, null, null, null, null,
-                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, 0, 100);
         assertEquals("Should be equals", 4, links.size());
     }
-    
+
     /**
      * Get total hashTagHits by range.
      */
     @Test
     public void testGetTotalHashTagHitsbyDateRange(){
-    	final Calendar myDate = Calendar.getInstance();
-    	final HashTag hashTag1 = createHashTag("software2"); 
+        final Calendar myDate = Calendar.getInstance();
+        final HashTag hashTag1 = createHashTag("software2");
 
-    	final String ipAddress1 = "192.168.1.1";
-    	final String ipAddress2 = "192.168.1.2"; 
-    	 
-    	final Hit hit1 = createHashTagHit(hashTag1, ipAddress1);
-    	final Hit hit2 = createHashTagHit(hashTag1, ipAddress2);
-    	 
-    	hit1.setHitDate(myDate.getTime());
-    	getTweetPoll().saveOrUpdate(hit1); 
-    	
-    	// It created today, setted with minus 5 days. so the new date is between friday or Saturday ago
-    	// out of range
-    	myDate.add(Calendar.DATE, -9);
-    	hit2.setHitDate(myDate.getTime());
-    	getTweetPoll().saveOrUpdate(hit2); 
-    	
-    	// Retrieve hits for tag Id in the last 7 days.
-    	List<Hit> myHits = getFrontEndDao().getHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7); 
-    	assertEquals("Should be equals", 1, myHits.size());
+        final String ipAddress1 = "192.168.1.1";
+        final String ipAddress2 = "192.168.1.2";
+
+        final Hit hit1 = createHashTagHit(hashTag1, ipAddress1);
+        final Hit hit2 = createHashTagHit(hashTag1, ipAddress2);
+
+        hit1.setHitDate(myDate.getTime());
+        getTweetPoll().saveOrUpdate(hit1);
+
+        // It created today, setted with minus 5 days. so the new date is between friday or Saturday ago
+        // out of range
+        myDate.add(Calendar.DATE, -9);
+        hit2.setHitDate(myDate.getTime());
+        getTweetPoll().saveOrUpdate(hit2);
+
+        // Retrieve hits for tag Id in the last 7 days.
+        List<Hit> myHits = getFrontEndDao().getHashTagHitsbyDateRange( hashTag1.getHashTagId(), 7);
+        assertEquals("Should be equals", 1, myHits.size());
     }
 }

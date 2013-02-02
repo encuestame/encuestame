@@ -18,8 +18,8 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 
 import org.encuestame.utils.DateUtil;
-import org.encuestame.utils.RelativeTimeEnum;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.RelativeTimeEnum;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 

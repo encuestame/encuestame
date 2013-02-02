@@ -7,7 +7,7 @@
             title="${item.questionBean.questionName}"
             itemId="${item.id}"
             comments="${item.totalComments}"
-            submited="<spring:message code="submited.by" />"
+            submited="<spring:message code="submited_by" />"
             added="<spring:message code="added" />"
             relativeTime="${item.relativeTime}"
             ht="${item.hashtagAsString}">

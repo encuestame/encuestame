@@ -46,8 +46,7 @@ div.web-tweetpoll-wrapper div.tweetListContent {
   overflow: hidden;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options {
     float: left;
     min-width: 185px;
     width: 185px;
@@ -115,9 +114,9 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-options span:ho
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
     border-left: 1px solid #C2BEC2;
     margin-left: 185px;
-    -moz-box-shadow: 10px -10px 8px 8px #000000;
+    /*-moz-box-shadow: 10px -10px 8px 8px #000000;
     -webkit-box-shadow: 10px -10px 8px 8px #000000;
-    box-shadow: 10px -10px 8px 8px #000000;
+    box-shadow: 10px -10px 8px 8px #000000;*/
 }
 
 /** Filter Options **/
@@ -125,6 +124,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet {
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu {
     padding: 5px;
     position: relative;
+    width: 101%;
 }
 
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet .web-twettpoll-list-menu .web-list-filter-clean{
@@ -138,6 +138,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     min-height: 35px;
     border-bottom: 1px solid #D2D2D2;
     background-color: white;
+    width: 101%;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item .hashTags

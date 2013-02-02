@@ -1,10 +1,4 @@
 #web-main-public-line .web-left-wrapper {
-background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
-        color-stop(100%, #222) );
-    background: -webkit-linear-gradient(#444, #222);
-    background: -moz-linear-gradient(#444, #222);
-    background: -o-linear-gradient(#444, #222);
-    background: linear-gradient(#444, #222);
   border-right: 1px solid #DCDCDC;
   box-shadow: 1px 0 6px 0 #393838 inset;
   float: right;

@@ -26,7 +26,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.encuestame.utils.net.InetAddresses;
 import org.encuestame.utils.net.XFordwardedInetAddressUtil;
 
 /**
@@ -184,7 +183,7 @@ public class EnMeUtils {
         final long roundRelevance ;
         relevance =  likeVotes + dislikeVotes + numberHits + comments + socialAccounts + numberVotes +hashTagHits;
         roundRelevance = relevance < 1 ? 1 : Math.round(relevance);
-        log.debug(" RELEVANCE *******************************>  " + roundRelevance);
+        log.trace(" RELEVANCE *******************************>  " + roundRelevance);
         return roundRelevance;
     }
 
@@ -196,21 +195,21 @@ public class EnMeUtils {
      * @throws UnknownHostException
      */
     public static String getIP(HttpServletRequest request, boolean proxy) throws UnknownHostException {
-        log.debug("getIP Force Proxy Pass ["+proxy+"]");
-        log.debug("getIP request ["+request+"]");
+        log.trace("getIP Force Proxy Pass ["+proxy+"]");
+        log.trace("getIP request ["+request+"]");
         String ip = "";
         //FIXME: if your server use ProxyPass you need get IP from x-forwarder-for, we need create
         // a switch change for ProxyPass to normal get client Id.
         // Solution should be TOMCAT configuration.
-        log.debug("X-getHeaderNames ["+ request.getHeaderNames()+"]");
+        log.trace("X-getHeaderNames ["+ request.getHeaderNames()+"]");
         if (proxy) {
             ip = XFordwardedInetAddressUtil.getAddressFromRequest(request);
-            log.debug("X-FORWARDED-FOR [" + ip + "]");
+            log.trace("X-FORWARDED-FOR [" + ip + "]");
         } else {
             String _ip = request.getRemoteAddr();
-            log.debug("NON XFORWARDEDddddddd IP [" + _ip + "]");
+            log.trace("NON XFORWARDEDddddddd IP [" + _ip + "]");
             InetAddress sip = InetAddress.getByName(_ip);
-            log.debug("NON XFORWARDED IP sip [" + sip + "]");
+            log.trace("NON XFORWARDED IP sip [" + sip + "]");
             ip = sip.getHostAddress();
         }
         return ip;

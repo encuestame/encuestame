@@ -39,6 +39,13 @@ define([
     */
    enable_more_support : true,
 
+
+   /**
+    *
+    * @property
+    */
+   //items : 0,
+
    /**
     * enable the more support, this retrieve next X items from provide service.
     */
@@ -57,17 +64,20 @@ define([
        }
    },
 
+
+   getItems : function(){},
+   setItems : function(){},
+
    /**
     * A service support to retrieve items based on list of parameters.
     */
    loadItems : function(url) {
      var real_url = this.getUrl() || url;
        var load = dojo.hitch(this, function(data) {
-           //console.info("load 2 data", data);
            if ("success" in data) {
-               this._empty();
-               //console.debug("pro", data.success[this.property]);
+               //this._empty();
                var items = data.success[this.property];
+               this.setItems(items.length);
                if (items && items.length > 0) {
                    dojo.forEach(items, dojo.hitch(this, function(
                            data, index) {

@@ -147,8 +147,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                 LinkedInProfile profile = apiOperations.getUserProfile();
                 SocialUserProfile profileAPI = apiOperations.getProfile();
                 log.debug("linkedin profile "+profile.toString());
-                final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
-                        profile.getId());
+                final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider, profile.getId());
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profileAPI,
@@ -162,8 +161,7 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
                         accessToken.getSecret());
                 SocialUserProfile profile = operations.getProfile();
                 log.debug("twitter profile "+profile.toString());
-                final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider,
-                        profile.getId());
+                final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider, profile.getId());
                 if (socialAccount == null) {
                     getSecurityService().addNewSocialAccount(
                             accessToken.getValue(), accessToken.getSecret(), null, profile,
@@ -182,29 +180,38 @@ public abstract class AbstractAccountConnect extends AbstractSocialController{
     }
 
     /**
-     *
-     * @param socialProvider
-     * @param accessGrant
+     * Check and save a social account if exist previously.
+     * @param socialProvider {@link SocialProvider}
+     * @param accessGrant {@link AccessGrant}
      * @return
-     * @throws Exception
+     * @throws Exception if the social account exist, throw a exception
      */
     public String checkOAuth2SocialAccount(final SocialProvider socialProvider,
             final AccessGrant accessGrant) throws Exception {
         String actionToDo = "";
         if (socialProvider.equals(SocialProvider.FACEBOOK)) {
             final FacebookAPIOperations facebookAPIOperations = new FacebookAPITemplate(accessGrant.getAccessToken());
-            getSecurityService().addNewSocialAccount(
-                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
-                    facebookAPIOperations.getProfile(),
-                    socialProvider, getUserAccount());
-        } else if (socialProvider.equals(SocialProvider.GOOGLE_BUZZ)) {
-            final BuzzAPIOperations apiOperations = new GoogleBuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
-            log.debug(apiOperations.getProfile());
-            getSecurityService().addNewSocialAccount(
-                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
-                    apiOperations.getProfile(),
-                    socialProvider, getUserAccount());
+            final SocialAccount socialAccount = getSecurityService().getCurrentSocialAccount(socialProvider, facebookAPIOperations.getProfile().getId(), facebookAPIOperations.getProfile().getUsername());
+            if (socialAccount == null) {
+                  getSecurityService().addNewSocialAccount(
+                          accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
+                          facebookAPIOperations.getProfile(),
+                          socialProvider, getUserAccount());
+            } else {
+                log.warn("This account already exist");
+                throw new EnMeExistPreviousConnectionException(getMessage("social.repeated.account"));
+            }
+
         }
+
+        //    else if (socialProvider.equals(SocialProvider.GOOGLE_BUZZ)) {
+        //            final BuzzAPIOperations apiOperations = new GoogleBuzzAPITemplate(accessGrant.getAccessToken(), this.apiKey);
+        //            log.debug(apiOperations.getProfile());
+        //            getSecurityService().addNewSocialAccount(
+        //                    accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpires(),
+        //                    apiOperations.getProfile(),
+        //                    socialProvider, getUserAccount());
+        //        }
         return actionToDo;
     }
 }

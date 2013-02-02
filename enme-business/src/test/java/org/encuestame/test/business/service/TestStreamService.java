@@ -21,8 +21,8 @@ import junit.framework.Assert;
 import org.encuestame.business.service.StreamService;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.test.business.security.AbstractSpringSecurityContext;
-import org.encuestame.utils.DateClasificatedEnum;
 import org.encuestame.utils.categories.test.DefaultTest;
+import org.encuestame.utils.enums.DateClasificatedEnum;
 import org.encuestame.utils.enums.NotificationEnum;
 import org.encuestame.utils.web.notification.UtilNotification;
 import org.junit.Before;
@@ -95,8 +95,7 @@ public class TestStreamService extends AbstractSpringSecurityContext {
     public void testclassifyNotificationList() throws EnMeNoResultsFoundException{
         final List<UtilNotification> list = this.streamService
                 .retrieveLastNotifications(10, this.request);
-        final HashMap<DateClasificatedEnum, List<UtilNotification>> classify = this.streamService
-                .classifyNotificationList(list);
+        final HashMap<DateClasificatedEnum, List<UtilNotification>> classify = this.streamService.classifyNotificationList(list, this.request);
         Assert.assertNotNull(classify.get(DateClasificatedEnum.FEW_MONTHS_AGO));
         Assert.assertNotNull(classify.get(DateClasificatedEnum.TODAY));
         Assert.assertEquals(classify.get(DateClasificatedEnum.TODAY).size(), 1);

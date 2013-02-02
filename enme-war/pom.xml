@@ -15,10 +15,10 @@
       <module>enme-config</module>
       <module>enme-spring</module>
       <module>enme-views</module>
+      <module>enme-jetty-app</module>
       <module>enme-tomcat-app</module>
       <module>enme-weblogic-app</module>
       <module>enme-jboss-app</module>
-      <module>enme-jetty-app</module>
     </modules>
   <build>
     <pluginManagement>

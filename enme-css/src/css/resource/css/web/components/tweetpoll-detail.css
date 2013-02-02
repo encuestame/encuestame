@@ -61,7 +61,7 @@
  * TweetPoll Detail.
  */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper{
-    margin: 15px 10px 10px;
+    margin: 0 10px;
 }
 
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper > div:first-child {
@@ -291,7 +291,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
 }
 
 .web-tweetpoll-detail  .web-tweetpoll-comments {
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 /* tweetpoll info detail */

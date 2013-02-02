@@ -4,7 +4,8 @@ define([
      "dijit/_TemplatedMixin",
      "dijit/_WidgetsInTemplateMixin",
      "me/core/main_widgets/EnmeMainLayoutWidget",
-      "me/web/widget/data/CacheLinkedList",
+     "me/web/widget/data/CacheLinkedList",
+     "me/web/widget/ui/More",
      "me/web/widget/social/LinksPublishedItem",
      "me/core/enme",
      "dojo/text!me/web/widget/social/templates/linksPublished.html" ],
@@ -15,16 +16,12 @@ define([
     _WidgetsInTemplateMixin,
     main_widget,
     cacheLinkedList,
+    More,
     linksPublishedItem,
     _ENME,
      template) {
 
-  return declare([
-                   _WidgetBase,
-                   _TemplatedMixin,
-                   main_widget,
-                   cacheLinkedList,
-                   _WidgetsInTemplateMixin], {
+  return declare([_WidgetBase, _TemplatedMixin, main_widget, cacheLinkedList,_WidgetsInTemplateMixin], {
 
   // template string.
   templateString : template,
@@ -42,7 +39,7 @@ define([
    /**
     *
     */
-   more : true,
+   more : false,
 
    /**
     *
@@ -54,6 +51,19 @@ define([
     */
    hasthag : "",
 
+    /**
+    *
+    * @property
+    */
+   items : 0,
+
+   /**
+    * Override the default max
+    * @property
+    */
+   overrideMax : null,
+
+
    /**
     * Poll Navigate default parameters.
     */
@@ -64,13 +74,29 @@ define([
     * post create.
     */
    postCreate : function() {
-       if (this.type == null || this.itemId == null) {
+        // override the max on start
+        if ( this.overrideMax !== null && typeof this.overrideMax === 'number') {
+              this._params.max = this.overrideMax;
+        }
+        var parent = this;
+        this.more = new More({
+                   parentWidget : this,
+                   more_max : 5
+        });
+        this.more.loadItems = dojo.hitch(this, function () {
+            parent.loadItems(this.getUrl());
+        });
+        // if more
+        if (this._more) {
+           this._more.appendChild(this.more.domNode);
+        }
+       if (this.type === null || this.itemId === null) {
            _EMNE.log("type is null");
        } else {
            //enable more support.
-           if (this.more) {
-               this.enableMoreSupport(this._params.start, this._params.max, this._more);
-           }
+           // if (this.more) {
+           //     this.enableMoreSupport(this._params.start, this._params.max, this._more);
+           // }
            this._params.id = this.itemId;
            if (this.type === _ENME.TYPE_SURVEYS[0]) { // tweeptoll
              this._params.type = _ENME.TYPE_SURVEYS[0];
@@ -85,6 +111,17 @@ define([
            }
        }
        dojo.hitch(this, this.loadItems());
+   },
+
+
+   getItems : function(){
+      return this.items
+   },
+
+   setItems : function(i) {
+      this.items += i
+      console.log("this.items", this.items);
+      this._params.start = this.items;
    },
 
    /**

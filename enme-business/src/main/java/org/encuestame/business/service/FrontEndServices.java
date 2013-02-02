@@ -1335,10 +1335,11 @@ public class FrontEndServices  extends AbstractBaseService implements IFrontEndS
      * org.encuestame.core.service.imp.IFrontEndService#getHashTagLinks(org.
      * encuestame.persistence.domain.HashTag)
      */
-    public List<LinksSocialBean> getHashTagLinks(final HashTag hash) {
+    public List<LinksSocialBean> getHashTagLinks(final HashTag hash, final Integer start,
+            final Integer max) {
         final List<TweetPollSavedPublishedStatus> links = getFrontEndDao()
                 .getLinksByHomeItem(hash, null, null, null, null,
-                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME);
+                        TypeSearchResult.HASHTAG, SearchPeriods.ALLTIME, start, max);
         log.debug("getTweetPollLinks getHashTagLinks HASHTAG: " + links.size());
         return ConvertDomainBean.convertTweetPollSavedPublishedStatus(links);
     }

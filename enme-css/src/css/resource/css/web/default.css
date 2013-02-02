@@ -121,21 +121,21 @@ a:hover{
 }
 
 .error a {
-  color: #FFFFFF !important;
-  font-weight: normal;
-  text-shadow: none !important;
-  text-decoration: underline !important;
+    color: #FFFFFF !important;
+    font-weight: normal;
+    text-shadow: none !important;
+    text-decoration: underline !important;
 }
 
 .mainError {
-  background-color: #F4A1A1;
-  color: #FEFEFE;
-  font-size: 125%;
-  margin-top: 15px;
-  padding: 15px;
-  -webkit-box-shadow: 3px 3px 7px rgba(50, 50, 48, 0.7);
-  -moz-box-shadow:    3px 3px 7px rgba(50, 50, 48, 0.7);
-   box-shadow:         3px 3px 7px rgba(50, 50, 48, 0.7);
+    background-color: #F4A1A1;
+    color: #FEFEFE;
+    font-size: 120%;
+    margin-top: 15px;
+    padding: 10px;
+    -webkit-box-shadow: 3px 3px 7px rgba(50, 50, 48, 0.7);
+    -moz-box-shadow:    3px 3px 7px rgba(50, 50, 48, 0.7);
+     box-shadow:         3px 3px 7px rgba(50, 50, 48, 0.7);
 }
 
 
@@ -545,7 +545,8 @@ div.web-default-menu  li.first {
 }
 
 .emne-box-gray {
-  background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
+    background-color: white;
+    background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);

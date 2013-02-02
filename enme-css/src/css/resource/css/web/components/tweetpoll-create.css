@@ -33,6 +33,7 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title, .web-poll-question .w
     -ms-user-select: none;
     user-select: none;
     border-bottom: 1px solid #888;
+    background: #e5e5e5;
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),

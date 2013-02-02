@@ -12,6 +12,7 @@
  */
 package org.encuestame.persistence.dao.imp;
 
+import java.util.Date;
 import java.util.List;
 
 import org.encuestame.persistence.dao.INotification;
@@ -33,7 +34,7 @@ import org.springframework.stereotype.Repository;
  * @version $Id:$
  */
 @Repository("notificationDao")
-public class NotificationDao extends AbstractHibernateDaoSupport implements INotification{
+public class NotificationDao extends AbstractHibernateDaoSupport implements INotification {
 
     /**
      * Constructor.
@@ -61,6 +62,25 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
             if (onlyUnread) {
                 criteria.add(Restrictions.eq("readed", Boolean.FALSE));
             }
+            criteria.addOrder(Order.desc("created"));
+            return getHibernateTemplate().findByCriteria(criteria, start, limit);
+    }
+
+    /*
+     *  (non-Javadoc)
+     * @see org.encuestame.persistence.dao.INotification#loadNotificationByDate(org.encuestame.persistence.domain.security.Account, java.lang.Integer, java.lang.Integer, java.util.Date, java.util.Date, java.lang.Boolean)
+     */
+    @SuppressWarnings("unchecked")
+    public final List<Notification> loadNotificationByDate(
+            final Account user,
+            final Integer limit,
+            final Integer start,
+            final Date startDate,
+            final Date endDate,
+            final Boolean onlyUnread) {
+         final DetachedCriteria criteria = DetachedCriteria.forClass(Notification.class);
+            criteria.add(Restrictions.or(Restrictions.eq("account", user), Restrictions.isNull("account")));
+            criteria.add(Restrictions.between("created", startDate, endDate));
             criteria.addOrder(Order.desc("created"));
             return getHibernateTemplate().findByCriteria(criteria, start, limit);
     }
@@ -97,7 +117,7 @@ public class NotificationDao extends AbstractHibernateDaoSupport implements INot
      * @return total not readed notification.
      */
     @SuppressWarnings("unchecked")
-    public final Long retrieveTotalNotReadedNotificationStatus(final Account user){
+    public final Long retrieveTotalNotReadedNotificationStatus(final Account user) {
          final DetachedCriteria crit = DetachedCriteria.forClass(Notification.class);
          crit.setProjection(Projections.rowCount());
          crit.add(Restrictions.eq("readed", Boolean.FALSE));

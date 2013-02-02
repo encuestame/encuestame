@@ -16,12 +16,15 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
+import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeOAuthSecurityException;
 import org.encuestame.utils.oauth.OAuth1Token;
 import org.encuestame.utils.social.SocialProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,9 +102,23 @@ public class LinkedInConnectSocialAccount extends AbstractAccountConnect {
     public String oauth1Callback(
             @RequestParam("oauth_token") String token,
             @RequestParam(value = "oauth_verifier", required = false) String verifier,
+            HttpServletRequest httpRequest,
             WebRequest request, final UserAccount account) throws Exception {
-         final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
-         this.checkOAuth1SocialAccount(SocialProvider.LINKEDIN, accessToken);
+         try {
+             final OAuth1Token accessToken = auth1RequestProvider.getAccessToken(verifier, request);
+             this.checkOAuth1SocialAccount(SocialProvider.LINKEDIN, accessToken);
+             log.debug("OAUTH 1 ACCESS TOKEN:{ " + accessToken.toString());
+             this.checkOAuth1SocialAccount(SocialProvider.TWITTER, accessToken);
+         } catch (EnMeOAuthSecurityException e1) {
+             e1.printStackTrace();
+             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+         } catch (EnMeExistPreviousConnectionException e1) {
+             e1.printStackTrace();
+             RequestSessionMap.setErrorMessage(getMessage("social.repeated.account", httpRequest, null));
+         } catch (Exception e) {
+             e.printStackTrace();
+             RequestSessionMap.setErrorMessage(getMessage("errorOauth", httpRequest, null));
+         }
          return this.redirect+"#provider="+SocialProvider.LINKEDIN.toString().toLowerCase()+"&refresh=true&successful=true";
     }
 }

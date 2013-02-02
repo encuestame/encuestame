@@ -6,13 +6,13 @@
           ${i18nMessage.pubication_failure_status}
    </span>
    <div class="failure-options">
-       <button dojoType="dijit.form.Button">
+       <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="_try" class="hidden">
              ${i18nMessage.button_try_again}
        </button>
-       <button dojoType="dijit.form.Button">
+       <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="_ignore">
             ${i18nMessage.button_ignore}
        </button>
-       <button dojoType="dijit.form.Button">
+       <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="_try_later" class="hidden">
             ${i18nMessage.button_try_later}
        </button>
    </div>

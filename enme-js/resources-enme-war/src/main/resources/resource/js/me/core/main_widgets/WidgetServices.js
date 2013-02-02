@@ -59,6 +59,25 @@ define([ "dojo/_base/declare",
       },
 
       /**
+       * Unload customized support.
+       * @method unLoadSupport
+       */
+      unLoadSupport : function (message) {
+          window.onbeforeunload = function() {
+                  return message;
+          };
+      },
+
+      /**
+       * Cancel unload support
+       * @method cancelUnLoadSupport
+       */
+      cancelUnLoadSupport : function () {
+          window.onbeforeunload = function() {};
+      },
+
+
+      /**
        * Display the loading process.
        * @method loading_show
        */

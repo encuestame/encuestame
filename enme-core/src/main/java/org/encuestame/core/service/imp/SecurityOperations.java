@@ -425,6 +425,16 @@ public interface SecurityOperations extends ServiceOperations {
      */
     SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId);
 
+
+    /**
+     * Check if exist {@link SocialAccount} with unique social profile social id.
+     * @param socialProvider
+     * @param socialAccountId
+     * @param socialUserName
+     * @return
+     */
+    SocialAccount getCurrentSocialAccount(final SocialProvider socialProvider, final String socialProfileId, final String socialUserName);
+
     /**
      * Update OAuth Token/Secret Social Account.
      * @param socialAccountId

@@ -102,7 +102,8 @@ define([
             poll_create_comments : _ENME.getMessage("poll_create_comments"),
             poll_create_results : _ENME.getMessage("poll_create_results"),
             poll_create_button_create : _ENME.getMessage("poll_create_button_create"),
-            commons_cancel : _ENME.getMessage("commons_cancel")
+            commons_cancel : _ENME.getMessage("commons_cancel"),
+            leave_mesage : _ENME.getMessage("leave_mesage")
           },
 
           /*
@@ -176,6 +177,8 @@ define([
               dojo.connect(this._cancel, "onclick", dojo.hitch(this, function() {
                 window.location.href = _ENME.config('contextPath') + "/user/poll/list";
               }));
+              // leave message
+              this.unLoadSupport(this.i18nMessage.leave_mesage);
           },
 
           /**
@@ -289,6 +292,7 @@ define([
             load = dojo.hitch(this, function(data) {
                  parent.loading_hide();
                  if ("success" in data) {
+                 parent.cancelUnLoadSupport();
                  var pollBean = data.success.pollBean;
                  //console.info("create poll pollBean ", pollBean);
                      if (pollBean != null) {
