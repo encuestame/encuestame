@@ -10,20 +10,20 @@
             <div class="picture">
               <!-- Replace by dojo widget. -->
                  <a href="<%=request.getContextPath()%>/picture/profile/${profile.username}/preview">
-                     <img alt="${profile.username}" src="<%=request.getContextPath()%>/picture/profile/${profile.username}/profile">
+                     <img width="256" height="256" alt="${profile.username}" src="<%=request.getContextPath()%>/picture/profile/${profile.username}/profile">
                  </a>
             </div>
             <ul class="rss">
                   <li>
                       <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
                       <a href="<%=request.getContextPath()%>/feed/${profile.username}/tweetpoll.rss">
-                        TweetPoll
+                          <spring:message code="home.type.tweetpoll" /> </a>
                       </a>
                   </li>
                    <li>
                       <img src="<%=request.getContextPath()%>/resources/images/icons/enme_rss.png">
                        <a href="<%=request.getContextPath()%>/feed/${profile.username}/poll.rss">
-                          Poll
+                           <spring:message code="home.type.poll" />
                        </a>
                   </li>
                   <li>

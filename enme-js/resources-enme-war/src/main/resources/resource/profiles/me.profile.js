@@ -37,6 +37,7 @@ var profile = {
   // Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe,
   // though ShrinkSafe is deprecated and not recommended.
   // This option defaults to "" (no compression) if not provided.
+  // FIXME: issues with inheritance with "closure"
   optimize: 'shrinksafe',
 
   // We're building layers, so we need to set the minifier to use for those, too.
