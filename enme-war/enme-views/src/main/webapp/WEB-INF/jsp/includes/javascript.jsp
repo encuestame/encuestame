@@ -64,7 +64,8 @@ require([
         <c:if test="${!detectedDevice}">
             // initialize the activity support
             var _E = _ENME.config('activity');
-            var  activity = new Activity(_E, Modernizr.websockets);
+            //FUTURE: Modernizr.websockets
+            var  activity = new Activity(_E, false);
             activity.connect();
             _ENME.setActivity(activity);
         </c:if>
