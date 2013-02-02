@@ -134,13 +134,13 @@ define([
                  dojo.destroy(this.domNode);
                  dojo.publish('/notifications/service/update');
              }),
-            error = function(error) {
+             error = function(error) {
                  console.debug("error", error);
              };
              var params = {
-                    notificationId : this.item.id
+                    id : this.item.id
                 };
-             this.getURLService().get("encuestame.service.list.removeNotification", params, load, error , dojo.hitch(this, function() { }));
+             this.getURLService().del("encuestame.service.list.removeNotification", params, load, error , dojo.hitch(this, function() { }));
         }
 
     });

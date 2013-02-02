@@ -78,13 +78,13 @@ public class NotificationJsonServiceTestCase extends AbstractJsonMvcUnitBeans {
      */
     @Test
     public void removeNotificationsInJsonFormatTest() throws Exception {
-        initService("/api/remove-notification.json", MethodJson.GET);
-        setParameter("notificationId", this.notification.getNotificationId().toString());
+        initService("/api/notification/remove.json", MethodJson.DELETE);
+        setParameter("id", this.notification.getNotificationId().toString());
         final JSONObject response = callJsonService();
         final JSONObject sucess = getSucess(response);
         Assert.assertEquals(sucess.get("removed"), "ok");
-        initService("/api/remove-notification.json", MethodJson.GET);
-        setParameter("notificationId", "12345");
+        initService("/api/notification/remove.json", MethodJson.DELETE);
+        setParameter("id", "12345");
         final JSONObject responseFail = callJsonService();
         final JSONObject error = getErrors(responseFail);
         Assert.assertEquals(error.get("message"), "notification not found");

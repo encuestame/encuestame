@@ -95,8 +95,7 @@ public class TestStreamService extends AbstractSpringSecurityContext {
     public void testclassifyNotificationList() throws EnMeNoResultsFoundException{
         final List<UtilNotification> list = this.streamService
                 .retrieveLastNotifications(10, this.request);
-        final HashMap<DateClasificatedEnum, List<UtilNotification>> classify = this.streamService
-                .classifyNotificationList(list);
+        final HashMap<DateClasificatedEnum, List<UtilNotification>> classify = this.streamService.classifyNotificationList(list, this.request);
         Assert.assertNotNull(classify.get(DateClasificatedEnum.FEW_MONTHS_AGO));
         Assert.assertNotNull(classify.get(DateClasificatedEnum.TODAY));
         Assert.assertEquals(classify.get(DateClasificatedEnum.TODAY).size(), 1);

@@ -97,17 +97,21 @@ define([
          * @method _loadNotifications
          */
         _loadNotifications : function(start) {
+             //
             var load = dojo.hitch(this, function(data) {
                  this.arrayNotifications = data.success.notifications;
                  this._showListCategories();
                  console.debug("notifications", this.arrayNotifications);
              });
+             //
              var error = function(error) {
                  console.debug("error", error);
              };
+             //
              if (start == null) {
                  start = 0;
              }
+             // params
              var params = {
                     limit : this._limit,
                     start: start,
@@ -174,28 +178,75 @@ define([
          */
         _showListCategories : function() {
             var today = this.arrayNotifications.TODAY;
-            var items = dojo.doc.createElement("ul");
             if (today.length > 0) {
-                dojo.forEach(today,
-                        dojo.hitch(this, function(item, index) {
-                var todayWidget = this._createNotificationItem(item, "TODAY");
-                items.appendChild(todayWidget.domNode);
+                var items = dojo.doc.createElement("ul");
+                dojo.forEach(today, dojo.hitch(this, function(item, index) {
+                    var todayWidget = this._createNotificationItem(item, "TODAY");
+                    items.appendChild(todayWidget.domNode);
                 }));
                this._buildSection("Today", items);
             }
             //TODO: ENCUESTAME-
             var thisWeek = this.arrayNotifications.THIS_WEEK;
+            if (thisWeek.length > 0) {
+                var items = dojo.doc.createElement("ul");
+                dojo.forEach(thisWeek, dojo.hitch(this, function(item, index) {
+                    var todayWidget = this._createNotificationItem(item, "THIS WEEK");
+                    items.appendChild(todayWidget.domNode);
+                }));
+               this._buildSection("This Week", items);
+            }
             var thisMonth = this.arrayNotifications.THIS_MONTH;
+             if (thisMonth.length > 0) {
+                var items = dojo.doc.createElement("ul");
+                dojo.forEach(thisMonth, dojo.hitch(this, function(item, index) {
+                    var todayWidget = this._createNotificationItem(item, "THIS MONTH");
+                    items.appendChild(todayWidget.domNode);
+                }));
+               this._buildSection("This Month", items);
+            }
             var lastMonth = this.arrayNotifications.LAST_MONTH;
+            if (lastMonth.length > 0) {
+                var items = dojo.doc.createElement("ul");
+                dojo.forEach(lastMonth, dojo.hitch(this, function(item, index) {
+                    var todayWidget = this._createNotificationItem(item, "LAST MONTH");
+                    items.appendChild(todayWidget.domNode);
+                }));
+               this._buildSection("Last Month", items);
+            }
             var fewMonthsAgo = this.arrayNotifications.FEW_MONTHS_AGO;
+            if (fewMonthsAgo.length > 0) {
+                var items = dojo.doc.createElement("ul");
+                dojo.forEach(fewMonthsAgo, dojo.hitch(this, function(item, index) {
+                    var todayWidget = this._createNotificationItem(item, "FEW MOTNHS AGO");
+                    items.appendChild(todayWidget.domNode);
+                }));
+               this._buildSection("Few Months Ago", items);
+            }
             var lastYear = this.arrayNotifications.LAST_YEAR;
+            if (lastYear.length > 0) {
+                var items = dojo.doc.createElement("ul");
+                dojo.forEach(lastYear, dojo.hitch(this, function(item, index) {
+                    var todayWidget = this._createNotificationItem(item, "LAST YEAR");
+                    items.appendChild(todayWidget.domNode);
+                }));
+               this._buildSection("Last Year", items);
+            }
             var longTimeAgo = this.arrayNotifications.LONG_TIME_AGO;
-            console.debug("thisWeek", thisWeek);
-            console.debug("thisMonth", thisMonth);
-            console.debug("lastMonth", lastMonth);
-            console.debug("fewMonthsAgo", fewMonthsAgo);
-            console.debug("lastYear", lastYear);
-            console.debug("longTimeAgo", longTimeAgo);
+            if (longTimeAgo.length > 0) {
+                var items = dojo.doc.createElement("ul");
+                dojo.forEach(longTimeAgo, dojo.hitch(this, function(item, index) {
+                    var todayWidget = this._createNotificationItem(item, "LONG TIME AGO");
+                    items.appendChild(todayWidget.domNode);
+                }));
+               this._buildSection("Long Time Ago", items);
+            }
+            // console.debug("thisWeek", thisWeek);
+            // console.debug("thisMonth", thisMonth);
+            // console.debug("lastMonth", lastMonth);
+            // console.debug("fewMonthsAgo", fewMonthsAgo);
+            // console.debug("lastYear", lastYear);
+            // console.debug("longTimeAgo", longTimeAgo);
         }
 
     });

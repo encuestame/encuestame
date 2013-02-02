@@ -133,10 +133,8 @@ public class StreamService extends AbstractBaseService implements
 
     /**
      * Classify notifications by {@link DateClasificatedEnum}.
-     *
      * @throws EnMeNoResultsFoundException
      */
-    @SuppressWarnings("unchecked")
     public HashMap<DateClasificatedEnum, List<UtilNotification>> classifyNotificationList(
             final List<UtilNotification> utilNotifications,
             final HttpServletRequest request)

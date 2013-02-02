@@ -21,12 +21,7 @@ define([
     _ENME,
      template) {
 
-  return declare([
-                   _WidgetBase,
-                   _TemplatedMixin,
-                   main_widget,
-                   cacheLinkedList,
-                   _WidgetsInTemplateMixin], {
+  return declare([_WidgetBase, _TemplatedMixin, main_widget, cacheLinkedList,_WidgetsInTemplateMixin], {
 
   // template string.
   templateString : template,
@@ -85,7 +80,7 @@ define([
         }
         var parent = this;
         this.more = new More({
-                   parentWidget : this
+                   parentWidget : this,
                    more_max : 5
         });
         this.more.loadItems = dojo.hitch(this, function () {

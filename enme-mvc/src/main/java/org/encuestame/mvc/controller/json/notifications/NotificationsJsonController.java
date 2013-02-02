@@ -208,15 +208,15 @@ public class NotificationsJsonController extends AbstractJsonController {
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
-    @RequestMapping(value = "/api/remove-notification.json", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ENCUESTAME_USER')")
+    @RequestMapping(value = "/api/notification/remove.json", method = RequestMethod.DELETE)
     public @ResponseBody ModelMap removeNotification(
-            @RequestParam(value = "notificationId") Long notificationId,
+            @RequestParam(value = "id") Long notificationId,
             HttpServletRequest request,
             HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
             final Notification notification = getNotificationDao().retrieveNotificationById(notificationId);
             final Map<String, Object> responseJson = new HashMap<String, Object>();
-            if(notification == null){
+            if (notification == null){
                 setError("notification not found", response);
             } else {
                 getNotificationDao().delete(notification);
