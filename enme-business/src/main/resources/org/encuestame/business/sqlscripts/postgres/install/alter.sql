@@ -462,17 +462,6 @@ ALTER TABLE ONLY social_account
 ALTER TABLE ONLY social_account
     ADD CONSTRAINT social_account_social_account_name_key UNIQUE (social_account_name);
 
-
---
--- TOC entry 2066 (class 2606 OID 99700)
--- Dependencies: 1673 1673
--- Name: social_account_social_profile_id_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY social_account
-    ADD CONSTRAINT social_account_social_profile_id_key UNIQUE (social_profile_id);
-
-
 --
 -- TOC entry 2068 (class 2606 OID 99707)
 -- Dependencies: 1674 1674
@@ -834,8 +823,8 @@ ALTER TABLE ONLY hits
     ADD CONSTRAINT fk30df40953c854b FOREIGN KEY (tweetpoll_tweet_poll_id) REFERENCES tweetpoll(tweet_poll_id);
 
 
-ALTER TABLE ONLY hits 
-	ADD CONSTRAINT FK30DF40369F8B2C FOREIGN KEY (userAccount_uid) REFERENCES userAccount(uid);
+ALTER TABLE ONLY hits
+    ADD CONSTRAINT FK30DF40369F8B2C FOREIGN KEY (userAccount_uid) REFERENCES userAccount(uid);
 --
 -- TOC entry 2155 (class 2606 OID 100019)
 -- Dependencies: 1669 1656 2047
@@ -1254,7 +1243,7 @@ ALTER TABLE ONLY questions
 
 ALTER TABLE ONLY questions
     ADD CONSTRAINT fk95c5414d39e97991 FOREIGN KEY (section_ssid) REFERENCES survey_section(ssid);
-     
+
 --
 -- TOC entry 2160 (class 2606 OID 100044)
 -- Dependencies: 1652 2011 1658
@@ -1784,14 +1773,14 @@ ALTER TABLE ONLY survey_group_project
 ALTER TABLE ONLY survey_section
     ADD CONSTRAINT fkfe5ad30051153812 FOREIGN KEY (survey_sid) REFERENCES surveys(sid);
 
-    
+
 ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF546BF7A1C FOREIGN KEY (question_qid) REFERENCES questions;
 ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF5496009B4 FOREIGN KEY (answer_q_answer_id) REFERENCES questions_answers;
 ALTER TABLE ONLY survey_temporal_result ADD CONSTRAINT FK7867CF551153812 FOREIGN KEY (survey_sid) REFERENCES surveys;
 ALTER TABLE ONLY question_preferences ADD CONSTRAINT FKD540D01F46BF7A1C FOREIGN KEY (question_qid) REFERENCES questions;
 
 
-ALTER TABLE ONLY hash_tags_ranking 
+ALTER TABLE ONLY hash_tags_ranking
   ADD CONSTRAINT FK71DECDA119AA125 FOREIGN KEY (hashTag_hash_tag_id) REFERENCES hash_tags (hash_tag_id);
 
 -- Completed on 2011-11-30 21:40:42 CET
