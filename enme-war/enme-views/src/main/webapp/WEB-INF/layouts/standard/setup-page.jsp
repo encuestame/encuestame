@@ -19,14 +19,12 @@
 <script  src="<%=request.getContextPath()%>/resources/js/dojo/dojo.js"></script>
 <script>
   function hideButtonsDisplayLoading(node) {
-      var _n = dojo.query('button');
-      _n.forEach(function(node){
-          dojo.addClass(node, 'hidden');
-      });
-      var _m = dojo.byId('loading');
-      if (_m) {
-          dojo.removeClass(_m, 'hidden');
+      var _n = document.getElementsByTagName('button');
+      for (var i=0; i < _n.length; i++) {
+        _n[i].className = "hidden";
       }
+      var _m = document.getElementById('loading');
+        _m.className = "";
   }
 </script>
 </head>

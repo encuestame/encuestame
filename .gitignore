@@ -9,6 +9,8 @@ log/
 *.db
 *.log*
 *./*.log*
+*.releaseBackup
+release.properties
 *.settings/*
 enme-js/chart/*.settings/*
 enme-js/cometd/*.settings/*
