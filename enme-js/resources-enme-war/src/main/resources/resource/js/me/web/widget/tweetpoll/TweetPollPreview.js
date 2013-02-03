@@ -65,6 +65,9 @@ define([
             */
            _counterMax : 140,
 
+
+           _current_counter : 0,
+
            /*
             *
             */
@@ -186,7 +189,7 @@ define([
                        dojo.hitch(this,function(item) {
                          var span1 = dojo.doc.createElement("span");
                          span1.innerHTML = item.value;
-                         this._completeText = this._completeText + " "+item.value;
+                         this._completeText = this._completeText + " " + item.value;
                          dojo.addClass(span1, "previewAnswer");
                          arrayItem.push(span1);
                        }));
@@ -210,7 +213,7 @@ define([
                                index) {
                            //TODO: check if blank spaces are counted.
                            var span1 = dojo.doc.createElement("span");
-                           span1.innerHTML = "#"+item.data.hashTagName;
+                           span1.innerHTML = "#" + item.data.hashTagName;
                            /*
                             * TODO: improve the concatenation.
                             */
@@ -222,9 +225,7 @@ define([
                        // console.info("questionDiv", questionDiv);
                        dojo.addClass(questionDiv, "inlineBlock");
                        this._content.appendChild(questionDiv);
-                     } else {
-                         console.info("no hashtags widget");
-                     }
+                }
            },
 
            /*
@@ -245,6 +246,7 @@ define([
                    var currentCounter = this._counterMax - textTweet.length;
                    this._counter.innerHTML = currentCounter;
                    this._lastedCounter = currentCounter;
+                   this._current_counter = currentCounter;
                    dojo.publish("/encuestame/tweetpoll/unblock");
                    this._isValid = true;
                  } else {
@@ -253,6 +255,7 @@ define([
                    dojo.publish("/encuestame/tweetpoll/block");
                    //this._lastedCounter = 0;
                    var currentCounter = this._counterMax - textTweet.length;
+                   this._current_counter = currentCounter;
                    this._counter.innerHTML = currentCounter;
                    this._lastedCounter = currentCounter;
                  }
@@ -261,11 +264,13 @@ define([
              }
            },
 
-           /*
-            * check required structure.
+           /**
+            * Check if the length of the tweetpol is valid.
+            * @method _checkTweetPollStructure
             */
            _checkTweetPollStructure : function() {
-               if (this._answerSize < _ENME.config('tp_a')) {
+                // it's necesary check if the required ans
+               if (this._answerSize < _ENME.config('tp_a') || this._current_counter < 0) {
                    this._isValid = false;
                    this._isValidMessage =  _ENME.getMessage("e_021");
                }

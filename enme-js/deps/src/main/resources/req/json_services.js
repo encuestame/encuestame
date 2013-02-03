@@ -128,7 +128,7 @@ encuestame.service.xhrGet = function(url, params, load, error, logginHandler) {
             handle: function(response, ioargs) {
                 //encuestame.filter.response(response);
                 var message = "";
-                console.info(ioargs.xhr.status, error);
+                //console.info(ioargs.xhr.status, error);
                 switch (ioargs.xhr.status) {
                 case 200:
                     message = "Good request.";

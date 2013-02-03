@@ -182,6 +182,7 @@ define([
               });
               var error = dojo.hitch(this, function(error) {
                   this.errorMesage(error.message);
+                  dojo.publish("/encuestame/tweetpoll/updatePreview");
               });
               this.getURLService().post(['encuestame.service.list.hashtagsAction.getAction',
                       ["tweetpoll", "add"]],
@@ -225,7 +226,6 @@ define([
                    dojo.hitch(this, function(tag, index) {
                        hashtags.push(tag.data);
                    }));
-               //console.debug("hashtags", hashtags);
                return hashtags;
            },
 

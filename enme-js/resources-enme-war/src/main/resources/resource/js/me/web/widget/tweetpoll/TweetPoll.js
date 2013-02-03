@@ -610,11 +610,14 @@ define([
 
 
                 var error = function(error) {
-                      console.debug("error", error);
+                      //console.debug("error", error);
                 };
 
-                this.getURLService().post("encuestame.service.tweetpoll.autosave", params, load, error , dojo.hitch(this, function() {
-                }));
+                if (params.question !== '') {
+                    this.getURLService().post("encuestame.service.tweetpoll.autosave", params, load, error , dojo.hitch(this, function() {}));
+                } else {
+                    this.loading_hide();
+                }
              },
 
              /***
@@ -688,7 +691,7 @@ define([
                  //}
                  //dojo.subscribe("/encuestame/tweetpoll/updatePreview", this, "updatePreview");
                  this.questionWidget.block = false;
-                 dojo.connect(this.questionWidget, "onKeyUp", dojo.hitch(this, function(event) {
+                 dojo.connect(this.questionWidget, "onKeyPress", dojo.hitch(this, function(event) {
                      if (dojo.keys.DELETE == event.keyCode || dojo.keys.BACKSPACE == event.keyCode) {
                             dojo.publish("/encuestame/tweetpoll/updatePreview");
                             if (!this.questionWidget.block) {
@@ -699,6 +702,7 @@ define([
                          if (!this.questionWidget.block) {
                              this._questionTextLastSucessMessage = this.questionWidget.get("value");
                              this.tweetPoll.question = this._questionTextLastSucessMessage;
+                             dojo.publish("/encuestame/tweetpoll/autosave");
                          } else {
                              this.questionWidget.set('value', this._questionTextLastSucessMessage);
                          }
@@ -789,7 +793,7 @@ define([
                 var error = dojo.hitch(this, function(error) {
                     this.autosave = true;
                     this.dialogWidget.hide();
-                    this._showErrorMessage(error || _ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
+                    this._showErrorMessage(error.response.data.error.message || _ENME.getMessage("tp_publish_error", "An error occurred when trying to publish your survey"));
                 });
                 URLServices.post('encuestame.service.list.publishTweetPoll',  params, load, error , dojo.hitch(this, function() {
 

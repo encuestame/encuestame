@@ -44,10 +44,10 @@ define([
         */
        _restoreStatus : function() {
            var _saved = _ENME.restoreItem(this._key_save);
-           _ENME.log("RESTORE STATUS", _saved);
+           //_ENME.log("RESTORE STATUS", _saved);
            if(_saved) {
                this._status = json.fromJson(_saved);
-               _ENME.log("RESTORE STATUS this._status", this._status);
+               //_ENME.log("RESTORE STATUS this._status", this._status);
                this._buildStatusObject(this._status);
            }
        }
