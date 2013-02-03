@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.encuestame</groupId>
     <artifactId>encuestame</artifactId>
-    <version>1.146-SNAPSHOT</version>
+    <version>1.146</version>
   </parent>
 
-  <version>1.146-SNAPSHOT</version>
+  <version>1.146</version>
   <artifactId>encuestame-css</artifactId>
   <packaging>war</packaging>
   <name>Encuestame :: CSS :: WAR</name>
@@ -36,26 +35,22 @@
                     <phase>compile</phase>
                     <configuration>
                         <classpath>
-                          <pathelement location="${basedir}/src/lib/js.jar"/>
-                          <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
                         </classpath>
                         <target>
                           <echo message="CSS Web optimized Initialized" />
-                            <java
-                             fork="true"
-                             failonerror="true"
-                             dir="${basedir}/src/css/resource/css"
-                             classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
-                              <pathelement location="${basedir}/src/lib/js.jar"/>
-                              <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
                             </classpath>
-                            <jvmarg value="-Xmx512M"/>
-                            <arg value="${basedir}/src/lib/r.js"/>
-                            <arg value="-o"/>
-                            <arg value="cssIn=me.css"/>
-                            <arg value="optimizeCss=default"/>
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/me.web.css"/>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=me.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/me.web.css" />
                           </java>
                           <echo message="CSS Web optimized Finished" />
                         </target>
@@ -69,26 +64,22 @@
                     <phase>compile</phase>
                     <configuration>
                         <classpath>
-                          <pathelement location="${basedir}/src/lib/js.jar"/>
-                          <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                          <pathelement location="${basedir}/src/lib/js.jar" />
+                          <pathelement location="${basedir}/src/lib/compiler.jar" />
                         </classpath>
                          <target>
                           <echo message="CSS Mobile optimized Initialized" />
-                            <java
-                             fork="true"
-                             failonerror="true"
-                             dir="${basedir}/src/css/resource/css"
-                             classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
-                              <pathelement location="${basedir}/src/lib/js.jar"/>
-                              <pathelement location="${basedir}/src/lib/compiler.jar"/>
+                              <pathelement location="${basedir}/src/lib/js.jar" />
+                              <pathelement location="${basedir}/src/lib/compiler.jar" />
                             </classpath>
-                            <jvmarg value="-Xmx512M"/>
-                            <arg value="${basedir}/src/lib/r.js"/>
-                            <arg value="-o"/>
-                            <arg value="cssIn=mobile-me.css"/>
-                            <arg value="optimizeCss=default"/>
-                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/me.mobile.css"/>
+                            <jvmarg value="-Xmx512M" />
+                            <arg value="${basedir}/src/lib/r.js" />
+                            <arg value="-o" />
+                            <arg value="cssIn=mobile-me.css" />
+                            <arg value="optimizeCss=default" />
+                            <arg value="out=${project.build.directory}/${project.build.finalName}/resource/css/me.mobile.css" />
                           </java>
                           <echo message="CSS Mobile optimized Initialized" />
                         </target>
