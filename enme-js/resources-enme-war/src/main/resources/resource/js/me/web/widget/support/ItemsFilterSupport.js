@@ -71,7 +71,7 @@ define([
            postCreate : function() {
                // add filters to main search and execute it
                dojo.subscribe("/encuestame/filters/invoke", this, "_invokeSearchWithFilters");
-               // hide all selected items      
+               // hide all selected items
                dojo.subscribe("/encuestame/filters/selected/remove", this, "_hideAllSelected");
                dojo.connect(this._search, "onclick", dojo.hitch(this, this._openSearch));
                dojo.connect(this._order, "onclick", dojo.hitch(this, this._openOrder));
@@ -83,6 +83,7 @@ define([
                this.optionsWidget.social = new Wipe(this._social_o, this._wipe.duration, 180, this.wipe_group, "4");
                //FUTURE: disabled
                //this.optionsWidget.votes = new encuestame.org.core.commons.support.Wipe(this._votes_o, this._wipe.duration, 140, "tp-options", "5");
+               this.prepareData();
            },
 
 
@@ -98,11 +99,23 @@ define([
                   dojo.publish("/encuestame/filters/selected/remove");
            },
 
+           /*
+            * Get stored filter data.
+            */
+           prepareData : function() {
+               // restore search widget information
+                var search_data = _ENME.restoreItem(this._searchWidget._key_save);
+                if (search_data === null) {
+                     _ENME.storeItem(this._searchWidget._key_save, this._searchWidget._status);
+                }
+           },
+
 
            /*
             * Get stored filter data.
             */
            getFilterData : function() {
+               // restore search widget information
                var params = _json.fromJson(
                    _ENME.restoreItem(
                          this._searchWidget._key_save

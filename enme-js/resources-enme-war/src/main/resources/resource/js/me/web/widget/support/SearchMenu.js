@@ -37,7 +37,8 @@ define([
             * save the status of all components.
             */
            _status : {
-               keyword : "",
+               keyword : null,
+                _published : true,
                social_networks : []
            },
 
@@ -78,16 +79,16 @@ define([
            clean : function () {
               // clean the keyword field
              this._setValues({
-                  keyword : "",
+                  keyword : null,
                   social_networks : [],
-                  _published : false,
-                  _complete : false,
-                  _unpublished : false
+                  _published : true,
+                  _complete : null,
+                  _unpublished : null
               });
            },
 
            /*
-            * 
+            *
             */
            _setValues : function (status) {
                 this._keyword.set('value', status.keyword);

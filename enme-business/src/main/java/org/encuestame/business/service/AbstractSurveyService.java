@@ -323,7 +323,9 @@ public class AbstractSurveyService extends AbstractChartService {
      * Get Tweet Polls by User Id.
      * @param userId user Id.
      * @return list of Tweet polls bean
+     * @deprecated will be removed on 1.147
      */
+    @Deprecated
     public List<TweetPollBean> getTweetsPollsByUserId(final String keyword, final Long userId,
             final Integer maxResults, final Integer start,
             final Boolean isCompleted, final Boolean isScheduled,

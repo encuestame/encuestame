@@ -111,11 +111,11 @@ public class TweetPollJsonController extends AbstractJsonController {
             log.debug("search.json" + isCompleted);
             log.debug("search.json favourite" + isFavourite);
             // Create TweetpollSearchBean
-            tpollSearchBean.setIsComplete(isCompleted);
-            tpollSearchBean.setIsFavourite(isFavourite);
-            tpollSearchBean.setIsPublished(isPublished);
-            tpollSearchBean.setIsScheduled(isScheduled);
-            tpollSearchBean.setKeyword(keyword);
+            tpollSearchBean.setIsComplete(isCompleted == null ? false : isCompleted);
+            tpollSearchBean.setIsFavourite(isFavourite == null ? false : isFavourite);
+            tpollSearchBean.setIsPublished(isPublished == null ? false : isPublished);
+            tpollSearchBean.setIsScheduled(isScheduled == null ? false : isScheduled);
+            tpollSearchBean.setKeyword(keyword == null ? null : keyword.isEmpty() ? null : keyword);
             tpollSearchBean.setMax(max);
             //tpollSearchBean.setPeriod(period); it's not used, will be removed in the future.
             tpollSearchBean.setSearchResult(null);

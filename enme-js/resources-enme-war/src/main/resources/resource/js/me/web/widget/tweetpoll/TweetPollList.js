@@ -98,7 +98,7 @@ define([
           /*
            * max of items to show.
            */
-          max : 20,
+          max : 60,
 
           /*
            * start from 0.
@@ -157,8 +157,9 @@ define([
               domConstruct.place(this._loading.domNode, this._custom_loading);
               var _hash = this._restoreHash();
               // load item by first time.
-              if (this.listItems == null) {
-                  this.loadTweetPolls({typeSearch : (_hash == null ? this.defaultSearch: _hash) });
+              if (this.listItems === null) {
+                  //this.getFilterData({typeSearch : this._type_filter.ALL})
+                  this.loadTweetPolls(this.getFilterData({typeSearch : (_hash === null ? this.defaultSearch: _hash) }));
                   if (!_hash) {
                     var node = dojo.query('div.optionItem[type="' + this.defaultSearch + '"]');
                     node.forEach(function(node, index, arr) {

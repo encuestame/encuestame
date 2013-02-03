@@ -117,7 +117,8 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");
-        criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
+        // removed because is the advancedSearchOptions should inject this value
+        // criteria.add(Restrictions.eq("publishTweetPoll", Boolean.TRUE));
         criteria.add(Restrictions.eq("tweetOwner.id", userId));
         criteria.addOrder(Order.desc("createDate"));
         advancedSearchOptions(criteria, isCompleted, isScheduled, isFavourite, isPublished, keyWord, period);
@@ -232,9 +233,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
         final DetachedCriteria criteria = DetachedCriteria
                 .forClass(TweetPoll.class);
         criteria.createAlias("tweetOwner", "tweetOwner");
-        criteria.add(Restrictions.eq("favourites", Boolean.TRUE));
         criteria.add(Restrictions.eq("tweetOwner", account));
-
+        advancedSearchOptions(criteria, isCompleted, isScheduled, Boolean.TRUE,
+                isPublished, keyword, period);
         return (List<TweetPoll>) filterByMaxorStart(criteria, maxResults, start);
     }
 
@@ -766,7 +767,9 @@ public class TweetPollDao extends AbstractHibernateDaoSupport implements ITweetP
             criteria.add(Restrictions.isNotNull("tweetId"));
             criteria.add(Restrictions.eq("status", Status.SUCCESS));
             criteria.add(Restrictions.in("apiType", splist));
-            criteria.add(Restrictions.in("socialAccount", socialAccounts));
+            if (socialAccounts.size() > 0) {
+                criteria.add(Restrictions.in("socialAccount", socialAccounts));
+            }
         }
         return getHibernateTemplate().findByCriteria(criteria);
     }
