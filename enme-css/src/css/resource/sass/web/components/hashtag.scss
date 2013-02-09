@@ -1,0 +1,83 @@
+/** HASHTAGS */
+.web-hashtag-wrapper {
+  margin: 0;
+  overflow: auto;
+}
+
+.web-hashtag-header {
+
+}
+
+.web-hashtag-header .web-hashtagName {
+    float: left;
+    color: #000;
+    font-size: 150%;
+}
+
+.web-hashtag-header .web-hashtagName h2 {
+  color: white;
+  margin: 0 10px;
+  width: 500px;
+}
+
+.web-hashtag-wrapper .web-rated-profile-item .web-rated-profile-item-detail a {
+    color: #888;
+}
+
+.web-hashtag-wrapper .web-ht-detail {
+
+}
+
+.web-hashtag-wrapper .web-ht-detail .emne-box {
+    background-color: white !important;
+}
+
+.web-hashtag-header .web-hashtag-options {
+  float: right;
+  margin-right: 15px;
+}
+
+.web-hashtag-wrapper .web-ht-detail-wrapper {
+  width: 75%;
+  float:left;
+}
+
+.web-hashtag-wrapper .web-ht-wrapper-top {
+  border: 0 none !important;
+  border-radius: 0 0 0 0 !important;
+  /* TODO pending border-radius for all wb */
+  margin-left: 75%;
+  overflow: hidden;
+}
+
+.web-hashtag-wrapper .web-ht-wrapper-mainline {
+    float: left;
+    width: 650px;
+    max-width: 655px;
+}
+
+.web-ht-graph-wrapper {
+  border-radius: 5px 0 0 5px;
+  overflow: auto;
+}
+
+.web-ht-graph-wrapper .web-ht-graph {
+  float: left;
+  height: 308px;
+  margin-left: 10px;
+  max-height: 308px;
+  overflow: hidden;
+  width: 650px;
+}
+
+.web-ht-graph-wrapper .web-ht-button-wrapper {
+    float: right;
+    width: 243px;
+}
+
+.web-ht-button-wrapper .web-ht-button-item {
+    border-bottom: 1px solid #E5E5E5;
+    border-left: 1px solid #E5E5E5;
+    min-height: 55px;
+    color: #676767;
+}

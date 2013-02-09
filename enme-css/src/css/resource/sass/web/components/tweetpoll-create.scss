@@ -1,0 +1,549 @@
+/** Create tweetpoll. **/
+
+.web-create-tweetpoll {
+border: 1px solid #DAD8D8 !important;
+background-color: #F0F0F0;
+margin-top: 10px;
+}
+
+div.spaceBlock {}
+
+div.web-tweetpoll-section, .web-poll-question .web-tweetpoll-section  {
+    background-color: white;
+    border: 1px solid #E5E5E5;
+    margin: 0 auto;
+    width: auto;
+    z-index: 5;
+}
+
+div.web-tweetpoll-section .left-button{
+
+}
+
+div.web-tweetpoll-section div.web-tweetpoll-section-title, .web-poll-question .web-poll-section div.web-poll-section-title {
+    /** #737373 D7D7D7 #8EA5B7  */
+    color: white;
+    font-size: 15px;
+    padding: 10px;
+    color: #9F9F9F;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-bottom: 1px solid #888;
+    background: #e5e5e5;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff),
+        color-stop(100%, #e5e5e5) ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* W3C */
+}
+
+.web-tweetpoll-section .space {
+    padding: 20px;
+}
+
+div.web-tweetpoll-section .info {
+
+}
+
+div.web-tweetpoll-section .counterGlobal {
+	border-radius: 100px 100px 100px 100px;
+    -webkit-border-radius: 100px 100px 100px 100px;
+    -moz-border-radius: 100px 100px 100px 100px;
+    background-color: green;
+    color: white;
+    float: right;
+    max-width: 17px;
+    padding: 10px;
+    position: relative;
+    right: 185px;
+    top: 61px;
+}
+
+.web-tweetpoll-wrapper div.tweetPollSecondQuestion {
+    clear: left;
+    min-height: 160px;
+    background-color: #FFF;
+    padding: 10px 0 20px 20px;
+    width: 90%;
+    border-color: #E5E5E5;
+    border-style: solid;
+    border-width: 1px 6px 1px 1px;
+    z-index: -1;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.web-tweetpoll-wrapper div.tweetPollPublish {
+
+}
+
+.web-tweetpoll-wrapper .socialBlock {
+    -moz-border-bottom-colors: none !important;
+    -moz-border-image: none !important;
+    -moz-border-left-colors: none !important;
+    -moz-border-right-colors: none !important;
+    -moz-border-top-colors: none !important;
+    border-bottom: 0 solid !important;
+    border-left: 0 solid !important;
+    border-right: 0 solid !important;
+    border-top: 1px solid;
+}
+
+div.tweetPollPublishButton {
+    margin: auto 0;
+    padding: 10px;
+    text-align: right;
+}
+
+div.tweetPollPublishButton .cancel-button {
+    font-size: 14px;
+    color: #222;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tweetPollPublishButton {
+    margin: auto 78px;
+    padding: 10px;
+}
+
+.web-tweetpoll-wrapper div.tweetPollPublish div.item {
+    border-right: 1px solid #CCCBCA;
+    float: left;
+    min-height: 80px;
+    width: 170px;
+    margin-bottom: 10px;
+}
+
+.web-tweetpoll-wrapper div.tweetPollPublish div.item-padding {
+    padding: 0 16px;
+}
+
+.web-tweetpoll-wrapper div.tweetPollPublish .section {
+    padding: 5px;
+}
+
+.web-tweetpoll-wrapper div.tweetPollPreviewRelative {
+  background-color: #EFEFEF;
+  border: 1px solid #D0D0D0;
+  border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  box-shadow: 0 2px 4px -2px #8C8C8C;
+  margin: 0 auto;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 950px;
+  z-index: 10;
+}
+
+.web-tweetpoll-wrapper div.previewFixed {
+    position: absolute !important;
+    top: 0px;
+    /* left: 266px; this value should be dinamic */
+}
+
+.web-tweetpoll-wrapper div.web-tweetpoll-section .tweetThis {
+    width: 90%;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.web-tweetpoll-wrapper  div.tweetPollOptions .left {
+    float: left;
+    width: 50%;
+}
+
+.web-tweetpoll-wrapper  div.tweetPollOptions .right {
+    width: 50%;
+    float: left;
+}
+
+.web-tweetpoll-wrapper div.tweetPollPreview {
+    padding: 10px;
+    background-color: #9E9DA4;
+}
+
+.web-tweetpoll-wrapper .title {
+    color: gray;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.web-tweetpoll-wrapper div.web-tweetpoll-section .inputClass {
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 120%;
+    font-weight: bold;
+    min-width: 90%;
+}
+
+.web-tweetpoll-wrapper .web-answer-form-wrapper .littleInputClass {
+  width: 85%;
+}
+
+.web-tweetpoll-wrapper .littleInputClass {
+  border-radius: 2px 2px 2px 2px;
+  font-size: 100%;
+  padding: 3px 0 3px 3px;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.web-tweetpoll-wrapper div.tweetPollOptions div.boxRight {
+    margin-top: 10px;
+}
+
+.web-tweetpoll-wrapper div.tweetPollOptions div.question .questionTextBox
+    {
+    float: left;
+    width: 90%;
+}
+
+.web-tweetpoll-wrapper div.tweetPollOptions div.question .questionTextBox input
+    {
+    padding: 4px;
+    font-size: 130%;
+}
+
+.web-tweetpoll-wrapper div.tweetPollOptions div.question .dijitTextBox
+    {
+    padding: 3px;
+    font-size: 130%;
+}
+
+.web-tweetpoll-wrapper div.tweetPollOptions div.question .dijitTextArea
+    {
+    padding: 3px;
+    font-size: 130%;
+}
+
+/** preview tweetpoll **/
+.web-tweetpoll-wrapper div.previewWrapperContent {
+    overflow: auto;
+}
+
+.web-tweetpoll-wrapper .web-tweetpoll-preview-top {
+    padding: 10px;
+    width: auto;
+}
+
+.web-tweetpoll-wrapper div.previewWrapperContent .hide {
+    display: none;
+}
+
+.web-tweetpoll-wrapper div.previewWrapperContent .tp-counter {
+  float: right;
+  font-size: 2.3em;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.web-tweetpoll-wrapper div.previewWrapperContent .tp-content {
+    float: left;
+    line-height: 20px;
+    max-width: 90%;
+    width: 90%;
+}
+
+.web-tweetpoll-wrapper div.previewWrapperContent .inlineBlock {
+    /*     display: inline-block !important; */
+    margin: 0px;
+}
+
+.web-tweetpoll-wrapper div.previewWrapperContent .previewQuestion {
+    -moz-border-radius: 9px 9px 9px 9px;
+    -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
+    background-color: #F9F9C2;
+    border: 1px solid #C1B6B6;
+    color: #525252;
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 3px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 2px;
+}
+
+.web-tweetpoll-wrapper div.previewWrapperContent .previewAnswer {
+    padding: 2px;
+    background-color: #C9F5C8;
+    color: #000;
+    border: 1px solid #C1B6B6;
+    font-weight: bold;
+    margin: 1px 10px 0px 0px;
+    -moz-border-radius: 9px 9px 9px 9px;
+    -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
+    display: inline-block;
+}
+
+.web-tweetpoll-wrapper div.previewWrapperContent .previewHashTag {
+    padding: 2px;
+    background-color: #FEBEB2;
+    color: #000;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 1px;
+    -moz-border-radius: 9px 9px 9px 9px;
+    -webkit-border-radius: 9px 9px 9px 9px;
+    border-radius: 9px 9px 9px 9px;
+    display: inline-block;
+}
+
+/** Add Answers **/
+.addAnswers {
+
+}
+
+input {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.addAnswers div.options {
+    margin: 4px;
+    text-align: right;
+}
+
+div.options .saveButton {
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+}
+
+.addButton {
+    margin-left: 8px;
+    border: 1px solid #BCBCBC;
+    min-width: 100px;
+    padding: 4px;
+}
+
+div.answerAddForm .inputClass {
+    padding: 5px;
+    border: 1px solid #BCBCBC;
+    color: #808080;
+    font-size: 12px;
+    width: 70%;
+    border-bottom-right-radius: 5px 5px;
+    border-bottom-left-radius: 5px 5px;
+    border-top-left-radius: 5px 5px;
+    border-top-right-radius: 5px 5px;
+}
+
+div.answerAddForm .addButton {
+    margin-left: 8px;
+    border: 1px solid #BCBCBC;
+    min-width: 100px;
+    padding: 4px;
+}
+
+.answerAddForm div.labelQuestion {
+  max-width: 90%;
+}
+
+.answerAddForm  .web-answer-form-wrapper {
+  overflow:  auto;
+}
+
+.answerAddForm  .web-answer-form-wrapper > div {
+    float : left;
+}
+
+.answerAddForm div.labelQuestion .answer-loader {
+  padding-left: 5px;
+  position: absolute;
+  top: 7px;
+}
+
+.addAnswers div.addNewAnswer {
+    font-size: 12px;
+    color: #FFF;
+    float: left;
+    width: 49%;
+    min-height: 262px;
+    background-color: #BCBCBC;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 3px;
+}
+
+.addAnswers .listAnswerWrapper {
+    margin: 0;
+    width: auto;
+}
+
+.addAnswers .answerItem {
+    background-color : #E9E9E9;
+    border: 1px solid #C5C1C1;
+    -moz-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin-top: 3px;
+    max-width: 85%;
+    min-height: 25px;
+    overflow: auto;
+    padding: 3px;
+    vertical-align: top;
+}
+
+.addAnswers .answerItem .title {
+    color: #5A5A5A;
+    float: left;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.addAnswers .answerItem .title .answerItemTitle {
+  display: inline-block;
+  float: left;
+  line-height: 20px;
+  margin: 2px;
+  min-width: 200px;
+  padding: 1px 5px;
+  width: 200px;
+}
+
+.addAnswers .answerItem div.title .answerItemShortUrl {
+  color: red;
+  float: left;
+  line-height: 25px;
+  max-width: 300px;
+  overflow: auto;
+  padding: 0;
+  width: 209px;
+}
+
+.addAnswers .answerItem .shortUrlEnter {
+    background-color: #AAADAC;
+    border: 1px solid #D5D1D1;
+    color: white !important;
+}
+
+.addAnswers .answerItem div.title .answerItemShortUrl a:link,
+.addAnswers .answerItem div.title .answerItemShortUrl a:visited,
+.addAnswers .answerItem div.title .answerItemShortUrl a:hover {
+    text-decoration: none;
+    color: #222;
+}
+
+.addAnswers .answerItem div.options {
+
+}
+
+.addAnswers .answerItem .answer {
+    background-repeat: no-repeat;
+    padding-left: 15px;
+    display: inline-block;
+    min-width: 150px;
+    max-width: 150px;
+    height: 25px;
+    padding-top: 3px;
+    font-size: 1.1em;
+    color: #3D4361;
+    font-weight: bold;
+    float: left;
+}
+
+.addAnswers .answerItem .answerItem-options {
+  float: right;
+}
+
+.addAnswers .answerItem .answerItem-options .option-menu {
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+/** hash tags **/
+.addAnswers div.addNewHashTag {
+    padding: 10px;
+    font-size: 12px;
+    color: #FFF;
+    float: right;
+    width: 50%;
+}
+
+.addAnswers div.addNewAnswer .label {
+    min-width: 100px;
+    margin: 10px;
+    color: #000;
+    font-weight: bold;
+}
+
+.addAnswers div.addNewAnswer .addButton {
+    margin-left: 8px;
+    border: 1px solid #BCBCBC;
+    min-width: 100px;
+    padding: 4px;
+}
+
+/** TweetPoll HELP **/
+
+.tp-help {
+    padding: 10px;
+    position: relative;
+}
+
+.tp-help .help-option {
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.tp-help .help-title {
+    clear: both;
+}
+
+.tp-help h1 {
+    font-weight: bold;
+    font-size: 20px;
+    color: #222;
+    margin-left: 20px;
+    line-height: 32px;
+}
+
+.tp-help .help {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAAEEfUpiAAAACXBIWXMAAFxGAABcRgEUlENBAAAACXRFWHRDb21tZW50AACJKo0GAAAEPElEQVR4nJVXz0tcdxBXERL0qJIU8xd4UDwEIgQScmiTQm4LJUVyWi9LBIN7SDzk5lFLm4JCD9JNaSjppdIEpE00ubY5hPyENnEjSEIQUXQPzarT+ayf2Z39vu/b3Tz4uO+978xn5s13Zr5jm4i0AdlsNo/fykPvtzKjkMoLXZnkg+C3zVSqEtTvtQU8PMIqoPc1cU8qTqLY5vx4I84IBE2jx2gevxe580rks++rDB11bgHb/4k3MVJHqRjk/ZRitfodTuhrxVn/zhZ2Yc8Jjioy5uR174Oz32kC6/pixwJqQVUc1bUyBHKmdeUPkb/fVQVmK6Fk5Obx8qvfaiboywr+dNGHsvNhQt/P+a8YVjwNw5yIgwuSEE8VS4pNPm+ZxQSBLpQUN+jOgOIgCM0i5dpJNuxdFCr2e6Wfn4u83a7/eEWJOguKCdxcUkzHNgPo++4w9id/rHufN8P4c0ZRiBFc/l3k5UaSVHG+SsCbbcVQSDL1sG7nDWPU2Vf0+SBmGJxuEp1Q/KC4qxh3cr8oDlK3kUJIhD23ncCyL9+GBCQ5i37BGkkoRgmQJEwWYfIsMZnMi6lUAheD0RSPOtA5UJyxih2mcjsDuBhEHlk5QNkbyNqQoFrBsWRymKH8I+sEFvEFKpdM+JSm1pMPIn8WEyT9Pv1xU8b36cIRL4hrZU1kT3d892MdwQ4J1tE0fSHlY24/XEtmIwmmUUeeYCZUxrWvHowUogQ5nB6e4HxIgEK6tpL0igQFFGKlsaGHx3agVBb58k6CYD4MYh8qiwRj4SfklqLWh1DBPg+K1kXRUVNyoOyyUqw3+lQ9QKnaM0qYpYySPkGZbipn0oppNVY0ONZcUQ03LGeULmvf9wL0homm5dygN/Qy5ZcjjSY0tEzZ1B7SkgOs8FVHjhDg0BpsoDNIGd+DVsOwNQthhhsq7L/dfp29etz1a9vocdtsx9VNDiFnJtUBdtMihecCo0jNckp6RlMWOoEzc+QuZt3xbos9bOU4qoac4bFPMJqGMefEEG3AVo93wLJ2xBmfjxF+oZX2cV+iV/5BqhPzzokR2loWtpIzfFFwxi/EiDBm3Hstcr94+GsD691/a06c/inViQvOiQJtVprhJB9yzoHZZqG9+KvI4j8i70s14y82Dp1M0Zl1DuRoc9KGKzxMOweih4sH5lm7vvmrpVzIOwemafOSJeAej7gOOoDjcacZ6fGbIsdutmQcXEdovIO29ipHKl9epUcLLgqYVUtppMgBu249a2gcHP3u6xdo62rYB2w0x8jR6RxJHNWGz7Uizt1uaHzG8XeSu+6wibXfEoUwQLU7RzD2Y+AKR3+PA8oMOM52cgm5G59mUmvHu1TCODiadf+rNQP3eZS6Qq5EG051wBF1cWts4DVsZmv/QdkAvBnIbFG3q5GNlr4ocApHM0Z3jO35bG2Ex7uWjmCP/wEgsCR0RVPw/gAAAABJRU5ErkJggg==);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 50px;
+    margin-left: 20px;
+    float: left;
+    opacity: 0.6;
+}
+.tp-help h2 {
+    font-weight: normal;
+    font-size: 18px;
+    color: #555;
+    margin: 20px 0;
+    text-shadow: 2px -1px 5px white;
+}
+
+.tp-help ul {
+    margin-left: 80px;
+    clear: both;
+}
+
+.tp-help ul > li {
+  list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAACdSURBVDiN1ZMxCgMhEEW/IV7NysYT6NGcMyS9hbV3EQSbEU0RNtVqdllSRBCE4X/enxnFGANXzu2S+mcGRPQgoiGEwHbPEmhjDLz3Xxu0jHDE5D4rMPMbRevNZDfHlCDnjFIKaq1QSoGIdkmmBK019N7Re8dqV6YGUsrPO4QAa+25CMwMZkaMEc656RyXTUwpLcUrgucRMQCI//9ML8fmSdbjt8/RAAAAAElFTkSuQmCC);
+}

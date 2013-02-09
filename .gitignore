@@ -10,6 +10,7 @@ log/
 *.log*
 *./*.log*
 *.releaseBackup
+.sass-cache
 release.properties
 *.settings/*
 enme-js/chart/*.settings/*

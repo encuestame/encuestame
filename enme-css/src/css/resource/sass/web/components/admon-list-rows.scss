@@ -1,0 +1,100 @@
+.web-list-tweet {
+    width: 768px;
+}
+
+.web-list-rows .selected-row {
+    background-color: #F8F8F8;
+    border: 1px solid #EEEEEE;
+    width: 101%;
+}
+
+.web-item-row {
+    border-bottom: 1px dotted #E3E3E3;
+    cursor: pointer;
+    min-height: 25px;
+    overflow: auto;
+    padding: 7px;
+    background-color: white;
+}
+
+.web-item-row .web-item-row-section {
+    float: left;
+    min-width: 30px;
+    padding: 2px;
+    margin-left: 5px;
+    margin-right: 5px
+}
+
+.web-item-row .nav-menu:hover {
+    opacity: 1;
+}
+
+.web-item-row .nav-menu {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    opacity: 0;
+    padding: 2px 0 0;
+}
+
+.web-item-row .nav-menu > a {
+  color: #747474;
+  font-weight: normal;
+}
+
+.web-item-row .web-item-row-section-input {
+    padding: 0 0 8px 6px;
+}
+
+.web-item-row .web-item-row-section-title {
+    width: 500px;
+    max-width: 500px;
+}
+
+.web-item-row .web-item-row-section-title>div {
+    clear: both;
+    color: #222;
+    position: relative;
+}
+
+.web-item-row  .web-item-row-section-votes {
+    width: 60px;
+}
+
+.web-item-row .web-item-row-section-votes .web-item-row-section-votes-number
+    {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.web-item-row .web-item-row-section-votes .web-item-row-section-votes-title
+    {
+    color: #989898;
+    text-align: center;
+}
+
+.web-item-row .web-item-row-section-date {
+    color: #989898;
+    font-size: 10px;
+    margin-top: 5px;
+    text-align: right;
+    width: 80px;
+}
+
+.web-item-row .web-item-row-section-options {
+
+}
+
+.web-item-row .web-item-row-section-title h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.web-item-row .web-list-more .titleNext {
+    color: #275296;
+    font-size: 110%;
+    font-weight: bold;
+}
