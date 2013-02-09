@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +18,8 @@ import java.io.InputStream;
 import org.apache.log4j.Logger;
 import org.encuestame.core.files.PathUtil;
 import org.encuestame.core.image.ThumbnailGeneratorEngine;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
  * @version $Id:$
  */
 @Controller
-public class FileUploadController extends AbstractBaseOperations {
+public class FileUploadController extends AbstractViewController {
 
     /**
      * Log.

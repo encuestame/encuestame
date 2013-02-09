@@ -5,19 +5,36 @@
             <section class="web-user-confirm-message">
                 <article class="web-message-center">
                       <c:if test="${not empty message}">
-                      <h1>Oh Oh ! Error</h1>
-                           <div class="${message.infoType.css}">
-                                <div>${message.message}</div>
-                                <div class="trac">Report this bug on <a href="<%=EnMePlaceHolderConfigurer.getProperty("application.official.bugtrac")%>">
-                                    <%=EnMePlaceHolderConfigurer.getProperty("application.official.bugtrac")%></a></div>
+                          <h1>
+                              <spring:message code="e_023" />
+                          </h1>
+                          <c:if test="${message.errorLevel gt 0}">
+                              <div class="${message.infoType.css}">
+                                  <div>
+                                      ${message.message}
+                                  </div>
+                                   <c:if test="${message.displayErrorBugTracking}">
+                                      <div class="trac">
+                                        <spring:message code="error.report" />
+                                        <a href="<%=EnMePlaceHolderConfigurer.getProperty("application.official.bugtrac")%>">
+                                          <%=EnMePlaceHolderConfigurer.getProperty("application.official.bugtrac")%>
+                                        </a>
+                                    </div>
+                                </c:if>
                                 </div>
-                           <div class="extra">
-                                 ${message.description}
-                           </div>
+                            </c:if>
+                            <c:if test="${not empty message.description and message.errorLevel eq 2}">
+                                <div class="extra">
+                                    ${message.description}
+                               </div>
+                          </c:if>
                       </c:if>
                       <c:if test="${empty message}">
                         <h1>
-                            Sorry no errors ;) ... <a href="<%=request.getHeader("referer")%>"> Go Back</a>
+                            <spring:message code="error.empty" />
+                            <a href="<%=request.getHeader("referer")%>">
+                                <spring:message code="enme.return.home" />
+                            </a>
                         </h1>
                       </c:if>
                 </article>

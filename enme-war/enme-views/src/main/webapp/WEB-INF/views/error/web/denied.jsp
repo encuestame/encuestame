@@ -4,14 +4,15 @@
         <article>
             <section class="web-user-confirm-message">
                  <article class="web-message-center">
-        <h1>
-            Access Denied
-        </h1>
-        <h2>Your access has been denied.</h2>
-        <a href="<%=request.getHeader("referer")%>">
-            Go Back
-        </a>
-    </article>
+            <h1>
+                <spring:message code="error.access.denied.title" />
+            </h1>
+            <h2>
+                <spring:message code="error.access.denied" />
+            </h2>
+            <a href="<%=request.getHeader("referer")%>">
+                <spring:message code="commons_back" />
+            </a>
             </section>
         </article>
     </div>

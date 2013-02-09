@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.service.imp.SecurityOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.mvc.controller.security.AbstractSecurityController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
@@ -41,7 +42,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller
 @SessionAttributes(types = SignUpBean.class)
-public class SignUpController extends AbstractSecurityController {
+public class SignUpController extends AbstractViewController {
 
     /**
      * Log.

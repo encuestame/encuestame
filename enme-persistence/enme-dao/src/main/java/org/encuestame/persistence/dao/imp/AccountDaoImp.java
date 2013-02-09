@@ -116,7 +116,7 @@ public class AccountDaoImp extends AbstractSocialAccount implements IAccountDao 
      */
     //@Cacheable(cacheName = "userByUsername")
     public final UserAccount getUserByUsername(final String username)throws HibernateException {
-        log.debug("getUserByUsername by :{"+username);
+        log.trace("getUserByUsername by :{"+username);
         final DetachedCriteria criteria = DetachedCriteria.forClass(UserAccount.class);
         criteria.add(Restrictions.eq("username", username));
         getHibernateTemplate().setQueryCacheRegion("query.user.by.username");

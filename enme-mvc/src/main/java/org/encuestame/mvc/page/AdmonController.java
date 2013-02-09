@@ -11,10 +11,12 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-public class AdmonController extends AbstractBaseOperations {
+public class AdmonController extends AbstractViewController {
 
     private Log log = LogFactory.getLog(this.getClass());
 

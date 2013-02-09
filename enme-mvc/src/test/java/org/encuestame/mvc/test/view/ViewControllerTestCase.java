@@ -18,14 +18,14 @@ import java.util.Date;
 
 import junit.framework.Assert;
 
-import org.encuestame.mvc.controller.AdmonController;
-import org.encuestame.mvc.controller.DashBoardController;
-import org.encuestame.mvc.controller.HomeController;
-import org.encuestame.mvc.controller.PollController;
-import org.encuestame.mvc.controller.SignInController;
-import org.encuestame.mvc.controller.SignUpController;
-import org.encuestame.mvc.controller.SurveyController;
-import org.encuestame.mvc.controller.TweetPollController;
+import org.encuestame.mvc.page.AdmonController;
+import org.encuestame.mvc.page.DashBoardController;
+import org.encuestame.mvc.page.HomeController;
+import org.encuestame.mvc.page.PollController;
+import org.encuestame.mvc.page.SignInController;
+import org.encuestame.mvc.page.SignUpController;
+import org.encuestame.mvc.page.SurveyController;
+import org.encuestame.mvc.page.TweetPollController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.question.Question;
 import org.encuestame.persistence.domain.question.QuestionAnswer;

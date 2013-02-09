@@ -12,10 +12,7 @@
  */
 package org.encuestame.mvc.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -27,21 +24,19 @@ import org.encuestame.core.security.SecurityUtils;
 import org.encuestame.core.util.EnMeUtils;
 import org.encuestame.persistence.dao.INotification;
 import org.encuestame.persistence.dao.imp.NotificationDao;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.web.UserAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
@@ -50,8 +45,8 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
  * Abstract Json Controller.
  * @author Picado, Juan juanATencuestame.org
  * @since Sep 15, 2010 11:31:20 AM
- * @version $Id:$
  */
+@ControllerAdvice
 public abstract class AbstractJsonController extends AbstractBaseOperations{
 
     /**
@@ -66,27 +61,27 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
     @Autowired
     private INotification notificationDao;
 
-    /**
-     * Domain.
-     */
-    // @Value("${application.domain}") private String appDomainSetted;
-
-     /**
-      * Tweet Path Vote.
-      */
-    // @Value("${answers.tweetPathVote}") private String tweetPathVote;
-
     /** Success. **/
     private Map<String, Object> sucess = new HashMap<String, Object>();
 
-    /** Error Json. **/
+    /** Error JSON. **/
     private Map<String, Object> error = new HashMap<String, Object>();
+
+    /**
+     * This is a successful message, when a services got nothing to answer.
+     */
+    private final Integer SUCCESS_RESPONSE = 0;
+
+    /**
+     * This error means a negative response, it's used when the something happends wrong.
+     */
+    private final Integer ERROR_RESPONSE = -1;
 
     /**
      * Return Data.
      * @return
      */
-    protected ModelMap returnData(){
+    protected ModelMap returnData() {
          Map<String, Object> response = new HashMap<String, Object>();
          Assert.notNull(this.sucess);
          Assert.notNull(this.error);
@@ -144,7 +139,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      */
     protected void setSuccesResponse() {
         final Map<String, Object> response = new HashMap<String, Object>();
-        response.put("r", 0);
+        response.put("r", this.SUCCESS_RESPONSE);
         setItemResponse(response);
     }
 
@@ -154,7 +149,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      */
     protected void setSuccesResponse(final String message) {
         final Map<String, Object> response = new HashMap<String, Object>();
-        response.put("r", 0);
+        response.put("r", this.SUCCESS_RESPONSE);
         response.put("message", message == null ? "" : message);
         setItemResponse(response);
     }
@@ -162,9 +157,9 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
     /**
      * Set a failed response.
      */
-    protected void setFailedResponse(){
+    protected void setFailedResponse() {
         final Map<String, Object> response = new HashMap<String, Object>();
-        response.put("r", -1);
+        response.put("r", this.ERROR_RESPONSE);
         setItemResponse(response);
     }
 
@@ -187,58 +182,73 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      * @param ex exception
      * @return {@link ModelAndView}.
      */
+    @SuppressWarnings("static-access")
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
-    public ModelAndView handleException (final AccessDeniedException ex, HttpServletResponse httpResponse) {
-      log.error("handleException "+ ex.getMessage());
-      httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    public ModelAndView handleException (final AccessDeniedException ex, HttpServletResponse httpResponse,
+            final HttpServletRequest request) {
       ModelAndView mav = new ModelAndView();
-      mav.setViewName("MappingJacksonJsonView");
+      mav.setViewName("jsonView");
       final Map<String, Object> response = new HashMap<String, Object>();
       response.put("message", ex.getMessage());
-      //TODO: add internationalitazion
-      response.put("description", "Application does not have permission for this action");
+      response.put("description", getMessage("error.access.denied", request, null));
       response.put("status", httpResponse.SC_FORBIDDEN);
       response.put("session", SecurityUtils.checkIsSessionIsExpired(getSecCtx().getAuthentication()));
       response.put(EnMeUtils.ANONYMOUS_USER, SecurityUtils.checkIsSessionIsAnonymousUser(getSecCtx().getAuthentication()));
+      httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
       mav.addObject("error",  response);
       return mav;
     }
 
-//    @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
-//    public ModelAndView handleException (NoSuchRequestHandlingMethodException ex) {
-//      ModelAndView mav = new ModelAndView();
-//      log.error("Exception found: " + ex);
-//      mav.setViewName("404");
-//      return mav;
-//    }
+    /**
+     * Customized error for {@link NoSuchRequestHandlingMethodException}.
+     * @param ex {@link NoSuchRequestHandlingMethodException}.
+     * @return {@link ResponseEntity}
+     */
+    @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
+    public ResponseEntity<String> handleNoSuchRequestHandlingMethodException(NoSuchRequestHandlingMethodException ex)   {
+       return this.errorManage(ex);
+    }
 
-//    public class BadStatus {
-//        String errorMessage;
-//        boolean status = false;
-//
-//        public BadStatus(String msg) { errorMessage = msg; }
-//    }
-
-//    @ExceptionHandler(Exception.class)
-//    public BadStatus handleException(Exception ex, HttpServletRequest request) {
-//      return new BadStatus(ex.getMessage());
-//    }
-//
-//    @ExceptionHandler
-//    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-//    public ModelAndView notFoundHandler(NotFoundException e){
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("MappingJacksonJsonView");
-//        final Map<String, Object> response = new HashMap<String, Object>();
-//        response.put("message", e.getMessage());
-//        //TODO: add internationalitazion
-//        mav.addObject("error",  response);
-//        return mav;
-//    }
 
     /**
-     * Get Url Domain.
+     * Build a JSON error response based on the Exception message.
+     * @param ex {@link Exception}
+     * @return {@link ResponseEntity}
+     */
+    private ResponseEntity<String> errorManage(Exception ex) {
+        ex.printStackTrace();
+        log.debug("ServletRequestBindingException" + ex.getMessage());
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        final String text_error = ex.getMessage().replace("'", "");
+        final String error = "{error : '" + text_error + "', success : null}";
+        return new ResponseEntity<String>(error, headers, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Customized error for {@link ServletRequestBindingException}.
+     * @param ex {@link ServletRequestBindingException}
+     * @return {@link ResponseEntity}
+     */
+    @ExceptionHandler(ServletRequestBindingException.class)
+    public ResponseEntity<String> handleServletRequestBindingException(ServletRequestBindingException ex)   {
+        return this.errorManage(ex);
+    }
+
+    /**
+     * Customized error for {@link EnMeExpcetion}.
+     * @param ex {@link EnMeExpcetion}
+     * @return {@link ResponseEntity}
+     */
+    @ExceptionHandler(EnMeExpcetion.class)
+    public ResponseEntity<String> handleEnMeExpcetion(EnMeExpcetion ex)   {
+        return this.errorManage(ex);
+    }
+
+
+    /**
+     * Get URL Domain.
      * @param request
      * @param realDomain
      * @return
@@ -247,16 +257,16 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
         final StringBuilder builder = new StringBuilder();
         if(realDomain){
             String header = request.getHeader("X-Forwarded-Host");
-            log.debug("Host header  "+header);
-            if(header != null) {
+            log.trace("Host header  "+header);
+            if (header != null) {
                     // we are only interested in the first header entry
                     header = new StringTokenizer(header,",").nextToken().trim();
             }
-            if(header == null) {
+            if (header == null) {
                     header = request.getHeader("Host");
             }
             builder.append(header);
-            log.debug("Host "+builder.toString());
+            log.trace("Host "+builder.toString());
         } else {
             builder.append("/");
         }
@@ -268,7 +278,7 @@ public abstract class AbstractJsonController extends AbstractBaseOperations{
      * @param label
      * @param object
      */
-    public void setSingleResponse(final String label, Object object){
+    public void setSingleResponse(final String label, Object object) {
         final Map<String, Object> jsonResponse = new HashMap<String, Object>();
         jsonResponse.put(label, object);
         setItemResponse(jsonResponse);

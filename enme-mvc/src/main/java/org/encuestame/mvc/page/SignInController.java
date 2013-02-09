@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +20,7 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.exception.EnMeExistPreviousConnectionException;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.SocialUtils;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.mvc.controller.security.ForgetPasswordController;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.oauth2.support.OAuth2Parameters;

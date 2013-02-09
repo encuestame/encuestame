@@ -27,7 +27,6 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.mvc.controller.AbstractJsonController;
-import org.encuestame.persistence.exception.EnMeCommentNotFoundException;
 import org.encuestame.utils.ValidationUtils;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.encuestame.utils.web.HashTagBean;

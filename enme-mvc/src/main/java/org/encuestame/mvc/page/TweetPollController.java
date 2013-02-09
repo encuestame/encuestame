@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.SecurityOperations;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.mvc.controller.social.AbstractSocialController;
 import org.encuestame.mvc.validator.ValidateOperations;
 import org.encuestame.persistence.domain.HashTag;
@@ -55,7 +56,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
-public class TweetPollController extends AbstractSocialController {
+public class TweetPollController extends AbstractViewController {
 
     /**
      * Log.
@@ -80,7 +81,6 @@ public class TweetPollController extends AbstractSocialController {
         // Check IP in BlackListFile
             final Boolean checkBannedIp = checkIPinBlackList(IP);
             log.debug("Check Banned IP----> " + checkBannedIp);
-
             if (checkBannedIp) {
                 pathVote ="banned";
                 log.debug("ip banned");

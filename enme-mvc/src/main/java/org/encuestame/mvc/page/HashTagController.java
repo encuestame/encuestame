@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import java.util.List;
 
@@ -21,6 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.persistence.exception.EnmeFailOperation;
 import org.encuestame.utils.enums.HitCategory;
@@ -40,7 +42,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Apr 15, 2011
  */
 @Controller
-public class HashTagController extends AbstractBaseOperations {
+public class HashTagController extends AbstractViewController {
 
     /** Log. **/
     private Log log = LogFactory.getLog(this.getClass());

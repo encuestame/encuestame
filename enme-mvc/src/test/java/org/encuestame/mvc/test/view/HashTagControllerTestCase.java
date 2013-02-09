@@ -14,7 +14,7 @@ package org.encuestame.mvc.test.view;
 import static org.springframework.test.web.ModelAndViewAssert.assertViewName;
 import junit.framework.Assert;
 
-import org.encuestame.mvc.controller.HashTagController;
+import org.encuestame.mvc.page.HashTagController;
 import org.encuestame.mvc.test.config.AbstractMvcUnitBeans;
 import org.encuestame.persistence.domain.HashTag;
 import org.encuestame.utils.categories.test.DefaultTest;

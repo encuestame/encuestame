@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import java.util.List;
 
@@ -25,6 +25,8 @@ import org.encuestame.core.config.EnMePlaceHolderConfigurer;
 import org.encuestame.core.service.imp.IFrontEndService;
 import org.encuestame.core.util.ConvertDomainBean;
 import org.encuestame.core.util.EnMeUtils;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.security.UserAccount;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMeSearchException;
@@ -44,7 +46,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Mar 6, 2010 10:58:02 AM
  */
 @Controller
-public class HomeController extends AbstractBaseOperations {
+public class HomeController extends AbstractViewController {
 
    /**
     * Log.

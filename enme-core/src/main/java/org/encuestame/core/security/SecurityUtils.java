@@ -122,7 +122,7 @@ public class SecurityUtils {
      */
     public static void socialAuthentication(final SocialAccount accountConnection) {
         final UserAccount account = accountConnection.getUserOwner();
-        log.info("Register SOCIAL LOGIN USER: " + account.getUsername());
+        log.trace("Register SOCIAL LOGIN USER: " + account.getUsername());
         // building granted authorities
         final Collection<GrantedAuthority> authorities = ConvertDomainsToSecurityContext
                 .convertEnMePermission(account.getSecUserPermissions());
@@ -184,7 +184,7 @@ public class SecurityUtils {
                 }
             }
         }
-        log.debug("checkIsSessionIsExpired->"+session);
+        log.trace("checkIsSessionIsExpired->"+session);
         return session;
     }
 
@@ -199,7 +199,7 @@ public class SecurityUtils {
             if (EnMeUtils.ANONYMOUS_USER.equals(authentication.getName())) {
                 anonymous = true;
             }
-            log.debug("checkIsSessionIsExpired->"+anonymous);
+            log.trace("checkIsSessionIsExpired->"+anonymous);
         }
         return anonymous;
     }

@@ -11,13 +11,17 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.mvc.controller.AbstractViewController;
+import org.encuestame.utils.web.frontEnd.WebMessage;
+import org.encuestame.utils.web.frontEnd.WebMessage.WebInfoType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,39 +33,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version $Id: $
  */
 @Controller
-public class ErrorController  extends AbstractBaseOperations {
+public class ErrorController  extends AbstractViewController {
 
+    /**
+     *
+     */
     private Log log = LogFactory.getLog(this.getClass());
 
     /**
      *
      * @param model
+     * @param request
+     * @param response
      * @return
      */
-    @RequestMapping("/error")
+    @RequestMapping( value = "/missing")
+    public String missingPage(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
+        return "404";
+    }
+
+
+    @RequestMapping( value= "/400")
+    public String badStatu2s(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
+        return "error";
+    }
+
+    /**
+     * Catch the error redirected from web.xml <error-page> tag, this controller display a error page with pretty
+     * error message if
+     * @param model
+     * @return
+     */
+    @RequestMapping({"/error"})
     public String errorController(final ModelMap model, final HttpServletRequest request, final HttpServletResponse  response) {
         // if the error message is missing, nothing to display, it's redirected to home
         if (request.getAttribute("message") == null) {
              log.error("*********************************************************************************************");
-             log.error("*********************************************************************************************");
-             log.error("*********************************************************************************************");
-             log.error("*********************************************************************************************");
              log.error("redirect to home no error message, redirect to home");
-             log.error("*********************************************************************************************");
-             log.error("*********************************************************************************************");
-             log.error("*********************************************************************************************");
              log.error("*********************************************************************************************");
              return "redirect:/home";
         } else {
             log.error("*********************************************************************************************");
-                log.error("*********************************************************************************************");
-                log.error("*********************************************************************************************");
-                log.error("*********************************************************************************************");
             log.error("error no error message, redirect to home");
             log.error("*********************************************************************************************");
-            log.error("*********************************************************************************************");
-            log.error("*********************************************************************************************");
-            log.error("*********************************************************************************************");
+            WebMessage emptyError = new WebMessage(WebInfoType.ERROR, getMessage("e_023", request, null), "", this.errorLevel, this.bugTracking);
+            request.setAttribute("message", emptyError);
             return "error";
         }
     }

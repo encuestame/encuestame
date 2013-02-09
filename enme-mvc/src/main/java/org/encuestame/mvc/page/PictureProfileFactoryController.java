@@ -10,7 +10,7 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.utils.enums.PictureType;
 import org.encuestame.utils.exception.EnMeGenericException;
@@ -34,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version Id:
  */
 @Controller
-public class PictureProfileFactoryController extends AbstractBaseOperations {
+public class PictureProfileFactoryController extends AbstractViewController {
 
     /**
      * Log.

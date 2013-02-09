@@ -10,13 +10,15 @@
  * specific language governing permissions and limitations under the License.
  ************************************************************************************
  */
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Jun 27, 2011
  */
 @Controller
-public class NotificationController extends AbstractBaseOperations{
+public class NotificationController extends AbstractViewController{
 
     /**
         * Log.

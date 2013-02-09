@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,8 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.encuestame.core.search.GlobalSearchItem;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.utils.enums.TypeSearchResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-public class SearchController extends AbstractBaseOperations {
+public class SearchController extends AbstractViewController {
 
     /**
      * Log.

@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version $Id:$
  */
 @Controller
-public class JsonPermissionController  extends AbstractJsonController{
+public class JsonPermissionController  extends AbstractJsonController {
 
     /**
      * Log.
@@ -79,7 +79,7 @@ public class JsonPermissionController  extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/list-user-permissions.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap getUserPermissions(
             @RequestParam(value = "id", required = true) Long userId,
@@ -109,7 +109,7 @@ public class JsonPermissionController  extends AbstractJsonController{
      * @throws JsonMappingException
      * @throws IOException
      */
-    @PreAuthorize("hasRole('ENCUESTAME_ADMIN')")
+    @PreAuthorize("hasRole('ENCUESTAME_OWNER')")
     @RequestMapping(value = "/api/admon/{action}-permission.json", method = RequestMethod.GET)
     public @ResponseBody ModelMap addPermission(
              @PathVariable String action,

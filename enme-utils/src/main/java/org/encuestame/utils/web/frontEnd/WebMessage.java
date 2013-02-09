@@ -22,20 +22,61 @@ import java.io.Serializable;
 public final class WebMessage implements Serializable{
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -7442678263773715275L;
+     *
+     */
+    private static final long serialVersionUID = -7442678263773715275L;
 
-	private final WebInfoType infoType;
+    /**
+     * {@link WebInfoType}
+     */
+    private final WebInfoType infoType;
 
+    /**
+     * The error message.
+     */
     private final String message;
 
+    /**
+     *
+     */
     private String description = "";
 
+    /**
+     * Define the error level, useful to control the size of error to display.
+     */
+    private Integer errorLevel;
+
+    /**
+     * Define if display the link to bug traking in the ui.
+     */
+    private Boolean displayErrorBugTracking;
+
+    /**
+     *
+     * @param type
+     * @param text
+     */
     public WebMessage(WebInfoType type, String text) {
         this.infoType = type;
         this.message = text;
     }
+
+    /**
+     *
+     * @param infoType
+     * @param message
+     * @param description
+     * @param errorLevel
+     */
+    public WebMessage(WebInfoType infoType, String message, String description,
+            Integer errorLevel) {
+        super();
+        this.infoType = infoType;
+        this.message = message;
+        this.description = description;
+        this.errorLevel = errorLevel;
+    }
+
 
     /**
      * @param infoType
@@ -49,7 +90,23 @@ public final class WebMessage implements Serializable{
         this.description = description;
     }
 
-
+    /**
+     *
+     * @param infoType
+     * @param message
+     * @param description
+     * @param errorLevel
+     * @param displayErrorBugTracking
+     */
+    public WebMessage(WebInfoType infoType, String message, String description,
+            Integer errorLevel, Boolean displayErrorBugTracking) {
+        super();
+        this.infoType = infoType;
+        this.message = message;
+        this.description = description;
+        this.errorLevel = errorLevel;
+        this.displayErrorBugTracking = displayErrorBugTracking;
+    }
 
     /**
      * @return the infoType
@@ -65,17 +122,56 @@ public final class WebMessage implements Serializable{
         return message;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
     public String toString() {
-        return infoType + ": " + message;
+        return "WebMessage [infoType=" + infoType + ", message=" + message
+                + ", description=" + description + ", errorLevel=" + errorLevel
+                + ", displayErrorBugTracking=" + displayErrorBugTracking + "]";
     }
-
-
 
     /**
      * @return the description
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * @return the errorLevel
+     */
+    public Integer getErrorLevel() {
+        return errorLevel;
+    }
+
+    /**
+     * @param errorLevel the errorLevel to set
+     */
+    public void setErrorLevel(Integer errorLevel) {
+        this.errorLevel = errorLevel;
+    }
+
+    /**
+     * @return the displayErrorBugTracking
+     */
+    public Boolean getDisplayErrorBugTracking() {
+        return displayErrorBugTracking;
+    }
+
+    /**
+     * @param displayErrorBugTracking the displayErrorBugTracking to set
+     */
+    public void setDisplayErrorBugTracking(Boolean displayErrorBugTracking) {
+        this.displayErrorBugTracking = displayErrorBugTracking;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 
@@ -92,4 +188,5 @@ public final class WebMessage implements Serializable{
             return css;
         }
     }
+
 }

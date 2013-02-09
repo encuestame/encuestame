@@ -94,8 +94,8 @@ public class EnMeMobileInterceptor extends HandlerInterceptorAdapter {
             request.setAttribute(mobil, Boolean.FALSE);
             log.trace(" forceMobileDevice => 5");
         }
-        log.debug(" IS MOBILE ? ==========> " + request.getAttribute("detectedDevice"));
-        log.debug(" DEVICE USER AGENT ==========> " + request.getHeader( "user-agent" ));
+        log.trace(" IS MOBILE ? ==========> " + request.getAttribute("detectedDevice"));
+        log.trace(" DEVICE USER AGENT ==========> " + request.getHeader( "user-agent" ));
         return true;
     }
 }

@@ -11,7 +11,7 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import java.net.UnknownHostException;
 import java.util.List;
@@ -21,8 +21,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.encuestame.core.filter.RequestSessionMap;
 import org.encuestame.core.util.ConvertDomainBean;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.encuestame.persistence.domain.survey.Poll;
 import org.encuestame.persistence.domain.survey.PollResult;
+import org.encuestame.persistence.exception.EnMeExpcetion;
 import org.encuestame.persistence.exception.EnMeNoResultsFoundException;
 import org.encuestame.persistence.exception.EnMePollNotFoundException;
 import org.encuestame.utils.web.PollBeanResult;
@@ -41,10 +44,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Picado, Juan juanATencuestame.org
  * @since Mar 11, 2010 9:21:37 PM
- * @version $Id: $
  */
 @Controller
-public class PollController extends AbstractBaseOperations {
+public class PollController extends AbstractViewController {
 
     /**
      * Log.
@@ -61,16 +63,16 @@ public class PollController extends AbstractBaseOperations {
     @RequestMapping(value = "/poll/{id}/{slug}", method = RequestMethod.GET)
     public String pollController(final ModelMap model, @PathVariable Long id,
             @PathVariable String slug) {
-        log.debug("poll Id -->" + id);
-        log.debug("poll slug -->" + slug);
+        log.trace("poll Id -->" + id);
+        log.trace("poll slug -->" + slug);
         try {
             final Poll poll = getPollService().getPollSlugById(id, slug);
             // final List<QuestionAnswerBean> answer =
             // getPollService().retrieveAnswerByQuestionId(poll.getQuestion().getQid());
             final List<PollBeanResult> results = getPollService()
                     .getResultVotes(poll);
-            log.debug("Poll Detail Answers " + results.size());
-            log.debug("poll--> " + poll);
+            log.trace("Poll Detail Answers " + results.size());
+            log.trace("poll--> " + poll);
             // TODO: reuse this code on vote poll.
             model.addAttribute("poll",
                     ConvertDomainBean.convertPollDomainToBean(poll));
@@ -110,28 +112,26 @@ public class PollController extends AbstractBaseOperations {
             @RequestParam("type") String type,
             @RequestParam("slugName") String slugName,
             final HttpServletRequest req, final ModelMap model) {
-        log.debug("*************************************************");
-        log.debug("/poll/vote/post VOTE POLL " + responseId);
-        log.debug("/poll/vote/post VOTE POLL " + itemId);
-        log.debug("/poll/vote/post VOTE POLL " + type);
-        log.debug("/poll/vote/post VOTE POLL " + type);
-        log.debug("*************************************************");
+        log.trace("*************************************************");
+        log.trace("/poll/vote/post VOTE POLL " + responseId);
+        log.trace("/poll/vote/post VOTE POLL " + itemId);
+        log.trace("/poll/vote/post VOTE POLL " + type);
+        log.trace("/poll/vote/post VOTE POLL " + type);
+        log.trace("*************************************************");
         // default path
         String pathVote = "redirect:/poll/voted/";
         try {
             type = filterValue(type);
             slugName = filterValue(slugName);
             if (itemId == null) {
-                throw new EnMePollNotFoundException(
-                        "poll id has not been found");
+                throw new EnMePollNotFoundException("poll id has not been found");
             }
             if (responseId == null) {
 
                 final Poll poll = getPollService().getPollById(itemId);
                 model.addAttribute("poll",
                         ConvertDomainBean.convertPollDomainToBean(poll));
-                RequestSessionMap.getCurrent(req).put("votePollError",
-                        Boolean.TRUE);
+                RequestSessionMap.getCurrent(req).put("votePollError", Boolean.TRUE);
                 pathVote = "redirect:/poll/vote/" + itemId + "/" + slugName;
             } else {
 
@@ -181,13 +181,14 @@ public class PollController extends AbstractBaseOperations {
     }
 
     /**
-     *
+     * Poll List Controller.
      * @param model
      * @return
+     * @throws Exception
      */
     @PreAuthorize("hasRole('ENCUESTAME_USER')")
     @RequestMapping(value = "/user/poll/list", method = RequestMethod.GET)
-    public String pollListController(final ModelMap model) {
+    public String pollListController(final ModelMap model) throws EnMeExpcetion {
         log.debug("poll list render view");
         addItemsManangeMessages(model);
         addi18nProperty(model, "commons_no_results");
@@ -278,9 +279,7 @@ public class PollController extends AbstractBaseOperations {
 
     /**
      * Vote a {@link Poll}.
-     *
-     * @param model
-     *            {@link Model}
+     * @param model {@link Model}
      * @param tweetId
      * @param slug
      * @return
@@ -313,7 +312,6 @@ public class PollController extends AbstractBaseOperations {
      */
     @RequestMapping(value = "/poll/{id}/vote.js", method = RequestMethod.GET)
     public String jsView(Model model, HttpServletRequest request) {
-        //
         return "jsView";
     }
 }

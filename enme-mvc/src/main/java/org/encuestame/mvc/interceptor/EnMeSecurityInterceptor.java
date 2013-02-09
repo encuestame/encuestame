@@ -98,7 +98,7 @@ public class EnMeSecurityInterceptor extends AbstractEnMeInterceptor {
                 request.setAttribute("account", ConvertDomainBean.convertUserAccountToSignUpBean(user));
                 Cookie cookieName = WebUtils.getCookie(request, this.COOKIE_NAME);
                 if(cookieName != null){
-                    log.debug("Cookie "+cookieName.getName());
+                    log.trace("Cookie "+cookieName.getName());
                     cookieName.setValue(RandomStringUtils.random(4)); //TODO: testing cookies.
                 }
                 request.setAttribute("logged", true);

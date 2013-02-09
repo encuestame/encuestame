@@ -11,9 +11,11 @@
  ************************************************************************************
  */
 
-package org.encuestame.mvc.controller;
+package org.encuestame.mvc.page;
 
 import org.apache.log4j.Logger;
+import org.encuestame.mvc.controller.AbstractBaseOperations;
+import org.encuestame.mvc.controller.AbstractViewController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since Mar 11, 2010 9:21:55 PM
  */
 @Controller
-public class SurveyController  extends AbstractBaseOperations {
+public class SurveyController  extends AbstractViewController {
 
     /**
      * Log.

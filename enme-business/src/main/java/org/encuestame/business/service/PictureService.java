@@ -83,7 +83,7 @@ public class PictureService extends AbstractBaseService implements IPictureServi
         user.append("/");
         user.append(userAccount.getUid());
         user.append("/");
-        log.debug("getAccountUserPicturePath:{"+user.toString());
+        log.trace("getAccountUserPicturePath:{"+user.toString());
         return user.toString();
     }
 
@@ -101,7 +101,7 @@ public class PictureService extends AbstractBaseService implements IPictureServi
         url.append(PathUtil.DEFAUL_PICTURE_PREFIX);
         url.append(size.toInt().toString());
         url.append(".jpg");
-        log.debug("getProfileURl "+url);
+        log.trace("getProfileURl "+url);
         final File file = new File(url.toString());
         InputStream is = new FileInputStream(file);
         // Get the size of the file
@@ -127,7 +127,7 @@ public class PictureService extends AbstractBaseService implements IPictureServi
 
         // Close the input stream and return bytes
         is.close();
-        log.debug("getProfileURl "+bytes);
+        log.trace("getProfileURl "+bytes);
         return bytes;
     }
 
