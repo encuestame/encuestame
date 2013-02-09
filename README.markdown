@@ -7,7 +7,7 @@ For information on how to **build** check out [documentation](http://wiki.encues
 
 ## Current Version (1.147-ALPHA) Info
 
-The **last release versions** are defined [here](http://wiki.encuestame.org/display/~juanpicado/About+Encuestame+1.146-M2), if you are interested in the **Roadmap** click [here](http://issues.encuestame.org/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
+The **last release versions** are defined [here](http://wiki.encuestame.org/display/RELEASE/Encuestame+1.146-FINAL+Release+Notes), if you are interested in the **Roadmap** click [here](http://issues.encuestame.org/browse/ENCUESTAME#selectedTab=com.atlassian.jira.plugin.system.project%3Aroadmap-panel)
 
 If you want to download a build version of encuestame, they're hosted on the [Sourceforce.net](http://sourceforge.net/projects/encuestame/files/).
 
