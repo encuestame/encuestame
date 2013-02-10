@@ -1,13 +1,9 @@
-//@import "_base.scss";
+@import "_base_web";
 
 /** HASHTAGS */
 .web-hashtag-wrapper {
   margin: 0;
   overflow: auto;
-}
-
-.web-hashtag-header {
-
 }
 
 .web-hashtag-header .web-hashtagName {
@@ -24,10 +20,6 @@
 
 .web-hashtag-wrapper .web-rated-profile-item .web-rated-profile-item-detail a {
     color: #888;
-}
-
-.web-hashtag-wrapper .web-ht-detail {
-
 }
 
 .web-hashtag-wrapper .web-ht-detail .emne-box {

@@ -45,7 +45,7 @@
 .web-folder-wrapper .web-folder-item .icon-folder {
   background-repeat: no-repeat;
   display: inline-block;
-  @extend .left;
+  @extend .col-left;
   height: 16px;
   margin-left: 2px;
   margin-right: 10px;

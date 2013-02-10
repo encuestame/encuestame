@@ -1,3 +1,5 @@
+@import "_base_web";
+
 body.public-body {
     margin: 0;
     padding: 0;
@@ -456,7 +458,7 @@ div.socialAccountPicker div.account div.icon {
     min-height: 80px;
     overflow: auto;
     padding: 10px 30px 10px 40px;
-    background-color: #444;
+    @extend .home-main-colors;
 }
 
 .stats-button .web-graph-sts-btt-tlt {
@@ -478,11 +480,10 @@ div.socialAccountPicker div.account div.icon {
 }
 
 .web-ht-button-wrapper .selected {
-    background-color: #fff;
+    background: white !important;
     color: #444444;
-    -moz-box-shadow: inset 0 7px 5px -6px gray;
-    -webkit-box-shadow: inset 0 7px 5px -6px gray;
-    box-shadow: inset 0 7px 5px -6px gray;
+    @include box-shadow(#888 0 7px 5px -6px inset);
+
 }
 
 .stats-button:hover {

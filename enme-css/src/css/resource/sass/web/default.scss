@@ -1,24 +1,4 @@
-@import "suggest.scss";
-
-a{
-   text-decoration: none;
-}
-
-a:hover{
-   text-decoration: none;
-}
-
-img {
-    border: 0px;
-}
-
-a{
-    text-decoration: none;
-}
-
-a:hover{
-    text-decoration: underline;
-}
+@import "_base_web";
 
 .spaceOptionColumn{
     padding-left: 5px;
@@ -47,42 +27,6 @@ a:hover{
 
 #content-container #enme-content div.errorWrapper div.extra a{
     padding: 5px;
-}
-
-#defaultWrapper{
-    clear: left;
-    padding: 1px 0 8px;
-}
-
-#bodyDefault{
-    margin-left : 260px;
-    min-width : 700px;
-    padding: 0 15px 8px 0;
-}
-
-#panelDefault{
-    padding-top:8px;
-    float: left;
-}
-
-
-#panelWrapper{
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 245px;
-}
-
-.center {
- text-align: center;
-}
-
-.right {
- text-align: right;
-}
-
-.left {
- text-align: left;
 }
 
 .message{
@@ -180,39 +124,6 @@ a:hover{
     border-top-right-radius : 5px 5px;
 }
 
-.defaultUabel{
-    min-width: 100px;
-    margin: 10px;
-    color: #000;
-    font-weight: bold;
-}
-
-/* disabled, review if this images are used **/
-/* .warningImage{
-    background-image: url(../../images/social/icons/1243963629_001_11.png);
-}
-
-.helpImage{
-    background-image: url(../../images/social/icons/enme_question.gif);
-}
-
-.likeImage{
-    background-image: url(../../images/icons/enme_like.png);
-}
-
-.unLikeImage{
-    background-image: url(../images/icons/emne_unlike.png);
-}
-
-.twitterImage{
-    background-image: url("../../images/social/twitter/enme_icon_twitter.png");
-}
-
-.pollImage{
-    background-image: url(../../images/icons/emne_poll.png);
-} */
-
-
 div.defaultSectionTitle {
   color: #FFFFFF;
   font-size: 120%;
@@ -221,14 +132,14 @@ div.defaultSectionTitle {
 }
 
 .gradient-gray {
-background: rgb(238,238,238); /* Old browsers */
-background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(204,204,204,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+  background: rgb(238,238,238); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(204,204,204,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
 }
 
 .gradient-yellow{
@@ -300,18 +211,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', end
 
 .default-background-color{
     background-color: #F8F8F8;
-}
-
-.defaultDisplayBlock{
-    display: block;
-}
-
-.defaultDisplayHide{
-    display: none;
-}
-
-.hidden{
-    display: none;
 }
 
 .default-background-dark-color {
@@ -394,10 +293,6 @@ div.yesNoWrapper div.label {
       width: 16px;
 }
 
-div.updateProfile{
-
-}
-
 div.updateProfile .pictureWrapper{
     min-height: 128px;
     min-width: 95px;
@@ -408,14 +303,6 @@ div.updateProfile .pictureProfileNew{
     text-align: center;
     width: 400px;
 }
-
-/* div.updateProfile .pictureProfileNew .class{
-    position: relative;
-    height: 100%;
-    width: auto;
-    opacity: 0;
-    -moz-opacity: 0;
-} */
 
 div.updateProfile .profileItem{
     padding: 5px;
@@ -561,10 +448,8 @@ div.web-default-menu  li.first {
     );
 }
 
-
-
 .emne-box > header {
-  background-color: #E5E5E5;
+  @extend .home-main-colors;
   border-bottom: 1px solid #CFCFCF;
   font-size: 14px;
   font-weight: bold;
@@ -572,6 +457,21 @@ div.web-default-menu  li.first {
   padding-left: 8px;
   padding-top: 8px;
   text-shadow: 1px 1px 1px #B3B3B4;
+}
+
+.web-wrapper-detail .emne-box {
+  background: none repeat scroll 0 0 transparent;
+}
+
+.web-wrapper-detail .emne-box > header {
+   @extend .home-main-colors;
+   border-bottom: 1px solid #B7B7B7;
+   color: #FFF;
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 20px;
+   padding: 13px;
+   text-shadow: 0px -1px 0px #888;
 }
 
 .emne-box h1 {
@@ -660,27 +560,6 @@ div.web-default-menu  li.first {
   padding: 10px;
 }
 
-.web-wrapper-detail .emne-box {
-  background: none repeat scroll 0 0 transparent;
-}
-
-.web-wrapper-detail .emne-box > header {
-     background-color: #3A3A3A;
-    background-image: -webkit-gradient(linear,0 0%,0 100%,from(#333),to(#3F3F3F));
-    background-image: -webkit-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -moz-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
-  border-bottom: 1px solid #B7B7B7;
-
-  color: #FFF;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  padding: 13px;
-  text-shadow: 0px -1px 0px #888;
-}
 
 /** dialog **/
 
@@ -754,24 +633,3 @@ div.web-default-menu  li.first {
     padding: 3px 15px;
     text-shadow: 0 -1px 0 black;
   }
-
-.web-message-center {
-
-}
-
-.web-message-center h1{
-
-}
-
-.web-message-center h4{
-
-}
-
-
-
-
-
-
-
-
-

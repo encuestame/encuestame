@@ -1,4 +1,31 @@
-//@import "_base.scss";
+@import "_base_web";
+
+a{
+   text-decoration: none;
+   &:hover {
+    text-decoration: none;
+  }
+}
+
+a.tag:link, a.tag:visited, a.tag:active {
+    color: #FFF;
+}
+
+img {
+    border: 0px;
+}
+
+.center {
+ text-align: center;
+}
+
+.text-right {
+ text-align: right;
+}
+
+.text-left {
+ text-align: left;
+}
 
 .unselectable {
    @include user-select($none);
@@ -8,17 +35,28 @@
    @extend .unselectable;
 }
 
-// review it's repeated ib the nmmain file
-.left  {
+.col-left  {
   float : left;
+}
+
+.col-right  {
+  float : right;
 }
 
 .enme-unselectable {
   @extend .unselectable;
 }
 
-a.tag:link,a.tag:visited,a.tag:active {
-    color: #FFF;
+.home-main-colors {
+    background-color: $header_info_main_color;
+    //@include background-image(linear-gradient(color-stops($header_info_main_color 0%, $header_info_main_color_dark 100%)));
+    @include background-image(linear-gradient(color-stops($header_info_main_color  0%, $header_info_main_color_dark 100%)));
+   // background-image: -webkit-gradient(linear,0 0%,0 100%,from(#333),to(#3F3F3F));
+   // background-image: -webkit-linear-gradient(top,#333 0%,#3F3F3F 100%);
+   // background-image: -moz-linear-gradient(top,#333 0%,#3F3F3F 100%);
+   // background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
+   // background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
+   // background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
 }
 
 .enme-main-section {
@@ -134,12 +172,20 @@ a.point {
     width: 100%;
 }
 
+.hidden, .defaultDisplayHide{
+    display: none;
+}
+
+.defaultDisplayBlock , .block{
+    display: block;
+}
+
 .cfix {
   @extend .clearfix
 }
 
-.panel-header header{
-  float: left;
+.panel-header header {
+  @extend .col-left;
 }
 
 .panel-header h3 {
@@ -187,15 +233,13 @@ a.point {
     cursor:pointer;
 }
 
-.default-rigth-aling{
-    text-align: right;
+.default-rigth-aling {
+    @extend .text-right;
 }
 
-.center-alg{
-    text-align: right;
+.center-alg {
+    @extend .text-right;
 }
-
-
 
 .success-color {
     background-color: #B1ECB1;
@@ -253,48 +297,6 @@ a.point {
 
 .likeRate .negative{
     background-color: #CD6969;
-}
-
-button.emne-menu {
-  background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
-  border: 1px solid #CCCCCC;
-  border-radius: 3px 3px 3px 3px;
-  color: #000000;
-  cursor: pointer;
-  height: 2.0833em;
-  overflow: visible;
-  padding: 0 0.5em;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-button.emne-menu span {
-  line-height: normal;
-}
-
-button.emne-menu img {
-  font-size: 0;
-  vertical-align: middle;
-}
-
-button.emne-menu button {
-  -moz-border-bottom-colors: none;
-  -moz-border-image: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  background-image: -moz-linear-gradient(center top , #FFFFFF 0pt, #E0E0E0 100%);
-  border-color: #CCCCCC #CCCCCC #AAAAAA;
-  border-radius: 3px 3px 3px 3px;
-  border-style: solid;
-  border-width: 1px;
-  box-shadow: 0 0 1px #FFFFFF inset;
-  color: #555555;
-  font-size: 11px;
-  font-weight: bold;
-  height: 2.95em;
-  padding: 0 0.91em;
-  text-shadow: 0 0 0 transparent, 0 1px 0 #FFFFFF;
 }
 
 .wrap{

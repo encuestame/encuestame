@@ -1,11 +1,9 @@
 /*
 Syntax error: Undefined variable: "$orange".
-        on line 4 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss
-
-1: /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss
+        on line 47 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss
 
 Backtrace:
-/Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss:4
+/Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss:47
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/script/variable.rb:49:in `_perform'
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/script/node.rb:40:in `perform'
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:294:in `visit_prop'
@@ -78,4 +76,4 @@ org/jruby/RubyKernel.java:1419:in `loop'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$orange\".\A         on line 4 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss\A \A 1: /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss"; }
+  content: "Syntax error: Undefined variable: \"$orange\".\A         on line 47 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss"; }

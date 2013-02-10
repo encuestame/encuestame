@@ -1,4 +1,5 @@
 /** profile menu **/
+/* line 2, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel {
   display: none;
   position: absolute;
@@ -20,17 +21,23 @@ div.profilePanel {
   -webkit-border-radius: 0px 0px 5px 5px;
   -moz-border-radius: 0px 0px 5px 5px;
   border-radius: 0px 0px 5px 5px;
-  z-index: 99999; }
+  z-index: 99999;
+}
 
+/* line 27, ../../../sass/web/components/menu-profile.scss */
 div.profileOpenPanel {
-  display: block; }
+  display: block;
+}
 
 /** web-profile-menu **/
+/* line 32, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel ul {
   max-height: 350px;
   max-width: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
+/* line 38, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel li {
   background-image: none;
   clear: both;
@@ -40,42 +47,59 @@ div.profilePanel li {
   text-align: left;
   list-style: none;
   margin: 0px;
-  padding: 6px 15px; }
+  padding: 6px 15px;
+}
 
+/* line 50, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel li:hover {
-  background-color: #FFF; }
+  background-color: #FFF;
+}
 
+/* line 55, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel li:hover a:link,
 div.profilePanel li:hover a:visited {
-  color: #444444 !important; }
+  color: #444 !important;
+}
 
+/* line 59, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel li a:link {
-  color: #bababa !important;
+  color: #BABABA !important;
   font-weight: normal;
-  text-decoration: none !important; }
+  text-decoration: none !important;
+}
 
+/* line 65, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel li a:hover {
   color: white !important;
-  text-decoration: none; }
+  text-decoration: none;
+}
 
+/* line 70, ../../../sass/web/components/menu-profile.scss */
 div.profilePanel li a {
   padding: 10px;
-  color: #bababa !important;
-  font-weight: normal; }
+  color: #BABABA !important;
+  font-weight: normal;
+}
 
+/* line 76, ../../../sass/web/components/menu-profile.scss */
 div.web-profile-menu {
   color: #FFFFFF;
   cursor: pointer;
   height: 25px;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
 
+/* line 83, ../../../sass/web/components/menu-profile.scss */
 div.web-profile-menu .image {
-  float: left; }
+  float: left;
+}
 
+/* line 87, ../../../sass/web/components/menu-profile.scss */
 div.web-profile-menu .real-name {
   line-height: 22px;
   margin-left: 20px;
   min-width: 119px;
   padding-right: 4px;
   text-align: center;
-  vertical-align: middle; }
+  vertical-align: middle;
+}
