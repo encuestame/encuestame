@@ -1,0 +1,25 @@
+div.web-filter-sidebar-panel {
+  background-color: #F9F9F9; }
+
+div.web-filter-sidebar-panel div.optionItem {
+  border-bottom: 1px solid #eeeeee;
+  clear: both;
+  font-size: 12px;
+  padding: 7px;
+  width: auto; }
+
+div.web-filter-sidebar-panel div.optionItemSelected {
+  background-color: #6F6F6F;
+  color: #FFF; }
+
+div.web-filter-sidebar-panel div.optionItem:hover {
+  background-color: #6F6F6F;
+  color: #FFF;
+  cursor: pointer; }
+
+div.web-filter-sidebar-panel div.optionItem span {
+  padding-left: 10px;
+  text-decoration: none; }
+
+div.web-filter-sidebar-panel div.optionItem span:hover {
+  color: white !important; }

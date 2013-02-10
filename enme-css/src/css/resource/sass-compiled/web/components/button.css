@@ -1,0 +1,243 @@
+/* line 17, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, /Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 3, ../../../sass/web/components/button.scss */
+button.button:hover {
+  background-color: #e7a441;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e7a441), color-stop(100%, #bc870d));
+  background-image: -webkit-linear-gradient(#e7a441, #bc870d);
+  background-image: -moz-linear-gradient(#e7a441, #bc870d);
+  background-image: -o-linear-gradient(#e7a441, #bc870d);
+  background-image: linear-gradient(#e7a441, #bc870d);
+}
+
+/* line 9, ../../../sass/web/components/button.scss */
+button.button {
+  /** $orange_light, $orange_gradient_over **/
+  background-color: #bc870d;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffb952), color-stop(100%, #bc870d));
+  background-image: -webkit-linear-gradient(#ffb952, #bc870d);
+  background-image: -moz-linear-gradient(#ffb952, #bc870d);
+  background-image: -o-linear-gradient(#ffb952, #bc870d);
+  background-image: linear-gradient(#ffb952, #bc870d);
+  text-shadow: rgba(255, 255, 255, 0.5) 0 -1px 1px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: #888888 0px 0px 1px;
+  -moz-box-shadow: #888888 0px 0px 1px;
+  box-shadow: #888888 0px 0px 1px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: bold;
+  outline: 0 none;
+  padding: 8px 6px;
+  width: auto;
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 18px;
+  border: 1px solid #CCC;
+  cursor: pointer;
+}
+
+/* line 36, ../../../sass/web/components/button.scss */
+.enme-web-context button.vote {
+  background-color: #E0E0E0;
+  background-image: -moz-linear-gradient(center top, #fafafa 0px, gainsboro 100%);
+  border-color: #CCCCCC #CCCCCC #AAAAAA;
+  box-shadow: 0 0 1px #FFFFFF inset;
+  text-shadow: 0 1px 0 #FFFFFF;
+}
+
+/* line 44, ../../../sass/web/components/button.scss */
+.enme-web-context button:hover {
+  text-decoration: none;
+}
+
+/* line 48, ../../../sass/web/components/button.scss */
+.enme-ui-button {
+  -moz-user-select: none;
+  background: -moz-linear-gradient(center top, #fafafa 0px, gainsboro 100%) repeat scroll 0 0 transparent !important;
+  border: 1px solid #ADADAD !important;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 1px 2px 1px 0 #D5D5D5;
+  color: #000000;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  -moz-user-select: none;
+  height: 27px;
+  outline: 0 none;
+  padding: 0 0.2em;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100px;
+  word-wrap: normal;
+}
+
+/* line 69, ../../../sass/web/components/button.scss */
+.button-red {
+  background: -moz-linear-gradient(center top, #f1adad 0px, #9f6161 100%) repeat scroll 0 0 transparent !important;
+  color: white;
+}
+
+/** override dijit buttons **/
+/** default button */
+/* line 78, ../../../sass/web/components/button.scss */
+.dijitButton .dijitButtonNode {
+  font-size: 12px !important;
+  border: 1px solid #ADADAD !important;
+  padding: 5px 13px !important;
+  font-weight: bold;
+  color: white !important;
+  background-image: none !important;
+  background-color: #bc870d !important;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffb952), to(#bf5a02)) !important;
+  background-image: -moz-linear-gradient(#ffb952, #bc870d) !important;
+  background-image: -ms-linear-gradient(#ffb952, #bc870d) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffb952), color-stop(100%, #bc870d)) !important;
+  background-image: -webkit-linear-gradient(#ffb952, #bc870d) !important;
+  background-image: -o-linear-gradient(#ffb952, #bc870d) !important;
+  background-image: linear-gradient(#ffb952, #bc870d) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$orange_light',endColorstr='$orange_gradient_over',GradientType=0) !important;
+  border-radius: 4px !important;
+  -moz-border-radius: 4px !important;
+  -webkit-border-radius: 4px !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* .dijitButton .dijitButtonNode:hover {
+    background: -moz-linear-gradient(center top , #F1ADAD 0px, #9F6161 100%) repeat scroll 0 0 transparent !important;
+} */
+/* .dijitButton .dijitButtonNode {
+  background-image: none !important;
+  border: 1px solid #6D8000 !important;
+  border-radius: 4px 4px 4px 4px !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.4);
+  font-size: 110% !important;
+  font-weight: normal;
+  padding: 5px 13px !important;
+} */
+/** hover color need to be fixed, it's blue **/
+/* line 122, ../../../sass/web/components/button.scss */
+.enme-web-context .dijitButtonHover .dijitButtonNode {
+  color: #FFFFFF !important;
+  background-color: #e7a441 !important;
+  background-repeat: repeat-x !important;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffb952), to(#bf5a02)) !important;
+  background-image: -moz-linear-gradient(#e7a441, #bc870d) !important;
+  background-image: -ms-linear-gradient(#e7a441, #bc870d) !important;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e7a441), color-stop(100%, #bc870d)) !important;
+  background-image: -webkit-linear-gradient(#e7a441, #bc870d) !important;
+  background-image: -o-linear-gradient(#e7a441, #bc870d) !important;
+  background-image: linear-gradient(#e7a441, #bc870d) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$orange',endColorstr='$orange_gradient_over',GradientType=0) !important;
+}
+
+/* line 136, ../../../sass/web/components/button.scss */
+.enme-web-context .dijitTextBoxHover, .enme-web-context .dijitTextBoxHover .dijitButtonNode {
+  -moz-transition-duration: 0.25s;
+  border-color: #A1D988;
+}
+
+/* line 141, ../../../sass/web/components/button.scss */
+.enme-web-context .dijitTextBoxHover, .enme-web-context .dijitTextBoxHover .dijitButtonNode {
+  border-color: #769dc0;
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+
+/* line 147, ../../../sass/web/components/button.scss */
+.enme-web-context .dijitTextBoxHover {
+  background-color: #e9f4fe;
+  background-image: none !important;
+  background-repeat: repeat-x;
+}
+
+/* line 157, ../../../sass/web/components/button.scss */
+.enme-web-context .dijitSelect .dijitButtonText {
+  min-width: 110px;
+  padding: 5px !important;
+  text-align: left;
+}
+
+/* line 163, ../../../sass/web/components/button.scss */
+.enme-web-context .dijitMenuActive .dijitMenuItemHover, .enme-web-context .dijitMenuActive .dijitMenuItemSelected {
+  background-color: none !important;
+}

@@ -1,0 +1,49 @@
+.defaultTable {
+  background: #fff;
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%; }
+
+.defaultTable th {
+  font-weight: normal;
+  color: #FFF;
+  padding: 10px 0; }
+
+.defaultTable td {
+  line-height: 25px;
+  padding: 15px 8px;
+  border-bottom: 1px dotted #e2e2e2; }
+
+.defaultTable .group {
+  padding-left: 70px;
+  text-align: left; }
+
+.defaultTable a:link, .defaultTable a:visited, .defaultTable a {
+  color: #888;
+  font-weight: bold; }
+
+.defaultTable .link {
+  color: #4444444; }
+
+.defaultTable td .link:hover {
+  color: #4444444;
+  text-decoration: underline; }
+
+.defaultTable tbody tr:hover {
+  color: #444444;
+  background-color: #D7D7D7; }
+
+.defaultTable tfoot {
+  background-color: #444444;
+  border-top: 1px solid #b4b4b4;
+  color: white;
+  font-weight: bold; }
+
+.defaultTable tfoot td {
+  padding: 5px; }
+
+.defaultTable tfoot .total {
+  padding: 0px 10px; }
+
+.defaultTable tfoot td a:link {
+  color: white; }

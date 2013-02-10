@@ -1,18 +1,90 @@
+/* line 17, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 3, ../sass/layout.scss */
 html, body {
   height: 100%;
   font-family: Verdana;
-  font-size: 12px; }
+  font-size: 12px;
+}
 
 /* Smartphones (portrait and landscape)  */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  /* line 13, ../sass/layout.scss */
   body.mobile {
     margin: 0;
-    padding: 0; }
+    padding: 0;
+  }
 
+  /* line 18, ../sass/layout.scss */
   .mobile a {
     color: gray;
-    text-decoration: none; }
+    text-decoration: none;
+  }
 
+  /* line 27, ../sass/layout.scss */
   .mobile > footer .mobile-footer {
     text-align: left;
     padding-top: 2px;
@@ -21,72 +93,104 @@ html, body {
     color: white;
     padding: 6px;
     min-height: 30px;
-    box-shadow: 5px 6px 5px 8px black; }
+    box-shadow: 5px 6px 5px 8px black;
+  }
 
+  /* line 38, ../sass/layout.scss */
   .mobile-footer .footer-menu {
-    padding: 10px; }
+    padding: 10px;
+  }
 
+  /* line 42, ../sass/layout.scss */
   .mobile-footer .footer-menu > span {
-    padding: 10px; }
+    padding: 10px;
+  }
 
+  /* line 46, ../sass/layout.scss */
   .mobile-footer .footer-menu span a {
     font-size: 12px;
     text-align: center;
     margin-top: 3px;
-    color: white; }
+    color: white;
+  }
 
+  /* line 53, ../sass/layout.scss */
   .mobile-footer .mobile-footer-version {
     font-size: 9px;
     text-align: right;
     margin-top: 3px;
-    padding: 10px; }
+    padding: 10px;
+  }
 
+  /* line 60, ../sass/layout.scss */
   .mobile-footer .mobile-footer-version a {
-    color: white; }
+    color: white;
+  }
 
+  /* line 64, ../sass/layout.scss */
   .mobile-footer .mobile-footer-version a > span {
-    color: white; }
+    color: white;
+  }
 
   /** header **/
+  /* line 75, ../sass/layout.scss */
   .mobile #mobile-header-wrapper {
     min-height: 27px;
     padding: 5px;
     box-shadow: 1px 2px 6px 0px #9c9393;
-    text-align: center; }
+    text-align: center;
+  }
 
+  /* line 82, ../sass/layout.scss */
   .mobile #mobile-header-wrapper div.logo {
-    margin: 0 auto; }
+    margin: 0 auto;
+  }
 
+  /* line 86, ../sass/layout.scss */
   .mobile div.mobile-header-options {
     width: auto;
     text-align: right;
     padding: 0 5px;
-    height: 30px; }
+    height: 30px;
+  }
 
+  /* line 93, ../sass/layout.scss */
   .mobile .mobile-header-options span {
-    display: inline-block; }
+    display: inline-block;
+  }
 
+  /* line 97, ../sass/layout.scss */
   .mobile .mobile-header-options span.link {
     padding-left: 5px;
     padding-right: 5px;
-    margin: 4px 4px 3px 0; }
+    margin: 4px 4px 3px 0;
+  }
 
+  /* line 103, ../sass/layout.scss */
   .mobile .mobile-header-options span.link a {
     color: #275296;
     text-decoration: none;
     font-size: 110%;
     font-style: italic;
-    font-weight: bold; }
+    font-weight: bold;
+  }
 
+  /* line 111, ../sass/layout.scss */
   .mobile .mobile-header-options span.link a:hover {
-    text-decoration: none; }
+    text-decoration: none;
+  }
 
+  /* line 118, ../sass/layout.scss */
   .mobile .mobile-main {
     min-height: 300px;
-    background-color: white; }
+    background-color: white;
+  }
 
+  /* line 123, ../sass/layout.scss */
   .mobile-main-vote {
-    min-height: 350px; } }
+    min-height: 350px;
+  }
+}
 /* Smartphones (landscape)  */
 /* Smartphones (portrait)  */
 /** tablet's resolution **/
@@ -100,14 +204,17 @@ html, body {
 /* iPads (landscape)  */
 /* iPads (portrait)  */
 /* Desktops and laptops  */
+/* line 171, ../sass/layout.scss */
 body {
   height: 100%;
   word-wrap: break-word;
   margin: 0;
   padding: 0;
-  background-color: #cfcfcf; }
+  background-color: #cfcfcf;
+}
 
 /** header **/
+/* line 180, ../sass/layout.scss */
 header#header {
   background: #1b1b1b;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#353535), to(#010101));
@@ -119,30 +226,40 @@ header#header {
   height: 40px;
   position: relative;
   box-shadow: 2px 3px 4px #121212;
-  z-index: 500; }
+  z-index: 500;
+}
 
+/* line 194, ../sass/layout.scss */
 .header {
   background-color: #FFF;
-  border: 0px solid black;
+  border: 0px solid #000;
   margin-bottom: 0px;
   width: 100%;
-  height: 41px; }
+  height: 41px;
+}
 
+/* line 202, ../sass/layout.scss */
 .header span.logo {
   background-image: url(../../images/logos/encuestame_header.gif);
   background-repeat: no-repeat;
   min-height: 20px;
   display: inline-block;
-  width: 125px; }
+  width: 125px;
+}
 
+/* line 210, ../sass/layout.scss */
 #header div.search {
-  width: 100px; }
+  width: 100px;
+}
 
+/* line 214, ../sass/layout.scss */
 .heading-title {
   width: 100%;
   margin-top: 40px;
-  overflow: auto; }
+  overflow: auto;
+}
 
+/* line 220, ../sass/layout.scss */
 .heading-title H1 {
   color: #C53436;
   float: left;
@@ -150,40 +267,56 @@ header#header {
   font-weight: normal;
   line-height: 24px;
   margin: 0;
-  padding: 0 8px; }
+  padding: 0 8px;
+}
 
+/* line 230, ../sass/layout.scss */
 div.web-header {
   font-size: 13px;
   font-weight: normal;
-  height: 40px; }
+  height: 40px;
+}
 
+/* line 236, ../sass/layout.scss */
 .web-header-options .suggest .dijitTextBox {
   border-radius: 4px 4px 4px 4px;
-  padding: 2px; }
+  padding: 2px;
+}
 
+/* line 241, ../sass/layout.scss */
 .web-header-options .suggest .dijitTextBox .dijitInputContainer {
   border-radius: 14px 14px 14px 14px;
-  padding: 1px; }
+  padding: 1px;
+}
 
+/* line 246, ../sass/layout.scss */
 .web-header-options .suggest .dijitTextBox .dijitInputInner {
   color: #A6A6A6;
-  font-size: 13px !important; }
+  font-size: 13px !important;
+}
 
+/* line 251, ../sass/layout.scss */
 .web-header-options .suggest .dijitTextBox .dijitPlaceHolder {
   color: #DDDDDC;
   font-size: 13px !important;
   line-height: 15px;
-  padding-left: 8px; }
+  padding-left: 8px;
+}
 
+/* line 258, ../sass/layout.scss */
 div.web-header-options {
   float: right;
-  padding: 3px; }
+  padding: 3px;
+}
 
+/* line 263, ../sass/layout.scss */
 div.web-header div.logo {
   background: none repeat scroll 0 0 transparent;
   width: 128px;
-  float: left; }
+  float: left;
+}
 
+/* line 269, ../sass/layout.scss */
 div.web-header .logo > a {
   display: block;
   height: 12px;
@@ -191,50 +324,74 @@ div.web-header .logo > a {
   font-weight: bold;
   line-height: 1;
   color: #BBB;
-  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.75); }
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.75);
+}
 
+/* line 279, ../sass/layout.scss */
 div.web-header div.web-header-wrapper {
-  width: auto; }
+  width: auto;
+}
 
+/* line 283, ../sass/layout.scss */
 div.web-header span {
-  display: inline-block; }
+  display: inline-block;
+}
 
+/* line 287, ../sass/layout.scss */
 div.web-header span.link {
   margin: 4px 4px 3px 0;
-  padding-left: 5px; }
+  padding-left: 5px;
+}
 
+/* line 292, ../sass/layout.scss */
 div.web-header span.link a {
   color: #FFFFFF;
   font-size: 100%;
   text-decoration: none;
-  text-shadow: 0 1px 1px rgba(72, 72, 72, 0.9); }
+  text-shadow: 0 1px 1px rgba(72, 72, 72, 0.9);
+}
 
+/* line 299, ../sass/layout.scss */
 div.web-header span.link a:hover {
-  text-decoration: none; }
+  text-decoration: none;
+}
 
+/* line 307, ../sass/layout.scss */
 #mainWrapper {
   height: 100%;
-  margin: 0 auto; }
+  margin: 0 auto;
+}
 
+/* line 312, ../sass/layout.scss */
 #content-container {
   margin-bottom: 10px;
-  padding-bottom: 60px; }
+  padding-bottom: 60px;
+}
 
+/* line 317, ../sass/layout.scss */
 #content-container #enme-content .ui-corner-bottom {
   -moz-border-radius: 0 0 4px 4px;
-  border-radius: 0 0 4px 4px; }
+  border-radius: 0 0 4px 4px;
+}
 
+/* line 322, ../sass/layout.scss */
 #content-container #enme-content {
   /*background-color: white;*/
   min-height: 100%;
-  position: relative; }
+  position: relative;
+}
 
+/* line 328, ../sass/layout.scss */
 #content-container #enme-content a:link {
-  text-decoration: none; }
+  text-decoration: none;
+}
 
+/* line 332, ../sass/layout.scss */
 #content-container #enme-content a:hover {
-  text-decoration: underline; }
+  text-decoration: underline;
+}
 
+/* line 340, ../sass/layout.scss */
 #footer {
   width: 100%;
   height: 40px;
@@ -250,23 +407,31 @@ div.web-header span.link a:hover {
   background: -o-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
   background: -ms-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
   background: linear-gradient(to bottom, #202020 0%, #111111 42%, #111111 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#202020', endColorstr='#111111',GradientType=0 ); }
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#202020', endColorstr='#111111',GradientType=0 );
+}
 
+/* line 358, ../sass/layout.scss */
 .text-color {
-  color: #FFF; }
+  color: #FFF;
+}
 
+/* line 366, ../sass/layout.scss */
 #footer .powered a:link, #footer .powered a:visited, #footer .powered a {
   color: white;
-  text-decoration: underline; }
+  text-decoration: underline;
+}
 
+/* line 371, ../sass/layout.scss */
 #footer .footer {
   height: 20px;
   line-height: 20px;
   padding: 10px;
   text-align: right;
-  white-space: nowrap; }
+  white-space: nowrap;
+}
 
 /* Large screens  */
 /* iPhone 4  */
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1) {
-  /* Retina-specific stuff here */ }
+  /* Retina-specific stuff here */
+}

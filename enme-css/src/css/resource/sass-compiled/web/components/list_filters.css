@@ -1,0 +1,119 @@
+.web-filters-options nav {
+  line-height: 20px;
+  overflow: hidden; }
+
+.web-filters-options nav a.selected, .web-filters-options nav a:hover {
+  background-color: #E6E6E6;
+  color: #333;
+  text-decoration: none; }
+
+.web-filters-options nav a, .web-filters-options nav a:link, .web-filters-options nav a:visited {
+  border-radius: 4px 4px 4px 4px;
+  margin: 3px;
+  padding: 3px;
+  color: white; }
+
+/**
+    web-filters-wrapper
+**/
+.web-filters-wrapper {
+  margin: 10px 2px;
+  min-height: 105px;
+  padding: 13px 17px 10px;
+  color: #000;
+  -moz-box-shadow: 1px 0px 4px 2px #656565 inset;
+  -webkit-box-shadow: 1px 0px 4px 2px #656565 inset;
+  box-shadow: 1px 0px 4px 2px #656565 inset;
+  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  background-color: #918F8F; }
+
+.web-filters-wrapper label {
+  color: white;
+  margin-bottom: 3px; }
+
+.web-filters-wrapper .dijitRuleLabel {
+  color: white !important; }
+
+.web-filters-wrapper .dijitSliderH {
+  margin-top: 5px; }
+
+.web-filters-wrapper .dijitRuleMark {
+  color: white !important;
+  border: 1px solid white; }
+
+.web-filters-search {
+  overflow: auto; }
+
+.web-filters-search .web-filters-search-input {
+  clear: both;
+  padding-bottom: 10px; }
+
+.web-filters-search .web-filters-search-multi {
+  float: left;
+  padding: 5px;
+  width: 200px; }
+
+.web-filters-search .web-filters-search-multi > select {
+  margin-top: 4px;
+  min-width: 200px; }
+
+.web-filters-search .web-filters-search-check {
+  float: left;
+  margin-left: 25px;
+  margin-top: 22px;
+  width: 180px; }
+
+.web-filters-search .web-filters-search-check > div {
+  margin-top: 5px; }
+
+.web-filters-search .web-filters-search-button {
+  clear: both;
+  margin-top: 4px;
+  padding: 1px;
+  text-align: right; }
+
+.web-social-filter > div {
+  text-align: right;
+  margin-top: 2px; }
+
+.web-social-filter .web-social-filter-counter {
+  color: white;
+  float: left;
+  font-weight: bold; }
+
+.web-social-filter-items {
+  height: 130px;
+  overflow: auto; }
+
+.web-social-filter-items .web-social-filter-item {
+  clear: both;
+  cursor: pointer;
+  overflow: auto;
+  padding: 1px;
+  width: 80%;
+  margin-top: 5px;
+  position: relative; }
+
+.web-social-filter-items .web-social-filter-item .web-social-icon-image {
+  position: absolute;
+  top: 5px;
+  right: 25px; }
+
+.web-social-filter-items .selected {
+  background-color: #C2C2C2;
+  border-radius: 5px 5px 5px 5px;
+  color: black !important;
+  margin-top: 5px; }
+
+.web-social-filter-items .web-social-filter-item .web-social-filter-image {
+  float: left;
+  margin-right: 15px;
+  padding: 2px 2px 0; }
+
+.web-social-filter-items .web-social-filter-item .web-social-filter-name {
+  color: white;
+  font-weight: bold;
+  line-height: 20px;
+  margin-left: 31px; }

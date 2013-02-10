@@ -1,0 +1,18 @@
+/** poll vote page **/
+.mobile-main-vote .web-poll-wrapper-vote {
+  width: 90%; }
+
+.mobile-main-vote .web-poll-wrapper-vote .votex-box {
+  font-size: 14px; }
+
+.mobile-main-vote .web-poll-wrapper-vote .final .link {
+  font-size: 12px; }
+
+.mobile-main-vote .web-poll-wrapper-vote .web-response-label-span {
+  font-size: 12px; }
+
+.vote-page header.vote-logo .logo {
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  margin-top: 20px; }

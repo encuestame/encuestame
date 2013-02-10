@@ -1,8 +1,13 @@
+@import "_base.scss";
+
+// Disabled for development purposes
 @import "html5/reset.scss";
-/* @import url("html5/normalize.css"); */
+
 @import "input.scss";
+// overrides a important dojo "claro" themes css
 @import "dojo-fixes.scss";
 
+// webkit link hack
 a:-webkit-any-link {
     color: -webkit-link;
     text-decoration: underline;

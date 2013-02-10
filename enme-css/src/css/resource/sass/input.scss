@@ -1,3 +1,4 @@
+@import "_base.scss";
 
 /** default transition **/
 
@@ -44,8 +45,8 @@ input::-webkit-input-placeholder {
 }
 
 #enme-content input:focus {
-    box-shadow: 0 0 5px #ffb23c;
-    -webkit-box-shadow: 0 0 5px #ffb23c;
-    -moz-box-shadow: 0 0 5px #ffb23c;
+    box-shadow: 0 0 5px $orange;
+    -webkit-box-shadow: 0 0 5px $orange;
+    -moz-box-shadow: 0 0 5px $orange;
 }
 
