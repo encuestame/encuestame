@@ -1,4 +1,4 @@
-@import "_base.scss";
+//@import "_base.scss";
 
 html,body {
     height: 100%;
@@ -336,6 +336,8 @@ and (orientation : portrait) {
     footer {
 
     }
+
+    //http://compass-style.org/examples/compass/layout/sticky-footer/
 
     #footer {
       width: 100%;

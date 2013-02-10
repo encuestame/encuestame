@@ -1,14 +1,12 @@
 /*
-Syntax error: Undefined variable: "$orange".
-        on line 4 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss
-
-1: /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss
+Syntax error: Undefined mixin 'border-radius'.
+        on line 7 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/small-components/loading-box.scss, in `border-radius'
+        from line 7 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/small-components/loading-box.scss
 
 Backtrace:
-/Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss:4
-/Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/script/variable.rb:49:in `_perform'
-/Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/script/node.rb:40:in `perform'
-/Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:294:in `visit_prop'
+/Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/small-components/loading-box.scss:7:in `border-radius'
+/Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/small-components/loading-box.scss:7
+/Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:249:in `visit_mixin'
 org/jruby/RubyKernel.java:2096:in `send'
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:98:in `visit'
@@ -78,4 +76,4 @@ org/jruby/RubyKernel.java:1419:in `loop'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$orange\".\A         on line 4 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss\A \A 1: /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/button.scss"; }
+  content: "Syntax error: Undefined mixin 'border-radius'.\A         on line 7 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/small-components/loading-box.scss, in `border-radius'\A         from line 7 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/small-components/loading-box.scss"; }

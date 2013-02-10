@@ -1,3 +1,5 @@
+//@import "_base.scss";
+
 /** HASHTAGS */
 .web-hashtag-wrapper {
   margin: 0;
@@ -44,8 +46,7 @@
 
 .web-hashtag-wrapper .web-ht-wrapper-top {
   border: 0 none !important;
-  border-radius: 0 0 0 0 !important;
-  /* TODO pending border-radius for all wb */
+  @include non_borders();
   margin-left: 75%;
   overflow: hidden;
 }

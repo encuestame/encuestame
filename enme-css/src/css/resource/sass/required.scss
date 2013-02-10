@@ -1,11 +1,6 @@
-@import "_base.scss";
+//@import "_base.scss";
 
 // Disabled for development purposes
-@import "html5/reset.scss";
-
-@import "input.scss";
-// overrides a important dojo "claro" themes css
-@import "dojo-fixes.scss";
 
 // webkit link hack
 a:-webkit-any-link {

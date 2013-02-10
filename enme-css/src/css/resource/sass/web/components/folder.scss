@@ -1,18 +1,12 @@
+//@import "_base.scss";
+
 .web-folder-wrapper {
-    float: left;
+    @extend .left;
     width: 100%;
 }
 
 .web-folder-wrapper .web-folder-wrapper-item {
     overflow: auto;
-}
-
-.web-folder-wrapper .folder-title {
-
-}
-
-.web-folder-wrapper .folder-menu {
-
 }
 
 .web-folder-wrapper .web-folder-item {
@@ -51,7 +45,7 @@
 .web-folder-wrapper .web-folder-item .icon-folder {
   background-repeat: no-repeat;
   display: inline-block;
-  float: left;
+  @extend .left;
   height: 16px;
   margin-left: 2px;
   margin-right: 10px;
