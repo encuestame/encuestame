@@ -554,11 +554,11 @@ img {
 /* line 50, ../sass/common.scss */
 .home-main-colors {
   background-color: #333333;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #2e2e2e));
-  background-image: -webkit-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: -moz-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: -o-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: linear-gradient(#333333 0%, #2e2e2e 100%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #262626));
+  background-image: -webkit-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -moz-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -o-linear-gradient(#333333 0%, #262626 100%);
+  background-image: linear-gradient(#333333 0%, #262626 100%);
 }
 
 /* line 62, ../sass/common.scss */

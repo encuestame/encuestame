@@ -1,3 +1,5 @@
+@import "_base_web";
+
 #web-poll-wrapper {
 	border: 1px solid #D7D7D7;
 	min-height: 500px;
@@ -12,15 +14,13 @@
  **/
 .web-item-row .web-list-detail-more .web-poll-item-detail {
 	border: 1px solid #EEEEEE;
-	border-radius: 5px 5px 5px 5px;
+	@include border-radius(5px);
 	margin: 5px;
 	min-height: 340px;
 	padding: 10px;
 	overflow: auto;
 	background-color: white;
-	box-shadow: inset 0px 0px 4px #E0E0E0;
-	-moz-box-shadow: -inset 0px 0px 4px #E0E0E0;
-	-webkit-box-shadow: inset 0px 0px 4px #E0E0E0;
+	@include box-shadow($default_box_shadow_enme 0px 0px 4px);
 }
 
 .web-item-row .web-list-detail-more .web-poll-info {
@@ -30,7 +30,7 @@
 }
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail {
-	float: left;
+	@extend .col-left;
 	min-width: 280px;
 	max-width: 280px;
 	margin: 0 5px;
@@ -42,8 +42,8 @@
   font-size: 18px;
   line-height: 221px;
   margin-top: 15px;
-  opacity: 0.2;
-  text-align: center;
+  @include opacity(0.2);
+  @extend .center;
   border-radius : 3px;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer {
-	float: right;
+	@extend .col-right;
 	padding: 6px;
 	width: 355px;
 	margin-top: 40px;
@@ -69,7 +69,7 @@
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results
 	{
 	border: 1px solid #EBEBEB;
-	border-radius: 6px 6px 6px 6px;
+	@include border-radius(6px);
 	color: #E6E5E3;
 	font-size: 15px;
 	line-height: 159px;
@@ -99,8 +99,8 @@
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color
 	{
-	border-radius: 11px 11px 11px 11px;
-	float: left;
+	@include border-radius(11px);
+	@extend .col-left;
 	margin-bottom: 1px;
 	margin-right: 10px;
 	margin-top: 1px;
@@ -111,17 +111,16 @@
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label
 	{
 	color: #9C9B99;
-	float: left;
+	@extend .col-left;
 	font-weight: bold;
 	line-height: 15px;
 	width: 165px;
 }
 
-.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent
-	{
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent {
 	color: #70706F;
 	font-weight: bold;
-    float: left;
+    @extend .col-left;
 }
 
 .web-item-row .web-list-detail-more .web-poll-info h2 {
@@ -133,24 +132,20 @@
 	border-bottom: 1px dotted #E0E0E0;
 	padding: 5px;
 	overflow: hidden;
-	text-align: left;
+	@extend .text-left;
 }
 
 .web-item-row .web-poll-switch {
   background-color: #EDEDED;
-  border-radius: 5px 5px 5px 5px;
+  @include border-radius(5px);
   position: absolute;
   right: 0;
   top: 15px;
   width: 390px;
 }
 
-.web-item-row .web-poll-switch ul{
-
-}
-
 .web-item-row .web-poll-switch li {
-  float: left;
+  @extend .col-left;
   list-style: none outside none;
   margin: 0 5px;
   min-width: 50px;
@@ -166,40 +161,34 @@
 .web-item-row .web-poll-switch li a {
   color: #545454;
   text-decoration: none;
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  @include box-shadow(rgba(255, 255, 255, 0.5) 1px 1px 1px);
 }
 
-.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label
-	{
-	float: left;
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label {
+	@extend .col-left;
 	font-weight: bold;
 	width: 180px;
 }
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data {
-  float: left;
+  @extend .col-left;
   width: 30px;
 }
 
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar {
 	background-color: #E6E6E6;
 	border: 1px solid #D6D6D6;
-	border-radius: 3px 3px 3px 3px;
+	@include border-radius(3px);
 	margin: 4px;
 	min-height: 27px;
 	padding: 4px;
 }
 
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info {
-	float: left;
+	@extend .col-left;
 	padding: 7px;
 	color: #1E1D1D;
-	-khtml-opacity:.50;
-    -moz-opacity:.50;
-    -ms-filter:"alpha(opacity=50)";
-    filter:alpha(opacity=50);
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
-    opacity:.50;
+	@include opacity(0.5);
 }
 
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info > div{
@@ -210,11 +199,6 @@
 	opacity : 0.8;
 }
 
-.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info>div
-	{
-
-}
-
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-remove {
-	text-align: right;
+	@extend .text-right;
 }

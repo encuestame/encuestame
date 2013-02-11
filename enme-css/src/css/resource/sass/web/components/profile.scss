@@ -4,8 +4,9 @@
 }
 
 .profile-content-wrapper .web-pup-wrapper {
-    -webkit-box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
-  box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
+  //   -webkit-box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
+  // box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
+  //  @include box-shadow(#888 0px 0px 1px);
 }
 
 .web-profile-wrapper > header {
@@ -25,7 +26,7 @@
 }
 
 .web-profile-wrapper .profile-left {
-  float: left;
+  @extend .col-left;
   max-width: 300px;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .web-profile-wrapper div.picture {
-    float: left;
+    @extend .col-left;
 }
 
 .web-profile-wrapper ul {
@@ -49,7 +50,7 @@
 }
 
 .web-profile-wrapper .profile-left .rss li img {
-  float: left;
+  @extend .col-left;
   margin-right: 10px;
   margin-top: 3px;
 }

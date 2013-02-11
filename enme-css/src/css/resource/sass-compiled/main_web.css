@@ -542,7 +542,7 @@ img {
 }
 
 /* line 38, ../sass/common.scss */
-.col-left, .panel-header header {
+.col-left, .panel-header header, .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
   float: left;
 }
 
@@ -554,11 +554,11 @@ img {
 /* line 50, ../sass/common.scss */
 .home-main-colors {
   background-color: #333333;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #2e2e2e));
-  background-image: -webkit-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: -moz-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: -o-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: linear-gradient(#333333 0%, #2e2e2e 100%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #262626));
+  background-image: -webkit-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -moz-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -o-linear-gradient(#333333 0%, #262626 100%);
+  background-image: linear-gradient(#333333 0%, #262626 100%);
 }
 
 /* line 62, ../sass/common.scss */
@@ -1032,6 +1032,87 @@ input::-webkit-input-placeholder {
   -webkit-box-shadow: #e7a441 0 0 5px;
   -moz-box-shadow: #e7a441 0 0 5px;
   box-shadow: #e7a441 0 0 5px;
+}
+
+/* line 4, ../sass/resources.scss */
+.web-position-down {
+  background: url("../images/icons/enme_down.png") no-repeat scroll 0 0 transparent;
+}
+
+/* line 7, ../sass/resources.scss */
+.web-position-up {
+  background: url("../images/icons/enme_up.png") no-repeat scroll 0 0 transparent;
+}
+
+/* line 10, ../sass/resources.scss */
+.web-position-equal {
+  background: url("../images/icons/enme_equals.png") no-repeat scroll 0 0 transparent;
+}
+
+/* line 13, ../sass/resources.scss */
+.ellipsis {
+  -moz-binding: url("assets/xml/ellipsis.xml#ellipsis");
+}
+
+/* line 17, ../sass/resources.scss */
+.modal-box-im {
+  background: url("../images/background-mobalbox.png") repeat-x scroll left bottom transparent;
+}
+
+/* line 21, ../sass/resources.scss */
+.web-item-wrapper .item .loading {
+  /*background-image: url(../../images/ball-loader.gif);*/
+}
+
+/* line 25, ../sass/resources.scss */
+div.options .saveButton {
+  background-image: url(../../images/icons/add.png);
+}
+
+/* line 29, ../sass/resources.scss */
+div.publishWrapper div.itemPublish .account {
+  background-image: url(../../images/icons/twitter-logo-small.png);
+}
+
+/* line 33, ../sass/resources.scss */
+div.web-folder-wrapper .web-folder-item .icon-folder {
+  background-image: url("../images/icons/enme_folder.png");
+}
+
+/* line 39, ../sass/resources.scss */
+.ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 15px;
+  padding-top: 3px;
+}
+
+/* line 47, ../sass/resources.scss */
+.ui-hits {
+  background-image: url("../images/icons/enme_hits.gif");
+  background-position: left center;
+  padding-left: 20px;
+}
+
+/* line 54, ../sass/resources.scss */
+.ui-comments {
+  background-image: url("../images/icons/enme_comment_reply.png");
+  padding-left: 24px;
+}
+
+/* line 60, ../sass/resources.scss */
+.ui-likes {
+  background-image: url("../images/icons/1344286942_Like.png");
+  background-position: left center;
+  height: 12px;
+  padding-left: 24px;
+}
+
+/* line 68, ../sass/resources.scss */
+.ui-dislike {
+  background-image: url("../images/icons/1344286943_Dislike.png");
+  background-position: left center;
+  padding-left: 24px;
 }
 
 /* line 3, ../sass/dojo-fixes.scss */

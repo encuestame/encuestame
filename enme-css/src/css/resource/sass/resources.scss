@@ -34,12 +34,12 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
     background-image: url("../images/icons/enme_folder.png");
 }
 
-/// unused --->
+/// poll admon used --->
 
 .ui-image-wrapper {
   background-repeat: no-repeat;
   display: inline-block;
-  float: left;
+  @extend .col-left;
   height: 15px;
   padding-top: 3px;
 }

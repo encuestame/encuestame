@@ -521,17 +521,17 @@ img {
 }
 
 /* line 18, ../sass/common.scss */
-.center {
+.center, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results {
   text-align: center;
 }
 
 /* line 22, ../sass/common.scss */
-.text-right, .default-rigth-aling, .center-alg {
+.text-right, .default-rigth-aling, .center-alg, .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-remove {
   text-align: right;
 }
 
 /* line 26, ../sass/common.scss */
-.text-left {
+.text-left, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail {
   text-align: left;
 }
 
@@ -543,23 +543,23 @@ img {
 }
 
 /* line 38, ../sass/common.scss */
-.col-left, .panel-header header, .enme-message-box .loading-ball, .web-folder-wrapper .web-folder-item .icon-folder {
+.col-left, .panel-header header, .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike, .enme-message-box .loading-ball, .web-profile-wrapper .profile-left, .web-profile-wrapper div.picture, .web-profile-wrapper .profile-left .rss li img, .web-folder-wrapper .web-folder-item .icon-folder, .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent, .web-item-row .web-poll-switch li, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data, .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info {
   float: left;
 }
 
 /* line 42, ../sass/common.scss */
-.col-right {
+.col-right, .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer {
   float: right;
 }
 
 /* line 50, ../sass/common.scss */
 .home-main-colors, .emne-box > header, .web-wrapper-detail .emne-box > header, .stats-button {
   background-color: #333333;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #2e2e2e));
-  background-image: -webkit-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: -moz-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: -o-linear-gradient(#333333 0%, #2e2e2e 100%);
-  background-image: linear-gradient(#333333 0%, #2e2e2e 100%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #262626));
+  background-image: -webkit-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -moz-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -o-linear-gradient(#333333 0%, #262626 100%);
+  background-image: linear-gradient(#333333 0%, #262626 100%);
 }
 
 /* line 62, ../sass/common.scss */
@@ -1033,6 +1033,87 @@ input::-webkit-input-placeholder {
   -webkit-box-shadow: #e7a441 0 0 5px;
   -moz-box-shadow: #e7a441 0 0 5px;
   box-shadow: #e7a441 0 0 5px;
+}
+
+/* line 4, ../sass/resources.scss */
+.web-position-down {
+  background: url("../images/icons/enme_down.png") no-repeat scroll 0 0 transparent;
+}
+
+/* line 7, ../sass/resources.scss */
+.web-position-up {
+  background: url("../images/icons/enme_up.png") no-repeat scroll 0 0 transparent;
+}
+
+/* line 10, ../sass/resources.scss */
+.web-position-equal {
+  background: url("../images/icons/enme_equals.png") no-repeat scroll 0 0 transparent;
+}
+
+/* line 13, ../sass/resources.scss */
+.ellipsis {
+  -moz-binding: url("assets/xml/ellipsis.xml#ellipsis");
+}
+
+/* line 17, ../sass/resources.scss */
+.modal-box-im {
+  background: url("../images/background-mobalbox.png") repeat-x scroll left bottom transparent;
+}
+
+/* line 21, ../sass/resources.scss */
+.web-item-wrapper .item .loading {
+  /*background-image: url(../../images/ball-loader.gif);*/
+}
+
+/* line 25, ../sass/resources.scss */
+div.options .saveButton {
+  background-image: url(../../images/icons/add.png);
+}
+
+/* line 29, ../sass/resources.scss */
+div.publishWrapper div.itemPublish .account {
+  background-image: url(../../images/icons/twitter-logo-small.png);
+}
+
+/* line 33, ../sass/resources.scss */
+div.web-folder-wrapper .web-folder-item .icon-folder {
+  background-image: url("../images/icons/enme_folder.png");
+}
+
+/* line 39, ../sass/resources.scss */
+.ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 15px;
+  padding-top: 3px;
+}
+
+/* line 47, ../sass/resources.scss */
+.ui-hits {
+  background-image: url("../images/icons/enme_hits.gif");
+  background-position: left center;
+  padding-left: 20px;
+}
+
+/* line 54, ../sass/resources.scss */
+.ui-comments {
+  background-image: url("../images/icons/enme_comment_reply.png");
+  padding-left: 24px;
+}
+
+/* line 60, ../sass/resources.scss */
+.ui-likes {
+  background-image: url("../images/icons/1344286942_Like.png");
+  background-position: left center;
+  height: 12px;
+  padding-left: 24px;
+}
+
+/* line 68, ../sass/resources.scss */
+.ui-dislike {
+  background-image: url("../images/icons/1344286943_Dislike.png");
+  background-position: left center;
+  padding-left: 24px;
 }
 
 /* line 3, ../sass/dojo-fixes.scss */
@@ -4063,13 +4144,7 @@ div.link-published-space {
   margin: 0;
 }
 
-/* line 6, ../sass/web/components/profile.scss */
-.profile-content-wrapper .web-pup-wrapper {
-  -webkit-box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
-  box-shadow: 2px 1px 1px 0 #C8C8C8 inset;
-}
-
-/* line 11, ../sass/web/components/profile.scss */
+/* line 12, ../sass/web/components/profile.scss */
 .web-profile-wrapper > header {
   font-size: 1.5em;
   font-weight: bold;
@@ -4077,54 +4152,47 @@ div.link-published-space {
   margin-top: 20px;
 }
 
-/* line 18, ../sass/web/components/profile.scss */
+/* line 19, ../sass/web/components/profile.scss */
 .web-profile-wrapper .emne-box > header > span {
   padding-left: 5px;
 }
 
-/* line 22, ../sass/web/components/profile.scss */
+/* line 23, ../sass/web/components/profile.scss */
 .web-profile-wrapper .profile-content-wrapper {
   background: none repeat scroll 0 0 white;
   overflow: auto;
 }
 
-/* line 27, ../sass/web/components/profile.scss */
+/* line 28, ../sass/web/components/profile.scss */
 .web-profile-wrapper .profile-left {
-  float: left;
   max-width: 300px;
 }
 
-/* line 32, ../sass/web/components/profile.scss */
+/* line 33, ../sass/web/components/profile.scss */
 .web-profile-wrapper .profile-right {
   margin-left: 255px;
   overflow: hidden;
 }
 
-/* line 37, ../sass/web/components/profile.scss */
+/* line 38, ../sass/web/components/profile.scss */
 .web-profile-wrapper div.profile-name {
   padding: 15px;
   margin-bottom: 0px;
 }
 
-/* line 42, ../sass/web/components/profile.scss */
-.web-profile-wrapper div.picture {
-  float: left;
-}
-
-/* line 46, ../sass/web/components/profile.scss */
+/* line 47, ../sass/web/components/profile.scss */
 .web-profile-wrapper ul {
   padding: 0px !important;
   margin: 0px !important;
 }
 
-/* line 51, ../sass/web/components/profile.scss */
+/* line 52, ../sass/web/components/profile.scss */
 .web-profile-wrapper .profile-left .rss li img {
-  float: left;
   margin-right: 10px;
   margin-top: 3px;
 }
 
-/* line 57, ../sass/web/components/profile.scss */
+/* line 58, ../sass/web/components/profile.scss */
 .web-profile-wrapper .profile-left .rss li {
   border-bottom: 1px solid #F1F1F1;
   display: block;
@@ -4133,7 +4201,7 @@ div.link-published-space {
   vertical-align: middle;
 }
 
-/* line 65, ../sass/web/components/profile.scss */
+/* line 66, ../sass/web/components/profile.scss */
 .web-profile-wrapper .profile-left .rss li a, .web-profile-wrapper .profile-left .rss li a:link, .web-profile-wrapper .profile-left .rss li a:visited, .web-profile-wrapper .profile-left .rss li a:active {
   color: #A7A7A7;
 }
@@ -5163,7 +5231,7 @@ div.web-form-wrapper a.button:active span {
   text-align: center;
 }
 
-/* line 12, ../sass/web/components/more.scss */
+/* line 8, ../sass/web/components/more.scss */
 .pagination .titleNext, .web-list-more .titleNext {
   color: #7C7C7D;
   font-size: 122%;
@@ -5186,7 +5254,72 @@ div.web-form-wrapper a.button:active span {
 }
 
 /** poll results **/
-/* line 1, ../sass/web/components/poll-admon.scss */
+/* line 17, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 3, ../sass/web/components/poll-admon.scss */
 #web-poll-wrapper {
   border: 1px solid #D7D7D7;
   min-height: 500px;
@@ -5199,18 +5332,22 @@ div.web-form-wrapper a.button:active span {
 /**
  * expand zone of detail of list POLL
  **/
-/* line 13, ../sass/web/components/poll-admon.scss */
+/* line 15, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-item-detail {
   border: 1px solid #EEEEEE;
-  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
   margin: 5px;
   min-height: 340px;
   padding: 10px;
   overflow: auto;
   background-color: white;
-  box-shadow: inset 0px 0px 4px #E0E0E0;
-  -moz-box-shadow: -inset 0px 0px 4px #E0E0E0;
-  -webkit-box-shadow: inset 0px 0px 4px #E0E0E0;
+  -webkit-box-shadow: #e0e0e0 0px 0px 4px;
+  -moz-box-shadow: #e0e0e0 0px 0px 4px;
+  box-shadow: #e0e0e0 0px 0px 4px;
 }
 
 /* line 26, ../sass/web/components/poll-admon.scss */
@@ -5222,7 +5359,6 @@ div.web-form-wrapper a.button:active span {
 
 /* line 32, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail {
-  float: left;
   min-width: 280px;
   max-width: 280px;
   margin: 0 5px;
@@ -5236,7 +5372,6 @@ div.web-form-wrapper a.button:active span {
   line-height: 221px;
   margin-top: 15px;
   opacity: 0.2;
-  text-align: center;
   border-radius: 3px;
 }
 
@@ -5249,7 +5384,6 @@ div.web-form-wrapper a.button:active span {
 
 /* line 56, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer {
-  float: right;
   padding: 6px;
   width: 355px;
   margin-top: 40px;
@@ -5264,7 +5398,11 @@ div.web-form-wrapper a.button:active span {
 /* line 70, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
   border: 1px solid #EBEBEB;
-  border-radius: 6px 6px 6px 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
   color: #E6E5E3;
   font-size: 15px;
   line-height: 159px;
@@ -5295,8 +5433,11 @@ div.web-form-wrapper a.button:active span {
 
 /* line 101, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
-  border-radius: 11px 11px 11px 11px;
-  float: left;
+  -webkit-border-radius: 11px;
+  -moz-border-radius: 11px;
+  -ms-border-radius: 11px;
+  -o-border-radius: 11px;
+  border-radius: 11px;
   margin-bottom: 1px;
   margin-right: 10px;
   margin-top: 1px;
@@ -5307,115 +5448,108 @@ div.web-form-wrapper a.button:active span {
 /* line 112, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label {
   color: #9C9B99;
-  float: left;
   font-weight: bold;
   line-height: 15px;
   width: 165px;
 }
 
-/* line 121, ../sass/web/components/poll-admon.scss */
+/* line 120, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent {
   color: #70706F;
   font-weight: bold;
-  float: left;
 }
 
-/* line 127, ../sass/web/components/poll-admon.scss */
+/* line 126, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info h2 {
   border-bottom: 1px solid #AEACA3;
   margin: 0 0 10px 5px;
 }
 
-/* line 132, ../sass/web/components/poll-admon.scss */
+/* line 131, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail {
   border-bottom: 1px dotted #E0E0E0;
   padding: 5px;
   overflow: hidden;
-  text-align: left;
 }
 
-/* line 139, ../sass/web/components/poll-admon.scss */
+/* line 138, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch {
   background-color: #EDEDED;
-  border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
   position: absolute;
   right: 0;
   top: 15px;
   width: 390px;
 }
 
-/* line 152, ../sass/web/components/poll-admon.scss */
+/* line 147, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li {
-  float: left;
   list-style: none outside none;
   margin: 0 5px;
   min-width: 50px;
   padding: 3px 6px;
 }
 
-/* line 160, ../sass/web/components/poll-admon.scss */
+/* line 155, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li.selected {
   background-color: #6D6B6B;
   color: white !important;
   font-weight: bold;
 }
 
-/* line 166, ../sass/web/components/poll-admon.scss */
+/* line 161, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li a {
   color: #545454;
   text-decoration: none;
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
+  box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
 }
 
-/* line 173, ../sass/web/components/poll-admon.scss */
+/* line 167, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label {
-  float: left;
   font-weight: bold;
   width: 180px;
 }
 
-/* line 179, ../sass/web/components/poll-admon.scss */
+/* line 173, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data {
-  float: left;
   width: 30px;
 }
 
-/* line 184, ../sass/web/components/poll-admon.scss */
+/* line 178, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar {
   background-color: #E6E6E6;
   border: 1px solid #D6D6D6;
-  border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
   margin: 4px;
   min-height: 27px;
   padding: 4px;
 }
 
-/* line 193, ../sass/web/components/poll-admon.scss */
+/* line 187, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info {
-  float: left;
   padding: 7px;
   color: #1E1D1D;
-  -khtml-opacity: .50;
-  -moz-opacity: .50;
-  -ms-filter: "alpha(opacity=50)";
-  filter: alpha(opacity=50);
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
-  opacity: .50;
+  opacity: 0.5;
 }
 
-/* line 205, ../sass/web/components/poll-admon.scss */
+/* line 194, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info > div {
   width: 30px !important;
 }
 
-/* line 209, ../sass/web/components/poll-admon.scss */
+/* line 198, ../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info img {
   opacity: 0.8;
-}
-
-/* line 218, ../sass/web/components/poll-admon.scss */
-.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-remove {
-  text-align: right;
 }
 
 /* line 3, ../sass/web/components/button.scss */

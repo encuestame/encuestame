@@ -47,7 +47,6 @@ div.web-folder-wrapper .web-folder-item .icon-folder {
 .ui-image-wrapper, .ui-hits, .ui-comments, .ui-likes, .ui-dislike {
   background-repeat: no-repeat;
   display: inline-block;
-  float: left;
   height: 15px;
   padding-top: 3px;
 }
