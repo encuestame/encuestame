@@ -9,7 +9,7 @@
 }
 
 .question .questionTextBox{
-    float: left;
+    @extend .col-left;
     width: 90%;
 }
 .question .questionTextBox input{

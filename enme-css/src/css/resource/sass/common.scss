@@ -19,12 +19,16 @@ img {
  text-align: center;
 }
 
-.text-right {
+.text-right, .right {
  text-align: right;
 }
 
 .text-left {
  text-align: left;
+}
+
+.df-txt-shadow {
+  @include text-shadow($white 1px 1px 1px);
 }
 
 .unselectable {
@@ -35,12 +39,40 @@ img {
   margin: 0 auto;
 };
 
+.z-level-1 {
+  z-index: 1;
+}
+
+.transparent {
+    background: none repeat scroll 0 0 transparent;
+}
+
+.o-auto {
+    overflow: auto;
+}
+
+.o-hidden {
+    overflow: hidden;
+}
+
+.width-max {
+  width: 100%;
+}
+
+.pointer {
+  cursor : pointer;
+}
+
 .default-rd {
   @include border-radius(4px);
 }
 
 .enme-dnd [draggable] {
-   @extend .unselectable;
+  @extend .unselectable;
+}
+
+.white-space {
+  white-space: nowrap;
 }
 
 .col-left  {
@@ -57,19 +89,12 @@ img {
 
 .home-main-colors {
     background-color: $header_info_main_color;
-    //@include background-image(linear-gradient(color-stops($header_info_main_color 0%, $header_info_main_color_dark 100%)));
     @include background-image(linear-gradient(color-stops($header_info_main_color  0%, $header_info_main_color_dark 100%)));
-   // background-image: -webkit-gradient(linear,0 0%,0 100%,from(#333),to(#3F3F3F));
-   // background-image: -webkit-linear-gradient(top,#333 0%,#3F3F3F 100%);
-   // background-image: -moz-linear-gradient(top,#333 0%,#3F3F3F 100%);
-   // background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
-   // background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
-   // background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
 }
 
 .enme-main-section {
   border: 1px solid #BCBCBC;
-  border-radius: 3px 3px 3px 3px;
+  @include border-radius(3px);
   margin-top: 2em;
   background-color: #F0F0F0;
 }
@@ -181,7 +206,7 @@ a.point {
 }
 
 .hidden, .defaultDisplayHide{
-    display: none;
+    display: none !important;
 }
 
 .defaultDisplayBlock , .block{
@@ -284,7 +309,7 @@ a.point {
 }
 
 .likeRate {
-  color: #FFFFFF;
+  color: $white;
   text-align: center;
   width: 3em;
 }
@@ -382,7 +407,7 @@ input:focus {
 }
 
 .enme-dropdown-menu-wrapper li.dropdown-item {
-  color: #FFFFFF;
+  color: $white;
   cursor: pointer;
   font-size: 12px;
   line-height: 15px;
@@ -425,7 +450,7 @@ input:focus {
 
 .enme-ui-loading-search .enme-ui-loading-search-base {
       padding: 10px;
-      margin: 0 auto;
+      @extend .centered-block;
 }
 
 .web-confirm-wrapper {

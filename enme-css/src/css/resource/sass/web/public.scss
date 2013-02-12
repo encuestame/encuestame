@@ -15,25 +15,19 @@ div.web-setup-wrapper {
     border: 1px solid #EEEEEE;
     padding: 10px;
     font-size: 110%;
-    -moz-box-shadow: 1px 4px 3px 0px #888888;
-    -webkit-box-shadow: 1px 4px 3px 0px #888888;
-    box-shadow: 1px 4px 3px 0px #888888;
-    background-color: white;
+    @include box-shadow($black_light 1px 4px 3px 0px);
+    background-color: $white;
 }
 
 div.web-setup-wrapper div.web-setup-header-into {
     background-color: #F1721F;
-    border-bottom: 3px solid #888888;
+    border-bottom: 3px solid $black_light;
     color: #FFFFFF;
     font-size: 110%;
     font-weight: bold;
     margin: 15px 5px 5px;
     padding: 20px;
     width: auto;
-}
-
-div.web-setup-wrapper div.web-setup-header-into div.web-setup-header {
-
 }
 
 div.web-setup-wrapper div.web-setup-header-into div.web-setup-title {
@@ -43,7 +37,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-setup-title {
 
 div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     {
-    color: #000;
+    color: $black;
     font-size: 13px;
 }
 
@@ -78,7 +72,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 
 .web-setup-wrapper .setup-form div .label {
   color: #8B8B8B;
-  float: left;
+  @extend .col-left;
   font-size: 110%;
   font-weight: bold;
   line-height: 31px;
@@ -131,14 +125,10 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 #web-main-public-line {
     margin: 0 auto;
     position: relative;
-    text-align: left;
-    overflow: auto;
-    background: #444;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444), color-stop(100%, #222) );
-    background: -webkit-linear-gradient(#444, #222);
-    background: -moz-linear-gradient(#444, #222);
-    background: -o-linear-gradient(#444, #222);
-    background: linear-gradient(#444, #222);
+    @extend .text-left;
+    @extend .o-auto;
+    background: $black_medium;
+    @include background-image(linear-gradient($black_medium, $black_hight));
 
 }
 
@@ -151,7 +141,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
     background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
     background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
-    overflow: hidden;
+    @extend .o-hidden;
 }
 
 #web-main-public-line .categoryMenu span {
@@ -168,11 +158,11 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 }
 
 #web-main-public-line .categoryMenu .nav-right {
-    float: right;
+    @extend .col-right;
 }
 
 #web-main-public-line .categoryMenu .nav-left {
-    float: left;
+    @extend .col-left;
 }
 
 #web-main-public-line .categoryMenu span > a {
@@ -197,7 +187,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 }
 
 #web-main-public-line .web-item-wrapper {
-    float: left;
+    @extend .col-left;
     width: 660px;
 }
 
@@ -209,7 +199,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
 
 /** survey status */
 div.survey-status {
-    float: left;
+    @extend .col-left;
     font-size: 120%;
     font-weight: bold;
     margin: 0;
@@ -226,7 +216,7 @@ div.survey-status .close {
 
 div.countdown {
     color: #AEAAAA;
-    float: left;
+    @extend .col-left;
     font-size: 100%;
     font-weight: bold;
     margin: 0 0 0 10px;
@@ -250,7 +240,7 @@ div.panel-bar-item .panel-bar-item-content {
 
 div.panel-bar-item div.panel-bar-item-title {
     background-color: #C9C9C9;
-    color: #000000;
+    color: $black;
     cursor: pointer;
     font-size: 160%;
     border: 1px solid #D7D7D7;
@@ -271,15 +261,14 @@ div.web-sub-menu {
 
 
 
-div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite
-    {
+div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
     margin: 3px 10px 3px 3px;
-    float: left;
+    @extend .col-left;
 }
 
 div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
-    width: 100%;
-    overflow: auto;
+    @extend .width-max;
+    @extend .o-auto;
     padding: 5px;
     background: #e5e5e5; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
@@ -296,32 +285,26 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
 }
 
 .web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel {
-    -moz-box-shadow: inset 0 7px 5px -6px gray;
-    -webkit-box-shadow: inset 0 7px 5px -6px gray;
-    box-shadow: inset 0 7px 5px -6px gray;
+    @include box-shadow(gray 0 7px 5px -6px);
 }
 
-.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title
-    {
+.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title {
     color: #8F8F8F;
-    float: left;
+    @extend .col-left;
     font-size: 14px;
     line-height: 25px;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.listItemTweetSeleted
-    {
-    background-color: #FFF;
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.listItemTweetSeleted {
+    background-color: $white;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item  div.tweet-poll-item-panel
-    {
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item  div.tweet-poll-item-panel {
     min-height: 30px;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel
-    {
-    float: right;
+div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel {
+    @extend .col-right;
     text-align: left;
 }
 
@@ -339,26 +322,20 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetp
     font-weight: bold;
 }
 
-div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.rating
-    {
-
-}
 
 div.web-tweetpoll-wrapper div.tweetListContent div.tweetDetail {
     margin-left: 682px;
     background-color: #EAEAEA;
     min-height: 600px;
     padding: 8px;
-    -webkit-border-radius: 0px 15px 15px 0px;
-    -moz-border-radius: 0px 15px 15px 0px;
-    border-radius: 0px 15px 15px 0px;
+    @include border-radius(0px 15px 15px 0px);
 }
 
 
 
 /** social accounts **/
 div.socialAccountPicker {
-    width: 100%;
+    @extend .width-max;
     max-width: 600px;
     padding: 4px;
     max-height: 240px;
@@ -369,15 +346,13 @@ div.socialAccountPicker div.menu {
     background: #D3D3D3;
     color: #2C2828;
     min-height: 15px;
-    -webkit-border-radius: 5px 5px 0px 0px;
-    -moz-border-radius: 5px 5px 0px 0px;
-    border-radius: 5px 5px 0px 0px;
+    @include border-radius(5px 5px 0px 0px);
     font-size: 95%;
     text-align: right;
 }
 
 div.socialAccountPicker .pick {
-    cursor: pointer;
+    @extend .pointer;
 }
 
 div.socialAccountPicker .pick:hover {
@@ -389,11 +364,9 @@ div.socialAccountPicker div.resume {
     background: #D3D3D3;
     color: #2C2828;
     min-height: 15px;
-    -webkit-border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
-    border-radius: 0px 0px 5px 5px;
+    @include border-radius(0px 0px 5px 5px);
     font-size: 95%;
-    text-align: right;
+    @extend .right;
 }
 
 div.socialAccountPicker .list {
@@ -416,7 +389,7 @@ div.socialAccountPicker div.account {
     padding: 1px;
     min-width: 200px;
     cursor: pointer;
-    overflow: auto;
+    @extend .o-auto;
 }
 
 div.socialAccountPicker div.selected {
@@ -430,18 +403,18 @@ div.socialAccountPicker div.account:hover {
 }
 
 div.socialAccountPicker div.account div.image {
-    float: left;
+    @extend .col-left;
     margin-right: 5px;
     padding: 3px;
 }
 
 div.socialAccountPicker div.account div.detail {
-    float: left;
+    @extend .col-left;
     margin-top: 5px;
 }
 
 div.socialAccountPicker div.account div.icon {
-    float: right;
+    @extend .col-right;
     padding: 5px;
     margin-right: 10px;
 }
@@ -454,9 +427,9 @@ div.socialAccountPicker div.account div.icon {
 
 
 .stats-button {
-    cursor: pointer;
+    @extend .pointer;
     min-height: 80px;
-    overflow: auto;
+    @extend .o-auto;
     padding: 10px 30px 10px 40px;
     @extend .home-main-colors;
 }
@@ -481,14 +454,14 @@ div.socialAccountPicker div.account div.icon {
 
 .web-ht-button-wrapper .selected {
     background: white !important;
-    color: #444444;
+    color: $black_medium;
     @include box-shadow(#888 0 7px 5px -6px inset);
 
 }
 
 .stats-button:hover {
     background-color: #fff;
-    color: #444444;
+    color: $black_medium;
 }
 /** tweetpoll tags **/
 .web-tags-tweetpolls {
@@ -503,25 +476,10 @@ div.web-tweetpolls {
     margin: 4px;
 }
 
-div.web-tweetpolls-time {
-
-}
-
-/*** Profile Menu **/
-
-
 /** profile update wrapper **/
 div.accountUpdateWrapper {
     padding: 10px;
 }
-
-
-
-
-
-
-
-
 
 /** gadget **/
 div.web-gadget {
@@ -535,7 +493,7 @@ div.web-gadget {
 
 div.web-gadget .gad-title {
     padding: 2px;
-    background-color: #888888;
+    background-color: $black_light;
     cursor: move;
     color: #FFF;
     font-size: 120%;
@@ -543,11 +501,7 @@ div.web-gadget .gad-title {
 
 div.web-gadget .gad-content {
     max-height: 200px;
-    overflow: auto;
-}
-
-div.web-layout {
-
+    @extend .o-auto;
 }
 
 div.web-layout .empty-text {
@@ -561,10 +515,6 @@ div.web-layout .empty-text {
     margin: 10px 0px 10px 0px;
 }
 
-div.web-layout .aaa {
-
-}
-
 div.web-layout ul.column {
     float: left;
     list-style-type: none;
@@ -575,47 +525,28 @@ div.web-layout ul.column {
     /* padding: 0 0 -1.2em 1%; */
 }
 
-div.aaa {
-
-}
-
-div.web-layout .aaa .aaa-a1 {
-
-}
-
-div.web-layout .aaa .aaa-a2 {
-
-}
-
-div.web-layout .aaa .aaa-a3 {
-
-}
-
-div.web-dasboard-wrapper {
-
-}
 
 div.web-dasboard-wrapper div.web-dash-menu {
     background-color: #A6A5A5;
     clear: both;
     margin-bottom: 5px;
     margin-top: 15px;
-    overflow: auto;
+    @extend .o-auto;
     padding: 4px;
     width: 99%;
 }
 
 div.web-dash-list {
-    float: left;
+    @extend .col-left;
 }
 
 div.web-dash-actions {
-    float: right;
+    @extend .col-right;
     padding: 3px;
 }
 
 div.web-dash-actions .action {
-    color: #FFFFFF;
+    color: $white;
     cursor: pointer;
     display: inline-block;
     text-decoration: underline;
@@ -625,7 +556,7 @@ div.web-dash-actions .action {
 }
 
 div.web-directory {
-    overflow: auto;
+    @extend .o-auto;
     padding: 5px;
 }
 
@@ -645,7 +576,7 @@ div.web-directory-item .web-directory-item-description,div.web-directory-item .w
 }
 
 div.web-directory-item .web-directory-item-actions {
-    text-align: right;
+    @extend .right;
 }
 
 div.web-directory-item .web-directory-item-actions a {
@@ -669,7 +600,7 @@ div.web-dashboard-create div.web-dashboard-create-row label {
 
 div.web-dashboard-create div.web-dashboard-create-actions {
     padding: 4px;
-    text-align: right;
+    @extend .right;
 }
 
 /** settings **/
@@ -682,9 +613,6 @@ div.web-dashboard-create div.web-dashboard-create-actions {
  * - Single Response
  * - Options
  */
-.web-pattern {
-
-}
 
 .pattern-options-label {
     padding: 2px;
@@ -700,24 +628,21 @@ div.web-dashboard-create div.web-dashboard-create-actions {
     font-stretch: ultra-expanded;
 }
 
-.single-response {
-
-}
 
 li.over {
-    border: 2px dashed #000;
+    border: 2px dashed $black;
 }
 
 .me_opa {
-    opacity: 0.5
+    @include opacity(5)
 }
 
 .all_opa {
-    opacity: 1
+    @include opacity(1)
 }
 
 .single-response .single-response-handle {
-    float: left;
+    @extend .col-left;
     margin-right: 10px;
     margin-top: 7px;
 }
@@ -735,7 +660,7 @@ div.folder-selection {
 
 div.folder-selection div.folder-selection-label {
     color: #848282;
-    float: left;
+    @extend .col-left;
     font-size: 120%;
     font-weight: normal;
     margin-right: 3px;
@@ -748,7 +673,7 @@ div.folder-selection  div.folder-selection-combo {
 
 .section-botton-wrapper {
     margin-left: 50px;
-    overflow: auto;
+    @extend .o-auto;
     padding: 5px;
 }
 
@@ -758,7 +683,7 @@ div.folder-selection  div.folder-selection-combo {
 }
 
 .section-botton-wrapper .sub-option {
-    float: left;
+    @extend .col-left;
     margin: 15px;
 }
 
@@ -768,7 +693,7 @@ div.folder-selection  div.folder-selection-combo {
 
 .section-option-wrapper .section-default {
     border-right: 1px solid #D6D6D6;
-    float: left;
+    @extend .col-left;
     margin: 16px;
     min-height: 130px;
     padding: 0;
@@ -798,7 +723,7 @@ div.link-published-space {
 
 /*** search page ***/
 .search-items-wrapper {
-    overflow: auto;
+    @extend .o-auto;
     padding: 5px;
     background-color: #FFF;
 }
@@ -828,7 +753,7 @@ div.link-published-space {
 }
 
 .search-items-wrapper .search-items {
-    float: left;
+    @extend .col-left;
     min-height: 500px;
     width: 60%;
 }
@@ -854,7 +779,7 @@ div.link-published-space {
 }
 
 .search-items-wrapper .search-hashtag {
-    overflow: auto;
+    @extend .o-auto;
 }
 
 .search-items-wrapper .search-hashtag>div {
@@ -867,7 +792,7 @@ div.link-published-space {
 }
 
 .search-items-wrapper .search-profiles {
-    overflow: auto;
+    @extend .o-auto;
 }
 /*** search page end ***/
 
@@ -925,7 +850,7 @@ div.link-published-space {
 }
 
 #content-container #enme-content .web-generic-result div.votes {
-  float: left;
+  @extend .col-left;
   margin: 0 !important;
   padding: 8px;
   width: 100px !important;

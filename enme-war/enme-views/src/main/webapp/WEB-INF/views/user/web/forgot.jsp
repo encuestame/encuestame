@@ -7,7 +7,7 @@
                 collapsed="false">
                 <div class="web-form-singup-container">
                     <h1>
-                          <spring:message code="forgot.username" />
+                        <spring:message code="forgot.username" />
                     </h1>
                     <fieldset class="textbox">
                         <div class="section name">
@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                     <div class="center">
+                     <div class="right">
                          <button type="submit" class="submit button" name="submit">
                               <spring:message code="forgot.submit" />
                          </button>

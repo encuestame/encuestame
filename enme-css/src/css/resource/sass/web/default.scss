@@ -12,12 +12,10 @@
 }
 
 #content-container #enme-content div.errorWrapper div.extra {
-  background-color: #EFEFEF;
-  border-radius: 4px 4px 4px 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  margin: 22px;
-  padding: 10px;
+    background-color: #EFEFEF;
+    @extend .default-rd;
+    margin: 22px;
+    padding: 10px;
 }
 
 #content-container #enme-content div.errorWrapper div.extra .title{
@@ -34,7 +32,7 @@
 }
 
 .textShadow {
-  text-shadow: 0 1px #FFFFFF;
+    text-shadow: 0 1px #FFFFFF;
 }
 
 /** common classes **/
@@ -54,9 +52,7 @@
         color-stop(0.71, rgb(226,52,31)),
         color-stop(0.97, rgb(219,87,75))
     );
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    @extend .default-rd;
     color: #FFF;
     font-weight: bold;
     padding: 6px;
@@ -77,20 +73,21 @@
     font-size: 120%;
     margin-top: 15px;
     padding: 10px;
-    -webkit-box-shadow: 3px 3px 7px rgba(50, 50, 48, 0.7);
-    -moz-box-shadow:    3px 3px 7px rgba(50, 50, 48, 0.7);
-     box-shadow:         3px 3px 7px rgba(50, 50, 48, 0.7);
+    @include box-shadow(rgba(50, 50, 48, 0.7) 3px 3px 7px);
 }
 
+.info-messages-common {
+    padding: 2px;
+}
 
 .success-message{
-    color: #55986D;
-    padding: 2px;
+    color: $success_color;
+    @extend .info-messages-common;
 }
 
 .error-message{
-    color: #BA3B3B;
-    padding: 2px;
+    color: $error_color;
+    @extend .info-messages-common;
 }
 
 .success .rich-messages-label{
@@ -99,9 +96,7 @@
 }
 
 .roundTable{
-    -webkit-border-radius: 4px;
-   -moz-border-radius: 4px;
-   border-radius: 4px;
+   @extend .default-rd;
    border-collapse: separate;
 }
 
@@ -118,13 +113,10 @@
     border: 1px solid #BCBCBC;
     color: #808080;
     font-size: 12px;
-    border-bottom-right-radius : 5px 5px;
-    border-bottom-left-radius : 5px 5px;
-    border-top-left-radius : 5px 5px;
-    border-top-right-radius : 5px 5px;
+    @extend .default-rd;
 }
 
-div.defaultSectionTitle {
+.defaultSectionTitle {
   color: #FFFFFF;
   font-size: 120%;
   margin-bottom: 5px;
@@ -277,20 +269,21 @@ div.yesNoWrapper div.label {
    color: #BC870D;
 }
 
-.emptyFavourite{
-      background-image: url(data:image/gif;base64,R0lGODlhEAAQAMYAAP////j4+Pv7+/f39/n5+fr6+vb29vLy8vT09PPz8/7+/vz8/N3d3c3Nze/v762trevr6/39/efn5+zs7O3t7bi4uNDQ0PHx8dXV1ejo6MnJyeXl5dzc3KioqN7e3sfHx9LS0r6+vrq6utnZ2fDw8MzMzOrq6sXFxbm5ueTk5OPj4+Li4tHR0bCwsMHBwbW1tdvb28vLy+7u7sPDw/X19crKytjY2Le3t6SkpKurq7S0tOHh4ebm5tbW1qenp56enunp6aysrK6urtra2sLCws/Pz8DAwL29vby8vN/f37Ozs9PT09fX1////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEAAH8ALAAAAAAQABAAAAeagH+Cg38lAYSIhDUADImJFB4Ah46EkQAADZR/NBABlwAbGYgvBZ8ACgqmAA4af0IDC5cREQsRqQALBx9/Bjc8AQUCwsIEARcPK4JGLzTABc8FAw4NKoQEHAMB2toDFRuJDAEDBuQDAyKOFAgJCQfsCBYQiAoyBw4qMTAHBxggiDArLLQoUcBGhxkYHiDK0CHIhEEYdOAIoaliIAA7);
-      background-repeat: no-repeat;
-      min-height : 16px;
-      display: inline-block;
-      width: 16px;
+.empty-common {
+     background-repeat: no-repeat;
+     min-height : 16px;
+     display: inline-block;
+     width: 16px;
 }
 
-.selectedFavourite{
+.emptyFavourite {
+      background-image: url(data:image/gif;base64,R0lGODlhEAAQAMYAAP////j4+Pv7+/f39/n5+fr6+vb29vLy8vT09PPz8/7+/vz8/N3d3c3Nze/v762trevr6/39/efn5+zs7O3t7bi4uNDQ0PHx8dXV1ejo6MnJyeXl5dzc3KioqN7e3sfHx9LS0r6+vrq6utnZ2fDw8MzMzOrq6sXFxbm5ueTk5OPj4+Li4tHR0bCwsMHBwbW1tdvb28vLy+7u7sPDw/X19crKytjY2Le3t6SkpKurq7S0tOHh4ebm5tbW1qenp56enunp6aysrK6urtra2sLCws/Pz8DAwL29vby8vN/f37Ozs9PT09fX1////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////yH5BAEAAH8ALAAAAAAQABAAAAeagH+Cg38lAYSIhDUADImJFB4Ah46EkQAADZR/NBABlwAbGYgvBZ8ACgqmAA4af0IDC5cREQsRqQALBx9/Bjc8AQUCwsIEARcPK4JGLzTABc8FAw4NKoQEHAMB2toDFRuJDAEDBuQDAyKOFAgJCQfsCBYQiAoyBw4qMTAHBxggiDArLLQoUcBGhxkYHiDK0CHIhEEYdOAIoaliIAA7);
+      @extend .empty-common;
+}
+
+.selectedFavourite {
       background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oMCQUHOdEG60YAAAIrSURBVDjLnZPPS5RhEMc/8/5Sdzd3dVvL2kyj1KRDHcSkQ0FEv+51DA9Cf0CX7JoGQUdPeegQJBJUIHULvES3sPJH6lopaWq4irn77r77vtNhRY3VogaGZ56B+cw8X+aBXUxfxY/oy+pBHYwn+YMZJYUDiWJQMHppaLqKW3j8TwC5toT2J04ikUuEapTyqlZ9Ut38V4AO1G5ls4Ve6hphzRNq60ME5p3dAKJ9+0I4JFA/DJIEOU042sWx5jI8HxxTSY0La+kOAiYQWUYkS0aW5OZCRvTpoVFc5wCJeIRIpYmv4FRAoKCAYSjqge8JlsDycp6llSxO7iN77csWvqSpSR6nLKZ4wcYTAKQIEASxQWzIAaGkTX3M4ftEgXSQN8gbF5n/+o6lb0LOVFwD8hvubZw5AzICrgnrq8LM52dgX5DrMznZFLG34Q2Vh9upjBW7/6YUEKiy8kNwZ4fI7DlPPOPLjWksfXgU6ZyCNFeYmR6mra2OwC+V2/WEybkP3P1yTmSrgSWdU8VoVR08HAoGeAqq2yYQUBt8u2578eYeaFcTZPwoVTVR3ADcAMorlP0xsMuVnIJagBXV+y3hEoD0fIK8JAjHK/BNiJTB+PAqr4fekhr5iSWAreQEFrwzO69ydbiViAWzk/B++AFuoUV6ptpZz51ibOQRc9PCwThY5tmdAWK+IJXqJ5tvlO7RW6g5DyDdYym5N9ZBeq2JxcXnGFZf6de9feK/778AUbfZ0CaDxH4AAAAASUVORK5CYII=);
-      background-repeat: no-repeat;
-      min-height : 16px;
-      display: inline-block;
-      width: 16px;
+      @extend .empty-common;
 }
 
 div.updateProfile .pictureWrapper{
@@ -334,7 +327,7 @@ div.subHeader {
 div.web-default-menu {
   background: none repeat scroll 0 0 #EFEFEF;
   border: 1px solid #FFFFFF;
-  box-shadow: 0 0 2px #CCCCCC inset;
+  @include box-shadow(#CCCCCC 0 0 2px inset);
   height: 44px;
 }
 
@@ -345,7 +338,7 @@ div.web-default-menu ul {
 
 div.web-default-menu li {
   background: none repeat scroll 0 0 transparent;
-  float: left;
+  @extend .col-left;
   height: 44px;
   list-style: none outside none;
 }
@@ -365,13 +358,13 @@ div.web-default-menu  li.first {
 }
 
 .togglePointer{
-    cursor: pointer;
+   @extend .pointer;
 }
 
 .enme-text .dijitTextBox{
   background-color: #FFFFFF;
-  border-radius: 5px 5px 5px 5px;
-  box-shadow : 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  @extend .default-rd;
+  @include box-shadow(rgba(0, 0, 0, 0.075)  0 1px 1px inset);
 }
 
 .enme-text .dijitTextBox .dijitInputField {
@@ -403,16 +396,16 @@ div.web-default-menu  li.first {
 
 .enme-web-context .dijitDialog {
   border: 1px solid #676767 !important;
-  border-radius: 4px;
-  box-shadow: 1px 2px 2px 1px rgba(9, 9, 9, 0.25) !important;
+  @extend .default-rd;
+  @include box-shadow(rgba(9, 9, 9, 0.25)  1px 2px 2px 1px); //!important
 }
 
 .enme-web-context .dijitDialog  ul, .enme-web-context .dijitDialog ol {
-  margin: 0px;
+   margin: 0px;
 }
 
-.enme-web-context .dijitDialogTitleBar{
-  display: none !important;
+.enme-web-context .dijitDialogTitleBar {
+   @extend .hidden;
 }
 
 .enme-web-context .dijitDialog .dijitDialogPaneContent {
@@ -423,8 +416,6 @@ div.web-default-menu  li.first {
 }
 
 /** emne-box **/
-
-.emne-box { }
 
 .emne-box a:link, .emne-box a:visited{
     color: #444;
@@ -456,11 +447,11 @@ div.web-default-menu  li.first {
   min-height: 18px;
   padding-left: 8px;
   padding-top: 8px;
-  text-shadow: 1px 1px 1px #B3B3B4;
+  @include text-shadow(#B3B3B4 1px 1px 1px);
 }
 
 .web-wrapper-detail .emne-box {
-  background: none repeat scroll 0 0 transparent;
+     @extend .transparent;
 }
 
 .web-wrapper-detail .emne-box > header {
@@ -471,7 +462,7 @@ div.web-default-menu  li.first {
    font-weight: 500;
    line-height: 20px;
    padding: 13px;
-   text-shadow: 0px -1px 0px #888;
+   @include text-shadow($black_light 0px -1px 0px);
 }
 
 .emne-box h1 {
@@ -479,7 +470,7 @@ div.web-default-menu  li.first {
   font-size: 2em;
   font-weight: 500;
   margin: 12px;
-  text-shadow: 1px 1px 1px #FFFFFF;
+  @extend .df-txt-shadow;
 }
 
 .emne-box > header .rss {

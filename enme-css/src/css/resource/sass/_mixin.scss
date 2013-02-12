@@ -16,6 +16,22 @@ $legacy-support-for-ie7 : false;
 $legacy-support-for-ie8 : false;
 
 // Default Variables
+$white : #FFFFFF;
+$default_background_color : $white;
+$black : #000000;
+$black_hight : #222222;
+$black_medium : #444444;
+$black_light : #888888;
+
+// Info Messages
+$success_color : #55986D;
+$success_border_color : darken(#55986D, 30%);
+
+$error_color : #BA3B3B;
+$error_border_color : darken(#BA3B3B, 30%);
+
+$warn_color : #55986D;
+$warn_border_color : darken(#55986D, 30%);
 
 $orange : #E7A441;
 $orange_light : #FFB952;
@@ -36,3 +52,6 @@ $header_info_main_color_dark : darken($header_info_main_color, 5%);
 	 float : left;
 }
 
+@mixin gray_text_shadow(){
+	@include text-shadow($float_background_pry_color 1px 0 0);
+}

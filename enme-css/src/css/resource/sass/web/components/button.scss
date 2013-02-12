@@ -57,7 +57,7 @@ button.button {
         @include background-image(linear-gradient($orange_light, $orange_gradient_over));
         @include text-shadow(rgba(255, 255, 255, .5) 0 -1px 1px);
         @extend .default-rd;
-        @include box-shadow(#888 0px 0px 1px);
+        @include box-shadow($black_light 0px 0px 1px);
         color: #FFFFFF;
         cursor: pointer;
         font-weight: bold;
