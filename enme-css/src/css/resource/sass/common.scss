@@ -31,6 +31,14 @@ img {
    @include user-select($none);
 }
 
+.centered-block {
+  margin: 0 auto;
+};
+
+.default-rd {
+  @include border-radius(4px);
+}
+
 .enme-dnd [draggable] {
    @extend .unselectable;
 }

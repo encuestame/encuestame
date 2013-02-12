@@ -17,51 +17,42 @@ time, mark, audio, video {
   border: 0;
   font: inherit;
   font-size: 100%;
-  vertical-align: baseline;
-}
+  vertical-align: baseline; }
 
 /* line 22, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
-  line-height: 1;
-}
+  line-height: 1; }
 
 /* line 24, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
-  list-style: none;
-}
+  list-style: none; }
 
 /* line 26, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
-  border-spacing: 0;
-}
+  border-spacing: 0; }
 
 /* line 28, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 /* line 30, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
-  quotes: none;
-}
-/* line 103, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after {
-  content: "";
-  content: none;
-}
+  quotes: none; }
+  /* line 103, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
 
 /* line 32, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
-  border: none;
-}
+  border: none; }
 
 /* line 116, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
-  display: block;
-}
+  display: block; }
 
 /* line 3, ../../../sass/web/components/poll-admon.scss */
 #web-poll-wrapper {
@@ -70,8 +61,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   overflow: hidden;
   margin-top: 20px;
   width: 990px;
-  background-color: white;
-}
+  background-color: white; }
 
 /**
  * expand zone of detail of list POLL
@@ -91,23 +81,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background-color: white;
   -webkit-box-shadow: #e0e0e0 0px 0px 4px;
   -moz-box-shadow: #e0e0e0 0px 0px 4px;
-  box-shadow: #e0e0e0 0px 0px 4px;
-}
+  box-shadow: #e0e0e0 0px 0px 4px; }
 
 /* line 26, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info {
   clear: both;
   overflow: auto;
-  position: relative;
-}
+  position: relative; }
 
 /* line 32, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail {
   min-width: 280px;
   max-width: 280px;
   margin: 0 5px;
-  min-height: 308px;
-}
+  min-height: 308px; }
 
 /* line 40, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results {
@@ -116,28 +103,24 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   line-height: 221px;
   margin-top: 15px;
   opacity: 0.2;
-  border-radius: 3px;
-}
+  border-radius: 3px; }
 
 /* line 50, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options {
   margin-left: 340px;
   margin-top: 35px;
-  padding: 6px;
-}
+  padding: 6px; }
 
 /* line 56, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer {
   padding: 6px;
   width: 355px;
-  margin-top: 40px;
-}
+  margin-top: 40px; }
 
 /* line 64, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer > div {
   max-height: 265px;
-  overflow: auto;
-}
+  overflow: auto; }
 
 /* line 70, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
@@ -152,15 +135,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   line-height: 159px;
   min-height: 160px;
   padding: 7px;
-  text-align: center;
-}
+  text-align: center; }
 
 /* line 82, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row {
   border-bottom: 1px dotted #DED8D8;
   overflow: auto;
-  padding: 4px;
-}
+  padding: 4px; }
 
 /* line 88, ../../../sass/web/components/poll-admon.scss */
 .web-items-no-results {
@@ -172,8 +153,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   margin: 18px;
   min-height: 40px;
   padding: 120px;
-  height: 100%;
-}
+  height: 100%; }
 
 /* line 101, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
@@ -186,35 +166,30 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   margin-right: 10px;
   margin-top: 1px;
   padding: 1px;
-  width: 20px;
-}
+  width: 20px; }
 
 /* line 112, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label {
   color: #9C9B99;
   font-weight: bold;
   line-height: 15px;
-  width: 165px;
-}
+  width: 165px; }
 
 /* line 120, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent {
   color: #70706F;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 /* line 126, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info h2 {
   border-bottom: 1px solid #AEACA3;
-  margin: 0 0 10px 5px;
-}
+  margin: 0 0 10px 5px; }
 
 /* line 131, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail {
   border-bottom: 1px dotted #E0E0E0;
   padding: 5px;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 /* line 138, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch {
@@ -227,23 +202,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   position: absolute;
   right: 0;
   top: 15px;
-  width: 390px;
-}
+  width: 390px; }
 
 /* line 147, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li {
   list-style: none outside none;
   margin: 0 5px;
   min-width: 50px;
-  padding: 3px 6px;
-}
+  padding: 3px 6px; }
 
 /* line 155, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li.selected {
   background-color: #6D6B6B;
   color: white !important;
-  font-weight: bold;
-}
+  font-weight: bold; }
 
 /* line 161, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li a {
@@ -251,19 +223,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   text-decoration: none;
   -webkit-box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
   -moz-box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
-  box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
-}
+  box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px; }
 
 /* line 167, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label {
   font-weight: bold;
-  width: 180px;
-}
+  width: 180px; }
 
 /* line 173, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data {
-  width: 30px;
-}
+  width: 30px; }
 
 /* line 178, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar {
@@ -276,22 +245,18 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   border-radius: 3px;
   margin: 4px;
   min-height: 27px;
-  padding: 4px;
-}
+  padding: 4px; }
 
 /* line 187, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info {
   padding: 7px;
   color: #1E1D1D;
-  opacity: 0.5;
-}
+  opacity: 0.5; }
 
 /* line 194, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info > div {
-  width: 30px !important;
-}
+  width: 30px !important; }
 
 /* line 198, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info img {
-  opacity: 0.8;
-}
+  opacity: 0.8; }

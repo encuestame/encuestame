@@ -1,9 +1,9 @@
-//@import "_base.scss";
+@import "_base_web";
 
 button.emne-menu {
   background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
   border: 1px solid #CCCCCC;
-  border-radius: 3px 3px 3px 3px;
+   @extend .default-rd;
   color: #000000;
   cursor: pointer;
   height: 2.0833em;
@@ -56,7 +56,7 @@ button.button {
         //background-repeat: repeat-x;
         @include background-image(linear-gradient($orange_light, $orange_gradient_over));
         @include text-shadow(rgba(255, 255, 255, .5) 0 -1px 1px);
-        @include border-radius(4px);
+        @extend .default-rd;
         @include box-shadow(#888 0px 0px 1px);
         color: #FFFFFF;
         cursor: pointer;
@@ -92,7 +92,7 @@ button.button {
   -moz-user-select: none;
   background: -moz-linear-gradient(center top , #FAFAFA 0px, #DCDCDC 100%) repeat scroll 0 0 transparent !important;
   border: 1px solid #ADADAD !important;
-  border-radius: 4px 4px 4px 4px;
+  @extend .default-rd;
   box-shadow: 1px 2px 1px 0 #D5D5D5;
   color: #000000;
   cursor: pointer;
@@ -135,9 +135,7 @@ button.button {
     background-image: -o-linear-gradient($orange_light,$orange_gradient_over) !important;;
     background-image: linear-gradient($orange_light,$orange_gradient_over) !important;;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$orange_light',endColorstr='$orange_gradient_over',GradientType=0) !important;;
-    border-radius: 4px !important;
-    -moz-border-radius: 4px !important;
-    -webkit-border-radius: 4px !important;
+    @extend .default-rd;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
