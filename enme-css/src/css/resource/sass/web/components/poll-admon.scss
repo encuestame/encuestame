@@ -3,10 +3,10 @@
 #web-poll-wrapper {
 	border: 1px solid #D7D7D7;
 	min-height: 500px;
-	overflow: hidden;
+	@extend .o-hidden;
 	margin-top: 20px;
 	width: $layout_width;
-	background-color: white;
+	background-color: $white;
 }
 
 /**
@@ -86,7 +86,7 @@
 .web-items-no-results {
 	background-color: rgb(247, 247, 247);
 	border: 1px solid rgb(231, 230, 230);
-	border-radius: 10px 10px 10px 10px;
+	@include border-radius(10px);
 	color: #D6D6D6;
 	font-size: 24px;
 	margin: 18px;

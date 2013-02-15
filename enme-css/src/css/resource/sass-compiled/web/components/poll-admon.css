@@ -58,7 +58,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 #web-poll-wrapper {
   border: 1px solid #D7D7D7;
   min-height: 500px;
-  overflow: hidden;
   margin-top: 20px;
   width: 970px;
   background-color: white; }
@@ -142,7 +141,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .web-items-no-results {
   background-color: #f7f7f7;
   border: 1px solid #e7e6e6;
-  border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
   color: #D6D6D6;
   font-size: 24px;
   margin: 18px;

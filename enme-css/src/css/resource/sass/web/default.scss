@@ -206,7 +206,7 @@
 }
 
 .default-background-dark-color {
-    background-color: #555555 !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
+    background-color: $black_medium !important; /** #A6B4BF 8EA5B7 **/  /** #737373 D7D7D7 #8EA5B7  */
 }
 
 .default-dark-color {
@@ -214,7 +214,7 @@
 }
 
 .default-background-dark-color-sub {
-    background-color: #595959; /**A6A5A5 **/
+    background-color: $black_semi_medium; /**A6A5A5 **/
 }
 
 .default-top-menu{
@@ -225,7 +225,7 @@
 }
 
 .default-sidebar-menu {
-  color: #FFFFFF;
+  @extend .text-white;
   font-size: 100%;
   font-weight: bold;
   padding: 5px;
@@ -233,7 +233,7 @@
 
 .default-sidebar-menu-sub {
   background-color: #595959;
-  color: #FFFFFF;
+  @extend .text-white;
   font-size: 100%;
   min-height: 21px;
   padding: 9px 0 0 7px;
@@ -243,8 +243,8 @@
 
 div.suggestBox{
     position: absolute;
-    border: 1px solid #000;
-    background-color: #FFF;
+    border: 1px solid $black;
+    background-color: $white;
 }
 
 div.suggestBox .suggesItem{
@@ -257,12 +257,12 @@ div.suggestBox .suggesItem{
 
 div.suggestBox .suggesItem:hover{
     background-color: #939397;
-    color: #FFF;
+    @extend .text-white;
 }
 
 div.yesNoWrapper{
     padding: 1px;
-    cursor: pointer;
+    @extend .pointer;
 }
 
 div.yesNoWrapper div.label {
@@ -293,7 +293,7 @@ div.updateProfile .pictureWrapper{
 
 div.updateProfile .pictureProfileNew{
     padding: 10px;
-    text-align: center;
+    @extend .center;
     width: 400px;
 }
 
@@ -321,7 +321,7 @@ div.subHeader {
     font-size: 1em;
     padding: 4px;
     margin: 1px;
-    color: #FFF;
+    @extend .text-white;
 }
 
 div.web-default-menu {
@@ -372,13 +372,13 @@ div.web-default-menu  li.first {
 }
 
 .enme-text-large .dijitTextBox {
-  border-radius: 7px 7px 7px 7px;
+  @include border-radius(7px);
   padding: 2px;
   /*width: 250px;*/
 }
 
 .enme-text-large .dijitTextBox .dijitInputContainer {
-  border-radius: 14px 14px 14px 14px;
+  @include border-radius(14px);
   padding: 1px;
 }
 
@@ -401,7 +401,7 @@ div.web-default-menu  li.first {
 }
 
 .enme-web-context .dijitDialog  ul, .enme-web-context .dijitDialog ol {
-   margin: 0px;
+   @extend .non-margin;
 }
 
 .enme-web-context .dijitDialogTitleBar {
@@ -418,12 +418,12 @@ div.web-default-menu  li.first {
 /** emne-box **/
 
 .emne-box a:link, .emne-box a:visited{
-    color: #444;
+    color: $black_medium;
     text-decoration: none;
 }
 
 .emne-box-gray {
-    background-color: white;
+    background-color: $white;
     background-image: linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -o-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
     background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 4%, rgb(242,242,242) 100%);
@@ -457,7 +457,7 @@ div.web-default-menu  li.first {
 .web-wrapper-detail .emne-box > header {
    @extend .home-main-colors;
    border-bottom: 1px solid #B7B7B7;
-   color: #FFF;
+   @extend .text-white;
    font-size: 14px;
    font-weight: 500;
    line-height: 20px;
@@ -474,7 +474,7 @@ div.web-default-menu  li.first {
 }
 
 .emne-box > header .rss {
-  float: right;
+  @extend .col-right;
   position: relative;
   right: 10px;
   top: 2px;
@@ -503,14 +503,14 @@ div.web-default-menu  li.first {
 
 /** agrupa el grafico y preguntas **/
 .web-wrapper-detail .web-wrapper-detail-wrapper {
-    background-color: white;
-    min-height: 300px;
-    max-height : 315px;
-    overflow: hidden;
+    background-color: $white;
+    min-height: $_poll_detail_section_min_height;
+    max-height : $_poll_detail_section_max_height;
+    @extend .o-hidden;
 }
 /** agrupa el grafico **/
 .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart{
-    float: left;
+    @extend .col-left;
     min-height: 180px;
     width: 395px;
 }
@@ -530,17 +530,14 @@ div.web-default-menu  li.first {
 }
 
 .web-wrapper-detail .web-button-wrapper > div{
-    float: left;
+    @extend .col-left;
     margin: 5px 7px;
-    cursor: pointer;
+    @extend .pointer;
 }
 
-.web-wrapper-detail .web-button-wrapper > div > img{
-
-}
 
 .web-wrapper-detail .web-chart {
-    float: left;
+   @extend .col-left;
     min-height: 320px;
     width: 400px;
 }
@@ -570,7 +567,7 @@ div.web-default-menu  li.first {
     margin: auto;
     top: 0;
     left: 0;
-    width: 100%;
+    @extend .width-max;
     height: 100%;
     z-index: 9999;
     border: 0;
@@ -578,49 +575,30 @@ div.web-default-menu  li.first {
 }
 
 .web-detail-header {
-    background-color: #3A3A3A;
-    background-image: -webkit-gradient(linear,0 0%,0 100%,from(#333),to(#3F3F3F));
-    background-image: -webkit-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -moz-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
-    border-radius: 3px 3px 0 0;
-    box-shadow: 0 1px 2px 1px #CDCDCD;
-    overflow: auto;
+    background-color: $header_info_main_color;
+    // background-image: -webkit-gradient(linear,0 0%,0 100%,from(#333),to(#3F3F3F));
+    // background-image: -webkit-linear-gradient(top,#333 0%,#3F3F3F 100%);
+    // background-image: -moz-linear-gradient(top,#333 0%,#3F3F3F 100%);
+    // background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
+    // background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
+    // background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
+    @include background-image(linear-gradient(color-stops($header_info_main_color  0%, darken($header_info_main_color, 20%) 100%)));
+    //border-radius: 3px 3px 0 0;
+    @include border-radius(3px 3px 0 0);
+    @include box-shadow($gray_normal 0 1px 2px 1px);
+    @extend .o-auto;
     padding: 10px 0;
 }
 
 .web-detail-header .title {
-    float: left;
-    color: #000;
+    @extend .col-left;
+    @extend .text-black;
     font-size: 150%;
 }
 
 .web-detail-header .title h2 {
-  color: white;
-  font-size: 1em;
-  font-weight: 500;
-  margin: 0 10px;
+    @extend .text-white;
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0 10px;
 }
-
-#nav-sign-in a {
-    display: block;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #343434), color-stop(100%, #1E1E1E) );
-    background: -webkit-linear-gradient(top, #343434, #1E1E1E);
-    background: -moz-linear-gradient(top, #343434, #1E1E1E);
-    background: -o-linear-gradient(top, #343434, #1E1E1E);
-    background: linear-gradient(top, #343434, #1E1E1E);
-    -moz-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-    -webkit-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-    -o-box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-    box-shadow: inset rgba(255, 255, 255, 0.1) 0 1px 1px, rgba(0, 0, 0, 0.4) 0 0 0 1px, rgba(0, 0, 0, 0.6) 0 1px 3px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -o-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -khtml-border-radius: 5px;
-    border-radius: 5px;
-    padding: 3px 15px;
-    text-shadow: 0 -1px 0 black;
-  }

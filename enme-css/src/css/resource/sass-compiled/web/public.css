@@ -289,23 +289,11 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
   padding: 5px;
   background: #e5e5e5;
   /* Old browsers */
-  background: -moz-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, white 0%, #e5e5e5 100%);
-  /* IE10+ */
-  background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-  /* W3C */
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #262626));
-  background-image: -webkit-linear-gradient(#333333 0%, #262626 100%);
-  background-image: -moz-linear-gradient(#333333 0%, #262626 100%);
-  background-image: -o-linear-gradient(#333333 0%, #262626 100%);
-  background-image: linear-gradient(#333333 0%, #262626 100%); }
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
+  background-image: -webkit-linear-gradient(#ffffff 0%, #e5e5e5 100%);
+  background-image: -moz-linear-gradient(#ffffff 0%, #e5e5e5 100%);
+  background-image: -o-linear-gradient(#ffffff 0%, #e5e5e5 100%);
+  background-image: linear-gradient(#ffffff 0%, #e5e5e5 100%); }
 
 /* line 279, ../../sass/web/public.scss */
 .web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel {

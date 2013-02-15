@@ -24,9 +24,11 @@ $default_background_color : $white;
 $black : #000000;
 $black_hight : #222222;
 $black_medium : #444444;
-$black_semi_medium : #444444;
+$black_semi_medium : #666666;
 $black_light : #888888;
 $gray_dark : #918F8F;
+$gray_lite : #e5e5e5;
+$gray_normal : #CDCDCD;
 
 // Info Messages
 $success_color : #55986D;
@@ -45,7 +47,7 @@ $button_font_size : 12px;
 $none : none;
 $web_tag_color : #606060;
 $web_tag_high_color : #828282;
-$header_info_main_color : #333;
+$header_info_main_color : #333333;
 $default_box_shadow_enme : #E0E0E0;
 $header_info_main_color_dark : darken($header_info_main_color, 5%);
 

@@ -52,7 +52,7 @@ img {
 };
 
 .non-margin {
-  @extend .non-margin;
+  margin : 0;
 }
 
 .z-level-1 {
@@ -73,6 +73,14 @@ img {
 
 .width-max {
   width: 100%;
+}
+
+.text-white {
+  color : $white;
+}
+
+.text-black {
+  color : $black;
 }
 
 .pointer {
