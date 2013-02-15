@@ -23,6 +23,18 @@ img {
  text-align: right;
 }
 
+.opacity-full {
+  @include opacity(1);
+}
+
+.opacity-lite {
+  @include opacity(0.8);
+}
+
+.opacity-middle {
+  @include opacity(0.5);
+}
+
 .text-left {
  text-align: left;
 }
@@ -38,6 +50,10 @@ img {
 .centered-block {
   margin: 0 auto;
 };
+
+.non-margin {
+  @extend .non-margin;
+}
 
 .z-level-1 {
   z-index: 1;
@@ -118,7 +134,7 @@ img {
     border-width: 1px;
     margin: 2px 2px 2px 0;
     padding: 3px 4px;
-    white-space: nowrap;
+    @extend .white-space;
     background: $web_tag_color;
     color: white !important;
     &:hover{
@@ -202,7 +218,7 @@ a.point {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    width: 100%;
+    @extend .width-max;
 }
 
 .hidden, .defaultDisplayHide{
@@ -225,11 +241,11 @@ a.point {
   font-weight: bold;
   font-size: 13px;
   line-height: 15px;
-  margin: 0;
+
 }
 
 .panel-header p {
-  margin: 0;
+  @extend .non-margin;
 }
 
 .panel-header .header-text {
@@ -250,20 +266,15 @@ a.point {
 }
 
 .enme-ui-gradient-header-color {
-    background: #444;
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444),
-        color-stop(100%, #222) );
-    background: -webkit-linear-gradient(#444, #222);
-    background: -moz-linear-gradient(#444, #222);
-    background: -o-linear-gradient(#444, #222);
-    background: linear-gradient(#444, #222);
-
+    background: $black_medium;
+    @include background-image(linear-gradient($black_medium, $black_hight));
 }
 
 
 .btn-default:hover {
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-    cursor:pointer;
+    // text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    @include text-shadow(rgba(0,0,0,0.5) 1px 1px 1px);
+    @extend .pointer;
 }
 
 .default-rigth-aling {
@@ -276,12 +287,12 @@ a.point {
 
 .success-color {
     background-color: #B1ECB1;
-    color : black;
+    color : $black;
 }
 
 .red-color {
     background-color: red;
-    color : white;
+    color : $white;
 }
 
 .warning-color {
@@ -290,7 +301,6 @@ a.point {
 }
 
 .box-info {
-    border-radius: 2px;
     @include border-radius(2px);
     max-width: 50%;
     padding: 4px;
@@ -310,16 +320,14 @@ a.point {
 
 .likeRate {
   color: $white;
-  text-align: center;
+  @extend .center;
   width: 3em;
 }
 
 .likeRate .wrapper{
    padding: 1px 1px;
    margin: 1px;
-   -webkit-border-radius: 2px;
-   -moz-border-radius: 2px;
-   border-radius: 2px;
+   @include border-radius(2px);
    border: 1px solid #B4B4B4;
    min-width : 25px;
 }
@@ -363,9 +371,9 @@ input:focus {
 .drop-down-menu-select .drop-down-item{
   background: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
   border: 1px solid #CCCCCC;
-  border-radius: 3px 3px 3px 3px;
+  @include border-radius(3px);
   color: #000000;
-  cursor: pointer;
+  @extend .pointer;
   height: 2.0833em;
   overflow: visible;
   padding: 0 0.5em;
@@ -376,29 +384,29 @@ input:focus {
 /** menu **/
 
 .enme-dropdown-menu-wrapper {
-  width: 120px;
+    width: 120px;
 }
 
 .enme-dropdown-menu-wrapper .menu-expand {
-  box-shadow: 0 2px 3px -1px #454343 inset;
+    @include box-shadow(454343  0 2px 3px -1px inset);
 }
 
 .enme-dropdown-menu-wrapper .enme-dropdown-menu {
    border: 1px solid #D4D4D4;
-   border-radius: 5px 5px 5px 5px;
+   @include border-radius(5px);
    cursor: pointer;
    font-weight: bold;
    min-width: 95px;
    padding: 5px;
    color: #222;
-   text-align: center;
+   @extend .center;
    position: relative;
 }
 
 .enme-dropdown-menu-wrapper ul {
   background-color: #767676;
   border: 1px solid #9A9A9A;
-  border-radius: 0 0 6px 6px;
+  @include border-radius(0 0 6px 6px);
   box-shadow: 0 1px 1px 0 #373535;
   margin: 0 0 0 2px;
   position: absolute;
@@ -408,20 +416,20 @@ input:focus {
 
 .enme-dropdown-menu-wrapper li.dropdown-item {
   color: $white;
-  cursor: pointer;
+  @extend .pointer;
   font-size: 12px;
   line-height: 15px;
   list-style: none outside none;
-  margin: 0;
+  @extend .non-margin;
   padding: 5px 7px;
-  text-shadow: 0 1px #000000;
+  @include text-shadow($black 0 1px);
   width: auto;
 }
 
 .enme-dropdown-menu-wrapper li.dropdown-item:hover {
-  background-color: white;
-  color: black;
-  text-shadow: 0 1px white;
+  background-color: $white;
+  color: $black;
+  @include text-shadow($white 0 1px);
 }
 
 .dialog-title {
@@ -429,12 +437,12 @@ input:focus {
 }
 
 .dialog-title h2{
-  margin: 0;
+  @extend .non-margin;
 }
 
 .dialog-close-button {
   padding: 10px;
-  text-align: right;
+  @extend .right;
 }
 
 
@@ -444,8 +452,8 @@ input:focus {
   display: inline-block;
   font-weight: bold;
   height: 20px;
-  text-align: center;
-  width: 100%;
+  @extend .center;
+  @extend .width-max;
 }
 
 .enme-ui-loading-search .enme-ui-loading-search-base {
@@ -458,7 +466,7 @@ input:focus {
 }
 
 .web-confirm-wrapper h2{
-    margin: 0;
+    @extend .non-margin;
     margin-bottom: 5px;
 }
 

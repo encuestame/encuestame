@@ -10,12 +10,12 @@
 
 .web-filters-options nav  a.selected, .web-filters-options nav  a:hover {
     background-color: #E6E6E6;
-    color: #333;
+    color: $black_hight;
     text-decoration: none;
 }
 
 .web-filters-options nav a, .web-filters-options nav a:link, .web-filters-options nav a:visited {
-    border-radius: 4px 4px 4px 4px;
+    @extend .default-rd;
     margin: 3px;
     padding: 3px;
     color: white;
@@ -28,22 +28,21 @@
     margin:  10px 2px;
     min-height: 105px;
     padding: 13px 17px 10px;
-    color: #000;
-    -moz-box-shadow: 1px 0px 4px 2px #656565 inset;
-    -webkit-box-shadow: 1px 0px 4px 2px #656565 inset;
-    box-shadow: 1px 0px 4px 2px #656565 inset;
-    border-radius : 5px 5px 5px 5px;
-    -webkit-border-radius : 5px 5px 5px 5px;
-    -moz-border-radius : 5px 5px 5px 5px;
-    background-color: #918F8F;
+    color: $black;
+    // -moz-box-shadow: 1px 0px 4px 2px #656565 inset;
+    // -webkit-box-shadow: 1px 0px 4px 2px #656565 inset;
+    // box-shadow: 1px 0px 4px 2px #656565 inset;
+    @include box-shadow($black_semi_medium 1px 0px 4px 2px inset);
+    @extend .default-rd;
+    background-color: $gray_dark;
 }
 
 .web-filters-wrapper label{
-    color: white;
+    color: $white;
     margin-bottom: 3px;
 }
 .web-filters-wrapper .dijitRuleLabel{
-    color: white !important;
+    color: $white !important;
 }
 
 .web-filters-wrapper .dijitSliderH{
@@ -51,11 +50,11 @@
 }
 
 .web-filters-wrapper .dijitRuleMark{
-    color: white !important;
+    color: $white !important;
     border: 1px solid white;
 }
 .web-filters-search {
-  overflow: auto;
+  @extend .o-auto;
 }
 
 .web-filters-search .web-filters-search-input {
@@ -128,7 +127,7 @@
 
 .web-social-filter-items .selected {
   background-color: #C2C2C2;
-  border-radius: 5px 5px 5px 5px;
+  @extend .default-rd;
   color: black !important;
   margin-top: 5px;
 }

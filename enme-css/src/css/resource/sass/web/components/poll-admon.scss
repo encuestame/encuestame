@@ -5,7 +5,7 @@
 	min-height: 500px;
 	overflow: hidden;
 	margin-top: 20px;
-	width: 990px;
+	width: $layout_width;
 	background-color: white;
 }
 
@@ -18,14 +18,14 @@
 	margin: 5px;
 	min-height: 340px;
 	padding: 10px;
-	overflow: auto;
+	@extend .o-auto;
 	background-color: white;
 	@include box-shadow($default_box_shadow_enme 0px 0px 4px);
 }
 
 .web-item-row .web-list-detail-more .web-poll-info {
 	clear: both;
-	overflow: auto;
+	@extend .o-auto;
 	position: relative;
 }
 
@@ -60,14 +60,12 @@
 	margin-top: 40px;
 }
 
-.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer>div
-	{
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer > div {
 	max-height: 265px;
-	overflow: auto;
+	@extend .o-auto;
 }
 
-.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results
-	{
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
 	border: 1px solid #EBEBEB;
 	@include border-radius(6px);
 	color: #E6E5E3;
@@ -75,13 +73,13 @@
 	line-height: 159px;
 	min-height: 160px;
 	padding: 7px;
-	text-align: center;
+	@extend .center;
 }
 
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row
 	{
 	border-bottom: 1px dotted #DED8D8;
-	overflow: auto;
+	@extend .o-auto;
 	padding: 4px;
 }
 
@@ -188,7 +186,7 @@
 	@extend .col-left;
 	padding: 7px;
 	color: #1E1D1D;
-	@include opacity(0.5);
+	@extend .opacity-middle;
 }
 
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info > div{
@@ -196,7 +194,7 @@
 }
 
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info img{
-	opacity : 0.8;
+	@extend .opacity-lite;
 }
 
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-remove {

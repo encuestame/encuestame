@@ -60,7 +60,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   min-height: 500px;
   overflow: hidden;
   margin-top: 20px;
-  width: 990px;
+  width: 970px;
   background-color: white; }
 
 /**
@@ -77,7 +77,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   margin: 5px;
   min-height: 340px;
   padding: 10px;
-  overflow: auto;
   background-color: white;
   -webkit-box-shadow: #e0e0e0 0px 0px 4px;
   -moz-box-shadow: #e0e0e0 0px 0px 4px;
@@ -86,7 +85,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* line 26, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info {
   clear: both;
-  overflow: auto;
   position: relative; }
 
 /* line 32, ../../../sass/web/components/poll-admon.scss */
@@ -117,12 +115,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   width: 355px;
   margin-top: 40px; }
 
-/* line 64, ../../../sass/web/components/poll-admon.scss */
+/* line 63, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer > div {
-  max-height: 265px;
-  overflow: auto; }
+  max-height: 265px; }
 
-/* line 70, ../../../sass/web/components/poll-admon.scss */
+/* line 68, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
   border: 1px solid #EBEBEB;
   -webkit-border-radius: 6px;
@@ -134,16 +131,14 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-size: 15px;
   line-height: 159px;
   min-height: 160px;
-  padding: 7px;
-  text-align: center; }
+  padding: 7px; }
 
-/* line 82, ../../../sass/web/components/poll-admon.scss */
+/* line 80, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row {
   border-bottom: 1px dotted #DED8D8;
-  overflow: auto;
   padding: 4px; }
 
-/* line 88, ../../../sass/web/components/poll-admon.scss */
+/* line 86, ../../../sass/web/components/poll-admon.scss */
 .web-items-no-results {
   background-color: #f7f7f7;
   border: 1px solid #e7e6e6;
@@ -155,7 +150,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   padding: 120px;
   height: 100%; }
 
-/* line 101, ../../../sass/web/components/poll-admon.scss */
+/* line 99, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
   -webkit-border-radius: 11px;
   -moz-border-radius: 11px;
@@ -168,30 +163,30 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   padding: 1px;
   width: 20px; }
 
-/* line 112, ../../../sass/web/components/poll-admon.scss */
+/* line 110, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label {
   color: #9C9B99;
   font-weight: bold;
   line-height: 15px;
   width: 165px; }
 
-/* line 120, ../../../sass/web/components/poll-admon.scss */
+/* line 118, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent {
   color: #70706F;
   font-weight: bold; }
 
-/* line 126, ../../../sass/web/components/poll-admon.scss */
+/* line 124, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info h2 {
   border-bottom: 1px solid #AEACA3;
   margin: 0 0 10px 5px; }
 
-/* line 131, ../../../sass/web/components/poll-admon.scss */
+/* line 129, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail {
   border-bottom: 1px dotted #E0E0E0;
   padding: 5px;
   overflow: hidden; }
 
-/* line 138, ../../../sass/web/components/poll-admon.scss */
+/* line 136, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch {
   background-color: #EDEDED;
   -webkit-border-radius: 5px;
@@ -204,20 +199,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   top: 15px;
   width: 390px; }
 
-/* line 147, ../../../sass/web/components/poll-admon.scss */
+/* line 145, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li {
   list-style: none outside none;
   margin: 0 5px;
   min-width: 50px;
   padding: 3px 6px; }
 
-/* line 155, ../../../sass/web/components/poll-admon.scss */
+/* line 153, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li.selected {
   background-color: #6D6B6B;
   color: white !important;
   font-weight: bold; }
 
-/* line 161, ../../../sass/web/components/poll-admon.scss */
+/* line 159, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-poll-switch li a {
   color: #545454;
   text-decoration: none;
@@ -225,16 +220,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   -moz-box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
   box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px; }
 
-/* line 167, ../../../sass/web/components/poll-admon.scss */
+/* line 165, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label {
   font-weight: bold;
   width: 180px; }
 
-/* line 173, ../../../sass/web/components/poll-admon.scss */
+/* line 171, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data {
   width: 30px; }
 
-/* line 178, ../../../sass/web/components/poll-admon.scss */
+/* line 176, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar {
   background-color: #E6E6E6;
   border: 1px solid #D6D6D6;
@@ -247,16 +242,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   min-height: 27px;
   padding: 4px; }
 
-/* line 187, ../../../sass/web/components/poll-admon.scss */
+/* line 185, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info {
   padding: 7px;
-  color: #1E1D1D;
-  opacity: 0.5; }
+  color: #1E1D1D; }
 
-/* line 194, ../../../sass/web/components/poll-admon.scss */
+/* line 192, ../../../sass/web/components/poll-admon.scss */
 .web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info > div {
   width: 30px !important; }
-
-/* line 198, ../../../sass/web/components/poll-admon.scss */
-.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info img {
-  opacity: 0.8; }

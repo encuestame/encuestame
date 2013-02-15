@@ -6,10 +6,6 @@
     width: auto;
 }
 
-.web-poll-wrapper .web-poll-question {
-
-}
-
 .web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
     font-size: 130%;
     padding: 3px;
@@ -22,19 +18,15 @@
 /*   outline: 0 none; */
 /* } */
 .web-poll-wrapper .web-poll-question .web-question {
-    float: left;
+    @extend .col-left;
     width: 100px;
 }
 
 .web-poll-wrapper .web-poll-question-folder {
-    float: right;
+    @extend .col-right;
     left: 0;
     margin-right: 35px;
     position: relative;
-}
-
-.web-poll-wrapper ul.web-poll-answers {
-
 }
 
 .web-poll-wrapper ul.web-poll-answers li {
@@ -43,7 +35,7 @@
 }
 
 .web-poll-question .web-poll-section .space {
-  overflow: auto;
+  @extend .o-auto;
   padding: 20px 10px;
 }
 

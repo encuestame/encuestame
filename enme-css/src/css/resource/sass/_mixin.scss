@@ -15,13 +15,18 @@ $legacy-support-for-ie6 : false;
 $legacy-support-for-ie7 : false;
 $legacy-support-for-ie8 : false;
 
+//LAYOUT
+$layout_width : 970px;
+
 // Default Variables
 $white : #FFFFFF;
 $default_background_color : $white;
 $black : #000000;
 $black_hight : #222222;
 $black_medium : #444444;
+$black_semi_medium : #444444;
 $black_light : #888888;
+$gray_dark : #918F8F;
 
 // Info Messages
 $success_color : #55986D;

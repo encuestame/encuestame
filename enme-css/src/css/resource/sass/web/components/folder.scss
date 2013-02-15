@@ -6,7 +6,7 @@
 }
 
 .web-folder-wrapper .web-folder-wrapper-item {
-    overflow: auto;
+    @extend .o-auto;
 }
 
 .web-folder-wrapper .web-folder-item {
@@ -15,7 +15,7 @@
     background-color : #F0F0F0;
     clear: both;
     padding-left: 13px;
-    overflow: auto;
+    @extend .o-auto;
     width: auto;
 }
 

@@ -7,7 +7,7 @@ body.public-body {
 
 .enme-auto-center {
   margin: 0 auto;
-  max-width: 970px;
+  max-width: $layout_width;
 }
 
 div.web-setup-wrapper {
@@ -91,15 +91,12 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     color: #E35757;
 }
 
-.web-setup-wrapper .setup-form div input[type="text"],.web-setup-wrapper .setup-form div input[type="password"]
-    {
+.web-setup-wrapper .setup-form div input[type="text"],.web-setup-wrapper .setup-form div input[type="password"] {
     height: 20px;
     width: 275px;
     font-size: 16px;
     font-weight: normal;
-    border-radius: 3px 3px 3px 3px;
-    -webkit-border-radius: 3px 3px 3px 3px;
-    -moz-border-radius: 3px 3px 3px 3px;
+    @extend .default-rd;
     padding: 4px 2px;
     border: 1px solid #AAAAAA;
 }
@@ -254,13 +251,6 @@ div.web-sub-menu {
 }
 
 
-
-
-
-
-
-
-
 div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
     margin: 3px 10px 3px 3px;
     @extend .col-left;
@@ -282,6 +272,8 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
     background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     /* IE10+ */
     background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* W3C */
+
+    @include background-image(linear-gradient(color-stops($header_info_main_color  0%, $header_info_main_color_dark 100%)));
 }
 
 .web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel {
@@ -379,9 +371,7 @@ div.socialAccountPicker .list {
 
 div.socialAccountPicker div.account {
     margin: 1px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    @extend .default-rd;
     background-color: #E6E6E6;
     color: #776E6E;
     font-size: 110%;
@@ -817,9 +807,8 @@ div.link-published-space {
     height: auto;
     z-index: 10000;
     word-wrap: break-word;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.496094) 0px 0px 15px;
-    box-shadow: rgba(0, 0, 0, 0.496094) 0px 0px 15px;
-    border-radius: 6px;
+    @include box-shadow(rgba(0, 0, 0, 0.496094) 0px 0px 15px);
+    @include border-radius(6px);
     background-color: white !important;
     position: absolute;
     display: block;

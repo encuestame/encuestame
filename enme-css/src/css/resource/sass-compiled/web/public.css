@@ -141,33 +141,30 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description {
   padding: 2px;
   color: #E35757; }
 
-/* line 95, ../../sass/web/public.scss */
+/* line 94, ../../sass/web/public.scss */
 .web-setup-wrapper .setup-form div input[type="text"], .web-setup-wrapper .setup-form div input[type="password"] {
   height: 20px;
   width: 275px;
   font-size: 16px;
   font-weight: normal;
-  border-radius: 3px 3px 3px 3px;
-  -webkit-border-radius: 3px 3px 3px 3px;
-  -moz-border-radius: 3px 3px 3px 3px;
   padding: 4px 2px;
   border: 1px solid #AAAAAA; }
 
-/* line 107, ../../sass/web/public.scss */
+/* line 104, ../../sass/web/public.scss */
 .web-setup-wrapper .setup-form div.row .inputError {
   border: 1px solid #E35757;
   background-color: #F9E5E5; }
 
 /** main public line **/
 @media only screen and (max-width: 980px) {
-  /* line 116, ../../sass/web/public.scss */
+  /* line 113, ../../sass/web/public.scss */
   #web-main-public-line .web-item-wrapper {
     width: 100% !important; }
 
-  /* line 120, ../../sass/web/public.scss */
+  /* line 117, ../../sass/web/public.scss */
   #web-main-public-line .web-left-wrapper {
     width: 100% !important; } }
-/* line 125, ../../sass/web/public.scss */
+/* line 122, ../../sass/web/public.scss */
 #web-main-public-line {
   margin: 0 auto;
   position: relative;
@@ -178,7 +175,7 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description {
   background-image: -o-linear-gradient(#444444, #222222);
   background-image: linear-gradient(#444444, #222222); }
 
-/* line 135, ../../sass/web/public.scss */
+/* line 132, ../../sass/web/public.scss */
 #web-main-public-line .categoryMenu {
   border-bottom: 1px solid #BBBBBB;
   background-color: #3A3A3A;
@@ -189,66 +186,66 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description {
   background-image: -o-linear-gradient(top, #333333 0%, #3f3f3f 100%);
   background-image: linear-gradient(top, #333333 0%, #3f3f3f 100%); }
 
-/* line 147, ../../sass/web/public.scss */
+/* line 144, ../../sass/web/public.scss */
 #web-main-public-line .categoryMenu span {
   display: inline-block;
   font-weight: normal !important;
   padding: 12px 15px; }
 
-/* line 153, ../../sass/web/public.scss */
+/* line 150, ../../sass/web/public.scss */
 #web-main-public-line .categoryMenu span:hover {
   background-color: white;
   color: #444;
   text-shadow: 0 !important;
   text-decoration: none !important; }
 
-/* line 168, ../../sass/web/public.scss */
+/* line 165, ../../sass/web/public.scss */
 #web-main-public-line .categoryMenu span > a {
   color: #AAA;
   font-size: 14px; }
 
-/* line 173, ../../sass/web/public.scss */
+/* line 170, ../../sass/web/public.scss */
 #web-main-public-line .categoryMenu span > a:hover {
   text-decoration: none !important;
   color: #444 !important;
   text-shadow: none !important; }
 
-/* line 179, ../../sass/web/public.scss */
+/* line 176, ../../sass/web/public.scss */
 #web-main-public-line .categoryMenu span > a:link, #web-main-public-line .categoryMenu span > a:visited {
   color: #787878;
   text-shadow: 0 -1px 0px #282828; }
 
-/* line 184, ../../sass/web/public.scss */
+/* line 181, ../../sass/web/public.scss */
 #web-main-public-line .categoryMenu a:hover {
   color: #AAA;
   text-decoration: none; }
 
-/* line 189, ../../sass/web/public.scss */
+/* line 186, ../../sass/web/public.scss */
 #web-main-public-line .web-item-wrapper {
   width: 660px; }
 
 /** poll detail **/
-/* line 196, ../../sass/web/public.scss */
+/* line 193, ../../sass/web/public.scss */
 .web-poll-detail {
   margin: 30px; }
 
 /** survey status */
-/* line 201, ../../sass/web/public.scss */
+/* line 198, ../../sass/web/public.scss */
 div.survey-status {
   font-size: 120%;
   font-weight: bold;
   margin: 0;
   text-align: center; }
 
-/* line 209, ../../sass/web/public.scss */
+/* line 206, ../../sass/web/public.scss */
 div.survey-status .open {
   color: #3DC83C; }
 
-/* line 213, ../../sass/web/public.scss */
+/* line 210, ../../sass/web/public.scss */
 div.survey-status .close {
   color: #E75A5A; }
 
-/* line 217, ../../sass/web/public.scss */
+/* line 214, ../../sass/web/public.scss */
 div.countdown {
   color: #AEAAAA;
   font-size: 100%;
@@ -258,16 +255,16 @@ div.countdown {
   padding: 2px;
   text-align: center; }
 
-/* line 228, ../../sass/web/public.scss */
+/* line 225, ../../sass/web/public.scss */
 div.panel-bar {
   border: 1px solid gray; }
 
-/* line 236, ../../sass/web/public.scss */
+/* line 233, ../../sass/web/public.scss */
 div.panel-bar-item .panel-bar-item-content {
   padding: 8px;
   background-color: #F1F1F1; }
 
-/* line 241, ../../sass/web/public.scss */
+/* line 238, ../../sass/web/public.scss */
 div.panel-bar-item div.panel-bar-item-title {
   background-color: #C9C9C9;
   color: black;
@@ -278,16 +275,16 @@ div.panel-bar-item div.panel-bar-item-title {
   padding: 8px; }
 
 /** poll **/
-/* line 251, ../../sass/web/public.scss */
+/* line 248, ../../sass/web/public.scss */
 div.web-sub-menu {
   margin-top: 5px;
   margin-bottom: 5px; }
 
-/* line 264, ../../sass/web/public.scss */
+/* line 254, ../../sass/web/public.scss */
 div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-favourite {
   margin: 3px 10px 3px 3px; }
 
-/* line 269, ../../sass/web/public.scss */
+/* line 259, ../../sass/web/public.scss */
 div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
   padding: 5px;
   background: #e5e5e5;
@@ -303,45 +300,50 @@ div.web-list-tweet div.web-tweetpoll-list-item div.title-wrapper {
   background: -ms-linear-gradient(top, white 0%, #e5e5e5 100%);
   /* IE10+ */
   background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
-  /* W3C */ }
+  /* W3C */
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #262626));
+  background-image: -webkit-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -moz-linear-gradient(#333333 0%, #262626 100%);
+  background-image: -o-linear-gradient(#333333 0%, #262626 100%);
+  background-image: linear-gradient(#333333 0%, #262626 100%); }
 
-/* line 287, ../../sass/web/public.scss */
+/* line 279, ../../sass/web/public.scss */
 .web-list-tweet div.web-tweetpoll-list-item .web-tweetpoll-list-panel {
   -webkit-box-shadow: gray 0 7px 5px -6px;
   -moz-box-shadow: gray 0 7px 5px -6px;
   box-shadow: gray 0 7px 5px -6px; }
 
-/* line 291, ../../sass/web/public.scss */
+/* line 283, ../../sass/web/public.scss */
 .web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.web-tweetpoll-list-item-title {
   color: #8F8F8F;
   font-size: 14px;
   line-height: 25px; }
 
-/* line 298, ../../sass/web/public.scss */
+/* line 290, ../../sass/web/public.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.listItemTweetSeleted {
   background-color: white; }
 
-/* line 302, ../../sass/web/public.scss */
+/* line 294, ../../sass/web/public.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.tweet-poll-item-panel {
   min-height: 30px; }
 
-/* line 306, ../../sass/web/public.scss */
+/* line 298, ../../sass/web/public.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel {
   text-align: left; }
 
-/* line 312, ../../sass/web/public.scss */
+/* line 304, ../../sass/web/public.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.votesTitle {
   font-size: 120%;
   font-weight: bold; }
 
-/* line 318, ../../sass/web/public.scss */
+/* line 310, ../../sass/web/public.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-list-tweet div.web-tweetpoll-list-item div.rightPanel div.votesCount {
   font-size: 130%;
   color: #4A66B5;
   padding: 4px;
   font-weight: bold; }
 
-/* line 326, ../../sass/web/public.scss */
+/* line 318, ../../sass/web/public.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.tweetDetail {
   margin-left: 682px;
   background-color: #EAEAEA;
@@ -354,13 +356,13 @@ div.web-tweetpoll-wrapper div.tweetListContent div.tweetDetail {
   border-radius: 0px 15px 15px 0px; }
 
 /** social accounts **/
-/* line 337, ../../sass/web/public.scss */
+/* line 329, ../../sass/web/public.scss */
 div.socialAccountPicker {
   max-width: 600px;
   padding: 4px;
   max-height: 240px; }
 
-/* line 344, ../../sass/web/public.scss */
+/* line 336, ../../sass/web/public.scss */
 div.socialAccountPicker div.menu {
   padding: 5px;
   background: #D3D3D3;
@@ -374,11 +376,11 @@ div.socialAccountPicker div.menu {
   font-size: 95%;
   text-align: right; }
 
-/* line 358, ../../sass/web/public.scss */
+/* line 350, ../../sass/web/public.scss */
 div.socialAccountPicker .pick:hover {
   text-decoration: underline; }
 
-/* line 362, ../../sass/web/public.scss */
+/* line 354, ../../sass/web/public.scss */
 div.socialAccountPicker div.resume {
   padding: 5px;
   background: #D3D3D3;
@@ -391,7 +393,7 @@ div.socialAccountPicker div.resume {
   border-radius: 0px 0px 5px 5px;
   font-size: 95%; }
 
-/* line 372, ../../sass/web/public.scss */
+/* line 364, ../../sass/web/public.scss */
 div.socialAccountPicker .list {
   background: none repeat scroll 0 0 #D5D5D5;
   max-height: 200px;
@@ -399,12 +401,9 @@ div.socialAccountPicker .list {
   overflow-x: hidden;
   overflow-y: scroll; }
 
-/* line 380, ../../sass/web/public.scss */
+/* line 372, ../../sass/web/public.scss */
 div.socialAccountPicker div.account {
   margin: 1px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
   background-color: #E6E6E6;
   color: #776E6E;
   font-size: 110%;
@@ -413,59 +412,59 @@ div.socialAccountPicker div.account {
   min-width: 200px;
   cursor: pointer; }
 
-/* line 395, ../../sass/web/public.scss */
+/* line 385, ../../sass/web/public.scss */
 div.socialAccountPicker div.selected {
   background-color: #2E2F25;
   color: white;
   font-weight: normal; }
 
-/* line 401, ../../sass/web/public.scss */
+/* line 391, ../../sass/web/public.scss */
 div.socialAccountPicker div.account:hover {
   background-color: #A3A7A7; }
 
-/* line 405, ../../sass/web/public.scss */
+/* line 395, ../../sass/web/public.scss */
 div.socialAccountPicker div.account div.image {
   margin-right: 5px;
   padding: 3px; }
 
-/* line 411, ../../sass/web/public.scss */
+/* line 401, ../../sass/web/public.scss */
 div.socialAccountPicker div.account div.detail {
   margin-top: 5px; }
 
-/* line 416, ../../sass/web/public.scss */
+/* line 406, ../../sass/web/public.scss */
 div.socialAccountPicker div.account div.icon {
   padding: 5px;
   margin-right: 10px; }
 
 /** Poll Page Detail **/
-/* line 424, ../../sass/web/public.scss */
+/* line 414, ../../sass/web/public.scss */
 .web-poll-detail-wrapper {
   margin: 30px; }
 
-/* line 429, ../../sass/web/public.scss */
+/* line 419, ../../sass/web/public.scss */
 .stats-button {
   min-height: 80px;
   padding: 10px 30px 10px 40px; }
 
-/* line 437, ../../sass/web/public.scss */
+/* line 427, ../../sass/web/public.scss */
 .stats-button .web-graph-sts-btt-tlt {
   font-size: 14px;
   font-weight: bold;
   padding-left: 20px; }
 
-/* line 443, ../../sass/web/public.scss */
+/* line 433, ../../sass/web/public.scss */
 .stats-button .web-graph-sts-btt-val {
   font-size: 26px;
   font-weight: bold;
   padding-right: 5px;
   text-align: center; }
 
-/* line 450, ../../sass/web/public.scss */
+/* line 440, ../../sass/web/public.scss */
 .stats-button .web-graph-sts-btt-sub {
   font-size: 13px;
   padding-left: 40%; }
 
-/* line 455, ../../sass/web/public.scss */
+/* line 445, ../../sass/web/public.scss */
 .web-ht-button-wrapper .selected {
   background: white !important;
   color: #444444;
@@ -473,18 +472,18 @@ div.socialAccountPicker div.account div.icon {
   -moz-box-shadow: #888888 0 7px 5px -6px inset;
   box-shadow: #888888 0 7px 5px -6px inset; }
 
-/* line 462, ../../sass/web/public.scss */
+/* line 452, ../../sass/web/public.scss */
 .stats-button:hover {
   background-color: #fff;
   color: #444444; }
 
 /** tweetpoll tags **/
-/* line 467, ../../sass/web/public.scss */
+/* line 457, ../../sass/web/public.scss */
 .web-tags-tweetpolls {
   margin-top: 4px;
   width: 100%; }
 
-/* line 472, ../../sass/web/public.scss */
+/* line 462, ../../sass/web/public.scss */
 div.web-tweetpolls {
   background: none repeat scroll 0 0 #EEEEEE;
   border: 1px solid #0F0E0E;
@@ -492,12 +491,12 @@ div.web-tweetpolls {
   margin: 4px; }
 
 /** profile update wrapper **/
-/* line 480, ../../sass/web/public.scss */
+/* line 470, ../../sass/web/public.scss */
 div.accountUpdateWrapper {
   padding: 10px; }
 
 /** gadget **/
-/* line 485, ../../sass/web/public.scss */
+/* line 475, ../../sass/web/public.scss */
 div.web-gadget {
   background-color: #F1F1F1;
   border: 1px solid #DEDEDE;
@@ -506,7 +505,7 @@ div.web-gadget {
   min-width: 330px;
   width: 320px; }
 
-/* line 494, ../../sass/web/public.scss */
+/* line 484, ../../sass/web/public.scss */
 div.web-gadget .gad-title {
   padding: 2px;
   background-color: #888888;
@@ -514,11 +513,11 @@ div.web-gadget .gad-title {
   color: #FFF;
   font-size: 120%; }
 
-/* line 502, ../../sass/web/public.scss */
+/* line 492, ../../sass/web/public.scss */
 div.web-gadget .gad-content {
   max-height: 200px; }
 
-/* line 507, ../../sass/web/public.scss */
+/* line 497, ../../sass/web/public.scss */
 div.web-layout .empty-text {
   background: none repeat scroll 0 0 #F5F5F5;
   border: 2px dashed #BBBBBB;
@@ -529,7 +528,7 @@ div.web-layout .empty-text {
   text-align: center;
   margin: 10px 0px 10px 0px; }
 
-/* line 518, ../../sass/web/public.scss */
+/* line 508, ../../sass/web/public.scss */
 div.web-layout ul.column {
   float: left;
   list-style-type: none;
@@ -539,7 +538,7 @@ div.web-layout ul.column {
   min-height: 286px;
   /* padding: 0 0 -1.2em 1%; */ }
 
-/* line 529, ../../sass/web/public.scss */
+/* line 519, ../../sass/web/public.scss */
 div.web-dasboard-wrapper div.web-dash-menu {
   background-color: #A6A5A5;
   clear: both;
@@ -548,11 +547,11 @@ div.web-dasboard-wrapper div.web-dash-menu {
   padding: 4px;
   width: 99%; }
 
-/* line 543, ../../sass/web/public.scss */
+/* line 533, ../../sass/web/public.scss */
 div.web-dash-actions {
   padding: 3px; }
 
-/* line 548, ../../sass/web/public.scss */
+/* line 538, ../../sass/web/public.scss */
 div.web-dash-actions .action {
   color: white;
   cursor: pointer;
@@ -562,44 +561,44 @@ div.web-dash-actions .action {
   margin-right: 5px;
   padding: 1px; }
 
-/* line 558, ../../sass/web/public.scss */
+/* line 548, ../../sass/web/public.scss */
 div.web-directory {
   padding: 5px; }
 
-/* line 563, ../../sass/web/public.scss */
+/* line 553, ../../sass/web/public.scss */
 div.web-directory-item {
   border-bottom: 1px dotted #D7D7D7;
   min-height: 38px;
   padding: 2px; }
 
-/* line 569, ../../sass/web/public.scss */
+/* line 559, ../../sass/web/public.scss */
 div.web-directory-item .web-directory-item-title {
   font-weight: bold; }
 
-/* line 574, ../../sass/web/public.scss */
+/* line 564, ../../sass/web/public.scss */
 div.web-directory-item .web-directory-item-description, div.web-directory-item .web-directory-item-description p {
   margin: 0px; }
 
-/* line 582, ../../sass/web/public.scss */
+/* line 572, ../../sass/web/public.scss */
 div.web-directory-item .web-directory-item-actions a {
   cursor: pointer; }
 
-/* line 586, ../../sass/web/public.scss */
+/* line 576, ../../sass/web/public.scss */
 div.web-dashboard-create {
   padding: 6px;
   width: 255px; }
 
-/* line 591, ../../sass/web/public.scss */
+/* line 581, ../../sass/web/public.scss */
 div.web-dashboard-create div.web-dashboard-create-row {
   padding: 2px; }
 
-/* line 595, ../../sass/web/public.scss */
+/* line 585, ../../sass/web/public.scss */
 div.web-dashboard-create div.web-dashboard-create-row label {
   display: inline-block;
   max-width: 62px;
   min-width: 60px; }
 
-/* line 601, ../../sass/web/public.scss */
+/* line 591, ../../sass/web/public.scss */
 div.web-dashboard-create div.web-dashboard-create-actions {
   padding: 4px; }
 
@@ -609,44 +608,44 @@ div.web-dashboard-create div.web-dashboard-create-actions {
  * - Single Response
  * - Options
  */
-/* line 617, ../../sass/web/public.scss */
+/* line 607, ../../sass/web/public.scss */
 .pattern-options-label {
   padding: 2px; }
 
-/* line 625, ../../sass/web/public.scss */
+/* line 615, ../../sass/web/public.scss */
 .web-pattern label.pattern-label {
   margin-left: 5px;
   font-size: 12px;
   font-stretch: ultra-expanded; }
 
-/* line 632, ../../sass/web/public.scss */
+/* line 622, ../../sass/web/public.scss */
 li.over {
   border: 2px dashed black; }
 
-/* line 636, ../../sass/web/public.scss */
+/* line 626, ../../sass/web/public.scss */
 .me_opa {
   opacity: 5; }
 
-/* line 640, ../../sass/web/public.scss */
+/* line 630, ../../sass/web/public.scss */
 .all_opa {
   opacity: 1; }
 
-/* line 644, ../../sass/web/public.scss */
+/* line 634, ../../sass/web/public.scss */
 .single-response .single-response-handle {
   margin-right: 10px;
   margin-top: 7px; }
 
-/* line 650, ../../sass/web/public.scss */
+/* line 640, ../../sass/web/public.scss */
 .single-response .single-response-input {
   margin-left: 10px; }
 
 /** end list of paterns **/
 /* folder selection */
-/* line 657, ../../sass/web/public.scss */
+/* line 647, ../../sass/web/public.scss */
 div.folder-selection {
   padding: 0px; }
 
-/* line 661, ../../sass/web/public.scss */
+/* line 651, ../../sass/web/public.scss */
 div.folder-selection div.folder-selection-label {
   color: #848282;
   font-size: 120%;
@@ -654,29 +653,29 @@ div.folder-selection div.folder-selection-label {
   margin-right: 3px;
   margin-top: 2px; }
 
-/* line 670, ../../sass/web/public.scss */
+/* line 660, ../../sass/web/public.scss */
 div.folder-selection div.folder-selection-combo {
   margin-left: 85px; }
 
-/* line 674, ../../sass/web/public.scss */
+/* line 664, ../../sass/web/public.scss */
 .section-botton-wrapper {
   margin-left: 50px;
   padding: 5px; }
 
-/* line 680, ../../sass/web/public.scss */
+/* line 670, ../../sass/web/public.scss */
 .section-botton-wrapper a {
   text-decoration: none;
   font-weight: bold; }
 
-/* line 685, ../../sass/web/public.scss */
+/* line 675, ../../sass/web/public.scss */
 .section-botton-wrapper .sub-option {
   margin: 15px; }
 
-/* line 690, ../../sass/web/public.scss */
+/* line 680, ../../sass/web/public.scss */
 .section-option-wrapper {
   width: auto; }
 
-/* line 694, ../../sass/web/public.scss */
+/* line 684, ../../sass/web/public.scss */
 .section-option-wrapper .section-default {
   border-right: 1px solid #D6D6D6;
   margin: 16px;
@@ -684,48 +683,48 @@ div.folder-selection div.folder-selection-combo {
   padding: 0;
   width: 250px; }
 
-/* line 703, ../../sass/web/public.scss */
+/* line 693, ../../sass/web/public.scss */
 .section-option-wrapper .section-default h2 {
   margin-bottom: 3px;
   font-size: 14px; }
 
-/* line 708, ../../sass/web/public.scss */
+/* line 698, ../../sass/web/public.scss */
 .section-option-wrapper .section-default .space {
   margin: 2px; }
 
-/* line 712, ../../sass/web/public.scss */
+/* line 702, ../../sass/web/public.scss */
 .section-option-wrapper .section-default .space-option {
   margin-bottom: 15px;
   margin-top: 15px; }
 
-/* line 717, ../../sass/web/public.scss */
+/* line 707, ../../sass/web/public.scss */
 div.link-published-space {
   padding: 5px; }
 
 /** rated **/
 /*** search page ***/
-/* line 725, ../../sass/web/public.scss */
+/* line 715, ../../sass/web/public.scss */
 .search-items-wrapper {
   padding: 5px;
   background-color: #FFF; }
 
-/* line 731, ../../sass/web/public.scss */
+/* line 721, ../../sass/web/public.scss */
 .search-items-wrapper h4 {
   margin: 0; }
 
-/* line 735, ../../sass/web/public.scss */
+/* line 725, ../../sass/web/public.scss */
 .search-items-wrapper .no-results {
   color: #989898; }
 
-/* line 739, ../../sass/web/public.scss */
+/* line 729, ../../sass/web/public.scss */
 .search-items-wrapper > aside {
   margin-left: 65%; }
 
-/* line 743, ../../sass/web/public.scss */
+/* line 733, ../../sass/web/public.scss */
 .search-items-wrapper > aside .no-results {
   margin-left: 5px; }
 
-/* line 747, ../../sass/web/public.scss */
+/* line 737, ../../sass/web/public.scss */
 .search-items-wrapper header {
   border-bottom: 1px solid #F0EFF1;
   color: #D9D9D9;
@@ -733,43 +732,43 @@ div.link-published-space {
   margin-right: 10px;
   padding-left: 5px; }
 
-/* line 755, ../../sass/web/public.scss */
+/* line 745, ../../sass/web/public.scss */
 .search-items-wrapper .search-items {
   min-height: 500px;
   width: 60%; }
 
-/* line 761, ../../sass/web/public.scss */
+/* line 751, ../../sass/web/public.scss */
 .search-items-wrapper .search-items .search-item {
   margin-left: 5px;
   padding: 5px 0;
   border-bottom: 1px solid #EEE;
   margin-top: 10px; }
 
-/* line 768, ../../sass/web/public.scss */
+/* line 758, ../../sass/web/public.scss */
 .search-items-wrapper .search-items .search-item:last-child {
   border: 0; }
 
-/* line 772, ../../sass/web/public.scss */
+/* line 762, ../../sass/web/public.scss */
 .search-items-wrapper .search-items .search-item h3 {
   margin: 0; }
 
-/* line 776, ../../sass/web/public.scss */
+/* line 766, ../../sass/web/public.scss */
 .search-items-wrapper .search-items .search-item .post-title {
   font-size: 80%;
   color: #bbbbbb; }
 
-/* line 785, ../../sass/web/public.scss */
+/* line 775, ../../sass/web/public.scss */
 .search-items-wrapper .search-hashtag > div {
   padding: 10px 0; }
 
-/* line 789, ../../sass/web/public.scss */
+/* line 779, ../../sass/web/public.scss */
 .search-items-wrapper .search-hashtag > div > section {
   float: left;
   padding: 6px 2px; }
 
 /*** search page end ***/
 /** modalbox */
-/* line 804, ../../sass/web/public.scss */
+/* line 794, ../../sass/web/public.scss */
 .modalBoxBackground {
   position: fixed;
   top: 0px;
@@ -780,36 +779,41 @@ div.link-published-space {
   width: 100%;
   height: 2859px; }
 
-/* line 815, ../../sass/web/public.scss */
+/* line 805, ../../sass/web/public.scss */
 .modal-box {
   width: 420px;
   height: auto;
   z-index: 10000;
   word-wrap: break-word;
   -webkit-box-shadow: rgba(0, 0, 0, 0.49609) 0px 0px 15px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.49609) 0px 0px 15px;
   box-shadow: rgba(0, 0, 0, 0.49609) 0px 0px 15px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
   border-radius: 6px;
   background-color: white !important;
   position: absolute;
   display: block; }
 
-/* line 828, ../../sass/web/public.scss */
+/* line 817, ../../sass/web/public.scss */
 .modal-box-im {
   font-style: normal;
   padding-bottom: 55px; }
 
-/* line 833, ../../sass/web/public.scss */
+/* line 822, ../../sass/web/public.scss */
 .modal-box .wrapper {
   padding: 20px 20px 20px 20px;
   height: auto;
   min-height: 80px; }
 
-/* line 839, ../../sass/web/public.scss */
+/* line 828, ../../sass/web/public.scss */
 .modal-box .wrapper a {
   cursor: pointer;
   text-decoration: none; }
 
-/* line 844, ../../sass/web/public.scss */
+/* line 833, ../../sass/web/public.scss */
 .modal-box .msgbox-buttons {
   padding: 15px;
   text-align: right;
@@ -817,13 +821,13 @@ div.link-published-space {
   bottom: 0;
   right: 0; }
 
-/* line 852, ../../sass/web/public.scss */
+/* line 841, ../../sass/web/public.scss */
 #content-container #enme-content .web-generic-result div.votes {
   margin: 0 !important;
   padding: 8px;
   width: 100px !important; }
 
-/* line 859, ../../sass/web/public.scss */
+/* line 848, ../../sass/web/public.scss */
 .web-generic-result .percent {
   float: left;
   font-weight: bold;

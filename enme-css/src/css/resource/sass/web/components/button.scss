@@ -30,7 +30,7 @@ button.emne-menu button {
   -moz-border-top-colors: none;
   background-image: -moz-linear-gradient(center top , #FFFFFF 0pt, #E0E0E0 100%);
   border-color: #CCCCCC #CCCCCC #AAAAAA;
-  border-radius: 3px 3px 3px 3px;
+  @include border-radius(3px);
   border-style: solid;
   border-width: 1px;
   box-shadow: 0 0 1px #FFFFFF inset;
@@ -44,35 +44,35 @@ button.emne-menu button {
 
 
 button.button:hover {
-        background-color: $orange;
-        //background-repeat: repeat-x;
-        @include background-image(linear-gradient($orange, $orange_gradient_over));
+    background-color: $orange;
+    //background-repeat: repeat-x;
+    @include background-image(linear-gradient($orange, $orange_gradient_over));
 }
 
 button.button {
-        /** $orange_light, $orange_gradient_over **/
-        // border-color: #096EB3;
-        background-color: $orange_gradient_over;
-        //background-repeat: repeat-x;
-        @include background-image(linear-gradient($orange_light, $orange_gradient_over));
-        @include text-shadow(rgba(255, 255, 255, .5) 0 -1px 1px);
-        @extend .default-rd;
-        @include box-shadow($black_light 0px 0px 1px);
-        color: #FFFFFF;
-        cursor: pointer;
-        font-weight: bold;
-        outline: 0 none;
-        padding: 8px 6px;
-        width: auto;
-        position: relative;
-        display: inline-block;
-        overflow: visible;
-        padding: 5px 10px;
-        font-size: $button_font_size;
-        font-weight: bold;
-        line-height: 18px;
-        border: 1px solid #CCC;
-        cursor: pointer;
+    /** $orange_light, $orange_gradient_over **/
+    // border-color: #096EB3;
+    background-color: $orange_gradient_over;
+    //background-repeat: repeat-x;
+    @include background-image(linear-gradient($orange_light, $orange_gradient_over));
+    @include text-shadow(rgba(255, 255, 255, .5) 0 -1px 1px);
+    @extend .default-rd;
+    @include box-shadow($black_light 0px 0px 1px);
+    color: #FFFFFF;
+    cursor: pointer;
+    font-weight: bold;
+    outline: 0 none;
+    padding: 8px 6px;
+    width: auto;
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    padding: 5px 10px;
+    font-size: $button_font_size;
+    font-weight: bold;
+    line-height: 18px;
+    border: 1px solid #CCC;
+    cursor: pointer;
 }
 
 

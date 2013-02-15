@@ -1,8 +1,8 @@
 .pagination, .web-list-more {
-  cursor: pointer;
+  @extend .pointer;
   margin: 2px;
   padding: 10px;
-  text-align: center;
+  @extend .center;
 }
 
 .pagination .titleNext, .web-list-more .titleNext {
