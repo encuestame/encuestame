@@ -39,7 +39,7 @@ button.emne-menu button {
   font-weight: bold;
   height: 2.95em;
   padding: 0 0.91em;
-  text-shadow: 0 0 0 transparent, 0 1px 0 #FFFFFF;
+  @include text-shadow($white 0 1px 0, transparent 0 0 0);
 }
 
 

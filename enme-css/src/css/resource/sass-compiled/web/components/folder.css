@@ -1,7 +1,3 @@
-/* line 3, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper {
-  width: 100%; }
-
 /* line 12, ../../../sass/web/components/folder.scss */
 .web-folder-wrapper .web-folder-item {
   padding: 4px;
@@ -16,10 +12,6 @@
   background-color: transparent !important;
   border: 0; }
 
-/* line 27, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item .dijitInline {
-  width: 100px !important; }
-
 /* line 31, ../../../sass/web/components/folder.scss */
 .web-folder-wrapper .web-folder-item input {
   max-width: 50px !important;
@@ -27,12 +19,7 @@
 
 /* line 36, ../../../sass/web/components/folder.scss */
 .web-folder-wrapper .web-folder-item:hover {
-  background-color: #6F6F6F !important;
-  color: #FFF; }
-
-/* line 41, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item span:hover {
-  color: #FFF; }
+  background-color: #6F6F6F !important; }
 
 /* line 45, ../../../sass/web/components/folder.scss */
 .web-folder-wrapper .web-folder-item .icon-folder {

@@ -1,89 +1,115 @@
-/** social **/
+/* line 17, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+/* line 22, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1; }
+
+/* line 24, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 26, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 28, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+/* line 30, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none; }
+  /* line 103, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+/* line 32, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none; }
+
+/* line 116, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+/* line 3, ../../../sass/web/components/settings.scss */
 div.settingsWrapper {
-  background-color: #FFFFFF;
+  background-color: white;
   margin-top: 20px;
-  min-height: 396px;
-  overflow: auto; }
+  min-height: 396px; }
 
-div.settingsWrapper div.settingsGroup {
-  margin: 0px;
-  overflow: hidden;
-  width: 100%; }
-
+/* line 16, ../../../sass/web/components/settings.scss */
 div.settingsWrapper div.settingsGroup div.listSettings {
-  float: left;
   min-height: 400px;
   min-width: 200px;
-  -moz-box-shadow: 0 1px 3px #888888 inset;
-  -webkit-box-shadow: 0 1px 3px #888888 inset;
-  box-shadow: 0 1px 3px #888888 inset;
-  background-color: #F7F7F7; }
+  background-color: #e5e5e5; }
 
-div.settingsWrapper div.settingsGroup div.socialCommunitieItem {
-  padding: 10px;
-  font-size: 110%;
-  font-weight: bold;
-  color: #FFF;
-  max-width: 200px;
-  cursor: pointer;
-  -moz-box-shadow: 0 1px 3px #888888 inset;
-  -webkit-box-shadow: 0 1px 3px #888888 inset;
-  box-shadow: 0 1px 3px #888888 inset; }
+/* line 32, ../../../sass/web/components/settings.scss */
+.settings-shadow, div.settingsWrapper div.settingsGroup div.listSettings, div.settingsWrapper div.settingsGroup div.socialCommunitieItem, div.settingsWrapper div.settingsGroup .selected {
+  -webkit-box-shadow: #888888 0 1px 3px inset;
+  -moz-box-shadow: #888888 0 1px 3px inset;
+  box-shadow: #888888 0 1px 3px inset; }
 
+/* line 36, ../../../sass/web/components/settings.scss */
 div.settingsWrapper div.settingsGroup .selected {
-  -moz-box-shadow: 0 1px 3px #888888 inset;
-  -webkit-box-shadow: 0 1px 3px #888888 inset;
-  box-shadow: 0 1px 3px #888888 inset;
-  background-color: #FCFCFC;
-  color: #969696 !important; }
+  background-color: white;
+  color: #888888 !important; }
 
+/* line 42, ../../../sass/web/components/settings.scss */
 div.settingsWrapper div.settingsGroup div.settingsListDetail {
   margin-left: 200px;
   padding: 15px; }
 
+/* line 47, ../../../sass/web/components/settings.scss */
 div.settingsWrapper div.settingsGroup div.settingsListDetail h2 {
-  margin: 0;
   font-size: 18px;
   font-weight: bold;
   line-height: 20px; }
 
+/* line 54, ../../../sass/web/components/settings.scss */
 div.settingsWrapper div.settingsGroup div.settingsListDetail p {
   margin-top: 2px; }
 
+/* line 58, ../../../sass/web/components/settings.scss */
 div.settingsWrapper div.settingsGroup div.settingsListDetail .toolBox {
-  overflow: auto;
   padding: 7px; }
 
-div.settingsWrapper div.settingsGroup div.settingsListDetail .account-list-container .socialWrapperRow:first-child {
-  margin-top: 10px; }
-
-.enme-text .setting-detail .dijitTextBox {
-  padding: 5px; }
-
+/* line 67, ../../../sass/web/components/settings.scss */
 div.web-settings-account-row {
   margin: 0 0 25px; }
 
-div.web-settings-account label {
-  color: #585858;
-  float: left;
-  font-size: 13px;
-  padding-top: 4px;
-  text-align: right;
-  width: 130px; }
-
+/* line 75, ../../../sass/web/components/settings.scss */
 div.web-settings-account-row .info-block {
-  display: block;
   line-height: 18px;
-  color: #B1B1B1;
-  margin: 5px 0 0 !important;
-  max-width: 640px; }
+  color: #cdcdcd;
+  margin: 5px 0 0 !important; }
 
+/* line 82, ../../../sass/web/components/settings.scss */
 div.web-settings-account-row a {
-  color: #FFBB56;
-  font-weight: bold; }
+  color: #e7a441; }
 
-div.web-settings-account-row .settings-submit {
-  text-align: right; }
-
+/* line 91, ../../../sass/web/components/settings.scss */
 div.web-settings-account .data {
   margin-left: 150px; }

@@ -47,12 +47,38 @@ img {
    @include user-select($none);
 }
 
+.padding {
+  padding: 10px;
+}
+
 .centered-block {
   margin: 0 auto;
 };
 
 .non-margin {
   margin : 0;
+}
+
+.top-m {
+    margin-top: 10px;
+}
+
+.bot-m {
+    margin-top: 10px;
+}
+
+.block-d {
+   display: block;
+}
+
+.df-label {
+    color: $black_semi_medium;
+    @extend .col-left;
+    font-size: $df_font_size + 1;
+    padding-top: 4px;
+    @extend .right;
+    width: 130px;
+    @extend .white-space;
 }
 
 .z-level-1 {
@@ -72,11 +98,22 @@ img {
 }
 
 .width-max {
-  width: 100%;
+  width: 100% !important;
+}
+
+.bold {
+   font-weight: bold;
+}
+
+.width-max-st {
+  max-width: 100% !important;
 }
 
 .text-white {
-  color : $white;
+  color : $white !important;
+}
+.clear-b {
+  clear: both;
 }
 
 .text-black {

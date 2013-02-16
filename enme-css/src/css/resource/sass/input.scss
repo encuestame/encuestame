@@ -27,9 +27,13 @@
     @include box-shadow(rgba(0, 0, 0, .05) 0 1px 3px inset, rgba(255, 255, 255, .075) 0 1px 0);
 }
 
+.txt-padding {
+    padding: 4px;
+}
+
 #enme-content input, textarea, select {
     display: inline-block;
-    padding: 4px;
+    @extend .txt-padding;
     margin: 0;
     outline: 0;
     background-color: $default_background_color;
@@ -41,3 +45,6 @@
     @include box-shadow($orange 0 0 5px);
 }
 
+.enme-text  .setting-detail .dijitTextBox {
+     @extend .txt-padding;
+}

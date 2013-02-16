@@ -1,45 +1,42 @@
-/** social **/
+@import "_base_web";
+
 div.settingsWrapper {
-	background-color: #FFFFFF;
+	background-color: $white;
 	margin-top: 20px;
 	min-height: 396px;
-	overflow: auto;
+	@extend .o-auto;
 }
 
 div.settingsWrapper div.settingsGroup {
-	margin: 0px;
-	overflow: hidden;
-    width: 100%;
+	@extend .non-margin;
+	@extend .o-hidden;
+    @extend .width-max;
 }
 
 div.settingsWrapper div.settingsGroup div.listSettings {
-	float: left;
+	@extend .col-left;
 	min-height: 400px;
 	min-width: 200px;
-	-moz-box-shadow: 0 1px 3px #888888 inset;
-	-webkit-box-shadow: 0 1px 3px #888888 inset;
-	box-shadow: 0 1px 3px #888888 inset;
-	background-color: #F7F7F7;
+	@extend .settings-shadow;
+	background-color: $gray_lite;
 }
 
 div.settingsWrapper div.settingsGroup div.socialCommunitieItem {
-	padding: 10px;
-	font-size: 110%;
-	font-weight: bold;
-	color: #FFF;
-	max-width: 200px;
-	cursor: pointer;
-	-moz-box-shadow: 0 1px 3px #888888 inset;
-	-webkit-box-shadow: 0 1px 3px #888888 inset;
-	box-shadow: 0 1px 3px #888888 inset;
+	@extend .padding;
+	@extend .bold;
+	@extend .text-white;
+	@extend .pointer;
+	@extend .settings-shadow;
 }
 
+.settings-shadow {
+	@include box-shadow($black_light 0 1px 3px inset);
+};
+
 div.settingsWrapper div.settingsGroup .selected {
-	-moz-box-shadow: 0 1px 3px #888888 inset;
-	-webkit-box-shadow: 0 1px 3px #888888 inset;
-	box-shadow: 0 1px 3px #888888 inset;
-	background-color: #FCFCFC;
-	color: #969696 !important;
+	@extend .settings-shadow;
+	background-color: $white;
+	color: $black_light !important;
 }
 
 div.settingsWrapper div.settingsGroup div.settingsListDetail {
@@ -48,66 +45,47 @@ div.settingsWrapper div.settingsGroup div.settingsListDetail {
 }
 
 div.settingsWrapper div.settingsGroup div.settingsListDetail h2{
-    margin: 0;	
+    @extend .non-margin;
     font-size: 18px;
     font-weight: bold;
     line-height: 20px;
 }
 
 div.settingsWrapper div.settingsGroup div.settingsListDetail p{
-    margin-top: 2px;	
+    margin-top: 2px;
 }
 
 div.settingsWrapper div.settingsGroup div.settingsListDetail .toolBox {
-	overflow: auto;
-	padding: 7px;
+	 @extend .o-auto;
+	 padding: 7px;
 }
 
-div.settingsWrapper div.settingsGroup div.settingsListDetail .account-list-container .socialWrapperRow:first-child
-	{
-	margin-top: 10px;
-}
-
-.setting-detail {
-	
-}
-
-.enme-text  .setting-detail .dijitTextBox {
-  padding: 5px;
-}
-
-div.web-settings-account {
-
+div.settingsWrapper div.settingsGroup div.settingsListDetail .account-list-container .socialWrapperRow:first-child {
+	@extend .top-m;
 }
 
 div.web-settings-account-row {
-    margin: 0 0 25px;
+     margin: 0 0 25px;
 }
 
 div.web-settings-account label {
-    color: #585858;
-    float: left;
-    font-size: 13px;
-    padding-top: 4px;
-    text-align: right;
-    width: 130px;
+   @extend .df-label;
 }
 
 div.web-settings-account-row .info-block {
-    display: block;
+    @extend .block-d;
     line-height: 18px;
-    color: #B1B1B1;
+    color: $gray_normal;
     margin: 5px 0 0 !important;
-    max-width: 640px;
 }
 
 div.web-settings-account-row a {
-  color: #FFBB56;
-  font-weight: bold;
+  color: $orange_middle;
+  @extend .bold;
 }
 
 div.web-settings-account-row .settings-submit {
-  text-align: right;
+  @extend .right;
 }
 
 div.web-settings-account .data {

@@ -1,9 +1,9 @@
 /*
-Syntax error: Undefined variable: "$black_hight".
-        on line 13 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/list_filters.scss
+Syntax error: Undefined variable: "$gray_lite".
+        on line 8 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/list_filters.scss
 
 Backtrace:
-/Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/list_filters.scss:13
+/Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/list_filters.scss:8
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/script/variable.rb:49:in `_perform'
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/script/node.rb:40:in `perform'
 /Applications/Scout.app/Contents/Resources/vendor/gems/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:294:in `visit_prop'
@@ -76,4 +76,4 @@ org/jruby/RubyKernel.java:1419:in `loop'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$black_hight\".\A         on line 13 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/list_filters.scss"; }
+  content: "Syntax error: Undefined variable: \"$gray_lite\".\A         on line 8 of /Users/jpicado/Documents/workspace-enme/encuestame.git.development/enme-css/src/css/resource/sass/web/components/list_filters.scss"; }

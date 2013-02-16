@@ -445,8 +445,7 @@ div.web-default-menu  li.first {
   font-size: 14px;
   font-weight: bold;
   min-height: 18px;
-  padding-left: 8px;
-  padding-top: 8px;
+  @extend .padding;
   @include text-shadow(#B3B3B4 1px 1px 1px);
 }
 
@@ -461,7 +460,7 @@ div.web-default-menu  li.first {
    font-size: 14px;
    font-weight: 500;
    line-height: 20px;
-   padding: 13px;
+   @extend .padding;
    @include text-shadow($black_light 0px -1px 0px);
 }
 
@@ -483,7 +482,7 @@ div.web-default-menu  li.first {
 .emne-box h3.no-results {
   color: #CCCCCC;
   font-size: 1.2em;
-  margin : 0;
+  @extend .non-margin;
   padding: 20px;
 }
 
@@ -516,12 +515,16 @@ div.web-default-menu  li.first {
 }
 
 /** agrupa preguntas **/
-.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper {
+.web-generic-detail-answer-wrapper {
   background-color: #F7F7F7;
   box-shadow: 3px 1px 3px 0 #CBCBCB inset;
-  float: right;
+  @extend .col-left;
   min-height: 315px;
-  width: 510px;
+  width: 60%;
+}
+
+.web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper {
+  @extend .web-generic-detail-answer-wrapper;
 }
 
 .web-wrapper-detail .web-button-wrapper{
@@ -545,7 +548,7 @@ div.web-default-menu  li.first {
 .web-wrapper-detail .web-detail {
   margin-left: 390px;
   min-height: 210px;
-  padding: 10px;
+  @extend .padding;
 }
 
 
@@ -554,7 +557,7 @@ div.web-default-menu  li.first {
 .web-generic-dialog-content {
   font-size: 12px;
   font-weight: bold;
-  padding: 10px 10px 10px;
+  @extend .padding;
 }
 
 .web-generic-dialog-content .button{
