@@ -57,13 +57,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /** HASHTAGS */
 /* line 4, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-wrapper {
-  margin: 0;
-  overflow: auto; }
+  background-color: white; }
 
 /* line 9, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-header .web-hashtagName {
-  float: left;
-  color: #000;
+  color: black;
   font-size: 150%; }
 
 /* line 15, ../../../sass/web/components/hashtag.scss */
@@ -74,23 +72,23 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 21, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-wrapper .web-rated-profile-item .web-rated-profile-item-detail a {
-  color: #888; }
+  color: #888888; }
 
-/* line 25, ../../../sass/web/components/hashtag.scss */
+/* line 29, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-wrapper .web-ht-detail .emne-box {
   background-color: white !important; }
 
-/* line 29, ../../../sass/web/components/hashtag.scss */
+/* line 33, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-header .web-hashtag-options {
   float: right;
   margin-right: 15px; }
 
-/* line 34, ../../../sass/web/components/hashtag.scss */
+/* line 38, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-wrapper .web-ht-detail-wrapper {
   width: 75%;
   float: left; }
 
-/* line 39, ../../../sass/web/components/hashtag.scss */
+/* line 43, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-wrapper .web-ht-wrapper-top {
   border: 0 none !important;
   -webkit-border-radius: 0px;
@@ -101,18 +99,18 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   margin-left: 75%;
   overflow: hidden; }
 
-/* line 46, ../../../sass/web/components/hashtag.scss */
+/* line 50, ../../../sass/web/components/hashtag.scss */
 .web-hashtag-wrapper .web-ht-wrapper-mainline {
   float: left;
   width: 650px;
   max-width: 655px; }
 
-/* line 52, ../../../sass/web/components/hashtag.scss */
+/* line 56, ../../../sass/web/components/hashtag.scss */
 .web-ht-graph-wrapper {
   border-radius: 5px 0 0 5px;
   overflow: auto; }
 
-/* line 57, ../../../sass/web/components/hashtag.scss */
+/* line 61, ../../../sass/web/components/hashtag.scss */
 .web-ht-graph-wrapper .web-ht-graph {
   float: left;
   height: 308px;
@@ -121,12 +119,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   overflow: hidden;
   width: 650px; }
 
-/* line 66, ../../../sass/web/components/hashtag.scss */
+/* line 70, ../../../sass/web/components/hashtag.scss */
 .web-ht-graph-wrapper .web-ht-button-wrapper {
   float: right;
   width: 243px; }
 
-/* line 71, ../../../sass/web/components/hashtag.scss */
+/* line 75, ../../../sass/web/components/hashtag.scss */
 .web-ht-button-wrapper .web-ht-button-item {
   border-bottom: 1px solid #E5E5E5;
   border-left: 1px solid #E5E5E5;

@@ -1,13 +1,72 @@
+/* line 17, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+/* line 22, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1; }
+
+/* line 24, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 26, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 28, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+/* line 30, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none; }
+  /* line 103, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+/* line 32, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none; }
+
+/* line 116, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+/* line 3, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper {
-  border-right: 1px solid gainsboro;
+  border-right: 1px solid #DCDCDC;
   box-shadow: 1px 0 6px 0 #393838 inset;
   float: right;
   width: 309px; }
 
+/* line 10, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper .section {
-  border-left: 1px solid #e3e2e0;
+  border-left: 1px solid #E3E2E0;
   min-height: 150px; }
 
+/* line 15, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper .section .tag {
   background: none repeat scroll 0 0 transparent;
   border: medium none;
@@ -15,12 +74,15 @@
   color: white;
   text-shadow: 0 1px 0 rgba(40, 39, 39, 0.5); }
 
+/* line 23, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper .section .web-aside-section {
   min-height: 130px; }
 
+/* line 27, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper .section .cloudItems {
   padding: 10px; }
 
+/* line 31, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper .section div.link {
   margin-bottom: 4px;
   margin-top: 6px;
@@ -28,13 +90,22 @@
   text-align: right;
   font-size: 0.9em; }
 
+/* line 39, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper .section div.link a {
   color: white; }
 
+/* line 43, ../../../sass/web/components/front-aside.scss */
+.home-header-color, #web-main-public-line .web-left-wrapper .section .sectionTitle, #web-main-public-line .categoryMenu {
+  background-color: #333333; }
+
+/* line 47, ../../../sass/web/components/front-aside.scss */
 #web-main-public-line .web-left-wrapper .section .sectionTitle {
-  background-color: #565656;
   border-bottom: 1px solid #717171;
   box-shadow: 0 0 0 1px #555555 inset;
   color: #FFFFFF;
   padding: 10px 0 10px 10px;
   width: auto; }
+
+/* line 56, ../../../sass/web/components/front-aside.scss */
+#web-main-public-line .categoryMenu {
+  border-bottom: 1px solid #BBBBBB; }

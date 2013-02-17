@@ -1,8 +1,11 @@
+@import "_base_web";
+
 /**
     publications
 **/
 .web-pup-wrapper {
-    box-shadow: 0 1px 1px 0 #C8C8C8 inset;
+    //box-shadow: 0 1px 1px 0 #C8C8C8 inset;
+     @extend .df-border;
 }
 
 .web-pup-wrapper h2 {
@@ -15,10 +18,10 @@
 
 .web-pup-wrapper .web-pup-item {
    background: none repeat scroll 0 0 white;
-border-bottom: 1px dotted #EEEBEB;
-clear: both;
-overflow: auto;
-padding: 15px;
+    border-bottom: 1px dotted #EEEBEB;
+    clear: both;
+    overflow: auto;
+    padding: 15px;
 }
 
 .web-pup-wrapper .web-pup-item .web-pup-item-detail-wrapper {

@@ -6,6 +6,11 @@ html,body {
     font-size: 12px;
 }
 
+.main_header_colors {
+  background: $black;
+  @include background-image(linear-gradient(color-stops($black  42%, $black_hight 100%)));
+}
+
 
 /* Smartphones (portrait and landscape)  */
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
@@ -173,21 +178,19 @@ and (orientation : portrait) {
         word-wrap: break-word;
         margin: 0;
         padding: 0;
-        background-color: #cfcfcf;
+        //background-color: #cfcfcf;
+        background: url(paper_fibers.png) repeat center center fixed;
+
     }
 
     /** header **/
     header#header {
-      background: #1b1b1b;
-      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#353535), to(#010101));
-      background: -webkit-linear-gradient(0% 0%, 0% 100%, from(#353535), to(#010101));
-      background: -moz-linear-gradient(center top, #353535, #010101);
-      background: linear-gradient(#353535, #010101);
-      -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
-      -moz-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
+      @extend .main_header_colors;
+      // -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
+      // -moz-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
+      @include box-shadow(rgba(0, 0, 0, 0.8) 2px 2px -2px);
        height: 40px;
        position: relative;
-       box-shadow : 2px 3px 4px #121212;
        z-index: 500;
     }
 
@@ -290,7 +293,7 @@ and (orientation : portrait) {
     }
 
     div.web-header span.link a {
-      color: #FFFFFF;
+      @extend .text-white;
       font-size: 100%;
       text-decoration: none;
       text-shadow: 0 1px 1px rgba(72, 72, 72, 0.9);
@@ -336,19 +339,20 @@ and (orientation : portrait) {
       // position: fixed;
       // left: 0;
       //z-index: 2;
-      color: white;
-      background: #202020;
-      background: -moz-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #202020), color-stop(42%, #111111), color-stop(100%, #111111));
-      background: -webkit-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      background: -o-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      background: -ms-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
-      background: linear-gradient(to bottom, #202020 0%, #111111 42%, #111111 100%);
+     @extend .text-white;
+      // background: $black_hight;
+      // background: -moz-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
+      // background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #202020), color-stop(42%, #111111), color-stop(100%, #111111));
+      // background: -webkit-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
+      // background: -o-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
+      // background: -ms-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
+      // background: linear-gradient(to bottom, #202020 0%, #111111 42%, #111111 100%);
+      @extend .main_header_colors;
       //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#202020', endColorstr='#111111',GradientType=0 );
     }
 
     .text-color {
-        color: #FFF;
+        @extend .text-white;
     }
 
     #footer .powered {

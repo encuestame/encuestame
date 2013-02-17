@@ -60,7 +60,7 @@ img {
 };
 
 .non-margin {
-  margin : 0;
+  margin : 0 !important;
 }
 
 .top-m {
@@ -124,12 +124,30 @@ img {
   clear: both;
 }
 
+.df-border {
+  border-left: 1px dotted $gray_normal;
+  border-right: 1px dotted $gray_normal;
+}
+
 .text-black {
   color : $black !important;
 }
 
 .pointer {
   cursor : pointer;
+}
+
+.main-shadow-box {
+  @extend .default-rd;
+  box-shadow: 0px 2px 7px 0px rgb(126, 126, 126) !important;
+}
+
+.chart-detail {
+  widht : 395px;
+}
+
+.chart-answers {
+  width: 573px;
 }
 
 .default-rd {
@@ -292,7 +310,7 @@ a.point {
 }
 
 .cfix {
-  //@extend .clearfix
+  @extend .clearfix
 }
 
 .panel-header header {

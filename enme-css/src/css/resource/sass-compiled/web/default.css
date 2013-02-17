@@ -541,71 +541,62 @@ div.web-default-menu li.first {
   padding: 20px; }
 
 /** default detail **/
-/* line 490, ../../sass/web/default.scss */
-.web-wrapper-detail {
-  border-bottom: 1px solid #DADADA;
-  border-left: 1px solid #DADADA;
-  border-radius: 5px 0 0 5px;
-  border-right: 1px solid #DADADA;
-  margin: 0 0 30px; }
-
-/* line 498, ../../sass/web/default.scss */
+/* line 494, ../../sass/web/default.scss */
 .web-wrapper-detail header h1 {
   font-weight: bold;
   margin: 10px 5px; }
 
 /** agrupa el grafico y preguntas **/
-/* line 504, ../../sass/web/default.scss */
+/* line 500, ../../sass/web/default.scss */
 .web-wrapper-detail .web-wrapper-detail-wrapper {
   background-color: white;
-  min-height: 300px;
-  max-height: 310px; }
+  min-height: 300px; }
 
 /** agrupa el grafico **/
-/* line 511, ../../sass/web/default.scss */
+/* line 507, ../../sass/web/default.scss */
 .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-chart {
   min-height: 180px;
   width: 395px; }
 
 /** agrupa preguntas **/
-/* line 518, ../../sass/web/default.scss */
+/* line 514, ../../sass/web/default.scss */
 .web-generic-detail-answer-wrapper, .web-wrapper-detail .web-wrapper-detail-wrapper .web-detail-answer-wrapper {
   background-color: #F7F7F7;
   box-shadow: 3px 1px 3px 0 #CBCBCB inset;
   min-height: 315px;
-  width: 60%; }
+  width: 573px; }
 
-/* line 530, ../../sass/web/default.scss */
+/* line 526, ../../sass/web/default.scss */
 .web-wrapper-detail .web-button-wrapper {
   min-height: 30px;
   background-color: #8E8E8E; }
 
-/* line 535, ../../sass/web/default.scss */
+/* line 531, ../../sass/web/default.scss */
 .web-wrapper-detail .web-button-wrapper > div {
   margin: 5px 7px; }
 
-/* line 542, ../../sass/web/default.scss */
+/* line 538, ../../sass/web/default.scss */
 .web-wrapper-detail .web-chart {
   min-height: 320px;
   width: 400px; }
 
-/* line 548, ../../sass/web/default.scss */
+/* line 544, ../../sass/web/default.scss */
 .web-wrapper-detail .web-detail {
   margin-left: 390px;
   min-height: 210px; }
 
 /** dialog **/
-/* line 557, ../../sass/web/default.scss */
+/* line 553, ../../sass/web/default.scss */
 .web-generic-dialog-content {
   font-size: 12px;
   font-weight: bold; }
 
-/* line 563, ../../sass/web/default.scss */
+/* line 559, ../../sass/web/default.scss */
 .web-generic-dialog-content .button {
   text-align: right;
   padding-right: 10px; }
 
-/* line 568, ../../sass/web/default.scss */
+/* line 564, ../../sass/web/default.scss */
 #web-background-overlay {
   position: absolute;
   margin: auto;
@@ -616,7 +607,7 @@ div.web-default-menu li.first {
   border: 0;
   background-color: black!important; }
 
-/* line 580, ../../sass/web/default.scss */
+/* line 576, ../../sass/web/default.scss */
 .web-detail-header {
   background-color: #333333;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #333333), color-stop(100%, #000000));
@@ -624,21 +615,16 @@ div.web-default-menu li.first {
   background-image: -moz-linear-gradient(#333333 0%, #000000 100%);
   background-image: -o-linear-gradient(#333333 0%, #000000 100%);
   background-image: linear-gradient(#333333 0%, #000000 100%);
-  -webkit-border-radius: 3px 3px 0 0;
-  -moz-border-radius: 3px 3px 0 0;
-  -ms-border-radius: 3px 3px 0 0;
-  -o-border-radius: 3px 3px 0 0;
-  border-radius: 3px 3px 0 0;
   -webkit-box-shadow: #cdcdcd 0 1px 2px 1px;
   -moz-box-shadow: #cdcdcd 0 1px 2px 1px;
   box-shadow: #cdcdcd 0 1px 2px 1px;
   padding: 10px 0; }
 
-/* line 596, ../../sass/web/default.scss */
+/* line 585, ../../sass/web/default.scss */
 .web-detail-header .title {
   font-size: 150%; }
 
-/* line 602, ../../sass/web/default.scss */
+/* line 591, ../../sass/web/default.scss */
 .web-detail-header .title h2 {
   font-size: 1em;
   font-weight: 500;

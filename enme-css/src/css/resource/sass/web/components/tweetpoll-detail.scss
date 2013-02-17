@@ -1,5 +1,9 @@
 @import "_base_web";
 
+.web-tweetpoll-detail, .web-poll-results {
+    @extend .non-margin;
+    @extend .main-shadow-box;
+}
 
 .web-tweetpoll-detail div.question {
     @extend .non-margin;
@@ -44,7 +48,7 @@
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart {
     @extend .col-left;
     min-height: 180px;
-    width: 40%;
+    width: 395px;
 }
 
 

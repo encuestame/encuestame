@@ -1,7 +1,8 @@
 /** social links references **/
 .web-social-links {
-  background-color: #FFFFFF;
-  overflow: auto;
+  @include background-default-wrapper;
+  @extend .o-auto;
+  @extend .df-border;
 }
 
 .web-social-links h2 {

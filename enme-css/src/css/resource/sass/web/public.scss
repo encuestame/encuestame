@@ -126,19 +126,8 @@ div.web-setup-wrapper div.web-setup-header-into div.web-header-description
     @extend .o-auto;
     background: $black_medium;
     @include background-image(linear-gradient($black_medium, $black_hight));
+    @extend .main-shadow-box;
 
-}
-
-#web-main-public-line .categoryMenu {
-    border-bottom: 1px solid #BBBBBB;
-    background-color: #3A3A3A;
-    background-image: -webkit-gradient(linear,0 0%,0 100%,from(#333),to(#3F3F3F));
-    background-image: -webkit-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -moz-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -ms-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: -o-linear-gradient(top,#333 0%,#3F3F3F 100%);
-    background-image: linear-gradient(top,#333 0%,#3F3F3F 100%);
-    @extend .o-hidden;
 }
 
 #web-main-public-line .categoryMenu span {

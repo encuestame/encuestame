@@ -54,55 +54,55 @@ a img {
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block; }
 
-/* line 8, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 12, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail {
   min-height: 48px;
   min-width: 45px;
   padding: 3px;
   width: 75px; }
 
-/* line 18, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 22, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-high {
   font-size: 20px;
   font-weight: bold;
   padding: 4px; }
 
-/* line 24, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 28, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .votes-detail-small-title {
   color: #BABABA;
   font-size: 10px; }
 
-/* line 29, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 33, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-info .votes-tweetpoll-detail .hits-detail-small {
   font-size: 13px;
   line-height: 15px; }
 
-/* line 34, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 38, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper {
   background-color: white;
   min-height: 300px; }
 
-/* line 40, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 44, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .chart-tweetpoll-wrapper {
   min-height: 300px; }
 
-/* line 44, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 48, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-chart {
   min-height: 180px;
-  width: 40%; }
+  width: 395px; }
 
 /**
  * TweetPoll Detail.
  */
-/* line 54, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 58, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper {
   margin: 0 10px; }
 
-/* line 58, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 62, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper > div:first-child {
   padding-top: 20px; }
 
-/* line 62, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 66, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper .tab {
   -webkit-border-radius: 5px 5px 0 0;
   -moz-border-radius: 5px 5px 0 0;
@@ -119,13 +119,13 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   text-align: center;
   box-shadow: 0px -1px 2px 0px #b5b4b4 inset; }
 
-/* line 75, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 79, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper .tab:hover {
   background-color: #545454;
   color: #FFF;
   box-shadow: 0px -1px 2px 0px white inset; }
 
-/* line 81, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 85, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-title {
   font-size: 130%;
   font-weight: bold;
@@ -133,7 +133,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   min-height: 18px;
   max-height: 235px; }
 
-/* line 89, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 93, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail {
   min-height: 185px;
   padding: 0 0 0 10px;
@@ -147,11 +147,11 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   overflow: auto;
   margin-top: 4px; }
 
-/* line 100, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 104, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.web-tweetpoll-list-detail-detail .detail {
   width: auto; }
 
-/* line 106, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 110, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.subMenu {
   color: #275296;
   font-weight: bold;
@@ -159,7 +159,7 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   padding: 0pt 0px 10px 0pt;
   font-size: 119%; }
 
-/* line 115, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 119, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.rownDetail {
   border-bottom: 1px dotted #EEEEEE;
   clear: both;
@@ -168,22 +168,22 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   padding: 4px 1px;
   width: auto; }
 
-/* line 125, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 129, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.rownDetail:last-child {
   border-bottom: 0; }
 
-/* line 129, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 133, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.rownDetail div.label {
   font-weight: bold;
   width: auto; }
 
-/* line 136, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 140, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wrapper div.rownDetail div.data {
   margin-left: 200px;
   padding: 2px;
   width: 150px; }
 
-/* line 142, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 146, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-list-detail-detail .extra {
   float: right;
   box-shadow: 1px -1px 4px 1px #969696;
@@ -191,15 +191,15 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   min-height: 210px; }
 
 /** tweetpoll table */
-/* line 151, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 155, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table {
   border: 1px none; }
 
-/* line 155, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 159, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > span:first-child {
   width: 150px; }
 
-/* line 159, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 163, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > span {
   background-color: #474747;
   font-size: 1em;
@@ -209,70 +209,70 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   text-align: center;
   width: 98px; }
 
-/* line 171, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 175, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div.content {
   padding: 0 0 5px; }
 
-/* line 176, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 180, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-list-item .web-tweetpoll-answer-table > div > div {
   background: none repeat scroll 0 0 #F7F7F7;
   border-bottom: 1px dotted #E7E6E6;
   overflow: hidden;
   padding: 10px 0; }
 
-/* line 184, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 188, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-list-item .web-tweetpoll-answer-table > div > div > div {
   float: left;
   line-height: 20px; }
 
-/* line 189, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 193, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > div .answer-color {
   margin-left: 10px;
   width: 155px; }
 
-/* line 194, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 198, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > div .answer-color > div {
   border-radius: 5px 5px 5px 5px;
   float: left;
   height: 20px;
   width: 20px; }
 
-/* line 201, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 205, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > div .answer-color > span {
   float: left;
   margin-left: 10px; }
 
-/* line 206, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 210, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > div .answer-color > span a {
   text-decoration: none; }
 
-/* line 210, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 214, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > div .answer-votes {
   text-align: center;
   width: 100px; }
 
-/* line 215, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 219, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-answer-table > div > div .answer-percent {
   text-align: center;
   width: 110px; }
 
-/* line 220, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 224, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-answer-wrapper .web-tweetpoll-answer-answer h2 {
   margin: 0; }
 
-/* line 224, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 228, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .section-block {
   background-color: blue; }
 
-/* line 228, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 232, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-social-links {
   padding: 0px; }
 
-/* line 232, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 236, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-social-links .links {
   padding: 0px; }
 
-/* line 236, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 240, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .titleTweetPollSection {
   background-color: #3E6D8E;
   color: #FFFFFF;
@@ -280,11 +280,11 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   font-weight: bold;
   padding: 5px; }
 
-/* line 244, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 248, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .extraMargin {
   margin-bottom: 15px; }
 
-/* line 248, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 252, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-social-links .title {
   font-size: 120%;
   border-bottom: 2px solid #000;
@@ -292,78 +292,78 @@ div.web-tweetpoll-wrapper div.tweetListContent div.web-tweetpoll-list-detail-wra
   font-weight: bold;
   padding-bottom: 5px; }
 
-/* line 256, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 260, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-social-links .links .item {
   overflow: auto;
   padding: 5px; }
 
-/* line 261, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 265, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-social-links .links h2 {
   font-weight: normal;
   margin-top: 1em;
   font-size: 100%; }
 
-/* line 267, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 271, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-social-links .links .item .img {
   float: left;
   min-width: 27px; }
 
-/* line 272, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 276, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-social-links .links .item .link {
   float: left; }
 
-/* line 276, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 280, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetpoll-comments {
   /*margin-bottom: 15px;*/ }
 
 /* tweetpoll info detail */
-/* line 281, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 285, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetPoll-info-detail {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) inset, 0 -1px 1px white inset;
   overflow: auto;
   width: 100%; }
 
-/* line 287, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 291, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-detail .web-tweetPoll-info-detail .question-info {
   padding-top: 15px; }
 
-/* line 292, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 296, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetPoll-info-detail .left-info {
   width: 150px; }
 
-/* line 297, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 301, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetPoll-info-detail .info {
   max-height: 65px;
   overflow: hidden;
   width: 700px; }
 
-/* line 304, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 308, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetPoll-info-detail .picture {
   max-height: 54px; }
 
-/* line 313, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 317, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetPoll-info-detail .info .data label {
   font-weight: bold;
   margin-left: 3px; }
 
-/* line 318, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 322, ../../../sass/web/components/tweetpoll-detail.scss */
 .web-tweetpoll-detail .web-tweetPoll-info-detail div.info div.data ul {
   margin: 0px !important;
   padding: 0px !important; }
 
-/* line 324, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 328, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.info div.data li {
   display: block; }
 
-/* line 328, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 332, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-detail div.web-tweetPoll-info-detail div.data {
   width: 240px; }
 
-/* line 334, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 338, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.tweetPollChart {
   border: 1px dotted #000; }
 
-/* line 338, ../../../sass/web/components/tweetpoll-detail.scss */
+/* line 342, ../../../sass/web/components/tweetpoll-detail.scss */
 div.web-tweetpoll-detail div.chart-tweetpoll-wrapper div.onLive {
   background-color: #ED9C9C;
   border: 1px solid #FFFFFF;

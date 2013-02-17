@@ -75,6 +75,7 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title, .web-poll-question .w
   color: #666666;
   border-bottom: 1px solid #888888;
   background: #e5e5e5;
+  background-color: white;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
   background-image: -webkit-linear-gradient(#ffffff 0%, #e5e5e5 100%);
   background-image: -moz-linear-gradient(#ffffff 0%, #e5e5e5 100%);

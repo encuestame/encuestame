@@ -58,6 +58,12 @@ $header_info_main_color : #333333;
 $default_box_shadow_enme : #E0E0E0;
 $header_info_main_color_dark : darken($header_info_main_color, 5%);
 
+$default_background_color : $white;
+
+@mixin background-default-wrapper() {
+	  background-color: $default_background_color;
+}
+
 @mixin non_borders() {
 	 @include border-radius(0px);
 }
@@ -68,6 +74,7 @@ $header_info_main_color_dark : darken($header_info_main_color, 5%);
 
 // eg: @include enme-gradient-custom($white, $gray_lite);
 @mixin enme-gradient-custom($color1, $color2) {
+	 background-color: $color1;
 	 @include background-image(linear-gradient(color-stops($color1  0%, $color2 100%)));
 }
 

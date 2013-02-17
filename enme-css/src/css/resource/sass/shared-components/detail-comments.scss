@@ -1,10 +1,12 @@
+@import "_base_web";
+
 .web-default-comments {
 
 }
 
 .comments {
     overflow: auto;
-    background-color: #EAEAEA;
+    @include background-default-wrapper;
 }
 
 .comments .comment-wrapper {
@@ -43,14 +45,14 @@
   line-height: normal;
   padding: 10px;
   width: auto;
-  border: 1px solid #EAEAEA;
+  // border: 1px solid #EAEAEA;
 }
 
 .comments .comment-wrapper .comment .comment-data:hover{
 	 box-shadow: 0 1px 2px #CCC;
 	 background-color: #F8F8F8;
 	 border: 1px solid #EFEFEF;
-	 border-radius : 4px;
+	 @extend .default-rd;
 	 cursor: pointer;
 }
 

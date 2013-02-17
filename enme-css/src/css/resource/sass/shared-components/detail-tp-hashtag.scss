@@ -3,7 +3,8 @@
  */
 
  .web-tweetpoll-hashtags {
-  padding: 20px;
+  	padding: 20px;
+  	@include background-default-wrapper;
 }
 
  .web-tweetpoll-hashtags .tag {
