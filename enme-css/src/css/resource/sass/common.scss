@@ -23,6 +23,10 @@ img {
  text-align: right;
 }
 
+.box-real-size {
+  @include box-sizing(border-box);
+}
+
 .opacity-full {
   @include opacity(1);
 }
@@ -97,6 +101,10 @@ img {
     overflow: hidden;
 }
 
+.middle-witdh {
+    width: 50%;
+};
+
 .width-max {
   width: 100% !important;
 }
@@ -117,7 +125,7 @@ img {
 }
 
 .text-black {
-  color : $black;
+  color : $black !important;
 }
 
 .pointer {
@@ -260,9 +268,12 @@ a.point {
     background: -webkit-linear-gradient(0% 0%, 0% 100%, from(white), to(#e8e8e8));
     background: -moz-linear-gradient(center top, white, #e8e8e8);
     background: linear-gradient(#ffffff, #e8e8e8);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    // -webkit-box-sizing: border-box;
+    // -moz-box-sizing: border-box;
+    // box-sizing: border-box;
+    //By default, box-sizing is set to content-box.
+    //http://www.css3.info/preview/box-sizing/
+    @extend .box-real-size;
     @extend .width-max;
 }
 
@@ -283,9 +294,10 @@ a.point {
 }
 
 .panel-header h3 {
-  font-weight: bold;
-  font-size: 13px;
+  @extend .bold;
+  font-size: $df_font_size + 1;
   line-height: 15px;
+  @extend .non-margin;
 
 }
 

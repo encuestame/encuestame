@@ -1,12 +1,66 @@
+/* line 17, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+/* line 22, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1; }
+
+/* line 24, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 26, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 28, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+/* line 30, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none; }
+  /* line 103, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+/* line 32, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none; }
+
+/* line 116, ../../../../../../../../../../../../Applications/Scout.app/Contents/Resources/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
 /** poll */
-/* line 2, ../../../sass/web/components/poll-create.scss */
+/* line 4, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper {
-  padding: 10px;
-  margin: 0 auto;
   padding: 35px 0;
   width: auto; }
 
-/* line 9, ../../../sass/web/components/poll-create.scss */
+/* line 11, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
   font-size: 130%;
   padding: 3px;
@@ -17,60 +71,60 @@
 /*   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6); */
 /*   outline: 0 none; */
 /* } */
-/* line 20, ../../../sass/web/components/poll-create.scss */
+/* line 22, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper .web-poll-question .web-question {
   width: 100px; }
 
-/* line 25, ../../../sass/web/components/poll-create.scss */
+/* line 27, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper .web-poll-question-folder {
   left: 0;
   margin-right: 35px;
   position: relative; }
 
-/* line 32, ../../../sass/web/components/poll-create.scss */
+/* line 34, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper ul.web-poll-answers li {
   list-style: none;
   padding: 5px; }
 
-/* line 37, ../../../sass/web/components/poll-create.scss */
+/* line 39, ../../../sass/web/components/poll-create.scss */
 .web-poll-question .web-poll-section .space {
   padding: 20px 10px; }
 
-/* line 42, ../../../sass/web/components/poll-create.scss */
+/* line 44, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper .web-poll-question .web-question .dijitInputField {
   padding: 0px; }
 
-/* line 46, ../../../sass/web/components/poll-create.scss */
+/* line 48, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper .web-poll-question .web-question .dijitInputField > input, .web-poll-answers .dijitInputField > input {
-  font-size: 13px;
+  font-size: 12px;
   padding: 5px; }
 
-/* line 51, ../../../sass/web/components/poll-create.scss */
+/* line 53, ../../../sass/web/components/poll-create.scss */
 .web-poll-wrapper .dijitPlaceHolder {
   font-size: 12px;
   line-height: 20px; }
 
-/* line 56, ../../../sass/web/components/poll-create.scss */
+/* line 58, ../../../sass/web/components/poll-create.scss */
 .web-poll-question .web-poll-section .section-option-wrapper .section-default > div {
   padding: 5px; }
 
-/* line 60, ../../../sass/web/components/poll-create.scss */
+/* line 62, ../../../sass/web/components/poll-create.scss */
 .web-poll-question .web-poll-section .section-option-wrapper .dijitSpinner .dijitSpinnerButtonInner {
   width: 13px; }
 
-/* line 64, ../../../sass/web/components/poll-create.scss */
+/* line 66, ../../../sass/web/components/poll-create.scss */
 .web-poll-question .web-poll-section .section-option-wrapper .section-default .dijitTextBox, .web-poll-wrapper .web-poll-question .web-question .dijitTextBox {
   border-radius: 0px !important; }
 
-/* line 68, ../../../sass/web/components/poll-create.scss */
+/* line 70, ../../../sass/web/components/poll-create.scss */
 .dijitValidationContainer > input {
   width: 15px; }
 
-/* line 72, ../../../sass/web/components/poll-create.scss */
+/* line 74, ../../../sass/web/components/poll-create.scss */
 .repeated-votes .section, .date-to-close .section {
   padding: 5px 0;
   margin-top: 1px; }
 
-/* line 77, ../../../sass/web/components/poll-create.scss */
+/* line 79, ../../../sass/web/components/poll-create.scss */
 .botton-button-publish {
   margin-top: 5px; }

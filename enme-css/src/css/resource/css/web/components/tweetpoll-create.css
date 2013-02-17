@@ -1,3 +1,5 @@
+@import "_base_web";
+
 /** Create tweetpoll. **/
 
 .web-create-tweetpoll {
@@ -26,13 +28,8 @@ div.web-tweetpoll-section div.web-tweetpoll-section-title, .web-poll-question .w
     font-size: 15px;
     padding: 10px;
     color: #9F9F9F;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border-bottom: 1px solid #888;
+    @extend .unselectable;
+    border-bottom: 1px solid $black_light;
     background: #e5e5e5;
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
     /* FF3.6+ */

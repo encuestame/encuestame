@@ -9,6 +9,7 @@
 @import "compass/css3/hyphenation";
 @import "compass/css3/transition";
 @import "compass/support";
+@import "compass/css3/box-sizing";
 
 // Encuestame doesn't support IE6, IE7 and IE8
 $legacy-support-for-ie6 : false;
@@ -30,6 +31,9 @@ $black_light : #888888;
 $gray_dark : #918F8F;
 $gray_lite : #e5e5e5;
 $gray_normal : #CDCDCD;
+$yellow_light : #F9F9C2;
+$green_light : #C9F5C8;
+$red_light : #FEBEB2;
 
 // Info Messages
 $success_color : #55986D;
@@ -59,6 +63,11 @@ $header_info_main_color_dark : darken($header_info_main_color, 5%);
 
 @mixin left() {
 	 float : left;
+}
+
+// eg: @include enme-gradient-custom($white, $gray_lite);
+@mixin enme-gradient-custom($color1, $color2) {
+	 @include background-image(linear-gradient(color-stops($color1  0%, $color2 100%)));
 }
 
 @mixin gray_text_shadow(){

@@ -55,45 +55,45 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block; }
 
 /* line 3, ../../../sass/web/components/settings.scss */
-div.settingsWrapper {
+.settingsWrapper {
   background-color: white;
   margin-top: 20px;
   min-height: 396px; }
 
 /* line 16, ../../../sass/web/components/settings.scss */
-div.settingsWrapper div.settingsGroup div.listSettings {
+.settingsWrapper div.settingsGroup div.listSettings {
   min-height: 400px;
   min-width: 200px;
   background-color: #e5e5e5; }
 
 /* line 32, ../../../sass/web/components/settings.scss */
-.settings-shadow, div.settingsWrapper div.settingsGroup div.listSettings, div.settingsWrapper div.settingsGroup div.socialCommunitieItem, div.settingsWrapper div.settingsGroup .selected {
+.settings-shadow, .settingsWrapper div.settingsGroup div.listSettings, .settingsWrapper div.settingsGroup div.socialCommunitieItem, .settingsWrapper div.settingsGroup .selected {
   -webkit-box-shadow: #888888 0 1px 3px inset;
   -moz-box-shadow: #888888 0 1px 3px inset;
   box-shadow: #888888 0 1px 3px inset; }
 
 /* line 36, ../../../sass/web/components/settings.scss */
-div.settingsWrapper div.settingsGroup .selected {
+.settingsWrapper div.settingsGroup .selected {
   background-color: white;
   color: #888888 !important; }
 
 /* line 42, ../../../sass/web/components/settings.scss */
-div.settingsWrapper div.settingsGroup div.settingsListDetail {
+.settingsWrapper div.settingsGroup div.settingsListDetail {
   margin-left: 200px;
   padding: 15px; }
 
 /* line 47, ../../../sass/web/components/settings.scss */
-div.settingsWrapper div.settingsGroup div.settingsListDetail h2 {
+.settingsWrapper div.settingsGroup div.settingsListDetail h2 {
   font-size: 18px;
   font-weight: bold;
   line-height: 20px; }
 
 /* line 54, ../../../sass/web/components/settings.scss */
-div.settingsWrapper div.settingsGroup div.settingsListDetail p {
+.settingsWrapper div.settingsGroup div.settingsListDetail p {
   margin-top: 2px; }
 
 /* line 58, ../../../sass/web/components/settings.scss */
-div.settingsWrapper div.settingsGroup div.settingsListDetail .toolBox {
+.settingsWrapper div.settingsGroup div.settingsListDetail .toolBox {
   padding: 7px; }
 
 /* line 67, ../../../sass/web/components/settings.scss */
