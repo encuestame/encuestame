@@ -156,6 +156,12 @@ img {
   @extend .unselectable;
 }
 
+.border-main-box {
+    border: 1px solid $gray_lite;
+    margin-top: 2em;
+    background-color: $white;
+}
+
 .home-main-colors {
     background-color: $header_info_main_color;
     @include background-image(linear-gradient(color-stops($header_info_main_color  0%, $header_info_main_color_dark 100%)));
