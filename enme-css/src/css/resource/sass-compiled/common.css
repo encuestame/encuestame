@@ -235,7 +235,7 @@ img {
   background-color: #F0F0F0; }
 
 /* line 177, ../sass/common.scss */
-.clearfix:after, .cfix:after {
+.clearfix:after {
   content: ".";
   display: block;
   clear: both;

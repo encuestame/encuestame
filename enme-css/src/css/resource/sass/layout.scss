@@ -1,4 +1,4 @@
-//@import "_base.scss";
+@import "mixin";
 
 html,body {
     height: 100%;
@@ -300,13 +300,8 @@ and (orientation : portrait) {
         text-decoration: none;
     }
 
-    div.web-header span.search {
-
-    }
-
     #mainWrapper {
-      height: 100%;
-      margin: 0 auto;
+      @extend .centered-block;
     }
 
     #content-container {
@@ -315,13 +310,10 @@ and (orientation : portrait) {
     }
 
     #content-container #enme-content .ui-corner-bottom {
-        -moz-border-radius: 0 0 4px 4px;
-        border-radius: 0 0 4px 4px;
+        @include border-radius(0 0 4px 4px);
     }
 
     #content-container #enme-content {
-      /*background-color: white;*/
-      min-height: 100%;
       position: relative;
     }
 
@@ -333,19 +325,17 @@ and (orientation : portrait) {
         text-decoration: underline;
     }
 
-    footer {
-
-    }
-
     //http://compass-style.org/examples/compass/layout/sticky-footer/
 
-    #footer {
-      width: 100%;
-      height: 40px;
-      bottom: 0;
-      position: fixed;
-      left: 0;
-      z-index: 2;
+    @include sticky-footer(40px, "#mainWrapper", "#footer", "#footer-f");
+
+    #footer-f {
+      // width: 100%;
+      // height: 40px;
+      // bottom: 0;
+      // position: fixed;
+      // left: 0;
+      //z-index: 2;
       color: white;
       background: #202020;
       background: -moz-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
@@ -354,7 +344,7 @@ and (orientation : portrait) {
       background: -o-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
       background: -ms-linear-gradient(top, #202020 0%, #111111 42%, #111111 100%);
       background: linear-gradient(to bottom, #202020 0%, #111111 42%, #111111 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#202020', endColorstr='#111111',GradientType=0 );
+      //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#202020', endColorstr='#111111',GradientType=0 );
     }
 
     .text-color {
@@ -365,12 +355,12 @@ and (orientation : portrait) {
 
     }
 
-    #footer .powered a:link, #footer .powered a:visited, #footer .powered a{
+    #footer-f .powered a:link, #footer .powered a:visited, #footer .powered a{
         color: white;
         text-decoration: underline;
     }
 
-    #footer .footer {
+    #footer-f .footer {
       height: 20px;
       line-height: 20px;
       padding: 10px;
