@@ -6,33 +6,39 @@
     <definition name="home" extends="page">
         <put-attribute name="title" value="Home | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}home.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}css_home.jsp" />
         <put-attribute name="rss" value="/WEB-INF/views/home/rss.jsp" />
     </definition>
 
     <definition name="search" extends="page">
         <put-attribute name="title" value="Search | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}search.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}css_home.jsp" />
     </definition>
 
     <definition name="cloud" extends="page">
         <put-attribute name="title" value="Cloud | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}cloud.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}css_home.jsp" />
     </definition>
 
     <definition name="user/help" extends="page">
         <put-attribute name="title" value="Help | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}help.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}css_home.jsp" />
     </definition>
 
    <definition name="profile/view" extends="page">
         <put-attribute name="title" value="Profile | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}profile.jsp" />
         <put-attribute name="rss" value="/WEB-INF/views/home/user_name_rss.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}css_home.jsp" />
     </definition>
 
     <definition name="tag/detail" extends="page">
         <put-attribute name="title" value="HashTag Detail" />
         <put-attribute name="content" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}hashtag.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/home/${detectedDevice ? 'mobile/' : 'web/'}css_home.jsp" />
     </definition>
 
 </tiles-definitions>

@@ -8,6 +8,7 @@
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/notifications/${detectedDevice ? 'mobile/' : 'web/'}notifications.jsp" />
         <put-attribute name="extra-js" expression="/WEB-INF/views/notifications/${detectedDevice ? 'mobile/' : 'web/'}js.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/notifications/${detectedDevice ? 'mobile/' : 'web/'}not_css.jsp" />
     </definition>
 
 <!--     <definition name="user/notification/id" extends="page">

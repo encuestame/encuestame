@@ -12,6 +12,7 @@
     </title>
     <%@ include file="/WEB-INF/jsp/includes/meta.jsp" %>
     <%@ include file="/WEB-INF/jsp/includes/web/css.jsp" %>
+     <tiles:insertAttribute name="css_module" ignore="true" />
     <%@ include file="/WEB-INF/jsp/includes/init-javascript.jsp" %>
 </head>
 <body class="claro">

@@ -1,3 +1,5 @@
+@import "_base_web";
+
 /** profile view **/
 .web-profile-wrapper {
     margin: 0;
@@ -11,9 +13,9 @@
 
 .web-profile-wrapper > header {
   font-size: 1.5em;
-  font-weight: bold;
   margin-left: 3px;
   margin-top: 20px;
+  font-weight: bold;
 }
 
 .web-profile-wrapper .emne-box > header > span {

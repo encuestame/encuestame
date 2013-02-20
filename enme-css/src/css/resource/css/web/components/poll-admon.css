@@ -1,0 +1,199 @@
+/* line 3, ../../../sass/web/components/poll-admon.scss */
+#web-poll-wrapper {
+  border: 1px solid #D7D7D7;
+  min-height: 500px;
+  margin-top: 20px;
+  width: 970px;
+  background-color: white; }
+
+/**
+ * expand zone of detail of list POLL
+ **/
+/* line 15, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-item-detail {
+  border: 1px solid #EEEEEE;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  min-height: 340px;
+  padding: 10px;
+  background-color: white;
+  -webkit-box-shadow: #e0e0e0 0px 0px 4px;
+  -moz-box-shadow: #e0e0e0 0px 0px 4px;
+  box-shadow: #e0e0e0 0px 0px 4px; }
+
+/* line 26, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info {
+  clear: both;
+  position: relative; }
+
+/* line 32, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail {
+  min-width: 280px;
+  max-width: 280px;
+  margin: 0 5px;
+  min-height: 308px; }
+
+/* line 40, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-char-detail .no_results {
+  border: 1px solid #CFCBCB;
+  font-size: 18px;
+  line-height: 221px;
+  margin-top: 15px;
+  opacity: 0.2;
+  border-radius: 3px; }
+
+/* line 50, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options {
+  margin-left: 340px;
+  margin-top: 35px;
+  padding: 6px; }
+
+/* line 56, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer {
+  padding: 6px;
+  width: 355px;
+  margin-top: 40px; }
+
+/* line 63, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer > div {
+  max-height: 265px; }
+
+/* line 68, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-no-results {
+  border: 1px solid #EBEBEB;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
+  color: #E6E5E3;
+  font-size: 15px;
+  line-height: 159px;
+  min-height: 160px;
+  padding: 7px; }
+
+/* line 80, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row {
+  border-bottom: 1px dotted #DED8D8;
+  padding: 4px; }
+
+/* line 86, ../../../sass/web/components/poll-admon.scss */
+.web-items-no-results {
+  background-color: #f7f7f7;
+  border: 1px solid #e7e6e6;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  color: #D6D6D6;
+  font-size: 24px;
+  margin: 18px;
+  min-height: 40px;
+  padding: 120px;
+  height: 100%; }
+
+/* line 99, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-color {
+  -webkit-border-radius: 11px;
+  -moz-border-radius: 11px;
+  -ms-border-radius: 11px;
+  -o-border-radius: 11px;
+  border-radius: 11px;
+  margin-bottom: 1px;
+  margin-right: 10px;
+  margin-top: 1px;
+  padding: 1px;
+  width: 20px; }
+
+/* line 110, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-label {
+  color: #9C9B99;
+  font-weight: bold;
+  line-height: 15px;
+  width: 165px; }
+
+/* line 118, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options-answer .web-poll-answer-row .web-poll-answer-row-percent {
+  color: #70706F;
+  font-weight: bold; }
+
+/* line 124, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info h2 {
+  border-bottom: 1px solid #AEACA3;
+  margin: 0 0 10px 5px; }
+
+/* line 129, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail {
+  border-bottom: 1px dotted #E0E0E0;
+  padding: 5px;
+  overflow: hidden; }
+
+/* line 136, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-poll-switch {
+  background-color: #EDEDED;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+  right: 0;
+  top: 15px;
+  width: 390px; }
+
+/* line 145, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-poll-switch li {
+  list-style: none outside none;
+  margin: 0 5px;
+  min-width: 50px;
+  padding: 3px 6px; }
+
+/* line 153, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-poll-switch li.selected {
+  background-color: #6D6B6B;
+  color: white !important;
+  font-weight: bold; }
+
+/* line 159, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-poll-switch li a {
+  color: #545454;
+  text-decoration: none;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px;
+  box-shadow: rgba(255, 255, 255, 0.5) 1px 1px 1px; }
+
+/* line 165, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .label {
+  font-weight: bold;
+  width: 180px; }
+
+/* line 171, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-info .web-poll-options .rownDetail .data {
+  width: 30px; }
+
+/* line 176, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar {
+  background-color: #E6E6E6;
+  border: 1px solid #D6D6D6;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  margin: 4px;
+  min-height: 27px;
+  padding: 4px; }
+
+/* line 185, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info {
+  padding: 7px;
+  color: #1E1D1D; }
+
+/* line 192, ../../../sass/web/components/poll-admon.scss */
+.web-item-row .web-list-detail-more .web-poll-detail-bttm-bar .web-poll-detail-info > div {
+  width: 30px !important; }

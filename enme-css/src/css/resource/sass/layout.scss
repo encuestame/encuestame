@@ -172,6 +172,10 @@ and (orientation : portrait) {
 
 }
 
+.enme-web-context {
+    background: url(../../images/background.png) repeat center center fixed;
+}
+
 /* Desktops and laptops  */
     body {
         height: 100%;
@@ -179,15 +183,13 @@ and (orientation : portrait) {
         margin: 0;
         padding: 0;
         //background-color: #cfcfcf;
-        background: url(paper_fibers.png) repeat center center fixed;
-
     }
 
     /** header **/
     header#header {
       @extend .main_header_colors;
       // -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
-      // -moz-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.8);
+      // -moz-box-shadow: 0 2px 2px -2 px rgba(0, 0, 0, 0.8);
       @include box-shadow(rgba(0, 0, 0, 0.8) 2px 2px -2px);
        height: 40px;
        position: relative;

@@ -40,7 +40,7 @@
                         </classpath>
                         <target>
                           <echo message="CSS Web optimized Initialized" />
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/sass-compiled" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />
@@ -69,7 +69,7 @@
                         </classpath>
                          <target>
                           <echo message="CSS Mobile optimized Initialized" />
-                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/sass-compiled" classname="org.mozilla.javascript.tools.shell.Main">
+                            <java fork="true" failonerror="true" dir="${basedir}/src/css/resource/css" classname="org.mozilla.javascript.tools.shell.Main">
                             <classpath>
                               <pathelement location="${basedir}/src/lib/js.jar" />
                               <pathelement location="${basedir}/src/lib/compiler.jar" />

@@ -1,0 +1,36 @@
+/* line 1, ../../sass/web/user.scss */
+#mainUserWrapper {
+  margin-top: 70px;
+  margin-left: 37%;
+  font: 0.75em 'Lucida Grande',sans-serif; }
+
+/* line 7, ../../sass/web/user.scss */
+#mainUserWrapper div.form .data {
+  font-size: 16px;
+  font-weight: normal; }
+
+/* line 12, ../../sass/web/user.scss */
+#mainUserWrapper div.form .data label {
+  padding-right: 5px;
+  color: gray; }
+
+/* line 17, ../../sass/web/user.scss */
+#mainUserWrapper div.form .data INPUT {
+  height: 30px;
+  width: 243px;
+  font-size: 18px;
+  font-weight: normal; }
+
+/* line 24, ../../sass/web/user.scss */
+#mainUserWrapper div.form .recaptcha {
+  margin: 10px;
+  padding-left: 9px; }
+
+/* line 29, ../../sass/web/user.scss */
+#mainUserWrapper div.form .submit-buttons {
+  margin: 5px; }
+
+/* line 33, ../../sass/web/user.scss */
+#mainUserWrapper div.form .submit-buttons INPUT {
+  font-size: 16px;
+  font-weight: bold; }

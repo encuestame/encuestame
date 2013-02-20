@@ -1,0 +1,17 @@
+@import "../../base_web";
+// html reset process
+@import "compass/reset";
+//@import "html5/reset";
+
+// commons enme css libs
+@import "../../common";
+@import "../../required";
+@import "../../input";
+@import "../../resources";
+@import "../../dojo-fixes";
+@import "../../layout";
+
+@import "../../web/default";
+@import "../../web/suggest";
+@import "../../web/menu";
+@import "../../web/public";

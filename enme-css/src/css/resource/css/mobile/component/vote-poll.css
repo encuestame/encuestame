@@ -1,0 +1,23 @@
+/** poll vote page **/
+/* line 3, ../../../sass/mobile/component/vote-poll.scss */
+.mobile-main-vote .web-poll-wrapper-vote {
+  width: 90%; }
+
+/* line 7, ../../../sass/mobile/component/vote-poll.scss */
+.mobile-main-vote .web-poll-wrapper-vote .votex-box {
+  font-size: 14px; }
+
+/* line 11, ../../../sass/mobile/component/vote-poll.scss */
+.mobile-main-vote .web-poll-wrapper-vote .final .link {
+  font-size: 12px; }
+
+/* line 15, ../../../sass/mobile/component/vote-poll.scss */
+.mobile-main-vote .web-poll-wrapper-vote .web-response-label-span {
+  font-size: 12px; }
+
+/* line 19, ../../../sass/mobile/component/vote-poll.scss */
+.vote-page header.vote-logo .logo {
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  margin-top: 20px; }

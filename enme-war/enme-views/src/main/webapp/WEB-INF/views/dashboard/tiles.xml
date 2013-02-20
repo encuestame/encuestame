@@ -7,6 +7,7 @@
         <put-attribute name="title" value="DashBoard" />
         <put-attribute name="menu" expression="/WEB-INF/jsp/includes/${detectedDevice ? 'mobile/' : 'web/'}menu.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/dashboard/${detectedDevice ? 'mobile/' : 'web/'}dashboard.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/dashboard/${detectedDevice ? 'mobile/' : 'web/'}dash_css.jsp" />
     </definition>
 
 </tiles-definitions>

@@ -1,0 +1,10 @@
+/* line 3, ../../../sass/web/components/more.scss */
+.pagination, .web-list-more {
+  margin: 2px;
+  padding: 10px; }
+
+/* line 10, ../../../sass/web/components/more.scss */
+.pagination .titleNext, .web-list-more .titleNext {
+  color: #7C7C7D;
+  font-size: 122%;
+  font-weight: normal; }

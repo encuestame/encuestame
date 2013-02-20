@@ -1,0 +1,26 @@
+/** setup **/
+/* line 4, ../../../sass/mobile/component/setup.scss */
+div.mobile-setup-content {
+  padding: 10px; }
+
+/* line 8, ../../../sass/mobile/component/setup.scss */
+div.mobile-setup-header {
+  background-color: #F1721F;
+  border-bottom: 3px solid #888888;
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 5px;
+  width: auto; }
+
+/* line 17, ../../../sass/mobile/component/setup.scss */
+div.mobile-setup-header div.mobile-title {
+  font-size: 18px;
+  padding: 10px; }
+
+/* line 22, ../../../sass/mobile/component/setup.scss */
+div.mobile-header-description {
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 5px; }

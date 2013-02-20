@@ -1,0 +1,59 @@
+/** Row Account */
+/* line 4, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: #888888 1px 1px 3px inset;
+  -moz-box-shadow: #888888 1px 1px 3px inset;
+  box-shadow: #888888 1px 1px 3px inset;
+  background-color: white; }
+
+/* line 13, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .sub-title-account {
+  position: relative; }
+
+/* line 22, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow div.title {
+  font-size: 14px;
+  margin-left: 30px;
+  padding: 5px; }
+
+/* line 29, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .favorite {
+  position: absolute;
+  right: 5px;
+  top: 5px; }
+
+/* line 39, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow div.socialNewForm {
+  clear: both;
+  position: fixed; }
+
+/* line 44, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .tokensWrapper {
+  padding: 5px;
+  border-top: 1px dotted; }
+
+/* line 50, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .tokensWrapper div.tokenHideOptions {
+  min-height: 45px; }
+
+/* line 54, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .tokensWrapper div.tokenHideOptions table td {
+  padding: 5px; }
+
+/* line 58, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .tokensWrapper div.tokenHideOptions table td label {
+  color: #666666;
+  text-shadow: white 1px 2px 1px; }
+
+/* line 68, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .tokensWrapper .dijitTextBox {
+  min-width: 250px; }
+
+/* line 72, ../../../sass/web/components/social_settings.scss */
+.socialWrapperRow .tokensWrapper label {
+  font-size: 11px; }

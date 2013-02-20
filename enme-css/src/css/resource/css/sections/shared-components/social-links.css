@@ -1,0 +1,57 @@
+/** social links references **/
+/* line 4, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links {
+  background-color: white; }
+
+/* line 10, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links h2 {
+  color: #CBCBCB;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 15px; }
+
+/* line 18, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links .links .item {
+  font-size: 15px;
+  padding: 10px 20px;
+  position: relative;
+  cursor: pointer; }
+
+/* line 25, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links .item .link a {
+  text-decoration: none; }
+
+/* line 29, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links .item {
+  font-size: 14px;
+  overflow: auto;
+  padding: 13px;
+  line-height: 20px;
+  cursor: pointer; }
+
+/* line 37, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links .item:hover {
+  background-color: #E8E8E8;
+  box-shadow: 0 1px 2px #CCC;
+  -webkit-box-shadow: 0 1px 2px #CCC;
+  -ms-box-shadow: 0 1px 2px #ccc;
+  -moz-box-shadow: 0 1px 2px #ccc; }
+
+/* line 46, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links .item .img {
+  float: left;
+  overflow: hidden; }
+
+/* line 51, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links .item .link {
+  float: left;
+  margin-left: 16px;
+  width: 85%;
+  font-size: 14px; }
+
+/* line 58, ../../../sass/sections/shared-components/social-links.scss */
+.web-social-links .item .social-date {
+  float: right;
+  margin-right: 10px;
+  font-size: 10px; }

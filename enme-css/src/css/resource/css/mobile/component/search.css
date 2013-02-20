@@ -1,0 +1,14 @@
+/*** SEARCH ***/
+/* line 3, ../../../sass/mobile/component/search.scss */
+div.mobile-search {
+  padding: 0px; }
+
+/* line 7, ../../../sass/mobile/component/search.scss */
+div.mobile-search input {
+  /* margin: 2em , 0.5em ,1em ,1em;*/
+  margin-left: 2px;
+  margin-right: 1px;
+  border: 1.5px solid #DFDFDF;
+  width: 98%;
+  height: 30px;
+  font-size: 15px; }

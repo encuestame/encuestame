@@ -7,47 +7,55 @@
          <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}setup.jsp" />
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Setup | encuestame" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="upgrade-setup" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Upgrade Database | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}upgrade.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="displayError" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Error on Install | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}error.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="install-setup" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Install Database | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}install.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="demo-install" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Demo Install Data | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}demo.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="installAdmon" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Create User Administration | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}admon.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="install-check" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Check Install | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}check.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="finish-state" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Install Finished | encuestame" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}finish.jsp" />
     </definition>
 
@@ -55,12 +63,14 @@
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Review Administration User | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}review.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
     <definition name="editAdmon" extends="setup-page">
         <put-attribute name="header" expression="/WEB-INF/layouts/${detectedDevice ? 'mobile/' : 'standard/'}setup/header.jsp" />
         <put-attribute name="title" value="Review Administration User | encuestame" />
         <put-attribute name="content" expression="/WEB-INF/views/setup/${detectedDevice ? 'mobile/' : 'web/'}edit.jsp" />
+        <put-attribute name="css_module" expression="/WEB-INF/views/setup/setup_css.jsp" />
     </definition>
 
 </tiles-definitions>

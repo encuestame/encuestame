@@ -1,0 +1,36 @@
+/** mobile profile **/
+/* line 8, ../../../sass/mobile/component/profile-public.scss */
+.mobile .web-profile-wrapper .picture {
+  text-align: center; }
+
+/* line 12, ../../../sass/mobile/component/profile-public.scss */
+.mobile .web-profile-wrapper ul.rss {
+  margin: 0; }
+
+/* line 16, ../../../sass/mobile/component/profile-public.scss */
+.mobile .web-profile-wrapper ul.rss li {
+  list-style: none;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #edeaeb;
+  border-bottom: 1px solid #888; }
+
+/* line 32, ../../../sass/mobile/component/profile-public.scss */
+.mobile .web-profile-wrapper .mobile-hashtag-wrapper .category_color {
+  overflow: auto; }
+
+/* line 36, ../../../sass/mobile/component/profile-public.scss */
+.mobile .web-profile-wrapper .mobile-hashtag-wrapper .category_color > span {
+  float: left; }
+
+/* line 40, ../../../sass/mobile/component/profile-public.scss */
+.mobile .web-profile-wrapper .mobile-hashtag-wrapper .category_color > div.rss {
+  float: left;
+  margin-left: 10px; }
+
+/* line 44, ../../../sass/mobile/component/profile-public.scss */
+.mobile .web-profile-wrapper .mobile-hashtag-wrapper .no-results {
+  padding: 40px;
+  color: #888;
+  background-color: #edeaeb;
+  text-shadow: 1px 1px 1px white; }

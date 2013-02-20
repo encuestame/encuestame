@@ -2,8 +2,8 @@
 
 /** HASHTAGS */
 .web-hashtag-wrapper {
-    @extend .main-shadow-box;
     @include background-default-wrapper;
+    @extend .main-shadow-box;
 }
 
 .web-hashtag-header .web-hashtagName {
