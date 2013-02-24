@@ -1,50 +1,26 @@
 /* line 12, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item {
-  padding: 4px;
-  border: 1px dotted #EEE;
-  background-color: #F0F0F0;
-  clear: both;
-  padding-left: 13px;
-  width: auto; }
+.web-folder-wrapper .web-folder-item { padding: 4px; border: 1px dotted #EEE; background-color: #F0F0F0; clear: both; padding-left: 13px; width: auto; }
 
 /* line 22, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item .dijitInlineEditBoxDisplayMode {
-  background-color: transparent !important;
-  border: 0; }
+.web-folder-wrapper .web-folder-item .dijitInlineEditBoxDisplayMode { background-color: transparent !important; border: 0; }
 
 /* line 31, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item input {
-  max-width: 50px !important;
-  padding: 0 !important; }
+.web-folder-wrapper .web-folder-item input { max-width: 50px !important; padding: 0 !important; }
 
 /* line 36, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item:hover {
-  background-color: #6F6F6F !important; }
+.web-folder-wrapper .web-folder-item:hover { background-color: #6F6F6F !important; }
 
 /* line 45, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item .icon-folder {
-  background-repeat: no-repeat;
-  display: inline-block;
-  height: 16px;
-  margin-left: 2px;
-  margin-right: 10px;
-  min-width: 17px; }
+.web-folder-wrapper .web-folder-item .icon-folder { background-repeat: no-repeat; display: inline-block; height: 16px; margin-left: 2px; margin-right: 10px; min-width: 17px; }
 
 /* line 55, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item .folder-name {
-  font-size: 12px;
-  line-height: 20px;
-  max-width: 135px; }
+.web-folder-wrapper .web-folder-item .folder-name { font-size: 12px; line-height: 20px; max-width: 135px; }
 
 /* line 61, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item .dijitTextBox {
-  position: absolute;
-  width: 119px !important; }
+.web-folder-wrapper .web-folder-item .dijitTextBox { position: absolute; width: 119px !important; }
 
 /* line 66, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item .dijitTextBox .dijitInputContainer {
-  width: 115px !important; }
+.web-folder-wrapper .web-folder-item .dijitTextBox .dijitInputContainer { width: 115px !important; }
 
 /* line 70, ../../../sass/web/components/folder.scss */
-.web-folder-wrapper .web-folder-item .dijitTextBox .dijitInputContainer input {
-  max-width: 100% !important; }
+.web-folder-wrapper .web-folder-item .dijitTextBox .dijitInputContainer input { max-width: 100% !important; }

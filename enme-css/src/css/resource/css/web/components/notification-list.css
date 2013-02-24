@@ -1,76 +1,39 @@
 /** notifilication list **/
 /* line 8, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .list {
-  background: white;
-  padding: 10px 10px 0 10px; }
+.web-notification-list .list { background: white; padding: 10px 10px 0 10px; }
 
 /* line 13, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .list a:link, .web-notification-list .list a:visited {
-  color: #4A52AC;
-  text-decoration: underline;
-  cursor: pointer; }
+.web-notification-list .list a:link, .web-notification-list .list a:visited { color: #4A52AC; text-decoration: underline; cursor: pointer; }
 
 /* line 19, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .list .web-sub-tittle {
-  padding: 10px;
-  font-weight: bold; }
+.web-notification-list .list .web-sub-tittle { padding: 10px; font-weight: bold; }
 
 /* line 24, ../../../sass/web/components/notification-list.scss */
-.web-notification-list ul {
-  margin: 0; }
+.web-notification-list ul { margin: 0; }
 
 /* line 28, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item {
-  clear: both;
-  padding: 5px 0;
-  text-align: left;
-  border-bottom: 1px solid #E9E9E9;
-  list-style: none;
-  font-size: 11px; }
+.web-notification-list .web-notification-list-item { clear: both; padding: 5px 0; text-align: left; border-bottom: 1px solid #E9E9E9; list-style: none; font-size: 11px; }
 
 /* line 36, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item:last-child {
-  border-bottom: 0px; }
+.web-notification-list .web-notification-list-item:last-child { border-bottom: 0px; }
 
 /* line 40, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item span {
-  margin-left: 5px;
-  margin-right: 10px;
-  line-height: 15px; }
+.web-notification-list .web-notification-list-item span { margin-left: 5px; margin-right: 10px; line-height: 15px; }
 
 /* line 46, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item .icon {
-  width: 16px;
-  background-repeat: no-repeat;
-  display: inline-block; }
+.web-notification-list .web-notification-list-item .icon { width: 16px; background-repeat: no-repeat; display: inline-block; }
 
 /* line 52, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item .title {
-  font-weight: normal;
-  padding: 4px;
-  min-width: 265px;
-  max-width: 265px;
-  display: inline-block; }
+.web-notification-list .web-notification-list-item .title { font-weight: normal; padding: 4px; min-width: 265px; max-width: 265px; display: inline-block; }
 
 /* line 60, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item .description {
-  padding: 4px;
-  min-width: 405px;
-  display: inline-block;
-  max-width: 405px; }
+.web-notification-list .web-notification-list-item .description { padding: 4px; min-width: 405px; display: inline-block; max-width: 405px; }
 
 /* line 67, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item .date {
-  padding-left: 10px;
-  color: gray;
-  padding: 4px;
-  display: inline-block;
-  width: 100px; }
+.web-notification-list .web-notification-list-item .date { padding-left: 10px; color: gray; padding: 4px; display: inline-block; width: 100px; }
 
 /* line 75, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item .options {
-  display: none; }
+.web-notification-list .web-notification-list-item .options { display: none; }
 
 /* line 79, ../../../sass/web/components/notification-list.scss */
-.web-notification-list .web-notification-list-item:hover .options {
-  display: inline-block; }
+.web-notification-list .web-notification-list-item:hover .options { display: inline-block; }

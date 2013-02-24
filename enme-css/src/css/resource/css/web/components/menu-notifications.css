@@ -1,118 +1,48 @@
 /** notifications **/
 /* line 4, ../../../sass/web/components/menu-notifications.scss */
-.notificationWrapper {
-  height: 33px;
-  min-width: 25px;
-  padding: 0 4px;
-  position: relative;
-  text-align: center;
-  vertical-align: middle; }
+.notificationWrapper { height: 33px; min-width: 25px; padding: 0 4px; position: relative; text-align: center; vertical-align: middle; }
 
 /* line 13, ../../../sass/web/components/menu-notifications.scss */
-.not-menu-not-selected {
-  background-color: white;
-  font-weight: bold;
-  text-align: center; }
+.not-menu-not-selected { background-color: white; font-weight: bold; text-align: center; }
 
 /* line 19, ../../../sass/web/components/menu-notifications.scss */
-.livePanel {
-  display: none;
-  position: absolute;
-  min-height: 5px;
-  width: 400px;
-  background-color: #FFF;
-  right: 0px;
-  top: 33px;
-  box-shadow: 2px 2px 5px #888888;
-  border-radius: 0px 0px 5px 5px;
-  -moz-box-shadow: 2px 2px 5px #888888;
-  -webkit-box-shadow: 2px 2px 5px #888888;
-  -webkit-border-radius: 0px 0px 5px 5px;
-  -moz-border-radius: 0px 0px 5px 5px;
-  min-width: 345px;
-  max-width: 345px;
-  z-index: 20; }
+.livePanel { display: none; position: absolute; min-height: 5px; width: 400px; background-color: #FFF; right: 0px; top: 33px; box-shadow: 2px 2px 5px #888888; border-radius: 0px 0px 5px 5px; -moz-box-shadow: 2px 2px 5px #888888; -webkit-box-shadow: 2px 2px 5px #888888; -webkit-border-radius: 0px 0px 5px 5px; -moz-border-radius: 0px 0px 5px 5px; min-width: 345px; max-width: 345px; z-index: 20; }
 
 /* line 38, ../../../sass/web/components/menu-notifications.scss */
-.livePanel .panelItems {
-  min-height: 100%; }
+.livePanel .panelItems { min-height: 100%; }
 
 /* line 42, ../../../sass/web/components/menu-notifications.scss */
-.livePanel .final {
-  padding: 8px;
-  text-align: right;
-  font-weight: bold;
-  background-color: #222; }
+.livePanel .final { padding: 8px; text-align: right; font-weight: bold; background-color: #222; }
 
 /* line 49, ../../../sass/web/components/menu-notifications.scss */
-.livePanel .web-not-item-removed {
-  background-color: #DFDFDF !important;
-  color: #EC9191 !important;
-  -moz-opacity: 0.50;
-  opacity: 0.50; }
+.livePanel .web-not-item-removed { background-color: #DFDFDF !important; color: #EC9191 !important; -moz-opacity: 0.50; opacity: 0.50; }
 
 /* line 58, ../../../sass/web/components/menu-notifications.scss */
-.livePanel .final a:link, .livePanel .final a:visited, .livePanel .final a {
-  color: #FFF;
-  text-decoration: none;
-  font-weight: normal; }
+.livePanel .final a:link, .livePanel .final a:visited, .livePanel .final a { color: #FFF; text-decoration: none; font-weight: normal; }
 
 /* line 64, ../../../sass/web/components/menu-notifications.scss */
-.openLivePanel {
-  display: block; }
+.openLivePanel { display: block; }
 
 /* line 68, ../../../sass/web/components/menu-notifications.scss */
-.notificationItem {
-  padding: 5px;
-  min-height: 30px;
-  text-align: left;
-  border-top: solid 1px #E9E9E9;
-  border-bottom: solid 1px #E9E9E9;
-  color: #333;
-  display: block;
-  text-decoration: none;
-  margin-bottom: -1px;
-  z-index: 2;
-  zoom: 1;
-  line-height: 15px; }
+.notificationItem { padding: 5px; min-height: 30px; text-align: left; border-top: solid 1px #E9E9E9; border-bottom: solid 1px #E9E9E9; color: #333; display: block; text-decoration: none; margin-bottom: -1px; z-index: 2; zoom: 1; line-height: 15px; }
 
 /* line 83, ../../../sass/web/components/menu-notifications.scss */
-.notificationItem .not-item-description {
-  margin-left: 60px; }
+.notificationItem .not-item-description { margin-left: 60px; }
 
 /* line 87, ../../../sass/web/components/menu-notifications.scss */
-.notificationItem:hover {
-  cursor: pointer;
-  background-color: #F0F0F0; }
+.notificationItem:hover { cursor: pointer; background-color: #F0F0F0; }
 
 /* line 92, ../../../sass/web/components/menu-notifications.scss */
-.livePanel .notificationItem .left {
-  float: left;
-  min-height: 30px;
-  margin-left: 10px;
-  width: 50px;
-  background-position: left;
-  background-repeat: no-repeat; }
+.livePanel .notificationItem .left { float: left; min-height: 30px; margin-left: 10px; width: 50px; background-position: left; background-repeat: no-repeat; }
 
 /* line 105, ../../../sass/web/components/menu-notifications.scss */
-.livePanel .notificationItem .not-item-description .title {
-  font-weight: bold; }
+.livePanel .notificationItem .not-item-description .title { font-weight: bold; }
 
 /* line 109, ../../../sass/web/components/menu-notifications.scss */
-.livePanel .notificationItem .not-item-description .description {
-  font-size: 10px;
-  color: grey;
-  font-weight: normal;
-  padding: 5px 0; }
+.livePanel .notificationItem .not-item-description .description { font-size: 10px; color: grey; font-weight: normal; padding: 5px 0; }
 
 /* line 116, ../../../sass/web/components/menu-notifications.scss */
-.counter {
-  color: #696868;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  width: 28px; }
+.counter { color: #696868; cursor: pointer; position: absolute; top: 10px; width: 28px; }
 
 /* line 124, ../../../sass/web/components/menu-notifications.scss */
-div.notificationWrapper div.new {
-  color: red !important; }
+div.notificationWrapper div.new { color: red !important; }

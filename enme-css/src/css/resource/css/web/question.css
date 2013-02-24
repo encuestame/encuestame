@@ -1,18 +1,11 @@
 /* line 3, ../../sass/web/question.scss */
-.question .dijitTextBox {
-  padding: 3px;
-  font-size: 130%; }
+.question .dijitTextBox { padding: 3px; font-size: 130%; }
 
 /* line 8, ../../sass/web/question.scss */
-.question .dijitTextArea {
-  padding: 3px;
-  font-size: 130%; }
+.question .dijitTextArea { padding: 3px; font-size: 130%; }
 
 /* line 13, ../../sass/web/question.scss */
-.question .questionTextBox {
-  width: 90%; }
+.question .questionTextBox { width: 90%; }
 
 /* line 17, ../../sass/web/question.scss */
-.question .questionTextBox input {
-  padding: 4px;
-  font-size: 130%; }
+.question .questionTextBox input { padding: 4px; font-size: 130%; }

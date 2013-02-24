@@ -1,7 +1,7 @@
-// required
+ // required
 @import "common_web";
 @import "menu_logged";
 
 // modules
-@import "../shared-components/tp-vote";
 @import "../../web/components/tweetpoll";
+@import "../shared-components/tp-vote";

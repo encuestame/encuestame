@@ -1,68 +1,32 @@
 /* line 10, ../../../sass/web/components/hashtag-tweetpoll.scss */
-.hashTagWrapper .suggest .wrapper-suggest {
-  float: left;
-  margin-right: 15px;
-  width: 500px; }
+.hashTagWrapper .suggest .wrapper-suggest { float: left; margin-right: 15px; width: 500px; }
 
 /* line 16, ../../../sass/web/components/hashtag-tweetpoll.scss */
-hashTagWrapper .suggest .wrapper-suggest .littleInputClass {
-  width: 100%; }
+hashTagWrapper .suggest .wrapper-suggest .littleInputClass { width: 100%; }
 
 /* line 20, ../../../sass/web/components/hashtag-tweetpoll.scss */
-.wrapperHashTagItems {
-  padding: 10px 0 5px; }
+.wrapperHashTagItems { padding: 10px 0 5px; }
 
 /* line 24, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.wrapperHashTagItems div.addNewHashTag {
-  font-size: 12px;
-  color: #FFF;
-  float: left;
-  width: 100%;
-  min-height: 262px;
-  -moz-border-radius: 2px;
-  border-radius: 2px; }
+div.wrapperHashTagItems div.addNewHashTag { font-size: 12px; color: #FFF; float: left; width: 100%; min-height: 262px; -moz-border-radius: 2px; border-radius: 2px; }
 
 /* line 34, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.hashTagWrapper .suggestBox {
-  border: 1px solid #E0D6D6; }
+div.hashTagWrapper .suggestBox { border: 1px solid #E0D6D6; }
 
 /* line 38, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.wrapperHashTagItems div.addNewHashTag .label {
-  min-width: 100px;
-  margin: 10px;
-  color: #000;
-  font-weight: bold; }
+div.wrapperHashTagItems div.addNewHashTag .label { min-width: 100px; margin: 10px; color: #000; font-weight: bold; }
 
 /* line 45, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.wrapperHashTagItems div.addNewHashTag .inputClass {
-  padding: 5px;
-  border: 1px solid #BCBCBC;
-  color: #808080;
-  font-size: 12px;
-  width: 60%; }
+div.wrapperHashTagItems div.addNewHashTag .inputClass { padding: 5px; border: 1px solid #BCBCBC; color: #808080; font-size: 12px; width: 60%; }
 
 /* line 53, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.wrapperHashTagItems div.addNewHashTag .addButton {
-  margin-left: 8px;
-  border: 1px solid #BCBCBC;
-  min-width: 100px;
-  padding: 4px; }
+div.wrapperHashTagItems div.addNewHashTag .addButton { margin-left: 8px; border: 1px solid #BCBCBC; min-width: 100px; padding: 4px; }
 
 /* line 60, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.wrapperHashTagItems .hashTagItem {
-  column-count: 2;
-  column-gap: 30px;
-  display: inline-block;
-  text-align: center;
-  min-width: 30px;
-  cursor: pointer; }
+div.wrapperHashTagItems .hashTagItem { column-count: 2; column-gap: 30px; display: inline-block; text-align: center; min-width: 30px; cursor: pointer; }
 
 /* line 69, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.wrapperHashTagItems div.addNewHashTag .hashTagItem a {
-  text-decoration: none;
-  color: #FFF; }
+div.wrapperHashTagItems div.addNewHashTag .hashTagItem a { text-decoration: none; color: #FFF; }
 
 /* line 74, ../../../sass/web/components/hashtag-tweetpoll.scss */
-div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:hover {
-  color: #FFF;
-  text-decoration: none; }
+div.wrapperHashTagItems div.addNewHashTag .hashTagItem a:hover { color: #FFF; text-decoration: none; }
